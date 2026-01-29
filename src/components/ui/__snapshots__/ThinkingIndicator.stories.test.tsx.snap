@@ -9,22 +9,22 @@ exports[`ThinkingIndicator Story Snapshots > renders default story correctly 1`]
       style="display: flex; gap: var(--md-sys-spacing-1);"
     >
       <div
-        style="width: var(--md-sys-spacing-2); height: var(--md-sys-spacing-2); background-color: var(--md-sys-color-primary); border-radius: var(--md-sys-percent-50); animation: pulse 2s ease-in-out infinite; animation-delay: 0ms;"
+        style="width: var(--md-sys-spacing-2); height: var(--md-sys-spacing-2); background-color: var(--md-sys-color-primary); border-radius: var(--md-sys-percent-50); animation: pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite; animation-delay: var(--md-sys-motion-duration-0);"
       />
       <div
-        style="width: var(--md-sys-spacing-2); height: var(--md-sys-spacing-2); background-color: var(--md-sys-color-primary); border-radius: var(--md-sys-percent-50); animation: pulse 2s ease-in-out infinite; animation-delay: 150ms;"
+        style="width: var(--md-sys-spacing-2); height: var(--md-sys-spacing-2); background-color: var(--md-sys-color-primary); border-radius: var(--md-sys-percent-50); animation: pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite; animation-delay: var(--md-sys-motion-duration-short);"
       />
       <div
-        style="width: var(--md-sys-spacing-2); height: var(--md-sys-spacing-2); background-color: var(--md-sys-color-primary); border-radius: var(--md-sys-percent-50); animation: pulse 2s ease-in-out infinite; animation-delay: 300ms;"
+        style="width: var(--md-sys-spacing-2); height: var(--md-sys-spacing-2); background-color: var(--md-sys-color-primary); border-radius: var(--md-sys-percent-50); animation: pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite; animation-delay: var(--md-sys-motion-duration-medium);"
       />
     </div>
     <span
-      style="font-size: var(--md-sys-typescale-body-large-font-size); line-height: var(--md-sys-typescale-body-large-line-height); font-weight: var(--md-sys-typescale-body-large-font-weight); color: var(--md-sys-color-on-surface-variant); font-family: var(--md-sys-typescale-body-large-font-family);"
+      style="font-size: var(--md-sys-typescale-body-large-font-size); line-height: var(--md-sys-typescale-body-large-line-height); font-weight: var(--md-sys-typescale-body-large-font-weight); color: var(--md-sys-color-on-surface-variant); font-family: var(--md-sys-typescale-body-large-font-family); flex-grow: 1;"
     >
       Pensando...
     </span>
     <div
-      style="width: var(--md-sys-spacing-8); height: var(--md-sys-spacing-8); border-radius: var(--md-sys-percent-50); background-color: var(--md-sys-color-primary); opacity: 0.1; display: flex; align-items: center; justify-content: center; margin-left: auto;"
+      style="width: var(--md-sys-spacing-8); height: var(--md-sys-spacing-8); border-radius: var(--md-sys-percent-50); background-color: var(--md-sys-color-primary); opacity: 0.1; display: flex; align-items: center; justify-content: center;"
     >
       <span
         style="font-family: "Material Symbols Outlined"; font-size: var(--md-sys-typescale-body-small-font-size); color: var(--md-sys-color-primary); font-weight: var(--md-sys-typescale-body-small-font-weight); line-height: var(--md-sys-typescale-body-small-line-height);"

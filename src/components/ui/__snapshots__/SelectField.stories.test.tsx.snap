@@ -11,7 +11,7 @@ exports[`SelectField Story Snapshots > renders default story correctly 1`] = `
       Test
     </label>
     <div
-      style="position: relative; display: flex; align-items: center; background-color: var(--md-sys-color-surface-container-highest); border-radius: var(--md-sys-shape-corner-large); padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4); transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1); box-shadow: none; border-color: var(--md-sys-color-outline);"
+      style="position: relative; display: flex; align-items: center; background-color: var(--md-sys-color-surface-container-highest); border-radius: var(--md-sys-shape-corner-large); padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4); transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard); box-shadow: none; border-color: var(--md-sys-color-outline);"
     >
       <select
         aria-label="Test"
@@ -23,7 +23,7 @@ exports[`SelectField Story Snapshots > renders default story correctly 1`] = `
       </select>
       <span
         aria-hidden="true"
-        style="font-family: "Material Symbols Outlined"; position: absolute; right: var(--md-sys-spacing-2); top: var(--md-sys-percent-50); transform: translateY(-50%); pointer-events: none; color: var(--md-sys-color-on-surface-variant); font-size: var(--md-sys-spacing-4); transition: color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);"
+        style="font-family: "Material Symbols Outlined"; position: absolute; right: var(--md-sys-spacing-2); top: var(--md-sys-percent-50); transform: translateY(-50%); pointer-events: none; color: var(--md-sys-color-on-surface-variant); font-size: var(--md-sys-spacing-4); transition: color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);"
       >
         expand_more
       </span>

@@ -10,13 +10,13 @@ exports[`M3Dialog Story Snapshots > renders default story correctly 1`] = `
   >
     <div
       aria-hidden="true"
-      style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; background-color: var(--md-sys-color-scrim); opacity: 0.32; animation: fade-in 300ms ease-out;"
+      style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; background-color: var(--md-sys-color-scrim); opacity: 0.32; animation: fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-decelerated);"
     />
     <div
       aria-labelledby="dialog-title"
       aria-modal="true"
       role="dialog"
-      style="width: var(--md-sys-percent-100); max-width: var(--md-sys-spacing-32); max-height: var(--md-sys-percent-90); margin: auto; background-color: var(--md-sys-color-surface-container-high); border-radius: var(--md-sys-shape-corner-large); box-shadow: var(--md-sys-elevation-level3); display: flex; flex-direction: column; position: relative; z-index: 1401;"
+      style="width: var(--md-sys-percent-100); max-width: var(--md-sys-spacing-32); max-height: var(--md-sys-percent-90); margin: var(--md-sys-margin-auto); background-color: var(--md-sys-color-surface-container-high); border-radius: var(--md-sys-shape-corner-large); box-shadow: var(--md-sys-elevation-level3); display: flex; flex-direction: column; position: relative; z-index: 1401;"
     >
       <div
         style="display: flex; justify-content: space-between; align-items: flex-start; padding: var(--md-sys-spacing-6); border-bottom: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant);"
@@ -32,7 +32,7 @@ exports[`M3Dialog Story Snapshots > renders default story correctly 1`] = `
         <button
           aria-label="Chiudi"
           data-focus-priority="-1"
-          style="display: flex; align-items: center; justify-content: center; padding: var(--md-sys-spacing-4); border-radius: var(--md-sys-shape-corner-large); background-color: transparent; border: medium; cursor: pointer; transition: background-color 150ms ease;"
+          style="display: flex; align-items: center; justify-content: center; padding: var(--md-sys-spacing-4); border-radius: var(--md-sys-shape-corner-large); background-color: transparent; border: medium; cursor: pointer; transition: background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);"
         >
           <span
             style="font-family: "Material Symbols Outlined"; font-size: var(--md-sys-typescale-body-large-font-size); color: var(--md-sys-color-on-surface-variant);"

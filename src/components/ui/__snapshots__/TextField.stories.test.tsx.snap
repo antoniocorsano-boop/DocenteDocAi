@@ -6,20 +6,20 @@ exports[`TextField Story Snapshots > renders default story correctly 1`] = `
     style="display: flex; flex-direction: column; gap: var(--md-sys-spacing-2); width: auto; margin-bottom: var(--md-sys-spacing-4);"
   >
     <div
-      style="position: relative; display: flex; align-items: center; gap: var(--md-sys-spacing-2); background-color: transparent; border-radius: var(--md-sys-shape-corner-large); padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4); transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1); box-shadow: none; border-color: var(--md-sys-color-outline);"
+      style="position: relative; display: flex; align-items: center; gap: var(--md-sys-spacing-2); background-color: transparent; border-radius: var(--md-sys-shape-corner-large); padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4); transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard); box-shadow: none; border-color: var(--md-sys-color-outline);"
     >
       <div
         style="flex: 1 1 0%; position: relative;"
       >
         <span
-          style="font-family: var(--md-sys-typescale-font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-body-large-letter-spacing); color: var(--md-sys-color-on-surface-variant); position: absolute; top: var(--md-sys-percent-50); left: 0px; transform: translateY(-50%); transform-origin: top left; transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1); pointer-events: none; z-index: 1;"
+          style="font-family: var(--md-sys-typescale-font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-body-large-letter-spacing); color: var(--md-sys-color-on-surface-variant); position: absolute; top: var(--md-sys-percent-50); left: 0px; transform: translateY(-50%); transform-origin: top left; transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard); pointer-events: none; z-index: var(--z-tooltip);"
         >
           Test
         </span>
         <input
           aria-label="Test"
           placeholder=""
-          style="width: var(--md-sys-percent-100); border: medium; background-color: transparent; color: var(--md-sys-color-on-surface); font-size: var(--md-sys-typescale-body-large-font-size); font-family: var(--md-sys-typescale-body-large-font-family); font-weight: var(--md-sys-typescale-body-large-font-weight); line-height: var(--md-sys-typescale-body-large-line-height); letter-spacing: var(--md-sys-typescale-body-large-letter-spacing); outline: none; padding-top: 0px; transition: padding-top 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);"
+          style="width: var(--md-sys-percent-100); border: medium; background-color: transparent; color: var(--md-sys-color-on-surface); font-size: var(--md-sys-typescale-body-large-font-size); font-family: var(--md-sys-typescale-body-large-font-family); font-weight: var(--md-sys-typescale-body-large-font-weight); line-height: var(--md-sys-typescale-body-large-line-height); letter-spacing: var(--md-sys-typescale-body-large-letter-spacing); outline: none; padding-top: 0px; transition: padding-top var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);"
           value=""
         />
       </div>

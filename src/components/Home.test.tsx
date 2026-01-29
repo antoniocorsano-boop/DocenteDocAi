@@ -222,7 +222,7 @@ describe('Home Component', () => {
           onOpenRegisterImport={mockOnOpenRegisterImport}
         />
       );
-      expect(screen.getByText('Prossima Lezione')).toBeInTheDocument();
+      expect(screen.getByText('Lezione pianificata')).toBeInTheDocument();
       // "Matematica" is part of a string, use regex
       expect(screen.getByText(/matematica/i)).toBeInTheDocument();
       // There are multiple elements with this text, use getAllByText

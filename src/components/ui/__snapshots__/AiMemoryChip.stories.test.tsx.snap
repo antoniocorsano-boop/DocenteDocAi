@@ -9,7 +9,7 @@ exports[`AiMemoryChip Story Snapshots > renders default story correctly 1`] = `
     title="Contesto utilizzato dall'AI"
   >
     <span
-      style="font-family: "Material Symbols Outlined"; font-size: var(--md-sys-typescale-body-small-font-size); color: var(--md-sys-color-tertiary); font-weight: bold; animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;"
+      style="font-family: "Material Symbols Outlined"; font-size: var(--md-sys-typescale-body-small-font-size); color: var(--md-sys-color-tertiary); font-weight: bold; animation: pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite;"
     >
       psychology
     </span>

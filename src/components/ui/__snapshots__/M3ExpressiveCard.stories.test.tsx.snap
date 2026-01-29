@@ -12,7 +12,7 @@ exports[`M3ExpressiveCard Story Snapshots > renders default story correctly 1`] 
       style="position: absolute; top: 0px; left: 0px; right: 0px; height: var(--md-sys-spacing-1); opacity: 0.6; background-color: var(--md-sys-color-primary); border-top-left-radius: var(--md-sys-shape-corner-large); border-top-right-radius: var(--md-sys-shape-corner-large);"
     />
     <div
-      style="position: relative; z-index: 10; display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--md-sys-spacing-4);"
+      style="position: relative; z-index: var(--z-modal); display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--md-sys-spacing-4);"
     >
       <div
         style="width: var(--md-sys-spacing-14); height: var(--md-sys-spacing-14); border-radius: var(--md-sys-shape-corner-large); background: var(--md-sys-color-surface-container-high); box-shadow: var(--md-sys-elevation-level2); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"
@@ -25,7 +25,7 @@ exports[`M3ExpressiveCard Story Snapshots > renders default story correctly 1`] 
       </div>
     </div>
     <div
-      style="position: relative; z-index: 10; flex-grow: 1; display: flex; flex-direction: column; gap: var(--md-sys-spacing-4);"
+      style="position: relative; z-index: var(--z-modal); flex-grow: 1; display: flex; flex-direction: column; gap: var(--md-sys-spacing-4);"
     >
       <h3
         style="font-size: var(--md-sys-typescale-headline-small-font-size); font-family: var(--md-sys-typescale-headline-small-font-family); font-weight: bold; letter-spacing: -0.005em; line-height: 1.25;"
