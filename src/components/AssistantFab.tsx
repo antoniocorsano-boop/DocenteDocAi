@@ -4,7 +4,6 @@
 
 import React from 'react';
 import { useUIStore } from '../stores/useUIStore';
-import { Z_INDEX } from '../design-system/zIndex';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface AssistantFabProps {}

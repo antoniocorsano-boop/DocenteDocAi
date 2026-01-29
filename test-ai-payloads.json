@@ -9,5 +9,4 @@
     "timeout": "Simulate network timeout by delaying response >30s",
     "quota": "Simulate quota exceeded by returning 429 status"
   }
-}</content>
-<parameter name="filePath">c:\Users\anton\DocenteDocAI-Flowise\docentedoc-ai\test-ai-payloads.json
+}

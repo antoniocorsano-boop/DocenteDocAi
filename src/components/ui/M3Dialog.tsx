@@ -22,9 +22,6 @@ export interface M3DialogProps {
   /** Modal ID (required for ModalContext) */
   id?: string;
   
-  /** Nesting level for z-index calculation */
-  level?: number;
-  
   /** Dialog title - displayed in header */
   title: React.ReactNode;
   
@@ -86,7 +83,6 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   maxWidth = 'lg',
   headerContent,
   footerContent,
-  level = 1,
   style = {},
   isOpen = true,
   hideBackdrop = false,

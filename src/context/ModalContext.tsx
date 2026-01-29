@@ -19,7 +19,7 @@
 
 import React, { createContext, useContext, useCallback, useState, ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { getModalZIndex, Z_INDEX } from '../design-system/zIndex';
+import { getModalZIndex } from '../design-system/zIndex';
 
 // ============================================================================
 // TYPES & INTERFACES
