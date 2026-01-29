@@ -355,12 +355,12 @@ describe('M3Menu', () => {
         anchorEl={anchorEl}
         onClose={vi.fn()}
         items={defaultItems}
-        zIndex={2000}
+        zIndex={400}
       />
     );
     
     const popover = container.querySelector('.m3-popover') as HTMLElement;
-    expect(popover.style.zIndex).toBe('2000');
+    expect(popover.style.zIndex).toBe('400');
   });
 
   it('handles empty items list', () => {

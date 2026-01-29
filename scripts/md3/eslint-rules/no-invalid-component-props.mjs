@@ -205,6 +205,11 @@ export default {
           const isComponent = /^[A-Z]/.test(componentName);
 
           if (isComponent && FORBIDDEN_PROPS.includes(propName)) {
+            // Allow zIndex on M3Menu since it's a wrapper that forwards to M3Popover
+            if (componentName === 'M3Menu' && propName === 'zIndex') {
+              return;
+            }
+            
             context.report({
               node,
               messageId: 'forbiddenProp',

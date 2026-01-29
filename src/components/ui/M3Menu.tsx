@@ -66,6 +66,9 @@ export interface M3MenuProps {
   
   /** Custom className */
   className?: string;
+  
+  /** Custom z-index for the menu */
+  zIndex?: number;
 }
 
 // ============================================================================
@@ -81,6 +84,7 @@ export const M3Menu: React.FC<M3MenuProps> = ({
   minWidth = 200,
   maxWidth = 320,
   className,
+  zIndex,
 }) => {
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -152,6 +156,7 @@ export const M3Menu: React.FC<M3MenuProps> = ({
       minWidth={minWidth}
       maxWidth={maxWidth}
       showBackdrop={false}
+      zIndex={zIndex} // eslint-disable-line design-system/no-invalid-component-props
     >
       <div role="menu"
         // eslint-disable-next-line design-system/no-classname
