@@ -5,17 +5,17 @@ import pluginReact from "eslint-plugin-react";
 import { defineConfig } from "eslint/config";
 
 // Custom ESLint rules for design system conformity
-import noHardcodedColors from "./eslint-rules/no-hardcoded-colors.js";
-import enforceTokenUsage from "./eslint-rules/enforce-token-usage.js";
-import noNewCssFiles from "./eslint-rules/no-new-css-files.js";
-import noClassname from "./eslint-rules/no-classname.js";
-import noTailwindClasses from "./eslint-rules/no-tailwind-classes.js";
-import noHardcodedLayoutValues from "./eslint-rules/no-hardcoded-layout-values.js";
-import noNumericZindex from "./eslint-rules/no-numeric-zindex.js";
-import noHardcodedMotionValues from "./eslint-rules/no-hardcoded-motion-values.mjs";
-import noInvalidComponentProps from "./eslint-rules/no-invalid-component-props.mjs";
-import noHardcodedViewportUnits from "./eslint-rules/no-hardcoded-viewport-units.js";
-import noHardcodedPercentages from "./eslint-rules/no-hardcoded-percentages.js";
+import noHardcodedColors from "./scripts/md3/eslint-rules/no-hardcoded-colors.js";
+import enforceTokenUsage from "./scripts/md3/eslint-rules/enforce-token-usage.js";
+import noNewCssFiles from "./scripts/md3/eslint-rules/no-new-css-files.js";
+import noClassname from "./scripts/md3/eslint-rules/no-classname.js";
+import noTailwindClasses from "./scripts/md3/eslint-rules/no-tailwind-classes.js";
+import noHardcodedLayoutValues from "./scripts/md3/eslint-rules/no-hardcoded-layout-values.js";
+import noNumericZindex from "./scripts/md3/eslint-rules/no-numeric-zindex.js";
+import noHardcodedMotionValues from "./scripts/md3/eslint-rules/no-hardcoded-motion-values.mjs";
+import noInvalidComponentProps from "./scripts/md3/eslint-rules/no-invalid-component-props.mjs";
+import noHardcodedViewportUnits from "./scripts/md3/eslint-rules/no-hardcoded-viewport-units.js";
+import noHardcodedPercentages from "./scripts/md3/eslint-rules/no-hardcoded-percentages.js";
 
 export default defineConfig([
   {
@@ -37,8 +37,6 @@ export default defineConfig([
       "**/vendor-react-check.js",
       "src/build-polyfill.js",
       "public/scheduler-polyfill.js",
-      "src/nka/NKANodeCard.tsx",
-      "**/NKANodeCard.tsx",
       "__tests__/**",
       "**/*.test.tsx",
       "**/*.test.ts",
