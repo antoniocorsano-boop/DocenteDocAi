@@ -243,7 +243,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                 background: !isCurrentMonth ? 'var(--md-sys-color-surface-container-lowest)' : 'var(--md-sys-color-surface)',
                                 opacity: !isCurrentMonth ? 0.5 : 1,
                                 cursor: 'pointer',
-                                transition: 'background-color var(--motion-duration-short) var(--motion-easing-standard)',
+                                transition: 'background-color var(--md-sys-motion-duration-short) var(--motion-easing-standard)',
                                 ...(isFocused ? {
                                     outline: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)',
                                     outlineOffset: 'var(--md-sys-border-width-thick)'
@@ -292,7 +292,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis',
                                             cursor: 'pointer',
-                                            transition: 'filter var(--motion-duration-short) var(--motion-easing-standard)',
+                                            transition: 'filter var(--md-sys-motion-duration-short) var(--motion-easing-standard)',
                                             background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
                                                        ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
                                                        ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
@@ -389,7 +389,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                                     overflow: 'hidden',
                                                     textOverflow: 'ellipsis',
                                                     cursor: 'pointer',
-                                                    transition: 'filter var(--motion-duration-short) var(--motion-easing-standard)',
+                                                    transition: 'filter var(--md-sys-motion-duration-short) var(--motion-easing-standard)',
                                                     background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
                                                                ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
                                                                ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
@@ -460,7 +460,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                     padding: 'var(--md-sys-spacing-4)',
                                     borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                     cursor: 'pointer',
-                                    transition: 'background-color var(--motion-duration-short) var(--motion-easing-standard), transform var(--motion-duration-short) var(--motion-easing-standard)',
+                                    transition: 'background-color var(--md-sys-motion-duration-short) var(--motion-easing-standard), transform var(--md-sys-motion-duration-short) var(--motion-easing-standard)',
                                     background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
                                                ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
                                                ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
@@ -514,7 +514,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                             padding: 'var(--md-sys-spacing-4)',
                                             borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                             cursor: 'pointer',
-                                            transition: 'background-color var(--motion-duration-short) var(--motion-easing-standard)',
+                                            transition: 'background-color var(--md-sys-motion-duration-short) var(--motion-easing-standard)',
                                             background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
                                                        ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
                                                        ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :

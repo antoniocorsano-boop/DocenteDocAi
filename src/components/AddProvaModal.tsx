@@ -71,7 +71,7 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
 
                     <div style={{
                       display: 'grid',
-                      gridTemplateColumns: '1fr',
+                      gridTemplateColumns: 'var(--md-sys-grid-fr-1)', // MD3 grid fr token
                       gap: 'var(--md-sys-spacing-4)'
                     }}>
                         <TextField

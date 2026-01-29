@@ -78,7 +78,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
     return (
         <section style={{padding: 'var(--md-sys-spacing-6)',
             maxWidth: 'var(--md-sys-spacing-4)',
-            margin: '0 auto'}}>
+            margin: 'var(--md-sys-margin-auto)'}}>
             <M3Typography variant="headline-small" style={{display: 'flex',
                 alignItems: 'center',
                 gap: 'var(--md-sys-spacing-3)',
@@ -92,7 +92,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                 Percorsi Veloci
             </M3Typography>
             <div style={{display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-workflow-card-min-width), 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-workflow-card-min-width), var(--md-sys-grid-fr-1)))',
                 gap: 'var(--md-sys-spacing-6)'}}>
                 {workflows.map((workflow) => (
                     <div key={workflow.id} style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',

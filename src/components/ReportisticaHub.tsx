@@ -415,9 +415,9 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                 style={{
                     boxShadow: 'var(--md-sys-elevation-level1)',
                     padding: 'var(--md-sys-spacing-8)',
-                    margin: 'var(--md-sys-spacing-8) auto 0 auto',
-                    maxWidth: 'var(--md-sys-layout-max-width, 100vw)',
-                    width: '100%'
+                    margin: 'var(--md-sys-spacing-8) var(--md-sys-margin-auto) 0 var(--md-sys-margin-auto)',
+                    maxWidth: 'var(--md-sys-layout-max-width, var(--md-sys-viewport-width-full))',
+                    width: 'var(--md-sys-percent-100)'
                 }}
             >
                 {/* HEADER */}
@@ -455,7 +455,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                         activeTab={activePhase}
                         onTabChange={(id) => setActivePhase(id as DocPhase)}
                     />
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)' }}>
                         {activeTemplates.map(template => (
                             <ActionTile
                                 key={template.id}

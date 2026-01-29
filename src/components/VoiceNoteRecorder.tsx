@@ -243,7 +243,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
                     border: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-outline)',
                     borderTop: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)',
                     borderRadius: 'var(--md-sys-percent-50)',
-                    animation: 'spin 1s linear infinite'}} />
+                    animation: 'spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite'}} />
             ) : (
                 <span style={{fontFamily: 'Material Symbols Outlined',
                     fontSize: compact ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',

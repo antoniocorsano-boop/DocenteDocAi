@@ -226,7 +226,7 @@ export const Dashboard: Story = {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(2, 1fr)',
+        gridTemplateColumns: `repeat(2, var(--md-sys-grid-fr-1))`,
         gap: 'var(--md-sys-spacing-6)',
         padding: layers.ref.spacing['4'],
       }}

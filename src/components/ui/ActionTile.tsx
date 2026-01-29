@@ -184,7 +184,7 @@ const ActionTile: React.FC<ActionTileProps> = ({
                     style={{
                         fontFamily: 'Material Symbols Outlined',
                         fontSize: 'var(--md-sys-spacing-6)',
-                        transition: 'transform 200ms cubic-bezier(0.4, 0, 0.2, 1)'
+                        transition: `transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
                     }}
                 >
                     chevron_right
@@ -202,7 +202,7 @@ const ActionTile: React.FC<ActionTileProps> = ({
                     background: `linear-gradient(90deg, transparent, var(--md-sys-color-surface-disabled), transparent)`,
                     transform: hovered ? 'translateX(var(--md-sys-percent-100))' : 'translateX(calc(var(--md-sys-percent-100) * -1))',
                     pointerEvents: 'none',
-                    transition: `transform 600ms var(--md-sys-motion-easing-standard)`
+                    transition: `transform var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard)`
                 }}
             />
         </button>

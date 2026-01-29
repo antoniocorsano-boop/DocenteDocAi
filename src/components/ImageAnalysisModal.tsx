@@ -94,12 +94,12 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
                 borderRadius: 'var(--md-sys-shape-corner-large)',
                 cursor: 'pointer',
                 overflow: 'hidden',
-                transition: 'background-color 0.2s var(--md-sys-motion-easing-standard), border-color 0.2s ease'
+                transition: 'background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard), border-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
               }}
             >
               <input {...getInputProps()} />
               {imagePreview ? (
-                <img src={imagePreview} alt="Preview"  style={{ height: "100%", width: "100%" }} />
+                <img src={imagePreview} alt="Preview"  style={{ height: "var(--md-sys-percent-100)", width: "var(--md-sys-percent-100)" }} />
               ) : (
                 <>
                   <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
@@ -123,7 +123,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
                 if (error) setError('');
               }}
               placeholder="Es. 'Descrivi cosa vedi in questa immagine'..."
-              style={{ padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', width: "100%", flexGrow: "1", backgroundColor: 'var(--md-sys-color-surface)', border: "1px solid var(--md-sys-color-outline)" }}
+              style={{ padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--md-sys-percent-100)", flexGrow: "1", backgroundColor: 'var(--md-sys-color-surface)', border: "1px solid var(--md-sys-color-outline)" }}
               rows={4}
               disabled={!imageFile}
             />
@@ -132,7 +132,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
             onClick={handleSubmit} 
             disabled={isLoading || !imageFile || !prompt} 
             variant="filled"
-             style={{ width: "100%" }}
+             style={{ width: "var(--md-sys-percent-100)" }}
           >
             {isLoading ? <span >progress_activity</span> : 'Analizza Immagine'}
           </M3Button>
@@ -144,7 +144,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
           <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-8)' }}>Risultato Analisi</h3>
           <InfoCard variant="elevated">
             {isLoading && (
-              <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%" }}>
+              <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)" }}>
                 <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderColor: 'var(--md-sys-color-primary)'}}></div>
                 <p  style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", color: 'var(--md-sys-color-primary)'}}>L'AI sta analizzando...</p>
               </div>
@@ -155,7 +155,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
                 </div>
             )}
             {!analysisResult && !isLoading && (
-                <div style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", textAlign: "center", opacity: "0.5" }}>
+                <div style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)", textAlign: "center", opacity: "0.5" }}>
                     <span style={{ color: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>visibility</span>
                     <p style={{ fontWeight: "500" }}>Il risultato dell'analisi apparirà qui.</p>
                 </div>

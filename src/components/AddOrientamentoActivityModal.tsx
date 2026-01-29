@@ -53,7 +53,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                 
                 <div style={{
                   display: 'grid',
-                  gridTemplateColumns: '1fr',
+                  gridTemplateColumns: 'var(--md-sys-grid-fr-1)', // MD3 grid fr token
                   gap: 'var(--md-sys-spacing-4)'
                 }}>
                     <SelectField
@@ -120,7 +120,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                                   borderRadius: 'var(--md-sys-shape-corner-full)',
                                   fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                                   fontWeight: '700',
-                                  transition: 'all 0.2s ease',
+                                  transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`, // MD3 motion tokens for duration and easing
                                   border: 'none',
                                   cursor: 'pointer',
                                   backgroundColor: activity.classes?.includes(cls)

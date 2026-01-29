@@ -86,7 +86,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
     }
 
     return (
-        <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ height: 'var(--md-sys-viewport-height-full)', display: 'flex', flexDirection: 'column' }}>
             <div style={{display: 'flex'}}>
                 <M3IconButton 
                     icon="arrow_back" 

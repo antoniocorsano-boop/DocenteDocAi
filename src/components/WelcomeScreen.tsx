@@ -68,7 +68,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                     <div
                         style={{
                             display: 'grid',
-                            gridTemplateColumns: '1fr',
+                            gridTemplateColumns: 'var(--md-sys-grid-fr-1)',
                             gap: 'var(--md-sys-spacing-6)',
                             width: 'var(--md-sys-percent-100)',
                         }}
@@ -79,7 +79,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 icon="auto_fix_high"
                 variant="primary"
                 onClick={() => setMode('wizard')}
- style={{ transition: 'all 300ms var(--md-sys-motion-easing-emphasized)' }}
+ style={{ transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized)' }}
               />
               <ActionTile 
                 title="Accesso Rapido"
@@ -87,7 +87,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 icon="bolt"
                 variant="surface"
                 onClick={() => setMode('quick')}
- style={{ transition: 'all 300ms var(--md-sys-motion-easing-emphasized)' }}
+ style={{ transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized)' }}
               />
           </div>
           
@@ -287,7 +287,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                         background: 'var(--md-sys-color-primary)',
                         opacity: 0.1,
                         filter: 'blur(var(--md-sys-blur-120))',
-                        animation: 'pulse 2s infinite',
+                        animation: 'pulse var(--md-sys-motion-duration-long) infinite',
                     }}
                 ></div>
                 <div
@@ -301,7 +301,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                         background: 'var(--md-sys-color-secondary)',
                         opacity: 0.1,
                         filter: 'blur(var(--md-sys-blur-120))',
-                        animation: 'pulse 2s infinite 1s',
+                        animation: 'pulse var(--md-sys-motion-duration-long) infinite',
                     }}
                 ></div>
                 <div

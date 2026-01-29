@@ -97,7 +97,7 @@ const GanttColumn: React.FC<GanttColumnProps> = ({ col, children }) => {
         backgroundColor: isOver ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
         borderRadius: 'var(--md-sys-shape-corner-medium)',
         padding: 'var(--md-sys-spacing-2)',
-        minHeight: '200px',
+        minHeight: 'var(--md-sys-layout-card-min-height)',
       }}
     >
       {children}

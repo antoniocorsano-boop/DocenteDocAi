@@ -180,7 +180,7 @@ export const TeamGroup: Story = {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
+        gridTemplateColumns: 'repeat(3, var(--md-sys-grid-fr-1))',
         gap: 'var(--md-sys-spacing-6)',
         padding: layers.ref.spacing['4'],
       }}

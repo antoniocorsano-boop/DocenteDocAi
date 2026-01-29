@@ -28,7 +28,7 @@ const TableSkeleton: React.FC<TableSkeletonProps> = ({
                             height: layers.ref.spacing['12'],
                             backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)',
                             borderRadius: 'var(--md-sys-shape-corner-small)',
-                            animation: 'pulse 2s ease-in-out infinite',
+                            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`,
                             flex: 1,
                             animationDelay: `${i * 0.05}s`
                         }}
@@ -46,7 +46,7 @@ const TableSkeleton: React.FC<TableSkeletonProps> = ({
                                 height: layers.ref.spacing['12'],
                                 backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)',
                                 borderRadius: 'var(--md-sys-shape-corner-small)',
-                                animation: 'pulse 2s ease-in-out infinite',
+                                animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`,
                                 flex: 1,
                                 animationDelay: `${(rowIndex * columns + colIndex) * 0.05}s`,
                                 width: Math.random() > 0.5 ? 'var(--md-sys-percent-100)' : 'var(--md-sys-percent-80)'

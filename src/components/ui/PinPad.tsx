@@ -23,7 +23,7 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
     return (
         <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
+            gridTemplateColumns: `repeat(3, var(--md-sys-grid-fr-1))`,
             gap: spacing[4],
             maxWidth: spacing[64], // Using calculated value instead of non-existent spacing token
             margin: `${spacing[4]} auto 0`

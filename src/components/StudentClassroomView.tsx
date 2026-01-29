@@ -119,7 +119,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
     }
 
     return (
-        <div  style={{minHeight: "100vh", display: "flex", flexDirection: "column", backgroundColor: 'var(--md-sys-color-surface)'}}>
+        <div  style={{minHeight: "var(--md-sys-viewport-height-full)", display: "flex", flexDirection: "column", backgroundColor: 'var(--md-sys-color-surface)'}}>
             {/* Aura Ornaments */}
             <div style={{ backgroundColor: 'var(--md-sys-color-primary)', opacity: 0.05, borderRadius: 'var(--md-sys-spacing-4)' }} />
             <div style={{ backgroundColor: 'var(--md-sys-color-tertiary)', opacity: 0.05, borderRadius: 'var(--md-sys-spacing-4)' }} />
@@ -185,7 +185,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
             <main  style={{flexGrow: "1", overflowY: "auto", padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-8)'}}>
                 
                 {activeTab === 'feed' && (
-                    <div  style={{gap: 'var(--md-sys-spacing-6)', marginLeft: "auto", marginRight: "auto"}}>
+                    <div  style={{gap: 'var(--md-sys-spacing-6)', marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)"}}>
                         {feedItems.length > 0 ? feedItems.map((item) => (
                             <M3ExpressiveCard 
                                 key={item.id}
@@ -216,7 +216,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                         onClick={() => handleDownloadHomeworkSheet(item.originalLesson)}
                                         disabled={isGeneratingPdf}
                                         variant="text"
-                                        style={{ color: 'var(--md-sys-color-on-surface-variant)', width: "100%", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}
+                                        style={{ color: 'var(--md-sys-color-on-surface-variant)', width: "var(--md-sys-percent-100)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}
                                      >
                                          <span  style={{ marginRight: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-large-size)" }}>print</span>
                                          {isGeneratingPdf ? 'Generazione PDF...' : 'Scarica Scheda Lezione'}
@@ -233,7 +233,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 )}
 
                 {activeTab === 'homework' && (
-                    <div  style={{ marginLeft: "auto", marginRight: "auto" }}>
+                    <div  style={{ marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)" }}>
                         
                         <div style={{gap: 'var(--md-sys-spacing-6)'}}>
                             <SectionHeader 
@@ -313,7 +313,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 )}
 
                 {activeTab === 'materials' && (
-                     <div  style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: 'var(--md-sys-spacing-6)', marginLeft: "auto", marginRight: "auto"}}>
+                     <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)', marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)"}}>
                         {kb.map(entry => (
                             <M3ExpressiveCard 
                                 key={entry.id}

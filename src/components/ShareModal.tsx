@@ -69,7 +69,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-8)',
                             padding: 'var(--md-sys-spacing-8)',
-                            transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                            transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                             textAlign: 'left',
                             border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
                         }}
@@ -81,7 +81,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            transition: 'transform 300ms',
+                            transition: 'transform var(--md-sys-motion-duration-medium)',
                             color: 'var(--md-sys-color-on-secondary-container)',
                             backgroundColor: 'var(--md-sys-color-secondary-container)'
                         }}>
@@ -102,7 +102,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-8)',
                             padding: 'var(--md-sys-spacing-8)',
-                            transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+                            transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                             textAlign: 'left',
                             border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
                         }}
@@ -114,7 +114,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            transition: 'transform 300ms',
+                            transition: 'transform var(--md-sys-motion-duration-medium)',
                             color: 'var(--md-sys-color-on-tertiary-container)',
                             backgroundColor: 'var(--md-sys-color-tertiary-container)'
                         }}>

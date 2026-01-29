@@ -56,7 +56,7 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
     return (
       <div >
         <div >
-          <span  style={{  fontSize: "0.875rem"  }}>check_circle</span>
+          <span  style={{  fontSize: "var(--md-sys-typescale-body-medium-font-size)"  }}>check_circle</span>
           {entry.text.replace(/\[|\]/g, '')}
         </div>
       </div>
@@ -65,13 +65,13 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
 
   return (
     <div style={{
-      width: '100%',
+      width: 'var(--md-sys-percent-100)',
       justifyContent: isUser ? 'flex-end' : 'flex-start',
       marginBottom: 'var(--md-sys-spacing-6)'
     }}>
       <div style={{
         
-        maxWidth: '85%',
+        maxWidth: 'var(--md-sys-percent-85)',
         
         padding: 'var(--md-sys-spacing-4)',
         borderRadius: 'var(--md-sys-shape-corner-large)',
@@ -288,15 +288,15 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
           onClick={isConnected ? stopSession : startSession}
           style={{
             
-            width: '80px',
-            height: '80px',
+            width: 'var(--md-sys-spacing-20)',
+            height: 'var(--md-sys-spacing-20)',
             
             borderRadius: 'var(--md-sys-shape-corner-small)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             boxShadow: 'var(--md-sys-elevation-level2)',
-            transition: 'all var(--motion-duration-short) var(--motion-easing-standard)',
+            transition: 'all var(--md-sys-motion-duration-short) var(--motion-easing-standard)',
             cursor: 'pointer',
             backgroundColor: isConnected ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)',
             color: isConnected ? 'var(--md-sys-color-on-error)' : 'var(--md-sys-color-on-primary)',

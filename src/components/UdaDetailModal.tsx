@@ -117,7 +117,7 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
                 </div>
 
                 {/* Additional Info Grid */}
-                <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-4)'}}>
+                <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-4)'}}>
                     <InfoCard title="Prodotto Finale" icon="inventory_2" variant="tonal" style={{padding: 'var(--md-sys-spacing-4)'}}>
                         <p style={{fontSize: "var(--md-sys-typescale-body-medium-font-size)", color: "var(--md-sys-color-on-surface)"}}>{uda.finalProduct}</p>
                     </InfoCard>

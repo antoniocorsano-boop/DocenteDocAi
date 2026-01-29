@@ -36,7 +36,7 @@ const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
                     fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                     color: 'var(--md-sys-color-tertiary)',
                     fontWeight: 'bold',
-                    animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`
                 }}
             >
                 psychology

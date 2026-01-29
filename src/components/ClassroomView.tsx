@@ -183,7 +183,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
     };
 
     return (
-        <div style={{ maxWidth: '100%', margin: '0 auto', padding: 'var(--md-sys-spacing-4)' }}>
+        <div style={{ maxWidth: 'var(--md-sys-percent-full)', display: 'flex', justifyContent: 'center', padding: 'var(--md-sys-spacing-4)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--md-sys-spacing-4)' }}>
                 <button
                     onClick={onCloseView}
@@ -256,7 +256,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 {activeTab === 'register' && (
                     <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
                         {lesson.obiettivi && (
-                            <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: '1px solid var(--md-sys-color-outline)', marginBottom: 'var(--md-sys-spacing-8)' }}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', marginBottom: 'var(--md-sys-spacing-8)' }}>
                                 <M3Typography variant="title-medium" style={{ fontWeight: 'bold', color: 'var(--md-sys-color-primary)', textTransform: 'uppercase', marginBottom: 'var(--md-sys-spacing-4)' }}>Obiettivi Didattici</M3Typography>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)' }}>
                                     {lesson.obiettivi.split('\n').filter(o => o.trim()).map((obj, idx) => (
@@ -301,7 +301,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             borderRadius: 'var(--md-sys-shape-corner-extra-large)',
                                             boxShadow: 'var(--md-sys-elevation-level2)',
                                             border: '1px solid var(--md-sys-color-outline-variant)',
-                                            transition: 'all 300ms',
+                                            transition: 'all var(--md-sys-motion-duration-medium)',
                                             cursor: 'pointer',
                                             outline: isFocused ? 'var(--md-sys-border-width-normal) solid var(--md-sys-color-primary)' : 'none',
                                             outlineOffset: 'var(--md-sys-spacing-1)'
@@ -332,7 +332,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                             color: status === 'presente' ? 'var(--md-sys-color-on-primary-container)' : status === 'assente' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-tertiary-container)',
                                                             border: 'none',
                                                             cursor: 'pointer',
-                                                            transition: 'all 300ms'
+                                                            transition: 'all var(--md-sys-motion-duration-medium)'
                                                         }}
                                                     >
                                                         <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>
@@ -469,7 +469,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     border: '1px solid var(--md-sys-color-outline)',
                                     borderRadius: 'var(--md-sys-shape-corner-medium)',
                                     padding: 'var(--md-sys-spacing-2)',
-                                    width: '100%',
+                                    width: 'var(--md-sys-percent-full)',
                                     color: 'var(--md-sys-color-on-surface)',
                                     fontFamily: 'inherit'
                                 }}
@@ -478,7 +478,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                             />
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--md-sys-spacing-3)' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
                             <button
                                 onClick={() => setIsCopyModalOpen(true)}
                                 style={{
@@ -660,10 +660,10 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     gap: 'var(--md-sys-spacing-2)',
                                     padding: 'var(--md-sys-spacing-3)',
                                     cursor: 'pointer',
-                                    transition: 'all 300ms'
+                                    transition: 'all var(--md-sys-motion-duration-medium)'
                                 }}
                             >
-                                <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 300ms' }}>
+                                <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
                                     <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>grading</span>
                                 </div>
                                 <M3Typography variant="label-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--md-sys-color-on-primary-container)' }}>Voto</M3Typography>
@@ -680,10 +680,10 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     gap: 'var(--md-sys-spacing-2)',
                                     padding: 'var(--md-sys-spacing-3)',
                                     cursor: 'pointer',
-                                    transition: 'all 300ms'
+                                    transition: 'all var(--md-sys-motion-duration-medium)'
                                 }}
                             >
-                                <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-secondary)', color: 'var(--md-sys-color-on-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 300ms' }}>
+                                <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-secondary)', color: 'var(--md-sys-color-on-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
                                     <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>visibility</span>
                                 </div>
                                 <M3Typography variant="label-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--md-sys-color-on-secondary-container)' }}>Osserva</M3Typography>
@@ -700,10 +700,10 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     gap: 'var(--md-sys-spacing-2)',
                                     padding: 'var(--md-sys-spacing-3)',
                                     cursor: 'pointer',
-                                    transition: 'all 300ms'
+                                    transition: 'all var(--md-sys-motion-duration-medium)'
                                 }}
                             >
-                                <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-on-surface-variant)', color: 'var(--md-sys-color-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform 300ms' }}>
+                                <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-on-surface-variant)', color: 'var(--md-sys-color-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
                                     <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>person</span>
                                 </div>
                                 <M3Typography variant="label-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Profilo</M3Typography>
@@ -723,7 +723,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             borderRadius: 'var(--md-sys-shape-corner-medium)',
                                             padding: 'var(--md-sys-spacing-2)',
                                             cursor: 'pointer',
-                                            transition: 'all 300ms',
+                                            transition: 'all var(--md-sys-motion-duration-medium)',
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: 'var(--md-sys-spacing-1)',

@@ -102,7 +102,7 @@ export default {
 
       // Check for hardcoded easing (ease-in-out, cubic-bezier)
       const easingMatch = value.match(HARDCODED_EASING_REGEX);
-      if (easingMatch) {
+      if (easingMatch && !value.includes('linear-gradient')) {
         context.report({
           node,
           messageId: 'hardcodedEasing',

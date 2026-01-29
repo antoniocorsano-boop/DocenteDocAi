@@ -105,7 +105,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                                                         borderRadius: 'var(--md-sys-shape-corner-medium)',
                                                         padding: 'var(--md-sys-spacing-2)',
                                                         cursor: 'pointer',
-                                                        transition: 'background 0.2s, color 0.2s'
+                                                        transition: 'background var(--md-sys-motion-duration-short), color var(--md-sys-motion-duration-short)'
                                                     }}
                                                     title={isActive ? `Rimuovi ${subj} da ${cls}` : `Assegna ${subj} a ${cls}`}
                                                     aria-label={`${subj} in ${cls}: ${isActive ? 'Assegnato' : 'Non assegnato'}`}
@@ -176,7 +176,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                                                                 padding: 'var(--md-sys-spacing-2)',
                                                                 margin: 'var(--md-sys-spacing-2)',
                                                                 cursor: 'pointer',
-                                                                transition: 'background 0.2s, color 0.2s'
+                                                                transition: 'background var(--md-sys-motion-duration-short), color var(--md-sys-motion-duration-short)'
                                                             }}
                                                         >
                                                             {isActive && <span >check</span>}

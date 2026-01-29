@@ -1,3 +1,6 @@
+/* MD3 Platinum: Semantic Token Layer */
+@import './design-system/semantic-tokens.css';
+
 /* Light mode defaults */
 :root {
   --md-sys-color-primary: #6750a4;

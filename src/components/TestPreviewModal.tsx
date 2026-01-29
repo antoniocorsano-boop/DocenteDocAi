@@ -109,7 +109,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
             buttons={
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: 'var(--md-sys-percent-100)', alignItems: 'center', gap: 'var(--md-sys-spacing-6)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
-                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-medium)', transition: 'color 300ms' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-medium)', transition: 'color var(--md-sys-motion-duration-medium)' }}>
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-small)' }}>
                                 <div style={{ borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-surface)' }}></div>
                             </div>
@@ -119,7 +119,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                 onChange={e => setShowAnswers(e.target.checked)}
                                 style={{ display: 'none' }}
                             />
-                            <span style={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.7, transition: 'opacity 300ms' }}>Soluzioni Docente</span>
+                            <span style={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.7, transition: 'opacity var(--md-sys-motion-duration-medium)' }}>Soluzioni Docente</span>
                         </label>
                     </div>
                     <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-4)' }}>
@@ -147,10 +147,10 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                 {/* Aura Ornaments */}
                 <div style={{ width: 'var(--md-sys-percent-100)', height: 'var(--md-sys-percent-100)' }}>
                     <div style={{ backgroundColor: 'var(--md-sys-color-primary)', borderRadius: 'var(--md-sys-shape-corner-medium)', opacity: 0.05 }} />
-                    <div style={{ backgroundColor: 'var(--md-sys-color-secondary)', borderRadius: 'var(--md-sys-shape-corner-medium)', opacity: 0.05, animationDelay: '2s' }} />
+                    <div style={{ backgroundColor: 'var(--md-sys-color-secondary)', borderRadius: 'var(--md-sys-shape-corner-medium)', opacity: 0.05, animationDelay: 'var(--md-sys-motion-duration-long)' }} />
                 </div>
 
-                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', margin: '0 auto', backgroundColor: 'var(--md-sys-color-surface)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', maxWidth: 'var(--md-sys-layout-workflow-card-min-width)' }}>
+                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', marginTop: 0, marginLeft: 'var(--md-sys-margin-auto)', marginBottom: 0, marginRight: 'var(--md-sys-margin-auto)', backgroundColor: 'var(--md-sys-color-surface)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', maxWidth: 'var(--md-sys-layout-workflow-card-min-width)' }}>
                     {/* Watermark for preview */}
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'bold', whiteSpace: 'nowrap' }}>DOCENTEDOC AI</span>

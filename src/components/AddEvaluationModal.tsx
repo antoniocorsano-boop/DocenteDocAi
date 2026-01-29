@@ -78,7 +78,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                     flexDirection: 'column',
                     gap: 'var(--md-sys-spacing-6)',
                     overflowY: 'auto',
-                    maxHeight: '60vh'
+                    maxHeight: 'var(--md-sys-viewport-60)' // MD3 viewport token
                 }}>
                     <SelectField
                         id="eval-student-select"
@@ -93,7 +93,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
 
                     <div style={{
                         display: 'grid',
-                        gridTemplateColumns: '1fr 1fr',
+                        gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', // MD3 grid fr tokens
                         gap: 'var(--md-sys-spacing-8)'
                     }}>
                         <SelectField

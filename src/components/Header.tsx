@@ -33,7 +33,7 @@ export const Header: React.FC<HeaderProps> = ({
       style={{
         position: 'sticky',
         top: 0,
-        zIndex: 'var(--md-sys-zindex-appbar, 10)',
+        zIndex: 'var(--z-app-bar)',
         background: 'var(--md-sys-color-surface)',
         boxShadow: 'var(--md-sys-elevation-level1)',
         minHeight: 'var(--md-sys-spacing-12)',

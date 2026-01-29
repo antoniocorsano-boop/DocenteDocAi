@@ -67,7 +67,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 </M3Button>
             </div>
 
-            <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-6)'}}>
+            <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                 {filteredActivities.map(activity => (
                     <InfoCard 
                         key={activity.id}
@@ -98,7 +98,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
         <div style={{gap: 'var(--md-sys-spacing-6)'}}>
             <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>Stato E-Portfolio Studenti</h3>
             <div  style={{border: "1px solid var(--md-sys-color-outline)"}}>
-                <table  style={{ width: "100%" }}>
+                <table  style={{ width: 'var(--md-sys-percent-100)' }}>
                     <thead>
                         <tr style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 }}>
                             <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "left", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em"}}>Studente</th>
@@ -114,7 +114,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                             const progress = Math.min(100, (totalHours / 30) * 100); // Using class total hours as per guidelines for class activities
                             
                             return (
-                                <tr key={student.id}  style={{ transition: "color 300ms" }}>
+                                <tr key={student.id}  style={{ transition: "color var(--md-sys-motion-duration-medium)" }}>
                                     <td style={{padding: 'var(--md-sys-spacing-6)'}}>
                                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                             <Avatar name={`${student.nome} ${student.cognome}`} size="sm" />
@@ -127,7 +127,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', width: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)' }}>
                                                 <div 
                                                     style={{
-                                                        height: '100%',
+                                                        height: 'var(--md-sys-percent-100)',
                                                         transition: 'all',
                                                         backgroundColor: progress >= 100 ? 'var(--md-sys-color-tertiary)' : 'var(--md-sys-color-primary)',
                                                         width: `${progress}%`
@@ -181,7 +181,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 </div>
             </div>
 
-            <div style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
+            <div style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                 <InfoCard 
                     title="Ore Medie Classe" 
                     description="Target Ministeriale: 30h"

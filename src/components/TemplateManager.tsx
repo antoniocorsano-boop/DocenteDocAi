@@ -157,12 +157,12 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                           subtitle={`${groupTemplates.length} template disponibili`}
                           style={{marginBottom: 'var(--md-sys-spacing-16)'}}
                         />
-                        <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(calc(var(--md-sys-spacing-20) * 3.5), 1fr))", gap: 'var(--md-sys-spacing-16)'}}>
+                        <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(calc(var(--md-sys-spacing-20) * 3.5), var(--md-sys-grid-fr-1)))", gap: 'var(--md-sys-spacing-16)'}}>
                           {groupTemplates.map(template => (
                             <InfoCard
                               key={template.id}
                               variant="elevated"
-                              style={{ cursor: "pointer", transition: "all 0.2s ease-in-out" }}
+                              style={{ cursor: "pointer", transition: "all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-emphasized)" }}
                             >
                               <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 'var(--md-sys-spacing-12)'}}>
                                 <div style={{flex: 1, display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>

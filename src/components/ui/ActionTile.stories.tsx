@@ -153,7 +153,7 @@ export const Multiple: Story = {
     onClick: () => console.log('Create Lesson'),
   },
   render: () => (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: layers.ref.spacing['4'], padding: layers.ref.spacing['4'] }}>
+    <div style={{ display: 'grid', gridTemplateColumns: `repeat(2, var(--md-sys-grid-fr-1))`, gap: layers.ref.spacing['4'], padding: layers.ref.spacing['4'] }}>
       <ActionTile
         title="Create Lesson"
         subtitle="New Material"
@@ -200,7 +200,7 @@ export const Dashboard: Story = {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
+        gridTemplateColumns: `repeat(3, var(--md-sys-grid-fr-1))`,
         gap: 'var(--md-sys-spacing-6)',
         padding: layers.ref.spacing['4'],
       }}

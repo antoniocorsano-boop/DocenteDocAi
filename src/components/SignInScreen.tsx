@@ -27,8 +27,8 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
   return (
     <div
       style={{
-        minHeight: '100vh',
-        width: '100vw',
+        minHeight: 'var(--md-sys-viewport-height-full)',
+        width: 'var(--md-sys-viewport-width-full)',
         background: 'var(--md-sys-color-surface)',
         display: 'flex',
         alignItems: 'center',
@@ -43,7 +43,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
           boxShadow: 'var(--md-sys-elevation-level1)',
           padding: 'var(--md-sys-spacing-8)',
           minWidth: 0,
-          width: '100%',
+          width: 'var(--md-sys-percent-100)',
           maxWidth: 'var(--md-sys-spacing-96)',
           display: 'flex',
           flexDirection: 'column',
@@ -77,19 +77,19 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
           fullWidth
         />
         {error && (
-          <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-error)', width: '100%', textAlign: 'center' }}>{error}</M3Typography>
+          <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-error)', width: 'var(--md-sys-percent-100)', textAlign: 'center' }}>{error}</M3Typography>
         )}
         <M3Button
           type="submit"
           variant="filled"
-          style={{ width: '100%' }}
+          style={{ width: 'var(--md-sys-percent-100)' }}
         >
           Accedi
         </M3Button>
         <M3Button
           type="button"
           variant="text"
-          style={{ width: '100%' }}
+          style={{ width: 'var(--md-sys-percent-100)' }}
           onClick={() => alert('Funzione recupero password non implementata')}
         >
           Recupera password

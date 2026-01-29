@@ -75,7 +75,7 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
               value={currentContent}
               onChange={(e) => setCurrentContent(e.target.value)}
               style={{
-                width: '100%',
+                width: 'var(--md-sys-percent-100)',
                 borderRadius: 'var(--md-sys-shape-corner-small)',
                 background: 'var(--md-sys-color-surface-container)',
                 color: 'var(--md-sys-color-on-surface)'

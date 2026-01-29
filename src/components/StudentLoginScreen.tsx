@@ -65,7 +65,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
             <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: sys.colors.secondary-container/20 ,  display: "none", alignItems: "center", justifyContent: "center" }}>
                 {/* Aura Ornaments */}
                 <div style={{ backgroundColor: sys.colors.secondary/10 ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
-                <div style={{ backgroundColor: sys.colors.tertiary/10 ,  borderRadius: 'var(--md-sys-spacing-4)', animationDelay: '1s' }} />
+                <div style={{ backgroundColor: sys.colors.tertiary/10 ,  borderRadius: 'var(--md-sys-spacing-4)', animationDelay: 'var(--md-sys-motion-duration-long)' }} />
                 
                 <div >
                     <div style={{display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)'}}>
@@ -102,7 +102,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                 <div style={{ backgroundColor: sys.colors.primary/10 ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
                 <div style={{ backgroundColor: sys.colors.tertiary/10 ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
 
-                <div  style={{ width: "100%" }}>
+                <div  style={{ width: "var(--md-sys-percent-100)" }}>
                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30, padding: 'var(--md-sys-spacing-4)', borderRadius: ref.shape[5] , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                         <div  style={{display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 'var(--md-sys-spacing-6)'}}>
                             <div  style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
@@ -122,13 +122,13 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                         {step === 'class' && (
                             <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-size)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center", opacity: "0.6" }}>Seleziona la tua classe</p>
-                                <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: 'var(--md-sys-spacing-8)'}}>
+                                <div style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                                     {uniqueClasses.map(cls => (
                                         <M3Button 
                                             key={cls} 
                                             onClick={() => handleClassSelect(cls)}
                                             variant="tonal"
-                                             style={{ fontWeight: "900", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)" }}
+                                             style={{ fontWeight: "900", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)" }}
                                         >
                                             {cls}
                                         </M3Button>
@@ -140,7 +140,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                     </div>
                                 )}
                                 <div >
-                                    <M3Button onClick={handleExitAttempt} variant="text" style={{width: "100%", color: "var(--md-sys-color-error)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-size)"}}>
+                                    <M3Button onClick={handleExitAttempt} variant="text" style={{width: "var(--md-sys-percent-100)", color: "var(--md-sys-color-error)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-size)"}}>
                                         <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>lock</span>
                                         Menu Docente
                                     </M3Button>
@@ -158,7 +158,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                  <M3Button type="button" onClick={() => setStep('class')} variant="tonal" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Cambia</M3Button>
                             </div>
 
-                            <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-6)'}}>
+                            <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                                 <TextField 
                                     id="student-surname"
                                     name="student-surname"

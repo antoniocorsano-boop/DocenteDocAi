@@ -48,7 +48,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                         borderRadius: 'var(--md-sys-shape-corner-full)',
                         background: 'var(--md-sys-color-surface-container-high)',
                         transform: 'scale(1.2)',
-                        animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`,
                         opacity: 0.4
                     }}
                 />
@@ -65,7 +65,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                         background: `conic-gradient(from 0deg, transparent var(--md-sys-percent-0), var(--md-sys-color-primary) var(--md-sys-percent-50), var(--md-sys-color-tertiary) var(--md-sys-percent-100))`,
                         maskImage: 'radial-gradient(closest-side, transparent var(--md-sys-percent-78), black var(--md-sys-percent-82))',
                         WebkitMaskImage: 'radial-gradient(closest-side, transparent var(--md-sys-percent-78), black var(--md-sys-percent-82))',
-                        animation: 'spin 2s cubic-bezier(0.4, 0, 0.2, 1) infinite'
+                        animation: `spin var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`
                     }}
                 />
 
@@ -73,7 +73,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                 <div
                     style={{
                         position: 'relative',
-                        zIndex: 10,
+                        zIndex: 'var(--z-tooltip)',
                         width: 'var(--md-sys-percent-100)',
                         height: 'var(--md-sys-percent-100)',
                         display: 'flex',
@@ -103,7 +103,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                         color: 'var(--md-sys-color-primary)',
                         letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
                         textTransform: 'uppercase',
-                        animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`,
                         margin: 0
                     }}
                 >

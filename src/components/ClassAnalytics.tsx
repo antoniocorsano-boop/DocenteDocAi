@@ -53,7 +53,7 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
             maxWidth="2xl"
         >
             <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
-                <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-6)'}}>
+                <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                         <h3 style={{ color: 'var(--md-sys-color-on-primary)' , fontSize: 'var(--md-sys-typescale-headline-small-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Media Voti per Classe</h3>
                         <div style={{
@@ -83,7 +83,7 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                      <h3 style={{ color: 'var(--md-sys-color-on-primary)' , fontSize: 'var(--md-sys-typescale-headline-small-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Dettaglio Numerico</h3>
                      <div style={{ overflowX: "auto" }}>
-                         <table  style={{ width: "100%", textAlign: "left" }}>
+                         <table  style={{ width: "var(--md-sys-percent-full)", textAlign: "left" }}>
                              <thead>
                                  <tr  style={{borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                                      <th style={{ color: 'var(--md-sys-color-on-surface-variant)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: "bold"}}>Classe</th>
@@ -98,7 +98,7 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
                                      const avg = classPerformanceData.find(d => d.label === c)?.value || '-';
                                      const evalsCount = evaluations.filter(e => students.find(s => s.id === e.studenteId)?.classe === c).length;
                                      return (
-                                         <tr key={c}  style={{borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: "color 300ms"}}>
+                                         <tr key={c}  style={{borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: "color var(--md-sys-motion-duration-medium)"}}>
                                              <td style={{ color: 'var(--md-sys-color-on-primary)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', fontWeight: "bold"}}>{c}</td>
                                              <td style={{ color: 'var(--md-sys-color-on-surface-variant)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>{sCount}</td>
                                              <td style={{ color: 'var(--md-sys-color-on-surface-variant)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>{avg}</td>

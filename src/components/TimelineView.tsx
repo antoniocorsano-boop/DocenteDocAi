@@ -201,7 +201,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                 )}
 
                 {/* 2. Today Line (Wrapped for correct width context) */}
-                <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, minWidth: `${minWidth}px`, zIndex: 15, pointerEvents: 'none' }}>
+                <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, minWidth: `${minWidth}px`, zIndex: 'var(--z-raised)', pointerEvents: 'none' }}>
                     {todayPosition >= 0 && todayPosition <= 100 && (
                         <div
                             

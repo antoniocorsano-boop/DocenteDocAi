@@ -84,7 +84,7 @@ const TimerWidget: React.FC = () => {
                       alignItems: 'center',
                       gap: 'var(--md-sys-spacing-2)',
                       cursor: 'pointer',
-                      transition: 'all 0.2s ease',
+                      transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                       minHeight: 'var(--md-sys-spacing-11)'
                     }}
                 >
@@ -142,7 +142,7 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
                         border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                         animation: isSelecting ? 'pulse 0.1s infinite' : 'none',
                         transform: isSelecting ? 'scale(1.05)' : 'scale(1)',
-                        transition: 'all 0.3s ease'
+                        transition: 'all var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard)'
                     }}>
                          <span >{selectedStudent.cognome}</span>
                          <span >{selectedStudent.nome}</span>

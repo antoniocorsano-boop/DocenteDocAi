@@ -53,8 +53,8 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
             height: 'var(--md-sys-spacing-2)',
             backgroundColor: 'var(--md-sys-color-primary)',
             borderRadius: 'var(--md-sys-percent-50)',
-            animation: 'pulse 2s ease-in-out infinite',
-            animationDelay: '0ms'
+            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`, // MD3 motion tokens for duration and easing
+            animationDelay: 'var(--md-sys-motion-duration-0)'
           }}
         />
         <div
@@ -63,8 +63,8 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
             height: 'var(--md-sys-spacing-2)',
             backgroundColor: 'var(--md-sys-color-primary)',
             borderRadius: 'var(--md-sys-percent-50)',
-            animation: 'pulse 2s ease-in-out infinite',
-            animationDelay: '150ms'
+            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`, // MD3 motion tokens for duration and easing
+            animationDelay: 'var(--md-sys-motion-duration-short)'
           }}
         />
         <div
@@ -73,8 +73,8 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
             height: 'var(--md-sys-spacing-2)',
             backgroundColor: 'var(--md-sys-color-primary)',
             borderRadius: 'var(--md-sys-percent-50)',
-            animation: 'pulse 2s ease-in-out infinite',
-            animationDelay: '300ms'
+            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`, // MD3 motion tokens for duration and easing
+            animationDelay: 'var(--md-sys-motion-duration-medium)'
           }}
         />
       </div>
@@ -84,7 +84,8 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
         style={{
           ...sizeStyles[size],
           color: 'var(--md-sys-color-on-surface-variant)',
-          fontFamily: 'var(--md-sys-typescale-body-large-font-family)'
+          fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
+          flexGrow: 1
         }}
       >
         {message}
@@ -100,8 +101,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
           opacity: 0.1,
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
-          marginLeft: 'auto'
+          justifyContent: 'center'
         }}
       >
         <span

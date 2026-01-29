@@ -6,10 +6,9 @@ DocenteDoc AI – MD3 Home Refactor
 Follow these guidelines strictly to refactor Home.tsx:
 
 1. Layout Structure
-- Use AppLayout for overall grid
-- Desktop: NavigationRail on left, main content right
-- Mobile: BottomNav (if available), main content full width
-- Main content: single column, centered, max-width ~800–1200px
+- Desktop: NavigationRail on left, main content right (handled by ViewManager/AppLayout)
+- Mobile: BottomNav (if available), main content full width (handled by ViewManager/AppLayout)
+- Main content: single column, centered, max-width ~800–1200px (handled by ViewManager/AppLayout)
 - All spacing/padding use MD3 tokens (--md-sys-spacing-*)
 - Avoid mixing shorthand and non-shorthand padding/margin
 
@@ -55,7 +54,6 @@ Follow these guidelines strictly to refactor Home.tsx:
 */
 
 import React, { useMemo } from 'react';
-import { AppLayout } from './AppLayout.md3';
 import BottomNav from './BottomNav';
 import { View, NavigationParams } from '../types';
 import { M3HeroCard, M3Card, M3Surface, M3Typography } from './ui';
@@ -110,17 +108,15 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const activeView: View = 'home';
 
   return (
-    <AppLayout>
+    <>
       <M3Surface
         style={{
           display: 'flex',
           flexDirection: 'column',
           gap: 'var(--md-sys-spacing-6)',
-          maxWidth: 'var(--md-sys-layout-max-width, 1200px)', // MD3 Gold: fallback token if missing
-          margin: '0 auto',
-          width: '100%'
+          width: 'var(--md-sys-percent-full)'
         }}
-      >
+    >
         {/* Hero Section: Next Lesson */}
         <M3HeroCard>
           <M3Surface>
@@ -172,7 +168,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </M3Surface>
         {/* Quick Actions Section */}
         <M3Surface style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>
-          <M3Surface style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-24), 1fr))', gap: 'var(--md-sys-spacing-4)' }}>
+          <M3Surface style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-24), var(--md-sys-grid-fr-1)))', gap: 'var(--md-sys-spacing-4)' }}>
             <M3Card ariaLabel="Vai a Registro" onClick={() => onNavigate('register' as View)}>
               <M3Surface style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-4)' }}>
                 {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
@@ -196,14 +192,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             </M3Card>
           </M3Surface>
         </M3Surface>
-        {/* Next Lesson Section */}
-        <M3HeroCard>
-          <M3Surface>
-            <M3Typography variant="title-large">Prossima Lezione</M3Typography>
-            <M3Typography variant="body-large">{lessonTagline}</M3Typography>
-            <M3Typography variant="body-medium" style={{ marginTop: 'var(--md-sys-spacing-2)' }}>{lessonDetails}</M3Typography>
-          </M3Surface>
-        </M3HeroCard>
         {/* AI Suggestions Section (commented out, enable if needed) */}
         {/*
         <M3Surface as="section" elevation={0} style={{ marginTop: 'var(--md-sys-spacing-6)' }}>
@@ -225,13 +213,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             bottom: 'var(--md-sys-spacing-6)',
             right: 'var(--md-sys-spacing-6)',
             /* MD3 Exception: fallback for z-index if token missing, see governance contract */
-            zIndex: 'var(--md-sys-zindex-fab, 10)'
+            zIndex: 'var(--z-fab)'
           }}
         />
       </M3Surface>
       {/* BottomNav for mobile (MD3) */}
       <BottomNav activeView={activeView} onNavigate={onNavigate} />
-    </AppLayout>
+    </>
   );
 };
 

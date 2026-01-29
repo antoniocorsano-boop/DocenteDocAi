@@ -296,7 +296,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                     }}>
                                         <input type="checkbox" id={`class-select-${c}`} checked={selectedClasses.includes(c)} onChange={() => handleClassSelection(c)} />
                                         <label htmlFor={`class-select-${c}`} style={{
-                                            width: '100%',
+                                            width: 'var(--md-sys-percent-100)',
                                             cursor: 'pointer',
                                             display: 'flex',
                                             alignItems: 'center'
@@ -344,7 +344,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                     }}>
                                         <input type="checkbox" id={`kb-select-${kb.id}`} checked={selectedKbIds.includes(kb.id)} onChange={() => handleKbSelection(kb.id)} />
                                         <label htmlFor={`kb-select-${kb.id}`} style={{
-                                            width: '100%',
+                                            width: 'var(--md-sys-percent-100)',
                                             cursor: 'pointer',
                                             display: 'flex',
                                             alignItems: 'center',
@@ -382,7 +382,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                         gap: 'var(--md-sys-spacing-3)'
                     }}>
                         <button onClick={handleGenerateSequences} disabled={selectedUdaIds.length === 0 || selectedClasses.length === 0} style={{
-                            width: '100%',
+                            width: 'var(--md-sys-percent-100)',
                             backgroundColor: selectedUdaIds.length === 0 || selectedClasses.length === 0 ? 'var(--md-sys-color-surface-container-highest)' : 'var(--md-sys-color-primary)',
                             color: selectedUdaIds.length === 0 || selectedClasses.length === 0 ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',
                             border: 'none',

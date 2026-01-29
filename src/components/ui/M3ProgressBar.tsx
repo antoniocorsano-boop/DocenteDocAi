@@ -89,7 +89,7 @@ function M3ProgressBar({
             borderRadius: full,
             border: `${sizePx/8}px solid ${surfaceVariant}`,
             borderTopColor: getColor(),
-            animation: 'spin 1s linear infinite'
+            animation: `spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite` // MD3 motion tokens for duration and easing
           }}
         />
         {showValue && <span>{Math.round(percentage)}%</span>}
@@ -142,7 +142,7 @@ function M3ProgressBar({
             width: `${percentage}%`,
             height: 'var(--md-sys-percent-100)',
             backgroundColor: getColor(),
-            transition: 'width 0.3s ease'
+            transition: `width var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)` // MD3 motion tokens for duration and easing
           }}
         />
       </div>

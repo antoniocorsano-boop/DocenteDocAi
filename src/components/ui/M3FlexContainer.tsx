@@ -12,7 +12,6 @@ export interface M3FlexContainerProps {
   alignItems?: 'flex-start' | 'flex-end' | 'center' | 'stretch' | 'baseline';
   gap?: string;
   style?: React.CSSProperties;
-  className?: string;
   'aria-label'?: string;
   role?: string;
 }
@@ -27,12 +26,10 @@ export const M3FlexContainer: React.FC<M3FlexContainerProps> = ({
   alignItems,
   gap,
   style,
-  className,
   ...ariaProps
 }) => {
   return (
     <div
-      className={className}
       style={{
         display: 'flex',
         flexDirection: direction,

@@ -53,7 +53,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
 
     return (
         <div style={{position: 'relative',
-            minHeight: '100vh',
+            minHeight: 'var(--md-sys-viewport-height-full)',
             backgroundColor: 'var(--md-sys-color-surface)',
             padding: 'var(--md-sys-spacing-6)',
             overflow: 'hidden'}}>
@@ -67,7 +67,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 borderRadius: 'var(--md-sys-shape-corner-full)',
                 opacity: 0.1,
                 filter: 'blur(var(--md-sys-blur-40))',
-                zIndex: 0}} />
+                zIndex: 'var(--z-base)'}} />
             <div style={{position: 'absolute',
                 bottom: 'var(--md-sys-spacing-8)',
                 left: 'var(--md-sys-spacing-8)',
@@ -77,15 +77,16 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 borderRadius: 'var(--md-sys-shape-corner-full)',
                 opacity: 0.08,
                 filter: 'blur(var(--md-sys-blur-30))',
-                zIndex: 0}} />
+                zIndex: 'var(--z-base)'}} />
 
             <div style={{position: 'relative',
-                zIndex: 1,
+                zIndex: 'var(--z-raised)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 'var(--md-sys-spacing-6)',
                 maxWidth: 'var(--md-sys-spacing-80)',
-                margin: '0 auto'}}>
+                marginLeft: 'var(--md-sys-margin-auto)',
+                marginRight: 'var(--md-sys-margin-auto)'}}>
                 {/* HEADER: MD3 Command Island */}
                 <div style={{display: 'flex',
                     alignItems: 'center',

@@ -163,7 +163,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                                 border: 'none',
                                 fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                 fontWeight: requestType === 'recupero' ? 'bold' : 'normal',
-                                transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
                                 cursor: 'pointer',
                                 borderRadius: 0
                             }}
@@ -179,7 +179,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                                 border: 'none',
                                 fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                 fontWeight: requestType === 'potenziamento' ? 'bold' : 'normal',
-                                transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+                                transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
                                 cursor: 'pointer',
                                 borderRadius: 0
                             }}
@@ -196,7 +196,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                         color: advisorStatus ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',
                         fontWeight: 'bold',
                         cursor: advisorStatus ? 'not-allowed' : 'pointer',
-                        transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+                        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
                         display: 'flex',
                         alignItems: 'center',
                         gap: 'var(--md-sys-spacing-2)'
@@ -221,7 +221,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
             {error && <p style={{
                 color: 'var(--md-sys-color-error)',
                 fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                backgroundColor: 'color-mix(in srgb, var(--md-sys-color-error) 10%, transparent)',
+                backgroundColor: `color-mix(in srgb, var(--md-sys-color-error) var(--md-sys-percent-10), transparent)`,
                 padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
                 borderRadius: 'var(--md-sys-shape-corner-medium)',
                 border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-error)',
@@ -238,7 +238,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                         fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
                         fontWeight: 'bold',
                         color: 'var(--md-sys-color-on-surface)',
-                        margin: '0 0 var(--md-sys-spacing-4) 0',
+                        margin: 'var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-4) var(--md-sys-spacing-0)',
                         display: 'flex',
                         alignItems: 'center',
                         gap: 'var(--md-sys-spacing-2)'
@@ -266,7 +266,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     fontWeight: 'bold',
                                     color: 'var(--md-sys-color-on-surface)',
-                                    margin: '0 0 var(--md-sys-spacing-2) 0'
+                                    margin: 'var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-2) var(--md-sys-spacing-0)'
                                 }}>{item.titolo}</h4>
                                 <p style={{
                                     color: 'var(--md-sys-color-on-surface-variant)',

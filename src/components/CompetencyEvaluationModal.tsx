@@ -111,7 +111,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
 
                     <div>
                         <label htmlFor="materia" >Materia di Riferimento</label>
-                        <select id="materia" value={selectedMateria} onChange={e => setSelectedMateria(e.target.value)}  style={{ width: "100%" }} required>
+                        <select id="materia" value={selectedMateria} onChange={e => setSelectedMateria(e.target.value)}  style={{ width: "var(--md-sys-percent-100)" }} required>
                             <option value="">Seleziona...</option>
                             {(settings.disciplines || []).map(d => <option key={d} value={d}>{d}</option>)}
                         </select>
@@ -141,7 +141,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                 </M3Button>
                             </div>
                         </div>
-                        <textarea id="note" value={nota} onChange={e => setNota(e.target.value)}  style={{ width: "100%" }} rows={3} placeholder="Es. Dimostra autonomia nell'applicare il concetto..."></textarea>
+                        <textarea id="note" value={nota} onChange={e => setNota(e.target.value)}  style={{ width: "var(--md-sys-percent-100)" }} rows={3} placeholder="Es. Dimostra autonomia nell'applicare il concetto..."></textarea>
                     </div>
                 </M3DialogContent>
 

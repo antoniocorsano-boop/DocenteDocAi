@@ -102,7 +102,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
             level={2}
         >
             <M3DialogContent style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 }}>
-                <div  style={{ display: "grid", gridTemplateColumns: "1fr" }}>
+                <div  style={{ display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)" }}>
                     {/* Left: Source */}
                     <div  style={{padding: 'var(--md-sys-spacing-6)', borderRight: "1px solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
                         <TabGroup
@@ -178,8 +178,8 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                     onChange={e => setLinkLabel(e.target.value)} 
                                     fullWidth 
                                 />
-                                <M3Button onClick={handleAddLink} variant="filled"  style={{ width: "100%" }}>
-                                    <span  style={{ marginRight: "0.5rem" }}>add</span>
+                                <M3Button onClick={handleAddLink} variant="filled"  style={{ width: "var(--md-sys-percent-100)" }}>
+                                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span>
                                     Aggiungi Link
                                 </M3Button>
                             </div>
@@ -190,7 +190,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-6)', display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <h3 >Selezionati</h3>
-                            <span  style={{borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", fontSize: "0.75rem", fontWeight: "bold"}}>
+                            <span  style={{borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", fontSize: "var(--md-sys-typescale-body-small-size)", fontWeight: "bold"}}>
                                 {materials.length}
                             </span>
                         </div>
@@ -204,7 +204,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                     <M3Button 
                                         onClick={() => handleRemoveMaterial(material.id)} 
                                         variant="text" 
-                                         style={{color: "var(--md-sys-color-error)", opacity: "0", transition: "opacity 300ms"}}
+                                         style={{color: "var(--md-sys-color-error)", opacity: "0", transition: "opacity var(--md-sys-motion-duration-medium)"}}
                                     >
                                         <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -213,7 +213,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                 </div>
                             ))}
                             {materials.length === 0 && (
-                                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", opacity: "0.3" }}>
+                                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)", opacity: "0.3" }}>
                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)'}}>inventory_2</span>
                                     <p style={{ color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>Nessun materiale selezionato</p>
                                 </div>

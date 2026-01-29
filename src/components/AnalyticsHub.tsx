@@ -126,7 +126,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                 <div
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-25), 1fr))',
+                        gridTemplateColumns: `repeat(auto-fit, minmax(var(--md-sys-spacing-25), var(--md-sys-grid-fr-1)))`,
                         gap: 'var(--md-sys-spacing-4)'
                     }}
                 >
@@ -262,16 +262,12 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        width: '100%'
+                        width: 'var(--md-sys-percent-100)'
                     }}
                 >
                     {chartType === 'trend' && <LineChart data={trendData} color="var(--md-sys-color-primary)" />}
                     {chartType === 'radar' && <RadarChart data={radarData} color="var(--sys-tertiary)" />}
-                    {chartType === 'dist' && <div
-                        style={{
-                            width: '100%'
-                        }}
-                    ><BarChart data={distData} color="var(--md-sys-color-secondary)" /></div>}
+                    {chartType === 'dist' && <BarChart data={distData} color="var(--md-sys-color-secondary)" />}
                 </div>
 
                 {(isAiLoading || aiInsight) && (
@@ -281,9 +277,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             padding: 'var(--md-sys-spacing-6)',
                             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
-                            width: '100%',
-                            marginLeft: 'auto',
-                            marginRight: 'auto'
+                            width: 'var(--md-sys-percent-full)'
                         }}
                     >
                         {isAiLoading ? (

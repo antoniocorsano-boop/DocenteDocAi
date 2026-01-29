@@ -74,7 +74,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                     backdropFilter: `blur(${'var(--md-sys-spacing-2)'})`,
                     padding: `${'var(--md-sys-spacing-4)'} ${'var(--md-sys-spacing-6)'}`,
                     borderBottom: `1px solid ${'var(--md-sys-color-outline-variant)'}`,
-                    zIndex: 10,
+                    zIndex: 'var(--z-sticky)',
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
@@ -139,7 +139,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
 
             {/* Scrollable Content */}
             <div
-                style={{maxHeight: 'min(70vh, calc(var(--md-sys-spacing-20) * 6.4))',
+                style={{maxHeight: 'min(calc(0.7 * var(--md-sys-viewport-height-full)), calc(var(--md-sys-spacing-20) * 6.4))',
                     overflowY: 'auto',
                     overflowX: 'hidden',
                     padding: 'var(--md-sys-spacing-2)'}}

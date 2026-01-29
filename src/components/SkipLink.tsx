@@ -52,13 +52,13 @@ const SkipLink: React.FC<SkipLinkProps> = ({
       onClick={handleClick}
       aria-label={label}
       style={{position: 'absolute',
-        top: '-40px',
+        top: 'calc(-1 * var(--md-sys-spacing-10))',
         left: 0,
         background: 'var(--md-sys-color-primary)',
         color: 'var(--md-sys-color-on)',
         padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
         textDecoration: 'none',
-        zIndex: 100,
+        zIndex: 'var(--z-fixed)',
         borderRadius: '0 0 var(--md-corner-small) 0',
         fontSize: 'var(--md-sys-typescale-body-medium-size)',
         fontWeight: 600,}}

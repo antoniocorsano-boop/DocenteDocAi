@@ -6,6 +6,12 @@ import React from 'react';
 import Home from '../../src/components/Home';
 import { View } from '../../src/types';
 
+// Mock stores
+vi.mock('../../src/stores/useSettingsStore');
+vi.mock('../../src/stores/useAcademicStore');
+vi.mock('../../src/stores/useSystemStore');
+vi.mock('../../src/stores/useStudentStore');
+
 // Mock the M3Components
 vi.mock('../../src/components/ui', () => ({
         M3Surface: ({ children, ...props }: any) => (
@@ -62,40 +68,58 @@ vi.mock('../../src/components/ui', () => ({
             {children}
         </div>
     ),
+    M3FlexContainer: ({ children, flex, minHeight, style, ...props }: any) => (
+        <div
+            data-testid="m3-flex-container"
+            style={{
+                display: 'flex',
+                flex,
+                minHeight,
+                ...style,
+            }}
+            {...props}
+        >
+            {children}
+        </div>
+    ),
+    M3Aside: ({ children, flex, flexBasis, background, borderRight, zIndex, style, ...props }: any) => (
+        <aside
+            data-testid="m3-aside"
+            style={{
+                flex,
+                flexBasis,
+                background,
+                borderRight,
+                zIndex,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'stretch',
+                ...style,
+            }}
+            {...props}
+        >
+            {children}
+        </aside>
+    ),
+    AppLayout: ({ children }: any) => (
+        <div data-testid="app-layout">
+            {children}
+        </div>
+    ),
 }));
 
-// Mock useSettingsStore
-vi.mock('../../src/components/ui', () => ({
-    M3Surface: ({ children, ...props }: any) => (
-        <div data-testid="m3-surface" {...props}>{children}</div>
-    ),
-    M3Card: ({ children, onClick, className, ariaLabel }: any) => (
-        <div data-testid="m3-card" className={className} aria-label={ariaLabel} onClick={onClick}>{children}</div>
-    ),
-    M3HeroCard: ({ children }: any) => (
-        <div data-testid="m3-hero-card">{children}</div>
-    ),
-    M3Typography: ({ children, variant, style }: any) => (
-        <span data-testid="m3-typography" style={style}>{children}</span>
-    ),
-    M3Fab: ({ icon, label, ...props }: any) => (
-        <button data-testid="m3-fab" {...props}>{icon}{label}</button>
-    ),
-}));
-        });
-    }),
+// Mock AppLayout
+vi.mock('../../src/components/AppLayout.md3', () => ({
+  AppLayout: ({ children }: any) => (
+    <div data-testid="app-layout">
+      {children}
+    </div>
+  ),
 }));
 
 
 const mockOnNavigate = vi.fn();
 const mockDismissSuggestion = vi.fn();
-
-// Reset mocks and store state before each test
-import { useSystemStore } from '../../src/stores/useSystemStore';
-beforeEach(() => {
-    vi.clearAllMocks();
-    (useSystemStore as any).mockImplementation((selector: any) => selector(createSystemState()));
-});
 
 describe('Home Component', () => {
     it('renders main sections and quick actions', () => {

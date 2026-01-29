@@ -66,7 +66,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
   };
 
   return (
-    <div  style={{padding: 'var(--md-sys-spacing-6)', marginLeft: "auto", marginRight: "auto"}}>
+    <div  style={{padding: 'var(--md-sys-spacing-6)', marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)"}}>
       <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
         <h1 >Error Logs Dashboard</h1>
         {onClose && (
@@ -77,7 +77,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
       </div>
 
       {/* Stats Cards */}
-      <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-6)'}}>
+      <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-6)'}}>
         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Total Errors</div>
           <div  style={{fontWeight: "bold", color: "var(--md-sys-color-primary)"}}>{stats.total}</div>
@@ -99,7 +99,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
       {/* Type Breakdown */}
       <div style={{marginBottom: 'var(--md-sys-spacing-6)'}}>
         <h2  style={{marginBottom: 'var(--md-sys-spacing-6)'}}>By Type</h2>
-        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-6)'}}>
+        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
           {Object.entries(stats.byType).map(([type, count]) => (
             <div key={type} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)' , padding: 'var(--md-sys-spacing-6)'}}>
               <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
@@ -165,7 +165,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
       {/* Logs Table */}
       <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , border: "1px solid var(--md-sys-color-outline)"}}>
         <div style={{ overflowX: "auto" }}>
-          <table  style={{ width: "100%" }}>
+          <table  style={{ width: "var(--md-sys-percent-100)" }}>
             <thead style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
               <tr>
                 <th  style={{textAlign: "left", padding: 'var(--md-sys-spacing-6)'}}>Time</th>
@@ -178,7 +178,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
             <tbody >
               {filteredLogs.length > 0 ? (
                 filteredLogs.map((log) => (
-                  <tr key={log.id}  style={{ transition: "color 300ms" }}>
+                  <tr key={log.id}  style={{ transition: "color var(--md-sys-motion-duration-medium4)" }}>
                     <td  style={{padding: 'var(--md-sys-spacing-6)', whiteSpace: "nowrap"}}>
                       {new Date(log.timestamp).toLocaleTimeString()}
                     </td>

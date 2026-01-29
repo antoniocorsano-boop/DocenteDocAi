@@ -191,7 +191,7 @@ const M3Button: React.FC<M3ButtonProps> = ({
       {children && (
         <span
           style={{
-            flex: '1 1 auto',
+            flex: 'var(--md-sys-flex-1-1-auto)',
             textAlign: 'center',
             fontSize: labelLargeFontSize,
             fontWeight: labelLargeFontWeight,

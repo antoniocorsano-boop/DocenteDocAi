@@ -246,7 +246,7 @@ export const RichContent: Story = {
 export const SmallDialog: Story = {
   args: {
     title: 'Quick Confirmation',
-    maxWidth: 'sm',
+    maxWidth: 'var(--md-sys-max-width-sm)',
     children: 'This is a small dialog with constrained width.',
     onClose: () => console.log('Dialog closed'),
   },

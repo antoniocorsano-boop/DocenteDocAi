@@ -50,7 +50,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         alignItems: 'center',
                         justifyContent: 'center',
                         boxShadow: 'var(--md-sys-elevation-level1)',
-                        transition: 'transform var(--md-sys-motion-duration-short-4) ease',
+                        transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                         backgroundColor: variant === 'class' ? 'var(--md-sys-color-secondary-container)' :
                                        variant === 'subject' ? 'var(--md-sys-color-tertiary-container)' :
                                        'var(--md-sys-color-primary-container)',
@@ -93,9 +93,9 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                             fontSize: 'var(--md-sys-typescale-body-small-size)',
                             fontWeight: 'var(--md-sys-typescale-body-small-weight)',
                             lineHeight: 'var(--md-sys-typescale-body-small-line-height)',
-                            animation: 'zoom-in-95 var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-standard)-out',
+                            animation: 'zoom-in-95 var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)-out',
                             cursor: 'pointer',
-                            transition: 'all var(--md-sys-motion-duration-short-4) ease',
+                            transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                             border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
                         }}>
                             <span>{item}</span>
@@ -116,7 +116,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     opacity: '0.7',
-                                    transition: 'opacity var(--md-sys-motion-duration-short-4) ease'
+                                    transition: 'opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                                 }}
                             >
                                 <span style={{
@@ -142,13 +142,13 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                     border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                    transition: 'border-color var(--md-sys-motion-duration-short-4) ease'
+                    transition: 'border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                 }} onClick={() => inputRef.current?.focus()}>
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
                         fontSize: 'var(--md-sys-spacing-4)',
                         opacity: '0.6',
-                        transition: 'all var(--md-sys-motion-duration-medium-4) cubic-bezier(0.4, 0, 0.2, 1)',
+                        transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                         color: 'var(--md-sys-color-on-surface-variant)'
                     }} aria-hidden="true">add_circle</span>
                     <input 
@@ -184,7 +184,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                             alignItems: 'center',
                             justifyContent: 'center',
                             cursor: newItem.trim() ? 'pointer' : 'not-allowed',
-                            transition: 'all var(--md-sys-motion-duration-short-4) ease'
+                            transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                         }}
                         disabled={!newItem.trim()}
                     >

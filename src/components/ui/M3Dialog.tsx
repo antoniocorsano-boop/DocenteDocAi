@@ -172,7 +172,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
             backgroundColor: scrim,
             opacity: 0.32, // MD3 scrim opacity
             backdropFilter: `blur(var(--md-sys-blur-2xl))`, // MD3 glass blur
-            animation: 'fade-in 300ms ease-out'
+            animation: `fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-decelerated)`
           }}
           aria-hidden="true"
         />
@@ -193,7 +193,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
                 maxHeight: 'var(--md-sys-percent-90)'
               }
           ),
-          margin: 'auto',
+          margin: 'var(--md-sys-margin-auto)',
           backgroundColor: surfaceContainerHigh,
           borderRadius: cornerLarge,
           boxShadow: elevation3,
@@ -267,7 +267,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
                   backgroundColor: closeButtonHovered ? surfaceContainerHigh : 'transparent',
                   border: 'none',
                   cursor: 'pointer',
-                  transition: 'background-color 150ms ease'}}
+                  transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                 onMouseEnter={() => setCloseButtonHovered(true)}
                 onMouseLeave={() => setCloseButtonHovered(false)}
                 data-focus-priority="-1"

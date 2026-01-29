@@ -29,7 +29,7 @@ export const ViewLoadingPlaceholder: React.FC<ViewLoadingPlaceholderProps> = ({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '60vh',
+        minHeight: 'calc(0.6 * var(--md-sys-viewport-height-full))',
         gap: 'var(--md-sys-spacing-6)'
       }}
     >
@@ -45,7 +45,7 @@ export const MinimalViewLoading: React.FC = () => {
   return (
     <div  style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div style={{gap: 'var(--md-sys-spacing-4)', textAlign: "center"}}>
-        <div  style={{ width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', marginLeft: "auto", marginRight: "auto", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div  style={{ width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center" }}>
           <span  style={{fontSize: "var(--md-sys-typescale-headline-small-font-size)", color: "var(--md-sys-color-primary)"}}>hourglass_bottom</span>
         </div>
         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Caricamento...</p>

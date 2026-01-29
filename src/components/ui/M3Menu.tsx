@@ -64,9 +64,6 @@ export interface M3MenuProps {
   /** Max width of menu */
   maxWidth?: number | string;
   
-  /** Z-index */
-  zIndex?: number;
-  
   /** Custom className */
   className?: string;
 }
@@ -83,7 +80,6 @@ export const M3Menu: React.FC<M3MenuProps> = ({
   title,
   minWidth = 200,
   maxWidth = 320,
-  zIndex = 1300,
   className,
 }) => {
   const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -155,7 +151,6 @@ export const M3Menu: React.FC<M3MenuProps> = ({
       title={title}
       minWidth={minWidth}
       maxWidth={maxWidth}
-      zIndex={zIndex}
       showBackdrop={false}
     >
       <div role="menu"

@@ -11,6 +11,7 @@
 
 import React from 'react';
 import './SkipLink.css';
+import { M3Typography } from '../ui';
 
 /**
  * SkipLink - Keyboard accessibility component
@@ -57,7 +58,7 @@ export const SkipLink: React.FC = () => {
       onClick={handleSkipClick}
       aria-label="Skip to main content"
     >
-      Skip to main content
+      <M3Typography>Skip to main content</M3Typography>
     </a>
   );
 };

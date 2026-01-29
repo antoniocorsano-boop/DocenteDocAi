@@ -22,6 +22,7 @@ Tutti i file principali e legacy in `src/components` sono stati sottoposti ad au
 | StudentLoginScreen.tsx           | [SHA256] | Presente | MD3 Gold, solo token, audit 2026-01-25                 | —                                               |
 | StudentEPortfolioModal.tsx       | [SHA256] | Presente | MD3 Gold, solo token, audit 2026-01-25                 | —                                               |
 | StudentInterviewModal.tsx        | [SHA256] | Presente | MD3 compliant, solo token, audit 2026-01-25            | —                                               |
+| AnalyticsDashboard.tsx            | [SHA256] | Presente | MD3 Gold, refactor batch, clipPath per accessibilità   | —                                               |
 | Home.tsx                         | [SHA256] | Presente | MD3 Gold, refactor batch, policy exception documentata | Home.test.tsx, Home.integration.test.tsx        |
 | Snackbar.tsx                     | [SHA256] | Presente | MD3 Gold, solo token, audit 2026-01-25                 | Snackbar.stories.tsx, Snackbar.stories.test.tsx |
 | TemplateManager.tsx              | [SHA256] | Presente | MD3 compliant, refactor batch, audit 2026-01-25        | —                                               |

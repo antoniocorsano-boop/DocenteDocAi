@@ -89,7 +89,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                         activeTab={periodo}
                         onTabChange={(id) => setPeriodo(id as PeriodoValutazione)}
                         variant="primary"
-                        style={{ width: "100%" }}
+                        style={{ width: "var(--md-sys-percent-100)" }}
                     />
                 </div>
             </M3DialogContent>
@@ -121,7 +121,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                 </div>
 
                 <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
-                    <button onClick={handleGeneratePdf} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)", width: "100%", textAlign: "left" }}>
+                    <button onClick={handleGeneratePdf} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)", width: "var(--md-sys-percent-100)", textAlign: "left" }}>
                         <div ><span  style={{ transition: "transform var(--md-sys-motion-duration-medium-4)" }}>picture_as_pdf</span></div>
                         <div >
                             <p >Tabellone Dati (PDF)</p>

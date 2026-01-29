@@ -103,11 +103,11 @@ const Snackbar: React.FC = () => {
   return (
     <div
       style={{position: 'fixed',
-        left: '50%',
+        left: 'var(--md-sys-percent-50)',
         bottom: 'var(--md-sys-spacing-8)',
         transform: 'translateX(-50%)',
         minWidth: 'var(--md-sys-spacing-14)',
-        maxWidth: '90vw',
+        maxWidth: 'calc(0.9 * var(--md-sys-viewport-width-full))',
         padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-5) var(--md-sys-spacing-3) var(--md-sys-spacing-4)` ,
         borderRadius: 'var(--md-sys-shape-corner-medium)',
         boxShadow: 'var(--md-sys-elevation-level3)',
@@ -116,8 +116,8 @@ const Snackbar: React.FC = () => {
         gap: 'var(--md-sys-spacing-3)',
         backgroundColor: bg,
         color: color,
-        zIndex: 3000,
-        animation: 'snackbar-in 0.22s var(--md-sys-motion-easing-expressive) both',
+        zIndex: 'var(--z-snackbar)',
+        animation: 'snackbar-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-expressive) both',
         outline: isFocused ? `var(--md-sys-border-width-normal) solid ${primary}` : 'none',
         outlineOffset: isFocused ? 'var(--md-sys-spacing-2)' : '0'}}
       role="status"

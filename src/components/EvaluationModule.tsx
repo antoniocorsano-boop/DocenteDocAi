@@ -171,41 +171,41 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
 
     const renderEvaluationGrid = () => (
         <div
-            className="evaluation-grid-container"
+            style={{ overflowX: 'auto' }}
         >
             <table>
                 <thead>
-                    <tr className="evaluation-header-row">
+                    <tr>
                         <th
-                            className="evaluation-header-cell student-column"
+                            style={{ fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--md-sys-color-primary)', padding: 'var(--md-sys-spacing-2)' }}
                         >
-                            <M3Typography variant="label-large" className="evaluation-header-text">Studente</M3Typography>
+                            <M3Typography variant="label-large" style={{ fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--md-sys-color-primary)' }}>Studente</M3Typography>
                         </th>
                         <th
-                            className="evaluation-header-cell center-column"
+                            style={{ fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--md-sys-color-primary)', padding: 'var(--md-sys-spacing-2)', textAlign: 'center' }}
                         >
-                            <M3Typography variant="label-large" className="evaluation-header-text">Media</M3Typography>
+                            <M3Typography variant="label-large" style={{ fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--md-sys-color-primary)' }}>Media</M3Typography>
                         </th>
                         <th
-                            className="evaluation-header-cell center-column"
+                            style={{ fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--md-sys-color-primary)', padding: 'var(--md-sys-spacing-2)', textAlign: 'center' }}
                         >
-                            <M3Typography variant="label-large" className="evaluation-header-text">Trend</M3Typography>
+                            <M3Typography variant="label-large" style={{ fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--md-sys-color-primary)' }}>Trend</M3Typography>
                         </th>
                         {prove.map(p => (
                             <th
                                 key={p.id}
-                                className="evaluation-header-cell test-column"
+                                style={{ fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--md-sys-color-primary)', padding: 'var(--md-sys-spacing-2)' }}
                             >
-                                <div className="test-header-content">
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
                                     <div
-                                        className="test-badge"
+                                        style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-1)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-primary-container)', color: 'var(--md-sys-color-on-primary-container)', fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-small-font-size)', textTransform: 'uppercase', letterSpacing: '0.1em' }}
                                     >
-                                        <span className="test-icon">{getTestTypeIcon(p.tipo)}</span>
-                                        <M3Typography variant="label-small" className="test-date">{new Date(p.data).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' })}</M3Typography>
+                                        <span style={{ fontSize: 'var(--md-sys-typescale-headline-small-font-size)' }}>{getTestTypeIcon(p.tipo)}</span>
+                                        <M3Typography variant="label-small" style={{ fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-small-font-size)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--md-sys-color-on-primary-container)' }}>{new Date(p.data).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' })}</M3Typography>
                                     </div>
                                     <M3Typography
                                         variant="body-small"
-                                        className="test-title"
+                                        style={{ fontWeight: 700, color: 'var(--md-sys-color-on-surface)', textAlign: 'center' }}
                                         title={p.titolo}
                                     >
                                         {p.titolo}
@@ -214,7 +214,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             </th>
                         ))}
                         {prove.length === 0 && (
-                            <th className="evaluation-header-cell empty-state">
+                            <th style={{ fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--md-sys-color-primary)', padding: 'var(--md-sys-spacing-2)' }}>
                                 <M3Typography variant="body-medium">Nessuna prova</M3Typography>
                             </th>
                         )}
@@ -226,33 +226,33 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                         const trendIcon = performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat';
 
                         return (
-                            <tr key={student.id} className="student-row">
+                            <tr key={student.id} style={{ display: 'grid', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-surface-container-low)', transition: 'background-color var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-standard)' }}>
                                 <td
-                                    className="student-cell"
+                                    style={{ padding: 'var(--md-sys-spacing-2)', verticalAlign: 'middle' }}
                                 >
                                     <div
-                                        className="student-info-container"
+                                        style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', cursor: 'pointer' }}
                                         onClick={() => setViewingStudent(student)}
                                     >
-                                        <Avatar name={`${student.nome} ${student.cognome}`} size="sm" className="student-avatar" />
-                                        <M3Typography variant="body-medium" className="student-name">
+                                        <Avatar name={`${student.nome} ${student.cognome}`} size="sm" />
+                                        <M3Typography variant="body-medium" style={{ fontWeight: 700, color: 'var(--md-sys-color-on-surface)', padding: 'var(--md-sys-spacing-2)' }}>
                                             {student.cognome} {student.nome}
                                         </M3Typography>
                                     </div>
                                 </td>
-                                <td className="grade-cell">
+                                <td style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-surface)', fontWeight: 700, color: 'var(--md-sys-color-on-surface)', transition: 'transform var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-standard)', cursor: 'pointer' }}>
                                     {performance.grade ? (
                                         <div
-                                            className={`grade-badge ${parseFloat(performance.grade) < 6 ? 'grade-insufficient' : 'grade-sufficient'}`}
+                                            style={{ display: 'inline-block', minWidth: 'var(--md-sys-spacing-8)', textAlign: 'center', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: 700, backgroundColor: parseFloat(performance.grade) < 6 ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)', color: parseFloat(performance.grade) < 6 ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)' }}
                                         >
                                             {performance.grade}
                                         </div>
                                     ) : '-'}
                                 </td>
-                                <td className="trend-cell">
+                                <td style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface-variant)' }}>
                                     {performance.trend && (
                                         <span
-                                            className={`trend-icon trend-${performance.trend}`}
+                                            style={{ fontSize: 'var(--md-sys-typescale-headline-small-font-size)', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}
                                         >
                                             {trendIcon}
                                         </span>
@@ -267,38 +267,38 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                     return (
                                         <td
                                             key={p.id}
-                                            className="test-cell"
+                                            style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-surface)', fontWeight: 700, color: 'var(--md-sys-color-on-surface)', transition: 'transform var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-standard)', cursor: 'pointer' }}
                                             onClick={() => setEditingUnified({ student, prova: p })}
                                         >
                                             {voteValue ? (
                                                 <div
-                                                    className={`vote-badge ${isNegative ? 'vote-negative' : 'vote-positive'}`}
+                                                    style={{ display: 'inline-block', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-small-font-size)', textAlign: 'center', backgroundColor: isNegative ? 'var(--md-sys-color-error-container)' : parseFloat(voteValue) >= 9 ? 'var(--md-sys-color-tertiary-container)' : parseFloat(voteValue) >= 7 ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-secondary-container)', color: isNegative ? 'var(--md-sys-color-on-error-container)' : parseFloat(voteValue) >= 9 ? 'var(--md-sys-color-on-tertiary-container)' : parseFloat(voteValue) >= 7 ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-secondary-container)' }}
                                                 >
                                                     {voteValue}
                                                 </div>
                                             ) : (
                                                 <div
-                                                    className="add-vote-button"
+                                                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-spacing-6)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', cursor: 'pointer', fontSize: 'var(--md-sys-typescale-label-small-font-size)' }}
                                                 >
-                                                    <span className="add-icon">add</span>
+                                                    <span>add</span>
                                                 </div>
                                             )}
                                             {hasCompetencies && (
                                                 <div
-                                                    className="competency-badge"
+                                                    style={{ position: 'absolute', top: 'var(--md-sys-spacing-1)', right: 'var(--md-sys-spacing-1)', width: 'var(--md-sys-spacing-3)', height: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-tertiary)', border: 'var(--md-sys-border-width-medium) solid var(--md-sys-color-surface)' }}
                                                     title="Competenze valutate"
                                                 />
                                             )}
                                         </td>
                                     );
                                 })}
-                                {prove.length === 0 && <td className="empty-cell">-</td>}
+                                {prove.length === 0 && <td style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-2)' }}>-</td>}
                             </tr>
                         );
                     })}
                     {filteredStudents.length === 0 && (
                         <tr>
-                            <td colSpan={prove.length + 3} className="empty-state-cell">
+                            <td colSpan={prove.length + 3} style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-8)' }}>
                                 <EmptyState title="Nessuno studente" description="Questa classe non ha studenti." icon="group_off" />
                             </td>
                         </tr>
@@ -309,7 +309,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     );
 
     const renderSummaryView = () => (
-        <div className="summary-view-grid">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-card-width), var(--md-sys-grid-fr-1)))', gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-4)' }}>
             {filteredStudents.map(student => {
                 const performance = calculatePerformance(student.id, 'Complessivo', evaluations);
                 const trendIcon = performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat';
@@ -319,32 +319,32 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                 return (
                     <div
                         key={student.id}
-                        className="summary-student-card"
+                        style={{ padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', border: '1px solid var(--md-sys-color-outline)', transition: 'all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)', cursor: 'pointer' }}
                         onClick={() => setViewingStudent(student)}
                     >
-                        <div className="summary-card-header">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-4)' }}>
                             <Avatar name={`${student.nome} ${student.cognome}`} size="lg" />
-                            <div className="summary-student-info">
-                                <M3Typography variant="headline-small" className="summary-student-name">
+                            <div style={{ flex: 1 }}>
+                                <M3Typography variant="headline-small" style={{ fontWeight: 900, color: 'var(--md-sys-color-on-surface)', marginBottom: 'var(--md-sys-spacing-2)' }}>
                                     {student.cognome} {student.nome}
                                 </M3Typography>
-                                <div className="summary-badges">
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-2)' }}>
                                     <div
-                                        className={`summary-grade-badge ${isInsufficient ? 'grade-insufficient' : 'grade-sufficient'}`}
+                                        style={{ display: 'inline-block', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-small-font-size)', textTransform: 'uppercase', letterSpacing: '0.1em', backgroundColor: isInsufficient ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)', color: isInsufficient ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)' }}
                                     >
                                         Media: {performance.grade || 'N/D'}
                                     </div>
                                     {performance.trend && (
                                         <div
-                                            className={`summary-trend-badge trend-${performance.trend}`}
+                                            style={{ display: 'inline-block', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-small-font-size)', textTransform: 'uppercase', letterSpacing: '0.1em', backgroundColor: performance.trend === 'up' ? 'var(--md-sys-color-tertiary-container)' : performance.trend === 'down' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-secondary-container)', color: performance.trend === 'up' ? 'var(--md-sys-color-on-tertiary-container)' : performance.trend === 'down' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-secondary-container)' }}
                                         >
-                                            <span className="trend-icon">{trendIcon}</span>
+                                            <span style={{ fontSize: 'var(--md-sys-typescale-headline-small-font-size)' }}>{trendIcon}</span>
                                             {performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile'}
                                         </div>
                                     )}
                                 </div>
                             </div>
-                            <span className="summary-chevron">chevron_right</span>
+                            <span style={{ fontSize: 'var(--md-sys-typescale-headline-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>chevron_right</span>
                         </div>
                     </div>
                 );
@@ -358,27 +358,27 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     );
 
     const renderRiskView = () => (
-        <div className="risk-view-grid">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-4)' }}>
             {atRiskStudents.length > 0 ? atRiskStudents.map(student => {
                 const { grade } = calculatePerformance(student.id, 'Complessivo', evaluations);
                 return (
                     <div
                         key={student.id}
-                        className="risk-student-card"
+                        style={{ padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-error-container)', border: 'var(--md-sys-border-width-medium) solid var(--md-sys-color-error)' }}
                     >
-                        <div className="risk-card-icon-container">
-                            <span className="risk-icon">warning</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)' }}>
+                            <span style={{ color: 'var(--md-sys-color-error)', fontSize: 'var(--md-sys-typescale-headline-medium-font-size)' }}>warning</span>
                         </div>
 
-                        <div className="risk-card-content">
-                            <div className="risk-student-header">
-                                <div className="risk-student-info-row">
+                        <div style={{ paddingTop: 'var(--md-sys-spacing-3)', borderTop: 'var(--md-sys-spacing-0) solid var(--md-sys-color-shadow)', marginTop: 'var(--md-sys-spacing-3)' }}>
+                            <div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-2)' }}>
                                     <Avatar name={`${student.nome} ${student.cognome}`} size="lg" />
                                     <div>
-                                        <M3Typography variant="headline-small" className="risk-student-name">
+                                        <M3Typography variant="headline-small" style={{ fontWeight: 900, color: 'var(--md-sys-color-on-error-container)', marginBottom: 'var(--md-sys-spacing-2)' }}>
                                             {student.cognome} {student.nome}
                                         </M3Typography>
-                                        <M3Typography variant="body-small" className="risk-class-label">
+                                        <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-error-container)', opacity: 0.8 }}>
                                             Classe {student.classe}
                                         </M3Typography>
                                     </div>
@@ -386,25 +386,25 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             </div>
 
                             <div
-                                className="risk-grade-badge"
+                                style={{ display: 'inline-block', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-small-font-size)', textTransform: 'uppercase', letterSpacing: '0.1em', backgroundColor: 'var(--md-sys-color-surface-container-low)', color: 'var(--md-sys-color-on-surface)', marginBottom: 'var(--md-sys-spacing-3)' }}
                             >
                                 Media insufficiente: {grade}
                             </div>
 
-                            <M3Typography variant="body-medium" className="risk-description">
+                            <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-error-container)', marginBottom: 'var(--md-sys-spacing-3)' }}>
                                 Situazione critica rilevata. È consigliata l&apos;attivazione di misure di recupero personalizzate.
                             </M3Typography>
 
-                            <div className="risk-actions">
+                            <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-3)' }}>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); onOpenInclusionPlanEditor(student); }}
-                                    className="risk-button-primary"
+                                    style={{ flex: 1, padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-error)', color: 'var(--md-sys-color-on-error)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', fontSize: 'var(--md-sys-typescale-label-small-font-size)', border: 'none', cursor: 'pointer', transition: 'background-color var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-standard)' }}
                                 >
                                     Piano Inclusione
                                 </button>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); setViewingStudent(student); }}
-                                    className="risk-button-secondary"
+                                    style={{ flex: 1, padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-surface-container-highest)', color: 'var(--md-sys-color-on-surface)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', fontSize: 'var(--md-sys-typescale-label-small-font-size)', border: 'none', cursor: 'pointer', transition: 'background-color var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-standard)' }}
                                 >
                                     Analizza
                                 </button>
@@ -413,10 +413,10 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     </div>
                 );
             }) : (
-                <div className="risk-empty-state">
-                    <span className="risk-empty-icon">verified_user</span>
-                    <M3Typography variant="headline-small" className="risk-empty-title">Nessuna criticità</M3Typography>
-                    <M3Typography variant="body-medium" className="risk-empty-description">
+                <div style={{ padding: 'var(--md-sys-spacing-8)', textAlign: 'center', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                    <span style={{ fontSize: 'var(--md-sys-typescale-display-large-font-size)', color: 'var(--md-sys-color-tertiary)', marginBottom: 'var(--md-sys-spacing-4)', display: 'block' }}>verified_user</span>
+                    <M3Typography variant="headline-small" style={{ fontWeight: 900, color: 'var(--md-sys-color-on-surface)', marginBottom: 'var(--md-sys-spacing-2)' }}>Nessuna criticità</M3Typography>
+                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>
                         Tutti gli studenti mantengono una media sufficiente.
                     </M3Typography>
                 </div>
@@ -425,35 +425,35 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     );
 
     return (
-        <div className="evaluation-module-container">
-            <div className="module-header">
+        <div style={{ padding: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-4)' }}>
                 <div>
-                    <M3Typography variant="headline-large" className="module-title">
+                    <M3Typography variant="headline-large" style={{ fontWeight: 900, letterSpacing: 'var(--md-sys-typescale-headline-large-tracking)', color: 'var(--md-sys-color-on-surface)' }}>
                         Registro Valutazioni
                     </M3Typography>
-                    <M3Typography variant="body-large" className="module-subtitle">
+                    <M3Typography variant="body-large" style={{ fontWeight: 500, marginTop: 'var(--md-sys-spacing-1)', opacity: 0.7, color: 'var(--md-sys-color-on-surface-variant)' }}>
                         Gestione voti, competenze e monitoraggio performance
                     </M3Typography>
                 </div>
 
                 <div
-                    className="module-controls"
+                    style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-3)', backgroundColor: 'var(--md-sys-color-surface-container-low)', border: '1px solid var(--md-sys-color-outline)' }}
                 >
                     <div
-                        className="class-selector"
+                        style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', border: '1px solid var(--md-sys-color-outline)' }}
                     >
-                        <span className="class-icon">class</span>
+                        <span style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)' }}>class</span>
                         <select
                             id="class-select"
                             value={selectedClass}
                             onChange={e => setSelectedClass(e.target.value)}
-                            className="class-select"
+                            style={{ color: 'var(--md-sys-color-on-surface)', backgroundColor: 'transparent', fontWeight: 900, fontSize: 'var(--md-sys-typescale-body-small-font-size)', textTransform: 'uppercase', letterSpacing: '0.1em', border: 'none', cursor: 'pointer' }}
                         >
                             {userClasses.map(c => (
                                 <option
                                     key={c}
                                     value={c}
-                                    className="class-option"
+                                    style={{ color: 'var(--md-sys-color-on-surface)', backgroundColor: 'var(--md-sys-color-surface)' }}
                                 >
                                     {c}
                                 </option>
@@ -461,19 +461,19 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                         </select>
                     </div>
 
-                    <div className="action-buttons">
+                    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
                         <button
                             onClick={() => setIsAddProvaModalOpen(true)}
-                            className="action-button-primary"
+                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', transition: 'all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', border: 'none', cursor: 'pointer' }}
                         >
-                            <span className="button-icon">add</span>
+                            <span style={{ fontSize: 'var(--md-sys-typescale-headline-small-font-size)' }}>add</span>
                             Nuova Prova
                         </button>
                         <button
                             onClick={() => setIsExportModalOpen(true)}
-                            className="action-button-secondary"
+                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-highest)', color: 'var(--md-sys-color-on-surface)', borderRadius: 'var(--md-sys-shape-corner-large)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', transition: 'all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', border: 'none', cursor: 'pointer' }}
                         >
-                            <span className="button-icon">download</span>
+                            <span style={{ fontSize: 'var(--md-sys-typescale-headline-small-font-size)' }}>download</span>
                             Esporta
                         </button>
                     </div>
@@ -481,22 +481,22 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
             </div>
 
             <div
-                className="view-container"
+                style={{ borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid var(--md-sys-color-outline)', backgroundColor: 'var(--md-sys-color-surface)' }}
             >
                 <div
-                    className="view-header"
+                    style={{ padding: 'var(--md-sys-spacing-2)', borderBottom: '1px solid var(--md-sys-color-outline)', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}
                 >
-                    <div className="view-header-content">
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-3)' }}>
                         <div>
-                            <M3Typography variant="headline-medium" className="view-title">
+                            <M3Typography variant="headline-medium" style={{ fontWeight: 900, letterSpacing: 'var(--md-sys-typescale-headline-medium-tracking)', color: 'var(--md-sys-color-on-surface)' }}>
                                 Valutazione Unificata
                             </M3Typography>
-                            <M3Typography variant="body-small" className="view-subtitle">
+                            <M3Typography variant="body-small" style={{ fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.6, marginTop: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>
                                 Griglia voti e competenze trasversali
                             </M3Typography>
                         </div>
                         <div
-                            className="tabs-container"
+                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-1)', borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', border: '1px solid var(--md-sys-color-outline)' }}
                         >
                             {[
                                 { id: 'grid', label: 'Griglia', icon: 'grid_on' },
@@ -506,22 +506,22 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id as ViewTab)}
-                                    className={`tab-button ${activeTab === tab.id ? 'tab-active' : ''}`}
+                                    style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-small-font-size)', textTransform: 'uppercase', letterSpacing: '0.1em', transition: 'all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)', backgroundColor: activeTab === tab.id ? 'var(--md-sys-color-primary)' : 'transparent', color: activeTab === tab.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)', border: 'none', cursor: 'pointer', position: 'relative' }}
                                 >
-                                    <span className="tab-icon">{tab.icon}</span>
+                                    <span style={{ fontSize: 'var(--md-sys-typescale-headline-small-font-size)' }}>{tab.icon}</span>
                                     {tab.label}
                                     {tab.badge && (
                                         <div
                                             style={{
                                                 backgroundColor: 'var(--md-sys-color-error)',
                                                 color: 'var(--md-sys-color-on-error)',
-                                                width: '20',
-                                                height: '20',
+                                                width: 'var(--md-sys-spacing-5)',
+                                                height: 'var(--md-sys-spacing-5)',
                                                 borderRadius: 'var(--md-sys-shape-corner-small)',
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
-                                                fontSize: 'var(--md-sys-typescale-body-small-size)',
+                                                fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                                                 fontWeight: 'bold',
                                                 position: 'absolute',
                                                 top: 'calc(-1 * var(--md-sys-spacing-2))',

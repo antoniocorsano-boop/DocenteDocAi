@@ -204,7 +204,7 @@
     display: grid;
     gap: var(--md-sys-spacing-2);
     padding-bottom: var(--md-sys-spacing-2);
-    border-bottom: 2px solid var(--md-sys-color-primary);
+    border-bottom: var(--md-sys-border-width-medium) solid var(--md-sys-color-primary);
 }
 
 .evaluation-header-cell {
@@ -300,7 +300,7 @@
 /* Summary View */
 .summary-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(var(--md-sys-layout-card-width), 1fr));
     gap: var(--md-sys-spacing-4);
     padding: var(--md-sys-spacing-4);
 }
@@ -369,7 +369,7 @@
     padding: var(--md-sys-spacing-4);
     border-radius: var(--md-sys-shape-corner-large);
     background-color: var(--md-sys-color-error-container);
-    border: 2px solid var(--md-sys-color-error);
+    border: var(--md-sys-border-width-medium) solid var(--md-sys-color-error);
 }
 
 .risk-warning-header {

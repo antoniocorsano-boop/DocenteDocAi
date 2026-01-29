@@ -75,7 +75,7 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
             maxWidth="2xl"
             mode="fullscreen"
         >
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", height: "var(--md-sys-percent-100)" }}>
                 <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30 }}>
                     <div style={{padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-8)'}}>
                         <div >
@@ -89,13 +89,13 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                             />
                         </div>
                         
-                        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
+                        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                             {/* Sezione Selezione */}
                             <div  style={{gap: 'var(--md-sys-spacing-4)'}}>
                                 <SectionHeader title="Criteri di Competenza" icon="checklist" variant="primary" />
                                  <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-8)'}}>
                                     {allCompetenze.map(comp => (
-                                         <div key={comp.id}  style={{width: "100%", marginBottom: 'var(--md-sys-spacing-4)'}}>
+                                         <div key={comp.id}  style={{width: "var(--md-sys-percent-100)", marginBottom: 'var(--md-sys-spacing-4)'}}>
                                             <input
                                                 type="checkbox"
                                                 id={`comp-check-${comp.id}`}
@@ -103,7 +103,7 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                                 onChange={() => handleCompetenzaToggle(comp)}
                                             />
                                             <label htmlFor={`comp-check-${comp.id}`} style={{
-                                                width: '100%',
+                                                width: 'var(--md-sys-percent-100)',
                                                 justifyContent: 'flex-start',
                                                 height: 'var(--md-sys-spacing-12)', // MD3 spacing token
                                                 borderRadius: 'var(--md-sys-shape-corner-large)',
@@ -136,7 +136,7 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                                 <h4 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>{competenza.nome}</h4>
                                             </div>
                                             
-                                            <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
+                                            <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                                                 {competenza.livelli.map(level => {
                                                     const indicatore = criterio.indicatori.find(ind => ind.livelloId === level.id);
                                                     return (

@@ -118,7 +118,7 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                 <div >
                     {selectedSubmission ? (
                         <div >
-                            <div  style={{ marginLeft: "auto", marginRight: "auto" }}>
+                            <div  style={{ marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)" }}>
                                 <HomeworkSubmissionCard
                                     submission={selectedSubmission}
                                     student={getStudentDisplay(selectedSubmission.studentId).obj!}

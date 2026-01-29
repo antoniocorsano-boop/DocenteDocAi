@@ -171,7 +171,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                             tabs={[{ id: 'file', label: 'Carica File' }, { id: 'kb', label: 'Da Knowledge Base' }]}
                             activeTab={importSource}
                             onChange={(id: string) => setImportSource(id as 'file' | 'kb')}
-                            style={{ width: "100%" }}
+                            style={{ width: "var(--md-sys-percent-100)" }}
                         />
 
                         {importSource === 'file' ? (
@@ -301,7 +301,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                             Il sistema ha tentato di associare automaticamente le colonne. Verifica o correggi le associazioni.
                         </p>
 
-                        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
+                        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                             <SelectField
                                 id="map-cognome"
                                 label="Colonna COGNOME"
@@ -338,7 +338,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         <div>
                             <h4  style={{textTransform: "uppercase", color: "var(--md-sys-color-primary)", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Anteprima Dati (Prime 3 righe)</h4>
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , overflowX: "auto", border: "1px solid var(--md-sys-color-outline)"}}>
-                                <table style={{ width: "100%", fontSize: "var(--md-sys-typescale-body-medium-size)", textAlign: "left" }}>
+                                <table style={{ width: "var(--md-sys-percent-100)", fontSize: "var(--md-sys-typescale-body-medium-size)", textAlign: "left" }}>
                                     <thead style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' ,  fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", fontWeight: "bold" }}>
                                         <tr>
                                             {csvHeaders.map(h => <th key={h}  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', whiteSpace: "nowrap"}}>{h}</th>)}
@@ -379,7 +379,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         )}
 
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , overflowY: "auto", border: "1px solid var(--md-sys-color-outline)"}}>
-                            <table style={{ width: "100%", fontSize: "var(--md-sys-typescale-body-medium-size)", textAlign: "left" }}>
+                            <table style={{ width: "var(--md-sys-percent-100)", fontSize: "var(--md-sys-typescale-body-medium-size)", textAlign: "left" }}>
                                 <thead style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' ,  fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", fontWeight: "bold" }}>
                                     <tr>
                                         <th  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Cognome</th>

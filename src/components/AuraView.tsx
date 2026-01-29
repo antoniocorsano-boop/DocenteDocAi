@@ -1,5 +1,6 @@
-// MD3 Compliant - Block J Migration Complete (1 violation eliminated)
-// Note: maxWidth: calc(var(--md-sys-spacing-20) * 16) used for functional layout constraint with MD3 spacing token
+// MD3 Gold Compliant - Block J Migration Complete (4 violations eliminated)
+// Replaced margin auto centering with flexbox centering, calc expression with layout token
+// Note: maxWidth uses var(--md-sys-layout-max-width) for functional layout constraint with MD3 layout token
 import React from 'react';
 
 interface AuraViewProps {
@@ -20,13 +21,15 @@ const AuraView: React.FC<AuraViewProps> = ({ children, fullWidth = false }) => {
     return (
         <div 
             style={{
-                marginLeft: 'auto',
-                marginRight: 'auto',
+                display: 'flex',
+                justifyContent: 'center',
                 width: 'var(--md-sys-percent-100)',
-                ...(fullWidth ? {} : { maxWidth: 'calc(var(--md-sys-spacing-20) * 16)' })
+                ...(fullWidth ? {} : { maxWidth: 'var(--md-sys-layout-max-width)' })
             }}
         >
-            {children}
+            <div style={{ width: 'var(--md-sys-percent-100)' }}>
+                {children}
+            </div>
         </div>
     );
 };

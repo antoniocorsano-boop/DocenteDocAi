@@ -133,6 +133,67 @@ echo "✅ THEME Governance check passed!"
 echo ""
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# PHASE 8 - PATTERN-BASED MD3 VIOLATION DETECTION
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+echo "🔍 Running MD3 Pattern Violation Scan..."
+
+# Get staged content for pattern analysis
+STAGED_CONTENT=$(git diff --cached --name-only | xargs -I {} sh -c 'git show :{}' | cat 2>/dev/null || true)
+
+if [ -n "$STAGED_CONTENT" ]; then
+    # Pattern: Hardcoded percentages (excluding MD3 tokens)
+    if echo "$STAGED_CONTENT" | grep -q "[^a-z-][0-9]\+%[^a-z-]" | grep -v "var(--md-sys-percent-"; then
+        echo "❌ FORBIDDEN: Hardcoded percentage values detected"
+        echo "🚫 Use: var(--md-sys-percent-*) tokens only"
+        echo "📖 Reference: MD3_GOLD_MANIFESTO.md"
+        exit 1
+    fi
+
+    # Pattern: Hardcoded viewport units
+    if echo "$STAGED_CONTENT" | grep -q "[0-9]\+\(vh\|vw\|vmin\|vmax\)"; then
+        echo "❌ FORBIDDEN: Hardcoded viewport units detected"
+        echo "🚫 Use: var(--md-sys-viewport-*) tokens only"
+        echo "📖 Reference: MD3_GOLD_MANIFESTO.md"
+        exit 1
+    fi
+
+    # Pattern: Hardcoded motion durations/easings
+    if echo "$STAGED_CONTENT" | grep -q "\b[0-9]\+\(\.[0-9]\+\)\?\(ms\|s\)\b\|\bease\b\|\bease-in\b\|\bease-out\b\|\bease-in-out\b\|\blinear\b" | grep -v "var(--md-sys-motion-"; then
+        echo "❌ FORBIDDEN: Hardcoded motion values detected"
+        echo "🚫 Use: var(--md-sys-motion-*) tokens only"
+        echo "📖 Reference: MD3_GOLD_MANIFESTO.md"
+        exit 1
+    fi
+
+    # Pattern: Hardcoded z-index values
+    if echo "$STAGED_CONTENT" | grep -q "z-index:\s*[0-9]\+" | grep -v "var(--md-sys-z-"; then
+        echo "❌ FORBIDDEN: Hardcoded z-index values detected"
+        echo "🚫 Use: var(--md-sys-z-*) tokens only"
+        echo "📖 Reference: MD3_GOLD_MANIFESTO.md"
+        exit 1
+    fi
+
+    # Pattern: Hardcoded grid fr units
+    if echo "$STAGED_CONTENT" | grep -q "[0-9]\+fr" | grep -v "var(--md-sys-grid-fr-"; then
+        echo "❌ FORBIDDEN: Hardcoded grid fr units detected"
+        echo "🚫 Use: var(--md-sys-grid-fr-*) tokens only"
+        echo "📖 Reference: MD3_GOLD_MANIFESTO.md"
+        exit 1
+    fi
+
+    # Pattern: margin: auto
+    if echo "$STAGED_CONTENT" | grep -q "margin:\s*auto" | grep -v "var(--md-sys-margin-auto)"; then
+        echo "❌ FORBIDDEN: margin: auto detected"
+        echo "🚫 Use: var(--md-sys-margin-auto) token only"
+        echo "📖 Reference: MD3_GOLD_MANIFESTO.md"
+        exit 1
+    fi
+fi
+
+echo "✅ Pattern-based MD3 violation scan passed!"
+echo ""
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # PRE-COMMIT SUMMARY
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

@@ -34,9 +34,9 @@ const ContextualStrip: React.FC<ContextualStripProps> = ({ message, actionLabel,
         margin: 'var(--md-sys-spacing-8) 0',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(var(--md-sys-spacing-6))',
-        transition: 'opacity 0.4s, transform 0.4s',
+        transition: 'opacity var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard), transform var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard)',
         pointerEvents: visible ? 'auto' : 'none',
-        zIndex: 1000
+        zIndex: 'var(--z-nav)'
     };
 
     return (

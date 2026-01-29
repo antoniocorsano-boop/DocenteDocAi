@@ -330,7 +330,7 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({ selec
         backgroundColor: layers.sys.color.surface,
         padding: spacing['4'],
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(calc(var(--md-sys-spacing-20) * 3.125), 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(calc(var(--md-sys-spacing-20) * 3.125), var(--md-sys-grid-fr-1)))',
         gap: spacing['4']
       }}
     >

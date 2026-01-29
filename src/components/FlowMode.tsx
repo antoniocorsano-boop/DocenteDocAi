@@ -140,7 +140,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
 
 
     return (
-        <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', display: "flex", flexDirection: "column", height: "100%" }}>
+        <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', display: "flex", flexDirection: "column", height: "var(--md-sys-percent-full)" }}>
             
             {/* --- HEADER (Minimal) --- */}
             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container)', display: "flex", justifyContent: "space-between", alignItems: "center", padding: 'var(--md-sys-spacing-6)', borderBottom: "1px solid var(--md-sys-color-outline)"}}>
@@ -150,7 +150,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                 </div>
                 <button onClick={onOpenOperations} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-on-primary-container)", transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)", border: "1px solid var(--md-sys-color-outline)"}}>
                     {}
-                    <span  style={{ fontSize: "1rem" }}>bolt</span>
+                    <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>bolt</span>
                     {}
                 </button>
             </div>
@@ -181,7 +181,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                 
                                 <div  style={{marginBottom: 'var(--md-sys-spacing-6)', fontWeight: "900", color: "var(--md-sys-color-primary)", textTransform: "uppercase", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                     <span  style={{ display: "flex", height: "var(--md-sys-spacing-2)", width: "var(--md-sys-spacing-2)" }}>
-                                        <span  style={{display: "inline-flex", height: "100%", width: "100%", borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", opacity: "0.75"}}></span>
+                                        <span  style={{display: "inline-flex", height: "var(--md-sys-percent-full)", width: "var(--md-sys-percent-full)", borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", opacity: "0.75"}}></span>
                                         <span  style={{display: "inline-flex", borderRadius: 'var(--md-sys-spacing-4)', height: "var(--md-sys-spacing-2)", width: "var(--md-sys-spacing-2)", backgroundColor: "var(--md-sys-color-primary)"}}></span>
                                     </span>
                                     ADESSO • {item.time}
@@ -201,8 +201,8 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                         </div>
                                     </div>
                                     {item.actionLabel && (
-                                        <button onClick={item.onAction} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "100%", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', backgroundColor: "white", color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900", fontSize: "var(--md-sys-typescale-label-small-font-size)", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)"}}>
-                                            {item.actionLabel} {}<span  style={{ marginLeft: "var(--md-sys-spacing-2)", fontSize: "1rem" }}>arrow_forward</span>{}
+                                        <button onClick={item.onAction} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "var(--md-sys-percent-full)", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', backgroundColor: "white", color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900", fontSize: "var(--md-sys-typescale-label-small-size)", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)"}}>
+                                            {item.actionLabel} {}<span  style={{ marginLeft: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-medium-size)" }}>arrow_forward</span>{}
                                         </button>
                                     )}
                                 </div>
@@ -250,24 +250,24 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
             </div>
 
             {/* --- MAGIC BOTTOM BAR (Floating) --- */}
-            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-6)'}}>
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 0.8, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)' , marginLeft: "auto", marginRight: "auto", border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-6)', display: 'flex', justifyContent: 'center' }}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 0.8, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)', border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)' }}>
                     
                     <button onClick={() => actions.handleNavigate('settings')} style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)" }}>
                         {}
-                        <span  style={{ fontSize: "1rem" }}>settings</span>
+                        <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>settings</span>
                         {}
                     </button>
 
-                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50, color: 'var(--md-sys-color-on-surface-variant)'/60 , flexGrow: "1", borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", fontSize: "var(--md-sys-typescale-label-medium-font-size)", fontWeight: "bold", border: "1px solid var(--md-sys-color-outline)", transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)"}} onClick={onOpenLiveAssistant}>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.5, color: 'var(--md-sys-color-on-surface-variant)', flexGrow: "1", borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", fontSize: "var(--md-sys-typescale-label-medium-size)", fontWeight: "bold", border: "1px solid var(--md-sys-color-outline)", transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)"}} onClick={onOpenLiveAssistant}>
                         Chiedi all'assistente...
                     </div>
 
                     <VoiceNoteRecorder onTranscription={(text) => handleAddNote({ note: text })} compact />
                     
-                    <button onClick={() => actions.handleNavigate('progettazione-hub')}  style={{width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                    <button onClick={() => actions.handleNavigate('progettazione-hub')}  style={{width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)", display: "flex", alignItems: "center", justifyContent: "center"}}>
                         {}
-                        <span  style={{ fontSize: "1rem" }}>add</span>
+                        <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>add</span>
                         {}
                     </button>
                 </div>

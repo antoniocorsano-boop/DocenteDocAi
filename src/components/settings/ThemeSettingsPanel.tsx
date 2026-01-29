@@ -32,7 +32,10 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       borderRadius: 'var(--md-sys-shape-corner-large)',
       boxShadow: 'var(--md-sys-elevation-level-2)',
       maxWidth: 'var(--md-sys-layout-panel-max-width)',
-      margin: '0 auto'
+      marginTop: 0,
+      marginLeft: 'var(--md-sys-margin-auto)',
+      marginBottom: 0,
+      marginRight: 'var(--md-sys-margin-auto)'
     }}>
       <h2 style={{
         fontFamily: 'var(--md-sys-typescale-headline-small-font)',
@@ -73,7 +76,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         }}>Color Overrides (MD3 System Colors)</h3>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min-wide), 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min-wide), var(--md-sys-grid-fr-1)))',
           gap: 'var(--md-sys-spacing-2)',
           marginTop: 'var(--md-sys-spacing-2)'
         }}>
@@ -99,7 +102,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 marginBottom: 'var(--md-sys-spacing-1)'
               }}>{label}</label>
               <div style={{
-                width: '100%',
+                width: 'var(--md-sys-percent-100)',
                 height: 'var(--md-sys-spacing-6)',
                 backgroundColor: value,
                 border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
@@ -129,7 +132,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         }}>Typography Scale (MD3 System)</h3>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min-wide), 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min-wide), var(--md-sys-grid-fr-1)))',
           gap: 'var(--md-sys-spacing-2)',
           marginTop: 'var(--md-sys-spacing-2)'
         }}>
@@ -181,7 +184,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         }}>Spacing Scale (MD3 System)</h3>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min), 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min), var(--md-sys-grid-fr-1)))',
           gap: 'var(--md-sys-spacing-2)',
           marginTop: 'var(--md-sys-spacing-2)'
         }}>
@@ -207,7 +210,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 marginBottom: 'var(--md-sys-spacing-1)'
               }}>{label}</label>
               <div style={{
-                width: '100%',
+                width: 'var(--md-sys-percent-100)',
                 height: value,
                 backgroundColor: 'var(--md-sys-color-primary)',
                 borderRadius: 'var(--md-sys-shape-corner-small)',
@@ -228,15 +231,15 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         }}>Motion & Easing (MD3 System)</h3>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min), 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min), var(--md-sys-grid-fr-1)))',
           gap: 'var(--md-sys-spacing-2)',
           marginTop: 'var(--md-sys-spacing-2)'
         }}>
           {[
             { key: 'easing-standard', label: 'Standard', value: 'var(--md-sys-motion-easing-standard)' },
             { key: 'easing-emphasized', label: 'Emphasized', value: 'var(--md-sys-motion-easing-emphasized)' },
-            { key: 'duration-short', label: 'Short (200ms)', value: 'var(--md-sys-motion-duration-short)' },
-            { key: 'duration-medium', label: 'Medium (300ms)', value: 'var(--md-sys-motion-duration-medium)' }
+            { key: 'duration-short', label: 'Short Duration', value: 'var(--md-sys-motion-duration-short)' },
+            { key: 'duration-medium', label: 'Medium Duration', value: 'var(--md-sys-motion-duration-medium)' }
           ].map(({ key, label, value }) => (
             <div key={key} style={{
               padding: 'var(--md-sys-spacing-2)',

@@ -145,7 +145,7 @@ export const PositionedTop: Story = {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     
     return (
-      <div style={{ padding: 'calc(var(--md-sys-spacing-8)*2) var(--md-sys-spacing-8) var(--md-sys-spacing-8) var(--md-sys-spacing-8)' }}>
+      <div style={{ padding: 'var(--md-sys-spacing-16) var(--md-sys-spacing-8) var(--md-sys-spacing-8) var(--md-sys-spacing-8)' }}>
         <M3Button
           variant="primary"
           onClick={(e) => setAnchorEl(e.currentTarget)}

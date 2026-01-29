@@ -20,7 +20,7 @@ const ManualSection: React.FC<{ title: string; icon: string; defaultOpen?: boole
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 style={{
-                    width: '100%',
+                    width: 'var(--md-sys-percent-100)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
@@ -28,7 +28,7 @@ const ManualSection: React.FC<{ title: string; icon: string; defaultOpen?: boole
                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
                     border: 'none',
                     cursor: 'pointer',
-                    transition: 'background-color 0.2s ease'
+                    transition: 'background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)'}
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-low)'}
@@ -48,7 +48,7 @@ const ManualSection: React.FC<{ title: string; icon: string; defaultOpen?: boole
                 <span style={{
                     fontFamily: 'Material Symbols Outlined',
                     color: 'var(--md-sys-color-on-surface-variant)',
-                    transition: 'transform 0.2s ease',
+                    transition: 'transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                     transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
                 }}>expand_more</span>
             </button>
@@ -479,7 +479,7 @@ const DigitalTeacherManual = () => {
             <ManualSection title="3. Visione Strategica per Stakeholders" icon="campaign">
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
+                    gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
                     gap: 'var(--md-sys-spacing-4)',
                     '@media (max-width: var(--md-sys-breakpoint-tablet))': {
                         gridTemplateColumns: 'var(--md-sys-grid-fr-1)'
@@ -906,7 +906,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                 marginTop: 'var(--md-sys-spacing-2)'
             }}>{children}</M3Typography>
             {actionView && actionView !== 'home' && (
-                <div style={{ width: '100%' }}>
+                <div style={{ width: 'var(--md-sys-percent-100)' }}>
                     <M3Button
                         onClick={() => { onClose(); onNavigate(actionView); }}
                         variant="tonal"
@@ -998,7 +998,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                         </M3Typography>
                     </div>
                 </div>
-                 <div style={{ width: '100%' }}>
+                 <div style={{ width: 'var(--md-sys-percent-100)' }}>
                      <M3Button onClick={onGenerate} disabled={isGenerating} variant="filled" style={{
                          fontSize: 'var(--md-sys-typescale--font-size)',
                          textTransform: "uppercase",
@@ -1136,7 +1136,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
             </ul>
           </div>
 
-          <div style={{ width: '100%' }}>
+          <div style={{ width: 'var(--md-sys-percent-100)' }}>
             <TabGroup
               tabs={tabs}
               activeTab={activeTab}

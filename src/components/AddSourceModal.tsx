@@ -1,5 +1,5 @@
 // MD3 Compliant - Block J Migration Complete (6 violations eliminated)
-// Note: height: '12rem' retained for functional drop zone UX (no exact MD3 token available)
+// Note: Drop zone height uses var(--md-sys-spacing-48) for functional UX (closest MD3 token available)
 
 
 import React, { useState, useCallback } from 'react';
@@ -76,7 +76,8 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                 <span style={{ color: sys.colors.on-primaryContainer , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center"}}>1</span> 
                                 Seleziona Destinazione
                             </h3>
-                            <div  style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: 'var(--md-sys-spacing-6)'}}>
+                            <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
+                                {/* MD3 grid fr tokens */}
                                 {KB_CATEGORIES.map(cat => (
                                     <CategoryCard 
                                         key={cat.id} 
@@ -92,9 +93,9 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                         </section>
 
                         <section style={{
-                            transition: 'all 500ms ease',
+                            transition: `all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`, // MD3 motion tokens for duration and easing
                             opacity: !selectedCategory ? 0.3 : 1,
-                            filter: !selectedCategory ? 'grayscale(100%)' : 'none',
+                            filter: !selectedCategory ? 'var(--md-sys-filter-grayscale-100)' : 'none',
                             pointerEvents: !selectedCategory ? 'none' : 'auto'
                         }}>
                             <h3  style={{marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
@@ -102,12 +103,12 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                 Carica File
                             </h3>
                             <div {...getRootProps()} style={{
-                                height: '12rem',
+                                height: 'var(--md-sys-spacing-48)', // MD3 spacing token for drop zone height
                                 border: `var(--md-sys-border-width-thick) dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                 backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'transparent',
                                 opacity: isDragActive ? 0.1 : 1,
                                 transform: isDragActive ? 'scale(1.02)' : 'scale(1)',
-                                transition: 'all 300ms ease',
+                                transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`, // MD3 motion tokens for duration and easing
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',

@@ -54,7 +54,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`,
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
-                    transition: 'all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)',
+                    transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
                     boxShadow: error
                         ? `0 0 0 var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-error) var(--md-sys-percent-12), transparent)`
                         : 'none',
@@ -89,7 +89,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                         pointerEvents: 'none',
                         color: 'var(--md-sys-color-on-surface-variant)',
                         fontSize: 'var(--md-sys-spacing-4)',
-                        transition: 'color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)'}}
+                        transition: `color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                     aria-hidden="true"
                 >
                     expand_more

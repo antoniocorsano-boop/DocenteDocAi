@@ -47,9 +47,9 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
             maxWidth="sm"
             level={3}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 ,  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%" }}>
+            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 ,  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "var(--md-sys-percent-100)" }}>
                 <div style={{textAlign: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                    <div style={{ color: sys.colors.on-primaryContainer , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "auto", marginRight: "auto", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                    <div style={{ color: sys.colors.on-primaryContainer , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                         <span style={{ color: 'var(--md-sys-color-primary)' }}>lock</span>
                     </div>
                     <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Inserisci il PIN docente per uscire</p>
@@ -64,9 +64,9 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
                                 width: 'var(--md-sys-spacing-4)', // MD3 spacing token
                                 height: 'var(--md-sys-spacing-4)', // MD3 spacing token
                                 
-                                borderRadius: '50%', // circular indicator
+                                borderRadius: 'var(--md-sys-percent-50)', // circular indicator
                                 
-                                transition: 'all 0.2s', // transition-all duration-200
+                                transition: 'all var(--md-sys-motion-duration-short)', // transition-all duration-200
                                 backgroundColor: i < pin.length 
                                     ? (error ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)')
                                     : 'var(--md-sys-color-surface-container-high)',
@@ -83,7 +83,7 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
 
                 <PinPad onInput={handleInput} onDelete={handleDelete} />
 
-                <M3Button onClick={onCancel} variant="text"  style={{ width: "100%" }}>
+                <M3Button onClick={onCancel} variant="text"  style={{ width: "var(--md-sys-percent-100)" }}>
                     Annulla
                 </M3Button>
             </M3DialogContent>

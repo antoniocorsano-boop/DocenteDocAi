@@ -60,7 +60,7 @@ const TextField: React.FC<TextFieldProps> = ({
                     border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`,
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
-                    transition: 'all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)',
+                    transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`, // MD3 motion tokens for duration and easing
                     boxShadow: error
                         ? `0 0 0 var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-error) var(--md-sys-percent-12), transparent)`
                         : isFocused
@@ -80,7 +80,7 @@ const TextField: React.FC<TextFieldProps> = ({
                             color: isFocused
                                 ? 'var(--md-sys-color-primary)'
                                 : `color-mix(in srgb, var(--md-sys-color-on-surface-variant), var(--md-sys-state-opacity-disabled))`,
-                            transition: 'color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)',
+                            transition: `color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`, // MD3 motion tokens for duration and easing
                             fontSize: 'var(--md-sys-spacing-4)'
                         }}
                         aria-hidden="true"
@@ -101,12 +101,12 @@ const TextField: React.FC<TextFieldProps> = ({
                                 ? 'translateY(0) scale(0.75)'
                                 : 'translateY(-50%)',
                             transformOrigin: 'top left',
-                            transition: 'all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)',
+                            transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`, // MD3 motion tokens for duration and easing
                             color: isFocused
                                 ? 'var(--md-sys-color-primary)'
                                 : 'var(--md-sys-color-on-surface-variant)',
                             pointerEvents: 'none',
-                            zIndex: 1
+                            zIndex: 'var(--z-tooltip)' // MD3 z-index token
                         }}
                     >
                         {label}
@@ -127,7 +127,7 @@ const TextField: React.FC<TextFieldProps> = ({
                             letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)',
                             outline: 'none',
                             paddingTop: isLabelFloating ? 'var(--md-sys-spacing-2)' : 0,
-                            transition: 'padding-top 0.2s cubic-bezier(0.4, 0.0, 0.2, 1)'
+                            transition: `padding-top var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)` // MD3 motion tokens for duration and easing
                         }}
                         placeholder=""
                         aria-label={label}

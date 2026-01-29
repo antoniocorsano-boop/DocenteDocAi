@@ -70,7 +70,7 @@ export const WithIconAndAction: Story = {
             Consider using visual aids for better engagement
           </M3Typography>
         </div>
-        <button style={{ color: layers.sys.color.primary ,  border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", borderRadius: layers.ref.spacing['4'], fontSize: "var(--md-sys-typescale-body-small-font-size)", transition: "color 300ms" }}>
+        <button style={{ color: layers.sys.color.primary ,  border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", borderRadius: layers.ref.spacing['4'], fontSize: "var(--md-sys-typescale-body-small-font-size)", transition: `color var(--md-sys-motion-duration-medium)` }}>
           Apply
         </button>
       </div>

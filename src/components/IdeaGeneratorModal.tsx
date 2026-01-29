@@ -107,7 +107,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                     </div>
                     
                     {useKb && knowledgeBase.length > 0 && (
-                        <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)'/50, borderRadius: 'var(--md-sys-shape-corner-large)' , display: "grid", gridTemplateColumns: "1fr", border: "1px solid var(--md-sys-color-outline)", overflowY: "auto"}}>
+                        <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)'/50, borderRadius: 'var(--md-sys-shape-corner-large)' , display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", border: "1px solid var(--md-sys-color-outline)", overflowY: "auto"}}>
                             {knowledgeBase.map(k => (
                                 <label key={k.id} style={{
                                     display: 'flex',
@@ -115,9 +115,9 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                                     gap: 'var(--md-sys-spacing-8)',
                                     padding: 'var(--md-sys-spacing-12)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                                    border: selectedKbIds.includes(k.id) ? ' 2px  solid var(--md-sys-color-primary)' : '1px solid var(--md-sys-color-outline-variant)',
+                                    border: selectedKbIds.includes(k.id) ? ' var(--md-sys-border-width-medium) solid var(--md-sys-color-primary)' : '1px solid var(--md-sys-color-outline-variant)',
                                     backgroundColor: selectedKbIds.includes(k.id) ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
-                                    transition: 'all 0.2s ease',
+                                    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                                     cursor: 'pointer',
                                     marginBottom: 'var(--md-sys-spacing-2)'
                                 }}>
@@ -142,22 +142,22 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>error</span>
-                        <p style={{  fontSize: "0.75rem" , fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>{error}</p>
+                        <p style={{  fontSize: "var(--md-sys-typescale-label-medium-font-size)" , fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>{error}</p>
                     </div>
                 )}
             </M3DialogContent>
 
             <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30 , borderTop: "1px solid var(--md-sys-color-outline)", paddingTop: "0"}}>
-                <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900",  fontSize: "0.75rem" , textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
+                <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900",  fontSize: "var(--md-sys-typescale-label-medium-font-size)" , textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
                 <M3Button 
                     onClick={handleGenerate} 
                     variant="filled" 
                     disabled={isLoading || !ideaText.trim()}
-                     style={{ fontWeight: "900",  fontSize: "0.75rem" , textTransform: "uppercase", letterSpacing: "0.1em" }}
+                     style={{ fontWeight: "900",  fontSize: "var(--md-sys-typescale-label-medium-font-size)" , textTransform: "uppercase", letterSpacing: "0.1em" }}
                 >
                     {isLoading ? <AiThinkingGem size={20} /> : (
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                            <span  style={{  fontSize: "0.875rem"  }}>auto_awesome</span>
+                            <span  style={{  fontSize: "var(--md-sys-typescale-body-medium-font-size)"  }}>auto_awesome</span>
                             <span>Genera Piano</span>
                         </div>
                     )}

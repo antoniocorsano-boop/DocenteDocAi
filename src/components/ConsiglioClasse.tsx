@@ -221,7 +221,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                         if (!giudizioStudente) return null;
 
                         // FIX: Ensure string conversion in cell key
-                        const getCellStyle = (field: string): React.CSSProperties => changedCells.has(`${key}-${String(field)}`) ? { backgroundColor: 'var(--sys-tertiary-container)', transition: 'background-color 1s' } : {};
+                        const getCellStyle = (field: string): React.CSSProperties => changedCells.has(`${key}-${String(field)}`) ? { backgroundColor: 'var(--md-sys-color-tertiary-container)', transition: 'background-color var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-standard)' } : {};
 
                         return (
                             <tr key={student.id}>
@@ -292,7 +292,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <span className="material-symbols-outlined" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}>expand_more</span>
+                            <span className="material-symbols-outlined" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)' }}>expand_more</span>
                         </div>
                         <div style={{
                             display: isExpanded ? 'block' : 'none',
@@ -325,7 +325,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                             <span style={{ color: 'var(--md-sys-color-primary)' }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
                                         </M3Button>
                                     </div>
-                                    <textarea id={`giudizio-${student.id}`} value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ width: "100%" }} rows={4} placeholder="Giudizio sintetico..."></textarea>
+                                    <textarea id={`giudizio-${student.id}`} value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ width: "var(--md-sys-percent-100)" }} rows={4} placeholder="Giudizio sintetico..."></textarea>
                                 </div>
                                 {showFinalGrades && (
                                     <>
@@ -351,7 +351,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
     );
     
     return (
-        <div  style={{maxWidth: "100%", marginLeft: "auto", marginRight: "auto", width: "100%", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
+        <div  style={{maxWidth: "var(--md-sys-percent-100)", marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", width: "var(--md-sys-percent-100)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
             <SectionHeader 
                 title="Consiglio di Classe"
                 subtitle={`Scrutinio e Valutazione Periodica • Classe ${selectedClass}`}

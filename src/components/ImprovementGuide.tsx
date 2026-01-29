@@ -302,13 +302,13 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 
             {/* Charts */}
             <div >
-                <InfoCard title="Distribuzione Voti" icon="bar_chart" style={{ height: "100%" }}>
+                <InfoCard title="Distribuzione Voti" icon="bar_chart" style={{ height: "var(--md-sys-percent-100)" }}>
                     <div style={{padding: 'var(--md-sys-spacing-6)'}}>
                         <BarChart data={gradeDistributionData} color="var(--md-sys-color-secondary)" />
                     </div>
                 </InfoCard>
                 {objectiveAchievementData && (
-                    <InfoCard title="Raggiungimento Obiettivi" icon="pie_chart" style={{ height: "100%" }}>
+                    <InfoCard title="Raggiungimento Obiettivi" icon="pie_chart" style={{ height: "var(--md-sys-percent-100)" }}>
                         <div style={{display: "flex", justifyContent: "center", padding: 'var(--md-sys-spacing-8)'}}>
                             <DonutChart data={objectiveAchievementData} />
                         </div>

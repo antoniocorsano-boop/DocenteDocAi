@@ -17,7 +17,7 @@ export const DEFAULT_TEMPLATES: DocumentTemplate[] = [
     content: {
       header: getStyledHeader('Profilo dello Studente'),
       footer: getStyledFooter('Generato con DocenteDoc AI - {{data}}'),
-      customCss: '.student-info { margin-bottom: var(--md-sys-spacing-5); } .grade-table { width: 100%; border-collapse: collapse; }'
+      customCss: '.student-info { margin-bottom: var(--md-sys-spacing-5); } .grade-table { width: var(--md-sys-percent-100); border-collapse: collapse; }'
     }
   },
   {

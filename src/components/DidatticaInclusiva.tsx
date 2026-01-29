@@ -65,7 +65,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                         <span style={{ color: 'var(--md-sys-color-on-tertiary)' }}>folder_shared</span>
                     </div>
                     <div>
-                        <h3  style={{ fontSize: "1.125rem" , color: "var(--md-sys-color-tertiary)", marginBottom: 'var(--md-sys-spacing-4)'}}>Gestione Piani Centralizzata</h3>
+                        <h3  style={{ fontSize: "var(--md-sys-typescale-title-medium-font-size)" , color: "var(--md-sys-color-tertiary)", marginBottom: 'var(--md-sys-spacing-4)'}}>Gestione Piani Centralizzata</h3>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Crea o modifica PDP/PEI per ogni studente. L’AI ti guida nella compilazione suggerendo strategie personalizzate.</p>
                     </div>
                 </div>
@@ -79,7 +79,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                         <div style={{ backgroundColor: sys.colors.outline-variant/30 ,  flexGrow: "1" }}></div>
                     </div>
                     
-                    <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
+                    <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                         {studentsByClass[className].sort((a, b) => a.cognome.localeCompare(b.cognome)).map(student => {
 
                             return (
@@ -109,12 +109,12 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                             width: 'var(--md-sys-spacing-10)',
                                             height: 'var(--md-sys-spacing-10)',
                                             
-                                            borderRadius: '50%',
+                                            borderRadius: 'var(--md-sys-percent-50)',
                                             
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            transition: 'colors 0.2s ease',
+                                            transition: 'color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                                             backgroundColor: hasPlan ? 'var(--md-sys-color-tertiary-container)' : 'var(--md-sys-color-surface-container-high)',
                                             color: hasPlan ? 'var(--md-sys-color-tertiary)' : 'var(--md-sys-color-on-surface-variant)'
                                         }}
@@ -152,7 +152,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
     );
 
     const renderActivePlans = () => (
-        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
+        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
             {activePlansStudents.length > 0 ? activePlansStudents.map(student => {
                 return (
                     <InfoCard 
@@ -186,7 +186,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
     );
 
     const renderSuggested = () => (
-        <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-6)'}}>
+        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
             {suggestedStudents.length > 0 ? suggestedStudents.map(student => {
                 const { grade } = calculatePerformance(student.id, 'Complessivo', studentEvals);
 
@@ -202,10 +202,10 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                     <div>
                                         <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,   fontSize: "0.75rem"  }}>Classe {student.classe}</p>
+                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,   fontSize: "var(--md-sys-typescale-label-medium-font-size)"  }}>Classe {student.classe}</p>
                                     </div>
                                 </div>
-                                <div style={{ backgroundColor: sys.colors.error/10 , color: "var(--md-sys-color-error)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)',  borderRadius: "0.375rem", fontSize: "0.75rem" , fontWeight: "bold"}}>
+                                <div style={{ backgroundColor: sys.colors.error/10 , color: "var(--md-sys-color-error)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)',  borderRadius: "var(--md-sys-shape-corner-small)", fontSize: "var(--md-sys-typescale-label-medium-font-size)" , fontWeight: "bold"}}>
                                     Media: {grade}
                                 </div>
                             </div>
@@ -215,7 +215,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                             <M3Button 
                                 onClick={() => setEditingStudent(student)} 
                                 variant="tonal"
-                                 style={{ width: "100%" }}
+                                 style={{ width: "var(--md-sys-percent-100)" }}
                             >
                                 <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_circle</span>
                                 Crea Piano
@@ -242,9 +242,9 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         boxShadow: 'var(--md-sys-elevation-level1)',
                         padding: 'var(--md-sys-spacing-8)',
-                        margin: 'var(--md-sys-spacing-8) auto 0 auto',
+                        margin: 'var(--md-sys-spacing-8) var(--md-sys-margin-auto) 0 var(--md-sys-margin-auto)',
                         maxWidth: 1000,
-                        width: '100%'
+                        width: 'var(--md-sys-percent-100)'
                     }}
                 >
                     <SectionHeader

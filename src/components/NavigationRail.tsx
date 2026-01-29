@@ -89,7 +89,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
     left: 0,
     right: 0,
     bottom: 0,
-    width: '100%',
+    width: 'var(--md-sys-percent-100)',
     height: 'var(--md-sys-spacing-16)', // Bottom nav height
     backgroundColor: 'var(--md-sys-color-surface)',
     borderTop: '1px solid var(--md-sys-color-outline-variant)',
@@ -98,7 +98,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    zIndex: 1000,
+    zIndex: 'var(--z-nav)',
     transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
 
     // Desktop overrides
@@ -108,7 +108,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
       left: 0,
       right: 'auto',
       width: 'var(--md-sys-spacing-20)', // Rail width
-      height: '100%',
+      height: 'var(--md-sys-percent-100)',
       borderTop: 'none',
       borderRight: '1px solid var(--md-sys-color-outline-variant)',
       flexDirection: 'column',
@@ -122,7 +122,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        width: '100%',
+        width: 'var(--md-sys-percent-100)',
         paddingTop: 'var(--md-sys-spacing-2)',
         paddingBottom: 'var(--md-sys-spacing-2)',
         paddingLeft: 0,
@@ -133,7 +133,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        width: '100%',
+        width: 'var(--md-sys-percent-100)',
         gap: 'var(--md-sys-spacing-2)',
         paddingTop: 'var(--md-sys-spacing-4)',
         paddingBottom: 'var(--md-sys-spacing-4)',
@@ -271,8 +271,8 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                       fontWeight: '700',
                       lineHeight: 'var(--md-sys-spacing-4)', // Badge line height
                       textAlign: 'center',
-                      zIndex: 1,
-                      animation: 'badge-appear 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)'}}
+                      zIndex: 'var(--z-raised)',
+                      animation: 'badge-appear var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}
                     aria-label={`${item.badge} notifiche`}
                   >
                     {item.badge > 99 ? '99+' : item.badge}

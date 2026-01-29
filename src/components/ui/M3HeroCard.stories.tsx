@@ -63,7 +63,7 @@ export const WithBackground: Story = {
   args: {
     className: 'bg-gradient-to-br from-primary/20 to-secondary/20 min-h-[calc(var(--md-sys-spacing-16)*6.25)] flex items-center',
     children: (
-      <div style={{ color: sys.colors.white ,  marginLeft: "auto", marginRight: "auto", textAlign: "center" }}>
+      <div style={{ color: sys.colors.white ,  marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", textAlign: "center" }}>
         <M3Typography variant="display-medium" as="h1" style={{ marginBottom: "var(--md-sys-spacing-4)" }}>
           Innovative Teaching Solutions
         </M3Typography>
@@ -88,7 +88,7 @@ export const WithBackground: Story = {
  */
 export const Compact: Story = {
   args: {
-    className: 'bg-surfaceContainer p-6',
+    style: { backgroundColor: 'var(--md-sys-color-surface-container)', padding: 'var(--md-sys-spacing-6)' },
     children: (
       <div style={{ textAlign: "center" }}>
         <M3Typography variant="headline-large" as="h2" style={{ marginBottom: "var(--md-sys-spacing-2)" }}>

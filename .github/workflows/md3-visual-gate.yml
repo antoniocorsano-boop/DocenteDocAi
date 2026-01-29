@@ -1,0 +1,195 @@
+name: MD3 Visual Regression Gate
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'vite.config.ts'
+      - 'src/design-system/**'
+      - '__tests__/visual-regression/**'
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'vite.config.ts'
+      - 'src/design-system/**'
+      - '__tests__/visual-regression/**'
+
+jobs:
+  md3-visual-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Setup Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run MD3 visual regression tests
+        id: visual-tests
+        run: |
+          # Run tests and capture output
+          npm run test:visual:md3 2>&1 | tee visual-test-output.log
+
+          # Check if tests passed
+          if [ $? -eq 0 ]; then
+            echo "VISUAL_TESTS_PASSED=true" >> $GITHUB_OUTPUT
+          else
+            echo "VISUAL_TESTS_PASSED=false" >> $GITHUB_OUTPUT
+          fi
+        continue-on-error: true
+
+      - name: Analyze visual diffs
+        id: analyze-diffs
+        run: |
+          # Run MD3-aware diff analysis
+          node scripts/analyze-md3-visual-diffs.js
+
+          # Check analysis result
+          if [ -f "md3-visual-analysis.json" ]; then
+            ANALYSIS_RESULT=$(cat md3-visual-analysis.json | jq -r '.overall_status')
+            echo "ANALYSIS_RESULT=$ANALYSIS_RESULT" >> $GITHUB_OUTPUT
+
+            # Extract diff summary
+            DIFF_COUNT=$(cat md3-visual-analysis.json | jq -r '.summary.total_diffs')
+            BLOCKING_DIFFS=$(cat md3-visual-analysis.json | jq -r '.summary.blocking_diffs')
+            ACCEPTABLE_DIFFS=$(cat md3-visual-analysis.json | jq -r '.summary.acceptable_diffs')
+
+            echo "DIFF_COUNT=$DIFF_COUNT" >> $GITHUB_OUTPUT
+            echo "BLOCKING_DIFFS=$BLOCKING_DIFFS" >> $GITHUB_OUTPUT
+            echo "ACCEPTABLE_DIFFS=$ACCEPTABLE_DIFFS" >> $GITHUB_OUTPUT
+          else
+            echo "ANALYSIS_RESULT=unknown" >> $GITHUB_OUTPUT
+            echo "DIFF_COUNT=0" >> $GITHUB_OUTPUT
+            echo "BLOCKING_DIFFS=0" >> $GITHUB_OUTPUT
+            echo "ACCEPTABLE_DIFFS=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate visual diff report
+        run: |
+          # Create HTML report
+          node scripts/generate-md3-visual-report.js
+
+      - name: Upload visual diff artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: md3-visual-diffs-${{ github.run_number }}
+          path: |
+            playwright-report/
+            test-results/
+            md3-visual-analysis.json
+            md3-visual-report.html
+            __tests__/visual-regression/screenshots/
+          retention-days: 30
+
+      - name: Comment PR with visual diff summary
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            // Read analysis results
+            let analysis = { overall_status: 'unknown', summary: {} };
+            if (fs.existsSync('md3-visual-analysis.json')) {
+              analysis = JSON.parse(fs.readFileSync('md3-visual-analysis.json', 'utf8'));
+            }
+
+            // Generate comment
+            const comment = `
+            ## MD3 Visual Regression Results
+
+            **Status:** ${analysis.overall_status === 'pass' ? '✅ Pass' : analysis.overall_status === 'review' ? '⚠️ Review Required' : '❌ Fail'}
+
+            ### Summary
+            - **Total Diffs:** ${analysis.summary?.total_diffs || 0}
+            - **Blocking:** ${analysis.summary?.blocking_diffs || 0}
+            - **Acceptable:** ${analysis.summary?.acceptable_diffs || 0}
+
+            ### Details
+            ${analysis.details?.map(diff => `- **${diff.component}**: ${diff.status} (${diff.confidence}% confidence)`).join('\n') || 'No diffs detected'}
+
+            ${analysis.overall_status === 'review' ? '⚠️ **Review Required:** Some visual changes detected. Please verify they are token-driven and not hardcoded value regressions.' : ''}
+            ${analysis.overall_status === 'fail' ? '❌ **Blocking Issues:** Hardcoded value regressions detected. Must be fixed before merge.' : ''}
+
+            [View Full Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            `;
+
+            // Post comment
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: MD3 Visual Gate Check
+        if: steps.analyze-diffs.outputs.ANALYSIS_RESULT == 'fail'
+        run: |
+          echo "❌ MD3 Visual Regression Gate FAILED"
+          echo "Blocking visual diffs detected. These appear to be hardcoded value regressions."
+          echo "Please review the visual diff report and fix any hardcoded values."
+          exit 1
+
+      - name: Success notification
+        if: steps.analyze-diffs.outputs.ANALYSIS_RESULT == 'pass'
+        run: |
+          echo "✅ MD3 Visual Regression Gate PASSED"
+          echo "All visual changes are acceptable token-driven updates."
+
+  md3-compliance-gate:
+    runs-on: ubuntu-latest
+    needs: md3-visual-regression
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run MD3 compliance checks
+        run: |
+          # Run ESLint with MD3 rules
+          npm run lint:md3
+
+          # Run MD3 audit script
+          node scripts/audit-md3-compliance.js
+
+      - name: Validate semantic tokens
+        run: |
+          # Ensure semantic tokens are properly defined
+          node scripts/validate-semantic-tokens.js
+
+      - name: MD3 Compliance Gate
+        run: |
+          echo "✅ MD3 Compliance Gate PASSED"
+          echo "All MD3 governance rules are satisfied."

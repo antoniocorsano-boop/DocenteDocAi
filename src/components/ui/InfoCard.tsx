@@ -39,11 +39,11 @@ const InfoCard: React.FC<InfoCardProps> = ({
     return (
         <M3Card
             variant={getCardVariant()}
-            padding="large"
             onClick={onClick}
             style={{
                 position: 'relative',
-                cursor: onClick ? 'pointer' : 'default'
+                cursor: onClick ? 'pointer' : 'default',
+                padding: 'var(--md-sys-spacing-6)' // large padding
             }}
         >
             <div style={{

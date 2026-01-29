@@ -53,7 +53,7 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
   const getTooltipPosition = (): React.CSSProperties => {
     const baseStyle: React.CSSProperties = {
       position: 'absolute',
-      zIndex: 3000,
+      zIndex: 'var(--z-tooltip)',
       backgroundColor: 'var(--md-sys-color-inverse-surface)',
       color: 'var(--md-sys-color-inverse-onSurface)',
       padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
@@ -62,7 +62,7 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
       whiteSpace: 'pre',
       pointerEvents: 'none',
       opacity: 'var(--md-sys-state-opacity-tooltip)',
-      animation: 'tooltip-in 0.18s cubic-bezier(0.34, 1.56, 0.64, 1) both',
+      animation: 'tooltip-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-emphasized) both',
       maxWidth: 'var(--md-sys-spacing-16)',
       wordWrap: 'break-word'
     };

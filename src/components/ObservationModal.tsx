@@ -55,7 +55,7 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        transition: 'all 0.2s ease',
+                        transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                         backgroundColor: i <= value ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-low)',
                         color: i <= value ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
                         border: i <= value ? 'none' : '1px solid var(--md-sys-color-outline-variant)',

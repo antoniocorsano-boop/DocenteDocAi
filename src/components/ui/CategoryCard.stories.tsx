@@ -161,7 +161,7 @@ export const Interactive: Story = {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(2, 1fr)',
+          gridTemplateColumns: `repeat(2, var(--md-sys-grid-fr-1))`,
           gap: 'var(--md-sys-spacing-6)',
           padding: layers.ref.spacing['4'],
         }}
@@ -217,7 +217,7 @@ export const AllCategories: Story = {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
+          gridTemplateColumns: `repeat(4, var(--md-sys-grid-fr-1))`,
           gap: layers.ref.spacing['4'],
           padding: layers.ref.spacing['4'],
         }}
@@ -260,7 +260,7 @@ export const Grid: Story = {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
+        gridTemplateColumns: `repeat(3, var(--md-sys-grid-fr-1))`,
         gap: 'var(--md-sys-spacing-6)',
         padding: layers.ref.spacing['4'],
       }}
@@ -309,7 +309,7 @@ export const CompactSelection: Story = {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(6, 1fr)',
+        gridTemplateColumns: `repeat(6, var(--md-sys-grid-fr-1))`,
         gap: layers.ref.spacing['4'],
         padding: layers.ref.spacing['4'],
       }}
@@ -374,7 +374,7 @@ export const CustomColors: Story = {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateColumns: `repeat(3, var(--md-sys-grid-fr-1))`,
           gap: 'var(--md-sys-spacing-6)',
           padding: layers.ref.spacing['4'],
         }}

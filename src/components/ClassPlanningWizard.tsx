@@ -334,7 +334,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 width: 'var(--md-sys-spacing-10)',
                                 height: 'var(--md-sys-spacing-10)',
                                 
-                                borderRadius: '50%',
+                                borderRadius: 'var(--md-sys-percent-full)',
                                 
                                 display: 'flex',
                                 alignItems: 'center',
@@ -343,7 +343,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 color: isDone ? 'var(--md-sys-color-on-primary)' : isActive ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
                                 border: `var(--md-sys-border-width-thin) solid ${isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                 fontWeight: 'bold',
-                                transition: 'all var(--md-sys-motion-duration-short-4) ease'
+                                transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                             }}
                             aria-hidden="true"
                         >
@@ -359,7 +359,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     height: 'var(--md-sys-border-width-thin)',
                                     backgroundColor: isDone ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)',
                                     marginTop: 'var(--md-sys-spacing-2)',
-                                    transition: 'background-color var(--md-sys-motion-duration-short-4) ease'
+                                    transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                                 }}
                                 aria-hidden="true"
                             ></div>
@@ -378,7 +378,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             level={1}
         >
             <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-4)' }}>
-                <div className="md3-container-centered">
+                <div style={{ display: "flex", justifyContent: "center", maxWidth: "var(--md-sys-layout-container-max-width)" }}>
                     {renderStepIndicator()}
 
                     {step === 'context' && (
@@ -393,13 +393,13 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div>
                                         <label>Classe Target</label>
-                                        <select value={selectedClass} onChange={e => setSelectedClass(e.target.value)} className="md3-width-full" title="Seleziona la classe per la programmazione">
+                                        <select value={selectedClass} onChange={e => setSelectedClass(e.target.value)} style={{ width: "var(--md-sys-percent-full)" }} title="Seleziona la classe per la programmazione">
                                             {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                                         </select>
                                     </div>
                                     <div>
                                         <label>Materia</label>
-                                        <select value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)} className="md3-width-full" title="Seleziona la materia">
+                                        <select value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)} style={{ width: "var(--md-sys-percent-full)" }} title="Seleziona la materia">
                                             {settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
                                         </select>
                                     </div>
@@ -415,7 +415,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     {recommendedFiles.length > 0 ? recommendedFiles.map(kb => (
                                         <div key={kb.id} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: 'var(--md-sys-spacing-2)' }}>
                                             <input type="checkbox" id={`kb-annual-${kb.id}`} checked={selectedKbFiles.includes(kb.id)} onChange={() => toggleKbFile(kb.id)} />
-                                            <label htmlFor={`kb-annual-${kb.id}`} className="md3-label-row" title={kb.fileName}>
+                                            <label htmlFor={`kb-annual-${kb.id}`} style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-2)" }} title={kb.fileName}>
                                                 {selectedKbFiles.includes(kb.id) && <span className="material-symbols-outlined" style={{  fontSize: 'var(--md-sys-spacing-4)'  }}>check</span>}
                                                 <span style={{ color: 'var(--md-sys-color-primary)', marginRight: "var(--md-sys-spacing-2)" }}>description</span>
                                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</span>
@@ -450,7 +450,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                 backgroundColor: situationTags.includes(tag) ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
                                                 color: situationTags.includes(tag) ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
                                                 cursor: 'pointer',
-                                                transition: 'all var(--md-sys-motion-duration-short-4) ease',
+                                                transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                                 fontSize: 'var(--md-sys-typescale-body-small-size)'
                                             }}
                                             title={`Aggiungi tag: ${tag}`}
@@ -461,16 +461,16 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 </div>
                                 <div style={{ marginBottom: 'var(--md-sys-spacing-8)' }}>
                                     <label>Note Aggiuntive</label>
-                                    <textarea className="md3-field-full" rows={2} value={situationNotes} onChange={e => setSituationNotes(e.target.value)} placeholder="Dettagli specifici sulla classe..." />
+                                    <textarea style={{ width: "var(--md-sys-percent-full)" }} rows={2} value={situationNotes} onChange={e => setSituationNotes(e.target.value)} placeholder="Dettagli specifici sulla classe..." />
                                 </div>
-                                <M3Button onClick={handleGenerateSituation} disabled={isGeneratingSituation} variant="tonal" className="md3-width-full md3-flex-center" style={{ gap: 'var(--md-sys-spacing-4)' }} title="Usa l'AI per scrivere l'analisi">
+                                <M3Button onClick={handleGenerateSituation} disabled={isGeneratingSituation} variant="tonal" style={{ width: "var(--md-sys-percent-full)", display: "flex", alignItems: "center", justifyContent: "center", gap: 'var(--md-sys-spacing-4)' }} title="Usa l'AI per scrivere l'analisi">
                                     {isGeneratingSituation ? <AiThinkingGem size="small" inline text="Analisi..." /> : 'Genera Analisi con AI'}
                                 </M3Button>
                             </InfoCard>
 
                             {situationText && (
                                 <InfoCard title="Testo Analisi" icon="description" style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
-                                    <textarea className="md3-field-full" rows={6} value={situationText} onChange={e => setSituationText(e.target.value)} />
+                                    <textarea style={{ width: "var(--md-sys-percent-full)" }} rows={6} value={situationText} onChange={e => setSituationText(e.target.value)} />
                                 </InfoCard>
                             )}
                         </div>
@@ -491,7 +491,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         {isGeneratingMethodology ? <AiThinkingGem size="small" inline /> : <><span style={{ color: 'var(--md-sys-color-primary)' }}>lightbulb</span> Suggerisci</>}
                                     </M3Button>
                                 </div>
-                                <textarea className="md3-field-full" rows={8} value={methodology} onChange={e => setMethodology(e.target.value)} />
+                                <textarea style={{ width: "var(--md-sys-percent-full)" }} rows={8} value={methodology} onChange={e => setMethodology(e.target.value)} />
                             </InfoCard>
                         </div>
                     )}
@@ -530,11 +530,11 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end" }}>
                                     <div style={{ flexGrow: 1 }}>
                                         <label>Titolo UDA</label>
-                                        <input type="text" value={newUdaTitle} onChange={e => setNewUdaTitle(e.target.value)} className="md3-field-full" onKeyDown={e => e.key === 'Enter' && addUdaToPlan()} placeholder="Es. Il Verismo" />
+                                        <input type="text" value={newUdaTitle} onChange={e => setNewUdaTitle(e.target.value)} style={{ width: "var(--md-sys-percent-full)" }} onKeyDown={e => e.key === 'Enter' && addUdaToPlan()} placeholder="Es. Il Verismo" />
                                     </div>
                                     <div style={{ width: 'var(--md-sys-spacing-16)' }}>
                                         <label>Ore</label>
-                                        <input type="number" value={newUdaHours} onChange={e => setNewUdaHours(parseInt(e.target.value))} className="md3-field-full" />
+                                        <input type="number" value={newUdaHours} onChange={e => setNewUdaHours(parseInt(e.target.value))} style={{ width: "var(--md-sys-percent-full)" }} />
                                     </div>
                                     <M3Button onClick={addUdaToPlan} variant="filled" style={{ marginBottom: 'var(--md-sys-spacing-4)' }} title="Aggiungi alla lista">Aggiungi</M3Button>
                                 </div>
@@ -599,11 +599,11 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div>
                                         <label>Fine 1° Periodo</label>
-                                        <input type="date" value={term1End} onChange={e => setTerm1End(e.target.value)} className="md3-field-full" />
+                                        <input type="date" value={term1End} onChange={e => setTerm1End(e.target.value)} style={{ width: "var(--md-sys-percent-full)" }} />
                                     </div>
                                     <div>
                                         <label>Termine Lezioni</label>
-                                        <input type="date" value={term2End} onChange={e => setTerm2End(e.target.value)} className="md3-field-full" />
+                                        <input type="date" value={term2End} onChange={e => setTerm2End(e.target.value)} style={{ width: "var(--md-sys-percent-full)" }} />
                                     </div>
                                 </div>
                             </InfoCard>
@@ -611,14 +611,14 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <div style={{ gap: 'var(--md-sys-spacing-8)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', overflowY: "auto", paddingRight: 'var(--md-sys-spacing-4)', maxHeight: 'var(--md-sys-spacing-24)' }}>
                                 {schedulePreview.map((item, idx) => (
                                     <div key={idx} style={{ position: 'relative' }}>
-                                        <div style={{ position: 'absolute', left: '-11px', top: 'var(--md-sys-spacing-1)', width: 'var(--md-sys-spacing-5)', height: 'var(--md-sys-spacing-5)',  borderRadius: '50%' , border: 'var(--md-sys-border-width-medium) solid var(--md-sys-color-surface-container-low)', boxShadow: 'var(--md-sys-elevation-level-1)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}></div>
+                                        <div style={{ position: 'absolute', left: 'var(--md-sys-spacing-neg-2)', top: 'var(--md-sys-spacing-1)', width: 'var(--md-sys-spacing-5)', height: 'var(--md-sys-spacing-5)',  borderRadius: 'var(--md-sys-percent-full)' , border: 'var(--md-sys-border-width-medium) solid var(--md-sys-color-surface-container-low)', boxShadow: 'var(--md-sys-elevation-level-1)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}></div>
                                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                                             <p style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-4)' }}>
                                                 {new Date(item.start).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })} - {new Date(item.end).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })}
                                             </p>
                                             <h4 style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>{item.uda.title}</h4>
                                             <div style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: 'var(--md-sys-color-on-surface-variant)' }}>
-                                                <span className="material-symbols-outlined" style={{  fontSize: "0.875rem"  }}>schedule</span>
+                                                <span className="material-symbols-outlined" style={{  fontSize: "var(--md-sys-typescale-body-small-size)"  }}>schedule</span>
                                                 <span>{item.uda.hours} ore stimate</span>
                                             </div>
                                         </div>
@@ -635,7 +635,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             </div>
                             <div>
                                 <h3 style={{ color: 'var(--md-sys-color-on-surface)', marginBottom: 'var(--md-sys-spacing-8)' }}>Pianificazione Completata!</h3>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', maxWidth: 'var(--md-sys-layout-popup-min-width)', margin: "0 auto" }}>
+                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", justifyContent: "center" }}>
                                     Tutte le UDA e le lezioni sono state salvate. Ora puoi generare il documento di programmazione annuale completo.
                                 </p>
                             </div>

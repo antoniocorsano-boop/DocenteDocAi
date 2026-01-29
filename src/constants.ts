@@ -34,10 +34,10 @@ export const RATING_TO_VALUE: Record<string, number> = {
 };
 
 export const PARTICIPATION_BADGES: ParticipationBadge[] = [
-    { id: 'positive', label: 'Positivo', icon: 'star', color: 'var(--sys-tertiary)' },
+    { id: 'positive', label: 'Positivo', icon: 'star', color: 'var(--md-sys-color-tertiary)' },
     { id: 'question', label: 'Domanda', icon: 'lightbulb', color: 'var(--md-sys-color-primary)' },
     { id: 'collaboration', label: 'Collabora', icon: 'groups', color: 'var(--md-sys-color-secondary)' },
-    { id: 'distraction', label: 'Disturbo', icon: 'sms_failed', color: 'var(--sys-error)' },
+    { id: 'distraction', label: 'Disturbo', icon: 'sms_failed', color: 'var(--md-sys-color-error)' },
 ];
 
 // === AI PROFILES CONFIGURATION ===
@@ -63,12 +63,12 @@ export const AI_PROFILES = {
 // === KNOWLEDGE BASE CATEGORIES ===
 export const KB_CATEGORIES = [
     { id: 'programmazione', label: 'Programmazione & UDA', icon: 'model_training', color: 'var(--md-sys-color-primary)', description: 'Piani annuali, progettazione e unità di apprendimento' },
-    { id: 'normativa', label: 'Normativa & Circolari', icon: 'gavel', color: 'var(--sys-tertiary)', description: 'Leggi, regolamenti e comunicazioni ufficiali' },
+    { id: 'normativa', label: 'Normativa & Circolari', icon: 'gavel', color: 'var(--md-sys-color-tertiary)', description: 'Leggi, regolamenti e comunicazioni ufficiali' },
     { id: 'ai_deliverable', label: 'AI Deliverables', icon: 'auto_awesome', color: 'var(--md-sys-color-secondary)', description: 'Analisi e progetti generati con NotebookLM o altri assistenti' },
     { id: 'materiale_didattico', label: 'Materiale Didattico', icon: 'menu_book', color: 'var(--md-sys-color-secondary)', description: 'Dispense, slide e testi per gli studenti' },
-    { id: 'valutazione', label: 'Valutazione & Griglie', icon: 'grading', color: 'var(--sys-error)', description: 'Rubriche, test e criteri di voto' },
-    { id: 'inclusione', label: 'Inclusione (BES/DSA)', icon: 'accessibility_new', color: 'var(--sys-tertiary)', description: 'PEI, PDP e normative specifiche' },
-    { id: 'archivio', label: 'Archivio Generale', icon: 'folder', color: 'var(--sys-outline)', description: 'Altri documenti non categorizzati' },
+    { id: 'valutazione', label: 'Valutazione & Griglie', icon: 'grading', color: 'var(--md-sys-color-error)', description: 'Rubriche, test e criteri di voto' },
+    { id: 'inclusione', label: 'Inclusione (BES/DSA)', icon: 'accessibility_new', color: 'var(--md-sys-color-tertiary)', description: 'PEI, PDP e normative specifiche' },
+    { id: 'archivio', label: 'Archivio Generale', icon: 'folder', color: 'var(--md-sys-color-outline)', description: 'Altri documenti non categorizzati' },
 ];
 
 // === LIVELLI DI PADRONANZA STANDARD (Certificazione Competenze) ===
@@ -231,6 +231,8 @@ export const THEME_CUSTOMIZATIONS: ThemeCustomization[] = [
     { name: 'AI Studio', colors: { primary: '#1A73E8', secondary: '#9C27B0', tertiary: '#E8710A' } },
     { name: 'Workspace', colors: { primary: '#EA4335', secondary: '#4285F4', tertiary: '#34A853' } },
 ];
+
+/* eslint-enable design-system/no-hardcoded-colors */
 
 export const WELCOME_MESSAGES = [
     "Bentornato nel tuo spazio didattico.",

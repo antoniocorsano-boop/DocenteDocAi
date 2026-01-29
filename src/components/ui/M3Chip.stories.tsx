@@ -135,7 +135,7 @@ export const DeletableGroup: Story = {
  */
 export const Tags: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap', maxWidth: '100%' }}>
+    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap', maxWidth: 'var(--md-sys-percent-100)' }}>
       {['Important', 'Draft', 'Review', 'Completed', 'Urgent'].map((tag, i) => (
         <M3Chip key={i} label={tag} variant="elevated" />
       ))}
@@ -202,7 +202,7 @@ export const ContextTags: Story = {
 
     return (
       <div style={{ maxWidth: layers.ref.spacing['4'] }}>
-        <h4 style={{ margin: '0 0 var(--md-sys-spacing-4) 0' }}>Document Context Tags</h4>
+        <h4 style={{ margin: 'var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-4) var(--md-sys-spacing-0)' }}>Document Context Tags</h4>
         <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap' }}>
           {contexts.map((ctx, i) => (
             <M3Chip
@@ -246,7 +246,7 @@ export const InputChips: Story = {
             onKeyDown={handleKeyDown}
             placeholder="Type email or name..."
             style={{
-              width: '100%',
+              width: 'var(--md-sys-percent-100)',
               padding: 'var(--md-sys-spacing-3)',
               border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
               borderRadius: 'var(--md-sys-shape-corner-medium)',

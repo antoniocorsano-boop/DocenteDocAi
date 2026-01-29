@@ -77,7 +77,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                             style={{
                                 padding: 'var(--md-sys-spacing-4)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                transition: 'background-color 0.2s ease',
+                                transition: 'background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                                 fontSize: 'var(--md-sys-typescale-body-medium-size)',
                                 fontWeight: 500,
                                 display: 'flex',
@@ -116,7 +116,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                         <details
                             key={comp.id}
                             style={{
-                                transition: 'all 0.2s ease',
+                                transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                                 borderColor: active ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)',
                                 background: active ? 'var(--md-sys-color-surface)' : 'var(--md-sys-color-surface-container-low)'
                             }}
@@ -137,7 +137,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         flexShrink: 0,
-                                        transition: 'background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease',
+                                        transition: 'background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard), border-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard), color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                                         cursor: 'pointer',
                                         background: active ? 'var(--md-sys-color-primary)' : 'transparent',
                                         borderColor: active ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',

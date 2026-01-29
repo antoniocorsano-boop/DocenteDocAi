@@ -56,7 +56,7 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
             mode="fullscreen"
         >
             <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' }}>
-                <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-6)', height: "100%"}}>
+                <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)', height: "var(--md-sys-percent-100)"}}>
                     {/* Left Column: Performance */}
                     <div style={{gap: 'var(--md-sys-spacing-6)'}}>
                         <div data-testid="m3-card" style={{
@@ -112,7 +112,7 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                             </h2>
                             <div style={{gap: 'var(--md-sys-spacing-2)'}}>
                                 {evaluations.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()).slice(0, 5).map(ev => (
-                                    <div key={ev.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", justifyContent: "space-between", alignItems: "center", padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: "color 300ms"}}>
+                                    <div key={ev.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", justifyContent: "space-between", alignItems: "center", padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: "color var(--md-sys-motion-duration-medium)" }}>
                                         <div>
                                             <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{ev.materia}</p>
                                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-size)" }}>{new Date(ev.data).toLocaleDateString()}</p>
@@ -172,7 +172,7 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                                 <span  style={{color: "var(--md-sys-color-primary)"}}>info</span>
                                 Informazioni Studente
                             </h2>
-                            <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
+                            <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)'}}>
                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", fontWeight: "bold" }}>Classe</span>
                                     <p style={{ fontSize: "var(--md-sys-typescale-headline-small-size)", fontWeight: "bold" }}>{student.classe}</p>

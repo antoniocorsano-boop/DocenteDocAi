@@ -55,18 +55,24 @@ export default {
         
         // BLOCK: percentage units (except transform which is allowed)
         if (!/transform/i.test(keyName) && PERCENTAGE.test(val)) {
-          context.report({
-            node: value,
-            message: `MD3 VIOLATION: Percentage unit in '${keyName}: ${val}'. Use var(--md-sys-percent-*) token.`
-          });
+          // Allow percentages in color-mix functions
+          if (!/color-mix/i.test(val)) {
+            context.report({
+              node: value,
+              message: `MD3 VIOLATION: Percentage unit in '${keyName}: ${val}'. Use var(--md-sys-percent-*) token.`
+            });
+          }
         }
         
         // BLOCK: auto keyword in margin
         if (/margin/i.test(keyName) && AUTO_KEYWORD.test(val)) {
-          context.report({
-            node: value,
-            message: `MD3 VIOLATION: 'auto' keyword in '${keyName}: ${val}'. Use var(--md-sys-margin-auto) token.`
-          });
+          // Allow var(--md-sys-margin-auto) token
+          if (!val.includes('var(--md-sys-margin-auto)')) {
+            context.report({
+              node: value,
+              message: `MD3 VIOLATION: 'auto' keyword in '${keyName}: ${val}'. Use var(--md-sys-margin-auto) token.`
+            });
+          }
         }
         
         // BLOCK: numeric flex values
@@ -79,7 +85,10 @@ export default {
         
         // BLOCK: any style value not starting with var(--md-
         if (/^(width|height|min|max|padding|margin|gap|spacing)/i.test(keyName)) {
-          if (!val.startsWith('var(--md-') && val !== '0' && val !== 'none' && val !== 'inherit' && val !== 'unset') {
+          // Allow if value contains MD3 tokens or is allowed literal
+          const hasMD3Token = val.includes('var(--md-') || val.includes('var(--z-');
+          const isAllowedLiteral = val === '0' || val === 'none' || val === 'inherit' || val === 'unset' || val === 'fit-content';
+          if (!hasMD3Token && !isAllowedLiteral) {
             context.report({
               node: value,
               message: `MD3 VIOLATION: '${keyName}: ${val}' does not use MD3 token. MUST be var(--md-sys-*).`

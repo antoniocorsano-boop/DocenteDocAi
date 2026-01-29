@@ -63,7 +63,7 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                             justifyContent: "center",
                             fontWeight: "900",
                             flexShrink: "0",
-                            transition: "color 300ms"
+                            transition: `color var(--md-sys-motion-duration-medium)`
                         }}>{i + 1}</span>
                         <p style={{
                             color: 'var(--md-sys-color-outline)',

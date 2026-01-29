@@ -160,7 +160,8 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 }}
             ></div>
 
-            <div style={{position: 'relative', zIndex: 10, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: MD3_TOKENS.spacing4}}>
+            <div style={{position: 'relative', zIndex: 'var(--z-modal)', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: MD3_TOKENS.spacing4}}>
+                {/* MD3 z-index token */}
                 <div style={{
                     width: MD3_TOKENS.spacing14,
                     height: MD3_TOKENS.spacing14,
@@ -191,7 +192,8 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 )}
             </div>
 
-            <div style={{position: 'relative', zIndex: 10, flexGrow: 1, display: 'flex', flexDirection: 'column', gap: MD3_TOKENS.spacing4}}>
+            <div style={{position: 'relative', zIndex: 'var(--z-modal)', flexGrow: 1, display: 'flex', flexDirection: 'column', gap: MD3_TOKENS.spacing4}}>
+                {/* MD3 z-index token */}
                 <h3 style={{
                     fontSize: MD3_TOKENS.headlineSmallFontSize,
                     fontFamily: MD3_TOKENS.headlineSmallFontFamily,

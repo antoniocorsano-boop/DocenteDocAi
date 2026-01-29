@@ -186,7 +186,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                 maxWidth="lg"
                 level={1}
             >
-                <form id="create-lesson-ai-form" onSubmit={handleSubmit} style={{ width: "100%" }}>
+                <form id="create-lesson-ai-form" onSubmit={handleSubmit} style={{ width: "var(--md-sys-percent-100)" }}>
                     <M3DialogContent >
                         <TextField 
                             label="Argomento" 
@@ -195,7 +195,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                             required 
                         />
                         
-                        <div  style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+                        <div  style={{ display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)" }}>
                             <SelectField label="Classe" value={classe} onChange={e => setClasse(e.target.value)} required>
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                             </SelectField>
@@ -231,7 +231,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)', 
                                     padding: 'var(--md-sys-spacing-6)',
                                     border: '1px solid var(--md-sys-color-outline)',
-                                    transition: 'border-color 300ms',
+                                    transition: 'border-color var(--md-sys-motion-duration-medium4)',
                                     fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
@@ -257,7 +257,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                             onClick={() => setSelectedSlotKey(prev => prev === key ? '' : key)}
                                             style={{
                                                 height: 'var(--md-sys-spacing-12)',
-                                                padding: '0 var(--md-sys-spacing-8)',
+                                                padding: 'var(--md-sys-spacing-0) var(--md-sys-spacing-8)',
                                                 borderRadius: 'var(--md-sys-shape-corner-full)',
                                                 border: selectedSlotKey === key ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-primary)' : '1px solid var(--md-sys-color-outline)',
                                                 backgroundColor: selectedSlotKey === key ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
@@ -309,7 +309,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)', 
                                     padding: 'var(--md-sys-spacing-6)',
                                     border: '1px solid var(--md-sys-color-outline)',
-                                    transition: 'border-color 300ms',
+                                    transition: 'border-color var(--md-sys-motion-duration-medium4)',
                                     fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
@@ -351,7 +351,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                             key={obj.id}
                                             type="button"
                                             onClick={() => handleAddObjective(obj.text)}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: "100%", textAlign: "left", padding: 'var(--md-sys-spacing-6)', transition: "color var(--md-sys-motion-duration-medium-4)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)' }}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--md-sys-percent-100)", textAlign: "left", padding: 'var(--md-sys-spacing-6)', transition: "color var(--md-sys-motion-duration-medium-4)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)' }}
                                         >
                                             <span  style={{color: "var(--md-sys-color-primary)",  fontSize: "var(--md-sys-spacing-4)" , transition: "transform var(--md-sys-motion-duration-medium-4)"}}>add_circle</span>
                                             <span style={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "500" }}>{obj.text}</span>
@@ -363,7 +363,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                     </M3DialogContent>
 
                     <M3DialogActions>
-                        <M3Button type="button" onClick={() => setIsObjectivePickerOpen(false)} variant="filled"  style={{ width: "100%", fontWeight: "900" }}>CONFERMA SELEZIONE</M3Button>
+                        <M3Button type="button" onClick={() => setIsObjectivePickerOpen(false)} variant="filled"  style={{ width: "var(--md-sys-percent-100)", fontWeight: "900" }}>CONFERMA SELEZIONE</M3Button>
                     </M3DialogActions>
                 </M3Dialog>
             )}

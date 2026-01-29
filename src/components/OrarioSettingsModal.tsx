@@ -45,7 +45,7 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
             />
           </div>
 
-          <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
+          <div  style={{display: "grid", gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)'}}>
             <SelectField
               label="Classe"
               value={classe}

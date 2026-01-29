@@ -278,7 +278,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
               </div>
               <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' , width: 'var(--md-sys-percent-100)', borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <div
-                   style={{backgroundColor: "primary", height: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-spacing-4)', transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", width: `${(progress.current / progress.total) * 100}%` }}
+                   style={{backgroundColor: "var(--md-sys-color-primary)", height: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-spacing-4)', transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", width: `${(progress.current / progress.total) * 100}%` }}
                 ></div>
               </div>
               <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{progress.currentDoc}</p>
@@ -321,7 +321,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                 <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-8)'}}>
                   {groupName} ({docs.length})
                 </h3>
-                <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)'}}>
+                <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                   {docs.map(doc => {
                     const isSelected = selectedDocuments.some(d => d.id === doc.id);
                     return (
@@ -332,7 +332,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                           border: isSelected ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                           borderRadius: 'var(--md-sys-shape-corner-small)',
                           cursor: isGenerating ? 'not-allowed' : 'pointer',
-                          transition: 'all 0.2s ease',
+                          transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                           backgroundColor: isSelected ? 'var(--md-sys-color-secondary-container)' : 'transparent',
                           opacity: isGenerating ? 0.6 : 1
                         }}
@@ -352,14 +352,14 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.subtitle}</p>
                             <span style={{
                               display: 'inline-block',
-                              padding: 'spacing.1 spacing.4',
+                              padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-4)',
                               marginTop: 'var(--md-sys-spacing-4)',
                               borderRadius: 'var(--md-sys-shape-corner-full)',
-                              fontSize: 'labelSmall.size',
-                              fontWeight: 'labelSmall.weight',
-                              lineHeight: 'labelSmall.lineHeight',
-                              backgroundColor: doc.format === 'pdf' ? 'errorContainer' : 'primaryContainer',
-                              color: doc.format === 'pdf' ? 'onErrorContainer' : 'onPrimaryContainer'
+                              fontSize: 'var(--md-sys-typescale-label-small-size)',
+                              fontWeight: 'var(--md-sys-typescale-label-small-weight)',
+                              lineHeight: 'var(--md-sys-typescale-label-small-line-height)',
+                              backgroundColor: doc.format === 'pdf' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',
+                              color: doc.format === 'pdf' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)'
                             }}>
                               {doc.format.toUpperCase()}
                             </span>

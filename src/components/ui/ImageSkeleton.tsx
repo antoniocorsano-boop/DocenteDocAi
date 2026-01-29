@@ -21,7 +21,7 @@ const ImageSkeleton: React.FC<ImageSkeletonProps> = ({
         style={{
             backgroundColor: color.surfaceContainerHigh,
             borderRadius: shape.corner.small,
-            animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',

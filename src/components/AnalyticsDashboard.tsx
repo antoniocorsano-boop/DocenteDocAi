@@ -127,14 +127,14 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
         flexDirection: 'column',
         gap: 'var(--md-sys-spacing-6)',
         overflowY: 'auto',
-        maxHeight: 'calc(var(--md-sys-spacing-80) * 1px)'
+        maxHeight: 'var(--md-sys-spacing-80)'
       }}>
           {/* GDPR Notice */}
           <div style={{backgroundColor: 'var(--md-sys-color-tertiary-container)',
             opacity: 'var(--md-sys-state-layer-opacity-hover)',
             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
             padding: 'var(--md-sys-spacing-8)',
-            backdropFilter: 'blur(calc(var(--md-sys-spacing-2) * 1px))',
+            backdropFilter: 'blur(var(--md-sys-blur-medium))',
             borderRadius: 'var(--md-sys-shape-corner-extra-large)'}}>
             <div style={{display: 'flex',
               alignItems: 'flex-start',
@@ -179,7 +179,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               gap: 'var(--md-sys-spacing-6)',
               animation: `fade-in var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)`}}>
               <div style={{display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-32), 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-32), var(--md-sys-grid-fr-1)))',
                 gap: 'var(--md-sys-spacing-8)'}}>
                 <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
@@ -286,7 +286,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
               {/* Attività Recente */}
               <div style={{display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-19), 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-19), var(--md-sys-grid-fr-1)))',
                 gap: 'var(--md-sys-spacing-6)'}}>
                 <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
@@ -393,7 +393,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     Documenti per Tipo
                   </M3Typography>
                   <div style={{display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-12), 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-12), var(--md-sys-grid-fr-1)))',
                     gap: 'var(--md-sys-spacing-6)'}}>
                     {stats.documentTypes.map(([type, count]) => (
                       <div key={type} style={{display: 'flex',
@@ -420,7 +420,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
             <div style={{display: 'flex',
               flexDirection: 'column',
               gap: 'var(--md-sys-spacing-4)',
-              animation: 'fade-in 0.3s ease-out'}}>
+              animation: `fade-in var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)`}}>
               <M3Typography
                 variant="label-small"
                 style={{textTransform: 'uppercase',
@@ -439,7 +439,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 paddingRight: 'var(--md-sys-spacing-2)',
                 scrollbarWidth: 'thin',
                 scrollbarColor: 'var(--md-sys-color-outline) transparent',
-                maxHeight: 'calc(var(--md-sys-spacing-40) * 1px)'}}>
+                maxHeight: 'var(--md-sys-spacing-40)'}}>
                 {analyticsEvents.slice(-20).reverse().map(event => {
                   const eventKey = `event-${event.id}`;
                   const isHovered = hoveredElements[eventKey] || false;
@@ -502,7 +502,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
             <div style={{display: 'flex',
               flexDirection: 'column',
               gap: 'var(--md-sys-spacing-6)',
-              animation: 'fade-in 0.3s ease-out'}}>
+              animation: `fade-in var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)`}}>
               <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                 opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                 padding: 'var(--md-sys-spacing-5)',
@@ -553,9 +553,9 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           width: 'var(--md-sys-spacing-4)',
                           height: 'var(--md-sys-spacing-4)',
                           padding: '0',
-                          margin: '-1px',
+                          margin: '0',
                           overflow: 'hidden',
-                          clip: 'rect(0, 0, 0, 0)',
+                          clipPath: 'inset(var(--md-sys-percent-full))',
                           whiteSpace: 'nowrap',
                           border: '0'
                         }}
@@ -566,13 +566,15 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         borderRadius: 'var(--md-sys-spacing-3)',
                         position: 'relative',
                         transition: `background-color var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}>
+                        <div style={{
+                          position: 'absolute',
                           top: 'var(--md-sys-spacing-4)',
                           left: analyticsSettings.enabled ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
                           width: 'var(--md-sys-spacing-4)',
                           height: 'var(--md-sys-spacing-4)',
                           backgroundColor: 'var(--md-sys-color-on-primary)',
                           
-                          borderRadius: '50%',
+                          borderRadius: 'var(--md-sys-percent-full)',
                           
                           transition: `left var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}></div>
                       </div>
@@ -616,9 +618,9 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                               width: 'var(--md-sys-spacing-4)',
                               height: 'var(--md-sys-spacing-4)',
                               padding: '0',
-                              margin: '-1px',
+                              margin: '0',
                               overflow: 'hidden',
-                              clip: 'rect(0, 0, 0, 0)',
+                              clipPath: 'inset(var(--md-sys-percent-full))',
                               whiteSpace: 'nowrap',
                               border: '0'
                             }}
@@ -635,7 +637,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                               width: 'var(--md-sys-spacing-4)',
                               height: 'var(--md-sys-spacing-4)',
                               backgroundColor: 'var(--md-sys-color-on-primary)',
-                              borderRadius: '50%',
+                              borderRadius: 'var(--md-sys-percent-full)',
                               transition: `left var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}></div>
                           </div>
                         </div>
@@ -676,9 +678,9 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                               width: 'var(--md-sys-spacing-4)',
                               height: 'var(--md-sys-spacing-4)',
                               padding: '0',
-                              margin: '-1px',
+                              margin: '0',
                               overflow: 'hidden',
-                              clip: 'rect(0, 0, 0, 0)',
+                              clipPath: 'inset(var(--md-sys-percent-full))',
                               whiteSpace: 'nowrap',
                               border: '0'
                             }}
@@ -695,7 +697,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                               width: 'var(--md-sys-spacing-4)',
                               height: 'var(--md-sys-spacing-4)',
                               backgroundColor: 'var(--md-sys-color-on-primary)',
-                              borderRadius: '50%',
+                              borderRadius: 'var(--md-sys-percent-full)',
                               transition: `left var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}></div>
                           </div>
                         </div>

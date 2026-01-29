@@ -224,7 +224,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     padding: 'var(--md-sys-spacing-8)',
                                     borderRadius: 'var(--md-sys-shape-corner-medium)',
                                     cursor: 'pointer',
-                                    transition: 'all 0.2s ease',
+                                    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                                     display: 'flex',
                                     justifyContent: 'space-between',
                                     alignItems: 'center',

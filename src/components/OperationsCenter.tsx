@@ -204,9 +204,12 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                               selectedProcess.variant === 'tertiary' ? 'var(--md-sys-color-on-tertiary-container)' :
                               'var(--md-sys-color-on-surface)',
                         fontSize: 'var(--md-sys-spacing-10)',
-                        margin: '0 auto var(--md-sys-spacing-4) auto',
+                        marginTop: 0,
+                        marginLeft: 'var(--md-sys-margin-auto)',
+                        marginBottom: 'var(--md-sys-spacing-4)',
+                        marginRight: 'var(--md-sys-margin-auto)',
                         boxShadow: 'var(--md-sys-elevation-level2)',
-                        transition: 'all 0.3s ease'
+                        transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'
                     }}>
                         <span >{selectedProcess.icon}</span>
                     </div>

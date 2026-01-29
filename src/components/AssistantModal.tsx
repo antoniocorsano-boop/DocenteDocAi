@@ -1,5 +1,5 @@
 // MD3 Compliant - Block J Migration Complete (4 violations eliminated)
-// Note: maxHeight 400px/300px retained for functional scrollable areas with eslint-disable comments
+// Note: Scrollable areas use viewport height tokens for functional UX
 import React, { useState, useRef, useEffect } from 'react';
 import { fetchNotebookFiles, uploadNotebookFile, deleteNotebookFile, NotebookLMFile } from '../services/notebooklmService';
 import { chatWithAi } from '../services/aiService';
@@ -243,7 +243,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
           borderRadius: 'medium',
           width: "var(--md-sys-spacing-10)",
           height: "var(--md-sys-spacing-10)",
-          transition: "color 300ms"
+          transition: "color var(--md-sys-motion-duration-medium)"
         }}
         data-focus-priority="-1"
         aria-label="Chiudi assistente"
@@ -273,7 +273,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
               gap: 'var(--md-sys-spacing-4)',
               overflowY: 'auto',
               
-              maxHeight: '400px'
+              maxHeight: 'var(--md-sys-viewport-height-50)'
               
             }}>
               {messages.length === 0 && (
@@ -383,7 +383,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
               gap: 'var(--md-sys-spacing-4)',
               overflowY: 'auto',
               
-              maxHeight: '300px'
+              maxHeight: 'var(--md-sys-viewport-height-40)'
               
             }}>
               {nbFiles.map(file => (
@@ -429,7 +429,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
           flexDirection: 'row',
           gap: 'var(--md-sys-spacing-6)',
           alignItems: 'flex-end',
-          width: '100%',
+          width: 'var(--md-sys-percent-full)',
           padding: 'var(--md-sys-spacing-4)',
           backgroundColor: 'var(--md-sys-color-surface-container-low)',
           borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"
@@ -442,7 +442,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             disabled={loading}
-            style={isRecording ? { animation: 'pulse 2s infinite' } : {}}
+            style={isRecording ? { animation: 'pulse var(--md-sys-motion-duration-extra-long) infinite' } : {}}
           />
         </div>
         <M3Button
@@ -450,7 +450,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
           style={{
             color: isRecording ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-secondary)',
             padding: 'var(--md-sys-spacing-4)',
-            minWidth: 'auto'
+            minWidth: '0'
           }}
           onClick={isRecording ? stopVoiceInput : startVoiceInput}
           title={isRecording ? 'Stop' : 'Voice input'}
@@ -474,7 +474,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
         </M3Button>
         {voiceError && <p style={{
           color: 'var(--md-sys-color-error)',
-          width: '100%',
+          width: 'var(--md-sys-percent-full)',
           textAlign: 'center'
         }}>{voiceError}</p>}
       </M3DialogActions>

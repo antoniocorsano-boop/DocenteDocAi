@@ -14,6 +14,8 @@ import noHardcodedLayoutValues from "./eslint-rules/no-hardcoded-layout-values.j
 import noNumericZindex from "./eslint-rules/no-numeric-zindex.js";
 import noHardcodedMotionValues from "./eslint-rules/no-hardcoded-motion-values.mjs";
 import noInvalidComponentProps from "./eslint-rules/no-invalid-component-props.mjs";
+import noHardcodedViewportUnits from "./eslint-rules/no-hardcoded-viewport-units.js";
+import noHardcodedPercentages from "./eslint-rules/no-hardcoded-percentages.js";
 
 export default defineConfig([
   {
@@ -116,7 +118,9 @@ export default defineConfig([
           'no-hardcoded-layout-values': noHardcodedLayoutValues,
           'no-numeric-zindex': noNumericZindex,
           'no-hardcoded-motion-values': noHardcodedMotionValues,
-          'no-invalid-component-props': noInvalidComponentProps
+          'no-invalid-component-props': noInvalidComponentProps,
+          'no-hardcoded-viewport-units': noHardcodedViewportUnits,
+          'no-hardcoded-percentages': noHardcodedPercentages
         }
       }
     },
@@ -130,6 +134,8 @@ export default defineConfig([
       'design-system/no-numeric-zindex': 'error',
       'design-system/no-hardcoded-motion-values': 'error',
       'design-system/no-invalid-component-props': 'error',
+      'design-system/no-hardcoded-viewport-units': 'error',
+      'design-system/no-hardcoded-percentages': 'error',
       // MUI restriction removed - migration complete (Phase 3, 2026-01-06)
       // Previously blocked @mui/material, @emotion/react, @emotion/styled
       // All components now use custom M3 implementation (see PHASE_3_MIGRATION_COMPLETE.md)

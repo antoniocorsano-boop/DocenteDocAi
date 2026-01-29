@@ -162,7 +162,8 @@ export const ColorGrid: Story = {
     ];
 
     return (
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: layers.ref.spacing['4'] }}>
+      <div style={{ display: 'grid', gridTemplateColumns: `repeat(auto-fit, minmax(200px, var(--md-sys-grid-fr-1)))`, gap: layers.ref.spacing['4'] }}>
+        {/* MD3 grid fr token */}
         {colors.map((color) => (
           <M3ExpressiveCard
             key={color}

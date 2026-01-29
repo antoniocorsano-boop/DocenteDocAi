@@ -75,6 +75,48 @@ vi.mock('./ui', () => ({
       )}
     </div>
   ),
+  M3FlexContainer: ({ children, flex, minHeight, style, ...props }: any) => (
+    <div
+      data-testid="m3-flex-container"
+      style={{
+        display: 'flex',
+        flex,
+        minHeight,
+        ...style,
+      }}
+      {...props}
+    >
+      {children}
+    </div>
+  ),
+  M3Aside: ({ children, flex, flexBasis, background, borderRight, zIndex, style, ...props }: any) => (
+    <aside
+      data-testid="m3-aside"
+      style={{
+        flex,
+        flexBasis,
+        background,
+        borderRight,
+        zIndex,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        ...style,
+      }}
+      {...props}
+    >
+      {children}
+    </aside>
+  ),
+}));
+
+// Mock AppLayout
+vi.mock('./AppLayout.md3', () => ({
+  AppLayout: ({ children }: any) => (
+    <div data-testid="app-layout">
+      {children}
+    </div>
+  ),
 }));
 
 // Default mock data

@@ -181,7 +181,7 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
       />
 
       {/* Modal Content */}
-      <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  width: "100%" }}>
+      <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  width: 'var(--md-sys-percent-100)' }}>
         {children}
       </div>
     </div>,

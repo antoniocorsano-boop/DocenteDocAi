@@ -2,6 +2,9 @@
 
 ## MD3 GOVERNANCE & COMPLIANCE CONTRACT — VINCOLANTE
 
+Copilot must follow MD3_GOLD_MANIFESTO.md.
+Any hardcoded visual value is forbidden.
+
 **È obbligatorio rispettare integralmente il documento “MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md” presente nella root del repository.**
 
 - Ogni output, refactor, suggerimento o generazione di codice deve essere conforme a TUTTE le regole vincolanti del contratto.

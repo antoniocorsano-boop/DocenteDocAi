@@ -394,7 +394,7 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
           style={{
             padding: 'var(--md-sys-spacing-4)',
             overflowY: 'auto',
-            maxHeight: 'min(var(--md-sys-spacing-20), 70vh)'
+            maxHeight: 'min(var(--md-sys-spacing-20), var(--md-sys-viewport-70))'
           }}
         >
           {children}

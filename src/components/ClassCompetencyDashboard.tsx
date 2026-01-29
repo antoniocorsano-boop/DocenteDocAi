@@ -151,7 +151,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                 </div>
 
                                 {/* Visual Progress Bar */}
-                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', height: 'var(--md-sys-spacing-2)', width: "100%", borderRadius: 'var(--md-sys-spacing-4)', display: "flex" }}>
+                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', height: 'var(--md-sys-spacing-2)', width: "var(--md-sys-percent-full)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex" }}>
                                     {summary.levelCounts.map(lc => {
                                         if (lc.count === 0) return null;
                                         const pct = (lc.count / classStudents.length) * 100;
@@ -159,19 +159,19 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                         return (
                                             <div 
                                                 key={lc.level.id} 
-                                                style={{ height: "100%", width: `${pct}%`, backgroundColor: levelColor }} 
+                                                style={{ height: "var(--md-sys-percent-full)", width: `${pct}%`, backgroundColor: levelColor }} 
                                             />
                                         );
                                     })}
                                     {notEvaluatedCount > 0 && (
                                         <div 
-                                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', height: "100%", width: `${(notEvaluatedCount / classStudents.length) * 100}%` }}
+                                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', height: "var(--md-sys-percent-full)", width: `${(notEvaluatedCount / classStudents.length) * 100}%` }}
                                         />
                                     )}
                                 </div>
                             </summary>
                             
-                            <div  style={{padding: 'var(--md-sys-spacing-8)', paddingTop: "0", display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-6)'}}>
+                            <div  style={{padding: 'var(--md-sys-spacing-8)', paddingTop: "0", display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                                 {summary.levelCounts.map(lc => {
                                     return (
                                         <div 

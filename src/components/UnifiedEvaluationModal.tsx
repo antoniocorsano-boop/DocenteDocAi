@@ -104,11 +104,11 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                         </div>
 
                         {relevantCompetencies.length > 0 ? (
-                            <div  style={{display: "grid", gridTemplateColumns: "1fr", gap: 'var(--md-sys-spacing-8)', overflowY: "auto"}}>
+                            <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)', overflowY: "auto"}}>
                                 {relevantCompetencies.map((competenza, idx) => (
                                     <div 
                                         key={competenza.id} 
-                                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)", animationDelay: `${idx * 100}ms` }}
+                                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", animationDelay: `${idx * 100}ms` }}
                                     >
                                         <h4  style={{textTransform: "uppercase", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)', fontWeight: "900", display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                                             {competenza.nome}
@@ -120,7 +120,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                                         const { [competenza.id]: _removed, ...rest } = prev;
                                                         return rest;
                                                     })}
-                                                    style={{ color: 'var(--md-sys-color-error)', backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: 'var(--md-sys-spacing-4)', fontWeight: "900", transition: "color 300ms" }}
+                                                    style={{ color: 'var(--md-sys-color-error)', backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: 'var(--md-sys-spacing-4)', fontWeight: "900", transition: "color var(--md-sys-motion-duration-medium)" }}
                                                 >
                                                     RIMUOVI
                                                 </button>

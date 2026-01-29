@@ -349,8 +349,8 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
           inset: 0,
           // MD3 Exception: backdrop blur, no token available
           backdropFilter: 'blur(var(--md-sys-spacing-1))', // Exception documented
-          animation: 'modal-fade-in 0.3s ease-out',
-          zIndex: 1,
+          animation: `modal-fade-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-decelerated)`, // MD3 motion tokens for duration and easing
+          zIndex: 'var(--z-tooltip)', // MD3 z-index token
           backgroundColor: backdropOpacity === 'light'
             ? 'color-mix(in srgb, var(--md-sys-color-scrim) var(--md-sys-backdrop-light), transparent)'
             : backdropOpacity === 'medium'
@@ -367,14 +367,14 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
       <div
         style={{
           position: 'relative',
-          zIndex: 10,
+          zIndex: 'var(--z-modal)', // MD3 z-index token
           // MD3 Exception: modal content wrapper must fill container, no token available
-          width: '100%', // Exception documented
-          height: '100%', // Exception documented
+          width: 'var(--md-sys-percent-100)', // MD3 percent token
+          height: 'var(--md-sys-percent-100)', // MD3 percent token
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          animation: 'modal-zoom-in 0.3s ease-out'
+          animation: `modal-zoom-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-decelerated)` // MD3 motion tokens for duration and easing
         }}
         role="dialog"
         aria-modal="true"
