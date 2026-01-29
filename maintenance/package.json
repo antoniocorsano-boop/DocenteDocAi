@@ -23,5 +23,9 @@
     "docentedoc-ai"
   ],
   "author": "Copilot (Phase 6)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "recharts": "^3.7.0",
+    "zustand": "^5.0.10"
+  }
 }

@@ -1,6 +1,7 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:wght@400;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0');
-@import './design-system/chip-expressive.css'; */
+@import './design-system/chip-expressive.css';
+@import './styles/md3-z-index.css'; */
 
 :root {
   --font-family: 'Roboto Flex', sans-serif;
@@ -143,17 +144,6 @@
   --sys-font-scale: 1;
   --sys-contrast-level: 0;
   --sys-glass-opacity: 0.75;
-
-  /* Z-Index Hierarchy (Sync with zIndex.ts) */
-  --z-app-bar: 100;
-  --z-nav: 1000;
-  --z-fab: 1200;
-  --z-modal-backdrop: 1300;
-  --z-modal: 1400;
-  --z-toast: 2000;
-  --z-tooltip: 3000;
-  --z-assistant-fab: 1300;
-  --z-assistant-modal: 2200;
 
   /* ===========================================
      MD3 SPACING SCALE (Expressive Philosophy)

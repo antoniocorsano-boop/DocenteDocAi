@@ -98,7 +98,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    zIndex: 'var(--z-nav)',
+    zIndex: 'var(--md-sys-z-nav)',
     transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
 
     // Desktop overrides
@@ -271,7 +271,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                       fontWeight: '700',
                       lineHeight: 'var(--md-sys-spacing-4)', // Badge line height
                       textAlign: 'center',
-                      zIndex: 'var(--z-raised)',
+                      zIndex: 'var(--md-sys-z-raised)',
                       animation: 'badge-appear var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}
                     aria-label={`${item.badge} notifiche`}
                   >

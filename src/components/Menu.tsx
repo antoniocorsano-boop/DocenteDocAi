@@ -64,7 +64,7 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
         boxShadow: 'var(--md-sys-elevation-level1)',
         borderTop: '1px solid var(--md-sys-color-outline-variant)',
-        zIndex: 'var(--z-fixed)',
+        zIndex: 'var(--md-sys-z-sticky)',
         position: 'fixed',
         bottom: 0,
         left: 0,

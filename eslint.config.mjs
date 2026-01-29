@@ -12,6 +12,7 @@ import noClassname from "./scripts/md3/eslint-rules/no-classname.js";
 import noTailwindClasses from "./scripts/md3/eslint-rules/no-tailwind-classes.js";
 import noHardcodedLayoutValues from "./scripts/md3/eslint-rules/no-hardcoded-layout-values.js";
 import noNumericZindex from "./scripts/md3/eslint-rules/no-numeric-zindex.js";
+import noLegacyZTokens from "./scripts/md3/eslint-rules/no-legacy-z-tokens.js";
 import noHardcodedMotionValues from "./scripts/md3/eslint-rules/no-hardcoded-motion-values.mjs";
 import noInvalidComponentProps from "./scripts/md3/eslint-rules/no-invalid-component-props.mjs";
 import noHardcodedViewportUnits from "./scripts/md3/eslint-rules/no-hardcoded-viewport-units.js";
@@ -115,6 +116,7 @@ export default defineConfig([
           'no-tailwind-classes': noTailwindClasses,
           'no-hardcoded-layout-values': noHardcodedLayoutValues,
           'no-numeric-zindex': noNumericZindex,
+          'no-legacy-z-tokens': noLegacyZTokens,
           'no-hardcoded-motion-values': noHardcodedMotionValues,
           'no-invalid-component-props': noInvalidComponentProps,
           'no-hardcoded-viewport-units': noHardcodedViewportUnits,
@@ -130,6 +132,7 @@ export default defineConfig([
       'design-system/no-tailwind-classes': 'error',
       'design-system/no-hardcoded-layout-values': 'error',
       'design-system/no-numeric-zindex': 'error',
+      'design-system/no-legacy-z-tokens': 'error',
       'design-system/no-hardcoded-motion-values': 'error',
       'design-system/no-invalid-component-props': 'error',
       'design-system/no-hardcoded-viewport-units': 'error',

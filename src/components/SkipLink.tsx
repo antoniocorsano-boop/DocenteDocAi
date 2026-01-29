@@ -58,7 +58,7 @@ const SkipLink: React.FC<SkipLinkProps> = ({
         color: 'var(--md-sys-color-on)',
         padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
         textDecoration: 'none',
-        zIndex: 'var(--z-fixed)',
+        zIndex: 'var(--md-sys-z-sticky)',
         borderRadius: '0 0 var(--md-corner-small) 0',
         fontSize: 'var(--md-sys-typescale-body-medium-size)',
         fontWeight: 600,}}

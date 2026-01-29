@@ -74,7 +74,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                     backdropFilter: `blur(${'var(--md-sys-spacing-2)'})`,
                     padding: `${'var(--md-sys-spacing-4)'} ${'var(--md-sys-spacing-6)'}`,
                     borderBottom: `1px solid ${'var(--md-sys-color-outline-variant)'}`,
-                    zIndex: 'var(--z-sticky)',
+                    zIndex: 'var(--md-sys-z-sticky)',
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',

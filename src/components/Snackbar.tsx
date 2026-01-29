@@ -116,7 +116,7 @@ const Snackbar: React.FC = () => {
         gap: 'var(--md-sys-spacing-3)',
         backgroundColor: bg,
         color: color,
-        zIndex: 'var(--z-snackbar)',
+        zIndex: 'var(--md-sys-z-snackbar)',
         animation: 'snackbar-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-expressive) both',
         outline: isFocused ? `var(--md-sys-border-width-normal) solid ${primary}` : 'none',
         outlineOffset: isFocused ? 'var(--md-sys-spacing-2)' : '0'}}

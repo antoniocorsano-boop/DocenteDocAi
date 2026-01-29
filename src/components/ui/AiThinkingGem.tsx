@@ -73,7 +73,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                 <div
                     style={{
                         position: 'relative',
-                        zIndex: 'var(--z-tooltip)',
+                        zIndex: 'var(--md-sys-z-tooltip)',
                         width: 'var(--md-sys-percent-100)',
                         height: 'var(--md-sys-percent-100)',
                         display: 'flex',

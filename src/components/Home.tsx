@@ -213,7 +213,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             bottom: 'var(--md-sys-spacing-6)',
             right: 'var(--md-sys-spacing-6)',
             /* MD3 Exception: fallback for z-index if token missing, see governance contract */
-            zIndex: 'var(--z-fab)'
+            zIndex: 'var(--md-sys-z-modal)'
           }}
         />
       </M3Surface>

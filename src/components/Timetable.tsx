@@ -67,7 +67,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 borderRadius: 'var(--md-sys-shape-corner-full)',
                 opacity: 0.1,
                 filter: 'blur(var(--md-sys-blur-40))',
-                zIndex: 'var(--z-base)'}} />
+                zIndex: 'var(--md-sys-z-base)'}} />
             <div style={{position: 'absolute',
                 bottom: 'var(--md-sys-spacing-8)',
                 left: 'var(--md-sys-spacing-8)',
@@ -77,10 +77,10 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 borderRadius: 'var(--md-sys-shape-corner-full)',
                 opacity: 0.08,
                 filter: 'blur(var(--md-sys-blur-30))',
-                zIndex: 'var(--z-base)'}} />
+                zIndex: 'var(--md-sys-z-base)'}} />
 
             <div style={{position: 'relative',
-                zIndex: 'var(--z-raised)',
+                zIndex: 'var(--md-sys-z-raised)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 'var(--md-sys-spacing-6)',

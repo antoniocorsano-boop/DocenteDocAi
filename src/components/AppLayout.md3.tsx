@@ -81,7 +81,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           flexBasis="var(--md-sys-spacing-20)"
           background="var(--md-sys-color-surface)"
           borderRight="var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)"
-          style={{ zIndex: 'var(--z-nav)' }}
+          style={{ zIndex: 'var(--md-sys-z-nav)' }}
         >
           <NavigationRail
             items={[

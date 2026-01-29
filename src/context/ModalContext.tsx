@@ -350,7 +350,7 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
           // MD3 Exception: backdrop blur, no token available
           backdropFilter: 'blur(var(--md-sys-spacing-1))', // Exception documented
           animation: `modal-fade-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-decelerated)`, // MD3 motion tokens for duration and easing
-          zIndex: 'var(--z-tooltip)', // MD3 z-index token
+          zIndex: 'var(--md-sys-z-tooltip)', // MD3 z-index token
           backgroundColor: backdropOpacity === 'light'
             ? 'color-mix(in srgb, var(--md-sys-color-scrim) var(--md-sys-backdrop-light), transparent)'
             : backdropOpacity === 'medium'
@@ -367,7 +367,7 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
       <div
         style={{
           position: 'relative',
-          zIndex: 'var(--z-modal)', // MD3 z-index token
+          zIndex: 'var(--md-sys-z-modal)', // MD3 z-index token
           // MD3 Exception: modal content wrapper must fill container, no token available
           width: 'var(--md-sys-percent-100)', // MD3 percent token
           height: 'var(--md-sys-percent-100)', // MD3 percent token

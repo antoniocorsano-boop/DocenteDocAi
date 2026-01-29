@@ -209,7 +209,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                       
                       style={{
                         ...posStyle,
-                        zIndex: 'var(--z-tooltip)',
+                        zIndex: 'var(--md-sys-z-tooltip)',
                       }}
                       onClick={() => handleAction(a)}
                       aria-label={a.label}
@@ -229,7 +229,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           position: fixed;
           right: var(--md-sys-spacing-6);
           bottom: var(--md-sys-spacing-12);
-          z-index: var(--z-tooltip);
+          z-index: var(--md-sys-z-tooltip);
           transition: box-shadow 0.2s;
         }
         .mui-fab-expressive.assistant-fab {

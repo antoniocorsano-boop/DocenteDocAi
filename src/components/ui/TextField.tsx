@@ -106,7 +106,7 @@ const TextField: React.FC<TextFieldProps> = ({
                                 ? 'var(--md-sys-color-primary)'
                                 : 'var(--md-sys-color-on-surface-variant)',
                             pointerEvents: 'none',
-                            zIndex: 'var(--z-tooltip)' // MD3 z-index token
+                            zIndex: 'var(--md-sys-z-tooltip)' // MD3 z-index token
                         }}
                     >
                         {label}

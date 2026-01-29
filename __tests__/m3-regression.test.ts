@@ -158,9 +158,9 @@ describe('M3 Token Regression Tests', () => {
     });
 
     it('MUST allow ONLY CSS variable z-index', () => {
-      const validCode = `<div style={{ zIndex: 'var(--z-assistant-fab)' }} />`;
-      const val = 'var(--z-assistant-fab)';
-      expect(val.startsWith('var(--z-')).toBe(true);
+      const validCode = `<div style={{ zIndex: 'var(--md-sys-z-modal)' }} />`;
+      const val = 'var(--md-sys-z-modal)';
+      expect(val.startsWith('var(--md-sys-z-')).toBe(true);
     });
   });
 
@@ -191,11 +191,13 @@ describe('M3 Token Regression Tests', () => {
     it('MUST have all required z-index tokens defined', () => {
       const requiredTokens = [
         '--md-sys-z-base',
-        '--md-sys-z-content',
-        '--md-sys-z-overlay',
+        '--md-sys-z-raised',
+        '--md-sys-z-nav',
+        '--md-sys-z-app-bar',
+        '--md-sys-z-sticky',
+        '--md-sys-z-snackbar',
         '--md-sys-z-modal',
         '--md-sys-z-tooltip',
-        '--md-sys-z-snackbar',
       ];
 
       // Simula la verifica della presenza dei token nel DOM
@@ -203,11 +205,13 @@ describe('M3 Token Regression Tests', () => {
       style.textContent = `
         :root {
           --md-sys-z-base: 0;
-          --md-sys-z-content: 100;
-          --md-sys-z-overlay: 200;
-          --md-sys-z-modal: 300;
-          --md-sys-z-tooltip: 400;
-          --md-sys-z-snackbar: 500;
+          --md-sys-z-raised: 10;
+          --md-sys-z-nav: 100;
+          --md-sys-z-app-bar: 200;
+          --md-sys-z-sticky: 300;
+          --md-sys-z-snackbar: 400;
+          --md-sys-z-modal: 500;
+          --md-sys-z-tooltip: 600;
         }
       `;
       document.head.appendChild(style);
