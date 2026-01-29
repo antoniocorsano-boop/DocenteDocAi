@@ -1,9 +1,9 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, Suspense, lazy } from 'react';
 import { Lezione, LessonsPageProps, CurriculumSubject, TimetableSettings, Uda } from '../types';
 import { generateLessonSequenceForClass } from '../services/aiService';
 // import LessonView from './LessonView';
-import IdeaGeneratorModal from './IdeaGeneratorModal';
-import { CreateLessonFromAiModal } from './CreateLessonFromAiModal';
+const IdeaGeneratorModal = lazy(() => import('./IdeaGeneratorModal'));
+const CreateLessonFromAiModal = lazy(() => import('./CreateLessonFromAiModal'));
 import { M3Typography } from './ui';
 
 // MD3 Compliant - Migration completed
@@ -650,42 +650,46 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
             </div>
 
             {isIdeaModalOpen && (
-                <IdeaGeneratorModal
-                    onClose={() => setIsIdeaModalOpen(false)}
-                    onGenerate={(content) => setGeneratedIdeaContent(content)}
-                    aiSettings={aiSettings}
-                    userClasses={userClasses}
-                    knowledgeBase={knowledgeBase}
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <IdeaGeneratorModal
+                        onClose={() => setIsIdeaModalOpen(false)}
+                        onGenerate={(content) => setGeneratedIdeaContent(content)}
+                        aiSettings={aiSettings}
+                        userClasses={userClasses}
+                        knowledgeBase={knowledgeBase}
+                    />
+                </Suspense>
             )}
 
             {generatedIdeaContent && (
-                <CreateLessonFromAiModal
-                    content={generatedIdeaContent}
-                    onClose={() => setGeneratedIdeaContent(null)}
-                    onSave={(lessonData: Omit<Lezione, 'id' | 'svolta'>) => {
-                        const newLesson: Lezione = {
-                            ...lessonData,
-                            id: `lesson-ai-${Date.now()}`,
-                            svolta: false
-                        };
-                        onAddLessons([newLesson]);
-                        alert("Lezione salvata in archivio!");
-                        setGeneratedIdeaContent(null);
-                    }}
-                    userClasses={userClasses}
-                    disciplines={settings ? settings.disciplines : []} // Safe access
-                    students={[]}
-                    pianiInclusione={{}}
-                    aiSettings={aiSettings}
-                    slots={slots}
-                    onSchedule={(lesson: Lezione, slotKey: string) => {
-                        onScheduleLesson({ ...lesson, slotKey });
-                        alert("Lezione salvata e pianificata con successo!");
-                        setGeneratedIdeaContent(null);
-                    }}
-                    curricula={curricula}
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <CreateLessonFromAiModal
+                        content={generatedIdeaContent}
+                        onClose={() => setGeneratedIdeaContent(null)}
+                        onSave={(lessonData: Omit<Lezione, 'id' | 'svolta'>) => {
+                            const newLesson: Lezione = {
+                                ...lessonData,
+                                id: `lesson-ai-${Date.now()}`,
+                                svolta: false
+                            };
+                            onAddLessons([newLesson]);
+                            alert("Lezione salvata in archivio!");
+                            setGeneratedIdeaContent(null);
+                        }}
+                        userClasses={userClasses}
+                        disciplines={settings ? settings.disciplines : []} // Safe access
+                        students={[]}
+                        pianiInclusione={{}}
+                        aiSettings={aiSettings}
+                        slots={slots}
+                        onSchedule={(lesson: Lezione, slotKey: string) => {
+                            onScheduleLesson({ ...lesson, slotKey });
+                            alert("Lezione salvata e pianificata con successo!");
+                            setGeneratedIdeaContent(null);
+                        }}
+                        curricula={curricula}
+                    />
+                </Suspense>
             )}  
             </div>
         </div>

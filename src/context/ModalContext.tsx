@@ -158,7 +158,7 @@ const [stack, setStack] = useState<ModalInstance[]>([]);
       container.style.width = '100%'; // Exception documented
       container.style.height = '100%'; // Exception documented
       container.style.pointerEvents = 'auto'; // Allow interactions when modals are present
-      container.style.zIndex = Z_INDEX.modal.backdrop.toString(); // Use semantic z-index
+      container.style.zIndex = 'var(--md-sys-z-modal)'; // Use semantic z-index
       document.body.appendChild(container);
     }
 

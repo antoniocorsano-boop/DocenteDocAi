@@ -35,7 +35,7 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.32);
-  z-index: 999;
+  z-index: var(--md-sys-z-tooltip);
   backdrop-filter: blur(var(--md-sys-spacing-0));
 }
 
@@ -45,7 +45,7 @@
   background: var(--md-sys-color-surface-container-lowest);
   box-shadow: var(--md-sys-elevation3);
   border-radius: var(--md-sys-shape-corner-large) var(--md-sys-spacing-6) 0 0;
-  z-index: 1000;
+  z-index: var(--md-sys-z-modal);
   min-height: 40vh;
   padding: var(--md-sys-spacing-4);
   animation: emphasized-enter 150ms cubic-bezier(.2,0,0,1);

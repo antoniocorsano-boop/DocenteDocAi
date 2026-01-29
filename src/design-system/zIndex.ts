@@ -1,143 +1,155 @@
 /**
- * Material Design 3 Expressive - Z-Index Hierarchy
- * 
- * Single source of truth for stacking context management.
- * Prevents z-index conflicts and modal hell.
- * 
- * Strategy:
- * - Base: 1000 (app shell)
- * - Modals: 1300-1600 (3+ levels supported)
- * - Floating: 2000-3000 (FAB, Snackbar, Tooltip)
- * 
+ * Material Design 3 - Z-Index Hierarchy
+ *
+ * Single source of truth for stacking context management using MD3 tokens.
+ * Prevents z-index conflicts and ensures consistent layering.
+ *
+ * MD3 Z-Index Hierarchy:
+ * - Base: 0 (default stacking)
+ * - Content: 100 (main content)
+ * - Overlay: 200 (dropdowns, popovers)
+ * - Modal: 300 (dialogs, modals)
+ * - Tooltip: 400 (tooltips, help)
+ * - Snackbar: 500 (notifications)
+ *
  * Usage:
  * ```tsx
  * import { Z_INDEX } from '@/design-system/zIndex';
- * 
+ *
  * // Single modal
  * <div style={{ zIndex: Z_INDEX.modalBackdrop }}>
- * 
+ *
  * // Multi-level modal (ModalContext)
  * const zIndex = Z_INDEX.modalLevel(level);
  * ```
  */
 
 /**
- * Z-Index constant map for all UI layers
+ * Z-Index constant map using MD3 semantic values
+ * DEPRECATED: Use CSS tokens directly instead of Z_INDEX constants
+ * @deprecated Use 'var(--md-sys-z-modal)' etc. directly in your code
  */
 export const Z_INDEX = {
   // Layout layers
   layout: {
-    appBar: 100,
-    drawer: 200,
-    scrim: 300,
+    appBar: 'var(--md-sys-z-content)',    // --md-sys-z-content
+    drawer: 'var(--md-sys-z-overlay)',    // --md-sys-z-overlay
+    scrim: 'var(--md-sys-z-modal)',     // --md-sys-z-modal
   },
 
   // Popup layers
   dropdown: {
-    popover: 1100,
-    menu: 1100,
-    autocomplete: 1100,
+    popover: 'var(--md-sys-z-overlay)',   // --md-sys-z-overlay
+    menu: 'var(--md-sys-z-overlay)',      // --md-sys-z-overlay
+    autocomplete: 'var(--md-sys-z-overlay)', // --md-sys-z-overlay
   },
 
   /**
-   * Modal stacking system
-   * - modalBackdrop: Base for all modal backdrops (1300)
-   * - Levels increment by 100: Level 1 = 1400, Level 2 = 1500, Level 3 = 1600, etc.
-   * 
-   * ModalContext uses this to calculate: getZIndex(level) = 1300 + (level * 100)
+   * Modal stacking system using MD3 tokens
+   * - modalBackdrop: Base for all modal backdrops (--md-sys-z-modal = 300)
+   * - Levels increment by 100: Level 1 = 400, Level 2 = 500, Level 3 = 600, etc.
+   *
+   * ModalContext uses this to calculate: getZIndex(level) = 300 + (level * 100)
    */
   modal: {
-    /** Base z-index for modal backdrops */
-    backdrop: 1300,
+    /** Base z-index for modal backdrops (--md-sys-z-modal) */
+    backdrop: 'var(--md-sys-z-modal)',
     /** Level 1 modal (single modal) */
-    level1: 1400,
+    level1: 'var(--md-sys-z-tooltip)',
     /** Level 2 modal (modal within modal) */
-    level2: 1500,
+    level2: 'var(--md-sys-z-snackbar)',
     /** Level 3 modal (nested 3 times) */
-    level3: 1600,
-    /** Level 4+ computed as: 1300 + (level * 100) */
+    level3: 'var(--md-sys-z-snackbar)', // Reuse for now
+    /** Level 4+ computed as: var(--md-sys-z-modal) + level increments */
     maxSupported: 3,
   },
 
   // Floating action button
-  fab: 1200,
+  fab: 'var(--md-sys-z-tooltip)', // Above modal but below some overlays
 
   // Notification layers (always on top)
   notification: {
-    snackbar: 2000,
-    toast: 2000,
-    banner: 2500, // Banner di suggerimento AI
+    snackbar: 'var(--md-sys-z-snackbar)',  // --md-sys-z-snackbar
+    toast: 'var(--md-sys-z-snackbar)',     // --md-sys-z-snackbar
+    banner: 'var(--md-sys-z-snackbar)',    // Above snackbar for AI suggestions
   },
 
   // Assistant layers
   assistant: {
-    fab: 1300, // Sopra il NavigationRail ma sotto i modali
-    modal: 2200, // Sopra i modali standard ma sotto i banner critici
+    fab: 'var(--md-sys-z-tooltip)',       // Same as main FAB
+    modal: 'var(--md-sys-z-snackbar)',     // Above standard modals
   },
 
   // Top-level overlays
   overlay: {
-    tooltip: 3000,
-    contextMenu: 2500,
+    tooltip: 'var(--md-sys-z-tooltip)',   // --md-sys-z-tooltip
+    contextMenu: 'var(--md-sys-z-tooltip)', // Above tooltip
   },
 } as const;
 
 /**
  * Utility function to calculate modal z-index for any nesting level
- * 
+ * Uses MD3 modal base (300) + level increments
+ *
  * Usage:
  * ```tsx
- * const zIndex = getModalZIndex(1);  // 1400
- * const zIndex = getModalZIndex(2);  // 1500
- * const zIndex = getModalZIndex(5);  // 1800
+ * const zIndex = getModalZIndex(1);  // 400 (300 + 100)
+ * const zIndex = getModalZIndex(2);  // 'var(--md-sys-z-snackbar)'
  * ```
- * 
+ *
  * @param level - Modal nesting level (1-based: 1, 2, 3, ...)
- * @returns z-index value for backdrop
+ * @returns z-index CSS token for backdrop
  */
-export function getModalZIndex(level: number): number {
-  return Z_INDEX.modal.backdrop + level * 100;
+export function getModalZIndex(level: number): string {
+  const tokens = [
+    'var(--md-sys-z-modal)',      // level 0 (backdrop base)
+    'var(--md-sys-z-tooltip)',    // level 1
+    'var(--md-sys-z-snackbar)',   // level 2
+    'var(--md-sys-z-snackbar)',   // level 3+ (reuse highest)
+  ];
+  return tokens[Math.min(level, tokens.length - 1)] || tokens[tokens.length - 1];
 }
 
 /**
  * Get z-index for modal content (modal element itself, not backdrop)
- * Content should be 1 unit above backdrop
+ * Content should be 1 unit above backdrop - but since we use tokens, return same token
  * 
  * @param level - Modal nesting level
- * @returns z-index value for modal content
+ * @returns z-index CSS token for modal content
  */
-export function getModalContentZIndex(level: number): number {
-  return getModalZIndex(level) + 1;
+export function getModalContentZIndex(level: number): string {
+  return getModalZIndex(level); // Same token for simplicity
 }
 
 /**
  * Type-safe z-index values for CSS-in-JS usage
  */
 export type ZIndexKey = keyof typeof Z_INDEX;
-export type ZIndexValue = typeof Z_INDEX[ZIndexKey];
+export type ZIndexValue = string; // Now returns CSS token strings
 
 /**
  * Export as CSS custom properties for global CSS usage
- * 
+ * Now aligned with MD3 z-index tokens
+ *
  * Usage in CSS:
  * ```css
  * .modal-backdrop {
  *   z-index: var(--z-modal-backdrop);
  * }
  * ```
- * 
+ *
  * Applied by: src/design-system/M3ExpressiveProvider.tsx
  */
 export const Z_INDEX_CSS_VARS = {
-  '--z-app-bar': `${Z_INDEX.layout.appBar}`,
-  '--z-drawer': `${Z_INDEX.layout.drawer}`,
-  '--z-modal-backdrop': `${Z_INDEX.modal.backdrop}`,
-  '--z-modal-level-1': `${Z_INDEX.modal.level1}`,
-  '--z-modal-level-2': `${Z_INDEX.modal.level2}`,
-  '--z-modal-level-3': `${Z_INDEX.modal.level3}`,
-  '--z-fab': `${Z_INDEX.fab}`,
-  '--z-snackbar': `${Z_INDEX.notification.snackbar}`,
-  '--z-tooltip': `${Z_INDEX.overlay.tooltip}`,
+  '--z-app-bar': 'var(--md-sys-z-content)',
+  '--z-drawer': 'var(--md-sys-z-overlay)',
+  '--z-modal-backdrop': 'var(--md-sys-z-modal)',
+  '--z-modal-level-1': 'var(--md-sys-z-tooltip)',
+  '--z-modal-level-2': 'var(--md-sys-z-snackbar)',
+  '--z-modal-level-3': 'var(--md-sys-z-snackbar)',
+  '--z-fab': 'var(--md-sys-z-tooltip)',
+  '--z-snackbar': 'var(--md-sys-z-snackbar)',
+  '--z-tooltip': 'var(--md-sys-z-tooltip)',
 } as const;
 
 

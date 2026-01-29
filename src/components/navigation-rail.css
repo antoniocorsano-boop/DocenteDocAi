@@ -36,7 +36,7 @@
   align-items: center;
   
   /* Z-index */
-  z-index: var(--z-nav, 1000);
+  z-index: var(--md-sys-z-modal);
   
   /* Smooth transitions */
   @apply m3-transition-standard;
@@ -218,7 +218,7 @@
   text-align: center;
   
   /* Ensure it's on top */
-  z-index: 1;
+  z-index: var(--md-sys-z-base);
   
   /* Animation */
   animation: badge-appear 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);

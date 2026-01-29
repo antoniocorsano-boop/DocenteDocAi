@@ -6,7 +6,7 @@
     background: radial-gradient(circle, var(--md-sys-color-primary) var(--md-sys-percent-0), transparent var(--md-sys-percent-70));
     opacity: 0;
     transition: opacity 0.18s var(--motion-easing-standard);
-    z-index: 0;
+    z-index: var(--md-sys-z-base);
 }
 .timetable-tile:active .m3-ripple,
 .timetable-tile:focus-visible .m3-ripple {
@@ -38,7 +38,7 @@
     gap: var(--md-sys-spacing-4);
     align-items: flex-start;
     position: relative;
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
 }
 
 .hero-icon-bg {
@@ -1064,7 +1064,7 @@
 .google-cal-cell:focus-visible {
     outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
     outline-offset: -var(--md-sys-spacing-1);
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
 }
 
 
@@ -1213,7 +1213,7 @@
 .timetable-tile:focus-visible {
     outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
     outline-offset: -var(--md-sys-spacing-1);
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
     box-shadow: 0 0 0 var(--md-sys-spacing-1) var(--md-sys-color-primary-container);
 }
 
@@ -1297,7 +1297,7 @@
     position: sticky;
     left: 0;
     background-color: var(--md-sys-color-surface);
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
     border-right: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
     min-width: 1var(--md-sys-typescale-title-medium-size);
     max-width: var(--md-sys-layout-grid-min);
@@ -1644,7 +1644,7 @@
     .notebook-sidebar {
         width: var(--md-sys-percent-100);
         position: absolute;
-        z-index: 10;
+        z-index: var(--md-sys-z-base);
         height: var(--md-sys-percent-100);
         transition: transform 0.3s ease;
     }
@@ -1655,7 +1655,7 @@
         transition: transform 0.3s ease;
         position: absolute;
         height: var(--md-sys-percent-100);
-        z-index: 20;
+        z-index: var(--md-sys-z-base);
     }
 
     .notebook-layout.mobile-workspace-visible .notebook-sidebar {
@@ -1871,7 +1871,7 @@
     position: sticky;
     top: 0;
     background-color: var(--md-sys-color-surface-container);
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
 }
 
 .cell-changed input,
@@ -2057,7 +2057,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 0;
+    z-index: var(--md-sys-z-base);
     min-height: var(--md-sys-layout-button-min-width);
 }
 
@@ -2076,12 +2076,12 @@
     color: var(--md-sys-color-on-surface-variant);
     text-transform: uppercase;
     opacity: 0.6;
-    z-index: 1;
+    z-index: var(--md-sys-z-base);
 }
 
 .gantt-tracks-layer {
     position: relative;
-    z-index: 5;
+    z-index: var(--md-sys-z-base);
     min-width: var(--md-sys-layout-card-min-height);
     padding-top: var(--md-sys-spacing-10);
     padding-bottom: var(--md-sys-typescale-title-medium-size);
@@ -2116,12 +2116,12 @@
     cursor: pointer;
     box-shadow: var(--md-sys-elevation-level1);
     transition: all var(--motion-duration-short) var(--motion-easing-standard);
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
 }
 
 .gantt-bar:hover {
     transform: scaleY(1.1);
-    z-index: 15;
+    z-index: var(--md-sys-z-base);
     box-shadow: var(--md-sys-elevation-level2);
 }
 
@@ -3122,7 +3122,7 @@
     flex-direction: column;
     align-items: center;
     cursor: help;
-    z-index: 20;
+    z-index: var(--md-sys-z-base);
 }
 
 /* Today indicator: vertical red line with small label */
@@ -3133,7 +3133,7 @@
     width: var(--md-sys-spacing-1);
     background: var(--md-sys-color-error); /* red line */
     transform: translateX(calc(var(--md-sys-percent-50) * -1));
-    z-index: 25;
+    z-index: var(--md-sys-z-base);
     pointer-events: none;
 }
 .gantt-today-indicator .gantt-today-label {
@@ -3147,7 +3147,7 @@
     border-radius: var(--md-sys-special-offscreen);
     font-size: var(--md-sys-typescale-label-small-size);
     font-weight: 700;
-    z-index: 26;
+    z-index: var(--md-sys-z-base);
 }
 
 .gantt-event-icon {
@@ -3413,7 +3413,7 @@
 .smart-document-editor-overlay {
     position: fixed;
     inset: 0;
-    z-index: 1050;
+    z-index: var(--md-sys-z-modal);
     background: var(--md-sys-color-surface);
     display: flex;
     flex-direction: column;
@@ -3562,7 +3562,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--md-sys-spacing-4);
-    z-index: 1060;
+    z-index: var(--md-sys-z-tooltip);
     animation: var(--md-sys-motion-easing-emphasized-decelerate) 0.2s;
 }
 

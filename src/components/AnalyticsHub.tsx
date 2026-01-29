@@ -4,10 +4,11 @@
  * // M3Expressive refactor: Removed all className attributes, converted to inline styles with MD3 tokens for layout, colors, spacing, and typography.
  */
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, Suspense, lazy } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, AiSettings } from '../types';
-import { LineChart, RadarChart } from './charts/AdvancedCharts';
-import BarChart from './charts/BarChart';
+const LineChart = lazy(() => import('./charts/AdvancedCharts').then(m => ({ default: m.LineChart })));
+const RadarChart = lazy(() => import('./charts/AdvancedCharts').then(m => ({ default: m.RadarChart })));
+const BarChart = lazy(() => import('./charts/BarChart'));
 import { calculateClassTrend, calculateCompetencyRadar, calculateGradeDistribution } from '../utils/analyticsUtils';
 import { getGoogleAIClient } from '../services/aiClient';
 import {
@@ -265,9 +266,21 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         width: 'var(--md-sys-percent-100)'
                     }}
                 >
-                    {chartType === 'trend' && <LineChart data={trendData} color="var(--md-sys-color-primary)" />}
-                    {chartType === 'radar' && <RadarChart data={radarData} color="var(--sys-tertiary)" />}
-                    {chartType === 'dist' && <BarChart data={distData} color="var(--md-sys-color-secondary)" />}
+                    {chartType === 'trend' && (
+                        <Suspense fallback={<div>Loading chart...</div>}>
+                            <LineChart data={trendData} color="var(--md-sys-color-primary)" />
+                        </Suspense>
+                    )}
+                    {chartType === 'radar' && (
+                        <Suspense fallback={<div>Loading chart...</div>}>
+                            <RadarChart data={radarData} color="var(--sys-tertiary)" />
+                        </Suspense>
+                    )}
+                    {chartType === 'dist' && (
+                        <Suspense fallback={<div>Loading chart...</div>}>
+                            <BarChart data={distData} color="var(--md-sys-color-secondary)" />
+                        </Suspense>
+                    )}
                 </div>
 
                 {(isAiLoading || aiInsight) && (

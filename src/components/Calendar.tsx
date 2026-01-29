@@ -1,9 +1,9 @@
 // MD3 Compliant - Block J Migration Complete (5 violations eliminated)
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useMemo, useEffect, useRef, Suspense, lazy } from 'react';
 import '../modules.css';
 import { EventoCalendario, AiSettings } from '../types';
-import EventModal from './EventModal';
-import AiEventParserModal from './AiEventParserModal';
+const EventModal = lazy(() => import('./EventModal'));
+const AiEventParserModal = lazy(() => import('./AiEventParserModal'));
 import EventActionPopover from './EventActionPopover';
 import { 
 
@@ -564,33 +564,37 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
             </div>
 
             {editingEvent && (
-                <EventModal
-                    eventToEdit={editingEvent}
-                    onClose={() => setEditingEvent(null)}
-                    onSave={(ev) => {
-                        if (ev.id) {
-                            setEventi(prev => prev.map(e => e.id === ev.id ? ev : e));
-                        } else {
-                            setEventi(prev => [...prev, { ...ev, id: `evt-${Date.now()}` }]);
-                        }
-                        setEditingEvent(null);
-                    }}
-                    onDelete={(id) => {
-                        setEventi(prev => prev.filter(e => e.id !== id));
-                        setEditingEvent(null);
-                    }}
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <EventModal
+                        eventToEdit={editingEvent}
+                        onClose={() => setEditingEvent(null)}
+                        onSave={(ev) => {
+                            if (ev.id) {
+                                setEventi(prev => prev.map(e => e.id === ev.id ? ev : e));
+                            } else {
+                                setEventi(prev => [...prev, { ...ev, id: `evt-${Date.now()}` }]);
+                            }
+                            setEditingEvent(null);
+                        }}
+                        onDelete={(id) => {
+                            setEventi(prev => prev.filter(e => e.id !== id));
+                            setEditingEvent(null);
+                        }}
+                    />
+                </Suspense>
             )}
 
             {isAiParserOpen && (
-                <AiEventParserModal
-                    aiSettings={aiSettings}
-                    onClose={() => setIsAiParserOpen(false)}
-                    onEventParsed={(eventData: Partial<EventoCalendario>) => {
-                        setEventi(prev => [...prev, { ...eventData, id: `evt-${Date.now()}` } as EventoCalendario]);
-                        setIsAiParserOpen(false);
-                    }}
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <AiEventParserModal
+                        aiSettings={aiSettings}
+                        onClose={() => setIsAiParserOpen(false)}
+                        onEventParsed={(eventData: Partial<EventoCalendario>) => {
+                            setEventi(prev => [...prev, { ...eventData, id: `evt-${Date.now()}` } as EventoCalendario]);
+                            setIsAiParserOpen(false);
+                        }}
+                    />
+                </Suspense>
             )}
 
             {popoverState && (

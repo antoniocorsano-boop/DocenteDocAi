@@ -115,10 +115,10 @@
    
    ❌ FORBIDDEN:
    .modal {
-     z-index: 600;
+     z-index: var(--md-sys-z-snackbar);
    }
    
    ❌ FORBIDDEN (TypeScript):
-   style={{ zIndex: 1200 }}
+   style={{ zIndex: 'var(--md-sys-z-tooltip)' }}
    
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */

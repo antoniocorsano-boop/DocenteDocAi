@@ -7,9 +7,9 @@
  * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
  */
 
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { Uda, Competenza, UdaPlannerProps } from '../types';
-import { UdaExportModal } from './UdaExportModal';
+const UdaExportModal = lazy(() => import('./UdaExportModal'));
 import Guidance from './Guidance';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, TextArea, EmptyState } from './ui';
 const createNewUda = (): Uda => ({
@@ -438,14 +438,16 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
             </div>
             
              {exportingUda && (
-                <UdaExportModal 
-                    uda={exportingUda} 
-                    aiSettings={aiSettings} 
-                    competenze={competenze} 
-                    settings={settings} 
-                    onClose={handleCloseExport} 
-                    onSaveReport={onSaveReport} 
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <UdaExportModal 
+                        uda={exportingUda} 
+                        aiSettings={aiSettings} 
+                        competenze={competenze} 
+                        settings={settings} 
+                        onClose={handleCloseExport} 
+                        onSaveReport={onSaveReport} 
+                    />
+                </Suspense>
             )}
         </div>
     );

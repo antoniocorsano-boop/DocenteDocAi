@@ -6,11 +6,11 @@
  * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
  */
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, Suspense, lazy } from 'react';
 import { KnowledgeBaseEntry, Corpus, AiSettings, TimetableSettings } from '../types';
-import AddSourceModal from './AddSourceModal';
-import DocumentViewerModal from './DocumentViewerModal'; 
-import ImageViewerModal from './ImageViewerModal';
+const AddSourceModal = lazy(() => import('./AddSourceModal'));
+const DocumentViewerModal = lazy(() => import('./DocumentViewerModal')); 
+const ImageViewerModal = lazy(() => import('./ImageViewerModal'));
 import { KB_CATEGORIES } from '../constants';
 import {
     InfoCard,
@@ -186,28 +186,34 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
             </main>
 
             {isAddSourceModalOpen && (
-                <AddSourceModal
-                    corpora={corpora}
-                    setCorpora={setCorpora}
-                    onClose={() => setIsAddSourceModalOpen(false)}
-                    onAddEntries={handleAddEntries}
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <AddSourceModal
+                        corpora={corpora}
+                        setCorpora={setCorpora}
+                        onClose={() => setIsAddSourceModalOpen(false)}
+                        onAddEntries={handleAddEntries}
+                    />
+                </Suspense>
             )}
             {previewingEntry && (
-                <DocumentViewerModal
-                    title={previewingEntry.fileName}
-                    htmlContent={previewingEntry.htmlContent || `<pre>${previewingEntry.content}</pre>`}
-                    onClose={() => setPreviewingEntry(null)}
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <DocumentViewerModal
+                        title={previewingEntry.fileName}
+                        htmlContent={previewingEntry.htmlContent || `<pre>${previewingEntry.content}</pre>`}
+                        onClose={() => setPreviewingEntry(null)}
+                    />
+                </Suspense>
             )}
             {viewingImage && (
-                 <ImageViewerModal
-                    prompt={viewingImage.content}
-                    imageData={viewingImage.fileContent!.data}
-                    mimeType={viewingImage.fileContent!.mimeType}
-                    onClose={() => setViewingImage(null)}
-                    onSaveToKb={() => {}}
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <ImageViewerModal
+                        prompt={viewingImage.content}
+                        imageData={viewingImage.fileContent!.data}
+                        mimeType={viewingImage.fileContent!.mimeType}
+                        onClose={() => setViewingImage(null)}
+                        onSaveToKb={() => {}}
+                    />
+                </Suspense>
             )}
         </div>
     );

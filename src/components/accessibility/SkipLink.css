@@ -11,7 +11,7 @@
   position: absolute;
   top: -var(--md-sys-spacing-10);
   left: 0;
-  z-index: 9999;
+  z-index: var(--md-sys-z-skip-link);
   
   /* Styling */
   padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);

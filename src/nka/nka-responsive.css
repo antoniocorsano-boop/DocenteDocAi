@@ -5,7 +5,7 @@
   background: var(--md-sys-color-surface-container-lowest);
   box-shadow: var(--md-sys-elevation3);
   border-radius: var(--md-sys-shape-corner-large) var(--md-sys-spacing-6) 0 0;
-  z-index: 1000;
+  z-index: var(--md-sys-z-modal);
   min-height: 40vh;
   max-height: 90vh;
   width: 100vw;
@@ -27,7 +27,7 @@
   background: var(--md-sys-color-surface);
   box-shadow: var(--md-sys-elevation3);
   border-radius: var(--md-sys-shape-corner-large) var(--md-sys-spacing-6) 0 0;
-  z-index: 1100;
+  z-index: var(--md-sys-z-tooltip);
   width: 100vw;
   max-width: var(--breakpoint-compact);
   margin: 0 auto;

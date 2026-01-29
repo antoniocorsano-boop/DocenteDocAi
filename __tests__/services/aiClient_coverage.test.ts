@@ -38,13 +38,13 @@ describe('AiClient Coverage', () => {
 
         it('should throw after max retries', async () => {
             const op = vi.fn().mockRejectedValue({ status: 429, message: 'Quota exceeded' });
-            await expect(callAiWithRetry(op, 1, 10)).rejects.toThrow('Quota exceeded');
+            await expect(callAiWithRetry(op, 1, 10)).rejects.toThrow('Limite di utilizzo AI raggiunto. Riprova più tardi.');
             expect(op).toHaveBeenCalledTimes(2);
         });
 
         it('should not retry on non-retryable error', async () => {
             const op = vi.fn().mockRejectedValue({ status: 400, message: 'Bad Request' });
-            await expect(callAiWithRetry(op)).rejects.toThrow('Bad Request');
+            await expect(callAiWithRetry(op)).rejects.toThrow('Si è verificato un errore imprevisto. Riprova.');
             expect(op).toHaveBeenCalledTimes(1);
         });
     });

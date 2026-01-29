@@ -108,7 +108,7 @@
     min-height: var(--md-sys-spacing-16);
     margin: 0 auto var(--md-sys-spacing-5) auto;
     max-width: var(--md-sys-layout-card-width);
-    z-index: var(--z-nav, 1200);
+    z-index: var(--md-sys-z-modal);
     transition: box-shadow 0.2s, background 0.2s;
     display: flex;
     align-items: center;
@@ -122,7 +122,7 @@
     border-top-left-radius: var(--shape-l);
     border-top-right-radius: var(--shape-l);
     min-height: var(--md-sys-spacing-16);
-    z-index: var(--z-nav, 1200);
+    z-index: var(--md-sys-z-modal);
     transition: box-shadow 0.2s;
 }
 
@@ -493,8 +493,8 @@
 .fixed { position: fixed; }
 .sticky { position: sticky; }
 .top-0 { top: 0; }
-.z-10 { z-index: 10; }
-.z-20 { z-index: 20; }
+.z-10 { z-index: var(--md-sys-z-base); }
+.z-20 { z-index: var(--md-sys-z-base); }
 
 /* Overflow */
 .overflow-hidden { overflow: hidden; }
@@ -895,7 +895,7 @@
     right: var(--md-sys-spacing-6);
     bottom: calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-6));
     pointer-events: auto;
-    z-index: var(--z-index-assistant-fab, 1000);
+    z-index: var(--md-sys-z-modal);
 }
 
 /* Responsive FAB positioning */
@@ -1049,7 +1049,7 @@
 .header-backdrop {
     position: fixed;
     inset: 0;
-    z-index: var(--z-index-modal-backdrop, 1000);
+    z-index: var(--md-sys-z-modal);
 }
 
 /* Header Share Dialog Content */
@@ -1184,7 +1184,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
     pointer-events: none;
 }
 
@@ -1216,7 +1216,7 @@
     position: fixed;
     right: var(--md-sys-spacing-6);
     bottom: var(--md-sys-spacing-6);
-    z-index: var(--z-index-notification-snackbar, 2000);
+    z-index: var(--md-sys-z-snackbar);
 }
 
 .timeline-view-snackbar-content {
@@ -1244,7 +1244,7 @@
     left: var(--md-sys-percent-50);
     transform: translateX(calc(-1 * var(--md-sys-percent-50)));
     top: var(--md-sys-spacing-2);
-    z-index: var(--z-index-overlay-tooltip, 1500);
+    z-index: var(--md-sys-z-tooltip);
 }
 
 .timeline-view-drag-preview-content {
@@ -1582,7 +1582,7 @@
     inset: 0;
     backdrop-filter: blur(var(--md-sys-spacing-1));
     animation: modal-fade-in 0.3s ease-out;
-    z-index: 1;
+    z-index: var(--md-sys-z-modal);
 }
 
 .modal-portal-backdrop.light {
@@ -1613,7 +1613,7 @@
 /* Modal Portal Content Wrapper */
 .modal-portal-content-wrapper {
     position: relative;
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
     width: var(--md-sys-percent-100);
     height: var(--md-sys-percent-100);
     display: flex;
@@ -2617,7 +2617,7 @@
     background: rgba(var(--md-sys-color-surface-container-high-rgb), 0.2);
     backdrop-filter: blur(var(--md-sys-spacing-2));
     box-shadow: var(--md-sys-elevation-level1);
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
 }
 
 /* Curriculum Manager Content Title */
@@ -4379,7 +4379,7 @@
     align-items: center;
     color: var(--md-sys-color-primary);
     gap: var(--md-sys-spacing-8);
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
 }
 
 /* Timer Widget Icon */
@@ -4407,7 +4407,7 @@
     line-height: 1;
     letter-spacing: 0.1em;
     color: var(--md-sys-color-on-surface);
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
     text-align: center;
     margin: var(--md-sys-spacing-2) 0;
     font-variant-numeric: tabular-nums;
@@ -4418,7 +4418,7 @@
     display: flex;
     width: var(--md-sys-percent-100);
     gap: var(--md-sys-spacing-8);
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
     margin-top: auto;
 }
 
@@ -4474,7 +4474,7 @@
     align-items: center;
     color: var(--md-sys-color-tertiary);
     gap: var(--md-sys-spacing-8);
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
 }
 
 /* Random Student Widget Icon */
@@ -4496,7 +4496,7 @@
 
 /* Random Student Widget Content */
 .classroom-tools-random-student-content {
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
     text-align: center;
     width: var(--md-sys-percent-100);
     flex-grow: 1;
@@ -4566,7 +4566,7 @@
 .classroom-tools-random-student-button {
     width: var(--md-sys-percent-100);
     justify-content: center;
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
     background: var(--md-sys-color-tertiary);
     color: var(--md-sys-color-on-tertiary);
     box-shadow: var(--md-sys-elevation-level1);
@@ -5707,7 +5707,7 @@
     position: sticky;
     left: 0;
     background-color: var(--md-sys-color-surface-container-high);
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
     border-bottom: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
     border-right: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
     min-width: var(--md-sys-layout-popup-min-width);
@@ -5756,7 +5756,7 @@
     left: 0;
     background-color: var(--md-sys-color-surface-container-low);
     border-right: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
     color: var(--md-sys-color-primary);
 }
 
@@ -6156,7 +6156,7 @@
 /* Content Container */
 .timetable-content {
     position: relative;
-    z-index: 10;
+    z-index: var(--md-sys-z-base);
     display: flex;
     flex-direction: column;
     gap: var(--md-sys-spacing-6);
@@ -6417,7 +6417,7 @@
 
 .timetable-matrix-cell-wrapper:hover {
     transform: scale(1.02);
-    z-index: 20;
+    z-index: var(--md-sys-z-base);
 }
 
 .timetable-matrix-cell-wrapper:last-child {

@@ -16,7 +16,7 @@
 .dialog-backdrop-legacy {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: var(--md-sys-z-modal);
   /* M3 token replacement: rgba(0, 0, 0, 0.32) → var(--md-sys-color-scrim) */
   background: var(--md-sys-color-scrim);
   display: flex;
@@ -441,7 +441,7 @@
   background: var(--md-sys-color-surface);
   border-radius: var(--md-sys-shape-corner-medium);
   box-shadow: var(--md-elevation-3);
-  z-index: 1100;
+  z-index: var(--md-sys-z-tooltip);
   /* M3 token applied: var(--md-sys-layout-popup-min-width) → var(--popup-min-width) */
   min-width: var(--popup-min-width);
   padding: var(--md-sys-spacing-2) 0;

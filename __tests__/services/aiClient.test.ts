@@ -102,13 +102,13 @@ describe('aiClient', () => {
 
     it('should throw error if retries exhausted', async () => {
       const operation = vi.fn().mockRejectedValue({ status: 429, message: 'Quota exceeded' });
-      await expect(callAiWithRetry(operation, 1, 10)).rejects.toEqual({ status: 429, message: 'Quota exceeded' });
+      await expect(callAiWithRetry(operation, 1, 10)).rejects.toThrow('Limite di utilizzo AI raggiunto. Riprova più tardi.');
       expect(operation).toHaveBeenCalledTimes(2);
     });
 
     it('should throw immediately on non-retryable error', async () => {
       const operation = vi.fn().mockRejectedValue({ status: 400, message: 'Bad request' });
-      await expect(callAiWithRetry(operation, 1, 10)).rejects.toEqual({ status: 400, message: 'Bad request' });
+      await expect(callAiWithRetry(operation, 1, 10)).rejects.toThrow('Si è verificato un errore imprevisto. Riprova.');
       expect(operation).toHaveBeenCalledTimes(1);
     });
   });

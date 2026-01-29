@@ -10,7 +10,7 @@ const sampleNodes: NKANode[] = [
   { id: '3', label: 'Applicazioni', color: 'var(--md-sys-color-secondary)', elevation: 2, depth: 1, shape: 'circle', actions: [] },
   { id: '4', label: 'Esempi Pratici', color: 'var(--md-sys-color-primary)', elevation: 3, depth: 2, shape: 'circle', actions: [] },
   { id: '5', label: 'Conclusioni', color: 'var(--md-sys-color-surface-variant)', elevation: 4, depth: 3, shape: 'circle', actions: [] },
-'];
+];
 
 const meta = {
   title: 'Components/NKA/NKABottomSheet',
@@ -64,8 +64,8 @@ export const Interactive: Story = {
     onNodeSelect: (node: NKANode) => {},
   },
   render: (args) => {
-    const [open, setOpen'] = React.useState(args.open);
-    const [selectedNode, setSelectedNode'] = React.useState<NKANode | null>(null);
+    const [open, setOpen] = React.useState(args.open);
+    const [selectedNode, setSelectedNode] = React.useState<NKANode | null>(null);
 
     return (
       <div style={{ padding: 'var(--md-sys-spacing-8)' }}>
@@ -137,7 +137,7 @@ export const LinearPath: Story = {
       { id: '4', label: 'Step 4: Implementation', color: 'var(--sys-error)', elevation: 3, depth: 2, shape: 'circle', actions: [] },
       { id: '5', label: 'Step 5: Testing', color: 'var(--sys-warning)', elevation: 3, depth: 2, shape: 'circle', actions: [] },
       { id: '6', label: 'Step 6: Deployment', color: 'var(--sys-success)', elevation: 4, depth: 3, shape: 'circle', actions: [] },
-    '],
+    ],
     onClose: () => console.log('Close'),
     onNodeSelect: (node) => console.log('Selected node:', node),
   },
@@ -163,7 +163,7 @@ export const ComplexNetwork: Story = {
       { id: 'leaf3', label: 'Leaf B1', color: 'var(--sys-tertiary)', elevation: 2, depth: 2, shape: 'circle', actions: [] },
       { id: 'leaf4', label: 'Leaf B2', color: 'var(--sys-tertiary)', elevation: 2, depth: 2, shape: 'circle', actions: [] },
       { id: 'convergence', label: 'Convergence', color: 'var(--sys-error)', elevation: 3, depth: 3, shape: 'circle', actions: [] },
-    '],
+    ],
     onClose: () => console.log('Close'),
     onNodeSelect: (node) => console.log('Selected node:', node),
   },
@@ -179,7 +179,7 @@ export const ComplexNetwork: Story = {
 export const SingleNode: Story = {
   args: {
     open: true,
-    nodes: [{ id: '1', label: 'Single Concept', color: 'var(--md-sys-color-primary)', elevation: 1, depth: 0, shape: 'circle', actions: [] }'],
+    nodes: [{ id: '1', label: 'Single Concept', color: 'var(--md-sys-color-primary)', elevation: 1, depth: 0, shape: 'circle', actions: [] }],
     onClose: () => console.log('Close'),
     onNodeSelect: (node) => console.log('Selected node:', node),
   },

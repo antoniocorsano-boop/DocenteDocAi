@@ -32,7 +32,7 @@
 .m3-interactive:focus-visible {
   outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
   outline-offset: var(--md-sys-spacing-1);
-  z-index: 1;
+  z-index: var(--md-sys-z-base);
 }
 
 /* Remove focus outline on mouse click */

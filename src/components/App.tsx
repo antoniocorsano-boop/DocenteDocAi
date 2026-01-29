@@ -17,10 +17,10 @@ import PassaggioAnnoWizard from './PassaggioAnnoWizard';
 import Snackbar from './Snackbar';
 import ErrorBoundary from './ErrorBoundary';
 import { AppLayout } from './AppLayout.md3';
-import ImageAnalysisModal from './ImageAnalysisModal';
-import VideoAnalysisModal from './VideoAnalysisModal';
-import HelpModal from './HelpModal';
-import CircolareAnalysisModal from './CircolareAnalysisModal';
+const ImageAnalysisModal = React.lazy(() => import('./ImageAnalysisModal'));
+const VideoAnalysisModal = React.lazy(() => import('./VideoAnalysisModal'));
+const HelpModal = React.lazy(() => import('./HelpModal'));
+const CircolareAnalysisModal = React.lazy(() => import('./CircolareAnalysisModal'));
 import OperationsCenter from './OperationsCenter';
 import NKABottomSheet from '../nka/NKABottomSheet';
 import { useNKAStore } from '../nka/useNKAStore';
@@ -90,23 +90,31 @@ const App: React.FC = () => {
                 <ModalManager appState={appState} actions={actions} modals={modals} />
                 {/* Modal rendering */}
                 {openModal === 'image-analysis-modal' && (
-                        <ImageAnalysisModal onClose={handleCloseModal} />
+                        <React.Suspense fallback={<div>Loading...</div>}>
+                            <ImageAnalysisModal onClose={handleCloseModal} />
+                        </React.Suspense>
                     )}
                 {openModal === 'video-analysis-modal' && (
-                        <VideoAnalysisModal onClose={handleCloseModal} />
+                        <React.Suspense fallback={<div>Loading...</div>}>
+                            <VideoAnalysisModal onClose={handleCloseModal} />
+                        </React.Suspense>
                     )}
                 {openModal === 'help-modal' && (
-                        <HelpModal onClose={handleCloseModal} onNavigate={actions.handleNavigate} aiSettings={aiSettings} setIsLoadingModalOpen={modals.setIsLoadingModalOpen} setLoadingModalMessage={modals.setLoadingModalMessage} />
+                        <React.Suspense fallback={<div>Loading...</div>}>
+                            <HelpModal onClose={handleCloseModal} onNavigate={actions.handleNavigate} aiSettings={aiSettings} setIsLoadingModalOpen={modals.setIsLoadingModalOpen} setLoadingModalMessage={modals.setLoadingModalMessage} />
+                        </React.Suspense>
                     )}
                 {openModal === 'circular-analysis-modal' && circularAnalysisPayload && (
-                        <CircolareAnalysisModal
-                            url={circularAnalysisPayload.url}
-                            title={circularAnalysisPayload.title}
-                            onClose={handleCloseModal}
-                            aiSettings={aiSettings}
-                            onImportEvents={handleImportEvents}
-                            onSaveToKb={handleSaveToKb}
-                        />
+                        <React.Suspense fallback={<div>Loading...</div>}>
+                            <CircolareAnalysisModal
+                                url={circularAnalysisPayload.url}
+                                title={circularAnalysisPayload.title}
+                                onClose={handleCloseModal}
+                                aiSettings={aiSettings}
+                                onImportEvents={handleImportEvents}
+                                onSaveToKb={handleSaveToKb}
+                            />
+                        </React.Suspense>
                     )}
                 {openModal === 'operations-center' && (
                         <OperationsCenter

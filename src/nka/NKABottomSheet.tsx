@@ -67,7 +67,7 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
           width: '100vw',
           height: '100vh',
           background: 'rgba(0,0,0,0.32)',
-          zIndex: 1000,
+          zIndex: 'var(--md-sys-z-modal)', // --md-sys-z-modal
         }}
       />
       <div
@@ -84,7 +84,7 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
           borderTopLeftRadius: 'var(--md-sys-shape-corner-large)',
           borderTopRightRadius: 'var(--md-sys-shape-corner-large)',
           boxShadow: 'var(--md-sys-elevation3)',
-          zIndex: 1001,
+          zIndex: 'var(--md-sys-z-modal)', // --md-sys-z-modal + 1
           padding: 'var(--md-sys-spacing-6) var(--md-sys-spacing-4) var(--md-sys-spacing-4) var(--md-sys-spacing-4)',
           minHeight: 320,
           display: 'flex',
@@ -132,7 +132,7 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
             borderRadius: 'var(--md-sys-shape-corner-large)',
             boxShadow: 'var(--md-sys-elevation2)',
             padding: 'var(--md-sys-spacing-6)',
-            zIndex: 1100,
+            zIndex: 'var(--md-sys-z-tooltip)', // --md-sys-z-tooltip
             minWidth: 320,
             maxWidth: 480,
           }}

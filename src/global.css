@@ -1,5 +1,6 @@
 /* MD3 Platinum: Semantic Token Layer */
 @import './design-system/semantic-tokens.css';
+@import './design-system/tokens/md3-z-index.css';
 
 /* Light mode defaults */
 :root {
@@ -1412,7 +1413,7 @@
 }
 
 .md3-fab-positioned-action {
-  z-index: var(--md-sys-elevation-level-3);
+  z-index: var(--md-sys-z-base);
 }
 
 .md3-fab-action-icon {

@@ -210,7 +210,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                       
                       style={{
                         ...posStyle,
-                        zIndex: Z_INDEX.assistant.fab + 1 - i,
+                        zIndex: 'var(--z-tooltip)',
                       }}
                       onClick={() => handleAction(a)}
                       aria-label={a.label}
@@ -230,7 +230,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           position: fixed;
           right: var(--md-sys-spacing-6);
           bottom: var(--md-sys-spacing-12);
-          z-index: ${Z_INDEX.assistant.fab};
+          z-index: var(--z-tooltip);
           transition: box-shadow 0.2s;
         }
         .mui-fab-expressive.assistant-fab {
@@ -275,7 +275,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          z-index: 1300;
+          z-index: 'var(--md-sys-z-tooltip)';
         }
         .mui-fab-expressive.assistant-fab-secondary {
           position: absolute;
@@ -302,7 +302,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           position: fixed;
           inset: 0;
           background: var(--md-sys-color-scrim);
-          z-index: 1198;
+          z-index: 'var(--md-sys-z-modal)';
           backdrop-filter: blur(var(--md-sys-blur-small));
         }
         .assistant-fab-sheet {
@@ -321,7 +321,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           display: flex;
           flex-direction: column;
           gap: var(--md-sys-spacing-4);
-          z-index: 1199;
+          z-index: 'var(--md-sys-z-tooltip)';
           animation: assistant-sheet-enter 0.25s ease-out;
         }
         @media (min-width: var(--breakpoint-compact)) {

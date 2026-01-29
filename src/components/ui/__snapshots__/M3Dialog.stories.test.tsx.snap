@@ -6,7 +6,7 @@ exports[`M3Dialog Story Snapshots > renders default story correctly 1`] = `
     data-fullscreen="false"
     data-testid="m3-dialog"
     role="presentation"
-    style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; z-index: 1400;"
+    style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; z-index: var(--md-sys-z-tooltip);"
   >
     <div
       aria-hidden="true"
@@ -16,7 +16,7 @@ exports[`M3Dialog Story Snapshots > renders default story correctly 1`] = `
       aria-labelledby="dialog-title"
       aria-modal="true"
       role="dialog"
-      style="width: var(--md-sys-percent-100); max-width: var(--md-sys-spacing-32); max-height: var(--md-sys-percent-90); margin: var(--md-sys-margin-auto); background-color: var(--md-sys-color-surface-container-high); border-radius: var(--md-sys-shape-corner-large); box-shadow: var(--md-sys-elevation-level3); display: flex; flex-direction: column; position: relative; z-index: 1401;"
+      style="width: var(--md-sys-percent-100); max-width: var(--md-sys-spacing-32); max-height: var(--md-sys-percent-90); margin: var(--md-sys-margin-auto); background-color: var(--md-sys-color-surface-container-high); border-radius: var(--md-sys-shape-corner-large); box-shadow: var(--md-sys-elevation-level3); display: flex; flex-direction: column; position: relative; z-index: var(--md-sys-z-tooltip);"
     >
       <div
         style="display: flex; justify-content: space-between; align-items: flex-start; padding: var(--md-sys-spacing-6); border-bottom: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant);"

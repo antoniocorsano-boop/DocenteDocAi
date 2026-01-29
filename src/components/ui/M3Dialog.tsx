@@ -12,7 +12,6 @@
  */
 
 import React, { useCallback, useState } from 'react';
-import { getModalZIndex } from '../../design-system/zIndex';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
 
 // ============================================================================
@@ -112,7 +111,9 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   const bodyLargeFontWeight = 'var(--md-sys-typescale-body-large-font-weight)';
   const bodyLargeLineHeight = 'var(--md-sys-typescale-body-large-line-height)';
 
-  const zIndex = Number(style.zIndex) || getModalZIndex(level);
+  // Use MD3 z-index tokens directly instead of dynamic calculation
+  const backdropZIndex = 'var(--md-sys-z-tooltip)';
+  const contentZIndex = 'var(--md-sys-z-tooltip)';
   const [closeButtonHovered, setCloseButtonHovered] = useState(false);
 
   // Use centralized keyboard navigation hook
@@ -152,7 +153,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
         left: 0,
         right: 0,
         bottom: 0,
-        zIndex,
+        zIndex: backdropZIndex,
         ...style
       }}
       onClick={handleBackdropClick}
@@ -200,7 +201,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
           display: 'flex',
           flexDirection: 'column',
           position: 'relative',
-          zIndex: zIndex + 1
+          zIndex: contentZIndex
         }}
         role="dialog"
         aria-modal="true"
