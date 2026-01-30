@@ -239,7 +239,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           border-radius: var(--md-sys-shape-corner-full);
           width: var(--md-sys-spacing-10);
           height: var(--md-sys-spacing-10);
-          box-shadow: var(--md-sys-elevation-level-3);
+          box-shadow: var(--md-elevation-3);
           font-size: var(--md-sys-typescale-display-small-font-size);
           display: flex;
           align-items: center;
@@ -249,7 +249,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         }
         .mui-fab-expressive.assistant-fab:hover {
           background: var(--md-sys-color-primary-container);
-          box-shadow: var(--md-sys-elevation-level-2);
+          box-shadow: var(--md-elevation-2);
         }
         .assistant-fab-menu {
           position: absolute;
@@ -283,7 +283,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           color: var(--md-sys-color-on-surface);
           border: none;
           border-radius: var(--md-sys-shape-corner-medium);
-          box-shadow: var(--md-sys-elevation-level-2);
+          box-shadow: var(--md-elevation-2);
           padding: var(--md-sys-spacing-3) var(--md-sys-spacing-5);
           font-size: var(--md-sys-typescale-body-large-font-size);
           display: flex;
@@ -295,7 +295,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
         }
         .mui-fab-expressive.assistant-fab-secondary:hover {
           background: var(--md-sys-color-surface-variant);
-          box-shadow: var(--md-sys-elevation-level-3);
+          box-shadow: var(--md-elevation-3);
         }
         .assistant-fab-sheet-scrim {
           position: fixed;
@@ -316,7 +316,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           background: var(--md-sys-color-surface);
           border-radius: var(--md-sys-shape-corner-extra-large);
           padding: var(--md-sys-spacing-4) var(--md-sys-spacing-6) var(--md-sys-spacing-6);
-          box-shadow: var(--md-sys-elevation-level-3);
+          box-shadow: var(--md-elevation-3);
           display: flex;
           flex-direction: column;
           gap: var(--md-sys-spacing-4);
@@ -359,14 +359,14 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           display: flex;
           align-items: center;
           gap: var(--md-sys-spacing-3);
-          box-shadow: var(--md-sys-elevation-level-2);
+          box-shadow: var(--md-elevation-2);
           cursor: pointer;
-          transition: transform 0.2s var(--motion-easing-standard), box-shadow 0.2s var(--motion-easing-standard);
+          transition: transform var(--md-sys-motion-duration-short) var(--motion-easing-standard), box-shadow var(--md-sys-motion-duration-short) var(--motion-easing-standard);
           text-align: left;
         }
         .assistant-fab-sheet-action:hover {
           transform: translateY(calc(-1 * var(--md-sys-spacing-1)));
-          box-shadow: var(--md-sys-elevation-level-3);
+          box-shadow: var(--md-elevation-3);
         }
         @keyframes assistant-sheet-enter {
           from {

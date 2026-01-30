@@ -20,7 +20,7 @@ import {
   Pie,
   Cell
 } from 'recharts';
-import { PerformanceMetrics } from '../utils/metricsParser';
+import { PerformanceMetrics } from '../../types/metrics';
 
 // ============================================================================
 // TYPES

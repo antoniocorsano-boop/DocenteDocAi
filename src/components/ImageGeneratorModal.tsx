@@ -42,7 +42,7 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
                         autoFocus
                         style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}
                     />
-                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.6" }}>
+                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "0.6" }}>
                         L'AI genererà un'immagine basata sulla tua descrizione. Sii specifico per risultati migliori.
                     </p>
                 </M3DialogContent>
@@ -52,12 +52,12 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
                     borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                     paddingTop: '0'
                 }}>
-                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900",  fontSize: "var(--md-sys-typescale-label-large-font-size)" , textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
+                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900",  fontSize: "var(--md-sys-typescale-label-large-font-size)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Annulla</M3Button>
                     <M3Button 
                         onClick={handleSubmit} 
                         variant="filled" 
                         disabled={!prompt.trim()}
-                        style={{ fontWeight: "900",  fontSize: "var(--md-sys-typescale-label-large-font-size)" , textTransform: "uppercase", letterSpacing: "0.1em" }}
+                        style={{ fontWeight: "900",  fontSize: "var(--md-sys-typescale-label-large-font-size)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}
                     >
                         <span  style={{  marginRight: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-large-font-size)"  }}>auto_awesome</span>
                         Genera Immagine

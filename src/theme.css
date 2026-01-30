@@ -626,7 +626,7 @@
   --md-sys-elevation-level4: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.3), var(--md-sys-spacing-0) var(--md-sys-blur-medium) var(--md-sys-spacing-3) var(--md-sys-spacing-1) rgba(0, 0, 0, 0.15);
   --md-sys-elevation-level5: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.3), var(--md-sys-spacing-0) var(--md-sys-spacing-2) var(--md-sys-spacing-3) var(--md-sys-blur-medium) rgba(0, 0, 0, 0.15);
 
-  --aura-gradient: linear-gradient(145deg, #FDFBFF 0%, #F3EDF7 100%);
+  --aura-gradient: var(--md-sys-motion-easing-var(--md-sys-motion-easing-linear))-gradient(145deg, #FDFBFF 0%, #F3EDF7 100%);
   
   /* Motion Tokens M3 Expressive */
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -766,7 +766,7 @@
   --md-sys-color-on-surface: #E6E1E5;
   --md-sys-color-surface-container: #25232A;
   --md-sys-color-surface-container-highest: #36343B;
-  --aura-gradient: linear-gradient(145deg, #141218 0%, #25232A 100%);
+  --aura-gradient: var(--md-sys-motion-easing-var(--md-sys-motion-easing-linear))-gradient(145deg, #141218 0%, #25232A 100%);
   --glass-bg: rgba(20, 18, 24, 0.8);
   --glass-border: var(--md-sys-spacing-0) solid rgba(255, 255, 255, 0.1);
 }
@@ -787,7 +787,7 @@ body {
 }
 
 .aura-view-entrance {
-  animation: aura-slide-up 0.5s var(--motion-expressive) forwards;
+  animation: aura-slide-up var(--md-sys-motion-duration-medium) var(--motion-expressive) forwards;
 }
 
 @keyframes aura-slide-up {
@@ -844,23 +844,23 @@ body {
 }
 
 .animate-spin {
-  animation: spin 1s linear infinite;
+  animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-var(--md-sys-motion-easing-linear)) infinite;
 }
 
 .animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulse var(--md-sys-motion-duration-extra-long) cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .animate-bounce {
-  animation: bounce 1s infinite;
+  animation: bounce var(--md-sys-motion-duration-long) infinite;
 }
 
 .animate-fade {
-  animation: fade 1.5s ease-in-out infinite;
+  animation: fade 1.5s var(--md-sys-motion-easing-standard)-in-out infinite;
 }
 
 .animate-shine {
-  animation: shine 1.5s ease-in-out infinite;
+  animation: shine 1.5s var(--md-sys-motion-easing-standard)-in-out infinite;
 }
 
 @keyframes aura-pulse {
@@ -880,7 +880,7 @@ body {
 }
 
 .animate-aura-pulse {
-  animation: aura-pulse 8s ease-in-out infinite;
+  animation: aura-pulse 8s var(--md-sys-motion-easing-standard)-in-out infinite;
 }
 
 @keyframes float {
@@ -896,7 +896,7 @@ body {
 }
 
 .animate-float {
-  animation: float 4s ease-in-out infinite;
+  animation: float 4s var(--md-sys-motion-easing-standard)-in-out infinite;
 }
 
 @keyframes aura-slide-up {
@@ -1034,7 +1034,7 @@ body {
   padding: var(--md-sys-spacing-6);
   box-shadow: 0 var(--md-sys-spacing-0) var(--md-sys-spacing-1) 0 color-mix(in srgb, var(--md-sys-color-shadow) 10%, transparent), 0 var(--md-sys-spacing-0) var(--md-sys-spacing-1) 0 color-mix(in srgb, var(--md-sys-color-shadow) 6%, transparent);
   border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
-  transition: all 0.3s var(--motion-easing-standard);
+  transition: all var(--md-sys-motion-duration-medium) var(--motion-easing-standard);
   position: relative;
   overflow: hidden;
 }
@@ -1045,7 +1045,7 @@ body {
   inset: 0;
   background: currentColor;
   opacity: 0;
-  transition: opacity 0.2s var(--motion-easing-standard);
+  transition: opacity var(--md-sys-motion-duration-short) var(--motion-easing-standard);
   pointer-events: none;
 }
 
@@ -1087,7 +1087,7 @@ body {
   font-weight: 500;
   font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
   cursor: pointer;
-  transition: all 0.2s var(--motion-easing-standard);
+  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
 }
 
 .m3-button-filled:hover {
@@ -1109,7 +1109,7 @@ body {
   font-weight: 500;
   font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
   cursor: pointer;
-  transition: all 0.2s var(--motion-easing-standard);
+  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
 }
 
 .m3-button-error:hover {
@@ -1126,7 +1126,7 @@ body {
   font-weight: 500;
   font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
   cursor: pointer;
-  transition: all 0.2s var(--motion-easing-standard);
+  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
 }
 
 .m3-button-tonal:hover {
@@ -1144,7 +1144,7 @@ body {
   font-weight: 500;
   font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
   cursor: pointer;
-  transition: all 0.2s var(--motion-easing-standard);
+  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
 }
 
 .m3-button-outlined:hover {
@@ -1161,7 +1161,7 @@ body {
   font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
   cursor: pointer;
   border-radius: var(--md-sys-shape-corner-small);
-  transition: all 0.2s var(--motion-easing-standard);
+  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
 }
 
 .m3-button-text:hover {
@@ -1180,7 +1180,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s var(--motion-easing-standard);
+  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
 }
 
 .icon-button:hover {
@@ -1205,7 +1205,7 @@ body {
   backdrop-filter: blur(var(--md-sys-spacing-2));
   -webkit-backdrop-filter: blur(var(--md-sys-spacing-2));
   z-index: var(--md-sys-z-modal);
-  animation: fade-in 0.3s var(--motion-easing-standard) forwards;
+  animation: fade-in var(--md-sys-motion-duration-medium) var(--motion-easing-standard) forwards;
 }
 
 .modal-panel {
@@ -1215,7 +1215,7 @@ body {
   box-shadow: 0 var(--md-sys-spacing-5) var(--md-sys-blur-25) -var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-shadow) 10%, transparent), 0 var(--md-sys-spacing-3) var(--md-sys-spacing-3) -var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-shadow) 4%, transparent);
   z-index: var(--md-sys-z-modal);
   overflow: hidden;
-  animation: zoom-in-95 0.3s var(--motion-easing-standard) forwards;
+  animation: zoom-in-95 var(--md-sys-motion-duration-medium) var(--motion-easing-standard) forwards;
   border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
 }
 
@@ -1290,7 +1290,7 @@ body {
   border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline);
   border-radius: var(--md-sys-shape-corner-large);
   padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4);
-  transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: all var(--md-sys-motion-duration-short) cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 .m3-field-wrapper:focus-within {
@@ -1343,7 +1343,7 @@ body {
   border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
   font-size: var(--typography-label-large-fontSize);
   font-weight: 500;
-  transition: all 0.2s var(--motion-easing-standard);
+  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
   cursor: default;
 }
 
@@ -1385,7 +1385,7 @@ body {
   padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
   border-radius: var(--md-sys-shape-corner-large);
   cursor: pointer;
-  transition: all 0.2s var(--motion-easing-standard);
+  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
   color: var(--md-sys-color-on-surface-variant);
 }
 

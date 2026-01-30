@@ -125,7 +125,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                                 color: 'var(--md-sys-color-primary)',
                                 fontWeight: 900,
                                 textTransform: 'uppercase',
-                                letterSpacing: '0.2em',
+                                letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                                 paddingLeft: 'var(--md-sys-spacing-4)',
                                 paddingRight: 'var(--md-sys-spacing-4)',
                                 marginBottom: 'var(--md-sys-spacing-6)',

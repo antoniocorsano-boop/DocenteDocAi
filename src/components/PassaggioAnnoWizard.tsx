@@ -212,9 +212,9 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                                 <h3 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900" }}>Esiti Scrutinio</h3>
                                 <div style={{ display: "flex", gap: 'var(--md-sys-spacing-6)' }}>
-                                    <span style={{ backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>{stats.promote} Promossi</span>
-                                    <span style={{ backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>{stats.retain} Bocciati</span>
-                                    <span style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>{stats.archive} Archiviati</span>
+                                    <span style={{ backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>{stats.promote} Promossi</span>
+                                    <span style={{ backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>{stats.retain} Bocciati</span>
+                                    <span style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>{stats.archive} Archiviati</span>
                                 </div>
                             </div>
                             
@@ -222,11 +222,11 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                 <table style={{ width: 'var(--md-sys-percent-100)' }}>
                                     <thead>
                                         <tr style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
-                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Studente</th>
-                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Classe</th>
-                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Media</th>
-                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Esito</th>
-                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Futuro</th>
+                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Studente</th>
+                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Classe</th>
+                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Media</th>
+                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Esito</th>
+                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Futuro</th>
                                         </tr>
                                     </thead>
                                     <tbody >
@@ -252,7 +252,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                                                 fontSize: 'var(--md-sys-typescale-body-small-size)',
                                                                 fontWeight: '900',
                                                                 textTransform: 'uppercase',
-                                                                letterSpacing: '0.15em',
+                                                                letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                                                                 padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-8)',
                                                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
                                                                 border: 'none',
@@ -274,7 +274,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                                             <option value="archive">Diplomato</option>
                                                         </select>
                                                     </td>
-                                                    <td style={{ color: 'var(--md-sys-color-on-surface-variant)', padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.6" }}>{outcome?.nextClass}</td>
+                                                    <td style={{ color: 'var(--md-sys-color-on-surface-variant)', padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "0.6" }}>{outcome?.nextClass}</td>
                                                 </tr>
                                             );
                                         })}
@@ -297,7 +297,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                             </p>
                             
                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textAlign: "left" }}>
-                                <p style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>Riepilogo Azioni:</p>
+                                <p style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>Riepilogo Azioni:</p>
                                 <ul style={{gap: 'var(--md-sys-spacing-3)'}}>
                                     {[
                                         "Reset Valutazioni e Competenze",
@@ -319,20 +319,20 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
             <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-6)' }}>
                     {step === "intro" && (
                         <>
-                            <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
-                            <M3Button onClick={() => setStep("decisions")} variant="filled"  style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Inizia Scrutinio</M3Button>
+                            <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Annulla</M3Button>
+                            <M3Button onClick={() => setStep("decisions")} variant="filled"  style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Inizia Scrutinio</M3Button>
                         </>
                     )}
                     {step === "decisions" && (
                         <>
-                            <M3Button onClick={() => setStep("intro")} variant="text" style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Indietro</M3Button>
-                            <M3Button onClick={() => setStep("confirm")} variant="filled"  style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Conferma Esiti</M3Button>
+                            <M3Button onClick={() => setStep("intro")} variant="text" style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Indietro</M3Button>
+                            <M3Button onClick={() => setStep("confirm")} variant="filled"  style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Conferma Esiti</M3Button>
                         </>
                     )}
                     {step === "confirm" && (
                         <>
-                            <M3Button onClick={() => setStep("decisions")} variant="text" style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }} disabled={isProcessing}>Indietro</M3Button>
-                            <M3Button onClick={handleConfirm} variant="filled" style={{ backgroundColor: sys.colors.error, color: sys.colors.on-error, fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }} disabled={isProcessing}>
+                            <M3Button onClick={() => setStep("decisions")} variant="text" style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }} disabled={isProcessing}>Indietro</M3Button>
+                            <M3Button onClick={handleConfirm} variant="filled" style={{ backgroundColor: sys.colors.error, color: sys.colors.on-error, fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }} disabled={isProcessing}>
                                 {isProcessing ? "Elaborazione..." : "Esegui Passaggio Anno"}
                             </M3Button>
                         </>

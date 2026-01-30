@@ -1646,13 +1646,13 @@
         position: absolute;
         z-index: var(--md-sys-z-base);
         height: var(--md-sys-percent-100);
-        transition: transform 0.3s ease;
+        transition: transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
     }
 
     .notebook-main {
         width: var(--md-sys-percent-100);
         transform: translateX(var(--md-sys-percent-100));
-        transition: transform 0.3s ease;
+        transition: transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
         position: absolute;
         height: var(--md-sys-percent-100);
         z-index: var(--md-sys-z-base);
@@ -1878,7 +1878,7 @@
 .cell-changed select,
 .cell-changed textarea {
     background-color: var(--sys-tertiary-container);
-    transition: background-color 1s;
+    transition: background-color var(--md-sys-motion-duration-long);
 }
 
 .consiglio-student-card-expandable {
@@ -1904,7 +1904,7 @@
 
 .consiglio-student-card-content.expanded {
     display: block;
-    animation: slideDown 0.2s ease-out;
+    animation: slideDown var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)-out;
 }
 
 .desktop-only {
@@ -2190,7 +2190,7 @@
     padding: var(--md-sys-spacing-8);
     /* M3 token replacement: var(--elevation-3) → var(--md-sys-elevation-level3) */
     box-shadow: var(--md-sys-elevation-level3);
-    animation: fade-in 0.5s ease-out, slide-in-from-bottom-4 0.5s ease-out;
+    animation: fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)-out, slide-in-from-bottom-4 var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)-out;
 }
 
 .homework-submission-header {
@@ -2594,7 +2594,7 @@
     display: flex;
     justify-content: center;
     margin: var(--md-sys-spacing-2) 0;
-    animation: fade-in 0.5s ease-out;
+    animation: fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)-out;
 }
 
 .live-assistant-system-bubble {
@@ -2717,7 +2717,7 @@
     font-size: theme.typography.body2.fontSize;
     font-weight: 700;
     color: var(--md-sys-color-primary);
-    animation: pulse 2s infinite;
+    animation: pulse var(--md-sys-motion-duration-extra-long) infinite;
 }
 
 .live-assistant-mic-button {
@@ -2735,7 +2735,7 @@
 .live-assistant-mic-button-connected {
     background-color: var(--md-sys-color-error);
     color: var(--md-sys-color-on-error);
-    animation: pulse 2s infinite;
+    animation: pulse var(--md-sys-motion-duration-extra-long) infinite;
 }
 
 .live-assistant-mic-button-disconnected {
@@ -3006,7 +3006,7 @@
     border: var(--md-sys-spacing-1) solid var(--md-sys-color-outline);
     border-top: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
     border-radius: var(--md-sys-percent-50);
-    animation: spin 1s linear infinite;
+    animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-var(--md-sys-motion-easing-linear)) infinite;
 }
 
 @keyframes spin {
@@ -3184,7 +3184,7 @@
 
 .settings-card.variant-primary {
     border-color: var(--md-sys-color-primary);
-    background: linear-gradient(135deg, var(--md-sys-color-primary-container) var(--md-sys-percent-0), var(--md-sys-color-surface) var(--md-sys-percent-100));
+    background: var(--md-sys-motion-easing-var(--md-sys-motion-easing-linear))-gradient(135deg, var(--md-sys-color-primary-container) var(--md-sys-percent-0), var(--md-sys-color-surface) var(--md-sys-percent-100));
 }
 
 .settings-card.variant-secondary {
@@ -3417,7 +3417,7 @@
     background: var(--md-sys-color-surface);
     display: flex;
     flex-direction: column;
-    animation: var(--md-sys-motion-easing-emphasized-decelerate) 0.3s;
+    animation: var(--md-sys-motion-easing-emphasized-decelerate) var(--md-sys-motion-duration-medium);
     opacity: 1;
 }
 
@@ -3563,7 +3563,7 @@
     flex-direction: column;
     gap: var(--md-sys-spacing-4);
     z-index: var(--md-sys-z-tooltip);
-    animation: var(--md-sys-motion-easing-emphasized-decelerate) 0.2s;
+    animation: var(--md-sys-motion-easing-emphasized-decelerate) var(--md-sys-motion-duration-short);
 }
 
 .smart-document-editor-ai-menu-header {

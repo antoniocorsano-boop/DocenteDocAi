@@ -136,7 +136,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                 <div style={{display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-6)'}}>
                                     <div style={{ flexGrow: "1", minWidth: "0" }}>
                                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)'}}>
-                                            <span style={{ color: 'var(--md-sys-color-on-primary-container)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", backgroundColor: "var(--md-sys-color-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-medium)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>
+                                            <span style={{ color: 'var(--md-sys-color-on-primary-container)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", backgroundColor: "var(--md-sys-color-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-medium)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>
                                                 {summary.competency.codice}
                                             </span>
                                             <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>

@@ -212,7 +212,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                         type="button" 
                                         onClick={() => setIsObjectivePickerOpen(true)}
                                         variant="tonal"
-                                         style={{ textTransform: "uppercase", letterSpacing: "0.1em", borderRadius: 'var(--md-sys-shape-corner-medium)' }}
+                                         style={{ textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", borderRadius: 'var(--md-sys-shape-corner-medium)' }}
                                         title="Seleziona dal curricolo"
                                     >
                                         <span  style={{  fontSize: "var(--md-sys-spacing-4)"  }}>library_add</span>

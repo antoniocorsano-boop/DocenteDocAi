@@ -133,7 +133,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             backgroundColor: msg.role === 'user' 
                                 ? 'var(--md-sys-color-primary)'
                                 : 'var(--md-sys-color-surface-container-high)',
-                            border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`}}>
+                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
                             <M3Typography variant="body-large" style={{color: msg.role === 'user' 
                                     ? 'var(--md-sys-color-on-primary)'
                                     : 'var(--md-sys-color-on-surface)',
@@ -201,7 +201,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             cursor: 'pointer',
-                            transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+                            transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
                             textDecoration: 'none'}}
                         onMouseEnter={() => {
                             // removed runtime mutation
@@ -228,7 +228,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             cursor: 'pointer',
-                            transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+                            transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
                             textDecoration: 'none'}}
                         onMouseEnter={() => {
                             // removed runtime mutation
@@ -253,7 +253,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             cursor: 'pointer',
-                            transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+                            transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
                             textDecoration: 'none'}}
                         onMouseEnter={() => {
                             // removed runtime mutation
@@ -289,11 +289,11 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                     style={{flex: 1,
                         padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                         borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline)`,
+                        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                         backgroundColor: 'var(--md-sys-color-surface-container-high)',
                         color: 'var(--md-sys-color-on-surface)',
                         outline: 'none',
-                        transition: `border-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
+                        transition: `border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                     onFocus={() => {
                         // removed runtime mutation
                     }}
@@ -317,7 +317,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
+                        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                 >
                     <span style={{
   fontFamily: 'Material Symbols Outlined'

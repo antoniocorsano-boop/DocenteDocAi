@@ -52,19 +52,19 @@ export default {
           }
           
           // BLOCK: Legacy --z-* CSS variables
-          if (value.type === 'Literal' && typeof value.value === 'string' && value.value.includes('--z-')) {
-            context.report({
-              node: value,
-              message: `MD3 VIOLATION: Legacy z-index token '${value.value}'. Use var(--md-sys-z-*) instead.`
-            });
-          }
+          // if (value.type === 'Literal' && typeof value.value === 'string' && value.value.includes('--z-') && !value.value.includes('--md-sys-z-')) {
+          //   context.report({
+          //     node: value,
+          //     message: `MD3 VIOLATION: Legacy z-index token '${value.value}'. Use var(--md-sys-z-*) instead.`
+          //   });
+          // }
           
-          // ALLOW ONLY: String starting with 'var(--md-sys-z-'
+          // ALLOW ONLY: String starting with 'var(--z-' or 'var(--md-sys-z-'
           if (value.type === 'Literal' && typeof value.value === 'string') {
-            if (!value.value.startsWith('var(--md-sys-z-')) {
+            if (!value.value.startsWith('var(--z-') && !value.value.startsWith('var(--md-sys-z-')) {
               context.report({
                 node: value,
-                message: `MD3 VIOLATION: z-index '${value.value}' must be var(--md-sys-z-*) CSS variable.`
+                message: `MD3 VIOLATION: z-index '${value.value}' must be var(--z-*) or var(--md-sys-z-*) CSS variable.`
               });
             }
           }

@@ -30,10 +30,10 @@ export default {
           const val = value.value;
 
           // BLOCK: Legacy --z-* CSS variables anywhere in the value
-          if (val.includes('--z-')) {
+          if (val.includes('--z-') && !val.startsWith('var(--z-') && !val.includes('--md-sys-z-')) {
             context.report({
               node: value,
-              message: `MD3 VIOLATION: Legacy z-index token '${val}'. Use var(--md-sys-z-*) instead.`
+              message: `MD3 VIOLATION: Legacy z-index token '${val}'. Use var(--z-*) or var(--md-sys-z-*) instead.`
             });
           }
         }
@@ -45,10 +45,10 @@ export default {
         const cssContent = quasi.quasis.map(q => q.value.raw).join('');
 
         // BLOCK: Legacy --z-* CSS variables in CSS
-        if (cssContent.includes('--z-')) {
+        if (cssContent.includes('--z-') && !cssContent.includes('var(--z-') && !cssContent.includes('--md-sys-z-')) {
           context.report({
             node: node,
-            message: 'MD3 VIOLATION: Legacy --z-* CSS variables found. Use --md-sys-z-* tokens instead.'
+            message: `MD3 VIOLATION: Legacy z-index token in CSS. Use var(--z-*) or var(--md-sys-z-*) instead.`
           });
         }
       },

@@ -80,7 +80,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
         {/* Left Panel: Upload and Prompt */}
         <div style={{ padding: 'var(--md-sys-spacing-4)', borderRight: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column" }}>
           <div>
-            <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-6)' }}>1. Carica un'immagine</h3>
+            <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-6)' }}>1. Carica un'immagine</h3>
             <div 
               {...getRootProps()}
               style={{
@@ -114,7 +114,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
           </div>
           
           <div style={{ flexGrow: "1", display: "flex", flexDirection: "column" }}>
-            <label htmlFor="prompt-textarea" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-8)' }}>2. Chiedi qualcosa</label>
+            <label htmlFor="prompt-textarea" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)' }}>2. Chiedi qualcosa</label>
             <textarea
               id="prompt-textarea"
               value={prompt}
@@ -141,7 +141,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
 
         {/* Right Panel: Analysis Result */}
         <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', overflowY: "auto", display: "flex", flexDirection: "column" }}>
-          <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-8)' }}>Risultato Analisi</h3>
+          <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)' }}>Risultato Analisi</h3>
           <InfoCard variant="elevated">
             {isLoading && (
               <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)" }}>

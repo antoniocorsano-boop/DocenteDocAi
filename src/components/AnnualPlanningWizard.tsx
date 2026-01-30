@@ -577,7 +577,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 {schedulePreview.map((item, idx) => (
                                     <div key={idx} style={{ position: "relative", paddingLeft: 'var(--md-sys-spacing-6)' }}>
                                         <div style={{ position: 'absolute', left: 'calc(var(--md-sys-spacing-2) * -1)', top: 'var(--md-sys-spacing-1)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-percent-full)', borderWidth: 'var(--md-sys-border-width-thin)', borderColor: 'var(--md-sys-color-outline-variant)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}></div>
-                                        <p style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.025em", color: "var(--md-sys-color-primary)" }}>{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</p>
+                                        <p style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", color: "var(--md-sys-color-primary)" }}>{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</p>
                                         <h4 style={{ fontWeight: "500", color: 'var(--md-sys-color-on-surface)' }}>{item.uda.title}</h4>
                                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{item.uda.hours} ore</p>
                                     </div>

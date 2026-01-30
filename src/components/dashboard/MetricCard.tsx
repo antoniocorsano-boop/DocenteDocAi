@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { PerformanceMetrics } from '../utils/metricsParser';
+import { PerformanceMetrics } from '../../types/metrics';
 
 // ============================================================================
 // TYPES

@@ -6,6 +6,8 @@
  * @date 2026-01-29
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import fs from 'fs';
 import path from 'path';
 
@@ -16,7 +18,7 @@ import path from 'path';
 interface AlertRule {
   id: string;
   name: string;
-  condition: (data: unknown) => boolean;
+  condition: (data: any) => boolean;
   severity: 'critical' | 'warning' | 'info';
   message: string;
   cooldown: number; // minutes
@@ -52,7 +54,7 @@ const ALERT_RULES: AlertRule[] = [
   {
     id: 'runtime-crash',
     name: 'Runtime Crash Detection',
-    condition: (data) => data.type === 'error' && data.stackTrace,
+    condition: (data: any) => data.type === 'error' && data.stackTrace,
     severity: 'critical',
     message: 'Application runtime crash detected',
     cooldown: 5
@@ -60,7 +62,7 @@ const ALERT_RULES: AlertRule[] = [
   {
     id: 'ai-timeout-excessive',
     name: 'AI Timeout Excessive',
-    condition: (data) => data.aiMetrics?.averageResponseTime > 60000,
+    condition: (data: any) => data.aiMetrics?.averageResponseTime > 60000,
     severity: 'critical',
     message: 'AI response time exceeds 60s threshold',
     cooldown: 10
@@ -68,7 +70,7 @@ const ALERT_RULES: AlertRule[] = [
   {
     id: 'ai-quota-exceeded',
     name: 'AI Quota Exceeded',
-    condition: (data) => data.aiMetrics?.quotaExceededCount > 5,
+    condition: (data: any) => data.aiMetrics?.quotaExceededCount > 5,
     severity: 'warning',
     message: 'High rate of AI quota exceeded errors',
     cooldown: 30
@@ -76,7 +78,7 @@ const ALERT_RULES: AlertRule[] = [
   {
     id: 'performance-regression',
     name: 'Performance Regression',
-    condition: (data) => data.fps && data.fps < 30,
+    condition: (data: any) => data.fps && data.fps < 30,
     severity: 'warning',
     message: 'FPS dropped below 30, potential performance regression',
     cooldown: 15
@@ -84,7 +86,7 @@ const ALERT_RULES: AlertRule[] = [
   {
     id: 'memory-high-usage',
     name: 'High Memory Usage',
-    condition: (data) => data.memoryUsage?.percentage > 90,
+    condition: (data: any) => data.memoryUsage?.percentage > 90,
     severity: 'warning',
     message: 'Memory usage exceeds 90%',
     cooldown: 20
@@ -92,7 +94,7 @@ const ALERT_RULES: AlertRule[] = [
   {
     id: 'bundle-size-increase',
     name: 'Bundle Size Increase',
-    condition: (data) => data.bundleSizeIncrease > 0.1,
+    condition: (data: any) => data.bundleSizeIncrease > 0.1,
     severity: 'info',
     message: 'Bundle size increased by more than 10%',
     cooldown: 60
@@ -187,7 +189,7 @@ class AlertManager {
       severity: rule.severity,
       title: rule.name,
       message: this.formatMessage(rule.message, data),
-      data: { ...data, source },
+      data: { ...(typeof data === 'object' && data !== null ? data : {}), source },
       acknowledged: false
     };
 
@@ -199,7 +201,7 @@ class AlertManager {
     this.sendNotifications(notification);
   }
 
-  private formatMessage(template: string, data: unknown): string {
+  private formatMessage(template: string, data: any): string {
     // Simple template replacement
     let message = template;
 

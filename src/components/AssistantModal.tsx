@@ -228,7 +228,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
         <h2 style={{
           color: 'var(--md-sys-color-on-surface)',
           fontWeight: 'bold',
-          letterSpacing: "-0.005em"
+          letterSpacing: "var(--md-sys-typescale-body-medium-tracking)"
         }}>
           Assistente DocenteDoc AI
         </h2>
@@ -243,7 +243,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
           borderRadius: 'medium',
           width: "var(--md-sys-spacing-10)",
           height: "var(--md-sys-spacing-10)",
-          transition: "color var(--md-sys-motion-duration-medium)"
+          transition: "color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)"
         }}
         data-focus-priority="-1"
         aria-label="Chiudi assistente"

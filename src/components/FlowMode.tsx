@@ -145,8 +145,8 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
             {/* --- HEADER (Minimal) --- */}
             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container)', display: "flex", justifyContent: "space-between", alignItems: "center", padding: 'var(--md-sys-spacing-6)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                 <div>
-                    <h1 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", letterSpacing: "-0.005em" }}>Flow</h1>
-                    <p  style={{color: "var(--md-sys-color-primary)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.7"}}>{todayName}, {now.toLocaleDateString('it-IT', { day: '2-digit', month: 'long' })}</p>
+                    <h1 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", letterSpacing: "var(--md-sys-typescale-body-medium-tracking)" }}>Flow</h1>
+                    <p  style={{color: "var(--md-sys-color-primary)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "0.7"}}>{todayName}, {now.toLocaleDateString('it-IT', { day: '2-digit', month: 'long' })}</p>
                 </div>
                 <button onClick={onOpenOperations} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-on-primary-container)", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                     {}
@@ -163,7 +163,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                     >
                         <span style={{ color: 'var(--md-sys-color-primary)', opacity: 0.4, marginBottom: 'var(--md-sys-spacing-8)'}}>event_busy</span>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "bold" }}>Nessun evento o lezione oggi.</p>
-                        <button onClick={() => actions.handleNavigate('timetable')} style={{ backgroundColor: sys.colors.primary/10 , marginTop: 'var(--md-sys-spacing-4)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-primary)", fontWeight: "900", fontSize: "var(--md-sys-typescale-label-small-font-size)", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)"}}>
+                        <button onClick={() => actions.handleNavigate('timetable')} style={{ backgroundColor: sys.colors.primary/10 , marginTop: 'var(--md-sys-spacing-4)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-primary)", fontWeight: "900", fontSize: "var(--md-sys-typescale-label-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)"}}>
                             Configura Orario
                         </button>
                     </div>
@@ -191,7 +191,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                 >
                                     <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 'var(--md-sys-spacing-6)'}}>
                                         <div>
-                                            <h2 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", letterSpacing: "-0.005em", lineHeight: "1.25" }}>{item.title}</h2>
+                                            <h2 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", letterSpacing: "var(--md-sys-typescale-body-medium-tracking)", lineHeight: "1.25" }}>{item.title}</h2>
                                             <p style={{ color: 'var(--md-sys-color-on-primary)', opacity: "0.8", fontWeight: "500", marginTop: 'var(--md-sys-spacing-4)'}}>{item.subtitle}</p>
                                         </div>
                                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -201,7 +201,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                         </div>
                                     </div>
                                     {item.actionLabel && (
-                                        <button onClick={item.onAction} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "var(--md-sys-percent-full)", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', backgroundColor: "white", color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900", fontSize: "var(--md-sys-typescale-label-small-size)", textTransform: "uppercase", letterSpacing: "0.1em", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)"}}>
+                                        <button onClick={item.onAction} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "var(--md-sys-percent-full)", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', backgroundColor: "white", color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900", fontSize: "var(--md-sys-typescale-label-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)"}}>
                                             {item.actionLabel} {}<span  style={{ marginLeft: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-medium-size)" }}>arrow_forward</span>{}
                                         </button>
                                     )}
@@ -220,7 +220,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", width: 'var(--md-sys-spacing-4)', textTransform: "uppercase" }}>{item.time}</span>
                                     <div>
                                         <p style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "bold" }}>{item.title}</p>
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "500", textTransform: "uppercase", letterSpacing: "0.1em" }}>{item.subtitle}</p>
+                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "500", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{item.subtitle}</p>
                                     </div>
                                 </div>
                             </div>
@@ -238,7 +238,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                 onClick={item.onAction}
                             >
                                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
-                                    <span style={{ backgroundColor: 'var(--md-sys-color-primary-container)', fontWeight: "900", color: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textTransform: "uppercase", letterSpacing: "0.1em"}}>{item.time}</span>
+                                    <span style={{ backgroundColor: 'var(--md-sys-color-primary-container)', fontWeight: "900", color: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>{item.time}</span>
                                     {item.type === 'lesson' && <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "900", textTransform: "uppercase", opacity: "0.5" }}>Lezione</span>}
                                 </div>
                                 <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900", transition: "color var(--md-sys-motion-duration-medium)" }}>{item.title}</h3>

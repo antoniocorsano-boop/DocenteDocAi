@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const COMPONENTS_DIR = path.join(__dirname, '../src/components');
+const COMPONENTS_DIR = path.join(__dirname, '../../src/components');
 const TSX_REGEX = /.tsx$/;
 const CSS_REGEX = /.module.css$/;
 

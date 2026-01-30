@@ -197,7 +197,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       <M3Typography
                         variant="label-small"
                         style={{textTransform: 'uppercase',
-                          letterSpacing: '0.1em',
+                          letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                           color: 'var(--md-sys-color-on-surface-variant)'}}
                       >
                         Documenti
@@ -222,7 +222,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       <M3Typography
                         variant="label-small"
                         style={{textTransform: 'uppercase',
-                          letterSpacing: '0.1em',
+                          letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                           color: 'var(--md-sys-color-on-surface-variant)'}}
                       >
                         Interazioni AI
@@ -248,7 +248,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       <M3Typography
                         variant="label-small"
                         style={{textTransform: 'uppercase',
-                          letterSpacing: '0.1em',
+                          letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                           color: 'var(--md-sys-color-on-surface-variant)'}}
                       >
                         Template
@@ -274,7 +274,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       <M3Typography
                         variant="label-small"
                         style={{textTransform: 'uppercase',
-                          letterSpacing: '0.1em',
+                          letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                           color: 'var(--md-sys-color-on-surface-variant)'}}
                       >
                         Export
@@ -296,7 +296,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   <M3Typography
                     variant="label-small"
                     style={{textTransform: 'uppercase',
-                      letterSpacing: '0.2em',
+                      letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                       color: 'var(--md-sys-color-primary)',
                       marginBottom: 'var(--md-sys-spacing-8)',
                       display: 'block'}}
@@ -340,7 +340,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   <M3Typography
                     variant="label-small"
                     style={{textTransform: 'uppercase',
-                      letterSpacing: '0.2em',
+                      letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                       color: 'var(--md-sys-color-primary)',
                       marginBottom: 'var(--md-sys-spacing-8)',
                       display: 'block'}}
@@ -385,7 +385,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   <M3Typography
                     variant="label-small"
                     style={{textTransform: 'uppercase',
-                      letterSpacing: '0.2em',
+                      letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                       color: 'var(--md-sys-color-primary)',
                       marginBottom: 'var(--md-sys-spacing-8)',
                       display: 'block'}}
@@ -424,7 +424,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               <M3Typography
                 variant="label-small"
                 style={{textTransform: 'uppercase',
-                  letterSpacing: '0.2em',
+                  letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                   color: 'var(--md-sys-color-primary)',
                   paddingLeft: 'var(--md-sys-spacing-4)',
                   display: 'block'}}
@@ -463,7 +463,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           <M3Typography
                             variant="label-small"
                             style={{textTransform: 'uppercase',
-                              letterSpacing: '0.1em',
+                              letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                               color: 'var(--md-sys-color-on-surface-variant)'}}
                           >
                             {event.eventType.replace('_', ' ')}
@@ -511,7 +511,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 <M3Typography
                   variant="label-small"
                   style={{textTransform: 'uppercase',
-                    letterSpacing: '0.2em',
+                    letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                     color: 'var(--md-sys-color-primary)',
                     marginBottom: 'var(--md-sys-spacing-8)',
                     display: 'block'}}
@@ -715,7 +715,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 <M3Typography
                   variant="label-small"
                   style={{textTransform: 'uppercase',
-                    letterSpacing: '0.2em',
+                    letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                     color: 'var(--md-sys-color-primary)',
                     marginBottom: 'var(--md-sys-spacing-8)',
                     display: 'block'}}
@@ -749,7 +749,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       <M3Typography
                         variant="label-small"
                         style={{textTransform: 'uppercase',
-                          letterSpacing: '0.1em',
+                          letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                           color: 'var(--md-sys-color-on-surface-variant)',
                           marginBottom: 'var(--md-sys-spacing-4)',
                           display: 'block'}}

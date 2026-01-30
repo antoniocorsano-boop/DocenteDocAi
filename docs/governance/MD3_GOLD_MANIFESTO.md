@@ -210,6 +210,79 @@ When encountering design requirements without matching tokens:
 
 ---
 
+## ARTICLE VI: IMPLEMENTATION STATUS & EXCEPTIONS
+
+### Components Successfully Migrated (Motion, Typography, Elevation)
+
+**Motion Components:**
+
+- M3ComponentTemplate.tsx
+- M3Dialog.tsx
+- M3ExpressiveCard.tsx
+- ManualSection.tsx
+- PinPad.tsx
+- M3ChoiceCard.tsx
+- NKAHeaderAuraButton.tsx
+- NKANodeCard.tsx
+- AnalyticsDashboard.tsx (9 token corrections)
+- Calendar.tsx (easing corrections)
+- CompetencyManager.tsx, ConsiglioClasse.tsx, CurriculumManager.tsx
+- CircolareAnalysisModal.tsx (easing additions)
+- ClassPlanningWizard.tsx, DidatticaInclusiva.tsx, ConsiglioClasseWizard.tsx
+
+**Typography Components:**
+
+- AdvancedCharts.tsx
+- All dashboard metric displays
+
+**Elevation Components:**
+
+- Cards, dialogs, buttons, and interactive elements across the application
+
+### Documented Exceptions (Intentional Deviations)
+
+**Typography Exceptions:**
+
+- Header notification badge: `fontWeight: 700` (functional emphasis for unread count)
+- Dashboard metric values: `fontWeight: '700'` (data visualization emphasis)
+- PDF generation utilities: Hardcoded font sizes (document export requirement)
+
+**Spacing Exceptions:**
+
+- CSS reset values: `margin: 0`, `padding: 0` (standard CSS practices)
+- PDF margins: `margin: 50` (document generation requirement)
+- Debug padding: `padding: 20` in main.tsx (development utility)
+
+**Motion Exceptions:**
+
+- None - All transitions use MD3 motion tokens
+
+**Elevation Exceptions:**
+
+- Focus rings: Custom box-shadow for accessibility (not elevation levels)
+
+### Verification Procedures
+
+**Automated Checks:**
+
+- ESLint rules enforce MD3 token usage
+- Pre-commit hooks block hardcoded values
+- Build pipeline validates token compliance
+
+**Manual Verification:**
+
+- Quarterly MD3 compliance audits
+- Component-by-component token validation
+- Design system maintainer review for new requirements
+
+**Regression Prevention:**
+
+- ESLint failures on hardcoded value detection
+- Code review requirements for visual changes
+- Token gap escalation process
+
+---
+
 ## SIGNATURE & COMMITMENT
 
 This manifesto represents the collective commitment of the DocenteDoc AI development team to maintain the highest standards of design system excellence. By adopting MD3 Gold Governance, we ensure visual consistency, maintainability, and future-proofing of our application.

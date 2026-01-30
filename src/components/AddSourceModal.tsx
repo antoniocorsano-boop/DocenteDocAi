@@ -67,7 +67,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                 {isLoading ? (
                     <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                         <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-spacing-1) solid var(--md-sys-color-outline)', borderColor: "var(--md-sys-color-primary)"}}></div>
-                        <p  style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em"}}>{loadingMessage}</p>
+                        <p  style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>{loadingMessage}</p>
                     </div>
                 ) : (
                     <>
@@ -119,7 +119,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                 <input {...getInputProps()} />
                                 <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>{isDragActive ? 'download' : 'upload_file'}</span>
                                 <p style={{ color: "var(--md-sys-color-on-surface-variant)" }}>Trascina i file qui o clicca per sfogliare</p>
-                                <p style={{opacity: "0.6", marginTop: 'var(--md-sys-spacing-4)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-on-surface-variant)"}}>Supporto PDF, DOCX, TXT</p>
+                                <p style={{opacity: "0.6", marginTop: 'var(--md-sys-spacing-4)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-on-surface-variant)"}}>Supporto PDF, DOCX, TXT</p>
                             </div>
                         </section>
 

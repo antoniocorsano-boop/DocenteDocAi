@@ -139,7 +139,7 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
               variant="label-small"
               style={{fontWeight: '900', // font-black equivalent
                 textTransform: 'uppercase',
-                letterSpacing: '0.2em',
+                letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                 marginTop: 'var(--md-sys-spacing-1)', // compact margin
                 color: active ? 'var(--md-sys-color-on)' : 'var(--md-sys-color-on-surface)',
                 transition: `color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}

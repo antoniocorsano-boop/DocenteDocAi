@@ -65,7 +65,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         }}>{icon}</span>
                     </div>
                     <div>
-                        <label style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", display: "block" }}>
+                        <label style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", display: "block" }}>
                             {label}
                         </label>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "bold", opacity: "0.5", textTransform: "uppercase" }}>
@@ -195,7 +195,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         }}>arrow_forward</span>
                     </button>
                 </div>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "0.4", marginTop: 'var(--md-sys-spacing-3)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: "bold" }}>
+                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "0.4", marginTop: 'var(--md-sys-spacing-3)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", fontWeight: "bold" }}>
                     Premi Invio o usa la virgola per aggiungere più elementi
                 </p>
             </div>

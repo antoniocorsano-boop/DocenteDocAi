@@ -163,7 +163,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                             {result.events.length > 0 || result.deadlines.length > 0 ? (
                                 <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                        <h4 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Eventi Rilevati</h4>
+                                        <h4 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Eventi Rilevati</h4>
                                         <span style={{ backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', fontWeight: "bold", borderRadius: 'var(--md-sys-shape-corner-small)' }}>{result.events.length + result.deadlines.length}</span>
                                     </div>
                                     <div >

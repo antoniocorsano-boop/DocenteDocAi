@@ -320,7 +320,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
                 <div  style={{padding: 'var(--md-sys-spacing-8)'}}>
                     {competencyLevelData.map(compData => (
                         <div key={compData.name} style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                            <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-font-size)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.7" }}>{compData.name}</h3>
+                            <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-font-size)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "0.7" }}>{compData.name}</h3>
                             <BarChart
                                 data={compData.levels.map(l => ({ label: l.name, value: l.value }))}
                                 color="var(--sys-tertiary)"

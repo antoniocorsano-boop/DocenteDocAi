@@ -547,7 +547,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             ) : (
                                 <div style={{ gap: 'var(--md-sys-spacing-3)', overflowY: "auto", maxHeight: 'var(--md-sys-spacing-24)' }}>
                                     {plannedUdas.map((uda, idx) => (
-                                        <div key={uda.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: "color var(--md-sys-motion-duration-medium)" }}>
+                                        <div key={uda.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: "color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)" }}>
                                             <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)', cursor: 'grab' }} title="Trascina per riordinare">drag_indicator</span>
                                             
                                             <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
@@ -613,7 +613,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     <div key={idx} style={{ position: 'relative' }}>
                                         <div style={{ position: 'absolute', left: 'var(--md-sys-spacing-neg-2)', top: 'var(--md-sys-spacing-1)', width: 'var(--md-sys-spacing-5)', height: 'var(--md-sys-spacing-5)',  borderRadius: 'var(--md-sys-percent-full)' , border: 'var(--md-sys-border-width-medium) solid var(--md-sys-color-surface-container-low)', boxShadow: 'var(--md-sys-elevation-level-1)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}></div>
                                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
-                                            <p style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-4)' }}>
+                                            <p style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-4)' }}>
                                                 {new Date(item.start).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })} - {new Date(item.end).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })}
                                             </p>
                                             <h4 style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>{item.uda.title}</h4>

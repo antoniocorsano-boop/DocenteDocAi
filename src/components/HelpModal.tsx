@@ -12,7 +12,7 @@ const ManualSection: React.FC<{ title: string; icon: string; defaultOpen?: boole
     const [isOpen, setIsOpen] = useState(defaultOpen);
     return (
         <div style={{
-            border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`,
+            border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`,
             borderRadius: 'var(--md-sys-shape-corner-large)',
             marginBottom: 'var(--md-sys-spacing-4)',
             overflow: 'hidden'
@@ -55,7 +55,7 @@ const ManualSection: React.FC<{ title: string; icon: string; defaultOpen?: boole
             {isOpen && <div style={{
                 padding: 'var(--md-sys-spacing-4)',
                 backgroundColor: 'var(--md-sys-color-surface)',
-                borderTop: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
+                borderTop: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
             }}>{children}</div>}
         </div>
     );
@@ -66,7 +66,7 @@ const UseCaseCard: React.FC<{ scenario: string; steps: string[]; tip?: string }>
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
         borderRadius: 'var(--md-sys-shape-corner-large)',
         padding: 'var(--md-sys-spacing-4)',
-        border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
+        border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
     }}>
         <M3Typography variant="body-large" style={{
             fontWeight: 'bold',
@@ -273,7 +273,7 @@ const SetupGuide = () => (
             backgroundColor: 'var(--md-sys-color-surface-container-low)',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             padding: 'var(--md-sys-spacing-4)',
-            border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
+            border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
         }}>
             <M3Typography variant="title-medium" style={{
                 color: 'var(--md-sys-color-primary)',
@@ -418,7 +418,7 @@ const DigitalTeacherManual = () => {
                 backgroundColor: 'var(--md-sys-color-primary-container)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
                 padding: 'var(--md-sys-spacing-4)',
-                border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline)`
+                border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)`
             }}>
                 <InfoCard
                     title="Documentazione Completa"
@@ -479,17 +479,14 @@ const DigitalTeacherManual = () => {
             <ManualSection title="3. Visione Strategica per Stakeholders" icon="campaign">
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
-                    gap: 'var(--md-sys-spacing-4)',
-                    '@media (max-width: var(--md-sys-breakpoint-tablet))': {
-                        gridTemplateColumns: 'var(--md-sys-grid-fr-1)'
-                    }
+                    gridTemplateColumns: 'var(--md-sys-grid-fr-1)',
+                    gap: 'var(--md-sys-spacing-4)'
                 }}>
                     <div style={{
                         backgroundColor: 'var(--md-sys-color-surface-container-low)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         padding: 'var(--md-sys-spacing-4)',
-                        border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
+                        border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
                     }}>
                         <M3Typography variant="button-primary" style={{
                             display: 'flex',
@@ -514,7 +511,7 @@ const DigitalTeacherManual = () => {
                         backgroundColor: 'var(--md-sys-color-surface-container-low)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         padding: 'var(--md-sys-spacing-4)',
-                        border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
+                        border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
                     }}>
                         <M3Typography variant="button-primary" style={{
                             display: 'flex',
@@ -912,7 +909,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                         variant="tonal"
                         style={{
                             textTransform: "uppercase",
-                            letterSpacing: "0.1em",
+                            letterSpacing: "var(--md-sys-typescale-label-large-tracking)",
                             marginTop: 'var(--md-sys-spacing-3)'
                         }}
                     >
@@ -1002,7 +999,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                      <M3Button onClick={onGenerate} disabled={isGenerating} variant="filled" style={{
                          fontSize: 'var(--md-sys-typescale--font-size)',
                          textTransform: "uppercase",
-                         letterSpacing: "0.1em",
+                         letterSpacing: "var(--md-sys-typescale-label-large-tracking)",
                          marginTop: 'var(--md-sys-spacing-4)'
                      }}>
                         <span style={{
@@ -1092,7 +1089,6 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
       title="Guida, Novità e Manuale"
       onClose={onClose}
       maxWidth="xl"
-      level={2}
       hideBackdrop={true}
     >
       <M3DialogContent style={{
@@ -1117,7 +1113,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
                 <b style={{
                   color: 'var(--md-sys-color-primary)',
                   textTransform: "uppercase",
-                  letterSpacing: "0.1em"
+                  letterSpacing: "var(--md-sys-typescale-label-large-tracking)"
                 }}>Novità Dicembre 2025</b>
             </div>
             <ul style={{
@@ -1160,7 +1156,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
         <M3Button onClick={onClose} variant="text" disabled={isGenerating} style={{
           fontSize: 'var(--md-sys-typescale--font-size)',
           textTransform: "uppercase",
-          letterSpacing: "0.1em"
+          letterSpacing: "var(--md-sys-typescale-label-large-tracking)"
         }}>Chiudi</M3Button>
       </M3DialogActions>
     </M3Dialog>

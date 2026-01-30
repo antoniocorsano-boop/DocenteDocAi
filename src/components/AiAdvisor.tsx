@@ -118,7 +118,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                         fontWeight: 'bold',
                         color: 'var(--md-sys-color-on-surface)',
                         textTransform: 'uppercase',
-                        letterSpacing: '0.05em'
+                        letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                     }}>Studente / Gruppo</label>
                     <select id="student-select-advisor" value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value)} style={{
                         padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
@@ -143,7 +143,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                         backgroundColor: advisorStatus ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-primary)',
                         color: advisorStatus ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',
                         cursor: advisorStatus ? 'not-allowed' : 'pointer',
-                        letterSpacing: '0.05em'
+                        letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                     }}>Tipo di Intervento</label>
                     <div style={{
                         display: 'flex',

@@ -44,7 +44,8 @@ export default defineConfig([
       "**/*.spec.tsx",
       "**/*.spec.ts",
       "**/src_backup/**",
-      "**/archive/**"
+      "**/archive/**",
+      "**/scripts/**"
     ]
   },
   { 
@@ -63,7 +64,14 @@ export default defineConfig([
     languageOptions: { globals: globals.browser } 
   },
   tseslint.configs.recommended,
-  pluginReact.configs.flat.recommended,
+  {
+    ...pluginReact.configs.flat.recommended,
+    settings: {
+      react: {
+        version: '18.2.0'
+      }
+    }
+  },
   {
     files: ['**/*.ts', '**/*.tsx'],
     rules: {

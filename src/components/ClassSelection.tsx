@@ -59,7 +59,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
             {/* --- GLOBAL AGENDA WIDGET --- */}
             {upcomingTests.length > 0 && (
                 <section >
-                    <h2 style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                    <h2 style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)" }}>
                         In Arrivo (Tutte le classi)
                     </h2>
                     <div >

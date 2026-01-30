@@ -1,4 +1,4 @@
-/* eslint-disable design-system/no-hardcoded-colors */
+ 
 
 /**
  * HTML TEMPLATE COLOR UTILITIES

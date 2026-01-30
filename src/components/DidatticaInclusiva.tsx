@@ -75,7 +75,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                 <div key={className} style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
                         <div style={{ backgroundColor: sys.colors.outline-variant/30 ,  flexGrow: "1" }}></div>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/60 ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em" }}>Classe {className}</span>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/60 ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Classe {className}</span>
                         <div style={{ backgroundColor: sys.colors.outline-variant/30 ,  flexGrow: "1" }}></div>
                     </div>
                     
@@ -95,11 +95,11 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                             <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.cognome} {student.nome}</p>
                                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)'}}>
                                                 {hasPlan ? (
-                                                    <span style={{ backgroundColor: sys.colors.tertiary-container/50 , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--md-sys-color-tertiary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)'}}>
+                                                    <span style={{ backgroundColor: sys.colors.tertiary-container/50 , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", color: "var(--md-sys-color-tertiary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)'}}>
                                                         Piano Attivo
                                                     </span>
                                                 ) : (
-                                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/40 , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", borderRadius: 'var(--md-sys-spacing-4)'}}>
+                                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/40 , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", borderRadius: 'var(--md-sys-spacing-4)'}}>
                                                         Standard
                                                     </span>
                                                 )}

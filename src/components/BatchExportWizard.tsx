@@ -318,7 +318,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
           <div  style={{gap: 'var(--md-sys-spacing-4)', overflowY: "auto"}}>
             {Object.entries(groupedDocuments).map(([groupName, docs]) => (
               <div key={groupName}>
-                <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                   {groupName} ({docs.length})
                 </h3>
                 <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>

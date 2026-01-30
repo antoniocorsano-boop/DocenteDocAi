@@ -101,11 +101,11 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 <table  style={{ width: 'var(--md-sys-percent-100)' }}>
                     <thead>
                         <tr style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 }}>
-                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "left", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em"}}>Studente</th>
-                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em"}}>Ore Totali</th>
-                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em"}}>Capolavoro</th>
-                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em"}}>Autovalutazione</th>
-                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "right", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.1em"}}>Azioni</th>
+                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "left", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Studente</th>
+                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Ore Totali</th>
+                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Capolavoro</th>
+                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Autovalutazione</th>
+                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "right", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Azioni</th>
                         </tr>
                     </thead>
                     <tbody >

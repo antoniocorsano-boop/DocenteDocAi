@@ -232,7 +232,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                         <>
                                             <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>{isDragActive ? 'download' : 'upload_file'}</span>
                                             <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold", textAlign: "center" }}>Trascina il file .csv o .xlsx qui</h3>
-                                            <p  style={{opacity: "0.6", marginTop: 'var(--md-sys-spacing-4)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em"}}>o clicca per selezionare</p>
+                                            <p  style={{opacity: "0.6", marginTop: 'var(--md-sys-spacing-4)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>o clicca per selezionare</p>
                                         </>
                                     )}
                                 </div>
