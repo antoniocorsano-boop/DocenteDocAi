@@ -81,7 +81,7 @@
 
 /* --- AURA VIEW WRAPPER --- */
 .aura-view-wrapper {
-    animation: aura-view-fade-in var(--md-sys-motion-duration-medium) cubic-bezier(0.2, 0, 0, 1);
+    animation: aura-view-fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized);
     will-change: opacity, transform;
 }
 
@@ -143,7 +143,9 @@
     padding: var(--md-sys-spacing-1);
     border-radius: var(--shape-l);
     position: relative;
-    transition: all var(--motion-duration-short4) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .nav-item::before {
@@ -153,7 +155,7 @@
     border-radius: inherit;
     background-color: var(--md-sys-color-primary);
     opacity: 0;
-    transition: opacity var(--motion-duration-short3) var(--md-sys-motion-easing-standard);
+    transition: opacity var(var(--md-sys-motion-duration-short)3) var(--md-sys-motion-easing-standard);
 }
 
 .nav-item:hover::before {
@@ -171,7 +173,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all var(--motion-duration-medium2) var(--motion-easing-expressive);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-long);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .nav-item.active {
@@ -191,7 +195,7 @@
     letter-spacing: 0.05em;
     margin-top: var(--md-sys-spacing-1);
     opacity: 0.7;
-    transition: opacity var(--motion-duration-short3) var(--md-sys-motion-easing-standard);
+    transition: opacity var(var(--md-sys-motion-duration-short)3) var(--md-sys-motion-easing-standard);
 }
 
 .nav-item.active .nav-label {
@@ -213,7 +217,9 @@
     justify-content: center;
     cursor: pointer;
     position: relative;
-    transition: all var(--motion-duration-short4) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .icon-button::before {
@@ -223,7 +229,7 @@
     border-radius: inherit;
     background-color: var(--md-sys-color-on-surface);
     opacity: 0;
-    transition: opacity var(--motion-duration-short3) var(--md-sys-motion-easing-standard);
+    transition: opacity var(var(--md-sys-motion-duration-short)3) var(--md-sys-motion-easing-standard);
 }
 
 .icon-button:hover::before {
@@ -254,7 +260,9 @@
     font-size: var(--typography-label-medium-fontSize);
     font-weight: 600;
     cursor: pointer;
-    transition: all var(--motion-duration-short4) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     text-decoration: none;
     white-space: nowrap;
 }
@@ -320,7 +328,9 @@
     text-transform: uppercase;
     letter-spacing: var(--md-sys-border-width-thin);
     cursor: pointer;
-    transition: all var(--motion-duration-short4) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .tab-group .tab:hover {
@@ -573,7 +583,7 @@
 
 /* Motion & micro-interaction utilities */
 .m3-card {
-    transition: transform var(--motion-duration-medium2) var(--motion-easing-expressive), box-shadow var(--motion-duration-medium2) var(--motion-easing-expressive);
+    transition: transform var(var(--md-sys-motion-duration-medium)2) var(--motion-easing-expressive), box-shadow var(var(--md-sys-motion-duration-medium)2) var(--motion-easing-expressive);
     will-change: transform, box-shadow;
 }
 .m3-card:hover,
@@ -582,7 +592,7 @@
     box-shadow: var(--md-sys-elevation-level3);
 }
 .m3-quick-action {
-    transition: transform var(--motion-duration-short2) var(--motion-easing-standard), filter var(--motion-duration-short2) var(--motion-easing-standard);
+    transition: transform var(var(--md-sys-motion-duration-short)2) var(var(--md-sys-motion-easing-standard)), filter var(var(--md-sys-motion-duration-short)2) var(var(--md-sys-motion-easing-standard));
 }
 .m3-quick-action:hover { transform: translateY(-var(--md-sys-spacing-1)) scale(1.02); filter: brightness(1.03); }
 .m3-focus-visible:focus { outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary); outline-offset: var(--md-sys-spacing-1); }
@@ -635,9 +645,11 @@
 .drop-shadow-sm { filter: drop-shadow(0 var(--md-sys-spacing-0) var(--md-sys-spacing-0) color-mix(in srgb, var(--md-sys-color-shadow) 5%, transparent)); }
 
 /* Transition */
-.transition-all { transition: all var(--motion-duration-short4) var(--motion-easing-standard); }
-.transition-colors { transition: background-color var(--motion-duration-short3) var(--motion-easing-standard), color var(--motion-duration-short3) var(--motion-easing-standard); }
-.transition-transform { transition: transform var(--motion-duration-short4) var(--motion-easing-standard); }
+.transition-all { transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard); }
+.transition-colors { transition: background-color var(var(--md-sys-motion-duration-short)3) var(var(--md-sys-motion-easing-standard)), color var(var(--md-sys-motion-duration-short)3) var(var(--md-sys-motion-easing-standard)); }
+.transition-transform { transition: transform var(var(--md-sys-motion-duration-short)4) var(var(--md-sys-motion-easing-standard)); }
 .duration-300 { transition-duration: theme.motion.duration.medium2; }
 
 /* Transform */
@@ -767,7 +779,7 @@
 
 /* Animate Ping (expanding circle) */
 .animate-ping {
-  animation: ping var(--md-sys-motion-duration-long) cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: ping var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-emphasized) infinite;
 }
 
 @keyframes ping {
@@ -828,8 +840,8 @@
 .duration-700 { transition-duration: theme.motion.duration.extraLong1; }
 
 /* Delay Utilities */
-.delay-150 { animation-delay: 150ms; }
-.delay-300 { animation-delay: 300ms; }
+.delay-150 { animation-delay: var(--md-sys-motion-duration-short); }
+.delay-300 { animation-delay: var(--md-sys-motion-duration-medium); }
 
 /* ============================================
    M3 EXPRESSIVE - APP SHELL COMPONENT CLASSES
@@ -1522,7 +1534,7 @@
 
 /* Error Boundary Loading Icon */
 .error-boundary-loading-icon {
-    animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-var(--md-sys-motion-easing-linear)) infinite;
+    animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-var(--md-sys-motion-easing-var(--md-sys-motion-easing-standard))) infinite;
 }
 
 @keyframes spin {
@@ -2026,7 +2038,9 @@
 /* Teacher Inbox Close Button */
 .teacher-inbox-close-button {
     border-radius: var(--md-sys-shape-corner-small);
-    transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .teacher-inbox-close-button:hover {
@@ -2127,7 +2141,9 @@
     align-items: center;
     gap: var(--md-sys-spacing-8);
     border-radius: var(--md-sys-shape-corner-small);
-    transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 /* Teacher Inbox Graded Icon */
@@ -2198,7 +2214,9 @@
     gap: var(--md-sys-spacing-5);
     padding: var(--md-sys-spacing-8);
     border-radius: var(--md-sys-shape-corner-large);
-    transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     position: relative;
     outline: none;
 }
@@ -2281,7 +2299,9 @@
     display: flex;
     gap: var(--md-sys-spacing-8);
     opacity: 0;
-    transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     transform: translateX(var(--md-sys-spacing-4));
 }
 
@@ -2530,7 +2550,9 @@
     padding: var(--md-sys-spacing-8);
     border-radius: var(--md-sys-shape-corner-medium);
     cursor: pointer;
-    transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -3018,7 +3040,9 @@
 
 /* Competency Manager Competency Expansion Panel */
 .competency-manager-competency-expansion-panel {
-    transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .competency-manager-competency-expansion-panel.active {
@@ -4507,7 +4531,9 @@
 
 /* Random Student Widget Student Info */
 .classroom-tools-random-student-info {
-    transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .classroom-tools-random-student-info.selecting {
@@ -4750,7 +4776,9 @@
     border-radius: var(--md-sys-shape-corner-medium);
     background: var(--md-sys-color-surface-container);
     border: var(--md-sys-spacing-0) solid transparent;
-    transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .participation-badge-picker-button:hover {
@@ -5363,7 +5391,7 @@
     border: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
     border-top-color: transparent;
     border-radius: var(--md-sys-percent-50);
-    animation: loading-modal-spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-var(--md-sys-motion-easing-linear)) infinite;
+    animation: loading-modal-spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-var(--md-sys-motion-easing-var(--md-sys-motion-easing-standard))) infinite;
 }
 
 @keyframes loading-modal-spin {
@@ -5465,7 +5493,9 @@
     align-items: center;
     padding: var(--md-sys-spacing-6);
     border-radius: var(--md-sys-shape-corner-medium);
-    transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     cursor: pointer;
     border: var(--md-sys-spacing-0) solid transparent;
 }
@@ -5778,7 +5808,9 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     cursor: pointer;
 }
 
@@ -5892,7 +5924,9 @@
 
 /* Teaching Assignment Matrix Mobile Chip */
 .teaching-assignment-matrix-mobile-chip {
-    transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     cursor: pointer;
 }
 
@@ -5955,7 +5989,9 @@
     background: var(--md-sys-color-surface-container-low);
     border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
     cursor: pointer;
-    transition: all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     overflow: hidden;
 }
 
@@ -6411,7 +6447,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-medium);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     cursor: pointer;
 }
 
@@ -6485,7 +6523,9 @@
     background: var(--md-sys-color-surface-container-low);
     color: var(--md-sys-color-on-surface);
     cursor: pointer;
-    transition: all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .test-generator-modal-question-type-chip:hover {

@@ -1,0 +1,263 @@
+/**
+ * M3 Motion Presets - DocenteDoc AI
+ * 
+ * Standardized transition classes based on Material Design 3 motion tokens.
+ * Created: 2026-01-06 (UI Uniformity Audit - P5)
+ * 
+ * USAGE:
+ * - Use these classes instead of hardcoded transition values
+ * - Automatically respects prefers-reduced-motion
+ * - Consistent easing and timing across entire app
+ * 
+ * REFERENCE: src/theme.css (lines 246-259) for token definitions
+ */
+
+/* =============================================================================
+   BASE TRANSITION CLASSES
+   ============================================================================= */
+
+/**
+ * .m3-transition-fast
+ * Use for: Quick feedback (hover states, button presses, ripples)
+ * Duration: 100ms (--motion-duration-short1)
+ * Examples: Button hover, chip selection, menu item highlight
+ */
+.m3-transition-fast {
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-long);
+transition-timing-function: var(--md-sys-motion-easing-standard);
+}
+
+/**
+ * .m3-transition-standard
+ * Use for: Most UI interactions (default choice)
+ * Duration: 200ms (--motion-duration-short2)
+ * Examples: Card hover, dialog open, tooltip fade
+ */
+.m3-transition-standard {
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-long);
+transition-timing-function: var(--md-sys-motion-easing-standard);
+}
+
+/**
+ * .m3-transition-medium
+ * Use for: Larger elements, complex animations
+ * Duration: 300ms (--motion-duration-short3)
+ * Examples: Drawer slide, bottom sheet, FAB expand
+ */
+.m3-transition-medium {
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-long);
+transition-timing-function: var(--md-sys-motion-easing-standard);
+}
+
+/**
+ * .m3-transition-slow
+ * Use for: Emphasized motion, decorative animations
+ * Duration: 400ms (--motion-duration-short4)
+ * Examples: Page transitions, hero animations, parallax
+ */
+.m3-transition-slow {
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
+}
+
+/**
+ * .m3-transition-expressive
+ * Use for: Playful, attention-grabbing interactions
+ * Duration: 400ms with expressive easing (bounce)
+ * Examples: Success animations, celebration effects, floating elements
+ */
+.m3-transition-expressive {
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
+}
+
+/* =============================================================================
+   PROPERTY-SPECIFIC TRANSITIONS
+   ============================================================================= */
+
+/**
+ * Background/Color Transitions
+ * Use when only color changes (more performant than 'all')
+ */
+.m3-transition-color {
+  transition: background-color var(--motion-duration-short2) var(--motion-easing-standard),
+              color var(--motion-duration-short2) var(--motion-easing-standard);
+}
+
+/**
+ * Transform Transitions
+ * Use for position, scale, rotate changes
+ */
+.m3-transition-transform {
+  transition: transform var(--motion-duration-short2) var(--motion-easing-standard);
+}
+
+/**
+ * Opacity Transitions
+ * Use for fade in/out effects
+ */
+.m3-transition-opacity {
+  transition: opacity var(--motion-duration-short2) var(--motion-easing-standard);
+}
+
+/**
+ * Box-Shadow Transitions
+ * Use for elevation changes (cards, buttons)
+ */
+.m3-transition-elevation {
+  transition: box-shadow var(--motion-duration-short2) var(--motion-easing-standard);
+}
+
+/**
+ * Combined Elevation + Color
+ * Common pattern for interactive cards
+ */
+.m3-transition-interactive {
+  transition: background-color var(--motion-duration-short2) var(--motion-easing-standard),
+              box-shadow var(--motion-duration-short2) var(--motion-easing-standard),
+              transform var(--motion-duration-short2) var(--motion-easing-standard);
+}
+
+/* =============================================================================
+   ACCESSIBILITY - REDUCED MOTION
+   ============================================================================= */
+
+/**
+ * Respect user's motion preferences
+ * All transitions disable when user prefers reduced motion
+ */
+@media (prefers-reduced-motion: reduce) {
+  .m3-transition-fast,
+  .m3-transition-standard,
+  .m3-transition-medium,
+  .m3-transition-slow,
+  .m3-transition-expressive,
+  .m3-transition-color,
+  .m3-transition-transform,
+  .m3-transition-opacity,
+  .m3-transition-elevation,
+  .m3-transition-interactive {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* =============================================================================
+   SPECIALIZED PRESETS
+   ============================================================================= */
+
+/**
+ * Modal/Dialog Entry
+ * Fade + scale-up effect
+ */
+.m3-transition-modal-enter {
+  transition: opacity var(--motion-duration-short3) var(--motion-easing-standard),
+              transform var(--motion-duration-short3) var(--motion-easing-standard);
+}
+
+/**
+ * Drawer Slide
+ * Horizontal or vertical slide transitions
+ */
+.m3-transition-drawer {
+  transition: transform var(--motion-duration-short3) var(--motion-easing-standard);
+}
+
+/**
+ * Snackbar/Toast
+ * Slide up + fade
+ */
+.m3-transition-snackbar {
+  transition: transform var(--motion-duration-short2) var(--motion-easing-standard),
+              opacity var(--motion-duration-short2) var(--motion-easing-standard);
+}
+
+/**
+ * FAB Expand/Collapse
+ * Size change with expressive easing
+ */
+.m3-transition-fab {
+  transition: transform var(--motion-duration-short3) var(--motion-easing-expressive),
+              box-shadow var(--motion-duration-short3) var(--motion-easing-standard);
+}
+
+/**
+ * Navigation Transitions
+ * Page-level transitions (use sparingly)
+ */
+.m3-transition-page {
+  transition: opacity var(--motion-duration-short4) var(--motion-easing-standard),
+              transform var(--motion-duration-short4) var(--motion-easing-standard);
+}
+
+/* =============================================================================
+   USAGE EXAMPLES
+   ============================================================================= */
+
+/*
+BUTTON HOVER:
+<button className="m3-transition-fast">Click Me</button>
+
+CARD INTERACTION:
+<div className="m3-transition-interactive">Card Content</div>
+
+MODAL FADE:
+<dialog className="m3-transition-modal-enter">Modal Content</dialog>
+
+DRAWER SLIDE:
+<aside className="m3-transition-drawer">Drawer Content</aside>
+
+FAB ANIMATION:
+<button className="m3-transition-fab">FAB</button>
+*/
+
+/* =============================================================================
+   DECISION TREE
+   ============================================================================= */
+
+/*
+WHEN TO USE WHAT:
+
+Fast (100ms):
+  ✓ Button/chip hover
+  ✓ Ripple effects
+  ✓ Menu item highlight
+  ✗ Large elements
+
+Standard (200ms): **DEFAULT CHOICE**
+  ✓ Most interactions
+  ✓ Card hover
+  ✓ Tooltip/popover
+  ✓ Color changes
+  ✗ Complex multi-property animations
+
+Medium (300ms):
+  ✓ Drawer slide
+  ✓ Bottom sheet
+  ✓ FAB expand
+  ✓ Multi-step animations
+  ✗ Subtle hover states
+
+Slow (400ms):
+  ✓ Page transitions
+  ✓ Hero animations
+  ✓ Emphasized motion
+  ✗ Standard interactions (feels sluggish)
+
+Expressive (400ms + bounce):
+  ✓ Success confirmations
+  ✓ Celebration effects
+  ✓ Playful interactions
+  ✗ Professional/serious contexts
+
+Property-Specific:
+  ✓ When only 1-2 properties change (better performance)
+  ✗ When multiple properties transition together
+*/
+
+

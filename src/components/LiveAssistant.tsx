@@ -296,11 +296,11 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
             alignItems: 'center',
             justifyContent: 'center',
             boxShadow: 'var(--md-sys-elevation-level2)',
-            transition: 'all var(--md-sys-motion-duration-short) var(--motion-easing-standard)',
+            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(var(--md-sys-motion-easing-standard))',
             cursor: 'pointer',
             backgroundColor: isConnected ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)',
             color: isConnected ? 'var(--md-sys-color-on-error)' : 'var(--md-sys-color-on-primary)',
-            animation: isConnected ? 'pulse 2s infinite' : 'none'
+            animation: isConnected ? 'pulse var(--md-sys-motion-duration-long) infinite' : 'none'
           }}
           onMouseEnter={(e) => {
             if (!isConnected) {

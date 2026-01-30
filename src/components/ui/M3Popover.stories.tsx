@@ -95,7 +95,7 @@ export const WithActions: Story = {
                 textAlign: 'left',
                 color: 'var(--md-sys-color-onSurface)',
                 fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
+                transition: 'background-color var(var(--md-sys-motion-duration-short)4) var(var(--md-sys-motion-easing-standard))',
               }}
               onMouseEnter={() => {
                 // removed runtime mutation
@@ -119,7 +119,7 @@ export const WithActions: Story = {
                 textAlign: 'left',
                 color: 'var(--md-sys-color-error)',
                 fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
+                transition: 'background-color var(var(--md-sys-motion-duration-short)4) var(var(--md-sys-motion-easing-standard))',
               }}
               onMouseEnter={() => {
                 // removed runtime mutation
@@ -212,7 +212,7 @@ export const ScrollableContent: Story = {
                   textAlign: 'left',
                   color: 'var(--md-sys-color-onSurface)',
                   fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                  transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
+                  transition: 'background-color var(var(--md-sys-motion-duration-short)4) var(var(--md-sys-motion-easing-standard))',
                   borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                 }}
                 onMouseEnter={() => {
@@ -271,7 +271,7 @@ export const NoBackdrop: Story = {
                   textAlign: 'left',
                   color: 'var(--md-sys-color-onSurface)',
                   fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                  transition: 'background-color var(--motion-duration-short4) var(--motion-easing-standard)',
+                  transition: 'background-color var(var(--md-sys-motion-duration-short)4) var(var(--md-sys-motion-easing-standard))',
                 }}
                 onMouseEnter={() => {
                   // removed runtime mutation

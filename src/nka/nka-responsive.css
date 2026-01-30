@@ -11,7 +11,7 @@
   width: 100vw;
   padding: var(--md-sys-spacing-4);
   overflow-y: auto;
-  animation: emphasized-enter 150ms cubic-bezier(.2,0,0,1);
+  animation: emphasized-enter var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-emphasized);
 }
 .nka-map-container {
   width: var(--md-sys-percent-100);

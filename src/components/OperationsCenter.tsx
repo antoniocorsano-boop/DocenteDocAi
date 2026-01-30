@@ -209,7 +209,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                         marginBottom: 'var(--md-sys-spacing-4)',
                         marginRight: 'var(--md-sys-margin-auto)',
                         boxShadow: 'var(--md-sys-elevation-level2)',
-                        transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'
+                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'
                     }}>
                         <span >{selectedProcess.icon}</span>
                     </div>

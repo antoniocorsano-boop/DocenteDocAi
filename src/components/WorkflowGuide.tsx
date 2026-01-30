@@ -202,7 +202,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         gap: 'var(--md-sys-spacing-2)',
-                                        transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                         textDecoration: 'none'
                                     }}
                                     onMouseEnter={() => {

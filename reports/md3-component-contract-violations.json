@@ -1,0 +1,223 @@
+{
+  "timestamp": "2026-01-30T13:26:43.393Z",
+  "totalViolations": 20,
+  "totalFiles": 12,
+  "scannedFiles": 256,
+  "typeBreakdown": {
+    "forbiddenProps": 15,
+    "hardcodedSizeProps": 2,
+    "classNameUtilities": 3
+  },
+  "topViolators": [
+    {
+      "file": "src\\components\\charts\\BarChart.tsx",
+      "count": 6
+    },
+    {
+      "file": "src\\components\\Logo.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\ui\\M3ActivityItem.stories.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\ui\\M3SuggestionItem.stories.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\charts\\AdvancedCharts.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\charts\\DonutChart.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\CopyForRegisterModal.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\EventModal.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\RubricEditor.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\SmartImportModal.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\ui\\M3EmptyStateCard.stories.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\ui\\M3Menu.tsx",
+      "count": 1
+    }
+  ],
+  "violations": [
+    {
+      "file": "src\\components\\charts\\AdvancedCharts.tsx",
+      "line": 144,
+      "type": "forbiddenProps",
+      "match": "<svg width={size} height=",
+      "context": "<svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} >",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\charts\\BarChart.tsx",
+      "line": 41,
+      "type": "forbiddenProps",
+      "match": "<svg width=\"100%\" height=",
+      "context": "<svg width=\"100%\" height={chartHeight} viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio=\"xMidYMid meet\">",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\charts\\BarChart.tsx",
+      "line": 46,
+      "type": "forbiddenProps",
+      "match": "<rect\r\n              \r\n              x={i * (barWidth + barMargin)}\r\n              y={chartHeight - ",
+      "context": "<rect",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\charts\\BarChart.tsx",
+      "line": 77,
+      "type": "forbiddenProps",
+      "match": "<svg width=\"100%\" height=",
+      "context": "<svg width=\"100%\" height={chartHeight} viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio=\"xMidYMid meet\">",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\charts\\BarChart.tsx",
+      "line": 93,
+      "type": "forbiddenProps",
+      "match": "<rect\r\n                            \r\n                            x={80}\r\n                           ",
+      "context": "<rect",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\charts\\BarChart.tsx",
+      "line": 41,
+      "type": "hardcodedSizeProps",
+      "match": "width=\"100%",
+      "context": "<svg width=\"100%\" height={chartHeight} viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio=\"xMidYMid meet\">",
+      "suggestion": "Use MD3 spacing tokens instead of hardcoded values"
+    },
+    {
+      "file": "src\\components\\charts\\BarChart.tsx",
+      "line": 77,
+      "type": "hardcodedSizeProps",
+      "match": "width=\"100%",
+      "context": "<svg width=\"100%\" height={chartHeight} viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio=\"xMidYMid meet\">",
+      "suggestion": "Use MD3 spacing tokens instead of hardcoded values"
+    },
+    {
+      "file": "src\\components\\charts\\DonutChart.tsx",
+      "line": 29,
+      "type": "forbiddenProps",
+      "match": "<svg width=\"200\" height=",
+      "context": "<svg width=\"200\" height=\"200\" viewBox=\"0 0 200 200\">",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\CopyForRegisterModal.tsx",
+      "line": 96,
+      "type": "classNameUtilities",
+      "match": "ClassName=\"!bg-[var(--md-sys-color-surfaceContainerHigh)]est shadow-inner font-mono text-",
+      "context": "containerClassName=\"!bg-[var(--md-sys-color-surfaceContainerHigh)]est shadow-inner font-mono text-xs\"",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\EventModal.tsx",
+      "line": 115,
+      "type": "classNameUtilities",
+      "match": "ClassName=\"shadow-inner !bg-",
+      "context": "containerClassName=\"shadow-inner !bg-[var(--md-sys-color-surfaceContainerLow)]est\"",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\Logo.tsx",
+      "line": 82,
+      "type": "forbiddenProps",
+      "match": "<svg width=\"220\" height=",
+      "context": "<svg width=\"220\" height=\"44\" viewBox=\"0 0 220 44\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" >",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\Logo.tsx",
+      "line": 87,
+      "type": "forbiddenProps",
+      "match": "<rect x=\"4\" y=\"6\" width=\"7\" height=",
+      "context": "<rect x=\"4\" y=\"6\" width=\"7\" height=\"28\" rx=\"2\"  />",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\RubricEditor.tsx",
+      "line": 150,
+      "type": "classNameUtilities",
+      "match": "ClassName=\"!bg-[var(--md-sys-color-surfaceContainerHigh)]/50 shadow-",
+      "context": "containerClassName=\"!bg-[var(--md-sys-color-surfaceContainerHigh)]/50 shadow-sm\"",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\SmartImportModal.tsx",
+      "line": 209,
+      "type": "forbiddenProps",
+      "match": "<div  style={{ backgroundImage: 'url(\"data:image/svg+xml,%3Csvg width=\\'100\\' height=",
+      "context": "<div  style={{ backgroundImage: 'url(\"data:image/svg+xml,%3Csvg width=\\'100\\' height=\\'100\\' viewBox=\\'0 0 100 100\\' xmlns=\\'http://www.w3.org/2000/sv",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\ui\\M3ActivityItem.stories.tsx",
+      "line": 57,
+      "type": "forbiddenProps",
+      "match": "<svg width=\"20\" height=",
+      "context": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"currentColor\">",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\ui\\M3ActivityItem.stories.tsx",
+      "line": 74,
+      "type": "forbiddenProps",
+      "match": "<svg width=\"20\" height=",
+      "context": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"var(--md-sys-color-on-secondary)\">",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\ui\\M3EmptyStateCard.stories.tsx",
+      "line": 64,
+      "type": "forbiddenProps",
+      "match": "<svg\r\n            width=\"64\"\r\n            height=",
+      "context": "<svg",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\ui\\M3Menu.tsx",
+      "line": 151,
+      "type": "forbiddenProps",
+      "match": "<M3Popover\r\n      open={open}\r\n      anchorEl={anchorEl}\r\n      onClose={onClose}\r\n      title={titl",
+      "context": "<M3Popover",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\ui\\M3SuggestionItem.stories.tsx",
+      "line": 65,
+      "type": "forbiddenProps",
+      "match": "<svg width=\"16\" height=",
+      "context": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"var(--md-sys-color-on-primary)\">",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\ui\\M3SuggestionItem.stories.tsx",
+      "line": 127,
+      "type": "forbiddenProps",
+      "match": "<svg width=\"16\" height=",
+      "context": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"var(--md-sys-color-surface)\">",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    }
+  ]
+}

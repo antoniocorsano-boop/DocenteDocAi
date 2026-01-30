@@ -130,7 +130,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                 {competencySummaries.map(summary => {
                     const notEvaluatedCount = classStudents.length - summary.totalEvaluated;
                     return (
-                        <details key={summary.competency.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)"}}>
+                        <details key={summary.competency.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}>
                             <summary  style={{padding: 'var(--md-sys-spacing-8)', cursor: "pointer"}}>
                                 {/* Custom Header Content */}
                                 <div style={{display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-6)'}}>
@@ -219,7 +219,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                         <div 
                                             key={student.id} 
                                             onClick={() => { setViewingStudents(null); onViewStudentProfile(student); }} 
-                                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", justifyContent: "space-between", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", cursor: "pointer", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)"}}
+                                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", justifyContent: "space-between", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", cursor: "pointer", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}
                                         >
                                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                                 <Avatar name={`${student.nome} ${student.cognome}`} size="md" />

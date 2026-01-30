@@ -301,7 +301,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             borderRadius: 'var(--md-sys-shape-corner-extra-large)',
                                             boxShadow: 'var(--md-sys-elevation-level2)',
                                             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                                            transition: 'all var(--md-sys-motion-duration-medium)',
+                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium)',
                                             cursor: 'pointer',
                                             outline: isFocused ? 'var(--md-sys-border-width-normal) solid var(--md-sys-color-primary)' : 'none',
                                             outlineOffset: 'var(--md-sys-spacing-1)'
@@ -332,7 +332,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                             color: status === 'presente' ? 'var(--md-sys-color-on-primary-container)' : status === 'assente' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-tertiary-container)',
                                                             border: 'none',
                                                             cursor: 'pointer',
-                                                            transition: 'all var(--md-sys-motion-duration-medium)'
+                                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium)'
                                                         }}
                                                     >
                                                         <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>
@@ -660,7 +660,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     gap: 'var(--md-sys-spacing-2)',
                                     padding: 'var(--md-sys-spacing-3)',
                                     cursor: 'pointer',
-                                    transition: 'all var(--md-sys-motion-duration-medium)'
+                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium)'
                                 }}
                             >
                                 <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
@@ -680,7 +680,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     gap: 'var(--md-sys-spacing-2)',
                                     padding: 'var(--md-sys-spacing-3)',
                                     cursor: 'pointer',
-                                    transition: 'all var(--md-sys-motion-duration-medium)'
+                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium)'
                                 }}
                             >
                                 <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-secondary)', color: 'var(--md-sys-color-on-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
@@ -700,7 +700,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     gap: 'var(--md-sys-spacing-2)',
                                     padding: 'var(--md-sys-spacing-3)',
                                     cursor: 'pointer',
-                                    transition: 'all var(--md-sys-motion-duration-medium)'
+                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium)'
                                 }}
                             >
                                 <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-on-surface-variant)', color: 'var(--md-sys-color-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
@@ -723,7 +723,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             borderRadius: 'var(--md-sys-shape-corner-medium)',
                                             padding: 'var(--md-sys-spacing-2)',
                                             cursor: 'pointer',
-                                            transition: 'all var(--md-sys-motion-duration-medium)',
+                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium)',
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: 'var(--md-sys-spacing-1)',

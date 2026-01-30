@@ -5,7 +5,7 @@
     border-radius: inherit;
     background: radial-gradient(circle, var(--md-sys-color-primary) var(--md-sys-percent-0), transparent var(--md-sys-percent-70));
     opacity: 0;
-    transition: opacity 0.18s var(--motion-easing-standard);
+    transition: opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
     z-index: var(--md-sys-z-base);
 }
 .timetable-tile:active .m3-ripple,
@@ -59,7 +59,9 @@
     border-radius: var(--md-sys-shape-corner-extra-large);
     padding: var(--md-sys-spacing-4);
     cursor: pointer;
-    transition: all var(--motion-duration-short) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     position: relative;
     overflow: hidden;
     box-shadow: var(--md-sys-elevation-level1);
@@ -120,7 +122,9 @@
     padding: var(--md-sys-spacing-6);
     position: relative;
     cursor: pointer;
-    transition: all var(--motion-duration-short) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
     display: flex;
     flex-direction: column;
@@ -199,7 +203,9 @@
     background-color: var(--md-sys-color-surface-container-low);
     border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
     cursor: pointer;
-    transition: all var(--motion-duration-short) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     text-align: left;
     height: var(--md-sys-percent-100);
     box-shadow: var(--md-sys-elevation-level0);
@@ -279,7 +285,9 @@
     border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
     overflow: hidden;
     cursor: pointer;
-    transition: all var(--motion-duration-short) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     position: relative;
     box-shadow: var(--md-sys-elevation-level1);
 }
@@ -386,9 +394,9 @@
     justify-content: space-between;
     height: 1var(--md-sys-typescale-label-small-size);
     flex-shrink: 0;
-    transition: transform var(--motion-duration-short) var(--motion-easing-standard),
-        box-shadow var(--motion-duration-short) var(--motion-easing-standard),
-        border-color var(--motion-duration-short) var(--motion-easing-standard);
+    transition: transform var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard)),
+        box-shadow var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard)),
+        border-color var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard));
     box-shadow: var(--md-sys-elevation-level0);
 }
 
@@ -489,7 +497,7 @@
     border: none;
     border-radius: var(--md-sys-shape-corner-full);
     cursor: pointer;
-    transition: background-color var(--motion-duration-short) var(--motion-easing-standard);
+    transition: background-color var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard));
 }
 
 .calendar-today-btn:hover {
@@ -560,7 +568,7 @@
     border-bottom: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
     background: var(--md-sys-color-surface);
     cursor: pointer;
-    transition: background-color var(--motion-duration-short) var(--motion-easing-standard);
+    transition: background-color var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard));
 }
 
 .calendar-day:nth-child(7n) {
@@ -610,7 +618,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
-    transition: filter var(--motion-duration-short) var(--motion-easing-standard);
+    transition: filter var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard));
 }
 
 .calendar-event:hover {
@@ -678,7 +686,7 @@
     padding: var(--md-sys-spacing-4);
     border-bottom: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
     cursor: pointer;
-    transition: background-color var(--motion-duration-short) var(--motion-easing-standard);
+    transition: background-color var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard));
 }
 
 .agenda-event:last-child {
@@ -846,7 +854,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    transition: filter var(--motion-duration-short) var(--motion-easing-standard);
+    transition: filter var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard));
 }
 
 .calendar-week-event:hover {
@@ -906,8 +914,8 @@
     border-radius: var(--md-sys-shape-corner-large);
     padding: var(--md-sys-spacing-4);
     cursor: pointer;
-    transition: background-color var(--motion-duration-short) var(--motion-easing-standard),
-        box-shadow var(--motion-duration-short) var(--motion-easing-standard);
+    transition: background-color var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard)),
+        box-shadow var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard));
 }
 
 .calendar-day-event:hover {
@@ -1077,8 +1085,8 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    transition: filter var(--motion-duration-short) var(--motion-easing-standard),
-        box-shadow var(--motion-duration-short) var(--motion-easing-standard);
+    transition: filter var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard)),
+        box-shadow var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard));
     font-weight: 500;
     box-shadow: var(--md-sys-elevation-level0);
 }
@@ -1189,8 +1197,8 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: filter var(--motion-duration-short) var(--motion-easing-standard),
-        box-shadow var(--motion-duration-short) var(--motion-easing-standard);
+    transition: filter var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard)),
+        box-shadow var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard));
     position: relative;
     padding: var(--md-sys-spacing-1);
     background-color: hsl(var(--slot-hue), var(--md-sys-percent-85), var(--md-sys-percent-96));
@@ -1344,7 +1352,7 @@
     padding: var(--md-sys-spacing-3);
     background-color: var(--md-sys-color-surface-container-low);
     border-radius: var(--md-sys-shape-corner-large);
-    transition: background-color var(--motion-duration-short) var(--motion-easing-standard);
+    transition: background-color var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard));
     border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
     margin-bottom: var(--md-sys-spacing-2);
     cursor: pointer;
@@ -1385,9 +1393,9 @@
     border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant); 
     border-top-width: var(--md-sys-spacing-1); 
     cursor: pointer; 
-    transition: transform var(--motion-duration-short) var(--motion-easing-standard), 
-                box-shadow var(--motion-duration-short) var(--motion-easing-standard),
-                border-color var(--motion-duration-short) var(--motion-easing-standard); 
+    transition: transform var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard)), 
+                box-shadow var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard)),
+                border-color var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard)); 
     display: flex; flex-direction: column; gap: var(--md-sys-spacing-3); 
     box-shadow: var(--md-sys-elevation-level1);
 }
@@ -1416,9 +1424,9 @@
     align-items: center;
     gap: var(--md-sys-spacing-2);
     cursor: pointer;
-    transition: background-color var(--motion-duration-short) var(--motion-easing-standard),
-        box-shadow var(--motion-duration-short) var(--motion-easing-standard),
-        border-color var(--motion-duration-short) var(--motion-easing-standard);
+    transition: background-color var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard)),
+        box-shadow var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard)),
+        border-color var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard));
     position: relative;
     box-shadow: var(--md-sys-elevation-level0);
 }
@@ -1463,7 +1471,9 @@
     padding: var(--md-sys-spacing-3); 
     cursor: pointer; 
     display: flex; flex-direction: column; align-items: center; gap: var(--md-sys-spacing-2); text-align: center; 
-    transition: all var(--motion-duration-short) var(--motion-easing-standard); 
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard); 
     background-color: var(--md-sys-color-surface); 
     box-shadow: var(--md-sys-elevation-level0);
 }
@@ -1513,7 +1523,9 @@
     border-radius: var(--md-sys-shape-corner-full);
     cursor: pointer;
     color: var(--md-sys-color-on-surface-variant);
-    transition: all var(--motion-duration-short) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     box-shadow: var(--md-sys-elevation-level0);
 }
 
@@ -1606,7 +1618,9 @@
     align-items: center;
     gap: var(--md-sys-spacing-2);
     font-weight: 500;
-    transition: all var(--motion-duration-short) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     box-shadow: var(--md-sys-elevation-level0);
 }
 
@@ -1785,7 +1799,9 @@
     padding: var(--md-sys-spacing-3);
     text-align: left;
     cursor: pointer;
-    transition: all var(--motion-duration-short) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     display: flex;
     flex-direction: column;
     gap: var(--md-sys-spacing-2);
@@ -1828,7 +1844,9 @@
     padding: var(--md-sys-spacing-4);
     text-align: center;
     cursor: pointer;
-    transition: all var(--motion-duration-short) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2115,7 +2133,9 @@
     text-overflow: ellipsis;
     cursor: pointer;
     box-shadow: var(--md-sys-elevation-level1);
-    transition: all var(--motion-duration-short) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     z-index: var(--md-sys-z-base);
 }
 
@@ -2158,7 +2178,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color var(--motion-duration-short2) var(--motion-easing-standard);
+    transition: background-color var(var(--md-sys-motion-duration-short)2) var(var(--md-sys-motion-easing-standard));
 }
 
 .gantt-col-over {
@@ -2409,7 +2429,7 @@
     background-color: var(--md-sys-color-surface-container-highest);
     color: var(--md-sys-color-on-surface);
     font-size: theme.typography.body2.fontSize;
-    transition: border-color var(--motion-duration-short) var(--motion-easing-standard);
+    transition: border-color var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard));
 }
 
 .archivio-report-search-input:focus {
@@ -2728,7 +2748,9 @@
     align-items: center;
     justify-content: center;
     box-shadow: var(--md-sys-elevation-level2);
-    transition: all var(--motion-duration-short) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     cursor: pointer;
 }
 
@@ -2817,7 +2839,7 @@
     background-color: var(--md-sys-color-surface-container-highest);
     color: var(--md-sys-color-on-surface);
     font-size: theme.typography.body2.fontSize;
-    transition: border-color var(--motion-duration-short) var(--motion-easing-standard);
+    transition: border-color var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard));
 }
 
 .ai-advisor-select:focus {
@@ -2839,7 +2861,9 @@
     color: var(--md-sys-color-on-surface);
     border: none;
     font-size: theme.typography.body2.fontSize;
-    transition: all var(--motion-duration-short) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     cursor: pointer;
 }
 
@@ -2862,7 +2886,9 @@
     font-size: theme.typography.body2.fontSize;
     font-weight: 500;
     cursor: pointer;
-    transition: all var(--motion-duration-short) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .ai-advisor-generate-button:hover:not(:disabled) {
@@ -3006,7 +3032,7 @@
     border: var(--md-sys-spacing-1) solid var(--md-sys-color-outline);
     border-top: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
     border-radius: var(--md-sys-percent-50);
-    animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-var(--md-sys-motion-easing-linear)) infinite;
+    animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-var(--md-sys-motion-easing-var(--md-sys-motion-easing-standard))) infinite;
 }
 
 @keyframes spin {
@@ -3053,7 +3079,9 @@
     display: flex;
     align-items: center;
     gap: var(--md-sys-spacing-1);
-    transition: all var(--motion-duration-short) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .corpus-chat-shortcut-button:hover {
@@ -3075,7 +3103,7 @@
     background-color: var(--md-sys-color-surface-container-highest);
     color: var(--md-sys-color-on-surface);
     font-size: theme.typography.body2.fontSize;
-    transition: border-color var(--motion-duration-short) var(--motion-easing-standard);
+    transition: border-color var(var(--md-sys-motion-duration-short)) var(var(--md-sys-motion-easing-standard));
 }
 
 .corpus-chat-input:focus {
@@ -3095,7 +3123,9 @@
     border: none;
     border-radius: var(--md-sys-shape-corner-mediumedium);
     cursor: pointer;
-    transition: all var(--motion-duration-short) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .corpus-chat-send-button:hover:not(:disabled) {
@@ -3175,7 +3205,9 @@
     border-radius: var(--md-sys-shape-corner-extra-large);
     border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
     overflow: hidden;
-    transition: all var(--motion-duration-short4) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .settings-card[open] {
@@ -3184,7 +3216,7 @@
 
 .settings-card.variant-primary {
     border-color: var(--md-sys-color-primary);
-    background: var(--md-sys-motion-easing-var(--md-sys-motion-easing-linear))-gradient(135deg, var(--md-sys-color-primary-container) var(--md-sys-percent-0), var(--md-sys-color-surface) var(--md-sys-percent-100));
+    background: var(--md-sys-motion-easing-var(--md-sys-motion-easing-var(--md-sys-motion-easing-standard)))-gradient(135deg, var(--md-sys-color-primary-container) var(--md-sys-percent-0), var(--md-sys-color-surface) var(--md-sys-percent-100));
 }
 
 .settings-card.variant-secondary {
@@ -3204,7 +3236,7 @@
     cursor: pointer;
     list-style: none;
     user-select: none;
-    transition: background-color var(--motion-duration-short3) var(--motion-easing-standard);
+    transition: background-color var(var(--md-sys-motion-duration-short)3) var(var(--md-sys-motion-easing-standard));
 }
 
 .settings-summary::-webkit-details-marker {
@@ -3252,7 +3284,7 @@
 
 .settings-chevron {
     color: var(--md-sys-color-on-surface-variant);
-    transition: transform var(--motion-duration-short4) var(--motion-easing-standard);
+    transition: transform var(var(--md-sys-motion-duration-short)4) var(var(--md-sys-motion-easing-standard));
 }
 
 /* Settings Content */
@@ -3275,7 +3307,9 @@
     border: var(--md-sys-spacing-1) solid var(--md-sys-color-outline-variant);
     border-radius: var(--md-sys-shape-corner-extra-large);
     cursor: pointer;
-    transition: all var(--motion-duration-short4) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     min-width: var(--md-sys-layout-card-min-height);
 }
 
@@ -3334,7 +3368,7 @@
     background: color-mix(in srgb, var(--md-sys-color-surface) var(--md-sys-percent-30), transparent);
     color: white;
     opacity: 0;
-    transition: opacity var(--motion-duration-short3) var(--motion-easing-standard);
+    transition: opacity var(var(--md-sys-motion-duration-short)3) var(var(--md-sys-motion-easing-standard));
 }
 
 .m3-theme-card.selected .theme-check-icon {
@@ -3393,7 +3427,9 @@
     font-size: var(--typography-label-medium);
     font-weight: 500;
     cursor: pointer;
-    transition: all var(--motion-duration-short4) var(--motion-easing-standard);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .button-drop:hover {
@@ -3471,7 +3507,9 @@
     width: var(--md-sys-spacing-8);
     height: var(--md-sys-spacing-8);
     border-radius: var(--md-sys-shape-corner-small);
-    transition: all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3499,7 +3537,9 @@
     font-family: var(--md-sys-typescale-label-large-font);
     font-size: var(--md-sys-typescale-label-large-size);
     border-radius: var(--md-sys-shape-corner-small);
-    transition: all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .smart-document-editor-action-button:hover {
@@ -3516,7 +3556,9 @@
     width: var(--md-sys-layout-avatar-size);
     height: var(--md-sys-layout-avatar-size);
     border-radius: var(--md-sys-shape-corner-small);
-    transition: all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short);
+    transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
     display: flex;
     align-items: center;
     justify-content: center;

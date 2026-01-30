@@ -197,7 +197,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         padding: 'var(--md-sys-spacing-4)',
                         border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
-                        transition: 'all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
+                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
                         cursor: 'pointer'
                     }}
                     disabled={isLoading || (action.requiresContent && selectedFileIds.length === 0) || (action.id === 'image' && hasApiKey === false)}

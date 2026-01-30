@@ -117,7 +117,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
                                     border: selectedKbIds.includes(k.id) ? ' var(--md-sys-border-width-medium) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                     backgroundColor: selectedKbIds.includes(k.id) ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
-                                    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                                     cursor: 'pointer',
                                     marginBottom: 'var(--md-sys-spacing-2)'
                                 }}>

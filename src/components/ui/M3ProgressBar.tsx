@@ -8,7 +8,7 @@ export type M3ProgressBarProps = {
   value: number; // 0-1
   label?: string;
   showValue?: boolean;
-  variant?: 'linear' | 'circular';
+  variant?: 'var(--md-sys-motion-easing-standard)' | 'circular';
   size?: 'small' | 'medium' | 'large';
   color?: 'primary' | 'secondary' | 'tertiary';
 };
@@ -17,7 +17,7 @@ function M3ProgressBar({
   value,
   label,
   showValue = false,
-  variant = 'linear',
+  variant = 'var(--md-sys-motion-easing-standard)',
   size = 'medium',
   color = 'primary'
 }: M3ProgressBarProps): React.ReactElement {

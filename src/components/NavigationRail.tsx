@@ -99,7 +99,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
     justifyContent: 'space-around',
     alignItems: 'center',
     zIndex: 'var(--md-sys-z-nav)',
-    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
 
     // Desktop overrides
     ...(isMobile ? {} : {
@@ -192,7 +192,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
             color: 'var(--md-sys-color-onSurface-variant)',
 
             // Transition
-            transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
 
             // Remove tap highlight on mobile
             WebkitTapHighlightColor: 'transparent',

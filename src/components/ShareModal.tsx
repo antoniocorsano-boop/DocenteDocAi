@@ -69,7 +69,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-8)',
                             padding: 'var(--md-sys-spacing-8)',
-                            transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                             textAlign: 'left',
                             border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
                         }}
@@ -102,7 +102,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-8)',
                             padding: 'var(--md-sys-spacing-8)',
-                            transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                             textAlign: 'left',
                             border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
                         }}

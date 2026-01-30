@@ -155,7 +155,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                     padding: 'var(--md-sys-spacing-6)',
                     cursor: 'pointer',
                     border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                    transition: 'all var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out'
+                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out'
                 }}
                 onClick={() => setIsIdeaModalOpen(true)}
             >
@@ -395,7 +395,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                             alignItems: 'center',
                             justifyContent: 'center',
                             gap: 'var(--md-sys-spacing-2)',
-                            transition: 'all var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out'
+                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out'
                         }}>
                             <span style={{
                                 fontFamily: 'Material Symbols Outlined',
@@ -489,7 +489,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                transition: 'all var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out'
+                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out'
                             }} title="Rimuovi filtri">
                                 <span style={{
                                     fontFamily: 'Material Symbols Outlined',
@@ -577,7 +577,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                                         borderRadius: 'var(--md-sys-shape-corner-medium)',
                                                         border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                                         cursor: 'pointer',
-                                                        transition: 'all var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out'
+                                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out'
                                                     }}>
                                                         <div onClick={() => onViewLesson(lesson)} style={{
                                                             padding: 'var(--md-sys-spacing-4)',
@@ -605,7 +605,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                                             display: 'flex',
                                                             alignItems: 'center',
                                                             gap: 'var(--md-sys-spacing-2)',
-                                                            transition: 'all var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out',
+                                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out',
                                                             flexShrink: 0
                                                         }}>
                                                             <span style={{

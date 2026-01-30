@@ -1354,7 +1354,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                     borderRadius: 'var(--md-sys-shape-corner-medium)',
                                                                     backgroundColor: assignment ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surfaceContainer)',
                                                                     border: `var(--md-sys-border-width-thin) solid ${assignment ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
-                                                                    transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                                                     minHeight: 'var(--md-sys-spacing-4)'
                                                                 }}
                                                             >
@@ -1883,7 +1883,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             fontWeight: '900',
                             textTransform: 'uppercase',
                             letterSpacing: 'var(--md-sys-typescale-label-small-tracking)',
-                            transition: 'all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short2)',
+                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short2)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center'}}

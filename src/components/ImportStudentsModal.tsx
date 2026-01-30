@@ -206,7 +206,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                         height: 'var(--md-sys-layout-dropzone-height)', // Dropzone height
                                         borderRadius: 'var(--md-sys-shape-corner-large)',
                                         border: `var(--md-sys-border-width-thin) dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
-                                        transition: 'all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
+                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
                                         cursor: 'pointer',
                                         opacity: isLoading ? 0.5 : 1,
                                         pointerEvents: isLoading ? 'none' : 'auto',
@@ -246,11 +246,11 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                             <div
                                                 key={entry.id}
                                                 onClick={() => handleKbFileSelect(entry)}
-                                                style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", cursor: "pointer"}}
+                                                style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: "pointer"}}
                                             >
                                                 <span style={{ backgroundColor: sys.colors.primaryContainer/30, borderRadius: 'var(--md-sys-shape-corner-large)' , color: "var(--md-sys-color-primary)", padding: 'var(--md-sys-spacing-8)', transition: "color var(--md-sys-motion-duration-medium)"}}>description</span>
                                                 <span style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: "1" }}>{entry.fileName}</span>
-                                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  opacity: "0.5", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)" }}>chevron_right</span>
+                                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  opacity: "0.5", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}>chevron_right</span>
                                             </div>
                                         ))
                                     ) : (

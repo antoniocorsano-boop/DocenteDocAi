@@ -77,7 +77,7 @@ export const TertiaryVariant: Story = {
 export const ErrorVariant: Story = {
   args: {
     title: 'Error',
-    description: 'Something went wrong. Please try again or contact support.',
+    description: 'Something went wrong. Plvar(--md-sys-motion-easing-standard) try again or contact support.',
     icon: 'error',
     variant: 'error',
   },
@@ -210,7 +210,7 @@ export const Multiple: Story = {
       />
       <InfoCard
         title="Security Alert"
-        description="Please review your account security settings"
+        description="Plvar(--md-sys-motion-easing-standard) review your account security settings"
         icon="security"
         variant="tertiary"
       />

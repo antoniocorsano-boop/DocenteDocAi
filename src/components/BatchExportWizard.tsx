@@ -278,7 +278,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
               </div>
               <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' , width: 'var(--md-sys-percent-100)', borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <div
-                   style={{backgroundColor: "var(--md-sys-color-primary)", height: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-spacing-4)', transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", width: `${(progress.current / progress.total) * 100}%` }}
+                   style={{backgroundColor: "var(--md-sys-color-primary)", height: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-spacing-4)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', width: `${(progress.current / progress.total) * 100}%` }}
                 ></div>
               </div>
               <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{progress.currentDoc}</p>
@@ -332,7 +332,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                           border: isSelected ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                           borderRadius: 'var(--md-sys-shape-corner-small)',
                           cursor: isGenerating ? 'not-allowed' : 'pointer',
-                          transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                          transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                           backgroundColor: isSelected ? 'var(--md-sys-color-secondary-container)' : 'transparent',
                           opacity: isGenerating ? 0.6 : 1
                         }}

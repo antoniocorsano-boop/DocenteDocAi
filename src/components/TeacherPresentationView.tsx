@@ -125,7 +125,7 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                     <M3Button 
                         onClick={() => onNavigate('home')} 
                         variant="filled"
-                         style={{ transition: "all var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard)" }}
+                         style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard)' }}
                     >
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                             <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Inizia Subito!</span>

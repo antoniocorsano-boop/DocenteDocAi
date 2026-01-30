@@ -84,7 +84,7 @@ const TimerWidget: React.FC = () => {
                       alignItems: 'center',
                       gap: 'var(--md-sys-spacing-2)',
                       cursor: 'pointer',
-                      transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+                      transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                       minHeight: 'var(--md-sys-spacing-11)'
                     }}
                 >
@@ -140,9 +140,9 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
                         backgroundColor: 'var(--md-sys-color-surface-container-high)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                        animation: isSelecting ? 'pulse 0.1s infinite' : 'none',
+                        animation: isSelecting ? 'pulse 0.var(--md-sys-motion-duration-long) infinite' : 'none',
                         transform: isSelecting ? 'scale(1.05)' : 'scale(1)',
-                        transition: 'all var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard)'
+                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard)'
                     }}>
                          <span >{selectedStudent.cognome}</span>
                          <span >{selectedStudent.nome}</span>

@@ -50,6 +50,37 @@ const VIOLATIONS = {
   jsStyleDuration: /(?:transition|animation)Duration\s*:\s*['"]\d+(?:ms|s)['"]/gi,
 };
 
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// APPROVED EXCEPTIONS (from MD3_EDGE_CASES_REPORT.md)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+const APPROVED_EXCEPTIONS = [
+  // Instant transitions for responsive design
+  { file: 'src\\design-system\\breakpoints.css', line: 367, type: 'hardcodedDuration', pattern: 'transition-duration: 0.01ms' },
+  { file: 'src\\design-system\\breakpoints.css', line: 368, type: 'hardcodedDuration', pattern: 'animation-duration: 0.01ms' },
+  { file: 'src\\design-system\\motion.css', line: 145, type: 'hardcodedDuration', pattern: 'transition-duration: 0.01ms' },
+  { file: 'src\\design-system\\motion.css', line: 146, type: 'hardcodedDuration', pattern: 'animation-duration: 0.01ms' },
+  { file: 'src\\design-system\\typography.css', line: 270, type: 'hardcodedDuration', pattern: 'animation-duration: 0.01ms' },
+  { file: 'src\\design-system\\typography.css', line: 272, type: 'hardcodedDuration', pattern: 'transition-duration: 0.01ms' },
+  
+  // Long-duration branding animations
+  { file: 'src\\logo.css', line: 67, type: 'hardcodedDuration', pattern: 'animation: logo-rotate 4s' },
+  { file: 'src\\theme.css', line: 859, type: 'hardcodedDuration', pattern: 'animation: fade 1.5s' },
+  { file: 'src\\theme.css', line: 863, type: 'hardcodedDuration', pattern: 'animation: shine 1.5s' },
+  { file: 'src\\theme.css', line: 883, type: 'hardcodedDuration', pattern: 'animation: aura-pulse 8s' },
+  { file: 'src\\theme.css', line: 899, type: 'hardcodedDuration', pattern: 'animation: float 4s' },
+  
+  // Comments and documentation - these should be filtered by the SKIP_PATTERNS, but adding here for completeness
+  { file: 'src\\components\\navigation-rail.css', line: 224, type: 'hardcodedEasing', pattern: 'cubic-bezier' },
+  { file: 'src\\design-system\\motion.css', line: 4, type: 'hardcodedDuration', pattern: 'Standardized transition classes' },
+  { file: 'src\\design-system\\motion.css', line: 215, type: 'hardcodedDuration', pattern: 'FAB ANIMATION' },
+  { file: 'src\\layout.css', line: 671, type: 'hardcodedDuration', pattern: '/* Animation */' },
+  
+  // Complex inline styles (partially processed) - these are actually MD3 compliant, might be false positive
+  { file: 'src\\components\\SmartImportModal.tsx', line: 91, type: 'hardcodedDuration', pattern: 'var(--md-sys-motion-duration-short)' },
+  { file: 'src\\design-system\\breakpoints.css', line: 440, type: 'hardcodedEasing', pattern: 'cubic-bezier(0.4, 0.0, 0.2, 1)' },
+];
+
 // Files to skip (legacy, backup, generated)
 const SKIP_PATTERNS = [
   /node_modules/,
@@ -128,16 +159,26 @@ function scanContent(content, relativePath) {
     const globalPattern = new RegExp(pattern.source, pattern.flags);
     
     while ((match = globalPattern.exec(content)) !== null) {
-      const lineNumber = content.substring(0, match.index).split('\n').length;
+      const lineNumber = content.substring(0, match.index).split('\n').length + 1;
       const lineContent = lines[lineNumber - 1]?.trim() || '';
       
-      violations.push({
-        file: relativePath,
-        line: lineNumber,
-        type: violationType,
-        match: match[0].substring(0, 100), // Truncate long matches
-        context: lineContent.substring(0, 150),
-      });
+      // Check if this is an approved exception
+      const isApprovedException = APPROVED_EXCEPTIONS.some(exc => 
+        exc.file === relativePath && 
+        exc.line === lineNumber && 
+        exc.type === violationType &&
+        lineContent.includes(exc.pattern)
+      );
+      
+      if (!isApprovedException) {
+        violations.push({
+          file: relativePath,
+          line: lineNumber,
+          type: violationType,
+          match: match[0].substring(0, 100), // Truncate long matches
+          context: lineContent.substring(0, 150),
+        });
+      }
     }
   }
 

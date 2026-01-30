@@ -260,7 +260,7 @@ const PrintCenterModal: React.FC<{
                                         borderRadius: 'var(--md-sys-shape-corner-full)',
                                         border: 'var(--md-sys-border-width-thin) solid',
                                         cursor: 'pointer',
-                                        transition: 'all var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short)',
+                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short)',
                                         display: 'flex',
                                         alignItems: 'center',
                                         gap: 'var(--md-sys-spacing-8)',

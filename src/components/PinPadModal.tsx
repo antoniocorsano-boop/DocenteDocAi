@@ -66,7 +66,7 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
                                 
                                 borderRadius: 'var(--md-sys-percent-50)', // circular indicator
                                 
-                                transition: 'all var(--md-sys-motion-duration-short)', // transition-all duration-200
+                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short)', // transition-all duration-200
                                 backgroundColor: i < pin.length 
                                     ? (error ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)')
                                     : 'var(--md-sys-color-surface-container-high)',

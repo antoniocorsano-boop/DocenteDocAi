@@ -39,7 +39,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                         boxShadow: !isRemoteNewer ? 'var(--md-sys-elevation-level1)' : undefined,
                                                         opacity: !isRemoteNewer ? 1 : 0.7,
                                                         transform: !isRemoteNewer ? 'scale(1.02)' : undefined,
-                                                        transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+                                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                                                     }}
                                                 >
                             <div>
@@ -74,7 +74,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                         boxShadow: isRemoteNewer ? 'var(--md-sys-elevation-level2)' : undefined,
                                                         opacity: isRemoteNewer ? 0.8 : 1,
                                                         transform: isRemoteNewer ? 'scale(1.02)' : undefined,
-                                                        transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+                                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                                                     }}
                                                 >
                             <div>

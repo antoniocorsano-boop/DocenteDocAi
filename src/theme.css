@@ -437,7 +437,7 @@
   --md-sys-color-primary-rgb: 26, 115, 232;
   --md-sys-color-surface-container-high: #f1f3f4;
   --md-sys-color-surface-container-highest: #e8eaed;
-  --motion-easing-standard: var(--motion-easing-expressive);
+  var(--md-sys-motion-easing-standard): var(--motion-easing-expressive);
 }
 
 /* --- CONTRAST OVERRIDES --- */
@@ -626,7 +626,7 @@
   --md-sys-elevation-level4: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.3), var(--md-sys-spacing-0) var(--md-sys-blur-medium) var(--md-sys-spacing-3) var(--md-sys-spacing-1) rgba(0, 0, 0, 0.15);
   --md-sys-elevation-level5: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1) var(--md-sys-spacing-0) rgba(0, 0, 0, 0.3), var(--md-sys-spacing-0) var(--md-sys-spacing-2) var(--md-sys-spacing-3) var(--md-sys-blur-medium) rgba(0, 0, 0, 0.15);
 
-  --aura-gradient: var(--md-sys-motion-easing-var(--md-sys-motion-easing-linear))-gradient(145deg, #FDFBFF 0%, #F3EDF7 100%);
+  --aura-gradient: var(--md-sys-motion-easing-var(--md-sys-motion-easing-var(--md-sys-motion-easing-standard)))-gradient(145deg, #FDFBFF 0%, #F3EDF7 100%);
   
   /* Motion Tokens M3 Expressive */
   /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -654,7 +654,7 @@
      decelerated:  gentle slowdown (entrances)
      accelerated:  quick exit (disappearances)
   */
-  --md-sys-motion-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);     /* Standard easing */
+  --md-sys-motion-easing-standard: var(--md-sys-motion-easing-standard);     /* Standard easing */
   --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);     /* Emphasized (M3 signature) */
   --md-sys-motion-easing-decelerated: cubic-bezier(0, 0, 0.2, 1);    /* Deceleration curve */
   --md-sys-motion-easing-accelerated: cubic-bezier(0.4, 0, 1, 1);    /* Acceleration curve */
@@ -663,24 +663,24 @@
      Maintained for backward compatibility during Phase 5 migration
      ⚠️ DO NOT USE IN NEW CODE — WILL BE REMOVED IN PHASE 6
   */
-  --motion-easing-standard: var(--md-sys-motion-easing-standard);
+  var(--md-sys-motion-easing-standard): var(--md-sys-motion-easing-standard);
   --motion-easing-decelerate: var(--md-sys-motion-easing-decelerated);
   --motion-easing-accelerate: var(--md-sys-motion-easing-accelerated);
-  --motion-easing-emphasized: var(--md-sys-motion-easing-emphasized);
+  var(--md-sys-motion-easing-emphasized): var(--md-sys-motion-easing-emphasized);
   --motion-easing-expressive: cubic-bezier(0.34, 1.56, 0.64, 1); /* Non-MD3 expressive (opt-in only) */
   
-  --motion-duration-short1: var(--md-sys-motion-duration-short);
-  --motion-duration-short2: var(--md-sys-motion-duration-short);
-  --motion-duration-short3: var(--md-sys-motion-duration-medium);
-  --motion-duration-short4: var(--md-sys-motion-duration-medium);
-  --motion-duration-medium1: var(--md-sys-motion-duration-medium);
-  --motion-duration-medium2: var(--md-sys-motion-duration-long);
-  --motion-duration-medium3: var(--md-sys-motion-duration-long);
-  --motion-duration-medium4: var(--md-sys-motion-duration-long);
-  --motion-duration-long1: var(--md-sys-motion-duration-long);
-  --motion-duration-long2: var(--md-sys-motion-duration-extra-long);
-  --motion-duration-long3: var(--md-sys-motion-duration-extra-long);
-  --motion-duration-long4: var(--md-sys-motion-duration-extra-long);
+  var(--md-sys-motion-duration-short)1: var(--md-sys-motion-duration-short);
+  var(--md-sys-motion-duration-short)2: var(--md-sys-motion-duration-short);
+  var(--md-sys-motion-duration-short)3: var(--md-sys-motion-duration-medium);
+  var(--md-sys-motion-duration-short)4: var(--md-sys-motion-duration-medium);
+  var(--md-sys-motion-duration-medium)1: var(--md-sys-motion-duration-medium);
+  var(--md-sys-motion-duration-medium)2: var(--md-sys-motion-duration-long);
+  var(--md-sys-motion-duration-medium)3: var(--md-sys-motion-duration-long);
+  var(--md-sys-motion-duration-medium)4: var(--md-sys-motion-duration-long);
+  var(--md-sys-motion-duration-long)1: var(--md-sys-motion-duration-long);
+  var(--md-sys-motion-duration-long)2: var(--md-sys-motion-duration-extra-long);
+  var(--md-sys-motion-duration-long)3: var(--md-sys-motion-duration-extra-long);
+  var(--md-sys-motion-duration-long)4: var(--md-sys-motion-duration-extra-long);
   
   /* Icon Size Tokens */
   --icon-size-small: var(--md-sys-spacing-5);        /* Extra small icons (compact UI) */
@@ -696,8 +696,8 @@
   --icon-xl: text-6xl;            /* var(--md-sys-spacing-12) base */
   
   /* Backward compatibility */
-  --motion-expressive: var(--motion-easing-expressive);
-  --motion-standard: var(--motion-easing-standard);
+  var(--md-sys-motion-easing-emphasized): var(--motion-easing-expressive);
+  var(--md-sys-motion-easing-standard): var(var(--md-sys-motion-easing-standard));
 
   /* --- MD3 Alias Mapping (bridge to --sys- tokens) --- */
   /* Semantic colors */
@@ -766,7 +766,7 @@
   --md-sys-color-on-surface: #E6E1E5;
   --md-sys-color-surface-container: #25232A;
   --md-sys-color-surface-container-highest: #36343B;
-  --aura-gradient: var(--md-sys-motion-easing-var(--md-sys-motion-easing-linear))-gradient(145deg, #141218 0%, #25232A 100%);
+  --aura-gradient: var(--md-sys-motion-easing-var(--md-sys-motion-easing-var(--md-sys-motion-easing-standard)))-gradient(145deg, #141218 0%, #25232A 100%);
   --glass-bg: rgba(20, 18, 24, 0.8);
   --glass-border: var(--md-sys-spacing-0) solid rgba(255, 255, 255, 0.1);
 }
@@ -787,7 +787,7 @@ body {
 }
 
 .aura-view-entrance {
-  animation: aura-slide-up var(--md-sys-motion-duration-medium) var(--motion-expressive) forwards;
+  animation: aura-slide-up var(--md-sys-motion-duration-medium) var(var(--md-sys-motion-easing-emphasized)) forwards;
 }
 
 @keyframes aura-slide-up {
@@ -844,11 +844,11 @@ body {
 }
 
 .animate-spin {
-  animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-var(--md-sys-motion-easing-linear)) infinite;
+  animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-var(--md-sys-motion-easing-var(--md-sys-motion-easing-standard))) infinite;
 }
 
 .animate-pulse {
-  animation: pulse var(--md-sys-motion-duration-extra-long) cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite;
 }
 
 .animate-bounce {
@@ -1034,7 +1034,9 @@ body {
   padding: var(--md-sys-spacing-6);
   box-shadow: 0 var(--md-sys-spacing-0) var(--md-sys-spacing-1) 0 color-mix(in srgb, var(--md-sys-color-shadow) 10%, transparent), 0 var(--md-sys-spacing-0) var(--md-sys-spacing-1) 0 color-mix(in srgb, var(--md-sys-color-shadow) 6%, transparent);
   border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
-  transition: all var(--md-sys-motion-duration-medium) var(--motion-easing-standard);
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-medium);
+transition-timing-function: var(--md-sys-motion-easing-standard);
   position: relative;
   overflow: hidden;
 }
@@ -1045,7 +1047,7 @@ body {
   inset: 0;
   background: currentColor;
   opacity: 0;
-  transition: opacity var(--md-sys-motion-duration-short) var(--motion-easing-standard);
+  transition: opacity var(--md-sys-motion-duration-short) var(var(--md-sys-motion-easing-standard));
   pointer-events: none;
 }
 
@@ -1087,7 +1089,9 @@ body {
   font-weight: 500;
   font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
   cursor: pointer;
-  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .m3-button-filled:hover {
@@ -1109,7 +1113,9 @@ body {
   font-weight: 500;
   font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
   cursor: pointer;
-  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .m3-button-error:hover {
@@ -1126,7 +1132,9 @@ body {
   font-weight: 500;
   font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
   cursor: pointer;
-  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .m3-button-tonal:hover {
@@ -1144,7 +1152,9 @@ body {
   font-weight: 500;
   font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
   cursor: pointer;
-  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .m3-button-outlined:hover {
@@ -1161,7 +1171,9 @@ body {
   font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
   cursor: pointer;
   border-radius: var(--md-sys-shape-corner-small);
-  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .m3-button-text:hover {
@@ -1180,7 +1192,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .icon-button:hover {
@@ -1205,7 +1219,7 @@ body {
   backdrop-filter: blur(var(--md-sys-spacing-2));
   -webkit-backdrop-filter: blur(var(--md-sys-spacing-2));
   z-index: var(--md-sys-z-modal);
-  animation: fade-in var(--md-sys-motion-duration-medium) var(--motion-easing-standard) forwards;
+  animation: fade-in var(--md-sys-motion-duration-medium) var(var(--md-sys-motion-easing-standard)) forwards;
 }
 
 .modal-panel {
@@ -1215,7 +1229,7 @@ body {
   box-shadow: 0 var(--md-sys-spacing-5) var(--md-sys-blur-25) -var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-shadow) 10%, transparent), 0 var(--md-sys-spacing-3) var(--md-sys-spacing-3) -var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-shadow) 4%, transparent);
   z-index: var(--md-sys-z-modal);
   overflow: hidden;
-  animation: zoom-in-95 var(--md-sys-motion-duration-medium) var(--motion-easing-standard) forwards;
+  animation: zoom-in-95 var(--md-sys-motion-duration-medium) var(var(--md-sys-motion-easing-standard)) forwards;
   border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
 }
 
@@ -1290,7 +1304,9 @@ body {
   border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline);
   border-radius: var(--md-sys-shape-corner-large);
   padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4);
-  transition: all var(--md-sys-motion-duration-short) cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .m3-field-wrapper:focus-within {
@@ -1343,7 +1359,9 @@ body {
   border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
   font-size: var(--typography-label-large-fontSize);
   font-weight: 500;
-  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
   cursor: default;
 }
 
@@ -1385,7 +1403,9 @@ body {
   padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
   border-radius: var(--md-sys-shape-corner-large);
   cursor: pointer;
-  transition: all var(--md-sys-motion-duration-short) var(--motion-easing-standard);
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
   color: var(--md-sys-color-on-surface-variant);
 }
 

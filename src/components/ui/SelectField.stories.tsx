@@ -85,7 +85,7 @@ export const WithError: Story = {
     id: 'error-select',
     label: 'Category',
     error: true,
-    errorMessage: 'Please select a category',
+    errorMessage: 'Plvar(--md-sys-motion-easing-standard) select a category',
     children: (
       <>
         <option value="">-- Select Category --</option>

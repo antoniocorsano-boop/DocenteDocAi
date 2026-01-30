@@ -361,7 +361,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           gap: var(--md-sys-spacing-3);
           box-shadow: var(--md-elevation-2);
           cursor: pointer;
-          transition: transform var(--md-sys-motion-duration-short) var(--motion-easing-standard), box-shadow var(--md-sys-motion-duration-short) var(--motion-easing-standard);
+          transition: transform var(--md-sys-motion-duration-short) var(var(--md-sys-motion-easing-standard)), box-shadow var(--md-sys-motion-duration-short) var(var(--md-sys-motion-easing-standard));
           text-align: left;
         }
         .assistant-fab-sheet-action:hover {

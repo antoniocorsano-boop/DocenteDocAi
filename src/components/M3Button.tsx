@@ -65,7 +65,7 @@ export const M3Button: React.FC<M3ButtonProps> = ({
     borderRadius: 'var(--md-sys-shape-corner-extra-large)',
     cursor: disabled ? 'not-allowed' : 'pointer',
     opacity: disabled ? 0.38 : 1,
-    transition: 'all var(--md-sys-motion-duration-short-2) var(--md-sys-motion-easing-standard)',
+    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-2) var(--md-sys-motion-easing-standard)',
     fontSize: 'var(--md-sys-typescale-label-large-font)',
     fontWeight: 'var(--md-sys-typescale-label-large-weight)',
     lineHeight: 'var(--md-sys-typescale-label-large-line-height)',

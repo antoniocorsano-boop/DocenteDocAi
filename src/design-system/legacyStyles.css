@@ -208,7 +208,7 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--md-sys-percent-50);
-  transition: background 0.2s;
+  transition: background var(--md-sys-motion-duration-short);
 }
 
 .button-icon-base:hover {
@@ -362,23 +362,25 @@
    ============================================================================ */
 
 .transition-all {
-  transition: all 0.2s ease;
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .transition-bg {
-  transition: background 0.2s;
+  transition: background var(--md-sys-motion-duration-short);
 }
 
 .transition-color {
-  transition: color 0.2s;
+  transition: color var(--md-sys-motion-duration-short);
 }
 
 .transition-transform {
-  transition: transform 0.2s;
+  transition: transform var(--md-sys-motion-duration-short);
 }
 
 .animate-spin {
-  animation: spin 1s linear infinite;
+  animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 @keyframes spin {
@@ -478,11 +480,11 @@
 .progress-fill {
   height: 100%;
   background: var(--md-sys-color-primary);
-  transition: width 0.3s ease;
+  transition: width var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
 }
 
 .loading-spinner {
-  animation: spin 1s linear infinite;
+  animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 

@@ -373,7 +373,7 @@
   border: none;
   cursor: pointer;
   text-align: left;
-  transition: background-color var(--motion-easing-standard);
+  transition: background-color var(var(--md-sys-motion-easing-standard));
 }
 
 .class-dashboard-student-item:hover {
@@ -403,7 +403,9 @@
   border: var(--md-sys-spacing-0) solid color-mix(in srgb, var(--md-sys-color-tertiary) var(--md-sys-percent-10), transparent);
   padding: var(--md-sys-spacing-8);
   cursor: pointer;
-  transition: all var(--motion-easing-standard);
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
   border-radius: var(--md-sys-shape-corner-medium);
 }
 
@@ -435,7 +437,9 @@
 .class-dashboard-tool-card {
   padding: var(--md-sys-spacing-8);
   cursor: pointer;
-  transition: all var(--motion-easing-standard);
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
   border-radius: var(--md-sys-shape-corner-medium);
 }
 
@@ -555,7 +559,7 @@
 
 .class-dashboard-chevron {
   color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-30), transparent);
-  transition: transform var(--motion-easing-standard);
+  transition: transform var(var(--md-sys-motion-easing-standard));
 }
 
 .class-dashboard-student-item:hover .class-dashboard-chevron {
@@ -691,7 +695,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
+  transition: background-color var(var(--md-sys-motion-easing-standard)), color var(var(--md-sys-motion-easing-standard));
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-primary {
@@ -708,7 +712,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
+  transition: background-color var(var(--md-sys-motion-easing-standard)), color var(var(--md-sys-motion-easing-standard));
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-tertiary {
@@ -725,7 +729,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
+  transition: background-color var(var(--md-sys-motion-easing-standard)), color var(var(--md-sys-motion-easing-standard));
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-secondary {
@@ -742,7 +746,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
+  transition: background-color var(var(--md-sys-motion-easing-standard)), color var(var(--md-sys-motion-easing-standard));
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-outline {
@@ -937,7 +941,9 @@
   border-radius: var(--md-sys-shape-corner-large);
   border: var(--md-sys-spacing-0) solid color-mix(in srgb, var(--md-sys-color-outline-variant) var(--md-sys-percent-20), transparent);
   cursor: pointer;
-  transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
   box-shadow: inset 0 var(--md-sys-spacing-0) var(--md-sys-spacing-1) color-mix(in srgb, var(--md-sys-color-shadow) var(--md-sys-percent-10), transparent);
   display: flex;
   flex-wrap: wrap;
@@ -1020,7 +1026,9 @@
   padding: var(--md-sys-spacing-2);
   border-radius: var(--md-sys-shape-corner-large);
   cursor: pointer;
-  transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+  transition-property: opacity, transform, background-color;
+transition-duration: var(--md-sys-motion-duration-short);
+transition-timing-function: var(--md-sys-motion-easing-standard);
   border: var(--md-sys-spacing-1) solid transparent;
 }
 

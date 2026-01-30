@@ -116,7 +116,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                         <details
                             key={comp.id}
                             style={{
-                                transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                 borderColor: active ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)',
                                 background: active ? 'var(--md-sys-color-surface)' : 'var(--md-sys-color-surface-container-low)'
                             }}

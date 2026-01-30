@@ -298,7 +298,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             display: isExpanded ? 'block' : 'none',
                             borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                             backgroundColor: 'var(--md-sys-color-surface)',
-                            animation: isExpanded ? 'slideDown 0.2s var(--md-sys-motion-easing-standard)-out' : 'none'
+                            animation: isExpanded ? 'slideDown var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)-out' : 'none'
                         }}>
                              <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
                                 <div>

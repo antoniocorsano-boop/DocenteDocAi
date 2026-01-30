@@ -82,7 +82,7 @@ export const Default: Story = {
 export const WithHeadline: Story = {
   args: {
     title: 'Important Notice',
-    headline: 'Please read carefully',
+    headline: 'Plvar(--md-sys-motion-easing-standard) read carefully',
     children: 'This dialog has both a title and headline for better context.',
     onClose: () => console.log('Dialog closed'),
   },

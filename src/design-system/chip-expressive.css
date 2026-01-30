@@ -29,7 +29,7 @@
 	line-height: 1;
 	cursor: default;
 	user-select: none;
-	transition: background-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+	transition: background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
 }
 
 .chip-expressive:hover {

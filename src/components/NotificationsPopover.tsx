@@ -174,7 +174,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                     border: `var(--md-sys-border-width-thin) solid ${notifica.letta
                                         ? 'var(--md-sys-color-outline-variant)'
                                         : 'var(--md-sys-color-primary)'}`,
-                                    transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                     outline: 'none'
                                 }}
                                 onMouseEnter={(e) => {

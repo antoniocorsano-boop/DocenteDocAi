@@ -108,7 +108,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                 {relevantCompetencies.map((competenza, idx) => (
                                     <div 
                                         key={competenza.id} 
-                                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", animationDelay: `${idx * 100}ms` }}
+                                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', animationDelay: `${idx * 100}ms` }}
                                     >
                                         <h4  style={{textTransform: "uppercase", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)', fontWeight: "900", display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                                             {competenza.nome}

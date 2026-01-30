@@ -140,7 +140,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
 
         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
 
-        // Cleanup streams immediately to release mic
+        // Cleanup streams immediately to relvar(--md-sys-motion-easing-standard) mic
         if (streamRef.current) {
             streamRef.current.getTracks().forEach(track => track.stop());
         }
@@ -187,7 +187,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
     const visualizerStyle = {
         boxShadow: isRecording ? `0 0 0 ${Math.min(audioLevel / 5, 10)}px var(--colors-error-container)` : 'none',
         transform: isRecording ? `scale(${1 + (audioLevel / 255) * 0.2})` : 'scale(1)',
-        transition: 'box-shadow var(--motion-duration-short1) var(--motion-easing-standard), transform var(--motion-duration-short1) var(--motion-easing-standard)'
+        transition: 'box-shadow var(var(--md-sys-motion-duration-short)1) var(var(--md-sys-motion-easing-standard)), transform var(var(--md-sys-motion-duration-short)1) var(var(--md-sys-motion-easing-standard))'
     };
 
     return (
@@ -212,7 +212,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
                 fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
                 cursor: isProcessing ? 'not-allowed' : 'pointer',
                 opacity: isProcessing ? 0.6 : 1,
-                transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                 position: 'relative',
                 overflow: 'hidden',
                 minWidth: compact ? 'var(--md-sys-spacing-4)' : 'auto',

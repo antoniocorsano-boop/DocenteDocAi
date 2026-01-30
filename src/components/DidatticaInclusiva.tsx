@@ -86,7 +86,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                 <InfoCard 
                                     key={student.id} 
                                     variant="elevated"
-                                     style={{ transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", cursor: "pointer" }}
+                                     style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: "pointer" }}
                                     onClick={() => setEditingStudent(student)}
                                 >
                                     <div style={{padding: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
@@ -158,7 +158,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                     <InfoCard 
                         key={student.id} 
                         variant="tonal"
-                         style={{padding: 'var(--md-sys-spacing-8)', transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", cursor: "pointer"}}
+                         style={{padding: 'var(--md-sys-spacing-8)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: "pointer"}}
                         onClick={() => setEditingStudent(student)}
                     >
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>

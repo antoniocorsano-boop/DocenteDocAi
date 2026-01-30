@@ -59,7 +59,7 @@ export const WithHelper: Story = {
 export const WithError: Story = {
   args: {
     label: 'Event Date',
-    error: 'Please select a valid date',
+    error: 'Plvar(--md-sys-motion-easing-standard) select a valid date',
   },
 };
 

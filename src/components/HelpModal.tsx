@@ -179,7 +179,7 @@ Il sistema di **Valutazione Unificata** permette di registrare simultaneamente:
 
 ### Analytics Hub
 Dashboard decisionale che offre:
-*   **Analisi Trend:** Grafici lineari per visualizzare il progresso nel tempo.
+*   **Analisi Trend:** Grafici var(--md-sys-motion-easing-standard)i per visualizzare il progresso nel tempo.
 *   **Radar Competenze:** Mappatura visiva dei punti di forza/debolezza della classe.
 *   **AI Insight:** Interpretazione automatica dei dati per individuare studenti a rischio (Early Warning System).
 
@@ -810,7 +810,7 @@ const FaqContent = () => (
         }}>
             {faqContentData.map((faq, i) => (
                 <details key={i} style={{
-                    transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)",
+                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     overflow: "hidden"
@@ -847,7 +847,7 @@ const FaqContent = () => (
 const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => void; onGenerate: () => void; isGenerating: boolean;}> = ({onNavigate, onClose, onGenerate, isGenerating}) => {
     const ImprovementCard: React.FC<{ title: string; children: React.ReactNode; actionView?: View; icon?: string }> = ({ title, children, actionView, icon = "new_relvar(--md-sys-motion-easing-standard)s" }) => (
         <div style={{
-            transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)",
+            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
             backgroundColor: 'var(--md-sys-color-surface-container-low)',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             padding: 'var(--md-sys-spacing-4)'

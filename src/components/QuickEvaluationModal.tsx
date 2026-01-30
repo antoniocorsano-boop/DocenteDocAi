@@ -145,7 +145,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                                 alignItems: 'center',
                                 padding: 'var(--md-sys-spacing-6)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                                 cursor: 'pointer',
                                 border: 'var(--md-sys-border-width-thin) solid transparent',
                                 backgroundColor: selectedLevelId === level.id ? 'var(--md-sys-color-primary-container)' : 'transparent',

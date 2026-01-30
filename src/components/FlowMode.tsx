@@ -148,7 +148,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                     <h1 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", letterSpacing: "var(--md-sys-typescale-body-medium-tracking)" }}>Flow</h1>
                     <p  style={{color: "var(--md-sys-color-primary)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "0.7"}}>{todayName}, {now.toLocaleDateString('it-IT', { day: '2-digit', month: 'long' })}</p>
                 </div>
-                <button onClick={onOpenOperations} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-on-primary-container)", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                <button onClick={onOpenOperations} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-on-primary-container)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                     {}
                     <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>bolt</span>
                     {}
@@ -163,7 +163,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                     >
                         <span style={{ color: 'var(--md-sys-color-primary)', opacity: 0.4, marginBottom: 'var(--md-sys-spacing-8)'}}>event_busy</span>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "bold" }}>Nessun evento o lezione oggi.</p>
-                        <button onClick={() => actions.handleNavigate('timetable')} style={{ backgroundColor: sys.colors.primary/10 , marginTop: 'var(--md-sys-spacing-4)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-primary)", fontWeight: "900", fontSize: "var(--md-sys-typescale-label-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)"}}>
+                        <button onClick={() => actions.handleNavigate('timetable')} style={{ backgroundColor: sys.colors.primary/10 , marginTop: 'var(--md-sys-spacing-4)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-primary)", fontWeight: "900", fontSize: "var(--md-sys-typescale-label-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}>
                             Configura Orario
                         </button>
                     </div>
@@ -187,7 +187,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                     ADESSO • {item.time}
                                 </div>
                                 <div 
-                                     style={{backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", padding: 'var(--md-sys-spacing-6)', transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}
+                                     style={{backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", padding: 'var(--md-sys-spacing-6)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}
                                 >
                                     <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 'var(--md-sys-spacing-6)'}}>
                                         <div>
@@ -201,7 +201,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                         </div>
                                     </div>
                                     {item.actionLabel && (
-                                        <button onClick={item.onAction} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "var(--md-sys-percent-full)", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', backgroundColor: "white", color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900", fontSize: "var(--md-sys-typescale-label-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)"}}>
+                                        <button onClick={item.onAction} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "var(--md-sys-percent-full)", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', backgroundColor: "white", color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900", fontSize: "var(--md-sys-typescale-label-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}>
                                             {item.actionLabel} {}<span  style={{ marginLeft: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-medium-size)" }}>arrow_forward</span>{}
                                         </button>
                                     )}
@@ -234,7 +234,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)' }}></div>
                             
                             <div 
-                                style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-5)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", cursor: "pointer", borderRadius: 'var(--md-sys-shape-corner-large)' }} 
+                                style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-5)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: "pointer", borderRadius: 'var(--md-sys-shape-corner-large)' }} 
                                 onClick={item.onAction}
                             >
                                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
@@ -253,19 +253,19 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-6)', display: 'flex', justifyContent: 'center' }}>
                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 0.8, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)' }}>
                     
-                    <button onClick={() => actions.handleNavigate('settings')} style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)" }}>
+                    <button onClick={() => actions.handleNavigate('settings')} style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}>
                         {}
                         <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>settings</span>
                         {}
                     </button>
 
-                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.5, color: 'var(--md-sys-color-on-surface-variant)', flexGrow: "1", borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", fontSize: "var(--md-sys-typescale-label-medium-size)", fontWeight: "bold", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)"}} onClick={onOpenLiveAssistant}>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.5, color: 'var(--md-sys-color-on-surface-variant)', flexGrow: "1", borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", fontSize: "var(--md-sys-typescale-label-medium-size)", fontWeight: "bold", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}} onClick={onOpenLiveAssistant}>
                         Chiedi all'assistente...
                     </div>
 
                     <VoiceNoteRecorder onTranscription={(text) => handleAddNote({ note: text })} compact />
                     
-                    <button onClick={() => actions.handleNavigate('progettazione-hub')}  style={{width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                    <button onClick={() => actions.handleNavigate('progettazione-hub')}  style={{width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', display: "flex", alignItems: "center", justifyContent: "center"}}>
                         {}
                         <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>add</span>
                         {}

@@ -121,7 +121,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                 </div>
 
                 <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
-                    <button onClick={handleGeneratePdf} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", width: "var(--md-sys-percent-100)", textAlign: "left" }}>
+                    <button onClick={handleGeneratePdf} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', width: "var(--md-sys-percent-100)", textAlign: "left" }}>
                         <div ><span  style={{ transition: "transform var(--md-sys-motion-duration-medium)" }}>picture_as_pdf</span></div>
                         <div >
                             <p >Tabellone Dati (PDF)</p>

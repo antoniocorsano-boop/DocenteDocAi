@@ -13,7 +13,7 @@
 }
 .aura-glow {
   background: radial-gradient(circle, var(--md-sys-color-primary80) var(--md-sys-percent-0), transparent var(--md-sys-percent-70));
-  animation: m3-emphasized-pulse 2s infinite;
+  animation: m3-emphasized-pulse var(--md-sys-motion-duration-long) infinite;
 }
 @keyframes m3-emphasized-pulse {
   var(--md-sys-percent-0)   { transform: scale(1);  opacity: 0.4; }
@@ -48,7 +48,7 @@
   z-index: var(--md-sys-z-modal);
   min-height: 40vh;
   padding: var(--md-sys-spacing-4);
-  animation: emphasized-enter 150ms cubic-bezier(.2,0,0,1);
+  animation: emphasized-enter var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-emphasized);
 }
 
 .nka-close-btn {
@@ -70,7 +70,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  transition: box-shadow 0.2s;
+  transition: box-shadow var(--md-sys-motion-duration-short);
 }
 .nka-shape-circle {
   border-radius: var(--md-sys-shape-corner-full);
@@ -99,7 +99,7 @@
   cursor: pointer;
   padding: var(--md-sys-spacing-1) var(--md-sys-spacing-2);
   border-radius: var(--md-sys-shape-corner-small);
-  transition: background 0.2s;
+  transition: background var(--md-sys-motion-duration-short);
 }
 .nka-action-btn:hover {
   background: var(--md-sys-color-primary10);

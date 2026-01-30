@@ -263,7 +263,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                                                 color: outcome?.action === "retain" ? 'var(--md-sys-color-error)' :
                                                                      outcome?.action === "archive" || outcome?.action === "transfer" ? 'var(--md-sys-color-on-surface-variant)' :
                                                                      'var(--md-sys-color-primary)',
-                                                                transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+                                                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                                                                 cursor: 'pointer',
                                                                 minHeight: 'var(--md-sys-spacing-11)'
                                                             }}

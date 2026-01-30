@@ -141,7 +141,7 @@ const DashboardHeader: React.FC = () => {
             fontSize: 'var(--md-sys-typescale-label-large-size)',
             fontWeight: 'var(--md-sys-typescale-label-large-weight)',
             lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
-            transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
             backgroundColor: isLoading ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-primary)',
             color: isLoading ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',
             border: 'none',

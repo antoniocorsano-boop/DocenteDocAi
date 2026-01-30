@@ -128,7 +128,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                             key={cls} 
                                             onClick={() => handleClassSelect(cls)}
                                             variant="tonal"
-                                             style={{ fontWeight: "900", transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)" }}
+                                             style={{ fontWeight: "900", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
                                         >
                                             {cls}
                                         </M3Button>

@@ -199,7 +199,7 @@ const ActionTile: React.FC<ActionTileProps> = ({
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    background: `linear-gradient(90deg, transparent, var(--md-sys-color-surface-disabled), transparent)`,
+                    background: `var(--md-sys-motion-easing-standard)-gradient(90deg, transparent, var(--md-sys-color-surface-disabled), transparent)`,
                     transform: hovered ? 'translateX(var(--md-sys-percent-100))' : 'translateX(calc(var(--md-sys-percent-100) * -1))',
                     pointerEvents: 'none',
                     transition: `transform var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard)`

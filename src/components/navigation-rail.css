@@ -5,7 +5,7 @@
  * Features:
  * - var(--md-sys-spacing-20) width vertical navigation
  * - Icon + label stacked layout
- * - Smooth 0.3s transitions
+ * - Smooth var(--md-sys-motion-duration-medium) transitions
  * - Responsive: collapses to bottom nav on mobile
  * - var(--md-sys-spacing-1) base unit spacing
  */
@@ -221,7 +221,7 @@
   z-index: var(--md-sys-z-base);
   
   /* Animation */
-  animation: badge-appear 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  animation: badge-appear var(--md-sys-motion-duration-medium) cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 @keyframes badge-appear {

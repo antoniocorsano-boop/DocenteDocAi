@@ -107,7 +107,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 cursor: "pointer",
                 padding: 'var(--md-sys-spacing-6)',
                 textAlign: "center",
-                transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)",
+                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                 marginTop: 'var(--md-sys-spacing-4)'
             }}>
                 <input {...getInputProps()} />

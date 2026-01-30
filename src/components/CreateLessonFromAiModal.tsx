@@ -268,7 +268,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                                 gap: 'var(--md-sys-spacing-8)',
                                                 margin: 'var(--md-sys-spacing-4) 0',
                                                 cursor: 'pointer',
-                                                transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
+                                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                                             }}
                                         >
                                             {selectedSlotKey === key && <span  style={{  fontSize: "var(--md-sys-spacing-4)"  }}>check</span>}
@@ -287,7 +287,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                     onClick={handleGenerateAdaptations} 
                                     disabled={isAdaptationsLoading} 
                                     variant="text"
-                                    style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", fontSize: 'var(--md-sys-typescale-body-small-font-size)', transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)" }}
+                                    style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", fontSize: 'var(--md-sys-typescale-body-small-font-size)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
                                     title="Usa l'AI per suggerire adattamenti basati sui Piani di Inclusione della classe"
                                 >
                                     {isAdaptationsLoading ? (

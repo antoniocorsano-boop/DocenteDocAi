@@ -230,7 +230,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                                                                             border: isSelected ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                                                                                             fontWeight: isSelected ? 700 : 400,
                                                                                             cursor: 'pointer',
-                                                                                            transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+                                                                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                                                                                         }}
                                                                                 >
                                                                                         <div

@@ -70,6 +70,7 @@
     "chrome-launcher": "^1.2.1",
     "docx": "^9.5.1",
     "file-saver": "^2.0.5",
+    "glob": "^13.0.0",
     "jsdom": "^27.4.0",
     "jspdf": "^3.0.4",
     "lighthouse": "^12.8.2",
