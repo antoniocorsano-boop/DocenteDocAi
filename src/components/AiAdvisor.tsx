@@ -68,31 +68,31 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
         <div style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 'var(--md-sys-spacing-6)',
-            padding: 'var(--md-sys-spacing-6)',
+            gap: 'var(--app-spacing-section)',
+            padding: 'var(--app-spacing-section)',
             backgroundColor: 'var(--md-sys-color-surface-container-low)',
             borderRadius: 'var(--md-sys-shape-corner-large)',
-            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
+            border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'
         }}>
             <h2 style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 'var(--md-sys-spacing-3)',
-                fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+                gap: 'var(--app-spacing-element)',
+                fontSize: 'var(--app-text-title)',
                 fontWeight: 'bold',
-                color: 'var(--md-sys-color-on-surface)',
+                color: 'var(--app-color-on-surface)',
                 margin: 0
             }}>
                 <span style={{
                     fontFamily: 'Material Symbols Outlined',
-                    fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
-                    color: 'var(--md-sys-color-primary)'
+                    fontSize: 'var(--app-text-title)',
+                    color: 'var(--app-color-primary)'
                 }}>psychology</span>
                 Consulente Didattico AI
             </h2>
             <p style={{
                 color: 'var(--md-sys-color-on-surface-variant)',
-                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                fontSize: 'var(--app-text-body)',
                 lineHeight: 1.5,
                 margin: 0
             }}>
@@ -102,31 +102,31 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-4)',
-                padding: 'var(--md-sys-spacing-6)',
+                gap: 'var(--app-spacing-container)',
+                padding: 'var(--app-spacing-section)',
                 backgroundColor: 'var(--md-sys-color-surface-container-high)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
+                border: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)'
             }}>
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--md-sys-spacing-2)'
+                    gap: 'var(--app-spacing-component)'
                 }}>
                     <label htmlFor="student-select-advisor" style={{
-                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                        fontSize: 'var(--app-text-body)',
                         fontWeight: 'bold',
-                        color: 'var(--md-sys-color-on-surface)',
+                        color: 'var(--app-color-on-surface)',
                         textTransform: 'uppercase',
                         letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                     }}>Studente / Gruppo</label>
                     <select id="student-select-advisor" value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value)} style={{
-                        padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                        padding: 'var(--app-spacing-element) var(--app-spacing-container)',
                         backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                        color: 'var(--md-sys-color-on-surface)',
-                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
+                        color: 'var(--app-color-on-surface)',
+                        border: 'var(--app-border-normal) solid var(--md-sys-color-outline)',
                         borderRadius: 'var(--md-sys-shape-corner-medium)',
-                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                        fontSize: 'var(--app-text-body)',
                         cursor: 'pointer'
                     }}>
                         <option value="all">Tutta la classe</option>
@@ -136,34 +136,34 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--md-sys-spacing-2)'
+                    gap: 'var(--app-spacing-component)'
                 }}>
                     <label style={{
-                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                        backgroundColor: advisorStatus ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-primary)',
-                        color: advisorStatus ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',
+                        fontSize: 'var(--app-text-body)',
+                        backgroundColor: advisorStatus ? 'var(--md-sys-color-surface-container-high)' : 'var(--app-color-primary)',
+                        color: advisorStatus ? 'var(--md-sys-color-on-surface-variant)' : 'var(--app-color-on-primary)',
                         cursor: advisorStatus ? 'not-allowed' : 'pointer',
                         letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                     }}>Tipo di Intervento</label>
                     <div style={{
                         display: 'flex',
-                        gap: 'var(--md-sys-spacing-2)',
+                        gap: 'var(--app-spacing-component)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         overflow: 'hidden',
-                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
+                        border: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)'
                     }}>
                         <button
                             type="button"
                             onClick={() => setRequestType('recupero')}
                             style={{
                                 flex: 1,
-                                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-                                backgroundColor: requestType === 'recupero' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-highest)',
-                                color: requestType === 'recupero' ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
+                                padding: 'var(--app-spacing-element) var(--app-spacing-container)',
+                                backgroundColor: requestType === 'recupero' ? 'var(--app-color-primary)' : 'var(--md-sys-color-surface-container-highest)',
+                                color: requestType === 'recupero' ? 'var(--app-color-on-primary)' : 'var(--app-color-on-surface)',
                                 border: 'none',
-                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                                fontSize: 'var(--app-text-body)',
                                 fontWeight: requestType === 'recupero' ? 'bold' : 'normal',
-                                transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+                                transition: `all var(--app-motion-quick) var(--app-easing-standard)`,
                                 cursor: 'pointer',
                                 borderRadius: 0
                             }}
@@ -173,13 +173,13 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                             onClick={() => setRequestType('potenziamento')}
                             style={{
                                 flex: 1,
-                                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-                                backgroundColor: requestType === 'potenziamento' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-highest)',
-                                color: requestType === 'potenziamento' ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
+                                padding: 'var(--app-spacing-element) var(--app-spacing-container)',
+                                backgroundColor: requestType === 'potenziamento' ? 'var(--app-color-primary)' : 'var(--md-sys-color-surface-container-highest)',
+                                color: requestType === 'potenziamento' ? 'var(--app-color-on-primary)' : 'var(--app-color-on-surface)',
                                 border: 'none',
-                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                                fontSize: 'var(--app-text-body)',
                                 fontWeight: requestType === 'potenziamento' ? 'bold' : 'normal',
-                                transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+                                transition: `all var(--app-motion-quick) var(--app-easing-standard)`,
                                 cursor: 'pointer',
                                 borderRadius: 0
                             }}
@@ -191,15 +191,15 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                     justifyContent: 'center'
                 }}>
                     <button onClick={handleGenerateAdvice} disabled={!!advisorStatus} style={{
-                        padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)',
-                        backgroundColor: advisorStatus ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-primary)',
-                        color: advisorStatus ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',
+                        padding: 'var(--app-spacing-element) var(--app-spacing-section)',
+                        backgroundColor: advisorStatus ? 'var(--md-sys-color-surface-container-high)' : 'var(--app-color-primary)',
+                        color: advisorStatus ? 'var(--md-sys-color-on-surface-variant)' : 'var(--app-color-on-primary)',
                         fontWeight: 'bold',
                         cursor: advisorStatus ? 'not-allowed' : 'pointer',
-                        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+                        transition: `all var(--app-motion-quick) var(--app-easing-standard)`,
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--md-sys-spacing-2)'
+                        gap: 'var(--app-spacing-component)'
                     }}>
                         {advisorStatus ? <AiThinkingGem size="small" inline text="" /> : 'Genera Consiglio'}
                     </button>
@@ -210,67 +210,67 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                  <div style={{
                     display: 'flex',
                     justifyContent: 'center',
-                    padding: 'var(--md-sys-spacing-4)',
+                    padding: 'var(--app-spacing-container)',
                     backgroundColor: 'var(--md-sys-color-surface-container-high)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
+                    border: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)'
                 }}>
                     <AiThinkingGem size="medium" text={advisorStatus} />
                 </div>
             )}
             {error && <p style={{
                 color: 'var(--md-sys-color-error)',
-                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                fontSize: 'var(--app-text-body)',
                 backgroundColor: `color-mix(in srgb, var(--md-sys-color-error) var(--md-sys-percent-10), transparent)`,
-                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                padding: 'var(--app-spacing-element) var(--app-spacing-container)',
                 borderRadius: 'var(--md-sys-shape-corner-medium)',
-                border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-error)',
+                border: 'var(--app-border-normal) solid var(--md-sys-color-error)',
                 margin: 0
             }}>{error}</p>}
             {advice && (
                 <div style={{
                     backgroundColor: 'var(--md-sys-color-surface-container-high)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                    padding: 'var(--md-sys-spacing-6)'
+                    border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+                    padding: 'var(--app-spacing-section)'
                 }}>
                     <h3 style={{
-                        fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                        fontSize: 'var(--app-text-title)',
                         fontWeight: 'bold',
-                        color: 'var(--md-sys-color-on-surface)',
-                        margin: 'var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-4) var(--md-sys-spacing-0)',
+                        color: 'var(--app-color-on-surface)',
+                        margin: 'var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--app-spacing-container) var(--md-sys-spacing-0)',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--md-sys-spacing-2)'
+                        gap: 'var(--app-spacing-component)'
                     }}>
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-                            color: 'var(--md-sys-color-primary)'
+                            fontSize: 'var(--app-text-title)',
+                            color: 'var(--app-color-primary)'
                         }}>lightbulb</span>
                         Suggerimenti dell'AI:
                     </h3>
                     <div style={{
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: 'var(--md-sys-spacing-4)'
+                        gap: 'var(--app-spacing-container)'
                     }}>
                         {advice.map((item, index) => (
                             <div key={index} style={{
                                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                                padding: 'var(--md-sys-spacing-4)',
-                                border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
+                                padding: 'var(--app-spacing-container)',
+                                border: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)'
                             }}>
                                 <h4 style={{
-                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                    fontSize: 'var(--app-text-body)',
                                     fontWeight: 'bold',
-                                    color: 'var(--md-sys-color-on-surface)',
-                                    margin: 'var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-2) var(--md-sys-spacing-0)'
+                                    color: 'var(--app-color-on-surface)',
+                                    margin: 'var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--app-spacing-component) var(--md-sys-spacing-0)'
                                 }}>{item.titolo}</h4>
                                 <p style={{
                                     color: 'var(--md-sys-color-on-surface-variant)',
-                                    fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                                    fontSize: 'var(--app-text-body)',
                                     lineHeight: 1.5,
                                     margin: 0
                                 }}>{item.descrizione}</p>

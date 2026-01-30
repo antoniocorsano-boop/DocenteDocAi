@@ -140,7 +140,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
 
         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
 
-        // Cleanup streams immediately to relvar(--md-sys-motion-easing-standard) mic
+        // Cleanup streams immediately to relvar(--app-easing-standard) mic
         if (streamRef.current) {
             streamRef.current.getTracks().forEach(track => track.stop());
         }
@@ -187,7 +187,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
     const visualizerStyle = {
         boxShadow: isRecording ? `0 0 0 ${Math.min(audioLevel / 5, 10)}px var(--colors-error-container)` : 'none',
         transform: isRecording ? `scale(${1 + (audioLevel / 255) * 0.2})` : 'scale(1)',
-        transition: 'box-shadow var(var(--md-sys-motion-duration-short)1) var(var(--md-sys-motion-easing-standard)), transform var(var(--md-sys-motion-duration-short)1) var(var(--md-sys-motion-easing-standard))'
+        transition: 'box-shadow var(var(--app-motion-quick)1) var(var(--app-easing-standard)), transform var(var(--app-motion-quick)1) var(var(--app-easing-standard))'
     };
 
     return (
@@ -198,25 +198,25 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
             style={{display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: compact ? '0' : 'var(--md-sys-spacing-2)',
-                padding: compact ? 'var(--md-sys-spacing-3)' : 'var(--md-sys-spacing-4) var(--md-sys-spacing-5)',
+                gap: compact ? '0' : 'var(--app-spacing-component)',
+                padding: compact ? 'var(--app-spacing-element)' : 'var(--app-spacing-container) var(--app-spacing-touch)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
                 border: 'none',
                 backgroundColor: isRecording 
                     ? 'var(--md-sys-color-error-container)' 
-                    : 'var(--md-sys-color-secondary-container)',
+                    : 'var(--app-color-secondary-container)',
                 color: isRecording 
                     ? 'var(--md-sys-color-on-error-container)' 
-                    : 'var(--md-sys-color-on-secondary-container)',
-                fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
+                    : 'var(--app-color-on-secondary-container)',
+                fontSize: 'var(--app-text-label)',
+                fontWeight: 'var(--app-text-label-weight)',
                 cursor: isProcessing ? 'not-allowed' : 'pointer',
                 opacity: isProcessing ? 0.6 : 1,
-                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
                 position: 'relative',
                 overflow: 'hidden',
-                minWidth: compact ? 'var(--md-sys-spacing-4)' : 'auto',
-                height: compact ? 'var(--md-sys-spacing-4)' : 'auto',
+                minWidth: compact ? 'var(--app-spacing-container)' : 'auto',
+                height: compact ? 'var(--app-spacing-container)' : 'auto',
                 boxShadow: isRecording ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)',
                 ...visualizerStyle}}
             title={isRecording ? "Ferma registrazione" : "Detta nota vocale"}
@@ -238,19 +238,19 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
             }}
         >
             {isProcessing ? (
-                <div style={{width: 'var(--md-sys-spacing-4)',
-                    height: 'var(--md-sys-spacing-4)',
-                    border: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-outline)',
-                    borderTop: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)',
-                    borderRadius: 'var(--md-sys-percent-50)',
-                    animation: 'spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite'}} />
+                <div style={{width: 'var(--app-spacing-container)',
+                    height: 'var(--app-spacing-container)',
+                    border: 'var(--app-border-thick) solid var(--md-sys-color-outline)',
+                    borderTop: 'var(--app-border-thick) solid var(--app-color-primary)',
+                    borderRadius: 'var(--app-layout-half)',
+                    animation: 'spin var(--app-motion-slow) var(--app-easing-standard) infinite'}} />
             ) : (
                 <span style={{fontFamily: 'Material Symbols Outlined',
-                    fontSize: compact ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
-                    transition: 'transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'}}>{isRecording ? 'mic_off' : 'mic'}</span>
+                    fontSize: compact ? 'var(--app-spacing-container)' : 'var(--app-spacing-container)',
+                    transition: 'transform var(--md-sys-motion-duration-short2) var(--app-easing-standard)'}}>{isRecording ? 'mic_off' : 'mic'}</span>
             )}
             {!compact && !isProcessing && (
-                <span style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                <span style={{fontSize: 'var(--app-text-label)',
                     fontWeight: 600,
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase'}}>{isRecording ? 'Stop' : 'Detta Nota'}</span>

@@ -415,13 +415,13 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                 style={{
                     boxShadow: 'var(--md-sys-elevation-level1)',
                     padding: 'var(--md-sys-spacing-8)',
-                    margin: 'var(--md-sys-spacing-8) var(--md-sys-margin-auto) 0 var(--md-sys-margin-auto)',
+                    margin: 'var(--md-sys-spacing-8) var(--app-layout-auto) 0 var(--app-layout-auto)',
                     maxWidth: 'var(--md-sys-layout-max-width, var(--md-sys-viewport-width-full))',
-                    width: 'var(--md-sys-percent-100)'
+                    width: 'var(--app-layout-full)'
                 }}
             >
                 {/* HEADER */}
-                <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--md-sys-spacing-6)' }}>
+                <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--app-spacing-section)' }}>
                     <div>
                         <M3Typography variant="headline-medium">Reportistica & Documenti</M3Typography>
                         <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
@@ -455,7 +455,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                         activeTab={activePhase}
                         onTabChange={(id) => setActivePhase(id as DocPhase)}
                     />
-                    <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--app-spacing-container)' }}>
                         {activeTemplates.map(template => (
                             <ActionTile
                                 key={template.id}
@@ -471,7 +471,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
 
                 <section style={{ marginTop: 'var(--md-sys-spacing-8)' }}>
                     <SectionHeader title="Documenti Recenti" icon="history" />
-                    <div style={{ gap: 'var(--md-sys-spacing-3)' }}>
+                    <div style={{ gap: 'var(--app-spacing-element)' }}>
                         {recentDocs.length > 0 ? recentDocs.map(doc => (
                             <InfoCard
                                 key={doc.id}
@@ -480,7 +480,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                                 variant="surface"
                                 onClick={() => setViewingDoc(doc)}
                             >
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'var(--md-sys-spacing-4)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'var(--app-spacing-container)' }}>
                                     <M3Typography variant="body-small" style={{ opacity: 0.7 }}>
                                         Generato il {new Date(parseInt(doc.id.split('-')[2] || Date.now().toString())).toLocaleDateString()}
                                     </M3Typography>

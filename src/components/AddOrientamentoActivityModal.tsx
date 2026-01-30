@@ -43,7 +43,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
             <M3DialogContent style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: 'var(--md-sys-spacing-6)'
+              gap: 'var(--app-spacing-section)'
             }}>
                 <TextField
                     label="Titolo Attività"
@@ -54,7 +54,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                 <div style={{
                   display: 'grid',
                   gridTemplateColumns: 'var(--md-sys-grid-fr-1)', // MD3 grid fr token
-                  gap: 'var(--md-sys-spacing-4)'
+                  gap: 'var(--app-spacing-container)'
                 }}>
                     <SelectField
                         label="Tipo"
@@ -91,18 +91,18 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                 <div style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 'var(--md-sys-spacing-2)'
+                  gap: 'var(--app-spacing-component)'
                 }}>
                     <label style={{
-                      fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                      fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
-                      lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+                      fontSize: 'var(--app-text-body)',
+                      fontWeight: 'var(--app-text-body-weight)',
+                      lineHeight: 'var(--app-text-body-line-height)',
                       color: 'var(--md-sys-color-on-surface-variant)'
                     }}>Classi Coinvolte</label>
                     <div style={{
                       display: 'flex',
                       flexWrap: 'wrap',
-                      gap: 'var(--md-sys-spacing-3)'
+                      gap: 'var(--app-spacing-element)'
                     }}>
                         {userClasses.map(cls => (
                             <button
@@ -116,18 +116,18 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                                     }
                                 }}
                                 style={{
-                                  padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
+                                  padding: 'var(--app-spacing-component) var(--app-spacing-container)',
                                   borderRadius: 'var(--md-sys-shape-corner-full)',
-                                  fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                                  fontSize: 'var(--app-text-body)',
                                   fontWeight: '700',
-                                  transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`, // MD3 motion tokens for duration and easing
+                                  transition: `all var(--app-motion-quick) var(--app-easing-standard)`, // MD3 motion tokens for duration and easing
                                   border: 'none',
                                   cursor: 'pointer',
                                   backgroundColor: activity.classes?.includes(cls)
-                                    ? 'var(--md-sys-color-primary)'
+                                    ? 'var(--app-color-primary)'
                                     : 'var(--md-sys-color-surface-container-high)',
                                   color: activity.classes?.includes(cls)
-                                    ? 'var(--md-sys-color-on-primary)'
+                                    ? 'var(--app-color-on-primary)'
                                     : 'var(--md-sys-color-on-surface-variant)'
                                 }}
                             >

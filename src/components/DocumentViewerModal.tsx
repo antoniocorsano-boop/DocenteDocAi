@@ -57,7 +57,7 @@ const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlCo
             <M3DialogContent >
                 {!safeHtml ? (
                      <div  style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderColor: "var(--md-sys-color-primary)"}}></div>
+                        <div  style={{borderRadius: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', width: 'var(--app-spacing-container)', borderColor: "var(--app-color-primary)"}}></div>
                     </div>
                 ) : (
                     <div
@@ -69,18 +69,18 @@ const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlCo
             <M3DialogActions  style={{ paddingTop: "0" }}>
                  {onSaveToKb && (
                     <M3Button onClick={handleSave} variant="outlined" >
-                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>save</span>
+                        <span  style={{ marginRight: "var(--app-spacing-component)" }}>save</span>
                         Salva in KB
                     </M3Button>
                 )}
                 <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
                 <M3Button onClick={handleCopyToClipboard} variant="tonal">
-                     <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>{copyStatus === 'copied' ? 'check' : 'content_copy'}</span>
+                     <span  style={{ marginRight: "var(--app-spacing-component)" }}>{copyStatus === 'copied' ? 'check' : 'content_copy'}</span>
                     {copyStatus === 'copied' ? 'Copiato!' : 'Copia Testo'}
                 </M3Button>
                 {onOpenCreateLesson && (
                     <M3Button onClick={handleCreateLesson} variant="filled">
-                         <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_task</span>
+                         <span  style={{ marginRight: "var(--app-spacing-component)" }}>add_task</span>
                         Crea Lezione
                     </M3Button>
                 )}

@@ -43,9 +43,9 @@ const TextField: React.FC<TextFieldProps> = ({
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-2)',
-                width: fullWidth ? 'var(--md-sys-percent-100)' : 'auto',
-                marginBottom: 'var(--md-sys-spacing-4)'
+                gap: 'var(--app-spacing-component)',
+                width: fullWidth ? 'var(--app-layout-full)' : 'auto',
+                marginBottom: 'var(--app-spacing-container)'
             }}
         >
             <div
@@ -53,23 +53,23 @@ const TextField: React.FC<TextFieldProps> = ({
                     position: 'relative',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--md-sys-spacing-2)',
+                    gap: 'var(--app-spacing-component)',
                     backgroundColor: variant === 'filled'
                         ? 'var(--md-sys-color-surface-container-high)'
                         : 'transparent',
-                    border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`,
+                    border: `var(--app-border-normal) solid var(--md-sys-color-outline)`,
                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                    padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
-                    transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`, // MD3 motion tokens for duration and easing
+                    padding: `var(--app-spacing-element) var(--app-spacing-container)`,
+                    transition: `all var(--app-motion-quick) var(--app-easing-standard)`, // MD3 motion tokens for duration and easing
                     boxShadow: error
-                        ? `0 0 0 var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-error) var(--md-sys-percent-12), transparent)`
+                        ? `0 0 0 var(--app-spacing-component) color-mix(in srgb, var(--md-sys-color-error) var(--md-sys-percent-12), transparent)`
                         : isFocused
-                        ? `0 0 0 var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-primary) var(--md-sys-percent-12), transparent)`
+                        ? `0 0 0 var(--app-spacing-component) color-mix(in srgb, var(--app-color-primary) var(--md-sys-percent-12), transparent)`
                         : 'none',
                     borderColor: error
                         ? 'var(--md-sys-color-error)'
                         : isFocused
-                        ? 'var(--md-sys-color-primary)'
+                        ? 'var(--app-color-primary)'
                         : 'var(--md-sys-color-outline)'
                 }}
             >
@@ -78,10 +78,10 @@ const TextField: React.FC<TextFieldProps> = ({
                         style={{
                             fontFamily: 'Material Symbols Outlined',
                             color: isFocused
-                                ? 'var(--md-sys-color-primary)'
+                                ? 'var(--app-color-primary)'
                                 : `color-mix(in srgb, var(--md-sys-color-on-surface-variant), var(--md-sys-state-opacity-disabled))`,
-                            transition: `color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`, // MD3 motion tokens for duration and easing
-                            fontSize: 'var(--md-sys-spacing-4)'
+                            transition: `color var(--app-motion-quick) var(--app-easing-standard)`, // MD3 motion tokens for duration and easing
+                            fontSize: 'var(--app-spacing-container)'
                         }}
                         aria-hidden="true"
                     >
@@ -95,18 +95,18 @@ const TextField: React.FC<TextFieldProps> = ({
                         // htmlFor removed: not valid for span
                         style={{
                             position: 'absolute',
-                            top: isLabelFloating ? 'var(--md-sys-spacing-1)' : 'var(--md-sys-percent-50)',
+                            top: isLabelFloating ? 'var(--md-sys-spacing-1)' : 'var(--app-layout-half)',
                             left: 0,
                             transform: isLabelFloating
                                 ? 'translateY(0) scale(0.75)'
                                 : 'translateY(-50%)',
                             transformOrigin: 'top left',
-                            transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`, // MD3 motion tokens for duration and easing
+                            transition: `all var(--app-motion-quick) var(--app-easing-standard)`, // MD3 motion tokens for duration and easing
                             color: isFocused
-                                ? 'var(--md-sys-color-primary)'
+                                ? 'var(--app-color-primary)'
                                 : 'var(--md-sys-color-on-surface-variant)',
                             pointerEvents: 'none',
-                            zIndex: 'var(--md-sys-z-tooltip)' // MD3 z-index token
+                            zIndex: 'var(--app-z-tooltip)' // MD3 z-index token
                         }}
                     >
                         {label}
@@ -116,18 +116,18 @@ const TextField: React.FC<TextFieldProps> = ({
                         value={value}
                         data-testid={dataTestId}
                         style={{
-                            width: 'var(--md-sys-percent-100)',
+                            width: 'var(--app-layout-full)',
                             border: 'none',
                             backgroundColor: 'transparent',
-                            color: 'var(--md-sys-color-on-surface)',
-                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            color: 'var(--app-color-on-surface)',
+                            fontSize: 'var(--app-text-body)',
                             fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
-                            fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-                            lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+                            fontWeight: 'var(--app-text-body-weight)',
+                            lineHeight: 'var(--app-text-body-line-height)',
                             letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)',
                             outline: 'none',
-                            paddingTop: isLabelFloating ? 'var(--md-sys-spacing-2)' : 0,
-                            transition: `padding-top var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)` // MD3 motion tokens for duration and easing
+                            paddingTop: isLabelFloating ? 'var(--app-spacing-component)' : 0,
+                            transition: `padding-top var(--app-motion-quick) var(--app-easing-standard)` // MD3 motion tokens for duration and easing
                         }}
                         placeholder=""
                         aria-label={label}
@@ -148,7 +148,7 @@ const TextField: React.FC<TextFieldProps> = ({
                         style={{
                             fontFamily: 'Material Symbols Outlined',
                             color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--md-sys-spacing-4)'
+                            fontSize: 'var(--app-spacing-container)'
                         }}
                         aria-hidden="true"
                     >
@@ -168,7 +168,7 @@ const TextField: React.FC<TextFieldProps> = ({
                         style={{
                             fontFamily: 'Material Symbols Outlined',
                             color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--md-sys-typescale-body-small-font-size)'
+                            fontSize: 'var(--app-text-body)'
                         }}
                         aria-hidden="true"
                     >

@@ -373,7 +373,7 @@
   border: none;
   cursor: pointer;
   text-align: left;
-  transition: background-color var(var(--md-sys-motion-easing-standard));
+  transition: background-color var(--motion-easing-standard);
 }
 
 .class-dashboard-student-item:hover {
@@ -559,7 +559,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .class-dashboard-chevron {
   color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-30), transparent);
-  transition: transform var(var(--md-sys-motion-easing-standard));
+  transition: transform var(--motion-easing-standard);
 }
 
 .class-dashboard-student-item:hover .class-dashboard-chevron {
@@ -695,7 +695,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(var(--md-sys-motion-easing-standard)), color var(var(--md-sys-motion-easing-standard));
+  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-primary {
@@ -712,7 +712,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(var(--md-sys-motion-easing-standard)), color var(var(--md-sys-motion-easing-standard));
+  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-tertiary {
@@ -729,7 +729,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(var(--md-sys-motion-easing-standard)), color var(var(--md-sys-motion-easing-standard));
+  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-secondary {
@@ -746,7 +746,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(var(--md-sys-motion-easing-standard)), color var(var(--md-sys-motion-easing-standard));
+  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-outline {

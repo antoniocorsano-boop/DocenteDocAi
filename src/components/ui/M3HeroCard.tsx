@@ -20,7 +20,7 @@ const M3HeroCard: React.FC<M3HeroCardProps> = ({
   <div
     style={{
       borderRadius: 'var(--md-sys-shape-corner-large)',
-      background: 'var(--md-sys-color-surface)',
+      background: 'var(--app-color-surface)',
       boxShadow: 'var(--md-sys-elevation-level3)',
       padding: 'var(--md-sys-spacing-8)',
       margin: 'var(--md-sys-spacing-8) 0',

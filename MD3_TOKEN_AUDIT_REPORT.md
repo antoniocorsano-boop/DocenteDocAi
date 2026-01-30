@@ -1,29 +1,29 @@
 # MD3 Design Token Coverage and Usage Audit
 
-**Generated:** 2026-01-30T05:18:36.250Z
+**Generated:** 2026-01-30T14:30:08.495Z
 **MD3 Gold Compliance:** Analysis Only (No Changes Made)
 
 ## 📊 Summary
 
-- **Files Analyzed:** 444
-- **Lines of Code:** 92.611
-- **MD3 Tokens Used:** 4718
-- **Semantic Tokens Used:** 26
-- **Hardcoded Violations:** 2434
-- **Semantic Adoption Rate:** 0.5%
+- **Files Analyzed:** 445
+- **Lines of Code:** 92.838
+- **MD3 Tokens Used:** 3257
+- **Semantic Tokens Used:** 1428
+- **Hardcoded Violations:** 2324
+- **Semantic Adoption Rate:** 30.5%
 
 ## 📈 Token Usage by Category
 
 | Category | MD3 Used | Semantic Used | Total Usage | Semantic % |
 |----------|----------|---------------|-------------|------------|
-| spacing | 30 | 3 | 3571 | 0.2% |
-| color | 69 | 13 | 2705 | 1.0% |
-| typography | 123 | 3 | 939 | 0.6% |
-| motion | 11 | 3 | 356 | 1.7% |
-| elevation | 5 | 0 | 153 | 0.0% |
+| spacing | 30 | 5 | 4600 | 46.0% |
+| color | 69 | 33 | 6046 | 65.8% |
+| typography | 123 | 4 | 1602 | 55.2% |
+| motion | 13 | 5 | 1012 | 62.1% |
+| elevation | 5 | 0 | 157 | 0.0% |
 | shape | 10 | 0 | 603 | 0.0% |
-| zIndex | 12 | 3 | 105 | 5.7% |
-| layout | 31 | 2 | 553 | 0.7% |
+| zIndex | 12 | 4 | 124 | 32.3% |
+| layout | 34 | 4 | 905 | 58.1% |
 
 ## 📦 Unused Defined Tokens
 
@@ -94,65 +94,41 @@
 
 ### 1. Address hardcoded value violations [CRITICAL]
 **Category:** MD3_COMPLIANCE
-**Description:** 2434 hardcoded values found (px, rem, z-index, etc.)
+**Description:** 2324 hardcoded values found (px, rem, z-index, etc.)
 **Impact:** Critical MD3 Gold compliance violations
 **Effort:** HIGH
 
 ### 2. Increase semantic token adoption in spacing [HIGH]
 **Category:** SEMANTIC_ADOPTION
-**Description:** Only 0.2% of spacing usage uses semantic tokens
-**Impact:** 3559 direct MD3 tokens could be abstracted
+**Description:** Only 46.0% of spacing usage uses semantic tokens
+**Impact:** 368 direct MD3 tokens could be abstracted
 **Effort:** MEDIUM
 
-### 3. Increase semantic token adoption in color [HIGH]
-**Category:** SEMANTIC_ADOPTION
-**Description:** Only 1.0% of color usage uses semantic tokens
-**Impact:** 2653 direct MD3 tokens could be abstracted
-**Effort:** MEDIUM
-
-### 4. Increase semantic token adoption in typography [HIGH]
-**Category:** SEMANTIC_ADOPTION
-**Description:** Only 0.6% of typography usage uses semantic tokens
-**Impact:** 927 direct MD3 tokens could be abstracted
-**Effort:** MEDIUM
-
-### 5. Increase semantic token adoption in motion [HIGH]
-**Category:** SEMANTIC_ADOPTION
-**Description:** Only 1.7% of motion usage uses semantic tokens
-**Impact:** 344 direct MD3 tokens could be abstracted
-**Effort:** MEDIUM
-
-### 6. Increase semantic token adoption in elevation [HIGH]
+### 3. Increase semantic token adoption in elevation [HIGH]
 **Category:** SEMANTIC_ADOPTION
 **Description:** Only 0.0% of elevation usage uses semantic tokens
-**Impact:** 153 direct MD3 tokens could be abstracted
+**Impact:** 157 direct MD3 tokens could be abstracted
 **Effort:** MEDIUM
 
-### 7. Increase semantic token adoption in shape [HIGH]
+### 4. Increase semantic token adoption in shape [HIGH]
 **Category:** SEMANTIC_ADOPTION
 **Description:** Only 0.0% of shape usage uses semantic tokens
 **Impact:** 603 direct MD3 tokens could be abstracted
 **Effort:** MEDIUM
 
-### 8. Increase semantic token adoption in layout [HIGH]
+### 5. Increase semantic token adoption in zIndex [MEDIUM]
 **Category:** SEMANTIC_ADOPTION
-**Description:** Only 0.7% of layout usage uses semantic tokens
-**Impact:** 545 direct MD3 tokens could be abstracted
+**Description:** Only 32.3% of zIndex usage uses semantic tokens
+**Impact:** 44 direct MD3 tokens could be abstracted
 **Effort:** MEDIUM
 
-### 9. Increase semantic token adoption in zIndex [MEDIUM]
-**Category:** SEMANTIC_ADOPTION
-**Description:** Only 5.7% of zIndex usage uses semantic tokens
-**Impact:** 93 direct MD3 tokens could be abstracted
-**Effort:** MEDIUM
-
-### 10. Consider adding semantic tokens for elevation [LOW]
+### 6. Consider adding semantic tokens for elevation [LOW]
 **Category:** SEMANTIC_EXPANSION
 **Description:** No semantic elevation tokens defined, all usage is direct MD3
-**Impact:** Could improve consistency for 153 usages
+**Impact:** Could improve consistency for 157 usages
 **Effort:** MEDIUM
 
-### 11. Consider adding semantic tokens for shape [LOW]
+### 7. Consider adding semantic tokens for shape [LOW]
 **Category:** SEMANTIC_EXPANSION
 **Description:** No semantic shape tokens defined, all usage is direct MD3
 **Impact:** Could improve consistency for 603 usages

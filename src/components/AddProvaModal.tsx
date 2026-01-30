@@ -48,12 +48,12 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                 <M3DialogContent style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 'var(--md-sys-spacing-6)'
+                  gap: 'var(--app-spacing-section)'
                 }}>
                     <p style={{
-                      fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                      fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
-                      lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+                      fontSize: 'var(--app-text-body)',
+                      fontWeight: 'var(--app-text-body-weight)',
+                      lineHeight: 'var(--app-text-body-line-height)',
                       color: 'var(--md-sys-color-on-surface-variant)'
                     }}>
                         Stai creando una nuova colonna nella griglia di valutazione per la classe selezionata.
@@ -72,7 +72,7 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                     <div style={{
                       display: 'grid',
                       gridTemplateColumns: 'var(--md-sys-grid-fr-1)', // MD3 grid fr token
-                      gap: 'var(--md-sys-spacing-4)'
+                      gap: 'var(--app-spacing-container)'
                     }}>
                         <TextField
                             id="prova-data"
@@ -97,16 +97,16 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
 
                     <div>
                         <label style={{
-                          fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                          fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-                          lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-                          color: 'var(--md-sys-color-on-surface)',
-                          marginBottom: 'var(--md-sys-spacing-3)'
+                          fontSize: 'var(--app-text-body)',
+                          fontWeight: 'var(--app-text-body-weight)',
+                          lineHeight: 'var(--app-text-body-line-height)',
+                          color: 'var(--app-color-on-surface)',
+                          marginBottom: 'var(--app-spacing-element)'
                         }}>Tipo Prova</label>
                         <div style={{
                           display: 'flex',
                           flexWrap: 'wrap',
-                          gap: 'var(--md-sys-spacing-4)'
+                          gap: 'var(--app-spacing-container)'
                         }}>
                             {EVALUATION_TYPES.map(t => (
                                 <M3ChoiceCard

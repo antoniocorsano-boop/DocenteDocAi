@@ -193,11 +193,11 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     }}
                     style={{
                         // studio-action-card styles
-                        backgroundColor: 'var(--md-sys-color-surface-container)',
+                        backgroundColor: 'var(--app-color-surface-container)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
-                        padding: 'var(--md-sys-spacing-4)',
-                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
-                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
+                        padding: 'var(--app-spacing-container)',
+                        border: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)',
+                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-easing-standard) var(--app-motion-standard)',
                         cursor: 'pointer'
                     }}
                     disabled={isLoading || (action.requiresContent && selectedFileIds.length === 0) || (action.id === 'image' && hasApiKey === false)}
@@ -272,7 +272,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
             {/* Context Selection Card */}
             <div >
                 <h2  style={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                    <span  style={{color: "var(--md-sys-color-primary)"}}>folder_open</span>
+                    <span  style={{color: "var(--app-color-primary)"}}>folder_open</span>
                     1. Seleziona Contesto (Knowledge Base)
                 </h2>
                 <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end", marginBottom: 'var(--md-sys-spacing-8)'}}>
@@ -301,21 +301,21 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         <div key={entry.id} >
                             <input type="checkbox" id={`studio-file-${entry.id}`} checked={selectedFileIds.includes(entry.id)} onChange={() => handleFileToggle(entry.id)} />
                             <label htmlFor={`studio-file-${entry.id}`} >
-                                {selectedFileIds.includes(entry.id) && <span  style={{ fontSize: 'var(--md-sys-typescale-title-medium-font-size)' }}>check</span>}
-                                <span  style={{color: "var(--md-sys-color-primary)", fontSize: 'var(--md-sys-spacing-4)'}}>{entry.isGenerated ? 'auto_awesome' : 'description'}</span>
+                                {selectedFileIds.includes(entry.id) && <span  style={{ fontSize: 'var(--app-text-title)' }}>check</span>}
+                                <span  style={{color: "var(--app-color-primary)", fontSize: 'var(--app-spacing-container)'}}>{entry.isGenerated ? 'auto_awesome' : 'description'}</span>
                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{entry.fileName}</span>
                             </label>
                         </div>
                     ))}
                     {availableFiles.length === 0 && (
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-medium-font-size)', padding: 'var(--md-sys-spacing-8)'}}>Nessun file disponibile in questo set.</p>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--app-text-body)', padding: 'var(--md-sys-spacing-8)'}}>Nessun file disponibile in questo set.</p>
                     )}
                 </div>
             </div>
 
             {/* Loading State */}
             {isLoading && (
-                <div style={{ padding: 'var(--md-sys-spacing-4)' ,  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ padding: 'var(--app-spacing-container)' ,  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                     <AiThinkingGem size="large" text={loadingTaskName || "L'AI sta lavorando..."} />
                 </div>
             )}
@@ -324,25 +324,25 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
             {!isLoading && (
                 <div >
                     {/* Generation Card */}
-                    <div  style={{ height: 'var(--md-sys-percent-100)' }}>
+                    <div  style={{ height: 'var(--app-layout-full)' }}>
                         <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                             <h2  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                 <span  style={{color: "var(--md-sys-color-tertiary)"}}>design_services</span>
                                 Generazione & Creatività
                             </h2>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Crea nuovi contenuti didattici.</p>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--app-spacing-container)'}}>Crea nuovi contenuti didattici.</p>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'generation'))}
                     </div>
 
                     {/* Analysis Card */}
-                    <div  style={{ height: 'var(--md-sys-percent-100)' }}>
+                    <div  style={{ height: 'var(--app-layout-full)' }}>
                         <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                             <h2  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                                <span  style={{color: "var(--md-sys-color-secondary)"}}>analytics</span>
+                                <span  style={{color: "var(--app-color-secondary)"}}>analytics</span>
                                 Analisi & Sintesi
                             </h2>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Rielabora e comprendi i documenti.</p>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--app-spacing-container)'}}>Rielabora e comprendi i documenti.</p>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'analysis'))}
                     </div>

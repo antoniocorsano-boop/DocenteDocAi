@@ -1,0 +1,141 @@
+{
+  "filesProcessed": 8,
+  "totalReplacements": 8,
+  "replacementsByCategory": {
+    "motion": 0,
+    "typography": 0,
+    "elevation": 7,
+    "z-index": 0,
+    "color": 0,
+    "spacing": 1,
+    "shape": 0
+  },
+  "propsConsolidated": 6,
+  "violationsRemaining": [],
+  "changes": [
+    {
+      "file": "src\\components\\SmartDocumentEditor.tsx",
+      "replacements": 1,
+      "categories": {
+        "motion": 0,
+        "typography": 0,
+        "elevation": 0,
+        "z-index": 0,
+        "color": 0,
+        "spacing": 1,
+        "shape": 0
+      },
+      "propsChanges": []
+    },
+    {
+      "file": "src\\components\\M3Fab.tsx",
+      "replacements": 0,
+      "categories": {
+        "motion": 0,
+        "typography": 0,
+        "elevation": 0,
+        "z-index": 0,
+        "color": 0,
+        "spacing": 0,
+        "shape": 0
+      },
+      "propsChanges": [
+        "Component props interface"
+      ]
+    },
+    {
+      "file": "src\\components\\LessonsPage.tsx",
+      "replacements": 0,
+      "categories": {
+        "motion": 0,
+        "typography": 0,
+        "elevation": 0,
+        "z-index": 0,
+        "color": 0,
+        "spacing": 0,
+        "shape": 0
+      },
+      "propsChanges": [
+        "Component props interface"
+      ]
+    },
+    {
+      "file": "src\\components\\AssistantFab.tsx",
+      "replacements": 7,
+      "categories": {
+        "motion": 0,
+        "typography": 0,
+        "elevation": 7,
+        "z-index": 0,
+        "color": 0,
+        "spacing": 0,
+        "shape": 0
+      },
+      "propsChanges": []
+    },
+    {
+      "file": "src\\components\\ui\\TextField.tsx",
+      "replacements": 0,
+      "categories": {
+        "motion": 0,
+        "typography": 0,
+        "elevation": 0,
+        "z-index": 0,
+        "color": 0,
+        "spacing": 0,
+        "shape": 0
+      },
+      "propsChanges": [
+        "Component props interface"
+      ]
+    },
+    {
+      "file": "src\\components\\ui\\SelectField.tsx",
+      "replacements": 0,
+      "categories": {
+        "motion": 0,
+        "typography": 0,
+        "elevation": 0,
+        "z-index": 0,
+        "color": 0,
+        "spacing": 0,
+        "shape": 0
+      },
+      "propsChanges": [
+        "Component props interface"
+      ]
+    },
+    {
+      "file": "src\\components\\ui\\M3Button.tsx",
+      "replacements": 0,
+      "categories": {
+        "motion": 0,
+        "typography": 0,
+        "elevation": 0,
+        "z-index": 0,
+        "color": 0,
+        "spacing": 0,
+        "shape": 0
+      },
+      "propsChanges": [
+        "Component props interface"
+      ]
+    },
+    {
+      "file": "src\\components\\dashboard\\Charts.tsx",
+      "replacements": 0,
+      "categories": {
+        "motion": 0,
+        "typography": 0,
+        "elevation": 0,
+        "z-index": 0,
+        "color": 0,
+        "spacing": 0,
+        "shape": 0
+      },
+      "propsChanges": [
+        "Component props interface"
+      ]
+    }
+  ]
+}

@@ -8,7 +8,7 @@ export type M3ProgressBarProps = {
   value: number; // 0-1
   label?: string;
   showValue?: boolean;
-  variant?: 'var(--md-sys-motion-easing-standard)' | 'circular';
+  variant?: 'var(--app-easing-standard)' | 'circular';
   size?: 'small' | 'medium' | 'large';
   color?: 'primary' | 'secondary' | 'tertiary';
 };
@@ -17,7 +17,7 @@ function M3ProgressBar({
   value,
   label,
   showValue = false,
-  variant = 'var(--md-sys-motion-easing-standard)',
+  variant = 'var(--app-easing-standard)',
   size = 'medium',
   color = 'primary'
 }: M3ProgressBarProps): React.ReactElement {
@@ -26,8 +26,8 @@ function M3ProgressBar({
 
   // MD3 Token mapping - no useTheme() dependency
   // Color tokens
-  const primary = 'var(--md-sys-color-primary)';
-  const secondary = 'var(--md-sys-color-secondary)';
+  const primary = 'var(--app-color-primary)';
+  const secondary = 'var(--app-color-secondary)';
   const tertiary = 'var(--md-sys-color-tertiary)';
   const surfaceVariant = 'var(--md-sys-color-surface-variant)';
   const onSurfaceVariant = 'var(--md-sys-color-on-surface-variant)';
@@ -37,15 +37,15 @@ function M3ProgressBar({
 
   // Spacing tokens
   const spacing1 = 'var(--md-sys-spacing-1)';
-  const spacing2 = 'var(--md-sys-spacing-2)';
-  const spacing4 = 'var(--md-sys-spacing-4)';
+  const spacing2 = 'var(--app-spacing-component)';
+  const spacing4 = 'var(--app-spacing-container)';
 
   // Typography tokens
   const bodySmall = {
     fontFamily: 'var(--md-sys-typescale-body-small-font)',
     fontSize: 'var(--md-sys-typescale-body-small-size)',
     fontWeight: 'var(--md-sys-typescale-body-small-weight)',
-    lineHeight: 'var(--md-sys-typescale-body-small-line-height)',
+    lineHeight: 'var(--app-text-body-line-height)',
     letterSpacing: 'var(--md-sys-typescale-body-small-tracking)'
   };
 
@@ -89,7 +89,7 @@ function M3ProgressBar({
             borderRadius: full,
             border: `${sizePx/8}px solid ${surfaceVariant}`,
             borderTopColor: getColor(),
-            animation: `spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite` // MD3 motion tokens for duration and easing
+            animation: `spin var(--app-motion-slow) var(--app-easing-standard) infinite` // MD3 motion tokens for duration and easing
           }}
         />
         {showValue && <span>{Math.round(percentage)}%</span>}
@@ -106,7 +106,7 @@ function M3ProgressBar({
         display: 'flex',
         flexDirection: 'column',
         gap: spacing1,
-        width: 'var(--md-sys-percent-100)'
+        width: 'var(--app-layout-full)'
       }}
     >
       {(label || showValue) && (
@@ -125,7 +125,7 @@ function M3ProgressBar({
       )}
       <div
         style={{
-          width: 'var(--md-sys-percent-100)',
+          width: 'var(--app-layout-full)',
           height: barSize.height,
           backgroundColor: surfaceVariant,
           borderRadius: barSize.borderRadius,
@@ -140,9 +140,9 @@ function M3ProgressBar({
         <div
           style={{
             width: `${percentage}%`,
-            height: 'var(--md-sys-percent-100)',
+            height: 'var(--app-layout-full)',
             backgroundColor: getColor(),
-            transition: `width var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)` // MD3 motion tokens for duration and easing
+            transition: `width var(--app-motion-quick) var(--app-easing-standard)` // MD3 motion tokens for duration and easing
           }}
         />
       </div>

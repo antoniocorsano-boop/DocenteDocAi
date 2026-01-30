@@ -143,13 +143,13 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                             <label key={level.id} style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                padding: 'var(--md-sys-spacing-6)',
+                                padding: 'var(--app-spacing-section)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)',
                                 cursor: 'pointer',
-                                border: 'var(--md-sys-border-width-thin) solid transparent',
-                                backgroundColor: selectedLevelId === level.id ? 'var(--md-sys-color-primary-container)' : 'transparent',
-                                borderColor: selectedLevelId === level.id ? 'var(--md-sys-color-primary)' : 'transparent'
+                                border: 'var(--app-border-thin) solid transparent',
+                                backgroundColor: selectedLevelId === level.id ? 'var(--app-color-primary-container)' : 'transparent',
+                                borderColor: selectedLevelId === level.id ? 'var(--app-color-primary)' : 'transparent'
                             }}
                             onMouseEnter={(e) => {
                                 if (selectedLevelId !== level.id) {
@@ -164,7 +164,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                                 <input type="radio" name="level" value={level.id} checked={selectedLevelId === level.id} onChange={e => setSelectedLevelId(e.target.value)}  required />
                                 <span style={{
                                     fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                                    color: selectedLevelId === level.id ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
+                                    color: selectedLevelId === level.id ? 'var(--app-color-on-primary-container)' : 'var(--app-color-on-surface)',
                                     fontWeight: selectedLevelId === level.id ? 700 : 'normal'
                                 }}>{level.descrizione}</span>
                             </label>

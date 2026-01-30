@@ -123,13 +123,13 @@ transition-duration: var(--md-sys-motion-duration-long);
 transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 .transition-bg {
-  transition: background-color var(var(--md-sys-motion-duration-short)3) var(var(--md-sys-motion-easing-standard));
+  transition: background-color var(--motion-duration-short3) var(--motion-easing-standard);
 }
 .transition-transform {
-  transition: transform var(var(--md-sys-motion-duration-short)3) var(var(--md-sys-motion-easing-standard));
+  transition: transform var(--motion-duration-short3) var(--motion-easing-standard);
 }
 .transition-transform-emphasized {
-  transition: transform var(var(--md-sys-motion-duration-medium)2) var(var(--md-sys-motion-easing-emphasized));
+  transition: transform var(--motion-duration-medium2) var(--motion-easing-emphasized);
 }
 .overflow-y-auto {
   overflow-y: auto;

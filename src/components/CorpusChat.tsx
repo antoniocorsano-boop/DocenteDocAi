@@ -95,19 +95,19 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                 />
                     <div style={{display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--md-sys-spacing-3)',
+                        gap: 'var(--app-spacing-element)',
                         minWidth: 0,
                         flex: 1}}>
                         <div style={{borderRadius: 'var(--md-sys-shape-corner-large)',
-                            backgroundColor: 'var(--md-sys-color-primary)',
+                            backgroundColor: 'var(--app-color-primary)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center'}}>
                             <span style={{
   fontFamily: 'Material Symbols Outlined'
-, color: 'var(--md-sys-color-on-primary)'}}>chat</span>
+, color: 'var(--app-color-on-primary)'}}>chat</span>
                         </div>
-                        <M3Typography variant="title-large" style={{color: 'var(--md-sys-color-on-surface)',
+                        <M3Typography variant="title-large" style={{color: 'var(--app-color-on-surface)',
                             minWidth: 0,
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
@@ -117,26 +117,26 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                 
                 <div style={{flex: 1,
                     overflowY: 'auto',
-                    padding: 'var(--md-sys-spacing-4)',
+                    padding: 'var(--app-spacing-container)',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--md-sys-spacing-3)'}}>
+                    gap: 'var(--app-spacing-element)'}}>
                 {messages.map((msg, index) => (
                     <div key={index} style={{display: 'flex',
                         justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start',
-                        marginBottom: 'var(--md-sys-spacing-2)'}}>
+                        marginBottom: 'var(--app-spacing-component)'}}>
                         <div style={{maxWidth: 'var(--md-sys-percent-70)',
-                            padding: 'var(--md-sys-spacing-3)',
+                            padding: 'var(--app-spacing-element)',
                             borderRadius: msg.role === 'user' 
                                 ? `var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-small) var(--md-sys-shape-corner-large)`
                                 : `var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-small)`,
                             backgroundColor: msg.role === 'user' 
-                                ? 'var(--md-sys-color-primary)'
+                                ? 'var(--app-color-primary)'
                                 : 'var(--md-sys-color-surface-container-high)',
-                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
+                            border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'}}>
                             <M3Typography variant="body-large" style={{color: msg.role === 'user' 
-                                    ? 'var(--md-sys-color-on-primary)'
-                                    : 'var(--md-sys-color-on-surface)',
+                                    ? 'var(--app-color-on-primary)'
+                                    : 'var(--app-color-on-surface)',
                                 margin: 0}}>{msg.text}</M3Typography>
                         </div>
                     </div>
@@ -144,16 +144,16 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                 {isLoading && (
                      <div style={{display: 'flex',
                         justifyContent: 'flex-start',
-                        marginBottom: 'var(--md-sys-spacing-2)'}}>
+                        marginBottom: 'var(--app-spacing-component)'}}>
                         <div style={{maxWidth: 'var(--md-sys-percent-70)',
-                            padding: 'var(--md-sys-spacing-3)',
+                            padding: 'var(--app-spacing-element)',
                             borderRadius: `var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-small)`,
                             backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
+                            border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'}}>
                             <div style={{display: 'flex',
                                 alignItems: 'center',
-                                gap: 'var(--md-sys-spacing-2)'}}>
-                                <div style={{borderRadius: 'var(--md-sys-percent-50)'}} />
+                                gap: 'var(--app-spacing-component)'}}>
+                                <div style={{borderRadius: 'var(--app-layout-half)'}} />
                                 <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)',
                                     margin: 0}}>Sto pensando...</M3Typography>
                             </div>
@@ -168,15 +168,15 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                         flex: 1,
                         padding: 'var(--md-sys-spacing-8)',
                         textAlign: 'center',
-                        gap: 'var(--md-sys-spacing-4)'}}>
+                        gap: 'var(--app-spacing-container)'}}>
                         <div style={{borderRadius: 'var(--md-sys-shape-corner-large)',
-                            backgroundColor: 'var(--md-sys-color-secondary-container)',
+                            backgroundColor: 'var(--app-color-secondary-container)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center'}}>
                             <span style={{
   fontFamily: 'Material Symbols Outlined'
-, color: 'var(--md-sys-color-on-secondary-container)'}}>quiz</span>
+, color: 'var(--app-color-on-secondary-container)'}}>quiz</span>
                         </div>
                         <M3Typography variant="body-large" style={{color: 'var(--md-sys-color-on-surface-variant)',
                             margin: 0}}>Poni una domanda ai documenti in questo set.</M3Typography>
@@ -185,23 +185,23 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                 <div ref={messagesEndRef} />
             </div>
 
-            <div style={{padding: 'var(--md-sys-spacing-4)',
-                borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+            <div style={{padding: 'var(--app-spacing-container)',
+                borderTop: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
                 backgroundColor: 'var(--md-sys-color-surface-container-low)'}}>
                 <div style={{display: 'flex',
-                    gap: 'var(--md-sys-spacing-2)',
+                    gap: 'var(--app-spacing-component)',
                     flexWrap: 'wrap'}}>
                     <button 
                         onClick={() => handleShortcut("Crea un riassunto dettagliato dei documenti forniti.")} 
                         style={{display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-2)',
-                            padding: 'var(--md-sys-spacing-3)',
-                            backgroundColor: 'var(--md-sys-color-secondary-container)',
-                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                            gap: 'var(--app-spacing-component)',
+                            padding: 'var(--app-spacing-element)',
+                            backgroundColor: 'var(--app-color-secondary-container)',
+                            border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             cursor: 'pointer',
-                            transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+                            transition: `all var(--app-motion-quick) var(--app-easing-standard)`,
                             textDecoration: 'none'}}
                         onMouseEnter={() => {
                             // removed runtime mutation
@@ -214,21 +214,21 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                     >
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
-, color: 'var(--md-sys-color-on-secondary-container)'}}>summarize</span>
-                        <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-secondary-container)',
+, color: 'var(--app-color-on-secondary-container)'}}>summarize</span>
+                        <M3Typography variant="label-large" style={{color: 'var(--app-color-on-secondary-container)',
                             margin: 0}}>Riassumi</M3Typography>
                     </button>
                     <button 
                         onClick={() => handleShortcut("Genera 5 domande a risposta multipla con 4 opzioni ciascuna (indicando la risposta corretta) basandoti sui documenti.")} 
                         style={{display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-2)',
-                            padding: 'var(--md-sys-spacing-3)',
+                            gap: 'var(--app-spacing-component)',
+                            padding: 'var(--app-spacing-element)',
                             backgroundColor: 'var(--md-sys-color-tertiary-container)',
-                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                            border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             cursor: 'pointer',
-                            transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+                            transition: `all var(--app-motion-quick) var(--app-easing-standard)`,
                             textDecoration: 'none'}}
                         onMouseEnter={() => {
                             // removed runtime mutation
@@ -247,13 +247,13 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                         onClick={() => handleShortcut("Estrai i 5 concetti chiave da questi documenti e descrivili brevemente.")} 
                         style={{display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-2)',
-                            padding: 'var(--md-sys-spacing-3)',
-                            backgroundColor: 'var(--md-sys-color-primary-container)',
-                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                            gap: 'var(--app-spacing-component)',
+                            padding: 'var(--app-spacing-element)',
+                            backgroundColor: 'var(--app-color-primary-container)',
+                            border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             cursor: 'pointer',
-                            transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+                            transition: `all var(--app-motion-quick) var(--app-easing-standard)`,
                             textDecoration: 'none'}}
                         onMouseEnter={() => {
                             // removed runtime mutation
@@ -266,8 +266,8 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                     >
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
-, color: 'var(--md-sys-color-on-primary-container)'}}>key</span>
-                        <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-primary-container)',
+, color: 'var(--app-color-on-primary-container)'}}>key</span>
+                        <M3Typography variant="label-large" style={{color: 'var(--app-color-on-primary-container)',
                             margin: 0}}>Concetti Chiave</M3Typography>
                     </button>
                 </div>
@@ -276,10 +276,10 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
             <form 
                 onSubmit={(e) => { e.preventDefault(); handleSendMessage(chatInput); }}
                 style={{display: 'flex',
-                    padding: 'var(--md-sys-spacing-4)',
+                    padding: 'var(--app-spacing-container)',
                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                    gap: 'var(--md-sys-spacing-2)'}}
+                    borderTop: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+                    gap: 'var(--app-spacing-component)'}}
             >
                 <input
                     type="text"
@@ -287,13 +287,13 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                     onChange={(e) => setChatInput(e.target.value)}
                     placeholder="Fai una domanda..."
                     style={{flex: 1,
-                        padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
+                        padding: `var(--app-spacing-element) var(--app-spacing-container)`,
                         borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
+                        border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
                         backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                        color: 'var(--md-sys-color-on-surface)',
+                        color: 'var(--app-color-on-surface)',
                         outline: 'none',
-                        transition: `border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
+                        transition: `border-color var(--app-motion-quick) var(--app-easing-standard)`}}
                     onFocus={() => {
                         // removed runtime mutation
                     }}
@@ -309,15 +309,15 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                         border: 'none',
                         backgroundColor: (isLoading || !chatInput.trim()) 
                             ? 'var(--md-sys-color-surface-container-high)' 
-                            : 'var(--md-sys-color-primary)',
+                            : 'var(--app-color-primary)',
                         color: (isLoading || !chatInput.trim()) 
                             ? 'var(--md-sys-color-on-surface-variant)' 
-                            : 'var(--md-sys-color-on-primary)',
+                            : 'var(--app-color-on-primary)',
                         cursor: (isLoading || !chatInput.trim()) ? 'not-allowed' : 'pointer',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
+                        transition: `all var(--app-motion-quick) var(--app-easing-standard)`}}
                 >
                     <span style={{
   fontFamily: 'Material Symbols Outlined'

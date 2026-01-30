@@ -4,17 +4,17 @@ import React, { useState } from 'react';
 // MD3 Token Constants - Direct CSS Variables
 const MD3_TOKENS = {
   // Colors
-  primaryContainer: 'var(--md-sys-color-primary-container)',
-  onPrimaryContainer: 'var(--md-sys-color-on-primary-container)',
-  primary: 'var(--md-sys-color-primary)',
-  secondaryContainer: 'var(--md-sys-color-secondary-container)',
-  onSecondaryContainer: 'var(--md-sys-color-on-secondary-container)',
-  secondary: 'var(--md-sys-color-secondary)',
+  primaryContainer: 'var(--app-color-primary-container)',
+  onPrimaryContainer: 'var(--app-color-on-primary-container)',
+  primary: 'var(--app-color-primary)',
+  secondaryContainer: 'var(--app-color-secondary-container)',
+  onSecondaryContainer: 'var(--app-color-on-secondary-container)',
+  secondary: 'var(--app-color-secondary)',
   tertiaryContainer: 'var(--md-sys-color-tertiary-container)',
   onTertiaryContainer: 'var(--md-sys-color-on-tertiary-container)',
   tertiary: 'var(--md-sys-color-tertiary)',
   surfaceContainerHigh: 'var(--md-sys-color-surface-container-high)',
-  onSurface: 'var(--md-sys-color-on-surface)',
+  onSurface: 'var(--app-color-on-surface)',
   surfaceContainerLow: 'var(--md-sys-color-surface-container-low)',
   onSurfaceVariant: 'var(--md-sys-color-on-surface-variant)',
   outlineVariant: 'var(--md-sys-color-outline-variant)',
@@ -24,7 +24,7 @@ const MD3_TOKENS = {
 
   // Spacing
   spacing1: 'var(--md-sys-spacing-1)',
-  spacing4: 'var(--md-sys-spacing-4)',
+  spacing4: 'var(--app-spacing-container)',
   spacing8: 'var(--md-sys-spacing-8)',
   spacing14: 'var(--md-sys-spacing-14)',
   spacing16: 'var(--md-sys-spacing-16)',
@@ -35,7 +35,7 @@ const MD3_TOKENS = {
   blur48: 'var(--md-sys-blur-48)',
 
   // Border Width
-  borderWidthNormal: 'var(--md-sys-border-width-normal)',
+  borderWidthNormal: 'var(--app-border-normal)',
 
   // Percentages
   percent0: 'var(--md-sys-percent-0)',
@@ -43,7 +43,7 @@ const MD3_TOKENS = {
 
   // Motion
   durationShort2: 'var(--md-sys-motion-duration-short2)',
-  easingStandard: 'var(--md-sys-motion-easing-standard)',
+  easingStandard: 'var(--app-easing-standard)',
 
   // Elevation
   elevation1: 'var(--md-sys-elevation-level1)',
@@ -51,11 +51,11 @@ const MD3_TOKENS = {
   elevation3: 'var(--md-sys-elevation-level3)',
 
   // Typography
-  displaySmallFontSize: 'var(--md-sys-typescale-display-small-font-size)',
-  titleMediumFontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-  headlineSmallFontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+  displaySmallFontSize: 'var(--app-text-display)',
+  titleMediumFontSize: 'var(--app-text-title)',
+  headlineSmallFontSize: 'var(--app-text-title)',
   headlineSmallFontFamily: 'var(--md-sys-typescale-headline-small-font-family)',
-  bodyLargeFontSize: 'var(--md-sys-typescale-body-large-font-size)',
+  bodyLargeFontSize: 'var(--app-text-body)',
   bodyLargeFontFamily: 'var(--md-sys-typescale-body-large-font-family)',
 } as const;
 
@@ -105,7 +105,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
         flexDirection: 'column',
         backdropFilter: `blur(${MD3_TOKENS.blurLarge})`,
         WebkitBackdropFilter: `blur(${MD3_TOKENS.blurLarge})`,
-        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+        transition: `all var(--app-motion-quick) var(--app-easing-standard)`,
         cursor: isClickable ? 'pointer' : 'default',
         boxShadow: hovered ? 'var(--md-sys-elevation-level3)' : 'var(--md-sys-elevation-level1)',
         outline: 'none',
@@ -160,7 +160,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 }}
             ></div>
 
-            <div style={{position: 'relative', zIndex: 'var(--md-sys-z-modal)', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: MD3_TOKENS.spacing4}}>
+            <div style={{position: 'relative', zIndex: 'var(--app-z-modal)', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: MD3_TOKENS.spacing4}}>
                 {/* MD3 z-index token */}
                 <div style={{
                     width: MD3_TOKENS.spacing14,
@@ -176,7 +176,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 }}>
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
-                        fontSize: 'var(--md-sys-typescale-display-small-font-size)',
+                        fontSize: 'var(--app-text-display)',
                         opacity: 0.9,
                         userSelect: 'none',
                         fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"
@@ -185,27 +185,27 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 {isClickable && (
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
-                        fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-                        transition: `opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+                        fontSize: 'var(--app-text-title)',
+                        transition: `opacity var(--app-motion-quick) var(--app-easing-standard)`,
                         opacity: hovered ? 0.7 : 0.5
                     }}>arrow_forward</span>
                 )}
             </div>
 
-            <div style={{position: 'relative', zIndex: 'var(--md-sys-z-modal)', flexGrow: 1, display: 'flex', flexDirection: 'column', gap: MD3_TOKENS.spacing4}}>
+            <div style={{position: 'relative', zIndex: 'var(--app-z-modal)', flexGrow: 1, display: 'flex', flexDirection: 'column', gap: MD3_TOKENS.spacing4}}>
                 {/* MD3 z-index token */}
                 <h3 style={{
-                    fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+                    fontSize: 'var(--app-text-title)',
                     fontFamily: 'var(--md-sys-typescale-headline-small-font-family)',
                     fontWeight: 'bold',
                     letterSpacing: '-0.005em',
                     lineHeight: '1.25'
                 }}>{title}</h3>
                 <p style={{
-                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                    fontSize: 'var(--app-text-body)',
                     fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
                     opacity: 0.8,
-                    lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+                    lineHeight: 'var(--app-text-body-line-height)',
                     fontWeight: '500',
                     display: '-webkit-box',
                     WebkitLineClamp: 3,

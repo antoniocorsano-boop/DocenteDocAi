@@ -73,22 +73,22 @@ const TimerWidget: React.FC = () => {
                 <button
                     onClick={handleStartPause}
                     style={{
-                      padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                      padding: 'var(--app-spacing-element) var(--app-spacing-container)',
                       borderRadius: 'var(--md-sys-shape-corner-large)',
-                      border: isActive ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' : 'none',
-                      backgroundColor: isActive ? 'transparent' : 'var(--md-sys-color-primary)',
-                      color: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-primary)',
+                      border: isActive ? 'var(--app-border-thin) solid var(--md-sys-color-outline)' : 'none',
+                      backgroundColor: isActive ? 'transparent' : 'var(--app-color-primary)',
+                      color: isActive ? 'var(--app-color-primary)' : 'var(--app-color-on-primary)',
                       fontSize: 'var(--md-sys-typescale-label-large-size)',
                       fontWeight: 'var(--md-sys-typescale-label-large-weight)',
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: 'var(--md-sys-spacing-2)',
+                      gap: 'var(--app-spacing-component)',
                       cursor: 'pointer',
-                      transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+                      transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
                       minHeight: 'var(--md-sys-spacing-11)'
                     }}
                 >
-                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>{isActive ? 'pause' : 'play_arrow'}</span>
+                    <span  style={{ marginRight: "var(--app-spacing-component)" }}>{isActive ? 'pause' : 'play_arrow'}</span>
                     {isActive ? 'Pausa' : 'Avvia'}
                 </button>
             </div>
@@ -135,14 +135,14 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        gap: 'var(--md-sys-spacing-2)',
-                        padding: 'var(--md-sys-spacing-4)',
+                        gap: 'var(--app-spacing-component)',
+                        padding: 'var(--app-spacing-container)',
                         backgroundColor: 'var(--md-sys-color-surface-container-high)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                        animation: isSelecting ? 'pulse 0.var(--md-sys-motion-duration-long) infinite' : 'none',
+                        border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+                        animation: isSelecting ? 'pulse 0.var(--app-motion-slow) infinite' : 'none',
                         transform: isSelecting ? 'scale(1.05)' : 'scale(1)',
-                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard)'
+                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium1) var(--app-easing-standard)'
                     }}>
                          <span >{selectedStudent.cognome}</span>
                          <span >{selectedStudent.nome}</span>

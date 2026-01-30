@@ -53,13 +53,13 @@ export const PerformanceTrendChart: React.FC<ChartProps> = ({
     return (
       <div
         style={{
-          width: 'var(--md-sys-percent-100)',
+          width: 'var(--app-layout-full)',
           height: 'var(--md-sys-chart-height-large)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           color: 'var(--md-sys-color-on-surface-variant)',
-          fontSize: 'var(--md-sys-typescale-body-large-font-size)'
+          fontSize: 'var(--app-text-body)'
         }}
         role="status"
         aria-label="No performance data available"
@@ -72,7 +72,7 @@ export const PerformanceTrendChart: React.FC<ChartProps> = ({
   return (
     <div
       style={{
-        width: 'var(--md-sys-percent-100)',
+        width: 'var(--app-layout-full)',
         height: 'var(--md-sys-chart-height-large)'
       }}
       role="img"
@@ -90,34 +90,34 @@ export const PerformanceTrendChart: React.FC<ChartProps> = ({
           <XAxis
             dataKey="time"
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize="var(--md-sys-typescale-body-small-font-size)"
+            fontSize="var(--app-text-body)"
           />
           <YAxis
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize="var(--md-sys-typescale-body-small-font-size)"
+            fontSize="var(--app-text-body)"
           />
           <Tooltip
             contentStyle={{
               backgroundColor: 'var(--md-sys-color-surface-container-high)',
-              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+              border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
               borderRadius: 'var(--md-sys-shape-corner-small)',
-              color: 'var(--md-sys-color-on-surface)'
+              color: 'var(--app-color-on-surface)'
             }}
           />
           <Line
             type="monotone"
             dataKey="fps"
-            stroke="var(--md-sys-color-primary)"
+            stroke="var(--app-color-primary)"
             strokeWidth={2}
-            dot={{ fill: 'var(--md-sys-color-primary)', strokeWidth: 2, r: 4 }}
+            dot={{ fill: 'var(--app-color-primary)', strokeWidth: 2, r: 4 }}
             name="FPS"
           />
           <Line
             type="monotone"
             dataKey="memory"
-            stroke="var(--md-sys-color-secondary)"
+            stroke="var(--app-color-secondary)"
             strokeWidth={2}
-            dot={{ fill: 'var(--md-sys-color-secondary)', strokeWidth: 2, r: 4 }}
+            dot={{ fill: 'var(--app-color-secondary)', strokeWidth: 2, r: 4 }}
             name="Memory %"
           />
         </LineChart>
@@ -142,7 +142,7 @@ export const MemoryUsageChart: React.FC<ChartProps> = ({
   return (
     <div
       style={{
-        width: 'var(--md-sys-percent-100)',
+        width: 'var(--app-layout-full)',
         height: 'var(--md-sys-chart-height-medium)' // Fixed height - use wrapper component for dynamic sizing
       }}
       role="img"
@@ -160,18 +160,18 @@ export const MemoryUsageChart: React.FC<ChartProps> = ({
           <XAxis
             dataKey="time"
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize="var(--md-sys-typescale-body-small-font-size)"
+            fontSize="var(--app-text-body)"
           />
           <YAxis
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize="var(--md-sys-typescale-body-small-font-size)"
+            fontSize="var(--app-text-body)"
           />
           <Tooltip
             contentStyle={{
               backgroundColor: 'var(--md-sys-color-surface-container-high)',
-              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+              border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
               borderRadius: 'var(--md-sys-shape-corner-small)',
-              color: 'var(--md-sys-color-on-surface)'
+              color: 'var(--app-color-on-surface)'
             }}
           />
           <Area
@@ -212,13 +212,13 @@ export const AIErrorsChart: React.FC<AIErrorsChartProps> = ({
     return (
       <div
         style={{
-          width: 'var(--md-sys-percent-100)',
+          width: 'var(--app-layout-full)',
           height: 'var(--md-sys-chart-height-medium)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           color: 'var(--md-sys-color-on-surface-variant)',
-          fontSize: 'var(--md-sys-typescale-body-large-font-size)'
+          fontSize: 'var(--app-text-body)'
         }}
         role="status"
         aria-label="No AI error data available"
@@ -231,7 +231,7 @@ export const AIErrorsChart: React.FC<AIErrorsChartProps> = ({
   return (
     <div
       style={{
-        width: 'var(--md-sys-percent-100)',
+        width: 'var(--app-layout-full)',
         height: 'var(--md-sys-chart-height-medium)' // Fixed height - use wrapper component for dynamic sizing
       }}
       role="img"
@@ -249,7 +249,7 @@ export const AIErrorsChart: React.FC<AIErrorsChartProps> = ({
               return `${name} ${percentage}%`;
             }}
             outerRadius={80}
-            fill="var(--md-sys-color-primary)"
+            fill="var(--app-color-primary)"
             dataKey="value"
           >
             {chartData.map((entry, index) => (
@@ -259,9 +259,9 @@ export const AIErrorsChart: React.FC<AIErrorsChartProps> = ({
           <Tooltip
             contentStyle={{
               backgroundColor: 'var(--md-sys-color-surface-container-high)',
-              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+              border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
               borderRadius: 'var(--md-sys-shape-corner-small)',
-              color: 'var(--md-sys-color-on-surface)'
+              color: 'var(--app-color-on-surface)'
             }}
           />
         </PieChart>
@@ -275,7 +275,7 @@ function getErrorColor(category: string): string {
     'Timeout': 'var(--md-sys-color-error)',
     'Quota Exceeded': 'var(--md-sys-color-error-container)',
     'Network Error': 'var(--md-sys-color-on-error-container)',
-    'API Error': 'var(--md-sys-color-secondary)',
+    'API Error': 'var(--app-color-secondary)',
     'Rate Limit': 'var(--md-sys-color-tertiary)'
   };
   return colors[category] || 'var(--md-sys-color-outline-variant)';
@@ -301,7 +301,7 @@ export const LazyLoadingChart: React.FC<LazyLoadingChartProps> = ({
   return (
     <div
       style={{
-        width: 'var(--md-sys-percent-100)',
+        width: 'var(--app-layout-full)',
         height: 'var(--md-sys-chart-height-medium)' // Fixed height - use wrapper component for dynamic sizing
       }}
       role="img"
@@ -320,20 +320,20 @@ export const LazyLoadingChart: React.FC<LazyLoadingChartProps> = ({
           <XAxis
             type="number"
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize="var(--md-sys-typescale-body-small-font-size)"
+            fontSize="var(--app-text-body)"
           />
           <YAxis
             dataKey="component"
             type="category"
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize="var(--md-sys-typescale-body-small-font-size)"
+            fontSize="var(--app-text-body)"
           />
           <Tooltip
             contentStyle={{
               backgroundColor: 'var(--md-sys-color-surface-container-high)',
-              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+              border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
               borderRadius: 'var(--md-sys-shape-corner-small)',
-              color: 'var(--md-sys-color-on-surface)'
+              color: 'var(--app-color-on-surface)'
             }}
             formatter={(value, name, props) => [
               `${value}ms`,
@@ -342,7 +342,7 @@ export const LazyLoadingChart: React.FC<LazyLoadingChartProps> = ({
           />
           <Bar
             dataKey="time"
-            fill="var(--md-sys-color-primary)"
+            fill="var(--app-color-primary)"
             radius={[0, 4, 4, 0]}
           />
         </BarChart>
@@ -367,7 +367,7 @@ export const BundleSizeTrendChart: React.FC<ChartProps> = ({
   return (
     <div
       style={{
-        width: 'var(--md-sys-percent-100)',
+        width: 'var(--app-layout-full)',
         height: 'var(--md-sys-chart-height-medium)' // Fixed height - use wrapper component for dynamic sizing
       }}
       role="img"
@@ -385,18 +385,18 @@ export const BundleSizeTrendChart: React.FC<ChartProps> = ({
           <XAxis
             dataKey="time"
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize="var(--md-sys-typescale-body-small-font-size)"
+            fontSize="var(--app-text-body)"
           />
           <YAxis
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize="var(--md-sys-typescale-body-small-font-size)"
+            fontSize="var(--app-text-body)"
           />
           <Tooltip
             contentStyle={{
               backgroundColor: 'var(--md-sys-color-surface-container-high)',
-              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+              border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
               borderRadius: 'var(--md-sys-shape-corner-small)',
-              color: 'var(--md-sys-color-on-surface)'
+              color: 'var(--app-color-on-surface)'
             }}
           />
           <Line

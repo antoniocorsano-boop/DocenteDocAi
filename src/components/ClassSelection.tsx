@@ -51,7 +51,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
              {/* Header Section */}
             <div >
                 <div >
-                    <h1 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>Le Mie Classi</h1>
+                    <h1 style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "900" }}>Le Mie Classi</h1>
                     <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Gestione studenti e analisi.</p>
                 </div>
             </div>
@@ -111,10 +111,10 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                         })}
                     </div>
                 ) : (
-                    <div style={{ padding: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
+                    <div style={{ padding: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.5, marginBottom: 'var(--md-sys-spacing-8)' }}>domain_disabled</span>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessuna classe definita</p>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-6)' }}>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--app-spacing-container)', marginBottom: 'var(--app-spacing-section)' }}>
                             Vai nelle impostazioni per configurare le tue classi e iniziare.
                         </p>
                         <M3Button onClick={() => onNavigate('settings')} variant="filled">
@@ -233,10 +233,10 @@ const PrintCenterModal: React.FC<{
             onClose={onClose}
             maxWidth="md"
         >
-            <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
+            <M3DialogContent style={{gap: 'var(--app-spacing-section)'}}>
                     <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
                     
-                    <div style={{gap: 'var(--md-sys-spacing-2)'}}>
+                    <div style={{gap: 'var(--app-spacing-component)'}}>
                         <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "500" }}>Periodo</label>
                         <TabGroup
                             tabs={[
@@ -248,7 +248,7 @@ const PrintCenterModal: React.FC<{
                         />
                     </div>
 
-                    <div style={{gap: 'var(--md-sys-spacing-2)'}}>
+                    <div style={{gap: 'var(--app-spacing-component)'}}>
                         <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "500" }}>Classi</label>
                         <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                             {userClasses.map(c => (
@@ -256,22 +256,22 @@ const PrintCenterModal: React.FC<{
                                     key={c} 
                                     onClick={() => toggleClass(c)}
                                     style={{
-                                        padding: 'var(--md-sys-spacing-4)',
+                                        padding: 'var(--app-spacing-container)',
                                         borderRadius: 'var(--md-sys-shape-corner-full)',
-                                        border: 'var(--md-sys-border-width-thin) solid',
+                                        border: 'var(--app-border-thin) solid',
                                         cursor: 'pointer',
-                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short)',
+                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-easing-standard) var(--app-motion-quick)',
                                         display: 'flex',
                                         alignItems: 'center',
                                         gap: 'var(--md-sys-spacing-8)',
                                         backgroundColor: selectedClasses.includes(c) 
-                                            ? 'var(--md-sys-color-primary)' 
+                                            ? 'var(--app-color-primary)' 
                                             : 'var(--md-sys-color-surface-container-low)',
                                         color: selectedClasses.includes(c) 
-                                            ? 'var(--md-sys-color-on-primary)' 
+                                            ? 'var(--app-color-on-primary)' 
                                             : 'var(--md-sys-color-on-surface-variant)',
                                         borderColor: selectedClasses.includes(c) 
-                                            ? 'var(--md-sys-color-primary)' 
+                                            ? 'var(--app-color-primary)' 
                                             : 'var(--md-sys-color-outline-variant)'
                                     }}
                                     onMouseEnter={(e) => {

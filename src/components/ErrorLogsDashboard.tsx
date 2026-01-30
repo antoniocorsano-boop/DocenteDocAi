@@ -66,60 +66,60 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
   };
 
   return (
-    <div  style={{padding: 'var(--md-sys-spacing-6)', marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)"}}>
-      <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
+    <div  style={{padding: 'var(--app-spacing-section)', marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)"}}>
+      <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--app-spacing-section)'}}>
         <h1 >Error Logs Dashboard</h1>
         {onClose && (
-          <button onClick={onClose} style={{ color: 'var(--md-sys-color-on-surface)', cursor: "pointer" }}>
+          <button onClick={onClose} style={{ color: 'var(--app-color-on-surface)', cursor: "pointer" }}>
             close
           </button>
         )}
       </div>
 
       {/* Stats Cards */}
-      <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-6)'}}>
-        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+      <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--app-spacing-section)'}}>
+        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--app-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Total Errors</div>
-          <div  style={{fontWeight: "bold", color: "var(--md-sys-color-primary)"}}>{stats.total}</div>
+          <div  style={{fontWeight: "bold", color: "var(--app-color-primary)"}}>{stats.total}</div>
         </div>
-        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--app-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Errors</div>
           <div  style={{fontWeight: "bold", color: "var(--md-sys-color-error)"}}>{stats.bySeverity['error'] || 0}</div>
         </div>
-        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--app-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Warnings</div>
           <div  style={{fontWeight: "bold", color: "var(--md-sys-color-warning)"}}>{stats.bySeverity['warning'] || 0}</div>
         </div>
-        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--app-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Infos</div>
-          <div  style={{fontWeight: "bold", color: "var(--md-sys-color-primary)"}}>{stats.bySeverity['info'] || 0}</div>
+          <div  style={{fontWeight: "bold", color: "var(--app-color-primary)"}}>{stats.bySeverity['info'] || 0}</div>
         </div>
       </div>
 
       {/* Type Breakdown */}
-      <div style={{marginBottom: 'var(--md-sys-spacing-6)'}}>
-        <h2  style={{marginBottom: 'var(--md-sys-spacing-6)'}}>By Type</h2>
-        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
+      <div style={{marginBottom: 'var(--app-spacing-section)'}}>
+        <h2  style={{marginBottom: 'var(--app-spacing-section)'}}>By Type</h2>
+        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--app-spacing-section)'}}>
           {Object.entries(stats.byType).map(([type, count]) => (
-            <div key={type} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)' , padding: 'var(--md-sys-spacing-6)'}}>
+            <div key={type} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)' , padding: 'var(--app-spacing-section)'}}>
               <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                 <span >{getTypeIcon(type as ErrorLog['type'])}</span>
                 <span style={{ textTransform: "capitalize" }}>{type}</span>
               </div>
-              <div style={{ fontWeight: "bold", color: "var(--md-sys-color-primary)", marginTop: 'var(--md-sys-spacing-4)'}}>{count}</div>
+              <div style={{ fontWeight: "bold", color: "var(--app-color-primary)", marginTop: 'var(--app-spacing-container)'}}>{count}</div>
             </div>
           ))}
         </div>
       </div>
 
       {/* Controls */}
-      <div style={{display: "flex", gap: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-6)', flexWrap: "wrap"}}>
+      <div style={{display: "flex", gap: 'var(--app-spacing-section)', marginBottom: 'var(--app-spacing-section)', flexWrap: "wrap"}}>
         <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
           <label style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Tipo:</label>
           <select
             value={filterType}
             onChange={(e) => setFilterType((e.target as HTMLSelectElement).value as ErrorLog['type'] | 'all')}
-             style={{borderRadius: "var(--md-sys-shape-corner-small)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)"}}
+             style={{borderRadius: "var(--md-sys-shape-corner-small)", border: "var(--app-border-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--app-color-surface)"}}
           >
             <option value="all">Tutti</option>
             <option value="navigation">Navigation</option>
@@ -136,7 +136,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
           <select
             value={filterSeverity}
             onChange={(e) => setFilterSeverity((e.target as HTMLSelectElement).value as ErrorLog['severity'] | 'all')}
-             style={{borderRadius: "var(--md-sys-shape-corner-small)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)"}}
+             style={{borderRadius: "var(--md-sys-shape-corner-small)", border: "var(--app-border-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--app-color-surface)"}}
           >
             <option value="all">Tutti</option>
             <option value="error">Error</option>
@@ -147,7 +147,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
         <button
           onClick={handleExport}
-           style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", fontWeight: "500", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
+           style={{paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--app-color-primary)", color: "var(--md-sys-color-on)", fontWeight: "500", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
         >
           <span >download</span>
           Export JSON
@@ -155,7 +155,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
         <button
           onClick={handleClearLogs}
-          style={{ backgroundColor: sys.colors.error, color: sys.colors.on-error , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", fontWeight: "500", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
+          style={{ backgroundColor: sys.colors.error, color: sys.colors.on-error , paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', borderRadius: "var(--md-sys-shape-corner-small)", fontWeight: "500", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
         >
           <span >delete</span>
           Clear All
@@ -163,39 +163,39 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
       </div>
 
       {/* Logs Table */}
-      <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+      <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
         <div style={{ overflowX: "auto" }}>
-          <table  style={{ width: "var(--md-sys-percent-100)" }}>
+          <table  style={{ width: "var(--app-layout-full)" }}>
             <thead style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
               <tr>
-                <th  style={{textAlign: "left", padding: 'var(--md-sys-spacing-6)'}}>Time</th>
-                <th  style={{textAlign: "left", padding: 'var(--md-sys-spacing-6)'}}>Type</th>
-                <th  style={{textAlign: "left", padding: 'var(--md-sys-spacing-6)'}}>Severity</th>
-                <th  style={{textAlign: "left", padding: 'var(--md-sys-spacing-6)'}}>Message</th>
-                <th  style={{textAlign: "left", padding: 'var(--md-sys-spacing-6)'}}>Context</th>
+                <th  style={{textAlign: "left", padding: 'var(--app-spacing-section)'}}>Time</th>
+                <th  style={{textAlign: "left", padding: 'var(--app-spacing-section)'}}>Type</th>
+                <th  style={{textAlign: "left", padding: 'var(--app-spacing-section)'}}>Severity</th>
+                <th  style={{textAlign: "left", padding: 'var(--app-spacing-section)'}}>Message</th>
+                <th  style={{textAlign: "left", padding: 'var(--app-spacing-section)'}}>Context</th>
               </tr>
             </thead>
             <tbody >
               {filteredLogs.length > 0 ? (
                 filteredLogs.map((log) => (
                   <tr key={log.id}  style={{ transition: "color var(--md-sys-motion-duration-medium4)" }}>
-                    <td  style={{padding: 'var(--md-sys-spacing-6)', whiteSpace: "nowrap"}}>
+                    <td  style={{padding: 'var(--app-spacing-section)', whiteSpace: "nowrap"}}>
                       {new Date(log.timestamp).toLocaleTimeString()}
                     </td>
-                    <td style={{padding: 'var(--md-sys-spacing-5)'}}>
-                      <span style={{ backgroundColor: sys.colors.primary/10 , display: "inline-flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", color: "var(--md-sys-color-primary)", fontWeight: "500"}}>
+                    <td style={{padding: 'var(--app-spacing-touch)'}}>
+                      <span style={{ backgroundColor: sys.colors.primary/10 , display: "inline-flex", alignItems: "center", gap: 'var(--app-spacing-container)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', borderRadius: "var(--md-sys-shape-corner-small)", color: "var(--app-color-primary)", fontWeight: "500"}}>
                         <span >
                           {getTypeIcon(log.type)}
                         </span>
                         {log.type}
                       </span>
                     </td>
-                    <td style={{padding: 'var(--md-sys-spacing-5)'}}>
+                    <td style={{padding: 'var(--app-spacing-touch)'}}>
                       <span style={{
                         display: 'inline-flex',
                         alignItems: 'center',
-                        gap: 'var(--md-sys-spacing-4)',
-                        padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-1)',
+                        gap: 'var(--app-spacing-container)',
+                        padding: 'var(--app-spacing-container) var(--md-sys-spacing-1)',
                         borderRadius: 'var(--md-sys-shape-corner-small)',
                         fontWeight: '500',
                         textTransform: 'capitalize',
@@ -204,14 +204,14 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                         {log.severity}
                       </span>
                     </td>
-                    <td style={{ color: sys.colors.ellipsis , padding: 'var(--md-sys-spacing-6)'}}>
+                    <td style={{ color: sys.colors.ellipsis , padding: 'var(--app-spacing-section)'}}>
                       <span title={log.message}>{log.message}</span>
                     </td>
-                    <td style={{padding: 'var(--md-sys-spacing-5)'}}>
+                    <td style={{padding: 'var(--app-spacing-touch)'}}>
                       {log.context && (
                         <details >
-                          <summary  style={{cursor: "pointer", color: "var(--md-sys-color-primary)"}}>View</summary>
-                          <pre style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)', borderRadius: "var(--md-sys-shape-corner-small)", overflow: "auto"}}>
+                          <summary  style={{cursor: "pointer", color: "var(--app-color-primary)"}}>View</summary>
+                          <pre style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , marginTop: 'var(--app-spacing-container)', padding: 'var(--md-sys-spacing-8)', borderRadius: "var(--md-sys-shape-corner-small)", overflow: "auto"}}>
                             {JSON.stringify(log.context, null, 2)}
                           </pre>
                         </details>
@@ -221,7 +221,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5} style={{ color: 'var(--md-sys-color-on-surface-variant)' , padding: 'var(--md-sys-spacing-6)', textAlign: "center"}}>
+                  <td colSpan={5} style={{ color: 'var(--md-sys-color-on-surface-variant)' , padding: 'var(--app-spacing-section)', textAlign: "center"}}>
                     Nessun log trovato
                   </td>
                 </tr>
@@ -233,7 +233,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
       {/* Most Recent Error */}
       {stats.mostRecent && (
-        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.error/10 , marginTop: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.error/10 , marginTop: 'var(--app-spacing-section)', padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
           <div  style={{color: "var(--md-sys-color-error)", marginBottom: 'var(--md-sys-spacing-8)'}}>Most Recent Error</div>
           <div >
             <div>
@@ -246,9 +246,9 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
               <strong>Message:</strong> {stats.mostRecent.message}
             </div>
             {stats.mostRecent.stack && (
-              <details style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                <summary  style={{cursor: "pointer", color: "var(--md-sys-color-primary)"}}>Stack Trace</summary>
-                <pre style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)', borderRadius: "var(--md-sys-shape-corner-small)", overflow: "auto"}}>
+              <details style={{marginTop: 'var(--app-spacing-container)'}}>
+                <summary  style={{cursor: "pointer", color: "var(--app-color-primary)"}}>Stack Trace</summary>
+                <pre style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , marginTop: 'var(--app-spacing-container)', padding: 'var(--md-sys-spacing-8)', borderRadius: "var(--md-sys-shape-corner-small)", overflow: "auto"}}>
                   {stats.mostRecent.stack}
                 </pre>
               </details>

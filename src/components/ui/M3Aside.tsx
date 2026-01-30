@@ -17,7 +17,7 @@ export const M3Aside: React.FC<M3AsideProps> = ({
   children,
   flex = 'var(--md-sys-flex-none)',
   flexBasis,
-  background = 'var(--md-sys-color-surface)',
+  background = 'var(--app-color-surface)',
   borderRight,
   zIndex,
   style,

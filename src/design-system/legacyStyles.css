@@ -208,7 +208,7 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--md-sys-percent-50);
-  transition: background var(--md-sys-motion-duration-short);
+  transition: background 0.2s;
 }
 
 .button-icon-base:hover {
@@ -368,19 +368,19 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .transition-bg {
-  transition: background var(--md-sys-motion-duration-short);
+  transition: background 0.2s;
 }
 
 .transition-color {
-  transition: color var(--md-sys-motion-duration-short);
+  transition: color 0.2s;
 }
 
 .transition-transform {
-  transition: transform var(--md-sys-motion-duration-short);
+  transition: transform 0.2s;
 }
 
 .animate-spin {
-  animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
@@ -480,11 +480,11 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .progress-fill {
   height: 100%;
   background: var(--md-sys-color-primary);
-  transition: width var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
+  transition: width 0.3s ease;
 }
 
 .loading-spinner {
-  animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
+  animation: spin 1s linear infinite;
 }
 
 

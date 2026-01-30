@@ -43,13 +43,13 @@ const InfoCard: React.FC<InfoCardProps> = ({
             style={{
                 position: 'relative',
                 cursor: onClick ? 'pointer' : 'default',
-                padding: 'var(--md-sys-spacing-6)' // large padding
+                padding: 'var(--app-spacing-section)' // large padding
             }}
         >
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-4)'
+                gap: 'var(--app-spacing-container)'
             }}>
                 {/* Header with icon and close button */}
                 {(icon || onClose) && (
@@ -71,7 +71,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                                 <span
                                     style={{
                                         fontFamily: 'Material Symbols Outlined',
-                                        fontSize: 'var(--md-sys-spacing-6)', // infoCard.iconSize
+                                        fontSize: 'var(--app-spacing-section)', // infoCard.iconSize
                                         color: 'var(--md-sys-color-on-surface-variant)'
                                     }}
                                 >
@@ -88,7 +88,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                                 style={{
                                     width: 'var(--md-sys-spacing-10)', // infoCard.buttonSize
                                     height: 'var(--md-sys-spacing-10)', // infoCard.buttonSize
-                                    borderRadius: 'var(--md-sys-percent-50)',
+                                    borderRadius: 'var(--app-layout-half)',
                                     backgroundColor: 'transparent',
                                     border: 'none',
                                     display: 'flex',
@@ -111,7 +111,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--md-sys-spacing-3)'
+                    gap: 'var(--app-spacing-element)'
                 }}>
                     {title && (
                         <M3Typography variant="headline-small">
@@ -131,7 +131,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                     <div style={{
                         display: 'flex',
                         justifyContent: 'flex-end',
-                        marginTop: 'var(--md-sys-spacing-4)'
+                        marginTop: 'var(--app-spacing-container)'
                     }}>
                         {action}
                     </div>

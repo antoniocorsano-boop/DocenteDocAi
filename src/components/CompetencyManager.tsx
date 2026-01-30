@@ -75,18 +75,18 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                             key={fw}
                             onClick={() => setActiveFramework(fw)}
                             style={{
-                                padding: 'var(--md-sys-spacing-4)',
+                                padding: 'var(--app-spacing-container)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                transition: 'background-color var(--app-motion-quick) var(--app-easing-standard)',
                                 fontSize: 'var(--md-sys-typescale-body-medium-size)',
                                 fontWeight: 500,
                                 display: 'flex',
                                 alignItems: 'center',
                                 whiteSpace: 'nowrap',
-                                background: activeFramework === fw ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface)',
-                                color: activeFramework === fw ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
+                                background: activeFramework === fw ? 'var(--app-color-secondary-container)' : 'var(--app-color-surface)',
+                                color: activeFramework === fw ? 'var(--app-color-on-secondary-container)' : 'var(--app-color-on-surface)',
                                 boxShadow: activeFramework === fw ? 'var(--md-sys-elevation-level1)' : 'none',
-                                border: activeFramework === fw ? 'none' : 'var(--md-sys-border-width-thin) solid transparent'
+                                border: activeFramework === fw ? 'none' : 'var(--app-border-thin) solid transparent'
                             }}
                             onMouseEnter={(e) => {
                                 if (activeFramework !== fw) {
@@ -96,7 +96,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                             }}
                             onMouseLeave={(e) => {
                                 if (activeFramework !== fw) {
-                                    e.currentTarget.style.background = 'var(--md-sys-color-surface)';
+                                    e.currentTarget.style.background = 'var(--app-color-surface)';
                                     e.currentTarget.style.borderColor = 'transparent';
                                 }
                             }}
@@ -116,9 +116,9 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                         <details
                             key={comp.id}
                             style={{
-                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-                                borderColor: active ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)',
-                                background: active ? 'var(--md-sys-color-surface)' : 'var(--md-sys-color-surface-container-low)'
+                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)',
+                                borderColor: active ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline-variant)',
+                                background: active ? 'var(--app-color-surface)' : 'var(--md-sys-color-surface-container-low)'
                             }}
                         >
                             <summary >
@@ -132,16 +132,16 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                         width: 'var(--md-sys-spacing-7)',
                                         height: 'var(--md-sys-spacing-7)',
                                         borderRadius: 'var(--md-sys-shape-corner-small)',
-                                        borderWidth: 'var(--md-sys-border-width-normal)',
+                                        borderWidth: 'var(--app-border-normal)',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         flexShrink: 0,
-                                        transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                        transition: 'background-color var(--app-motion-quick) var(--app-easing-standard), border-color var(--app-motion-quick) var(--app-easing-standard), color var(--app-motion-quick) var(--app-easing-standard)',
                                         cursor: 'pointer',
-                                        background: active ? 'var(--md-sys-color-primary)' : 'transparent',
-                                        borderColor: active ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
-                                        color: active ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)'
+                                        background: active ? 'var(--app-color-primary)' : 'transparent',
+                                        borderColor: active ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline)',
+                                        color: active ? 'var(--app-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)'
                                     }}
                                     onMouseEnter={(e) => {
                                         if (!active) {

@@ -1,10 +1,10 @@
 {
   "summary": {
-    "totalFiles": 444,
-    "totalLines": 92611,
-    "totalTokens": 4718,
-    "totalSemanticTokens": 26,
-    "hardcodedViolations": 2434,
+    "totalFiles": 445,
+    "totalLines": 92838,
+    "totalTokens": 3257,
+    "totalSemanticTokens": 1428,
+    "hardcodedViolations": 2324,
     "coverage": {},
     "unusedDefinedTokens": [
       "--md-sys-backdrop-light",
@@ -70,15 +70,31 @@
       "--md-sys-chart-height-large",
       "--md-sys-chart-height-medium"
     ],
-    "unusedSemanticTokens": []
+    "unusedSemanticTokens": [
+      "--app-color-on-primary",
+      "--app-color-primary-container",
+      "--app-color-on-primary-container",
+      "--app-color-on-secondary",
+      "--app-color-secondary-container",
+      "--app-color-on-secondary-container",
+      "--app-color-on-surface",
+      "--app-color-surface-container",
+      "--app-color-on-surface-container",
+      "--app-elevation-level-0",
+      "--app-elevation-level-1",
+      "--app-elevation-level-2",
+      "--app-elevation-level-3",
+      "--app-elevation-level-4",
+      "--app-elevation-level-5"
+    ]
   },
   "categories": {
     "spacing": {
       "md3TokensUsed": 30,
-      "semanticTokensUsed": 3,
-      "totalUsage": 3565,
-      "semanticUsage": 6,
-      "semanticAdoption": 0.16802016241949033,
+      "semanticTokensUsed": 5,
+      "totalUsage": 2484,
+      "semanticUsage": 2116,
+      "semanticAdoption": 46,
       "mostUsedMd3": [
         "--md-sys-spacing-16",
         "--md-sys-spacing-0",
@@ -89,15 +105,17 @@
       "mostUsedSemantic": [
         "--app-spacing-container",
         "--app-spacing-element",
-        "--app-spacing-touch"
+        "--app-spacing-touch",
+        "--app-spacing-section",
+        "--app-spacing-component"
       ]
     },
     "color": {
       "md3TokensUsed": 69,
-      "semanticTokensUsed": 13,
-      "totalUsage": 2679,
-      "semanticUsage": 26,
-      "semanticAdoption": 0.9611829944547136,
+      "semanticTokensUsed": 33,
+      "totalUsage": 2065,
+      "semanticUsage": 3981,
+      "semanticAdoption": 65.84518690043004,
       "mostUsedMd3": [
         "--md-sys-color-primary",
         "--md-sys-color-on-primary",
@@ -106,19 +124,19 @@
         "--md-sys-color-secondary"
       ],
       "mostUsedSemantic": [
-        "--app-spacing-container",
-        "--app-spacing-element",
-        "--app-spacing-touch",
+        "--app-z-modal",
         "--app-motion-quick",
-        "--app-easing-standard"
+        "--app-color-primary",
+        "--app-spacing-container",
+        "--app-spacing-element"
       ]
     },
     "typography": {
       "md3TokensUsed": 123,
-      "semanticTokensUsed": 3,
-      "totalUsage": 933,
-      "semanticUsage": 6,
-      "semanticAdoption": 0.6389776357827476,
+      "semanticTokensUsed": 4,
+      "totalUsage": 718,
+      "semanticUsage": 884,
+      "semanticAdoption": 55.181023720349565,
       "mostUsedMd3": [
         "--md-sys-typescale-display-large-font-size",
         "--md-sys-typescale-display-large-font-weight",
@@ -127,34 +145,37 @@
         "--md-sys-typescale-display-small-font-size"
       ],
       "mostUsedSemantic": [
-        "--app-text-display",
+        "--app-text-label",
         "--app-text-title",
-        "--app-text-label"
+        "--app-text-body",
+        "--app-text-display"
       ]
     },
     "motion": {
-      "md3TokensUsed": 11,
-      "semanticTokensUsed": 3,
-      "totalUsage": 350,
-      "semanticUsage": 6,
-      "semanticAdoption": 1.6853932584269662,
+      "md3TokensUsed": 13,
+      "semanticTokensUsed": 5,
+      "totalUsage": 384,
+      "semanticUsage": 628,
+      "semanticAdoption": 62.055335968379445,
       "mostUsedMd3": [
+        "--md-sys-motion-easing-standard",
         "--md-sys-motion-duration-short",
         "--md-sys-motion-duration-long",
-        "--md-sys-motion-easing-standard",
-        "--md-sys-motion-easing-decelerated",
-        "--md-sys-motion-easing-emphasized-decelerate"
+        "--md-sys-motion-easing-emphasized",
+        "--md-sys-motion-easing-accelerated"
       ],
       "mostUsedSemantic": [
+        "--app-motion-quick",
         "--app-motion-standard",
         "--app-motion-slow",
-        "--app-easing-emphasized"
+        "--app-easing-emphasized",
+        "--app-easing-standard"
       ]
     },
     "elevation": {
       "md3TokensUsed": 5,
       "semanticTokensUsed": 0,
-      "totalUsage": 153,
+      "totalUsage": 157,
       "semanticUsage": 0,
       "semanticAdoption": 0,
       "mostUsedMd3": [
@@ -183,10 +204,10 @@
     },
     "zIndex": {
       "md3TokensUsed": 12,
-      "semanticTokensUsed": 3,
-      "totalUsage": 99,
-      "semanticUsage": 6,
-      "semanticAdoption": 5.714285714285714,
+      "semanticTokensUsed": 4,
+      "totalUsage": 84,
+      "semanticUsage": 40,
+      "semanticAdoption": 32.25806451612903,
       "mostUsedMd3": [
         "--md-sys-z-modal",
         "--md-sys-z-base",
@@ -195,17 +216,18 @@
         "--md-sys-z-snackbar"
       ],
       "mostUsedSemantic": [
+        "--app-z-modal",
         "--app-z-base",
         "--app-z-overlay",
         "--app-z-tooltip"
       ]
     },
     "layout": {
-      "md3TokensUsed": 31,
-      "semanticTokensUsed": 2,
-      "totalUsage": 549,
-      "semanticUsage": 4,
-      "semanticAdoption": 0.7233273056057866,
+      "md3TokensUsed": 34,
+      "semanticTokensUsed": 4,
+      "totalUsage": 379,
+      "semanticUsage": 526,
+      "semanticAdoption": 58.12154696132596,
       "mostUsedMd3": [
         "--md-sys-flex-none",
         "--md-sys-flex-grow",
@@ -215,7 +237,9 @@
       ],
       "mostUsedSemantic": [
         "--app-layout-full",
-        "--app-layout-quarter"
+        "--app-layout-quarter",
+        "--app-layout-auto",
+        "--app-layout-half"
       ]
     }
   },
@@ -227,7 +251,7 @@
       "priority": "CRITICAL",
       "category": "MD3_COMPLIANCE",
       "title": "Address hardcoded value violations",
-      "description": "2434 hardcoded values found (px, rem, z-index, etc.)",
+      "description": "2324 hardcoded values found (px, rem, z-index, etc.)",
       "impact": "Critical MD3 Gold compliance violations",
       "effort": "HIGH"
     },
@@ -235,32 +259,8 @@
       "priority": "HIGH",
       "category": "SEMANTIC_ADOPTION",
       "title": "Increase semantic token adoption in spacing",
-      "description": "Only 0.2% of spacing usage uses semantic tokens",
-      "impact": "3559 direct MD3 tokens could be abstracted",
-      "effort": "MEDIUM"
-    },
-    {
-      "priority": "HIGH",
-      "category": "SEMANTIC_ADOPTION",
-      "title": "Increase semantic token adoption in color",
-      "description": "Only 1.0% of color usage uses semantic tokens",
-      "impact": "2653 direct MD3 tokens could be abstracted",
-      "effort": "MEDIUM"
-    },
-    {
-      "priority": "HIGH",
-      "category": "SEMANTIC_ADOPTION",
-      "title": "Increase semantic token adoption in typography",
-      "description": "Only 0.6% of typography usage uses semantic tokens",
-      "impact": "927 direct MD3 tokens could be abstracted",
-      "effort": "MEDIUM"
-    },
-    {
-      "priority": "HIGH",
-      "category": "SEMANTIC_ADOPTION",
-      "title": "Increase semantic token adoption in motion",
-      "description": "Only 1.7% of motion usage uses semantic tokens",
-      "impact": "344 direct MD3 tokens could be abstracted",
+      "description": "Only 46.0% of spacing usage uses semantic tokens",
+      "impact": "368 direct MD3 tokens could be abstracted",
       "effort": "MEDIUM"
     },
     {
@@ -268,7 +268,7 @@
       "category": "SEMANTIC_ADOPTION",
       "title": "Increase semantic token adoption in elevation",
       "description": "Only 0.0% of elevation usage uses semantic tokens",
-      "impact": "153 direct MD3 tokens could be abstracted",
+      "impact": "157 direct MD3 tokens could be abstracted",
       "effort": "MEDIUM"
     },
     {
@@ -280,19 +280,11 @@
       "effort": "MEDIUM"
     },
     {
-      "priority": "HIGH",
-      "category": "SEMANTIC_ADOPTION",
-      "title": "Increase semantic token adoption in layout",
-      "description": "Only 0.7% of layout usage uses semantic tokens",
-      "impact": "545 direct MD3 tokens could be abstracted",
-      "effort": "MEDIUM"
-    },
-    {
       "priority": "MEDIUM",
       "category": "SEMANTIC_ADOPTION",
       "title": "Increase semantic token adoption in zIndex",
-      "description": "Only 5.7% of zIndex usage uses semantic tokens",
-      "impact": "93 direct MD3 tokens could be abstracted",
+      "description": "Only 32.3% of zIndex usage uses semantic tokens",
+      "impact": "44 direct MD3 tokens could be abstracted",
       "effort": "MEDIUM"
     },
     {
@@ -300,7 +292,7 @@
       "category": "SEMANTIC_EXPANSION",
       "title": "Consider adding semantic tokens for elevation",
       "description": "No semantic elevation tokens defined, all usage is direct MD3",
-      "impact": "Could improve consistency for 153 usages",
+      "impact": "Could improve consistency for 157 usages",
       "effort": "MEDIUM"
     },
     {

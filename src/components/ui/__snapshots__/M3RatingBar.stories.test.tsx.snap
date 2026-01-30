@@ -11,21 +11,21 @@ exports[`M3RatingBar Story Snapshots > renders default story correctly 1`] = `
   >
     <button
       aria-pressed="true"
-      style="border: medium; background: transparent; cursor: pointer; color: var(--md-sys-color-primary); font-size: var(--md-sys-typescale-headline-small); line-height: 1; padding: 0px;"
+      style="border: medium; background: transparent; cursor: pointer; color: var(--app-color-primary); font-size: var(--md-sys-typescale-headline-small); line-height: 1; padding: 0px;"
       type="button"
     >
       ★
     </button>
     <button
       aria-pressed="true"
-      style="border: medium; background: transparent; cursor: pointer; color: var(--md-sys-color-primary); font-size: var(--md-sys-typescale-headline-small); line-height: 1; padding: 0px;"
+      style="border: medium; background: transparent; cursor: pointer; color: var(--app-color-primary); font-size: var(--md-sys-typescale-headline-small); line-height: 1; padding: 0px;"
       type="button"
     >
       ★
     </button>
     <button
       aria-pressed="true"
-      style="border: medium; background: transparent; cursor: pointer; color: var(--md-sys-color-primary); font-size: var(--md-sys-typescale-headline-small); line-height: 1; padding: 0px;"
+      style="border: medium; background: transparent; cursor: pointer; color: var(--app-color-primary); font-size: var(--md-sys-typescale-headline-small); line-height: 1; padding: 0px;"
       type="button"
     >
       ★

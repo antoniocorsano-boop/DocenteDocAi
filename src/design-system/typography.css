@@ -282,7 +282,7 @@
   .m3-body-large,
   .m3-body-medium,
   .m3-body-small {
-    /* Slightly incrvar(--md-sys-motion-easing-standard)d letter spacing for dark backgrounds */
+    /* Slightly increased letter spacing for dark backgrounds */
     letter-spacing: 0.02em;
   }
 }

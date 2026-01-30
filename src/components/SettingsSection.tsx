@@ -24,16 +24,16 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
     // MD3 Token mapping for variants - using direct MD3 CSS variables
     let iconBackgroundColor = 'var(--md-sys-color-surface-container-high)';
     let iconColor = 'var(--md-sys-color-on-surface-variant)';
-    let titleColor = 'var(--md-sys-color-on-surface)';
+    let titleColor = 'var(--app-color-on-surface)';
 
     if (variant === 'primary') {
-        iconBackgroundColor = 'var(--md-sys-color-primary-container)';
-        iconColor = 'var(--md-sys-color-on-primary-container)';
-        titleColor = 'var(--md-sys-color-primary)';
+        iconBackgroundColor = 'var(--app-color-primary-container)';
+        iconColor = 'var(--app-color-on-primary-container)';
+        titleColor = 'var(--app-color-primary)';
     } else if (variant === 'secondary') {
-        iconBackgroundColor = 'var(--md-sys-color-secondary-container)';
-        iconColor = 'var(--md-sys-color-on-secondary-container)';
-        titleColor = 'var(--md-sys-color-secondary)';
+        iconBackgroundColor = 'var(--app-color-secondary-container)';
+        iconColor = 'var(--app-color-on-secondary-container)';
+        titleColor = 'var(--app-color-secondary)';
     } else if (variant === 'tertiary') {
         iconBackgroundColor = 'var(--md-sys-color-tertiary-container)';
         iconColor = 'var(--md-sys-color-on-tertiary-container)';
@@ -43,21 +43,21 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
     const sectionStyle: React.CSSProperties = {
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
         borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
+        border: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)',
         overflow: 'hidden',
-        marginBottom: 'var(--md-sys-spacing-6)',
+        marginBottom: 'var(--app-spacing-section)',
         boxShadow: 'var(--md-sys-elevation-level1)',
         ...customStyle
     };
 
     const headerStyle: React.CSSProperties = {
-        backgroundColor: 'var(--md-sys-color-surface)',
+        backgroundColor: 'var(--app-color-surface)',
         opacity: 0.5,
         display: 'flex',
         alignItems: 'center',
         gap: 'var(--md-sys-spacing-8)',
-        padding: 'var(--md-sys-spacing-5)',
-        borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
+        padding: 'var(--app-spacing-touch)',
+        borderBottom: 'var(--app-border-normal) solid var(--md-sys-color-outline)'
     };
 
     const iconContainerStyle: React.CSSProperties = {
@@ -73,7 +73,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
     };
 
     const iconStyle: React.CSSProperties = {
-        fontSize: 'var(--md-sys-spacing-6)'
+        fontSize: 'var(--app-spacing-section)'
     };
 
     const textContainerStyle: React.CSSProperties = {
@@ -82,11 +82,11 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
     };
 
     const titleStyle: React.CSSProperties = {
-        fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
+        fontWeight: 'var(--app-text-body-weight)',
         color: titleColor,
         fontFamily: 'var(--md-sys-typescale-font-family)',
-        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-        lineHeight: 'var(--md-sys-typescale-body-large-line-height)'
+        fontSize: 'var(--app-text-body)',
+        lineHeight: 'var(--app-text-body-line-height)'
     };
 
     const subtitleStyle: React.CSSProperties = {
@@ -96,13 +96,13 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         fontFamily: 'var(--md-sys-typescale-font-family)',
-        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-        lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
-        fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)'
+        fontSize: 'var(--app-text-body)',
+        lineHeight: 'var(--app-text-body-line-height)',
+        fontWeight: 'var(--app-text-body-weight)'
     };
 
     const contentStyle: React.CSSProperties = {
-        padding: 'var(--md-sys-spacing-5)'
+        padding: 'var(--app-spacing-touch)'
     };
 
     return (

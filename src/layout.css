@@ -841,7 +841,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 
 /* Delay Utilities */
 .delay-150 { animation-delay: var(--md-sys-motion-duration-short); }
-.delay-300 { animation-delay: var(--md-sys-motion-duration-medium); }
+.delay-300 { animation-delay: 300ms; }
 
 /* ============================================
    M3 EXPRESSIVE - APP SHELL COMPONENT CLASSES

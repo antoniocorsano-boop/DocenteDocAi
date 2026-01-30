@@ -34,9 +34,9 @@ const SelectField: React.FC<SelectFieldProps> = ({
         <div
             style={{display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-2)',
-                width: fullWidth ? 'var(--md-sys-percent-100)' : 'auto',
-                marginBottom: 'var(--md-sys-spacing-4)'}}
+                gap: 'var(--app-spacing-component)',
+                width: fullWidth ? 'var(--app-layout-full)' : 'auto',
+                marginBottom: 'var(--app-spacing-container)'}}
         >
             <M3Typography
                 variant="label-large"
@@ -51,12 +51,12 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     display: 'flex',
                     alignItems: 'center',
                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                    border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`,
+                    border: `var(--app-border-normal) solid var(--md-sys-color-outline)`,
                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                    padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
-                    transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+                    padding: `var(--app-spacing-element) var(--app-spacing-container)`,
+                    transition: `all var(--app-motion-quick) var(--app-easing-standard)`,
                     boxShadow: error
-                        ? `0 0 0 var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-error) var(--md-sys-percent-12), transparent)`
+                        ? `0 0 0 var(--app-spacing-component) color-mix(in srgb, var(--md-sys-color-error) var(--md-sys-percent-12), transparent)`
                         : 'none',
                     borderColor: error ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)'}}
             >
@@ -65,11 +65,11 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     style={{flex: 1,
                         border: 'none',
                         backgroundColor: 'transparent',
-                        color: 'var(--md-sys-color-on-surface)',
-                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                        color: 'var(--app-color-on-surface)',
+                        fontSize: 'var(--app-text-body)',
                         fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
-                        fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-                        lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+                        fontWeight: 'var(--app-text-body-weight)',
+                        lineHeight: 'var(--app-text-body-line-height)',
                         letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)',
                         outline: 'none',
                         appearance: 'none',
@@ -83,13 +83,13 @@ const SelectField: React.FC<SelectFieldProps> = ({
                 <span
                     style={{fontFamily: 'Material Symbols Outlined',
                         position: 'absolute',
-                        right: 'var(--md-sys-spacing-2)',
-                        top: 'var(--md-sys-percent-50)',
+                        right: 'var(--app-spacing-component)',
+                        top: 'var(--app-layout-half)',
                         transform: 'translateY(-50%)',
                         pointerEvents: 'none',
                         color: 'var(--md-sys-color-on-surface-variant)',
-                        fontSize: 'var(--md-sys-spacing-4)',
-                        transition: `color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
+                        fontSize: 'var(--app-spacing-container)',
+                        transition: `color var(--app-motion-quick) var(--app-easing-standard)`}}
                     aria-hidden="true"
                 >
                     expand_more
@@ -98,11 +98,11 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     <span
                         style={{fontFamily: 'Material Symbols Outlined',
                             position: 'absolute',
-                            left: 'var(--md-sys-spacing-2)',
-                            top: 'var(--md-sys-percent-50)',
+                            left: 'var(--app-spacing-component)',
+                            top: 'var(--app-layout-half)',
                             transform: 'translateY(-50%)',
                             color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--md-sys-spacing-4)'}}
+                            fontSize: 'var(--app-spacing-container)'}}
                         aria-hidden="true"
                     >
                         error
@@ -116,12 +116,12 @@ const SelectField: React.FC<SelectFieldProps> = ({
                         alignItems: 'center',
                         gap: 'var(--md-sys-spacing-1)',
                         marginTop: 'var(--md-sys-spacing-1)',
-                        width: 'var(--md-sys-percent-100)'}}
+                        width: 'var(--app-layout-full)'}}
                 >
                     <span
                         style={{fontFamily: 'Material Symbols Outlined',
                             color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--md-sys-typescale-body-small-font-size)'}}
+                            fontSize: 'var(--app-text-body)'}}
                         aria-hidden="true"
                     >
                         error

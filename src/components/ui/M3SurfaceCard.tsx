@@ -53,7 +53,7 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
   const palette = colorTokens[color];
 
   const baseStyle: React.CSSProperties = {
-    border: `var(--md-sys-border-width-normal) solid ${themeColor.outlineVariant}`,
+    border: `var(--app-border-normal) solid ${themeColor.outlineVariant}`,
     borderRadius: shape.large,
     position: expressive ? ('relative' as React.CSSProperties['position']) : undefined,
     overflow: expressive ? 'hidden' : undefined,

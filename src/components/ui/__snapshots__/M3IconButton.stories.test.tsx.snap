@@ -4,7 +4,7 @@ exports[`M3IconButton Story Snapshots > renders default story correctly 1`] = `
 <div>
   <button
     aria-label="Test button"
-    style="display: inline-flex; align-items: center; justify-content: center; border-radius: var(--md-sys-shape-corner-full); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); outline: none; outline-offset: 0; border: medium; cursor: pointer; opacity: 1; pointer-events: auto; font-family: var(--md-sys-typescale-font-family); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-letter-spacing); width: var(--md-sys-spacing-10); height: var(--md-sys-spacing-10); font-size: var(--md-sys-typescale-label-large-font-size); background-color: transparent; color: var(--md-sys-color-on-surface-variant);"
+    style="display: inline-flex; align-items: center; justify-content: center; border-radius: var(--md-sys-shape-corner-full); transition: all var(--md-sys-motion-duration-short2) var(--app-easing-standard); outline: none; outline-offset: 0; border: medium; cursor: pointer; opacity: 1; pointer-events: auto; font-family: var(--md-sys-typescale-font-family); font-weight: var(--app-text-label-weight); line-height: var(--app-text-label-line-height); letter-spacing: var(--md-sys-typescale-label-large-letter-spacing); width: var(--md-sys-spacing-10); height: var(--md-sys-spacing-10); font-size: var(--app-text-label); background-color: transparent; color: var(--md-sys-color-on-surface-variant);"
     title="Test button"
     type="button"
   >

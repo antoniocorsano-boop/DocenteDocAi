@@ -17,16 +17,16 @@ const M3ActivityItem: React.FC<M3ActivityItemProps> = ({
   return (
     <div
       style={{
-        padding: 'var(--md-sys-spacing-4)',
+        padding: 'var(--app-spacing-container)',
         backgroundColor: isHovered
           ? 'var(--md-sys-color-surface-container-low)'
           : `color-mix(in srgb, var(--md-sys-color-surface-container-low) var(--md-sys-state-opacity-disabled), transparent)`,
-        border: `var(--md-sys-border-width-normal) solid color-mix(in srgb, var(--md-sys-color-outline-variant) var(--md-sys-state-opacity-disabled), transparent)`,
+        border: `var(--app-border-normal) solid color-mix(in srgb, var(--md-sys-color-outline-variant) var(--md-sys-state-opacity-disabled), transparent)`,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         borderRadius: 'var(--md-sys-shape-corner-large)',
-        transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
+        transition: `background-color var(--app-motion-quick) var(--app-easing-standard)`
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

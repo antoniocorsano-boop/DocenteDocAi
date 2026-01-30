@@ -5,7 +5,7 @@
     border-radius: inherit;
     background: radial-gradient(circle, var(--md-sys-color-primary) var(--md-sys-percent-0), transparent var(--md-sys-percent-70));
     opacity: 0;
-    transition: opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+    transition: opacity 0.18s var(var(--md-sys-motion-easing-standard));
     z-index: var(--md-sys-z-base);
 }
 .timetable-tile:active .m3-ripple,

@@ -26,35 +26,35 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
 
   return (
     <div style={{
-      padding: 'var(--md-sys-spacing-4)',
-      backgroundColor: 'var(--md-sys-color-surface)',
-      color: 'var(--md-sys-color-on-surface)',
+      padding: 'var(--app-spacing-container)',
+      backgroundColor: 'var(--app-color-surface)',
+      color: 'var(--app-color-on-surface)',
       borderRadius: 'var(--md-sys-shape-corner-large)',
-      boxShadow: 'var(--md-sys-elevation-level-2)',
+      boxShadow: 'var(--app-elevation-level-2)',
       maxWidth: 'var(--md-sys-layout-panel-max-width)',
       marginTop: 0,
-      marginLeft: 'var(--md-sys-margin-auto)',
+      marginLeft: 'var(--app-layout-auto)',
       marginBottom: 0,
-      marginRight: 'var(--md-sys-margin-auto)'
+      marginRight: 'var(--app-layout-auto)'
     }}>
       <h2 style={{
         fontFamily: 'var(--md-sys-typescale-headline-small-font)',
         fontSize: 'var(--md-sys-typescale-headline-small-size)',
         fontWeight: 'var(--md-sys-typescale-headline-small-weight)',
-        lineHeight: 'var(--md-sys-typescale-headline-small-line-height)',
-        marginBottom: 'var(--md-sys-spacing-4)'
+        lineHeight: 'var(--app-text-title-line-height)',
+        marginBottom: 'var(--app-spacing-container)'
       }}>Theme Settings</h2>
 
       {/* Dark Mode Toggle */}
-      <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
+      <div style={{ marginBottom: 'var(--app-spacing-section)' }}>
         <label style={{
           fontFamily: 'var(--md-sys-typescale-body-large-font)',
           fontSize: 'var(--md-sys-typescale-body-large-size)',
           fontWeight: 'var(--md-sys-typescale-body-large-weight)',
-          lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+          lineHeight: 'var(--app-text-body-line-height)',
           display: 'flex',
           alignItems: 'center',
-          gap: 'var(--md-sys-spacing-2)'
+          gap: 'var(--app-spacing-component)'
         }}>
           <input
             type="checkbox"
@@ -67,29 +67,29 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       </div>
 
       {/* Color Overrides */}
-      <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
+      <div style={{ marginBottom: 'var(--app-spacing-section)' }}>
         <h3 style={{
           fontFamily: 'var(--md-sys-typescale-title-large-font)',
           fontSize: 'var(--md-sys-typescale-title-large-size)',
           fontWeight: 'var(--md-sys-typescale-title-large-weight)',
-          lineHeight: 'var(--md-sys-typescale-title-large-line-height)'
+          lineHeight: 'var(--app-text-title-line-height)'
         }}>Color Overrides (MD3 System Colors)</h3>
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min-wide), var(--md-sys-grid-fr-1)))',
-          gap: 'var(--md-sys-spacing-2)',
-          marginTop: 'var(--md-sys-spacing-2)'
+          gap: 'var(--app-spacing-component)',
+          marginTop: 'var(--app-spacing-component)'
         }}>
           {[
-            { key: 'primary', label: 'Primary', value: 'var(--md-sys-color-primary)' },
-            { key: 'secondary', label: 'Secondary', value: 'var(--md-sys-color-secondary)' },
+            { key: 'primary', label: 'Primary', value: 'var(--app-color-primary)' },
+            { key: 'secondary', label: 'Secondary', value: 'var(--app-color-secondary)' },
             { key: 'tertiary', label: 'Tertiary', value: 'var(--md-sys-color-tertiary)' },
             { key: 'error', label: 'Error', value: 'var(--md-sys-color-error)' },
-            { key: 'surface', label: 'Surface', value: 'var(--md-sys-color-surface)' },
+            { key: 'surface', label: 'Surface', value: 'var(--app-color-surface)' },
             { key: 'background', label: 'Background', value: 'var(--md-sys-color-background)' }
           ].map(({ key, label, value }) => (
             <div key={key} style={{
-              padding: 'var(--md-sys-spacing-2)',
+              padding: 'var(--app-spacing-component)',
               backgroundColor: 'var(--md-sys-color-surface-container-low)',
               borderRadius: 'var(--md-sys-shape-corner-medium)'
             }}>
@@ -97,15 +97,15 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 fontFamily: 'var(--md-sys-typescale-label-large-font)',
                 fontSize: 'var(--md-sys-typescale-label-large-size)',
                 fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-                lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+                lineHeight: 'var(--app-text-label-line-height)',
                 display: 'block',
                 marginBottom: 'var(--md-sys-spacing-1)'
               }}>{label}</label>
               <div style={{
-                width: 'var(--md-sys-percent-100)',
-                height: 'var(--md-sys-spacing-6)',
+                width: 'var(--app-layout-full)',
+                height: 'var(--app-spacing-section)',
                 backgroundColor: value,
-                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
+                border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
                 borderRadius: 'var(--md-sys-shape-corner-small)',
                 display: 'flex',
                 alignItems: 'center',
@@ -114,7 +114,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 <span style={{
                   fontFamily: 'var(--md-sys-typescale-label-medium-font)',
                   fontSize: 'var(--md-sys-typescale-label-medium-size)',
-                  color: 'var(--md-sys-color-on-surface)'
+                  color: 'var(--app-color-on-surface)'
                 }}>{value}</span>
               </div>
             </div>
@@ -123,18 +123,18 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       </div>
 
       {/* Typography Overrides */}
-      <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
+      <div style={{ marginBottom: 'var(--app-spacing-section)' }}>
         <h3 style={{
           fontFamily: 'var(--md-sys-typescale-title-large-font)',
           fontSize: 'var(--md-sys-typescale-title-large-size)',
           fontWeight: 'var(--md-sys-typescale-title-large-weight)',
-          lineHeight: 'var(--md-sys-typescale-title-large-line-height)'
+          lineHeight: 'var(--app-text-title-line-height)'
         }}>Typography Scale (MD3 System)</h3>
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min-wide), var(--md-sys-grid-fr-1)))',
-          gap: 'var(--md-sys-spacing-2)',
-          marginTop: 'var(--md-sys-spacing-2)'
+          gap: 'var(--app-spacing-component)',
+          marginTop: 'var(--app-spacing-component)'
         }}>
           {[
             { key: 'display', label: 'Display', fontSize: 'var(--md-sys-typescale-display-large-size)', fontFamily: 'var(--md-sys-typescale-display-large-font)' },
@@ -143,7 +143,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
             { key: 'body', label: 'Body', fontSize: 'var(--md-sys-typescale-body-large-size)', fontFamily: 'var(--md-sys-typescale-body-large-font)' }
           ].map(({ key, label, fontSize, fontFamily }) => (
             <div key={key} style={{
-              padding: 'var(--md-sys-spacing-2)',
+              padding: 'var(--app-spacing-component)',
               backgroundColor: 'var(--md-sys-color-surface-container-low)',
               borderRadius: 'var(--md-sys-shape-corner-medium)'
             }}>
@@ -151,19 +151,19 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 fontFamily: 'var(--md-sys-typescale-label-large-font)',
                 fontSize: 'var(--md-sys-typescale-label-large-size)',
                 fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-                lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+                lineHeight: 'var(--app-text-label-line-height)',
                 display: 'block',
                 marginBottom: 'var(--md-sys-spacing-1)'
               }}>{label}</label>
               <div style={{
                 fontSize: fontSize,
                 fontFamily: fontFamily,
-                color: 'var(--md-sys-color-on-surface)',
+                color: 'var(--app-color-on-surface)',
                 padding: 'var(--md-sys-spacing-1)',
-                backgroundColor: 'var(--md-sys-color-surface)',
-                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
+                backgroundColor: 'var(--app-color-surface)',
+                border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
                 borderRadius: 'var(--md-sys-shape-corner-small)',
-                minHeight: 'var(--md-sys-spacing-6)',
+                minHeight: 'var(--app-spacing-section)',
                 display: 'flex',
                 alignItems: 'center'
               }}>
@@ -175,29 +175,29 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       </div>
 
       {/* Spacing Overrides */}
-      <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
+      <div style={{ marginBottom: 'var(--app-spacing-section)' }}>
         <h3 style={{
           fontFamily: 'var(--md-sys-typescale-title-large-font)',
           fontSize: 'var(--md-sys-typescale-title-large-size)',
           fontWeight: 'var(--md-sys-typescale-title-large-weight)',
-          lineHeight: 'var(--md-sys-typescale-title-large-line-height)'
+          lineHeight: 'var(--app-text-title-line-height)'
         }}>Spacing Scale (MD3 System)</h3>
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min), var(--md-sys-grid-fr-1)))',
-          gap: 'var(--md-sys-spacing-2)',
-          marginTop: 'var(--md-sys-spacing-2)'
+          gap: 'var(--app-spacing-component)',
+          marginTop: 'var(--app-spacing-component)'
         }}>
           {[
             { key: 'spacing-1', label: '1', value: 'var(--md-sys-spacing-1)' },
-            { key: 'spacing-2', label: '2', value: 'var(--md-sys-spacing-2)' },
-            { key: 'spacing-3', label: '3', value: 'var(--md-sys-spacing-3)' },
-            { key: 'spacing-4', label: '4', value: 'var(--md-sys-spacing-4)' },
-            { key: 'spacing-5', label: '5', value: 'var(--md-sys-spacing-5)' },
-            { key: 'spacing-6', label: '6', value: 'var(--md-sys-spacing-6)' }
+            { key: 'spacing-2', label: '2', value: 'var(--app-spacing-component)' },
+            { key: 'spacing-3', label: '3', value: 'var(--app-spacing-element)' },
+            { key: 'spacing-4', label: '4', value: 'var(--app-spacing-container)' },
+            { key: 'spacing-5', label: '5', value: 'var(--app-spacing-touch)' },
+            { key: 'spacing-6', label: '6', value: 'var(--app-spacing-section)' }
           ].map(({ key, label, value }) => (
             <div key={key} style={{
-              padding: 'var(--md-sys-spacing-2)',
+              padding: 'var(--app-spacing-component)',
               backgroundColor: 'var(--md-sys-color-surface-container-low)',
               borderRadius: 'var(--md-sys-shape-corner-medium)'
             }}>
@@ -205,16 +205,16 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 fontFamily: 'var(--md-sys-typescale-label-large-font)',
                 fontSize: 'var(--md-sys-typescale-label-large-size)',
                 fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-                lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+                lineHeight: 'var(--app-text-label-line-height)',
                 display: 'block',
                 marginBottom: 'var(--md-sys-spacing-1)'
               }}>{label}</label>
               <div style={{
-                width: 'var(--md-sys-percent-100)',
+                width: 'var(--app-layout-full)',
                 height: value,
-                backgroundColor: 'var(--md-sys-color-primary)',
+                backgroundColor: 'var(--app-color-primary)',
                 borderRadius: 'var(--md-sys-shape-corner-small)',
-                minHeight: 'var(--md-sys-spacing-2)'
+                minHeight: 'var(--app-spacing-component)'
               }}></div>
             </div>
           ))}
@@ -222,27 +222,27 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       </div>
 
       {/* Motion Overrides */}
-      <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
+      <div style={{ marginBottom: 'var(--app-spacing-section)' }}>
         <h3 style={{
           fontFamily: 'var(--md-sys-typescale-title-large-font)',
           fontSize: 'var(--md-sys-typescale-title-large-size)',
           fontWeight: 'var(--md-sys-typescale-title-large-weight)',
-          lineHeight: 'var(--md-sys-typescale-title-large-line-height)'
+          lineHeight: 'var(--app-text-title-line-height)'
         }}>Motion & Easing (MD3 System)</h3>
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min), var(--md-sys-grid-fr-1)))',
-          gap: 'var(--md-sys-spacing-2)',
-          marginTop: 'var(--md-sys-spacing-2)'
+          gap: 'var(--app-spacing-component)',
+          marginTop: 'var(--app-spacing-component)'
         }}>
           {[
-            { key: 'easing-standard', label: 'Standard', value: 'var(--md-sys-motion-easing-standard)' },
-            { key: 'easing-emphasized', label: 'Emphasized', value: 'var(--md-sys-motion-easing-standard)' },
-            { key: 'duration-short', label: 'Short Duration', value: 'var(--md-sys-motion-duration-short)' },
-            { key: 'duration-medium', label: 'Medium Duration', value: 'var(--md-sys-motion-duration-medium)' }
+            { key: 'easing-standard', label: 'Standard', value: 'var(--app-easing-standard)' },
+            { key: 'easing-emphasized', label: 'Emphasized', value: 'var(--app-easing-standard)' },
+            { key: 'duration-short', label: 'Short Duration', value: 'var(--app-motion-quick)' },
+            { key: 'duration-medium', label: 'Medium Duration', value: 'var(--app-motion-standard)' }
           ].map(({ key, label, value }) => (
             <div key={key} style={{
-              padding: 'var(--md-sys-spacing-2)',
+              padding: 'var(--app-spacing-component)',
               backgroundColor: 'var(--md-sys-color-surface-container-low)',
               borderRadius: 'var(--md-sys-shape-corner-medium)'
             }}>
@@ -250,19 +250,19 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 fontFamily: 'var(--md-sys-typescale-label-large-font)',
                 fontSize: 'var(--md-sys-typescale-label-large-size)',
                 fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-                lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+                lineHeight: 'var(--app-text-label-line-height)',
                 display: 'block',
                 marginBottom: 'var(--md-sys-spacing-1)'
               }}>{label}</label>
               <div style={{
                 fontFamily: 'var(--md-sys-typescale-body-medium-font)',
                 fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                color: 'var(--md-sys-color-on-surface)',
+                color: 'var(--app-color-on-surface)',
                 padding: 'var(--md-sys-spacing-1)',
-                backgroundColor: 'var(--md-sys-color-surface)',
-                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
+                backgroundColor: 'var(--app-color-surface)',
+                border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
                 borderRadius: 'var(--md-sys-shape-corner-small)',
-                minHeight: 'var(--md-sys-spacing-6)',
+                minHeight: 'var(--app-spacing-section)',
                 display: 'flex',
                 alignItems: 'center',
                 wordBreak: 'break-all'
@@ -277,10 +277,10 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       {/* Action Buttons */}
       <div style={{
         display: 'flex',
-        gap: 'var(--md-sys-spacing-2)',
+        gap: 'var(--app-spacing-component)',
         justifyContent: 'flex-end',
-        paddingTop: 'var(--md-sys-spacing-4)',
-        borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
+        paddingTop: 'var(--app-spacing-container)',
+        borderTop: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'
       }}>
         <M3Button onClick={resetToDefaults} variant="outlined">
           Reset to MD3 Defaults

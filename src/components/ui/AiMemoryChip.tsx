@@ -13,16 +13,16 @@ const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
             style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 'var(--md-sys-spacing-4)',
-                padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-2)',
+                gap: 'var(--app-spacing-container)',
+                padding: 'var(--app-spacing-component) var(--app-spacing-component)',
                 minHeight: 'var(--md-sys-spacing-8)',
                 opacity: hovered ? 1 : 0.6,
-                transition: 'opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+                transition: 'opacity var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
                 userSelect: 'none',
                 cursor: 'help',
                 backgroundColor: 'var(--md-sys-color-tertiary-container)',
                 borderRadius: 'var(--md-sys-shape-corner-full)',
-                border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-tertiary)'
+                border: 'var(--app-border-normal) solid var(--md-sys-color-tertiary)'
             }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
@@ -33,17 +33,17 @@ const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
             <span
                 style={{
                     fontFamily: 'Material Symbols Outlined',
-                    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                    fontSize: 'var(--app-text-body)',
                     color: 'var(--md-sys-color-tertiary)',
                     fontWeight: 'bold',
-                    animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`
+                    animation: `pulse var(--md-sys-motion-duration-extra-long) var(--app-easing-standard) infinite`
                 }}
             >
                 psychology
             </span>
             <span
                 style={{
-                    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                    fontSize: 'var(--app-text-body)',
                     fontWeight: '800',
                     color: 'var(--md-sys-color-tertiary)',
                     textTransform: 'uppercase',

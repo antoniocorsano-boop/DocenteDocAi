@@ -66,11 +66,11 @@ export default {
         
         // BLOCK: auto keyword in margin
         if (/margin/i.test(keyName) && AUTO_KEYWORD.test(val)) {
-          // Allow var(--md-sys-margin-auto) token
-          if (!val.includes('var(--md-sys-margin-auto)')) {
+          // Allow var(--md-sys-margin-auto) token or semantic var(--app-layout-auto) token
+          if (!val.includes('var(--md-sys-margin-auto)') && !val.includes('var(--app-layout-auto)')) {
             context.report({
               node: value,
-              message: `MD3 VIOLATION: 'auto' keyword in '${keyName}: ${val}'. Use var(--md-sys-margin-auto) token.`
+              message: `MD3 VIOLATION: 'auto' keyword in '${keyName}: ${val}'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token.`
             });
           }
         }
@@ -83,15 +83,16 @@ export default {
           });
         }
         
-        // BLOCK: any style value not starting with var(--md-
+        // BLOCK: any style value not starting with var(--md- or var(--app-
         if (/^(width|height|min|max|padding|margin|gap|spacing)/i.test(keyName)) {
-          // Allow if value contains MD3 tokens or is allowed literal
+          // Allow if value contains MD3 tokens, semantic tokens, or is allowed literal
           const hasMD3Token = val.includes('var(--md-') || val.includes('var(--z-');
+          const hasSemanticToken = val.includes('var(--app-');
           const isAllowedLiteral = val === '0' || val === 'none' || val === 'inherit' || val === 'unset' || val === 'fit-content';
-          if (!hasMD3Token && !isAllowedLiteral) {
+          if (!hasMD3Token && !hasSemanticToken && !isAllowedLiteral) {
             context.report({
               node: value,
-              message: `MD3 VIOLATION: '${keyName}: ${val}' does not use MD3 token. MUST be var(--md-sys-*).`
+              message: `MD3 VIOLATION: '${keyName}: ${val}' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token.`
             });
           }
         }

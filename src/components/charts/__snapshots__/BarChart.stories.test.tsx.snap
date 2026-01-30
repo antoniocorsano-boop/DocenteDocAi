@@ -22,7 +22,7 @@ exports[`BarChart Story Snapshots > renders default story correctly 1`] = `
         />
         <text
           fill="var(--md-sys-color-onSurface-variant)"
-          font-size="12"
+          font-size="var(--app-text-body)"
           text-anchor="middle"
           x="247.5"
           y="245"

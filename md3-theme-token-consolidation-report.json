@@ -1,0 +1,77 @@
+{
+  "processed": 223,
+  "modified": 180,
+  "replacements": {
+    "color": {
+      "Primary color → semantic token": 404,
+      "On primary color → semantic token": 139,
+      "Primary container color → semantic token": 72,
+      "On primary container color → semantic token": 64,
+      "Secondary color → semantic token": 66,
+      "On secondary color → semantic token": 5,
+      "Secondary container color → semantic token": 56,
+      "On secondary container color → semantic token": 53,
+      "Surface color → semantic token": 89,
+      "On surface color → semantic token": 195,
+      "Surface container color → semantic token": 39,
+      "On surface container color → semantic token": 0
+    },
+    "spacing": {
+      "Container spacing → semantic token": 977,
+      "Section spacing → semantic token": 378,
+      "Element spacing → semantic token": 203,
+      "Component spacing → semantic token": 391,
+      "Touch spacing → semantic token": 61
+    },
+    "layout": {
+      "Full percentage → semantic layout token": 186,
+      "Half percentage → semantic layout token": 28,
+      "Quarter percentage → semantic layout token": 0,
+      "Auto margin → semantic layout token": 61
+    },
+    "elevation": {
+      "Elevation level 0 → semantic token": 0,
+      "Elevation level 1 → semantic token": 6,
+      "Elevation level 2 → semantic token": 5,
+      "Elevation level 3 → semantic token": 0,
+      "Elevation level 4 → semantic token": 0,
+      "Elevation level 5 → semantic token": 0
+    },
+    "shape": {
+      "Small border radius → semantic shape token": 6,
+      "Medium border radius → semantic shape token": 0,
+      "Large border radius → semantic shape token": 0,
+      "Full border radius → semantic shape token": 0
+    },
+    "border": {
+      "Thin border width → semantic border token": 260,
+      "Normal border width → semantic border token": 130,
+      "Medium border width → semantic border token": 11,
+      "Thick border width → semantic border token": 27
+    },
+    "typography": {
+      "Display font size → semantic typography token": 0,
+      "Headline font size → semantic typography token": 0,
+      "Title font size → semantic typography token": 0,
+      "Body font size → semantic typography token": 0,
+      "Label font size → semantic typography token": 0,
+      "Caption font size → semantic typography token": 0
+    },
+    "zIndex": {
+      "Base z-index → semantic token": 2,
+      "Content z-index → semantic token": 0,
+      "Overlay z-index → semantic token": 0,
+      "Modal z-index → semantic token": 5,
+      "Tooltip z-index → semantic token": 12
+    },
+    "motion": {
+      "Standard motion duration → semantic token": 112,
+      "Quick motion duration → semantic token": 100,
+      "Slow motion duration → semantic token": 20,
+      "Standard easing → semantic token": 232,
+      "Emphasized easing → semantic token": 0
+    }
+  },
+  "errors": [],
+  "timestamp": "2026-01-30T14:30:03.617Z"
+}

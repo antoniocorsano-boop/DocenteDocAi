@@ -3,17 +3,17 @@
 exports[`M3DatePicker Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    style="width: var(--md-sys-percent-100);"
+    style="width: var(--app-layout-full);"
   >
     <label
       for=":r0:"
-      style="display: block; margin-bottom: var(--md-sys-spacing-2); font-size: var(--md-sys-typescale-body-large-font-size); font-family: var(--md-sys-typescale-body-large-font); font-weight: var(--md-sys-typescale-body-large-font-weight); color: var(--md-sys-color-on-surface);"
+      style="display: block; margin-bottom: var(--app-spacing-component); font-size: var(--app-text-body); font-family: var(--md-sys-typescale-body-large-font); font-weight: var(--app-text-body-weight); color: var(--app-color-on-surface);"
     >
       Test
     </label>
     <input
       id=":r0:"
-      style="width: var(--md-sys-percent-100); padding: var(--md-sys-spacing-3); border-radius: var(--md-sys-shape-corner-small); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline); box-sizing: border-box; background-color: var(--md-sys-color-surface-container-highest); color: var(--md-sys-color-on-surface); font-family: var(--md-sys-typescale-body-large-font); font-size: var(--md-sys-typescale-body-large-font-size);"
+      style="width: var(--app-layout-full); padding: var(--app-spacing-element); border-radius: var(--md-sys-shape-corner-small); border: var(--app-border-normal) solid var(--md-sys-color-outline); box-sizing: border-box; background-color: var(--md-sys-color-surface-container-highest); color: var(--app-color-on-surface); font-family: var(--md-sys-typescale-body-large-font); font-size: var(--app-text-body);"
       type="date"
     />
   </div>

@@ -39,15 +39,15 @@ const ActionTile: React.FC<ActionTileProps> = ({
         switch (variant) {
             case 'primary':
                 return {
-                    background: 'var(--md-sys-color-primary-container)',
-                    iconColor: 'var(--md-sys-color-on-primary-container)',
-                    iconBg: 'var(--md-sys-color-primary)'
+                    background: 'var(--app-color-primary-container)',
+                    iconColor: 'var(--app-color-on-primary-container)',
+                    iconBg: 'var(--app-color-primary)'
                 };
             case 'secondary':
                 return {
-                    background: 'var(--md-sys-color-secondary-container)',
-                    iconColor: 'var(--md-sys-color-on-secondary-container)',
-                    iconBg: 'var(--md-sys-color-secondary)'
+                    background: 'var(--app-color-secondary-container)',
+                    iconColor: 'var(--app-color-on-secondary-container)',
+                    iconBg: 'var(--app-color-secondary)'
                 };
             case 'tertiary':
                 return {
@@ -58,8 +58,8 @@ const ActionTile: React.FC<ActionTileProps> = ({
             case 'surface':
             default:
                 return {
-                    background: 'var(--md-sys-color-surface)',
-                    iconColor: 'var(--md-sys-color-on-surface)',
+                    background: 'var(--app-color-surface)',
+                    iconColor: 'var(--app-color-on-surface)',
                     iconBg: 'var(--md-sys-color-surface-variant)'
                 };
         }
@@ -76,11 +76,11 @@ const ActionTile: React.FC<ActionTileProps> = ({
             style={{
                 backgroundColor: variantColors.background,
                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                padding: 'var(--md-sys-spacing-4)',
+                padding: 'var(--app-spacing-container)',
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                gap: 'var(--md-sys-spacing-4)',
+                gap: 'var(--app-spacing-container)',
                 border: 'none',
                 cursor: 'pointer',
                 position: 'relative',
@@ -89,10 +89,10 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 boxShadow: hovered ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)',
                 transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
                 minHeight: 'var(--md-sys-spacing-12)',
-                width: 'var(--md-sys-percent-100)',
-                outline: focused ? `var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)` : 'none',
-                outlineOffset: focused ? 'var(--md-sys-spacing-2)' : '0',
-                transition: `box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
+                width: 'var(--app-layout-full)',
+                outline: focused ? `var(--app-border-thick) solid var(--app-color-primary)` : 'none',
+                outlineOffset: focused ? 'var(--app-spacing-component)' : '0',
+                transition: `box-shadow var(--app-motion-quick) var(--app-easing-standard), transform var(--app-motion-quick) var(--app-easing-standard)`
             }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
@@ -108,19 +108,19 @@ const ActionTile: React.FC<ActionTileProps> = ({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: 'var(--md-sys-spacing-6)',
+                    fontSize: 'var(--app-spacing-section)',
                     backgroundColor: variantColors.iconBg,
                     color: variantColors.iconColor,
                     flexShrink: 0,
                     boxShadow: 'var(--md-sys-elevation-level1)',
-                    border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)`,
-                    transition: `box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
+                    border: `var(--app-border-normal) solid var(--md-sys-color-outline-variant)`,
+                    transition: `box-shadow var(--app-motion-quick) var(--app-easing-standard)`
                 }}
             >
                 <span
                     style={{
                         fontFamily: 'Material Symbols Outlined',
-                        fontSize: 'var(--md-sys-spacing-6)'
+                        fontSize: 'var(--app-spacing-section)'
                     }}
                 >
                     {icon}
@@ -134,12 +134,12 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-2)'
+                gap: 'var(--app-spacing-component)'
             }}>
                 <M3Typography
                     variant="title-medium"
                     style={{
-                        color: 'var(--md-sys-color-on-surface)',
+                        color: 'var(--app-color-on-surface)',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         whiteSpace: 'nowrap',
@@ -170,21 +170,21 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 style={{
                     width: 'var(--md-sys-spacing-8)',
                     height: 'var(--md-sys-spacing-8)',
-                    borderRadius: 'var(--md-sys-percent-50)',
+                    borderRadius: 'var(--app-layout-half)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     backgroundColor: 'var(--md-sys-color-surface-variant)',
                     color: 'var(--md-sys-color-on-surface-variant)',
                     flexShrink: 0,
-                    transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
+                    transition: `background-color var(--app-motion-quick) var(--app-easing-standard)`
                 }}
             >
                 <span
                     style={{
                         fontFamily: 'Material Symbols Outlined',
-                        fontSize: 'var(--md-sys-spacing-6)',
-                        transition: `transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
+                        fontSize: 'var(--app-spacing-section)',
+                        transition: `transform var(--app-motion-quick) var(--app-easing-standard)`
                     }}
                 >
                     chevron_right
@@ -199,10 +199,10 @@ const ActionTile: React.FC<ActionTileProps> = ({
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    background: `var(--md-sys-motion-easing-standard)-gradient(90deg, transparent, var(--md-sys-color-surface-disabled), transparent)`,
-                    transform: hovered ? 'translateX(var(--md-sys-percent-100))' : 'translateX(calc(var(--md-sys-percent-100) * -1))',
+                    background: `var(--app-easing-standard)-gradient(90deg, transparent, var(--md-sys-color-surface-disabled), transparent)`,
+                    transform: hovered ? 'translateX(var(--app-layout-full))' : 'translateX(calc(var(--app-layout-full) * -1))',
                     pointerEvents: 'none',
-                    transition: `transform var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard)`
+                    transition: `transform var(--md-sys-motion-duration-extra-long) var(--app-easing-standard)`
                 }}
             />
         </button>

@@ -51,7 +51,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       display: 'flex',
       flexDirection: 'column',
       minHeight: 'var(--md-sys-viewport-height-full)',
-      background: 'var(--md-sys-color-surface)'
+      background: 'var(--app-color-surface)'
     }}>
       <Header
         title="DocenteDoc AI"
@@ -75,12 +75,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       <M3FlexContainer
         flex="var(--md-sys-flex-auto)"
         minHeight="var(--md-sys-spacing-0)"
-        background="var(--md-sys-color-surface)"
+        background="var(--app-color-surface)"
       >
         <M3Aside
           flexBasis="var(--md-sys-spacing-20)"
-          background="var(--md-sys-color-surface)"
-          borderRight="var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)"
+          background="var(--app-color-surface)"
+          borderRight="var(--app-border-thin) solid var(--md-sys-color-outline-variant)"
           style={{ zIndex: 'var(--md-sys-z-nav)' }}
         >
           <NavigationRail
@@ -101,7 +101,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           display: 'flex',
           flexDirection: 'column',
           boxSizing: 'border-box',
-          background: 'var(--md-sys-color-surface-container)'
+          background: 'var(--app-color-surface-container)'
         }}>
           {children}
         </M3Surface>

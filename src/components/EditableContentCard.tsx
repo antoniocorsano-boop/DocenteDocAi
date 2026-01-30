@@ -33,7 +33,7 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
     const lines = content.split('\n').filter(line => line.trim() !== '');
     if (lines.length > 1 || content.startsWith('• ') || content.startsWith('- ')) {
       return (
-        <ul style={{ paddingLeft: 'var(--md-sys-spacing-5)', gap: 'var(--md-sys-spacing-1)' }}>
+        <ul style={{ paddingLeft: 'var(--app-spacing-touch)', gap: 'var(--md-sys-spacing-1)' }}>
           {lines.map((item, index) => <li key={index}>{item.replace(/^[•-]\s*/, '').trim()}</li>)}
         </ul>
       );
@@ -52,7 +52,7 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
       aria-label={title}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <h3 style={{ color: 'var(--md-sys-color-on-primary)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }}>
+        <h3 style={{ color: 'var(--app-color-on-primary)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }}>
           {icon && <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }} aria-hidden="true">{icon}</span>}
           {title}
         </h3>
@@ -68,17 +68,17 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
         )}
       </div>
 
-      <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
+      <div style={{ marginTop: 'var(--app-spacing-container)' }}>
         {isEditing ? (
-          <div style={{ gap: 'var(--md-sys-spacing-2)' }}>
+          <div style={{ gap: 'var(--app-spacing-component)' }}>
             <textarea
               value={currentContent}
               onChange={(e) => setCurrentContent(e.target.value)}
               style={{
-                width: 'var(--md-sys-percent-100)',
+                width: 'var(--app-layout-full)',
                 borderRadius: 'var(--md-sys-shape-corner-small)',
-                background: 'var(--md-sys-color-surface-container)',
-                color: 'var(--md-sys-color-on-surface)'
+                background: 'var(--app-color-surface-container)',
+                color: 'var(--app-color-on-surface)'
               }}
               rows={Math.max(5, currentContent.split('\n').length)}
               autoFocus

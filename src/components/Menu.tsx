@@ -59,11 +59,11 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        width: 'var(--md-sys-percent-100)',
+        width: 'var(--app-layout-full)',
         minHeight: 'var(--md-sys-spacing-16)', // minimum touch target
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
         boxShadow: 'var(--md-sys-elevation-level1)',
-        borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+        borderTop: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
         zIndex: 'var(--md-sys-z-sticky)',
         position: 'fixed',
         bottom: 0,
@@ -79,11 +79,11 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
           <button
             key={item.id}
             onClick={() => onNavigate(item.id, null)}
-            style={{backgroundColor: active ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-low)',
-              color: active ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
+            style={{backgroundColor: active ? 'var(--app-color-primary)' : 'var(--md-sys-color-surface-container-low)',
+              color: active ? 'var(--app-color-on-primary)' : 'var(--app-color-on-surface)',
               borderRadius: 'var(--md-sys-shape-corner-medium)',
               outline: 'none',
-              padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', // compact padding
+              padding: 'var(--md-sys-spacing-1) var(--app-spacing-component)', // compact padding
               minWidth: 'var(--md-sys-spacing-14)', // minimum touch target
               display: 'flex',
               flexDirection: 'column',
@@ -92,7 +92,7 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
               boxShadow: 'none',
               cursor: 'pointer',
               border: 'none',
-              transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+              transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`,
               position: 'relative'}}
             onMouseEnter={() => {
               if (!active) {
@@ -118,13 +118,13 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
           >
             <div
               style={{marginBottom: 'var(--md-sys-spacing-1)', // compact spacing
-                backgroundColor: active ? 'var(--md-sys-color-primary)' : 'transparent',
+                backgroundColor: active ? 'var(--app-color-primary)' : 'transparent',
                 borderRadius: 'var(--md-sys-shape-corner-full)',
-                padding: 'var(--md-sys-spacing-2)', // icon container padding
+                padding: 'var(--app-spacing-component)', // icon container padding
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
+                transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`}}
             >
               <span
                 style={{
@@ -141,8 +141,8 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
                 textTransform: 'uppercase',
                 letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                 marginTop: 'var(--md-sys-spacing-1)', // compact margin
-                color: active ? 'var(--md-sys-color-on)' : 'var(--md-sys-color-on-surface)',
-                transition: `color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
+                color: active ? 'var(--md-sys-color-on)' : 'var(--app-color-on-surface)',
+                transition: `color var(--md-sys-motion-duration-short2) var(--app-easing-standard)`}}
             >
               {item.label}
             </M3Typography>

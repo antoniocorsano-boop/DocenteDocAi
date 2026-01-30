@@ -4,38 +4,38 @@ import React, { useState } from 'react';
 // MD3 Token Constants - Direct CSS Variables
 const MD3_TOKENS = {
   // Colors
-  primary: 'var(--md-sys-color-primary)',
-  onPrimary: 'var(--md-sys-color-on-primary)',
-  primaryContainer: 'var(--md-sys-color-primary-container)',
-  onPrimaryContainer: 'var(--md-sys-color-on-primary-container)',
+  primary: 'var(--app-color-primary)',
+  onPrimary: 'var(--app-color-on-primary)',
+  primaryContainer: 'var(--app-color-primary-container)',
+  onPrimaryContainer: 'var(--app-color-on-primary-container)',
   outline: 'var(--md-sys-color-outline)',
   outlineVariant: 'var(--md-sys-color-outline-variant)',
-  surfaceContainer: 'var(--md-sys-color-surface-container)',
+  surfaceContainer: 'var(--app-color-surface-container)',
   surfaceContainerHigh: 'var(--md-sys-color-surface-container-high)',
-  surface: 'var(--md-sys-color-surface)',
-  onSurface: 'var(--md-sys-color-on-surface)',
+  surface: 'var(--app-color-surface)',
+  onSurface: 'var(--app-color-on-surface)',
 
   // Shape
   cornerExtraLarge: 'var(--md-sys-shape-corner-extra-large)',
   cornerMedium: 'var(--md-sys-shape-corner-medium)',
 
   // Spacing
-  spacing4: 'var(--md-sys-spacing-4)',
-  spacing6: 'var(--md-sys-spacing-6)',
+  spacing4: 'var(--app-spacing-container)',
+  spacing6: 'var(--app-spacing-section)',
   spacing8: 'var(--md-sys-spacing-8)',
   spacing12: 'var(--md-sys-spacing-12)',
   spacing16: 'var(--md-sys-spacing-16)',
 
   // Motion
   durationShort2: 'var(--md-sys-motion-duration-short2)',
-  easingStandard: 'var(--md-sys-motion-easing-standard)',
+  easingStandard: 'var(--app-easing-standard)',
 
   // Elevation
   elevation2: 'var(--md-sys-elevation-level2)',
   elevation4: 'var(--md-sys-elevation-level4)',
 
   // Typography
-  bodySmallFontSize: 'var(--md-sys-typescale-body-small-font-size)',
+  bodySmallFontSize: 'var(--app-text-body)',
   bodySmallFontFamily: 'var(--md-sys-typescale-body-small-font-family)',
 } as const;
 
@@ -61,12 +61,12 @@ const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
         justifyContent: 'center',
         padding: MD3_TOKENS.spacing8,
         borderRadius: MD3_TOKENS.cornerExtraLarge,
-        border: `var(--md-sys-border-width-thick) solid ${selected ? MD3_TOKENS.primary : hovered ? MD3_TOKENS.outline : `${MD3_TOKENS.outlineVariant}30`}`,
+        border: `var(--app-border-thick) solid ${selected ? MD3_TOKENS.primary : hovered ? MD3_TOKENS.outline : `${MD3_TOKENS.outlineVariant}30`}`,
         backgroundColor: selected ? MD3_TOKENS.primaryContainer : hovered ? MD3_TOKENS.surfaceContainerHigh : `${MD3_TOKENS.surfaceContainer}80`,
         color: selected ? MD3_TOKENS.onPrimaryContainer : MD3_TOKENS.onSurface,
         boxShadow: selected ? 'var(--md-sys-elevation-level4)' : 'none',
         transform: selected ? 'scale(1.05)' : 'none',
-        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+        transition: `all var(--app-motion-quick) var(--app-easing-standard)`,
         gap: MD3_TOKENS.spacing4,
         minWidth: MD3_TOKENS.spacing16,
         cursor: 'pointer',
@@ -80,7 +80,7 @@ const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+        transition: `all var(--app-motion-quick) var(--app-easing-standard)`,
         backgroundColor: selected ? MD3_TOKENS.primary : MD3_TOKENS.surface,
         color: selected ? MD3_TOKENS.onPrimary : MD3_TOKENS.primary,
         boxShadow: selected ? 'var(--md-sys-elevation-level2)' : 'none',
@@ -89,15 +89,15 @@ const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
 
     const iconStyle: React.CSSProperties = {
         fontFamily: 'Material Symbols Outlined',
-        fontSize: 'var(--md-sys-spacing-6)',
+        fontSize: 'var(--app-spacing-section)',
         userSelect: 'none',
         fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"
     };
 
     const labelStyle: React.CSSProperties = {
-        fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+        fontSize: 'var(--app-text-body)',
         fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
-        fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
+        fontWeight: 'var(--app-text-body-weight)',
         letterSpacing: '0.2em',
         textTransform: 'uppercase'
     };

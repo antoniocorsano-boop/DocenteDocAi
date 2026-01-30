@@ -4,7 +4,7 @@
   gap: var(--md-sys-spacing-2);
   cursor: pointer;
   user-select: none;
-  transition: transform var(--md-sys-motion-duration-long) var(var(--md-sys-motion-easing-emphasized));
+  transition: transform 0.5s var(--motion-expressive);
   position: relative;
 }
 
@@ -25,7 +25,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .logo-d-body {
   fill: var(--md-sys-color-primary);
-  transition: fill var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
+  transition: fill 0.4s ease, transform 0.4s ease;
   filter: drop-shadow(0 var(--md-sys-spacing-1) var(--md-sys-blur-medium) rgba(var(--md-sys-color-primary-rgb), 0.2));
 }
 
@@ -53,7 +53,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .logo-sparkle {
   fill: var(--md-sys-color-tertiary);
   filter: drop-shadow(0 0 var(--md-sys-spacing-2) var(--md-sys-color-tertiary));
-  animation: logo-sparkle-glow var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard)-in-out infinite;
+  animation: logo-sparkle-glow 3s ease-in-out infinite;
 }
 
 @keyframes logo-sparkle-glow {
@@ -64,7 +64,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Stato Thinking AI */
 .app-logo-container.thinking .logo-d-ring {
   stroke-dasharray: 8, 8;
-  animation: logo-rotate 4s var(--md-sys-motion-easing-standard) infinite;
+  animation: logo-rotate 4s linear infinite;
   opacity: 1;
 }
 
@@ -81,20 +81,20 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   pointer-events: none;
   background: white;
   opacity: 0;
-  transition: opacity var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
+  transition: opacity 0.3s ease;
 }
 
 .universe-overlay.chaos {
   opacity: 0.4;
   background: radial-gradient(circle, var(--md-sys-color-primary-container) var(--md-sys-percent-0), transparent var(--md-sys-percent-70));
-  animation: chaos-shake 0.var(--md-sys-motion-duration-long) infinite;
+  animation: chaos-shake 0.1s infinite;
 }
 
 .universe-overlay.implosion {
   opacity: 1;
   background: white;
   transform: scale(0);
-  animation: implosion-zoom var(--md-sys-motion-duration-medium) var(var(--md-sys-motion-easing-standard)) forwards;
+  animation: implosion-zoom 0.4s var(--motion-standard) forwards;
 }
 
 .universe-overlay.peace {

@@ -53,16 +53,16 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
   const getTooltipPosition = (): React.CSSProperties => {
     const baseStyle: React.CSSProperties = {
       position: 'absolute',
-      zIndex: 'var(--md-sys-z-tooltip)',
+      zIndex: 'var(--app-z-tooltip)',
       backgroundColor: 'var(--md-sys-color-inverse-surface)',
       color: 'var(--md-sys-color-inverse-onSurface)',
-      padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
+      padding: 'var(--app-spacing-component) var(--app-spacing-container)',
       borderRadius: 'var(--md-sys-shape-corner-small)',
       boxShadow: 'var(--md-sys-elevation-level1)',
       whiteSpace: 'pre',
       pointerEvents: 'none',
       opacity: 'var(--md-sys-state-opacity-tooltip)',
-      animation: 'tooltip-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard) both',
+      animation: 'tooltip-in var(--app-motion-quick) var(--app-easing-standard) both',
       maxWidth: 'var(--md-sys-spacing-16)',
       wordWrap: 'break-word'
     };
@@ -71,34 +71,34 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
       case 'top':
         return {
           ...baseStyle,
-          left: 'var(--md-sys-percent-50)',
+          left: 'var(--app-layout-half)',
           bottom: 'var(--md-sys-percent-120)',
           transform: 'translateX(-50%)',
-          marginBottom: 'var(--md-sys-spacing-2)'
+          marginBottom: 'var(--app-spacing-component)'
         };
       case 'bottom':
         return {
           ...baseStyle,
-          left: 'var(--md-sys-percent-50)',
+          left: 'var(--app-layout-half)',
           top: 'var(--md-sys-percent-120)',
           transform: 'translateX(-50%)',
-          marginTop: 'var(--md-sys-spacing-2)'
+          marginTop: 'var(--app-spacing-component)'
         };
       case 'left':
         return {
           ...baseStyle,
           right: 'var(--md-sys-percent-120)',
-          top: 'var(--md-sys-percent-50)',
+          top: 'var(--app-layout-half)',
           transform: 'translateY(-50%)',
-          marginRight: 'var(--md-sys-spacing-2)'
+          marginRight: 'var(--app-spacing-component)'
         };
       case 'right':
         return {
           ...baseStyle,
           left: 'var(--md-sys-percent-120)',
-          top: 'var(--md-sys-percent-50)',
+          top: 'var(--app-layout-half)',
           transform: 'translateY(-50%)',
-          marginLeft: 'var(--md-sys-spacing-2)'
+          marginLeft: 'var(--app-spacing-component)'
         };
       default:
         return baseStyle;
@@ -149,7 +149,7 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
               variant="body-small"
               style={{fontWeight: '500',
                 color: 'inherit',
-                lineHeight: 'var(--md-sys-typescale-body-small-line-height)'}}
+                lineHeight: 'var(--app-text-body-line-height)'}}
             >
               {label}
             </M3Typography>

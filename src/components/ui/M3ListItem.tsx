@@ -26,28 +26,28 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
 
     // MD3 CSS Variables - Direct token usage (no useTheme dependency)
     const surfaceContainerHigh = 'var(--md-sys-color-surface-container-high)';
-    const primary = 'var(--md-sys-color-primary)';
-    const onSurface = 'var(--md-sys-color-on-surface)';
+    const primary = 'var(--app-color-primary)';
+    const onSurface = 'var(--app-color-on-surface)';
     const onSurfaceVariant = 'var(--md-sys-color-on-surface-variant)';
     const spacing1 = 'var(--md-sys-spacing-1)';
-    const spacing4 = 'var(--md-sys-spacing-4)';
+    const spacing4 = 'var(--app-spacing-container)';
     const spacing8 = 'var(--md-sys-spacing-8)';
     const spacing12 = 'var(--md-sys-spacing-12)';
     const cornerMedium = 'var(--md-sys-shape-corner-medium)';
     const durationShort2 = 'var(--md-sys-motion-duration-short2)';
-    const easingStandard = 'var(--md-sys-motion-easing-standard)';
-    const bodyMediumFontSize = 'var(--md-sys-typescale-body-medium-font-size)';
-    const bodyMediumFontWeight = 'var(--md-sys-typescale-body-medium-font-weight)';
-    const bodyMediumLineHeight = 'var(--md-sys-typescale-body-medium-line-height)';
-    const titleMediumFontSize = 'var(--md-sys-typescale-title-medium-font-size)';
-    const titleMediumFontWeight = 'var(--md-sys-typescale-title-medium-font-weight)';
-    const titleMediumLineHeight = 'var(--md-sys-typescale-title-medium-line-height)';
-    const bodyLargeFontSize = 'var(--md-sys-typescale-body-large-font-size)';
-    const bodyLargeFontWeight = 'var(--md-sys-typescale-body-large-font-weight)';
-    const bodyLargeLineHeight = 'var(--md-sys-typescale-body-large-line-height)';
-    const bodySmallFontSize = 'var(--md-sys-typescale-body-small-font-size)';
-    const bodySmallFontWeight = 'var(--md-sys-typescale-body-small-font-weight)';
-    const bodySmallLineHeight = 'var(--md-sys-typescale-body-small-line-height)';
+    const easingStandard = 'var(--app-easing-standard)';
+    const bodyMediumFontSize = 'var(--app-text-body)';
+    const bodyMediumFontWeight = 'var(--app-text-body-weight)';
+    const bodyMediumLineHeight = 'var(--app-text-body-line-height)';
+    const titleMediumFontSize = 'var(--app-text-title)';
+    const titleMediumFontWeight = 'var(--app-text-title-weight)';
+    const titleMediumLineHeight = 'var(--app-text-title-line-height)';
+    const bodyLargeFontSize = 'var(--app-text-body)';
+    const bodyLargeFontWeight = 'var(--app-text-body-weight)';
+    const bodyLargeLineHeight = 'var(--app-text-body-line-height)';
+    const bodySmallFontSize = 'var(--app-text-body)';
+    const bodySmallFontWeight = 'var(--app-text-body-weight)';
+    const bodySmallLineHeight = 'var(--app-text-body-line-height)';
     
     return (
         <div
@@ -70,11 +70,11 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
                 minHeight: spacing12,
                 cursor: isClickable ? 'pointer' : 'default',
                 backgroundColor: (hovered || focused) && isClickable ? surfaceContainerHigh : 'transparent',
-                outline: focused && isClickable ? `var(--md-sys-border-width-thick) solid ${primary}` : 'none',
+                outline: focused && isClickable ? `var(--app-border-thick) solid ${primary}` : 'none',
                 outlineOffset: focused ? 'var(--md-sys-spacing-8)' : 'var(--md-sys-spacing-0)',
                 border: 'none',
                 textAlign: 'left',
-                width: 'var(--md-sys-percent-100)'
+                width: 'var(--app-layout-full)'
             }}
             onMouseEnter={() => {
                 if (isClickable) setHovered(true);

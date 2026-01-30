@@ -6,12 +6,12 @@ import M3Button from './M3Button';
 // MD3 Token Constants - Direct CSS Variables
 const MD3_TOKENS = {
   // Colors
-  primaryContainer: 'var(--md-sys-color-primary-container)',
-  onPrimaryContainer: 'var(--md-sys-color-on-primary-container)',
-  primary: 'var(--md-sys-color-primary)',
-  secondaryContainer: 'var(--md-sys-color-secondary-container)',
-  onSecondaryContainer: 'var(--md-sys-color-on-secondary-container)',
-  secondary: 'var(--md-sys-color-secondary)',
+  primaryContainer: 'var(--app-color-primary-container)',
+  onPrimaryContainer: 'var(--app-color-on-primary-container)',
+  primary: 'var(--app-color-primary)',
+  secondaryContainer: 'var(--app-color-secondary-container)',
+  onSecondaryContainer: 'var(--app-color-on-secondary-container)',
+  secondary: 'var(--app-color-secondary)',
   tertiaryContainer: 'var(--md-sys-color-tertiary-container)',
   onTertiaryContainer: 'var(--md-sys-color-on-tertiary-container)',
   tertiary: 'var(--md-sys-color-tertiary)',
@@ -21,20 +21,20 @@ const MD3_TOKENS = {
   cornerFull: 'var(--md-sys-shape-corner-full)',
 
   // Spacing
-  spacing2: 'var(--md-sys-spacing-2)',
-  spacing3: 'var(--md-sys-spacing-3)',
-  spacing4: 'var(--md-sys-spacing-4)',
-  spacing6: 'var(--md-sys-spacing-6)',
+  spacing2: 'var(--app-spacing-component)',
+  spacing3: 'var(--app-spacing-element)',
+  spacing4: 'var(--app-spacing-container)',
+  spacing6: 'var(--app-spacing-section)',
 
   // Motion
   durationShort2: 'var(--md-sys-motion-duration-short2)',
-  easingStandard: 'var(--md-sys-motion-easing-standard)',
+  easingStandard: 'var(--app-easing-standard)',
 
   // Elevation
   elevation1: 'var(--md-sys-elevation-level1)',
 
   // Typography
-  labelLargeFontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
+  labelLargeFontWeight: 'var(--app-text-label-weight)',
 } as const;
 
 /**
@@ -137,7 +137,7 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
         borderRadius: MD3_TOKENS.cornerLarge,
         padding: MD3_TOKENS.spacing4,
         boxShadow: 'var(--md-sys-elevation-level1)',
-        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
+        transition: `all var(--app-motion-quick) var(--app-easing-standard)`
       }}
     >
       {/* Header section with icon and title */}
@@ -163,7 +163,7 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
           >
             <span
               style={{fontFamily: 'Material Symbols Outlined',
-                fontSize: 'var(--md-sys-spacing-4)'
+                fontSize: 'var(--app-spacing-container)'
               }}
             >
               {leadingIcon}

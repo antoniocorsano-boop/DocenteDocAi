@@ -152,9 +152,9 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                 style={{
                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                    padding: 'var(--md-sys-spacing-6)',
+                    padding: 'var(--app-spacing-section)',
                     cursor: 'pointer',
-                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                    border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
                     transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out'
                 }}
                 onClick={() => setIsIdeaModalOpen(true)}
@@ -162,20 +162,20 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--md-sys-spacing-4)'
+                    gap: 'var(--app-spacing-container)'
                 }}>
                     <div style={{
-                        backgroundColor: 'var(--md-sys-color-primary-container)',
+                        backgroundColor: 'var(--app-color-primary-container)',
                         borderRadius: 'var(--md-sys-shape-corner-full)',
-                        padding: 'var(--md-sys-spacing-3)',
+                        padding: 'var(--app-spacing-element)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--md-sys-typescale-display-small-font-size)',
-                            color: 'var(--md-sys-color-on-primary-container)'
+                            fontSize: 'var(--app-text-display)',
+                            color: 'var(--app-color-on-primary-container)'
                         }}>lightbulb</span>
                     </div>
                     <div>
@@ -190,13 +190,13 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
 
             {/* Lesson Sequence Generator */}
             <details style={{
-                backgroundColor: 'var(--md-sys-color-surface-container)',
+                backgroundColor: 'var(--app-color-surface-container)',
                 borderRadius: 'var(--md-sys-shape-corner-medium)',
-                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                marginTop: 'var(--md-sys-spacing-6)'
+                border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+                marginTop: 'var(--app-spacing-section)'
             }}>
                 <summary style={{
-                    padding: 'var(--md-sys-spacing-4)',
+                    padding: 'var(--app-spacing-container)',
                     cursor: 'pointer',
                     listStyle: 'none',
                     display: 'flex',
@@ -206,28 +206,28 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--md-sys-spacing-3)'
+                        gap: 'var(--app-spacing-element)'
                     }}>
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-                            color: 'var(--md-sys-color-primary)'
+                            fontSize: 'var(--app-text-title)',
+                            color: 'var(--app-color-primary)'
                         }}>auto_awesome</span>
                         <span style={{
-                            fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-                            fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)',
-                            color: 'var(--md-sys-color-on-surface)'
+                            fontSize: 'var(--app-text-title)',
+                            fontWeight: 'var(--app-text-title-weight)',
+                            color: 'var(--app-color-on-surface)'
                         }}>Generatore Sequenze Lezioni</span>
                     </div>
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
-                        fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                        fontSize: 'var(--app-text-title)',
                         color: 'var(--md-sys-color-on-surface-variant)'
                     }}>expand_more</span>
                 </summary>
                 <div style={{
-                    padding: 'var(--md-sys-spacing-4)',
-                    borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
+                    padding: 'var(--app-spacing-container)',
+                    borderTop: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'
                 }}>
                     <M3Typography variant="body-medium">
                         Seleziona le Unità di Apprendimento (UDA) e le classi. L'AI genererà una sequenza di lezioni strutturata per ogni classe, basandosi sui documenti KB selezionati.
@@ -235,18 +235,18 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                     <div style={{
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: 'var(--md-sys-spacing-6)'
+                        gap: 'var(--app-spacing-section)'
                     }}>
                         {/* UDA Selection */}
                         <div style={{
                             backgroundColor: 'var(--md-sys-color-surface-container-low)',
                             borderRadius: 'var(--md-sys-shape-corner-medium)',
-                            padding: 'var(--md-sys-spacing-4)'
+                            padding: 'var(--app-spacing-container)'
                         }}>
                             <M3Typography variant="title-large">1. Seleziona UDA</M3Typography>
                             {/* Centralized Selection Container */}
                             <div style={{
-                                marginTop: 'var(--md-sys-spacing-3)',
+                                marginTop: 'var(--app-spacing-element)',
                                 maxHeight: 'var(--md-sys-spacing-40)',
                                 overflowY: 'auto'
                             }}>
@@ -254,8 +254,8 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                     <div key={uda.id} style={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: 'var(--md-sys-spacing-2)',
-                                        padding: 'var(--md-sys-spacing-2)',
+                                        gap: 'var(--app-spacing-component)',
+                                        padding: 'var(--app-spacing-component)',
                                         borderRadius: 'var(--md-sys-shape-corner-small)'
                                     }}>
                                         <input type="checkbox" id={`uda-select-${uda.id}`} checked={selectedUdaIds.includes(uda.id)} onChange={() => handleUdaSelection(uda.id)} />
@@ -264,9 +264,9 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                             flex: 1
                                         }}>{selectedUdaIds.includes(uda.id) && <span style={{
                                             fontFamily: 'Material Symbols Outlined',
-                                            fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                                            color: 'var(--md-sys-color-primary)',
-                                            marginRight: 'var(--md-sys-spacing-2)'
+                                            fontSize: 'var(--app-text-body)',
+                                            color: 'var(--app-color-primary)',
+                                            marginRight: 'var(--app-spacing-component)'
                                         }}>check</span>}{uda.title}</label>
                                     </div>
                                 )) : <M3Typography variant="body-medium">Nessuna UDA trovata. Creane una nel Planner.</M3Typography>}
@@ -276,13 +276,13 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                         <div style={{
                             backgroundColor: 'var(--md-sys-color-surface-container-low)',
                             borderRadius: 'var(--md-sys-shape-corner-medium)',
-                            padding: 'var(--md-sys-spacing-4)'
+                            padding: 'var(--app-spacing-container)'
                         }}>
-                            <M3Typography variant="title-large" style={{marginBottom: 'var(--md-sys-spacing-3)'}}>2. Seleziona Classi</M3Typography>
+                            <M3Typography variant="title-large" style={{marginBottom: 'var(--app-spacing-element)'}}>2. Seleziona Classi</M3Typography>
                             {/* Centralized Selection Container */}
                             <div style={{
-                                padding: 'var(--md-sys-spacing-2)',
-                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                                padding: 'var(--app-spacing-component)',
+                                border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
                                 borderRadius: 'var(--md-sys-shape-corner-small)',
                                 maxHeight: 'var(--md-sys-spacing-40)',
                                 overflowY: 'auto'
@@ -291,20 +291,20 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                     <div key={c} style={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: 'var(--md-sys-spacing-2)',
-                                        padding: 'var(--md-sys-spacing-2)'
+                                        gap: 'var(--app-spacing-component)',
+                                        padding: 'var(--app-spacing-component)'
                                     }}>
                                         <input type="checkbox" id={`class-select-${c}`} checked={selectedClasses.includes(c)} onChange={() => handleClassSelection(c)} />
                                         <label htmlFor={`class-select-${c}`} style={{
-                                            width: 'var(--md-sys-percent-100)',
+                                            width: 'var(--app-layout-full)',
                                             cursor: 'pointer',
                                             display: 'flex',
                                             alignItems: 'center'
                                         }}>{selectedClasses.includes(c) && <span style={{
                                             fontFamily: 'Material Symbols Outlined',
-                                            fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-                                            color: 'var(--md-sys-color-primary)',
-                                            marginRight: 'var(--md-sys-spacing-2)'
+                                            fontSize: 'var(--app-text-title)',
+                                            color: 'var(--app-color-primary)',
+                                            marginRight: 'var(--app-spacing-component)'
                                         }}>check</span>}{c}</label>
                                     </div>
                                 ))}
@@ -314,23 +314,23 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                         <div style={{
                             backgroundColor: 'var(--md-sys-color-surface-container-low)',
                             borderRadius: 'var(--md-sys-shape-corner-medium)',
-                            padding: 'var(--md-sys-spacing-4)'
+                            padding: 'var(--app-spacing-container)'
                         }}>
                             <div style={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
-                                marginBottom: 'var(--md-sys-spacing-3)'
+                                marginBottom: 'var(--app-spacing-element)'
                             }}>
                                 <M3Typography variant="title-large">3. Contesto KB</M3Typography>
                                 <span style={{
                                     color: 'var(--md-sys-color-on-surface-variant)',
-                                    fontSize: 'var(--md-sys-typescale-body-small-font-size)'
+                                    fontSize: 'var(--app-text-body)'
                                 }}>{selectedKbIds.length} selezionati</span>
                             </div>
                             <div style={{
-                                padding: 'var(--md-sys-spacing-2)',
-                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                                padding: 'var(--app-spacing-component)',
+                                border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
                                 borderRadius: 'var(--md-sys-shape-corner-small)',
                                 maxHeight: 'var(--md-sys-spacing-40)',
                                 overflowY: 'auto'
@@ -339,25 +339,25 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                     <div key={kb.id} style={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: 'var(--md-sys-spacing-2)',
-                                        padding: 'var(--md-sys-spacing-2)'
+                                        gap: 'var(--app-spacing-component)',
+                                        padding: 'var(--app-spacing-component)'
                                     }}>
                                         <input type="checkbox" id={`kb-select-${kb.id}`} checked={selectedKbIds.includes(kb.id)} onChange={() => handleKbSelection(kb.id)} />
                                         <label htmlFor={`kb-select-${kb.id}`} style={{
-                                            width: 'var(--md-sys-percent-100)',
+                                            width: 'var(--app-layout-full)',
                                             cursor: 'pointer',
                                             display: 'flex',
                                             alignItems: 'center',
-                                            gap: 'var(--md-sys-spacing-2)'
+                                            gap: 'var(--app-spacing-component)'
                                         }} title={kb.fileName}>
                                             {selectedKbIds.includes(kb.id) && <span style={{
                                                 fontFamily: 'Material Symbols Outlined',
-                                                fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-                                                color: 'var(--md-sys-color-primary)'
+                                                fontSize: 'var(--app-text-title)',
+                                                color: 'var(--app-color-primary)'
                                             }}>check</span>}
                                             <span style={{
-                                                color: 'var(--md-sys-color-primary)',
-                                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                                                color: 'var(--app-color-primary)',
+                                                fontSize: 'var(--app-text-body)',
                                                 fontFamily: 'Material Symbols Outlined'
                                             }}>{kb.isGenerated ? 'auto_awesome' : 'description'}</span>
                                             <span style={{
@@ -376,30 +376,30 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                         </div>
                     </div>
                     <div style={{
-                        marginTop: 'var(--md-sys-spacing-4)',
+                        marginTop: 'var(--app-spacing-container)',
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: 'var(--md-sys-spacing-3)'
+                        gap: 'var(--app-spacing-element)'
                     }}>
                         <button onClick={handleGenerateSequences} disabled={selectedUdaIds.length === 0 || selectedClasses.length === 0} style={{
-                            width: 'var(--md-sys-percent-100)',
-                            backgroundColor: selectedUdaIds.length === 0 || selectedClasses.length === 0 ? 'var(--md-sys-color-surface-container-highest)' : 'var(--md-sys-color-primary)',
-                            color: selectedUdaIds.length === 0 || selectedClasses.length === 0 ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',
+                            width: 'var(--app-layout-full)',
+                            backgroundColor: selectedUdaIds.length === 0 || selectedClasses.length === 0 ? 'var(--md-sys-color-surface-container-highest)' : 'var(--app-color-primary)',
+                            color: selectedUdaIds.length === 0 || selectedClasses.length === 0 ? 'var(--md-sys-color-on-surface-variant)' : 'var(--app-color-on-primary)',
                             border: 'none',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
-                            padding: 'var(--md-sys-spacing-4)',
-                            fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                            fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
+                            padding: 'var(--app-spacing-container)',
+                            fontSize: 'var(--app-text-label)',
+                            fontWeight: 'var(--app-text-label-weight)',
                             cursor: selectedUdaIds.length === 0 || selectedClasses.length === 0 ? 'not-allowed' : 'pointer',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            gap: 'var(--md-sys-spacing-2)',
+                            gap: 'var(--app-spacing-component)',
                             transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out'
                         }}>
                             <span style={{
                                 fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--md-sys-typescale-title-medium-font-size)'
+                                fontSize: 'var(--app-text-title)'
                             }}>auto_awesome</span>
                             Genera Sequenze di Lezioni
                         </button>
@@ -407,9 +407,9 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                             color: 'var(--md-sys-color-error)',
                             textAlign: 'center',
                             backgroundColor: 'var(--md-sys-color-error-container)',
-                            padding: 'var(--md-sys-spacing-3)',
+                            padding: 'var(--app-spacing-element)',
                             borderRadius: 'var(--md-sys-shape-corner-medium)',
-                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-error)'
+                            border: 'var(--app-border-thin) solid var(--md-sys-color-error)'
                         }}>{error}</M3Typography>}
                     </div>
                 </div>
@@ -417,20 +417,20 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
 
             {/* Lessons Archive */}
             <div style={{
-                backgroundColor: 'var(--md-sys-color-surface-container)',
+                backgroundColor: 'var(--app-color-surface-container)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                padding: 'var(--md-sys-spacing-6)',
-                marginTop: 'var(--md-sys-spacing-6)'
+                padding: 'var(--app-spacing-section)',
+                marginTop: 'var(--app-spacing-section)'
             }}>
                 <div style={{
                     display: 'flex',
                     flexWrap: 'wrap',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    gap: 'var(--md-sys-spacing-4)',
-                    marginBottom: 'var(--md-sys-spacing-6)',
-                    borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                    paddingBottom: 'var(--md-sys-spacing-4)'
+                    gap: 'var(--app-spacing-container)',
+                    marginBottom: 'var(--app-spacing-section)',
+                    borderBottom: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+                    paddingBottom: 'var(--app-spacing-container)'
                 }}>
                     <M3Typography variant="headline-medium">Archivio Lezioni ({lessons.length})</M3Typography>
 
@@ -438,22 +438,22 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                     <div style={{
                         display: 'flex',
                         flexWrap: 'wrap',
-                        gap: 'var(--md-sys-spacing-4)',
+                        gap: 'var(--app-spacing-container)',
                         alignItems: 'center'
                     }}>
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-3)'
+                            gap: 'var(--app-spacing-element)'
                         }}>
                             <M3Typography variant="body-medium" style={{minWidth: 'fit-content'}}>Classe:</M3Typography>
                             <select value={filterClass} onChange={e => setFilterClass(e.target.value)} style={{
                                 backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                                color: 'var(--md-sys-color-on-surface)',
-                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
+                                color: 'var(--app-color-on-surface)',
+                                border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
-                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                                padding: 'var(--app-spacing-component) var(--app-spacing-element)',
+                                fontSize: 'var(--app-text-body)',
                                 cursor: 'pointer'
                             }}>
                                 <option value="">Tutte le classi</option>
@@ -463,16 +463,16 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-3)'
+                            gap: 'var(--app-spacing-element)'
                         }}>
                             <M3Typography variant="body-medium" style={{minWidth: 'fit-content'}}>UDA:</M3Typography>
                             <select value={filterUda} onChange={e => setFilterUda(e.target.value)} style={{
                                 backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                                color: 'var(--md-sys-color-on-surface)',
-                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
+                                color: 'var(--app-color-on-surface)',
+                                border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
-                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                                padding: 'var(--app-spacing-component) var(--app-spacing-element)',
+                                fontSize: 'var(--app-text-body)',
                                 cursor: 'pointer'
                             }}>
                                 <option value="">Tutte le UDA</option>
@@ -482,9 +482,9 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                         {(filterClass || filterUda) && (
                             <button onClick={() => { setFilterClass(''); setFilterUda(''); }} style={{
                                 backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
+                                border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
                                 borderRadius: 'var(--md-sys-shape-corner-full)',
-                                padding: 'var(--md-sys-spacing-2)',
+                                padding: 'var(--app-spacing-component)',
                                 cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
@@ -493,7 +493,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                             }} title="Rimuovi filtri">
                                 <span style={{
                                     fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                                    fontSize: 'var(--app-text-title)',
                                     color: 'var(--md-sys-color-on-surface-variant)'
                                 }}>filter_alt_off</span>
                             </button>
@@ -504,17 +504,17 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--md-sys-spacing-4)'
+                    gap: 'var(--app-spacing-container)'
                 }}>
                     {groupedLessonsByClass.length > 0 ? (
                         groupedLessonsByClass.map(([classKey, udaGroups]) => (
                             <details key={classKey} open style={{
                                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
+                                border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'
                             }}>
                                 <summary style={{
-                                    padding: 'var(--md-sys-spacing-4)',
+                                    padding: 'var(--app-spacing-container)',
                                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
                                     borderRadius: 'var(--md-sys-shape-corner-medium) var(--md-sys-shape-corner-medium) 0 0',
                                     cursor: 'pointer',
@@ -524,28 +524,28 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                     justifyContent: 'space-between'
                                 }}>
                                     <span style={{
-                                        fontSize: 'var(--md-sys-typescale-title-large-font-size)',
-                                        fontWeight: 'var(--md-sys-typescale-title-large-font-weight)',
-                                        color: 'var(--md-sys-color-on-surface)'
+                                        fontSize: 'var(--app-text-title)',
+                                        fontWeight: 'var(--app-text-title-weight)',
+                                        color: 'var(--app-color-on-surface)'
                                     }}>Classe {classKey}</span>
                                     <span style={{
                                         fontFamily: 'Material Symbols Outlined',
-                                        fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                                        fontSize: 'var(--app-text-title)',
                                         color: 'var(--md-sys-color-on-surface-variant)'
                                     }}>expand_more</span>
                                 </summary>
                                 <div style={{
-                                    padding: 'var(--md-sys-spacing-4)'
+                                    padding: 'var(--app-spacing-container)'
                                 }}>
                                     {Object.entries(udaGroups).map(([udaKey, lessonItems]) => (
                                         <details key={udaKey} open={udaKey !== 'Lezioni Varie'} style={{
-                                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                                            border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
                                             borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                            marginBottom: 'var(--md-sys-spacing-4)',
-                                            backgroundColor: 'var(--md-sys-color-surface)'
+                                            marginBottom: 'var(--app-spacing-container)',
+                                            backgroundColor: 'var(--app-color-surface)'
                                         }}>
                                             <summary style={{
-                                                padding: 'var(--md-sys-spacing-3)',
+                                                padding: 'var(--app-spacing-element)',
                                                 cursor: 'pointer',
                                                 listStyle: 'none',
                                                 display: 'flex',
@@ -555,38 +555,38 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                                 borderRadius: 'var(--md-sys-shape-corner-medium) var(--md-sys-shape-corner-medium) 0 0'
                                             }}>
                                                 <span style={{
-                                                    color: 'var(--md-sys-color-primary)',
-                                                    fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-                                                    fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)'
+                                                    color: 'var(--app-color-primary)',
+                                                    fontSize: 'var(--app-text-title)',
+                                                    fontWeight: 'var(--app-text-title-weight)'
                                                 }}>{udaKey} ({lessonItems.length})</span>
                                                 <span style={{
                                                     fontFamily: 'Material Symbols Outlined',
-                                                    fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                                                    fontSize: 'var(--app-text-body)',
                                                     color: 'var(--md-sys-color-on-surface-variant)'
                                                 }}>expand_more</span>
                                             </summary>
                                             <div style={{
-                                                padding: 'var(--md-sys-spacing-3)',
+                                                padding: 'var(--app-spacing-element)',
                                                 display: 'flex',
                                                 flexDirection: 'column',
-                                                gap: 'var(--md-sys-spacing-2)'
+                                                gap: 'var(--app-spacing-component)'
                                             }}>
                                                 {lessonItems.map(lesson => (
                                                     <div key={lesson.id} style={{
                                                         backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                                         borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                                        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                                                        border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
                                                         cursor: 'pointer',
                                                         transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out'
                                                     }}>
                                                         <div onClick={() => onViewLesson(lesson)} style={{
-                                                            padding: 'var(--md-sys-spacing-4)',
+                                                            padding: 'var(--app-spacing-container)',
                                                             display: 'flex',
                                                             alignItems: 'center',
                                                             justifyContent: 'space-between'
                                                         }}>
                                                             <M3Typography variant="body-medium" style={{
-                                                                color: 'var(--md-sys-color-on-surface)',
+                                                                color: 'var(--app-color-on-surface)',
                                                                 flex: 1
                                                             }}>{lesson.contenuto}</M3Typography>
                                                             <M3Typography variant="body-small" style={{
@@ -594,23 +594,23 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                                             }}>{lesson.materia} • {lesson.tipoLezione || 'Lezione'}</M3Typography>
                                                         </div>
                                                         <button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `archive-${Date.now()}`, lesson)} style={{
-                                                            backgroundColor: 'var(--md-sys-color-primary)',
-                                                            color: 'var(--md-sys-color-on-primary)',
+                                                            backgroundColor: 'var(--app-color-primary)',
+                                                            color: 'var(--app-color-on-primary)',
                                                             border: 'none',
                                                             borderRadius: 'var(--md-sys-shape-corner-large)',
-                                                            padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-                                                            fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                                                            fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
+                                                            padding: 'var(--app-spacing-element) var(--app-spacing-container)',
+                                                            fontSize: 'var(--app-text-label)',
+                                                            fontWeight: 'var(--app-text-label-weight)',
                                                             cursor: 'pointer',
                                                             display: 'flex',
                                                             alignItems: 'center',
-                                                            gap: 'var(--md-sys-spacing-2)',
+                                                            gap: 'var(--app-spacing-component)',
                                                             transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out',
                                                             flexShrink: 0
                                                         }}>
                                                             <span style={{
                                                                 fontFamily: 'Material Symbols Outlined',
-                                                                fontSize: 'var(--md-sys-typescale-title-medium-font-size)'
+                                                                fontSize: 'var(--app-text-title)'
                                                             }}>door_open</span>
                                                             Avvia
                                                         </button>
@@ -628,18 +628,18 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                             padding: 'var(--md-sys-spacing-8)',
                             backgroundColor: 'var(--md-sys-color-surface-container-low)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
-                            border: 'var(--md-sys-border-width-thick) dashed var(--md-sys-color-outline-variant)'
+                            border: 'var(--app-border-thick) dashed var(--md-sys-color-outline-variant)'
                         }}>
                             <span style={{
                                 fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--md-sys-typescale-display-medium-font-size)',
+                                fontSize: 'var(--app-text-display)',
                                 color: 'var(--md-sys-color-on-surface-variant)',
                                 display: 'block',
-                                marginBottom: 'var(--md-sys-spacing-4)'
+                                marginBottom: 'var(--app-spacing-container)'
                             }}>history_edu</span>
                             <M3Typography variant="body-large" style={{
                                 color: 'var(--md-sys-color-on-surface-variant)',
-                                marginBottom: 'var(--md-sys-spacing-2)'
+                                marginBottom: 'var(--app-spacing-component)'
                             }}>Nessuna lezione trovata</M3Typography>
                             <M3Typography variant="body-medium" style={{
                                 color: 'var(--md-sys-color-on-surface-variant)'

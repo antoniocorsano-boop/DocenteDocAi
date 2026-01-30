@@ -59,7 +59,7 @@ const ManualSection: React.FC<ManualSectionProps> = ({
                             backgroundColor: color.surfaceContainerHigh,
                             boxShadow: 'var(--md-sys-elevation-level1)',
                             transform: iconHovered ? 'scale(1.1)' : 'scale(1)',
-                            transition: `transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
+                            transition: `transform var(--app-motion-quick) var(--app-easing-standard)`
                         }}
                         onMouseEnter={() => setIconHovered(true)}
                         onMouseLeave={() => setIconHovered(false)}
@@ -92,7 +92,7 @@ const ManualSection: React.FC<ManualSectionProps> = ({
                     style={{
                         width: spacing[8],
                         height: spacing[8],
-                        borderRadius: 'var(--md-sys-percent-50)',
+                        borderRadius: 'var(--app-layout-half)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -105,7 +105,7 @@ const ManualSection: React.FC<ManualSectionProps> = ({
                     <span
                         style={{
                             fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            fontSize: 'var(--app-text-body)',
                             color: color.onPrimary
                         }}
                     >

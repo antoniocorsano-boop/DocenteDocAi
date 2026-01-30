@@ -52,21 +52,21 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: 'var(--md-sys-spacing-4)',
-            padding: 'var(--md-sys-spacing-6)',
+            gap: 'var(--app-spacing-container)',
+            padding: 'var(--app-spacing-section)',
             borderRadius: 'var(--md-sys-shape-corner-large)',
-            border: isSelected ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
+            border: isSelected ? 'var(--app-border-thick) solid var(--app-color-primary)' : 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)',
             backgroundColor: isSelected
-                ? 'var(--md-sys-color-primary-container)'
-                : (hovered && !isSelected ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-surface-container)'),
+                ? 'var(--app-color-primary-container)'
+                : (hovered && !isSelected ? 'var(--md-sys-color-surface-container-high)' : 'var(--app-color-surface-container)'),
             boxShadow: isSelected
                 ? 'var(--md-sys-elevation-level3)'
                 : 'var(--md-sys-elevation-level1)',
             cursor: 'pointer',
-            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)',
             transform: isSelected ? 'scale(1.02)' : (hovered && !isSelected ? 'scale(1.01)' : 'scale(1)'),
-            outline: focused ? 'var(--md-sys-border-width-normal) solid var(--md-sys-color-primary)' : 'none',
-            outlineOffset: focused ? 'var(--md-sys-spacing-2)' : '0'
+            outline: focused ? 'var(--app-border-normal) solid var(--app-color-primary)' : 'none',
+            outlineOffset: focused ? 'var(--app-spacing-component)' : '0'
         }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -82,25 +82,25 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                 alignItems: 'center',
                 justifyContent: 'center',
                 backgroundColor: isSelected
-                    ? 'var(--md-sys-color-primary)'
+                    ? 'var(--app-color-primary)'
                     : `${color}20`,
                 color: isSelected
-                    ? 'var(--md-sys-color-on-primary)'
+                    ? 'var(--app-color-on-primary)'
                     : color,
-                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)',
                 transform: hovered && !isSelected ? 'rotate(6deg) scale(1.1)' : 'rotate(0deg) scale(1)'
             }}
         >
             <span style={{
                 fontFamily: 'Material Symbols Outlined',
-                fontSize: 'var(--md-sys-spacing-6)'
+                fontSize: 'var(--app-spacing-section)'
             }}>{icon}</span>
         </div>
         <div style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: 'var(--md-sys-spacing-4)'
+            gap: 'var(--app-spacing-container)'
         }}>
             <M3Typography
                 variant="label-large"
@@ -108,7 +108,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                     textAlign: 'center',
                     fontWeight: 900,
                     letterSpacing: '-0.025em',
-                    color: 'var(--md-sys-color-on-surface)',
+                    color: 'var(--app-color-on-surface)',
                     margin: 0
                 }}
             >
@@ -122,7 +122,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                         color: 'var(--md-sys-color-on-surface-variant)',
                         opacity: 0.7,
                         lineHeight: 1.3,
-                        padding: '0 var(--md-sys-spacing-4)',
+                        padding: '0 var(--app-spacing-container)',
                         display: '-webkit-box',
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: 'vertical',

@@ -59,12 +59,12 @@ export default {
           //   });
           // }
           
-          // ALLOW ONLY: String starting with 'var(--z-' or 'var(--md-sys-z-'
+          // ALLOW ONLY: String starting with 'var(--z-', 'var(--md-sys-z-', or 'var(--app-z-'
           if (value.type === 'Literal' && typeof value.value === 'string') {
-            if (!value.value.startsWith('var(--z-') && !value.value.startsWith('var(--md-sys-z-')) {
+            if (!value.value.startsWith('var(--z-') && !value.value.startsWith('var(--md-sys-z-') && !value.value.startsWith('var(--app-z-')) {
               context.report({
                 node: value,
-                message: `MD3 VIOLATION: z-index '${value.value}' must be var(--z-*) or var(--md-sys-z-*) CSS variable.`
+                message: `MD3 VIOLATION: z-index '${value.value}' must be var(--z-*), var(--md-sys-z-*), or var(--app-z-*) CSS variable.`
               });
             }
           }

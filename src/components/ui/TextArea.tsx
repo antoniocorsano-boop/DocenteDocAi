@@ -27,19 +27,19 @@ const TextArea: React.FC<TextAreaProps> = ({
         <div
             style={{display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-2)',
-                width: fullWidth ? 'var(--md-sys-percent-100)' : 'auto',
-                marginBottom: 'var(--md-sys-spacing-4)'}}
+                gap: 'var(--app-spacing-component)',
+                width: fullWidth ? 'var(--app-layout-full)' : 'auto',
+                marginBottom: 'var(--app-spacing-container)'}}
         >
             <label
                 htmlFor={props.id}
                 style={{color: 'var(--md-sys-color-on-surface-variant)',
-                    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                    fontSize: 'var(--app-text-label)',
                     fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
-                    fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
-                    lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+                    fontWeight: 'var(--app-text-label-weight)',
+                    lineHeight: 'var(--app-text-label-line-height)',
                     letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
-                    marginBottom: 'var(--md-sys-spacing-2)'}}
+                    marginBottom: 'var(--app-spacing-component)'}}
             >
                 {label}
             </label>
@@ -49,10 +49,10 @@ const TextArea: React.FC<TextAreaProps> = ({
                     display: 'flex',
                     alignItems: 'flex-start',
                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                    border: `var(--md-sys-border-width-normal) solid ${error ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)'}`,
+                    border: `var(--app-border-normal) solid ${error ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)'}`,
                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                    padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-                    transition: `all var(--md-sys-motion-duration-short-2) var(--md-sys-motion-easing-standard)`,
+                    padding: 'var(--app-spacing-element) var(--app-spacing-container)',
+                    transition: `all var(--md-sys-motion-duration-short-2) var(--app-easing-standard)`,
                     minHeight: 'var(--md-sys-spacing-12)'
                 }}
             >
@@ -61,15 +61,15 @@ const TextArea: React.FC<TextAreaProps> = ({
                     style={{flex: 1,
                         border: 'none',
                         backgroundColor: 'transparent',
-                        color: 'var(--md-sys-color-on-surface)',
-                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                        color: 'var(--app-color-on-surface)',
+                        fontSize: 'var(--app-text-body)',
                         fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
-                        fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-                        lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+                        fontWeight: 'var(--app-text-body-weight)',
+                        lineHeight: 'var(--app-text-body-line-height)',
                         letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)',
                         outline: 'none',
                         resize: 'none',
-                        width: 'var(--md-sys-percent-100)',
+                        width: 'var(--app-layout-full)',
                         minHeight: 'var(--md-sys-spacing-12)'}}
                     aria-label={label}
                     aria-invalid={error ? 'true' : undefined}
@@ -80,10 +80,10 @@ const TextArea: React.FC<TextAreaProps> = ({
                     <span
                         style={{fontFamily: 'Material Symbols Outlined',
                             position: 'absolute',
-                            left: 'var(--md-sys-spacing-2)',
-                            top: 'var(--md-sys-spacing-2)',
+                            left: 'var(--app-spacing-component)',
+                            top: 'var(--app-spacing-component)',
                             color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--md-sys-spacing-4)',
+                            fontSize: 'var(--app-spacing-container)',
                             pointerEvents: 'none'}}
                         aria-hidden="true"
                     >
@@ -102,17 +102,17 @@ const TextArea: React.FC<TextAreaProps> = ({
                     <span
                         style={{fontFamily: 'Material Symbols Outlined',
                             color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--md-sys-typescale-body-small-font-size)'}}
+                            fontSize: 'var(--app-text-body)'}}
                         aria-hidden="true"
                     >
                         error
                     </span>
                     <span
                         style={{color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                            fontSize: 'var(--app-text-body)',
                             fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
-                            fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
-                            lineHeight: 'var(--md-sys-typescale-body-small-line-height)',
+                            fontWeight: 'var(--app-text-body-weight)',
+                            lineHeight: 'var(--app-text-body-line-height)',
                             letterSpacing: 'var(--md-sys-typescale-body-small-letter-spacing)'}}
                     >
                         {errorMessage}

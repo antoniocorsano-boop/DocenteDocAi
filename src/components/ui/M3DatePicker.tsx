@@ -11,32 +11,32 @@ export type M3DatePickerProps = React.InputHTMLAttributes<HTMLInputElement> & {
 };
 
 const inputStyle: React.CSSProperties = {
-  width: 'var(--md-sys-percent-100)',
-  padding: 'var(--md-sys-spacing-3)',
+  width: 'var(--app-layout-full)',
+  padding: 'var(--app-spacing-element)',
   borderRadius: 'var(--md-sys-shape-corner-small)',
-  border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
+  border: 'var(--app-border-normal) solid var(--md-sys-color-outline)',
   boxSizing: 'border-box',
   backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-  color: 'var(--md-sys-color-on-surface)',
+  color: 'var(--app-color-on-surface)',
   fontFamily: 'var(--md-sys-typescale-body-large-font)',
-  fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+  fontSize: 'var(--app-text-body)',
 };
 
 const inputFocusStyle: React.CSSProperties = {
   ...inputStyle,
-  borderColor: 'var(--md-sys-color-primary)',
-  boxShadow: `0 0 0 var(--md-sys-spacing-2) var(--md-sys-color-primary-container)`,
+  borderColor: 'var(--app-color-primary)',
+  boxShadow: `0 0 0 var(--app-spacing-component) var(--app-color-primary-container)`,
 };
 
 const inputErrorStyle: React.CSSProperties = {
   ...inputStyle,
   borderColor: 'var(--md-sys-color-error)',
-  boxShadow: `0 0 0 var(--md-sys-spacing-2) var(--md-sys-color-error-container)`,
+  boxShadow: `0 0 0 var(--app-spacing-component) var(--md-sys-color-error-container)`,
 };
 
 const helperStyle: React.CSSProperties = {
   marginTop: 'var(--md-sys-spacing-1)',
-  fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+  fontSize: 'var(--app-text-body)',
   fontFamily: 'var(--md-sys-typescale-body-small-font)',
   color: 'var(--md-sys-color-on-surface-variant)',
 };
@@ -67,16 +67,16 @@ function M3DatePicker({
   };
 
   return (
-    <div style={{ width: 'var(--md-sys-percent-100)' }}>
+    <div style={{ width: 'var(--app-layout-full)' }}>
       {label ? (
         <label
           htmlFor={inputId}
           style={{display: 'block',
-            marginBottom: 'var(--md-sys-spacing-2)', 
-            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+            marginBottom: 'var(--app-spacing-component)', 
+            fontSize: 'var(--app-text-body)',
             fontFamily: 'var(--md-sys-typescale-body-large-font)',
-            fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-            color: 'var(--md-sys-color-on-surface)'}}
+            fontWeight: 'var(--app-text-body-weight)',
+            color: 'var(--app-color-on-surface)'}}
         >
           {label}
         </label>

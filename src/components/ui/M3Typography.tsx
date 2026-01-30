@@ -27,89 +27,89 @@ const M3Typography: React.FC<M3TypographyProps> = ({
     letterSpacing?: string;
   }> = {
     'display-large': {
-      fontSize: 'var(--md-sys-typescale-display-large-font-size)',
-      lineHeight: 'var(--md-sys-typescale-display-large-line-height)',
-      fontWeight: 'var(--md-sys-typescale-display-large-font-weight)'
+      fontSize: 'var(--app-text-display)',
+      lineHeight: 'var(--app-text-display-line-height)',
+      fontWeight: 'var(--app-text-display-weight)'
     },
     'display-medium': {
-      fontSize: 'var(--md-sys-typescale-display-medium-font-size)',
-      lineHeight: 'var(--md-sys-typescale-display-medium-line-height)',
-      fontWeight: 'var(--md-sys-typescale-display-medium-font-weight)'
+      fontSize: 'var(--app-text-display)',
+      lineHeight: 'var(--app-text-display-line-height)',
+      fontWeight: 'var(--app-text-display-weight)'
     },
     'display-small': {
-      fontSize: 'var(--md-sys-typescale-display-small-font-size)',
-      lineHeight: 'var(--md-sys-typescale-display-small-line-height)',
-      fontWeight: 'var(--md-sys-typescale-display-small-font-weight)'
+      fontSize: 'var(--app-text-display)',
+      lineHeight: 'var(--app-text-display-line-height)',
+      fontWeight: 'var(--app-text-display-weight)'
     },
     'headline-large': {
-      fontSize: 'var(--md-sys-typescale-headline-large-font-size)',
-      lineHeight: 'var(--md-sys-typescale-headline-large-line-height)',
-      fontWeight: 'var(--md-sys-typescale-headline-large-font-weight)'
+      fontSize: 'var(--app-text-title)',
+      lineHeight: 'var(--app-text-title-line-height)',
+      fontWeight: 'var(--app-text-title-weight)'
     },
     'headline-medium': {
-      fontSize: 'var(--md-sys-typescale-headline-medium-font-size)',
-      lineHeight: 'var(--md-sys-typescale-headline-medium-line-height)',
-      fontWeight: 'var(--md-sys-typescale-headline-medium-font-weight)'
+      fontSize: 'var(--app-text-title)',
+      lineHeight: 'var(--app-text-title-line-height)',
+      fontWeight: 'var(--app-text-title-weight)'
     },
     'headline-small': {
-      fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
-      lineHeight: 'var(--md-sys-typescale-headline-small-line-height)',
-      fontWeight: 'var(--md-sys-typescale-headline-small-font-weight)'
+      fontSize: 'var(--app-text-title)',
+      lineHeight: 'var(--app-text-title-line-height)',
+      fontWeight: 'var(--app-text-title-weight)'
     },
     'title-large': {
-      fontSize: 'var(--md-sys-typescale-title-large-font-size)',
-      lineHeight: 'var(--md-sys-typescale-title-large-line-height)',
-      fontWeight: 'var(--md-sys-typescale-title-large-font-weight)'
+      fontSize: 'var(--app-text-title)',
+      lineHeight: 'var(--app-text-title-line-height)',
+      fontWeight: 'var(--app-text-title-weight)'
     },
     'title-medium': {
-      fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-      lineHeight: 'var(--md-sys-typescale-title-medium-line-height)',
-      fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)'
+      fontSize: 'var(--app-text-title)',
+      lineHeight: 'var(--app-text-title-line-height)',
+      fontWeight: 'var(--app-text-title-weight)'
     },
     'title-small': {
-      fontSize: 'var(--md-sys-typescale-title-small-font-size)',
-      lineHeight: 'var(--md-sys-typescale-title-small-line-height)',
-      fontWeight: 'var(--md-sys-typescale-title-small-font-weight)'
+      fontSize: 'var(--app-text-title)',
+      lineHeight: 'var(--app-text-title-line-height)',
+      fontWeight: 'var(--app-text-title-weight)'
     },
     'body-large': {
-      fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-      lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-      fontWeight: 'var(--md-sys-typescale-body-large-font-weight)'
+      fontSize: 'var(--app-text-body)',
+      lineHeight: 'var(--app-text-body-line-height)',
+      fontWeight: 'var(--app-text-body-weight)'
     },
     'body-medium': {
-      fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-      lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
-      fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)'
+      fontSize: 'var(--app-text-body)',
+      lineHeight: 'var(--app-text-body-line-height)',
+      fontWeight: 'var(--app-text-body-weight)'
     },
     'body-small': {
-      fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-      lineHeight: 'var(--md-sys-typescale-body-small-line-height)',
-      fontWeight: 'var(--md-sys-typescale-body-small-font-weight)'
+      fontSize: 'var(--app-text-body)',
+      lineHeight: 'var(--app-text-body-line-height)',
+      fontWeight: 'var(--app-text-body-weight)'
     },
     'label-large': {
-      fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-      lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
-      fontWeight: 'var(--md-sys-typescale-label-large-font-weight)'
+      fontSize: 'var(--app-text-label)',
+      lineHeight: 'var(--app-text-label-line-height)',
+      fontWeight: 'var(--app-text-label-weight)'
     },
     'label-medium': {
-      fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
-      lineHeight: 'var(--md-sys-typescale-label-medium-line-height)',
-      fontWeight: 'var(--md-sys-typescale-label-medium-font-weight)'
+      fontSize: 'var(--app-text-label)',
+      lineHeight: 'var(--app-text-label-line-height)',
+      fontWeight: 'var(--app-text-label-weight)'
     },
     'label-small': {
-      fontSize: 'var(--md-sys-typescale-label-small-font-size)',
-      lineHeight: 'var(--md-sys-typescale-label-small-line-height)',
-      fontWeight: 'var(--md-sys-typescale-label-small-font-weight)'
+      fontSize: 'var(--app-text-label)',
+      lineHeight: 'var(--app-text-label-line-height)',
+      fontWeight: 'var(--app-text-label-weight)'
     },
     'button-primary': {
-      fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-      lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+      fontSize: 'var(--app-text-label)',
+      lineHeight: 'var(--app-text-label-line-height)',
       fontWeight: '900',
       letterSpacing: '0.1em'
     },
     'button-secondary': {
-      fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
-      lineHeight: 'var(--md-sys-typescale-label-medium-line-height)',
+      fontSize: 'var(--app-text-label)',
+      lineHeight: 'var(--app-text-label-line-height)',
       fontWeight: '700',
       letterSpacing: '0.05em'
     }
@@ -124,7 +124,7 @@ const M3Typography: React.FC<M3TypographyProps> = ({
     fontWeight: typographyConfig.fontWeight,
     lineHeight: typographyConfig.lineHeight,
     letterSpacing: typographyConfig.letterSpacing || 'var(--md-sys-typescale-body-large-letter-spacing)',
-    color: 'var(--md-sys-color-on-surface)', // Default color from MD3 sys layer
+    color: 'var(--app-color-on-surface)', // Default color from MD3 sys layer
     ...style
   };
 

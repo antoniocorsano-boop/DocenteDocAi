@@ -208,7 +208,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   inset: 0;
   background: currentColor;
   opacity: 0;
-  transition: opacity var(var(--md-sys-motion-duration-short)2) var(var(--md-sys-motion-easing-standard));
+  transition: opacity var(--motion-duration-short2) var(--motion-easing-standard);
   pointer-events: none;
 }
 

@@ -221,7 +221,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                         if (!giudizioStudente) return null;
 
                         // FIX: Ensure string conversion in cell key
-                        const getCellStyle = (field: string): React.CSSProperties => changedCells.has(`${key}-${String(field)}`) ? { backgroundColor: 'var(--md-sys-color-tertiary-container)', transition: 'background-color var(--md-sys-motion-duration-medium4) var(--md-sys-motion-easing-standard)' } : {};
+                        const getCellStyle = (field: string): React.CSSProperties => changedCells.has(`${key}-${String(field)}`) ? { backgroundColor: 'var(--md-sys-color-tertiary-container)', transition: 'background-color var(--md-sys-motion-duration-medium4) var(--app-easing-standard)' } : {};
 
                         return (
                             <tr key={student.id}>
@@ -268,7 +268,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
     );
 
     const renderMobileList = () => (
-        <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
+        <div  style={{gap: 'var(--app-spacing-element)'}}>
             {students.map(student => {
                  const isExpanded = expandedStudentId === student.id;
                  // FIX: Ensure string conversion in template literal key
@@ -282,25 +282,25 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 {hasStudentChanged(student.id) && <span  title="Dati modificati in questa sessione"></span>}
                                 <div>
                                     <h3  style={{ cursor: "pointer" }} onClick={(e) => { e.stopPropagation(); onViewStudentProfile(student); }}>{student.cognome} {student.nome}</h3>
-                                    <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)'}}>
+                                    <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--app-spacing-container)'}}>
                                         <span >Media: <strong>{performance.grade || 'N/D'}</strong></span>
                                         {performance.trend && (
-                                            <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>
+                                            <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-container)', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>
                                                 <span style={{ color: "var(--md-sys-color-on-surface-variant)" }}>{trendIcon}</span>
                                             </span>
                                         )}
                                     </div>
                                 </div>
                             </div>
-                            <span className="material-symbols-outlined" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}>expand_more</span>
+                            <span className="material-symbols-outlined" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--app-motion-quick) var(--app-easing-standard)' }}>expand_more</span>
                         </div>
                         <div style={{
                             display: isExpanded ? 'block' : 'none',
-                            borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                            backgroundColor: 'var(--md-sys-color-surface)',
-                            animation: isExpanded ? 'slideDown var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)-out' : 'none'
+                            borderTop: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+                            backgroundColor: 'var(--app-color-surface)',
+                            animation: isExpanded ? 'slideDown var(--app-motion-quick) var(--app-easing-standard)-out' : 'none'
                         }}>
-                             <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
+                             <div style={{gap: 'var(--app-spacing-container)', padding: 'var(--md-sys-spacing-8)'}}>
                                 <div>
                                     <label htmlFor={`votoDisciplina-${student.id}`} >Voto Disciplina</label>
                                     <input id={`votoDisciplina-${student.id}`} type="text"  value={giudizioStudente.votoDisciplina} onChange={e => handleLocalChange(student.id, 'votoDisciplina', e.target.value)} />
@@ -319,13 +319,13 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     </div>
                                 </div>
                                 <div>
-                                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-4)'}}>
+                                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--app-spacing-container)'}}>
                                         <label htmlFor={`giudizio-${student.id}`} >Note/Giudizio</label>
                                         <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
-                                            <span style={{ color: 'var(--md-sys-color-primary)' }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
+                                            <span style={{ color: 'var(--app-color-primary)' }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
                                         </M3Button>
                                     </div>
-                                    <textarea id={`giudizio-${student.id}`} value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ width: "var(--md-sys-percent-100)" }} rows={4} placeholder="Giudizio sintetico..."></textarea>
+                                    <textarea id={`giudizio-${student.id}`} value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ width: "var(--app-layout-full)" }} rows={4} placeholder="Giudizio sintetico..."></textarea>
                                 </div>
                                 {showFinalGrades && (
                                     <>
@@ -351,7 +351,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
     );
     
     return (
-        <div  style={{maxWidth: "var(--md-sys-percent-100)", marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", width: "var(--md-sys-percent-100)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
+        <div  style={{maxWidth: "var(--app-layout-full)", marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)", width: "var(--app-layout-full)", paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>
             <SectionHeader 
                 title="Consiglio di Classe"
                 subtitle={`Scrutinio e Valutazione Periodica • Classe ${selectedClass}`}
@@ -359,8 +359,8 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             />
 
             {/* Controls */}
-            <InfoCard variant="tonal" style={{padding: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)'}}>
-                <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+            <InfoCard variant="tonal" style={{padding: 'var(--app-spacing-section)', marginBottom: 'var(--md-sys-spacing-8)'}}>
+                <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", gap: 'var(--app-spacing-section)'}}>
                     <TabGroup 
                         activeTab={periodo}
                         onTabChange={(id) => setPeriodo(id as PeriodoValutazione)}
@@ -377,7 +377,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             disabled={isExporting}
                             variant="tonal"
                         >
-                            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>picture_as_pdf</span>
+                            <span  style={{ marginRight: "var(--app-spacing-component)" }}>picture_as_pdf</span>
                             Esporta PDF
                         </M3Button>
                         <M3Button 
@@ -385,7 +385,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             disabled={isExporting}
                             variant="tonal"
                         >
-                            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>description</span>
+                            <span  style={{ marginRight: "var(--app-spacing-component)" }}>description</span>
                             Esporta Word
                         </M3Button>
                         <M3Button 
@@ -393,7 +393,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             disabled={isGeneratingNarrative}
                             variant="filled"
                         >
-                            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>auto_awesome</span>
+                            <span  style={{ marginRight: "var(--app-spacing-component)" }}>auto_awesome</span>
                             {isGeneratingNarrative ? 'Generazione...' : 'Report Narrativo AI'}
                         </M3Button>
                     </div>
@@ -402,14 +402,14 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
 
             {narrativeReport && (
                 <InfoCard variant="elevated" style={{ backgroundColor: sys.colors.primaryContainer/5 , padding: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
-                    <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-6)'}}>
-                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
-                            <div style={{ backgroundColor: sys.colors.primary/10 , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-primary)"}}>
+                    <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--app-spacing-section)'}}>
+                        <div style={{display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)'}}>
+                            <div style={{ backgroundColor: sys.colors.primary/10 , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", borderRadius: 'var(--app-spacing-container)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--app-color-primary)"}}>
                                 <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>description</span>
                             </div>
-                            <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>Report Narrativo Suggerito</h3>
+                            <h3 style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "900" }}>Report Narrativo Suggerito</h3>
                         </div>
                         <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
                             <M3Button variant="text" onClick={() => setNarrativeReport(null)}>Chiudi</M3Button>
@@ -417,19 +417,19 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 navigator.clipboard.writeText(narrativeReport);
                                 alert("Report copiato!");
                             }}>
-                                <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>content_copy</span>
+                                <span  style={{ marginRight: "var(--app-spacing-component)" }}>content_copy</span>
                                 Copia
                             </M3Button>
                         </div>
                     </div>
-                    <div style={{ color: 'var(--md-sys-color-on-primary)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', lineHeight: "1.625", whiteSpace: "pre-wrap", padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
+                    <div style={{ color: 'var(--app-color-on-primary)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', lineHeight: "1.625", whiteSpace: "pre-wrap", padding: 'var(--app-spacing-section)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>
                         {narrativeReport}
                     </div>
                 </InfoCard>
             )}
 
             <InfoCard variant="elevated" style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
-                 <div  style={{padding: 'var(--md-sys-spacing-8)', display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-8)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                 <div  style={{padding: 'var(--md-sys-spacing-8)', display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-8)', borderBottom: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
                     <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                         {Object.keys(expandedColumns).map(key => (
                             <M3Button
@@ -439,7 +439,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 size="small"
                                 
                             >
-                                {expandedColumns[key as keyof typeof expandedColumns] && <span  style={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>check</span>}
+                                {expandedColumns[key as keyof typeof expandedColumns] && <span  style={{ fontSize: 'var(--app-text-label)' }}>check</span>}
                                 {key.charAt(0).toUpperCase() + key.slice(1)}
                             </M3Button>
                         ))}

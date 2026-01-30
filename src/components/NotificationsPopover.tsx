@@ -71,23 +71,23 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                     position: 'sticky',
                     top: 0,
                     backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                    backdropFilter: `blur(${'var(--md-sys-spacing-2)'})`,
-                    padding: `${'var(--md-sys-spacing-4)'} ${'var(--md-sys-spacing-6)'}`,
-                    borderBottom: `var(--md-sys-border-width-thin) solid ${'var(--md-sys-color-outline-variant)'}`,
+                    backdropFilter: `blur(${'var(--app-spacing-component)'})`,
+                    padding: `${'var(--app-spacing-container)'} ${'var(--app-spacing-section)'}`,
+                    borderBottom: `var(--app-border-thin) solid ${'var(--md-sys-color-outline-variant)'}`,
                     zIndex: 'var(--md-sys-z-sticky)',
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    gap: 'var(--md-sys-spacing-4)'}}
+                    gap: 'var(--app-spacing-container)'}}
             >
                 <M3Typography
                     variant="body-medium"
                     style={{fontWeight: '500',
-                        color: 'var(--md-sys-color-on-surface)'}}
+                        color: 'var(--app-color-on-surface)'}}
                 >
                     Notifiche
                 </M3Typography>
-                <div style={{display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)'}}>
+                <div style={{display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-component)'}}>
                     {unreadCount > 0 && (
                         <M3Button
                             onClick={onMarkAllAsRead}
@@ -111,7 +111,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                             cursor: 'pointer',
                             color: 'var(--md-sys-color-on-surface-variant)',
                             borderRadius: 'var(--md-sys-shape-corner-full)',
-                            transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
+                            transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`}}
                         onMouseEnter={() => {
                             // Hover effect handled via CSS
                         }}
@@ -128,7 +128,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                     >
                         <span
                             style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--md-sys-spacing-4)',
+                                fontSize: 'var(--app-spacing-container)',
                                 color: 'inherit'}}
                         >
                             close
@@ -142,14 +142,14 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                 style={{maxHeight: 'min(calc(0.7 * var(--md-sys-viewport-height-full)), calc(var(--md-sys-spacing-20) * 6.4))',
                     overflowY: 'auto',
                     overflowX: 'hidden',
-                    padding: 'var(--md-sys-spacing-2)'}}
+                    padding: 'var(--app-spacing-component)'}}
             >
                 {sortedNotifiche.length > 0 ? (
                     <div
                         style={{display: 'flex',
                             flexDirection: 'column',
-                            gap: 'var(--md-sys-spacing-2)',
-                            padding: 'var(--md-sys-spacing-2)'}}
+                            gap: 'var(--app-spacing-component)',
+                            padding: 'var(--app-spacing-component)'}}
                     >
                         {sortedNotifiche.map(notifica => (
                             <div
@@ -165,16 +165,16 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                     }
                                 }}
                                 style={{
-                                    padding: 'var(--md-sys-spacing-4)',
+                                    padding: 'var(--app-spacing-container)',
                                     borderRadius: 'var(--md-sys-shape-corner-medium)',
                                     cursor: 'pointer',
                                     backgroundColor: notifica.letta
                                         ? 'var(--md-sys-color-surfaceContainer)'
                                         : 'var(--md-sys-color-surface-dim)',
-                                    border: `var(--md-sys-border-width-thin) solid ${notifica.letta
+                                    border: `var(--app-border-thin) solid ${notifica.letta
                                         ? 'var(--md-sys-color-outline-variant)'
-                                        : 'var(--md-sys-color-primary)'}`,
-                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                        : 'var(--app-color-primary)'}`,
+                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)',
                                     outline: 'none'
                                 }}
                                 onMouseEnter={(e) => {
@@ -196,14 +196,14 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                             >
                                 <div
                                     style={{display: 'flex',
-                                        gap: 'var(--md-sys-spacing-4)',
+                                        gap: 'var(--app-spacing-container)',
                                         alignItems: 'flex-start'}}
                                 >
                                     {/* Icon */}
                                     <div
                                         style={{
-                                            width: 'calc(var(--md-sys-spacing-8) + var(--md-sys-spacing-2))',
-                                            height: 'calc(var(--md-sys-spacing-8) + var(--md-sys-spacing-2))',
+                                            width: 'calc(var(--md-sys-spacing-8) + var(--app-spacing-component))',
+                                            height: 'calc(var(--md-sys-spacing-8) + var(--app-spacing-component))',
                                             borderRadius: 'var(--md-sys-shape-corner-medium)',
                                             display: 'flex',
                                             alignItems: 'center',
@@ -211,15 +211,15 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                             flexShrink: 0,
                                             backgroundColor: notifica.letta
                                                 ? 'var(--md-sys-color-surface-container-high)'
-                                                : 'var(--md-sys-color-primary)',
+                                                : 'var(--app-color-primary)',
                                             color: notifica.letta
                                                 ? 'var(--md-sys-color-on-surface-variant)'
-                                                : 'var(--md-sys-color-on-primary)',
-                                            transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
+                                                : 'var(--app-color-on-primary)',
+                                            transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`}}
                                     >
                                         <span
                                             style={{fontFamily: 'Material Symbols Outlined',
-                                                fontSize: 'var(--md-sys-spacing-4)',
+                                                fontSize: 'var(--app-spacing-container)',
                                                 color: 'inherit'}}
                                         >
                                             {notifica.type === 'circular' ? 'feed' : 'notifications'}
@@ -237,7 +237,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                             style={{display: 'flex',
                                                 justifyContent: 'space-between',
                                                 alignItems: 'flex-start',
-                                                gap: 'var(--md-sys-spacing-2)',
+                                                gap: 'var(--app-spacing-component)',
                                                 marginBottom: 'var(--md-sys-spacing-1)'}}
                                         >
                                             <M3Typography
@@ -249,31 +249,31 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                                     flex: 1,
                                                     color: notifica.letta
                                                         ? 'var(--md-sys-color-on-surface-variant)'
-                                                        : 'var(--md-sys-color-on-surface)'}}
+                                                        : 'var(--app-color-on-surface)'}}
                                             >
                                                 {notifica.titolo}
                                             </M3Typography>
                                             {!notifica.letta && (
                                                 <div
-                                                    style={{width: 'var(--md-sys-spacing-2)',
-                                                        height: 'var(--md-sys-spacing-2)',
+                                                    style={{width: 'var(--app-spacing-component)',
+                                                        height: 'var(--app-spacing-component)',
                                                         borderRadius: 'var(--md-sys-shape-corner-full)',
-                                                        backgroundColor: 'var(--md-sys-color-primary)',
+                                                        backgroundColor: 'var(--app-color-primary)',
                                                         flexShrink: 0,
-                                                        marginTop: 'var(--md-sys-spacing-2)'}}
+                                                        marginTop: 'var(--app-spacing-component)'}}
                                                 />
                                             )}
                                         </div>
                                         <p
-                                            style={{fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                                            style={{fontSize: 'var(--app-text-body)',
                                                 color: 'var(--md-sys-color-on-surface-variant)',
                                                 display: '-webkit-box',
                                                 overflow: 'hidden',
                                                 WebkitLineClamp: 2,
                                                 lineClamp: 2,
                                                 WebkitBoxOrient: 'vertical',
-                                                margin: `0 0 ${'var(--md-sys-spacing-2)'} 0`,
-                                                lineHeight: 'var(--md-sys-typescale-body-small-line-height)'}}
+                                                margin: `0 0 ${'var(--app-spacing-component)'} 0`,
+                                                lineHeight: 'var(--app-text-body-line-height)'}}
                                         >
                                             {notifica.messaggio}
                                         </p>
@@ -304,9 +304,9 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                                         <span
                                                             style={{
   fontFamily: 'Material Symbols Outlined',
-  fontSize: 'var(--md-sys-spacing-3)',
+  fontSize: 'var(--app-spacing-element)',
   marginRight: 'var(--md-sys-spacing-1)',
-  color: 'var(--md-sys-color-primary)'
+  color: 'var(--app-color-primary)'
 }}
                                                         >
                                                             auto_awesome
@@ -328,7 +328,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                             flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            padding: `${'var(--md-sys-spacing-8)'} ${'var(--md-sys-spacing-6)'}`,
+                            padding: `${'var(--md-sys-spacing-8)'} ${'var(--app-spacing-section)'}`,
                             color: 'var(--md-sys-color-on-surface-variant)'}}
                     >
                         <div
@@ -340,7 +340,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                marginBottom: 'var(--md-sys-spacing-4)'}}
+                                marginBottom: 'var(--app-spacing-container)'}}
                         >
                             <span
                                 style={{

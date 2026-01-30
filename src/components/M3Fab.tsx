@@ -20,15 +20,15 @@ export const M3Fab: React.FC<M3FabProps> = ({
   // MD3 token mapping (example, replace with your actual tokens)
   const backgroundToken =
     variant === "primary"
-      ? "var(--md-sys-color-primary-container)"
+      ? "var(--app-color-primary-container)"
       : variant === "secondary"
-      ? "var(--md-sys-color-secondary-container)"
+      ? "var(--app-color-secondary-container)"
       : "var(--md-sys-color-tertiary-container)";
   const colorToken =
     variant === "primary"
-      ? "var(--md-sys-color-on-primary-container)"
+      ? "var(--app-color-on-primary-container)"
       : variant === "secondary"
-      ? "var(--md-sys-color-on-secondary-container)"
+      ? "var(--app-color-on-secondary-container)"
       : "var(--md-sys-color-on-tertiary-container)";
   const elevationToken = "var(--md-sys-elevation-level3)";
   const shapeToken = "var(--md-sys-shape-corner-full)";

@@ -117,7 +117,7 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            transition: 'background var(--md-sys-motion-duration-short)',
+            transition: 'background 0.2s',
           }}
         >×</button>
       {/* Wizard AI generativo */}

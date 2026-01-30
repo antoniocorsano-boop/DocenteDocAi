@@ -26,34 +26,34 @@ export const M3Button: React.FC<M3ButtonProps> = ({
 }) => { 
   // MD3 Token mapping - no useTheme() dependency
   // Variant tokens using direct MD3 CSS variables
-  let backgroundColor = 'var(--md-sys-color-primary)';
-  let color = 'var(--md-sys-color-on-primary)';
+  let backgroundColor = 'var(--app-color-primary)';
+  let color = 'var(--app-color-on-primary)';
   let border = 'none';
   let boxShadow = 'none';
   if (variant === 'text') {
     backgroundColor = 'transparent';
-    color = 'var(--md-sys-color-primary)';
+    color = 'var(--app-color-primary)';
   } else if (variant === 'outlined') {
     backgroundColor = 'transparent';
-    color = 'var(--md-sys-color-primary)';
-    border = 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)';
+    color = 'var(--app-color-primary)';
+    border = 'var(--app-border-thin) solid var(--md-sys-color-outline)';
   } else if (variant === 'tonal') {
-    backgroundColor = 'var(--md-sys-color-secondary-container)';
-    color = 'var(--md-sys-color-on-secondary-container)';
+    backgroundColor = 'var(--app-color-secondary-container)';
+    color = 'var(--app-color-on-secondary-container)';
   } else if (variant === 'elevated') {
     backgroundColor = 'var(--md-sys-color-surface-container-low)';
-    color = 'var(--md-sys-color-primary)';
-    boxShadow = 'var(--md-sys-elevation-level-1)';
+    color = 'var(--app-color-primary)';
+    boxShadow = 'var(--app-elevation-level-1)';
   }
 
   // Size tokens using MD3 spacing variables
-  let padding = 'var(--md-sys-spacing-4) var(--md-sys-spacing-6)';
+  let padding = 'var(--app-spacing-container) var(--app-spacing-section)';
   let minHeight = 'var(--md-sys-spacing-10)';
   if (size === 'small') {
-    padding = 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)';
+    padding = 'var(--app-spacing-component) var(--app-spacing-container)';
     minHeight = 'var(--md-sys-spacing-8)';
   } else if (size === 'large') {
-    padding = 'var(--md-sys-spacing-6) var(--md-sys-spacing-8)';
+    padding = 'var(--app-spacing-section) var(--md-sys-spacing-8)';
     minHeight = 'var(--md-sys-spacing-12)';
   }
 
@@ -65,15 +65,15 @@ export const M3Button: React.FC<M3ButtonProps> = ({
     borderRadius: 'var(--md-sys-shape-corner-extra-large)',
     cursor: disabled ? 'not-allowed' : 'pointer',
     opacity: disabled ? 0.38 : 1,
-    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-2) var(--md-sys-motion-easing-standard)',
+    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-2) var(--app-easing-standard)',
     fontSize: 'var(--md-sys-typescale-label-large-font)',
     fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-    lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+    lineHeight: 'var(--app-text-label-line-height)',
     fontFamily: 'inherit',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 'var(--md-sys-spacing-2)',
+    gap: 'var(--app-spacing-component)',
     padding,
     minHeight,
     ...customStyle,

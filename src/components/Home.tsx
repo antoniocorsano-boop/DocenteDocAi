@@ -113,7 +113,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 'var(--md-sys-spacing-6)',
+          gap: 'var(--app-spacing-section)',
           width: 'var(--md-sys-percent-full)'
         }}
     >
@@ -128,10 +128,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <M3Surface
           style={{
             display: 'flex',
-            gap: 'var(--md-sys-spacing-4)',
+            gap: 'var(--app-spacing-container)',
             justifyContent: 'space-between',
-            padding: 'var(--md-sys-spacing-4)',
-            marginTop: 'var(--md-sys-spacing-2)'
+            padding: 'var(--app-spacing-container)',
+            marginTop: 'var(--app-spacing-component)'
           }}
         >
           <M3Card>
@@ -149,16 +149,16 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           {/* Ometto il conteggio dei presenti per conformità e assenza dato */}
         </M3Surface>
         {/* Recent Activities Section */}
-        <M3Surface style={{ marginTop: 'var(--md-sys-spacing-6)' }}>
-          <M3Typography variant="title-large" style={{ marginBottom: 'var(--md-sys-spacing-2)' }}>Attività recenti</M3Typography>
-          <M3Surface style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
+        <M3Surface style={{ marginTop: 'var(--app-spacing-section)' }}>
+          <M3Typography variant="title-large" style={{ marginBottom: 'var(--app-spacing-component)' }}>Attività recenti</M3Typography>
+          <M3Surface style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 'var(--app-spacing-component)' }}>
             {activities.length === 0 && (
               <M3Surface>
                 <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-outline-variant)' }}>Nessuna attività recente</M3Typography>
               </M3Surface>
             )}
             {activities.map(activity => (
-              <M3Surface key={activity.id} style={{ padding: 'var(--md-sys-spacing-3)' }}>
+              <M3Surface key={activity.id} style={{ padding: 'var(--app-spacing-element)' }}>
                 <M3Typography variant="title-medium">{activity.title}</M3Typography>
                 <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{activity.meta}</M3Typography>
                 <M3Typography variant="label-small" style={{ color: 'var(--md-sys-color-outline-variant)' }}>{activity.time}</M3Typography>
@@ -167,35 +167,35 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </M3Surface>
         </M3Surface>
         {/* Quick Actions Section */}
-        <M3Surface style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>
-          <M3Surface style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-24), var(--md-sys-grid-fr-1)))', gap: 'var(--md-sys-spacing-4)' }}>
+        <M3Surface style={{ marginBottom: 'var(--app-spacing-container)' }}>
+          <M3Surface style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-24), var(--md-sys-grid-fr-1)))', gap: 'var(--app-spacing-container)' }}>
             <M3Card ariaLabel="Vai a Registro" onClick={() => onNavigate('register' as View)}>
-              <M3Surface style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-4)' }}>
+              <M3Surface style={{ textAlign: 'center', padding: 'var(--app-spacing-container)' }}>
                 {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
                 <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-8)' }}>menu_book</span>
-                <M3Typography variant="title-medium" style={{ marginTop: 'var(--md-sys-spacing-2)' }}>Registro</M3Typography>
+                <M3Typography variant="title-medium" style={{ marginTop: 'var(--app-spacing-component)' }}>Registro</M3Typography>
               </M3Surface>
             </M3Card>
             <M3Card ariaLabel="Vai a Presenze" onClick={() => onNavigate('presenze' as View)}>
-              <M3Surface style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-4)' }}>
+              <M3Surface style={{ textAlign: 'center', padding: 'var(--app-spacing-container)' }}>
                 {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
                 <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-8)' }}>fact_check</span>
-                <M3Typography variant="title-medium" style={{ marginTop: 'var(--md-sys-spacing-2)' }}>Presenze</M3Typography>
+                <M3Typography variant="title-medium" style={{ marginTop: 'var(--app-spacing-component)' }}>Presenze</M3Typography>
               </M3Surface>
             </M3Card>
             <M3Card ariaLabel="Vai a Valutazioni" onClick={() => onNavigate('evaluations' as View)}>
-              <M3Surface style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-4)' }}>
+              <M3Surface style={{ textAlign: 'center', padding: 'var(--app-spacing-container)' }}>
                 {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
                 <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-8)' }}>grading</span>
-                <M3Typography variant="title-medium" style={{ marginTop: 'var(--md-sys-spacing-2)' }}>Valutazioni</M3Typography>
+                <M3Typography variant="title-medium" style={{ marginTop: 'var(--app-spacing-component)' }}>Valutazioni</M3Typography>
               </M3Surface>
             </M3Card>
           </M3Surface>
         </M3Surface>
         {/* AI Suggestions Section (commented out, enable if needed) */}
         {/*
-        <M3Surface as="section" elevation={0} style={{ marginTop: 'var(--md-sys-spacing-6)' }}>
-          <M3Typography variant="title-large" style={{ marginBottom: 'var(--md-sys-spacing-2)' }}>Suggerimenti AI</M3Typography>
+        <M3Surface as="section" elevation={0} style={{ marginTop: 'var(--app-spacing-section)' }}>
+          <M3Typography variant="title-large" style={{ marginBottom: 'var(--app-spacing-component)' }}>Suggerimenti AI</M3Typography>
           <M3SuggestionCard>
             <M3SuggestionItem suggestion="Prova la nuova funzione di generazione quiz!" />
           </M3SuggestionCard>
@@ -210,10 +210,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           onClick={() => onNavigate('aula' as View)}
           style={{
             position: 'fixed',
-            bottom: 'var(--md-sys-spacing-6)',
-            right: 'var(--md-sys-spacing-6)',
+            bottom: 'var(--app-spacing-section)',
+            right: 'var(--app-spacing-section)',
             /* MD3 Exception: fallback for z-index if token missing, see governance contract */
-            zIndex: 'var(--md-sys-z-modal)'
+            zIndex: 'var(--app-z-modal)'
           }}
         />
       </M3Surface>

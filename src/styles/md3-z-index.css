@@ -92,11 +92,11 @@
    
    ✅ CORRECT:
    .modal {
-     z-index: var(--md-sys-z-modal);
+     z-index: var(--app-z-modal);
    }
    
    ✅ CORRECT (TypeScript):
-   style={{ zIndex: 'var(--md-sys-z-tooltip)' }}
+   style={{ zIndex: 'var(--app-z-tooltip)' }}
    
    ❌ FORBIDDEN:
    .modal {
@@ -104,6 +104,6 @@
    }
    
    ❌ FORBIDDEN (TypeScript):
-   style={{ zIndex: 'var(--md-sys-z-tooltip)' }}
+   style={{ zIndex: 'var(--app-z-tooltip)' }}
    
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */

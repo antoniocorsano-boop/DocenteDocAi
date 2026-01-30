@@ -23,11 +23,11 @@ const AuraView: React.FC<AuraViewProps> = ({ children, fullWidth = false }) => {
             style={{
                 display: 'flex',
                 justifyContent: 'center',
-                width: 'var(--md-sys-percent-100)',
+                width: 'var(--app-layout-full)',
                 ...(fullWidth ? {} : { maxWidth: 'var(--md-sys-layout-max-width)' })
             }}
         >
-            <div style={{ width: 'var(--md-sys-percent-100)' }}>
+            <div style={{ width: 'var(--app-layout-full)' }}>
                 {children}
             </div>
         </div>

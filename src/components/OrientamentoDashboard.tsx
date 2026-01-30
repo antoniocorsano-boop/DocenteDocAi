@@ -58,16 +58,16 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
     }, [filteredActivities]);
 
     const renderActivitiesTab = () => (
-        <div style={{gap: 'var(--md-sys-spacing-6)'}}>
+        <div style={{gap: 'var(--app-spacing-section)'}}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>Attivit� di Orientamento</h3>
+                <h3 style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "900" }}>Attivit� di Orientamento</h3>
                 <M3Button onClick={() => setIsAddActivityModalOpen(true)} variant="filled">
-                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span>
+                    <span  style={{ marginRight: "var(--app-spacing-component)" }}>add</span>
                     Nuova Attivit�
                 </M3Button>
             </div>
 
-            <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
+            <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--app-spacing-section)'}}>
                 {filteredActivities.map(activity => (
                     <InfoCard 
                         key={activity.id}
@@ -76,7 +76,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                         icon="explore"
                         variant="surface"
                     >
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)' }}>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--app-spacing-container)' }}>
                             {activity.description}
                         </p>
                     </InfoCard>
@@ -95,17 +95,17 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
     );
 
     const renderStudentsTab = () => (
-        <div style={{gap: 'var(--md-sys-spacing-6)'}}>
-            <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>Stato E-Portfolio Studenti</h3>
-            <div  style={{border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
-                <table  style={{ width: 'var(--md-sys-percent-100)' }}>
+        <div style={{gap: 'var(--app-spacing-section)'}}>
+            <h3 style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "900" }}>Stato E-Portfolio Studenti</h3>
+            <div  style={{border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
+                <table  style={{ width: 'var(--app-layout-full)' }}>
                     <thead>
                         <tr style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 }}>
-                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "left", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Studente</th>
-                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Ore Totali</th>
-                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Capolavoro</th>
-                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Autovalutazione</th>
-                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "right", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Azioni</th>
+                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "left", color: "var(--app-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Studente</th>
+                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", color: "var(--app-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Ore Totali</th>
+                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", color: "var(--app-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Capolavoro</th>
+                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", color: "var(--app-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Autovalutazione</th>
+                            <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "right", color: "var(--app-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Azioni</th>
                         </tr>
                     </thead>
                     <tbody >
@@ -114,22 +114,22 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                             const progress = Math.min(100, (totalHours / 30) * 100); // Using class total hours as per guidelines for class activities
                             
                             return (
-                                <tr key={student.id}  style={{ transition: "color var(--md-sys-motion-duration-medium)" }}>
-                                    <td style={{padding: 'var(--md-sys-spacing-6)'}}>
-                                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+                                <tr key={student.id}  style={{ transition: "color var(--app-motion-standard)" }}>
+                                    <td style={{padding: 'var(--app-spacing-section)'}}>
+                                        <div style={{display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)'}}>
                                             <Avatar name={`${student.nome} ${student.cognome}`} size="sm" />
-                                            <span style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</span>
+                                            <span style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</span>
                                         </div>
                                     </td>
                                     <td style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center"}}>
-                                        <div style={{display: "flex", flexDirection: "column", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
-                                            <span style={{fontWeight: "900", color: "var(--md-sys-color-primary)"}}>{totalHours}/30h</span>
-                                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', width: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)' }}>
+                                        <div style={{display: "flex", flexDirection: "column", alignItems: "center", gap: 'var(--app-spacing-container)'}}>
+                                            <span style={{fontWeight: "900", color: "var(--app-color-primary)"}}>{totalHours}/30h</span>
+                                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', width: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)' }}>
                                                 <div 
                                                     style={{
-                                                        height: 'var(--md-sys-percent-100)',
+                                                        height: 'var(--app-layout-full)',
                                                         transition: 'all',
-                                                        backgroundColor: progress >= 100 ? 'var(--md-sys-color-tertiary)' : 'var(--md-sys-color-primary)',
+                                                        backgroundColor: progress >= 100 ? 'var(--md-sys-color-tertiary)' : 'var(--app-color-primary)',
                                                         width: `${progress}%`
                                                     }}
                                                 ></div>
@@ -188,9 +188,9 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     icon="schedule"
                     variant="primary"
                 >
-                    <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                        <span style={{fontWeight: "900", color: 'var(--md-sys-color-primary)'}}>{totalHours}h</span>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{marginTop: 'var(--app-spacing-container)'}}>
+                        <span style={{fontWeight: "900", color: 'var(--app-color-primary)'}}>{totalHours}h</span>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--app-spacing-container)' }}>
                             {totalHours >= 30 ? '✅ Target raggiunto per la classe' : `Mancano ${30 - totalHours}h al target`}
                         </p>
                     </div>
@@ -202,7 +202,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     icon="auto_awesome"
                     variant="tertiary"
                 >
-                    <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
+                    <div style={{marginTop: 'var(--app-spacing-container)'}}>
                         <span style={{fontWeight: "900", color: 'var(--md-sys-color-tertiary)'}}>
                             {filteredStudents.filter(s => studentStates[s.id]?.hasCapolavoro).length}/{filteredStudents.length}
                         </span>
@@ -215,31 +215,31 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     icon="psychology"
                     variant="secondary"
                 >
-                    <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                        <span style={{fontWeight: "900", color: 'var(--md-sys-color-secondary)'}}>
+                    <div style={{marginTop: 'var(--app-spacing-container)'}}>
+                        <span style={{fontWeight: "900", color: 'var(--app-color-secondary)'}}>
                             {filteredStudents.filter(s => studentStates[s.id]?.hasAutovalutazione).length}/{filteredStudents.length}
                         </span>
                     </div>
                 </InfoCard>
             </div>
 
-            <div style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container)' , display: "flex", borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-8)'}}>
+            <div style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' , border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
+                <div style={{ backgroundColor: 'var(--app-color-surface-container)' , display: "flex", borderBottom: "var(--app-border-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-8)'}}>
                     <button 
                         onClick={() => setActiveTab('activities')}
-                        style={{color: 'var(--md-sys-color-on-primary)'}}
+                        style={{color: 'var(--app-color-on-primary)'}}
                     >
                         Attivit� di Orientamento
                     </button>
                     <button 
                         onClick={() => setActiveTab('students')}
-                        style={{color: 'var(--md-sys-color-on-primary)'}}
+                        style={{color: 'var(--app-color-on-primary)'}}
                     >
                         Stato Studenti
                     </button>
                 </div>
 
-                <div style={{padding: 'var(--md-sys-spacing-6)'}}>
+                <div style={{padding: 'var(--app-spacing-section)'}}>
                     {activeTab === 'activities' ? renderActivitiesTab() : renderStudentsTab()}
                 </div>
             </div>

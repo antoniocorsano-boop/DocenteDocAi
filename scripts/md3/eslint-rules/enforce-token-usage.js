@@ -42,10 +42,10 @@ export default {
             }
             
             // BLOCK: calc() without tokens
-            if (val.includes('calc') && !val.includes('var(--md-')) {
+            if (val.includes('calc') && !val.includes('var(--md-') && !val.includes('var(--app-')) {
               context.report({
                 node: value,
-                message: `MD3 VIOLATION: calc() must use var(--md-sys-*) tokens only.`
+                message: `MD3 VIOLATION: calc() must use var(--md-sys-*) or var(--app-*) tokens only.`
               });
             }
             

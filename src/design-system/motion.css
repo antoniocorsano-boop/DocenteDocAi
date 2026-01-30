@@ -19,7 +19,7 @@
 /**
  * .m3-transition-fast
  * Use for: Quick feedback (hover states, button presses, ripples)
- * Duration: 100ms (var(--md-sys-motion-duration-short)1)
+ * Duration: 100ms (--motion-duration-short1)
  * Examples: Button hover, chip selection, menu item highlight
  */
 .m3-transition-fast {
@@ -31,7 +31,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /**
  * .m3-transition-standard
  * Use for: Most UI interactions (default choice)
- * Duration: 200ms (var(--md-sys-motion-duration-short)2)
+ * Duration: 200ms (--motion-duration-short2)
  * Examples: Card hover, dialog open, tooltip fade
  */
 .m3-transition-standard {
@@ -43,7 +43,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /**
  * .m3-transition-medium
  * Use for: Larger elements, complex animations
- * Duration: 300ms (var(--md-sys-motion-duration-short)3)
+ * Duration: 300ms (--motion-duration-short3)
  * Examples: Drawer slide, bottom sheet, FAB expand
  */
 .m3-transition-medium {
@@ -55,7 +55,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /**
  * .m3-transition-slow
  * Use for: Emphasized motion, decorative animations
- * Duration: 400ms (var(--md-sys-motion-duration-short)4)
+ * Duration: 400ms (--motion-duration-short4)
  * Examples: Page transitions, hero animations, parallax
  */
 .m3-transition-slow {
@@ -85,8 +85,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Use when only color changes (more performant than 'all')
  */
 .m3-transition-color {
-  transition: background-color var(var(--md-sys-motion-duration-short)2) var(var(--md-sys-motion-easing-standard)),
-              color var(var(--md-sys-motion-duration-short)2) var(var(--md-sys-motion-easing-standard));
+  transition: background-color var(--motion-duration-short2) var(--motion-easing-standard),
+              color var(--motion-duration-short2) var(--motion-easing-standard);
 }
 
 /**
@@ -94,7 +94,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Use for position, scale, rotate changes
  */
 .m3-transition-transform {
-  transition: transform var(var(--md-sys-motion-duration-short)2) var(var(--md-sys-motion-easing-standard));
+  transition: transform var(--motion-duration-short2) var(--motion-easing-standard);
 }
 
 /**
@@ -102,7 +102,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Use for fade in/out effects
  */
 .m3-transition-opacity {
-  transition: opacity var(var(--md-sys-motion-duration-short)2) var(var(--md-sys-motion-easing-standard));
+  transition: opacity var(--motion-duration-short2) var(--motion-easing-standard);
 }
 
 /**
@@ -110,7 +110,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Use for elevation changes (cards, buttons)
  */
 .m3-transition-elevation {
-  transition: box-shadow var(var(--md-sys-motion-duration-short)2) var(var(--md-sys-motion-easing-standard));
+  transition: box-shadow var(--motion-duration-short2) var(--motion-easing-standard);
 }
 
 /**
@@ -118,9 +118,9 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Common pattern for interactive cards
  */
 .m3-transition-interactive {
-  transition: background-color var(var(--md-sys-motion-duration-short)2) var(var(--md-sys-motion-easing-standard)),
-              box-shadow var(var(--md-sys-motion-duration-short)2) var(var(--md-sys-motion-easing-standard)),
-              transform var(var(--md-sys-motion-duration-short)2) var(var(--md-sys-motion-easing-standard));
+  transition: background-color var(--motion-duration-short2) var(--motion-easing-standard),
+              box-shadow var(--motion-duration-short2) var(--motion-easing-standard),
+              transform var(--motion-duration-short2) var(--motion-easing-standard);
 }
 
 /* =============================================================================
@@ -156,8 +156,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Fade + scale-up effect
  */
 .m3-transition-modal-enter {
-  transition: opacity var(var(--md-sys-motion-duration-short)3) var(var(--md-sys-motion-easing-standard)),
-              transform var(var(--md-sys-motion-duration-short)3) var(var(--md-sys-motion-easing-standard));
+  transition: opacity var(--motion-duration-short3) var(--motion-easing-standard),
+              transform var(--motion-duration-short3) var(--motion-easing-standard);
 }
 
 /**
@@ -165,7 +165,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Horizontal or vertical slide transitions
  */
 .m3-transition-drawer {
-  transition: transform var(var(--md-sys-motion-duration-short)3) var(var(--md-sys-motion-easing-standard));
+  transition: transform var(--motion-duration-short3) var(--motion-easing-standard);
 }
 
 /**
@@ -173,8 +173,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Slide up + fade
  */
 .m3-transition-snackbar {
-  transition: transform var(var(--md-sys-motion-duration-short)2) var(var(--md-sys-motion-easing-standard)),
-              opacity var(var(--md-sys-motion-duration-short)2) var(var(--md-sys-motion-easing-standard));
+  transition: transform var(--motion-duration-short2) var(--motion-easing-standard),
+              opacity var(--motion-duration-short2) var(--motion-easing-standard);
 }
 
 /**
@@ -182,8 +182,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Size change with expressive easing
  */
 .m3-transition-fab {
-  transition: transform var(var(--md-sys-motion-duration-short)3) var(--motion-easing-expressive),
-              box-shadow var(var(--md-sys-motion-duration-short)3) var(var(--md-sys-motion-easing-standard));
+  transition: transform var(--motion-duration-short3) var(--motion-easing-expressive),
+              box-shadow var(--motion-duration-short3) var(--motion-easing-standard);
 }
 
 /**
@@ -191,8 +191,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Page-level transitions (use sparingly)
  */
 .m3-transition-page {
-  transition: opacity var(var(--md-sys-motion-duration-short)4) var(var(--md-sys-motion-easing-standard)),
-              transform var(var(--md-sys-motion-duration-short)4) var(var(--md-sys-motion-easing-standard));
+  transition: opacity var(--motion-duration-short4) var(--motion-easing-standard),
+              transform var(--motion-duration-short4) var(--motion-easing-standard);
 }
 
 /* =============================================================================

@@ -71,12 +71,12 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
             <form onSubmit={handleSubmit} style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-6)'
+                gap: 'var(--app-spacing-section)'
             }}>
                 <M3DialogContent style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--md-sys-spacing-6)',
+                    gap: 'var(--app-spacing-section)',
                     overflowY: 'auto',
                     maxHeight: 'var(--md-sys-viewport-60)' // MD3 viewport token
                 }}>
@@ -122,13 +122,13 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                         <M3Typography
                             variant="label-small"
                             style={{
-                                color: 'var(--md-sys-color-primary)',
+                                color: 'var(--app-color-primary)',
                                 fontWeight: 900,
                                 textTransform: 'uppercase',
                                 letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                                paddingLeft: 'var(--md-sys-spacing-4)',
-                                paddingRight: 'var(--md-sys-spacing-4)',
-                                marginBottom: 'var(--md-sys-spacing-6)',
+                                paddingLeft: 'var(--app-spacing-container)',
+                                paddingRight: 'var(--app-spacing-container)',
+                                marginBottom: 'var(--app-spacing-section)',
                                 display: 'block'
                             }}
                         >
@@ -138,7 +138,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                             display: 'flex',
                             gap: 'var(--md-sys-spacing-8)',
                             overflowX: 'auto',
-                            paddingBottom: 'var(--md-sys-spacing-2)',
+                            paddingBottom: 'var(--app-spacing-component)',
                             scrollbarWidth: 'none',
                             msOverflowStyle: 'none'
                         }}
@@ -177,7 +177,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                 </M3DialogContent>
 
                 <M3DialogActions style={{
-                    gap: 'var(--md-sys-spacing-6)',
+                    gap: 'var(--app-spacing-section)',
                     flexShrink: 0
                 }}>
                     <M3Button variant="text" onClick={onClose} type="button">Annulla</M3Button>

@@ -98,12 +98,12 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                             // test-generator-modal-question-type-chip styles
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-2)',
-                            padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                            gap: 'var(--app-spacing-component)',
+                            padding: 'var(--app-spacing-element) var(--app-spacing-container)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
-                            backgroundColor: questionTypes.includes('multiple_choice') ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface-container)',
-                            color: questionTypes.includes('multiple_choice') ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
-                            border: `var(--md-sys-border-width-normal) solid ${questionTypes.includes('multiple_choice') ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`,
+                            backgroundColor: questionTypes.includes('multiple_choice') ? 'var(--app-color-secondary-container)' : 'var(--app-color-surface-container)',
+                            color: questionTypes.includes('multiple_choice') ? 'var(--app-color-on-secondary-container)' : 'var(--app-color-on-surface)',
+                            border: `var(--app-border-normal) solid ${questionTypes.includes('multiple_choice') ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`,
                             cursor: 'pointer'
                         }}>
                             <input
@@ -120,12 +120,12 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                             // test-generator-modal-question-type-chip styles
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-2)',
-                            padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                            gap: 'var(--app-spacing-component)',
+                            padding: 'var(--app-spacing-element) var(--app-spacing-container)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
-                            backgroundColor: questionTypes.includes('true_false') ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface-container)',
-                            color: questionTypes.includes('true_false') ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
-                            border: `var(--md-sys-border-width-normal) solid ${questionTypes.includes('true_false') ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`,
+                            backgroundColor: questionTypes.includes('true_false') ? 'var(--app-color-secondary-container)' : 'var(--app-color-surface-container)',
+                            color: questionTypes.includes('true_false') ? 'var(--app-color-on-secondary-container)' : 'var(--app-color-on-surface)',
+                            border: `var(--app-border-normal) solid ${questionTypes.includes('true_false') ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`,
                             cursor: 'pointer'
                         }}>
                             <input
