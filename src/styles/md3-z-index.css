@@ -92,11 +92,11 @@
    
    ✅ CORRECT:
    .modal {
-     z-index: var(--app-z-modal);
+     z-index: var(--md-sys-z-modal);
    }
    
    ✅ CORRECT (TypeScript):
-   style={{ zIndex: 'var(--app-z-tooltip)' }}
+   style={{ zIndex: 'var(--md-sys-z-tooltip)' }}
    
    ❌ FORBIDDEN:
    .modal {

@@ -229,7 +229,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           position: fixed;
           right: var(--app-spacing-section);
           bottom: var(--md-sys-spacing-12);
-          z-index: var(--app-z-tooltip);
+          z-index: var(--md-sys-z-tooltip);
           transition: box-shadow var(--app-motion-quick) var(--app-easing-standard);
         }
         .mui-fab-expressive.assistant-fab {

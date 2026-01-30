@@ -1,5 +1,6 @@
 /* MD3 Platinum: Semantic Token Layer */
 /* Pure aliases to MD3 system tokens */
+/* Z-index tokens use MD3 system tokens directly (no semantic aliases) */
 /* Last updated: January 29, 2026 */
 
 :root {
@@ -42,29 +43,6 @@
 
   /* Emphasized actions - important interactions */
   --app-easing-emphasized: var(--md-sys-motion-easing-emphasized);
-
-  /* ===========================================
-     Z-INDEX HIERARCHY
-     Application layering semantics
-     =========================================== */
-
-  /* Base layer - default stacking */
-  --app-z-base: var(--md-sys-z-base);
-
-  /* Content layer - main content stacking */
-  --app-z-content: var(--md-sys-z-content);
-
-  /* Temporary overlays - dropdowns, tooltips */
-  --app-z-overlay: var(--md-sys-z-overlay);
-
-  /* Modal dialogs - modal stacking */
-  --app-z-modal: var(--md-sys-z-modal);
-
-  /* Tooltips and popovers - floating UI */
-  --app-z-tooltip: var(--md-sys-z-tooltip);
-
-  /* Dropdowns and menus - navigation overlays */
-  --app-z-dropdown: var(--md-sys-z-tooltip);
 
   /* ===========================================
      LAYOUT TOKENS
