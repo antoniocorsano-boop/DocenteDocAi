@@ -1,5 +1,12 @@
-// --- EMOTIONAL PRESETS ---
-export type EmotionalPreset = 'calm' | 'energetic' | 'creative' | 'focused' | 'relaxed' | 'professional' | 'playful' | 'minimal';
+export type EmotionalPreset =
+    | 'calm'        // Calmo - toni blu/verde soft, spaziatura rilassata
+    | 'energetic'   // Energico - colori vivaci, contrasto alto, animazioni veloci
+    | 'creative'    // Creativo - colori caldi, forme morbide, spaziatura generosa
+    | 'focused'     // Concentrato - contrasto alto, colori neutri, spaziatura minima
+    | 'relaxed'     // Rilassato - colori pastello, spaziatura ampia, forme arrotondate
+    | 'professional' // Professionale - colori formali, contrasto medio, spaziatura standard
+    | 'playful'     // Giocoso - colori brillanti, forme irregolari, animazioni giocose
+    | 'minimal';    // Minimale - colori monocromatici, spaziatura ridotta, forme geometriche
 
 // --- HEADER ACTIONS POPOVER ---
 export interface ActionsPopoverProps extends HeaderProps {
@@ -835,16 +842,6 @@ export interface DriveSyncState {
     error?: string;
 }
 
-export type EmotionalPreset =
-    | 'calm'        // Calmo - toni blu/verde soft, spaziatura rilassata
-    | 'energetic'   // Energico - colori vivaci, contrasto alto, animazioni veloci
-    | 'creative'    // Creativo - colori caldi, forme morbide, spaziatura generosa
-    | 'focused'     // Concentrato - contrasto alto, colori neutri, spaziatura minima
-    | 'relaxed'     // Rilassato - colori pastello, spaziatura ampia, forme arrotondate
-    | 'professional' // Professionale - colori formali, contrasto medio, spaziatura standard
-    | 'playful'     // Giocoso - colori brillanti, forme irregolari, animazioni giocose
-    | 'minimal';    // Minimale - colori monocromatici, spaziatura ridotta, forme geometriche
-
 export interface EmotionalPresetTokens {
     // Color overrides
     primary?: string;
@@ -1167,7 +1164,7 @@ export interface DidatticaInclusivaProps {
     onAiProcessing: (processing: boolean) => void;
 }
 
-export interface SettingsProps {
+export interface SettingsViewProps {
     settings: TimetableSettings;
     themeState: AppThemeState;
     aiSettings: AiSettings;
@@ -1281,7 +1278,7 @@ export interface KnowledgeBaseProps {
 
 export interface ProgettazioneHubProps {
     onNavigate: (view: View, context?: NavigationParams) => void;
-    uda: Uda[];
+    udas: Uda[];
     events: EventoCalendario[];
     settings: TimetableSettings;
     aiSettings: AiSettings;
@@ -1298,6 +1295,10 @@ export interface ProgettazioneHubProps {
     pianiInclusione: Record<string, PianoInclusione>;
     onUpdateCompetencies?: (competenze: Competenza[]) => void;
     curricula: CurriculumSubject[];
+    initialAction?: string;
+    onUpdateKnowledgeBase?: (kb: KnowledgeBaseEntry[]) => void;
+    driveSyncState?: { isAuthenticated: boolean };
+    onConnectDrive?: () => void;
 }
 
 export interface HelpModalProps {

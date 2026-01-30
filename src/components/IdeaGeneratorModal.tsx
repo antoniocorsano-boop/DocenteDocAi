@@ -107,7 +107,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                     </div>
                     
                     {useKb && knowledgeBase.length > 0 && (
-                        <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)'/50, borderRadius: 'var(--md-sys-shape-corner-large)' , display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", border: "1px solid var(--md-sys-color-outline)", overflowY: "auto"}}>
+                        <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)'/50, borderRadius: 'var(--md-sys-shape-corner-large)' , display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", overflowY: "auto"}}>
                             {knowledgeBase.map(k => (
                                 <label key={k.id} style={{
                                     display: 'flex',
@@ -115,7 +115,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                                     gap: 'var(--md-sys-spacing-8)',
                                     padding: 'var(--md-sys-spacing-12)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                                    border: selectedKbIds.includes(k.id) ? ' var(--md-sys-border-width-medium) solid var(--md-sys-color-primary)' : '1px solid var(--md-sys-color-outline-variant)',
+                                    border: selectedKbIds.includes(k.id) ? ' var(--md-sys-border-width-medium) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                     backgroundColor: selectedKbIds.includes(k.id) ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
                                     transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                                     cursor: 'pointer',
@@ -138,7 +138,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                 </div>
 
                 {error && (
-                    <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: sys.colors.error/10, borderRadius: 'var(--md-sys-shape-corner-large)' , border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: "var(--md-sys-color-error)"}}>
+                    <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: sys.colors.error/10, borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: "var(--md-sys-color-error)"}}>
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>error</span>
@@ -147,7 +147,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                 )}
             </M3DialogContent>
 
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30 , borderTop: "1px solid var(--md-sys-color-outline)", paddingTop: "0"}}>
+            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30 , borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", paddingTop: "0"}}>
                 <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900",  fontSize: "var(--md-sys-typescale-label-medium-font-size)" , textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
                 <M3Button 
                     onClick={handleGenerate} 

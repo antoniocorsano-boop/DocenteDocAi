@@ -292,11 +292,11 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <span className="material-symbols-outlined" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)' }}>expand_more</span>
+                            <span className="material-symbols-outlined" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}>expand_more</span>
                         </div>
                         <div style={{
                             display: isExpanded ? 'block' : 'none',
-                            borderTop: '1px solid var(--md-sys-color-outline-variant)',
+                            borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                             backgroundColor: 'var(--md-sys-color-surface)',
                             animation: isExpanded ? 'slideDown 0.2s var(--md-sys-motion-easing-standard)-out' : 'none'
                         }}>
@@ -422,14 +422,14 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             </M3Button>
                         </div>
                     </div>
-                    <div style={{ color: 'var(--md-sys-color-on-primary)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', lineHeight: "1.625", whiteSpace: "pre-wrap", padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)" }}>
+                    <div style={{ color: 'var(--md-sys-color-on-primary)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', lineHeight: "1.625", whiteSpace: "pre-wrap", padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                         {narrativeReport}
                     </div>
                 </InfoCard>
             )}
 
             <InfoCard variant="elevated" style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
-                 <div  style={{padding: 'var(--md-sys-spacing-8)', display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-8)', borderBottom: "1px solid var(--md-sys-color-outline)"}}>
+                 <div  style={{padding: 'var(--md-sys-spacing-8)', display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-8)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                     <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                         {Object.keys(expandedColumns).map(key => (
                             <M3Button

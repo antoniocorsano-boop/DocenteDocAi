@@ -230,7 +230,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           right: var(--md-sys-spacing-6);
           bottom: var(--md-sys-spacing-12);
           z-index: var(--md-sys-z-tooltip);
-          transition: box-shadow 0.2s;
+          transition: box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
         }
         .mui-fab-expressive.assistant-fab {
           background: var(--md-sys-color-primary);
@@ -245,7 +245,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          transition: box-shadow 0.2s, background 0.2s;
+          transition: box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), background var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
         }
         .mui-fab-expressive.assistant-fab:hover {
           background: var(--md-sys-color-primary-container);
@@ -321,7 +321,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           flex-direction: column;
           gap: var(--md-sys-spacing-4);
           z-index: 'var(--md-sys-z-tooltip)';
-          animation: assistant-sheet-enter 0.25s ease-out;
+          animation: assistant-sheet-enter var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-decelerated);
         }
         @media (min-width: var(--breakpoint-compact)) {
           .assistant-fab-sheet {
@@ -351,7 +351,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           gap: var(--md-sys-spacing-2);
         }
         .assistant-fab-sheet-action {
-          width: 100%;
+          width: var(--md-sys-percent-100);
           border: none;
           border-radius: var(--md-sys-shape-corner-medium);
           padding: var(--md-sys-spacing-4) var(--md-sys-spacing-4);

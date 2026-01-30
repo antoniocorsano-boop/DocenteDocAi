@@ -25,7 +25,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
         bottom: 0,
         zIndex: 'var(--md-sys-z-nav)',
         background: 'var(--md-sys-color-surface)',
-        borderTop: '1px solid var(--md-sys-color-outline-variant)',
+        borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
         display: 'flex',
         justifyContent: 'space-around',
         padding: 'var(--md-sys-spacing-2) 0',

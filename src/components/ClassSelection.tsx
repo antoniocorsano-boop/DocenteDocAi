@@ -111,7 +111,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                         })}
                     </div>
                 ) : (
-                    <div style={{ padding: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "1px solid var(--md-sys-color-outline)" }}>
+                    <div style={{ padding: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.5, marginBottom: 'var(--md-sys-spacing-8)' }}>domain_disabled</span>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessuna classe definita</p>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-6)' }}>

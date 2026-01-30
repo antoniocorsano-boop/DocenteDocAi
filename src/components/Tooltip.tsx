@@ -62,7 +62,7 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
       whiteSpace: 'pre',
       pointerEvents: 'none',
       opacity: 'var(--md-sys-state-opacity-tooltip)',
-      animation: 'tooltip-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-emphasized) both',
+      animation: 'tooltip-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard) both',
       maxWidth: 'var(--md-sys-spacing-16)',
       wordWrap: 'break-word'
     };

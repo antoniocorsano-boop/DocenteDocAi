@@ -127,10 +127,10 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
             {step === 'select' && !loading && !error && (
               <>
                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>Seleziona i materiali da importare nella Knowledge Base.</p>
-                <div  style={{overflowY: "auto", border: "1px solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-spacing-1)", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                <div  style={{overflowY: "auto", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-spacing-1)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                   {files.length === 0 && <div style={{ color: 'var(--md-sys-color-on-surface-variant)' , padding: 'var(--md-sys-spacing-8)', textAlign: "center"}}>Nessun file trovato.</div>}
                   {files.map(f => (
-                    <label key={f.id}  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderBottom: "1px solid var(--md-sys-color-outline)", cursor: "pointer"}}>
+                    <label key={f.id}  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", cursor: "pointer"}}>
                       <input type="checkbox" checked={selected.has(f.id)} onChange={() => handleSelect(f.id)} />
                       <span style={{ flex: "1", fontWeight: "500" }}>{f.name}</span>
                       <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{f.lastModified ? new Date(f.lastModified).toLocaleString() : ''}</span>
@@ -147,7 +147,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>Catalogazione materiali importati:</p>
             <div  style={{gap: 'var(--md-sys-spacing-4)', overflowY: "auto"}}>
               {imported.map(entry => (
-                <div key={entry.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-spacing-1)"}}>
+                <div key={entry.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-spacing-1)"}}>
                   <div style={{fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>{entry.fileName}</div>
                   <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)'}}>
                     <input  placeholder="Materia (opzionale)" value={catalogData[entry.id]?.materia || ''} onChange={e => handleCatalogChange(entry.id, 'materia', e.target.value)} />

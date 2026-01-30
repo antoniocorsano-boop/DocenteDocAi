@@ -92,7 +92,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
     width: 'var(--md-sys-percent-100)',
     height: 'var(--md-sys-spacing-16)', // Bottom nav height
     backgroundColor: 'var(--md-sys-color-surface)',
-    borderTop: '1px solid var(--md-sys-color-outline-variant)',
+    borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
     borderRight: 'none',
     display: 'flex',
     flexDirection: 'row',
@@ -110,7 +110,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
       width: 'var(--md-sys-spacing-20)', // Rail width
       height: 'var(--md-sys-percent-100)',
       borderTop: 'none',
-      borderRight: '1px solid var(--md-sys-color-outline-variant)',
+      borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
       flexDirection: 'column',
       justifyContent: 'flex-start',
     })

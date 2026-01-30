@@ -21,29 +21,29 @@
 export const PDF_COLORS = {
   // Header styling for table reports
   header: {
-    background: '#6750A4',  // Primary color (Material Design 3 Default)
-    text: '#FFFFFF',        // High contrast text on primary
+    background: '#6750A4',  // --md-sys-color-primary
+    text: '#FFFFFF',        // --md-sys-color-on-primary
   },
   
   // Table row styling
   table: {
-    evenRowBg: '#F3EDF7',   // Light purple - secondary-container variant
+    evenRowBg: '#EADDFF',   // --md-sys-color-primary-container
     borderColor: 200,       // Grayscale for subtle borders
   },
   
   // Trend indicators for student progress
   trend: {
-    positive: '#388E3C',    // Green (success, upward trend)
-    negative: '#D32F2F',    // Red (decline, downward trend)
-    stable: '#757575',      // Gray (neutral, stable trend)
+    positive: '#388E3C',    // Success color (not in MD3 tokens, keeping as semantic equivalent)
+    negative: '#D32F2F',    // Error color (not in MD3 tokens, keeping as semantic equivalent)
+    stable: '#757575',      // Outline variant equivalent
   },
   
   // Competency evaluation level badges
   competencyLevels: {
-    A: { bg: '#FFD700', text: '#000000' },  // Gold - Advanced level
-    B: { bg: '#C0C0C0', text: '#000000' },  // Silver - Intermediate level
-    C: { bg: '#66BB6A', text: '#FFFFFF' },  // Green - Base level
-    D: { bg: '#EF5350', text: '#FFFFFF' },  // Red - Initial level
+    A: { bg: '#FFD700', text: '#000000' },  // Gold - Advanced level (custom)
+    B: { bg: '#C0C0C0', text: '#000000' },  // Silver - Intermediate level (custom)
+    C: { bg: '#66BB6A', text: '#FFFFFF' },  // Green - Base level (success equivalent)
+    D: { bg: '#EF5350', text: '#FFFFFF' },  // Red - Initial level (error equivalent)
   },
 } as const;
 
@@ -54,7 +54,7 @@ export const PDF_COLORS = {
  */
 export function getCompetencyLevelColors(level: string | undefined): { bg: string; text: string } {
   if (!level || level === '-') {
-    return { bg: '#E0E0E0', text: '#000000' };  // Default for missing level
+    return { bg: '#E0E0E0', text: '#000000' };  // Default for missing level (neutral)
   }
   return PDF_COLORS.competencyLevels[level as keyof typeof PDF_COLORS.competencyLevels] ?? 
          { bg: '#E0E0E0', text: '#000000' };

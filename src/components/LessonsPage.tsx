@@ -154,7 +154,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     padding: 'var(--md-sys-spacing-6)',
                     cursor: 'pointer',
-                    border: '1px solid var(--md-sys-color-outline-variant)',
+                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                     transition: 'all var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out'
                 }}
                 onClick={() => setIsIdeaModalOpen(true)}
@@ -192,7 +192,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
             <details style={{
                 backgroundColor: 'var(--md-sys-color-surface-container)',
                 borderRadius: 'var(--md-sys-shape-corner-medium)',
-                border: '1px solid var(--md-sys-color-outline-variant)',
+                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                 marginTop: 'var(--md-sys-spacing-6)'
             }}>
                 <summary style={{
@@ -227,7 +227,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                 </summary>
                 <div style={{
                     padding: 'var(--md-sys-spacing-4)',
-                    borderTop: '1px solid var(--md-sys-color-outline-variant)'
+                    borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
                 }}>
                     <M3Typography variant="body-medium">
                         Seleziona le Unità di Apprendimento (UDA) e le classi. L'AI genererà una sequenza di lezioni strutturata per ogni classe, basandosi sui documenti KB selezionati.
@@ -282,7 +282,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                             {/* Centralized Selection Container */}
                             <div style={{
                                 padding: 'var(--md-sys-spacing-2)',
-                                border: '1px solid var(--md-sys-color-outline-variant)',
+                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                 borderRadius: 'var(--md-sys-shape-corner-small)',
                                 maxHeight: 'var(--md-sys-spacing-40)',
                                 overflowY: 'auto'
@@ -330,7 +330,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                             </div>
                             <div style={{
                                 padding: 'var(--md-sys-spacing-2)',
-                                border: '1px solid var(--md-sys-color-outline-variant)',
+                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                 borderRadius: 'var(--md-sys-shape-corner-small)',
                                 maxHeight: 'var(--md-sys-spacing-40)',
                                 overflowY: 'auto'
@@ -409,7 +409,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                             backgroundColor: 'var(--md-sys-color-error-container)',
                             padding: 'var(--md-sys-spacing-3)',
                             borderRadius: 'var(--md-sys-shape-corner-medium)',
-                            border: '1px solid var(--md-sys-color-error)'
+                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-error)'
                         }}>{error}</M3Typography>}
                     </div>
                 </div>
@@ -429,7 +429,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-4)',
                     marginBottom: 'var(--md-sys-spacing-6)',
-                    borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                    borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                     paddingBottom: 'var(--md-sys-spacing-4)'
                 }}>
                     <M3Typography variant="headline-medium">Archivio Lezioni ({lessons.length})</M3Typography>
@@ -450,7 +450,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                             <select value={filterClass} onChange={e => setFilterClass(e.target.value)} style={{
                                 backgroundColor: 'var(--md-sys-color-surface-container-highest)',
                                 color: 'var(--md-sys-color-on-surface)',
-                                border: '1px solid var(--md-sys-color-outline)',
+                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
                                 padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
                                 fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
@@ -469,7 +469,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                             <select value={filterUda} onChange={e => setFilterUda(e.target.value)} style={{
                                 backgroundColor: 'var(--md-sys-color-surface-container-highest)',
                                 color: 'var(--md-sys-color-on-surface)',
-                                border: '1px solid var(--md-sys-color-outline)',
+                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
                                 padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
                                 fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
@@ -482,7 +482,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                         {(filterClass || filterUda) && (
                             <button onClick={() => { setFilterClass(''); setFilterUda(''); }} style={{
                                 backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                                border: '1px solid var(--md-sys-color-outline)',
+                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                 borderRadius: 'var(--md-sys-shape-corner-full)',
                                 padding: 'var(--md-sys-spacing-2)',
                                 cursor: 'pointer',
@@ -511,7 +511,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                             <details key={classKey} open style={{
                                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                border: '1px solid var(--md-sys-color-outline-variant)'
+                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
                             }}>
                                 <summary style={{
                                     padding: 'var(--md-sys-spacing-4)',
@@ -539,7 +539,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                 }}>
                                     {Object.entries(udaGroups).map(([udaKey, lessonItems]) => (
                                         <details key={udaKey} open={udaKey !== 'Lezioni Varie'} style={{
-                                            border: '1px solid var(--md-sys-color-outline-variant)',
+                                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                             borderRadius: 'var(--md-sys-shape-corner-medium)',
                                             marginBottom: 'var(--md-sys-spacing-4)',
                                             backgroundColor: 'var(--md-sys-color-surface)'
@@ -575,7 +575,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                                     <div key={lesson.id} style={{
                                                         backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                                         borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                                        border: '1px solid var(--md-sys-color-outline-variant)',
+                                                        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                                         cursor: 'pointer',
                                                         transition: 'all var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out'
                                                     }}>

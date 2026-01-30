@@ -83,7 +83,7 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
         borderBottomRightRadius: isUser ? 'var(--md-sys-shape-corner-small)' : 'var(--md-sys-shape-corner-large)',
         borderBottomLeftRadius: isUser ? 'var(--md-sys-shape-corner-large)' : 'var(--md-sys-shape-corner-small)',
         marginLeft: isUser ? 'auto' : '0',
-        border: isUser ? 'none' : '1px solid var(--md-sys-color-outline-variant)'
+        border: isUser ? 'none' : 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
       }}>
         <p style={{ whiteSpace: "pre-wrap" }}>{entry.text}</p>
         {entry.sources && (

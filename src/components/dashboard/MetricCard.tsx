@@ -70,7 +70,7 @@ const formatTrend = (trend?: number) => {
   return (
     <span style={{
       fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-      fontWeight: '500',
+      fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
       color: color,
       display: 'flex',
       alignItems: 'center',
@@ -150,7 +150,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
           <div>
             <h3 style={{
               fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-              fontWeight: '500',
+              fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
               color: 'var(--md-sys-color-on-surface-variant)',
               lineHeight: '1.25'
             }}>
@@ -199,7 +199,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
           <span
             style={{
               fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-              fontWeight: '500',
+              fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
               color: 'var(--md-sys-color-on-surface-variant)'
             }}
           >

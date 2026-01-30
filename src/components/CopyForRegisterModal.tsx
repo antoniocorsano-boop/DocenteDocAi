@@ -72,7 +72,7 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         display: "flex",
                         flexWrap: "wrap",
-                        border: "1px solid var(--md-sys-color-outline)"
+                        border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"
                     }}>
                         <label  style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
                             <input type="checkbox" checked={includeAbsents} onChange={e => setIncludeAbsents(e.target.checked)}  /> 

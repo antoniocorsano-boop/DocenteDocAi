@@ -107,11 +107,11 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 cursor: "pointer",
                 padding: 'var(--md-sys-spacing-6)',
                 textAlign: "center",
-                transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)",
+                transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)",
                 marginTop: 'var(--md-sys-spacing-4)'
             }}>
                 <input {...getInputProps()} />
-                <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)', transition: "transform var(--md-sys-motion-duration-medium-4)"}}>cloud_upload</span>
+                <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)', transition: "transform var(--md-sys-motion-duration-medium)"}}>cloud_upload</span>
                 <M3Typography variant="label-small" style={{textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)"}}>Carica Elaborato</M3Typography>
                 <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "0.6", marginTop: 'var(--md-sys-spacing-4)'}}>Trascina qui il file o clicca per selezionare</M3Typography>
             </div>
@@ -142,7 +142,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 0.9, borderRadius: 'var(--md-sys-shape-corner-large)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-6)', display: "flex", flexDirection: "column"}}>
                         <button 
                             onClick={() => { onLogout(); setIsExitMenuOpen(false); }}
-                            style={{ color: 'var(--md-sys-color-on-surface)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: "left", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', transition: "color var(--md-sys-motion-duration-medium-4)"}}
+                            style={{ color: 'var(--md-sys-color-on-surface)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: "left", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', transition: "color var(--md-sys-motion-duration-medium)"}}
                         >
                             <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>logout</span>
                             <div >
@@ -153,7 +153,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                         {onExitMode && (
                             <button 
                                 onClick={() => { setIsPinModalOpen(true); setIsExitMenuOpen(false); }}
-                                style={{ borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: "left", color: "var(--md-sys-color-error)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', transition: "color var(--md-sys-motion-duration-medium-4)", marginTop: 'var(--md-sys-spacing-4)'}}
+                                style={{ borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: "left", color: "var(--md-sys-color-error)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', transition: "color var(--md-sys-motion-duration-medium)", marginTop: 'var(--md-sys-spacing-4)'}}
                             >
                                 <span style={{
   fontFamily: 'Material Symbols Outlined'
@@ -280,7 +280,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                 {submittedHomework.map(sub => {
                                     const relatedLesson = lessons.find(l => l.id === sub.lessonId);
                                     return (
-                                        <div key={sub.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.5, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "color var(--md-sys-motion-duration-medium-4)"}}>
+                                        <div key={sub.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.5, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "color var(--md-sys-motion-duration-medium)"}}>
                                             <div style={{gap: 'var(--md-sys-spacing-1)'}}>
                                                 <M3Typography variant="label-small" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>{relatedLesson?.materia || 'Materia'}</M3Typography>
                                                 <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "500", opacity: "0.6" }}>{new Date(sub.date).toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' })}</M3Typography>
@@ -321,7 +321,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                 title={entry.fileName}
                                 description={''}
                             >
-                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-secondary)', opacity: 0.1, width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "color var(--md-sys-motion-duration-medium-4)"}}>
+                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-secondary)', opacity: 0.1, width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "color var(--md-sys-motion-duration-medium)"}}>
                                     <span style={{ color: 'var(--md-sys-color-secondary)' }}>
                                         {entry.fileName.endsWith('.pdf') ? 'picture_as_pdf' : 'description'}
                                     </span>

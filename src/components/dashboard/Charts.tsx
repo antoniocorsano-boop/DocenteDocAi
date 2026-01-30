@@ -1,9 +1,9 @@
 /**
  * Charts Components
- * Componenti per visualizzare grafici delle metriche con Recharts
+ * Components for displaying performance metrics charts using Recharts
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   LineChart,
   Line,
@@ -27,9 +27,7 @@ import { PerformanceMetrics } from '../utils/metricsParser';
 // ============================================================================
 
 interface ChartProps {
-  data: any[];
-  className?: string;
-  height?: number;
+  data: PerformanceMetrics[];
 }
 
 // ============================================================================
@@ -37,23 +35,54 @@ interface ChartProps {
 // ============================================================================
 
 export const PerformanceTrendChart: React.FC<ChartProps> = ({
-  data,
-  className = '',
-  height = 300
+  data
 }) => {
-  // Trasforma i dati per il grafico
-  const chartData = data.map((metric: PerformanceMetrics) => ({
-    time: new Date(metric.timestamp).toLocaleDateString(),
-    fps: Math.round(metric.fps),
-    memory: Math.round(metric.memoryUsage.percentage),
-    bundleSize: Math.round(metric.bundleSize.total / 1024 / 1024 * 100) / 100, // MB
-    aiResponseTime: Math.round(metric.aiMetrics.averageResponseTime)
-  }));
+  // Transform data for the chart
+  const chartData = useMemo(() => {
+    if (!data || data.length === 0) return [];
+    return data.map((metric: PerformanceMetrics) => ({
+      time: new Date(metric.timestamp).toLocaleDateString(),
+      fps: Math.round(metric.fps),
+      memory: Math.round(metric.memoryUsage.percentage),
+      bundleSize: Math.round(metric.bundleSize.total / 1024 / 1024 * 100) / 100, // MB
+      aiResponseTime: Math.round(metric.aiMetrics.averageResponseTime)
+    }));
+  }, [data]);
+
+  if (!chartData.length) {
+    return (
+      <div
+        style={{
+          width: 'var(--md-sys-percent-100)',
+          height: 'var(--md-sys-chart-height-large)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'var(--md-sys-color-on-surface-variant)',
+          fontSize: 'var(--md-sys-typescale-body-large-font-size)'
+        }}
+        role="status"
+        aria-label="No performance data available"
+      >
+        No data available
+      </div>
+    );
+  }
 
   return (
-    <div className={`w-full ${className}`} style={{ height }}>
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={chartData}>
+    <div
+      style={{
+        width: 'var(--md-sys-percent-100)',
+        height: 'var(--md-sys-chart-height-large)'
+      }}
+      role="img"
+      aria-label="Performance trend chart showing FPS and memory usage over time"
+    >
+      <ResponsiveContainer>
+        <LineChart
+          data={chartData}
+          aria-label="Performance metrics line chart"
+        >
           <CartesianGrid
             strokeDasharray="3 3"
             stroke="var(--md-sys-color-outline-variant)"
@@ -61,17 +90,17 @@ export const PerformanceTrendChart: React.FC<ChartProps> = ({
           <XAxis
             dataKey="time"
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize={12}
+            fontSize="var(--md-sys-typescale-body-small-font-size)"
           />
           <YAxis
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize={12}
+            fontSize="var(--md-sys-typescale-body-small-font-size)"
           />
           <Tooltip
             contentStyle={{
               backgroundColor: 'var(--md-sys-color-surface-container-high)',
-              border: '1px solid var(--md-sys-color-outline-variant)',
-              borderRadius: '8px',
+              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+              borderRadius: 'var(--md-sys-shape-corner-small)',
               color: 'var(--md-sys-color-on-surface)'
             }}
           />
@@ -102,9 +131,7 @@ export const PerformanceTrendChart: React.FC<ChartProps> = ({
 // ============================================================================
 
 export const MemoryUsageChart: React.FC<ChartProps> = ({
-  data,
-  className = '',
-  height = 250
+  data
 }) => {
   const chartData = data.map((metric: PerformanceMetrics) => ({
     time: new Date(metric.timestamp).toLocaleTimeString(),
@@ -113,9 +140,19 @@ export const MemoryUsageChart: React.FC<ChartProps> = ({
   }));
 
   return (
-    <div className={`w-full ${className}`} style={{ height }}>
-      <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={chartData}>
+    <div
+      style={{
+        width: 'var(--md-sys-percent-100)',
+        height: 'var(--md-sys-chart-height-medium)' // Fixed height - use wrapper component for dynamic sizing
+      }}
+      role="img"
+      aria-label="Memory usage chart showing used memory in MB and percentage over time"
+    >
+      <ResponsiveContainer>
+        <AreaChart
+          data={chartData}
+          aria-label="Memory usage area chart"
+        >
           <CartesianGrid
             strokeDasharray="3 3"
             stroke="var(--md-sys-color-outline-variant)"
@@ -123,17 +160,17 @@ export const MemoryUsageChart: React.FC<ChartProps> = ({
           <XAxis
             dataKey="time"
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize={12}
+            fontSize="var(--md-sys-typescale-body-small-font-size)"
           />
           <YAxis
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize={12}
+            fontSize="var(--md-sys-typescale-body-small-font-size)"
           />
           <Tooltip
             contentStyle={{
               backgroundColor: 'var(--md-sys-color-surface-container-high)',
-              border: '1px solid var(--md-sys-color-outline-variant)',
-              borderRadius: '8px',
+              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+              borderRadius: 'var(--md-sys-shape-corner-small)',
               color: 'var(--md-sys-color-on-surface)'
             }}
           />
@@ -160,9 +197,7 @@ interface AIErrorsChartProps extends Omit<ChartProps, 'data'> {
 }
 
 export const AIErrorsChart: React.FC<AIErrorsChartProps> = ({
-  errorsByCategory,
-  className = '',
-  height = 250
+  errorsByCategory
 }) => {
   const chartData = Object.entries(errorsByCategory).map(([category, count]) => ({
     name: category,
@@ -170,37 +205,62 @@ export const AIErrorsChart: React.FC<AIErrorsChartProps> = ({
     fill: getErrorColor(category)
   }));
 
-  const COLORS = [
-    'var(--md-sys-color-error)',
-    'var(--md-sys-color-error-container)',
-    'var(--md-sys-color-on-error-container)',
-    'var(--md-sys-color-secondary)',
-    'var(--md-sys-color-tertiary)'
-  ];
+  // Check if we have valid data
+  const hasValidData = chartData.length > 0 && chartData.some(item => item.value > 0);
+
+  if (!hasValidData) {
+    return (
+      <div
+        style={{
+          width: 'var(--md-sys-percent-100)',
+          height: 'var(--md-sys-chart-height-medium)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'var(--md-sys-color-on-surface-variant)',
+          fontSize: 'var(--md-sys-typescale-body-large-font-size)'
+        }}
+        role="status"
+        aria-label="No AI error data available"
+      >
+        No error data available
+      </div>
+    );
+  }
 
   return (
-    <div className={`w-full ${className}`} style={{ height }}>
-      <ResponsiveContainer width="100%" height="100%">
-        <PieChart>
+    <div
+      style={{
+        width: 'var(--md-sys-percent-100)',
+        height: 'var(--md-sys-chart-height-medium)' // Fixed height - use wrapper component for dynamic sizing
+      }}
+      role="img"
+      aria-label="AI errors chart showing error count by category"
+    >
+      <ResponsiveContainer>
+        <PieChart aria-label="AI errors pie chart">
           <Pie
             data={chartData}
             cx="50%"
             cy="50%"
             labelLine={false}
-            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+            label={({ name, percent }) => {
+              const percentage = percent && !isNaN(percent) ? (percent * 100).toFixed(0) : '0';
+              return `${name} ${percentage}%`;
+            }}
             outerRadius={80}
-            fill="#8884d8"
+            fill="var(--md-sys-color-primary)"
             dataKey="value"
           >
             {chartData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              <Cell key={`cell-${index}`} fill={entry.fill} />
             ))}
           </Pie>
           <Tooltip
             contentStyle={{
               backgroundColor: 'var(--md-sys-color-surface-container-high)',
-              border: '1px solid var(--md-sys-color-outline-variant)',
-              borderRadius: '8px',
+              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+              borderRadius: 'var(--md-sys-shape-corner-small)',
               color: 'var(--md-sys-color-on-surface)'
             }}
           />
@@ -230,20 +290,29 @@ interface LazyLoadingChartProps extends Omit<ChartProps, 'data'> {
 }
 
 export const LazyLoadingChart: React.FC<LazyLoadingChartProps> = ({
-  loadTimes,
-  className = '',
-  height = 250
+  loadTimes
 }) => {
   const chartData = Object.entries(loadTimes).map(([component, time]) => ({
     component: component.length > 15 ? component.substring(0, 15) + '...' : component,
-    time: Math.round(time),
+    time: Math.round(time as number),
     fullName: component
   }));
 
   return (
-    <div className={`w-full ${className}`} style={{ height }}>
-      <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={chartData} layout="horizontal">
+    <div
+      style={{
+        width: 'var(--md-sys-percent-100)',
+        height: 'var(--md-sys-chart-height-medium)' // Fixed height - use wrapper component for dynamic sizing
+      }}
+      role="img"
+      aria-label="Lazy loading chart showing component load times in milliseconds"
+    >
+      <ResponsiveContainer>
+        <BarChart
+          data={chartData}
+          layout="horizontal"
+          aria-label="Lazy loading bar chart"
+        >
           <CartesianGrid
             strokeDasharray="3 3"
             stroke="var(--md-sys-color-outline-variant)"
@@ -251,20 +320,19 @@ export const LazyLoadingChart: React.FC<LazyLoadingChartProps> = ({
           <XAxis
             type="number"
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize={12}
+            fontSize="var(--md-sys-typescale-body-small-font-size)"
           />
           <YAxis
             dataKey="component"
             type="category"
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize={12}
-            width={100}
+            fontSize="var(--md-sys-typescale-body-small-font-size)"
           />
           <Tooltip
             contentStyle={{
               backgroundColor: 'var(--md-sys-color-surface-container-high)',
-              border: '1px solid var(--md-sys-color-outline-variant)',
-              borderRadius: '8px',
+              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+              borderRadius: 'var(--md-sys-shape-corner-small)',
               color: 'var(--md-sys-color-on-surface)'
             }}
             formatter={(value, name, props) => [
@@ -288,9 +356,7 @@ export const LazyLoadingChart: React.FC<LazyLoadingChartProps> = ({
 // ============================================================================
 
 export const BundleSizeTrendChart: React.FC<ChartProps> = ({
-  data,
-  className = '',
-  height = 250
+  data
 }) => {
   const chartData = data.map((metric: PerformanceMetrics) => ({
     time: new Date(metric.timestamp).toLocaleDateString(),
@@ -299,9 +365,19 @@ export const BundleSizeTrendChart: React.FC<ChartProps> = ({
   }));
 
   return (
-    <div className={`w-full ${className}`} style={{ height }}>
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={chartData}>
+    <div
+      style={{
+        width: 'var(--md-sys-percent-100)',
+        height: 'var(--md-sys-chart-height-medium)' // Fixed height - use wrapper component for dynamic sizing
+      }}
+      role="img"
+      aria-label="Bundle size trend chart showing total bundle size in MB over time"
+    >
+      <ResponsiveContainer>
+        <LineChart
+          data={chartData}
+          aria-label="Bundle size trend line chart"
+        >
           <CartesianGrid
             strokeDasharray="3 3"
             stroke="var(--md-sys-color-outline-variant)"
@@ -309,17 +385,17 @@ export const BundleSizeTrendChart: React.FC<ChartProps> = ({
           <XAxis
             dataKey="time"
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize={12}
+            fontSize="var(--md-sys-typescale-body-small-font-size)"
           />
           <YAxis
             stroke="var(--md-sys-color-on-surface-variant)"
-            fontSize={12}
+            fontSize="var(--md-sys-typescale-body-small-font-size)"
           />
           <Tooltip
             contentStyle={{
               backgroundColor: 'var(--md-sys-color-surface-container-high)',
-              border: '1px solid var(--md-sys-color-outline-variant)',
-              borderRadius: '8px',
+              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+              borderRadius: 'var(--md-sys-shape-corner-small)',
               color: 'var(--md-sys-color-on-surface)'
             }}
           />

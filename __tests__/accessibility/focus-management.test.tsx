@@ -231,7 +231,6 @@ describe('Focus Management - Multiple Nested Modals', () => {
             title="Modal 1" 
             onClose={() => setModal1Open(false)} 
             isOpen={modal1Open}
-            level={1}
           >
             <M3DialogContent>
               <button 
@@ -247,7 +246,6 @@ describe('Focus Management - Multiple Nested Modals', () => {
             title="Modal 2" 
             onClose={() => setModal2Open(false)} 
             isOpen={modal2Open}
-            level={2}
           >
             <M3DialogContent>
               <input data-testid="modal2-input" type="text" />

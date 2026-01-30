@@ -98,7 +98,6 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   const spacing4 = 'var(--md-sys-spacing-4)';
   const spacing6 = 'var(--md-sys-spacing-6)';
   const cornerLarge = 'var(--md-sys-shape-corner-large)';
-  const elevation3 = 'var(--md-sys-elevation-level3)';
   const headlineLargeFontSize = 'var(--md-sys-typescale-headline-large-font-size)';
   const headlineLargeFontWeight = 'var(--md-sys-typescale-headline-large-font-weight)';
   const headlineLargeLineHeight = 'var(--md-sys-typescale-headline-large-line-height)';
@@ -193,7 +192,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
           margin: 'var(--md-sys-margin-auto)',
           backgroundColor: surfaceContainerHigh,
           borderRadius: cornerLarge,
-          boxShadow: elevation3,
+          boxShadow: 'var(--md-sys-elevation-level3)',
           display: 'flex',
           flexDirection: 'column',
           position: 'relative',

@@ -112,7 +112,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
     const renderStep2 = () => (
         <>
             <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
-                <div style={{ backgroundColor: sys.colors.primaryContainer/20, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-5)', border: "1px solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+                <div style={{ backgroundColor: sys.colors.primaryContainer/20, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-5)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                     <div>
                         <p style={{fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)"}}>Context Active</p>
                         <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</h3>
@@ -121,8 +121,8 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                 </div>
 
                 <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
-                    <button onClick={handleGeneratePdf} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)", width: "var(--md-sys-percent-100)", textAlign: "left" }}>
-                        <div ><span  style={{ transition: "transform var(--md-sys-motion-duration-medium-4)" }}>picture_as_pdf</span></div>
+                    <button onClick={handleGeneratePdf} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", width: "var(--md-sys-percent-100)", textAlign: "left" }}>
+                        <div ><span  style={{ transition: "transform var(--md-sys-motion-duration-medium)" }}>picture_as_pdf</span></div>
                         <div >
                             <p >Tabellone Dati (PDF)</p>
                             <p >Medie, trend e rilevazioni competenze.</p>

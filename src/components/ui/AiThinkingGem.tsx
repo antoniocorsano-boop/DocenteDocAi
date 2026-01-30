@@ -48,7 +48,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                         borderRadius: 'var(--md-sys-shape-corner-full)',
                         background: 'var(--md-sys-color-surface-container-high)',
                         transform: 'scale(1.2)',
-                        animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`,
+                        animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`,
                         opacity: 0.4
                     }}
                 />
@@ -103,7 +103,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                         color: 'var(--md-sys-color-primary)',
                         letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
                         textTransform: 'uppercase',
-                        animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`,
+                        animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`,
                         margin: 0
                     }}
                 >

@@ -292,7 +292,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis',
                                             cursor: 'pointer',
-                                            transition: 'filter var(--md-sys-motion-duration-short) var(--motion-easing-standard)',
+                                            transition: 'filter var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                             background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
                                                        ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
                                                        ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
@@ -389,7 +389,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                                     overflow: 'hidden',
                                                     textOverflow: 'ellipsis',
                                                     cursor: 'pointer',
-                                                    transition: 'filter var(--md-sys-motion-duration-short) var(--motion-easing-standard)',
+                                                    transition: 'filter var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                                     background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
                                                                ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
                                                                ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :

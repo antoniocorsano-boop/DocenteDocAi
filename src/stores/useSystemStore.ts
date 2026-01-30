@@ -1,12 +1,33 @@
 import { create } from 'zustand';
-import { 
-    UserProfile, AnalyticsEvent, AnalyticsMetrics, AnalyticsSettings, 
-    Notifica, AiSuggestion, SystemSuggestion, KnowledgeBaseEntry, 
-    Corpus, DocumentTemplate, FeedSource, SystemState 
+import {
+    UserProfile, AnalyticsEvent, AnalyticsMetrics, AnalyticsSettings,
+    Notifica, AiSuggestion, SystemSuggestion, KnowledgeBaseEntry,
+    Corpus, DocumentTemplate, FeedSource
 } from '../types';
-import { INITIAL_KB_GUIDE } from '../constants.ts';
+import { INITIAL_KB_GUIDE } from '../constants';
 import { DEFAULT_TEMPLATES } from '../constants/defaultTemplates';
 
+// ============================================================================
+// TYPES
+// ============================================================================
+
+// System State interface - defines the shape of the store state
+export interface SystemState {
+    user: UserProfile | null;
+    analyticsEvents: AnalyticsEvent[];
+    analyticsMetrics: AnalyticsMetrics;
+    analyticsSettings: AnalyticsSettings;
+    notifiche: Notifica[];
+    suggestions: AiSuggestion[];
+    activeSuggestion: SystemSuggestion | null;
+    dismissedSuggestions: Set<string>;
+    knowledgeBase: KnowledgeBaseEntry[];
+    corpora: Corpus[];
+    templates: DocumentTemplate[];
+    feedSources: FeedSource[];
+}
+
+// System Actions interface - defines all available actions
 export interface SystemActions {
     setUser: (user: UserProfile | null) => void;
     setAnalyticsEvents: (input: AnalyticsEvent[] | ((prev: AnalyticsEvent[]) => AnalyticsEvent[])) => void;
@@ -26,7 +47,15 @@ export interface SystemActions {
     resetSystemData: () => void;
 }
 
-export const useSystemStore = create<SystemState & { actions: SystemActions }>((set) => ({
+// Complete store type - combines state and actions
+export type SystemStore = SystemState & { actions: SystemActions };
+
+// ============================================================================
+// STORE IMPLEMENTATION
+// ============================================================================
+
+// Create the Zustand store with proper typing
+export const useSystemStore = create<SystemStore>((set) => ({
     user: null,
     analyticsEvents: [],
     analyticsMetrics: {

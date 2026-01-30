@@ -8,30 +8,15 @@ import React, { useState, useEffect } from 'react';
 import NotebookLMImportModal from './NotebookLMImportModal';
 import TemplateManager from './TemplateManager';
 import { KnowledgeBaseEntry } from '../types';
-import { ProgettazioneHubProps, Uda, EventoCalendario, TimetableSettings, AiSettings, Report, Lezione, Competenza } from '../types';
+import { ProgettazioneHubProps, Uda, Competenza } from '../types';
 import AnnualPlanningWizard from './AnnualPlanningWizard';
 import SmartImportModal from './SmartImportModal';
 import CompetencyManager from './CompetencyManager';
 import { TabGroup, M3ExpressiveCard } from './ui';
 import TimelineView from './TimelineView';
 import UdaDetailModal from './UdaDetailModal';
-interface ProgettazioneHubExtendedProps extends ProgettazioneHubProps {
-    udas: Uda[]; // Ensure `udas` is defined
-    settings: TimetableSettings;
-    aiSettings: AiSettings;
-    onSaveUda: (uda: Uda) => void;
-    onAddLessons: (lessons: Lezione[]) => void;
-    onSaveReport: (report: Report) => void;
-    onSaveEvent: (event: EventoCalendario) => void;
-    initialAction?: string; 
-    knowledgeBase: KnowledgeBaseEntry[];
-    onUpdateCompetencies?: (competenze: Competenza[]) => void; // New prop for updating settings
-    onUpdateKnowledgeBase?: (kb: KnowledgeBaseEntry[]) => void; // Add dispatcher for KB
-    driveSyncState?: { isAuthenticated: boolean };
-    onConnectDrive?: () => void;
-}
 
-const ProgettazioneHub: React.FC<ProgettazioneHubExtendedProps> = ({ 
+const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({ 
     onNavigate, 
     udas, 
     events, 

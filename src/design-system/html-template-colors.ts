@@ -4,7 +4,7 @@
  * HTML TEMPLATE COLOR UTILITIES
  * 
  * These colors are used in HTML template strings for document generation.
- * These are NOT CSS colors used in React components—they are part of
+ * These are NOT CSS colors used in React componentsï¿½they are part of
  * generated document content via jsPDF, HTML export, etc.
  * 
  * HTML template colors are:
@@ -14,27 +14,27 @@
  * - Used by: DocumentGenerator, PDF exports, HTML reports
  * 
  * This file is EXCLUDED from the design-system/no-hardcoded-colors ESLint rule.
- * @see docs/DESIGN_SYSTEM_CONSOLIDATION.md § 5 - "Exceptions & Overrides"
+ * @see docs/DESIGN_SYSTEM_CONSOLIDATION.md ï¿½ 5 - "Exceptions & Overrides"
  */
 
 export const HTML_TEMPLATE_COLORS = {
   // Header and title styling
   headers: {
-    primary: '#1a73e8',      // Blue - for main titles
-    accent: '#e8f0fe',       // Light blue background
+    primary: 'var(--md-sys-color-primary)',      // Blue - for main titles
+    accent: 'var(--md-sys-color-primary-container)',       // Light blue background
   },
   
   // Text colors
   text: {
-    primary: '#202124',      // Dark gray - main text
-    secondary: '#666666',    // Medium gray - secondary text
-    footer: '#666666',       // Gray - footer text
+    primary: 'var(--md-sys-color-on-surface)',      // Dark gray - main text
+    secondary: 'var(--md-sys-color-on-surface-variant)',    // Medium gray - secondary text
+    footer: 'var(--md-sys-color-on-surface-variant)',       // Gray - footer text
   },
   
   // Table and structure colors
   structure: {
-    headerBg: '#e8f0fe',     // Light blue for header backgrounds
-    borderColor: '#dadce0',  // Light gray for borders
+    headerBg: 'var(--md-sys-color-surface-variant)',     // Light blue for header backgrounds
+    borderColor: 'var(--md-sys-color-outline-variant)',  // Light gray for borders
   },
 } as const;
 

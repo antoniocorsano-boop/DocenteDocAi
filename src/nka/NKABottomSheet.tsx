@@ -64,8 +64,8 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
           position: 'fixed',
           top: 0,
           left: 0,
-          width: '100vw',
-          height: '100vh',
+          width: 'var(--md-sys-viewport-width-full)',
+          height: 'var(--md-sys-viewport-height-full)',
           background: 'rgba(0,0,0,0.32)',
           zIndex: 'var(--md-sys-z-modal)', // --md-sys-z-modal
         }}

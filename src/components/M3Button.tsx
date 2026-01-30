@@ -36,7 +36,7 @@ export const M3Button: React.FC<M3ButtonProps> = ({
   } else if (variant === 'outlined') {
     backgroundColor = 'transparent';
     color = 'var(--md-sys-color-primary)';
-    border = '1px solid var(--md-sys-color-outline)';
+    border = 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)';
   } else if (variant === 'tonal') {
     backgroundColor = 'var(--md-sys-color-secondary-container)';
     color = 'var(--md-sys-color-on-secondary-container)';

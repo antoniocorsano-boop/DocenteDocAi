@@ -79,7 +79,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 icon="auto_fix_high"
                 variant="primary"
                 onClick={() => setMode('wizard')}
- style={{ transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized)' }}
+ style={{ transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
               />
               <ActionTile 
                 title="Accesso Rapido"
@@ -87,7 +87,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 icon="bolt"
                 variant="surface"
                 onClick={() => setMode('quick')}
- style={{ transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized)' }}
+ style={{ transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
               />
           </div>
           

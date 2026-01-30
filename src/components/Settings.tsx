@@ -127,7 +127,7 @@ const SettingsGroup: React.FC<{
                 style={{padding: 'var(--md-sys-spacing-6)',
                     paddingTop: 'var(--md-sys-spacing-2)',
                     borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                    animation: `fadeInSlideDown var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)`,
+                    animation: `fadeInSlideDown var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`,
                     pointerEvents: isOpen ? 'auto' : 'none',
                     opacity: isOpen ? 1 : 0,
                     maxHeight: isOpen ? 'none' : '0',

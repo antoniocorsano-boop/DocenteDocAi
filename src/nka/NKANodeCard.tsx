@@ -9,7 +9,7 @@ interface NKANodeCardProps {
   onSelect: () => void;
 }
 
-function NKANodeCard({ node, onSelect }: NKANodeCardProps): JSX.Element {
+function NKANodeCard({ node, onSelect }: NKANodeCardProps): React.JSX.Element {
   return (
     <div
       style={{
@@ -24,7 +24,7 @@ function NKANodeCard({ node, onSelect }: NKANodeCardProps): JSX.Element {
         display: 'flex',
         flexDirection: 'column',
         gap: 'var(--md-sys-spacing-2)',
-        transition: 'box-shadow 0.2s',
+        transition: 'box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
       }}
       tabIndex={0}
       role="button"
@@ -57,7 +57,7 @@ function NKANodeCard({ node, onSelect }: NKANodeCardProps): JSX.Element {
               font: 'inherit',
               cursor: 'pointer',
               boxShadow: 'var(--md-sys-elevation0)',
-              transition: 'background 0.2s',
+              transition: 'background var(--md-sys-motion-duration-medium)',
             }}
           >
             <M3Typography variant="label-large">{action}</M3Typography>

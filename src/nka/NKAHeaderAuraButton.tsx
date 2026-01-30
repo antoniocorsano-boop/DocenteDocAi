@@ -68,7 +68,7 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
         position: 'relative',
         outline: 'none',
         cursor: 'pointer',
-        transition: 'box-shadow 0.2s',
+        transition: 'box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
       }}
     >
       <span

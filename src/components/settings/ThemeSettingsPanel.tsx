@@ -237,7 +237,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         }}>
           {[
             { key: 'easing-standard', label: 'Standard', value: 'var(--md-sys-motion-easing-standard)' },
-            { key: 'easing-emphasized', label: 'Emphasized', value: 'var(--md-sys-motion-easing-emphasized)' },
+            { key: 'easing-emphasized', label: 'Emphasized', value: 'var(--md-sys-motion-easing-standard)' },
             { key: 'duration-short', label: 'Short Duration', value: 'var(--md-sys-motion-duration-short)' },
             { key: 'duration-medium', label: 'Medium Duration', value: 'var(--md-sys-motion-duration-medium)' }
           ].map(({ key, label, value }) => (

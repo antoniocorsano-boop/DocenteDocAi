@@ -45,7 +45,7 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
                     <img 
                         src={dataUrl} 
                         alt={prompt} 
-                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , maxWidth: "var(--md-sys-percent-100)", border: "1px solid var(--md-sys-color-outline)"}} 
+                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , maxWidth: "var(--md-sys-percent-100)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}} 
                     />
                     <div style={{ backgroundColor: sys.colors.black/40, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', opacity: "0", transition: "opacity var(--md-sys-motion-duration-medium)"}}>
                         <p style={{ color: sys.colors.white ,  fontSize: "var(--md-sys-typescale-body-small-font-size)", fontWeight: "500" }}>"{prompt}"</p>
@@ -53,7 +53,7 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
                 </div>
             </M3DialogContent>
 
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/80 , padding: 'var(--md-sys-spacing-6)', borderTop: "1px solid var(--md-sys-color-outline)"}}>
+            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/80 , padding: 'var(--md-sys-spacing-6)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                 <M3Button 
                     onClick={handleSave} 
                     variant="outlined" 

@@ -162,7 +162,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                             <InfoCard
                               key={template.id}
                               variant="elevated"
-                              style={{ cursor: "pointer", transition: "all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-emphasized)" }}
+                              style={{ cursor: "pointer", transition: "all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)" }}
                             >
                               <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 'var(--md-sys-spacing-12)'}}>
                                 <div style={{flex: 1, display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>

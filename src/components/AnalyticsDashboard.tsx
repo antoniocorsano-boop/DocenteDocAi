@@ -177,7 +177,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
             <div style={{display: 'flex',
               flexDirection: 'column',
               gap: 'var(--md-sys-spacing-6)',
-              animation: `fade-in var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)`}}>
+              animation: `fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`}}>
               <div style={{display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-32), var(--md-sys-grid-fr-1)))',
                 gap: 'var(--md-sys-spacing-8)'}}>
@@ -420,7 +420,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
             <div style={{display: 'flex',
               flexDirection: 'column',
               gap: 'var(--md-sys-spacing-4)',
-              animation: `fade-in var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)`}}>
+              animation: `fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`}}>
               <M3Typography
                 variant="label-small"
                 style={{textTransform: 'uppercase',
@@ -449,7 +449,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       padding: 'var(--md-sys-spacing-6)',
                       border: `var(--md-sys-border-width-thin) solid ${isHovered ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)'}`,
                       borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-                      transition: `background-color var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}
+                      transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                     onMouseEnter={() => setHoveredElements(prev => ({ ...prev, [eventKey]: true }))}
                     onMouseLeave={() => setHoveredElements(prev => ({ ...prev, [eventKey]: false }))}>
                       <div style={{
@@ -502,7 +502,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
             <div style={{display: 'flex',
               flexDirection: 'column',
               gap: 'var(--md-sys-spacing-6)',
-              animation: `fade-in var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)`}}>
+              animation: `fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`}}>
               <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                 opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                 padding: 'var(--md-sys-spacing-5)',
@@ -527,7 +527,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     padding: 'var(--md-sys-spacing-6)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     cursor: 'pointer',
-                    transition: `background-color var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}
+                    transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                   onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'analytics-toggle': true }))}
                   onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'analytics-toggle': false }))}>
                     <div>
@@ -565,7 +565,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         backgroundColor: analyticsSettings.enabled ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
                         borderRadius: 'var(--md-sys-spacing-3)',
                         position: 'relative',
-                        transition: `background-color var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}>
+                        transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}>
                         <div style={{
                           position: 'absolute',
                           top: 'var(--md-sys-spacing-4)',
@@ -576,7 +576,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           
                           borderRadius: 'var(--md-sys-percent-full)',
                           
-                          transition: `left var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}></div>
+                          transition: `left var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}></div>
                       </div>
                     </div>
                   </label>
@@ -589,7 +589,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         padding: 'var(--md-sys-spacing-6)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         cursor: 'pointer',
-                        transition: `background-color var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}
+                        transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                       onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'feature-usage-toggle': true }))}
                       onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'feature-usage-toggle': false }))}>
                         <div>
@@ -630,7 +630,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                             backgroundColor: analyticsSettings.collectFeatureUsage ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
                             borderRadius: 'var(--md-sys-spacing-3)',
                             position: 'relative',
-                            transition: `background-color var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}>
+                            transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}>
                             <div style={{position: 'absolute',
                               top: 'var(--md-sys-spacing-4)',
                               left: analyticsSettings.collectFeatureUsage ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
@@ -638,7 +638,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                               height: 'var(--md-sys-spacing-4)',
                               backgroundColor: 'var(--md-sys-color-on-primary)',
                               borderRadius: 'var(--md-sys-percent-full)',
-                              transition: `left var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}></div>
+                              transition: `left var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}></div>
                           </div>
                         </div>
                       </label>
@@ -649,7 +649,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         padding: 'var(--md-sys-spacing-6)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         cursor: 'pointer',
-                        transition: `background-color var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}
+                        transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                       onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'document-metrics-toggle': true }))}
                       onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'document-metrics-toggle': false }))}>
                         <div>
@@ -690,7 +690,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                             backgroundColor: analyticsSettings.collectDocumentMetrics ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
                             borderRadius: 'var(--md-sys-spacing-3)',
                             position: 'relative',
-                            transition: `background-color var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}>
+                            transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}>
                             <div style={{position: 'absolute',
                               top: 'var(--md-sys-spacing-4)',
                               left: analyticsSettings.collectDocumentMetrics ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
@@ -698,7 +698,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                               height: 'var(--md-sys-spacing-4)',
                               backgroundColor: 'var(--md-sys-color-on-primary)',
                               borderRadius: 'var(--md-sys-percent-full)',
-                              transition: `left var(--md-sys-motion-duration-short-3) var(--md-sys-motion-easing-standard)`}}></div>
+                              transition: `left var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}></div>
                           </div>
                         </div>
                       </label>

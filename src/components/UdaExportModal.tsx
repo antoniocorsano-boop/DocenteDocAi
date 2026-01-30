@@ -154,9 +154,9 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                         <button 
                             onClick={handlePdfExport}
                             disabled={isExporting}
-                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-8)', transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)", textAlign: "left", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)" }}
+                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-8)', transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", textAlign: "left", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)" }}
                         >
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: sys.colors.on-primaryContainer , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--md-sys-motion-duration-medium-4)"}}>
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: sys.colors.on-primaryContainer , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--md-sys-motion-duration-medium)"}}>
                                 <span  style={{ fontSize: "var(--md-sys-typescale-display-small-font-size)" }}>picture_as_pdf</span>
                             </div>
                             <div>
@@ -168,9 +168,9 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                         <button 
                             onClick={handleDocxExport}
                             disabled={isExporting}
-                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-8)', transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)", textAlign: "left", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)" }}
+                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-8)', transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", textAlign: "left", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)" }}
                         >
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: sys.colors.on-secondary-container, width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--md-sys-motion-duration-medium-4)" }}>
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: sys.colors.on-secondary-container, width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--md-sys-motion-duration-medium)" }}>
                                 <span  style={{ fontSize: "var(--md-sys-typescale-display-small-font-size)" }}>description</span>
                             </div>
                             <div>
@@ -182,9 +182,9 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                         <button 
                             onClick={handleAiReport}
                             disabled={isExporting}
-                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-8)', transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)", textAlign: "left", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}
+                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-8)', transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)", textAlign: "left", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}
                         >
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: sys.colors.on-tertiary-container , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--md-sys-motion-duration-medium-4)"}}>
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: sys.colors.on-tertiary-container , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--md-sys-motion-duration-medium)"}}>
                                 <span  style={{ fontSize: "var(--md-sys-typescale-display-small-font-size)" }}>auto_awesome</span>
                             </div>
                             <div>

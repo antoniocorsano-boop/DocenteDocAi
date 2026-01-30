@@ -64,9 +64,9 @@ const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
         border: `var(--md-sys-border-width-thick) solid ${selected ? MD3_TOKENS.primary : hovered ? MD3_TOKENS.outline : `${MD3_TOKENS.outlineVariant}30`}`,
         backgroundColor: selected ? MD3_TOKENS.primaryContainer : hovered ? MD3_TOKENS.surfaceContainerHigh : `${MD3_TOKENS.surfaceContainer}80`,
         color: selected ? MD3_TOKENS.onPrimaryContainer : MD3_TOKENS.onSurface,
-        boxShadow: selected ? MD3_TOKENS.elevation4 : 'none',
+        boxShadow: selected ? 'var(--md-sys-elevation-level4)' : 'none',
         transform: selected ? 'scale(1.05)' : 'none',
-        transition: `all ${MD3_TOKENS.durationShort2} ${MD3_TOKENS.easingStandard}`,
+        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
         gap: MD3_TOKENS.spacing4,
         minWidth: MD3_TOKENS.spacing16,
         cursor: 'pointer',
@@ -80,24 +80,24 @@ const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        transition: `all ${MD3_TOKENS.durationShort2} ${MD3_TOKENS.easingStandard}`,
+        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
         backgroundColor: selected ? MD3_TOKENS.primary : MD3_TOKENS.surface,
         color: selected ? MD3_TOKENS.onPrimary : MD3_TOKENS.primary,
-        boxShadow: selected ? MD3_TOKENS.elevation2 : 'none',
+        boxShadow: selected ? 'var(--md-sys-elevation-level2)' : 'none',
         transform: hovered && !selected ? 'scale(1.1)' : 'none'
     };
 
     const iconStyle: React.CSSProperties = {
         fontFamily: 'Material Symbols Outlined',
-        fontSize: MD3_TOKENS.spacing6,
+        fontSize: 'var(--md-sys-spacing-6)',
         userSelect: 'none',
         fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"
     };
 
     const labelStyle: React.CSSProperties = {
-        fontSize: MD3_TOKENS.bodySmallFontSize,
-        fontFamily: MD3_TOKENS.bodySmallFontFamily,
-        fontWeight: '800',
+        fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+        fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
+        fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
         letterSpacing: '0.2em',
         textTransform: 'uppercase'
     };

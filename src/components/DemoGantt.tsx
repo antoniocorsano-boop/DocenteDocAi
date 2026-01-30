@@ -72,7 +72,7 @@ const GanttBar: React.FC<GanttBarProps> = ({ id, title, onMove, col, maxCols = 4
         backgroundColor: isDragging ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
         boxShadow: isDragging ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)',
         borderRadius: 'var(--md-sys-shape-corner-medium)',
-        border: '1px solid var(--md-sys-color-outline)',
+        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
       } as React.CSSProperties}
       onKeyDown={handleKeyDown}
     >

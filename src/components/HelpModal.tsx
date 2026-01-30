@@ -12,7 +12,7 @@ const ManualSection: React.FC<{ title: string; icon: string; defaultOpen?: boole
     const [isOpen, setIsOpen] = useState(defaultOpen);
     return (
         <div style={{
-            border: `1px solid var(--md-sys-color-outline-variant)`,
+            border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`,
             borderRadius: 'var(--md-sys-shape-corner-large)',
             marginBottom: 'var(--md-sys-spacing-4)',
             overflow: 'hidden'
@@ -55,7 +55,7 @@ const ManualSection: React.FC<{ title: string; icon: string; defaultOpen?: boole
             {isOpen && <div style={{
                 padding: 'var(--md-sys-spacing-4)',
                 backgroundColor: 'var(--md-sys-color-surface)',
-                borderTop: `1px solid var(--md-sys-color-outline-variant)`
+                borderTop: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
             }}>{children}</div>}
         </div>
     );
@@ -66,7 +66,7 @@ const UseCaseCard: React.FC<{ scenario: string; steps: string[]; tip?: string }>
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
         borderRadius: 'var(--md-sys-shape-corner-large)',
         padding: 'var(--md-sys-spacing-4)',
-        border: `1px solid var(--md-sys-color-outline-variant)`
+        border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
     }}>
         <M3Typography variant="body-large" style={{
             fontWeight: 'bold',
@@ -273,7 +273,7 @@ const SetupGuide = () => (
             backgroundColor: 'var(--md-sys-color-surface-container-low)',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             padding: 'var(--md-sys-spacing-4)',
-            border: `1px solid var(--md-sys-color-outline-variant)`
+            border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
         }}>
             <M3Typography variant="title-medium" style={{
                 color: 'var(--md-sys-color-primary)',
@@ -418,7 +418,7 @@ const DigitalTeacherManual = () => {
                 backgroundColor: 'var(--md-sys-color-primary-container)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
                 padding: 'var(--md-sys-spacing-4)',
-                border: `1px solid var(--md-sys-color-outline)`
+                border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline)`
             }}>
                 <InfoCard
                     title="Documentazione Completa"
@@ -489,7 +489,7 @@ const DigitalTeacherManual = () => {
                         backgroundColor: 'var(--md-sys-color-surface-container-low)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         padding: 'var(--md-sys-spacing-4)',
-                        border: `1px solid var(--md-sys-color-outline-variant)`
+                        border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
                     }}>
                         <M3Typography variant="button-primary" style={{
                             display: 'flex',
@@ -514,7 +514,7 @@ const DigitalTeacherManual = () => {
                         backgroundColor: 'var(--md-sys-color-surface-container-low)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         padding: 'var(--md-sys-spacing-4)',
-                        border: `1px solid var(--md-sys-color-outline-variant)`
+                        border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
                     }}>
                         <M3Typography variant="button-primary" style={{
                             display: 'flex',
@@ -572,7 +572,7 @@ const VocalAssistantGuideContent = () => (
                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
                     padding: 'var(--md-sys-spacing-5)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                    border: "1px solid var(--md-sys-color-outline-variant)"
+                    border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)"
                 }}>
                     <M3Typography variant="title-medium" style={{
                         color: 'var(--md-sys-color-primary)',
@@ -813,7 +813,7 @@ const FaqContent = () => (
         }}>
             {faqContentData.map((faq, i) => (
                 <details key={i} style={{
-                    transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)",
+                    transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)",
                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     overflow: "hidden"
@@ -830,7 +830,7 @@ const FaqContent = () => (
                         <span dangerouslySetInnerHTML={{ __html: faq.q }}></span>
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
-                            transition: "transform var(--md-sys-motion-duration-medium-4)",
+                            transition: "transform var(--md-sys-motion-duration-medium)",
                             fontSize: 'var(--md-sys-typescale--font-size)'
                         }}>expand_more</span>
                     </summary>
@@ -850,7 +850,7 @@ const FaqContent = () => (
 const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => void; onGenerate: () => void; isGenerating: boolean;}> = ({onNavigate, onClose, onGenerate, isGenerating}) => {
     const ImprovementCard: React.FC<{ title: string; children: React.ReactNode; actionView?: View; icon?: string }> = ({ title, children, actionView, icon = "new_relvar(--md-sys-motion-easing-standard)s" }) => (
         <div style={{
-            transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)",
+            transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)",
             backgroundColor: 'var(--md-sys-color-surface-container-low)',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             padding: 'var(--md-sys-spacing-4)'
@@ -867,7 +867,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                     minWidth: "0"
                 }}>
                     <div style={{
-                        transition: "transform var(--md-sys-motion-duration-medium-4)",
+                        transition: "transform var(--md-sys-motion-duration-medium)",
                         width: 'var(--md-sys-sizing-icon-large)',
                         height: 'var(--md-sys-sizing-icon-large)',
                         borderRadius: 'var(--md-sys-shape-corner-medium)',
@@ -965,7 +965,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                 backgroundColor: 'var(--md-sys-color-primary-container)',
                 color: 'var(--md-sys-color-on-primary-container)',
                 padding: 'var(--md-sys-spacing-6)',
-                border: "1px solid var(--md-sys-color-outline)"
+                border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"
             }}>
                 <div style={{
                     display: "flex",

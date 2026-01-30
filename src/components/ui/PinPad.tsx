@@ -13,7 +13,7 @@ interface PinPadProps {
  */
 
 const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
-    const { layers: { sys: { color }, ref: { spacing, shape, typography }, elevation, motion } } = useTheme();
+    const { layers: { sys: { color }, ref: { spacing, shape, typography }, motion } } = useTheme();
 
     const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'back'];
 
@@ -78,12 +78,12 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
                             fontSize: typography.labelLarge.fontSize,
                             fontWeight: 800,
                             border: `var(--md-sys-border-width-thick) solid ${isHovered ? color.primary : `color-mix(in srgb, ${color.outlineVariant} var(--md-sys-percent-30), transparent)`}`,
-                            transition: `all ${motion.duration.short1} ${motion.easing.standard}`,
+                            transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            boxShadow: isHovered ? elevation.level3 : 'none',
+                            boxShadow: isHovered ? 'var(--md-sys-elevation-level3)' : 'none',
                             transform: isPressed ? 'scale(0.9)' : 'scale(1)'
                         }}
                         onMouseEnter={() => setHoveredKey(key)}

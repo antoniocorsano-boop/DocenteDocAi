@@ -78,7 +78,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
     >
       <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)" }}>
         {/* Left Panel: Upload and Prompt */}
-        <div style={{ padding: 'var(--md-sys-spacing-4)', borderRight: "1px solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column" }}>
+        <div style={{ padding: 'var(--md-sys-spacing-4)', borderRight: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column" }}>
           <div>
             <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-6)' }}>1. Carica un'immagine</h3>
             <div 
@@ -123,7 +123,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
                 if (error) setError('');
               }}
               placeholder="Es. 'Descrivi cosa vedi in questa immagine'..."
-              style={{ padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--md-sys-percent-100)", flexGrow: "1", backgroundColor: 'var(--md-sys-color-surface)', border: "1px solid var(--md-sys-color-outline)" }}
+              style={{ padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--md-sys-percent-100)", flexGrow: "1", backgroundColor: 'var(--md-sys-color-surface)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}
               rows={4}
               disabled={!imageFile}
             />

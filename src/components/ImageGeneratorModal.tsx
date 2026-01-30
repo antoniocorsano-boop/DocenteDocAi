@@ -49,7 +49,7 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
 
                 <M3DialogActions style={{
                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    borderTop: '1px solid var(--md-sys-color-outline)',
+                    borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                     paddingTop: '0'
                 }}>
                     <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900",  fontSize: "var(--md-sys-typescale-label-large-font-size)" , textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>

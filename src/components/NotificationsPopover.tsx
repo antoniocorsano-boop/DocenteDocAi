@@ -73,7 +73,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                     backgroundColor: 'var(--md-sys-color-surface-container-high)',
                     backdropFilter: `blur(${'var(--md-sys-spacing-2)'})`,
                     padding: `${'var(--md-sys-spacing-4)'} ${'var(--md-sys-spacing-6)'}`,
-                    borderBottom: `1px solid ${'var(--md-sys-color-outline-variant)'}`,
+                    borderBottom: `var(--md-sys-border-width-thin) solid ${'var(--md-sys-color-outline-variant)'}`,
                     zIndex: 'var(--md-sys-z-sticky)',
                     display: 'flex',
                     justifyContent: 'space-between',
@@ -171,10 +171,10 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                     backgroundColor: notifica.letta
                                         ? 'var(--md-sys-color-surfaceContainer)'
                                         : 'var(--md-sys-color-surface-dim)',
-                                    border: `1px solid ${notifica.letta
+                                    border: `var(--md-sys-border-width-thin) solid ${notifica.letta
                                         ? 'var(--md-sys-color-outline-variant)'
                                         : 'var(--md-sys-color-primary)'}`,
-                                    transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+                                    transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                     outline: 'none'
                                 }}
                                 onMouseEnter={(e) => {

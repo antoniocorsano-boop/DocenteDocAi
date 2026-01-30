@@ -36,10 +36,6 @@ const M3Button: React.FC<M3ButtonProps> = ({
   const onSecondaryContainer = 'var(--md-sys-color-on-secondary-container)';
   const surfaceContainerLow = 'var(--md-sys-color-surface-container-low)';
 
-  // Elevation tokens
-  const elevation1 = 'var(--md-sys-elevation-level1)';
-  const elevation2 = 'var(--md-sys-elevation-level2)';
-
   // Spacing tokens
   const spacing4 = 'var(--md-sys-spacing-4)';
   const spacing6 = 'var(--md-sys-spacing-6)';
@@ -90,7 +86,7 @@ const M3Button: React.FC<M3ButtonProps> = ({
         return {
           backgroundColor: primary,
           color: onPrimary,
-          boxShadow: elevation1
+          boxShadow: 'var(--md-sys-elevation-level1)'
         };
       case 'outlined':
         return {
@@ -112,7 +108,7 @@ const M3Button: React.FC<M3ButtonProps> = ({
         return {
           backgroundColor: surfaceContainerLow,
           color: primary,
-          boxShadow: elevation2
+          boxShadow: 'var(--md-sys-elevation-level2)'
         };
       default:
         return {

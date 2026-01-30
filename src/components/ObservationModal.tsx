@@ -21,7 +21,7 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
             backgroundColor: 'var(--md-sys-color-surface-container-low)',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             padding: 'var(--md-sys-spacing-5)',
-            border: '1px solid var(--md-sys-color-outline)'
+            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)'
         }}>
             <div style={{
                 display: 'flex',
@@ -58,7 +58,7 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
                         transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                         backgroundColor: i <= value ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-low)',
                         color: i <= value ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
-                        border: i <= value ? 'none' : '1px solid var(--md-sys-color-outline-variant)',
+                        border: i <= value ? 'none' : 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                         boxShadow: i <= value ? 'var(--md-sys-elevation-level1)' : 'none',
                         transform: i <= value ? 'scale(1.05)' : 'scale(1)'
                     }}>

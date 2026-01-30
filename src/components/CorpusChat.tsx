@@ -133,7 +133,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             backgroundColor: msg.role === 'user' 
                                 ? 'var(--md-sys-color-primary)'
                                 : 'var(--md-sys-color-surface-container-high)',
-                            border: `1px solid var(--md-sys-color-outline-variant)`}}>
+                            border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`}}>
                             <M3Typography variant="body-large" style={{color: msg.role === 'user' 
                                     ? 'var(--md-sys-color-on-primary)'
                                     : 'var(--md-sys-color-on-surface)',
@@ -149,7 +149,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             padding: 'var(--md-sys-spacing-3)',
                             borderRadius: `var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-small)`,
                             backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                            border: '1px solid var(--md-sys-color-outline-variant)'}}>
+                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
                             <div style={{display: 'flex',
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-2)'}}>
@@ -186,7 +186,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
             </div>
 
             <div style={{padding: 'var(--md-sys-spacing-4)',
-                borderTop: '1px solid var(--md-sys-color-outline-variant)',
+                borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                 backgroundColor: 'var(--md-sys-color-surface-container-low)'}}>
                 <div style={{display: 'flex',
                     gap: 'var(--md-sys-spacing-2)',
@@ -198,7 +198,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             gap: 'var(--md-sys-spacing-2)',
                             padding: 'var(--md-sys-spacing-3)',
                             backgroundColor: 'var(--md-sys-color-secondary-container)',
-                            border: '1px solid var(--md-sys-color-outline-variant)',
+                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             cursor: 'pointer',
                             transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
@@ -225,7 +225,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             gap: 'var(--md-sys-spacing-2)',
                             padding: 'var(--md-sys-spacing-3)',
                             backgroundColor: 'var(--md-sys-color-tertiary-container)',
-                            border: '1px solid var(--md-sys-color-outline-variant)',
+                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             cursor: 'pointer',
                             transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
@@ -250,7 +250,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             gap: 'var(--md-sys-spacing-2)',
                             padding: 'var(--md-sys-spacing-3)',
                             backgroundColor: 'var(--md-sys-color-primary-container)',
-                            border: '1px solid var(--md-sys-color-outline-variant)',
+                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             cursor: 'pointer',
                             transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
@@ -278,7 +278,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                 style={{display: 'flex',
                     padding: 'var(--md-sys-spacing-4)',
                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    borderTop: '1px solid var(--md-sys-color-outline-variant)',
+                    borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                     gap: 'var(--md-sys-spacing-2)'}}
             >
                 <input
@@ -289,7 +289,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                     style={{flex: 1,
                         padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                         borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: `1px solid var(--md-sys-color-outline)`,
+                        border: `ar(--md-sys-border-width-thin) solid var(--md-sys-color-outline)`,
                         backgroundColor: 'var(--md-sys-color-surface-container-high)',
                         color: 'var(--md-sys-color-on-surface)',
                         outline: 'none',

@@ -73,7 +73,7 @@ interface Alert {
   type: 'critical' | 'warning' | 'info';
   title: string;
   message: string;
-  data: any;
+  data: unknown;
 }
 
 // ============================================================================
@@ -225,7 +225,7 @@ class MaintenanceMonitor {
   // ALERT SYSTEM
   // ============================================================================
 
-  private createAlert(type: Alert['type'], title: string, message: string, data?: any): void {
+  private createAlert(type: Alert['type'], title: string, message: string, data?: unknown): void {
     const alert: Alert = {
       id: `alert-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       timestamp: new Date().toISOString(),
@@ -307,7 +307,7 @@ class MaintenanceMonitor {
   // UTILITIES
   // ============================================================================
 
-  private appendToLogFile(filePath: string, data: any): void {
+  private appendToLogFile(filePath: string, data: unknown): void {
     const entry = JSON.stringify(data) + '\n';
     fs.appendFileSync(filePath, entry);
   }

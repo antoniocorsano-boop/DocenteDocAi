@@ -33,7 +33,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
             }
 
             if (showAnswers) {
-                html += `<p style="color: green; font-size: 0.9em;"><em>Risposta corretta: ${q.correctAnswer}</em></p>`;
+                html += `<p style="color: green; font-size: var(--md-sys-typescale-body-small-size);"><em>Risposta corretta: ${q.correctAnswer}</em></p>`;
             }
             html += `<br/>`;
         });

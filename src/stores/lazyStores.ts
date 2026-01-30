@@ -7,7 +7,7 @@ import type { StudentState, StudentActions } from './useStudentStore';
 import type { AcademicState, AcademicActions } from './useAcademicStore';
 import type { SystemState, SystemActions } from './useSystemStore';
 import type { UIState } from './useUIStore';
-import type { SettingsState } from './useSettingsStore';
+import type { SettingsState } from '../types';
 
 type StudentStore = import('zustand').UseBoundStore<import('zustand').StoreApi<StudentState & { actions: StudentActions }>>;
 type AcademicStore = import('zustand').UseBoundStore<import('zustand').StoreApi<AcademicState & { actions: AcademicActions }>>;

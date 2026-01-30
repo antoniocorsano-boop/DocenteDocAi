@@ -319,7 +319,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                 return (
                     <div
                         key={student.id}
-                        style={{ padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', border: '1px solid var(--md-sys-color-outline)', transition: 'all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)', cursor: 'pointer' }}
+                        style={{ padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: 'pointer' }}
                         onClick={() => setViewingStudent(student)}
                     >
                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-4)' }}>
@@ -437,10 +437,10 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                 </div>
 
                 <div
-                    style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-3)', backgroundColor: 'var(--md-sys-color-surface-container-low)', border: '1px solid var(--md-sys-color-outline)' }}
+                    style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-3)', backgroundColor: 'var(--md-sys-color-surface-container-low)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}
                 >
                     <div
-                        style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', border: '1px solid var(--md-sys-color-outline)' }}
+                        style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}
                     >
                         <span style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)' }}>class</span>
                         <select
@@ -464,14 +464,14 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
                         <button
                             onClick={() => setIsAddProvaModalOpen(true)}
-                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', transition: 'all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', border: 'none', cursor: 'pointer' }}
+                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', border: 'none', cursor: 'pointer' }}
                         >
                             <span style={{ fontSize: 'var(--md-sys-typescale-headline-small-font-size)' }}>add</span>
                             Nuova Prova
                         </button>
                         <button
                             onClick={() => setIsExportModalOpen(true)}
-                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-highest)', color: 'var(--md-sys-color-on-surface)', borderRadius: 'var(--md-sys-shape-corner-large)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', transition: 'all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', border: 'none', cursor: 'pointer' }}
+                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-highest)', color: 'var(--md-sys-color-on-surface)', borderRadius: 'var(--md-sys-shape-corner-large)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em', transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', border: 'none', cursor: 'pointer' }}
                         >
                             <span style={{ fontSize: 'var(--md-sys-typescale-headline-small-font-size)' }}>download</span>
                             Esporta
@@ -481,10 +481,10 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
             </div>
 
             <div
-                style={{ borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid var(--md-sys-color-outline)', backgroundColor: 'var(--md-sys-color-surface)' }}
+                style={{ borderRadius: 'var(--md-sys-shape-corner-large)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', backgroundColor: 'var(--md-sys-color-surface)' }}
             >
                 <div
-                    style={{ padding: 'var(--md-sys-spacing-2)', borderBottom: '1px solid var(--md-sys-color-outline)', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}
+                    style={{ padding: 'var(--md-sys-spacing-2)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}
                 >
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-3)' }}>
                         <div>
@@ -496,7 +496,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             </M3Typography>
                         </div>
                         <div
-                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-1)', borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', border: '1px solid var(--md-sys-color-outline)' }}
+                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-1)', borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}
                         >
                             {[
                                 { id: 'grid', label: 'Griglia', icon: 'grid_on' },
@@ -506,7 +506,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id as ViewTab)}
-                                    style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-small-font-size)', textTransform: 'uppercase', letterSpacing: '0.1em', transition: 'all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)', backgroundColor: activeTab === tab.id ? 'var(--md-sys-color-primary)' : 'transparent', color: activeTab === tab.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)', border: 'none', cursor: 'pointer', position: 'relative' }}
+                                    style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-small-font-size)', textTransform: 'uppercase', letterSpacing: '0.1em', transition: 'all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', backgroundColor: activeTab === tab.id ? 'var(--md-sys-color-primary)' : 'transparent', color: activeTab === tab.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)', border: 'none', cursor: 'pointer', position: 'relative' }}
                                 >
                                     <span style={{ fontSize: 'var(--md-sys-typescale-headline-small-font-size)' }}>{tab.icon}</span>
                                     {tab.label}

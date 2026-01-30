@@ -136,8 +136,8 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
         backgroundColor: colors.background,
         borderRadius: MD3_TOKENS.cornerLarge,
         padding: MD3_TOKENS.spacing4,
-        boxShadow: MD3_TOKENS.elevation1,
-        transition: `all ${MD3_TOKENS.durationShort2} ${MD3_TOKENS.easingStandard}`
+        boxShadow: 'var(--md-sys-elevation-level1)',
+        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
       }}
     >
       {/* Header section with icon and title */}
@@ -163,7 +163,7 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
           >
             <span
               style={{fontFamily: 'Material Symbols Outlined',
-                fontSize: MD3_TOKENS.spacing4
+                fontSize: 'var(--md-sys-spacing-4)'
               }}
             >
               {leadingIcon}

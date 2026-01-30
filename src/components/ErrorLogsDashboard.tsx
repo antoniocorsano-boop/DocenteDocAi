@@ -78,19 +78,19 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
       {/* Stats Cards */}
       <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-6)'}}>
-        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
+        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Total Errors</div>
           <div  style={{fontWeight: "bold", color: "var(--md-sys-color-primary)"}}>{stats.total}</div>
         </div>
-        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
+        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Errors</div>
           <div  style={{fontWeight: "bold", color: "var(--md-sys-color-error)"}}>{stats.bySeverity['error'] || 0}</div>
         </div>
-        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
+        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Warnings</div>
           <div  style={{fontWeight: "bold", color: "var(--md-sys-color-warning)"}}>{stats.bySeverity['warning'] || 0}</div>
         </div>
-        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
+        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Infos</div>
           <div  style={{fontWeight: "bold", color: "var(--md-sys-color-primary)"}}>{stats.bySeverity['info'] || 0}</div>
         </div>
@@ -119,7 +119,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
           <select
             value={filterType}
             onChange={(e) => setFilterType((e.target as HTMLSelectElement).value as ErrorLog['type'] | 'all')}
-             style={{borderRadius: "var(--md-sys-shape-corner-small)", border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)"}}
+             style={{borderRadius: "var(--md-sys-shape-corner-small)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)"}}
           >
             <option value="all">Tutti</option>
             <option value="navigation">Navigation</option>
@@ -136,7 +136,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
           <select
             value={filterSeverity}
             onChange={(e) => setFilterSeverity((e.target as HTMLSelectElement).value as ErrorLog['severity'] | 'all')}
-             style={{borderRadius: "var(--md-sys-shape-corner-small)", border: "1px solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)"}}
+             style={{borderRadius: "var(--md-sys-shape-corner-small)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)"}}
           >
             <option value="all">Tutti</option>
             <option value="error">Error</option>
@@ -163,7 +163,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
       </div>
 
       {/* Logs Table */}
-      <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , border: "1px solid var(--md-sys-color-outline)"}}>
+      <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
         <div style={{ overflowX: "auto" }}>
           <table  style={{ width: "var(--md-sys-percent-100)" }}>
             <thead style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
@@ -233,7 +233,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
       {/* Most Recent Error */}
       {stats.mostRecent && (
-        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.error/10 , marginTop: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)"}}>
+        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.error/10 , marginTop: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
           <div  style={{color: "var(--md-sys-color-error)", marginBottom: 'var(--md-sys-spacing-8)'}}>Most Recent Error</div>
           <div >
             <div>

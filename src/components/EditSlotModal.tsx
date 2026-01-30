@@ -111,7 +111,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                     </div>
                 </section>
 
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)" }}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                     {activityType === 'standard' && (
                         <div  style={{gap: 'var(--md-sys-spacing-6)'}}>
                             <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>

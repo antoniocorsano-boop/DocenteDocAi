@@ -53,7 +53,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
             height: 'var(--md-sys-spacing-2)',
             backgroundColor: 'var(--md-sys-color-primary)',
             borderRadius: 'var(--md-sys-percent-50)',
-            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`, // MD3 motion tokens for duration and easing
+            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`, // MD3 motion tokens for duration and easing
             animationDelay: 'var(--md-sys-motion-duration-0)'
           }}
         />
@@ -63,7 +63,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
             height: 'var(--md-sys-spacing-2)',
             backgroundColor: 'var(--md-sys-color-primary)',
             borderRadius: 'var(--md-sys-percent-50)',
-            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`, // MD3 motion tokens for duration and easing
+            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`, // MD3 motion tokens for duration and easing
             animationDelay: 'var(--md-sys-motion-duration-short)'
           }}
         />
@@ -73,7 +73,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
             height: 'var(--md-sys-spacing-2)',
             backgroundColor: 'var(--md-sys-color-primary)',
             borderRadius: 'var(--md-sys-percent-50)',
-            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`, // MD3 motion tokens for duration and easing
+            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`, // MD3 motion tokens for duration and easing
             animationDelay: 'var(--md-sys-motion-duration-medium)'
           }}
         />

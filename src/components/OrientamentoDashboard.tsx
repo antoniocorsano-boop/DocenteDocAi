@@ -97,7 +97,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
     const renderStudentsTab = () => (
         <div style={{gap: 'var(--md-sys-spacing-6)'}}>
             <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>Stato E-Portfolio Studenti</h3>
-            <div  style={{border: "1px solid var(--md-sys-color-outline)"}}>
+            <div  style={{border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                 <table  style={{ width: 'var(--md-sys-percent-100)' }}>
                     <thead>
                         <tr style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 }}>
@@ -223,8 +223,8 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 </InfoCard>
             </div>
 
-            <div style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' , border: "1px solid var(--md-sys-color-outline)"}}>
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container)' , display: "flex", borderBottom: "1px solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-8)'}}>
+            <div style={{ borderRadius: 'var(--md-sys-shape-corner-medium)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container)' , display: "flex", borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-8)'}}>
                     <button 
                         onClick={() => setActiveTab('activities')}
                         style={{color: 'var(--md-sys-color-on-primary)'}}

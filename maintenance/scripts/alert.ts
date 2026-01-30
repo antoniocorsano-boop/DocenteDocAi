@@ -16,7 +16,7 @@ import path from 'path';
 interface AlertRule {
   id: string;
   name: string;
-  condition: (data: any) => boolean;
+  condition: (data: unknown) => boolean;
   severity: 'critical' | 'warning' | 'info';
   message: string;
   cooldown: number; // minutes
@@ -30,7 +30,7 @@ interface AlertNotification {
   severity: 'critical' | 'warning' | 'info';
   title: string;
   message: string;
-  data: any;
+  data: unknown;
   acknowledged: boolean;
 }
 
@@ -152,7 +152,7 @@ class AlertManager {
   // ALERT PROCESSING
   // ============================================================================
 
-  processData(data: any, source: string = 'unknown'): void {
+  processData(data: unknown, source: string = 'unknown'): void {
     ALERT_RULES.forEach(rule => {
       if (this.shouldTriggerAlert(rule, data)) {
         this.triggerAlert(rule, data, source);
@@ -160,7 +160,7 @@ class AlertManager {
     });
   }
 
-  private shouldTriggerAlert(rule: AlertRule, data: any): boolean {
+  private shouldTriggerAlert(rule: AlertRule, data: unknown): boolean {
     // Check condition
     if (!rule.condition(data)) {
       return false;
@@ -179,7 +179,7 @@ class AlertManager {
     return true;
   }
 
-  private triggerAlert(rule: AlertRule, data: any, source: string): void {
+  private triggerAlert(rule: AlertRule, data: unknown, source: string): void {
     const notification: AlertNotification = {
       id: `alert-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       timestamp: new Date().toISOString(),
@@ -199,7 +199,7 @@ class AlertManager {
     this.sendNotifications(notification);
   }
 
-  private formatMessage(template: string, data: any): string {
+  private formatMessage(template: string, data: unknown): string {
     // Simple template replacement
     let message = template;
 
@@ -310,7 +310,7 @@ class AlertManager {
   // UTILITY METHODS
   // ============================================================================
 
-  simulateAlert(ruleId: string, testData: any = {}): void {
+  simulateAlert(ruleId: string, testData: Record<string, unknown> = {}): void {
     const rule = ALERT_RULES.find(r => r.id === ruleId);
     if (!rule) {
       console.error(`Alert rule '${ruleId}' not found`);

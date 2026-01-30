@@ -300,7 +300,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             backgroundColor: 'var(--md-sys-color-surface-container)',
                                             borderRadius: 'var(--md-sys-shape-corner-extra-large)',
                                             boxShadow: 'var(--md-sys-elevation-level2)',
-                                            border: '1px solid var(--md-sys-color-outline-variant)',
+                                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                             transition: 'all var(--md-sys-motion-duration-medium)',
                                             cursor: 'pointer',
                                             outline: isFocused ? 'var(--md-sys-border-width-normal) solid var(--md-sys-color-primary)' : 'none',
@@ -405,7 +405,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                                 letterSpacing: '0.1em',
                                                                 backgroundColor: hwStatus === 'missing' ? 'var(--md-sys-color-error-container)' : hwStatus === 'partial' ? 'var(--md-sys-color-surface-container)' : 'var(--md-sys-color-primary-container)',
                                                                 color: hwStatus === 'missing' ? 'var(--md-sys-color-on-error-container)' : hwStatus === 'partial' ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary-container)',
-                                                                border: '1px solid var(--md-sys-color-outline)'
+                                                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)'
                                                             }}
                                                         >
                                                             {hwStatus === 'missing' ? 'No Compiti' : hwStatus === 'partial' ? 'Parziali' : 'OK'}
@@ -456,7 +456,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 
                 {activeTab === 'notes' && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
-                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface)', padding: 'var(--md-sys-spacing-4)', border: '1px solid var(--md-sys-color-outline)' }}>
+                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface)', padding: 'var(--md-sys-spacing-4)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--md-sys-spacing-4)' }}>
                                 <M3Typography variant="title-medium">Note Pubbliche (Registro)</M3Typography>
                                 <VoiceNoteRecorder onTranscription={(text) => onUpdateDraftEntry(draftKey, { notes: (draftEntry.notes ? draftEntry.notes + '\n' : '') + text })} compact />
@@ -466,7 +466,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 onChange={e => onUpdateDraftEntry(draftKey, { notes: e.target.value })}
                                 style={{
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                                    border: '1px solid var(--md-sys-color-outline)',
+                                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     borderRadius: 'var(--md-sys-shape-corner-medium)',
                                     padding: 'var(--md-sys-spacing-2)',
                                     width: 'var(--md-sys-percent-full)',
@@ -489,7 +489,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                     color: 'var(--md-sys-color-on-surface)',
-                                    border: '1px solid var(--md-sys-color-outline)',
+                                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
                                     cursor: 'pointer',
                                     fontWeight: 'bold',
@@ -510,7 +510,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                     color: 'var(--md-sys-color-on-surface)',
-                                    border: '1px solid var(--md-sys-color-outline)',
+                                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
                                     cursor: 'pointer',
                                     fontWeight: 'bold',
@@ -531,7 +531,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                     color: 'var(--md-sys-color-on-surface)',
-                                    border: '1px solid var(--md-sys-color-outline)',
+                                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
                                     cursor: 'pointer',
                                     fontWeight: 'bold',
@@ -563,7 +563,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             borderRadius: 'var(--md-sys-shape-corner-large)',
                                             backgroundColor: 'var(--md-sys-color-surface)',
                                             padding: 'var(--md-sys-spacing-3)',
-                                            border: '1px solid var(--md-sys-color-outline)',
+                                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: 'var(--md-sys-spacing-3)',
@@ -639,7 +639,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                     level={1}
                 >
                     <M3DialogContent>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)', borderBottom: '1px solid var(--md-sys-color-outline)', paddingBottom: 'var(--md-sys-spacing-2)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', paddingBottom: 'var(--md-sys-spacing-2)' }}>
                             <Avatar name={`${selectedStudentForActions.nome}`} size="md" />
                             <div>
                                 <M3Typography variant="headline-small" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: '900', color: 'var(--md-sys-color-on-surface)' }}>{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</M3Typography>

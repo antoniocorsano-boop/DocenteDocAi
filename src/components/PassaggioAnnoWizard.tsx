@@ -188,7 +188,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                 style={{ backgroundColor: sys.colors.primaryContainer/20 }}
                             />
                             
-                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: "1px solid var(--md-sys-color-outline)" }}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                                 <h3 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", marginBottom: 'var(--md-sys-spacing-6)' }}>Checklist Automatica</h3>
                                 <ul style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
                                     {[
@@ -212,13 +212,13 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                                 <h3 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900" }}>Esiti Scrutinio</h3>
                                 <div style={{ display: "flex", gap: 'var(--md-sys-spacing-6)' }}>
-                                    <span style={{ backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid var(--md-sys-color-outline)" }}>{stats.promote} Promossi</span>
-                                    <span style={{ backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid var(--md-sys-color-outline)" }}>{stats.retain} Bocciati</span>
-                                    <span style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "1px solid var(--md-sys-color-outline)" }}>{stats.archive} Archiviati</span>
+                                    <span style={{ backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>{stats.promote} Promossi</span>
+                                    <span style={{ backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>{stats.retain} Bocciati</span>
+                                    <span style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>{stats.archive} Archiviati</span>
                                 </div>
                             </div>
                             
-                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', border: "1px solid var(--md-sys-color-outline)" }}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                                 <table style={{ width: 'var(--md-sys-percent-100)' }}>
                                     <thead>
                                         <tr style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
@@ -256,7 +256,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                                                 padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-8)',
                                                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
                                                                 border: 'none',
-                                                                outline: '1px solid var(--md-sys-color-outline-variant)',
+                                                                outline: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                                                 backgroundColor: outcome?.action === "retain" ? 'var(--md-sys-color-error-container)' :
                                                                                outcome?.action === "archive" || outcome?.action === "transfer" ? 'var(--md-sys-color-surface-container-high)' :
                                                                                'var(--md-sys-color-primary-container)',
@@ -296,7 +296,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                 ?? I dati giornalieri verranno <strong style={{color: "var(--md-sys-color-error)"}}>resettati</strong>. I dati storici saranno salvati nel profilo di ogni studente.
                             </p>
                             
-                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)", textAlign: "left" }}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textAlign: "left" }}>
                                 <p style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>Riepilogo Azioni:</p>
                                 <ul style={{gap: 'var(--md-sys-spacing-3)'}}>
                                     {[
@@ -316,7 +316,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                     )}
             </M3DialogContent>
 
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "1px solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-6)' }}>
+            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-6)' }}>
                     {step === "intro" && (
                         <>
                             <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>

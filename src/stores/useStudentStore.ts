@@ -1,10 +1,27 @@
 import { create } from 'zustand';
-import { 
-    Studente, PianoInclusione, Valutazione, ValutazioneCompetenza, 
-    OrientamentoActivity, EPortfolioEntry, StudentOrientamentoState,
-    StudentState 
+import {
+    Studente, PianoInclusione, Valutazione, ValutazioneCompetenza,
+    OrientamentoActivity, EPortfolioEntry, StudentOrientamentoState
 } from '../types';
 
+// ============================================================================
+// TYPES
+// ============================================================================
+
+// Student State interface - defines the shape of the store state
+export interface StudentState {
+    students: Studente[];
+    pianiInclusione: Record<string, PianoInclusione>;
+    evaluations: Valutazione[];
+    competencyEvals: ValutazioneCompetenza[];
+    studentProfileContext: Studente | null;
+    selectedClassForDashboard: string | null;
+    orientamentoActivities: OrientamentoActivity[];
+    ePortfolioEntries: EPortfolioEntry[];
+    studentOrientamentoStates: Record<string, StudentOrientamentoState>;
+}
+
+// Student Actions interface - defines all available actions
 export interface StudentActions {
     setStudents: (input: Studente[] | ((prev: Studente[]) => Studente[])) => void;
     setPianiInclusione: (input: Record<string, PianoInclusione> | ((prev: Record<string, PianoInclusione>) => Record<string, PianoInclusione>)) => void;
@@ -15,27 +32,35 @@ export interface StudentActions {
     setOrientamentoActivities: (input: OrientamentoActivity[] | ((prev: OrientamentoActivity[]) => OrientamentoActivity[])) => void;
     setEPortfolioEntries: (input: EPortfolioEntry[] | ((prev: EPortfolioEntry[]) => EPortfolioEntry[])) => void;
     setStudentOrientamentoStates: (input: Record<string, StudentOrientamentoState> | ((prev: Record<string, StudentOrientamentoState>) => Record<string, StudentOrientamentoState>)) => void;
-    
+
     // Helper Actions
     addEvaluation: (evaluation: Omit<Valutazione, 'id'>) => void;
     updateEvaluation: (id: string, updates: Partial<Valutazione>) => void;
     deleteEvaluation: (id: string) => void;
-    
+
     // Student Actions
     saveStudent: (student: Studente) => void;
     deleteStudent: (id: string) => void;
     importStudents: (newStudents: Studente[]) => void;
     importEvaluations: (newEvaluations: Valutazione[]) => void;
-    
+
     // Inclusion Actions
     savePianoInclusione: (piano: PianoInclusione) => void;
     deletePianoInclusione: (id: string) => void;
-    
+
     loadFromBackup: (data: Partial<StudentState>) => void;
     resetStudentData: () => void;
 }
 
-export const useStudentStore = create<StudentState & { actions: StudentActions }>((set) => ({
+// Complete store type - combines state and actions
+export type StudentStore = StudentState & { actions: StudentActions };
+
+// ============================================================================
+// STORE IMPLEMENTATION
+// ============================================================================
+
+// Create the Zustand store with proper typing
+export const useStudentStore = create<StudentStore>((set) => ({
     students: [],
     pianiInclusione: {},
     evaluations: [],

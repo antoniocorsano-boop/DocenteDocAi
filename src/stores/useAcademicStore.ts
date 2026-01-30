@@ -1,10 +1,29 @@
 import { create } from 'zustand';
-import { 
-    Lezione, Slot, Uda, EventoCalendario, Rubrica, CurriculumSubject, 
-    HomeworkSubmission, RegisterEntry, GiudizioPeriodico, Report,
-    AcademicState 
+import {
+    Lezione, Slot, Uda, EventoCalendario, Rubrica, CurriculumSubject,
+    HomeworkSubmission, RegisterEntry, GiudizioPeriodico, Report
 } from '../types';
 
+// ============================================================================
+// TYPES
+// ============================================================================
+
+// Academic State interface - defines the shape of the store state
+export interface AcademicState {
+    lessons: Record<string, Lezione>;
+    slots: Record<string, Slot>;
+    uda: Uda[];
+    eventi: EventoCalendario[];
+    rubriche: Rubrica[];
+    curricula: CurriculumSubject[];
+    submissions: HomeworkSubmission[];
+    draftRegister: Record<string, RegisterEntry>;
+    finalizedRegister: RegisterEntry[];
+    giudizi: Record<string, GiudizioPeriodico>;
+    reportistica: Report[];
+}
+
+// Academic Actions interface - defines all available actions
 export interface AcademicActions {
     setLessons: (input: Record<string, Lezione> | ((prev: Record<string, Lezione>) => Record<string, Lezione>)) => void;
     setSlots: (input: Record<string, Slot> | ((prev: Record<string, Slot>) => Record<string, Slot>)) => void;
@@ -17,16 +36,24 @@ export interface AcademicActions {
     setFinalizedRegister: (input: RegisterEntry[] | ((prev: RegisterEntry[]) => RegisterEntry[])) => void;
     setGiudizi: (input: Record<string, GiudizioPeriodico> | ((prev: Record<string, GiudizioPeriodico>) => Record<string, GiudizioPeriodico>)) => void;
     setReportistica: (input: Report[] | ((prev: Report[]) => Report[])) => void;
-    
+
     // Helper Actions
     saveRubrica: (rubrica: Rubrica) => void;
     saveGiudizio: (giudizio: GiudizioPeriodico) => void;
-    
+
     loadFromBackup: (data: Partial<AcademicState>) => void;
     resetAcademicData: () => void;
 }
 
-export const useAcademicStore = create<AcademicState & { actions: AcademicActions }>((set) => ({
+// Complete store type - combines state and actions
+export type AcademicStore = AcademicState & { actions: AcademicActions };
+
+// ============================================================================
+// STORE IMPLEMENTATION
+// ============================================================================
+
+// Create the Zustand store with proper typing
+export const useAcademicStore = create<AcademicStore>((set) => ({
     lessons: {},
     slots: {},
     uda: [],

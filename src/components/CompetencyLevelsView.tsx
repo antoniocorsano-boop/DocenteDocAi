@@ -90,7 +90,7 @@ const CompetencyLevelsView: React.FC<CompetencyLevelsViewProps> = ({ competenze 
 
             {competenze.map(competenza => (
                 <div key={competenza.id} >
-                    <div  style={{marginBottom: 'var(--md-sys-spacing-8)', borderBottom: "1px solid var(--md-sys-color-outline)"}}>
+                    <div  style={{marginBottom: 'var(--md-sys-spacing-8)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                         <h2 style={{ color: "var(--md-sys-color-primary)" }}>{competenza.nome}</h2>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-spacing-3)"}}>
                             {competenza.framework || 'Framework Standard'}

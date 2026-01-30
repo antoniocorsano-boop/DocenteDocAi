@@ -122,7 +122,7 @@ const DashboardHeader: React.FC = () => {
                 borderRadius: 'var(--md-sys-radius-2)',
                 backgroundColor: 'var(--md-sys-color-on-primary)',
                 transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-                transform: autoRefresh ? 'translateX(20px)' : 'translateX(4px)'
+                transform: autoRefresh ? 'translateX(var(--md-sys-spacing-5))' : 'translateX(var(--md-sys-spacing-1))'
               }}
             />
           </button>
@@ -205,7 +205,7 @@ const AlertsSection: React.FC = () => {
         <div
           style={{
             borderRadius: 'var(--md-sys-radius-3)',
-            border: '1px solid var(--md-sys-color-outline-variant)',
+            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
             backgroundColor: 'var(--md-sys-color-surface-container-low)',
             padding: 'var(--md-sys-spacing-6)',
           }}
@@ -244,7 +244,7 @@ const AlertsSection: React.FC = () => {
           <h3
             style={{
               fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-              fontWeight: '600',
+              fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)',
               color: 'var(--md-sys-color-on-surface)',
             }}
           >
@@ -267,7 +267,7 @@ const AlertsSection: React.FC = () => {
     <div
       style={{
         borderRadius: 'var(--md-sys-radius-3)',
-        border: '1px solid var(--md-sys-color-outline-variant)',
+        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
         padding: 'var(--md-sys-spacing-6)',
       }}
@@ -306,7 +306,7 @@ const AlertsSection: React.FC = () => {
         <h3
           style={{
             fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-            fontWeight: '600',
+            fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)',
             color: 'var(--md-sys-color-on-surface)',
           }}
         >
@@ -330,7 +330,7 @@ const AlertsSection: React.FC = () => {
               gap: 'var(--md-sys-spacing-3)',
               padding: 'var(--md-sys-spacing-3)',
               borderRadius: 'var(--md-sys-radius-2)',
-              border: '1px solid var(--md-sys-color-outline-variant)',
+              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
               backgroundColor: 'var(--md-sys-color-surface-container-highest)',
             }}
           >
@@ -361,7 +361,7 @@ const AlertsSection: React.FC = () => {
                 <span
                   style={{
                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                    fontWeight: '500',
+                    fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
                     color: 'var(--md-sys-color-on-surface)',
                   }}
                 >

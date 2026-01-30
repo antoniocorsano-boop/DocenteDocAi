@@ -104,7 +104,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
             <M3DialogContent style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 }}>
                 <div  style={{ display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)" }}>
                     {/* Left: Source */}
-                    <div  style={{padding: 'var(--md-sys-spacing-6)', borderRight: "1px solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
+                    <div  style={{padding: 'var(--md-sys-spacing-6)', borderRight: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
                         <TabGroup
                             tabs={tabs}
                             activeTab={activeTab}
@@ -196,7 +196,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                         </div>
                         <div  style={{flexGrow: "1", overflowY: "auto", gap: 'var(--md-sys-spacing-2)'}}>
                             {materials.map(material => (
-                                <div key={material.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , display: "flex", alignItems: "center", justifyContent: "space-between", padding: 'var(--md-sys-spacing-6)', border: "1px solid var(--md-sys-color-outline)"}}>
+                                <div key={material.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , display: "flex", alignItems: "center", justifyContent: "space-between", padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>
                                         <span  style={{color: "var(--md-sys-color-primary)"}}>{getMaterialIcon(material)}</span>
                                         <span style={{ color: 'var(--md-sys-color-on-surface)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{getMaterialLabel(material)}</span>
@@ -222,7 +222,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                     </div>
                 </div>
             </M3DialogContent>
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: '1px solid var(--md-sys-color-outline)' }}>
+            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}>
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
                 <M3Button onClick={() => onSave(materials)} variant="filled">Salva</M3Button>
             </M3DialogActions>

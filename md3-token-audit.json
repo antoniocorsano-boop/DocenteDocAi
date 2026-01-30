@@ -1,0 +1,315 @@
+{
+  "summary": {
+    "totalFiles": 444,
+    "totalLines": 92611,
+    "totalTokens": 4718,
+    "totalSemanticTokens": 26,
+    "hardcodedViolations": 2434,
+    "coverage": {},
+    "unusedDefinedTokens": [
+      "--md-sys-backdrop-light",
+      "--md-sys-backdrop-medium",
+      "--md-sys-backdrop-dark",
+      "--md-sys-blur-small",
+      "--md-sys-blur-medium",
+      "--md-sys-blur-large",
+      "--md-sys-blur-xl",
+      "--md-sys-blur-2xl",
+      "--md-sys-blur-20",
+      "--md-sys-blur-16",
+      "--md-sys-blur-25",
+      "--md-sys-blur-30",
+      "--md-sys-blur-40",
+      "--md-sys-blur-48",
+      "--md-sys-blur-120",
+      "--md-sys-blur-150",
+      "--md-sys-elevation-0",
+      "--md-sys-elevation-1",
+      "--md-sys-elevation-2",
+      "--md-sys-elevation-3",
+      "--md-sys-elevation-4",
+      "--md-sys-elevation-5",
+      "--md-sys-radius-0",
+      "--md-sys-radius-1",
+      "--md-sys-radius-2",
+      "--md-sys-radius-3",
+      "--md-sys-radius-4",
+      "--md-sys-radius-5",
+      "--md-sys-radius-6",
+      "--md-sys-radius-7",
+      "--md-sys-radius-full",
+      "--md-sys-layout-grid-min",
+      "--md-sys-layout-grid-min-wide",
+      "--md-sys-layout-card-width",
+      "--md-sys-layout-card-min-height",
+      "--md-sys-layout-avatar-size",
+      "--md-sys-layout-fab-size",
+      "--md-sys-layout-button-min-width",
+      "--md-sys-layout-popup-min-width",
+      "--md-sys-layout-panel-max-width",
+      "--md-sys-layout-dropzone-height",
+      "--md-sys-layout-timetable-cell-min-height",
+      "--md-sys-layout-workflow-card-min-width",
+      "--md-sys-layout-120",
+      "--md-sys-breakpoint-mobile",
+      "--md-sys-breakpoint-tablet",
+      "--md-sys-breakpoint-desktop",
+      "--md-sys-breakpoint-large",
+      "--md-sys-filter-grayscale-100",
+      "--md-sys-border-width-none",
+      "--md-sys-border-width-thin",
+      "--md-sys-border-width-normal",
+      "--md-sys-border-width-medium",
+      "--md-sys-border-width-thick",
+      "--md-sys-special-viewport-height",
+      "--md-sys-elevation1",
+      "--md-sys-elevation2",
+      "--md-sys-elevation3",
+      "--md-sys-state-opacity-disabled",
+      "--md-sys-state-opacity-tooltip",
+      "--md-sys-chart-height-large",
+      "--md-sys-chart-height-medium"
+    ],
+    "unusedSemanticTokens": []
+  },
+  "categories": {
+    "spacing": {
+      "md3TokensUsed": 30,
+      "semanticTokensUsed": 3,
+      "totalUsage": 3565,
+      "semanticUsage": 6,
+      "semanticAdoption": 0.16802016241949033,
+      "mostUsedMd3": [
+        "--md-sys-spacing-16",
+        "--md-sys-spacing-0",
+        "--md-sys-spacing-2",
+        "--md-sys-spacing-4",
+        "--md-sys-spacing-6"
+      ],
+      "mostUsedSemantic": [
+        "--app-spacing-container",
+        "--app-spacing-element",
+        "--app-spacing-touch"
+      ]
+    },
+    "color": {
+      "md3TokensUsed": 69,
+      "semanticTokensUsed": 13,
+      "totalUsage": 2679,
+      "semanticUsage": 26,
+      "semanticAdoption": 0.9611829944547136,
+      "mostUsedMd3": [
+        "--md-sys-color-primary",
+        "--md-sys-color-on-primary",
+        "--md-sys-color-primary-container",
+        "--md-sys-color-on-primary-container",
+        "--md-sys-color-secondary"
+      ],
+      "mostUsedSemantic": [
+        "--app-spacing-container",
+        "--app-spacing-element",
+        "--app-spacing-touch",
+        "--app-motion-quick",
+        "--app-easing-standard"
+      ]
+    },
+    "typography": {
+      "md3TokensUsed": 123,
+      "semanticTokensUsed": 3,
+      "totalUsage": 933,
+      "semanticUsage": 6,
+      "semanticAdoption": 0.6389776357827476,
+      "mostUsedMd3": [
+        "--md-sys-typescale-display-large-font-size",
+        "--md-sys-typescale-display-large-font-weight",
+        "--md-sys-typescale-display-medium-font-size",
+        "--md-sys-typescale-display-medium-font-weight",
+        "--md-sys-typescale-display-small-font-size"
+      ],
+      "mostUsedSemantic": [
+        "--app-text-display",
+        "--app-text-title",
+        "--app-text-label"
+      ]
+    },
+    "motion": {
+      "md3TokensUsed": 11,
+      "semanticTokensUsed": 3,
+      "totalUsage": 350,
+      "semanticUsage": 6,
+      "semanticAdoption": 1.6853932584269662,
+      "mostUsedMd3": [
+        "--md-sys-motion-duration-short",
+        "--md-sys-motion-duration-long",
+        "--md-sys-motion-easing-standard",
+        "--md-sys-motion-easing-decelerated",
+        "--md-sys-motion-easing-emphasized-decelerate"
+      ],
+      "mostUsedSemantic": [
+        "--app-motion-standard",
+        "--app-motion-slow",
+        "--app-easing-emphasized"
+      ]
+    },
+    "elevation": {
+      "md3TokensUsed": 5,
+      "semanticTokensUsed": 0,
+      "totalUsage": 153,
+      "semanticUsage": 0,
+      "semanticAdoption": 0,
+      "mostUsedMd3": [
+        "--md-sys-elevation-level0",
+        "--md-sys-elevation-level2",
+        "--md-sys-elevation-level4",
+        "--md-sys-elevation-level1",
+        "--md-sys-elevation-level3"
+      ],
+      "mostUsedSemantic": []
+    },
+    "shape": {
+      "md3TokensUsed": 10,
+      "semanticTokensUsed": 0,
+      "totalUsage": 603,
+      "semanticUsage": 0,
+      "semanticAdoption": 0,
+      "mostUsedMd3": [
+        "--md-sys-shape-corner-none",
+        "--md-sys-shape-corner-medium",
+        "--md-sys-shape-corner-extra-large",
+        "--md-sys-shape-corner-large",
+        "--md-sys-shape-corner-small"
+      ],
+      "mostUsedSemantic": []
+    },
+    "zIndex": {
+      "md3TokensUsed": 12,
+      "semanticTokensUsed": 3,
+      "totalUsage": 99,
+      "semanticUsage": 6,
+      "semanticAdoption": 5.714285714285714,
+      "mostUsedMd3": [
+        "--md-sys-z-modal",
+        "--md-sys-z-base",
+        "--md-sys-z-tooltip",
+        "--md-sys-z-skip-link",
+        "--md-sys-z-snackbar"
+      ],
+      "mostUsedSemantic": [
+        "--app-z-base",
+        "--app-z-overlay",
+        "--app-z-tooltip"
+      ]
+    },
+    "layout": {
+      "md3TokensUsed": 31,
+      "semanticTokensUsed": 2,
+      "totalUsage": 549,
+      "semanticUsage": 4,
+      "semanticAdoption": 0.7233273056057866,
+      "mostUsedMd3": [
+        "--md-sys-flex-none",
+        "--md-sys-flex-grow",
+        "--md-sys-grid-fr-2",
+        "--md-sys-grid-fr-4",
+        "--md-sys-viewport-width-full"
+      ],
+      "mostUsedSemantic": [
+        "--app-layout-full",
+        "--app-layout-quarter"
+      ]
+    }
+  },
+  "overusedTokens": [],
+  "underusedTokens": [],
+  "missingSemanticTokens": [],
+  "recommendations": [
+    {
+      "priority": "CRITICAL",
+      "category": "MD3_COMPLIANCE",
+      "title": "Address hardcoded value violations",
+      "description": "2434 hardcoded values found (px, rem, z-index, etc.)",
+      "impact": "Critical MD3 Gold compliance violations",
+      "effort": "HIGH"
+    },
+    {
+      "priority": "HIGH",
+      "category": "SEMANTIC_ADOPTION",
+      "title": "Increase semantic token adoption in spacing",
+      "description": "Only 0.2% of spacing usage uses semantic tokens",
+      "impact": "3559 direct MD3 tokens could be abstracted",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": "HIGH",
+      "category": "SEMANTIC_ADOPTION",
+      "title": "Increase semantic token adoption in color",
+      "description": "Only 1.0% of color usage uses semantic tokens",
+      "impact": "2653 direct MD3 tokens could be abstracted",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": "HIGH",
+      "category": "SEMANTIC_ADOPTION",
+      "title": "Increase semantic token adoption in typography",
+      "description": "Only 0.6% of typography usage uses semantic tokens",
+      "impact": "927 direct MD3 tokens could be abstracted",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": "HIGH",
+      "category": "SEMANTIC_ADOPTION",
+      "title": "Increase semantic token adoption in motion",
+      "description": "Only 1.7% of motion usage uses semantic tokens",
+      "impact": "344 direct MD3 tokens could be abstracted",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": "HIGH",
+      "category": "SEMANTIC_ADOPTION",
+      "title": "Increase semantic token adoption in elevation",
+      "description": "Only 0.0% of elevation usage uses semantic tokens",
+      "impact": "153 direct MD3 tokens could be abstracted",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": "HIGH",
+      "category": "SEMANTIC_ADOPTION",
+      "title": "Increase semantic token adoption in shape",
+      "description": "Only 0.0% of shape usage uses semantic tokens",
+      "impact": "603 direct MD3 tokens could be abstracted",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": "HIGH",
+      "category": "SEMANTIC_ADOPTION",
+      "title": "Increase semantic token adoption in layout",
+      "description": "Only 0.7% of layout usage uses semantic tokens",
+      "impact": "545 direct MD3 tokens could be abstracted",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": "MEDIUM",
+      "category": "SEMANTIC_ADOPTION",
+      "title": "Increase semantic token adoption in zIndex",
+      "description": "Only 5.7% of zIndex usage uses semantic tokens",
+      "impact": "93 direct MD3 tokens could be abstracted",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": "LOW",
+      "category": "SEMANTIC_EXPANSION",
+      "title": "Consider adding semantic tokens for elevation",
+      "description": "No semantic elevation tokens defined, all usage is direct MD3",
+      "impact": "Could improve consistency for 153 usages",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": "LOW",
+      "category": "SEMANTIC_EXPANSION",
+      "title": "Consider adding semantic tokens for shape",
+      "description": "No semantic shape tokens defined, all usage is direct MD3",
+      "impact": "Could improve consistency for 603 usages",
+      "effort": "MEDIUM"
+    }
+  ]
+}

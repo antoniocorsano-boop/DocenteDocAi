@@ -148,7 +148,7 @@ describe('Home Accessibility', () => {
   });
 
   it('renders main sections and quick actions (a11y)', () => {
-    render(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
+    render(<Home onNavigate={mockNavigate} onOpenRegisterImport={mockOnOpenRegisterImport} />);
     // Hero section: check for lesson tagline or fallback
     expect(screen.getAllByText(/Pianifica la prossima lezione|Lezione in classe|Prossima Lezione/)).not.toHaveLength(0);
     // Metrics section
@@ -173,7 +173,7 @@ describe('Home Accessibility', () => {
   // Skipped: ARIA labels for quick actions not present in current Home.tsx
 
   it('uses semantic color-mix for MD3 colors (no hardcoded colors)', () => {
-    const { container } = render(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
+    const { container } = render(<Home onNavigate={mockNavigate} onOpenRegisterImport={mockOnOpenRegisterImport} />);
     const elementsWithColors = container.querySelectorAll('[style*="--md-sys-color"]');
     expect(elementsWithColors.length).toBeGreaterThan(0);
   });

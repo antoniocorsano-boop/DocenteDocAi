@@ -37,7 +37,7 @@
     gap: var(--md-sys-spacing-2);
     padding: var(--md-sys-spacing-3);
     background-color: var(--md-sys-color-surface-container-low);
-    border: 1px solid var(--md-sys-color-outline);
+    border: var(--md-sys-border-width-thin) solid var(--md-sys-color-outline);
 }
 
 .class-selector {
@@ -47,7 +47,7 @@
     align-items: center;
     gap: var(--md-sys-spacing-2);
     padding: var(--md-sys-spacing-1) var(--md-sys-spacing-2);
-    border: 1px solid var(--md-sys-color-outline);
+    border: var(--md-sys-border-width-thin) solid var(--md-sys-color-outline);
 }
 
 .class-icon {
@@ -124,13 +124,13 @@
 /* View Container */
 .view-container {
     border-radius: var(--md-sys-shape-corner-large);
-    border: 1px solid var(--md-sys-color-outline);
+    border: var(--md-sys-border-width-thin) solid var(--md-sys-color-outline);
     background-color: var(--md-sys-color-surface);
 }
 
 .view-header {
     padding: var(--md-sys-spacing-2);
-    border-bottom: 1px solid var(--md-sys-color-outline);
+    border-bottom: var(--md-sys-border-width-thin) solid var(--md-sys-color-outline);
     background-color: var(--md-sys-color-surface-container-low);
 }
 
@@ -163,7 +163,7 @@
     padding: var(--md-sys-spacing-1);
     border-radius: var(--md-sys-shape-corner-large);
     display: flex;
-    border: 1px solid var(--md-sys-color-outline);
+    border: var(--md-sys-border-width-thin) solid var(--md-sys-color-outline);
 }
 
 .tab-button {
@@ -309,12 +309,12 @@
     padding: var(--md-sys-spacing-4);
     border-radius: var(--md-sys-shape-corner-large);
     background-color: var(--md-sys-color-surface-container-low);
-    border: 1px solid var(--md-sys-color-outline);
+    border: var(--md-sys-border-width-thin) solid var(--md-sys-color-outline);
     transition: all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized);
 }
 
 .summary-student-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(calc(-1 * var(--md-sys-spacing-1)));
     box-shadow: var(--md-sys-elevation-level-2);
 }
 

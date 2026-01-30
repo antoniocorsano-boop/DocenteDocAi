@@ -18,7 +18,7 @@ const ManualSection: React.FC<ManualSectionProps> = ({
     const [isOpen, setIsOpen] = useState(defaultOpen);
     const [summaryHovered, setSummaryHovered] = useState(false);
     const [iconHovered, setIconHovered] = useState(false);
-    const { layers: { sys: { color }, ref: { spacing, shape, typography }, elevation, motion } } = useTheme();
+    const { layers: { sys: { color }, ref: { spacing, shape, typography }, motion } } = useTheme();
 
     return (
         <details
@@ -57,9 +57,9 @@ const ManualSection: React.FC<ManualSectionProps> = ({
                             padding: spacing[6],
                             borderRadius: shape.corner.large,
                             backgroundColor: color.surfaceContainerHigh,
-                            boxShadow: elevation.level1,
+                            boxShadow: 'var(--md-sys-elevation-level1)',
                             transform: iconHovered ? 'scale(1.1)' : 'scale(1)',
-                            transition: `transform ${motion.duration.short3} ${motion.easing.standard}`
+                            transition: `transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
                         }}
                         onMouseEnter={() => setIconHovered(true)}
                         onMouseLeave={() => setIconHovered(false)}

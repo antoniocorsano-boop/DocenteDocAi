@@ -24,7 +24,7 @@ const QuizSkeleton: React.FC<QuizSkeletonProps> = ({
                         style={{height: layers.ref.spacing['8'],
                             backgroundColor: ' layers.sys.color.surfaceContainerHigh',
                             borderRadius: 'layers.ref.shape.corner.small',
-                            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`,
+                            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`,
                             width: 'var(--md-sys-percent-85)'}}
                     />
 
@@ -37,7 +37,7 @@ const QuizSkeleton: React.FC<QuizSkeletonProps> = ({
                                     height: layers.ref.spacing['4'],
                                     backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)',
                                     borderRadius: 'var(--md-sys-shape-corner-small)',
-                                    animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-emphasized) infinite`,
+                                    animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`,
                                     width: 'var(--md-sys-percent-70)',
                                     animationDelay: `${(i * 4 + j) * 0.05}s`
                                 }}

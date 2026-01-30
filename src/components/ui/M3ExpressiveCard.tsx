@@ -105,9 +105,9 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
         flexDirection: 'column',
         backdropFilter: `blur(${MD3_TOKENS.blurLarge})`,
         WebkitBackdropFilter: `blur(${MD3_TOKENS.blurLarge})`,
-        transition: `all ${MD3_TOKENS.durationShort2} ${MD3_TOKENS.easingStandard}`,
+        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
         cursor: isClickable ? 'pointer' : 'default',
-        boxShadow: hovered ? MD3_TOKENS.elevation3 : MD3_TOKENS.elevation1,
+        boxShadow: hovered ? 'var(--md-sys-elevation-level3)' : 'var(--md-sys-elevation-level1)',
         outline: 'none',
     };
 
@@ -167,7 +167,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                     height: MD3_TOKENS.spacing14,
                     borderRadius: MD3_TOKENS.cornerLarge,
                     background: 'var(--md-sys-color-surface-container-high)',
-                    boxShadow: MD3_TOKENS.elevation2,
+                    boxShadow: 'var(--md-sys-elevation-level2)',
                     border: `${MD3_TOKENS.borderWidthNormal} solid var(--md-sys-color-outline-variant)`,
                     display: 'flex',
                     alignItems: 'center',
@@ -176,7 +176,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 }}>
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
-                        fontSize: MD3_TOKENS.displaySmallFontSize,
+                        fontSize: 'var(--md-sys-typescale-display-small-font-size)',
                         opacity: 0.9,
                         userSelect: 'none',
                         fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"
@@ -185,8 +185,8 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 {isClickable && (
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
-                        fontSize: MD3_TOKENS.titleMediumFontSize,
-                        transition: `opacity ${MD3_TOKENS.durationShort2} ${MD3_TOKENS.easingStandard}`,
+                        fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                        transition: `opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
                         opacity: hovered ? 0.7 : 0.5
                     }}>arrow_forward</span>
                 )}
@@ -195,17 +195,17 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
             <div style={{position: 'relative', zIndex: 'var(--md-sys-z-modal)', flexGrow: 1, display: 'flex', flexDirection: 'column', gap: MD3_TOKENS.spacing4}}>
                 {/* MD3 z-index token */}
                 <h3 style={{
-                    fontSize: MD3_TOKENS.headlineSmallFontSize,
-                    fontFamily: MD3_TOKENS.headlineSmallFontFamily,
+                    fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+                    fontFamily: 'var(--md-sys-typescale-headline-small-font-family)',
                     fontWeight: 'bold',
                     letterSpacing: '-0.005em',
                     lineHeight: '1.25'
                 }}>{title}</h3>
                 <p style={{
-                    fontSize: MD3_TOKENS.bodyLargeFontSize,
-                    fontFamily: MD3_TOKENS.bodyLargeFontFamily,
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                    fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
                     opacity: 0.8,
-                    lineHeight: '1.625',
+                    lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
                     fontWeight: '500',
                     display: '-webkit-box',
                     WebkitLineClamp: 3,

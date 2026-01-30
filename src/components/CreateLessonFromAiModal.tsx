@@ -230,7 +230,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                     borderRadius: 'var(--md-sys-shape-corner-medium)', 
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)', 
                                     padding: 'var(--md-sys-spacing-6)',
-                                    border: '1px solid var(--md-sys-color-outline)',
+                                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     transition: 'border-color var(--md-sys-motion-duration-medium4)',
                                     fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
@@ -247,7 +247,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                         </div>
                         
                         {slots && availableSlots.length > 0 && (
-                            <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', padding: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: "1px solid var(--md-sys-color-outline)", gap: 'var(--md-sys-spacing-6)' }}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', padding: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", gap: 'var(--md-sys-spacing-6)' }}>
                                 <label style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase" }}>Pianificazione Rapida (Opzionale)</label>
                                 <div  style={{ display: "flex", flexWrap: "wrap" }}>
                                     {availableSlots.map(([key, slot]) => (
@@ -259,7 +259,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                                 height: 'var(--md-sys-spacing-12)',
                                                 padding: 'var(--md-sys-spacing-0) var(--md-sys-spacing-8)',
                                                 borderRadius: 'var(--md-sys-shape-corner-full)',
-                                                border: selectedSlotKey === key ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-primary)' : '1px solid var(--md-sys-color-outline)',
+                                                border: selectedSlotKey === key ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                                 backgroundColor: selectedSlotKey === key ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
                                                 color: selectedSlotKey === key ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
                                                 fontWeight: selectedSlotKey === key ? 700 : 500,
@@ -287,7 +287,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                     onClick={handleGenerateAdaptations} 
                                     disabled={isAdaptationsLoading} 
                                     variant="text"
-                                    style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", fontSize: 'var(--md-sys-typescale-body-small-font-size)', transition: "all var(--md-sys-motion-duration-medium-4) var(--md-sys-motion-easing-emphasized)" }}
+                                    style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", fontSize: 'var(--md-sys-typescale-body-small-font-size)', transition: "all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)" }}
                                     title="Usa l'AI per suggerire adattamenti basati sui Piani di Inclusione della classe"
                                 >
                                     {isAdaptationsLoading ? (
@@ -308,7 +308,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                     borderRadius: 'var(--md-sys-shape-corner-medium)', 
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)', 
                                     padding: 'var(--md-sys-spacing-6)',
-                                    border: '1px solid var(--md-sys-color-outline)',
+                                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     transition: 'border-color var(--md-sys-motion-duration-medium4)',
                                     fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
@@ -351,9 +351,9 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                             key={obj.id}
                                             type="button"
                                             onClick={() => handleAddObjective(obj.text)}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--md-sys-percent-100)", textAlign: "left", padding: 'var(--md-sys-spacing-6)', transition: "color var(--md-sys-motion-duration-medium-4)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)' }}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--md-sys-percent-100)", textAlign: "left", padding: 'var(--md-sys-spacing-6)', transition: "color var(--md-sys-motion-duration-medium)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)' }}
                                         >
-                                            <span  style={{color: "var(--md-sys-color-primary)",  fontSize: "var(--md-sys-spacing-4)" , transition: "transform var(--md-sys-motion-duration-medium-4)"}}>add_circle</span>
+                                            <span  style={{color: "var(--md-sys-color-primary)",  fontSize: "var(--md-sys-spacing-4)" , transition: "transform var(--md-sys-motion-duration-medium)"}}>add_circle</span>
                                             <span style={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "500" }}>{obj.text}</span>
                                         </button>
                                     ))}
