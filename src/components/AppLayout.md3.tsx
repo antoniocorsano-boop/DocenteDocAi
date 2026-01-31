@@ -47,12 +47,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   hasSuggestion
 }) => {
   // Responsive logic for NavigationRail container (initialize from CSS token; SSR-safe)
-  const [isMobile, setIsMobile] = React.useState<boolean>(() => {
+    const [isMobile, setIsMobile] = React.useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
     try {
       const bp = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--md-sys-breakpoint-mobile')) || 600;
       return window.innerWidth < bp;
-    } catch (e) {
+    } catch {
       return window.innerWidth < 600;
     }
   });

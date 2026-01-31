@@ -5,9 +5,11 @@
  * Replaces hardcoded values with semantic MD3 tokens
  */
 
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs');
 const path = require('path');
 const { glob } = require('glob');
+/* eslint-enable @typescript-eslint/no-require-imports */
 
 // Files to process
 const PATTERNS = [

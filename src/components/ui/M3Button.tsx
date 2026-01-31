@@ -3,7 +3,6 @@
 // No useTheme() dependency - all styling uses direct MD3 CSS variables
 
 import React, { ButtonHTMLAttributes } from 'react';
-import styles from './M3Button.module.css';
 
 interface M3ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'filled' | 'outlined' | 'text' | 'tonal' | 'elevated';
@@ -40,7 +39,6 @@ const M3Button: React.FC<M3ButtonProps> = ({
   // Spacing tokens
   const spacing4 = 'var(--md-sys-spacing-4)';
   const spacing6 = 'var(--md-sys-spacing-6)';
-  const spacing10 = 'var(--md-sys-spacing-10)';
   const spacing12 = 'var(--md-sys-spacing-12)';
 
   // Shape tokens
@@ -172,14 +170,14 @@ const M3Button: React.FC<M3ButtonProps> = ({
   };
 
   return (
-    <button
+      <button
       {...otherProps}
       type={type}
       disabled={disabled}
       onClick={onClick}
       title={title}
       style={combinedStyle}
-      className={styles.focusVisible}
+      
       aria-label={ariaLabel || title || (typeof children === 'string' ? children : undefined)}
     >
       {startIcon && (
