@@ -372,11 +372,11 @@
 }
 
 .transition-color {
-  transition: color 0.2s;
+  transition: color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
 }
 
 .transition-transform {
-  transition: transform 0.2s;
+  transition: transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
 }
 
 .animate-spin {
@@ -480,11 +480,11 @@
 .progress-fill {
   height: 100%;
   background: var(--md-sys-color-primary);
-  transition: width 0.3s ease;
+  transition: width var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
 }
 
 .loading-spinner {
-  animation: spin 1s linear infinite;
+  animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 

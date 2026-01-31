@@ -911,7 +911,7 @@ body {
 }
 
 .animate-aura-pulse {
-  animation: aura-pulse 8s var(--md-sys-motion-easing-standard)-in-out infinite;
+  animation: aura-pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 @keyframes float {
@@ -927,7 +927,7 @@ body {
 }
 
 .animate-float {
-  animation: float 4s var(--md-sys-motion-easing-standard)-in-out infinite;
+  animation: float var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 @keyframes aura-slide-up {
@@ -1728,10 +1728,10 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: var(--md-sys-motion-iteration-count, 1) !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: var(--md-sys-scroll-behavior, auto) !important;
   }
 }
 
@@ -1752,7 +1752,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   background: currentColor;
   opacity: 0;
   transform: translate(-50%, -50%);
-  transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+  transition: width var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), height var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), opacity var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
 }
 
 .m3-ripple:active::before {

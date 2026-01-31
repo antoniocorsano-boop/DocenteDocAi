@@ -60,7 +60,7 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 return {
                     background: 'var(--app-color-surface)',
                     iconColor: 'var(--app-color-on-surface)',
-                    iconBg: 'var(--md-sys-color-surface-variant)'
+                    iconBg: 'var(--app-color-surface-variant)'
                 };
         }
     };
@@ -151,8 +151,8 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 {subtitle && (
                     <M3Typography
                         variant="label-medium"
-                        style={{
-                            color: 'var(--md-sys-color-on-surface-variant)',
+                            style={{
+                            color: 'var(--app-color-on-surface-variant)',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
@@ -174,8 +174,8 @@ const ActionTile: React.FC<ActionTileProps> = ({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: 'var(--md-sys-color-surface-variant)',
-                    color: 'var(--md-sys-color-on-surface-variant)',
+                    backgroundColor: 'var(--app-color-surface-variant)',
+                    color: 'var(--app-color-on-surface-variant)',
                     flexShrink: 0,
                     transition: `background-color var(--app-motion-quick) var(--app-easing-standard)`
                 }}

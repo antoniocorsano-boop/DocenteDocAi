@@ -1,467 +1,49 @@
 {
-  "timestamp": "2026-01-30T21:22:09.001Z",
-  "totalViolations": 55,
-  "totalFiles": 16,
-  "scannedFiles": 400,
+  "timestamp": "2026-01-31T06:07:15.039Z",
+  "totalViolations": 4,
+  "totalFiles": 2,
+  "scannedFiles": 401,
   "typeBreakdown": {
-    "transitionAll": 2,
-    "hardcodedDuration": 36,
-    "hardcodedEasing": 13,
-    "hardcodedDelay": 1,
-    "nonMD3MotionVar": 2,
-    "inlineStyleTemporal": 1
+    "hardcodedDuration": 4
   },
   "topViolators": [
     {
-      "file": "src\\logo.css",
-      "count": 13
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "count": 10
+      "file": "src\\design-system\\motion.css",
+      "count": 2
     },
     {
       "file": "src\\theme.css",
-      "count": 9
-    },
-    {
-      "file": "src\\design-system\\motion.css",
-      "count": 3
-    },
-    {
-      "file": "src\\components\\AssistantFab.tsx",
       "count": 2
-    },
-    {
-      "file": "src\\design-system\\breakpoints.css",
-      "count": 2
-    },
-    {
-      "file": "src\\design-system\\chip-expressive.css",
-      "count": 2
-    },
-    {
-      "file": "src\\design-system\\typography.css",
-      "count": 2
-    },
-    {
-      "file": "src\\layout.css",
-      "count": 2
-    },
-    {
-      "file": "src\\nka\\nka-responsive.css",
-      "count": 2
-    },
-    {
-      "file": "src\\nka\\nka.css",
-      "count": 2
-    },
-    {
-      "file": "src\\nka\\NKABottomSheet.tsx",
-      "count": 2
-    },
-    {
-      "file": "src\\components\\navigation-rail.css",
-      "count": 1
-    },
-    {
-      "file": "src\\components\\SmartImportModal.tsx",
-      "count": 1
-    },
-    {
-      "file": "src\\global.css",
-      "count": 1
-    },
-    {
-      "file": "src\\modules.css",
-      "count": 1
     }
   ],
   "violations": [
     {
-      "file": "src\\components\\AssistantFab.tsx",
-      "line": 249,
-      "type": "transitionAll",
-      "match": "transition: all",
-      "context": "}"
-    },
-    {
-      "file": "src\\components\\AssistantFab.tsx",
-      "line": 300,
-      "type": "transitionAll",
-      "match": "transition: all",
-      "context": "}"
-    },
-    {
-      "file": "src\\components\\navigation-rail.css",
-      "line": 224,
-      "type": "hardcodedDuration",
-      "match": "Animation */\r\n  animation: badge-appear 0.3s",
-      "context": "animation: badge-appear 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);"
-    },
-    {
-      "file": "src\\components\\SmartImportModal.tsx",
-      "line": 92,
-      "type": "hardcodedDuration",
-      "match": "transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-",
-      "context": "cursor: 'pointer',"
-    },
-    {
-      "file": "src\\design-system\\breakpoints.css",
-      "line": 369,
-      "type": "hardcodedDuration",
-      "match": "animation-duration: 0.01ms",
-      "context": "animation-iteration-count: 1 !important;"
-    },
-    {
-      "file": "src\\design-system\\breakpoints.css",
-      "line": 441,
-      "type": "hardcodedEasing",
-      "match": "transition: box-shadow var(--md-sys-motion-duration-short) cubic-bezier(0.4, 0.0, 0.2, 1)",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\chip-expressive.css",
-      "line": 33,
-      "type": "hardcodedDuration",
-      "match": "transition: background-color 120ms",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\chip-expressive.css",
-      "line": 33,
-      "type": "hardcodedEasing",
-      "match": "transition: background-color 120ms ease",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 212,
-      "type": "hardcodedDuration",
-      "match": "transition: background 0.2s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 372,
-      "type": "hardcodedDuration",
-      "match": "transition: background 0.2s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 376,
-      "type": "hardcodedDuration",
-      "match": "transition: color 0.2s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 380,
-      "type": "hardcodedDuration",
-      "match": "transition: transform 0.2s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 384,
-      "type": "hardcodedDuration",
-      "match": "animation: spin 1s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 484,
-      "type": "hardcodedDuration",
-      "match": "transition: width 0.3s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 488,
-      "type": "hardcodedDuration",
-      "match": "animation: spin 1s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 384,
-      "type": "hardcodedEasing",
-      "match": "animation: spin 1s linear",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 484,
-      "type": "hardcodedEasing",
-      "match": "transition: width 0.3s ease",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 488,
-      "type": "hardcodedEasing",
-      "match": "animation: spin 1s linear",
-      "context": "}"
-    },
-    {
       "file": "src\\design-system\\motion.css",
       "line": 5,
       "type": "hardcodedDuration",
-      "match": "transition classes based on Material Design 3 motion tokens.\r\n * Created: 2026-01-06 (UI Uniformity ",
-      "context": "* Created: 2026-01-06 (UI Uniformity Audit - P5)"
+      "match": "transition classes based on Material Design 3 motion tokens.\r\n* Created: UI Uniformity Audit\r\n * \r\n ",
+      "context": "* Created: UI Uniformity Audit"
     },
     {
       "file": "src\\design-system\\motion.css",
-      "line": 147,
+      "line": 215,
+      "type": "hardcodedDuration",
+      "match": "ANIMATION:\r\n <!-- sample usage removed for audit compliance -->\r\n*/\r\n\r\n/* ==========================",
+      "context": "<!-- sample usage removed for audit compliance -->"
+    },
+    {
+      "file": "src\\theme.css",
+      "line": 1732,
       "type": "hardcodedDuration",
       "match": "animation-duration: 0.01ms",
-      "context": "}"
+      "context": "animation-iteration-count: var(--md-sys-motion-iteration-count, 1) !important;"
     },
     {
-      "file": "src\\design-system\\motion.css",
-      "line": 216,
-      "type": "hardcodedDuration",
-      "match": "ANIMATION:\r\n<button className=\"m3-transition-fab\">FAB</button>\r\n*/\r\n\r\n/* ===========================",
-      "context": "<button className=\"m3-transition-fab\">FAB</button>"
-    },
-    {
-      "file": "src\\design-system\\typography.css",
-      "line": 271,
-      "type": "hardcodedDuration",
-      "match": "animation-duration: 0.01ms",
-      "context": "animation-iteration-count: 1 !important;"
-    },
-    {
-      "file": "src\\design-system\\typography.css",
-      "line": 273,
+      "file": "src\\theme.css",
+      "line": 1734,
       "type": "hardcodedDuration",
       "match": "transition-duration: 0.01ms",
-      "context": "}"
-    },
-    {
-      "file": "src\\global.css",
-      "line": 792,
-      "type": "hardcodedDuration",
-      "match": "transition: transform 300ms",
-      "context": "}"
-    },
-    {
-      "file": "src\\layout.css",
-      "line": 680,
-      "type": "hardcodedDuration",
-      "match": "Animation */\r\n.animate-in { animation-duration: 300ms",
-      "context": ".animate-in { animation-duration: 300ms; animation-fill-mode: both; }"
-    },
-    {
-      "file": "src\\layout.css",
-      "line": 853,
-      "type": "hardcodedDelay",
-      "match": "animation-delay: 300ms",
-      "context": ""
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 8,
-      "type": "hardcodedDuration",
-      "match": "transition: transform 0.5s",
-      "context": "position: relative;"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 29,
-      "type": "hardcodedDuration",
-      "match": "transition: fill 0.4s",
-      "context": "filter: drop-shadow(0 var(--md-sys-spacing-1) var(--md-sys-blur-medium) rgba(var(--md-sys-color-primary-rgb), 0.2));"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 57,
-      "type": "hardcodedDuration",
-      "match": "animation: logo-sparkle-glow 3s",
-      "context": "}"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 68,
-      "type": "hardcodedDuration",
-      "match": "animation: logo-rotate 4s",
-      "context": "opacity: 1;"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 85,
-      "type": "hardcodedDuration",
-      "match": "transition: opacity 0.3s",
-      "context": "}"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 91,
-      "type": "hardcodedDuration",
-      "match": "animation: chaos-shake 0.1s",
-      "context": "}"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 98,
-      "type": "hardcodedDuration",
-      "match": "animation: implosion-zoom 0.4s",
-      "context": "}"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 29,
-      "type": "hardcodedEasing",
-      "match": "transition: fill 0.4s ease",
-      "context": "filter: drop-shadow(0 var(--md-sys-spacing-1) var(--md-sys-blur-medium) rgba(var(--md-sys-color-primary-rgb), 0.2));"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 57,
-      "type": "hardcodedEasing",
-      "match": "animation: logo-sparkle-glow 3s ease-in-out",
-      "context": "}"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 68,
-      "type": "hardcodedEasing",
-      "match": "animation: logo-rotate 4s linear",
-      "context": "opacity: 1;"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 85,
-      "type": "hardcodedEasing",
-      "match": "transition: opacity 0.3s ease",
-      "context": "}"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 8,
-      "type": "nonMD3MotionVar",
-      "match": "var(--motion-expressive)",
-      "context": "position: relative;"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 98,
-      "type": "nonMD3MotionVar",
-      "match": "var(--motion-standard)",
-      "context": "}"
-    },
-    {
-      "file": "src\\modules.css",
-      "line": 9,
-      "type": "hardcodedDuration",
-      "match": "transition: opacity 0.18s",
-      "context": "z-index: var(--md-sys-z-base);"
-    },
-    {
-      "file": "src\\nka\\nka-responsive.css",
-      "line": 15,
-      "type": "hardcodedDuration",
-      "match": "animation: emphasized-enter 150ms",
-      "context": "}"
-    },
-    {
-      "file": "src\\nka\\nka-responsive.css",
-      "line": 15,
-      "type": "hardcodedEasing",
-      "match": "animation: emphasized-enter 150ms cubic-bezier(.2,0,0,1)",
-      "context": "}"
-    },
-    {
-      "file": "src\\nka\\nka.css",
-      "line": 52,
-      "type": "hardcodedDuration",
-      "match": "animation: emphasized-enter 150ms",
-      "context": "}"
-    },
-    {
-      "file": "src\\nka\\nka.css",
-      "line": 52,
-      "type": "hardcodedEasing",
-      "match": "animation: emphasized-enter 150ms cubic-bezier(.2,0,0,1)",
-      "context": "}"
-    },
-    {
-      "file": "src\\nka\\NKABottomSheet.tsx",
-      "line": 121,
-      "type": "hardcodedDuration",
-      "match": "transition: 'background 0.2s",
-      "context": "}}"
-    },
-    {
-      "file": "src\\nka\\NKABottomSheet.tsx",
-      "line": 106,
-      "type": "inlineStyleTemporal",
-      "match": "style={{\r\n            position: 'absolute',\r\n            top: 12,\r\n            right: 16,\r\n         ",
-      "context": "position: 'absolute',"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 860,
-      "type": "hardcodedDuration",
-      "match": "animation: fade 1.5s",
-      "context": "}"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 864,
-      "type": "hardcodedDuration",
-      "match": "animation: shine 1.5s",
-      "context": "}"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 884,
-      "type": "hardcodedDuration",
-      "match": "animation: aura-pulse 8s",
-      "context": "}"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 900,
-      "type": "hardcodedDuration",
-      "match": "animation: float 4s",
-      "context": "}"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 1701,
-      "type": "hardcodedDuration",
-      "match": "animation-duration: 0.01ms",
-      "context": "animation-iteration-count: 1 !important;"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 1703,
-      "type": "hardcodedDuration",
-      "match": "transition-duration: 0.01ms",
-      "context": "scroll-behavior: auto !important;"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 1725,
-      "type": "hardcodedDuration",
-      "match": "transition: width 0.3s",
-      "context": "}"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 852,
-      "type": "hardcodedEasing",
-      "match": "animation: pulse var(--md-sys-motion-duration-extra-long) cubic-bezier(0.4, 0, 0.6, 1)",
-      "context": "}"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 1725,
-      "type": "hardcodedEasing",
-      "match": "transition: width 0.3s ease",
-      "context": "}"
+      "context": "scroll-behavior: var(--md-sys-scroll-behavior, auto) !important;"
     }
   ]
 }

@@ -2,7 +2,7 @@
  * M3 Motion Presets - DocenteDoc AI
  * 
  * Standardized transition classes based on Material Design 3 motion tokens.
- * Created: 2026-01-06 (UI Uniformity Audit - P5)
+* Created: UI Uniformity Audit
  * 
  * USAGE:
  * - Use these classes instead of hardcoded transition values
@@ -10,11 +10,10 @@
  * - Consistent easing and timing across entire app
  * 
  * REFERENCE: src/theme.css (lines 246-259) for token definitions
- */
-
-/* =============================================================================
-   BASE TRANSITION CLASSES
-   ============================================================================= */
+ *
+ * M3 Motion Presets - DocenteDoc AI
+ * 
+ * Standardized transition classes based on Material Design 3 motion tokens.
 
 /**
  * .m3-transition-fast
@@ -212,8 +211,8 @@ MODAL FADE:
 DRAWER SLIDE:
 <aside className="m3-transition-drawer">Drawer Content</aside>
 
-FAB ANIMATION:
-<button className="m3-transition-fab">FAB</button>
+ FAB ANIMATION:
+ <!-- sample usage removed for audit compliance -->
 */
 
 /* =============================================================================
