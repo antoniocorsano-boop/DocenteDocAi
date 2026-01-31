@@ -5,7 +5,6 @@
 */
 const fs = require('fs');
 const path = require('path');
-const glob = require('glob');
 
 const argv = process.argv.slice(2);
 const arg = (name, defaultValue) => {
@@ -33,6 +32,36 @@ const ignorePathPatterns = [
   /\/__tests__\//i
 ];
 
+// Simple file walker to replace glob dependency
+function walkFiles(dir, pattern) {
+  const results = [];
+  
+  function walk(currentPath) {
+    if (!fs.existsSync(currentPath)) return;
+    const stat = fs.statSync(currentPath);
+    
+    if (stat.isFile()) {
+      if (currentPath.match(/\.(ts|tsx)$/)) {
+        results.push(currentPath);
+      }
+      return;
+    }
+    
+    if (stat.isDirectory()) {
+      const items = fs.readdirSync(currentPath);
+      for (const item of items) {
+        if (item === 'node_modules' || item === '.git' || item === 'dist' || item === 'build') continue;
+        walk(path.join(currentPath, item));
+      }
+    }
+  }
+  
+  // Parse simple pattern like "src/**/*.ts?(x)"
+  const baseDir = pattern.split('/**')[0] || dir;
+  walk(path.resolve(baseDir));
+  return results;
+}
+
 function findViolationsInContent(content, file) {
   const lines = content.split(/\r?\n/);
   const violations = [];
@@ -55,7 +84,7 @@ function findViolationsInContent(content, file) {
 }
 
 function scan() {
-  const files = glob.sync(targetPattern, { nodir: true });
+  const files = walkFiles('.', targetPattern);
   const allViolations = [];
   files.forEach((file) => {
     // skip ignored paths (normalize to forward-slash)

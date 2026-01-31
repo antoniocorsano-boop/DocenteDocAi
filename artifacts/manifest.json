@@ -3,7 +3,11 @@
   "included": [
     "scripts/wrap-hex-colors.cjs",
     "scripts/wrap-rgb-colors.cjs",
+    "scripts/ast-transformer.cjs",
     "tmp/governance-check-result-design-system.json",
+    "reports/components-migration-diff.patch",
     "src/design-system/*.preappfix.bak"
-  ]
+  ],
+  "generated": "2026-01-31T09:29:00Z",
+  "status": "complete"
 }
