@@ -116,8 +116,8 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                                 <span  style={{color: 'var(--app-color-primary)'}}>info</span>
                                 <div style={{marginTop: 'var(--app-spacing-container)'}}>
                                     <h3  style={{ fontWeight: "bold" }}>Procedura Manuale (Privacy-Safe)</h3>
-                                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>L'AI analizza solo il testo che incolli qui. Non accediamo direttamente ai link per privacy.</p>
-                                    <ol style={{ color: 'var(--md-sys-color-on-surface-variant)', gap: 'var(--app-spacing-component)' }}>
+                                    <p style={{ color: 'var(--app-color-on-surface-variant)' }}>L'AI analizza solo il testo che incolli qui. Non accediamo direttamente ai link per privacy.</p>
+                                    <ol style={{ color: 'var(--app-color-on-surface-variant)', gap: 'var(--app-spacing-component)' }}>
                                         <li>
                                             <a href={url} target="_blank" rel="noopener noreferrer"  style={{color: 'var(--app-color-primary)', fontWeight: "bold", display: "inline-flex", alignItems: "center", gap: 'var(--app-spacing-container)'}}>
                                                 Apri la circolare originale <span style={{ color: 'var(--app-color-primary)' }}>open_in_new</span>
@@ -163,7 +163,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                             {result.events.length > 0 || result.deadlines.length > 0 ? (
                                 <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>
                                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', paddingTop: 'var(--app-spacing-container)', paddingBottom: 'var(--app-spacing-container)', borderBottom: "var(--app-border-thin) solid var(--md-sys-color-outline)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                        <h4 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Eventi Rilevati</h4>
+                                        <h4 style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Eventi Rilevati</h4>
                                         <span style={{ backgroundColor: 'var(--app-color-primary)', color: 'var(--app-color-on-primary)', fontWeight: "bold", borderRadius: 'var(--md-sys-shape-corner-small)' }}>{result.events.length + result.deadlines.length}</span>
                                     </div>
                                     <div >
@@ -189,8 +189,8 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                                 </div>
                             ) : (
                                 <div style={{ padding: 'var(--app-spacing-container)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center" }}>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>event_busy</span>
-                                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessun evento o scadenza rilevato nel testo.</p>
+                                    <span style={{ color: 'var(--app-color-on-surface-variant)' }}>event_busy</span>
+                                    <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Nessun evento o scadenza rilevato nel testo.</p>
                                 </div>
                             )}
                         </div>

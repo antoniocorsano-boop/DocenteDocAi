@@ -161,7 +161,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                             </div>
                             <div>
                                 <p  style={{ fontWeight: "bold", fontSize: "var(--app-text-body)" }}>Esporta in PDF</p>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Ideale per stampa e archiviazione</p>
+                                <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Ideale per stampa e archiviazione</p>
                             </div>
                         </button>
 
@@ -175,7 +175,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                             </div>
                             <div>
                                 <p  style={{ fontWeight: "bold", fontSize: "var(--app-text-body)" }}>Esporta in Word</p>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Per modifiche manuali successive</p>
+                                <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Per modifiche manuali successive</p>
                             </div>
                         </button>
 
@@ -189,7 +189,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                             </div>
                             <div>
                                 <p  style={{ fontWeight: "bold", fontSize: "var(--app-text-body)" }}>Report con AI</p>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Genera analisi e suggerimenti didattici</p>
+                                <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Genera analisi e suggerimenti didattici</p>
                             </div>
                         </button>
                     </div>

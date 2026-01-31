@@ -66,7 +66,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                     </div>
                     <div>
                         <h3  style={{ fontSize: "var(--app-text-title)" , color: "var(--md-sys-color-tertiary)", marginBottom: 'var(--app-spacing-container)'}}>Gestione Piani Centralizzata</h3>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Crea o modifica PDP/PEI per ogni studente. L’AI ti guida nella compilazione suggerendo strategie personalizzate.</p>
+                        <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Crea o modifica PDP/PEI per ogni studente. L’AI ti guida nella compilazione suggerendo strategie personalizzate.</p>
                     </div>
                 </div>
             </InfoCard>
@@ -75,7 +75,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                 <div key={className} style={{marginTop: 'var(--app-spacing-container)'}}>
                     <div style={{display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>
                         <div style={{ backgroundColor: sys.colors.outline-variant/30 ,  flexGrow: "1" }}></div>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/60 ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Classe {className}</span>
+                        <span style={{ color: 'var(--app-color-on-surface-variant)'/60 ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Classe {className}</span>
                         <div style={{ backgroundColor: sys.colors.outline-variant/30 ,  flexGrow: "1" }}></div>
                     </div>
                     
@@ -99,7 +99,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                                         Piano Attivo
                                                     </span>
                                                 ) : (
-                                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/40 , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", borderRadius: 'var(--app-spacing-container)'}}>
+                                                    <span style={{ color: 'var(--app-color-on-surface-variant)'/40 , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", borderRadius: 'var(--app-spacing-container)'}}>
                                                         Standard
                                                     </span>
                                                 )}
@@ -116,7 +116,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                             justifyContent: 'center',
                                             transition: 'color var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
                                             backgroundColor: hasPlan ? 'var(--md-sys-color-tertiary-container)' : 'var(--md-sys-color-surface-container-high)',
-                                            color: hasPlan ? 'var(--md-sys-color-tertiary)' : 'var(--md-sys-color-on-surface-variant)'
+                                            color: hasPlan ? 'var(--md-sys-color-tertiary)' : 'var(--app-color-on-surface-variant)'
                                         }}
                                         onMouseEnter={(e) => {
                                             if (!hasPlan) {
@@ -127,7 +127,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                         onMouseLeave={(e) => {
                                             if (!hasPlan) {
                                                 e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
-                                                e.currentTarget.style.color = 'var(--md-sys-color-on-surface-variant)';
+                                                e.currentTarget.style.color = 'var(--app-color-on-surface-variant)';
                                             }
                                         }}>
                                             <span style={{
@@ -165,7 +165,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                             <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                             <div style={{ flexGrow: "1" }}>
                                 <h3 style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)" }}>Classe {student.classe}</p>
+                                <p style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)" }}>Classe {student.classe}</p>
                             </div>
                             <M3Button variant="text" size="small">
                                 Modifica
@@ -202,14 +202,14 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                     <div>
                                         <h3 style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,   fontSize: "var(--app-text-label)"  }}>Classe {student.classe}</p>
+                                        <p style={{ color: 'var(--app-color-on-surface-variant)' ,   fontSize: "var(--app-text-label)"  }}>Classe {student.classe}</p>
                                     </div>
                                 </div>
                                 <div style={{ backgroundColor: sys.colors.error/10 , color: "var(--md-sys-color-error)", paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)',  borderRadius: "var(--md-sys-shape-corner-small)", fontSize: "var(--app-text-label)" , fontWeight: "bold"}}>
                                     Media: {grade}
                                 </div>
                             </div>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "var(--md-sys-typescale-body-medium-size)", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' , fontSize: "var(--md-sys-typescale-body-medium-size)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                 Le performance recenti suggeriscono la necessit� di un piano personalizzato.
                             </p>
                             <M3Button 

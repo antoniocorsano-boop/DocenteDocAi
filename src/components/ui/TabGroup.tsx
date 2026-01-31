@@ -112,7 +112,7 @@ const TabGroup: React.FC<TabGroupProps> = ({
                                 : (isHovered && !isActive ? 'var(--md-sys-color-surface-container-high)' : 'transparent'),
                             color: isActive
                                 ? variantColors.activeText
-                                : 'var(--md-sys-color-on-surface-variant)',
+                                : 'var(--app-color-on-surface-variant)',
                             fontSize: 'var(--app-text-label)',
                             fontWeight: 'var(--app-text-label-weight)',
                             textTransform: 'uppercase',

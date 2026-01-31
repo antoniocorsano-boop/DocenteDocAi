@@ -34,7 +34,7 @@ const NKASettingsToggle: React.FC = () => {
         />
         <M3Typography variant="body-large">Neural Knowledge Aura</M3Typography>
       </label>
-      <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+      <M3Typography variant="body-medium" style={{ color: 'var(--app-color-on-surface-variant)' }}>
         Attiva l’aura neurale nell’header
       </M3Typography>
 
@@ -49,7 +49,7 @@ const NKASettingsToggle: React.FC = () => {
         />
         <M3Typography variant="body-large">Suoni NKA</M3Typography>
       </label>
-      <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+      <M3Typography variant="body-medium" style={{ color: 'var(--app-color-on-surface-variant)' }}>
         Abilita feedback sonori
       </M3Typography>
 
@@ -64,7 +64,7 @@ const NKASettingsToggle: React.FC = () => {
         />
         <M3Typography variant="body-large">Motion ridotto</M3Typography>
       </label>
-      <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+      <M3Typography variant="body-medium" style={{ color: 'var(--app-color-on-surface-variant)' }}>
         Riduci animazioni per accessibilità
       </M3Typography>
     </div>

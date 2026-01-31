@@ -1728,10 +1728,10 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   *,
   *::before,
   *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: var(--md-sys-motion-iteration-count, 1) !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: var(--md-sys-scroll-behavior, auto) !important;
+      animation-duration: var(--md-sys-motion-duration-short) !important;
+      animation-iteration-count: var(--md-sys-motion-iteration-count) !important;
+      transition-duration: var(--md-sys-motion-duration-short) !important;
+      scroll-behavior: var(--md-sys-scroll-behavior) !important;
   }
 }
 

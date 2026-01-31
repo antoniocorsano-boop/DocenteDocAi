@@ -147,7 +147,7 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                                                 onChange={e => handleIndicatorChange(competenza.id, level.id, 'descrizione', e.target.value)}
                                                                 placeholder="Descrivi la padronanza..."
                                                                 rows={2}
-                                                                containerClassName="!bg-[var(--md-sys-color-surfaceContainerHigh)]/50 shadow-sm"
+                                                                
                                                             />
                                                         </div>
                                                     );

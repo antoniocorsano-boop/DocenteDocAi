@@ -135,7 +135,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 </p>
                             </div>
 
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' }}>
                                 Carica il file esportato in formato <strong>CSV</strong> o <strong>Excel</strong>.
                             </p>
                         </div>
@@ -172,7 +172,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             <span style={{
                                 fontFamily: 'Material Symbols Outlined',
                                 fontSize: 'var(--app-text-display)',
-                                color: isDragActive ? 'var(--app-color-primary)' : 'var(--md-sys-color-on-surface-variant)'
+                                color: isDragActive ? 'var(--app-color-primary)' : 'var(--app-color-on-surface-variant)'
                             }}>
                                 {isLoading ? 'sync' : 'upload_file'}
                             </span>
@@ -180,7 +180,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 <p  style={{ fontWeight: "bold" }}>
                                     {isLoading ? 'Analisi in corso...' : 'Trascina qui il file o clicca per selezionarlo'}
                                 </p>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Supporta .csv, .xlsx, .xls</p>
+                                <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Supporta .csv, .xlsx, .xls</p>
                             </div>
                         </div>
 
@@ -189,7 +189,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>error</span>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{error}</p>
+                                <p style={{ color: 'var(--app-color-on-surface-variant)' }}>{error}</p>
                             </div>
                         )}
                     </>
@@ -281,8 +281,8 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         </div>
 
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)' , padding: 'var(--md-sys-spacing-8)', overflowX: "auto"}}>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.5", marginBottom: 'var(--md-sys-spacing-8)'}}>Anteprima Dati Raw (Prime 3 righe)</p>
-                            <table style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--app-layout-full)' }}>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.5", marginBottom: 'var(--md-sys-spacing-8)'}}>Anteprima Dati Raw (Prime 3 righe)</p>
+                            <table style={{ color: 'var(--app-color-on-surface-variant)' ,  width: 'var(--app-layout-full)' }}>
                                 <thead>
                                     <tr>
                                         {rawData.headers.map(h => <th key={h}  style={{border: "var(--app-border-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-1)', textAlign: "left", backgroundColor: "var(--app-color-surface)"}}>{h}</th>)}
@@ -310,11 +310,11 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                             <InfoCard title="Riepilogo" icon="analytics">
                                 <ul style={{gap: 'var(--app-spacing-component)'}}>
-                                    <li style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  display: "flex", justifyContent: "space-between" }}>
+                                    <li style={{ color: 'var(--app-color-on-surface-variant)' ,  display: "flex", justifyContent: "space-between" }}>
                                         <span>Studenti:</span>
                                         <span style={{ fontWeight: "bold" }}>{result.students.length}</span>
                                     </li>
-                                    <li style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  display: "flex", justifyContent: "space-between" }}>
+                                    <li style={{ color: 'var(--app-color-on-surface-variant)' ,  display: "flex", justifyContent: "space-between" }}>
                                         <span>Valutazioni:</span>
                                         <span style={{ fontWeight: "bold" }}>{result.evaluations.length}</span>
                                     </li>

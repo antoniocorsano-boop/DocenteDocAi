@@ -335,7 +335,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                             <div style={{
                                 fontSize: 'var(--typography-label-small-fontSize)',
                                 fontWeight: 700,
-                                color: 'var(--md-sys-color-on-surface-variant)',
+                                color: 'var(--app-color-on-surface-variant)',
                                 textTransform: 'uppercase',
                                 letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                                 marginBottom: 'var(--md-sys-spacing-1)'
@@ -435,7 +435,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                     }}>
                         <span 
                             style={{ 
-                                color: 'var(--md-sys-color-on-surface-variant)',
+                                color: 'var(--app-color-on-surface-variant)',
                                 marginBottom: 'var(--md-sys-spacing-8)'
                             }} 
                             aria-hidden="true"
@@ -494,8 +494,8 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
         <div  style={{padding: 'var(--md-sys-spacing-8)'}}>
             {Object.keys(agendaGroups).length === 0 ? (
                 <div style={{ padding: 'var(--md-sys-spacing-8)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", opacity: "0.6" }}>
-                    <span style={{ color: "var(--md-sys-color-on-surface-variant)", marginBottom: 'var(--md-sys-spacing-8)' }} aria-hidden="true">event_busy</span>
-                    <p style={{ color: "var(--md-sys-color-on-surface-variant)" }}>Nessun evento questo mese</p>
+                    <span style={{ color: "var(--app-color-on-surface-variant)", marginBottom: 'var(--md-sys-spacing-8)' }} aria-hidden="true">event_busy</span>
+                    <p style={{ color: "var(--app-color-on-surface-variant)" }}>Nessun evento questo mese</p>
                 </div>
             ) : (
                 <div style={{gap: 'var(--app-spacing-section)'}}>

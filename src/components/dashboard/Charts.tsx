@@ -58,7 +58,7 @@ export const PerformanceTrendChart: React.FC<ChartProps> = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'var(--md-sys-color-on-surface-variant)',
+          color: 'var(--app-color-on-surface-variant)',
           fontSize: 'var(--app-text-body)'
         }}
         role="status"
@@ -89,11 +89,11 @@ export const PerformanceTrendChart: React.FC<ChartProps> = ({
           />
           <XAxis
             dataKey="time"
-            stroke="var(--md-sys-color-on-surface-variant)"
+            stroke="var(--app-color-on-surface-variant)"
             fontSize="var(--app-text-body)"
           />
           <YAxis
-            stroke="var(--md-sys-color-on-surface-variant)"
+            stroke="var(--app-color-on-surface-variant)"
             fontSize="var(--app-text-body)"
           />
           <Tooltip
@@ -159,11 +159,11 @@ export const MemoryUsageChart: React.FC<ChartProps> = ({
           />
           <XAxis
             dataKey="time"
-            stroke="var(--md-sys-color-on-surface-variant)"
+            stroke="var(--app-color-on-surface-variant)"
             fontSize="var(--app-text-body)"
           />
           <YAxis
-            stroke="var(--md-sys-color-on-surface-variant)"
+            stroke="var(--app-color-on-surface-variant)"
             fontSize="var(--app-text-body)"
           />
           <Tooltip
@@ -217,7 +217,7 @@ export const AIErrorsChart: React.FC<AIErrorsChartProps> = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'var(--md-sys-color-on-surface-variant)',
+          color: 'var(--app-color-on-surface-variant)',
           fontSize: 'var(--app-text-body)'
         }}
         role="status"
@@ -319,13 +319,13 @@ export const LazyLoadingChart: React.FC<LazyLoadingChartProps> = ({
           />
           <XAxis
             type="number"
-            stroke="var(--md-sys-color-on-surface-variant)"
+            stroke="var(--app-color-on-surface-variant)"
             fontSize="var(--app-text-body)"
           />
           <YAxis
             dataKey="component"
             type="category"
-            stroke="var(--md-sys-color-on-surface-variant)"
+            stroke="var(--app-color-on-surface-variant)"
             fontSize="var(--app-text-body)"
           />
           <Tooltip
@@ -384,11 +384,11 @@ export const BundleSizeTrendChart: React.FC<ChartProps> = ({
           />
           <XAxis
             dataKey="time"
-            stroke="var(--md-sys-color-on-surface-variant)"
+            stroke="var(--app-color-on-surface-variant)"
             fontSize="var(--app-text-body)"
           />
           <YAxis
-            stroke="var(--md-sys-color-on-surface-variant)"
+            stroke="var(--app-color-on-surface-variant)"
             fontSize="var(--app-text-body)"
           />
           <Tooltip

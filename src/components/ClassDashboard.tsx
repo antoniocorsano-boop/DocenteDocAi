@@ -140,7 +140,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         ) : (
                             <M3Card >
                                 <div style={{display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)', marginBottom: 'var(--app-spacing-section)'}}>
-                                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)', color: 'var(--md-sys-color-on-surface-variant)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)', color: 'var(--app-color-on-surface-variant)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", justifyContent: "center" }}>
                                         <span >event_busy</span>
                                     </div>
                                     <div>
@@ -151,7 +151,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             fontWeight: 'var(--md-sys-typescale-headline-small-weight)',
                                             lineHeight: 'var(--app-text-title-line-height)'
                                         }}>Nessuna lezione programmata</h2>
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Puoi avviare una lezione libera o un'attività improvvisata.</p>
+                                        <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Puoi avviare una lezione libera o un'attività improvvisata.</p>
                                     </div>
                                 </div>
                                 <M3Button onClick={() => onStartImpromptuSession(selectedClass)} variant="secondary" style={{ width: 'var(--md-sys-percent-full)' }}>
@@ -286,7 +286,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 3. SEZIONE ANALISI & REPORT */}
                         <section>
                             <div >
-                                <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>analytics</span>
+                                <span className="material-symbols-outlined" style={{ color: 'var(--app-color-on-surface-variant)' }}>analytics</span>
                                 <h3 >Analisi & Report</h3>
                             </div>
                             <div >
@@ -372,7 +372,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             fontSize: 'var(--md-sys-typescale-body-medium-size)',
                                             fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
                                             lineHeight: 'var(--app-text-body-line-height)',
-                                            color: 'var(--md-sys-color-on-surface-variant)'
+                                            color: 'var(--app-color-on-surface-variant)'
                                         }}>Nessuno studente in elenco.</p>
                                     </div>
                                 )}

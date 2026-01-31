@@ -54,7 +54,7 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                       fontSize: 'var(--app-text-body)',
                       fontWeight: 'var(--app-text-body-weight)',
                       lineHeight: 'var(--app-text-body-line-height)',
-                      color: 'var(--md-sys-color-on-surface-variant)'
+                      color: 'var(--app-color-on-surface-variant)'
                     }}>
                         Stai creando una nuova colonna nella griglia di valutazione per la classe selezionata.
                     </p>

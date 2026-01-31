@@ -33,7 +33,7 @@ const TextArea: React.FC<TextAreaProps> = ({
         >
             <label
                 htmlFor={props.id}
-                style={{color: 'var(--md-sys-color-on-surface-variant)',
+                style={{color: 'var(--app-color-on-surface-variant)',
                     fontSize: 'var(--app-text-label)',
                     fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
                     fontWeight: 'var(--app-text-label-weight)',

@@ -34,7 +34,7 @@ const getStatusColor = (status: MetricCardProps['status']) => {
       return 'var(--md-sys-color-error)';
     case 'neutral':
     default:
-      return 'var(--md-sys-color-on-surface-variant)';
+      return 'var(--app-color-on-surface-variant)';
   }
 };
 
@@ -65,7 +65,7 @@ const formatTrend = (trend?: number) => {
   if (!trend) return null;
 
   const sign = trend > 0 ? '+' : '';
-  const color = trend > 0 ? 'var(--md-sys-color-error)' : trend < 0 ? 'var(--md-sys-color-tertiary)' : 'var(--md-sys-color-on-surface-variant)';
+  const color = trend > 0 ? 'var(--md-sys-color-error)' : trend < 0 ? 'var(--md-sys-color-tertiary)' : 'var(--app-color-on-surface-variant)';
 
   return (
     <span style={{
@@ -151,7 +151,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
             <h3 style={{
               fontSize: 'var(--app-text-body)',
               fontWeight: 'var(--app-text-label-weight)',
-              color: 'var(--md-sys-color-on-surface-variant)',
+              color: 'var(--app-color-on-surface-variant)',
               lineHeight: '1.25'
             }}>
               {title}
@@ -159,7 +159,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
             {description && (
               <p style={{
                 fontSize: 'var(--app-text-body)',
-                color: 'var(--md-sys-color-on-surface-variant)',
+                color: 'var(--app-color-on-surface-variant)',
                 opacity: '0.7',
                 marginTop: 'var(--md-sys-spacing-1)'
               }}>
@@ -200,7 +200,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
             style={{
               fontSize: 'var(--app-text-body)',
               fontWeight: 'var(--app-text-label-weight)',
-              color: 'var(--md-sys-color-on-surface-variant)'
+              color: 'var(--app-color-on-surface-variant)'
             }}
           >
             {unit}

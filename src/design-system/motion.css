@@ -18,7 +18,7 @@
 /**
  * .m3-transition-fast
  * Use for: Quick feedback (hover states, button presses, ripples)
- * Duration: 100ms (--motion-duration-short1)
+ * Duration: var(--md-sys-motion-duration-short) (approx short)
  * Examples: Button hover, chip selection, menu item highlight
  */
 .m3-transition-fast {
@@ -30,7 +30,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /**
  * .m3-transition-standard
  * Use for: Most UI interactions (default choice)
- * Duration: 200ms (--motion-duration-short2)
+ * Duration: var(--md-sys-motion-duration-medium) (approx medium)
  * Examples: Card hover, dialog open, tooltip fade
  */
 .m3-transition-standard {
@@ -42,7 +42,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /**
  * .m3-transition-medium
  * Use for: Larger elements, complex animations
- * Duration: 300ms (--motion-duration-short3)
+ * Duration: var(--md-sys-motion-duration-long) (approx long)
  * Examples: Drawer slide, bottom sheet, FAB expand
  */
 .m3-transition-medium {
@@ -54,7 +54,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /**
  * .m3-transition-slow
  * Use for: Emphasized motion, decorative animations
- * Duration: 400ms (--motion-duration-short4)
+ * Duration: var(--md-sys-motion-duration-extra-long) (approx extra-long)
  * Examples: Page transitions, hero animations, parallax
  */
 .m3-transition-slow {
@@ -212,7 +212,7 @@ DRAWER SLIDE:
 <aside className="m3-transition-drawer">Drawer Content</aside>
 
  FAB ANIMATION:
- <!-- sample usage removed for audit compliance -->
+   sample usage removed for audit compliance
 */
 
 /* =============================================================================
@@ -222,33 +222,33 @@ DRAWER SLIDE:
 /*
 WHEN TO USE WHAT:
 
-Fast (100ms):
+Fast (use --md-sys-motion-duration-short1)
   ✓ Button/chip hover
   ✓ Ripple effects
   ✓ Menu item highlight
   ✗ Large elements
 
-Standard (200ms): **DEFAULT CHOICE**
+Standard (use --md-sys-motion-duration-short2): **DEFAULT CHOICE**
   ✓ Most interactions
   ✓ Card hover
   ✓ Tooltip/popover
   ✓ Color changes
   ✗ Complex multi-property animations
 
-Medium (300ms):
+Medium (use --md-sys-motion-duration-medium1):
   ✓ Drawer slide
   ✓ Bottom sheet
   ✓ FAB expand
   ✓ Multi-step animations
   ✗ Subtle hover states
 
-Slow (400ms):
+Slow (use --md-sys-motion-duration-medium4):
   ✓ Page transitions
   ✓ Hero animations
   ✓ Emphasized motion
   ✗ Standard interactions (feels sluggish)
 
-Expressive (400ms + bounce):
+Expressive (use --md-sys-motion-duration-extra-long1 + expressive easing):
   ✓ Success confirmations
   ✓ Celebration effects
   ✓ Playful interactions

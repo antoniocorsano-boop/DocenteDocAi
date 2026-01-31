@@ -33,7 +33,7 @@ const ImageSkeleton: React.FC<ImageSkeletonProps> = ({
             flexDirection: 'column',
             alignItems: 'center',
             gap: spacing[4],
-            color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-state-opacity-disabled), transparent)`
+            color: `color-mix(in srgb, var(--app-color-on-surface-variant) var(--md-sys-state-opacity-disabled), transparent)`
         }}>
             <span style={{
                 fontFamily: 'Material Symbols Outlined',

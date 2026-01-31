@@ -376,7 +376,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
               color: 'var(--md-sys-color-error)',
               backgroundColor: 'var(--md-sys-color-error-container)'
             }}>{nbError}</div>}
-            {nbLoading && <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Caricamento…</div>}
+            {nbLoading && <div style={{ color: 'var(--app-color-on-surface-variant)' }}>Caricamento…</div>}
             <div style={{
               display: 'flex',
               flexDirection: 'column',

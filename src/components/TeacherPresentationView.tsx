@@ -24,7 +24,7 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                     </div>
                     <div style={{marginTop: 'var(--app-spacing-container)'}}>
                         <h1 style={{ color: 'var(--app-color-on-primary)', fontWeight: "900", letterSpacing: "-0.005em", lineHeight: "1.25" }}>Il Tuo Copilota Didattico</h1>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--app-text-title)', fontWeight: "500", opacity: "0.8", marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)", lineHeight: "1.625" }}>
+                        <p style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: 'var(--app-text-title)', fontWeight: "500", opacity: "0.8", marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)", lineHeight: "1.625" }}>
                             Tecnologia, Privacy e Innovazione al servizio dell'insegnamento.
                             Riduci il carico burocratico, aumenta l'efficacia didattica e riscopri la passione per l'insegnamento.
                         </p>
@@ -117,7 +117,7 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30, borderRadius: ref.shape[6], padding: 'var(--app-spacing-container)' , textAlign: "center", border: 'var(--app-border-normal) solid var(--md-sys-color-outline)', gap: 'var(--md-sys-spacing-8)'}}>
                     <div style={{marginTop: 'var(--app-spacing-container)'}}>
                         <h2 style={{ color: 'var(--app-color-on-primary)', fontWeight: "900", letterSpacing: "-0.005em" }}>Insegna Meglio, Vivi Meglio.</h2>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--app-text-title)', fontWeight: "500", opacity: "0.8", marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)", lineHeight: "1.625" }}>
+                        <p style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: 'var(--app-text-title)', fontWeight: "500", opacity: "0.8", marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)", lineHeight: "1.625" }}>
                             DocenteDoc AI è stato creato per semplificare la tua vita professionale, garantendo sicurezza e innovazione.
                             Esplora subito il tuo copilota didattico e trasforma il tuo modo di insegnare.
                         </p>

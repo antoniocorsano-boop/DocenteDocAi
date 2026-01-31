@@ -112,7 +112,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
                         value={event.descrizione || ''}
                         onChange={e => handleChange('descrizione', e.target.value)}
                         rows={3}
-                        containerClassName="shadow-inner !bg-[var(--md-sys-color-surfaceContainerLow)]est"
+                        
                     />
                 </form>
             </M3DialogContent>

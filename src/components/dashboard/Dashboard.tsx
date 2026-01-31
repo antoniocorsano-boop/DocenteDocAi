@@ -66,7 +66,7 @@ const DashboardHeader: React.FC = () => {
             fontSize: 'var(--md-sys-typescale-body-large-size)',
             fontWeight: 'var(--md-sys-typescale-body-large-weight)',
             lineHeight: 'var(--app-text-body-line-height)',
-            color: 'var(--md-sys-color-on-surface-variant)'
+            color: 'var(--app-color-on-surface-variant)',
           }}
         >
           Monitoraggio real-time delle performance di DocenteDoc AI
@@ -93,7 +93,7 @@ const DashboardHeader: React.FC = () => {
               fontSize: 'var(--md-sys-typescale-body-medium-size)',
               fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
               lineHeight: 'var(--app-text-body-line-height)',
-              color: 'var(--md-sys-color-on-surface-variant)',
+              color: 'var(--app-color-on-surface-variant)',
               cursor: 'pointer'
             }}
           >
@@ -143,7 +143,7 @@ const DashboardHeader: React.FC = () => {
             lineHeight: 'var(--app-text-label-line-height)',
             transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)',
             backgroundColor: isLoading ? 'var(--md-sys-color-surface-container-high)' : 'var(--app-color-primary)',
-            color: isLoading ? 'var(--md-sys-color-on-surface-variant)' : 'var(--app-color-on-primary)',
+            color: isLoading ? 'var(--app-color-on-surface-variant)' : 'var(--app-color-on-primary)',
             border: 'none',
             cursor: isLoading ? 'not-allowed' : 'pointer'
           }}
@@ -183,7 +183,7 @@ const DashboardHeader: React.FC = () => {
             fontSize: 'var(--md-sys-typescale-body-small-size)',
             fontWeight: 'var(--md-sys-typescale-body-small-weight)',
             lineHeight: 'var(--app-text-body-line-height)',
-            color: 'var(--md-sys-color-on-surface-variant)'
+            color: 'var(--app-color-on-surface-variant)',
           }}
         >
           {formatLastUpdate(lastUpdate)}
@@ -254,7 +254,7 @@ const AlertsSection: React.FC = () => {
         <p
           style={{
             fontSize: 'var(--app-text-body)',
-            color: 'var(--md-sys-color-on-surface-variant)',
+            color: 'var(--app-color-on-surface-variant)',
           }}
         >
           Nessun alert attivo nelle ultime 24 ore.
@@ -386,7 +386,7 @@ const AlertsSection: React.FC = () => {
               <p
                 style={{
                   fontSize: 'var(--app-text-body)',
-                  color: 'var(--md-sys-color-on-surface-variant)',
+                  color: 'var(--app-color-on-surface-variant)',
                 }}
               >
                 {alert.message}
@@ -395,7 +395,7 @@ const AlertsSection: React.FC = () => {
                 style={{
                   fontSize: 'var(--app-text-body)',
                   marginTop: 'var(--md-sys-spacing-1)',
-                  color: 'var(--md-sys-color-on-surface-variant)',
+                  color: 'var(--app-color-on-surface-variant)',
                 }}
               >
                 {new Date(alert.timestamp).toLocaleString()}
@@ -553,8 +553,8 @@ export const Dashboard: React.FC = () => {
             }}
           />
           <p
-            style={{
-              color: 'var(--md-sys-color-on-surface-variant)',
+              style={{
+              color: 'var(--app-color-on-surface-variant)',
             }}
           >
             Caricamento dashboard...
@@ -581,7 +581,7 @@ export const Dashboard: React.FC = () => {
         >
           <p
             style={{
-              color: 'var(--md-sys-color-on-surface-variant)',
+              color: 'var(--app-color-on-surface-variant)'
             }}
           >
             Nessun dato disponibile. Verifica che il sistema di monitoraggio sia attivo.
@@ -801,7 +801,7 @@ export const Dashboard: React.FC = () => {
                     fontSize: 'var(--app-text-body)',
                     fontWeight: 'var(--app-text-body-weight)',
                     marginBottom: 'var(--md-sys-spacing-1)',
-                    color: 'var(--md-sys-color-on-surface-variant)',
+                    color: 'var(--app-color-on-surface-variant)',
                   }}
                 >
                   Componenti Caricati
@@ -826,7 +826,7 @@ export const Dashboard: React.FC = () => {
                     fontSize: 'var(--app-text-body)',
                     fontWeight: 'var(--app-text-body-weight)',
                     marginBottom: 'var(--md-sys-spacing-1)',
-                    color: 'var(--md-sys-color-on-surface-variant)',
+                    color: 'var(--app-color-on-surface-variant)',
                   }}
                 >
                   Tempo Medio
@@ -851,7 +851,7 @@ export const Dashboard: React.FC = () => {
                     fontSize: 'var(--app-text-body)',
                     fontWeight: 'var(--app-text-body-weight)',
                     marginBottom: 'var(--md-sys-spacing-1)',
-                    color: 'var(--md-sys-color-on-surface-variant)',
+                    color: 'var(--app-color-on-surface-variant)',
                   }}
                 >
                   Stato

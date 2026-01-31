@@ -378,7 +378,7 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
                   fontWeight: 'var(--app-text-body-weight)',
                   lineHeight: 'var(--app-spacing-container)',
                   margin: 0,
-                  color: 'var(--md-sys-color-on-surface-variant)'
+                  color: 'var(--app-color-on-surface-variant)'
                 }}
               >
                 {subtitle}

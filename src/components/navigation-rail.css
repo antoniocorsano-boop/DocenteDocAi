@@ -112,7 +112,7 @@
   border-radius: var(--shape-m, var(--md-sys-spacing-4));
   
   /* State colors - default */
-  color: var(--md-sys-color-on-surface-variant);
+  color: var(--app-color-on-surface-variant);
   background: transparent;
   
   /* Transition */
@@ -307,7 +307,7 @@
   }
   
   .m3-navigation-rail__item {
-    color: var(--md-sys-color-on-surface-variant);
+    color: var(--app-color-on-surface-variant);
   }
   
   .m3-navigation-rail__item.active {

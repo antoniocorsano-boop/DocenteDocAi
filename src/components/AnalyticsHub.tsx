@@ -154,7 +154,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                 fontSize: 'var(--app-text-body)',
                                 fontWeight: 'var(--app-text-body-weight)',
                                 lineHeight: 'var(--app-text-body-line-height)',
-                                color: 'var(--md-sys-color-on-surface-variant)'
+                                color: 'var(--app-color-on-surface-variant)'
                             }}
                         >Modalità Vista</label>
                         <div
@@ -217,7 +217,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
             >
                 <div
                     style={{
-                        color: 'var(--md-sys-color-on-surface-variant)',
+                        color: 'var(--app-color-on-surface-variant)',
                         fontSize: 'var(--app-text-body)',
                         fontWeight: '700',
                         textTransform: 'uppercase',
@@ -226,7 +226,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                 >
                     <h2
                         style={{
-                            color: 'var(--md-sys-color-on-surface-variant)',
+                            color: 'var(--app-color-on-surface-variant)',
                             fontSize: 'var(--app-text-body)',
                             fontWeight: '700',
                             textTransform: 'uppercase',

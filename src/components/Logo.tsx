@@ -76,15 +76,15 @@ const LogoComponent: React.FC<LogoProps> = ({ isAiThinking = false, onHomeNaviga
       )}
 
       <div 
-        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'box-shadow var(--app-motion-standard)', boxShadow: isAiThinking ? '0 0 0 var(--md-sys-spacing-1) var(--app-color-primary)' : undefined }} data-chaos-stage={chaosStage} data-ai-thinking={isAiThinking} 
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'box-shadow var(--app-motion-standard)', boxShadow: isAiThinking ? '0 0 0 var(--md-sys-spacing-1) var(--app-color-primary)' : undefined, width: 'var(--app-logo-width)' }} data-chaos-stage={chaosStage} data-ai-thinking={isAiThinking} 
         onClick={handleLogoClick}
       >
-        <svg width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg" >
+        <svg viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           {/* Simbolo D Geometrica */}
           <g transform="translate(2, 2)" >
             <path d="M12 4 H 24 C 36 4, 42 12, 42 20 C 42 28, 36 36, 24 36 H 12 V 4 Z"  />
             <path d="M14 8 H 22 C 28 8, 31 12, 31 20 C 31 28, 28 32, 22 32 H 14 V 8 Z"  />
-            <rect x="4" y="6" width="7" height="28" rx="2"  />
+            <path d="M4 6 H11 A2 2 0 0 1 13 8 V34 A2 2 0 0 1 11 36 H4 Z" />
             
             {/* Gemma AI - Questa è quella che "vola" via o appare alla fine */}
             <g transform="translate(38, 4)" >

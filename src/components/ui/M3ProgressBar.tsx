@@ -30,7 +30,7 @@ function M3ProgressBar({
   const secondary = 'var(--app-color-secondary)';
   const tertiary = 'var(--md-sys-color-tertiary)';
   const surfaceVariant = 'var(--md-sys-color-surface-variant)';
-  const onSurfaceVariant = 'var(--md-sys-color-on-surface-variant)';
+  const onSurfaceVariant = 'var(--app-color-on-surface-variant)';
 
   // Shape tokens
   const full = 'var(--md-sys-shape-corner-full)';

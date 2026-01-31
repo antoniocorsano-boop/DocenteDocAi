@@ -72,7 +72,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                                     style={{
                                         fontFamily: 'Material Symbols Outlined',
                                         fontSize: 'var(--app-spacing-section)', // infoCard.iconSize
-                                        color: 'var(--md-sys-color-on-surface-variant)'
+                                        color: 'var(--app-color-on-surface-variant)'
                                     }}
                                 >
                                     {icon}
@@ -95,7 +95,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     cursor: 'pointer',
-                                    color: 'var(--md-sys-color-on-surface-variant)'
+                                    color: 'var(--app-color-on-surface-variant)'
                                 }}
                                 aria-label="Chiudi"
                             >

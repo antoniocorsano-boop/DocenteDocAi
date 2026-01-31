@@ -101,7 +101,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                     <div  style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <label  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', cursor: "pointer"}}>
                             <div ><input type="checkbox" checked={useKb} onChange={e => setUseKb(e.target.checked)} /><span ></span></div>
-                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Usa Context Knowledge Base</span>
+                            <span style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Usa Context Knowledge Base</span>
                         </label>
                         <span style={{ color: 'var(--app-color-primary)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{selectedKbIds.length} file</span>
                     </div>
@@ -125,12 +125,12 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                                     <span style={{
                                         fontFamily: 'Material Symbols Outlined',
                                         fontSize: 'var(--md-sys-typescale-body-small-size)',
-                                        color: selectedKbIds.includes(k.id) ? 'var(--app-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                                        color: selectedKbIds.includes(k.id) ? 'var(--app-color-primary)' : 'var(--app-color-on-surface-variant)',
                                         userSelect: 'none'
                                     }}>
                                         {selectedKbIds.includes(k.id) ? 'check_box' : 'check_box_outline_blank'}
                                     </span>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{k.fileName}</span>
+                                    <span style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{k.fileName}</span>
                                 </label>
                             ))}
                         </div>

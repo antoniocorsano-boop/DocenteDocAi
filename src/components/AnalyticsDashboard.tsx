@@ -198,7 +198,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         variant="label-small"
                         style={{textTransform: 'uppercase',
                           letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                          color: 'var(--md-sys-color-on-surface-variant)'}}
+                          color: 'var(--app-color-on-surface-variant)'}}
                       >
                         Documenti
                       </M3Typography>
@@ -223,7 +223,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         variant="label-small"
                         style={{textTransform: 'uppercase',
                           letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                          color: 'var(--md-sys-color-on-surface-variant)'}}
+                          color: 'var(--app-color-on-surface-variant)'}}
                       >
                         Interazioni AI
                       </M3Typography>
@@ -249,7 +249,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         variant="label-small"
                         style={{textTransform: 'uppercase',
                           letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                          color: 'var(--md-sys-color-on-surface-variant)'}}
+                          color: 'var(--app-color-on-surface-variant)'}}
                       >
                         Template
                       </M3Typography>
@@ -275,7 +275,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         variant="label-small"
                         style={{textTransform: 'uppercase',
                           letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                          color: 'var(--md-sys-color-on-surface-variant)'}}
+                          color: 'var(--app-color-on-surface-variant)'}}
                       >
                         Export
                       </M3Typography>
@@ -312,7 +312,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       alignItems: 'center'
                     }}>
                       <M3Typography variant="body-medium" style={{
-                        color: 'var(--md-sys-color-on-surface-variant)'}}>Eventi Totali</M3Typography>
+                        color: 'var(--app-color-on-surface-variant)'}}>Eventi Totali</M3Typography>
                       <M3Typography variant="body-medium" style={{
                         color: 'var(--app-color-on-surface)'}}>{stats.weeklyActivity}</M3Typography>
                     </div>
@@ -322,7 +322,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       alignItems: 'center'
                     }}>
                       <M3Typography variant="body-medium" style={{
-                        color: 'var(--md-sys-color-on-surface-variant)'}}>Documenti Generati</M3Typography>
+                        color: 'var(--app-color-on-surface-variant)'}}>Documenti Generati</M3Typography>
                       <M3Typography variant="body-medium" style={{
                         color: 'var(--app-color-on-surface)'}}>
                         {analyticsEvents.filter(e => e.eventType === 'document_generated' &&
@@ -357,7 +357,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         alignItems: 'center'
                       }}>
                         <M3Typography variant="body-medium" style={{
-                          color: 'var(--md-sys-color-on-surface-variant)',
+                          color: 'var(--app-color-on-surface-variant)',
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
                           whiteSpace: 'nowrap',
@@ -368,7 +368,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       </div>
                     )) : (
                       <M3Typography variant="body-medium" style={{
-                        color: 'var(--md-sys-color-on-surface-variant)',
+                        color: 'var(--app-color-on-surface-variant)',
                         fontStyle: 'italic'}}>Nessuna attività registrata</M3Typography>
                     )}
                   </div>
@@ -404,7 +404,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                         borderRadius: 'var(--md-sys-shape-corner-medium)'}}>
                         <M3Typography variant="body-medium" style={{
-                          color: 'var(--md-sys-color-on-surface-variant)',
+                          color: 'var(--app-color-on-surface-variant)',
                           textTransform: 'capitalize'}}>{type.replace('_', ' ')}</M3Typography>
                         <M3Typography variant="body-medium" style={{
                           color: 'var(--app-color-primary)'}}>{count}</M3Typography>
@@ -464,13 +464,13 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                             variant="label-small"
                             style={{textTransform: 'uppercase',
                               letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                              color: 'var(--md-sys-color-on-surface-variant)'}}
+                              color: 'var(--app-color-on-surface-variant)'}}
                           >
                             {event.eventType.replace('_', ' ')}
                           </M3Typography>
                         </div>
                         <span style={{fontSize: 'var(--app-text-label)',
-                          color: 'var(--md-sys-color-on-surface-variant)',
+                          color: 'var(--app-color-on-surface-variant)',
                           backgroundColor: 'var(--md-sys-color-surface-container-high)',
                           padding: 'var(--md-sys-spacing-1) var(--app-spacing-container)',
                           borderRadius: 'var(--app-spacing-container)'}}>
@@ -486,12 +486,12 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     paddingBottom: 'var(--md-sys-spacing-12)'}}>
                     <span style={{fontFamily: 'Material Symbols Outlined',
                       fontSize: 'var(--app-text-display)',
-                      color: 'var(--md-sys-color-on-surface-variant)',
+                      color: 'var(--app-color-on-surface-variant)',
                       opacity: 0.3,
                       marginBottom: 'var(--md-sys-spacing-8)',
                       display: 'block'}}>history</span>
                     <M3Typography variant="body-medium" style={{
-                      color: 'var(--md-sys-color-on-surface-variant)'}}>Nessun evento registrato</M3Typography>
+                      color: 'var(--app-color-on-surface-variant)'}}>Nessun evento registrato</M3Typography>
                   </div>
                 )}
               </div>
@@ -534,7 +534,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       <M3Typography variant="body-medium" style={{
                         color: 'var(--app-color-on-surface)'}}>Analytics Abilitati</M3Typography>
                       <M3Typography variant="body-small" style={{
-                        color: 'var(--md-sys-color-on-surface-variant)'}}>
+                        color: 'var(--app-color-on-surface-variant)'}}>
                         Consenti raccolta dati anonimi di utilizzo
                       </M3Typography>
                     </div>
@@ -596,7 +596,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           <M3Typography variant="body-medium" style={{
                             color: 'var(--app-color-on-surface)'}}>Utilizzo Funzionalità</M3Typography>
                           <M3Typography variant="body-small" style={{
-                            color: 'var(--md-sys-color-on-surface-variant)'}}>
+                            color: 'var(--app-color-on-surface-variant)'}}>
                             Traccia quali funzionalità vengono utilizzate
                           </M3Typography>
                         </div>
@@ -656,7 +656,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           <M3Typography variant="body-medium" style={{
                             color: 'var(--app-color-on-surface)'}}>Metriche Documenti</M3Typography>
                           <M3Typography variant="body-small" style={{
-                            color: 'var(--md-sys-color-on-surface-variant)'}}>
+                            color: 'var(--app-color-on-surface-variant)'}}>
                             Traccia generazione e tipi di documenti
                           </M3Typography>
                         </div>
@@ -750,7 +750,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         variant="label-small"
                         style={{textTransform: 'uppercase',
                           letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                          color: 'var(--md-sys-color-on-surface-variant)',
+                          color: 'var(--app-color-on-surface-variant)',
                           marginBottom: 'var(--app-spacing-container)',
                           display: 'block'}}
                       >

@@ -70,7 +70,7 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
       default: // standard
         return {
           backgroundColor: hovered ? 'var(--md-sys-color-surface-variant)' : 'transparent',
-          color: 'var(--md-sys-color-on-surface-variant)'
+          color: 'var(--app-color-on-surface-variant)'
         };
     }
   };

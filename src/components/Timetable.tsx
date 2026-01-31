@@ -52,7 +52,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
   }, [viewMode, currentDayIndex]);
 
     return (
-        <div style={{position: 'relative',
+        <div style={{
             minHeight: 'var(--md-sys-viewport-height-full)',
             backgroundColor: 'var(--app-color-surface)',
             padding: 'var(--app-spacing-section)',
@@ -84,9 +84,9 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 'var(--app-spacing-section)',
-                // Responsive container: fluid width up to var(--content-max-width) so content scales on larger screens
-                width: '100%',
-                maxWidth: 'var(--content-max-width)',
+                // Responsive container: fluid width up to var(--app-content-max-width) so content scales on larger screens
+                width: 'var(--md-sys-percent-full)',
+                maxWidth: 'var(--app-content-max-width)',
                 marginLeft: 'var(--app-layout-auto)',
                 marginRight: 'var(--app-layout-auto)'}}>
                 {/* HEADER: MD3 Command Island */}

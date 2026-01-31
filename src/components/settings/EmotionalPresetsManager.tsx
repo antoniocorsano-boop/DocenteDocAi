@@ -47,7 +47,7 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
           primaryHover: 'var(--app-color-primary)',
           scrim: 'var(--md-sys-color-scrim)',
           surfaceVariant: 'var(--md-sys-color-surface-variant)',
-          onSurfaceVariant: 'var(--md-sys-color-on-surface-variant)'
+          onSurfaceVariant: 'var(--app-color-on-surface-variant)'
         },
       }
     },
@@ -83,7 +83,7 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
           primaryHover: 'var(--app-color-primary)',
           scrim: 'var(--md-sys-color-scrim)',
           surfaceVariant: 'var(--md-sys-color-surface-variant)',
-          onSurfaceVariant: 'var(--md-sys-color-on-surface-variant)'
+          onSurfaceVariant: 'var(--app-color-on-surface-variant)'
         },
       }
     },
@@ -119,7 +119,7 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
           primaryHover: 'var(--md-sys-color-tertiary)',
           scrim: 'var(--md-sys-color-scrim)',
           surfaceVariant: 'var(--md-sys-color-surface-variant)',
-          onSurfaceVariant: 'var(--md-sys-color-on-surface-variant)'
+          onSurfaceVariant: 'var(--app-color-on-surface-variant)'
         },
       }
     },
@@ -155,7 +155,7 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
           primaryHover: 'var(--app-color-primary)',
           scrim: 'var(--md-sys-color-scrim)',
           surfaceVariant: 'var(--md-sys-color-surface-variant)',
-          onSurfaceVariant: 'var(--md-sys-color-on-surface-variant)'
+          onSurfaceVariant: 'var(--app-color-on-surface-variant)'
         },
       }
     },

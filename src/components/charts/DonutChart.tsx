@@ -26,7 +26,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
 
   return (
     <div style={{ position: 'relative', width: 200, height: 200 }}>
-      <svg width="200" height="200" viewBox="0 0 200 200">
+      <svg viewBox="0 0 200 200" aria-hidden="true">
         <g transform="rotate(-90 100 100)">
           {data.map((item, index) => {
             const percentage = (item.value / total) * 100;

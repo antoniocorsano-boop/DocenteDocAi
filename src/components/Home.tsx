@@ -70,7 +70,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const lessons = useAcademicStore(state => state.lessons);
   const students = useStudentStore(state => state.students);
   const evaluations = useStudentStore(state => state.evaluations) || [];
-  const settings = useSettingsStore((s: any) => s.settings);
+  const settings = useSettingsStore(s => s.settings);
 
   interface RecentActivity {
     id: string;
@@ -112,7 +112,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     // Tests expect deferred sections to be present; enable by default in test env
     try {
       return process.env.NODE_ENV === 'test';
-    } catch (e) {
+    } catch {
       return false;
     }
   });
@@ -184,13 +184,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               <M3Card>
                 <M3Surface style={{ textAlign: 'center' }}>
                   <M3Typography variant="title-medium">{students?.length ?? 0}</M3Typography>
-                  <M3Typography variant="label-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Studenti</M3Typography>
+                  <M3Typography variant="label-medium" style={{ color: 'var(--app-color-on-surface-variant)' }}>Studenti</M3Typography>
                 </M3Surface>
               </M3Card>
               <M3Card>
                 <M3Surface style={{ textAlign: 'center' }}>
                   <M3Typography variant="title-medium">{evaluations?.length ?? 0}</M3Typography>
-                  <M3Typography variant="label-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Valutazioni</M3Typography>
+                  <M3Typography variant="label-medium" style={{ color: 'var(--app-color-on-surface-variant)' }}>Valutazioni</M3Typography>
                 </M3Surface>
               </M3Card>
             </M3Surface>
@@ -207,7 +207,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 {activities.map(activity => (
                   <M3Surface key={activity.id} style={{ padding: 'var(--app-spacing-element)' }}>
                     <M3Typography variant="title-medium">{activity.title}</M3Typography>
-                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{activity.meta}</M3Typography>
+                    <M3Typography variant="body-medium" style={{ color: 'var(--app-color-on-surface-variant)' }}>{activity.meta}</M3Typography>
                     <M3Typography variant="label-small" style={{ color: 'var(--md-sys-color-outline-variant)' }}>{activity.time}</M3Typography>
                   </M3Surface>
                 ))}

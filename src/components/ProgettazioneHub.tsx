@@ -69,7 +69,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
             {/* Header */}
             <div  style={{ textAlign: "center" }}>
                 <h1 style={{fontWeight: "900", color: "var(--app-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>Progettazione</h1>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  marginLeft: 'var(--app-layout-auto)', marginRight: 'var(--app-layout-auto)', fontWeight: "500" }}>
+                <p style={{ color: 'var(--app-color-on-surface-variant)' ,  marginLeft: 'var(--app-layout-auto)', marginRight: 'var(--app-layout-auto)', fontWeight: "500" }}>
                     Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
                 </p>
             </div>

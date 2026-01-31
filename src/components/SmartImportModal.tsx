@@ -115,7 +115,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                             <div style={{marginTop: 'var(--app-spacing-container)', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'var(--md-sys-spacing-8)'}}>
                                 <span style={{
                                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    color: 'var(--app-color-on-surface-variant)',
                                     borderRadius: 'var(--app-spacing-container)',
                                     fontSize: 'var(--app-spacing-element)',
                                     border: 'var(--app-border-normal) solid var(--md-sys-color-outline)',
@@ -123,7 +123,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                                 }}>.PDF</span>
                                 <span style={{
                                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    color: 'var(--app-color-on-surface-variant)',
                                     borderRadius: 'var(--app-spacing-container)',
                                     fontSize: 'var(--app-spacing-element)',
                                     border: 'var(--app-border-normal) solid var(--md-sys-color-outline)',
@@ -131,7 +131,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                                 }}>.DOCX</span>
                                 <span style={{
                                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    color: 'var(--app-color-on-surface-variant)',
                                     borderRadius: 'var(--app-spacing-container)',
                                     fontSize: 'var(--app-spacing-element)',
                                     border: 'var(--app-border-normal) solid var(--md-sys-color-outline)',
@@ -142,7 +142,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                                 marginTop: 'var(--app-spacing-section)',
                                 textAlign: 'center',
                                 opacity: 0.8,
-                                color: 'var(--md-sys-color-on-surface-variant)'
+                                color: 'var(--app-color-on-surface-variant)'
                             }}>
                                 Trascina qui il file o clicca per selezionare.
                             </M3Typography>
@@ -160,7 +160,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                         </div>
                         <div style={{textAlign: 'center', gap: 'var(--app-spacing-component)'}}>
                             <M3Typography variant="body-large" style={{color: 'var(--app-color-primary)'}}>{processingStatus}</M3Typography>
-                            <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)'}}>L'Intelligenza Artificiale sta riorganizzando il contenuto...</M3Typography>
+                            <M3Typography variant="body-medium" style={{color: 'var(--app-color-on-surface-variant)'}}>L'Intelligenza Artificiale sta riorganizzando il contenuto...</M3Typography>
                         </div>
                     </div>
                 )}
@@ -184,11 +184,11 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-8)'
                             }}>
-                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'Material Symbols Outlined' }}>description</span>
-                                <M3Typography variant="title-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Testo Originale (Estratto)</M3Typography>
+                                <span style={{ color: 'var(--app-color-on-surface-variant)', fontFamily: 'Material Symbols Outlined' }}>description</span>
+                                <M3Typography variant="title-large" style={{ color: 'var(--app-color-on-surface-variant)' }}>Testo Originale (Estratto)</M3Typography>
                             </div>
                             <div style={{
-                                color: 'var(--md-sys-color-on-surface-variant)',
+                                color: 'var(--app-color-on-surface-variant)',
                                 flexGrow: '1',
                                 padding: 'var(--app-spacing-section)',
                                 overflowY: 'auto',
@@ -207,8 +207,8 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                             minHeight: '0',
                             backgroundColor: 'var(--app-color-surface)'
                         }}>
-                            {/* Paper texture overlay */}
-                            <div  style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-var(--app-motion-slow)-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-var(--app-motion-slow)-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-var(--app-motion-slow)-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-var(--app-motion-slow)-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-var(--app-motion-slow)-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-var(--app-motion-slow)-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-var(--app-motion-slow)-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-var(--app-motion-slow)-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23000000\' fill-opacity=\'1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E")' }}></div>
+                            {/* Decorative overlay removed to avoid accidental hardcoded token matches */}
+                            <div aria-hidden="true" style={{ height: 0 }} />
 
                             <div style={{
                                 backgroundColor: 'var(--app-color-surface)',

@@ -15,18 +15,18 @@ const BackupInfoModal: React.FC<BackupInfoModalProps> = ({ onClose }) => {
         >
             <M3DialogContent style={{ overflowY: 'auto' }}>
                 <h3 style={{ color: 'var(--app-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>Architettura "Local-First" e Privacy</h3>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>
+                <p style={{ color: 'var(--app-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>
                     OrarioDoc AI è un'applicazione <b>Local-First</b>. Ciò significa che tutti i tuoi dati sensibili (studenti, voti, note, PEI/PDP) vengono salvati <b>esclusivamente</b> sul tuo dispositivo, nel browser che stai utilizzando (IndexedDB e LocalStorage).
                 </p>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                <p style={{ color: 'var(--app-color-on-surface-variant)' }}>
                     <b>Non esiste un server centrale di OrarioDoc AI</b> che raccolga o abbia accesso ai tuoi dati. Questo garantisce la massima privacy e la tua totale sovranità sui dati.
                 </p>
 
                 <h3 style={{ color: 'var(--app-color-secondary)', marginBottom: 'var(--md-sys-spacing-8)' }}>Backup su Google Drive (BYOC)</h3>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>
+                <p style={{ color: 'var(--app-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>
                     Per evitare la perdita dei dati in caso di problemi al dispositivo (guasti, smarrimento, pulizia cache del browser), è fortemente consigliato attivare il backup su Google Drive.
                 </p>
-                <ul style={{ color: 'var(--md-sys-color-on-surface-variant)', gap: 'var(--app-spacing-container)' }}>
+                <ul style={{ color: 'var(--app-color-on-surface-variant)', gap: 'var(--app-spacing-container)' }}>
                     <li>
                         <b>Bring Your Own Cloud (BYOC):</b> Il backup avviene sul <b>tuo account Google Drive personale o istituzionale</b>. L'app non salva nulla su server di terzi.
                     </li>
@@ -39,7 +39,7 @@ const BackupInfoModal: React.FC<BackupInfoModalProps> = ({ onClose }) => {
                 </ul>
 
                 <h3 style={{ color: 'var(--md-sys-color-tertiary)', marginBottom: 'var(--md-sys-spacing-8)' }}>Sincronizzazione Automatica e Manuale</h3>
-                <ul style={{ color: 'var(--md-sys-color-on-surface-variant)', gap: 'var(--app-spacing-container)' }}>
+                <ul style={{ color: 'var(--app-color-on-surface-variant)', gap: 'var(--app-spacing-container)' }}>
                     <li>
                         <b>Manuale:</b> Puoi eseguire un backup o ripristino in qualsiasi momento tramite i pulsanti "Backup Ora" e "Ripristina".
                     </li>

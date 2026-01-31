@@ -38,7 +38,7 @@ const helperStyle: React.CSSProperties = {
   marginTop: 'var(--md-sys-spacing-1)',
   fontSize: 'var(--app-text-body)',
   fontFamily: 'var(--md-sys-typescale-body-small-font)',
-  color: 'var(--md-sys-color-on-surface-variant)',
+  color: 'var(--app-color-on-surface-variant)',
 };
 
 const errorStyle: React.CSSProperties = {

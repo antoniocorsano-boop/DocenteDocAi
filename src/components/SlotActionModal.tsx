@@ -29,8 +29,8 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
   display: 'flex',
   flexDirection: 'column'
 }}>
-          <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Lezione Programmata</span>
-          <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{slot.giorno}, {slot.ora}</span>
+          <span style={{ color: 'var(--app-color-on-surface-variant)' }}>Lezione Programmata</span>
+          <span style={{ color: 'var(--app-color-on-surface-variant)' }}>{slot.giorno}, {slot.ora}</span>
         </div>
       }
       onClose={onClose}

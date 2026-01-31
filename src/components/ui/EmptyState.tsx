@@ -40,7 +40,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
             alignItems: 'center',
             justifyContent: 'center',
             marginBottom: 'var(--app-spacing-container)',
-            color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-state-opacity-30), transparent)`,
+            color: `color-mix(in srgb, var(--app-color-on-surface-variant) var(--md-sys-state-opacity-30), transparent)`,
             boxShadow: 'var(--md-sys-elevation-level1)'
         }}>
             <span style={{
@@ -59,7 +59,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
         <p style={{
             fontSize: 'var(--app-text-body)',
             fontFamily: 'var(--md-sys-typescale-font-family)',
-            color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-state-opacity-60), transparent)`,
+            color: `color-mix(in srgb, var(--app-color-on-surface-variant) var(--md-sys-state-opacity-60), transparent)`,
             maxWidth: 'var(--md-sys-spacing-16)',
             margin: `var(--app-spacing-container) auto 0`,
             fontWeight: 700,

@@ -1,3 +1,71 @@
+---
+title: "0001 - App tokens for legacy colors"
+status: Draft
+date: 2026-01-31
+authors: ["DocenteDoc AI — Migration Bot"]
+---
+
+# Summary
+
+This RFC proposes a conservative, governance-friendly set of `--app-*` CSS tokens that act
+as an application compatibility layer for legacy color values used across the codebase.
+These tokens are aliases that map to existing MD3 system tokens where possible, or to
+approved app-level fallbacks when a semantic mapping is required.
+
+# Motivation
+
+- The repository contains many legacy HEX and semantic color usages sourced in
+  `src/design-system/legacy-colors.ts`. We must avoid editing that file (source-of-truth)
+  while still removing ad-hoc color literals across components.
+- A small set of conservative `--app-*` aliases lets us remediate component code by
+  pointing color references to stable variables, keeping changes reversible and reviewable.
+
+# Proposal
+
+Introduce the following minimal token aliases in `src/theme.css` under the `:root` block:
+
+- `--app-color-primary` → `var(--md-sys-color-primary)`
+- `--app-color-on-primary` → `var(--md-sys-color-on-primary)`
+- `--app-color-primary-container` → `var(--md-sys-color-primary-container)`
+- `--app-color-on-primary-container` → `var(--md-sys-color-on-primary-container)`
+- `--app-color-surface` → `var(--md-sys-color-surface)`
+- `--app-color-on-surface` → `var(--md-sys-color-on-surface)`
+- `--app-color-surface-variant` → `var(--md-sys-color-surface-variant)`
+- `--app-color-on-surface-variant` → `var(--md-sys-color-on-surface-variant)`
+- `--app-spacing-touch` → `var(--md-sys-spacing-11)` (44px semantic touch target)
+
+These token names are intentionally conservative and semantic. They are already present
+in the working branch as aliases (see `src/theme.css`) to avoid mass edits of components
+before governance review.
+
+# Rollout Plan
+
+1. Ship this RFC as a draft and solicit governance review.
+2. Use targeted migration PRs that replace specific component usages with `var(--app-*)`.
+3. Run the governance scanner on each PR and attach `reports/*` and `audit/*` artifacts.
+4. After governance approval, iterate to remove `LEGACY_COLORS` consumers where safe.
+
+# Exceptions
+
+- Files used for PDF generation and story/test snapshots are excluded from automated
+  substitutions (`src/design-system/pdf-colors.ts`, stories, tests). These exceptions
+  are documented in `docs/MD3_GOVERNANCE_EXCEPTIONS.md`.
+
+# Security / Accessibility
+
+- Tokens map to MD3 tokens which preserve contrast and WCAG behavior. Any new app token
+  that reduces contrast must be escalated via RFC and accessible remediation steps.
+
+# Approval
+
+Request: governance council review + approval to use the `--app-*` compatibility layer
+for incremental migrations. After approval, token names become stable and used by
+future migration PRs.
+
+---
+
+References: `docs/MD3_GOVERNANCE_EXCEPTIONS.md`, `src/theme.css`, `src/design-system/legacy-colors.ts`.
+
 # RFC 0001 — MD3 App Tokens for Legacy Colors
 
 Status: Draft

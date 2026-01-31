@@ -80,7 +80,7 @@
 
 .notifications-popover-card-icon-read {
   background-color: var(--md-sys-color-surface-container-high);
-  color: var(--md-sys-color-on-surface-variant);
+  color: var(--app-color-on-surface-variant);
 }
 
 .notifications-popover-card-icon-unread {
@@ -111,7 +111,7 @@
 }
 
 .notifications-popover-card-title-read {
-  color: var(--md-sys-color-on-surface-variant);
+  color: var(--app-color-on-surface-variant);
 }
 
 .notifications-popover-card-title-unread {
@@ -129,7 +129,7 @@
 
 .notifications-popover-card-message {
   font-size: var(--md-sys-typescale-body-small-size);
-  color: var(--md-sys-color-on-surface-variant);
+  color: var(--app-color-on-surface-variant);
   display: -webkit-box;
   overflow: hidden;
   -webkit-line-clamp: 2;
@@ -145,7 +145,7 @@
   align-items: center;
   justify-content: center;
   padding: var(--md-sys-spacing-8) var(--md-sys-spacing-6);
-  color: var(--md-sys-color-on-surface-variant);
+  color: var(--app-color-on-surface-variant);
 }
 
 .notifications-popover-empty-icon {

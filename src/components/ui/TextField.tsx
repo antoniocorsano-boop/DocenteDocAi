@@ -79,7 +79,7 @@ const TextField: React.FC<TextFieldProps> = ({
                             fontFamily: 'Material Symbols Outlined',
                             color: isFocused
                                 ? 'var(--app-color-primary)'
-                                : `color-mix(in srgb, var(--md-sys-color-on-surface-variant), var(--md-sys-state-opacity-disabled))`,
+                                : `color-mix(in srgb, var(--app-color-on-surface-variant), var(--md-sys-state-opacity-disabled))`,
                             transition: `color var(--app-motion-quick) var(--app-easing-standard)`, // MD3 motion tokens for duration and easing
                             fontSize: 'var(--app-spacing-container)'
                         }}
@@ -104,7 +104,7 @@ const TextField: React.FC<TextFieldProps> = ({
                             transition: `all var(--app-motion-quick) var(--app-easing-standard)`, // MD3 motion tokens for duration and easing
                             color: isFocused
                                 ? 'var(--app-color-primary)'
-                                : 'var(--md-sys-color-on-surface-variant)',
+                                : 'var(--app-color-on-surface-variant)',
                             pointerEvents: 'none',
                             zIndex: 'var(--app-z-tooltip)' // MD3 z-index token
                         }}

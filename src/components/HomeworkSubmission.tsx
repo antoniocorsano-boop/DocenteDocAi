@@ -52,7 +52,7 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
             <div >
                 <div >
                     <div >
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>description</span>
+                        <span style={{ color: 'var(--app-color-on-surface-variant)' }}>description</span>
                     </div>
                     <div>
                         <p >{submission.file?.name || 'Allegato Elaborato'}</p>

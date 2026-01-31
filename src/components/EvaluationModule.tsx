@@ -249,10 +249,10 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                         </div>
                                     ) : '-'}
                                 </td>
-                                <td style={{ textAlign: 'center', padding: 'var(--app-spacing-component)', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                                <td style={{ textAlign: 'center', padding: 'var(--app-spacing-component)', color: 'var(--app-color-on-surface-variant)' }}>
                                     {performance.trend && (
                                         <span
-                                            style={{ fontSize: 'var(--app-text-title)', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}
+                                            style={{ fontSize: 'var(--app-text-title)', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--app-color-on-surface-variant)' }}
                                         >
                                             {trendIcon}
                                         </span>
@@ -344,7 +344,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                     )}
                                 </div>
                             </div>
-                            <span style={{ fontSize: 'var(--app-text-title)', color: 'var(--md-sys-color-on-surface-variant)' }}>chevron_right</span>
+                            <span style={{ fontSize: 'var(--app-text-title)', color: 'var(--app-color-on-surface-variant)' }}>chevron_right</span>
                         </div>
                     </div>
                 );
@@ -413,10 +413,10 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     </div>
                 );
             }) : (
-                <div style={{ padding: 'var(--md-sys-spacing-8)', textAlign: 'center', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                <div style={{ padding: 'var(--md-sys-spacing-8)', textAlign: 'center', color: 'var(--app-color-on-surface-variant)' }}>
                     <span style={{ fontSize: 'var(--app-text-display)', color: 'var(--md-sys-color-tertiary)', marginBottom: 'var(--app-spacing-container)', display: 'block' }}>verified_user</span>
                     <M3Typography variant="headline-small" style={{ fontWeight: 900, color: 'var(--app-color-on-surface)', marginBottom: 'var(--app-spacing-component)' }}>Nessuna criticità</M3Typography>
-                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--app-text-body)' }}>
+                    <M3Typography variant="body-medium" style={{ color: 'var(--app-color-on-surface-variant)', fontSize: 'var(--app-text-body)' }}>
                         Tutti gli studenti mantengono una media sufficiente.
                     </M3Typography>
                 </div>
@@ -431,7 +431,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     <M3Typography variant="headline-large" style={{ fontWeight: 900, letterSpacing: 'var(--md-sys-typescale-headline-large-tracking)', color: 'var(--app-color-on-surface)' }}>
                         Registro Valutazioni
                     </M3Typography>
-                    <M3Typography variant="body-large" style={{ fontWeight: 500, marginTop: 'var(--md-sys-spacing-1)', opacity: 0.7, color: 'var(--md-sys-color-on-surface-variant)' }}>
+                    <M3Typography variant="body-large" style={{ fontWeight: 500, marginTop: 'var(--md-sys-spacing-1)', opacity: 0.7, color: 'var(--app-color-on-surface-variant)' }}>
                         Gestione voti, competenze e monitoraggio performance
                     </M3Typography>
                 </div>
@@ -491,7 +491,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             <M3Typography variant="headline-medium" style={{ fontWeight: 900, letterSpacing: 'var(--md-sys-typescale-headline-medium-tracking)', color: 'var(--app-color-on-surface)' }}>
                                 Valutazione Unificata
                             </M3Typography>
-                            <M3Typography variant="body-small" style={{ fontWeight: 900, textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', opacity: 0.6, marginTop: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                            <M3Typography variant="body-small" style={{ fontWeight: 900, textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', opacity: 0.6, marginTop: 'var(--md-sys-spacing-1)', color: 'var(--app-color-on-surface-variant)' }}>
                                 Griglia voti e competenze trasversali
                             </M3Typography>
                         </div>
@@ -506,7 +506,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id as ViewTab)}
-                                    style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-component)', padding: 'var(--app-spacing-component) var(--app-spacing-element)', borderRadius: 'var(--md-sys-shape-corner-medium)', fontWeight: 900, fontSize: 'var(--app-text-label)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)', backgroundColor: activeTab === tab.id ? 'var(--app-color-primary)' : 'transparent', color: activeTab === tab.id ? 'var(--app-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)', border: 'none', cursor: 'pointer', position: 'relative' }}
+                                    style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-component)', padding: 'var(--app-spacing-component) var(--app-spacing-element)', borderRadius: 'var(--md-sys-shape-corner-medium)', fontWeight: 900, fontSize: 'var(--app-text-label)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)', backgroundColor: activeTab === tab.id ? 'var(--app-color-primary)' : 'transparent', color: activeTab === tab.id ? 'var(--app-color-on-primary)' : 'var(--app-color-on-surface-variant)', border: 'none', cursor: 'pointer', position: 'relative' }}
                                 >
                                     <span style={{ fontSize: 'var(--app-text-title)' }}>{tab.icon}</span>
                                     {tab.label}

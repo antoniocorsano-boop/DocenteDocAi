@@ -14,7 +14,6 @@ export const Header: React.FC<HeaderProps> = ({
   showBackButton,
   onBack,
   user,
-  settings,
   notifiche,
   onNavigate,
   isAiProcessing,
@@ -57,7 +56,7 @@ export const Header: React.FC<HeaderProps> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: 'var(--md-sys-color-on-surface-variant)'
+              color: 'var(--app-color-on-surface-variant)'
             }}
           >
             {/* MD3 icon font usage allowed */}
@@ -76,7 +75,7 @@ export const Header: React.FC<HeaderProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: hasSuggestion ? 'var(--app-color-primary)' : 'var(--md-sys-color-on-surface-variant)'
+            color: hasSuggestion ? 'var(--app-color-primary)' : 'var(--app-color-on-surface-variant)'
           }}
         >
           {/* MD3 icon font usage allowed */}
@@ -122,7 +121,7 @@ export const Header: React.FC<HeaderProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: 'var(--md-sys-color-on-surface-variant)',
+            color: 'var(--app-color-on-surface-variant)',
             // Ensure minimum touch target for mobile (use app token)
             minWidth: 'var(--app-spacing-touch)',
             minHeight: 'var(--app-spacing-touch)'

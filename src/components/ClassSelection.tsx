@@ -52,14 +52,14 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
             <div >
                 <div >
                     <h1 style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "900" }}>Le Mie Classi</h1>
-                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Gestione studenti e analisi.</p>
+                    <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Gestione studenti e analisi.</p>
                 </div>
             </div>
 
             {/* --- GLOBAL AGENDA WIDGET --- */}
             {upcomingTests.length > 0 && (
                 <section >
-                    <h2 style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)" }}>
+                    <h2 style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)" }}>
                         In Arrivo (Tutte le classi)
                     </h2>
                     <div >
@@ -112,9 +112,9 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                     </div>
                 ) : (
                     <div style={{ padding: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.5, marginBottom: 'var(--md-sys-spacing-8)' }}>domain_disabled</span>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessuna classe definita</p>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--app-spacing-container)', marginBottom: 'var(--app-spacing-section)' }}>
+                        <span style={{ color: 'var(--app-color-on-surface-variant)', opacity: 0.5, marginBottom: 'var(--md-sys-spacing-8)' }}>domain_disabled</span>
+                        <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Nessuna classe definita</p>
+                        <p style={{ color: 'var(--app-color-on-surface-variant)', marginTop: 'var(--app-spacing-container)', marginBottom: 'var(--app-spacing-section)' }}>
                             Vai nelle impostazioni per configurare le tue classi e iniziare.
                         </p>
                         <M3Button onClick={() => onNavigate('settings')} variant="filled">
@@ -234,10 +234,10 @@ const PrintCenterModal: React.FC<{
             maxWidth="md"
         >
             <M3DialogContent style={{gap: 'var(--app-spacing-section)'}}>
-                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
+                    <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
                     
                     <div style={{gap: 'var(--app-spacing-component)'}}>
-                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "500" }}>Periodo</label>
+                        <label style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "500" }}>Periodo</label>
                         <TabGroup
                             tabs={[
                                 { id: 'primo-quadrimestre', label: '1Q' },
@@ -249,7 +249,7 @@ const PrintCenterModal: React.FC<{
                     </div>
 
                     <div style={{gap: 'var(--app-spacing-component)'}}>
-                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "500" }}>Classi</label>
+                        <label style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "500" }}>Classi</label>
                         <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                             {userClasses.map(c => (
                                 <div 
@@ -269,7 +269,7 @@ const PrintCenterModal: React.FC<{
                                             : 'var(--md-sys-color-surface-container-low)',
                                         color: selectedClasses.includes(c) 
                                             ? 'var(--app-color-on-primary)' 
-                                            : 'var(--md-sys-color-on-surface-variant)',
+                                            : 'var(--app-color-on-surface-variant)',
                                         borderColor: selectedClasses.includes(c) 
                                             ? 'var(--app-color-primary)' 
                                             : 'var(--md-sys-color-outline-variant)'

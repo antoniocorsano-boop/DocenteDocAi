@@ -318,7 +318,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                         <span >download</span> DOCX
                     </button>
                     <button onClick={handlePrint}  title="Stampa / PDF" aria-label="Stampa o salva come PDF">
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }} aria-hidden="true">print</span>
+                        <span style={{ color: 'var(--app-color-on-surface-variant)' }} aria-hidden="true">print</span>
                     </button>
                     {onSaveToKb && (
                         <button onClick={handleSave} >

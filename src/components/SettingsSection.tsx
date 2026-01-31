@@ -23,7 +23,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
 }) => {
     // MD3 Token mapping for variants - using direct MD3 CSS variables
     let iconBackgroundColor = 'var(--md-sys-color-surface-container-high)';
-    let iconColor = 'var(--md-sys-color-on-surface-variant)';
+    let iconColor = 'var(--app-color-on-surface-variant)';
     let titleColor = 'var(--app-color-on-surface)';
 
     if (variant === 'primary') {
@@ -90,7 +90,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
     };
 
     const subtitleStyle: React.CSSProperties = {
-        color: 'var(--md-sys-color-on-surface-variant)',
+        color: 'var(--app-color-on-surface-variant)',
         opacity: 0.8,
         overflow: 'hidden',
         textOverflow: 'ellipsis',

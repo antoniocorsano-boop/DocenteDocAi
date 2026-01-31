@@ -79,7 +79,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                             <span style={{ color: 'var(--app-color-on-primary)' }}>{getTestTypeIcon(prova.tipo)}</span>
                         </div>
                         <div style={{ flexGrow: "1" }}>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 'var(--md-sys-spacing-8)', opacity: "0.6"}}>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' , fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 'var(--md-sys-spacing-8)', opacity: "0.6"}}>
                                 {student.cognome} {student.nome} • {prova.materia}
                             </p>
                             <SelectField

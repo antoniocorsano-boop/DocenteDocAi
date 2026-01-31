@@ -83,7 +83,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
       <span
         style={{
           ...sizeStyles[size],
-          color: 'var(--md-sys-color-on-surface-variant)',
+          color: 'var(--app-color-on-surface-variant)',
           fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
           flexGrow: 1
         }}

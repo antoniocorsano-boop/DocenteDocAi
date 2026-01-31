@@ -43,7 +43,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            color: activeView === item.id ? 'var(--app-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
+            color: activeView === item.id ? 'var(--app-color-primary)' : 'var(--app-color-on-surface-variant)',
             fontFamily: 'var(--md-sys-typescale-label-medium-font-family)',
             fontSize: 'var(--app-text-label)',
             padding: 'var(--md-sys-spacing-1) var(--app-spacing-component)',

@@ -130,7 +130,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                     </button>
                 </div>
                 
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , textAlign: "center", paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>
+                <p style={{ color: 'var(--app-color-on-surface-variant)' , textAlign: "center", paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>
                     Il report verrà generato e aperto in una nuova scheda del browser.
                 </p>
             </M3DialogContent>

@@ -68,7 +68,7 @@
   font-size: var(--md-sys-typescale-body-small-size);
   font-weight: var(--md-sys-typescale-body-medium-weight);
   text-transform: uppercase;
-  color: var(--md-sys-color-on-surface-variant);
+  color: var(--app-color-on-surface-variant);
   letter-spacing: var(--md-sys-border-width-thin);
 }
 .student-action-add-btn {

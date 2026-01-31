@@ -54,7 +54,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         backgroundColor: variant === 'class' ? 'var(--app-color-secondary-container)' :
                                        variant === 'subject' ? 'var(--md-sys-color-tertiary-container)' :
                                        'var(--app-color-primary-container)',
-                        color: variant === 'class' ? 'var(--app-color-on-secondary-container)' :
+                            color: variant === 'class' ? 'var(--app-color-on-secondary-container)' :
                                variant === 'subject' ? 'var(--md-sys-color-on-tertiary-container)' :
                                'var(--app-color-on-primary-container)'
                     }}>
@@ -68,7 +68,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         <label style={{ color: 'var(--app-color-on-primary)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", display: "block" }}>
                             {label}
                         </label>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "bold", opacity: "0.5", textTransform: "uppercase" }}>
+                            <span style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: "bold", opacity: "0.5", textTransform: "uppercase" }}>
                             {items.length} {items.length === 1 ? 'elemento' : 'elementi'} salvati
                         </span>
                     </div>
@@ -128,9 +128,9 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         </div>
                     ))}
                     
-                    {items.length === 0 && (
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--app-text-body)', opacity: "0.4", paddingTop: 'var(--app-spacing-container)', paddingBottom: 'var(--app-spacing-container)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>Nessun elemento aggiunto...</p>
-                    )}
+                        {items.length === 0 && (
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' , fontSize: 'var(--app-text-body)', opacity: "0.4", paddingTop: 'var(--app-spacing-container)', paddingBottom: 'var(--app-spacing-container)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>Nessun elemento aggiunto...</p>
+                        )}
                 </div>
                 
                 {/* Integrated Input Area */}
@@ -149,7 +149,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         fontSize: 'var(--app-spacing-container)',
                         opacity: '0.6',
                         transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)',
-                        color: 'var(--md-sys-color-on-surface-variant)'
+                            color: 'var(--app-color-on-surface-variant)'
                     }} aria-hidden="true">add_circle</span>
                     <input 
                         ref={inputRef}
@@ -176,7 +176,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         style={{
                             borderRadius: 'var(--md-sys-shape-corner-full)',
                             backgroundColor: newItem.trim() ? 'var(--app-color-primary)' : 'var(--md-sys-color-surface-variant)',
-                            color: newItem.trim() ? 'var(--app-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                                color: newItem.trim() ? 'var(--app-color-on-primary)' : 'var(--app-color-on-surface-variant)',
                             border: 'none',
                             width: 'var(--md-sys-spacing-8)',
                             height: 'var(--md-sys-spacing-8)',
@@ -195,7 +195,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         }}>arrow_forward</span>
                     </button>
                 </div>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "0.4", marginTop: 'var(--app-spacing-element)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", fontWeight: "bold" }}>
+                    <p style={{ color: 'var(--app-color-on-surface-variant)', opacity: "0.4", marginTop: 'var(--app-spacing-element)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", fontWeight: "bold" }}>
                     Premi Invio o usa la virgola per aggiungere più elementi
                 </p>
             </div>

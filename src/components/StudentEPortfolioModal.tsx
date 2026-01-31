@@ -50,7 +50,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <div>
                             <h4 >Capolavoro</h4>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Caricato nell&apos;E-Portfolio</p>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Caricato nell&apos;E-Portfolio</p>
                         </div>
                         <input 
                             type="checkbox"
@@ -62,7 +62,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <div>
                             <h4 >Autovalutazione</h4>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Riflessione critica completata</p>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Riflessione critica completata</p>
                         </div>
                         <input 
                             type="checkbox"
@@ -86,7 +86,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                         </div>
                         <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end"}}>
                             <select 
-                                style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-surface-variant)', flexGrow: "1", paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', border: "none", minWidth: "0" }}
+                                style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--app-color-on-surface-variant)', flexGrow: "1", paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', border: "none", minWidth: "0" }}
                                 value={newEntry.category}
                                 onChange={(e) => setNewEntry({ ...newEntry, category: e.target.value as EPortfolioEntry['category'] })}
                             >
@@ -105,7 +105,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                     <h4  style={{ fontWeight: "900" }}>Documenti Caricati</h4>
                     <div style={{gap: 'var(--app-spacing-component)'}}>
                         {entries.length === 0 ? (
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  textAlign: "center" }}>Nessun documento caricato</p>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' ,  textAlign: "center" }}>Nessun documento caricato</p>
                         ) : (
                             entries.map(entry => (
                                 <div key={entry.id} style={{ backgroundColor: 'var(--app-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", justifyContent: "space-between", padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
@@ -116,7 +116,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                                             </span>
                                             <span style={{ fontWeight: "bold" }}>{entry.title}</span>
                                         </div>
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{entry.date}</p>
+                                        <p style={{ color: 'var(--app-color-on-surface-variant)' }}>{entry.date}</p>
                                     </div>
                                     <span style={{ backgroundColor: 'var(--app-color-secondary-container)', color: 'var(--app-color-on-secondary-container)', borderRadius: 'var(--app-spacing-container)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                                         {entry.category}

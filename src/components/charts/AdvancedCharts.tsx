@@ -141,7 +141,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
 
     return (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} >
+            <svg viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
                 {/* Background Grid */}
                 {levels.map(level => (
                     <polygon

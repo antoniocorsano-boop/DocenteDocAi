@@ -41,7 +41,7 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
             level={1}
         >
             <M3DialogContent style={{ gap: 'var(--md-sys-spacing-8)' }}>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                <p style={{ color: 'var(--app-color-on-surface-variant)' }}>
                     Copia il testo di una circolare o di una email e incollalo qui sotto. L'AI estrarrà automaticamente date, orari e dettagli per creare l'evento nel calendario.
                 </p>
 

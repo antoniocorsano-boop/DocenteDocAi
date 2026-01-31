@@ -235,7 +235,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                     fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
                                     fontSize: 'var(--app-text-body)',
                                     lineHeight: 'var(--app-text-body-line-height)',
-                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    color: 'var(--app-color-on-surface-variant)',
                                 }}
                             />
                             {matchingCurriculum && !obiettivi && (
@@ -248,7 +248,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                         
                         {slots && availableSlots.length > 0 && (
                             <div style={{ backgroundColor: 'var(--app-color-secondary-container)', padding: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", gap: 'var(--app-spacing-section)' }}>
-                                <label style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase" }}>Pianificazione Rapida (Opzionale)</label>
+                                <label style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase" }}>Pianificazione Rapida (Opzionale)</label>
                                 <div  style={{ display: "flex", flexWrap: "wrap" }}>
                                     {availableSlots.map(([key, slot]) => (
                                         <button
@@ -261,7 +261,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                                 borderRadius: 'var(--md-sys-shape-corner-full)',
                                                 border: selectedSlotKey === key ? 'var(--app-border-thin) solid var(--app-color-primary)' : 'var(--app-border-thin) solid var(--md-sys-color-outline)',
                                                 backgroundColor: selectedSlotKey === key ? 'var(--app-color-primary)' : 'var(--md-sys-color-surface-container-high)',
-                                                color: selectedSlotKey === key ? 'var(--app-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                                                color: selectedSlotKey === key ? 'var(--app-color-on-primary)' : 'var(--app-color-on-surface-variant)',
                                                 fontWeight: selectedSlotKey === key ? 700 : 500,
                                                 display: 'flex',
                                                 alignItems: 'center',
@@ -313,7 +313,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                     fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
                                     fontSize: 'var(--app-text-body)',
                                     lineHeight: 'var(--app-text-body-line-height)',
-                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    color: 'var(--app-color-on-surface-variant)',
                                 }}
                             ></TextArea>
                         </div>
@@ -343,7 +343,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                             <details key={nucleo.id}  open>
                                 <summary >
                                     <span style={{ color: 'var(--app-color-on-primary)', fontWeight: "900" }}>{nucleo.title}</span>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)',  fontSize: "var(--app-spacing-container)"  }}>expand_more</span>
+                                    <span style={{ color: 'var(--app-color-on-surface-variant)',  fontSize: "var(--app-spacing-container)"  }}>expand_more</span>
                                 </summary>
                                 <div style={{padding: 'var(--md-sys-spacing-8)', gap: 'var(--app-spacing-element)', backgroundColor: "var(--app-color-surface)"}}>
                                     {nucleo.objectives.map(obj => (

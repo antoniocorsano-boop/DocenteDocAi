@@ -141,7 +141,7 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                                 ]}
                                 fullWidth
                             />
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)' }}>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)' }}>
                                 Lo studente verrà rimosso dall'elenco attivo e spostato nell'archivio storico.
                             </p>
                         </div>

@@ -335,7 +335,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 backgroundColor: isDone ? 'var(--app-color-primary)' : isActive ? 'var(--app-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
-                                color: isDone ? 'var(--app-color-on-primary)' : isActive ? 'var(--app-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
+                                color: isDone ? 'var(--app-color-on-primary)' : isActive ? 'var(--app-color-on-primary-container)' : 'var(--app-color-on-surface-variant)',
                                 border: `var(--app-border-thick) solid ${isActive ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                 fontWeight: 'bold',
                                 // transition rimossa per compliance MD3
@@ -410,7 +410,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </label>
                                         </div>
                                     )) : (
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</p>
+                                        <p style={{ color: 'var(--app-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</p>
                                     )}
                                 </div>
                             </div>
@@ -430,7 +430,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             borderRadius: 'var(--md-sys-shape-corner-large)',
                                             border: `var(--app-border-thin) solid ${situationTags.includes(tag) ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                             backgroundColor: situationTags.includes(tag) ? 'var(--app-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
-                                            color: situationTags.includes(tag) ? 'var(--app-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
+                                            color: situationTags.includes(tag) ? 'var(--app-color-on-primary-container)' : 'var(--app-color-on-surface-variant)',
                                             cursor: 'pointer',
                                             // transition rimossa per compliance MD3
                                             fontSize: 'var(--md-sys-typescale-body-small-size)'
@@ -522,7 +522,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ gap: 'var(--app-spacing-element)', overflowY: "auto", maxHeight: 'var(--md-sys-spacing-24)' }}>
                                     {plannedUdas.map((uda, idx) => (
                                         <div key={uda.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)', padding: 'var(--app-spacing-section)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>
-                                            <span style={{ fontFamily: 'Material Symbols Outlined', color: 'var(--md-sys-color-on-surface-variant)', cursor: 'grab' }} title="Trascina per riordinare (futuro)">drag_indicator</span>
+                                            <span style={{ fontFamily: 'Material Symbols Outlined', color: 'var(--app-color-on-surface-variant)', cursor: 'grab' }} title="Trascina per riordinare (futuro)">drag_indicator</span>
 
                                             <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--app-spacing-container)' }}>
@@ -531,7 +531,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                     </span>
                                                     <p style={{ color: 'var(--app-color-on-surface)', fontWeight: "bold" }}>{uda.title}</p>
                                                 </div>
-                                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "0.8" }}>{uda.topic || uda.title}</p>
+                                                <p style={{ color: 'var(--app-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "0.8" }}>{uda.topic || uda.title}</p>
                                             </div>
 
                                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-surface-container-low)", paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>
@@ -544,7 +544,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                     style={{ padding: 'var(--app-spacing-container)', width: "var(--md-sys-spacing-10)", textAlign: "center", backgroundColor: "transparent", fontWeight: "bold", border: "none" }}
                                                     title="Modifica ore stimate"
                                                 />
-                                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>ore</span>
+                                                <span style={{ color: 'var(--app-color-on-surface-variant)' }}>ore</span>
                                             </div>
 
                                             <M3Button variant="text" color="error" onClick={() => removeUdaFromPlan(idx)} title="Rimuovi UDA">
@@ -553,7 +553,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         </div>
                                     ))}
                                     {plannedUdas.length === 0 && (
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</p>
+                                        <p style={{ color: 'var(--app-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</p>
                                     )}
                                 </div>
                             )}
@@ -579,7 +579,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         <div style={{ position: 'absolute', left: 'calc(var(--app-spacing-component) * -1)', top: 'var(--md-sys-spacing-1)', width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', borderRadius: 'var(--md-sys-percent-full)', borderWidth: 'var(--app-border-thin)', borderColor: 'var(--md-sys-color-outline-variant)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--app-color-primary)' }}></div>
                                         <p style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", color: "var(--app-color-primary)" }}>{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</p>
                                         <h4 style={{ fontWeight: "500", color: 'var(--app-color-on-surface)' }}>{item.uda.title}</h4>
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{item.uda.hours} ore</p>
+                                        <p style={{ color: 'var(--app-color-on-surface-variant)' }}>{item.uda.hours} ore</p>
                                     </div>
                                 ))}
                             </div>

@@ -274,14 +274,14 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
             <div style={{ backgroundColor: 'var(--app-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)'}}>
               <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <span  style={{ fontWeight: "500" }}>Generazione in corso...</span>
-                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{progress.current}/{progress.total}</span>
+                <span style={{ color: 'var(--app-color-on-surface-variant)' }}>{progress.current}/{progress.total}</span>
               </div>
               <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' , width: 'var(--app-layout-full)', borderRadius: 'var(--app-spacing-container)', height: 'var(--app-spacing-component)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <div
                    style={{backgroundColor: "var(--app-color-primary)", height: 'var(--app-spacing-component)', borderRadius: 'var(--app-spacing-container)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)', width: `${(progress.current / progress.total) * 100}%` }}
                 ></div>
               </div>
-              <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{progress.currentDoc}</p>
+              <p style={{ color: 'var(--app-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{progress.currentDoc}</p>
             </div>
           )}
 
@@ -318,7 +318,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
           <div  style={{gap: 'var(--app-spacing-container)', overflowY: "auto"}}>
             {Object.entries(groupedDocuments).map(([groupName, docs]) => (
               <div key={groupName}>
-                <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                <h3 style={{ color: 'var(--app-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                   {groupName} ({docs.length})
                 </h3>
                 <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
@@ -349,7 +349,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                           />
                           <div style={{ flex: "1", minWidth: "0" }}>
                             <p  style={{ fontWeight: "500", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.title}</p>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.subtitle}</p>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.subtitle}</p>
                             <span style={{
                               display: 'inline-block',
                               padding: 'var(--md-sys-spacing-1) var(--app-spacing-container)',

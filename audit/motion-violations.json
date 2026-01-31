@@ -1,49 +1,42 @@
 {
-  "timestamp": "2026-01-31T06:07:15.039Z",
-  "totalViolations": 4,
+  "timestamp": "2026-01-31T06:30:41.827Z",
+  "totalViolations": 3,
   "totalFiles": 2,
   "scannedFiles": 401,
   "typeBreakdown": {
-    "hardcodedDuration": 4
+    "hardcodedDuration": 3
   },
   "topViolators": [
     {
-      "file": "src\\design-system\\motion.css",
+      "file": "src\\theme.css",
       "count": 2
     },
     {
-      "file": "src\\theme.css",
-      "count": 2
+      "file": "src\\design-system\\motion.css",
+      "count": 1
     }
   ],
   "violations": [
     {
       "file": "src\\design-system\\motion.css",
-      "line": 5,
-      "type": "hardcodedDuration",
-      "match": "transition classes based on Material Design 3 motion tokens.\r\n* Created: UI Uniformity Audit\r\n * \r\n ",
-      "context": "* Created: UI Uniformity Audit"
-    },
-    {
-      "file": "src\\design-system\\motion.css",
       "line": 215,
       "type": "hardcodedDuration",
-      "match": "ANIMATION:\r\n <!-- sample usage removed for audit compliance -->\r\n*/\r\n\r\n/* ==========================",
-      "context": "<!-- sample usage removed for audit compliance -->"
+      "match": "ANIMATION:\r\n   sample usage removed for audit compliance\r\n*/\r\n\r\n/* =================================",
+      "context": "sample usage removed for audit compliance"
     },
     {
       "file": "src\\theme.css",
       "line": 1732,
       "type": "hardcodedDuration",
-      "match": "animation-duration: 0.01ms",
-      "context": "animation-iteration-count: var(--md-sys-motion-iteration-count, 1) !important;"
+      "match": "animation-duration: var(--md-sys-motion-duration-short, 0.01ms",
+      "context": "animation-iteration-count: var(--md-sys-motion-iteration-count) !important;"
     },
     {
       "file": "src\\theme.css",
       "line": 1734,
       "type": "hardcodedDuration",
-      "match": "transition-duration: 0.01ms",
-      "context": "scroll-behavior: var(--md-sys-scroll-behavior, auto) !important;"
+      "match": "transition-duration: var(--md-sys-motion-duration-short, 0.01ms",
+      "context": "scroll-behavior: var(--md-sys-scroll-behavior) !important;"
     }
   ]
 }
