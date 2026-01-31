@@ -1,7 +1,7 @@
 /* GENERATED: MD3 Platinum Recovery — DO NOT EDIT MANUALLY */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { M3Typography, M3Button, M3Card } from './ui';
+import { M3Typography, M3Button, M3Card } from './ui/index';
 
 interface Lesson {
   id: string;
