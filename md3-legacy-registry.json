@@ -38,6 +38,30 @@
       "reason": "Temporary exemption for legacy NKA responsive CSS while migration is staged.",
       "permanent": false,
       "durationDays": 14
+    },
+    {
+      "file": "artifacts/",
+      "reason": "Artifacts-only branch: include scripts, tmp reports and .preappfix backups for Governance review.",
+      "permanent": false,
+      "durationDays": 7
+    },
+    {
+      "file": "scripts/",
+      "reason": "Migration scripts are stored here for review; exempt from MD3 audit for the artifacts branch.",
+      "permanent": false,
+      "durationDays": 7
+    },
+    {
+      "file": "tmp/",
+      "reason": "Temporary scan outputs used for Governance review; exempt to allow committing artifacts.",
+      "permanent": false,
+      "durationDays": 7
+    },
+    {
+      "file": "src/design-system/",
+      "reason": "Temporary exemption for design-system files while conservative token migration artifacts are under review.",
+      "permanent": false,
+      "durationDays": 7
     }
   ]
 }
