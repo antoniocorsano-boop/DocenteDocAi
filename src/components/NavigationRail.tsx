@@ -10,7 +10,7 @@ import { M3Typography } from './ui';
  * - Responsive navigation: vertical rail on desktop, bottom nav on mobile
  * - Pure MD3 token-based styling (colors, spacing, typography, motion, shape)
  * - M3Typography for all text elements
- * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥44px
+ * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥var(--app-spacing-touch)
  * - Active state indication with primary container colors
  * - Optional notification badges
  * - Smooth transitions and hover states
@@ -46,6 +46,8 @@ export interface NavigationRailProps {
   activeView: View;
   /** Navigation callback */
   onNavigate: (view: View, context?: unknown) => void;
+  // Optional: parent can pass explicit mobile flag for deterministic rendering
+  isMobile?: boolean;
 }
 
 /**
@@ -71,49 +73,38 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
   items,
   activeView,
   onNavigate,
+  isMobile: isMobileProp
 }) => {
-  // Check if we're on mobile - simplified responsive logic
-  const [isMobile, setIsMobile] = React.useState(false);
+  // Prefer explicit `isMobile` from parent. Fallback to local detection if omitted.
+  const [internalIsMobile, setInternalIsMobile] = React.useState(false);
 
   React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < parseInt(getComputedStyle(document.documentElement).getPropertyValue('--md-sys-breakpoint-mobile')));
+    if (typeof isMobileProp === 'boolean') return; // parent controls detection
+    const checkMobile = () => setInternalIsMobile(window.innerWidth < parseInt(getComputedStyle(document.documentElement).getPropertyValue('--md-sys-breakpoint-mobile') || '600'));
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  }, [isMobileProp]);
 
+  const isMobile = typeof isMobileProp === 'boolean' ? isMobileProp : internalIsMobile;
   const containerStyle: React.CSSProperties = {
-    // Base mobile styles (bottom nav)
-    position: 'fixed',
-    top: 'auto',
+    // Layout and positioning differ between mobile (bottom nav) and desktop (rail)
+    position: isMobile ? 'fixed' : 'relative',
+    top: isMobile ? 'auto' : 0,
     left: 0,
-    right: 0,
-    bottom: 0,
-    width: 'var(--app-layout-full)',
-    height: 'var(--md-sys-spacing-16)', // Bottom nav height
+    right: isMobile ? 0 : 'auto',
+    bottom: isMobile ? 0 : 'auto',
+    width: isMobile ? 'var(--app-layout-full)' : 'var(--md-sys-spacing-20)',
+    height: isMobile ? 'var(--md-sys-spacing-16)' : 'var(--app-layout-full)',
     backgroundColor: 'var(--app-color-surface)',
-    borderTop: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
-    borderRight: 'none',
+    borderTop: isMobile ? 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)' : 'none',
+    borderRight: isMobile ? 'none' : 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: isMobile ? 'row' : 'column',
+    justifyContent: isMobile ? 'space-around' : 'flex-start',
     alignItems: 'center',
     zIndex: 'var(--md-sys-z-nav)',
-    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
-
-    // Desktop overrides
-    ...(isMobile ? {} : {
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 'auto',
-      width: 'var(--md-sys-spacing-20)', // Rail width
-      height: 'var(--app-layout-full)',
-      borderTop: 'none',
-      borderRight: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-    })
+    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--app-easing-standard)'
   };
 
   const itemsContainerStyle: React.CSSProperties = isMobile
@@ -180,9 +171,10 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
             justifyContent: 'center',
             gap: 'var(--md-sys-spacing-1)', // Icon-label gap
 
-            // Size
-            width: 'var(--md-sys-spacing-14)', // Touch target width
-            minHeight: 'var(--md-sys-spacing-14)', // Touch target height
+            // Size - ensure minimum touch target for mobile accessibility (use app token)
+            minWidth: 'var(--app-spacing-touch)',
+            minHeight: 'var(--app-spacing-touch)',
+            width: isMobile ? 'auto' : 'var(--md-sys-spacing-14)', // adjust width on mobile
             padding: 'var(--app-spacing-component) 0', // Vertical padding
 
             // Shape

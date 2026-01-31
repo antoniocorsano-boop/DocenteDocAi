@@ -66,14 +66,14 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
             <M3DialogContent style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                 {isLoading ? (
                     <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                        <div  style={{borderRadius: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', width: 'var(--app-spacing-container)', borderBottom: 'var(--md-sys-spacing-1) solid var(--md-sys-color-outline)', borderColor: "var(--app-color-primary)"}}></div>
-                        <p  style={{color: "var(--app-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>{loadingMessage}</p>
+                        <div  style={{borderRadius: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', width: 'var(--app-spacing-container)', borderBottom: 'var(--md-sys-spacing-1) solid var(--md-sys-color-outline)', borderColor: "var(--md-sys-color-primary)"}}></div>
+                        <p  style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>{loadingMessage}</p>
                     </div>
                 ) : (
                     <>
                         <section>
                             <h3  style={{marginBottom: 'var(--app-spacing-section)', display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)'}}>
-                                <span style={{ color: sys.colors.on-primaryContainer , width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)', backgroundColor: "var(--app-color-primary)", display: "flex", alignItems: "center", justifyContent: "center"}}>1</span> 
+                                <span style={{ color: sys.colors.on-primaryContainer , width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)', backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center"}}>1</span> 
                                 Seleziona Destinazione
                             </h3>
                             <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--app-spacing-section)'}}>
@@ -99,13 +99,13 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                             pointerEvents: !selectedCategory ? 'none' : 'auto'
                         }}>
                             <h3  style={{marginBottom: 'var(--app-spacing-section)', display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)'}}>
-                                <span style={{ color: sys.colors.on-secondary-container , width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)', backgroundColor: "var(--app-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center"}}>2</span>
+                                <span style={{ color: sys.colors.on-secondary-container , width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)', backgroundColor: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center"}}>2</span>
                                 Carica File
                             </h3>
                             <div {...getRootProps()} style={{
                                 height: 'var(--md-sys-spacing-48)', // MD3 spacing token for drop zone height
-                                border: `var(--app-border-thick) dashed ${isDragActive ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
-                                backgroundColor: isDragActive ? 'var(--app-color-primary-container)' : 'transparent',
+                                border: `var(--app-border-thick) dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                                backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'transparent',
                                 opacity: isDragActive ? 0.1 : 1,
                                 transform: isDragActive ? 'scale(1.02)' : 'scale(1)',
                                 transition: `all var(--app-motion-quick) var(--app-easing-standard)`, // MD3 motion tokens for duration and easing
@@ -117,7 +117,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                 borderRadius: 'var(--md-sys-shape-corner-extra-large)'
                             }}>
                                 <input {...getInputProps()} />
-                                <span style={{color: "var(--app-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>{isDragActive ? 'download' : 'upload_file'}</span>
+                                <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>{isDragActive ? 'download' : 'upload_file'}</span>
                                 <p style={{ color: "var(--md-sys-color-on-surface-variant)" }}>Trascina i file qui o clicca per sfogliare</p>
                                 <p style={{opacity: "0.6", marginTop: 'var(--app-spacing-container)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-on-surface-variant)"}}>Supporto PDF, DOCX, TXT</p>
                             </div>

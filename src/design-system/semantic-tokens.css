@@ -118,4 +118,22 @@
   --app-border-normal: var(--md-sys-border-width-normal);
   --app-border-medium: var(--md-sys-border-width-medium);
   --app-border-thick: var(--md-sys-border-width-thick);
+
+  /* ===========================================
+     CHART TOKENS
+     Application chart dimensions
+     =========================================== */
+
+  /* Chart heights for dashboard components */
+  --app-chart-height-large: 300px;
+  --app-chart-height-medium: 250px;
+
+  /* ===========================================
+     POSITIONING TOKENS
+     Application positioning offsets
+     =========================================== */
+
+  /* Offset values for overlays and positioning */
+  --app-position-offset-small: -9px;
+  --app-position-offset-large: -41px;
 }

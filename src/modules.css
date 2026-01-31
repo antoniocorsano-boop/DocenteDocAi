@@ -5,7 +5,7 @@
     border-radius: inherit;
     background: radial-gradient(circle, var(--md-sys-color-primary) var(--md-sys-percent-0), transparent var(--md-sys-percent-70));
     opacity: 0;
-    transition: opacity 0.18s var(var(--md-sys-motion-easing-standard));
+    transition: opacity var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
     z-index: var(--md-sys-z-base);
 }
 .timetable-tile:active .m3-ripple,
@@ -1157,7 +1157,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .matrix-header-time {
-    background-color: var(--md-sys-color-surface-container-highest);
+    background-color: var(--md-sys-color-surface-container-high);
     color: var(--md-sys-color-on-surface-variant);
     font-size: var(--typography-label-small-fontSize);
     padding: var(--md-sys-spacing-2) var(--md-sys-spacing-1);
@@ -1169,7 +1169,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .matrix-time-label {
-    background-color: var(--md-sys-color-surface-container-highest);
+    background-color: var(--md-sys-color-surface-container-high);
     color: var(--md-sys-color-on-surface-variant);
     font-size: var(--typography-label-small-fontSize);
     font-weight: 600;

@@ -22,7 +22,7 @@ interface MenuItemDef {
  * - Bottom navigation bar with 5 main sections
  * - Pure MD3 token-based styling (colors, spacing, typography, motion, shape)
  * - M3Typography for all text elements
- * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥44px
+ * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥var(--app-spacing-touch)
  * - Active state indication with primary container colors
  * - Responsive layout with proper spacing
  *

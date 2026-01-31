@@ -4,16 +4,16 @@ import React, { useState } from 'react';
 // MD3 Token Constants - Direct CSS Variables
 const MD3_TOKENS = {
   // Colors
-  primary: 'var(--app-color-primary)',
-  onPrimary: 'var(--app-color-on-primary)',
-  primaryContainer: 'var(--app-color-primary-container)',
-  onPrimaryContainer: 'var(--app-color-on-primary-container)',
+  primary: 'var(--md-sys-color-primary)',
+  onPrimary: 'var(--md-sys-color-on-primary)',
+  primaryContainer: 'var(--md-sys-color-primary-container)',
+  onPrimaryContainer: 'var(--md-sys-color-on-primary-container)',
   outline: 'var(--md-sys-color-outline)',
   outlineVariant: 'var(--md-sys-color-outline-variant)',
-  surfaceContainer: 'var(--app-color-surface-container)',
+  surfaceContainer: 'var(--md-sys-color-surface-container)',
   surfaceContainerHigh: 'var(--md-sys-color-surface-container-high)',
-  surface: 'var(--app-color-surface)',
-  onSurface: 'var(--app-color-on-surface)',
+  surface: 'var(--md-sys-color-surface)',
+  onSurface: 'var(--md-sys-color-on-surface)',
 
   // Shape
   cornerExtraLarge: 'var(--md-sys-shape-corner-extra-large)',
@@ -35,8 +35,10 @@ const MD3_TOKENS = {
   elevation4: 'var(--md-sys-elevation-level4)',
 
   // Typography
-  bodySmallFontSize: 'var(--app-text-body)',
-  bodySmallFontFamily: 'var(--md-sys-typescale-body-small-font-family)',
+  bodySmallFontSize: 'var(--md-sys-typescale-body-small-font-size)',
+  bodySmallFontFamily: 'var(--md-sys-typescale-font-family)',
+  bodySmallFontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
+  bodySmallLetterSpacing: 'var(--md-sys-typescale-body-small-letter-spacing)',
 } as const;
 
 interface M3ChoiceCardProps {
@@ -95,9 +97,9 @@ const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
     };
 
     const labelStyle: React.CSSProperties = {
-        fontSize: 'var(--app-text-body)',
-        fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
-        fontWeight: 'var(--app-text-body-weight)',
+        fontSize: MD3_TOKENS.bodySmallFontSize,
+        fontFamily: MD3_TOKENS.bodySmallFontFamily,
+        fontWeight: MD3_TOKENS.bodySmallFontWeight,
         letterSpacing: '0.2em',
         textTransform: 'uppercase'
     };

@@ -23,7 +23,7 @@ interface StudentActionMenuProps {
  * Features:
  * - Pure MD3 token-based styling (colors, spacing, typography, motion, shape)
  * - M3Typography for all text elements
- * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥44px
+ * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥var(--app-spacing-touch)
  * - Student information display with avatar and stats
  * - Performance metrics: grade, trend, participation badges
  * - Quick actions: add evaluation, view profile
@@ -41,7 +41,7 @@ interface StudentActionMenuProps {
  *
  * MD3 Exceptions (Functional Values):
  * - Color opacity mixing (70%/80%): Required for text hierarchy (no specific MD3 opacity tokens)
- * - Letter spacing (0.5px): Standard typography tracking value used across MD3 system
+ * - Letter spacing: uses MD3 typography tracking token (e.g. var(--md-sys-typescale-label-small-tracking))
  * - Width (100%): Functional layout values for full-width buttons in constrained popover
  */
 const StudentActionMenu: React.FC<StudentActionMenuProps> = ({

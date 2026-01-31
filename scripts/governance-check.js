@@ -1,0 +1,92 @@
+#!/usr/bin/env node
+/*
+  governance-check.js
+  Simple scanner to detect hardcoded units/colors and encourage token usage.
+
+  Usage:
+    node scripts/governance-check.js --path "src/**/*.ts?(x)" --mode warn
+    node scripts/governance-check.js --mode fail   (CI)
+
+  Default: path=src/**/*.ts?(x), mode=warn
+*/
+const fs = require('fs');
+const path = require('path');
+const glob = require('glob');
+
+const argv = process.argv.slice(2);
+const arg = (name, defaultValue) => {
+  const idx = argv.indexOf(name);
+  if (idx === -1) return defaultValue;
+  return argv[idx + 1] || defaultValue;
+};
+
+const targetPattern = arg('--path', 'src/**/*.ts?(x)');
+const mode = arg('--mode', 'warn'); // warn | fail
+
+const forbiddenUnitRegex = /(?:\d+(?:\.\d+)?)(px|rem|vh|vw|%|em)\b/gi;
+const hexColorRegex = /#(?:[0-9a-fA-F]{3,8})\b/g;
+const rgbRegex = /rgba?\(/gi;
+
+const tokenAllowedRegex = /var\(\s*--(?:md-sys-|app-)[^)]*\)/i;
+
+function findViolationsInContent(content, file) {
+  const lines = content.split(/\r?\n/);
+  const violations = [];
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    let match;
+    while ((match = forbiddenUnitRegex.exec(line)) !== null) {
+      // if the line contains a token, skip
+      if (!tokenAllowedRegex.test(line)) {
+        violations.push({ file, line: i + 1, column: match.index + 1, type: 'hardcoded-unit', text: match[0].trim() });
+      }
+    }
+    if (hexColorRegex.test(line) && !tokenAllowedRegex.test(line)) {
+      violations.push({ file, line: i + 1, column: line.search(hexColorRegex) + 1 || 1, type: 'hex-color', text: (line.match(hexColorRegex) || []).join(', ') });
+    }
+    if (rgbRegex.test(line) && !tokenAllowedRegex.test(line)) {
+      violations.push({ file, line: i + 1, column: line.search(rgbRegex) + 1 || 1, type: 'rgb-color', text: 'rgb/rgba usage' });
+    }
+  }
+  return violations;
+}
+
+function scan() {
+  const files = glob.sync(targetPattern, { nodir: true });
+  const allViolations = [];
+  files.forEach((file) => {
+    try {
+      const content = fs.readFileSync(path.resolve(file), 'utf8');
+      const violations = findViolationsInContent(content, file);
+      allViolations.push(...violations);
+    } catch (e) {
+      console.error('Error reading', file, e.message);
+    }
+  });
+
+  if (allViolations.length === 0) {
+    console.log(`MD3 Governance Check: no violations in ${files.length} files (mode=${mode})`);
+  } else {
+    console.log(`MD3 Governance Check: found ${allViolations.length} violation(s) (mode=${mode})`);
+    allViolations.forEach((v) => {
+      console.log(`${v.file}:${v.line}:${v.column} [${v.type}] ${v.text}`);
+    });
+  }
+
+  return { filesScanned: files.length, violations: allViolations };
+}
+
+// Run scan and persist results to file for reliable capture
+const result = scan();
+const exitCode = result.violations.length === 0 ? 0 : (mode === 'fail' ? 2 : 0);
+try {
+  const outDir = path.resolve('tmp');
+  if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+  const outPath = path.join(outDir, 'governance-check-result.json');
+  fs.writeFileSync(outPath, JSON.stringify({ mode, filesScanned: result.filesScanned, violations: result.violations }, null, 2), 'utf8');
+  console.log('Wrote results to', outPath);
+} catch (e) {
+  console.error('Failed to write results file', e.message);
+}
+
+process.exit(exitCode);

@@ -455,7 +455,7 @@ export const Dashboard: React.FC = () => {
       >
         <div
           style={{
-            maxWidth: 'calc(var(--md-sys-layout-panel-max-width) * 1.6)', // 1280px using MD3 tokens
+            maxWidth: 'calc(var(--md-sys-layout-panel-max-width) * 1.6)', // via var(--md-sys-layout-panel-max-width) (MD3 token)
             margin: '0 var(--app-layout-auto)',
             borderRadius: 'var(--md-sys-radius-3)',
             border: 'var(--app-border-thin) solid var(--md-sys-color-error)',
@@ -574,7 +574,7 @@ export const Dashboard: React.FC = () => {
       >
         <div
           style={{
-            maxWidth: 'calc(var(--md-sys-layout-panel-max-width) * 1.6)', // 1280px using MD3 tokens
+            maxWidth: 'calc(var(--md-sys-layout-panel-max-width) * 1.6)', // via var(--md-sys-layout-panel-max-width) (MD3 token)
             margin: '0 var(--app-layout-auto)',
             textAlign: 'center',
           }}
@@ -600,7 +600,7 @@ export const Dashboard: React.FC = () => {
     >
       <div
         style={{
-          maxWidth: 'calc(var(--md-sys-layout-panel-max-width) * 1.6)', // 1280px using MD3 tokens
+          maxWidth: 'calc(var(--md-sys-layout-panel-max-width) * 1.6)', // via var(--md-sys-layout-panel-max-width) (MD3 token)
           margin: '0 var(--app-layout-auto)',
           display: 'flex',
           flexDirection: 'column',

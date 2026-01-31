@@ -1,0 +1,11 @@
+/*
+  M3Button CSS Module
+  Focus-visible styles extracted from inline styles for React compatibility
+  Maintains MD3 design system compliance
+*/
+
+.focusVisible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  transform: scale(1.02);
+}

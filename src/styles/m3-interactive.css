@@ -19,7 +19,7 @@
 }
 
 .m3-interactive-button:focus-visible {
-  outline: var(--md-sys-spacing-1) solid var(--app-color-primary);
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
   outline-offset: var(--md-sys-spacing-1);
   background-color: var(--md-sys-color-surface-container-highest);
 }
@@ -42,7 +42,7 @@
 }
 
 .m3-interactive-card:focus-visible {
-  outline: var(--md-sys-spacing-1) solid var(--app-color-primary);
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
   outline-offset: var(--md-sys-spacing-1);
 }
 
@@ -64,12 +64,12 @@
 }
 
 .m3-interactive-close:focus-visible {
-  outline: var(--md-sys-spacing-1) solid var(--app-color-primary);
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
   outline-offset: var(--md-sys-spacing-1);
 }
 
 .m3-interactive-close:active {
-  background-color: var(--app-color-surface-container);
+  background-color: var(--md-sys-color-surface-container);
 }
 
 /* Disabled state for all interactive elements */

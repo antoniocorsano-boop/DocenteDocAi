@@ -21,8 +21,7 @@ export const Header: React.FC<HeaderProps> = ({
   hasSuggestion,
   onOpenOperations
 }) => {
-  const teacherName = settings?.nomeInsegnante || '';
-  const teacherSurname = settings?.cognomeInsegnante || '';
+  // Teacher identity intentionally not rendered in Header (moved to Home)
   const isOnline = useOnlineStatus();
   const unreadCount = notifiche.filter(n => !n.letta).length;
 
@@ -34,12 +33,13 @@ export const Header: React.FC<HeaderProps> = ({
         position: 'sticky',
         top: 0,
         zIndex: 'var(--md-sys-z-app-bar)',
-        background: 'var(--app-color-surface)',
+        background: 'var(--md-sys-color-surface)',
         boxShadow: 'var(--md-sys-elevation-level1)',
         minHeight: 'var(--md-sys-spacing-12)',
         display: 'flex',
         alignItems: 'center',
         paddingInline: 'var(--app-spacing-section)',
+        paddingBlock: 'var(--md-sys-spacing-2)' // Reduced for mobile-first compact header
       }}
     >
       {/* Leading: Back + Aura */}
@@ -87,9 +87,6 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Title/Logo */}
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--app-spacing-component)' }}>
         <Logo isAiThinking={isAiProcessing} onHomeNavigate={() => !showBackButton && onNavigate('home')} />
-        <M3Typography variant="title-large" style={{ color: 'var(--app-color-on-surface)' }}>
-          {teacherName} {teacherSurname}
-        </M3Typography>
       </div>
 
       {/* Trailing: Status, Settings, Avatar */}
@@ -125,7 +122,10 @@ export const Header: React.FC<HeaderProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: 'var(--md-sys-color-on-surface-variant)'
+            color: 'var(--md-sys-color-on-surface-variant)',
+            // Ensure minimum touch target for mobile (use app token)
+            minWidth: 'var(--app-spacing-touch)',
+            minHeight: 'var(--app-spacing-touch)'
           }}
         >
           {/* MD3 icon font usage allowed */}
@@ -142,11 +142,14 @@ export const Header: React.FC<HeaderProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            position: 'relative'
+            position: 'relative',
+            minWidth: 'var(--app-spacing-touch)',
+            minHeight: 'var(--app-spacing-touch)'
           }}
         >
           <Avatar
-            name={`${teacherSurname || ''} ${teacherName || 'Docente'}`.trim()}
+            // Avatar kept as an action only; teacher textual identity moved to Home
+            name={user?.displayName ?? ''}
             src={user?.photoURL}
             size="sm"
           />

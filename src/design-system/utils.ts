@@ -1,4 +1,5 @@
 import { Theme, ColorTokens } from '../types'; // FIX: Updated import path to types
+import LEGACY_COLORS from './legacy-colors';
 
 /* eslint-disable design-system/no-hardcoded-colors */
 
@@ -22,27 +23,27 @@ import { Theme, ColorTokens } from '../types'; // FIX: Updated import path to ty
 
 // Source of Truth for raw color values in HEX
 export const lightColors: ColorTokens = {
-  primary: '#6750A4', onPrimary: '#FFFFFF', primaryContainer: '#EADDFF', onPrimaryContainer: '#21005D',
-  secondary: '#625B71', onSecondary: '#FFFFFF', secondaryContainer: '#E8DEF8', onSecondaryContainer: '#1D192B',
-  tertiary: '#7D5260', onTertiary: '#FFFFFF', tertiaryContainer: '#FFD8E4', onTertiaryContainer: '#31111D',
-  error: '#B3261E', onError: '#FFFFFF', errorContainer: '#F9DEDC', onErrorContainer: '#410E0B',
-  background: '#FFFBFE', onBackground: '#1C1B1F',
-  surface: '#FFFBFE', onSurface: '#1C1B1F', surfaceVariant: '#E7E0EC', onSurfaceVariant: '#49454F',
-  outline: '#79747E', outlineVariant: '#C4C7C5',
-  surfaceContainerLowest: '#FFFFFF', surfaceContainerLow: '#F7F2FA', surfaceContainer: '#F3EDF7', surfaceContainerHigh: '#ECE6F0', surfaceContainerHighest: '#E6E0E9',
-  surfaceDisabled: 'rgba(28, 27, 31, 0.12)',
+  primary: LEGACY_COLORS.primary, onPrimary: LEGACY_COLORS.white, primaryContainer: LEGACY_COLORS.primaryContainer, onPrimaryContainer: LEGACY_COLORS.primaryContainerOn,
+  secondary: LEGACY_COLORS.secondary, onSecondary: LEGACY_COLORS.white, secondaryContainer: LEGACY_COLORS.primaryContainer, onSecondaryContainer: LEGACY_COLORS.onSecondaryContainer,
+  tertiary: LEGACY_COLORS.tertiary, onTertiary: LEGACY_COLORS.white, tertiaryContainer: LEGACY_COLORS.gold, onTertiaryContainer: LEGACY_COLORS.onTertiaryContainer,
+  error: LEGACY_COLORS.error, onError: LEGACY_COLORS.white, errorContainer: LEGACY_COLORS.errorContainer, onErrorContainer: LEGACY_COLORS.onErrorContainer,
+  background: LEGACY_COLORS.surfaceLight, onBackground: LEGACY_COLORS.onBackground,
+  surface: LEGACY_COLORS.surfaceLight, onSurface: LEGACY_COLORS.onBackground, surfaceVariant: LEGACY_COLORS.surfaceVariant, onSurfaceVariant: LEGACY_COLORS.onSurfaceVariant,
+  outline: LEGACY_COLORS.outline, outlineVariant: LEGACY_COLORS.outlineVariant,
+  surfaceContainerLowest: LEGACY_COLORS.white, surfaceContainerLow: LEGACY_COLORS.surfaceContainerLow, surfaceContainer: LEGACY_COLORS.surfaceContainer, surfaceContainerHigh: LEGACY_COLORS.surfaceContainerHigh, surfaceContainerHighest: LEGACY_COLORS.surfaceContainerHighest,
+  surfaceDisabled: LEGACY_COLORS.surfaceDisabledLight,
 };
 
 export const darkColors: ColorTokens = {
-  primary: '#D0BCFF', onPrimary: '#381E72', primaryContainer: '#4F378B', onPrimaryContainer: '#EADDFF',
-  secondary: '#CCC2DC', onSecondary: '#332D41', secondaryContainer: '#4A4458', onSecondaryContainer: '#E8DEF8',
-  tertiary: '#EFB8C8', onTertiary: '#492532', tertiaryContainer: '#633B48', onTertiaryContainer: '#FFD8E4',
-  error: '#F2B8B5', onError: '#601410', errorContainer: '#8C1D18', onErrorContainer: '#F9DEDC',
-  background: '#1C1B1F', onBackground: '#E6E1E5',
-  surface: '#1C1B1F', onSurface: '#E6E1E5', surfaceVariant: '#49454F', onSurfaceVariant: '#CAC4D0',
-  outline: '#938F99', outlineVariant: '#444746',
-  surfaceContainerLowest: '#0F0D13', surfaceContainerLow: '#1C1B1F', surfaceContainer: '#201F23', surfaceContainerHigh: '#2B292D', surfaceContainerHighest: '#36343B',
-  surfaceDisabled: 'rgba(230, 225, 229, 0.12)',
+  primary: LEGACY_COLORS.primaryLight, onPrimary: LEGACY_COLORS.primaryLightOn, primaryContainer: LEGACY_COLORS.primaryLightContainer, onPrimaryContainer: LEGACY_COLORS.primaryContainer,
+  secondary: LEGACY_COLORS.secondaryLight, onSecondary: LEGACY_COLORS.secondaryLightOn, secondaryContainer: LEGACY_COLORS.secondaryLightContainer, onSecondaryContainer: LEGACY_COLORS.onSecondaryContainer,
+  tertiary: LEGACY_COLORS.tertiaryLight, onTertiary: LEGACY_COLORS.tertiaryLightOn, tertiaryContainer: LEGACY_COLORS.tertiaryLightContainer, onTertiaryContainer: LEGACY_COLORS.gold,
+  error: LEGACY_COLORS.errorLight, onError: LEGACY_COLORS.errorLightOn, errorContainer: LEGACY_COLORS.errorLightContainer, onErrorContainer: LEGACY_COLORS.errorContainer,
+  background: LEGACY_COLORS.onBackground, onBackground: LEGACY_COLORS.surfaceLight,
+  surface: LEGACY_COLORS.onBackground, onSurface: LEGACY_COLORS.surfaceLight, surfaceVariant: LEGACY_COLORS.onSurfaceVariant, onSurfaceVariant: LEGACY_COLORS.surfaceContainerHighest,
+  outline: LEGACY_COLORS.outline, outlineVariant: LEGACY_COLORS.outlineVariant,
+  surfaceContainerLowest: LEGACY_COLORS.onBackground, surfaceContainerLow: LEGACY_COLORS.surfaceContainerLow, surfaceContainer: LEGACY_COLORS.surfaceContainer, surfaceContainerHigh: LEGACY_COLORS.surfaceContainerHigh, surfaceContainerHighest: LEGACY_COLORS.surfaceContainerHighest,
+  surfaceDisabled: LEGACY_COLORS.surfaceDisabledDark,
 };
 
 /** Default light theme instance. */
@@ -159,14 +160,14 @@ export const getRelativeLuminance = (r: number, g: number, b: number): number =>
 
 export const getLegibleTextColor = (hexBackgroundColor: string): string => {
     const rgb = hexToRgb(hexBackgroundColor);
-    if (!rgb) return '#000000'; 
+    if (!rgb) return LEGACY_COLORS.onBackground; 
 
     const bgLuminance = getRelativeLuminance(rgb.r, rgb.g, rgb.b);
     
     const contrastWhite = (1.0 + 0.05) / (bgLuminance + 0.05);
     const contrastBlack = (bgLuminance + 0.05) / (0.0 + 0.05);
 
-    return contrastBlack >= contrastWhite ? '#000000' : '#FFFFFF';
+    return contrastBlack >= contrastWhite ? LEGACY_COLORS.onBackground : LEGACY_COLORS.white;
 };
 
 

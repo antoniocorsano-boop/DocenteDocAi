@@ -36,19 +36,21 @@ export const generateHueFromString = (str: string): number => {
 // 
 // These are NOT used in component styling—use var(--sys-*) tokens instead.
 // Exception documented in: docs/DESIGN_SYSTEM_CONSOLIDATION.md § 5
+import LEGACY_COLORS from '../design-system/legacy-colors';
+
 const AVATAR_PALETTES = [
-    { bg: '#EADDFF', text: '#21005D' }, // --md-sys-color-primary-container / --md-sys-color-on-primary-container
-    { bg: '#E8DEF8', text: '#1D192B' }, // --md-sys-color-secondary-container / --md-sys-color-on-secondary-container
-    { bg: '#FFD8E4', text: '#31111D' }, // --md-sys-color-tertiary-container / --md-sys-color-on-tertiary-container
-    { bg: '#FFDBCF', text: '#380D00' }, // Orange Container (custom)
-    { bg: '#C4EED0', text: '#07210F' }, // Green Container (custom)
-    { bg: '#D7E3FF', text: '#001B3D' }, // Blue Container (custom)
-    { bg: '#E0E0FF', text: '#00006E' }, // Indigo Container (custom)
-    { bg: '#FFD9E3', text: '#3E001D' }, // Rose Container (custom)
-    { bg: '#F2DDA6', text: '#261900' }, // Yellow Container (custom)
-    { bg: '#CBE6FF', text: '#001E30' }, // Cyan Container (custom)
-    { bg: '#E6E0E9', text: '#1D1B20' }, // --md-sys-color-surface-variant / --md-sys-color-on-surface-variant
-    { bg: '#F9DEDC', text: '#410E0B' }, // --md-sys-color-error-container / --md-sys-color-on-error-container
+  { bg: LEGACY_COLORS.primaryContainer, text: LEGACY_COLORS.primaryContainerOn },
+  { bg: LEGACY_COLORS.avatar.avatar2Bg, text: LEGACY_COLORS.avatar.avatar2Text },
+  { bg: LEGACY_COLORS.avatar.avatar3Bg, text: LEGACY_COLORS.avatar.avatar3Text },
+  { bg: LEGACY_COLORS.avatar.avatar4Bg, text: LEGACY_COLORS.avatar.avatar4Text },
+  { bg: LEGACY_COLORS.avatar.avatar5Bg, text: LEGACY_COLORS.avatar.avatar5Text },
+  { bg: LEGACY_COLORS.avatar.avatar6Bg, text: LEGACY_COLORS.avatar.avatar6Text },
+  { bg: LEGACY_COLORS.avatar.avatar7Bg, text: LEGACY_COLORS.avatar.avatar7Text },
+  { bg: LEGACY_COLORS.avatar.avatar8Bg, text: LEGACY_COLORS.avatar.avatar8Text },
+  { bg: LEGACY_COLORS.avatar.avatar9Bg, text: LEGACY_COLORS.avatar.avatar9Text },
+  { bg: LEGACY_COLORS.avatar.avatar10Bg, text: LEGACY_COLORS.avatar.avatar10Text },
+  { bg: LEGACY_COLORS.surfaceVariant, text: LEGACY_COLORS.onSurfaceVariant },
+  { bg: LEGACY_COLORS.errorContainer, text: LEGACY_COLORS.onErrorContainer },
 ];
 
 /**

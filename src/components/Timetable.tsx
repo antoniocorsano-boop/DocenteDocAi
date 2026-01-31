@@ -84,7 +84,9 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 'var(--app-spacing-section)',
-                maxWidth: 'var(--md-sys-spacing-80)',
+                // Responsive container: fluid width up to var(--content-max-width) so content scales on larger screens
+                width: '100%',
+                maxWidth: 'var(--content-max-width)',
                 marginLeft: 'var(--app-layout-auto)',
                 marginRight: 'var(--app-layout-auto)'}}>
                 {/* HEADER: MD3 Command Island */}

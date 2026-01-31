@@ -18,12 +18,12 @@ exports[`ActionTile Story Snapshots > renders default story correctly 1`] = `
       style="flex-grow: 1; min-width: 0; overflow: hidden; display: flex; flex-direction: column; gap: var(--app-spacing-component);"
     >
       <span
-        style="font-family: var(--md-sys-typescale-font-family); font-size: var(--app-text-title); font-weight: var(--app-text-title-weight); line-height: var(--app-text-title-line-height); letter-spacing: var(--md-sys-typescale-body-large-letter-spacing); color: var(--app-color-on-surface); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0px;"
+        style="font-family: var(--md-sys-typescale-font-family); font-size: var(--md-sys-typescale-title-medium-font-size); font-weight: var(--md-sys-typescale-title-medium-font-weight); line-height: var(--md-sys-typescale-title-medium-line-height); letter-spacing: var(--md-sys-typescale-title-medium-letter-spacing); color: var(--app-color-on-surface); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0px;"
       >
         Test Action
       </span>
       <span
-        style="font-family: var(--md-sys-typescale-font-family); font-size: var(--app-text-label); font-weight: var(--app-text-label-weight); line-height: var(--app-text-label-line-height); letter-spacing: 0.08em; color: var(--md-sys-color-on-surface-variant); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0px; text-transform: uppercase;"
+        style="font-family: var(--md-sys-typescale-font-family); font-size: var(--md-sys-typescale-label-medium-font-size); font-weight: var(--md-sys-typescale-label-medium-font-weight); line-height: var(--md-sys-typescale-label-medium-line-height); letter-spacing: 0.08em; color: var(--md-sys-color-on-surface-variant); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0px; text-transform: uppercase;"
       >
         Test subtitle
       </span>

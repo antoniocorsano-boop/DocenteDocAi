@@ -87,7 +87,7 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                     onClick={onStart} 
                     style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)', padding: 'var(--app-spacing-section)', backgroundColor: "var(--app-color-primary)", color: "var(--md-sys-color-on)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)', textAlign: "left"}}
                 >
-                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: colors.onPrimaryContainer , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", backgroundColor: "var(--app-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--app-motion-standard)"}}>
+                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: colors.onPrimaryContainer , width: "var(--md-sys-spacing-12)", height: "var(--md-sys-spacing-12)", backgroundColor: "var(--app-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--app-motion-standard)"}}>
                         <span  style={{ fontSize: "var(--app-spacing-touch)" }}>door_open</span>
                     </div>
                     <div style={{ minWidth: "0" }}>
@@ -100,7 +100,7 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                     onClick={onEdit} 
                     style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: colors.onSecondaryContainer , display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)', padding: 'var(--app-spacing-section)', backgroundColor: "var(--app-color-secondary)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)', textAlign: "left"}}
                 >
-                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", color: "var(--app-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--app-motion-standard)" }}>
+                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', width: "var(--md-sys-spacing-12)", height: "var(--md-sys-spacing-12)", color: "var(--app-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--app-motion-standard)" }}>
                         <span  style={{ fontSize: "var(--app-spacing-touch)" }}>edit</span>
                     </div>
                     <div style={{ minWidth: "0" }}>

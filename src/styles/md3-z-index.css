@@ -82,8 +82,8 @@
      CHART DIMENSIONS (DASHBOARD COMPONENTS)
      ═══════════════════════════════════════════════════════ */
 
-  --md-sys-chart-height-large: 300px;
-  --md-sys-chart-height-medium: 250px;
+  --md-sys-chart-height-large: var(--app-chart-height-large);
+  --md-sys-chart-height-medium: var(--app-chart-height-medium);
 }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

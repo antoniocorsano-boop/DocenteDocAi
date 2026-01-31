@@ -60,24 +60,24 @@
   --md-sys-typescale-body-large-font-size: var(--md-sys-spacing-4);
   --md-sys-typescale-body-large-line-height: 1.5;
   --md-sys-typescale-body-large-font-weight: 400;
-  --md-sys-typescale-body-medium-font-size: var(--md-sys-typescale-body-medium-font-size);
+  --md-sys-typescale-body-medium-font-size: var(--md-sys-spacing-3);
   --md-sys-typescale-body-medium-line-height: 1.4;
   --md-sys-typescale-body-medium-font-weight: 400;
-  --md-sys-typescale-body1-font-size: theme.typography.body1.fontSize;
-  --md-sys-typescale-body1-line-height: theme.typography.body1.lineHeight;
-  --md-sys-typescale-body1-font-weight: theme.typography.body1.fontWeight;
-  --md-sys-typescale-body2-font-size: theme.typography.body2.fontSize;
-  --md-sys-typescale-body2-line-height: theme.typography.body2.lineHeight;
-  --md-sys-typescale-body2-font-weight: theme.typography.body1.fontWeight;
-  --md-sys-typescale-heading1-font-size: theme.typography.heading1.fontSize;
-  --md-sys-typescale-heading1-line-height: theme.typography.heading1.lineHeight;
-  --md-sys-typescale-heading1-font-weight: theme.typography.body1.fontWeight;
-  --md-sys-typescale-heading2-font-size: theme.typography.heading2.fontSize;
-  --md-sys-typescale-heading2-line-height: theme.typography.heading2.lineHeight;
-  --md-sys-typescale-heading2-font-weight: theme.typography.body1.fontWeight;
-  --md-sys-typescale-caption-font-size: theme.typography.caption.fontSize;
-  --md-sys-typescale-caption-line-height: theme.typography.caption.lineHeight;
-  --md-sys-typescale-caption-font-weight: theme.typography.body1.fontWeight;
+  --md-sys-typescale-body-small-font-size: var(--md-sys-spacing-3);
+  --md-sys-typescale-body-small-line-height: var(--md-sys-spacing-4);
+  --md-sys-typescale-body-small-font-weight: 400;
+  --md-sys-typescale-label-large-font-size: var(--md-sys-spacing-3);
+  --md-sys-typescale-label-large-line-height: var(--md-sys-spacing-4);
+  --md-sys-typescale-label-large-font-weight: 500;
+  --md-sys-typescale-label-large-letter-spacing: 0.01em;
+  --md-sys-typescale-label-medium-font-size: var(--md-sys-spacing-3);
+  --md-sys-typescale-label-medium-line-height: var(--md-sys-spacing-4);
+  --md-sys-typescale-label-medium-font-weight: 500;
+  --md-sys-typescale-label-medium-letter-spacing: 0.05em;
+  --md-sys-typescale-label-small-font-size: var(--md-sys-spacing-3);
+  --md-sys-typescale-label-small-line-height: var(--md-sys-spacing-4);
+  --md-sys-typescale-label-small-font-weight: 500;
+  --md-sys-typescale-label-small-letter-spacing: 0.05em;
 
   /* MD3 Typography Scale - Complete Set */
   --md-sys-typescale-font-family: 'Roboto', sans-serif;
@@ -121,7 +121,7 @@
   --md-sys-typescale-body-large-line-height: var(--md-sys-spacing-6);
   --md-sys-typescale-body-large-font-weight: 400;
   --md-sys-typescale-body-large-letter-spacing: 0.015em;
-  --md-sys-typescale-body-medium-font-size: var(--md-sys-typescale-body-medium-font-size);
+  --md-sys-typescale-body-medium-font-size: var(--md-sys-spacing-3);
   --md-sys-typescale-body-medium-line-height: var(--md-sys-spacing-5);
   --md-sys-typescale-body-medium-font-weight: 400;
   --md-sys-typescale-body-medium-letter-spacing: 0.025em;
@@ -129,7 +129,7 @@
   --md-sys-typescale-body-small-line-height: var(--md-sys-spacing-4);
   --md-sys-typescale-body-small-font-weight: 400;
   --md-sys-typescale-body-small-letter-spacing: 0.04em;
-  --md-sys-typescale-label-large-font-size: var(--md-sys-typescale-body-medium-font-size);
+  --md-sys-typescale-label-large-font-size: var(--md-sys-spacing-3);
   --md-sys-typescale-label-large-line-height: var(--md-sys-spacing-5);
   --md-sys-typescale-label-large-font-weight: 500;
   --md-sys-typescale-label-large-letter-spacing: 0.01em;
@@ -137,17 +137,25 @@
   --md-sys-typescale-label-medium-line-height: var(--md-sys-spacing-4);
   --md-sys-typescale-label-medium-font-weight: 500;
   --md-sys-typescale-label-medium-letter-spacing: 0.05em;
-  --md-sys-typescale-label-small-font-size: var(--md-sys-typescale-label-large-font-size);
-  --md-sys-typescale-label-small-line-height: var(--md-sys-typescale-body-medium-font-size);
+  --md-sys-typescale-label-small-font-size: var(--md-sys-spacing-3);
+  --md-sys-typescale-label-small-line-height: var(--md-sys-spacing-4);
   --md-sys-typescale-label-small-font-weight: 500;
   --md-sys-typescale-label-small-letter-spacing: 0.05em;
 
-  --md-sys-spacing-1: var(--md-sys-spacing-1);
-  --md-sys-spacing-2: var(--md-sys-spacing-2);
-  --md-sys-spacing-3: var(--md-sys-spacing-3);
-  --md-sys-spacing-4: var(--md-sys-spacing-4);
-  --md-sys-spacing-5: var(--md-sys-spacing-5);
-  --md-sys-spacing-6: var(--md-sys-spacing-6);
+  /* Base spacing tokens - MD3 system values */
+  --md-sys-spacing-0: 0px;
+  --md-sys-spacing-1: 4px;
+  --md-sys-spacing-2: 8px;
+  --md-sys-spacing-3: 12px;
+  --md-sys-spacing-4: 16px;
+  --md-sys-spacing-5: 20px;
+  --md-sys-spacing-6: 24px;
+  --md-sys-spacing-8: 32px;
+  --md-sys-spacing-10: 40px;
+  --md-sys-spacing-12: 48px;
+  --md-sys-spacing-14: 56px;
+  --md-sys-spacing-16: 64px;
+  --md-sys-spacing-32: 128px;
 
   --md-sys-motion-duration-short1: 50ms;
   --md-sys-motion-duration-short2: 100ms;
@@ -780,7 +788,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 300ms;
+  transition: transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
 }
 
 .md3-share-icon-secondary {

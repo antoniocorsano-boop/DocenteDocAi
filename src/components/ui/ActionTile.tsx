@@ -87,7 +87,7 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 overflow: 'hidden',
                 textAlign: 'left',
                 boxShadow: hovered ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)',
-                transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
+                transform: hovered ? 'translateY(calc(var(--md-sys-spacing-1) * -0.5))' : 'translateY(0)',
                 minHeight: 'var(--md-sys-spacing-12)',
                 width: 'var(--app-layout-full)',
                 outline: focused ? `var(--app-border-thick) solid var(--app-color-primary)` : 'none',

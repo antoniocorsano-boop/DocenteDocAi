@@ -201,8 +201,8 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                 {ACTIONS.map((a, i) => {
                   // MD3 Gold: spacing tra azioni con token MD3
                   const posStyle: React.CSSProperties = menuDirection === 'up'
-                    ? { bottom: `calc(var(--md-sys-spacing-9) * ${i + 1})` }
-                    : { top: `calc(var(--md-sys-spacing-9) * ${i + 1})` };
+                    ? { bottom: `calc(var(--md-sys-spacing-8) * ${i + 1})` }
+                    : { top: `calc(var(--md-sys-spacing-8) * ${i + 1})` };
                   return (
                     <button
                       key={a.key}
@@ -237,26 +237,33 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           color: var(--app-color-on-primary);
           border: none;
           border-radius: var(--md-sys-shape-corner-full);
-          width: var(--md-sys-spacing-10);
-          height: var(--md-sys-spacing-10);
+          width: var(--md-sys-spacing-12);
+          height: var(--md-sys-spacing-12);
           box-shadow: var(--md-sys-elevation-1);
           font-size: var(--app-text-display);
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          transition: box-shadow var(--app-motion-quick) var(--app-easing-standard), background var(--app-motion-quick) var(--app-easing-standard);
+          transition-property: background-color, color, box-shadow, transform, opacity;
+          transition-duration: var(--md-sys-motion-duration-short);
+          transition-timing-function: var(--md-sys-motion-easing-standard);
         }
         .mui-fab-expressive.assistant-fab:hover {
           background: var(--app-color-primary-container);
-          box-shadow: var(--md-sys-elevation-1);
+          box-shadow: var(--md-sys-elevation-level2);
+          transform: scale(1.05);
+        }
+        .mui-fab-expressive.assistant-fab:active {
+          transform: scale(0.95);
+          transition-duration: var(--md-sys-motion-duration-short1);
         }
         .assistant-fab-menu {
           position: absolute;
           right: 0;
           bottom: 0;
           width: max-content;
-          min-width: var(--md-sys-spacing-11);
+          min-width: var(--md-sys-spacing-12);
           pointer-events: auto;
           display: block;
           padding: var(--app-spacing-component) 0;
@@ -268,8 +275,8 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           background: var(--md-sys-color-surface-container-high);
           border: none;
           border-radius: var(--md-sys-shape-corner-full);
-          width: var(--md-sys-spacing-9);
-          height: var(--md-sys-spacing-9);
+          width: var(--md-sys-spacing-8);
+          height: var(--md-sys-spacing-8);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -288,14 +295,21 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           font-size: var(--app-text-body);
           display: flex;
           align-items: center;
-          min-width: var(--md-sys-spacing-11);
+          min-width: var(--md-sys-spacing-12);
           cursor: pointer;
           pointer-events: auto;
-          transition: var(--md-easing-standard);
+          transition-property: background-color, box-shadow, transform, opacity;
+          transition-duration: var(--md-sys-motion-duration-short);
+          transition-timing-function: var(--md-sys-motion-easing-standard);
         }
         .mui-fab-expressive.assistant-fab-secondary:hover {
           background: var(--md-sys-color-surface-variant);
-          box-shadow: var(--md-sys-elevation-1);
+          box-shadow: var(--md-sys-elevation-level2);
+          transform: translateY(calc(var(--md-sys-spacing-1) * -0.25));
+        }
+        .mui-fab-expressive.assistant-fab-secondary:active {
+          transform: translateY(0) scale(0.98);
+          transition-duration: var(--md-sys-motion-duration-short1);
         }
         .assistant-fab-sheet-scrim {
           position: fixed;
@@ -361,7 +375,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           gap: var(--app-spacing-element);
           box-shadow: var(--md-sys-elevation-1);
           cursor: pointer;
-          transition: transform var(--app-motion-quick) var(var(--app-easing-standard)), box-shadow var(--app-motion-quick) var(var(--app-easing-standard));
+          transition: transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
           text-align: left;
         }
         .assistant-fab-sheet-action:hover {

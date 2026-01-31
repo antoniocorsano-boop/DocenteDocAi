@@ -88,7 +88,9 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                                 border: `var(--app-border-thick) dashed ${isDragActive ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                 borderRadius: 'var(--md-sys-shape-corner-extra-large)',
                                 backgroundColor: isDragActive ? 'var(--app-color-primary-container)' : 'var(--md-sys-color-surface-container-low)',
-                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)',
+                                transitionProperty: 'opacity, transform, background-color, color, border-color, box-shadow',
+                                transitionDuration: 'var(--md-sys-motion-duration-short)',
+                                transitionTimingFunction: 'var(--md-sys-motion-easing-standard)',
                                 cursor: 'pointer',
                                 transform: isDragActive ? 'scale(1.05)' : 'none'
                             }}

@@ -208,7 +208,7 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--md-sys-percent-50);
-  transition: background 0.2s;
+  transition: background var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
 }
 
 .button-icon-base:hover {
@@ -361,14 +361,14 @@
    TRANSITION & ANIMATION UTILITIES
    ============================================================================ */
 
-.transition-all {
-  transition-property: opacity, transform, background-color;
-transition-duration: var(--md-sys-motion-duration-short);
-transition-timing-function: var(--md-sys-motion-easing-standard);
-}
-
 .transition-bg {
-  transition: background 0.2s;
+  transition: background var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+.transition-color {
+  transition: color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+}
+.transition-transform {
+  transition: transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
 }
 
 .transition-color {
@@ -380,7 +380,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .animate-spin {
-  animation: spin 1s linear infinite;
+  animation: spin var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard) infinite;
 }
 
 @keyframes spin {

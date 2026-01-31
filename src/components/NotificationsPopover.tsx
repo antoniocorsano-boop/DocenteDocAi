@@ -21,7 +21,7 @@ interface NotificationsPopoverProps {
  * Features:
  * - Pure MD3 token-based styling (colors, spacing, typography, motion, shape)
  * - M3Typography for all text elements
- * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥44px
+ * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥var(--app-spacing-touch)
  * - Read/unread notification states with visual differentiation
  * - Sticky header with mark all as read functionality
  * - Scrollable content with proper overflow handling

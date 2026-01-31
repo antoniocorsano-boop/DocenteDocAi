@@ -1,11 +1,12 @@
 {
-  "timestamp": "2026-01-30T14:46:42.279Z",
-  "totalViolations": 49,
-  "totalFiles": 15,
-  "scannedFiles": 399,
+  "timestamp": "2026-01-30T21:22:09.001Z",
+  "totalViolations": 55,
+  "totalFiles": 16,
+  "scannedFiles": 400,
   "typeBreakdown": {
-    "hardcodedDuration": 33,
-    "hardcodedEasing": 12,
+    "transitionAll": 2,
+    "hardcodedDuration": 36,
+    "hardcodedEasing": 13,
     "hardcodedDelay": 1,
     "nonMD3MotionVar": 2,
     "inlineStyleTemporal": 1
@@ -21,11 +22,15 @@
     },
     {
       "file": "src\\theme.css",
-      "count": 5
+      "count": 9
     },
     {
       "file": "src\\design-system\\motion.css",
       "count": 3
+    },
+    {
+      "file": "src\\components\\AssistantFab.tsx",
+      "count": 2
     },
     {
       "file": "src\\design-system\\breakpoints.css",
@@ -73,6 +78,20 @@
     }
   ],
   "violations": [
+    {
+      "file": "src\\components\\AssistantFab.tsx",
+      "line": 249,
+      "type": "transitionAll",
+      "match": "transition: all",
+      "context": "}"
+    },
+    {
+      "file": "src\\components\\AssistantFab.tsx",
+      "line": 300,
+      "type": "transitionAll",
+      "match": "transition: all",
+      "context": "}"
+    },
     {
       "file": "src\\components\\navigation-rail.css",
       "line": 224,
@@ -222,21 +241,21 @@
     },
     {
       "file": "src\\global.css",
-      "line": 784,
+      "line": 792,
       "type": "hardcodedDuration",
       "match": "transition: transform 300ms",
       "context": "}"
     },
     {
       "file": "src\\layout.css",
-      "line": 672,
+      "line": 680,
       "type": "hardcodedDuration",
       "match": "Animation */\r\n.animate-in { animation-duration: 300ms",
       "context": ".animate-in { animation-duration: 300ms; animation-fill-mode: both; }"
     },
     {
       "file": "src\\layout.css",
-      "line": 845,
+      "line": 853,
       "type": "hardcodedDelay",
       "match": "animation-delay: 300ms",
       "context": ""
@@ -411,9 +430,37 @@
     },
     {
       "file": "src\\theme.css",
+      "line": 1701,
+      "type": "hardcodedDuration",
+      "match": "animation-duration: 0.01ms",
+      "context": "animation-iteration-count: 1 !important;"
+    },
+    {
+      "file": "src\\theme.css",
+      "line": 1703,
+      "type": "hardcodedDuration",
+      "match": "transition-duration: 0.01ms",
+      "context": "scroll-behavior: auto !important;"
+    },
+    {
+      "file": "src\\theme.css",
+      "line": 1725,
+      "type": "hardcodedDuration",
+      "match": "transition: width 0.3s",
+      "context": "}"
+    },
+    {
+      "file": "src\\theme.css",
       "line": 852,
       "type": "hardcodedEasing",
       "match": "animation: pulse var(--md-sys-motion-duration-extra-long) cubic-bezier(0.4, 0, 0.6, 1)",
+      "context": "}"
+    },
+    {
+      "file": "src\\theme.css",
+      "line": 1725,
+      "type": "hardcodedEasing",
+      "match": "transition: width 0.3s ease",
       "context": "}"
     }
   ]

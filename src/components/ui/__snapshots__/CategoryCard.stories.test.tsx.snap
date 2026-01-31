@@ -21,7 +21,7 @@ exports[`CategoryCard Story Snapshots > renders default story correctly 1`] = `
       style="display: flex; flex-direction: column; align-items: center; gap: var(--app-spacing-container);"
     >
       <span
-        style="font-family: var(--md-sys-typescale-font-family); font-size: var(--app-text-label); font-weight: 900; line-height: var(--app-text-label-line-height); letter-spacing: -0.025em; color: var(--app-color-on-surface); text-align: center; margin: 0px;"
+        style="font-family: var(--md-sys-typescale-font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: 900; line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: -0.025em; color: var(--app-color-on-surface); text-align: center; margin: 0px;"
       >
         Test
       </span>

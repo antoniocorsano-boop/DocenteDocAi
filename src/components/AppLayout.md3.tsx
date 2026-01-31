@@ -46,6 +46,28 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   onOpenOperations,
   hasSuggestion
 }) => {
+  // Responsive logic for NavigationRail container (initialize from CSS token; SSR-safe)
+  const [isMobile, setIsMobile] = React.useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    try {
+      const bp = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--md-sys-breakpoint-mobile')) || 600;
+      return window.innerWidth < bp;
+    } catch (e) {
+      return window.innerWidth < 600;
+    }
+  });
+
+  React.useEffect(() => {
+    const checkMobile = () => {
+      const mobileBreakpoint = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--md-sys-breakpoint-mobile')) || 600;
+      setIsMobile(window.innerWidth < mobileBreakpoint);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <M3Surface style={{
       display: 'flex',
@@ -77,35 +99,40 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         minHeight="var(--md-sys-spacing-0)"
         background="var(--app-color-surface)"
       >
-        <M3Aside
-          flexBasis="var(--md-sys-spacing-20)"
-          background="var(--app-color-surface)"
-          borderRight="var(--app-border-thin) solid var(--md-sys-color-outline-variant)"
-          style={{ zIndex: 'var(--md-sys-z-nav)' }}
-        >
-          <NavigationRail
-            items={[
-              { id: 'home', label: 'Home', icon: 'home', activeIcon: 'home' },
-              { id: 'timetable', label: 'Orario', icon: 'schedule', activeIcon: 'watch_later' },
-              { id: 'progettazione-hub', label: 'Progetta', icon: 'design_services', activeIcon: 'edit_document' },
-              { id: 'aula', label: 'Classi', icon: 'groups', activeIcon: 'groups' },
-              { id: 'orientamento', label: 'Orientamento', icon: 'explore', activeIcon: 'explore' },
-              { id: 'calendario', label: 'Agenda', icon: 'calendar_month', activeIcon: 'event_note' },
-            ]}
-            activeView={view}
-            onNavigate={(v, c) => onNavigate(v, c as NavigationParams)}
-          />
-        </M3Aside>
+        {!isMobile && (
+          <M3Aside
+            flexBasis="var(--md-sys-spacing-20)"
+            background="var(--app-color-surface)"
+            borderRight="var(--app-border-thin) solid var(--md-sys-color-outline-variant)"
+            style={{ zIndex: 'var(--md-sys-z-nav)' }}
+          >
+          </M3Aside>
+        )}
         <M3Surface style={{
           flex: 'var(--md-sys-flex-auto)',
           display: 'flex',
           flexDirection: 'column',
           boxSizing: 'border-box',
-          background: 'var(--app-color-surface-container)'
+          background: 'var(--app-color-surface-container)',
+          // Add bottom padding on mobile to avoid FAB overlapping BottomNav
+          paddingBottom: isMobile ? 'calc(var(--app-spacing-section) + var(--md-sys-size-fab, 72px))' : undefined
         }}>
           {children}
         </M3Surface>
       </M3FlexContainer>
+      <NavigationRail
+        items={[
+          { id: 'home', label: 'Home', icon: 'home', activeIcon: 'home' },
+          { id: 'timetable', label: 'Orario', icon: 'schedule', activeIcon: 'watch_later' },
+          { id: 'progettazione-hub', label: 'Progetta', icon: 'design_services', activeIcon: 'edit_document' },
+          { id: 'aula', label: 'Classi', icon: 'groups', activeIcon: 'groups' },
+          { id: 'orientamento', label: 'Orientamento', icon: 'explore', activeIcon: 'explore' },
+          { id: 'calendario', label: 'Agenda', icon: 'calendar_month', activeIcon: 'event_note' }
+        ]}
+        activeView={view}
+        onNavigate={(v, c) => onNavigate(v, c as NavigationParams)}
+        isMobile={isMobile}
+      />
     </M3Surface>
   );
 };

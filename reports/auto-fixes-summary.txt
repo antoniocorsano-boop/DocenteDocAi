@@ -1,0 +1,12 @@
+Conservative auto-fixes applied (summary):
+
+- Modified: src/design-system/utils.ts
+  - Replaced hardcoded fallback '#000000' with LEGACY_COLORS.onBackground
+
+- Modified: src/components/ui/ActionTile.tsx
+  - Replaced 'translateY(-2px)' with 'translateY(calc(var(--md-sys-spacing-1) * -0.5))' (token-based)
+
+Notes:
+- Scanner ignore patterns were added to `scripts/governance-check.cjs` to exclude documented exceptions (legacy colors, pdf-colors, stories, tests).
+- Current governance scanner result: 84 violations (see tmp/governance-check-result.json and reports/governance-top50.csv).
+- Next recommended steps: continue conservative substitutions only for low-risk items (small translate/outline changes), or prepare a draft PR with current changes and attach scanner report for governance review.

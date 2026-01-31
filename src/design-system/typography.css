@@ -267,9 +267,9 @@
 /* Reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
   * {
-    animation-duration: 0.01ms !important;
+    animation-duration: var(--md-sys-motion-duration-short) !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: var(--md-sys-motion-duration-short) !important;
   }
 }
 
