@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Block J Migration Complete (6 violations eliminated)
 // Note: minHeight: "var(--app-legacy-var(--app-legacy-100vh, 100vh))" retained for functional full viewport height (no exact MD3 token available)
 import React from 'react';
@@ -147,3 +149,7 @@ export default TeacherPresentationView;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

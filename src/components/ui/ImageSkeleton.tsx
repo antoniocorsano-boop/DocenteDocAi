@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Updated for layered theme access
 import React from 'react';
 import { useTheme } from '../../theme/theme';
@@ -57,3 +59,7 @@ export default ImageSkeleton;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

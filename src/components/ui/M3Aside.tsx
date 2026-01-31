@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Gold Compliant
 // M3Aside - Semantic aside with MD3 styling
 import React from 'react';
@@ -44,3 +46,7 @@ export const M3Aside: React.FC<M3AsideProps> = ({
 };
 
 export default M3Aside;
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

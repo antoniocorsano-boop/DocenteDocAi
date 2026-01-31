@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
@@ -68,3 +70,7 @@ export default BackupInfoModal;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

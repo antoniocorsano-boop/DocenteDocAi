@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Block I Migration Complete (6 violations eliminated)
 // Note: Icon font sizes (var(--md-sys-spacing-4)) retained with eslint-disable comments for Material Icons
 import React, { useState, useEffect, useMemo } from 'react';
@@ -380,3 +382,7 @@ export { CreateLessonFromAiModal };
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

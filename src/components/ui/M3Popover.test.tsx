@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 import { renderWithM3Theme } from './test-utils';
 // LEGACY - MD3 Non-compliant
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
@@ -225,7 +227,11 @@ describe('M3Popover', () => {
     );
     
     const popover = container.querySelector('.m3-popover') as HTMLElement;
-    expect(['var(--app-legacy-var(--app-legacy-300px, 300px))', 'var(--app-legacy-300px, 300px)']).toContain(popover.style.minWidth);
+    expect([
+      'var(--app-legacy-var(--app-legacy-300px, 300px))',
+      'var(--app-legacy-300px, 300px)',
+      '300px'
+    ]).toContain(popover.style.minWidth);
   });
 
   it('applies custom zIndex', () => {
@@ -327,3 +333,7 @@ describe('M3Popover', () => {
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

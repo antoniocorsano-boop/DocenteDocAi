@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Uses CSS custom properties for theming
 import React from 'react';
 /**
@@ -82,3 +84,7 @@ export default SkipLink;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Fully migrated to MD3 tokens
 // @md3-compliant
 // @migrated
@@ -132,3 +134,7 @@ export default TextArea;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

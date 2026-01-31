@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 import React, { useState, useMemo, useEffect, Suspense, lazy } from 'react';
 import { Lezione, LessonsPageProps, CurriculumSubject, TimetableSettings, Uda } from '../types';
 import { generateLessonSequenceForClass } from '../services/aiService';
@@ -705,3 +707,7 @@ export default LessonsPage;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

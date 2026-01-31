@@ -17,7 +17,7 @@
   position: fixed;
   inset: 0;
   z-index: var(--md-sys-z-modal);
-  /* M3 token replacement: rgba(0, 0, 0, 0.32) → var(--md-sys-color-scrim) */
+  /* M3 token replacement: var(--app-legacy-color-rgba_0_0_0_0_32, var(--app-legacy-color-rgba_0_0_0_0_32, var(--app-legacy-color-rgba_0_0_0_0_32, rgba(0, 0, 0, 0.32)))) → var(--md-sys-color-scrim) */
   background: var(--md-sys-color-scrim);
   display: flex;
   align-items: center;
@@ -413,7 +413,7 @@
 @media (max-width: var(--md-sys-breakpoint-sm)) {
   .dialog-container-legacy {
     max-width: 100vw;
-    max-height: 100vh;
+    max-height: var(--app-legacy-100vh, 100vh);
     border-radius: 0;
   }
 

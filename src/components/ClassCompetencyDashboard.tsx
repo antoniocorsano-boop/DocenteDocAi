@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Migrated from legacy className usage
 
 import React, { useMemo, useState } from 'react';
@@ -254,3 +256,7 @@ export default ClassCompetencyDashboard;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

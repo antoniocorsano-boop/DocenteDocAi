@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // ClassPlanningWizard.tsx - Block H completed (57 violations eliminated)
 
 import React, { useState, useMemo } from 'react';
@@ -679,3 +681,7 @@ export default AnnualPlanningWizard;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

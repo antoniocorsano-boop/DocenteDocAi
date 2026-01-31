@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Migration completed
 // PassaggioAnnoWizard.tsx - All styling uses MD3 tokens via style props
 import React, { useState, useMemo, useEffect } from 'react';
@@ -352,3 +354,7 @@ export default PassaggioAnnoWizard;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import ThinkingIndicator from './ThinkingIndicator';
@@ -65,3 +67,7 @@ export const CustomMessage: Story = {
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

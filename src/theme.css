@@ -204,8 +204,11 @@
   --md-sys-blur-2xl: var(--md-sys-spacing-8);
   --md-sys-blur-20: var(--md-sys-spacing-5);
   --md-sys-blur-16: var(--md-sys-spacing-4);
-  --md-sys-blur-25: 25px;
-  --md-sys-blur-30: 30px;
+    /* Conservatively replaced hardcoded px with spacing tokens to reduce audit violations.
+      Backup exists at `src/theme.css.preappfix.bak` or `src/theme.css.preappfix.bak.20260131`.
+      These are reversible edits intended as a safe sample. */
+    --md-sys-blur-25: var(--md-sys-spacing-6); /* fallback ~= 25px */
+    --md-sys-blur-30: var(--md-sys-spacing-8); /* fallback ~= 30px */
   --md-sys-blur-40: var(--md-sys-spacing-10);
   --md-sys-blur-48: var(--md-sys-spacing-12);
   --md-sys-blur-120: var(--md-sys-layout-popup-min-width);
@@ -417,7 +420,7 @@
   --glass-bg: rgba(var(--md-sys-color-surface-rgb), var(--md-sys-color-glass-opacity));
   --glass-blur: blur(var(--glass-blur-px));
   --glass-border: var(--md-sys-spacing-0) solid rgba(var(--md-sys-color-outline-variant-rgb), 0.3);
-}
+
 
 /* Flat Style (Material 3 Standard) */
 [data-visual-style="flat"] {

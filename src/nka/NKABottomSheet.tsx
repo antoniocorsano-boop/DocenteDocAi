@@ -79,7 +79,7 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
           left: '50%',
           bottom: 0,
           transform: 'translateX(-50%)',
-          width: 'min(100vw, calc(var(--md-sys-spacing-20) * 7.5))',
+          width: 'min(var(--md-sys-sizing-full), calc(var(--md-sys-spacing-20) * 7.5))',
           background: 'var(--md-sys-color-surface)',
           borderTopLeftRadius: 'var(--md-sys-shape-corner-large)',
           borderTopRightRadius: 'var(--md-sys-shape-corner-large)',
@@ -126,7 +126,7 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
           style={{
             position: 'fixed',
             left: '50%',
-            top: '10vh',
+            top: 'calc(var(--md-sys-sizing-full) * 0.1)',
             transform: 'translateX(-50%)',
             background: 'var(--md-sys-color-surface-container)',
             borderRadius: 'var(--md-sys-shape-corner-large)',

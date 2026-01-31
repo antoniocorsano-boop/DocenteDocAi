@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // ✅ MD3 Native Compliant - Migrated from useTheme to direct MD3 tokens
 /**
  * M3Dialog - Material Design 3 Expressive Dialog Component
@@ -442,3 +444,7 @@ export default M3Dialog;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Uses CSS custom properties for theming
 import React, { useState, useMemo } from 'react';
 import { Lezione, Slot, TimetableSettings } from '../types';
@@ -177,8 +179,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <M3Button 
                             onClick={() => window.print()} 
-                            variant="secondary"
-                            icon="print"
+                            variant="tonal"
                         >
                             Stampa
                         </M3Button>
@@ -307,3 +308,7 @@ export default Timetable;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

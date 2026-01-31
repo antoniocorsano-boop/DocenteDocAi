@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // ✅ MD3 Native Compliant - Migrated from useTheme to direct MD3 tokens
 import React, { useState } from 'react';
 
@@ -130,3 +132,7 @@ export default M3ChoiceCard;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Block O Migration Complete (5 violations eliminated)
 // Note: Circular indicators use functional borderRadius with eslint-disable comments
 
@@ -100,3 +102,7 @@ export default PinPadModal;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

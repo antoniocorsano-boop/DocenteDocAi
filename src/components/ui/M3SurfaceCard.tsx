@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - M3SurfaceCard component with layered theme destructuring
 import React, { useState } from 'react';
 import { useTheme } from '../../theme/theme';
@@ -111,3 +113,7 @@ export default M3SurfaceCard;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

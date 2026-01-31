@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Migrated to direct CSS custom properties
 import React, { useState } from 'react';
 
@@ -135,3 +137,7 @@ export default M3IconButton;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

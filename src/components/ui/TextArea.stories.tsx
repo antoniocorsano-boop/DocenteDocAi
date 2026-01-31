@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - migrated
 import type { Meta, StoryObj } from '@storybook/react';
 import TextArea from './TextArea';
@@ -215,3 +217,7 @@ export const NotesTaking: Story = {
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

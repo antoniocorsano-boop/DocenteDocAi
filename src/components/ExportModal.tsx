@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 /**
  * // MD3 GOLD COMPLIANT
 // Audit date: 2026-01-25
@@ -384,3 +386,7 @@ export default React.memo(ExportModal);
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

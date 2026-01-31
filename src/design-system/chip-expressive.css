@@ -8,8 +8,8 @@
 */
 
 :root {
-	--chip-bg: rgba(var(--md-sys-color-on-surface-rgb), 0.04);
-	--chip-bg-hover: rgba(var(--md-sys-color-on-surface-rgb), 0.06);
+	--chip-bg: var(--app-legacy-color-rgba_var_md_sys_color_on_surface_rgb, var(--app-legacy-color-rgba_var_md_sys_color_on_surface_rgb, var(--app-legacy-color-rgba_var_md_sys_color_on_surface_rgb, rgba(var(--md-sys-color-on-surface-rgb)))), 0.04);
+	--chip-bg-hover: var(--app-legacy-color-rgba_var_md_sys_color_on_surface_rgb, var(--app-legacy-color-rgba_var_md_sys_color_on_surface_rgb, var(--app-legacy-color-rgba_var_md_sys_color_on_surface_rgb, rgba(var(--md-sys-color-on-surface-rgb)))), 0.06);
 	--chip-color: var(--md-sys-color-on-surface);
 	--chip-radius: var(--md-sys-shape-corner-full);
 	--chip-padding-y: var(--md-sys-spacing-1);
@@ -71,7 +71,7 @@
 
 .chip-expressive--outline {
 	background: transparent;
-	border: var(--md-sys-spacing-0) solid rgba(var(--md-sys-color-outline-variant-rgb), 0.06);
+	border: var(--md-sys-spacing-0) solid var(--app-legacy-color-rgba_var_md_sys_color_outline_variant_rgb, var(--app-legacy-color-rgba_var_md_sys_color_outline_variant_rgb, var(--app-legacy-color-rgba_var_md_sys_color_outline_variant_rgb, rgba(var(--md-sys-color-outline-variant-rgb)))), 0.06);
 }
 
 /* Visually-hidden utility for accessibility */

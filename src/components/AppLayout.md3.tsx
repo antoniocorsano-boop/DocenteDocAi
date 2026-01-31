@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
@@ -25,6 +27,7 @@ interface AppLayoutProps {
   onInstallApp: () => void;
   onOpenOperations: () => void;
   hasSuggestion: boolean;
+  onLogout?: () => void;
 }
 
 export const AppLayout: React.FC<AppLayoutProps> = ({
@@ -44,8 +47,15 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   installPrompt,
   onInstallApp,
   onOpenOperations,
-  hasSuggestion
+  hasSuggestion,
+  onLogout
 }) => {
+  // Logout handler - sets user to null to trigger sign-in screen
+  const handleLogout = useCallback(() => {
+    if (onLogout) {
+      onLogout();
+    }
+  }, [onLogout]);
   // Responsive logic for NavigationRail container (initialize from CSS token; SSR-safe)
     const [isMobile, setIsMobile] = React.useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
@@ -93,6 +103,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         onInstallApp={onInstallApp}
         onOpenOperations={onOpenOperations}
         hasSuggestion={hasSuggestion}
+        onLogout={handleLogout}
       />
       <M3FlexContainer
         flex="var(--md-sys-flex-auto)"
@@ -106,6 +117,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             borderRight="var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)"
             style={{ zIndex: 'var(--md-sys-z-nav)' }}
           >
+            {/* Children richiesto da M3AsideProps, lasciato vuoto per ora */}
+            {null}
           </M3Aside>
         )}
         <M3Surface style={{
@@ -136,3 +149,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
     </M3Surface>
   );
 };
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

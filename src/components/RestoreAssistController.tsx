@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // LEGACY - MD3 Non-compliant
 import React from 'react';
 import RestoreAssistModal from './RestoreAssistModal';
@@ -42,3 +44,7 @@ export default RestoreAssistController;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

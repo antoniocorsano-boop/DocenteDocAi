@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Block M Migration (2 violations eliminated)
 
 // M3Expressive: QuickEvaluationModal - Quick student evaluation modal with M3 tokens
@@ -231,3 +233,7 @@ export default QuickEvaluationModal;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Migration completed with functional exceptions
 
 // MD3 Pure: Complete migration to inline styles using MD3 tokens for all settings interface and interactions
@@ -1913,3 +1915,7 @@ export default Settings;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 /**
  * MetricCard Component Test
  * Test per verificare il funzionamento del componente MetricCard
@@ -112,3 +114,7 @@ describe('MetricCard', () => {
     expect(screen.getByText('Test Metric')).toBeInTheDocument();
   });
 });
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

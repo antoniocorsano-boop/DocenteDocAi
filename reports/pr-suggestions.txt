@@ -1,8 +1,6 @@
 Summary of recommended automated substitutions and PR instructions
 
 Files I modified so far:
-- src/components/StudentActionMenu.tsx  (comment: replaced explicit `0.5px` tracking mention with MD3 token reference)
-- src/components/dashboard/Dashboard.tsx (comments updated to reference MD3 token)
 
 Recommended automated substitutions (safe scope: `src/components/**`, exclude tests, snapshots, theme files):
 
@@ -42,6 +40,116 @@ git commit -m "chore(md3): comment-only MD3 token references and add governance 
 git push origin md3/governance-auto-fixes
 ```
 
+PR Draft - Artifacts Only
+------------------------
+Title: design-system — conservative MD3 token migration (artifacts-only)
+
+Summary:
+- This PR contains conservative, reversible artifact files produced by the automated replacement runs against `src/design-system`.
+- It does NOT change runtime behavior beyond the committed files; backups for every modified file are included so reviewers can fully audit and revert.
+
+What’s included:
+- `scripts/wrap-hex-colors.cjs` (wrapper used to wrap literal hex colors)
+- `scripts/wrap-rgb-colors.cjs` (updated to only target CSS/markup files)
+- `tmp/governance-check-result-design-system.json` (latest governance scan output)
+- `.preappfix.bak` backups for each modified file under `src/design-system/*` (example: `src/design-system/utils.ts.preappfix.bak`, `src/design-system/chip-expressive.css.preappfix.bak`, etc.)
+
+Why this PR:
+- Preserve full reversibility for automated changes and allow Governance to inspect produced artifacts, mapping scripts, and raw backups before approving any token replacements.
+
+Recommended reviewer actions:
+- Verify the scripts in `scripts/` and run them locally in a sandboxed branch if desired.
+- Inspect `tmp/governance-check-result-design-system.json` for outstanding violations and confirm expected next steps.
+- Validate a subset of the `.preappfix.bak` backups to confirm the transformation approach and risk profile.
+
+Next steps after Governance signoff (suggested):
+1. Approve automation scope in RFC (if council requires).
+2. Implement an AST-aware transformer for code files (ts/tsx) to safely replace color literals inside string/template literals only.
+3. Re-run the safer transformer, run governance checks, run ESLint/tests, then merge incremental changes.
+
+Branch & push commands (run locally):
+```bash
+# create an artifacts branch
+git checkout -b artifacts/md3-design-system-<date>
+# add artifacts (scripts, tmp report, backups)
+git add scripts/wrap-hex-colors.cjs scripts/wrap-rgb-colors.cjs tmp/governance-check-result-design-system.json
+git add $(git ls-files 'src/design-system/*.preappfix.bak')
+
+---
+
+PR Draft - Components Tranche (Artifacts + Patch)
+-----------------------------------------------
+Title: components — conservative MD3 token migration (components tranche, patch)
+
+Summary:
+- This draft packages the conservative AST-safe automated changes applied to `src/components/**` as an inspectable patch and artifacts for Governance review.
+- Changes were limited to string and template literals in `.ts/.tsx` (no expression rewriting). Backups for edited files were written as `.preappfix.bak`.
+
+Included artifacts:
+- `scripts/ast-transformer.cjs` (AST-aware transformer used for this tranche)
+- `reports/components-migration-diff.patch` (patch of working changes)
+- `.preappfix.bak` backups under `src/components/` for each modified file
+- `tmp/governance-check-result.json` (latest governance scan output)
+
+Why this PR:
+- Preserve full reversibility and allow Governance to audit the transformer, the produced patch, and raw backups before approving merge or additional automated passes.
+
+How to review locally:
+1) Inspect the patch contents:
+
+```bash
+git apply --check reports/components-migration-diff.patch
+git apply --stat reports/components-migration-diff.patch
+```
+
+2) Create a sandbox branch and apply the patch to run tests & visual checks:
+
+```bash
+git checkout -b review/components-md3-tranche
+git apply reports/components-migration-diff.patch
+npm ci
+npx eslint "src/components/**/*.{ts,tsx}"
+npm test
+```
+
+3) Validate backups exist (examples):
+
+```bash
+ls src/components/**/*.preappfix.bak
+```
+
+Recommended reviewer actions:
+- Verify `scripts/ast-transformer.cjs` behavior and run it locally on a copy of the repo.
+- Apply the patch in a sandbox branch and run `npm test` and visual diff on critical pages (Header, Home, Navigation, Cards).
+- Confirm backups in `.preappfix.bak` and sample-verify diffs.
+
+Risks & notes:
+- The MD3 theme audit currently reports blocking violations across the repo; this tranche is intentionally conservative and scoped to literals to reduce risk, but the CI gating will still block merge until Governance approves or registry exemptions are applied.
+- Do NOT bypass hooks without explicit Governance approval.
+
+Next steps after Governance signoff:
+1. If approved, either (a) merge an artifacts-only PR that documents the patch and provides instructions to apply it, or (b) allow targeted, governance-approved exemptions and run incremental merges per tranche.
+2. Implement follow-on passes to convert remaining style tokens using an AST-aware approach for `.ts/.tsx` and stylesheet-safe scripts for `.css`.
+
+Branch/patch commands (recommended flow):
+```bash
+# create a review branch and apply patch
+git checkout -b review/components-md3-tranche
+git apply reports/components-migration-diff.patch
+# run the suite and visual checks
+npm ci
+npm test
+```
+
+Contact: tag `@design-governance` and include `reports/components-migration-diff.patch` and `tmp/governance-check-result.json` in the PR.
+
+git commit -m "chore: artifacts-only — md3 conservative token migration (design-system)"
+git push --set-upstream origin artifacts/md3-design-system-<date>
+``` 
+
+Notes:
+- I intentionally limited `wrap-rgb-colors.cjs` to stylesheet/markup files to avoid wrapping inside JS/TS expression sites (previous run caused a parsing error in `utils.ts`).
+- If you want, I can prepare the PR on your behalf (create branch, stage files, commit). I will ask before pushing.
 If you want me to apply the automated substitutions listed above (items 1–3) I can run them now limited to `src/components/**` (skipping tests and snapshots). After applying, I'll re-run the scanner and produce an updated CSV and a small patch file with the changes.
 
 Notes / Constraints

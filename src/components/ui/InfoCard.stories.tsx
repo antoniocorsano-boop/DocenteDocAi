@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import InfoCard from './InfoCard';
@@ -160,7 +162,7 @@ export const WithAction: Story = {
         style={{
           padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
           background: 'var(--md-sys-color-primary)',
-          color: 'white',
+          color: 'var(--md-sys-color-surface)',
           border: 'none',
           borderRadius: layers.ref.spacing['4'],
           cursor: 'pointer',
@@ -289,3 +291,7 @@ import React from 'react';
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

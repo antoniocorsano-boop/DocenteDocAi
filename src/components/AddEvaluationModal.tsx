@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Block M Migration (6 violations eliminated)
 
 import * as React from 'react';
@@ -198,3 +200,7 @@ export default AddEvaluationModal;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

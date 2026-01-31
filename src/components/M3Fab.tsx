@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 import React from "react";
 
 // MD3 Floating Action Button (FAB) — strict compliance
@@ -65,3 +67,7 @@ export const M3Fab: React.FC<M3FabProps> = ({
 };
 
 export default M3Fab;
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

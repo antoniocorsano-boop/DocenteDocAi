@@ -25,7 +25,7 @@ describe('colorUtils', () => {
   describe('getAvatarColors', () => {
     it('should return default palette for empty string', () => {
       const colors = getAvatarColors('');
-      expect(colors).toEqual({ bg: '#EADDFF', text: '#21005D' });
+      expect(colors).toEqual({ bg: 'var(--md-sys-color-primary-container)', text: 'var(--md-sys-color-on-primary-container)' });
     });
 
     it('should return a consistent palette for a string', () => {

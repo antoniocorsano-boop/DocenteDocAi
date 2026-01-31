@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 import { renderWithM3Theme } from '../ui/test-utils';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
@@ -61,3 +63,7 @@ describe('ProgettazioneHub Gantt integration', () => {
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

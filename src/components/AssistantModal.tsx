@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Block J Migration Complete (4 violations eliminated)
 // Note: Scrollable areas use viewport height tokens for functional UX
 import React, { useState, useRef, useEffect } from 'react';
@@ -491,3 +493,7 @@ export default AssistantModal;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

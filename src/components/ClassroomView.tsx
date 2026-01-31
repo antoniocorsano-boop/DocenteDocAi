@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Studente, MaterialeDidattico, KnowledgeBaseEntry, ClassroomViewProps, HomeworkStatus, ParticipationEntry } from '../types';
 import { PARTICIPATION_BADGES } from '../constants';
@@ -828,3 +830,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 
 export default ClassroomView;
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

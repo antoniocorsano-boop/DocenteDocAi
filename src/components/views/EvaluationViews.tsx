@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // LEGACY - MD3 Non-compliant
 /**
  * EvaluationViews.tsx
@@ -104,3 +106,7 @@ export const EvaluationViewsRenderer: React.FC<{
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

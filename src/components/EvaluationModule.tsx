@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, EvaluationModuleProps, Prova } from '../types';
 import AddProvaModal from './AddProvaModal';
@@ -591,3 +593,7 @@ export default React.memo(EvaluationModule);
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

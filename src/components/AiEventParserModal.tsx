@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Block I Migration (8 violations eliminated)
 
 import { M3Button, M3Dialog, M3DialogContent, M3DialogActions } from './ui';
@@ -89,3 +91,7 @@ export default AiEventParserModal;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

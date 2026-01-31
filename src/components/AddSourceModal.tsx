@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Block J Migration Complete (6 violations eliminated)
 // Note: Drop zone height uses var(--md-sys-spacing-48) for functional UX (closest MD3 token available)
 
@@ -176,3 +178,7 @@ export default AddSourceModal;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

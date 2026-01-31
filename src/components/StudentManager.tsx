@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Block J Migration Complete (1 violation eliminated)
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
@@ -325,3 +327,7 @@ export default StudentManager;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

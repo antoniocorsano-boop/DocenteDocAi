@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import BarChart from './BarChart';
@@ -209,3 +211,7 @@ export const UniformValues: Story = {
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

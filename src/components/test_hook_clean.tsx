@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // Test file for Phase 6 Hook Testing - Clean MD3 Compliant Code
 // This file follows MD3 guidelines to test successful commits
 
@@ -25,3 +27,7 @@ export const TestCleanComponent: React.FC = () => {
   );
 };
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

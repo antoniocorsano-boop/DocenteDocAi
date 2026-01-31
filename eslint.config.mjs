@@ -45,7 +45,8 @@ export default defineConfig([
       "**/*.spec.ts",
       "**/src_backup/**",
       "**/archive/**",
-      "**/scripts/**"
+      "**/scripts/**",
+      "process_tsx.js"
     ]
   },
   { 

@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Block O Migration Complete (7 violations eliminated)
 // Note: Font sizes (rem values) retained for typography and icons per MD3 policy
 
@@ -286,3 +288,7 @@ export default React.memo(FlowMode);
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

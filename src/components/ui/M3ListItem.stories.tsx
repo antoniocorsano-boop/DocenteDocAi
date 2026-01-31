@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
@@ -96,7 +98,7 @@ export const WithLeadingElement: Story = {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'white',
+          color: 'var(--md-sys-color-surface)',
         }}
       >
         ✓
@@ -116,7 +118,7 @@ export const WithTrailingElement: Story = {
       <div
         style={{
           backgroundColor: 'var(--md-sys-color-error)',
-          color: 'white',
+          color: 'var(--md-sys-color-surface)',
           borderRadius: 'var(--md-sys-spacing-3)',
           padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
           fontSize: 'var(--md-sys-typescale-body-small-size)',
@@ -166,3 +168,7 @@ export const Full: Story = {
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

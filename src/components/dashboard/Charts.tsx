@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 /**
  * Charts Components
  * Components for displaying performance metrics charts using Recharts
@@ -412,3 +414,7 @@ export const BundleSizeTrendChart: React.FC<ChartProps> = ({
     </div>
   );
 };
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

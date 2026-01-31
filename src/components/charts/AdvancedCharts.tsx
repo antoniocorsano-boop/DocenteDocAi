@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // LEGACY - MD3 Non-compliant
 
 import React from 'react';
@@ -206,3 +208,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

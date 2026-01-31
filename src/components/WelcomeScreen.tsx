@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 import React, { useState } from 'react';
 import Logo from './Logo';
 import { SCHOOL_TYPES_DISCIPLINES } from '../constants';
@@ -335,3 +337,7 @@ export default WelcomeScreen;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

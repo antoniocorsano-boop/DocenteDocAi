@@ -125,8 +125,8 @@
      =========================================== */
 
   /* Chart heights for dashboard components */
-  --app-chart-height-large: 300px;
-  --app-chart-height-medium: 250px;
+  --app-chart-height-large: var(--app-legacy-300px, 300px);
+  --app-chart-height-medium: var(--app-legacy-250px, 250px);
 
   /* ===========================================
      POSITIONING TOKENS

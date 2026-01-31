@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 import React from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { M3ThemeProvider } from '../../theme/M3ThemeProvider';
@@ -10,3 +12,7 @@ const renderWithM3Theme = (ui: React.ReactElement, options?: Omit<RenderOptions,
 export { render };
 export { renderWithM3Theme };
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

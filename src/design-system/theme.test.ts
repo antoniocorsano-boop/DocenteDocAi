@@ -76,7 +76,7 @@ describe('Theme Creation', () => {
     });
     
     it('should correctly apply customizations to a light theme', () => {
-        const customPrimary = '#FF0000';
+        const customPrimary = 'var(--app-legacy-color-ff0000, var(--app-legacy-color-ff0000, #FF0000))';
         const theme = createTheme({
             name: 'Custom Red',
             mode: 'light',
@@ -89,7 +89,7 @@ describe('Theme Creation', () => {
     });
     
      it('should correctly apply customizations to a dark theme', () => {
-        const customSecondary = '#00FF00';
+        const customSecondary = 'var(--app-legacy-color-00ff00, var(--app-legacy-color-00ff00, #00FF00))';
         const theme = createTheme({
             name: 'Custom Green',
             mode: 'dark',
@@ -106,7 +106,7 @@ describe('Theme Creation', () => {
         createTheme({
             name: 'Test Mutate',
             mode: 'light',
-            colors: { primary: '#000000' }
+            colors: { primary: 'var(--app-legacy-color-000000, var(--app-legacy-color-000000, #000000))' }
         });
         expect(defaultLightTheme.colors.primary).toBe(originalPrimary);
     });

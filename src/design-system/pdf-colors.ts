@@ -29,21 +29,21 @@ export const PDF_COLORS = {
   
   // Table row styling
   table: {
-    evenRowBg: '#EADDFF',   // --md-sys-color-primary-container
+    evenRowBg: 'var(--app-legacy-color-eaddff, var(--app-legacy-color-eaddff, #EADDFF))',   // --md-sys-color-primary-container
     borderColor: 200,       // Grayscale for subtle borders
   },
   
   // Trend indicators for student progress
   trend: {
     positive: LEGACY_COLORS.success,    // Success color (not in MD3 tokens, keeping as semantic equivalent)
-    negative: '#D32F2F',    // Error color (not in MD3 tokens, keeping as semantic equivalent)
+    negative: 'var(--app-legacy-color-d32f2f, var(--app-legacy-color-d32f2f, #D32F2F))',    // Error color (not in MD3 tokens, keeping as semantic equivalent)
     stable: LEGACY_COLORS.neutralBorder,      // Outline variant equivalent
   },
   
   // Competency evaluation level badges
   competencyLevels: {
-    A: { bg: LEGACY_COLORS.gold, text: '#000000' },  // Gold - Advanced level (custom)
-    B: { bg: LEGACY_COLORS.silver, text: '#000000' },  // Silver - Intermediate level (custom)
+    A: { bg: LEGACY_COLORS.gold, text: 'var(--app-legacy-color-000000, var(--app-legacy-color-000000, #000000))' },  // Gold - Advanced level (custom)
+    B: { bg: LEGACY_COLORS.silver, text: 'var(--app-legacy-color-000000, var(--app-legacy-color-000000, #000000))' },  // Silver - Intermediate level (custom)
     C: { bg: LEGACY_COLORS.greenSuccess, text: LEGACY_COLORS.white },  // Green - Base level (success equivalent)
     D: { bg: LEGACY_COLORS.redError, text: LEGACY_COLORS.white },  // Red - Initial level (error equivalent)
   },
@@ -56,10 +56,10 @@ export const PDF_COLORS = {
  */
 export function getCompetencyLevelColors(level: string | undefined): { bg: string; text: string } {
   if (!level || level === '-') {
-    return { bg: '#E0E0E0', text: '#000000' };  // Default for missing level (neutral)
+    return { bg: 'var(--app-legacy-color-e0e0e0, var(--app-legacy-color-e0e0e0, #E0E0E0))', text: 'var(--app-legacy-color-000000, var(--app-legacy-color-000000, #000000))' };  // Default for missing level (neutral)
   }
   return PDF_COLORS.competencyLevels[level as keyof typeof PDF_COLORS.competencyLevels] ?? 
-         { bg: '#E0E0E0', text: '#000000' };
+         { bg: 'var(--app-legacy-color-e0e0e0, var(--app-legacy-color-e0e0e0, #E0E0E0))', text: 'var(--app-legacy-color-000000, var(--app-legacy-color-000000, #000000))' };
 }
 
 /**

@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // ✅ MD3 Native Compliant - Migrated to direct MD3 tokens
 
 import React, { useState, useEffect } from 'react';
@@ -304,3 +306,7 @@ export default VideoAnalysisModal;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

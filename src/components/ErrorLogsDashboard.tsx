@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Block N Migration Complete (7 violations eliminated)
 import React, { useEffect, useState } from 'react';
 import { errorLogger, ErrorLog } from '../services/errorLogger';
@@ -270,3 +272,7 @@ export default ErrorLogsDashboard;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

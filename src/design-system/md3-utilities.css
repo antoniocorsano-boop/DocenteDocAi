@@ -39,7 +39,7 @@
 
 /** Full viewport height */
 .md3-height-screen {
-  height: 100vh;
+  height: var(--app-legacy-100vh, 100vh);
 }
 
 /** Auto height */

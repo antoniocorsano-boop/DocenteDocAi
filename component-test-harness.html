@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocenteDoc AI Component Test Harness</title>
+  <link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <div id="app"></div>
+
+  <script type="module">
+    import React from 'react';
+    import { createRoot } from 'react-dom/client';
+    import { BrowserRouter, Routes, Route, useSearchParams } from 'react-router-dom';
+    import { ThemeProvider } from './src/contexts/ThemeContext';
+    import { AuthProvider } from './src/contexts/AuthContext';
+
+    // Import our app components
+    import Card from './src/components/Card';
+    import Navigation from './src/components/Navigation';
+    import Home from './src/components/Home';
+    import Header from './src/components/Header';
+
+    // Component test wrapper
+    function ComponentTestWrapper({ component: ComponentName, variant }) {
+      const renderComponent = () => {
+        const props = { variant };
+
+        switch (ComponentName) {
+          case 'Card':
+            return <Card {...props} title="Test Card" content="This is a test card component" />;
+          case 'Navigation':
+            return <Navigation {...props} />;
+          case 'Home':
+            return <Home {...props} />;
+          case 'Header':
+            return <Header {...props} />;
+          default:
+            return <div>Component not found: {ComponentName}</div>;
+        }
+      };
+
+      return (
+        <div style={{
+          padding: '2rem',
+          minHeight: '100vh',
+          backgroundColor: 'var(--md-sys-color-surface)',
+          color: 'var(--md-sys-color-on-surface)'
+        }}>
+          <h1 style={{ marginBottom: '2rem', color: 'var(--md-sys-color-on-surface)' }}>
+            {ComponentName} Component - {variant || 'Default'} Variant
+          </h1>
+          {renderComponent()}
+        </div>
+      );
+    }
+
+    // Main test harness component
+    function TestHarness() {
+      const [searchParams] = useSearchParams();
+      const component = searchParams.get('component');
+      const variant = searchParams.get('variant');
+
+      if (!component) {
+        return (
+          <div style={{
+            padding: '2rem',
+            backgroundColor: 'var(--md-sys-color-surface)',
+            color: 'var(--md-sys-color-on-surface)',
+            minHeight: '100vh'
+          }}>
+            <h1>DocenteDoc AI Component Test Harness</h1>
+            <p>Select a component to test:</p>
+            <ul>
+              <li><a href="?component=Card">Card Component</a></li>
+              <li><a href="?component=Navigation">Navigation Component</a></li>
+              <li><a href="?component=Home">Home Component</a></li>
+              <li><a href="?component=Header">Header Component</a></li>
+            </ul>
+          </div>
+        );
+      }
+
+      return <ComponentTestWrapper component={component} variant={variant} />;
+    }
+
+    // Render the app
+    const root = createRoot(document.getElementById('app'));
+    root.render(
+      <ThemeProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <TestHarness />
+          </BrowserRouter>
+        </AuthProvider>
+      </ThemeProvider>
+    );
+  </script>
+</body>
+</html>

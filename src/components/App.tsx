@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
@@ -78,6 +80,7 @@ const App: React.FC = () => {
             onInstallApp={actions.handleInstallApp}
             onOpenOperations={() => setOpenModal('operations-center')}
             hasSuggestion={!!activeSuggestion}
+            onLogout={() => actions.setUser(null)}
         >
             <ErrorBoundary>
                 <ViewManager
@@ -182,3 +185,7 @@ const App: React.FC = () => {
 
 export { App };
 export default App;
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

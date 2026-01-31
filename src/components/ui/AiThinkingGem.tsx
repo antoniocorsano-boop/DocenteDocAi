@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - AiThinkingGem component with direct MD3 tokens
 import React from 'react';
 
@@ -129,3 +131,7 @@ export default AiThinkingGem;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

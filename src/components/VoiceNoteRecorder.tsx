@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Uses CSS custom properties for theming
 // MD3 Pure: Migrated to inline styles using MD3 tokens for voice recorder button states and interactions
 // All voice-note-recorder-* classes removed in favor of token-based styling
@@ -271,3 +273,7 @@ export default VoiceNoteRecorder;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

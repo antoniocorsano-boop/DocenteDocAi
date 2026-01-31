@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // LEGACY - MD3 Non-compliant
 
 // M3Expressive: QuickNotePopover - Quick note input popover with voice recording
@@ -89,3 +91,7 @@ export default QuickNotePopover;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

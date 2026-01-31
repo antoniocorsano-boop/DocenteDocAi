@@ -1,6 +1,8 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // ✅ MD3 Native Compliant - Migrated from useTheme to direct MD3 tokens
 import React from 'react';
-import M3Typography from './M3Typography';
+import { M3Typography } from './index';
 import M3Button from './M3Button';
 
 // MD3 Token Constants - Direct CSS Variables
@@ -288,3 +290,7 @@ EXAMPLE MIGRATION (TextField):
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

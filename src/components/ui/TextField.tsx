@@ -1,9 +1,11 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Fully migrated to MD3 tokens
 // @md3-compliant
 // @migrated
 
 import React, { InputHTMLAttributes, useState } from 'react';
-import M3Typography from './M3Typography';
+import { M3Typography } from './';
 // ...existing code...
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -195,3 +197,7 @@ export default TextField;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

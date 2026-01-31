@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 import React from 'react';
 import { View } from '../types';
 
@@ -60,3 +62,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
 };
 
 export default BottomNav;
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Block P Migration Complete (4 violations eliminated)
 // Note: Button typography and icon sizing retained with eslint-disable comments
 import React, { useState } from 'react';
@@ -77,3 +79,7 @@ export default ImageGeneratorModal;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

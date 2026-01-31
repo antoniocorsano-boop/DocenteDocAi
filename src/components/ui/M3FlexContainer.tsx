@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Gold Compliant
 // FlexContainer - Explicit flex layout component using MD3 tokens only
 import React from 'react';
@@ -49,3 +51,7 @@ export const M3FlexContainer: React.FC<M3FlexContainerProps> = ({
 };
 
 export default M3FlexContainer;
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

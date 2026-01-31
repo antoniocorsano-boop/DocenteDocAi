@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Uses M3Dialog components
 /**
  * UniversalModal - MD3 Compliant Modal Component
@@ -45,3 +47,7 @@ export default UniversalModal;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

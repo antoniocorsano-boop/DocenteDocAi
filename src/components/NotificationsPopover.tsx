@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // ✅ MD3 Compliant
 // M3Expressive: NotificationsPopover - Notifications display popover with M3 tokens
 import React from 'react';
@@ -375,3 +377,7 @@ export default NotificationsPopover;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

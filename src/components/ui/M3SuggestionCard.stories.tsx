@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Block G Migration (14 violations eliminated)
 // @legacy
 // @md3-noncompliant
@@ -7,7 +9,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import M3SuggestionCard from './M3SuggestionCard';
-import M3Typography from './M3Typography';
+import { M3Typography } from './index';
 
 export const meta: Meta<typeof M3SuggestionCard> = {
   component: M3SuggestionCard,
@@ -73,3 +75,7 @@ export const CodeSuggestion: Story = {
   },
 };
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Updated for layered theme access
 /**
  * ActionTile Component - MD3 Compliant
@@ -11,7 +13,7 @@
  */
 
 import React, { useState } from 'react';
-import M3Typography from './M3Typography';
+import { M3Typography } from './index';
 
 interface ActionTileProps {
     title: string;
@@ -218,3 +220,7 @@ export default ActionTile;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

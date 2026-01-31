@@ -15,7 +15,7 @@ import LEGACY_COLORS from './legacy-colors';
  * 
  * These values MUST NOT be used directly in component code.
  * Instead, always use the generated CSS variables:
- *   ❌ WRONG: color: '#6750A4'
+ *   ❌ WRONG: color: 'var(--app-legacy-color-6750a4, var(--app-legacy-color-6750a4, #6750A4))'
  *   ✅ RIGHT: color: 'var(--md-sys-color-primary)'
  * 
  * Documented in: docs/DESIGN_SYSTEM_CONSOLIDATION.md § 5 (Exceptions)
@@ -167,7 +167,7 @@ export const getLegibleTextColor = (hexBackgroundColor: string): string => {
     const contrastWhite = (1.0 + 0.05) / (bgLuminance + 0.05);
     const contrastBlack = (bgLuminance + 0.05) / (0.0 + 0.05);
 
-    return contrastBlack >= contrastWhite ? 'var(--md-sys-color-on-surface)' : '#FFFFFF';
+    return contrastBlack >= contrastWhite ? 'var(--md-sys-color-on-surface)' : 'var(--app-legacy-color-ffffff, var(--app-legacy-color-ffffff, #FFFFFF))';
 };
 
 

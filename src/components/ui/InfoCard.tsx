@@ -1,7 +1,9 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - InfoCard component with layered theme destructuring
 import React from 'react';
 import M3Card from './M3Card';
-import M3Typography from './M3Typography';
+import { M3Typography } from './index';
 
 interface InfoCardProps {
     title?: string;
@@ -150,3 +152,7 @@ export default InfoCard;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

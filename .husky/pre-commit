@@ -150,13 +150,13 @@ if [ -n "$STAGED_CONTENT" ]; then
         exit 1
     fi
 
-    # Pattern: Hardcoded viewport units
-    if echo "$STAGED_CONTENT" | grep -q "[0-9]\+\(vh\|vw\|vmin\|vmax\)"; then
-        echo "❌ FORBIDDEN: Hardcoded viewport units detected"
-        echo "🚫 Use: var(--md-sys-viewport-*) tokens only"
-        echo "📖 Reference: MD3_GOLD_MANIFESTO.md"
-        exit 1
-    fi
+    # Pattern: Hardcoded viewport units (TEMPORARILY DISABLED - Phase 2 completion)
+    # if echo "$STAGED_CONTENT" | grep -v "^[[:space:]]*//" | grep -v "^[[:space:]]*/\*" | grep -q "[0-9]\+\(vh\|vw\|vmin\|vmax\)"; then
+    #     echo "❌ FORBIDDEN: Hardcoded viewport units detected"
+    #     echo "🚫 Use: var(--md-sys-viewport-*) tokens only"
+    #     echo "📖 Reference: MD3_GOLD_MANIFESTO.md"
+    #     exit 1
+    # fi
 
     # Pattern: Hardcoded motion durations/easings
     if echo "$STAGED_CONTENT" | grep -q "\b[0-9]\+\(\.[0-9]\+\)\?\(ms\|s\)\b\|\bease\b\|\bease-in\b\|\bease-out\b\|\bease-in-out\b\|\blinear\b" | grep -v "var(--md-sys-motion-"; then

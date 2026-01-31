@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant
 import React, { useState, useMemo } from 'react';
 import { Lezione, RegisterEntry, Studente, Valutazione } from '../types';
@@ -50,7 +52,6 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
             title="Esporta per Registro"
             onClose={onClose}
             maxWidth="md"
-            level={1}
         >
             <M3DialogContent >
                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
@@ -61,7 +62,6 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                             if (id === 'text' || id === 'json') setActiveTab(id);
                         }}
                         variant="primary"
-                        style={{ width: "var(--md-sys-percent-100)" }}
                     />
                 </div>
 
@@ -116,3 +116,7 @@ export default CopyForRegisterModal;
 
 
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X

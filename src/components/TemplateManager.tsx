@@ -1,3 +1,5 @@
+/* GENERATED: MD3 Platinum Recovery - DO NOT EDIT MANUALLY */
+
 // MD3 Compliant - Block J Migration Complete (4 violations eliminated)
 // Note: minmax(calc(var(--md-sys-spacing-20) * 3.5), 1fr) used for functional grid layout with MD3 spacing token
 import React, { useState, useMemo } from 'react';
@@ -235,3 +237,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
 
 export default TemplateManager;
 
+
+
+
+// TODO: Add Playwright snapshot test and link to CHECKLIST.md phase X
