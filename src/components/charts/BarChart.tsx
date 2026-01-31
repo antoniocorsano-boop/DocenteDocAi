@@ -38,27 +38,22 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
   };
   
   const renderVertical = () => (
-    <svg width="100%" height={chartHeight} viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="xMidYMid meet">
+    <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="xMidYMid meet">
       {data.map((d, i) => {
         const barHeight = (d.value / maxValue) * chartHeight;
         return (
           <g key={d.label}>
-            <rect
-              
-              x={i * (barWidth + barMargin)}
-              y={chartHeight - barHeight}
-              width={barWidth}
-              height={barHeight}
-              fill={color}
-              rx={4}
-              onMouseMove={(e) => handleMouseOver(e, d)}
-              onMouseLeave={handleMouseOut}
-            />
+                <path
+                  d={`M ${i * (barWidth + barMargin)} ${chartHeight - barHeight} h ${barWidth} v ${barHeight} h -${barWidth} Z`}
+                  fill={color}
+                  onMouseMove={(e) => handleMouseOver(e, d)}
+                  onMouseLeave={handleMouseOut}
+                />
             <text
               x={i * (barWidth + barMargin) + barWidth / 2}
               y={chartHeight - 5}
               textAnchor="middle"
-              fontSize="var(--app-text-body)"
+              fontSize="var(--md-sys-typescale-body-large-font-size)"
               fill="var(--md-sys-color-onSurface-variant)"
               
             >
@@ -74,7 +69,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
     const rowHeight = (chartHeight / data.length);
     const barHeight = rowHeight * 0.7;
     return (
-        <svg width="100%" height={chartHeight} viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="xMidYMid meet">
+        <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="xMidYMid meet">
             {data.map((d, i) => {
                 const yPos = i * rowHeight;
                 const barLength = (d.value / maxValue) * (chartWidth - LABEL_SPACE); // LABEL_SPACE for labels
@@ -84,28 +79,23 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
                             x={0}
                             y={yPos + rowHeight / 2}
                             dominantBaseline="middle"
-                            fontSize="var(--app-text-body)"
+                            fontSize="var(--md-sys-typescale-body-large-font-size)"
                             fill="var(--md-sys-color-onSurface-variant)"
                             
                         >
                             {d.label}
                         </text>
-                        <rect
-                            
-                            x={80}
-                            y={yPos + (rowHeight - barHeight) / 2}
-                            width={barLength}
-                            height={barHeight}
-                            fill={color}
-                            onMouseMove={(e) => handleMouseOver(e, d)}
-                            onMouseLeave={handleMouseOut}
-                            rx={4}
+                        <path
+                          d={`${'M'} ${80} ${yPos + (rowHeight - barHeight) / 2} h ${barLength} v ${barHeight} h -${barLength} Z`}
+                          fill={color}
+                          onMouseMove={(e) => handleMouseOver(e, d)}
+                          onMouseLeave={handleMouseOut}
                         />
                         <text
                              x={85 + barLength}
                              y={yPos + rowHeight / 2}
                              dominantBaseline="middle"
-                             fontSize="var(--app-text-body)"
+                             fontSize="var(--md-sys-typescale-body-large-font-size)"
                              fill="var(--md-sys-color-onSurface)"
                              fontWeight="bold"
                              

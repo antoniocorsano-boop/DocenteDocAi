@@ -76,47 +76,47 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
     };
 
     return (
-        <section style={{padding: 'var(--app-spacing-section)',
-            maxWidth: 'var(--app-spacing-container)',
-            margin: 'var(--app-layout-auto)'}}>
+        <section style={{padding: 'var(--md-sys-spacing-6)',
+            maxWidth: 'var(--md-sys-spacing-4)',
+            margin: 'var(--md-sys-margin-auto)'}}>
             <M3Typography variant="headline-small" style={{display: 'flex',
                 alignItems: 'center',
-                gap: 'var(--app-spacing-element)',
-                marginBottom: 'var(--app-spacing-section)',
-                color: 'var(--app-color-on-surface)',
+                gap: 'var(--md-sys-spacing-3)',
+                marginBottom: 'var(--md-sys-spacing-6)',
+                color: 'var(--md-sys-color-on-surface)',
                 fontWeight: 900}}>
                 <span style={{
   fontFamily: 'Material Symbols Outlined'
-, fontSize: 'var(--app-spacing-container)',
-                    color: 'var(--app-color-secondary)'}}>alt_route</span>
+, fontSize: 'var(--md-sys-spacing-4)',
+                    color: 'var(--md-sys-color-secondary)'}}>alt_route</span>
                 Percorsi Veloci
             </M3Typography>
             <div style={{display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-workflow-card-min-width), var(--md-sys-grid-fr-1)))',
-                gap: 'var(--app-spacing-section)'}}>
+                gap: 'var(--md-sys-spacing-6)'}}>
                 {workflows.map((workflow) => (
                     <div key={workflow.id} style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                         borderRadius: 'var(--md-sys-shape-corner-extra)',
-                        border: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)',
+                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                         overflow: 'hidden',
                         backdropFilter: 'blur(var(--md-sys-blur-20))',
                         boxShadow: 'var(--md-sys-elevation-level1)',
-                        transition: `all var(--app-motion-standard) var(--app-easing-standard)`}}>
+                        transition: `all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`}}>
                         <details  style={{
-                            width: 'var(--app-layout-full)'
+                            width: 'var(--md-sys-percent-100)'
                         }}>
                             <summary style={{display: 'flex',
                                 alignItems: 'center',
-                                gap: 'var(--app-spacing-container)',
-                                padding: 'var(--app-spacing-touch)',
+                                gap: 'var(--md-sys-spacing-4)',
+                                padding: 'var(--md-sys-spacing-5)',
                                 cursor: 'pointer',
                                 listStyle: 'none',
                                 backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                                borderBottom: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)',
-                                transition: `background-color var(--md-sys-motion-duration-short2) var(--app-easing-standard)`}}>
+                                borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
+                                transition: `background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}>
                                 <div style={{
-                                    width: 'var(--app-spacing-container)',
-                                    height: 'var(--app-spacing-container)',
+                                    width: 'var(--md-sys-spacing-4)',
+                                    height: 'var(--md-sys-spacing-4)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
                                     display: 'flex',
                                     alignItems: 'center',
@@ -128,59 +128,59 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                     <span style={{
   fontFamily: 'Material Symbols Outlined'
 , 
-                                        fontSize: 'var(--app-spacing-container)'
+                                        fontSize: 'var(--md-sys-spacing-4)'
                                     }}>{workflow.icon}</span>
                                 </div>
                                 <div style={{
                                     flex: 1,
                                     minWidth: 0
                                 }}>
-                                    <M3Typography variant="title-large" style={{color: 'var(--app-color-on-surface)',
+                                    <M3Typography variant="title-large" style={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 600,
                                         margin: 0,
                                         marginBottom: 'var(--md-sys-spacing-1)'}}>{workflow.title}</M3Typography>
-                                    <M3Typography variant="body-medium" style={{color: 'var(--app-color-on-surface)',
+                                    <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface)',
                                         margin: 0}}>{workflow.description}</M3Typography>
                                 </div>
                                 <span style={{
   fontFamily: 'Material Symbols Outlined'
-, color: 'var(--app-color-on-surface)',
-                                    fontSize: 'var(--app-spacing-container)',
-                                    transition: `transform var(--md-sys-motion-duration-short2) var(--app-easing-standard)`,
+, color: 'var(--md-sys-color-on-surface)',
+                                    fontSize: 'var(--md-sys-spacing-4)',
+                                    transition: `transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
                                     transform: 'rotate(0deg)'}}>expand_more</span>
                             </summary>
-                            <div style={{padding: 'var(--app-spacing-touch)',
+                            <div style={{padding: 'var(--md-sys-spacing-5)',
                                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                                borderTop: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)'}}>
+                                borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'}}>
                                 <ol style={{margin: 0,
-                                    paddingLeft: 'var(--app-spacing-touch)',
-                                    marginBottom: 'var(--app-spacing-touch)',
+                                    paddingLeft: 'var(--md-sys-spacing-5)',
+                                    marginBottom: 'var(--md-sys-spacing-5)',
                                     listStyle: 'none',
                                     counterReset: 'step-counter'}}>
                                     {workflow.steps.map((step, stepIndex) => (
                                         <li key={stepIndex} style={{display: 'flex',
                                             alignItems: 'flex-start',
-                                            gap: 'var(--app-spacing-element)',
-                                            marginBottom: 'var(--app-spacing-element)',
+                                            gap: 'var(--md-sys-spacing-3)',
+                                            marginBottom: 'var(--md-sys-spacing-3)',
                                             counterIncrement: 'step-counter',
                                             position: 'relative'}}>
                                             <div style={{
-                                                width: 'var(--app-spacing-container)',
-                                                height: 'var(--app-spacing-container)',
-                                                borderRadius: 'var(--app-layout-half)',
+                                                width: 'var(--md-sys-spacing-4)',
+                                                height: 'var(--md-sys-spacing-4)',
+                                                borderRadius: 'var(--md-sys-percent-50)',
                                                 backgroundColor: `var(--md-sys-color-${workflow.themeColor}-container)`,
                                                 color: `var(--md-sys-color-on-${workflow.themeColor}-container)`,
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
-                                                fontSize: 'var(--app-spacing-container)',
+                                                fontSize: 'var(--md-sys-spacing-4)',
                                                 fontWeight: 600,
                                                 flexShrink: 0,
-                                                marginTop: 'var(--app-spacing-container)'
+                                                marginTop: 'var(--md-sys-spacing-4)'
                                             }}>
                                                 {stepIndex + 1}
                                             </div>
-                                            <M3Typography variant="body-medium" style={{color: 'var(--app-color-on-surface)',
+                                            <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface)',
                                                 margin: 0,
                                                 lineHeight: 1.5}} dangerouslySetInnerHTML={{ __html: step }} />
                                         </li>
@@ -189,20 +189,20 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                 <button
                                     onClick={() => handleAction(workflow)}
                                     style={{
-                                        width: 'var(--app-layout-full)',
-                                        padding: 'var(--app-spacing-container)',
+                                        width: 'var(--md-sys-percent-100)',
+                                        padding: 'var(--md-sys-spacing-4)',
                                         borderRadius: 'var(--md-sys-shape-corner-large)',
                                         border: 'none',
                                         backgroundColor: `var(--md-sys-color-${workflow.themeColor})`,
                                         color: `var(--md-sys-color-on-${workflow.themeColor})`,
-                                        fontSize: 'var(--app-text-label)',
+                                        fontSize: 'var(--md-sys-typescale-label-large-font-size)',
                                         fontWeight: 600,
                                         cursor: 'pointer',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        gap: 'var(--app-spacing-component)',
-                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)',
+                                        gap: 'var(--md-sys-spacing-2)',
+                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                         textDecoration: 'none'
                                     }}
                                     onMouseEnter={() => {
@@ -217,7 +217,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                     Avvia Percorso <span style={{
   fontFamily: 'Material Symbols Outlined'
 , 
-                                        fontSize: 'var(--app-spacing-container)'
+                                        fontSize: 'var(--md-sys-spacing-4)'
                                     }}>arrow_forward</span>
                                 </button>
                             </div>

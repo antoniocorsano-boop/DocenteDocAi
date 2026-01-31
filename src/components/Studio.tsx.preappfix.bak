@@ -1,0 +1,392 @@
+// MD3 GOLD COMPLIANT – Audit 2026-01-25
+// Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
+// Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
+// M3Expressive refactor: Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// ...vite-env.d.ts should not be imported directly...
+/**
+ * Studio.tsx
+ * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
+ */
+
+import React, { useState, useEffect } from 'react';
+import { KnowledgeBaseEntry, StudioProps, GeneratedQuiz } from '../types'; 
+import { generateStudioOutput, generateFormattedDocument, generateImageFromPrompt, generateQuiz } from '../services/aiService';
+import DocumentGeneratorModal from './DocumentGeneratorModal';
+import ImageGeneratorModal from './ImageGeneratorModal';
+import TestGeneratorModal from './TestGeneratorModal';
+import TestPreviewModal from './TestPreviewModal';
+import Guidance from './Guidance';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SelectField, AiThinkingGem } from './ui';
+type StudioTask = 'summary' | 'key_points' | 'qa' | 'flashcards' | 'presentation' | 'document' | 'image' | 'quiz';
+
+interface StudioAction {
+  id: StudioTask;
+  icon: string;
+  title: string;
+  description: string;
+  requiresContent: boolean;
+  category: 'generation' | 'analysis';
+  variant: 'variant-primary' | 'variant-secondary' | 'variant-tertiary' | 'variant-surface';
+}
+
+const studioActions: StudioAction[] = [
+    // Generazione
+    { id: 'image', icon: 'add_photo_alternate', title: 'Genera Immagine', description: 'Crea un\'immagine da una descrizione testuale.', requiresContent: false, category: 'generation', variant: 'variant-primary' },
+    { id: 'document', icon: 'article', title: 'Crea Documento', description: 'Genera un documento formattato (es. relazione) da un prompt.', requiresContent: true, category: 'generation', variant: 'variant-tertiary' },
+    { id: 'quiz', icon: 'assignment_add', title: 'Genera Verifica', description: 'Crea un test pronto per la stampa con griglia di correzione.', requiresContent: true, category: 'generation', variant: 'variant-primary' },
+    { id: 'presentation', icon: 'slideshow', title: 'Bozza Presentazione', description: 'Struttura una presentazione con slide.', requiresContent: true, category: 'generation', variant: 'variant-tertiary' },
+    { id: 'flashcards', icon: 'style', title: 'Crea Flashcard', description: 'Produci flashcard per il ripasso.', requiresContent: true, category: 'generation', variant: 'variant-surface' },
+    
+    // Analisi
+    { id: 'summary', icon: 'summarize', title: 'Crea Riassunto', description: 'Genera un riassunto conciso e strutturato.', requiresContent: true, category: 'analysis', variant: 'variant-secondary' },
+    { id: 'key_points', icon: 'key', title: 'Estrai Punti Chiave', description: 'Identifica i concetti più importanti.', requiresContent: true, category: 'analysis', variant: 'variant-secondary' },
+    { id: 'qa', icon: 'quiz', title: 'Genera Domande', description: 'Crea domande e risposte per la verifica.', requiresContent: true, category: 'analysis', variant: 'variant-surface' },
+];
+
+
+export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowledgeBase, aiSettings, onOpenCreateLesson, showToast, showGuidanceTips, onAiProcessing }) => {
+    const [selectedCorpusId, setSelectedCorpusId] = useState<string>('');
+        const [selectedFileIds, setSelectedFileIds] = useState<string[]>([]);
+        const [isLoading, setIsLoading] = useState(false);
+        const [loadingTaskName, setLoadingTaskName] = useState('');
+    
+    // States for modal dialogs
+    const [isDocumentGeneratorOpen, setIsDocumentGeneratorOpen] = useState(false);
+    const [isImageGeneratorOpen, setIsImageGeneratorOpen] = useState(false);
+    const [isTestGeneratorOpen, setIsTestGeneratorOpen] = useState(false);
+    const [generatedQuiz, setGeneratedQuiz] = useState<GeneratedQuiz | null>(null);
+
+    // API Key states for Imagen model
+    const [hasApiKey, setHasApiKey] = useState<boolean | null>(null);
+    const [isKeySelectionOpen, setIsKeySelectionOpen] = useState(false);
+
+    useEffect(() => {
+        // Check for API key status for Imagen models
+        const localKey = localStorage.getItem('gemini_api_key');
+        if (localKey) {
+            setHasApiKey(true);
+        } else if ((window as any).aistudio) {
+            (window as any).aistudio.hasSelectedApiKey().then(setHasApiKey);
+        } else {
+            setHasApiKey(false);
+        }
+    }, []);
+    
+    const availableFiles = knowledgeBase.filter(entry => 
+        !selectedCorpusId || entry.corpusId === selectedCorpusId
+    );
+
+    const handleFileToggle = (fileId: string) => {
+        setSelectedFileIds(prev => 
+            prev.includes(fileId) ? prev.filter(id => id !== fileId) : [...prev, fileId]
+        );
+    };
+
+    const runTask = async (task: StudioTask, prompt?: string, extraConfig?: unknown) => {
+        const action = studioActions.find(a => a.id === task);
+        if (action?.requiresContent && selectedFileIds.length === 0) {
+            showToast('Seleziona almeno un documento dalla Knowledge Base per eseguire questa azione.', 'error');
+            return;
+        }
+
+        if (task === 'image' && !hasApiKey) {
+            setIsKeySelectionOpen(true);
+            return;
+        }
+
+        setIsLoading(true);
+        setLoadingTaskName(action?.title || 'Elaborazione...');
+        if (onAiProcessing) onAiProcessing(true); // Start Animation
+
+        try {
+            const contextContent = knowledgeBase
+                .filter(entry => selectedFileIds.includes(entry.id))
+                .map(entry => `--- Contenuto da: ${entry.fileName} ---\n${entry.content}`)
+                .join('\n\n');
+
+            let title: string = '';
+            let htmlContent: string = '';
+
+            if (task === 'image') {
+                if (!prompt) {
+                     showToast('Il prompt per l\'immagine non può essere vuoto.', 'error');
+                     return;
+                }
+                const { data, mimeType } = await generateImageFromPrompt(aiSettings, prompt);
+                
+                // Check for duplicates created in the last 2 seconds to prevent double-save in StrictMode
+                const isDuplicate = knowledgeBase.some(entry => 
+                    entry.content === prompt && 
+                    entry.isGenerated && 
+                    entry.fileContent?.mimeType === mimeType &&
+                    (Date.now() - parseInt(entry.id.split('-')[2] || '0')) < 2000
+                );
+
+                if (!isDuplicate) {
+                    const newEntry: KnowledgeBaseEntry = {
+                        id: `kb-img-${Date.now()}`,
+                        fileName: `${prompt.substring(0, 30)}.jpg`,
+                        content: prompt, // Store prompt in content
+                        isGenerated: true,
+                        fileContent: { mimeType, data },
+                        corpusId: selectedCorpusId || undefined,
+                    };
+                    setKnowledgeBase(prev => [...prev, newEntry]);
+                    showToast('Immagine generata e salvata nella Knowledge Base!', 'success');
+                }
+                
+                setIsLoading(false);
+                if (onAiProcessing) onAiProcessing(false);
+                setIsImageGeneratorOpen(false);
+                return;
+
+            } else if (task === 'quiz') {
+                const quiz = await generateQuiz(aiSettings, contextContent, extraConfig);
+                setGeneratedQuiz(quiz);
+                setIsLoading(false);
+                if (onAiProcessing) onAiProcessing(false);
+                setIsTestGeneratorOpen(false);
+                return;
+
+            } else if (task === 'document') {
+                if (!prompt) {
+                    showToast('Il prompt per il documento non può essere vuoto.', 'error');
+                    return;
+                }
+                title = prompt;
+                htmlContent = await generateFormattedDocument(aiSettings, contextContent, prompt);
+                setIsDocumentGeneratorOpen(false);
+            } else {
+                if (!action) throw new Error("Azione non valida");
+                title = action.title;
+                htmlContent = await generateStudioOutput(aiSettings, contextContent, task);
+            }
+            onOpenCreateLesson({ title, htmlContent });
+        } catch (error: unknown) {
+            let message = 'Si è verificato un errore.';
+            if (error instanceof Error) {
+                message = error.message;
+                if (error.message.includes("Requested entity was not found.") || error.message.includes("API Key")) {
+                    setHasApiKey(false); // Assume API key issue
+                    setIsKeySelectionOpen(true);
+                }
+            }
+            showToast(message, 'error');
+        } finally {
+            setIsLoading(false);
+            setLoadingTaskName('');
+            if (onAiProcessing) onAiProcessing(false); // Stop Animation
+        }
+    };
+
+    const renderActionGrid = (actions: StudioAction[]) => (
+        <div >
+            {actions.map((action) => (
+                <button
+                    key={action.id}
+                    onClick={() => {
+                        if (action.id === 'document') setIsDocumentGeneratorOpen(true);
+                        else if (action.id === 'image') setIsImageGeneratorOpen(true);
+                        else if (action.id === 'quiz') setIsTestGeneratorOpen(true);
+                        else runTask(action.id);
+                    }}
+                    style={{
+                        // studio-action-card styles
+                        backgroundColor: 'var(--md-sys-color-surface-container)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        padding: 'var(--md-sys-spacing-4)',
+                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
+                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
+                        cursor: 'pointer'
+                    }}
+                    disabled={isLoading || (action.requiresContent && selectedFileIds.length === 0) || (action.id === 'image' && hasApiKey === false)}
+                    title={(action.id === 'image' && hasApiKey === false) ? "API Key richiesta per la generazione di immagini." : (action.requiresContent && selectedFileIds.length === 0 ? "Seleziona almeno un documento per abilitare questa azione" : action.description)}
+                >
+                    <div >
+                        <span >{action.icon}</span>
+                        {action.requiresContent && (
+                            <span >
+                                Input KB
+                            </span>
+                        )}
+                    </div>
+                    <span >{action.title}</span>
+                    <span >{action.description}</span>
+                </button>
+            ))}
+        </div>
+    );
+
+    const handleSelectKey = async () => {
+        if ((window as any).aistudio) {
+            await (window as any).aistudio.openSelectKey();
+            setHasApiKey(true);
+        } else {
+            showToast("Per favore configura l'API Key nelle Impostazioni.", "error");
+        }
+        setIsKeySelectionOpen(false);
+    };
+
+    return (
+        <div >
+            <div >
+                <div >
+                    <h1 >Studio AI</h1>
+                    <p >Laboratorio per trasformare e generare contenuti con il tuo contesto.</p>
+                </div>
+            </div>
+            
+             <Guidance id="studio-ai-intro" icon="auto_fix_high" title="Il tuo Laboratorio Creativo" isGloballyEnabled={showGuidanceTips}>
+                <p>
+                    Usa lo Studio AI come un laboratorio per trasformare i tuoi materiali. Seleziona i documenti di partenza (il contesto), poi scegli un'azione. L'AI genererà nuovi contenuti (riassunti, presentazioni, verifiche) che potrai trasformare in lezioni o esportare.
+                </p>
+            </Guidance>
+            
+            {/* API Key Warning for Imagen models */}
+            {isKeySelectionOpen && (
+                <M3Dialog
+                    title="API Key Richiesta"
+                    onClose={() => setIsKeySelectionOpen(false)}
+                    maxWidth="sm"
+                    level={2}
+                >
+                    <M3DialogContent >
+                        <p >
+                            Per utilizzare la generazione di immagini e video (modelli Imagen/Veo), è necessaria una API Key abilitata al billing.
+                        </p>
+                        <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer" >
+                            <span >info</span>
+                            Scopri di più sul billing
+                        </a>
+                    </M3DialogContent>
+                    <M3DialogActions>
+                        <M3Button onClick={() => setIsKeySelectionOpen(false)} variant="text">Annulla</M3Button>
+                        {typeof (window as any).aistudio !== 'undefined' && (
+                            <M3Button onClick={handleSelectKey} variant="filled">Seleziona API Key (Demo)</M3Button>
+                        )}
+                    </M3DialogActions>
+                </M3Dialog>
+            )}
+
+            {/* Context Selection Card */}
+            <div >
+                <h2  style={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
+                    <span  style={{color: "var(--md-sys-color-primary)"}}>folder_open</span>
+                    1. Seleziona Contesto (Knowledge Base)
+                </h2>
+                <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                    <div  style={{ flexGrow: "1" }}>
+                        <SelectField 
+                            label="Filtra per Set di Documenti"
+                            value={selectedCorpusId} 
+                            onChange={e => { setSelectedCorpusId(e.target.value); setSelectedFileIds([]); }} 
+                            options={[
+                                { value: '', label: `Tutti i Documenti (${knowledgeBase.length})` },
+                                ...corpora.map(c => ({ value: c.id, label: c.displayName }))
+                            ]}
+                        />
+                    </div>
+                     <div  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>attachment</span>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "bold" }}>
+                            {selectedFileIds.length} file selezionati
+                        </p>
+                    </div>
+                </div>
+
+                {/* Centralized Selection Container */}
+                <div >
+                    {availableFiles.map(entry => (
+                        <div key={entry.id} >
+                            <input type="checkbox" id={`studio-file-${entry.id}`} checked={selectedFileIds.includes(entry.id)} onChange={() => handleFileToggle(entry.id)} />
+                            <label htmlFor={`studio-file-${entry.id}`} >
+                                {selectedFileIds.includes(entry.id) && <span  style={{ fontSize: 'var(--app-text-title)' }}>check</span>}
+                                <span  style={{color: "var(--md-sys-color-primary)", fontSize: 'var(--md-sys-spacing-4)'}}>{entry.isGenerated ? 'auto_awesome' : 'description'}</span>
+                                <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{entry.fileName}</span>
+                            </label>
+                        </div>
+                    ))}
+                    {availableFiles.length === 0 && (
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--app-text-body)', padding: 'var(--md-sys-spacing-8)'}}>Nessun file disponibile in questo set.</p>
+                    )}
+                </div>
+            </div>
+
+            {/* Loading State */}
+            {isLoading && (
+                <div style={{ padding: 'var(--md-sys-spacing-4)' ,  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                    <AiThinkingGem size="large" text={loadingTaskName || "L'AI sta lavorando..."} />
+                </div>
+            )}
+
+            {/* Actions Cards - Visible only when not loading */}
+            {!isLoading && (
+                <div >
+                    {/* Generation Card */}
+                    <div  style={{ height: 'var(--md-sys-percent-100)' }}>
+                        <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
+                            <h2  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
+                                <span  style={{color: "var(--md-sys-color-tertiary)"}}>design_services</span>
+                                Generazione & Creatività
+                            </h2>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Crea nuovi contenuti didattici.</p>
+                        </div>
+                        {renderActionGrid(studioActions.filter(a => a.category === 'generation'))}
+                    </div>
+
+                    {/* Analysis Card */}
+                    <div  style={{ height: 'var(--md-sys-percent-100)' }}>
+                        <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
+                            <h2  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
+                                <span  style={{color: "var(--md-sys-color-secondary)"}}>analytics</span>
+                                Analisi & Sintesi
+                            </h2>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Rielabora e comprendi i documenti.</p>
+                        </div>
+                        {renderActionGrid(studioActions.filter(a => a.category === 'analysis'))}
+                    </div>
+                </div>
+            )}
+            
+            {/* Modals */}
+            {isDocumentGeneratorOpen && (
+                <DocumentGeneratorModal 
+                    onClose={() => setIsDocumentGeneratorOpen(false)}
+                    onGenerate={(prompt) => runTask('document', prompt)}
+                />
+            )}
+
+            {isImageGeneratorOpen && (
+                <ImageGeneratorModal
+                    onClose={() => setIsImageGeneratorOpen(false)}
+                    onGenerate={(prompt) => runTask('image', prompt)}
+                />
+            )}
+
+            {isTestGeneratorOpen && (
+                <TestGeneratorModal
+                    onClose={() => setIsTestGeneratorOpen(false)}
+                    onGenerate={(config) => runTask('quiz', config)}
+                />
+            )}
+
+            {generatedQuiz && (
+                <TestPreviewModal
+                    quiz={generatedQuiz}
+                    onClose={() => setGeneratedQuiz(null)}
+                />
+            )}
+        </div>
+    );
+};
+
+export default Studio;
+
+
+
+
+
+
+
+

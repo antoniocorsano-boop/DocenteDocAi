@@ -14,38 +14,38 @@ interface UseCaseCardProps {
 const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
     return (
         <div style={{
-            backgroundColor: 'var(--app-color-surface)',
+            backgroundColor: 'var(--md-sys-color-surface)',
             borderRadius: 'var(--md-sys-shape-corner-medium)',
-            padding: 'var(--app-spacing-section)',
-            border: 'var(--app-border-normal) solid var(--md-sys-color-outline)'
+            padding: 'var(--md-sys-spacing-6)',
+            border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
         }}>
             <div style={{
                 display: "flex",
                 alignItems: "center",
-                gap: 'var(--app-spacing-section)',
+                gap: 'var(--md-sys-spacing-6)',
                 marginBottom: 'var(--md-sys-spacing-8)'
             }}>
                 <div style={{
                     borderRadius: 'var(--md-sys-shape-corner-medium)',
-                    backgroundColor: 'var(--app-color-primary)',
+                    backgroundColor: 'var(--md-sys-color-primary)',
                     width: 'var(--md-sys-spacing-32)',
                     height: 'var(--md-sys-spacing-32)',
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: 'var(--app-color-on-primary)'
+                    color: 'var(--md-sys-color-on-primary)'
                 }}>
-                    <span style={{ fontSize: 'var(--app-text-title)' }}>lightbulb</span>
+                    <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>lightbulb</span>
                 </div>
                 <p style={{
-                    color: 'var(--app-color-primary)',
+                    color: 'var(--md-sys-color-primary)',
                     textTransform: "uppercase",
                     fontWeight: "900",
                     opacity: "0.7"
                 }}>Scenario</p>
             </div>
             <p style={{ lineHeight: "1.25" }}>"{scenario}"</p>
-            <ol style={{ marginTop: 'var(--app-spacing-container)' }}>
+            <ol style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
                 {steps.map((step, i) => (
                     <li key={i} style={{
                         display: "flex",
@@ -53,38 +53,38 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                         alignItems: "flex-start"
                     }}>
                         <span style={{
-                            backgroundColor: 'var(--app-color-surface)',
-                            color: 'var(--app-color-primary)',
-                            width: 'var(--app-spacing-section)',
-                            height: 'var(--app-spacing-section)',
+                            backgroundColor: 'var(--md-sys-color-surface)',
+                            color: 'var(--md-sys-color-primary)',
+                            width: 'var(--md-sys-spacing-6)',
+                            height: 'var(--md-sys-spacing-6)',
                             borderRadius: 'var(--md-sys-shape-corner-full)',
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
                             fontWeight: "900",
                             flexShrink: "0",
-                            transition: `color var(--app-motion-standard)`
+                            transition: `color var(--md-sys-motion-duration-medium)`
                         }}>{i + 1}</span>
                         <p style={{
                             color: 'var(--md-sys-color-outline)',
                             fontWeight: "bold",
-                            lineHeight: 'var(--app-text-body-line-height)'
+                            lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)'
                         }} dangerouslySetInnerHTML={{ __html: step }}></p>
                     </li>
                 ))}
             </ol>
             {tip && (
                 <div style={{
-                    backgroundColor: 'var(--app-color-surface)',
+                    backgroundColor: 'var(--md-sys-color-surface)',
                     borderRadius: 'var(--md-sys-shape-corner-medium)',
                     display: "flex",
                     gap: 'var(--md-sys-spacing-8)',
                     padding: 'var(--md-sys-spacing-8)',
-                    fontSize: 'var(--app-text-body)',
-                    border: 'var(--app-border-normal) solid var(--md-sys-color-outline)'
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
                 }}>
                     <span style={{
-                        color: 'var(--app-color-primary)',
+                        color: 'var(--md-sys-color-primary)',
                         fontWeight: "900"
                     }}>tips_and_updates</span>
                     <span style={{

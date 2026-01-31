@@ -6,23 +6,17 @@ exports[`BarChart Story Snapshots > renders default story correctly 1`] = `
     style="position: relative;"
   >
     <svg
-      height="250"
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 500 250"
-      width="100%"
     >
       <g>
-        <rect
+        <path
+          d="M 0 0 h 495 v 250 h -495 Z"
           fill="var(--md-sys-color-primary)"
-          height="250"
-          rx="4"
-          width="495"
-          x="0"
-          y="0"
         />
         <text
           fill="var(--md-sys-color-onSurface-variant)"
-          font-size="var(--app-text-body)"
+          font-size="var(--md-sys-typescale-body-large-font-size)"
           text-anchor="middle"
           x="247.5"
           y="245"

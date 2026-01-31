@@ -154,7 +154,7 @@ export const Interactive: Story = {
         cursor: 'help',
       }}
     >
-      <p style={{ fontSize: 'var(--app-text-body)', color: 'var(--md-sys-color-onSurface-variant)' }}>
+      <p style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-onSurface-variant)' }}>
         Hover over the chips to see what context the AI system is using:
       </p>
       <AiMemoryChip label="Student Learning Profile" />

@@ -148,20 +148,17 @@ export const M3Menu: React.FC<M3MenuProps> = ({
   };
   
   return (
-    <M3Popover
+      <M3Popover
       open={open}
       anchorEl={anchorEl}
       onClose={onClose}
       title={title}
-      minWidth={minWidth}
-      maxWidth={maxWidth}
       showBackdrop={false}
-      zIndex={zIndex} // eslint-disable-line design-system/no-invalid-component-props
     >
       <div role="menu"
         // eslint-disable-next-line design-system/no-classname
         className={`m3-menu ${className || ''}`.trim()}
-        style={{ outline: 'none' }}>
+        style={{ outline: 'none', minWidth: minWidth, maxWidth: maxWidth, zIndex: zIndex }}>
         {items.map((item, index) => (
           <React.Fragment key={item.key}>
             <button
@@ -188,9 +185,9 @@ export const M3Menu: React.FC<M3MenuProps> = ({
                   style={{display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: 'var(--app-text-body)',
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                     fontFamily: 'var(--md-sys-typescale-body-medium-font)',
-                    lineHeight: 'var(--app-text-body-line-height)',
+                    lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
                     flexShrink: 0}}
                 >
                   {item.icon}
@@ -198,7 +195,7 @@ export const M3Menu: React.FC<M3MenuProps> = ({
               )}
               <span
                 style={{flexGrow: 1,
-                  fontSize: 'var(--app-text-body)',
+                  fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                   fontFamily: 'var(--md-sys-typescale-body-medium-font)'}}
               >
                 {item.label}

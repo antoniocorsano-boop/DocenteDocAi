@@ -112,10 +112,10 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
             onClose={onClose}
             maxWidth={step === 'mapping' ? 'lg' : 'md'}
         >
-            <M3DialogContent style={{gap: 'var(--app-spacing-section)'}}>
+            <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
                 {step === 'upload' && (
                     <>
-                        <div style={{marginTop: 'var(--app-spacing-container)'}}>
+                        <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                             <SelectField
                                 label="Seleziona il tuo Registro Elettronico"
                                 value={provider}
@@ -128,8 +128,8 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 <option value="sidi">SIDI (Anagrafe Studenti)</option>
                             </SelectField>
                             
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.secondary-container/30 , padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", display: "flex", gap: 'var(--app-spacing-section)'}}>
-                                <span  style={{color: "var(--app-color-secondary)"}}>info</span>
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.secondary-container/30 , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", gap: 'var(--md-sys-spacing-6)'}}>
+                                <span  style={{color: "var(--md-sys-color-secondary)"}}>info</span>
                                 <p style={{ color: sys.colors.on-secondary-container }}>
                                     {RegisterService.getExportGuidance(provider)}
                                 </p>
@@ -143,7 +143,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         <div
                             {...getRootProps()}
                             style={{
-                                border: isDragActive ? 'var(--app-border-thick) dashed var(--app-color-primary)' : 'var(--app-border-thick) dashed var(--md-sys-color-outline-variant)',
+                                border: isDragActive ? 'var(--md-sys-border-width-thick) dashed var(--md-sys-color-primary)' : 'var(--md-sys-border-width-thick) dashed var(--md-sys-color-outline-variant)',
                                 borderRadius: 'var(--md-sys-shape-corner-large)',
                                 padding: 'var(--md-sys-spacing-12)',
                                 display: 'flex',
@@ -151,8 +151,8 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 gap: 'var(--md-sys-spacing-8)',
-                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)',
-                                backgroundColor: isDragActive ? 'var(--app-color-primary-container)' : 'var(--md-sys-color-surface-container-low)',
+                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-low)',
                                 transform: isDragActive ? 'scale(0.98)' : 'none',
                                 opacity: isLoading ? 0.5 : 1,
                                 cursor: isLoading ? 'wait' : 'pointer'
@@ -171,8 +171,8 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             <input {...getInputProps()} />
                             <span style={{
                                 fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-display)',
-                                color: isDragActive ? 'var(--app-color-primary)' : 'var(--md-sys-color-on-surface-variant)'
+                                fontSize: 'var(--md-sys-typescale-display)',
+                                color: isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)'
                             }}>
                                 {isLoading ? 'sync' : 'upload_file'}
                             </span>
@@ -185,7 +185,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         </div>
 
                         {error && (
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: sys.colors.on-error-container , padding: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-error)", display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)'}}>
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: sys.colors.on-error-container , padding: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-error)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                 <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>error</span>
@@ -196,43 +196,43 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                 )}
 
                 {step === 'mapping' && rawData && (
-                    <div  style={{gap: 'var(--app-spacing-section)'}}>
+                    <div  style={{gap: 'var(--md-sys-spacing-6)'}}>
                         <SectionHeader 
                             title="Mappatura Colonne" 
                             subtitle="Associa le colonne del tuo file ai campi di DocenteDoc AI"
                         />
 
-                        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--app-spacing-section)'}}>
+                        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                             <InfoCard title="Dati Studente" icon="person">
-                                <div style={{gap: 'var(--app-spacing-container)', padding: 'var(--md-sys-spacing-8)'}}>
+                                <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
                                     <div>
-                                        <label style={{display: "block", fontSize: 'var(--app-text-label)', fontWeight: "bold", marginBottom: 'var(--app-spacing-container)'}}>Cognome *</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Cognome *</label>
                                         <select 
                                             value={mapping.cognome}
                                             onChange={(e) => setMapping(prev => ({ ...prev, cognome: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--app-layout-full)', padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--app-color-surface)", fontSize: 'var(--app-text-body)'}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--md-sys-percent-100)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label style={{display: "block", fontSize: 'var(--app-text-label)', fontWeight: "bold", marginBottom: 'var(--app-spacing-container)'}}>Nome *</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Nome *</label>
                                         <select 
                                             value={mapping.nome}
                                             onChange={(e) => setMapping(prev => ({ ...prev, nome: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--app-layout-full)', padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--app-color-surface)", fontSize: 'var(--app-text-body)'}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--md-sys-percent-100)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label style={{display: "block", fontSize: 'var(--app-text-label)', fontWeight: "bold", marginBottom: 'var(--app-spacing-container)'}}>Classe</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Classe</label>
                                         <select 
                                             value={mapping.classe}
                                             onChange={(e) => setMapping(prev => ({ ...prev, classe: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--app-layout-full)', padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--app-color-surface)", fontSize: 'var(--app-text-body)'}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--md-sys-percent-100)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -242,35 +242,35 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             </InfoCard>
 
                             <InfoCard title="Dati Valutazioni (Opzionale)" icon="grade" variant="secondary">
-                                <div style={{gap: 'var(--app-spacing-container)', padding: 'var(--md-sys-spacing-8)'}}>
+                                <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
                                     <div>
-                                        <label style={{display: "block", fontSize: 'var(--app-text-label)', fontWeight: "bold", marginBottom: 'var(--app-spacing-container)'}}>Voto</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Voto</label>
                                         <select 
                                             value={mapping.voto}
                                             onChange={(e) => setMapping(prev => ({ ...prev, voto: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--app-layout-full)', padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--app-color-surface)", fontSize: 'var(--app-text-body)'}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--md-sys-percent-100)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label style={{display: "block", fontSize: 'var(--app-text-label)', fontWeight: "bold", marginBottom: 'var(--app-spacing-container)'}}>Data</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Data</label>
                                         <select 
                                             value={mapping.data}
                                             onChange={(e) => setMapping(prev => ({ ...prev, data: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--app-layout-full)', padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--app-color-surface)", fontSize: 'var(--app-text-body)'}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--md-sys-percent-100)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label style={{display: "block", fontSize: 'var(--app-text-label)', fontWeight: "bold", marginBottom: 'var(--app-spacing-container)'}}>Materia</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Materia</label>
                                         <select 
                                             value={mapping.materia}
                                             onChange={(e) => setMapping(prev => ({ ...prev, materia: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--app-layout-full)', padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--app-color-surface)", fontSize: 'var(--app-text-body)'}}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--md-sys-percent-100)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}
                                         >
                                             <option value="">Seleziona colonna...</option>
                                             {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
@@ -281,17 +281,17 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         </div>
 
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)' , padding: 'var(--md-sys-spacing-8)', overflowX: "auto"}}>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.5", marginBottom: 'var(--md-sys-spacing-8)'}}>Anteprima Dati Raw (Prime 3 righe)</p>
-                            <table style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--app-layout-full)' }}>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--app-legacy-0_1em, 0.1em)", opacity: "0.5", marginBottom: 'var(--md-sys-spacing-8)'}}>Anteprima Dati Raw (Prime 3 righe)</p>
+                            <table style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--md-sys-percent-100)' }}>
                                 <thead>
                                     <tr>
-                                        {rawData.headers.map(h => <th key={h}  style={{border: "var(--app-border-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-1)', textAlign: "left", backgroundColor: "var(--app-color-surface)"}}>{h}</th>)}
+                                        {rawData.headers.map(h => <th key={h}  style={{border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-1)', textAlign: "left", backgroundColor: "var(--md-sys-color-surface)"}}>{h}</th>)}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {rawData.data.slice(0, 3).map((row, i) => (
                                         <tr key={i}>
-                                            {rawData.headers.map(h => <td key={h}  style={{border: "var(--app-border-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-1)'}}>{String(row[h] || '')}</td>)}
+                                            {rawData.headers.map(h => <td key={h}  style={{border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-1)'}}>{String(row[h] || '')}</td>)}
                                         </tr>
                                     ))}
                                 </tbody>
@@ -301,15 +301,15 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                 )}
 
                 {step === 'preview' && result && (
-                    <div  style={{gap: 'var(--app-spacing-container)'}}>
-                        <div style={{display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)', color: "var(--app-color-primary)"}}>
-                            <span style={{ color: 'var(--app-color-primary)' }}>check_circle</span>
+                    <div  style={{gap: 'var(--md-sys-spacing-4)'}}>
+                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', color: "var(--md-sys-color-primary)"}}>
+                            <span style={{ color: 'var(--md-sys-color-primary)' }}>check_circle</span>
                             <h3  style={{ fontWeight: "900" }}>Dati pronti per l&apos;importazione</h3>
                         </div>
 
                         <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                             <InfoCard title="Riepilogo" icon="analytics">
-                                <ul style={{gap: 'var(--app-spacing-component)'}}>
+                                <ul style={{gap: 'var(--md-sys-spacing-2)'}}>
                                     <li style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  display: "flex", justifyContent: "space-between" }}>
                                         <span>Studenti:</span>
                                         <span style={{ fontWeight: "bold" }}>{result.students.length}</span>
@@ -324,7 +324,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             <InfoCard title="Classi rilevate" icon="class" variant="secondary">
                                 <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                                     {Array.from(new Set(result.students.map(s => s.classe))).map(c => (
-                                        <span key={c} style={{ color: sys.colors.on-secondary-container , paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', borderRadius: "var(--md-sys-spacing-1)", backgroundColor: "var(--app-color-secondary)", fontWeight: "bold"}}>
+                                        <span key={c} style={{ color: sys.colors.on-secondary-container , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-spacing-1)", backgroundColor: "var(--md-sys-color-secondary)", fontWeight: "bold"}}>
                                             {c}
                                         </span>
                                     ))}
@@ -335,9 +335,9 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         <M3Button 
                             variant="text" 
                             onClick={() => setStep('mapping')}
-                             style={{ width: 'var(--app-layout-full)', fontSize: 'var(--app-text-label)' }}
+                             style={{ width: 'var(--md-sys-percent-100)', fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}
                         >
-                            <span  style={{ marginRight: "var(--app-spacing-component)", fontSize: 'var(--app-text-body)' }}>settings_backup_restore</span>
+                            <span  style={{ marginRight: "var(--md-sys-spacing-2)", fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>settings_backup_restore</span>
                             Modifica Mappatura Manuale
                         </M3Button>
 

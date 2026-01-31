@@ -18,11 +18,13 @@
  * @see docs/DESIGN_SYSTEM_CONSOLIDATION.md § 5 - "Exceptions & Overrides"
  */
 
+import LEGACY_COLORS from './legacy-colors';
+
 export const PDF_COLORS = {
   // Header styling for table reports
   header: {
-    background: '#6750A4',  // --md-sys-color-primary
-    text: '#FFFFFF',        // --md-sys-color-on-primary
+    background: LEGACY_COLORS.primary,  // --md-sys-color-primary
+    text: LEGACY_COLORS.white,        // --md-sys-color-on-primary
   },
   
   // Table row styling
@@ -33,17 +35,17 @@ export const PDF_COLORS = {
   
   // Trend indicators for student progress
   trend: {
-    positive: '#388E3C',    // Success color (not in MD3 tokens, keeping as semantic equivalent)
+    positive: LEGACY_COLORS.success,    // Success color (not in MD3 tokens, keeping as semantic equivalent)
     negative: '#D32F2F',    // Error color (not in MD3 tokens, keeping as semantic equivalent)
-    stable: '#757575',      // Outline variant equivalent
+    stable: LEGACY_COLORS.neutralBorder,      // Outline variant equivalent
   },
   
   // Competency evaluation level badges
   competencyLevels: {
-    A: { bg: '#FFD700', text: '#000000' },  // Gold - Advanced level (custom)
-    B: { bg: '#C0C0C0', text: '#000000' },  // Silver - Intermediate level (custom)
-    C: { bg: '#66BB6A', text: '#FFFFFF' },  // Green - Base level (success equivalent)
-    D: { bg: '#EF5350', text: '#FFFFFF' },  // Red - Initial level (error equivalent)
+    A: { bg: LEGACY_COLORS.gold, text: '#000000' },  // Gold - Advanced level (custom)
+    B: { bg: LEGACY_COLORS.silver, text: '#000000' },  // Silver - Intermediate level (custom)
+    C: { bg: LEGACY_COLORS.greenSuccess, text: LEGACY_COLORS.white },  // Green - Base level (success equivalent)
+    D: { bg: LEGACY_COLORS.redError, text: LEGACY_COLORS.white },  // Red - Initial level (error equivalent)
   },
 } as const;
 

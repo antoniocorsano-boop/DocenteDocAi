@@ -70,16 +70,16 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
         >
             <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30 }}>
                 {/* Aura Ornaments */}
-                <div style={{ backgroundColor: 'var(--app-color-primary)', opacity: 0.05, borderRadius: 'var(--app-spacing-container)' }} />
-                <div style={{ backgroundColor: 'var(--app-color-secondary)', opacity: 0.05, borderRadius: 'var(--app-spacing-container)' }} />
+                <div style={{ backgroundColor: 'var(--md-sys-color-primary)', opacity: 0.05, borderRadius: 'var(--md-sys-spacing-4)' }} />
+                <div style={{ backgroundColor: 'var(--md-sys-color-secondary)', opacity: 0.05, borderRadius: 'var(--md-sys-spacing-4)' }} />
 
-                <div  style={{display: "flex", flexDirection: "column", gap: 'var(--app-spacing-section)', paddingTop: 'var(--app-spacing-container)', paddingBottom: 'var(--app-spacing-container)'}}>
-                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--app-spacing-section)', border: "var(--app-border-normal) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center" }}>
-                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--app-color-on-primary)', width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', backgroundColor: "var(--app-color-primary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                            <span style={{ color: 'var(--app-color-on-primary)' }}>{getTestTypeIcon(prova.tipo)}</span>
+                <div  style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center" }}>
+                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-primary)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <span style={{ color: 'var(--md-sys-color-on-primary)' }}>{getTestTypeIcon(prova.tipo)}</span>
                         </div>
                         <div style={{ flexGrow: "1" }}>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 'var(--md-sys-spacing-8)', opacity: "0.6"}}>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--app-legacy-0_1em)", marginBottom: 'var(--md-sys-spacing-8)', opacity: "0.6"}}>
                                 {student.cognome} {student.nome} • {prova.materia}
                             </p>
                             <SelectField
@@ -96,11 +96,11 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                     </div>
 
                     <div >
-                        <div  style={{display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>
-                            <div style={{ backgroundColor: 'color-mix(in srgb, var(--app-color-primary) var(--md-sys-percent-10), transparent)',  width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)', display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                <span  style={{color: "var(--app-color-primary)", fontSize: 'var(--app-spacing-container)'}}>verified</span>
+                        <div  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
+                            <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) var(--md-sys-percent-10), transparent)',  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <span  style={{color: "var(--md-sys-color-primary)", fontSize: 'var(--md-sys-spacing-4)'}}>verified</span>
                             </div>
-                            <h3  style={{ fontWeight: "900", letterSpacing: "-0.005em" }}>Competenze Valutate</h3>
+                            <h3  style={{ fontWeight: "900", letterSpacing: "-var(--app-legacy-0_005em)" }}>Competenze Valutate</h3>
                         </div>
 
                         {relevantCompetencies.length > 0 ? (
@@ -108,9 +108,9 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                 {relevantCompetencies.map((competenza, idx) => (
                                     <div 
                                         key={competenza.id} 
-                                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--app-spacing-section)', border: "var(--app-border-normal) solid var(--md-sys-color-outline)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)', animationDelay: `${idx * 100}ms` }}
+                                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', animationDelay: `${idx * 100}ms` }}
                                     >
-                                        <h4  style={{textTransform: "uppercase", color: "var(--app-color-primary)", marginBottom: 'var(--md-sys-spacing-8)', fontWeight: "900", display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                                        <h4  style={{textTransform: "uppercase", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)', fontWeight: "900", display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                                             {competenza.nome}
                                             {selectedLevels[competenza.id] && (
                                                 <button
@@ -120,13 +120,13 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                                         const { [competenza.id]: _removed, ...rest } = prev;
                                                         return rest;
                                                     })}
-                                                    style={{ color: 'var(--md-sys-color-error)', backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: 'var(--app-spacing-container)', fontWeight: "900", transition: "color var(--app-motion-standard)" }}
+                                                    style={{ color: 'var(--md-sys-color-error)', backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: 'var(--md-sys-spacing-4)', fontWeight: "900", transition: "color var(--md-sys-motion-duration-medium)" }}
                                                 >
                                                     RIMUOVI
                                                 </button>
                                             )}
                                         </h4>
-                                        <div style={{gap: 'var(--app-spacing-element)'}}>
+                                        <div style={{gap: 'var(--md-sys-spacing-3)'}}>
                                             {competenza.livelli.map(level => {
                                                 const isSelected = selectedLevels[competenza.id] === level.id;
                                                 return (
@@ -143,15 +143,15 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                                             
                                                         />
                                                         <div style={{borderRadius: 'var(--md-sys-shape-corner-full)'}}>
-                                                            {isSelected && <div style={{ backgroundColor: 'var(--app-color-on-primary)', width: 'var(--app-spacing-component)', height: 'var(--app-spacing-component)', borderRadius: 'var(--app-spacing-container)' }} />}
+                                                            {isSelected && <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', width: 'var(--md-sys-spacing-2)', height: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-spacing-4)' }} />}
                                                         </div>
                                                         <div>
                                                             <span style={{
-                                                              color: isSelected ? 'var(--app-color-on-primary-container)' : 'var(--app-color-on-surface)',
+                                                              color: isSelected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
                                                               fontWeight: 900,
                                                               display: 'block',
                                                             }}>{level.nome}</span>
-                                                            <p style={{fontSize: 'var(--app-text-body)', fontWeight: 'var(--app-text-body-weight)'}}>{level.descrizione}</p>
+                                                            <p style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)'}}>{level.descrizione}</p>
                                                         </div>
                                                     </label>
                                                 );
@@ -169,7 +169,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                     </div>
                 </div>
             </M3DialogContent>
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 , borderTop: "var(--app-border-normal) solid var(--md-sys-color-outline)"}}>
+            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 , borderTop: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
                 <M3Button onClick={handleSubmit} variant="primary" icon="save">Salva Valutazione</M3Button>
             </M3DialogActions>

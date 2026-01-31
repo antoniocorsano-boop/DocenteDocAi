@@ -8,8 +8,8 @@ import { useUIStore } from '../stores/useUIStore';
 import { M3Typography } from './ui';
 const SNACKBAR_COLORS = () => ({
   success: {
-    bg: 'var(--app-color-primary)',
-    color: 'var(--app-color-on-primary)'
+    bg: 'var(--md-sys-color-primary)',
+    color: 'var(--md-sys-color-on-primary)'
   },
   error: {
     bg: 'var(--md-sys-color-error)',
@@ -17,7 +17,7 @@ const SNACKBAR_COLORS = () => ({
   },
   info: {
     bg: 'var(--md-sys-color-surface-container-high)',
-    color: 'var(--app-color-on-surface)'
+    color: 'var(--md-sys-color-on-surface)'
   }
 });
 
@@ -47,7 +47,7 @@ const SNACKBAR_COLORS = () => ({
  */
 const Snackbar: React.FC = () => {
   // MD3 Token mapping - no useTheme() dependency
-  const primary = 'var(--app-color-primary)';
+  const primary = 'var(--md-sys-color-primary)';
   const [isFocused, setIsFocused] = useState(false);
   const { toast, clearToast } = useUIStore(state => ({
     toast: state.modals.toast,
@@ -103,23 +103,23 @@ const Snackbar: React.FC = () => {
   return (
     <div
       style={{position: 'fixed',
-        left: 'var(--app-layout-half)',
+        left: 'var(--md-sys-percent-50)',
         bottom: 'var(--md-sys-spacing-8)',
         transform: 'translateX(-50%)',
         minWidth: 'var(--md-sys-spacing-14)',
         maxWidth: 'calc(0.9 * var(--md-sys-viewport-width-full))',
-        padding: `var(--app-spacing-element) var(--app-spacing-touch) var(--app-spacing-element) var(--app-spacing-container)` ,
+        padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-5) var(--md-sys-spacing-3) var(--md-sys-spacing-4)` ,
         borderRadius: 'var(--md-sys-shape-corner-medium)',
         boxShadow: 'var(--md-sys-elevation-level3)',
         display: 'flex',
         alignItems: 'center',
-        gap: 'var(--app-spacing-element)',
+        gap: 'var(--md-sys-spacing-3)',
         backgroundColor: bg,
         color: color,
         zIndex: 'var(--md-sys-z-snackbar)',
-        animation: 'snackbar-in var(--app-motion-quick) var(--md-sys-motion-easing-expressive) both',
-        outline: isFocused ? `var(--app-border-normal) solid ${primary}` : 'none',
-        outlineOffset: isFocused ? 'var(--app-spacing-component)' : '0'}}
+        animation: 'snackbar-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-expressive) both',
+        outline: isFocused ? `var(--md-sys-border-width-normal) solid ${primary}` : 'none',
+        outlineOffset: isFocused ? 'var(--md-sys-spacing-2)' : '0'}}
       role="status"
       aria-live="polite"
       tabIndex={0}
@@ -128,7 +128,7 @@ const Snackbar: React.FC = () => {
     >
       <span
         style={{fontFamily: 'Material Symbols Outlined',
-          fontSize: 'var(--app-spacing-container)',
+          fontSize: 'var(--md-sys-spacing-4)',
           color: 'inherit',
           flexShrink: 0}}
         aria-hidden="true"
@@ -150,15 +150,15 @@ const Snackbar: React.FC = () => {
         style={{backgroundColor: 'transparent',
           border: 'none',
           color: 'inherit',
-          fontSize: 'var(--app-spacing-touch)',
-          marginLeft: 'var(--app-spacing-component)',
+          fontSize: 'var(--md-sys-spacing-5)',
+          marginLeft: 'var(--md-sys-spacing-2)',
           borderRadius: 'var(--md-sys-shape-corner-full)',
           cursor: 'pointer',
           padding: 'var(--md-sys-spacing-1)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`,
+          transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
           flexShrink: 0}}
         onMouseEnter={() => {
           // removed runtime mutation

@@ -64,12 +64,12 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
     };
 
     return (
-        <div  style={{marginLeft: 'var(--app-layout-auto)', marginRight: 'var(--app-layout-auto)', width: 'var(--app-layout-full)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>
+        <div  style={{marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)', width: 'var(--md-sys-percent-100)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
             
             {/* Header */}
             <div  style={{ textAlign: "center" }}>
-                <h1 style={{fontWeight: "900", color: "var(--app-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>Progettazione</h1>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  marginLeft: 'var(--app-layout-auto)', marginRight: 'var(--app-layout-auto)', fontWeight: "500" }}>
+                <h1 style={{fontWeight: "900", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>Progettazione</h1>
+                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)', fontWeight: "500" }}>
                     Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
                 </p>
             </div>
@@ -94,7 +94,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                         icon="calendar_month"
                         title="Wizard Annuale"
                         description="Pianifica l'intero anno scolastico. Definisci UDA, scadenze e monte ore con il supporto dell'AI."
-                        color="var(--app-color-primary-container)"
+                        color="var(--md-sys-color-primary-container)"
                         onClick={() => {
                             console.log('Audit: Opened Annual Planning Wizard');
                             setIsPlanningWizardOpen(true);
@@ -121,7 +121,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             icon="assignment"
                             title="Planner UDA"
                             description="Gestisci le Unit� di Apprendimento, le fasi di lavoro e le competenze target."
-                            color="var(--app-color-secondary-container)"
+                            color="var(--md-sys-color-secondary-container)"
                             onClick={() => {
                                 console.log('Audit: Navigated to UDA Planner');
                                 onNavigate('uda');
@@ -133,7 +133,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             icon="auto_fix_high"
                             title="Studio AI"
                             description="Genera quiz, riassunti e materiali dai tuoi documenti."
-                            color="var(--sys-tertiary-container)"
+                            color="var(--md-sys-color-tertiary-container)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Studio AI');
                                 onNavigate('studio');
@@ -183,7 +183,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             icon="description"
                             title="Template"
                             description="Gestisci i modelli per UDA e verifiche."
-                            color="var(--app-color-surface-container)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => {
                                 console.log('Audit: Opened Template Manager');
                                 setIsTemplateManagerOpen(true);
@@ -195,7 +195,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             icon="history_edu"
                             title="Lezioni"
                             description="Piani di lezione."
-                            color="var(--app-color-surface-container)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Lessons');
                                 onNavigate('lessons');
@@ -207,7 +207,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             icon="schema"
                             title="Rubriche"
                             description="Griglie valutazione."
-                            color="var(--app-color-surface-container)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Rubriche');
                                 onNavigate('rubriche');
@@ -219,7 +219,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             icon="print"
                             title="Report"
                             description="Stampe & PDF."
-                            color="var(--app-color-surface-container)"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Reportistica');
                                 onNavigate('reportistica');

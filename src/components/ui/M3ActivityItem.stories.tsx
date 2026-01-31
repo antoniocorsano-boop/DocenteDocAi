@@ -54,7 +54,7 @@ export const Default: Story = {
           </M3Typography>
         </div>
         <div style={{ color: layers.sys.color.outline }}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
           </svg>
         </div>
@@ -70,8 +70,8 @@ export const DocumentActivity: Story = {
   args: {
     children: (
       <div style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-4)" }}>
-        <div style={{ backgroundColor: layers.sys.color.secondary ,  width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--md-sys-color-on-secondary)">
+          <div style={{ backgroundColor: layers.sys.color.secondary ,  width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <svg viewBox="0 0 24 24" fill="var(--md-sys-color-on-secondary)" aria-hidden="true">
             <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zM16 18H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
           </svg>
         </div>

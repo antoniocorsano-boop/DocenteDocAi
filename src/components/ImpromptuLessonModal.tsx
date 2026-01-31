@@ -49,15 +49,15 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
             onClose={onClose}
             maxWidth="md"
         >
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", height: "var(--app-layout-full)" }}>
-                <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 , padding: 'var(--app-spacing-section)', gap: 'var(--app-spacing-section)'}}>
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", height: "var(--md-sys-percent-100)" }}>
+                <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 , padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)'}}>
                     <SectionHeader 
                         title="Avvio Sessione"
                         subtitle={`Classe ${classe} • Configura i dettagli della lezione`}
                         variant="small"
                     />
 
-                    <div style={{marginTop: 'var(--app-spacing-container)'}}>
+                    <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                         <SelectField 
                             label="Materia" 
                             value={materia} 
@@ -80,7 +80,7 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
                     </div>
                 </M3DialogContent>
 
-                <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/80 , padding: 'var(--app-spacing-section)', borderTop: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
+                <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/80 , padding: 'var(--md-sys-spacing-6)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                     <M3Button type="button" onClick={onClose} variant="text">
                         Annulla
                     </M3Button>
@@ -89,7 +89,7 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
                         variant="filled"
                         disabled={!materia || !contenuto.trim()}
                     >
-                        <span  style={{ marginRight: "var(--app-spacing-component)" }}>door_open</span>
+                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>door_open</span>
                         Avvia Aula
                     </M3Button>
                 </M3DialogActions>

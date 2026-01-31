@@ -56,7 +56,7 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
     return (
       <div >
         <div >
-          <span  style={{  fontSize: "var(--app-text-body)"  }}>check_circle</span>
+          <span  style={{  fontSize: "var(--md-sys-typescale-body-large-font-size)"  }}>check_circle</span>
           {entry.text.replace(/\[|\]/g, '')}
         </div>
       </div>
@@ -65,25 +65,25 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
 
   return (
     <div style={{
-      width: 'var(--app-layout-full)',
+      width: 'var(--md-sys-percent-100)',
       justifyContent: isUser ? 'flex-end' : 'flex-start',
-      marginBottom: 'var(--app-spacing-section)'
+      marginBottom: 'var(--md-sys-spacing-6)'
     }}>
       <div style={{
         
         maxWidth: 'var(--md-sys-percent-85)',
         
-        padding: 'var(--app-spacing-container)',
+        padding: 'var(--md-sys-spacing-4)',
         borderRadius: 'var(--md-sys-shape-corner-large)',
         fontSize: 'var(--md-sys-typescale-body-small-size)',
         lineHeight: 1.5,
         boxShadow: 'var(--md-sys-elevation-level1)',
-        backgroundColor: isUser ? 'var(--app-color-primary)' : 'var(--md-sys-color-surface-container-high)',
-        color: isUser ? 'var(--app-color-on-primary)' : 'var(--app-color-on-surface)',
+        backgroundColor: isUser ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
+        color: isUser ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
         borderBottomRightRadius: isUser ? 'var(--md-sys-shape-corner-small)' : 'var(--md-sys-shape-corner-large)',
         borderBottomLeftRadius: isUser ? 'var(--md-sys-shape-corner-large)' : 'var(--md-sys-shape-corner-small)',
         marginLeft: isUser ? 'auto' : '0',
-        border: isUser ? 'none' : 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'
+        border: isUser ? 'none' : 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
       }}>
         <p style={{ whiteSpace: "pre-wrap" }}>{entry.text}</p>
         {entry.sources && (
@@ -296,11 +296,11 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
             alignItems: 'center',
             justifyContent: 'center',
             boxShadow: 'var(--md-sys-elevation-level2)',
-            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(var(--app-easing-standard))',
+            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(var(--md-sys-motion-easing-standard))',
             cursor: 'pointer',
-            backgroundColor: isConnected ? 'var(--md-sys-color-error)' : 'var(--app-color-primary)',
-            color: isConnected ? 'var(--md-sys-color-on-error)' : 'var(--app-color-on-primary)',
-            animation: isConnected ? 'pulse var(--app-motion-slow) infinite' : 'none'
+            backgroundColor: isConnected ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)',
+            color: isConnected ? 'var(--md-sys-color-on-error)' : 'var(--md-sys-color-on-primary)',
+            animation: isConnected ? 'pulse var(--md-sys-motion-duration-long) infinite' : 'none'
           }}
           onMouseEnter={(e) => {
             if (!isConnected) {

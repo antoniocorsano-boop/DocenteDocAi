@@ -7,20 +7,20 @@
   --sys-on-primary: #ffffff; /* On primary color token */
   --sys-on-secondary: #000000; /* On secondary color token */
   --sys-on-surface: #000000; /* On surface color token */
-  --sys-on-background: #000000; /* On background color token */
-  --sys-on-error: #ffffff; /* On error color token */
+  --md-sys-color-on-background: #000000; /* On background color token */
+  --md-sys-color-on-error: #ffffff; /* On error color token */
 }
 
 .componentN {
-  background-color: var(--sys-surface);
-  color: var(--sys-on-surface);
-  padding: 16px; /* Spacing grid */
-  border-radius: 8px; /* Shape consistency */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Elevation token usage */
-  transition: background-color 200ms ease-in-out; /* Motion duration and easing */
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  padding: var(--md-sys-spacing-4); /* Spacing grid */
+  border-radius: var(--md-sys-shape-corner-small); /* Shape consistency */
+  box-shadow: var(--md-sys-elevation-level1); /* Elevation token usage */
+  transition: background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); /* Motion duration and easing */
 }
 
 .componentN:hover {
-  background-color: var(--sys-primary);
-  color: var(--sys-on-primary);
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
 }

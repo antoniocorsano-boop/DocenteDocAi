@@ -6,9 +6,8 @@ exports[`DonutChart Story Snapshots > renders default story correctly 1`] = `
     style="position: relative; width: 200px; height: 200px;"
   >
     <svg
-      height="200"
+      aria-hidden="true"
       viewBox="0 0 200 200"
-      width="200"
     >
       <g
         transform="rotate(-90 100 100)"

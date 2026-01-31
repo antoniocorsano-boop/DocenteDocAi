@@ -158,7 +158,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     }
 
     return (
-        <div  style={{maxWidth: 'var(--app-layout-full)', marginLeft: 'var(--app-layout-auto)', marginRight: 'var(--app-layout-auto)', width: 'var(--app-layout-full)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>
+        <div  style={{maxWidth: 'var(--md-sys-percent-100)', marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)', width: 'var(--md-sys-percent-100)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
             <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <SectionHeader 
                     title="Knowledge Base" 

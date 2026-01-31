@@ -75,9 +75,9 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
             maxWidth="2xl"
             mode="fullscreen"
         >
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", height: "var(--app-layout-full)" }}>
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", height: "var(--md-sys-percent-100)" }}>
                 <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30 }}>
-                    <div style={{padding: 'var(--app-spacing-section)', gap: 'var(--md-sys-spacing-8)'}}>
+                    <div style={{padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-8)'}}>
                         <div >
                             <TextField 
                                 label="Titolo della Rubrica"
@@ -91,11 +91,11 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                         
                         <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                             {/* Sezione Selezione */}
-                            <div  style={{gap: 'var(--app-spacing-container)'}}>
+                            <div  style={{gap: 'var(--md-sys-spacing-4)'}}>
                                 <SectionHeader title="Criteri di Competenza" icon="checklist" variant="primary" />
-                                 <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--app-border-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-8)'}}>
+                                 <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-8)'}}>
                                     {allCompetenze.map(comp => (
-                                         <div key={comp.id}  style={{width: "var(--app-layout-full)", marginBottom: 'var(--app-spacing-container)'}}>
+                                         <div key={comp.id}  style={{width: "var(--md-sys-percent-100)", marginBottom: 'var(--md-sys-spacing-4)'}}>
                                             <input
                                                 type="checkbox"
                                                 id={`comp-check-${comp.id}`}
@@ -103,17 +103,17 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                                 onChange={() => handleCompetenzaToggle(comp)}
                                             />
                                             <label htmlFor={`comp-check-${comp.id}`} style={{
-                                                width: 'var(--app-layout-full)',
+                                                width: 'var(--md-sys-percent-100)',
                                                 justifyContent: 'flex-start',
                                                 height: 'var(--md-sys-spacing-12)', // MD3 spacing token
                                                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                                                padding: 'var(--app-spacing-element) var(--app-spacing-container)',
+                                                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
                                                 display: 'inline-flex',
                                                 alignItems: 'center',
-                                                gap: 'var(--app-spacing-component)',
-                                                backgroundColor: rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'var(--app-color-secondary-container)' : 'var(--app-color-surface-container)',
-                                                color: rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'var(--app-color-on-secondary-container)' : 'var(--app-color-on-surface)',
-                                                border: `var(--app-border-thin) solid ${rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`
+                                                gap: 'var(--md-sys-spacing-2)',
+                                                backgroundColor: rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface-container)',
+                                                color: rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
+                                                border: `var(--md-sys-border-width-thin) solid ${rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`
                                             }}>
                                                 {rubrica.criteri.some(c => c.competenzaId === comp.id) && <span  style={{ fontSize: "var(--md-sys-typescale-title-small-size)" }}>check</span>}
                                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontWeight: "bold", fontSize: "var(--md-sys-typescale-body-small-size)" }}>{comp.nome}</span>
@@ -124,30 +124,30 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                             </div>
 
                             {/* Sezione Descrittori */}
-                            <div  style={{gap: 'var(--app-spacing-section)'}}>
+                            <div  style={{gap: 'var(--md-sys-spacing-6)'}}>
                                  <SectionHeader title="Definizione Descrittori" icon="edit_note" variant="secondary" />
                                  {rubrica.criteri.length > 0 ? rubrica.criteri.map(criterio => {
                                     const competenza = allCompetenze.find(c => c.id === criterio.competenzaId);
                                     if (!competenza) return null;
                                     return (
-                                        <InfoCard key={competenza.id} variant="elevated" style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 , padding: 'var(--app-spacing-section)', gap: 'var(--app-spacing-section)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
-                                            <div style={{display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)', marginBottom: 'var(--md-sys-spacing-8)'}}>
-                                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.secondary/10 , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", color: "var(--app-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900", fontSize: "var(--md-sys-typescale-body-medium-size)"}}>{competenza.codice.charAt(0)}</div>
-                                                <h4 style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "900" }}>{competenza.nome}</h4>
+                                        <InfoCard key={competenza.id} variant="elevated" style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 , padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                                            <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)'}}>
+                                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.secondary/10 , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900", fontSize: "var(--md-sys-typescale-body-medium-size)"}}>{competenza.codice.charAt(0)}</div>
+                                                <h4 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>{competenza.nome}</h4>
                                             </div>
                                             
                                             <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                                                 {competenza.livelli.map(level => {
                                                     const indicatore = criterio.indicatori.find(ind => ind.livelloId === level.id);
                                                     return (
-                                                        <div key={level.id} style={{gap: 'var(--app-spacing-component)'}}>
+                                                        <div key={level.id} style={{gap: 'var(--md-sys-spacing-2)'}}>
                                                             <TextArea 
                                                                 label={`Livello: ${level.nome}`} 
                                                                 value={indicatore?.descrizione || ''} 
                                                                 onChange={e => handleIndicatorChange(competenza.id, level.id, 'descrizione', e.target.value)}
                                                                 placeholder="Descrivi la padronanza..."
                                                                 rows={2}
-                                                                containerClassName="!bg-[var(--md-sys-color-surfaceContainerHigh)]/50 shadow-sm"
+                                                                
                                                             />
                                                         </div>
                                                     );
@@ -163,8 +163,8 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                     </div>
                 </M3DialogContent>
                 <M3DialogActions>
-                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
-                    <M3Button onClick={handleSubmit} variant="filled"  style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Salva Rubrica</M3Button>
+                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--app-legacy-0_1em, 0.1em)" }}>Annulla</M3Button>
+                    <M3Button onClick={handleSubmit} variant="filled"  style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--app-legacy-0_1em, 0.1em)" }}>Salva Rubrica</M3Button>
                 </M3DialogActions>
             </form>
         </M3Dialog>

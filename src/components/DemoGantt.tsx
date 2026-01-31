@@ -69,10 +69,10 @@ const GanttBar: React.FC<GanttBarProps> = ({ id, title, onMove, col, maxCols = 4
       aria-pressed={keyboardDrag}
       style={{
         '--gantt-bar-transform': visualTransform,
-        backgroundColor: isDragging ? 'var(--app-color-primary)' : 'var(--app-color-surface)',
+        backgroundColor: isDragging ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
         boxShadow: isDragging ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)',
         borderRadius: 'var(--md-sys-shape-corner-medium)',
-        border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
       } as React.CSSProperties}
       onKeyDown={handleKeyDown}
     >
@@ -94,9 +94,9 @@ const GanttColumn: React.FC<GanttColumnProps> = ({ col, children }) => {
       // eslint-disable-next-line design-system/no-classname
       className={`gantt-col ${isOver ? 'gantt-col-over' : ''}`}
       style={{
-        backgroundColor: isOver ? 'var(--app-color-primary-container)' : 'var(--app-color-surface-container)',
+        backgroundColor: isOver ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
         borderRadius: 'var(--md-sys-shape-corner-medium)',
-        padding: 'var(--app-spacing-component)',
+        padding: 'var(--md-sys-spacing-2)',
         minHeight: 'var(--md-sys-layout-card-min-height)',
       }}
     >

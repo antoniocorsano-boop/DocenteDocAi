@@ -371,11 +371,11 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         ) : (
                                                         <div
                                                             style={{
-                                                                width: config.fullWidth ? 'var(--app-layout-full)' : 'var(--app-layout-full)',
+                                                                width: config.fullWidth ? 'var(--md-sys-percent-100)' : 'var(--md-sys-percent-100)',
                                                                 maxWidth: config.fullWidth ? 'none' : 'calc(var(--md-sys-spacing-20) * 22.4)', // MD3 spacing token equivalent
-                                                                margin: config.fullWidth ? undefined : '0 var(--app-layout-auto)',
-                                                                paddingLeft: config.fullWidth ? undefined : 'var(--app-spacing-container)',
-                                                                paddingRight: config.fullWidth ? undefined : 'var(--app-spacing-container)',
+                                                                margin: config.fullWidth ? undefined : '0 var(--md-sys-margin-auto)',
+                                                                paddingLeft: config.fullWidth ? undefined : 'var(--md-sys-spacing-4)',
+                                                                paddingRight: config.fullWidth ? undefined : 'var(--md-sys-spacing-4)',
                                                             }}
                                                         >
                                                             <Component {...componentProps} />
@@ -386,9 +386,9 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                     // 404 Fallback
                     return (
                         <AuraView>
-                            <div style={{ padding: 'var(--app-spacing-container)', textAlign: "center", opacity: "0.5" }}>
+                            <div style={{ padding: 'var(--md-sys-spacing-4)', textAlign: "center", opacity: "0.5" }}>
                                 <h2 >Vista "{view}" non trovata</h2>
-                                <button onClick={() => actions.handleNavigate('home')}  style={{marginTop: 'var(--app-spacing-container)'}}>
+                                <button onClick={() => actions.handleNavigate('home')}  style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                                     Torna alla Home
                                 </button>
                             </div>

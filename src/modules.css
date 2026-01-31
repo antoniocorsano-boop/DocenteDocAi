@@ -5,7 +5,7 @@
     border-radius: inherit;
     background: radial-gradient(circle, var(--md-sys-color-primary) var(--md-sys-percent-0), transparent var(--md-sys-percent-70));
     opacity: 0;
-    transition: opacity 0.18s var(var(--md-sys-motion-easing-standard));
+    transition: opacity var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
     z-index: var(--md-sys-z-base);
 }
 .timetable-tile:active .m3-ripple,
@@ -67,7 +67,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     box-shadow: var(--md-sys-elevation-level1);
 }
 
-@media (min-width: var(--breakpoint-compact)) {
+@media (min-width: var(--md-sys-breakpoint-compact)) {
     .hero-card-interactive {
         padding: var(--md-sys-spacing-6);
     }
@@ -93,7 +93,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     gap: var(--md-sys-spacing-3);
 }
 
-@media(min-width: var(--breakpoint-compact)) {
+@media(min-width: var(--md-sys-breakpoint-compact)) {
     .expressive-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: var(--md-sys-spacing-4);
@@ -110,7 +110,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     gap: var(--md-sys-spacing-3);
 }
 
-@media(min-width: var(--breakpoint-compact)) {
+@media(min-width: var(--md-sys-breakpoint-compact)) {
     .expressive-wide-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -268,12 +268,12 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .tool-title {
     font-weight: 700;
-    font-size: var(--typography-body-medium-fontSize);
+    font-size: var(--md-sys-typescale-body-medium-font-size);
     line-height: 1.2;
 }
 
 .tool-subtitle {
-    font-size: var(--typography-label-small-fontSize);
+    font-size: var(--md-sys-typescale-label-small-font-size);
     opacity: 0.8;
     margin-top: var(--md-sys-spacing-1);
 }
@@ -336,7 +336,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .class-stat-row {
     display: flex;
     justify-content: space-between;
-    font-size: var(--typography-body-medium-fontSize);
+    font-size: var(--md-sys-typescale-body-medium-font-size);
     align-items: center;
 }
 
@@ -358,7 +358,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     width: var(--md-sys-typescale-title-medium-size);
     height: var(--md-sys-typescale-title-medium-size);
     border-radius: var(--md-sys-shape-corner-full);
-    font-size: var(--typography-label-small-fontSize);
+    font-size: var(--md-sys-typescale-label-small-font-size);
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -412,7 +412,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .agenda-event-date {
-    font-size: var(--typography-label-small-fontSize);
+    font-size: var(--md-sys-typescale-label-small-font-size);
     font-weight: 700;
     color: var(--md-sys-color-primary);
     text-transform: uppercase;
@@ -421,20 +421,20 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .agenda-event-title {
     font-weight: 700;
-    font-size: var(--typography-body-medium-fontSize);
+    font-size: var(--md-sys-typescale-body-medium-font-size);
     margin: var(--md-sys-spacing-1) 0 var(--md-sys-spacing-1);
     color: var(--md-sys-color-on-surface);
     line-height: 1.2;
 }
 
 .agenda-event-subtitle {
-    font-size: var(--typography-label-small-fontSize);
+    font-size: var(--md-sys-typescale-label-small-font-size);
     color: var(--md-sys-color-on-surface-variant);
 }
 
 .agenda-event-class {
     align-self: flex-start;
-    font-size: var(--typography-label-small-fontSize);
+    font-size: var(--md-sys-typescale-label-small-font-size);
     background-color: var(--md-sys-color-surface-container-high);
     padding: var(--md-sys-spacing-1) var(--md-sys-spacing-2);
     border-radius: var(--md-sys-shape-corner-small);
@@ -490,7 +490,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .calendar-today-btn {
     padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
-    font-size: var(--typography-label-medium-fontSize);
+    font-size: var(--md-sys-typescale-label-medium-font-size);
     font-weight: 700;
     color: var(--md-sys-color-primary);
     background: transparent;
@@ -505,7 +505,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .calendar-title {
-    font-size: var(--typography-headline-small-fontSize);
+    font-size: var(--md-sys-typescale-headline-small-font-size);
     font-weight: 700;
     color: var(--md-sys-color-on-surface);
     margin: 0;
@@ -548,7 +548,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .calendar-weekday {
     padding: var(--md-sys-spacing-3) var(--md-sys-spacing-2);
     text-align: center;
-    font-size: var(--typography-label-small-fontSize);
+    font-size: var(--md-sys-typescale-label-small-font-size);
     font-weight: 700;
     color: var(--md-sys-color-on-surface-variant);
     text-transform: uppercase;
@@ -590,7 +590,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     justify-content: center;
     width: var(--md-sys-spacing-7);
     height: var(--md-sys-spacing-7);
-    font-size: var(--typography-body-medium-fontSize);
+    font-size: var(--md-sys-typescale-body-medium-font-size);
     font-weight: 500;
     color: var(--md-sys-color-on-surface);
     border-radius: var(--md-sys-shape-corner-full);
@@ -668,7 +668,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .agenda-date {
     padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4);
     background: var(--md-sys-color-surface-container-high);
-    font-size: var(--typography-title-small-fontSize);
+    font-size: var(--md-sys-typescale-title-small-font-size);
     font-weight: 700;
     color: var(--md-sys-color-on-surface);
     text-transform: capitalize;
@@ -700,7 +700,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .agenda-event-time {
     flex-shrink: 0;
     width: var(--md-sys-spacing-20);
-    font-size: var(--typography-body-small-fontSize);
+    font-size: var(--md-sys-typescale-body-small-font-size);
     font-weight: 600;
     color: var(--md-sys-color-primary);
 }
@@ -711,13 +711,13 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .agenda-event-title {
-    font-size: var(--typography-body-medium-fontSize);
+    font-size: var(--md-sys-typescale-body-medium-font-size);
     font-weight: 600;
     color: var(--md-sys-color-on-surface);
 }
 
 .agenda-event-desc {
-    font-size: var(--typography-body-small-fontSize);
+    font-size: var(--md-sys-typescale-body-small-font-size);
     color: var(--md-sys-color-on-surface-variant);
     margin-top: var(--md-sys-spacing-1);
 }
@@ -740,7 +740,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .calendar-empty p {
-    font-size: var(--typography-body-large-fontSize);
+    font-size: var(--md-sys-typescale-body-large-font-size);
     margin: 0;
 }
 
@@ -774,7 +774,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .calendar-week-day-name {
-    font-size: var(--typography-label-small-fontSize);
+    font-size: var(--md-sys-typescale-label-small-font-size);
     font-weight: 700;
     color: var(--md-sys-color-on-surface-variant);
     text-transform: uppercase;
@@ -783,7 +783,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .calendar-week-day-number {
-    font-size: var(--typography-body-medium-fontSize);
+    font-size: var(--md-sys-typescale-body-medium-font-size);
     font-weight: 500;
     color: var(--md-sys-color-on-surface);
     width: var(--md-sys-spacing-7);
@@ -816,7 +816,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .calendar-week-hour-label {
     width: var(--md-sys-spacing-15);
     padding: var(--md-sys-spacing-2);
-    font-size: var(--typography-body-small-fontSize);
+    font-size: var(--md-sys-typescale-body-small-font-size);
     font-weight: 600;
     color: var(--md-sys-color-on-surface-variant);
     background: var(--md-sys-color-surface-container-high);
@@ -889,7 +889,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .calendar-day-title {
-    font-size: var(--typography-headline-small-fontSize);
+    font-size: var(--md-sys-typescale-headline-small-font-size);
     font-weight: 700;
     color: var(--md-sys-color-on-surface);
     margin: 0;
@@ -924,7 +924,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .calendar-day-event-time {
-    font-size: var(--typography-body-small-fontSize);
+    font-size: var(--md-sys-typescale-body-small-font-size);
     font-weight: 600;
     color: var(--md-sys-color-primary);
     margin-bottom: var(--md-sys-spacing-2);
@@ -935,21 +935,21 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .calendar-day-event-title {
-    font-size: var(--typography-body-medium-fontSize);
+    font-size: var(--md-sys-typescale-body-medium-font-size);
     font-weight: 600;
     color: var(--md-sys-color-on-surface);
     margin-bottom: var(--md-sys-spacing-1);
 }
 
 .calendar-day-event-desc {
-    font-size: var(--typography-body-small-fontSize);
+    font-size: var(--md-sys-typescale-body-small-font-size);
     color: var(--md-sys-color-on-surface-variant);
     margin-bottom: var(--md-sys-spacing-1);
 }
 
 .calendar-day-event-location {
-    font-size: var(--typography-body-small-fontSize);
-    color: var(--sys-tertiary);
+    font-size: var(--md-sys-typescale-body-small-font-size);
+    color: var(--md-sys-color-tertiary);
     font-weight: 500;
 }
 
@@ -968,7 +968,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     }
     
     .calendar-title {
-        font-size: var(--typography-title-medium-fontSize);
+        font-size: var(--md-sys-typescale-title-medium-font-size);
     }
     
     .calendar-day {
@@ -979,7 +979,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     .calendar-day-number {
         width: var(--md-sys-spacing-6);
         height: var(--md-sys-spacing-6);
-        font-size: var(--typography-body-small-fontSize);
+        font-size: var(--md-sys-typescale-body-small-font-size);
     }
     
     .calendar-event {
@@ -1003,7 +1003,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     }
     
     .calendar-day-title {
-        font-size: var(--typography-title-medium-fontSize);
+        font-size: var(--md-sys-typescale-title-medium-font-size);
     }
 }
 
@@ -1030,7 +1030,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .google-cal-header-cell {
     padding: var(--md-sys-spacing-2) 0;
     text-align: center;
-    font-size: var(--typography-label-small-fontSize);
+    font-size: var(--md-sys-typescale-label-small-font-size);
     font-weight: 700;
     color: var(--md-sys-color-on-surface-variant);
     letter-spacing: var(--md-sys-border-width-thin);
@@ -1053,9 +1053,9 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     /* Important for flex container stability */
 }
 
-@media (min-width: var(--breakpoint-compact)) {
+@media (min-width: var(--md-sys-breakpoint-compact)) {
     .google-cal-grid {
-        min-height: var(--breakpoint-compact);
+        min-height: var(--md-sys-breakpoint-compact);
     }
 }
 
@@ -1101,11 +1101,11 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     outline-offset: var(--md-sys-spacing-1);
 }
 
-@media (min-width: var(--breakpoint-compact)) {
+@media (min-width: var(--md-sys-breakpoint-compact)) {
     .google-cal-event {
         border-radius: var(--md-sys-shape-corner-small);
         padding: var(--md-sys-spacing-1) var(--md-sys-spacing-2);
-        font-size: var(--typography-body-small-fontSize);
+        font-size: var(--md-sys-typescale-body-small-font-size);
     }
 }
 
@@ -1157,9 +1157,9 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .matrix-header-time {
-    background-color: var(--md-sys-color-surface-container-highest);
+    background-color: var(--md-sys-color-surface-container-high);
     color: var(--md-sys-color-on-surface-variant);
-    font-size: var(--typography-label-small-fontSize);
+    font-size: var(--md-sys-typescale-label-small-font-size);
     padding: var(--md-sys-spacing-2) var(--md-sys-spacing-1);
     display: flex;
     align-items: center;
@@ -1169,9 +1169,9 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .matrix-time-label {
-    background-color: var(--md-sys-color-surface-container-highest);
+    background-color: var(--md-sys-color-surface-container-high);
     color: var(--md-sys-color-on-surface-variant);
-    font-size: var(--typography-label-small-fontSize);
+    font-size: var(--md-sys-typescale-label-small-font-size);
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -1244,7 +1244,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .tile-subject {
-    font-size: var(--typography-label-small-fontSize);
+    font-size: var(--md-sys-typescale-label-small-font-size);
     text-transform: uppercase;
     opacity: 0.8;
     white-space: nowrap;
@@ -1283,11 +1283,11 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .indicator-warning {
-    background-color: var(--sys-warning);
+    background-color: var(--md-sys-color-warning);
 }
 
 .indicator-info {
-    background-color: var(--sys-tertiary);
+    background-color: var(--md-sys-color-tertiary);
 }
 
 /* --- 11. EVALUATION & STUDENT LISTS --- */
@@ -1328,8 +1328,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .grade-badge.negative {
-    background-color: var(--sys-error-container);
-    color: var(--sys-on-error-container);
+    background-color: var(--md-sys-color-error-container);
+    color: var(--md-sys-color-on-error-container);
 }
 
 .risk-grid {
@@ -1477,7 +1477,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     background-color: var(--md-sys-color-surface); 
     box-shadow: var(--md-sys-elevation-level0);
 }
-.category-card-m3.selected { border-color: var(--md-sys-color-primary); background-color: var(--md-sys-color-secondary-container); color: var(--sys-on-secondary-container); box-shadow: var(--md-sys-elevation-level1); }
+.category-card-m3.selected { border-color: var(--md-sys-color-primary); background-color: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); box-shadow: var(--md-sys-elevation-level1); }
 .category-card-m3:hover { background-color: var(--md-sys-color-surface-container-high); box-shadow: var(--md-sys-elevation-level1); border-color: var(--md-sys-color-primary); }
 .category-card-m3:focus-visible { outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary); outline-offset: var(--md-sys-spacing-1); }
 
@@ -1488,7 +1488,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .notebook-layout {
     display: flex;
     height: calc(100dvh - var(--md-sys-spacing-16));
-    background-color: var(--sys-background);
+    background-color: var(--md-sys-color-background);
     overflow: hidden;
     position: relative;
 }
@@ -1541,7 +1541,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .notebook-project-item.active {
     background-color: var(--md-sys-color-secondary-container);
-    color: var(--sys-on-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
     font-weight: 600;
     box-shadow: var(--md-sys-elevation-level1);
 }
@@ -1783,7 +1783,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .card-top-accent-tertiary {
-    border-top: var(--md-sys-spacing-1) solid var(--sys-tertiary);
+    border-top: var(--md-sys-spacing-1) solid var(--md-sys-color-tertiary);
 }
 
 .studio-action-grid {
@@ -1882,7 +1882,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .consiglio-table td {
     white-space: nowrap;
     padding: var(--md-sys-spacing-2) var(--md-sys-spacing-3);
-    font-size: var(--typography-body-medium-fontSize);
+    font-size: var(--md-sys-typescale-body-medium-font-size);
 }
 
 .sticky-header th {
@@ -1895,7 +1895,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .cell-changed input,
 .cell-changed select,
 .cell-changed textarea {
-    background-color: var(--sys-tertiary-container);
+    background-color: var(--md-sys-color-tertiary-container);
     transition: background-color var(--md-sys-motion-duration-long);
 }
 
@@ -2000,7 +2000,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .guidance-card {
     background-color: var(--md-sys-color-secondary-container);
-    color: var(--sys-on-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
     border-radius: var(--md-sys-shape-corner-large);
     padding: var(--md-sys-spacing-4);
     display: flex;
@@ -3182,7 +3182,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .gantt-event-icon {
     font-size: var(--md-sys-typescale-label-medium-size);
-    color: var(--sys-error);
+    color: var(--md-sys-color-error);
     background-color: var(--md-sys-color-surface);
     border-radius: var(--md-sys-shape-corner-full);
     box-shadow: var(--md-sys-elevation-level1);
@@ -3224,7 +3224,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .settings-card.variant-tertiary {
-    border-color: var(--sys-tertiary);
+    border-color: var(--md-sys-color-tertiary);
 }
 
 /* Settings Summary (Header) */
@@ -3261,23 +3261,23 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .settings-card.variant-secondary .settings-icon-box {
     background: var(--md-sys-color-secondary-container);
-    color: var(--sys-on-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
 }
 
 .settings-card.variant-tertiary .settings-icon-box {
-    background: var(--sys-tertiary-container);
-    color: var(--sys-on-tertiary-container);
+    background: var(--md-sys-color-tertiary-container);
+    color: var(--md-sys-color-on-tertiary-container);
 }
 
 .settings-title {
-    font-size: var(--typography-title-medium);
+    font-size: var(--md-sys-typescale-title-medium);
     font-weight: 700;
     color: var(--md-sys-color-on-surface);
     margin: 0;
 }
 
 .settings-subtitle {
-    font-size: var(--typography-body-small);
+    font-size: var(--md-sys-typescale-body-small);
     color: var(--md-sys-color-on-surface-variant);
     margin: var(--md-sys-spacing-1) 0 0 0;
 }
@@ -3314,7 +3314,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .m3-theme-card:hover {
-    border-color: var(--sys-outline);
+    border-color: var(--md-sys-color-outline);
     background: var(--md-sys-color-surface-container-high);
     transform: translateY(-var(--md-sys-spacing-1));
     box-shadow: var(--md-sys-elevation-level1);
@@ -3376,7 +3376,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .m3-theme-label {
-    font-size: var(--typography-label-small);
+    font-size: var(--md-sys-typescale-label-small);
     font-weight: 600;
     color: var(--md-sys-color-on-surface);
     text-align: center;
@@ -3406,12 +3406,12 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Button variants for settings */
 .button-outlined-error {
     background: transparent;
-    color: var(--sys-error);
-    border: var(--md-sys-spacing-0) solid var(--sys-error);
+    color: var(--md-sys-color-error);
+    border: var(--md-sys-spacing-0) solid var(--md-sys-color-error);
 }
 
 .button-outlined-error:hover {
-    background: var(--sys-error-container);
+    background: var(--md-sys-color-error-container);
 }
 
 .button-drop {
@@ -3424,7 +3424,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
     background: var(--md-sys-color-surface);
     color: var(--md-sys-color-on-surface);
-    font-size: var(--typography-label-medium);
+    font-size: var(--md-sys-typescale-label-medium);
     font-weight: 500;
     cursor: pointer;
     transition-property: opacity, transform, background-color;
@@ -3437,12 +3437,12 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .button-drop.danger {
-    color: var(--sys-error);
-    border-color: var(--sys-error);
+    color: var(--md-sys-color-error);
+    border-color: var(--md-sys-color-error);
 }
 
 .button-drop.danger:hover {
-    background: var(--sys-error-container);
+    background: var(--md-sys-color-error-container);
 }
 
 /* Smart Document Editor - M3Expressive Classes */

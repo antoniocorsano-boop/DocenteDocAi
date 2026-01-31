@@ -1,0 +1,9 @@
+{
+  "description": "Artifacts for Governance review: scripts, tmp report, and backups",
+  "included": [
+    "scripts/wrap-hex-colors.cjs",
+    "scripts/wrap-rgb-colors.cjs",
+    "tmp/governance-check-result-design-system.json",
+    "src/design-system/*.preappfix.bak"
+  ]
+}

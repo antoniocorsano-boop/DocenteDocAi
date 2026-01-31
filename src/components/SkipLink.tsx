@@ -54,12 +54,12 @@ const SkipLink: React.FC<SkipLinkProps> = ({
       style={{position: 'absolute',
         top: 'calc(-1 * var(--md-sys-spacing-10))',
         left: 0,
-        background: 'var(--app-color-primary)',
+        background: 'var(--md-sys-color-primary)',
         color: 'var(--md-sys-color-on)',
-        padding: 'var(--app-spacing-component) var(--app-spacing-container)',
+        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
         textDecoration: 'none',
         zIndex: 'var(--md-sys-z-sticky)',
-        borderRadius: '0 0 var(--md-corner-small) 0',
+        borderRadius: '0 0 var(--md-sys-shape-corner-small) 0',
         fontSize: 'var(--md-sys-typescale-body-medium-size)',
         fontWeight: 600,}}
       onKeyDown={(e: React.KeyboardEvent<HTMLAnchorElement>) => {

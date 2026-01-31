@@ -58,8 +58,8 @@ describe('Header M3 Expressive', () => {
     // Cerca il testo SVG separatamente
     expect(screen.getByText('DocenteDoc')).toBeInTheDocument();
     expect(screen.getByText('AI')).toBeInTheDocument();
-    // Cerca le iniziali nell'avatar
-    expect(screen.getByText('RM')).toBeInTheDocument();
+    // Avatar initials removed from header per MD3 governance; ensure user menu exists
+    expect(screen.getByLabelText('Menu utente')).toBeInTheDocument();
   });
 
   it('shows back button and handles click', () => {

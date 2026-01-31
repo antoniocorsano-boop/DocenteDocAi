@@ -3,13 +3,13 @@
 exports[`M3ListItem Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    style="display: flex; align-items: flex-start; gap: var(--app-spacing-container); padding: var(--app-spacing-container); border-radius: var(--md-sys-shape-corner-medium); transition: all var(--md-sys-motion-duration-short2) var(--app-easing-standard); min-height: var(--md-sys-spacing-12); cursor: default; background-color: transparent; outline: none; outline-offset: var(--md-sys-spacing-0); border: medium; text-align: left; width: var(--app-layout-full);"
+    style="display: flex; align-items: flex-start; gap: var(--md-sys-spacing-4); padding: var(--md-sys-spacing-4); border-radius: var(--md-sys-shape-corner-medium); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); min-height: var(--md-sys-spacing-12); cursor: default; background-color: transparent; outline: none; outline-offset: var(--md-sys-spacing-0); border: medium; text-align: left; width: var(--md-sys-percent-100);"
   >
     <div
       style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--md-sys-spacing-1);"
     >
       <div
-        style="color: var(--app-color-on-surface); font-weight: var(--app-text-body-weight); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--app-text-body); line-height: var(--app-text-body-line-height);"
+        style="color: var(--md-sys-color-on-surface); font-weight: var(--md-sys-typescale-body-large-font-size-weight); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--md-sys-typescale-body-large-font-size); line-height: var(--md-sys-typescale-body-large-font-size-line-height);"
       >
         Test
       </div>

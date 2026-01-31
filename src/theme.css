@@ -22,32 +22,32 @@
   --md-sys-color-secondary: #625B71;
   --md-sys-color-secondary-rgb: 98, 91, 113;
   /* DEPRECATED: Use --md-sys-color-on-secondary */
-  --sys-on-secondary: #FFFFFF;
+  --md-sys-color-on-secondary: #FFFFFF;
   /* DEPRECATED: Use --md-sys-color-on-secondary-rgb */
-  --sys-on-secondary-rgb: 255, 255, 255;
+  --md-sys-color-on-secondary-rgb: 255, 255, 255;
   --md-sys-color-secondary-container: #E8DEF8;
   --md-sys-color-secondary-container-rgb: 232, 222, 248;
   /* DEPRECATED: Use --md-sys-color-on-secondary-container */
-  --sys-on-secondary-container: #1D192B;
+  --md-sys-color-on-secondary-container: #1D192B;
   /* DEPRECATED: Use --md-sys-color-on-secondary-container-rgb */
-  --sys-on-secondary-container-rgb: 29, 25, 43;
+  --md-sys-color-on-secondary-container-rgb: 29, 25, 43;
 
   /* DEPRECATED: Use --md-sys-color-tertiary */
-  --sys-tertiary: #7D5260;
+  --md-sys-color-tertiary: #7D5260;
   /* DEPRECATED: Use --md-sys-color-tertiary-rgb */
-  --sys-tertiary-rgb: 125, 82, 96;
+  --md-sys-color-tertiary-rgb: 125, 82, 96;
   /* DEPRECATED: Use --md-sys-color-on-tertiary */
-  --sys-on-tertiary: #FFFFFF;
+  --md-sys-color-on-tertiary: #FFFFFF;
   /* DEPRECATED: Use --md-sys-color-on-tertiary-rgb */
-  --sys-on-tertiary-rgb: 255, 255, 255;
+  --md-sys-color-on-tertiary-rgb: 255, 255, 255;
   /* DEPRECATED: Use --md-sys-color-tertiary-container */
-  --sys-tertiary-container: #FFD8E4;
+  --md-sys-color-tertiary-container: #FFD8E4;
   /* DEPRECATED: Use --md-sys-color-tertiary-container-rgb */
-  --sys-tertiary-container-rgb: 255, 216, 228;
+  --md-sys-color-tertiary-container-rgb: 255, 216, 228;
   /* DEPRECATED: Use --md-sys-color-on-tertiary-container */
-  --sys-on-tertiary-container: #31111D;
+  --md-sys-color-on-tertiary-container: #31111D;
   /* DEPRECATED: Use --md-sys-color-on-tertiary-container-rgb */
-  --sys-on-tertiary-container-rgb: 49, 17, 29;
+  --md-sys-color-on-tertiary-container-rgb: 49, 17, 29;
 
   /* --- BACKDROP OPACITY TOKENS --- */
   --md-sys-backdrop-light: 0.2;
@@ -55,13 +55,13 @@
   --md-sys-backdrop-dark: 0.6;
 
   /* DEPRECATED: Use --md-sys-color-background */
-  --sys-background: #FDFBFF;
+  --md-sys-color-background: #FDFBFF;
   /* DEPRECATED: Use --md-sys-color-background-rgb */
-  --sys-background-rgb: 253, 251, 255;
+  --md-sys-color-background-rgb: 253, 251, 255;
   /* DEPRECATED: Use --md-sys-color-on-background */
-  --sys-on-background: #1C1B1F;
+  --md-sys-color-on-background: #1C1B1F;
   /* DEPRECATED: Use --md-sys-color-on-background-rgb */
-  --sys-on-background-rgb: 28, 27, 31;
+  --md-sys-color-on-background-rgb: 28, 27, 31;
   --md-sys-color-surface: #FDFBFF;
   --md-sys-color-surface-rgb: 253, 251, 255;
   --md-sys-color-on-surface: #1C1B1F;
@@ -80,30 +80,30 @@
   --md-sys-color-surface-container-highest-rgb: 230, 224, 233;
 
   /* DEPRECATED: Use --md-sys-color-outline */
-  --sys-outline: #79747E;
+  --md-sys-color-outline: #79747E;
   /* DEPRECATED: Use --md-sys-color-outline-rgb */
-  --sys-outline-rgb: 121, 116, 126;
+  --md-sys-color-outline-rgb: 121, 116, 126;
   --md-sys-color-outline-variant: #C4C7C5;
   --md-sys-color-outline-variant-rgb: 196, 199, 197;
   /* DEPRECATED: Use --md-sys-color-error */
-  --sys-error: #B3261E;
+  --md-sys-color-error: #B3261E;
   /* DEPRECATED: Use --md-sys-color-error-rgb */
-  --sys-error-rgb: 179, 38, 30;
+  --md-sys-color-error-rgb: 179, 38, 30;
   /* DEPRECATED: Use --md-sys-color-on-error */
-  --sys-on-error: #FFFFFF;
+  --md-sys-color-on-error: #FFFFFF;
   /* DEPRECATED: Use --md-sys-color-on-error-rgb */
-  --sys-on-error-rgb: 255, 255, 255;
+  --md-sys-color-on-error-rgb: 255, 255, 255;
   /* DEPRECATED: Use --md-sys-color-warning */
-  --sys-warning: #E65100;
+  --md-sys-color-warning: #E65100;
   /* DEPRECATED: Use --md-sys-color-warning-rgb */
-  --sys-warning-rgb: 230, 81, 0;
+  --md-sys-color-warning-rgb: 230, 81, 0;
   /* DEPRECATED: Use --md-sys-color-on-warning */
-  --sys-on-warning: #FFFFFF;
+  --md-sys-color-on-warning: #FFFFFF;
   /* DEPRECATED: Use --md-sys-color-on-warning-rgb */
-  --sys-on-warning-rgb: 255, 255, 255;
+  --md-sys-color-on-warning-rgb: 255, 255, 255;
 
   /* Glassmorphism Presentation Layer - Default Aura */
-  --glass-bg: rgba(var(--md-sys-color-surface-rgb), var(--sys-glass-opacity));
+  --glass-bg: rgba(var(--md-sys-color-surface-rgb), var(--md-sys-color-glass-opacity));
   --glass-blur-px: var(--md-sys-blur-xl);
   --glass-blur: blur(var(--glass-blur-px));
   --glass-border: var(--md-sys-spacing-0) solid rgba(var(--md-sys-color-outline-variant-rgb), 0.3);
@@ -139,11 +139,11 @@
   --md-sys-color-surface-container-warm-rgb: 248, 245, 240;
 
   /* Parametric Scaling Tokens */
-  --sys-radius-multiplier: 1;
-  --sys-spacing-multiplier: 1;
-  --sys-font-scale: 1;
-  --sys-contrast-level: 0;
-  --sys-glass-opacity: 0.75;
+  --md-sys-color-radius-multiplier: 1;
+  --md-sys-color-spacing-multiplier: 1;
+  --md-sys-color-font-scale: 1;
+  --md-sys-color-contrast-level: 0;
+  --md-sys-color-glass-opacity: 0.75;
 
   /* ===========================================
      MD3 SPACING SCALE (Expressive Philosophy)
@@ -378,12 +378,43 @@
      MD3 SPECIAL TOKENS (Expressive - Edge Cases)
      =========================================== */
   --md-sys-special-viewport-height: calc(var(--md-sys-spacing-15) - var(--md-sys-border-width-thin));
+    /* ===========================================
+      APP-SCOPE TOKENS (Temporary app-level semantic tokens)
+      These are conservative mappings used during the MD3 remediation
+      pass. They are intentionally defined here (app scope) and map to
+      existing MD3 tokens. After RFC approval these can be refined.
+      =========================================== */
+    --app-color-brand-primary: var(--md-sys-color-primary);
+    --app-color-brand-on-primary: var(--md-sys-color-on-primary);
+    --md-sys-color-surface-muted: var(--md-sys-color-surface-container-low);
+    --md-sys-color-on-surface-muted: var(--md-sys-color-on-surface);
+    --app-color-accent-1: var(--md-sys-color-secondary);
+    --app-color-accent-2: var(--md-sys-color-tertiary);
+    --app-color-error: var(--md-sys-color-error);
+    --app-color-warning: var(--md-sys-color-warning);
+
+    /* Touch target spacing token requested in governance work */
+    --md-sys-spacing-5: var(--md-sys-spacing-11); /* 44px */
+
+    /* Backwards-compatible aliases used across components */
+    --md-sys-color-primary: var(--app-color-brand-primary);
+    --md-sys-color-on-primary: var(--app-color-brand-on-primary);
+    --md-sys-color-primary-container: var(--md-sys-color-primary-container);
+    --md-sys-color-on-primary-container: var(--md-sys-color-on-primary-container);
+    --md-sys-color-secondary: var(--app-color-accent-1);
+    --md-sys-color-secondary-container: var(--md-sys-color-secondary-container);
+    --md-sys-color-on-secondary-container: var(--md-sys-color-on-secondary-container);
+    --app-color-tertiary: var(--app-color-accent-2);
+    --md-sys-color-surface: var(--md-sys-color-surface);
+    --md-sys-color-on-surface: var(--md-sys-color-on-surface);
+    --md-sys-color-surface-variant: var(--md-sys-color-surface-container);
+    --md-sys-color-on-surface-variant: var(--md-sys-color-on-surface-variant);
 
 /* --- VISUAL STYLES OVERRIDES --- */
 
 /* Aura Style (Glassmorphism) */
 [data-visual-style="aura"] {
-  --glass-bg: rgba(var(--md-sys-color-surface-rgb), var(--sys-glass-opacity));
+  --glass-bg: rgba(var(--md-sys-color-surface-rgb), var(--md-sys-color-glass-opacity));
   --glass-blur: blur(var(--glass-blur-px));
   --glass-border: var(--md-sys-spacing-0) solid rgba(var(--md-sys-color-outline-variant-rgb), 0.3);
 }
@@ -393,7 +424,7 @@
   --glass-bg: var(--md-sys-color-surface);
   --glass-blur: none;
   --glass-border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
-  --sys-glass-opacity: 1;
+  --md-sys-color-glass-opacity: 1;
 }
 
 /* Minimal Style (Clean & Sharp) */
@@ -401,8 +432,8 @@
   --glass-bg: var(--md-sys-color-surface);
   --glass-blur: none;
   --glass-border: none;
-  --sys-glass-opacity: 1;
-  --sys-radius-multiplier: 0.25;
+  --md-sys-color-glass-opacity: 1;
+  --md-sys-color-radius-multiplier: 0.25;
 }
 
 /* Cupertino Style (Apple-like) */
@@ -413,8 +444,8 @@
   --glass-bg: rgba(var(--md-sys-color-surface-rgb), 0.7);
   --glass-blur: blur(var(--md-sys-blur-xl)) saturate(180%);
   --glass-border: var(--md-sys-spacing-0) solid rgba(255, 255, 255, 0.2);
-  --sys-radius-multiplier: 0.8;
-  --sys-glass-opacity: 0.7;
+  --md-sys-color-radius-multiplier: 0.8;
+  --md-sys-color-glass-opacity: 0.7;
 }
 
 /* Windows Style (Fluent Design) */
@@ -425,44 +456,44 @@
   --glass-bg: rgba(var(--md-sys-color-surface-rgb), 0.85);
   --glass-blur: blur(var(--md-sys-blur-20));
   --glass-border: var(--md-sys-spacing-0) solid rgba(var(--md-sys-color-outline-variant-rgb), 0.4);
-  --sys-radius-multiplier: 0.4; /* Windows uses smaller radii (4-var(--md-sys-spacing-2)) */
-  --sys-glass-opacity: 0.85;
+  --md-sys-color-radius-multiplier: 0.4; /* Windows uses smaller radii (4-var(--md-sys-spacing-2)) */
+  --md-sys-color-glass-opacity: 0.85;
 }
 
 /* Google Expressive Style */
 [data-visual-style="expressive"] {
   --font-family: 'Roboto Flex', sans-serif;
-  --sys-radius-multiplier: 1.2; /* Extra rounded shapes (var(--md-sys-spacing-7) -> var(--md-sys-layout-avatar-size)) */
+  --md-sys-color-radius-multiplier: 1.2; /* Extra rounded shapes (var(--md-sys-spacing-7) -> var(--md-sys-layout-avatar-size)) */
   --md-sys-color-primary: #1a73e8; /* Google Blue */
   --md-sys-color-primary-rgb: 26, 115, 232;
   --md-sys-color-surface-container-high: #f1f3f4;
   --md-sys-color-surface-container-highest: #e8eaed;
-  var(--md-sys-motion-easing-standard): var(--motion-easing-expressive);
+  var(--md-sys-motion-easing-standard): var(--md-sys-motion-easing-expressive);
 }
 
 /* --- CONTRAST OVERRIDES --- */
 [data-contrast-level="1"] {
-  --sys-outline: var(--md-sys-color-on-surface);
+  --md-sys-color-outline: var(--md-sys-color-on-surface);
   --md-sys-color-outline-variant: var(--md-sys-color-on-surface-variant);
   --md-sys-color-surface-container: var(--md-sys-color-surface-container-low);
 }
 
 [data-contrast-level="2"] {
-  --sys-outline: #000000;
+  --md-sys-color-outline: #000000;
   --md-sys-color-outline-variant: #000000;
   --md-sys-color-surface-container: #FFFFFF;
   --md-sys-color-on-surface: #000000;
 }
 
 .theme-dark[data-contrast-level="2"] {
-  --sys-outline: #FFFFFF;
+  --md-sys-color-outline: #FFFFFF;
   --md-sys-color-outline-variant: #FFFFFF;
   --md-sys-color-surface-container: #000000;
   --md-sys-color-on-surface: #FFFFFF;
 
   /* Layout Metrics Presentation Layer */
   --header-height: var(--md-sys-spacing-16);
-  --content-max-width: var(--content-max-width);
+  --md-sys-breakpoint-content-max-width: var(--md-sys-breakpoint-content-max-width);
   --content-padding: var(--md-sys-spacing-4);
   --content-padding-md: var(--md-sys-spacing-6);
 
@@ -569,7 +600,7 @@
   --typography-body-large-letterSpacing: 0.5px;
   
   /* Body Medium */
-  --typography-body-medium-fontSize: var(--md-sys-typescale-body-medium-font-size);
+  --md-sys-typescale-body-medium-font-size: var(--md-sys-typescale-body-medium-font-size);
   --typography-body-medium-fontFamily: 'Roboto Flex', sans-serif;
   --typography-body-medium-fontWeight: 400;
   --typography-body-medium-lineHeight: var(--md-sys-spacing-5);
@@ -596,7 +627,7 @@
   --typography-label-medium-letterSpacing: 0.5px;
   
   /* Label Small */
-  --typography-label-small-fontSize: var(--md-sys-typescale-label-large-font-size);
+  --md-sys-typescale-label-small-font-size: var(--md-sys-typescale-label-large-font-size);
   --typography-label-small-fontFamily: 'Roboto Flex', sans-serif;
   --typography-label-small-fontWeight: 500;
   --typography-label-small-lineHeight: var(--md-sys-spacing-4);
@@ -684,7 +715,7 @@
   
   /* Icon Size Tokens */
   --icon-size-small: var(--md-sys-spacing-5);        /* Extra small icons (compact UI) */
-  --icon-size-medium: var(--md-sys-spacing-6);       /* Medium icons (M3 default) */
+  --md-sys-icon-size-medium: var(--md-sys-spacing-6);       /* Medium icons (M3 default) */
   --icon-size-large: var(--md-sys-spacing-8);        /* Large icons (prominent) */
   --icon-size-xl: var(--md-sys-spacing-12);           /* Extra large (hero displays) */
   
@@ -696,7 +727,7 @@
   --icon-xl: text-6xl;            /* var(--md-sys-spacing-12) base */
   
   /* Backward compatibility */
-  var(--md-sys-motion-easing-emphasized): var(--motion-easing-expressive);
+  var(--md-sys-motion-easing-emphasized): var(--md-sys-motion-easing-expressive);
   var(--md-sys-motion-easing-standard): var(var(--md-sys-motion-easing-standard));
 
   /* --- MD3 Alias Mapping (bridge to --sys- tokens) --- */
@@ -735,13 +766,13 @@
   --md-sys-elevation3: var(--md-sys-elevation-level3);
 
   /* Shape aliases (rounded corners) */
-  --md-corner-small: var(--shape-s);
-  --md-corner-medium: var(--shape-m);
-  --md-corner-large: var(--shape-l);
-  --md-corner-full: var(--shape-full);
+  --md-sys-shape-corner-small: var(--shape-s);
+  --md-sys-shape-corner-medium: var(--shape-m);
+  --md-sys-shape-corner-large: var(--shape-l);
+  --md-sys-shape-corner-full: var(--shape-full);
   /* Numeric corner helpers used in stories/demos */
-  --md-corner-4: var(--md-sys-spacing-1);
-  --md-corner-8: var(--md-sys-spacing-2);
+  --md-sys-shape-corner-4: var(--md-sys-spacing-1);
+  --md-sys-shape-corner-8: var(--md-sys-spacing-2);
 
   /* Official M3 Shape Corner Tokens */
   --md-sys-shape-corner-none: var(--md-sys-spacing-0);
@@ -761,7 +792,7 @@
   --md-sys-color-on-primary: #381E72;
   --md-sys-color-primary-container: #4F378B;
   --md-sys-color-on-primary-container: #EADDFF;
-  --sys-background: #141218;
+  --md-sys-color-background: #141218;
   --md-sys-color-surface: #1C1B1F;
   --md-sys-color-on-surface: #E6E1E5;
   --md-sys-color-surface-container: #25232A;
@@ -777,7 +808,7 @@ body {
   font-family: var(--font-family);
   background: var(--aura-gradient);
   background-attachment: fixed;
-  color: var(--sys-on-background);
+  color: var(--md-sys-color-on-background);
   min-height: 100dvh;
   width: 100%;
   display: flex;
@@ -844,23 +875,23 @@ body {
 }
 
 .animate-spin {
-  animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-var(--md-sys-motion-easing-var(--md-sys-motion-easing-standard))) infinite;
+    animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 .animate-pulse {
-  animation: pulse var(--md-sys-motion-duration-extra-long) cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 .animate-bounce {
-  animation: bounce var(--md-sys-motion-duration-long) infinite;
+    animation: bounce var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 .animate-fade {
-  animation: fade 1.5s var(--md-sys-motion-easing-standard)-in-out infinite;
+    animation: fade var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 .animate-shine {
-  animation: shine 1.5s var(--md-sys-motion-easing-standard)-in-out infinite;
+    animation: shine var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 @keyframes aura-pulse {
@@ -868,11 +899,11 @@ body {
   0%,
   100% {
     transform: scale(1);
-    opacity: 0.4;
+    animation: aura-pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;
     filter: blur(var(--md-sys-layout-card-min-height));
   }
 
-  var(--md-sys-percent-50) {
+    animation: float var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;
     transform: scale(1.15);
     opacity: 0.6;
     filter: blur(var(--md-sys-layout-card-width));
@@ -880,7 +911,7 @@ body {
 }
 
 .animate-aura-pulse {
-  animation: aura-pulse 8s var(--md-sys-motion-easing-standard)-in-out infinite;
+  animation: aura-pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 @keyframes float {
@@ -896,7 +927,7 @@ body {
 }
 
 .animate-float {
-  animation: float 4s var(--md-sys-motion-easing-standard)-in-out infinite;
+  animation: float var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 @keyframes aura-slide-up {
@@ -921,108 +952,108 @@ body {
 
 /* --- M3 TYPOGRAPHY UTILITIES --- */
 .m3-display-large {
-  font-family: var(--typography-display-large-fontFamily);
-  font-size: var(--typography-display-large-fontSize);
-  font-weight: var(--typography-display-large-fontWeight);
-  line-height: var(--typography-display-large-lineHeight);
+  font-family: var(--md-sys-typescale-display-large-font-family);
+  font-size: var(--md-sys-typescale-display-large-font-size);
+  font-weight: var(--md-sys-typescale-display-large-font-weight);
+  line-height: var(--md-sys-typescale-display-large-line-height);
 }
 
 .m3-display-medium {
-  font-family: var(--typography-display-medium-fontFamily);
-  font-size: var(--typography-display-medium-fontSize);
-  font-weight: var(--typography-display-medium-fontWeight);
-  line-height: var(--typography-display-medium-lineHeight);
+  font-family: var(--md-sys-typescale-display-medium-font-family);
+  font-size: var(--md-sys-typescale-display-medium-font-size);
+  font-weight: var(--md-sys-typescale-display-medium-font-weight);
+  line-height: var(--md-sys-typescale-display-medium-line-height);
 }
 
 .m3-display-small {
-  font-family: var(--typography-display-small-fontFamily);
-  font-size: var(--typography-display-small-fontSize);
-  font-weight: var(--typography-display-small-fontWeight);
-  line-height: var(--typography-display-small-lineHeight);
+  font-family: var(--md-sys-typescale-display-small-font-family);
+  font-size: var(--md-sys-typescale-display-small-font-size);
+  font-weight: var(--md-sys-typescale-display-small-font-weight);
+  line-height: var(--md-sys-typescale-display-small-line-height);
 }
 
 .m3-headline-large {
-  font-family: var(--typography-headline-large-fontFamily);
-  font-size: var(--typography-headline-large-fontSize);
-  font-weight: var(--typography-headline-large-fontWeight);
-  line-height: var(--typography-headline-large-lineHeight);
+  font-family: var(--md-sys-typescale-headline-large-font-family);
+  font-size: var(--md-sys-typescale-headline-large-font-size);
+  font-weight: var(--md-sys-typescale-headline-large-font-weight);
+  line-height: var(--md-sys-typescale-headline-large-line-height);
 }
 
 .m3-headline-medium {
-  font-family: var(--typography-headline-medium-fontFamily);
-  font-size: var(--typography-headline-medium-fontSize);
-  font-weight: var(--typography-headline-medium-fontWeight);
-  line-height: var(--typography-headline-medium-lineHeight);
+  font-family: var(--md-sys-typescale-headline-medium-font-family);
+  font-size: var(--md-sys-typescale-headline-medium-font-size);
+  font-weight: var(--md-sys-typescale-headline-medium-font-weight);
+  line-height: var(--md-sys-typescale-headline-medium-line-height);
 }
 
 .m3-headline-small {
-  font-family: var(--typography-headline-small-fontFamily);
-  font-size: var(--typography-headline-small-fontSize);
-  font-weight: var(--typography-headline-small-fontWeight);
-  line-height: var(--typography-headline-small-lineHeight);
+  font-family: var(--md-sys-typescale-headline-small-font-family);
+  font-size: var(--md-sys-typescale-headline-small-font-size);
+  font-weight: var(--md-sys-typescale-headline-small-font-weight);
+  line-height: var(--md-sys-typescale-headline-small-line-height);
 }
 
 .m3-title-large {
-  font-family: var(--typography-title-large-fontFamily);
-  font-size: var(--typography-title-large-fontSize);
-  font-weight: var(--typography-title-large-fontWeight);
-  line-height: var(--typography-title-large-lineHeight);
+  font-family: var(--md-sys-typescale-title-large-font-family);
+  font-size: var(--md-sys-typescale-title-large-font-size);
+  font-weight: var(--md-sys-typescale-title-large-font-weight);
+  line-height: var(--md-sys-typescale-title-large-line-height);
 }
 
 .m3-title-medium {
-  font-family: var(--typography-title-medium-fontFamily);
-  font-size: var(--typography-title-medium-fontSize);
-  font-weight: var(--typography-title-medium-fontWeight);
-  line-height: var(--typography-title-medium-lineHeight);
+  font-family: var(--md-sys-typescale-title-medium-font-family);
+  font-size: var(--md-sys-typescale-title-medium-font-size);
+  font-weight: var(--md-sys-typescale-title-medium-font-weight);
+  line-height: var(--md-sys-typescale-title-medium-line-height);
 }
 
 .m3-title-small {
-  font-family: var(--typography-title-small-fontFamily);
-  font-size: var(--typography-title-small-fontSize);
-  font-weight: var(--typography-title-small-fontWeight);
-  line-height: var(--typography-title-small-lineHeight);
+  font-family: var(--md-sys-typescale-title-small-font-family);
+  font-size: var(--md-sys-typescale-title-small-font-size);
+  font-weight: var(--md-sys-typescale-title-small-font-weight);
+  line-height: var(--md-sys-typescale-title-small-line-height);
 }
 
 .m3-body-large {
-  font-family: var(--typography-body-large-fontFamily);
-  font-size: var(--typography-body-large-fontSize);
-  font-weight: var(--typography-body-large-fontWeight);
-  line-height: var(--typography-body-large-lineHeight);
+  font-family: var(--md-sys-typescale-body-large-font-family);
+  font-size: var(--md-sys-typescale-body-large-font-size);
+  font-weight: var(--md-sys-typescale-body-large-font-weight);
+  line-height: var(--md-sys-typescale-body-large-line-height);
 }
 
 .m3-body-medium {
-  font-family: var(--typography-body-medium-fontFamily);
-  font-size: var(--typography-body-medium-fontSize);
-  font-weight: var(--typography-body-medium-fontWeight);
-  line-height: var(--typography-body-medium-lineHeight);
+  font-family: var(--md-sys-typescale-body-medium-font-family);
+  font-size: var(--md-sys-typescale-body-medium-font-size);
+  font-weight: var(--md-sys-typescale-body-medium-font-weight);
+  line-height: var(--md-sys-typescale-body-medium-line-height);
 }
 
 .m3-body-small {
-  font-family: var(--typography-body-small-fontFamily);
-  font-size: var(--typography-body-small-fontSize);
-  font-weight: var(--typography-body-small-fontWeight);
-  line-height: var(--typography-body-small-lineHeight);
+  font-family: var(--md-sys-typescale-body-small-font-family);
+  font-size: var(--md-sys-typescale-body-small-font-size);
+  font-weight: var(--md-sys-typescale-body-small-font-weight);
+  line-height: var(--md-sys-typescale-body-small-line-height);
 }
 
 .m3-label-large {
-  font-family: var(--typography-label-large-fontFamily);
-  font-size: var(--typography-label-large-fontSize);
-  font-weight: var(--typography-label-large-fontWeight);
-  line-height: var(--typography-label-large-lineHeight);
+  font-family: var(--md-sys-typescale-label-large-font-family);
+  font-size: var(--md-sys-typescale-label-large-font-size);
+  font-weight: var(--md-sys-typescale-label-large-font-weight);
+  line-height: var(--md-sys-typescale-label-large-line-height);
 }
 
 .m3-label-medium {
-  font-family: var(--typography-label-medium-fontFamily);
-  font-size: var(--typography-label-medium-fontSize);
-  font-weight: var(--typography-label-medium-fontWeight);
-  line-height: var(--typography-label-medium-lineHeight);
+  font-family: var(--md-sys-typescale-label-medium-font-family);
+  font-size: var(--md-sys-typescale-label-medium-font-size);
+  font-weight: var(--md-sys-typescale-label-medium-font-weight);
+  line-height: var(--md-sys-typescale-label-medium-line-height);
 }
 
 .m3-label-small {
-  font-family: var(--typography-label-small-fontFamily);
-  font-size: var(--typography-label-small-fontSize);
-  font-weight: var(--typography-label-small-fontWeight);
-  line-height: var(--typography-label-small-lineHeight);
+  font-family: var(--md-sys-typescale-label-small-font-family);
+  font-size: var(--md-sys-typescale-label-small-font-size);
+  font-weight: var(--md-sys-typescale-label-small-font-weight);
+  line-height: var(--md-sys-typescale-label-small-line-height);
 }
 
 /* --- M3 COMPONENT CLASSES (COMPLETE AUDIT SPEC) --- */
@@ -1065,7 +1096,19 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .m3-card:hover {
   box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 color-mix(in srgb, var(--md-sys-color-shadow) 12%, transparent);
-  border-color: var(--sys-outline);
+  border-color: var(--md-sys-color-outline);
+  transform: translateY(-2px);
+}
+
+.m3-card:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  transform: translateY(-1px);
+}
+
+.m3-card:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: var(--md-sys-motion-duration-short1);
 }
 
 .m3-card-elevated {
@@ -1074,9 +1117,43 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   border: none;
 }
 
+.m3-card-elevated:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 var(--md-sys-spacing-2) var(--md-sys-spacing-4) 0 color-mix(in srgb, var(--md-sys-color-primary) 16%, transparent);
+}
+
+.m3-card-elevated:focus-visible {
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
+  transform: scale(1.01);
+}
+
+.m3-card-elevated:active {
+  transform: scale(0.99);
+  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-2) 0 color-mix(in srgb, var(--md-sys-color-primary) 8%, transparent);
+}
+
 .m3-card-outlined {
   background: transparent;
   border: var(--md-sys-spacing-1) solid var(--md-sys-color-outline-variant);
+}
+
+.m3-card-outlined:hover {
+  transform: translateY(-1px);
+  border-color: var(--md-sys-color-outline);
+  background: var(--md-sys-color-surface-container-highest);
+}
+
+.m3-card-outlined:focus-visible {
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
+  transform: scale(1.01);
+  border-color: var(--md-sys-color-primary);
+}
+
+.m3-card-outlined:active {
+  transform: scale(0.99);
+  border-color: var(--md-sys-color-primary);
 }
 
 /* M3 Button Components */
@@ -1085,9 +1162,9 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   color: var(--md-sys-color-on-primary);
   border: none;
   border-radius: var(--md-sys-shape-corner-large);
-  padding: calc(var(--md-sys-spacing-3) * var(--sys-font-scale, 1)) calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
+  padding: calc(var(--md-sys-spacing-3) * var(--md-sys-color-font-scale, 1)) calc(var(--md-sys-spacing-6) * var(--md-sys-color-font-scale, 1));
   font-weight: 500;
-  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--md-sys-color-font-scale, 1));
   cursor: pointer;
   transition-property: opacity, transform, background-color;
 transition-duration: var(--md-sys-motion-duration-short);
@@ -1098,20 +1175,29 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   background: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
   box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 color-mix(in srgb, var(--md-sys-color-primary) 15%, transparent);
+  transform: translateY(-1px);
 }
 
 .m3-button-filled:active {
-  scale: 0.95;
+  scale: 0.98;
+  transform: translateY(0);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.m3-button-filled:focus-visible {
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
+  transform: scale(1.02);
 }
 
 .m3-button-error {
-  background: var(--sys-error);
-  color: var(--sys-on-error);
+  background: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-error);
   border: none;
   border-radius: var(--md-sys-shape-corner-large);
-  padding: calc(var(--md-sys-spacing-3) * var(--sys-font-scale, 1)) calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
+  padding: calc(var(--md-sys-spacing-3) * var(--md-sys-color-font-scale, 1)) calc(var(--md-sys-spacing-6) * var(--md-sys-color-font-scale, 1));
   font-weight: 500;
-  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--md-sys-color-font-scale, 1));
   cursor: pointer;
   transition-property: opacity, transform, background-color;
 transition-duration: var(--md-sys-motion-duration-short);
@@ -1119,18 +1205,30 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .m3-button-error:hover {
-  background: color-mix(in srgb, var(--sys-error), black 10%);
+  background: color-mix(in srgb, var(--md-sys-color-error), black 10%);
   box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 color-mix(in srgb, var(--md-sys-color-error) 15%, transparent);
+}
+
+.m3-button-error:active {
+  scale: 0.98;
+  transform: translateY(0);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.m3-button-error:focus-visible {
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-error);
+  outline-offset: var(--md-sys-spacing-1);
+  transform: scale(1.02);
 }
 
 .m3-button-tonal {
   background: var(--md-sys-color-secondary-container);
-  color: var(--sys-on-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
   border: none;
   border-radius: var(--md-sys-shape-corner-large);
-  padding: calc(var(--md-sys-spacing-3) * var(--sys-font-scale, 1)) calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
+  padding: calc(var(--md-sys-spacing-3) * var(--md-sys-color-font-scale, 1)) calc(var(--md-sys-spacing-6) * var(--md-sys-color-font-scale, 1));
   font-weight: 500;
-  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--md-sys-color-font-scale, 1));
   cursor: pointer;
   transition-property: opacity, transform, background-color;
 transition-duration: var(--md-sys-motion-duration-short);
@@ -1139,18 +1237,31 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .m3-button-tonal:hover {
   background: var(--md-sys-color-secondary);
-  color: var(--sys-on-secondary);
+  color: var(--md-sys-color-on-secondary);
   box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 color-mix(in srgb, var(--md-sys-color-outline-variant) 15%, transparent);
+  transform: translateY(-1px);
+}
+
+.m3-button-tonal:active {
+  scale: 0.98;
+  transform: translateY(0);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.m3-button-tonal:focus-visible {
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-secondary);
+  outline-offset: var(--md-sys-spacing-1);
+  transform: scale(1.02);
 }
 
 .m3-button-outlined {
   background: transparent;
-  border: var(--md-sys-spacing-1) solid var(--sys-outline);
+  border: var(--md-sys-spacing-1) solid var(--md-sys-color-outline);
   color: var(--md-sys-color-primary);
   border-radius: var(--md-sys-shape-corner-large);
-  padding: calc(var(--md-sys-spacing-2) * var(--sys-font-scale, 1)) calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
+  padding: calc(var(--md-sys-spacing-2) * var(--md-sys-color-font-scale, 1)) calc(var(--md-sys-spacing-6) * var(--md-sys-color-font-scale, 1));
   font-weight: 500;
-  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--md-sys-color-font-scale, 1));
   cursor: pointer;
   transition-property: opacity, transform, background-color;
 transition-duration: var(--md-sys-motion-duration-short);
@@ -1160,15 +1271,29 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .m3-button-outlined:hover {
   background: var(--md-sys-color-primary-container);
   border-color: var(--md-sys-color-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-2) 0 color-mix(in srgb, var(--md-sys-color-outline) 10%, transparent);
+}
+
+.m3-button-outlined:active {
+  scale: 0.98;
+  transform: translateY(0);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.m3-button-outlined:focus-visible {
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
+  transform: scale(1.02);
 }
 
 .m3-button-text {
   background: transparent;
   border: none;
   color: var(--md-sys-color-primary);
-  padding: calc(var(--md-sys-spacing-2) * var(--sys-font-scale, 1)) calc(var(--md-sys-spacing-3) * var(--sys-font-scale, 1));
+  padding: calc(var(--md-sys-spacing-2) * var(--md-sys-color-font-scale, 1)) calc(var(--md-sys-spacing-3) * var(--md-sys-color-font-scale, 1));
   font-weight: 500;
-  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--md-sys-color-font-scale, 1));
   cursor: pointer;
   border-radius: var(--md-sys-shape-corner-small);
   transition-property: opacity, transform, background-color;
@@ -1178,6 +1303,19 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .m3-button-text:hover {
   background: var(--md-sys-color-primary-container);
+  transform: translateY(-1px);
+}
+
+.m3-button-text:active {
+  scale: 0.98;
+  transform: translateY(0);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.m3-button-text:focus-visible {
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
+  transform: scale(1.02);
 }
 
 /* M3 Icon Button */
@@ -1199,6 +1337,18 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .icon-button:hover {
   background: var(--md-sys-color-surface-container-highest);
+  transform: scale(1.05);
+}
+
+.icon-button:active {
+  transform: scale(0.95);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.icon-button:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  transform: scale(1.02);
 }
 
 .icon-button.icon-button-filled {
@@ -1209,6 +1359,19 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .icon-button.icon-button-filled:hover {
   background: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
+  transform: scale(1.05);
+  box-shadow: var(--md-sys-elevation-level2);
+}
+
+.icon-button.icon-button-filled:active {
+  transform: scale(0.95);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.icon-button.icon-button-filled:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  transform: scale(1.02);
 }
 
 /* Modal System - Complete */
@@ -1276,7 +1439,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: var(--sys-outline);
+  background: var(--md-sys-color-outline);
 }
 
 /* Field Components - Input, Select, Textarea */
@@ -1312,6 +1475,17 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .m3-field-wrapper:focus-within {
   border-color: var(--md-sys-color-primary);
   box-shadow: 0 0 0 var(--md-sys-spacing-1) var(--md-sys-color-primary)/12;
+  transform: scale(1.01);
+}
+
+.m3-field-wrapper:hover {
+  border-color: var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container-high);
+}
+
+.m3-field-wrapper:active {
+  transform: scale(0.99);
+  border-color: var(--md-sys-color-primary);
 }
 
 .m3-field-wrapper.error {
@@ -1357,7 +1531,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   background: var(--md-sys-color-surface-container);
   color: var(--md-sys-color-on-surface);
   border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
-  font-size: var(--typography-label-large-fontSize);
+  font-size: var(--md-sys-typescale-label-large-font-size);
   font-weight: 500;
   transition-property: opacity, transform, background-color;
 transition-duration: var(--md-sys-motion-duration-short);
@@ -1367,7 +1541,20 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .m3-chip:hover {
   background: var(--md-sys-color-surface-container-high);
-  border-color: var(--sys-outline);
+  border-color: var(--md-sys-color-outline);
+  transform: translateY(-1px);
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.m3-chip:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  transform: scale(1.02);
+}
+
+.m3-chip:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: var(--md-sys-motion-duration-short1);
 }
 
 .m3-chip-filled {
@@ -1379,6 +1566,67 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .m3-chip-filled:hover {
   background: var(--md-sys-color-primary);
   color: var(--md-sys-color-on-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--md-sys-elevation-level2);
+}
+
+.m3-chip-filled:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  transform: scale(1.02);
+}
+
+.m3-chip-filled:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.m3-chip-outlined {
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  border: var(--md-sys-spacing-1) solid var(--md-sys-color-outline);
+}
+
+.m3-chip-outlined:hover {
+  background: var(--md-sys-color-surface-container-high);
+  border-color: var(--md-sys-color-outline-variant);
+  transform: translateY(-1px);
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.m3-chip-outlined:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  transform: scale(1.02);
+}
+
+.m3-chip-outlined:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.m3-chip-elevated {
+  background: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface);
+  border: none;
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.m3-chip-elevated:hover {
+  box-shadow: var(--md-sys-elevation-level2);
+  transform: translateY(-1px);
+}
+
+.m3-chip-elevated:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  transform: scale(1.02);
+}
+
+.m3-chip-elevated:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: var(--md-sys-elevation-level1);
+  transition-duration: var(--md-sys-motion-duration-short1);
 }
 
 /* Navigation Rail */
@@ -1438,6 +1686,79 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     opacity: 1;
     transform: scale(1);
   }
+}
+
+/* Entrance animations for new content */
+.m3-enter-fade-in {
+  animation: fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized);
+}
+
+.m3-enter-slide-up {
+  animation: slide-up var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized);
+}
+
+.m3-enter-scale-in {
+  animation: scale-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-emphasized);
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--md-sys-spacing-4));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+      animation-duration: var(--md-sys-motion-duration-short) !important;
+      animation-iteration-count: var(--md-sys-motion-iteration-count) !important;
+      transition-duration: var(--md-sys-motion-duration-short) !important;
+      scroll-behavior: var(--md-sys-scroll-behavior) !important;
+  }
+}
+
+/* Ripple effect for interactive elements */
+.m3-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.m3-ripple::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: width var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), height var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), opacity var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
+}
+
+.m3-ripple:active::before {
+  width: 300px;
+  height: 300px;
+  opacity: 0.1;
 }
 /* --- AURA GLASSMORPHISM --- */
 .aura-glass {

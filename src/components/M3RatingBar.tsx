@@ -50,7 +50,7 @@ export default function M3RatingBar({
             style={{border: 'none',
               background: 'transparent',
               cursor: disabled || readonly ? 'default' : 'pointer',
-              color: filled ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline)-variant',
+              color: filled ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)-variant',
               fontSize: 'var(--md-sys-typescale-headline-small)',
               lineHeight: 1,
               padding: 0,}}

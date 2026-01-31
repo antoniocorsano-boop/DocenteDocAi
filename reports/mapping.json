@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-01-31T00:00:00Z",
+  "notes": "Conservative app → md-sys mapping for reviewers. This is a minimal, reviewable set — extend before broad replacements.",
+  "mappings": {
+    "app-color-primary": "md-sys-color-primary",
+    "app-color-on-primary": "md-sys-color-on-primary",
+    "app-color-surface": "md-sys-color-surface",
+    "app-text-display": "md-sys-typescale-display-large-font-size",
+    "app-text-title": "md-sys-typescale-title-large-font-size",
+    "app-text-body": "md-sys-typescale-body-large-font-size",
+    "app-text-label": "md-sys-typescale-label-large-font-size",
+    "app-text-caption": "md-sys-typescale-caption-large-font-size",
+    "app-text-body-weight": "md-sys-typescale-body-large-font-weight",
+    "app-text-body-line-height": "md-sys-typescale-body-large-line-height",
+    "app-text-label-line-height": "md-sys-typescale-label-large-line-height",
+    "app-z-tooltip": "md-sys-z-tooltip",
+    "app-z-modal": "md-sys-z-modal",
+    "app-spacing-xxs": "md-sys-spacing-xxs",
+    "app-spacing-xs": "md-sys-spacing-xs",
+    "app-spacing-sm": "md-sys-spacing-sm",
+    "app-elevation-1": "md-sys-elevation-1",
+    "sys-tertiary": "md-sys-color-tertiary",
+    "typography-body-medium-fontSize": "md-sys-typescale-body-medium-font-size",
+    "typography-label-small-fontSize": "md-sys-typescale-label-small-font-size",
+    "icon-size-medium": "md-sys-icon-size-medium",
+    "content-max-width": "md-sys-breakpoint-content-max-width"
+  }
+}

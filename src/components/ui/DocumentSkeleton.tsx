@@ -23,7 +23,7 @@ const DocumentSkeleton: React.FC<DocumentSkeletonProps> = ({
             height: spacing[4],
             backgroundColor: color.surfaceContainerHigh,
             borderRadius: shape.corner.small,
-            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--app-easing-standard) infinite`,
+            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`,
             width: 'var(--md-sys-percent-70)'
         }} />
 
@@ -35,8 +35,8 @@ const DocumentSkeleton: React.FC<DocumentSkeletonProps> = ({
                     height: spacing[8],
                     backgroundColor: color.surfaceContainerHigh,
                     borderRadius: shape.corner.full,
-                    animation: `pulse var(--md-sys-motion-duration-extra-long) var(--app-easing-standard) infinite`,
-                    width: i === lines - 1 ? 'var(--md-sys-percent-60)' : 'var(--app-layout-full)',
+                    animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`,
+                    width: i === lines - 1 ? 'var(--md-sys-percent-60)' : 'var(--md-sys-percent-100)',
                     animationDelay: `${i * 0.1}s`
                 }}
             />

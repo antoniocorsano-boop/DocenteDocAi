@@ -27,91 +27,106 @@ const M3Typography: React.FC<M3TypographyProps> = ({
     letterSpacing?: string;
   }> = {
     'display-large': {
-      fontSize: 'var(--app-text-display)',
-      lineHeight: 'var(--app-text-display-line-height)',
-      fontWeight: 'var(--app-text-display-weight)'
+      fontSize: 'var(--md-sys-typescale-display-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-display-large-line-height)',
+      fontWeight: 'var(--md-sys-typescale-display-large-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-display-large-letter-spacing)'
     },
     'display-medium': {
-      fontSize: 'var(--app-text-display)',
-      lineHeight: 'var(--app-text-display-line-height)',
-      fontWeight: 'var(--app-text-display-weight)'
+      fontSize: 'var(--md-sys-typescale-display-medium-font-size)',
+      lineHeight: 'var(--md-sys-typescale-display-medium-line-height)',
+      fontWeight: 'var(--md-sys-typescale-display-medium-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-display-medium-letter-spacing)'
     },
     'display-small': {
-      fontSize: 'var(--app-text-display)',
-      lineHeight: 'var(--app-text-display-line-height)',
-      fontWeight: 'var(--app-text-display-weight)'
+      fontSize: 'var(--md-sys-typescale-display-small-font-size)',
+      lineHeight: 'var(--md-sys-typescale-display-small-line-height)',
+      fontWeight: 'var(--md-sys-typescale-display-small-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-display-small-letter-spacing)'
     },
     'headline-large': {
-      fontSize: 'var(--app-text-title)',
-      lineHeight: 'var(--app-text-title-line-height)',
-      fontWeight: 'var(--app-text-title-weight)'
+      fontSize: 'var(--md-sys-typescale-headline-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-headline-large-line-height)',
+      fontWeight: 'var(--md-sys-typescale-headline-large-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-headline-large-letter-spacing)'
     },
     'headline-medium': {
-      fontSize: 'var(--app-text-title)',
-      lineHeight: 'var(--app-text-title-line-height)',
-      fontWeight: 'var(--app-text-title-weight)'
+      fontSize: 'var(--md-sys-typescale-headline-medium-font-size)',
+      lineHeight: 'var(--md-sys-typescale-headline-medium-line-height)',
+      fontWeight: 'var(--md-sys-typescale-headline-medium-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-headline-medium-letter-spacing)'
     },
     'headline-small': {
-      fontSize: 'var(--app-text-title)',
-      lineHeight: 'var(--app-text-title-line-height)',
-      fontWeight: 'var(--app-text-title-weight)'
+      fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+      lineHeight: 'var(--md-sys-typescale-headline-small-line-height)',
+      fontWeight: 'var(--md-sys-typescale-headline-small-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-headline-small-letter-spacing)'
     },
     'title-large': {
-      fontSize: 'var(--app-text-title)',
-      lineHeight: 'var(--app-text-title-line-height)',
-      fontWeight: 'var(--app-text-title-weight)'
+      fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-title-large-line-height)',
+      fontWeight: 'var(--md-sys-typescale-title-large-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-title-large-letter-spacing)'
     },
     'title-medium': {
-      fontSize: 'var(--app-text-title)',
-      lineHeight: 'var(--app-text-title-line-height)',
-      fontWeight: 'var(--app-text-title-weight)'
+      fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+      lineHeight: 'var(--md-sys-typescale-title-medium-line-height)',
+      fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-title-medium-letter-spacing)'
     },
     'title-small': {
-      fontSize: 'var(--app-text-title)',
-      lineHeight: 'var(--app-text-title-line-height)',
-      fontWeight: 'var(--app-text-title-weight)'
+      fontSize: 'var(--md-sys-typescale-title-small-font-size)',
+      lineHeight: 'var(--md-sys-typescale-title-small-line-height)',
+      fontWeight: 'var(--md-sys-typescale-title-small-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-title-small-letter-spacing)'
     },
     'body-large': {
-      fontSize: 'var(--app-text-body)',
-      lineHeight: 'var(--app-text-body-line-height)',
-      fontWeight: 'var(--app-text-body-weight)'
+      fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+      fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)'
     },
     'body-medium': {
-      fontSize: 'var(--app-text-body)',
-      lineHeight: 'var(--app-text-body-line-height)',
-      fontWeight: 'var(--app-text-body-weight)'
+      fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+      lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+      fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-body-medium-letter-spacing)'
     },
     'body-small': {
-      fontSize: 'var(--app-text-body)',
-      lineHeight: 'var(--app-text-body-line-height)',
-      fontWeight: 'var(--app-text-body-weight)'
+      fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+      lineHeight: 'var(--md-sys-typescale-body-small-line-height)',
+      fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-body-small-letter-spacing)'
     },
     'label-large': {
-      fontSize: 'var(--app-text-label)',
-      lineHeight: 'var(--app-text-label-line-height)',
-      fontWeight: 'var(--app-text-label-weight)'
+      fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+      fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)'
     },
     'label-medium': {
-      fontSize: 'var(--app-text-label)',
-      lineHeight: 'var(--app-text-label-line-height)',
-      fontWeight: 'var(--app-text-label-weight)'
+      fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
+      lineHeight: 'var(--md-sys-typescale-label-medium-line-height)',
+      fontWeight: 'var(--md-sys-typescale-label-medium-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-label-medium-letter-spacing)'
     },
     'label-small': {
-      fontSize: 'var(--app-text-label)',
-      lineHeight: 'var(--app-text-label-line-height)',
-      fontWeight: 'var(--app-text-label-weight)'
+      fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+      lineHeight: 'var(--md-sys-typescale-label-small-line-height)',
+      fontWeight: 'var(--md-sys-typescale-label-small-font-weight)',
+      letterSpacing: 'var(--md-sys-typescale-label-small-letter-spacing)'
     },
     'button-primary': {
-      fontSize: 'var(--app-text-label)',
-      lineHeight: 'var(--app-text-label-line-height)',
-      fontWeight: '900',
-      letterSpacing: '0.1em'
+      fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+      fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
+      letterSpacing: 'var(--app-legacy-0_1em)'
     },
     'button-secondary': {
-      fontSize: 'var(--app-text-label)',
-      lineHeight: 'var(--app-text-label-line-height)',
-      fontWeight: '700',
-      letterSpacing: '0.05em'
+      fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
+      lineHeight: 'var(--md-sys-typescale-label-medium-line-height)',
+      fontWeight: 'var(--md-sys-typescale-label-medium-font-weight)',
+      letterSpacing: 'var(--app-legacy-0_05em)'
     }
   };
 
@@ -124,7 +139,7 @@ const M3Typography: React.FC<M3TypographyProps> = ({
     fontWeight: typographyConfig.fontWeight,
     lineHeight: typographyConfig.lineHeight,
     letterSpacing: typographyConfig.letterSpacing || 'var(--md-sys-typescale-body-large-letter-spacing)',
-    color: 'var(--app-color-on-surface)', // Default color from MD3 sys layer
+    color: 'var(--md-sys-color-on-surface)', // Default color from MD3 sys layer
     ...style
   };
 

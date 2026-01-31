@@ -29,17 +29,16 @@ const M3Button: React.FC<M3ButtonProps> = ({
   const { 'aria-label': ariaLabel, ...otherProps } = props;
   // MD3 Token mapping - no useTheme() dependency
   // Color tokens
-  const primary = 'var(--app-color-primary)';
-  const onPrimary = 'var(--app-color-on-primary)';
+  const primary = 'var(--md-sys-color-primary)';
+  const onPrimary = 'var(--md-sys-color-on-primary)';
   const outline = 'var(--md-sys-color-outline)';
-  const secondaryContainer = 'var(--app-color-secondary-container)';
-  const onSecondaryContainer = 'var(--app-color-on-secondary-container)';
+  const secondaryContainer = 'var(--md-sys-color-secondary-container)';
+  const onSecondaryContainer = 'var(--md-sys-color-on-secondary-container)';
   const surfaceContainerLow = 'var(--md-sys-color-surface-container-low)';
 
   // Spacing tokens
-  const spacing4 = 'var(--app-spacing-container)';
-  const spacing6 = 'var(--app-spacing-section)';
-  const spacing10 = 'var(--md-sys-spacing-10)';
+  const spacing4 = 'var(--md-sys-spacing-4)';
+  const spacing6 = 'var(--md-sys-spacing-6)';
   const spacing12 = 'var(--md-sys-spacing-12)';
 
   // Shape tokens
@@ -48,19 +47,19 @@ const M3Button: React.FC<M3ButtonProps> = ({
   const shapeLarge = 'var(--md-sys-shape-corner-large)';
 
   // Typography tokens
-  const labelMediumFontSize = 'var(--app-text-label)';
-  const labelMediumFontWeight = 'var(--app-text-label-weight)';
-  const labelMediumLineHeight = 'var(--app-text-label-line-height)';
+  const labelMediumFontSize = 'var(--md-sys-typescale-label-medium-font-size)';
+  const labelMediumFontWeight = 'var(--md-sys-typescale-label-medium-font-weight)';
+  const labelMediumLineHeight = 'var(--md-sys-typescale-label-medium-line-height)';
   const labelMediumLetterSpacing = 'var(--md-sys-typescale-label-medium-letter-spacing)';
 
-  const labelLargeFontSize = 'var(--app-text-label)';
-  const labelLargeFontWeight = 'var(--app-text-label-weight)';
-  const labelLargeLineHeight = 'var(--app-text-label-line-height)';
+  const labelLargeFontSize = 'var(--md-sys-typescale-label-large-font-size)';
+  const labelLargeFontWeight = 'var(--md-sys-typescale-label-large-font-weight)';
+  const labelLargeLineHeight = 'var(--md-sys-typescale-label-large-line-height)';
   const labelLargeLetterSpacing = 'var(--md-sys-typescale-label-large-letter-spacing)';
 
   // Motion tokens
   const durationShort2 = 'var(--md-sys-motion-duration-short2)';
-  const easingStandard = 'var(--app-easing-standard)';
+  const easingStandard = 'var(--md-sys-motion-easing-standard)';
 
   // Base style
   const baseStyle: React.CSSProperties = {
@@ -75,8 +74,17 @@ const M3Button: React.FC<M3ButtonProps> = ({
     pointerEvents: disabled ? 'none' : 'auto',
     border: 'none',
     textDecoration: 'none',
-    width: fullWidth ? 'var(--app-layout-full)' : 'auto',
-    gap: spacing4
+    width: fullWidth ? 'var(--md-sys-percent-100)' : 'auto',
+    gap: spacing4,
+    // Add hover and focus states with motion
+      ':hover': {
+      transform: disabled ? 'none' : 'translateY(calc(var(--md-sys-spacing-1) * -0.25))',
+      boxShadow: disabled ? undefined : 'var(--md-sys-elevation-level2)'
+    },
+    ':active': {
+      transform: disabled ? 'none' : 'translateY(0) scale(0.98)',
+      transition: `all var(--md-sys-motion-duration-short1) var(--md-sys-motion-easing-standard)`
+    }
   };
 
   // Variant styles
@@ -92,7 +100,7 @@ const M3Button: React.FC<M3ButtonProps> = ({
         return {
           backgroundColor: 'transparent',
           color: primary,
-          border: `var(--app-border-normal) solid ${outline}`
+          border: `var(--md-sys-border-width-normal) solid ${outline}`
         };
       case 'text':
         return {
@@ -123,7 +131,7 @@ const M3Button: React.FC<M3ButtonProps> = ({
     switch (size) {
       case 'small':
         return {
-          height: spacing10,
+          height: spacing12,
           padding: `0 ${spacing4}`,
           borderRadius: shapeSmall,
           fontSize: labelMediumFontSize,
@@ -144,7 +152,7 @@ const M3Button: React.FC<M3ButtonProps> = ({
       default:
         // medium
         return {
-          height: spacing10,
+          height: spacing12,
           padding: `0 ${spacing4}`,
           borderRadius: shapeMedium,
           fontSize: labelLargeFontSize,
@@ -162,13 +170,14 @@ const M3Button: React.FC<M3ButtonProps> = ({
   };
 
   return (
-    <button
+      <button
       {...otherProps}
       type={type}
       disabled={disabled}
       onClick={onClick}
       title={title}
       style={combinedStyle}
+      
       aria-label={ariaLabel || title || (typeof children === 'string' ? children : undefined)}
     >
       {startIcon && (

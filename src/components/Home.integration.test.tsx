@@ -39,7 +39,7 @@ vi.mock('./ui', () => ({
   ),
   M3Typography: ({ children, variant, as, style }: any) => {
     const Component = as || 'span';
-    return React.createElement(Component, { 'data-testid': 'm3-typography', style: { ...style, fontSize: 'var(--app-text-body)' } }, children);
+    return React.createElement(Component, { 'data-testid': 'm3-typography', style: { ...style, fontSize: 'var(--md-sys-typescale-body-large-font-size)' } }, children);
   },
   M3HeroCard: ({ children, onClick }: any) => (
     <div data-testid="m3-hero-card" onClick={onClick} style={{borderRadius: 'var(--md-sys-shape-corner-large)'}}>

@@ -125,30 +125,30 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
       <M3DialogContent style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--app-spacing-section)',
+        gap: 'var(--md-sys-spacing-6)',
         overflowY: 'auto',
         maxHeight: 'var(--md-sys-spacing-80)'
       }}>
           {/* GDPR Notice */}
           <div style={{backgroundColor: 'var(--md-sys-color-tertiary-container)',
             opacity: 'var(--md-sys-state-layer-opacity-hover)',
-            border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
             padding: 'var(--md-sys-spacing-8)',
             backdropFilter: 'blur(var(--md-sys-blur-medium))',
             borderRadius: 'var(--md-sys-shape-corner-extra-large)'}}>
             <div style={{display: 'flex',
               alignItems: 'flex-start',
-              gap: 'var(--app-spacing-section)'}}>
+              gap: 'var(--md-sys-spacing-6)'}}>
               <span style={{fontFamily: 'Material Symbols Outlined',
                 color: 'var(--md-sys-color-on-tertiary-container)',
-                marginTop: 'var(--app-spacing-container)'}}>privacy_tip</span>
+                marginTop: 'var(--md-sys-spacing-4)'}}>privacy_tip</span>
               <div>
                 <M3Typography
                   variant="label-small"
                   style={{color: 'var(--md-sys-color-on-tertiary-container)',
                     textTransform: 'uppercase',
-                    letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.2em)',
-                    marginBottom: 'var(--app-spacing-container)',
+                    letterSpacing: 'var(--md-sys-typescale-label-large-tracking, var(--app-legacy-0_2em, 0.2em))',
+                    marginBottom: 'var(--md-sys-spacing-4)',
                     display: 'block'}}
                 >
                   📋 Informativa Privacy
@@ -176,24 +176,24 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
           {activeTab === 'overview' && (
             <div style={{display: 'flex',
               flexDirection: 'column',
-              gap: 'var(--app-spacing-section)',
-              animation: `fade-in var(--app-motion-standard) var(--app-easing-standard)`}}>
+              gap: 'var(--md-sys-spacing-6)',
+              animation: `fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`}}>
               <div style={{display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-32), var(--md-sys-grid-fr-1)))',
                 gap: 'var(--md-sys-spacing-8)'}}>
                 <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                   padding: 'var(--md-sys-spacing-8)',
-                  border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                  border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)'}}>
                   <div style={{display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--app-spacing-section)'}}>
+                    gap: 'var(--md-sys-spacing-6)'}}>
                     <span style={{fontFamily: 'Material Symbols Outlined',
                       color: 'var(--md-sys-color-tertiary)'}}>description</span>
                     <div>
                       <M3Typography variant="headline-small" style={{
-                        color: 'var(--app-color-on-surface)'}}>{formatNumber(analyticsMetrics.totalDocumentsGenerated)}</M3Typography>
+                        color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.totalDocumentsGenerated)}</M3Typography>
                       <M3Typography
                         variant="label-small"
                         style={{textTransform: 'uppercase',
@@ -209,16 +209,16 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                   padding: 'var(--md-sys-spacing-8)',
-                  border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                  border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)'}}>
                   <div style={{display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--app-spacing-section)'}}>
+                    gap: 'var(--md-sys-spacing-6)'}}>
                     <span style={{fontFamily: 'Material Symbols Outlined',
-                      color: 'var(--app-color-secondary)'}}>smart_toy</span>
+                      color: 'var(--md-sys-color-secondary)'}}>smart_toy</span>
                     <div>
                       <M3Typography variant="headline-small" style={{
-                        color: 'var(--app-color-on-surface)'}}>{formatNumber(analyticsMetrics.aiInteractionsCount)}</M3Typography>
+                        color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.aiInteractionsCount)}</M3Typography>
                       <M3Typography
                         variant="label-small"
                         style={{textTransform: 'uppercase',
@@ -234,17 +234,17 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                   padding: 'var(--md-sys-spacing-8)',
-                  border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                  border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)'}}>
                   <div style={{display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--app-spacing-section)'}}>
+                    gap: 'var(--md-sys-spacing-6)'}}>
                     <span style={{fontFamily: 'Material Symbols Outlined',
-                      color: 'var(--app-color-primary)',
-                      fontSize: 'var(--app-text-display)'}}>file_copy</span>
+                      color: 'var(--md-sys-color-primary)',
+                      fontSize: 'var(--md-sys-typescale-display)'}}>file_copy</span>
                     <div>
                       <M3Typography variant="headline-small" style={{
-                        color: 'var(--app-color-on-surface)'}}>{formatNumber(analyticsMetrics.templatesCreated)}</M3Typography>
+                        color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.templatesCreated)}</M3Typography>
                       <M3Typography
                         variant="label-small"
                         style={{textTransform: 'uppercase',
@@ -260,17 +260,17 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                   padding: 'var(--md-sys-spacing-8)',
-                  border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                  border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)'}}>
                   <div style={{display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--app-spacing-section)'}}>
+                    gap: 'var(--md-sys-spacing-6)'}}>
                     <span style={{fontFamily: 'Material Symbols Outlined',
                       color: 'var(--md-sys-color-tertiary)',
-                      fontSize: 'var(--app-text-display)'}}>batch_prediction</span>
+                      fontSize: 'var(--md-sys-typescale-display)'}}>batch_prediction</span>
                     <div>
                       <M3Typography variant="headline-small" style={{
-                        color: 'var(--app-color-on-surface)'}}>{formatNumber(analyticsMetrics.exportBatchesCount)}</M3Typography>
+                        color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.exportBatchesCount)}</M3Typography>
                       <M3Typography
                         variant="label-small"
                         style={{textTransform: 'uppercase',
@@ -287,17 +287,17 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               {/* Attività Recente */}
               <div style={{display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-19), var(--md-sys-grid-fr-1)))',
-                gap: 'var(--app-spacing-section)'}}>
+                gap: 'var(--md-sys-spacing-6)'}}>
                 <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
-                  padding: 'var(--app-spacing-touch)',
-                  border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                  padding: 'var(--md-sys-spacing-5)',
+                  border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-extra-large)'}}>
                   <M3Typography
                     variant="label-small"
                     style={{textTransform: 'uppercase',
                       letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                      color: 'var(--app-color-primary)',
+                      color: 'var(--md-sys-color-primary)',
                       marginBottom: 'var(--md-sys-spacing-8)',
                       display: 'block'}}
                   >
@@ -305,7 +305,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   </M3Typography>
                   <div style={{display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--app-spacing-element)'}}>
+                    gap: 'var(--md-sys-spacing-3)'}}>
                     <div style={{
                       display: 'flex',
                       justifyContent: 'space-between',
@@ -314,7 +314,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       <M3Typography variant="body-medium" style={{
                         color: 'var(--md-sys-color-on-surface-variant)'}}>Eventi Totali</M3Typography>
                       <M3Typography variant="body-medium" style={{
-                        color: 'var(--app-color-on-surface)'}}>{stats.weeklyActivity}</M3Typography>
+                        color: 'var(--md-sys-color-on-surface)'}}>{stats.weeklyActivity}</M3Typography>
                     </div>
                     <div style={{
                       display: 'flex',
@@ -324,7 +324,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       <M3Typography variant="body-medium" style={{
                         color: 'var(--md-sys-color-on-surface-variant)'}}>Documenti Generati</M3Typography>
                       <M3Typography variant="body-medium" style={{
-                        color: 'var(--app-color-on-surface)'}}>
+                        color: 'var(--md-sys-color-on-surface)'}}>
                         {analyticsEvents.filter(e => e.eventType === 'document_generated' &&
                           new Date(e.timestamp) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)).length}
                       </M3Typography>
@@ -334,14 +334,14 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
                 <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
-                  padding: 'var(--app-spacing-touch)',
-                  border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                  padding: 'var(--md-sys-spacing-5)',
+                  border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-extra-large)'}}>
                   <M3Typography
                     variant="label-small"
                     style={{textTransform: 'uppercase',
                       letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                      color: 'var(--app-color-primary)',
+                      color: 'var(--md-sys-color-primary)',
                       marginBottom: 'var(--md-sys-spacing-8)',
                       display: 'block'}}
                   >
@@ -349,7 +349,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   </M3Typography>
                   <div style={{display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--app-spacing-component)'}}>
+                    gap: 'var(--md-sys-spacing-2)'}}>
                     {stats.topFeatures.length > 0 ? stats.topFeatures.map(([feature, count]) => (
                       <div key={feature} style={{
                         display: 'flex',
@@ -361,10 +361,10 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
                           whiteSpace: 'nowrap',
-                          marginRight: 'var(--app-spacing-component)',
+                          marginRight: 'var(--md-sys-spacing-2)',
                           flex: 1}}>{feature}</M3Typography>
                         <M3Typography variant="body-medium" style={{
-                          color: 'var(--app-color-on-surface)'}}>{count}</M3Typography>
+                          color: 'var(--md-sys-color-on-surface)'}}>{count}</M3Typography>
                       </div>
                     )) : (
                       <M3Typography variant="body-medium" style={{
@@ -379,14 +379,14 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               {stats.documentTypes.length > 0 && (
                 <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
-                  padding: 'var(--app-spacing-touch)',
-                  border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                  padding: 'var(--md-sys-spacing-5)',
+                  border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-extra-large)'}}>
                   <M3Typography
                     variant="label-small"
                     style={{textTransform: 'uppercase',
                       letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                      color: 'var(--app-color-primary)',
+                      color: 'var(--md-sys-color-primary)',
                       marginBottom: 'var(--md-sys-spacing-8)',
                       display: 'block'}}
                   >
@@ -394,20 +394,20 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   </M3Typography>
                   <div style={{display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-12), var(--md-sys-grid-fr-1)))',
-                    gap: 'var(--app-spacing-section)'}}>
+                    gap: 'var(--md-sys-spacing-6)'}}>
                     {stats.documentTypes.map(([type, count]) => (
                       <div key={type} style={{display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
                         padding: 'var(--md-sys-spacing-8)',
-                        backgroundColor: 'var(--app-color-surface)',
+                        backgroundColor: 'var(--md-sys-color-surface)',
                         opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                         borderRadius: 'var(--md-sys-shape-corner-medium)'}}>
                         <M3Typography variant="body-medium" style={{
                           color: 'var(--md-sys-color-on-surface-variant)',
                           textTransform: 'capitalize'}}>{type.replace('_', ' ')}</M3Typography>
                         <M3Typography variant="body-medium" style={{
-                          color: 'var(--app-color-primary)'}}>{count}</M3Typography>
+                          color: 'var(--md-sys-color-primary)'}}>{count}</M3Typography>
                       </div>
                     ))}
                   </div>
@@ -419,24 +419,24 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
           {activeTab === 'details' && (
             <div style={{display: 'flex',
               flexDirection: 'column',
-              gap: 'var(--app-spacing-container)',
-              animation: `fade-in var(--app-motion-standard) var(--app-easing-standard)`}}>
+              gap: 'var(--md-sys-spacing-4)',
+              animation: `fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`}}>
               <M3Typography
                 variant="label-small"
                 style={{textTransform: 'uppercase',
                   letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                  color: 'var(--app-color-primary)',
-                  paddingLeft: 'var(--app-spacing-container)',
+                  color: 'var(--md-sys-color-primary)',
+                  paddingLeft: 'var(--md-sys-spacing-4)',
                   display: 'block'}}
               >
                 Eventi Recenti
               </M3Typography>
-              <div style={{maxHeight: 'var(--app-spacing-container)',
+              <div style={{maxHeight: 'var(--md-sys-spacing-4)',
                 overflowY: 'auto',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--app-spacing-component)',
-                paddingRight: 'var(--app-spacing-component)',
+                gap: 'var(--md-sys-spacing-2)',
+                paddingRight: 'var(--md-sys-spacing-2)',
                 scrollbarWidth: 'thin',
                 scrollbarColor: 'var(--md-sys-color-outline) transparent',
                 maxHeight: 'var(--md-sys-spacing-40)'}}>
@@ -446,10 +446,10 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   return (
                     <div key={event.id} style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                       opacity: isHovered ? 0.7 : 0.5,
-                      padding: 'var(--app-spacing-section)',
-                      border: `var(--app-border-thin) solid ${isHovered ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline)'}`,
+                      padding: 'var(--md-sys-spacing-6)',
+                      border: `var(--md-sys-border-width-thin) solid ${isHovered ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)'}`,
                       borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-                      transition: `background-color var(--app-motion-quick) var(--app-easing-standard)`}}
+                      transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                     onMouseEnter={() => setHoveredElements(prev => ({ ...prev, [eventKey]: true }))}
                     onMouseLeave={() => setHoveredElements(prev => ({ ...prev, [eventKey]: false }))}>
                       <div style={{
@@ -459,7 +459,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       }}>
                         <div>
                           <M3Typography variant="body-medium" style={{
-                            color: 'var(--app-color-on-surface)'}}>{event.featureName}</M3Typography>
+                            color: 'var(--md-sys-color-on-surface)'}}>{event.featureName}</M3Typography>
                           <M3Typography
                             variant="label-small"
                             style={{textTransform: 'uppercase',
@@ -469,11 +469,11 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                             {event.eventType.replace('_', ' ')}
                           </M3Typography>
                         </div>
-                        <span style={{fontSize: 'var(--app-text-label)',
+                        <span style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)',
                           color: 'var(--md-sys-color-on-surface-variant)',
                           backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                          padding: 'var(--md-sys-spacing-1) var(--app-spacing-container)',
-                          borderRadius: 'var(--app-spacing-container)'}}>
+                          padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-4)',
+                          borderRadius: 'var(--md-sys-spacing-4)'}}>
                           {formatDate(event.timestamp)}
                         </span>
                       </div>
@@ -485,7 +485,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     paddingTop: 'var(--md-sys-spacing-12)',
                     paddingBottom: 'var(--md-sys-spacing-12)'}}>
                     <span style={{fontFamily: 'Material Symbols Outlined',
-                      fontSize: 'var(--app-text-display)',
+                      fontSize: 'var(--md-sys-typescale-display)',
                       color: 'var(--md-sys-color-on-surface-variant)',
                       opacity: 0.3,
                       marginBottom: 'var(--md-sys-spacing-8)',
@@ -501,18 +501,18 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
           {activeTab === 'settings' && (
             <div style={{display: 'flex',
               flexDirection: 'column',
-              gap: 'var(--app-spacing-section)',
-              animation: `fade-in var(--app-motion-standard) var(--app-easing-standard)`}}>
+              gap: 'var(--md-sys-spacing-6)',
+              animation: `fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`}}>
               <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                 opacity: 'var(--md-sys-state-layer-opacity-disabled)',
-                padding: 'var(--app-spacing-touch)',
-                border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                padding: 'var(--md-sys-spacing-5)',
+                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                 borderRadius: 'var(--md-sys-shape-corner-extra-large)'}}>
                 <M3Typography
                   variant="label-small"
                   style={{textTransform: 'uppercase',
                     letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                    color: 'var(--app-color-primary)',
+                    color: 'var(--md-sys-color-primary)',
                     marginBottom: 'var(--md-sys-spacing-8)',
                     display: 'block'}}
                 >
@@ -520,19 +520,19 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 </M3Typography>
                 <div style={{display: 'flex',
                   flexDirection: 'column',
-                  gap: 'var(--app-spacing-container)'}}>
+                  gap: 'var(--md-sys-spacing-4)'}}>
                   <label style={{display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: 'var(--app-spacing-section)',
+                    padding: 'var(--md-sys-spacing-6)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     cursor: 'pointer',
-                    transition: `background-color var(--app-motion-quick) var(--app-easing-standard)`}}
+                    transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                   onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'analytics-toggle': true }))}
                   onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'analytics-toggle': false }))}>
                     <div>
                       <M3Typography variant="body-medium" style={{
-                        color: 'var(--app-color-on-surface)'}}>Analytics Abilitati</M3Typography>
+                        color: 'var(--md-sys-color-on-surface)'}}>Analytics Abilitati</M3Typography>
                       <M3Typography variant="body-small" style={{
                         color: 'var(--md-sys-color-on-surface-variant)'}}>
                         Consenti raccolta dati anonimi di utilizzo
@@ -550,8 +550,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         onChange={(e) => handleToggleAnalytics(e.target.checked)}
                         style={{
                           position: 'absolute',
-                          width: 'var(--app-spacing-container)',
-                          height: 'var(--app-spacing-container)',
+                          width: 'var(--md-sys-spacing-4)',
+                          height: 'var(--md-sys-spacing-4)',
                           padding: '0',
                           margin: '0',
                           overflow: 'hidden',
@@ -560,23 +560,23 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           border: '0'
                         }}
                       />
-                      <div style={{width: 'var(--app-spacing-container)',
-                        height: 'var(--app-spacing-section)',
-                        backgroundColor: analyticsSettings.enabled ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline)',
-                        borderRadius: 'var(--app-spacing-element)',
+                      <div style={{width: 'var(--md-sys-spacing-4)',
+                        height: 'var(--md-sys-spacing-6)',
+                        backgroundColor: analyticsSettings.enabled ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
+                        borderRadius: 'var(--md-sys-spacing-3)',
                         position: 'relative',
-                        transition: `background-color var(--app-motion-quick) var(--app-easing-standard)`}}>
+                        transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}>
                         <div style={{
                           position: 'absolute',
-                          top: 'var(--app-spacing-container)',
-                          left: analyticsSettings.enabled ? 'var(--app-spacing-container)' : 'var(--app-spacing-container)',
-                          width: 'var(--app-spacing-container)',
-                          height: 'var(--app-spacing-container)',
-                          backgroundColor: 'var(--app-color-on-primary)',
+                          top: 'var(--md-sys-spacing-4)',
+                          left: analyticsSettings.enabled ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
+                          width: 'var(--md-sys-spacing-4)',
+                          height: 'var(--md-sys-spacing-4)',
+                          backgroundColor: 'var(--md-sys-color-on-primary)',
                           
                           borderRadius: 'var(--md-sys-percent-full)',
                           
-                          transition: `left var(--app-motion-quick) var(--app-easing-standard)`}}></div>
+                          transition: `left var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}></div>
                       </div>
                     </div>
                   </label>
@@ -586,15 +586,15 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       <label style={{display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        padding: 'var(--app-spacing-section)',
+                        padding: 'var(--md-sys-spacing-6)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         cursor: 'pointer',
-                        transition: `background-color var(--app-motion-quick) var(--app-easing-standard)`}}
+                        transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                       onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'feature-usage-toggle': true }))}
                       onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'feature-usage-toggle': false }))}>
                         <div>
                           <M3Typography variant="body-medium" style={{
-                            color: 'var(--app-color-on-surface)'}}>Utilizzo Funzionalità</M3Typography>
+                            color: 'var(--md-sys-color-on-surface)'}}>Utilizzo Funzionalità</M3Typography>
                           <M3Typography variant="body-small" style={{
                             color: 'var(--md-sys-color-on-surface-variant)'}}>
                             Traccia quali funzionalità vengono utilizzate
@@ -615,8 +615,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                             })}
                             style={{
                               position: 'absolute',
-                              width: 'var(--app-spacing-container)',
-                              height: 'var(--app-spacing-container)',
+                              width: 'var(--md-sys-spacing-4)',
+                              height: 'var(--md-sys-spacing-4)',
                               padding: '0',
                               margin: '0',
                               overflow: 'hidden',
@@ -625,20 +625,20 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                               border: '0'
                             }}
                           />
-                          <div style={{width: 'var(--app-spacing-container)',
-                            height: 'var(--app-spacing-section)',
-                            backgroundColor: analyticsSettings.collectFeatureUsage ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline)',
-                            borderRadius: 'var(--app-spacing-element)',
+                          <div style={{width: 'var(--md-sys-spacing-4)',
+                            height: 'var(--md-sys-spacing-6)',
+                            backgroundColor: analyticsSettings.collectFeatureUsage ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
+                            borderRadius: 'var(--md-sys-spacing-3)',
                             position: 'relative',
-                            transition: `background-color var(--app-motion-quick) var(--app-easing-standard)`}}>
+                            transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}>
                             <div style={{position: 'absolute',
-                              top: 'var(--app-spacing-container)',
-                              left: analyticsSettings.collectFeatureUsage ? 'var(--app-spacing-container)' : 'var(--app-spacing-container)',
-                              width: 'var(--app-spacing-container)',
-                              height: 'var(--app-spacing-container)',
-                              backgroundColor: 'var(--app-color-on-primary)',
+                              top: 'var(--md-sys-spacing-4)',
+                              left: analyticsSettings.collectFeatureUsage ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
+                              width: 'var(--md-sys-spacing-4)',
+                              height: 'var(--md-sys-spacing-4)',
+                              backgroundColor: 'var(--md-sys-color-on-primary)',
                               borderRadius: 'var(--md-sys-percent-full)',
-                              transition: `left var(--app-motion-quick) var(--app-easing-standard)`}}></div>
+                              transition: `left var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}></div>
                           </div>
                         </div>
                       </label>
@@ -646,15 +646,15 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       <label style={{display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        padding: 'var(--app-spacing-section)',
+                        padding: 'var(--md-sys-spacing-6)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         cursor: 'pointer',
-                        transition: `background-color var(--app-motion-quick) var(--app-easing-standard)`}}
+                        transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                       onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'document-metrics-toggle': true }))}
                       onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'document-metrics-toggle': false }))}>
                         <div>
                           <M3Typography variant="body-medium" style={{
-                            color: 'var(--app-color-on-surface)'}}>Metriche Documenti</M3Typography>
+                            color: 'var(--md-sys-color-on-surface)'}}>Metriche Documenti</M3Typography>
                           <M3Typography variant="body-small" style={{
                             color: 'var(--md-sys-color-on-surface-variant)'}}>
                             Traccia generazione e tipi di documenti
@@ -675,8 +675,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                             })}
                             style={{
                               position: 'absolute',
-                              width: 'var(--app-spacing-container)',
-                              height: 'var(--app-spacing-container)',
+                              width: 'var(--md-sys-spacing-4)',
+                              height: 'var(--md-sys-spacing-4)',
                               padding: '0',
                               margin: '0',
                               overflow: 'hidden',
@@ -685,20 +685,20 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                               border: '0'
                             }}
                           />
-                          <div style={{width: 'var(--app-spacing-container)',
-                            height: 'var(--app-spacing-section)',
-                            backgroundColor: analyticsSettings.collectDocumentMetrics ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline)',
-                            borderRadius: 'var(--app-spacing-element)',
+                          <div style={{width: 'var(--md-sys-spacing-4)',
+                            height: 'var(--md-sys-spacing-6)',
+                            backgroundColor: analyticsSettings.collectDocumentMetrics ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
+                            borderRadius: 'var(--md-sys-spacing-3)',
                             position: 'relative',
-                            transition: `background-color var(--app-motion-quick) var(--app-easing-standard)`}}>
+                            transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}>
                             <div style={{position: 'absolute',
-                              top: 'var(--app-spacing-container)',
-                              left: analyticsSettings.collectDocumentMetrics ? 'var(--app-spacing-container)' : 'var(--app-spacing-container)',
-                              width: 'var(--app-spacing-container)',
-                              height: 'var(--app-spacing-container)',
-                              backgroundColor: 'var(--app-color-on-primary)',
+                              top: 'var(--md-sys-spacing-4)',
+                              left: analyticsSettings.collectDocumentMetrics ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
+                              width: 'var(--md-sys-spacing-4)',
+                              height: 'var(--md-sys-spacing-4)',
+                              backgroundColor: 'var(--md-sys-color-on-primary)',
                               borderRadius: 'var(--md-sys-percent-full)',
-                              transition: `left var(--app-motion-quick) var(--app-easing-standard)`}}></div>
+                              transition: `left var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}></div>
                           </div>
                         </div>
                       </label>
@@ -709,14 +709,14 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
               <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                 borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-                padding: 'var(--app-spacing-touch)',
-                border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                padding: 'var(--md-sys-spacing-5)',
+                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                 opacity: 'var(--md-sys-state-layer-opacity-disabled)'}}>
                 <M3Typography
                   variant="label-small"
                   style={{textTransform: 'uppercase',
                     letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                    color: 'var(--app-color-primary)',
+                    color: 'var(--md-sys-color-primary)',
                     marginBottom: 'var(--md-sys-spacing-8)',
                     display: 'block'}}
                 >
@@ -724,7 +724,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 </M3Typography>
                 <div style={{display: 'flex',
                   flexDirection: 'column',
-                  gap: 'var(--app-spacing-section)'}}>
+                  gap: 'var(--md-sys-spacing-6)'}}>
                   <SelectField
                     label="Conservazione Dati"
                     value={analyticsSettings.retentionDays}
@@ -742,8 +742,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   <div style={{display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    paddingTop: 'var(--app-spacing-container)',
-                    borderTop: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                    paddingTop: 'var(--md-sys-spacing-4)',
+                    borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                     opacity: 0.1}}>
                     <div>
                       <M3Typography
@@ -751,13 +751,13 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         style={{textTransform: 'uppercase',
                           letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                           color: 'var(--md-sys-color-on-surface-variant)',
-                          marginBottom: 'var(--app-spacing-container)',
+                          marginBottom: 'var(--md-sys-spacing-4)',
                           display: 'block'}}
                       >
                         Ultimo Reset
                       </M3Typography>
                       <M3Typography variant="body-medium" style={{
-                        color: 'var(--app-color-on-surface)'}}>
+                        color: 'var(--md-sys-color-on-surface)'}}>
                         {analyticsSettings.lastReset
                           ? formatDate(analyticsSettings.lastReset)
                           : 'Mai'
@@ -771,7 +771,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         borderColor: 'var(--md-sys-color-error)',
                         opacity: hoveredElements['reset-button'] ? 0.1 : 0.3,
                         backgroundColor: hoveredElements['reset-button'] ? 'var(--md-sys-color-error)' : 'transparent',
-                        borderRadius: 'var(--app-spacing-container)'}}
+                        borderRadius: 'var(--md-sys-spacing-4)'}}
                       onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'reset-button': true }))}
                       onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'reset-button': false }))}
                     >

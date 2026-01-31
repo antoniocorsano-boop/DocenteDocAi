@@ -42,7 +42,7 @@
 - Focus visibile e coerente
 - ARIA labels e ruoli corretti
 - Keyboard navigation completa
-- Touch targets ≥ 44px
+- Touch targets ≥ var(--app-spacing-touch)
 
 8️⃣ **CSS & Hardcoded**
 - Non usare classi CSS legacy

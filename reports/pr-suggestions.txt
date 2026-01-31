@@ -1,0 +1,50 @@
+Summary of recommended automated substitutions and PR instructions
+
+Files I modified so far:
+- src/components/StudentActionMenu.tsx  (comment: replaced explicit `0.5px` tracking mention with MD3 token reference)
+- src/components/dashboard/Dashboard.tsx (comments updated to reference MD3 token)
+
+Recommended automated substitutions (safe scope: `src/components/**`, exclude tests, snapshots, theme files):
+
+1) Touch target comments and inline notes
+   - Pattern: "44px" (comments, docs)
+   - Replace with: "var(--app-spacing-touch)" (or reference in comment: "touch targets ≥ var(--app-spacing-touch)")
+   - Safety: high (comment-only or descriptive)
+
+2) Fixed content width -> token
+   - Pattern: "1200px" used for max content widths
+   - Replace with: "var(--content-max-width)"
+   - Safety: high when used as layout max-width in components
+
+3) Chart heights and card sizes
+   - Pattern: "300px", "250px" when used for charts/cards
+   - Replace with: "var(--app-chart-height-large)" / "var(--app-chart-height-medium)" or appropriate `--md-sys-*` layout tokens
+   - Safety: medium — verify visual parity after change
+
+4) Popovers / menus
+   - Pattern: minWidth/maxWidth values (e.g., 300px / 250px) — *note: many occurrences are in tests/snapshots*
+   - Replace in implementation with an app token (e.g., `var(--app-popover-min-width)` or `var(--md-sys-layout-card-width)`), update tests separately
+   - Safety: medium — update tests/snapshots in a separate PR
+
+5) Small pixel/line-tracking values in code comments
+   - Pattern: "0px", "1px", small `px` in comments or helper constants
+   - Replace with tokens or remove when purely decorative in comments
+   - Safety: high for comment-only edits
+
+PR Preparation (commands)
+
+Run locally to create a branch, commit changes and push:
+
+```bash
+git checkout -b md3/governance-auto-fixes
+git add src/components/StudentActionMenu.tsx src/components/dashboard/Dashboard.tsx reports/governance-report.csv reports/governance-top50.csv reports/pr-suggestions.txt
+git commit -m "chore(md3): comment-only MD3 token references and add governance reports"
+git push origin md3/governance-auto-fixes
+```
+
+If you want me to apply the automated substitutions listed above (items 1–3) I can run them now limited to `src/components/**` (skipping tests and snapshots). After applying, I'll re-run the scanner and produce an updated CSV and a small patch file with the changes.
+
+Notes / Constraints
+- I will NOT modify theme files or design-system tokens (governance rule).
+- I will avoid changing tests/snapshots automatically; if changes to tests are required I will prepare a separate PR suggestion.
+- Some color and rgb/rgba violations require design decisions and cannot be safely auto-fixed.

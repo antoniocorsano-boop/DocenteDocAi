@@ -1,0 +1,102 @@
+/*
+  Menu navigation styles for Material 3 Expressive bottom nav
+  All tokens and variables must use the design system (theme.css, spacing.css, etc.)
+*/
+
+.bottom-nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  min-height: var(--md-sys-spacing-16);
+  background: var(--md-sys-color-surface-container-lowest);
+  box-shadow: var(--md-sys-elevation-level1);
+  border-top: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
+  z-index: var(--md-sys-z-content);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--md-sys-color-spacing-xs, var(--md-sys-spacing-1)) 0;
+}
+
+.m3-navigation-drawer {
+  background: none;
+  box-shadow: none;
+  border: none;
+}
+
+.nav-item {
+  background: var(--md-sys-color-surface-container-lowest);
+  color: var(--md-sys-color-on-surface-variant);
+  border-radius: var(--md-sys-color-shape-corner-medium, var(--md-sys-spacing-4));
+  outline: none;
+  padding: var(--md-sys-color-spacing-xs, var(--md-sys-spacing-2)) var(--md-sys-color-spacing-s, var(--md-sys-spacing-3));
+  min-width: var(--md-sys-layout-fab-size);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  cursor: pointer;
+  border: none;
+}
+
+.nav-item.active {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-primary);
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.nav-item:focus-visible {
+  background: var(--md-sys-color-primary-container);
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+}
+
+.nav-icon-container {
+  margin-bottom: var(--md-sys-spacing-1);
+  background: transparent;
+  border-radius: var(--md-sys-percent-50);
+  padding: var(--md-sys-color-spacing-xs, var(--md-sys-spacing-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item.active .nav-icon-container {
+  background: var(--md-sys-color-primary-container);
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.material-symbols-outlined {
+  font-size: var(--md-sys-icon-size-medium);
+  color: var(--md-sys-color-on-surface-variant);
+  pointer-events: none;
+}
+
+.nav-item.active .material-symbols-outlined {
+  color: var(--md-sys-color-primary);
+}
+
+.m3-label-small {
+  font-size: var(--md-sys-typescale-label-small-size);
+  font-family: var(--font-variable);
+  font-variation-settings: var(--font-variation-settings);
+  letter-spacing: 0.12em;
+  margin-top: var(--md-sys-spacing-1);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.nav-item.active .m3-label-small {
+  color: var(--md-sys-color-primary);
+}
+
+/* Dedicated class for menu navigation labels */
+.nav-label {
+  font-weight: 900; /* font-black equivalent */
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+
