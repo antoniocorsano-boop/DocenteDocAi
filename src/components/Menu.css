@@ -96,7 +96,7 @@
 .nav-label {
   font-weight: 900; /* font-black equivalent */
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: var(--app-legacy-0_2em, 0.2em);
 }
 
 

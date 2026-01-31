@@ -18,7 +18,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: var(--sys-spacing-xs, var(--md-sys-spacing-1)) 0;
+  padding: var(--md-sys-color-spacing-xs, var(--md-sys-spacing-1)) 0;
 }
 
 .m3-navigation-drawer {
@@ -30,9 +30,9 @@
 .nav-item {
   background: var(--md-sys-color-surface-container-lowest);
   color: var(--md-sys-color-on-surface-variant);
-  border-radius: var(--sys-shape-corner-medium, var(--md-sys-spacing-4));
+  border-radius: var(--md-sys-color-shape-corner-medium, var(--md-sys-spacing-4));
   outline: none;
-  padding: var(--sys-spacing-xs, var(--md-sys-spacing-2)) var(--sys-spacing-s, var(--md-sys-spacing-3));
+  padding: var(--md-sys-color-spacing-xs, var(--md-sys-spacing-2)) var(--md-sys-color-spacing-s, var(--md-sys-spacing-3));
   min-width: var(--md-sys-layout-fab-size);
   display: flex;
   flex-direction: column;
@@ -58,7 +58,7 @@
   margin-bottom: var(--md-sys-spacing-1);
   background: transparent;
   border-radius: var(--md-sys-percent-50);
-  padding: var(--sys-spacing-xs, var(--md-sys-spacing-2));
+  padding: var(--md-sys-color-spacing-xs, var(--md-sys-spacing-2));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,7 +70,7 @@
 }
 
 .material-symbols-outlined {
-  font-size: var(--icon-size-medium);
+  font-size: var(--md-sys-icon-size-medium);
   color: var(--md-sys-color-on-surface-variant);
   pointer-events: none;
 }

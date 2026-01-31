@@ -119,7 +119,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                 onChange={e => setShowAnswers(e.target.checked)}
                                 style={{ display: 'none' }}
                             />
-                            <span style={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.7, transition: 'opacity var(--md-sys-motion-duration-medium)' }}>Soluzioni Docente</span>
+                            <span style={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: 'var(--app-legacy-0_1em, 0.1em)', opacity: 0.7, transition: 'opacity var(--md-sys-motion-duration-medium)' }}>Soluzioni Docente</span>
                         </label>
                     </div>
                     <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-4)' }}>

@@ -147,7 +147,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   variant="label-small"
                   style={{color: 'var(--md-sys-color-on-tertiary-container)',
                     textTransform: 'uppercase',
-                    letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.2em)',
+                    letterSpacing: 'var(--md-sys-typescale-label-large-tracking, var(--app-legacy-0_2em, 0.2em))',
                     marginBottom: 'var(--md-sys-spacing-4)',
                     display: 'block'}}
                 >

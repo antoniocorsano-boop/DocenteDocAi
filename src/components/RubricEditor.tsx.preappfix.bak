@@ -163,8 +163,8 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                     </div>
                 </M3DialogContent>
                 <M3DialogActions>
-                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--app-legacy-0_1em, 0.1em)" }}>Annulla</M3Button>
-                    <M3Button onClick={handleSubmit} variant="filled"  style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--app-legacy-0_1em, 0.1em)" }}>Salva Rubrica</M3Button>
+                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
+                    <M3Button onClick={handleSubmit} variant="filled"  style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Salva Rubrica</M3Button>
                 </M3DialogActions>
             </form>
         </M3Dialog>

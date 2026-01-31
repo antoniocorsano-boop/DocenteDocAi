@@ -140,7 +140,7 @@
   color: var(--md-sys-color-primary);
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: var(--app-legacy-0_2em, 0.2em);
 }
 
 .home-lesson-header {
@@ -235,7 +235,7 @@
 .home-suggestion-title {
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--app-legacy-0_1em, 0.1em);
   color: var(--md-sys-color-primary);
 }
 
@@ -505,7 +505,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   font-size: var(--md-sys-typescale-label-small-font-size);
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--app-legacy-0_1em, 0.1em);
   color: var(--md-sys-color-on-surface-variant);
 }
 
@@ -554,7 +554,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   font-size: var(--md-sys-typescale-label-tiny-font-size);
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--app-legacy-0_1em, 0.1em);
 }
 
 .class-dashboard-chevron {
@@ -614,7 +614,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   font-size: var(--md-sys-typescale-label-small-font-size);
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: var(--app-legacy-0_1em, 0.1em);
   color: var(--md-sys-color-primary);
   margin-bottom: var(--md-sys-spacing-4);
 }
@@ -850,7 +850,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .uda-editor-title {
   font-size: var(--md-sys-typescale-headline-medium-size);
   font-weight: 900;
-  letter-spacing: -0.025em;
+  letter-spacing: -var(--app-legacy-0_025em, 0.025em);
 }
 
 .uda-editor-subtitle {
@@ -858,7 +858,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-60), transparent);
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: var(--app-legacy-0_2em, 0.2em);
   margin-top: var(--md-sys-spacing-4);
 }
 
@@ -913,7 +913,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   color: var(--md-sys-color-secondary);
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: var(--app-legacy-0_2em, 0.2em);
   opacity: 0.7;
 }
 
@@ -1180,7 +1180,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   font-size: var(--md-sys-typescale-headline-medium-size);
   font-weight: 900;
   color: var(--md-sys-color-on-surface);
-  letter-spacing: -0.025em;
+  letter-spacing: -var(--app-legacy-0_025em, 0.025em);
 }
 
 .uda-planner-subtitle {
@@ -1188,7 +1188,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-60), transparent);
   font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: var(--app-legacy-0_2em, 0.2em);
 }
 
 .uda-planner-guidance {
@@ -1228,7 +1228,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   padding: var(--md-sys-spacing-6);
   font-size: var(--md-sys-typescale-label-large-size);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: var(--app-legacy-0_2em, 0.2em);
   opacity: 0.6;
 }
 

@@ -5,23 +5,23 @@ exports[`CategoryCard Story Snapshots > renders default story correctly 1`] = `
   <div
     aria-pressed="false"
     role="button"
-    style="display: flex; flex-direction: column; align-items: center; gap: var(--app-spacing-container); padding: var(--app-spacing-section); border-radius: var(--md-sys-shape-corner-large); border: var(--app-border-normal) solid var(--md-sys-color-outline-variant); background-color: var(--app-color-surface-container); box-shadow: var(--md-sys-elevation-level1); cursor: pointer; transition: opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard); transform: scale(1); outline: none; outline-offset: 0;"
+    style="display: flex; flex-direction: column; align-items: center; gap: var(--md-sys-spacing-4); padding: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-large); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant); background-color: var(--md-sys-color-surface-container); box-shadow: var(--md-sys-elevation-level1); cursor: pointer; transition: opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard); transform: scale(1); outline: none; outline-offset: 0;"
     tabindex="0"
   >
     <div
-      style="width: var(--md-sys-spacing-8); height: var(--md-sys-spacing-8); border-radius: var(--md-sys-shape-corner-medium); display: flex; align-items: center; justify-content: center; color: blue; transition: opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard); transform: rotate(0deg) scale(1);"
+      style="width: var(--md-sys-spacing-8); height: var(--md-sys-spacing-8); border-radius: var(--md-sys-shape-corner-medium); display: flex; align-items: center; justify-content: center; color: blue; transition: opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard); transform: rotate(0deg) scale(1);"
     >
       <span
-        style="font-family: "Material Symbols Outlined"; font-size: var(--app-spacing-section);"
+        style="font-family: "Material Symbols Outlined"; font-size: var(--md-sys-spacing-6);"
       >
         test
       </span>
     </div>
     <div
-      style="display: flex; flex-direction: column; align-items: center; gap: var(--app-spacing-container);"
+      style="display: flex; flex-direction: column; align-items: center; gap: var(--md-sys-spacing-4);"
     >
       <span
-        style="font-family: var(--md-sys-typescale-font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: 900; line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: -0.025em; color: var(--app-color-on-surface); text-align: center; margin: 0px;"
+        style="font-family: var(--md-sys-typescale-font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: 900; line-height: var(--md-sys-typescale-label-large-line-height); color: var(--md-sys-color-on-surface); text-align: center; margin: 0px;"
       >
         Test
       </span>

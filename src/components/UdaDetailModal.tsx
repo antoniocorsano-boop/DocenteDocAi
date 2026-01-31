@@ -76,9 +76,9 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-2)'}}>
                             <span  style={{color: "var(--md-sys-color-primary)"}}>verified</span>
-                            <span style={{fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "900", color: "var(--md-sys-color-on-surface)", textTransform: "uppercase", letterSpacing: "0.1em"}}>Validazione Curricolo Verticale</span>
+                            <span style={{fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "900", color: "var(--md-sys-color-on-surface)", textTransform: "uppercase", letterSpacing: "var(--app-legacy-0_1em, 0.1em)"}}>Validazione Curricolo Verticale</span>
                         </div>
-                        <M3Button onClick={handleValidate} variant="secondary" disabled={isValidating} style={{ fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                        <M3Button onClick={handleValidate} variant="secondary" disabled={isValidating} style={{ fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--app-legacy-0_1em, 0.1em)" }}>
                             {isValidating ? 'Validazione...' : 'Valida con AI'}
                         </M3Button>
                     </div>

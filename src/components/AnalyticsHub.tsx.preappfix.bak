@@ -151,9 +151,9 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                     >
                         <label
                             style={{
-                                fontSize: 'var(--app-text-body)',
-                                fontWeight: 'var(--app-text-body-weight)',
-                                lineHeight: 'var(--app-text-body-line-height)',
+                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)',
+                                lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
                                 color: 'var(--md-sys-color-on-surface-variant)'
                             }}
                         >Modalità Vista</label>
@@ -218,7 +218,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                 <div
                     style={{
                         color: 'var(--md-sys-color-on-surface-variant)',
-                        fontSize: 'var(--app-text-body)',
+                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                         fontWeight: '700',
                         textTransform: 'uppercase',
                         letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.1em)'
@@ -227,7 +227,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                     <h2
                         style={{
                             color: 'var(--md-sys-color-on-surface-variant)',
-                            fontSize: 'var(--app-text-body)',
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             fontWeight: '700',
                             textTransform: 'uppercase',
                             letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.1em)'
@@ -273,7 +273,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                     )}
                     {chartType === 'radar' && (
                         <Suspense fallback={<div>Loading chart...</div>}>
-                            <RadarChart data={radarData} color="var(--sys-tertiary)" />
+                            <RadarChart data={radarData} color="var(--md-sys-color-tertiary)" />
                         </Suspense>
                     )}
                     {chartType === 'dist' && (

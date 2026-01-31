@@ -221,7 +221,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                         fontWeight: '700',
                         textTransform: 'uppercase',
-                        letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.1em)'
+                        letterSpacing: 'var(--md-sys-typescale-label-large-tracking, var(--app-legacy-0_1em, 0.1em))'
                     }}
                 >
                     <h2
@@ -230,7 +230,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             fontWeight: '700',
                             textTransform: 'uppercase',
-                            letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.1em)'
+                            letterSpacing: 'var(--md-sys-typescale-label-large-tracking, var(--app-legacy-0_1em, 0.1em))'
                         }}
                     >
                         {chartType === 'trend' && 'Andamento Temporale'}

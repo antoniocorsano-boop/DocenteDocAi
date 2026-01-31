@@ -3,13 +3,13 @@
 exports[`InfoCard Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    style="padding: var(--app-spacing-section); border-radius: var(--md-sys-shape-corner-large); cursor: default; outline: none; outline-offset: var(--md-sys-spacing-0); background-color: var(--md-sys-color-surface-container-low); box-shadow: var(--app-elevation-level-1); border: medium; position: relative;"
+    style="padding: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-large); cursor: default; outline: none; outline-offset: var(--md-sys-spacing-0); background-color: var(--md-sys-color-surface-container-low); box-shadow: var(--md-sys-elevation-1); border: medium; position: relative;"
   >
     <div
-      style="display: flex; flex-direction: column; gap: var(--app-spacing-container);"
+      style="display: flex; flex-direction: column; gap: var(--md-sys-spacing-4);"
     >
       <div
-        style="display: flex; flex-direction: column; gap: var(--app-spacing-element);"
+        style="display: flex; flex-direction: column; gap: var(--md-sys-spacing-3);"
       />
     </div>
   </div>

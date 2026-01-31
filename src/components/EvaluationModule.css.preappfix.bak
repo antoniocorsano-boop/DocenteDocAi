@@ -61,7 +61,7 @@
     font-weight: 900;
     font-size: var(--md-sys-typescale-body-small-size);
     text-transform: uppercase;
-    letter-spacing: var(--app-legacy-0_1em, 0.1em);
+    letter-spacing: 0.1em;
     border: none;
     cursor: pointer;
 }
@@ -83,7 +83,7 @@
     color: var(--md-sys-color-on-primary);
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: var(--app-legacy-0_1em, 0.1em);
+    letter-spacing: 0.1em;
     transition-property: opacity, transform, background-color;
 transition-duration: var(--md-sys-motion-duration-medium);
 transition-timing-function: var(--md-sys-motion-easing-emphasized);
@@ -105,7 +105,7 @@ transition-timing-function: var(--md-sys-motion-easing-emphasized);
     border-radius: var(--md-sys-shape-corner-large);
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: var(--app-legacy-0_1em, 0.1em);
+    letter-spacing: 0.1em;
     transition-property: opacity, transform, background-color;
 transition-duration: var(--md-sys-motion-duration-medium);
 transition-timing-function: var(--md-sys-motion-easing-emphasized);
@@ -155,7 +155,7 @@ transition-timing-function: var(--md-sys-motion-easing-emphasized);
 .view-subtitle {
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: var(--app-legacy-0_1em, 0.1em);
+    letter-spacing: 0.1em;
     opacity: 0.6;
     margin-top: var(--md-sys-spacing-1);
     color: var(--md-sys-color-on-surface-variant);
@@ -179,7 +179,7 @@ transition-timing-function: var(--md-sys-motion-easing-emphasized);
     font-weight: 900;
     font-size: var(--md-sys-typescale-label-small-size);
     text-transform: uppercase;
-    letter-spacing: var(--app-legacy-0_1em, 0.1em);
+    letter-spacing: 0.1em;
     transition-property: opacity, transform, background-color;
 transition-duration: var(--md-sys-motion-duration-medium);
 transition-timing-function: var(--md-sys-motion-easing-emphasized);
@@ -216,7 +216,7 @@ transition-timing-function: var(--md-sys-motion-easing-emphasized);
 .evaluation-header-cell {
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: var(--app-legacy-0_1em, 0.1em);
+    letter-spacing: 0.1em;
     color: var(--md-sys-color-primary);
     padding: var(--md-sys-spacing-2);
 }
@@ -230,7 +230,7 @@ transition-timing-function: var(--md-sys-motion-easing-emphasized);
     font-weight: 900;
     font-size: var(--md-sys-typescale-label-small-size);
     text-transform: uppercase;
-    letter-spacing: var(--app-legacy-0_1em, 0.1em);
+    letter-spacing: 0.1em;
 }
 
 /* Student Row */
@@ -362,7 +362,7 @@ transition-timing-function: var(--md-sys-motion-easing-emphasized);
     font-weight: 900;
     font-size: var(--md-sys-typescale-label-small-size);
     text-transform: uppercase;
-    letter-spacing: var(--app-legacy-0_1em, 0.1em);
+    letter-spacing: 0.1em;
 }
 
 /* Risk View */
@@ -443,7 +443,7 @@ transition-timing-function: var(--md-sys-motion-easing-emphasized);
     color: var(--md-sys-color-on-error);
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: var(--app-legacy-0_1em, 0.1em);
+    letter-spacing: 0.1em;
     font-size: var(--md-sys-typescale-label-small-size);
     border: none;
     cursor: pointer;

@@ -1,5 +1,5 @@
 // MD3 Compliant - Block J Migration Complete (6 violations eliminated)
-// Note: minHeight: "var(--app-legacy-100vh)" retained for functional full viewport height (no exact MD3 token available)
+// Note: minHeight: "var(--app-legacy-var(--app-legacy-100vh, 100vh))" retained for functional full viewport height (no exact MD3 token available)
 import React from 'react';
 import Logo from './Logo';
 import { View } from '../types';

@@ -188,7 +188,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                     </div>
 
                     {error && (
-                        <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', fontSize: 'var(--app-text-body)', fontWeight: "bold", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)" }}>
+                        <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "bold", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)" }}>
                             <span  style={{ fontSize: 'var(--md-sys-spacing-5)' }}>error</span>
                             {error}
                         </div>

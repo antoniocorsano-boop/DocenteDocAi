@@ -112,7 +112,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
             }}>
                 <input {...getInputProps()} />
                 <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)', transition: "transform var(--md-sys-motion-duration-medium)"}}>cloud_upload</span>
-                <M3Typography variant="label-small" style={{textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, 0.1em)", color: "var(--md-sys-color-primary)"}}>Carica Elaborato</M3Typography>
+                <M3Typography variant="label-small" style={{textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))", color: "var(--md-sys-color-primary)"}}>Carica Elaborato</M3Typography>
                 <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "0.6", marginTop: 'var(--md-sys-spacing-4)'}}>Trascina qui il file o clicca per selezionare</M3Typography>
             </div>
         );
@@ -128,8 +128,8 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                     <Avatar name={`${student.nome} ${student.cognome}`} size="md"  />
                     <div >
-                        <M3Typography variant="headline-small" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "900", letterSpacing: "var(--md-sys-typescale-tracking-micro, var(--md-sys-typescale-tracking-micro, var(--md-sys-typescale-tracking-micro, -0.005em)))" }}>Diario di Classe</M3Typography>
-                        <M3Typography variant="label-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, 0.1em)", opacity: "0.7" }}>Classe {student.classe} • {student.nome} {student.cognome}</M3Typography>
+                        <M3Typography variant="headline-small" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "900", letterSpacing: "var(--md-sys-typescale-tracking-micro, var(--md-sys-typescale-tracking-micro, var(--md-sys-typescale-tracking-micro, -var(--app-legacy-0_005em, 0.005em))))" }}>Diario di Classe</M3Typography>
+                        <M3Typography variant="label-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))", opacity: "0.7" }}>Classe {student.classe} • {student.nome} {student.cognome}</M3Typography>
                     </div>
                 </div>
                 <M3Button onClick={() => setIsExitMenuOpen(!isExitMenuOpen)} variant="tonal"  style={{color: "var(--md-sys-color-error)"}}>
@@ -146,7 +146,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                         >
                             <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>logout</span>
                             <div >
-                                <M3Typography variant="label-small" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, 0.1em)" }}>Termina Sessione</M3Typography>
+                                <M3Typography variant="label-small" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))" }}>Termina Sessione</M3Typography>
                                 <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "0.7" }}>Torna al login studenti</M3Typography>
                             </div>
                         </button>
@@ -159,7 +159,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
   fontFamily: 'Material Symbols Outlined'
 }}>lock</span>
                                 <div >
-                                    <M3Typography variant="label-small" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, 0.1em)" }}>Menu Docente</M3Typography>
+                                    <M3Typography variant="label-small" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))" }}>Menu Docente</M3Typography>
                                     <M3Typography variant="body-small" style={{ opacity: "0.7" }}>Richiede PIN di sicurezza</M3Typography>
                                 </div>
                             </button>
@@ -195,18 +195,18 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                             >
                                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
-                                        <span style={{ backgroundColor: 'var(--md-sys-color-secondary)', opacity: 0.1, fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, 0.1em)", color: "var(--md-sys-color-secondary)", borderRadius: 'var(--md-sys-spacing-4)'}}>
+                                        <span style={{ backgroundColor: 'var(--md-sys-color-secondary)', opacity: 0.1, fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))", color: "var(--md-sys-color-secondary)", borderRadius: 'var(--md-sys-spacing-4)'}}>
                                             {new Date(item.date).toLocaleDateString('it-IT', { day: '2-digit', month: 'short' })}
                                         </span>
                                         <span style={{fontWeight: "900", textTransform: "uppercase", color: "var(--md-sys-color-primary)"}}>{item.title}</span>
                                     </div>
                                 </div>
-                                <M3Typography variant="headline-medium" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "900", letterSpacing: "var(--md-sys-typescale-tracking-micro, var(--md-sys-typescale-tracking-micro, var(--md-sys-typescale-tracking-micro, -0.005em)))" }}>{item.content}</M3Typography>
+                                <M3Typography variant="headline-medium" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "900", letterSpacing: "var(--md-sys-typescale-tracking-micro, var(--md-sys-typescale-tracking-micro, var(--md-sys-typescale-tracking-micro, -var(--app-legacy-0_005em, 0.005em))))" }}>{item.content}</M3Typography>
                                 {item.homework && (
                                     <div style={{ backgroundColor: 'var(--md-sys-color-tertiary)', opacity: 0.05, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
                                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: "var(--md-sys-color-tertiary)"}}>
                                             <span  style={{ fontSize: "var(--md-sys-typescale-headline-small-size)" }}>home_work</span>
-                                            <span style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, 0.1em)" }}>Compito per casa</span>
+                                            <span style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))" }}>Compito per casa</span>
                                         </div>
                                         <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', lineHeight: "1.625" }}>{item.homework}</M3Typography>
                                     </div>
@@ -216,7 +216,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                         onClick={() => handleDownloadHomeworkSheet(item.originalLesson)}
                                         disabled={isGeneratingPdf}
                                         variant="text"
-                                        style={{ color: 'var(--md-sys-color-on-surface-variant)', width: "var(--md-sys-percent-100)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, 0.1em)" }}
+                                        style={{ color: 'var(--md-sys-color-on-surface-variant)', width: "var(--md-sys-percent-100)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))" }}
                                      >
                                          <span  style={{ marginRight: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-large-size)" }}>print</span>
                                          {isGeneratingPdf ? 'Generazione PDF...' : 'Scarica Scheda Lezione'}
@@ -226,7 +226,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                         )) : (
                             <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.3, borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
                                 <span style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)', opacity: "0.2"}}>feed</span>
-                                <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, 0.1em)", opacity: "0.4" }}>Nessuna attività recente nel registro.</M3Typography>
+                                <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))", opacity: "0.4" }}>Nessuna attività recente nel registro.</M3Typography>
                             </div>
                         )}
                     </div>
@@ -251,10 +251,10 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                     >
                                         <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                             <div style={{gap: 'var(--md-sys-spacing-1)'}}>
-                                                <M3Typography variant="headline-small" style={{ fontWeight: "900", letterSpacing: "var(--md-sys-typescale-tracking-micro, var(--md-sys-typescale-tracking-micro, var(--md-sys-typescale-tracking-micro, -0.005em)))" }}>{lesson.materia}</M3Typography>
-                                                <M3Typography variant="label-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, 0.1em)", opacity: "0.6" }}>{lesson.contenuto}</M3Typography>
+                                                <M3Typography variant="headline-small" style={{ fontWeight: "900", letterSpacing: "var(--md-sys-typescale-tracking-micro, var(--md-sys-typescale-tracking-micro, var(--md-sys-typescale-tracking-micro, -var(--app-legacy-0_005em, 0.005em))))" }}>{lesson.materia}</M3Typography>
+                                                <M3Typography variant="label-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))", opacity: "0.6" }}>{lesson.contenuto}</M3Typography>
                                             </div>
-                                            <span style={{ color: 'var(--md-sys-color-primary)', backgroundColor: 'var(--md-sys-color-primary)', opacity: 0.1, fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, 0.1em)", borderRadius: 'var(--md-sys-spacing-4)' }}>Nuovo</span>
+                                            <span style={{ color: 'var(--md-sys-color-primary)', backgroundColor: 'var(--md-sys-color-primary)', opacity: 0.1, fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))", borderRadius: 'var(--md-sys-spacing-4)' }}>Nuovo</span>
                                         </div>
                                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 0.5, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', fontSize: "var(--md-sys-typescale-body-large-size)", fontWeight: "500", lineHeight: "1.625"}}>
                                             {lesson.compiti}
@@ -264,7 +264,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                 ))}
                                 {pendingHomework.length === 0 && (
                                     <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.3, borderRadius: 'var(--md-sys-shape-corner-large)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", textAlign: "center"}}>
-                                        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, 0.1em)", opacity: "0.4" }}>Nessun compito in sospeso.</M3Typography>
+                                        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))", opacity: "0.4" }}>Nessun compito in sospeso.</M3Typography>
                                     </div>
                                 )}
                             </div>
@@ -282,7 +282,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                     return (
                                         <div key={sub.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.5, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "color var(--md-sys-motion-duration-medium)"}}>
                                             <div style={{gap: 'var(--md-sys-spacing-1)'}}>
-                                                <M3Typography variant="label-small" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, 0.1em)" }}>{relatedLesson?.materia || 'Materia'}</M3Typography>
+                                                <M3Typography variant="label-small" style={{ fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))" }}>{relatedLesson?.materia || 'Materia'}</M3Typography>
                                                 <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "500", opacity: "0.6" }}>{new Date(sub.date).toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' })}</M3Typography>
                                             </div>
                                             <div style={{display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 'var(--md-sys-spacing-8)'}}>
@@ -290,7 +290,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                                     fontSize: 'var(--md-sys-typescale-body-small-size)',
                                                     fontWeight: '900',
                                                     textTransform: 'uppercase',
-                                                    letterSpacing: 'var(--md-sys-typescale-tracking-xxs, 0.1em)',
+                                                    letterSpacing: 'var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))',
                                                     padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-3)',
                                                     borderRadius: 'var(--md-sys-shape-corner-full)',
                                                     backgroundColor: sub.status === 'graded' ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-tertiary-container)',
@@ -305,7 +305,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                     )
                                 })}
                                 {submittedHomework.length === 0 && (
-                                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, 0.1em)", opacity: "0.4" }}>Nessuna consegna effettuata.</M3Typography>
+                                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))", opacity: "0.4" }}>Nessuna consegna effettuata.</M3Typography>
                                 )}
                             </div>
                         </div>
@@ -326,13 +326,13 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                         {entry.fileName.endsWith('.pdf') ? 'picture_as_pdf' : 'description'}
                                     </span>
                                 </div>
-                                <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, 0.1em)", lineHeight: "1.625" }}>{entry.fileName}</M3Typography>
+                                <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))", lineHeight: "1.625" }}>{entry.fileName}</M3Typography>
                             </M3ExpressiveCard>
                         ))}
                         {kb.length === 0 && (
                             <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.3, borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                                 <span style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)', opacity: "0.2"}}>folder_off</span>
-                                <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, 0.1em)", opacity: "0.4" }}>Nessun materiale condiviso.</M3Typography>
+                                <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))", opacity: "0.4" }}>Nessun materiale condiviso.</M3Typography>
                             </div>
                         )}
                      </div>

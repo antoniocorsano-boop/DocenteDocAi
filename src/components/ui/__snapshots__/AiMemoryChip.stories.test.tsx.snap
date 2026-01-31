@@ -5,16 +5,16 @@ exports[`AiMemoryChip Story Snapshots > renders default story correctly 1`] = `
   <div
     aria-label="Contesto AI: Test Context"
     role="note"
-    style="display: flex; align-items: center; gap: var(--app-spacing-container); padding: var(--app-spacing-component) var(--app-spacing-component); min-height: var(--md-sys-spacing-8); opacity: 0.6; transition: opacity var(--md-sys-motion-duration-short2) var(--app-easing-standard); user-select: none; cursor: help; background-color: var(--md-sys-color-tertiary-container); border-radius: var(--md-sys-shape-corner-full); border: var(--app-border-normal) solid var(--md-sys-color-tertiary);"
+    style="display: flex; align-items: center; gap: var(--md-sys-spacing-4); padding: var(--md-sys-spacing-2) var(--md-sys-spacing-2); min-height: var(--md-sys-spacing-8); opacity: 0.6; transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); user-select: none; cursor: help; background-color: var(--md-sys-color-tertiary-container); border-radius: var(--md-sys-shape-corner-full); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-tertiary);"
     title="Contesto utilizzato dall'AI"
   >
     <span
-      style="font-family: "Material Symbols Outlined"; font-size: var(--app-text-body); color: var(--md-sys-color-tertiary); font-weight: bold; animation: pulse var(--md-sys-motion-duration-extra-long) var(--app-easing-standard) infinite;"
+      style="font-family: "Material Symbols Outlined"; font-size: var(--md-sys-typescale-body-large-font-size); color: var(--md-sys-color-tertiary); font-weight: bold; animation: pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;"
     >
       psychology
     </span>
     <span
-      style="font-size: var(--app-text-body); font-weight: 800; color: var(--md-sys-color-tertiary); text-transform: uppercase; letter-spacing: 0.15em;"
+      style="font-size: var(--md-sys-typescale-body-large-font-size); font-weight: 800; color: var(--md-sys-color-tertiary); text-transform: uppercase; letter-spacing: var(--app-legacy-0_15em);"
     >
       Test Context
     </span>

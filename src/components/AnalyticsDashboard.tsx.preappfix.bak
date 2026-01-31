@@ -241,7 +241,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     gap: 'var(--md-sys-spacing-6)'}}>
                     <span style={{fontFamily: 'Material Symbols Outlined',
                       color: 'var(--md-sys-color-primary)',
-                      fontSize: 'var(--app-text-display)'}}>file_copy</span>
+                      fontSize: 'var(--md-sys-typescale-display)'}}>file_copy</span>
                     <div>
                       <M3Typography variant="headline-small" style={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.templatesCreated)}</M3Typography>
@@ -267,7 +267,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     gap: 'var(--md-sys-spacing-6)'}}>
                     <span style={{fontFamily: 'Material Symbols Outlined',
                       color: 'var(--md-sys-color-tertiary)',
-                      fontSize: 'var(--app-text-display)'}}>batch_prediction</span>
+                      fontSize: 'var(--md-sys-typescale-display)'}}>batch_prediction</span>
                     <div>
                       <M3Typography variant="headline-small" style={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.exportBatchesCount)}</M3Typography>
@@ -469,7 +469,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                             {event.eventType.replace('_', ' ')}
                           </M3Typography>
                         </div>
-                        <span style={{fontSize: 'var(--app-text-label)',
+                        <span style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)',
                           color: 'var(--md-sys-color-on-surface-variant)',
                           backgroundColor: 'var(--md-sys-color-surface-container-high)',
                           padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-4)',
@@ -485,7 +485,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     paddingTop: 'var(--md-sys-spacing-12)',
                     paddingBottom: 'var(--md-sys-spacing-12)'}}>
                     <span style={{fontFamily: 'Material Symbols Outlined',
-                      fontSize: 'var(--app-text-display)',
+                      fontSize: 'var(--md-sys-typescale-display)',
                       color: 'var(--md-sys-color-on-surface-variant)',
                       opacity: 0.3,
                       marginBottom: 'var(--md-sys-spacing-8)',

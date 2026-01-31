@@ -111,7 +111,7 @@ const SettingsGroup: React.FC<{
                         <M3Typography variant="title-large" style={{color: 'var(--md-sys-color-on-surface)',
                             fontWeight: 900,
                             margin: 0,
-                            letterSpacing: 'var(--md-sys-typescale-tracking-xxxxs, -0.025em)'}}>{title}</M3Typography>
+                            letterSpacing: 'var(--md-sys-typescale-tracking-xxxxs, -var(--app-legacy-0_025em, 0.025em))'}}>{title}</M3Typography>
                         {subtitle && <M3Typography variant="body-small" style={{color: 'var(--md-sys-color-on-surface-variant)',
                             margin: 0,
                             opacity: 0.7}}>{subtitle}</M3Typography>}
@@ -431,7 +431,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                                     fontWeight: 900,
                                     textTransform: 'uppercase',
-                                    letterSpacing: 'var(--md-sys-typescale-tracking-xs, 0.15em)'}}>Modalità Interfaccia</M3Typography>
+                                    letterSpacing: 'var(--md-sys-typescale-tracking-xs, var(--app-legacy-0_15em, 0.15em))'}}>Modalità Interfaccia</M3Typography>
                             </div>
                             <TabGroup
                                 tabs={[
@@ -462,7 +462,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                                     fontWeight: 900,
                                     textTransform: 'uppercase',
-                                    letterSpacing: 'var(--md-sys-typescale-tracking-xs, 0.15em)'}}>Ecosistema Visivo</M3Typography>
+                                    letterSpacing: 'var(--md-sys-typescale-tracking-xs, var(--app-legacy-0_15em, 0.15em))'}}>Ecosistema Visivo</M3Typography>
                             </div>
                             <div style={{display: 'grid',
                                 gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-sizing-grid-large), var(--md-sys-grid-fr-1)))',
@@ -527,7 +527,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                                     fontWeight: 900,
                                     textTransform: 'uppercase',
-                                    letterSpacing: 'var(--md-sys-typescale-tracking-xs, 0.15em)'}}>Tema & Colori</M3Typography>
+                                    letterSpacing: 'var(--md-sys-typescale-tracking-xs, var(--app-legacy-0_15em, 0.15em))'}}>Tema & Colori</M3Typography>
                             </div>
 
                             <div style={{marginBottom: 'var(--md-sys-spacing-4)'}}>
@@ -568,7 +568,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                                         fontWeight: 900,
                                         textTransform: 'uppercase',
-                                        letterSpacing: 'var(--md-sys-typescale-tracking-xs, 0.15em)'}}>Generatore AI</M3Typography>
+                                        letterSpacing: 'var(--md-sys-typescale-tracking-xs, var(--app-legacy-0_15em, 0.15em))'}}>Generatore AI</M3Typography>
                                 </div>
                                 <div style={{display: 'flex',
                                     gap: 'var(--md-sys-spacing-4)',
@@ -619,7 +619,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     variant="label-small"
                                     style={{color: 'var(--md-sys-color-primary)',
                                         fontWeight: 900,
-                                        letterSpacing: 'var(--md-sys-typescale-tracking-xxs, 0.1em)',
+                                        letterSpacing: 'var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))',
                                         textTransform: 'uppercase'}}
                                 >
                                     Parametri Strutturali
@@ -776,7 +776,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     variant="label-small"
                                     style={{color: 'var(--md-sys-color-primary)',
                                         fontWeight: 900,
-                                        letterSpacing: 'var(--md-sys-typescale-tracking-xxs, 0.1em)',
+                                        letterSpacing: 'var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))',
                                         textTransform: 'uppercase'}}
                                 >
                                     Backup Tema
@@ -846,7 +846,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                                     fontWeight: 900,
                                     textTransform: 'uppercase',
-                                    letterSpacing: 'var(--md-sys-typescale-tracking-xs, 0.15em)'}}>Manutenzione Brand</M3Typography>
+                                    letterSpacing: 'var(--md-sys-typescale-tracking-xs, var(--app-legacy-0_15em, 0.15em))'}}>Manutenzione Brand</M3Typography>
                             </div>
                             <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)',
                                 margin: 0}}>Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</M3Typography>
@@ -873,7 +873,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                                     fontWeight: 900,
                                     textTransform: 'uppercase',
-                                    letterSpacing: 'var(--md-sys-typescale-tracking-xs, 0.15em)'}}>M3 Theme Panel</M3Typography>
+                                    letterSpacing: 'var(--md-sys-typescale-tracking-xs, var(--app-legacy-0_15em, 0.15em))'}}>M3 Theme Panel</M3Typography>
                             </div>
                             <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)',
                                 margin: 0}}>Personalizza i token M3 per colori, tipografia, spacing e motion con anteprima live.</M3Typography>
@@ -949,7 +949,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 variant="label-small"
                                 style={{color: 'var(--md-sys-color-secondary)',
                                     fontWeight: 900,
-                                    letterSpacing: 'var(--md-sys-typescale-tracking-xxs, 0.1em)',
+                                    letterSpacing: 'var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))',
                                     textTransform: 'uppercase'}}
                             >
                                 Modello Intelligenza
@@ -1016,7 +1016,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         variant="label-large"
                                         style={{color: 'var(--md-sys-color-on-surface)',
                                             fontWeight: 900,
-                                            letterSpacing: 'var(--md-sys-typescale-tracking-xxxxs, 0.025em)',
+                                            letterSpacing: 'var(--md-sys-typescale-tracking-xxxxs, var(--app-legacy-0_025em, 0.025em))',
                                             textTransform: 'uppercase'}}
                                     >
                                         Anno Scolastico
@@ -1078,7 +1078,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         variant="label-large"
                                         style={{color: 'var(--md-sys-color-on-surface)',
                                             fontWeight: 900,
-                                            letterSpacing: 'var(--md-sys-typescale-tracking-xxxxs, 0.025em)',
+                                            letterSpacing: 'var(--md-sys-typescale-tracking-xxxxs, var(--app-legacy-0_025em, 0.025em))',
                                             textTransform: 'uppercase'}}
                                     >
                                         Gestione Cattedra
@@ -1113,7 +1113,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         variant="label-small"
                                         style={{color: 'var(--md-sys-color-primary)',
                                             fontWeight: 900,
-                                            letterSpacing: 'var(--md-sys-typescale-tracking-xxs, 0.1em)',
+                                            letterSpacing: 'var(--md-sys-typescale-tracking-xxs, var(--app-legacy-0_1em, 0.1em))',
                                             textTransform: 'uppercase'}}
                                     >
                                         Formazione Classi Strutturata

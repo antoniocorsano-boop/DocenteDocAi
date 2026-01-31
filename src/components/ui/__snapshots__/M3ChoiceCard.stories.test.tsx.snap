@@ -4,20 +4,20 @@ exports[`M3ChoiceCard Story Snapshots > renders default story correctly 1`] = `
 <div>
   <button
     aria-pressed="false"
-    style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--md-sys-spacing-8); border-radius: var(--md-sys-shape-corner-extra-large); border: var(--app-border-thick) solid var(--md-sys-color-outline-variant)30; background-color: var(--md-sys-color-surface-container)80; color: var(--md-sys-color-on-surface); box-shadow: none; transform: none; transition: all var(--app-motion-quick) var(--app-easing-standard); gap: var(--app-spacing-container); min-width: var(--md-sys-spacing-16); cursor: pointer; outline: none;"
+    style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--md-sys-spacing-8); border-radius: var(--md-sys-shape-corner-extra-large); border: var(--md-sys-border-width-thick) solid var(--md-sys-color-outline-variant)30; background-color: var(--md-sys-color-surface-container)80; color: var(--md-sys-color-on-surface); box-shadow: none; transform: none; transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard); gap: var(--md-sys-spacing-4); min-width: var(--md-sys-spacing-16); cursor: pointer; outline: none;"
     type="button"
   >
     <div
-      style="width: var(--md-sys-spacing-12); height: var(--md-sys-spacing-12); border-radius: var(--md-sys-shape-corner-medium); display: flex; align-items: center; justify-content: center; transition: all var(--app-motion-quick) var(--app-easing-standard); background-color: var(--md-sys-color-surface); color: var(--md-sys-color-primary); box-shadow: none; transform: none;"
+      style="width: var(--md-sys-spacing-12); height: var(--md-sys-spacing-12); border-radius: var(--md-sys-shape-corner-medium); display: flex; align-items: center; justify-content: center; transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard); background-color: var(--md-sys-color-surface); color: var(--md-sys-color-primary); box-shadow: none; transform: none;"
     >
       <span
-        style="font-family: "Material Symbols Outlined"; font-size: var(--app-spacing-section); user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"
+        style="font-family: "Material Symbols Outlined"; font-size: var(--md-sys-spacing-6); user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"
       >
         test
       </span>
     </div>
     <span
-      style="font-size: var(--md-sys-typescale-body-small-font-size); font-family: var(--md-sys-typescale-font-family); font-weight: var(--md-sys-typescale-body-small-font-weight); letter-spacing: 0.2em; text-transform: uppercase;"
+      style="font-size: var(--md-sys-typescale-body-small-font-size); font-family: var(--md-sys-typescale-font-family); font-weight: var(--md-sys-typescale-body-small-font-weight); letter-spacing: var(--app-legacy-0_2em); text-transform: uppercase;"
     >
       Test
     </span>

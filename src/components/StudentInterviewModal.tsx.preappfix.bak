@@ -155,7 +155,7 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                                                 }}>{comp.level}</span>
                                             </div>
                                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-size)" }}>{comp.desc}</p>
-                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)'/60 , marginTop: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "var(--app-legacy-0_1em, 0.1em)"}}>Rilevato il {new Date(comp.date).toLocaleDateString()}</p>
+                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)'/60 , marginTop: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "0.1em"}}>Rilevato il {new Date(comp.date).toLocaleDateString()}</p>
                                         </div>
                                     ))
                                 ) : (

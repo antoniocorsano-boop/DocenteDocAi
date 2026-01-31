@@ -158,11 +158,11 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
 
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <h1 style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'bold', marginBottom: 'var(--md-sys-spacing-6)', textAlign: 'center', textTransform: 'uppercase', lineHeight: 1 }}>{quiz.title}</h1>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', width: 'var(--md-sys-percent-100)', fontSize: 'var(--app-text-title)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: 'var(--md-sys-percent-100)', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>
                             <span>Argomento: <span style={{ fontWeight: 'bold' }}>{quiz.topic}</span></span>
                             <span>Data: ______________</span>
                         </div>
-                        <div style={{ width: 'var(--md-sys-percent-100)', fontSize: 'var(--app-text-title)', marginTop: 'var(--md-sys-spacing-4)', textAlign: 'left' }}>
+                        <div style={{ width: 'var(--md-sys-percent-100)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', marginTop: 'var(--md-sys-spacing-4)', textAlign: 'left' }}>
                             <span>Nome e Cognome: __________________________________________________</span>
                         </div>
                     </div>
