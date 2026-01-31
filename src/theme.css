@@ -396,6 +396,20 @@
     /* Touch target spacing token requested in governance work */
     --app-spacing-touch: var(--md-sys-spacing-11); /* 44px */
 
+    /* Backwards-compatible aliases used across components */
+    --app-color-primary: var(--app-color-brand-primary);
+    --app-color-on-primary: var(--app-color-brand-on-primary);
+    --app-color-primary-container: var(--md-sys-color-primary-container);
+    --app-color-on-primary-container: var(--md-sys-color-on-primary-container);
+    --app-color-secondary: var(--app-color-accent-1);
+    --app-color-secondary-container: var(--md-sys-color-secondary-container);
+    --app-color-on-secondary-container: var(--md-sys-color-on-secondary-container);
+    --app-color-tertiary: var(--app-color-accent-2);
+    --app-color-surface: var(--md-sys-color-surface);
+    --app-color-on-surface: var(--md-sys-color-on-surface);
+    --app-color-surface-variant: var(--md-sys-color-surface-container);
+    --app-color-on-surface-variant: var(--md-sys-color-on-surface-variant);
+
 /* --- VISUAL STYLES OVERRIDES --- */
 
 /* Aura Style (Glassmorphism) */
