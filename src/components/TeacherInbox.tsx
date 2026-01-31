@@ -77,8 +77,8 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                                     style={{
                                         borderRadius: 'var(--md-sys-shape-corner-small)',
                                         transition: 'var(--md-easing-standard)',
-                                        backgroundColor: isSelected ? 'var(--app-color-secondary-container)' : 'var(--app-color-surface-container)',
-                                        padding: 'var(--app-spacing-element)',
+                                        backgroundColor: isSelected ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface-container)',
+                                        padding: 'var(--md-sys-spacing-3)',
                                         cursor: 'pointer'
                                     }}
                                 >
@@ -118,7 +118,7 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                 <div >
                     {selectedSubmission ? (
                         <div >
-                            <div  style={{ marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)" }}>
+                            <div  style={{ marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)" }}>
                                 <HomeworkSubmissionCard
                                     submission={selectedSubmission}
                                     student={getStudentDisplay(selectedSubmission.studentId).obj!}

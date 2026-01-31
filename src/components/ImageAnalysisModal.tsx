@@ -78,9 +78,9 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
     >
       <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)" }}>
         {/* Left Panel: Upload and Prompt */}
-        <div style={{ padding: 'var(--app-spacing-container)', borderRight: "var(--app-border-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column" }}>
+        <div style={{ padding: 'var(--md-sys-spacing-4)', borderRight: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column" }}>
           <div>
-            <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--app-text-label)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--app-spacing-section)' }}>1. Carica un'immagine</h3>
+            <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--app-text-label)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-6)' }}>1. Carica un'immagine</h3>
             <div 
               {...getRootProps()}
               style={{
@@ -88,22 +88,22 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                border: `var(--app-border-thick) dashed ${isDragActive ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
-                backgroundColor: isDragActive ? 'var(--app-color-primary-container)' : 'var(--app-color-surface-container)',
+                border: `var(--md-sys-border-width-thick) dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
                 height: 'var(--md-sys-layout-dropzone-height)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
                 cursor: 'pointer',
                 overflow: 'hidden',
-                transition: 'background-color var(--md-sys-motion-duration-short2) var(--app-easing-standard), border-color var(--md-sys-motion-duration-short2) var(--app-easing-standard)'
+                transition: 'background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard), border-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
               }}
             >
               <input {...getInputProps()} />
               {imagePreview ? (
-                <img src={imagePreview} alt="Preview"  style={{ height: "var(--app-layout-full)", width: "var(--app-layout-full)" }} />
+                <img src={imagePreview} alt="Preview"  style={{ height: "var(--md-sys-percent-100)", width: "var(--md-sys-percent-100)" }} />
               ) : (
                 <>
-                  <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--app-spacing-container)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
-                      <span style={{ color: 'var(--app-color-primary)' }}>add_photo_alternate</span>
+                  <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
+                      <span style={{ color: 'var(--md-sys-color-primary)' }}>add_photo_alternate</span>
                   </div>
                   <div style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center" }}>
                       <p style={{ fontWeight: "bold" }}>Trascina o clicca</p>
@@ -123,7 +123,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
                 if (error) setError('');
               }}
               placeholder="Es. 'Descrivi cosa vedi in questa immagine'..."
-              style={{ padding: 'var(--app-spacing-container)', borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--app-layout-full)", flexGrow: "1", backgroundColor: 'var(--app-color-surface)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}
+              style={{ padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--md-sys-percent-100)", flexGrow: "1", backgroundColor: 'var(--md-sys-color-surface)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}
               rows={4}
               disabled={!imageFile}
             />
@@ -132,31 +132,31 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
             onClick={handleSubmit} 
             disabled={isLoading || !imageFile || !prompt} 
             variant="filled"
-             style={{ width: "var(--app-layout-full)" }}
+             style={{ width: "var(--md-sys-percent-100)" }}
           >
             {isLoading ? <span >progress_activity</span> : 'Analizza Immagine'}
           </M3Button>
-          {error && <p style={{color: "var(--md-sys-color-error)", fontSize: 'var(--app-text-body)', marginTop: 'var(--app-spacing-container)', textAlign: "center", fontWeight: "bold"}}>{error}</p>}
+          {error && <p style={{color: "var(--md-sys-color-error)", fontSize: 'var(--app-text-body)', marginTop: 'var(--md-sys-spacing-4)', textAlign: "center", fontWeight: "bold"}}>{error}</p>}
         </div>
 
         {/* Right Panel: Analysis Result */}
-        <div style={{ padding: 'var(--app-spacing-container)', backgroundColor: 'var(--app-color-surface)', overflowY: "auto", display: "flex", flexDirection: "column" }}>
+        <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', overflowY: "auto", display: "flex", flexDirection: "column" }}>
           <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--app-text-label)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)' }}>Risultato Analisi</h3>
           <InfoCard variant="elevated">
             {isLoading && (
-              <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--app-layout-full)" }}>
-                <div  style={{borderRadius: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', width: 'var(--app-spacing-container)', borderColor: 'var(--app-color-primary)'}}></div>
-                <p  style={{fontSize: 'var(--app-text-label)', fontWeight: "bold", color: 'var(--app-color-primary)'}}>L'AI sta analizzando...</p>
+              <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)" }}>
+                <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderColor: 'var(--md-sys-color-primary)'}}></div>
+                <p  style={{fontSize: 'var(--app-text-label)', fontWeight: "bold", color: 'var(--md-sys-color-primary)'}}>L'AI sta analizzando...</p>
               </div>
             )}
             {analysisResult && (
                 <div >
-                    <p style={{ color: 'var(--app-color-on-primary)', whiteSpace: "pre-wrap", lineHeight: "1.625" }}>{analysisResult}</p>
+                    <p style={{ color: 'var(--md-sys-color-on-primary)', whiteSpace: "pre-wrap", lineHeight: "1.625" }}>{analysisResult}</p>
                 </div>
             )}
             {!analysisResult && !isLoading && (
-                <div style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--app-layout-full)", textAlign: "center", opacity: "0.5" }}>
-                    <span style={{ color: 'var(--app-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>visibility</span>
+                <div style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)", textAlign: "center", opacity: "0.5" }}>
+                    <span style={{ color: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>visibility</span>
                     <p style={{ fontWeight: "500" }}>Il risultato dell'analisi apparirà qui.</p>
                 </div>
             )}

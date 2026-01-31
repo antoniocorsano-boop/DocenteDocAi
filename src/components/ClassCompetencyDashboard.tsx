@@ -80,8 +80,8 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
     const getLevelColor = (levelName: string) => {
         const lower = levelName.toLowerCase();
         if (lower.includes('avanzato') || lower.includes('a -')) return 'var(--md-sys-color-tertiary)';
-        if (lower.includes('intermedio') || lower.includes('b -')) return 'var(--app-color-secondary)';
-        if (lower.includes('base') || lower.includes('c -')) return 'var(--app-color-primary)';
+        if (lower.includes('intermedio') || lower.includes('b -')) return 'var(--md-sys-color-secondary)';
+        if (lower.includes('base') || lower.includes('c -')) return 'var(--md-sys-color-primary)';
         if (lower.includes('iniziale') || lower.includes('d -')) return 'var(--md-sys-color-error)';
         return 'var(--md-sys-color-surface-variant)';
     };
@@ -101,7 +101,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
         <div >
             <div >
                 <div >
-                    <h1 style={{ color: 'var(--app-color-on-primary)' }}>Competenze {selectedClass}</h1>
+                    <h1 style={{ color: 'var(--md-sys-color-on-primary)' }}>Competenze {selectedClass}</h1>
                     <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                         Analisi dei livelli raggiunti per area di competenza.
                     </p>
@@ -110,48 +110,48 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
             
             {/* Controls */}
             <div style={{display: "flex", justifyContent: "flex-end", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', display: "flex", borderRadius: 'var(--app-spacing-container)', padding: 'var(--md-sys-spacing-1)' }}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', display: "flex", borderRadius: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-1)' }}>
                     <button 
                         onClick={() => setSortBy('competency')} 
-                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--app-text-body)', fontWeight: 'var(--app-text-body-weight-medium)', color: 'var(--app-color-on-primary)'}}
+                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--app-text-body)', fontWeight: 'var(--app-text-body-weight-medium)', color: 'var(--md-sys-color-on-primary)'}}
                     >
                         Alfabetico
                     </button>
                     <button 
                         onClick={() => setSortBy('performance')} 
-                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--app-text-body)', fontWeight: 'var(--app-text-body-weight-medium)', color: 'var(--app-color-on-primary)'}}
+                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--app-text-body)', fontWeight: 'var(--app-text-body-weight-medium)', color: 'var(--md-sys-color-on-primary)'}}
                     >
                         Rendimento
                     </button>
                 </div>
             </div>
 
-            <div style={{marginTop: 'var(--app-spacing-container)'}}>
+            <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                 {competencySummaries.map(summary => {
                     const notEvaluatedCount = classStudents.length - summary.totalEvaluated;
                     return (
-                        <details key={summary.competency.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--app-border-thin) solid var(--md-sys-color-outline)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)'}}>
+                        <details key={summary.competency.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}>
                             <summary  style={{padding: 'var(--md-sys-spacing-8)', cursor: "pointer"}}>
                                 {/* Custom Header Content */}
-                                <div style={{display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--app-spacing-section)'}}>
+                                <div style={{display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-6)'}}>
                                     <div style={{ flexGrow: "1", minWidth: "0" }}>
-                                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--app-spacing-container)'}}>
-                                            <span style={{ color: 'var(--app-color-on-primary-container)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", backgroundColor: "var(--app-color-primary)", paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', borderRadius: 'var(--md-sys-shape-corner-medium)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>
+                                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)'}}>
+                                            <span style={{ color: 'var(--md-sys-color-on-primary-container)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", backgroundColor: "var(--md-sys-color-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-medium)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>
                                                 {summary.competency.codice}
                                             </span>
                                             <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--app-text-body)' }}>
                                                 {summary.totalEvaluated}/{classStudents.length} Valutati
                                             </span>
                                         </div>
-                                        <h3 style={{ color: 'var(--app-color-on-primary)' ,  fontSize: 'var(--app-text-title)', fontWeight: 'var(--app-text-title-weight)' }}>
+                                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--app-text-title)', fontWeight: 'var(--app-text-title-weight)' }}>
                                             {summary.competency.nome}
                                         </h3>
                                     </div>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  transition: "transform var(--app-motion-standard)" }}>expand_more</span>
+                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  transition: "transform var(--md-sys-motion-duration-medium)" }}>expand_more</span>
                                 </div>
 
                                 {/* Visual Progress Bar */}
-                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', height: 'var(--app-spacing-component)', width: "var(--md-sys-percent-full)", borderRadius: 'var(--app-spacing-container)', display: "flex" }}>
+                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', height: 'var(--md-sys-spacing-2)', width: "var(--md-sys-percent-full)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex" }}>
                                     {summary.levelCounts.map(lc => {
                                         if (lc.count === 0) return null;
                                         const pct = (lc.count / classStudents.length) * 100;
@@ -171,7 +171,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                 </div>
                             </summary>
                             
-                            <div  style={{padding: 'var(--md-sys-spacing-8)', paddingTop: "0", display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--app-spacing-section)'}}>
+                            <div  style={{padding: 'var(--md-sys-spacing-8)', paddingTop: "0", display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                                 {summary.levelCounts.map(lc => {
                                     return (
                                         <div 
@@ -183,9 +183,9 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                                 <div style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 'var(--app-text-body-weight-bold)'}}>
                                                     {lc.level.nome.charAt(0)}
                                                 </div>
-                                                <div style={{ color: 'var(--app-color-on-primary)' ,  fontSize: 'var(--app-text-display)', fontWeight: 'var(--app-text-display-weight)' }}>{lc.count}</div>
+                                                <div style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--app-text-display)', fontWeight: 'var(--app-text-display-weight)' }}>{lc.count}</div>
                                             </div>
-                                            <div style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", marginBottom: 'var(--app-spacing-container)'}}>Studenti</div>
+                                            <div style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", marginBottom: 'var(--md-sys-spacing-4)'}}>Studenti</div>
                                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--app-text-body)', lineHeight: 'var(--app-text-body-line-height)' }}>
                                                 {lc.level.descrizione}
                                             </p>
@@ -198,9 +198,9 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                 })}
                 
                 {competencySummaries.length === 0 && (
-                    <div style={{ padding: 'var(--app-spacing-container)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
+                    <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.3, marginBottom: 'var(--md-sys-spacing-8)' }}>bar_chart</span>
-                        <p style={{ color: 'var(--app-color-on-primary)' ,  fontSize: 'var(--app-text-title)', fontWeight: 'var(--app-text-title-weight)' }}>Nessun dato</p>
+                        <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--app-text-title)', fontWeight: 'var(--app-text-title-weight)' }}>Nessun dato</p>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Non hai ancora configurato le competenze in Impostazioni.</p>
                     </div>
                 )}
@@ -213,25 +213,25 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                     onClose={() => setViewingStudents(null)}
                     maxWidth="md"
                 >
-                    <M3DialogContent style={{gap: 'var(--app-spacing-component)'}}>
+                    <M3DialogContent style={{gap: 'var(--md-sys-spacing-2)'}}>
                                 {viewingStudents.students.map(student => {
                                      return (
                                         <div 
                                             key={student.id} 
                                             onClick={() => { setViewingStudents(null); onViewStudentProfile(student); }} 
-                                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", justifyContent: "space-between", padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", cursor: "pointer", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)'}}
+                                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", justifyContent: "space-between", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", cursor: "pointer", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}
                                         >
-                                            <div style={{display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)'}}>
+                                            <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                                 <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                                 <div>
-                                                    <p style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</p>
+                                                    <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</p>
                                                     <div  style={{ display: "flex", alignItems: "center" }}>
-                                                        <span style={{borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: viewingStudents.levelColor, width: 'var(--app-spacing-section)', height: 'var(--app-spacing-section)'}}></span>
+                                                        <span style={{borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: viewingStudents.levelColor, width: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-spacing-6)'}}></span>
                                                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-size)" }}>Livello raggiunto</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  transition: "transform var(--app-motion-standard)" }}>arrow_forward</span>
+                                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  transition: "transform var(--md-sys-motion-duration-medium)" }}>arrow_forward</span>
                                         </div>
                                     )
                                 })}

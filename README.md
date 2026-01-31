@@ -269,6 +269,41 @@ The `useState` undefined error was successfully resolved, and the application is
 
 ## ✅ **Material Design 3 - Completamento 2026**
 
+## 🔒 MD3 Governance Scanner (recommended)
+
+This project includes a lightweight governance scanner to help enforce MD3 Platinum rules.
+
+- Scanner script: `scripts/governance-check.js`
+- NPM script: `npm run check:md3` (default: `warn` mode)
+- CI recommendation: run `node scripts/governance-check.js --mode fail` to block merges on violations
+
+Quick setup (optional, recommended):
+
+1. Install Husky and lint-staged (one-time developer setup):
+
+```bash
+npm install --save-dev husky lint-staged
+npm run prepare
+```
+
+2. Add a pre-commit hook to run the scanner (suggested `package.json` lint-staged entry):
+
+```json
+"lint-staged": {
+   "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "eslint",
+      "npm run check:md3 -- --mode warn"
+   ]
+}
+```
+
+Notes:
+- The repository already contains a `lint-staged` section in `package.json` — adapt it to include `npm run check:md3` if desired.
+- We do NOT install hooks automatically; this is a documented recommendation. Use `husky` to manage hooks if you want pre-commit enforcement.
+- Default developer mode is `warn` to avoid blocking daily work; configure CI to use `--mode fail` for strict enforcement before merge.
+
+
 **Data Completamento:** January 22, 2026  
 **Status:** 🎉 **100% MD3 COMPLIANT**
 

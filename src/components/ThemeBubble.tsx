@@ -17,11 +17,11 @@ const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onC
         <button
             style={{
                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-easing-standard) var(--app-motion-standard)',
-                border: isSelected ? 'var(--app-border-thick) solid var(--app-color-primary)' : 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)',
-                backgroundColor: isSelected ? 'var(--app-color-primary-container)' : 'var(--app-color-surface-container)',
-                color: isSelected ? 'var(--app-color-on-primary-container)' : 'var(--app-color-on-surface)',
-                padding: 'var(--app-spacing-container)',
+                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
+                border: isSelected ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
+                backgroundColor: isSelected ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
+                color: isSelected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
+                padding: 'var(--md-sys-spacing-4)',
                 cursor: 'pointer'
             }}
             onClick={onClick}

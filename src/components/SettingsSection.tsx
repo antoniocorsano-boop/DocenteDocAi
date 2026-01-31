@@ -24,16 +24,16 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
     // MD3 Token mapping for variants - using direct MD3 CSS variables
     let iconBackgroundColor = 'var(--md-sys-color-surface-container-high)';
     let iconColor = 'var(--md-sys-color-on-surface-variant)';
-    let titleColor = 'var(--app-color-on-surface)';
+    let titleColor = 'var(--md-sys-color-on-surface)';
 
     if (variant === 'primary') {
-        iconBackgroundColor = 'var(--app-color-primary-container)';
-        iconColor = 'var(--app-color-on-primary-container)';
-        titleColor = 'var(--app-color-primary)';
+        iconBackgroundColor = 'var(--md-sys-color-primary-container)';
+        iconColor = 'var(--md-sys-color-on-primary-container)';
+        titleColor = 'var(--md-sys-color-primary)';
     } else if (variant === 'secondary') {
-        iconBackgroundColor = 'var(--app-color-secondary-container)';
-        iconColor = 'var(--app-color-on-secondary-container)';
-        titleColor = 'var(--app-color-secondary)';
+        iconBackgroundColor = 'var(--md-sys-color-secondary-container)';
+        iconColor = 'var(--md-sys-color-on-secondary-container)';
+        titleColor = 'var(--md-sys-color-secondary)';
     } else if (variant === 'tertiary') {
         iconBackgroundColor = 'var(--md-sys-color-tertiary-container)';
         iconColor = 'var(--md-sys-color-on-tertiary-container)';
@@ -43,21 +43,21 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
     const sectionStyle: React.CSSProperties = {
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
         borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-        border: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)',
+        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
         overflow: 'hidden',
-        marginBottom: 'var(--app-spacing-section)',
+        marginBottom: 'var(--md-sys-spacing-6)',
         boxShadow: 'var(--md-sys-elevation-level1)',
         ...customStyle
     };
 
     const headerStyle: React.CSSProperties = {
-        backgroundColor: 'var(--app-color-surface)',
+        backgroundColor: 'var(--md-sys-color-surface)',
         opacity: 0.5,
         display: 'flex',
         alignItems: 'center',
         gap: 'var(--md-sys-spacing-8)',
-        padding: 'var(--app-spacing-touch)',
-        borderBottom: 'var(--app-border-normal) solid var(--md-sys-color-outline)'
+        padding: 'var(--md-sys-spacing-5)',
+        borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
     };
 
     const iconContainerStyle: React.CSSProperties = {
@@ -73,7 +73,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
     };
 
     const iconStyle: React.CSSProperties = {
-        fontSize: 'var(--app-spacing-section)'
+        fontSize: 'var(--md-sys-spacing-6)'
     };
 
     const textContainerStyle: React.CSSProperties = {
@@ -102,7 +102,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
     };
 
     const contentStyle: React.CSSProperties = {
-        padding: 'var(--app-spacing-touch)'
+        padding: 'var(--md-sys-spacing-5)'
     };
 
     return (

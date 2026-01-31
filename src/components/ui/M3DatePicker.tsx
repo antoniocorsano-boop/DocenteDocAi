@@ -11,27 +11,27 @@ export type M3DatePickerProps = React.InputHTMLAttributes<HTMLInputElement> & {
 };
 
 const inputStyle: React.CSSProperties = {
-  width: 'var(--app-layout-full)',
-  padding: 'var(--app-spacing-element)',
+  width: 'var(--md-sys-percent-100)',
+  padding: 'var(--md-sys-spacing-3)',
   borderRadius: 'var(--md-sys-shape-corner-small)',
-  border: 'var(--app-border-normal) solid var(--md-sys-color-outline)',
+  border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
   boxSizing: 'border-box',
   backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-  color: 'var(--app-color-on-surface)',
+  color: 'var(--md-sys-color-on-surface)',
   fontFamily: 'var(--md-sys-typescale-body-large-font)',
   fontSize: 'var(--app-text-body)',
 };
 
 const inputFocusStyle: React.CSSProperties = {
   ...inputStyle,
-  borderColor: 'var(--app-color-primary)',
-  boxShadow: `0 0 0 var(--app-spacing-component) var(--app-color-primary-container)`,
+  borderColor: 'var(--md-sys-color-primary)',
+  boxShadow: `0 0 0 var(--md-sys-spacing-2) var(--md-sys-color-primary-container)`,
 };
 
 const inputErrorStyle: React.CSSProperties = {
   ...inputStyle,
   borderColor: 'var(--md-sys-color-error)',
-  boxShadow: `0 0 0 var(--app-spacing-component) var(--md-sys-color-error-container)`,
+  boxShadow: `0 0 0 var(--md-sys-spacing-2) var(--md-sys-color-error-container)`,
 };
 
 const helperStyle: React.CSSProperties = {
@@ -67,16 +67,16 @@ function M3DatePicker({
   };
 
   return (
-    <div style={{ width: 'var(--app-layout-full)' }}>
+    <div style={{ width: 'var(--md-sys-percent-100)' }}>
       {label ? (
         <label
           htmlFor={inputId}
           style={{display: 'block',
-            marginBottom: 'var(--app-spacing-component)', 
+            marginBottom: 'var(--md-sys-spacing-2)', 
             fontSize: 'var(--app-text-body)',
             fontFamily: 'var(--md-sys-typescale-body-large-font)',
             fontWeight: 'var(--app-text-body-weight)',
-            color: 'var(--app-color-on-surface)'}}
+            color: 'var(--md-sys-color-on-surface)'}}
         >
           {label}
         </label>

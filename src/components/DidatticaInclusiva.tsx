@@ -58,22 +58,22 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
         <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
             <InfoCard
                 variant="tertiary"
-                style={{padding: 'var(--app-spacing-touch)'}}
+                style={{padding: 'var(--md-sys-spacing-5)'}}
             >
                 <div style={{display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-8)'}}>
                     <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.tertiary/10, width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-tertiary)"}}>
                         <span style={{ color: 'var(--md-sys-color-on-tertiary)' }}>folder_shared</span>
                     </div>
                     <div>
-                        <h3  style={{ fontSize: "var(--app-text-title)" , color: "var(--md-sys-color-tertiary)", marginBottom: 'var(--app-spacing-container)'}}>Gestione Piani Centralizzata</h3>
+                        <h3  style={{ fontSize: "var(--app-text-title)" , color: "var(--md-sys-color-tertiary)", marginBottom: 'var(--md-sys-spacing-4)'}}>Gestione Piani Centralizzata</h3>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Crea o modifica PDP/PEI per ogni studente. L’AI ti guida nella compilazione suggerendo strategie personalizzate.</p>
                     </div>
                 </div>
             </InfoCard>
 
             {sortedClasses.map(className => (
-                <div key={className} style={{marginTop: 'var(--app-spacing-container)'}}>
-                    <div style={{display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>
+                <div key={className} style={{marginTop: 'var(--md-sys-spacing-4)'}}>
+                    <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
                         <div style={{ backgroundColor: sys.colors.outline-variant/30 ,  flexGrow: "1" }}></div>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/60 ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Classe {className}</span>
                         <div style={{ backgroundColor: sys.colors.outline-variant/30 ,  flexGrow: "1" }}></div>
@@ -86,20 +86,20 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                 <InfoCard 
                                     key={student.id} 
                                     variant="elevated"
-                                     style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)', cursor: "pointer" }}
+                                     style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: "pointer" }}
                                     onClick={() => setEditingStudent(student)}
                                 >
                                     <div style={{padding: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                         <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                         <div style={{ flexGrow: "1", minWidth: "0" }}>
-                                            <p style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.cognome} {student.nome}</p>
-                                            <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--app-spacing-container)'}}>
+                                            <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.cognome} {student.nome}</p>
+                                            <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)'}}>
                                                 {hasPlan ? (
-                                                    <span style={{ backgroundColor: sys.colors.tertiary-container/50 , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", color: "var(--md-sys-color-tertiary)", paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)'}}>
+                                                    <span style={{ backgroundColor: sys.colors.tertiary-container/50 , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", color: "var(--md-sys-color-tertiary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)'}}>
                                                         Piano Attivo
                                                     </span>
                                                 ) : (
-                                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/40 , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", borderRadius: 'var(--app-spacing-container)'}}>
+                                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/40 , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", borderRadius: 'var(--md-sys-spacing-4)'}}>
                                                         Standard
                                                     </span>
                                                 )}
@@ -109,19 +109,19 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                             width: 'var(--md-sys-spacing-10)',
                                             height: 'var(--md-sys-spacing-10)',
                                             
-                                            borderRadius: 'var(--app-layout-half)',
+                                            borderRadius: 'var(--md-sys-percent-50)',
                                             
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            transition: 'color var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
+                                            transition: 'color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                                             backgroundColor: hasPlan ? 'var(--md-sys-color-tertiary-container)' : 'var(--md-sys-color-surface-container-high)',
                                             color: hasPlan ? 'var(--md-sys-color-tertiary)' : 'var(--md-sys-color-on-surface-variant)'
                                         }}
                                         onMouseEnter={(e) => {
                                             if (!hasPlan) {
-                                                e.currentTarget.style.backgroundColor = 'var(--app-color-primary-container)';
-                                                e.currentTarget.style.color = 'var(--app-color-primary)';
+                                                e.currentTarget.style.backgroundColor = 'var(--md-sys-color-primary-container)';
+                                                e.currentTarget.style.color = 'var(--md-sys-color-primary)';
                                             }
                                         }}
                                         onMouseLeave={(e) => {
@@ -158,13 +158,13 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                     <InfoCard 
                         key={student.id} 
                         variant="tonal"
-                         style={{padding: 'var(--md-sys-spacing-8)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)', cursor: "pointer"}}
+                         style={{padding: 'var(--md-sys-spacing-8)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: "pointer"}}
                         onClick={() => setEditingStudent(student)}
                     >
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                             <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                             <div style={{ flexGrow: "1" }}>
-                                <h3 style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
+                                <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)" }}>Classe {student.classe}</p>
                             </div>
                             <M3Button variant="text" size="small">
@@ -186,7 +186,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
     );
 
     const renderSuggested = () => (
-        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--app-spacing-section)'}}>
+        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
             {suggestedStudents.length > 0 ? suggestedStudents.map(student => {
                 const { grade } = calculatePerformance(student.id, 'Complessivo', studentEvals);
 
@@ -194,18 +194,18 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                     <InfoCard 
                         key={student.id} 
                         variant="elevated"
-                         style={{ borderLeft: "var(--app-border-medium) solid" }}
+                         style={{ borderLeft: "var(--md-sys-border-width-medium) solid" }}
                     >
-                        <div style={{padding: 'var(--app-spacing-container)'}}>
+                        <div style={{padding: 'var(--md-sys-spacing-4)'}}>
                             <div style={{display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                                <div style={{display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)'}}>
+                                <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                     <div>
-                                        <h3 style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
+                                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
                                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,   fontSize: "var(--app-text-label)"  }}>Classe {student.classe}</p>
                                     </div>
                                 </div>
-                                <div style={{ backgroundColor: sys.colors.error/10 , color: "var(--md-sys-color-error)", paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)',  borderRadius: "var(--md-sys-shape-corner-small)", fontSize: "var(--app-text-label)" , fontWeight: "bold"}}>
+                                <div style={{ backgroundColor: sys.colors.error/10 , color: "var(--md-sys-color-error)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)',  borderRadius: "var(--md-sys-shape-corner-small)", fontSize: "var(--app-text-label)" , fontWeight: "bold"}}>
                                     Media: {grade}
                                 </div>
                             </div>
@@ -215,9 +215,9 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                             <M3Button 
                                 onClick={() => setEditingStudent(student)} 
                                 variant="tonal"
-                                 style={{ width: "var(--app-layout-full)" }}
+                                 style={{ width: "var(--md-sys-percent-100)" }}
                             >
-                                <span  style={{ marginRight: "var(--app-spacing-component)" }}>add_circle</span>
+                                <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_circle</span>
                                 Crea Piano
                             </M3Button>
                         </div>
@@ -238,13 +238,13 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
     return (
                 <section
                     style={{
-                        background: 'var(--app-color-surface)',
+                        background: 'var(--md-sys-color-surface)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         boxShadow: 'var(--md-sys-elevation-level1)',
                         padding: 'var(--md-sys-spacing-8)',
-                        margin: 'var(--md-sys-spacing-8) var(--app-layout-auto) 0 var(--app-layout-auto)',
+                        margin: 'var(--md-sys-spacing-8) var(--md-sys-margin-auto) 0 var(--md-sys-margin-auto)',
                         maxWidth: 1000,
-                        width: 'var(--app-layout-full)'
+                        width: 'var(--md-sys-percent-100)'
                     }}
                 >
                     <SectionHeader

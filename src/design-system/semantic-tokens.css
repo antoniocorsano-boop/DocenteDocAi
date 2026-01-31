@@ -10,19 +10,19 @@
      =========================================== */
 
   /* Container padding - standard container spacing */
-  --app-spacing-container: var(--md-sys-spacing-4);
+  --md-sys-spacing-4: var(--md-sys-spacing-4);
 
   /* Section spacing - between major sections */
-  --app-spacing-section: var(--md-sys-spacing-6);
+  --md-sys-spacing-6: var(--md-sys-spacing-6);
 
   /* Element gaps - between related elements */
-  --app-spacing-element: var(--md-sys-spacing-3);
+  --md-sys-spacing-3: var(--md-sys-spacing-3);
 
   /* Component internals - spacing within components */
-  --app-spacing-component: var(--md-sys-spacing-2);
+  --md-sys-spacing-2: var(--md-sys-spacing-2);
 
   /* Touch targets - minimum touch target spacing */
-  --app-spacing-touch: var(--md-sys-spacing-5);
+  --md-sys-spacing-5: var(--md-sys-spacing-5);
 
   /* ===========================================
      MOTION TOKENS
@@ -30,19 +30,19 @@
      =========================================== */
 
   /* Standard transitions - default interaction timing */
-  --app-motion-standard: var(--md-sys-motion-duration-medium);
+  --md-sys-motion-duration-medium: var(--md-sys-motion-duration-medium);
 
   /* Quick feedback - immediate response timing */
-  --app-motion-quick: var(--md-sys-motion-duration-short);
+  --md-sys-motion-duration-short: var(--md-sys-motion-duration-short);
 
   /* Dramatic changes - important state changes */
-  --app-motion-slow: var(--md-sys-motion-duration-long);
+  --md-sys-motion-duration-long: var(--md-sys-motion-duration-long);
 
   /* Default easing - standard interaction feel */
-  --app-easing-standard: var(--md-sys-motion-easing-standard);
+  --md-sys-motion-easing-standard: var(--md-sys-motion-easing-standard);
 
   /* Emphasized actions - important interactions */
-  --app-easing-emphasized: var(--md-sys-motion-easing-emphasized);
+  --md-sys-motion-easing-emphasized: var(--md-sys-motion-easing-emphasized);
 
   /* ===========================================
      LAYOUT TOKENS
@@ -50,16 +50,16 @@
      =========================================== */
 
   /* Full dimensions - 100% */
-  --app-layout-full: var(--md-sys-percent-100);
+  --md-sys-percent-100: var(--md-sys-percent-100);
 
   /* Half dimensions - 50% */
-  --app-layout-half: var(--md-sys-percent-50);
+  --md-sys-percent-50: var(--md-sys-percent-50);
 
   /* Quarter dimensions - 25% */
-  --app-layout-quarter: var(--md-sys-percent-25);
+  --md-sys-percent-25: var(--md-sys-percent-25);
 
   /* Auto margins - centered layouts */
-  --app-layout-auto: var(--md-sys-margin-auto);
+  --md-sys-margin-auto: var(--md-sys-margin-auto);
 
   /* ===========================================
      COLOR TOKENS
@@ -67,22 +67,22 @@
      =========================================== */
 
   /* Primary brand colors */
-  --app-color-primary: var(--md-sys-color-primary);
-  --app-color-on-primary: var(--md-sys-color-on-primary);
-  --app-color-primary-container: var(--md-sys-color-primary-container);
-  --app-color-on-primary-container: var(--md-sys-color-on-primary-container);
+  --md-sys-color-primary: var(--md-sys-color-primary);
+  --md-sys-color-on-primary: var(--md-sys-color-on-primary);
+  --md-sys-color-primary-container: var(--md-sys-color-primary-container);
+  --md-sys-color-on-primary-container: var(--md-sys-color-on-primary-container);
 
   /* Secondary/accent colors */
-  --app-color-secondary: var(--md-sys-color-secondary);
-  --app-color-on-secondary: var(--md-sys-color-on-secondary);
-  --app-color-secondary-container: var(--md-sys-color-secondary-container);
-  --app-color-on-secondary-container: var(--md-sys-color-on-secondary-container);
+  --md-sys-color-secondary: var(--md-sys-color-secondary);
+  --md-sys-color-on-secondary: var(--md-sys-color-on-secondary);
+  --md-sys-color-secondary-container: var(--md-sys-color-secondary-container);
+  --md-sys-color-on-secondary-container: var(--md-sys-color-on-secondary-container);
 
   /* Surface colors */
-  --app-color-surface: var(--md-sys-color-surface);
-  --app-color-on-surface: var(--md-sys-color-on-surface);
-  --app-color-surface-container: var(--md-sys-color-surface-container);
-  --app-color-on-surface-container: var(--md-sys-color-on-surface-container);
+  --md-sys-color-surface: var(--md-sys-color-surface);
+  --md-sys-color-on-surface: var(--md-sys-color-on-surface);
+  --md-sys-color-surface-container: var(--md-sys-color-surface-container);
+  --md-sys-color-on-surface-container: var(--md-sys-color-on-surface-container);
 
   /* ===========================================
      ELEVATION TOKENS
@@ -90,12 +90,12 @@
      =========================================== */
 
   /* Elevation levels for components */
-  --app-elevation-level-0: var(--md-sys-elevation-0);
-  --app-elevation-level-1: var(--md-sys-elevation-1);
-  --app-elevation-level-2: var(--md-sys-elevation-2);
-  --app-elevation-level-3: var(--md-sys-elevation-3);
-  --app-elevation-level-4: var(--md-sys-elevation-4);
-  --app-elevation-level-5: var(--md-sys-elevation-5);
+  --md-sys-elevation-0: var(--md-sys-elevation-0);
+  --md-sys-elevation-1: var(--md-sys-elevation-1);
+  --md-sys-elevation-2: var(--md-sys-elevation-2);
+  --md-sys-elevation-3: var(--md-sys-elevation-3);
+  --md-sys-elevation-4: var(--md-sys-elevation-4);
+  --md-sys-elevation-5: var(--md-sys-elevation-5);
 
   /* ===========================================
      SHAPE TOKENS
@@ -103,10 +103,10 @@
      =========================================== */
 
   /* Shape variants for components */
-  --app-shape-small: var(--md-sys-radius-2);
-  --app-shape-medium: var(--md-sys-radius-4);
-  --app-shape-large: var(--md-sys-radius-6);
-  --app-shape-full: var(--md-sys-radius-full);
+  --md-sys-radius-2: var(--md-sys-radius-2);
+  --md-sys-radius-4: var(--md-sys-radius-4);
+  --md-sys-radius-6: var(--md-sys-radius-6);
+  --md-sys-radius-full: var(--md-sys-radius-full);
 
   /* ===========================================
      BORDER TOKENS
@@ -114,8 +114,26 @@
      =========================================== */
 
   /* Border width variants */
-  --app-border-thin: var(--md-sys-border-width-thin);
-  --app-border-normal: var(--md-sys-border-width-normal);
-  --app-border-medium: var(--md-sys-border-width-medium);
-  --app-border-thick: var(--md-sys-border-width-thick);
+  --md-sys-border-width-thin: var(--md-sys-border-width-thin);
+  --md-sys-border-width-normal: var(--md-sys-border-width-normal);
+  --md-sys-border-width-medium: var(--md-sys-border-width-medium);
+  --md-sys-border-width-thick: var(--md-sys-border-width-thick);
+
+  /* ===========================================
+     CHART TOKENS
+     Application chart dimensions
+     =========================================== */
+
+  /* Chart heights for dashboard components */
+  --app-chart-height-large: 300px;
+  --app-chart-height-medium: 250px;
+
+  /* ===========================================
+     POSITIONING TOKENS
+     Application positioning offsets
+     =========================================== */
+
+  /* Offset values for overlays and positioning */
+  --app-position-offset-small: -9px;
+  --app-position-offset-large: -41px;
 }

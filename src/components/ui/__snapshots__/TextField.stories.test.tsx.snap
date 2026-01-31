@@ -12,7 +12,7 @@ exports[`TextField Story Snapshots > renders default story correctly 1`] = `
         style="flex: 1 1 0%; position: relative;"
       >
         <span
-          style="font-family: var(--md-sys-typescale-font-family); font-size: var(--app-text-label); font-weight: var(--app-text-label-weight); line-height: var(--app-text-label-line-height); letter-spacing: var(--md-sys-typescale-body-large-letter-spacing); color: var(--md-sys-color-on-surface-variant); position: absolute; top: var(--app-layout-half); left: 0px; transform: translateY(-50%); transform-origin: top left; transition: all var(--app-motion-quick) var(--app-easing-standard); pointer-events: none; z-index: var(--app-z-tooltip);"
+          style="font-family: var(--md-sys-typescale-font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-letter-spacing); color: var(--md-sys-color-on-surface-variant); position: absolute; top: var(--app-layout-half); left: 0px; transform: translateY(-50%); transform-origin: top left; transition: all var(--app-motion-quick) var(--app-easing-standard); pointer-events: none; z-index: var(--app-z-tooltip);"
         >
           Test
         </span>

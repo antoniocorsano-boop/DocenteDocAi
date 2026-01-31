@@ -29,7 +29,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
         backgroundColor: `color-mix(in srgb, var(--md-sys-color-surface-container-low) var(--md-sys-state-opacity-50), transparent)`,
         backdropFilter: 'blur(var(--md-sys-blur-small))',
         borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-        border: `var(--app-border-normal) dashed color-mix(in srgb, var(--md-sys-color-outline-variant) var(--md-sys-state-opacity-30), transparent)`
+        border: `var(--md-sys-border-width-normal) dashed color-mix(in srgb, var(--md-sys-color-outline-variant) var(--md-sys-state-opacity-30), transparent)`
     }}>
         <div style={{
             width: 'var(--md-sys-spacing-16)',
@@ -39,7 +39,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            marginBottom: 'var(--app-spacing-container)',
+            marginBottom: 'var(--md-sys-spacing-4)',
             color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-state-opacity-30), transparent)`,
             boxShadow: 'var(--md-sys-elevation-level1)'
         }}>
@@ -52,7 +52,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
         <h3 style={{
             fontSize: 'var(--app-text-title)',
             fontFamily: 'var(--md-sys-typescale-font-family)',
-            color: 'var(--app-color-on-surface)',
+            color: 'var(--md-sys-color-on-surface)',
             fontWeight: 800,
             letterSpacing: '-0.025em'
         }}>{title}</h3>
@@ -61,7 +61,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
             fontFamily: 'var(--md-sys-typescale-font-family)',
             color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-state-opacity-60), transparent)`,
             maxWidth: 'var(--md-sys-spacing-16)',
-            margin: `var(--app-spacing-container) auto 0`,
+            margin: `var(--md-sys-spacing-4) auto 0`,
             fontWeight: 700,
             fontStyle: 'italic'
         }}>

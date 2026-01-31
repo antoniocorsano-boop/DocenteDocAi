@@ -10,7 +10,7 @@ import { M3Typography } from './ui';
  * - Responsive navigation: vertical rail on desktop, bottom nav on mobile
  * - Pure MD3 token-based styling (colors, spacing, typography, motion, shape)
  * - M3Typography for all text elements
- * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥44px
+ * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥var(--md-sys-spacing-5)
  * - Active state indication with primary container colors
  * - Optional notification badges
  * - Smooth transitions and hover states
@@ -46,6 +46,8 @@ export interface NavigationRailProps {
   activeView: View;
   /** Navigation callback */
   onNavigate: (view: View, context?: unknown) => void;
+  // Optional: parent can pass explicit mobile flag for deterministic rendering
+  isMobile?: boolean;
 }
 
 /**
@@ -71,49 +73,38 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
   items,
   activeView,
   onNavigate,
+  isMobile: isMobileProp
 }) => {
-  // Check if we're on mobile - simplified responsive logic
-  const [isMobile, setIsMobile] = React.useState(false);
+  // Prefer explicit `isMobile` from parent. Fallback to local detection if omitted.
+  const [internalIsMobile, setInternalIsMobile] = React.useState(false);
 
   React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < parseInt(getComputedStyle(document.documentElement).getPropertyValue('--md-sys-breakpoint-mobile')));
+    if (typeof isMobileProp === 'boolean') return; // parent controls detection
+    const checkMobile = () => setInternalIsMobile(window.innerWidth < parseInt(getComputedStyle(document.documentElement).getPropertyValue('--md-sys-breakpoint-mobile') || '600'));
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  }, [isMobileProp]);
 
+  const isMobile = typeof isMobileProp === 'boolean' ? isMobileProp : internalIsMobile;
   const containerStyle: React.CSSProperties = {
-    // Base mobile styles (bottom nav)
-    position: 'fixed',
-    top: 'auto',
+    // Layout and positioning differ between mobile (bottom nav) and desktop (rail)
+    position: isMobile ? 'fixed' : 'relative',
+    top: isMobile ? 'auto' : 0,
     left: 0,
-    right: 0,
-    bottom: 0,
-    width: 'var(--app-layout-full)',
-    height: 'var(--md-sys-spacing-16)', // Bottom nav height
-    backgroundColor: 'var(--app-color-surface)',
-    borderTop: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
-    borderRight: 'none',
+    right: isMobile ? 0 : 'auto',
+    bottom: isMobile ? 0 : 'auto',
+    width: isMobile ? 'var(--md-sys-percent-100)' : 'var(--md-sys-spacing-20)',
+    height: isMobile ? 'var(--md-sys-spacing-16)' : 'var(--md-sys-percent-100)',
+    backgroundColor: 'var(--md-sys-color-surface)',
+    borderTop: isMobile ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' : 'none',
+    borderRight: isMobile ? 'none' : 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: isMobile ? 'row' : 'column',
+    justifyContent: isMobile ? 'space-around' : 'flex-start',
     alignItems: 'center',
     zIndex: 'var(--md-sys-z-nav)',
-    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
-
-    // Desktop overrides
-    ...(isMobile ? {} : {
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 'auto',
-      width: 'var(--md-sys-spacing-20)', // Rail width
-      height: 'var(--app-layout-full)',
-      borderTop: 'none',
-      borderRight: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-    })
+    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
   };
 
   const itemsContainerStyle: React.CSSProperties = isMobile
@@ -122,9 +113,9 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        width: 'var(--app-layout-full)',
-        paddingTop: 'var(--app-spacing-component)',
-        paddingBottom: 'var(--app-spacing-component)',
+        width: 'var(--md-sys-percent-100)',
+        paddingTop: 'var(--md-sys-spacing-2)',
+        paddingBottom: 'var(--md-sys-spacing-2)',
         paddingLeft: 0,
         paddingRight: 0,
       }
@@ -133,10 +124,10 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        width: 'var(--app-layout-full)',
-        gap: 'var(--app-spacing-component)',
-        paddingTop: 'var(--app-spacing-container)',
-        paddingBottom: 'var(--app-spacing-container)',
+        width: 'var(--md-sys-percent-100)',
+        gap: 'var(--md-sys-spacing-2)',
+        paddingTop: 'var(--md-sys-spacing-4)',
+        paddingBottom: 'var(--md-sys-spacing-4)',
         paddingLeft: 0,
         paddingRight: 0,
       };
@@ -180,10 +171,11 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
             justifyContent: 'center',
             gap: 'var(--md-sys-spacing-1)', // Icon-label gap
 
-            // Size
-            width: 'var(--md-sys-spacing-14)', // Touch target width
-            minHeight: 'var(--md-sys-spacing-14)', // Touch target height
-            padding: 'var(--app-spacing-component) 0', // Vertical padding
+            // Size - ensure minimum touch target for mobile accessibility (use app token)
+            minWidth: 'var(--md-sys-spacing-5)',
+            minHeight: 'var(--md-sys-spacing-5)',
+            width: isMobile ? 'auto' : 'var(--md-sys-spacing-14)', // adjust width on mobile
+            padding: 'var(--md-sys-spacing-2) 0', // Vertical padding
 
             // Shape
             borderRadius: 'var(--md-sys-shape-corner-extra-large)', // Rounded corners
@@ -192,7 +184,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
             color: 'var(--md-sys-color-onSurface-variant)',
 
             // Transition
-            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
+            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
 
             // Remove tap highlight on mobile
             WebkitTapHighlightColor: 'transparent',
@@ -240,15 +232,15 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                   width: 'var(--md-sys-spacing-8)', // Icon container width
                   height: 'var(--md-sys-spacing-8)', // Icon container height
                   borderRadius: 'var(--md-sys-shape-corner-full)', // Circular
-                  transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`}}
+                  transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
               >
                 <span
                   style={{fontFamily: 'Material Symbols Outlined',
-                    fontSize: 'var(--app-spacing-section)', // Icon size
+                    fontSize: 'var(--md-sys-spacing-6)', // Icon size
                     lineHeight: 1,
                     color: 'inherit',
                     fontVariationSettings: isActive ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24",
-                    transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`}}
+                    transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
                   aria-hidden="true"
                 >
                   {isActive ? item.activeIcon : item.icon}
@@ -261,18 +253,18 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                       position: 'absolute',
                       top: `calc(-1 * var(--md-sys-spacing-1))`, // Offset from top
                       right: `calc(-1 * var(--md-sys-spacing-1))`, // Offset from right
-                      minWidth: 'var(--app-spacing-container)', // Minimum badge width
-                      height: 'var(--app-spacing-container)', // Badge height
+                      minWidth: 'var(--md-sys-spacing-4)', // Minimum badge width
+                      height: 'var(--md-sys-spacing-4)', // Badge height
                       padding: `0 var(--md-sys-spacing-1)` , // Horizontal padding
                       backgroundColor: 'var(--md-sys-color-error)',
                       color: 'var(--md-sys-color-on-error)',
                       borderRadius: 'var(--md-sys-shape-corner-small)', // Badge corner radius
-                      fontSize: 'var(--app-spacing-container)',
+                      fontSize: 'var(--md-sys-spacing-4)',
                       fontWeight: '700',
-                      lineHeight: 'var(--app-spacing-container)', // Badge line height
+                      lineHeight: 'var(--md-sys-spacing-4)', // Badge line height
                       textAlign: 'center',
                       zIndex: 'var(--md-sys-z-raised)',
-                      animation: 'badge-appear var(--app-motion-standard) var(--app-easing-standard)'}}
+                      animation: 'badge-appear var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}
                     aria-label={`${item.badge} notifiche`}
                   >
                     {item.badge > 99 ? '99+' : item.badge}
@@ -283,7 +275,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
               {/* Label */}
               <M3Typography
                 variant="label-medium"
-                style={{fontSize: 'var(--app-spacing-element)', // Label font size
+                style={{fontSize: 'var(--md-sys-spacing-3)', // Label font size
                   fontWeight: '500',
                   textAlign: 'center',
                   color: 'inherit',
@@ -291,7 +283,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   maxWidth: 'var(--md-sys-spacing-12)', // Label max width
-                  transition: `color var(--md-sys-motion-duration-short2) var(--app-easing-standard)`}}
+                  transition: `color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
               >
                 {item.label}
               </M3Typography>

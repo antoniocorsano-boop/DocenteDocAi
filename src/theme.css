@@ -378,6 +378,37 @@
      MD3 SPECIAL TOKENS (Expressive - Edge Cases)
      =========================================== */
   --md-sys-special-viewport-height: calc(var(--md-sys-spacing-15) - var(--md-sys-border-width-thin));
+    /* ===========================================
+      APP-SCOPE TOKENS (Temporary app-level semantic tokens)
+      These are conservative mappings used during the MD3 remediation
+      pass. They are intentionally defined here (app scope) and map to
+      existing MD3 tokens. After RFC approval these can be refined.
+      =========================================== */
+    --app-color-brand-primary: var(--md-sys-color-primary);
+    --app-color-brand-on-primary: var(--md-sys-color-on-primary);
+    --md-sys-color-surface-muted: var(--md-sys-color-surface-container-low);
+    --md-sys-color-on-surface-muted: var(--md-sys-color-on-surface);
+    --app-color-accent-1: var(--md-sys-color-secondary);
+    --app-color-accent-2: var(--md-sys-color-tertiary);
+    --app-color-error: var(--md-sys-color-error);
+    --app-color-warning: var(--md-sys-color-warning);
+
+    /* Touch target spacing token requested in governance work */
+    --md-sys-spacing-5: var(--md-sys-spacing-11); /* 44px */
+
+    /* Backwards-compatible aliases used across components */
+    --md-sys-color-primary: var(--app-color-brand-primary);
+    --md-sys-color-on-primary: var(--app-color-brand-on-primary);
+    --md-sys-color-primary-container: var(--md-sys-color-primary-container);
+    --md-sys-color-on-primary-container: var(--md-sys-color-on-primary-container);
+    --md-sys-color-secondary: var(--app-color-accent-1);
+    --md-sys-color-secondary-container: var(--md-sys-color-secondary-container);
+    --md-sys-color-on-secondary-container: var(--md-sys-color-on-secondary-container);
+    --app-color-tertiary: var(--app-color-accent-2);
+    --md-sys-color-surface: var(--md-sys-color-surface);
+    --md-sys-color-on-surface: var(--md-sys-color-on-surface);
+    --md-sys-color-surface-variant: var(--md-sys-color-surface-container);
+    --md-sys-color-on-surface-variant: var(--md-sys-color-on-surface-variant);
 
 /* --- VISUAL STYLES OVERRIDES --- */
 
@@ -844,23 +875,23 @@ body {
 }
 
 .animate-spin {
-  animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-var(--md-sys-motion-easing-var(--md-sys-motion-easing-standard))) infinite;
+    animation: spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 .animate-pulse {
-  animation: pulse var(--md-sys-motion-duration-extra-long) cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 .animate-bounce {
-  animation: bounce var(--md-sys-motion-duration-long) infinite;
+    animation: bounce var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 .animate-fade {
-  animation: fade 1.5s var(--md-sys-motion-easing-standard)-in-out infinite;
+    animation: fade var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 .animate-shine {
-  animation: shine 1.5s var(--md-sys-motion-easing-standard)-in-out infinite;
+    animation: shine var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 @keyframes aura-pulse {
@@ -868,11 +899,11 @@ body {
   0%,
   100% {
     transform: scale(1);
-    opacity: 0.4;
+    animation: aura-pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;
     filter: blur(var(--md-sys-layout-card-min-height));
   }
 
-  var(--md-sys-percent-50) {
+    animation: float var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;
     transform: scale(1.15);
     opacity: 0.6;
     filter: blur(var(--md-sys-layout-card-width));
@@ -880,7 +911,7 @@ body {
 }
 
 .animate-aura-pulse {
-  animation: aura-pulse 8s var(--md-sys-motion-easing-standard)-in-out infinite;
+  animation: aura-pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 @keyframes float {
@@ -896,7 +927,7 @@ body {
 }
 
 .animate-float {
-  animation: float 4s var(--md-sys-motion-easing-standard)-in-out infinite;
+  animation: float var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 @keyframes aura-slide-up {
@@ -1066,6 +1097,18 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .m3-card:hover {
   box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 color-mix(in srgb, var(--md-sys-color-shadow) 12%, transparent);
   border-color: var(--sys-outline);
+  transform: translateY(-2px);
+}
+
+.m3-card:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  transform: translateY(-1px);
+}
+
+.m3-card:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: var(--md-sys-motion-duration-short1);
 }
 
 .m3-card-elevated {
@@ -1074,9 +1117,43 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   border: none;
 }
 
+.m3-card-elevated:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 var(--md-sys-spacing-2) var(--md-sys-spacing-4) 0 color-mix(in srgb, var(--md-sys-color-primary) 16%, transparent);
+}
+
+.m3-card-elevated:focus-visible {
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
+  transform: scale(1.01);
+}
+
+.m3-card-elevated:active {
+  transform: scale(0.99);
+  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-2) 0 color-mix(in srgb, var(--md-sys-color-primary) 8%, transparent);
+}
+
 .m3-card-outlined {
   background: transparent;
   border: var(--md-sys-spacing-1) solid var(--md-sys-color-outline-variant);
+}
+
+.m3-card-outlined:hover {
+  transform: translateY(-1px);
+  border-color: var(--md-sys-color-outline);
+  background: var(--md-sys-color-surface-container-highest);
+}
+
+.m3-card-outlined:focus-visible {
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
+  transform: scale(1.01);
+  border-color: var(--md-sys-color-primary);
+}
+
+.m3-card-outlined:active {
+  transform: scale(0.99);
+  border-color: var(--md-sys-color-primary);
 }
 
 /* M3 Button Components */
@@ -1098,10 +1175,19 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   background: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
   box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 color-mix(in srgb, var(--md-sys-color-primary) 15%, transparent);
+  transform: translateY(-1px);
 }
 
 .m3-button-filled:active {
-  scale: 0.95;
+  scale: 0.98;
+  transform: translateY(0);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.m3-button-filled:focus-visible {
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
+  transform: scale(1.02);
 }
 
 .m3-button-error {
@@ -1123,6 +1209,18 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 color-mix(in srgb, var(--md-sys-color-error) 15%, transparent);
 }
 
+.m3-button-error:active {
+  scale: 0.98;
+  transform: translateY(0);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.m3-button-error:focus-visible {
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-error);
+  outline-offset: var(--md-sys-spacing-1);
+  transform: scale(1.02);
+}
+
 .m3-button-tonal {
   background: var(--md-sys-color-secondary-container);
   color: var(--sys-on-secondary-container);
@@ -1141,6 +1239,19 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   background: var(--md-sys-color-secondary);
   color: var(--sys-on-secondary);
   box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-3) 0 color-mix(in srgb, var(--md-sys-color-outline-variant) 15%, transparent);
+  transform: translateY(-1px);
+}
+
+.m3-button-tonal:active {
+  scale: 0.98;
+  transform: translateY(0);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.m3-button-tonal:focus-visible {
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-secondary);
+  outline-offset: var(--md-sys-spacing-1);
+  transform: scale(1.02);
 }
 
 .m3-button-outlined {
@@ -1160,6 +1271,20 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .m3-button-outlined:hover {
   background: var(--md-sys-color-primary-container);
   border-color: var(--md-sys-color-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-2) 0 color-mix(in srgb, var(--md-sys-color-outline) 10%, transparent);
+}
+
+.m3-button-outlined:active {
+  scale: 0.98;
+  transform: translateY(0);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.m3-button-outlined:focus-visible {
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
+  transform: scale(1.02);
 }
 
 .m3-button-text {
@@ -1178,6 +1303,19 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .m3-button-text:hover {
   background: var(--md-sys-color-primary-container);
+  transform: translateY(-1px);
+}
+
+.m3-button-text:active {
+  scale: 0.98;
+  transform: translateY(0);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.m3-button-text:focus-visible {
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
+  transform: scale(1.02);
 }
 
 /* M3 Icon Button */
@@ -1199,6 +1337,18 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .icon-button:hover {
   background: var(--md-sys-color-surface-container-highest);
+  transform: scale(1.05);
+}
+
+.icon-button:active {
+  transform: scale(0.95);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.icon-button:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  transform: scale(1.02);
 }
 
 .icon-button.icon-button-filled {
@@ -1209,6 +1359,19 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .icon-button.icon-button-filled:hover {
   background: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
+  transform: scale(1.05);
+  box-shadow: var(--md-sys-elevation-level2);
+}
+
+.icon-button.icon-button-filled:active {
+  transform: scale(0.95);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.icon-button.icon-button-filled:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  transform: scale(1.02);
 }
 
 /* Modal System - Complete */
@@ -1312,6 +1475,17 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .m3-field-wrapper:focus-within {
   border-color: var(--md-sys-color-primary);
   box-shadow: 0 0 0 var(--md-sys-spacing-1) var(--md-sys-color-primary)/12;
+  transform: scale(1.01);
+}
+
+.m3-field-wrapper:hover {
+  border-color: var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container-high);
+}
+
+.m3-field-wrapper:active {
+  transform: scale(0.99);
+  border-color: var(--md-sys-color-primary);
 }
 
 .m3-field-wrapper.error {
@@ -1368,6 +1542,19 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .m3-chip:hover {
   background: var(--md-sys-color-surface-container-high);
   border-color: var(--sys-outline);
+  transform: translateY(-1px);
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.m3-chip:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  transform: scale(1.02);
+}
+
+.m3-chip:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: var(--md-sys-motion-duration-short1);
 }
 
 .m3-chip-filled {
@@ -1379,6 +1566,67 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .m3-chip-filled:hover {
   background: var(--md-sys-color-primary);
   color: var(--md-sys-color-on-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--md-sys-elevation-level2);
+}
+
+.m3-chip-filled:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  transform: scale(1.02);
+}
+
+.m3-chip-filled:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.m3-chip-outlined {
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  border: var(--md-sys-spacing-1) solid var(--md-sys-color-outline);
+}
+
+.m3-chip-outlined:hover {
+  background: var(--md-sys-color-surface-container-high);
+  border-color: var(--md-sys-color-outline-variant);
+  transform: translateY(-1px);
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.m3-chip-outlined:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  transform: scale(1.02);
+}
+
+.m3-chip-outlined:active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: var(--md-sys-motion-duration-short1);
+}
+
+.m3-chip-elevated {
+  background: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface);
+  border: none;
+  box-shadow: var(--md-sys-elevation-level1);
+}
+
+.m3-chip-elevated:hover {
+  box-shadow: var(--md-sys-elevation-level2);
+  transform: translateY(-1px);
+}
+
+.m3-chip-elevated:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  transform: scale(1.02);
+}
+
+.m3-chip-elevated:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: var(--md-sys-elevation-level1);
+  transition-duration: var(--md-sys-motion-duration-short1);
 }
 
 /* Navigation Rail */
@@ -1438,6 +1686,79 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     opacity: 1;
     transform: scale(1);
   }
+}
+
+/* Entrance animations for new content */
+.m3-enter-fade-in {
+  animation: fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized);
+}
+
+.m3-enter-slide-up {
+  animation: slide-up var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized);
+}
+
+.m3-enter-scale-in {
+  animation: scale-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-emphasized);
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--md-sys-spacing-4));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+      animation-duration: var(--md-sys-motion-duration-short) !important;
+      animation-iteration-count: var(--md-sys-motion-iteration-count) !important;
+      transition-duration: var(--md-sys-motion-duration-short) !important;
+      scroll-behavior: var(--md-sys-scroll-behavior) !important;
+  }
+}
+
+/* Ripple effect for interactive elements */
+.m3-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.m3-ripple::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: width var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), height var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), opacity var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
+}
+
+.m3-ripple:active::before {
+  width: 300px;
+  height: 300px;
+  opacity: 0.1;
 }
 /* --- AURA GLASSMORPHISM --- */
 .aura-glass {

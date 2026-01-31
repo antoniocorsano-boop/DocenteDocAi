@@ -43,6 +43,7 @@
     "md3:validate": "npm run md3:scan && npm run build",
     "validate:m3": "node validate-m3-tokens.js",
     "prepare": "husky install",
+    "check:md3": "node scripts/governance-check.cjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "pretest:snapshots": "node generateStorySnapshots.mjs",

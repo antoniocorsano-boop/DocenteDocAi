@@ -17,13 +17,13 @@ const M3EmptyStateCard: React.FC<M3EmptyStateCardProps> = ({
       backgroundColor: `color-mix(in srgb, var(--md-sys-color-surface-variant) var(--md-sys-percent-80), transparent)`,
       padding: 'var(--md-sys-spacing-8)',
       borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-      border: `var(--app-border-normal) solid color-mix(in srgb, var(--md-sys-color-outline-variant) var(--md-sys-percent-30), transparent)`,
+      border: `var(--md-sys-border-width-normal) solid color-mix(in srgb, var(--md-sys-color-outline-variant) var(--md-sys-percent-30), transparent)`,
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
       textAlign: 'center',
-      minHeight: 'var(--app-layout-full)'
+      minHeight: 'var(--md-sys-percent-100)'
     }}>
       {children}
     </div>

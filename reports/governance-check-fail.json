@@ -1,0 +1,594 @@
+{
+  "mode": "fail",
+  "filesScanned": 414,
+  "violations": [
+    {
+      "file": "src\\constants.ts",
+      "line": 218,
+      "column": 33,
+      "type": "hex-color",
+      "text": "#6750A4"
+    },
+    {
+      "file": "src\\constants.ts",
+      "line": 222,
+      "column": 47,
+      "type": "hex-color",
+      "text": "#6750A4, #625B71, #7D5260"
+    },
+    {
+      "file": "src\\constants.ts",
+      "line": 223,
+      "column": 41,
+      "type": "hex-color",
+      "text": "#0061A4, #535F70, #6B5778"
+    },
+    {
+      "file": "src\\constants.ts",
+      "line": 224,
+      "column": 41,
+      "type": "hex-color",
+      "text": "#006A6A, #4A6363, #4B6178"
+    },
+    {
+      "file": "src\\constants.ts",
+      "line": 225,
+      "column": 46,
+      "type": "hex-color",
+      "text": "#B3261E, #795942, #755B51"
+    },
+    {
+      "file": "src\\constants.ts",
+      "line": 226,
+      "column": 42,
+      "type": "hex-color",
+      "text": "#386A20, #55624C, #186C5D"
+    },
+    {
+      "file": "src\\constants.ts",
+      "line": 227,
+      "column": 43,
+      "type": "hex-color",
+      "text": "#E65100, #795942, #9C4146"
+    },
+    {
+      "file": "src\\constants.ts",
+      "line": 228,
+      "column": 43,
+      "type": "hex-color",
+      "text": "#2E7D32, #3E6837, #827717"
+    },
+    {
+      "file": "src\\constants.ts",
+      "line": 229,
+      "column": 42,
+      "type": "hex-color",
+      "text": "#0277BD, #006064, #0288D1"
+    },
+    {
+      "file": "src\\constants.ts",
+      "line": 230,
+      "column": 47,
+      "type": "hex-color",
+      "text": "#00E5FF, #F50057, #76FF03"
+    },
+    {
+      "file": "src\\constants.ts",
+      "line": 231,
+      "column": 46,
+      "type": "hex-color",
+      "text": "#1A73E8, #9C27B0, #E8710A"
+    },
+    {
+      "file": "src\\constants.ts",
+      "line": 232,
+      "column": 46,
+      "type": "hex-color",
+      "text": "#EA4335, #4285F4, #34A853"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 367,
+      "column": 104,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 369,
+      "column": 118,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 395,
+      "column": 16,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 396,
+      "column": 22,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 401,
+      "column": 76,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 407,
+      "column": 97,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 421,
+      "column": 74,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 430,
+      "column": 108,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 432,
+      "column": 78,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 433,
+      "column": 113,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 487,
+      "column": 52,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 489,
+      "column": 102,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 492,
+      "column": 127,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 527,
+      "column": 104,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 529,
+      "column": 63,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 531,
+      "column": 108,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 564,
+      "column": 114,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 590,
+      "column": 80,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 592,
+      "column": 108,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 629,
+      "column": 76,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 631,
+      "column": 108,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 670,
+      "column": 79,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\utils\\documentUtils.ts",
+      "line": 774,
+      "column": 88,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\nka\\NKABottomSheet.tsx",
+      "line": 69,
+      "column": 24,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\nka\\NKABottomSheet.tsx",
+      "line": 129,
+      "column": 19,
+      "type": "hardcoded-unit",
+      "text": "10vh"
+    },
+    {
+      "file": "src\\design-system\\utils.ts",
+      "line": 18,
+      "column": 23,
+      "type": "hex-color",
+      "text": "#6750A4"
+    },
+    {
+      "file": "src\\design-system\\utils.ts",
+      "line": 93,
+      "column": 20,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\design-system\\utils.ts",
+      "line": 137,
+      "column": 13,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\design-system\\utils.ts",
+      "line": 139,
+      "column": 13,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\design-system\\utils.ts",
+      "line": 145,
+      "column": 22,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\design-system\\utils.ts",
+      "line": 162,
+      "column": 22,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\design-system\\index.ts",
+      "line": 82,
+      "column": 22,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\design-system\\index.ts",
+      "line": 111,
+      "column": 22,
+      "type": "rgb-color",
+      "text": "rgb/rgba usage"
+    },
+    {
+      "file": "src\\design-system\\html-template-colors.ts",
+      "line": 56,
+      "column": 52,
+      "type": "hardcoded-unit",
+      "text": "10px"
+    },
+    {
+      "file": "src\\components\\WelcomeScreen.tsx",
+      "line": 155,
+      "column": 65,
+      "type": "hardcoded-unit",
+      "text": "0.1em"
+    },
+    {
+      "file": "src\\components\\VoiceNoteRecorder.tsx",
+      "line": 255,
+      "column": 37,
+      "type": "hardcoded-unit",
+      "text": "0.1em"
+    },
+    {
+      "file": "src\\components\\UnifiedEvaluationModal.tsx",
+      "line": 103,
+      "column": 79,
+      "type": "hardcoded-unit",
+      "text": "0.005em"
+    },
+    {
+      "file": "src\\components\\Timetable.tsx",
+      "line": 227,
+      "column": 53,
+      "type": "hardcoded-unit",
+      "text": "0.1em"
+    },
+    {
+      "file": "src\\components\\Timetable.tsx",
+      "line": 247,
+      "column": 57,
+      "type": "hardcoded-unit",
+      "text": "0.1em"
+    },
+    {
+      "file": "src\\components\\TeacherPresentationView.tsx",
+      "line": 2,
+      "column": 22,
+      "type": "hardcoded-unit",
+      "text": "100vh"
+    },
+    {
+      "file": "src\\components\\StudentLoginScreen.tsx",
+      "line": 158,
+      "column": 179,
+      "type": "hardcoded-unit",
+      "text": "0.1em"
+    },
+    {
+      "file": "src\\components\\StudentClassroomView.tsx",
+      "line": 149,
+      "column": 141,
+      "type": "hardcoded-unit",
+      "text": "0.1em"
+    },
+    {
+      "file": "src\\components\\StudentClassroomView.tsx",
+      "line": 162,
+      "column": 145,
+      "type": "hardcoded-unit",
+      "text": "0.1em"
+    },
+    {
+      "file": "src\\components\\StudentClassroomView.tsx",
+      "line": 209,
+      "column": 123,
+      "type": "hardcoded-unit",
+      "text": "0.1em"
+    },
+    {
+      "file": "src\\components\\StudentClassroomView.tsx",
+      "line": 254,
+      "column": 133,
+      "type": "hardcoded-unit",
+      "text": "0.005em"
+    },
+    {
+      "file": "src\\components\\StudentClassroomView.tsx",
+      "line": 285,
+      "column": 157,
+      "type": "hardcoded-unit",
+      "text": "0.1em"
+    },
+    {
+      "file": "src\\components\\StudentClassroomView.tsx",
+      "line": 293,
+      "column": 69,
+      "type": "hardcoded-unit",
+      "text": "0.1em"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 114,
+      "column": 46,
+      "type": "hardcoded-unit",
+      "text": "0.025em"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 434,
+      "column": 53,
+      "type": "hardcoded-unit",
+      "text": "0.15em"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 465,
+      "column": 53,
+      "type": "hardcoded-unit",
+      "text": "0.15em"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 530,
+      "column": 53,
+      "type": "hardcoded-unit",
+      "text": "0.15em"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 571,
+      "column": 57,
+      "type": "hardcoded-unit",
+      "text": "0.15em"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 622,
+      "column": 57,
+      "type": "hardcoded-unit",
+      "text": "0.1em"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 779,
+      "column": 57,
+      "type": "hardcoded-unit",
+      "text": "0.1em"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 849,
+      "column": 53,
+      "type": "hardcoded-unit",
+      "text": "0.15em"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 876,
+      "column": 53,
+      "type": "hardcoded-unit",
+      "text": "0.15em"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 952,
+      "column": 53,
+      "type": "hardcoded-unit",
+      "text": "0.1em"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 1019,
+      "column": 61,
+      "type": "hardcoded-unit",
+      "text": "0.025em"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 1081,
+      "column": 61,
+      "type": "hardcoded-unit",
+      "text": "0.025em"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 1116,
+      "column": 61,
+      "type": "hardcoded-unit",
+      "text": "0.1em"
+    },
+    {
+      "file": "src\\components\\ui\\SectionHeader.tsx",
+      "line": 64,
+      "column": 37,
+      "type": "hardcoded-unit",
+      "text": "0.5em"
+    },
+    {
+      "file": "src\\components\\ui\\M3Typography.tsx",
+      "line": 123,
+      "column": 23,
+      "type": "hardcoded-unit",
+      "text": "0.1em"
+    },
+    {
+      "file": "src\\components\\ui\\M3Typography.tsx",
+      "line": 129,
+      "column": 23,
+      "type": "hardcoded-unit",
+      "text": "0.05em"
+    },
+    {
+      "file": "src\\components\\ui\\M3Popover.test.tsx",
+      "line": 228,
+      "column": 42,
+      "type": "hardcoded-unit",
+      "text": "300px"
+    },
+    {
+      "file": "src\\components\\ui\\M3Menu.test.tsx",
+      "line": 319,
+      "column": 42,
+      "type": "hardcoded-unit",
+      "text": "300px"
+    },
+    {
+      "file": "src\\components\\ui\\M3Menu.test.tsx",
+      "line": 334,
+      "column": 42,
+      "type": "hardcoded-unit",
+      "text": "250px"
+    },
+    {
+      "file": "src\\components\\ui\\M3ExpressiveCard.tsx",
+      "line": 207,
+      "column": 38,
+      "type": "hardcoded-unit",
+      "text": "0.005em"
+    },
+    {
+      "file": "src\\components\\ui\\M3ChoiceCard.tsx",
+      "line": 103,
+      "column": 25,
+      "type": "hardcoded-unit",
+      "text": "0.2em"
+    },
+    {
+      "file": "src\\components\\ui\\EmptyState.tsx",
+      "line": 57,
+      "column": 30,
+      "type": "hardcoded-unit",
+      "text": "0.025em"
+    },
+    {
+      "file": "src\\components\\ui\\CategoryCard.tsx",
+      "line": 110,
+      "column": 38,
+      "type": "hardcoded-unit",
+      "text": "0.025em"
+    },
+    {
+      "file": "src\\components\\ui\\AiMemoryChip.tsx",
+      "line": 50,
+      "column": 37,
+      "type": "hardcoded-unit",
+      "text": "0.15em"
+    },
+    {
+      "file": "src\\components\\ui\\ActionTile.tsx",
+      "line": 161,
+      "column": 45,
+      "type": "hardcoded-unit",
+      "text": "0.08em"
+    }
+  ]
+}

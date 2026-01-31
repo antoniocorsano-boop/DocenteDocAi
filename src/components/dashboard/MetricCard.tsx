@@ -29,7 +29,7 @@ const getStatusColor = (status: MetricCardProps['status']) => {
     case 'good':
       return 'var(--md-sys-color-tertiary)';
     case 'warning':
-      return 'var(--app-color-secondary)';
+      return 'var(--md-sys-color-secondary)';
     case 'critical':
       return 'var(--md-sys-color-error)';
     case 'neutral':
@@ -43,19 +43,19 @@ const getTrendIcon = (trend?: number) => {
 
   if (trend > 0) {
     return (
-      <svg style={{width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)'}} fill="currentColor" viewBox="0 0 20 20">
+      <svg style={{width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)'}} fill="currentColor" viewBox="0 0 20 20">
         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clipRule="evenodd" />
       </svg>
     );
   } else if (trend < 0) {
     return (
-      <svg style={{width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)'}} fill="currentColor" viewBox="0 0 20 20">
+      <svg style={{width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)'}} fill="currentColor" viewBox="0 0 20 20">
         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-3.707-8.293l3 3a1 1 0 001.414 0l3-3a1 1 0 01-1.414-1.414L11 10.586V7a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 00-1.414 1.414z" clipRule="evenodd" />
       </svg>
     );
   }
   return (
-    <svg style={{width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)'}} fill="currentColor" viewBox="0 0 20 20">
+    <svg style={{width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)'}} fill="currentColor" viewBox="0 0 20 20">
       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414l-3-3z" clipRule="evenodd" />
     </svg>
   );
@@ -103,11 +103,11 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         position: 'relative',
         overflow: 'hidden',
         borderRadius: 'var(--md-sys-radius-3)',
-        border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
-        padding: 'var(--app-spacing-section)',
+        padding: 'var(--md-sys-spacing-6)',
         boxShadow: 'var(--md-sys-elevation-1)',
-        transition: 'box-shadow var(--app-motion-quick) var(--app-easing-standard), border-color var(--app-motion-quick) var(--app-easing-standard)'
+        transition: 'box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-2)';
@@ -123,12 +123,12 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         display: 'flex',
         alignItems: 'flex-start',
         justifyContent: 'space-between',
-        marginBottom: 'var(--app-spacing-container)'
+        marginBottom: 'var(--md-sys-spacing-4)'
       }}>
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 'var(--app-spacing-element)'
+          gap: 'var(--md-sys-spacing-3)'
         }}>
           {icon && (
             <div
@@ -138,7 +138,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
                 justifyContent: 'center',
                 width: 'var(--md-sys-spacing-10)',
                 height: 'var(--md-sys-spacing-10)',
-                borderRadius: 'var(--app-shape-small)',
+                borderRadius: 'var(--md-sys-radius-2)',
                 backgroundColor: statusColor + '15'
               }}
             >
@@ -183,14 +183,14 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       <div style={{
         display: 'flex',
         alignItems: 'baseline',
-        gap: 'var(--app-spacing-component)'
+        gap: 'var(--md-sys-spacing-2)'
       }}>
         <span
           style={{
             fontSize: 'var(--app-text-title)',
             fontWeight: '700',
             lineHeight: '1',
-            color: 'var(--app-color-on-surface)'
+            color: 'var(--md-sys-color-on-surface)'
           }}
         >
           {typeof value === 'number' ? value.toLocaleString() : value}
@@ -211,14 +211,14 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       {/* Status Indicator */}
       <div style={{
         position: 'absolute',
-        top: 'var(--app-spacing-container)',
-        right: 'var(--app-spacing-container)'
+        top: 'var(--md-sys-spacing-4)',
+        right: 'var(--md-sys-spacing-4)'
       }}>
         <div
           style={{
-            width: 'var(--app-spacing-component)',
-            height: 'var(--app-spacing-component)',
-            borderRadius: 'var(--app-layout-half)',
+            width: 'var(--md-sys-spacing-2)',
+            height: 'var(--md-sys-spacing-2)',
+            borderRadius: 'var(--md-sys-percent-50)',
             backgroundColor: statusColor
           }}
         />
@@ -247,7 +247,7 @@ export const FPSCard: React.FC<{ current: PerformanceMetrics; baseline?: Perform
       status={status}
       description="Frame rate dell'applicazione"
       icon={
-        <svg style={{width: 'var(--app-spacing-touch)', height: 'var(--app-spacing-touch)'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg style={{width: 'var(--md-sys-spacing-5)', height: 'var(--md-sys-spacing-5)'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
       }
@@ -271,7 +271,7 @@ export const MemoryCard: React.FC<{ current: PerformanceMetrics; baseline?: Perf
       status={status}
       description={`${(current.memoryUsage.used / 1024 / 1024).toFixed(1)} MB / ${(current.memoryUsage.total / 1024 / 1024).toFixed(1)} MB`}
       icon={
-        <svg style={{width: 'var(--app-spacing-touch)', height: 'var(--app-spacing-touch)'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg style={{width: 'var(--md-sys-spacing-5)', height: 'var(--md-sys-spacing-5)'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
         </svg>
       }
@@ -295,7 +295,7 @@ export const BundleSizeCard: React.FC<{ current: PerformanceMetrics; baseline?: 
       status={status}
       description={`${current.bundleSize.chunks} chunks`}
       icon={
-        <svg style={{width: 'var(--app-spacing-touch)', height: 'var(--app-spacing-touch)'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg style={{width: 'var(--md-sys-spacing-5)', height: 'var(--md-sys-spacing-5)'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m-9 0h10m-9 0V1m10 3V1m0 3l1 1v16a2 2 0 01-2 2H6a2 2 0 01-2-2V5l1-1z" />
         </svg>
       }
@@ -320,7 +320,7 @@ export const AIMetricsCard: React.FC<{ current: PerformanceMetrics; baseline?: P
       status={status}
       description={`${current.aiMetrics.errorCount} errori, ${current.aiMetrics.timeoutCount} timeout`}
       icon={
-        <svg style={{width: 'var(--app-spacing-touch)', height: 'var(--app-spacing-touch)'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg style={{width: 'var(--md-sys-spacing-5)', height: 'var(--md-sys-spacing-5)'}} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
         </svg>
       }

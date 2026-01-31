@@ -48,7 +48,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                         borderRadius: 'var(--md-sys-shape-corner-full)',
                         background: 'var(--md-sys-color-surface-container-high)',
                         transform: 'scale(1.2)',
-                        animation: `pulse var(--md-sys-motion-duration-extra-long) var(--app-easing-standard) infinite`,
+                        animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`,
                         opacity: 0.4
                     }}
                 />
@@ -62,10 +62,10 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                         right: 0,
                         bottom: 0,
                         borderRadius: 'var(--md-sys-shape-corner-full)',
-                        background: `conic-gradient(from 0deg, transparent var(--md-sys-percent-0), var(--app-color-primary) var(--app-layout-half), var(--md-sys-color-tertiary) var(--app-layout-full))`,
+                        background: `conic-gradient(from 0deg, transparent var(--md-sys-percent-0), var(--md-sys-color-primary) var(--md-sys-percent-50), var(--md-sys-color-tertiary) var(--md-sys-percent-100))`,
                         maskImage: 'radial-gradient(closest-side, transparent var(--md-sys-percent-78), black var(--md-sys-percent-82))',
                         WebkitMaskImage: 'radial-gradient(closest-side, transparent var(--md-sys-percent-78), black var(--md-sys-percent-82))',
-                        animation: `spin var(--md-sys-motion-duration-extra-long) var(--app-easing-standard) infinite`
+                        animation: `spin var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`
                     }}
                 />
 
@@ -74,8 +74,8 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                     style={{
                         position: 'relative',
                         zIndex: 'var(--app-z-tooltip)',
-                        width: 'var(--app-layout-full)',
-                        height: 'var(--app-layout-full)',
+                        width: 'var(--md-sys-percent-100)',
+                        height: 'var(--md-sys-percent-100)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
@@ -85,7 +85,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                         style={{
                             fontFamily: 'Material Symbols Outlined',
                             fontSize: dim.icon,
-                            color: 'var(--app-color-primary)',
+                            color: 'var(--md-sys-color-primary)',
                             fontWeight: 300
                         }}
                     >
@@ -100,10 +100,10 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                         fontSize: 'var(--app-text-label)',
                         fontWeight: 'var(--app-text-label-weight)',
                         lineHeight: 'var(--app-text-label-line-height)',
-                        color: 'var(--app-color-primary)',
+                        color: 'var(--md-sys-color-primary)',
                         letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
                         textTransform: 'uppercase',
-                        animation: `pulse var(--md-sys-motion-duration-extra-long) var(--app-easing-standard) infinite`,
+                        animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`,
                         margin: 0
                     }}
                 >

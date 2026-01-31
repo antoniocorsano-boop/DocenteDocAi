@@ -60,7 +60,7 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
                     </div>
                 </div>
                 <M3Button onClick={handleDownload} variant="tonal"  style={{ fontSize: "var(--app-text-label)", fontWeight: "900" }}>
-                    <span  style={{ marginRight: "var(--app-spacing-component)" }}>download</span> 
+                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>download</span> 
                     Scarica
                 </M3Button>
             </div>
@@ -92,7 +92,7 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
                         variant="filled"
                         
                     >
-                        <span  style={{ marginRight: "var(--app-spacing-component)" }}>task_alt</span>
+                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>task_alt</span>
                         Registra Valutazione & Archivia
                     </M3Button>
                 </div>
@@ -101,7 +101,7 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
             {submission.status === 'graded' && (
                 <div >
                     <div >
-                        <span style={{ color: 'var(--app-color-primary)' }}>check</span>
+                        <span style={{ color: 'var(--md-sys-color-primary)' }}>check</span>
                     </div>
                     <div>
                         <p >Valutato con successo</p>

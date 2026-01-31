@@ -364,8 +364,8 @@
 /* Ensure responsive behavior respects user preferences */
 @media (prefers-reduced-motion: reduce) {
   * {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
+    transition-duration: var(--md-sys-motion-duration-short) !important;
+    animation-duration: var(--md-sys-motion-duration-short) !important;
     animation-iteration-count: 1 !important;
   }
 }
@@ -437,7 +437,7 @@
   }
   
   .hover-lift {
-    transition: box-shadow var(--md-sys-motion-duration-short) cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition: box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
   }
   
   .hover-lift:hover {

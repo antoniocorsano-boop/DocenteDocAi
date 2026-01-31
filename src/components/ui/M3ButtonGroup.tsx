@@ -23,18 +23,18 @@ function M3ButtonGroup({
   // Spacing tokens
   const spacing0 = 'var(--md-sys-spacing-0)';
   const spacing1 = 'var(--md-sys-spacing-1)';
-  const spacing2 = 'var(--app-spacing-component)';
+  const spacing2 = 'var(--md-sys-spacing-2)';
 
   // Shape tokens
   const small = 'var(--md-sys-shape-corner-small)';
 
   // Color tokens
-  const surface = 'var(--app-color-surface)';
+  const surface = 'var(--md-sys-color-surface)';
   const outline = 'var(--md-sys-color-outline)';
   const surfaceContainerHigh = 'var(--md-sys-color-surface-container-high)';
 
   // Elevation tokens
-  const level1 = 'var(--app-elevation-level-1)';
+  const level1 = 'var(--md-sys-elevation-1)';
 
   const getSpacing = () => {
     switch (spacing) {
@@ -48,7 +48,7 @@ function M3ButtonGroup({
     switch (variant) {
       case 'outlined':
         return {
-          border: `var(--app-border-normal) solid ${outline}`,
+          border: `var(--md-sys-border-width-normal) solid ${outline}`,
           borderRadius: small
         };
       case 'elevated':
@@ -66,7 +66,7 @@ function M3ButtonGroup({
   };
 
   const flexDirection = direction === 'vertical' ? 'column' : 'row';
-  const width = fullWidth ? 'var(--app-layout-full)' : 'auto';
+  const width = fullWidth ? 'var(--md-sys-percent-100)' : 'auto';
 
   return (
     <div

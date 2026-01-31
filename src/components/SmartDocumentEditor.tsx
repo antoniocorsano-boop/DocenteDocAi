@@ -275,7 +275,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
         const printWindow = window.open(', ', 'height=600,width=800');
         if (printWindow) {
             printWindow.document.write('<html><head><title>' + editorTitle + '</title>');
-            printWindow.document.write("<style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); body{font-family:'Roboto',sans-serif; padding: var(--app-spacing-touch);} table{border-collapse:collapse;width: var(--app-layout-full);} th,td{border: var(--app-border-thin) solid var(--md-sys-color-outline-variant);padding: var(--app-spacing-component);} h1,h2,h3{color: var(--app-color-primary);}</style>"); // MD3 fix
+            printWindow.document.write("<style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); body{font-family:'Roboto',sans-serif; padding: var(--md-sys-spacing-5);} table{border-collapse:collapse;width: var(--md-sys-percent-100);} th,td{border: var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant);padding: var(--md-sys-spacing-2);} h1,h2,h3{color: var(--md-sys-color-primary);}</style>"); // MD3 fix
             printWindow.document.write('</head><body>');
             printWindow.document.write(editorRef.current.innerHTML);
             printWindow.document.write('</body></html>');
@@ -307,7 +307,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                     <button onClick={() => execCmd('formatBlock', 'h2')}  title="Titolo" aria-label="Applica stile titolo"><span  aria-hidden="true">title</span></button>
                     <div ></div>
                     <button onClick={() => execCmd('insertUnorderedList')}  title="Elenco" aria-label="Inserisci elenco puntato"><span  aria-hidden="true">format_list_bulleted</span></button>
-                    <button onClick={handleAiTable}  style={{color: "var(--app-color-primary)"}} title="Tabella AI" aria-label="Genera tabella con AI"><span  aria-hidden="true">table_chart</span></button>
+                    <button onClick={handleAiTable}  style={{color: "var(--md-sys-color-primary)"}} title="Tabella AI" aria-label="Genera tabella con AI"><span  aria-hidden="true">table_chart</span></button>
                 </div>
 
                 <div >

@@ -17,24 +17,24 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
 
   // MD3 Token mapping - no useTheme() dependency
   // Color tokens
-  const surface = 'var(--app-color-surface)';
+  const surface = 'var(--md-sys-color-surface)';
   const onSurfaceVariant = 'var(--md-sys-color-on-surface-variant)';
   const outline = 'var(--md-sys-color-outline)';
   const surfaceVariant = 'var(--md-sys-color-surface-variant)';
-  const secondaryContainer = 'var(--app-color-secondary-container)';
-  const onSecondaryContainer = 'var(--app-color-on-secondary-container)';
+  const secondaryContainer = 'var(--md-sys-color-secondary-container)';
+  const onSecondaryContainer = 'var(--md-sys-color-on-secondary-container)';
 
   // Shape tokens
   const small = 'var(--md-sys-shape-corner-small)';
   const full = 'var(--md-sys-shape-corner-full)';
 
   // Elevation tokens
-  const level1 = 'var(--app-elevation-level-1)';
-  const level2 = 'var(--app-elevation-level-2)';
+  const level1 = 'var(--md-sys-elevation-1)';
+  const level2 = 'var(--md-sys-elevation-2)';
 
   // Motion tokens
   const short2 = 'var(--md-sys-motion-duration-short-2)';
-  const standard = 'var(--app-easing-standard)';
+  const standard = 'var(--md-sys-motion-easing-standard)';
 
   // Typography tokens
   const labelLarge = {
@@ -56,7 +56,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
       case 'outlined':
         baseStyles.backgroundColor = surface;
         baseStyles.color = onSurfaceVariant;
-        baseStyles.border = `var(--app-border-thick) solid ${outline}`;
+        baseStyles.border = `var(--md-sys-border-width-thick) solid ${outline}`;
         if (isHovered || isFocused) {
           baseStyles.borderColor = onSurfaceVariant;
         }
@@ -64,7 +64,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
       case 'elevated':
         baseStyles.backgroundColor = surface;
         baseStyles.color = onSurfaceVariant;
-        baseStyles.border = `var(--app-border-normal) solid ${surfaceVariant}`;
+        baseStyles.border = `var(--md-sys-border-width-normal) solid ${surfaceVariant}`;
         baseStyles.boxShadow = level1;
         if (isHovered || isFocused) {
           baseStyles.boxShadow = level2;
@@ -73,7 +73,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
       default: // filled
         baseStyles.backgroundColor = secondaryContainer;
         baseStyles.color = onSecondaryContainer;
-        baseStyles.border = `var(--app-border-normal) solid ${secondaryContainer}`;
+        baseStyles.border = `var(--md-sys-border-width-normal) solid ${secondaryContainer}`;
         break;
     }
 
@@ -84,9 +84,9 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
   const containerStyle: React.CSSProperties = {
     display: 'inline-flex',
     alignItems: 'center',
-    gap: 'var(--app-spacing-component)',
+    gap: 'var(--md-sys-spacing-2)',
     borderRadius: small,
-    padding: `var(--app-spacing-component) var(--app-spacing-element)`,
+    padding: `var(--md-sys-spacing-2) var(--md-sys-spacing-3)`,
     transition: `all ${short2} ${standard}`,
     opacity: disabled ? 0.38 : (variant === 'filled' && (isHovered || isFocused) ? 0.8 : 1),
     cursor: disabled ? 'not-allowed' : 'default',
@@ -111,8 +111,8 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
 
   // Delete button styles
   const deleteButtonStyle: React.CSSProperties = {
-    width: 'var(--app-spacing-container)',
-    height: 'var(--app-spacing-container)',
+    width: 'var(--md-sys-spacing-4)',
+    height: 'var(--md-sys-spacing-4)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

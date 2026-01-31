@@ -148,20 +148,17 @@ export const M3Menu: React.FC<M3MenuProps> = ({
   };
   
   return (
-    <M3Popover
+      <M3Popover
       open={open}
       anchorEl={anchorEl}
       onClose={onClose}
       title={title}
-      minWidth={minWidth}
-      maxWidth={maxWidth}
       showBackdrop={false}
-      zIndex={zIndex} // eslint-disable-line design-system/no-invalid-component-props
     >
       <div role="menu"
         // eslint-disable-next-line design-system/no-classname
         className={`m3-menu ${className || ''}`.trim()}
-        style={{ outline: 'none' }}>
+        style={{ outline: 'none', minWidth: minWidth, maxWidth: maxWidth, zIndex: zIndex }}>
         {items.map((item, index) => (
           <React.Fragment key={item.key}>
             <button

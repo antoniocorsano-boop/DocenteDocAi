@@ -41,7 +41,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
     return (
         <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
              <div  style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                <div style={{display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)'}}>
+                <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                     <div style={{
                         width: 'var(--md-sys-spacing-10)',
                         height: 'var(--md-sys-spacing-10)',
@@ -50,53 +50,53 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         alignItems: 'center',
                         justifyContent: 'center',
                         boxShadow: 'var(--md-sys-elevation-level1)',
-                        transition: 'transform var(--app-motion-quick) var(--app-easing-standard)',
-                        backgroundColor: variant === 'class' ? 'var(--app-color-secondary-container)' :
+                        transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                        backgroundColor: variant === 'class' ? 'var(--md-sys-color-secondary-container)' :
                                        variant === 'subject' ? 'var(--md-sys-color-tertiary-container)' :
-                                       'var(--app-color-primary-container)',
-                        color: variant === 'class' ? 'var(--app-color-on-secondary-container)' :
+                                       'var(--md-sys-color-primary-container)',
+                            color: variant === 'class' ? 'var(--md-sys-color-on-secondary-container)' :
                                variant === 'subject' ? 'var(--md-sys-color-on-tertiary-container)' :
-                               'var(--app-color-on-primary-container)'
+                               'var(--md-sys-color-on-primary-container)'
                     }}>
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--app-spacing-touch)',
+                            fontSize: 'var(--md-sys-spacing-5)',
                             userSelect: 'none'
                         }}>{icon}</span>
                     </div>
                     <div>
-                        <label style={{ color: 'var(--app-color-on-primary)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", display: "block" }}>
+                        <label style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", display: "block" }}>
                             {label}
                         </label>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "bold", opacity: "0.5", textTransform: "uppercase" }}>
+                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "bold", opacity: "0.5", textTransform: "uppercase" }}>
                             {items.length} {items.length === 1 ? 'elemento' : 'elementi'} salvati
                         </span>
                     </div>
                 </div>
              </div>
              
-             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: 'var(--app-border-normal) solid var(--md-sys-color-outline)'}}>
+             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'}}>
                 <div  style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                     {items.map((item, index) => (
                         <div key={index} style={{
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: 'var(--app-spacing-component)',
-                            padding: 'var(--app-spacing-component) var(--app-spacing-element)',
-                            backgroundColor: variant === 'class' ? 'var(--app-color-secondary-container)' :
+                            gap: 'var(--md-sys-spacing-2)',
+                            padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                            backgroundColor: variant === 'class' ? 'var(--md-sys-color-secondary-container)' :
                                            variant === 'subject' ? 'var(--md-sys-color-tertiary-container)' :
-                                           'var(--app-color-primary-container)',
-                            color: variant === 'class' ? 'var(--app-color-on-secondary-container)' :
+                                           'var(--md-sys-color-primary-container)',
+                            color: variant === 'class' ? 'var(--md-sys-color-on-secondary-container)' :
                                   variant === 'subject' ? 'var(--md-sys-color-on-tertiary-container)' :
-                                  'var(--app-color-on-primary-container)',
+                                  'var(--md-sys-color-on-primary-container)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             fontSize: 'var(--md-sys-typescale-body-small-size)',
                             fontWeight: 'var(--md-sys-typescale-body-small-weight)',
                             lineHeight: 'var(--app-text-body-line-height)',
-                            animation: 'zoom-in-95 var(--app-motion-quick) var(--app-easing-standard)-out',
+                            animation: 'zoom-in-95 var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)-out',
                             cursor: 'pointer',
-                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)',
-                            border: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)'
+                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                            border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
                         }}>
                             <span>{item}</span>
                             <button 
@@ -116,40 +116,40 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     opacity: '0.7',
-                                    transition: 'opacity var(--app-motion-quick) var(--app-easing-standard)'
+                                    transition: 'opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                                 }}
                             >
                                 <span style={{
                                     fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-spacing-element)',
+                                    fontSize: 'var(--md-sys-spacing-3)',
                                     userSelect: 'none'
                                 }}>close</span>
                             </button>
                         </div>
                     ))}
                     
-                    {items.length === 0 && (
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--app-text-body)', opacity: "0.4", paddingTop: 'var(--app-spacing-container)', paddingBottom: 'var(--app-spacing-container)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>Nessun elemento aggiunto...</p>
-                    )}
+                        {items.length === 0 && (
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--app-text-body)', opacity: "0.4", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Nessun elemento aggiunto...</p>
+                        )}
                 </div>
                 
                 {/* Integrated Input Area */}
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--app-spacing-element)',
-                    padding: 'var(--app-spacing-element)',
-                    border: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)',
+                    gap: 'var(--md-sys-spacing-3)',
+                    padding: 'var(--md-sys-spacing-3)',
+                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                    transition: 'border-color var(--app-motion-quick) var(--app-easing-standard)'
+                    transition: 'border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                 }} onClick={() => inputRef.current?.focus()}>
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
-                        fontSize: 'var(--app-spacing-container)',
+                        fontSize: 'var(--md-sys-spacing-4)',
                         opacity: '0.6',
-                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)',
-                        color: 'var(--md-sys-color-on-surface-variant)'
+                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+                            color: 'var(--md-sys-color-on-surface-variant)'
                     }} aria-hidden="true">add_circle</span>
                     <input 
                         ref={inputRef}
@@ -163,7 +163,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                             border: 'none',
                             outline: 'none',
                             backgroundColor: 'transparent',
-                            color: 'var(--app-color-on-surface)',
+                            color: 'var(--md-sys-color-on-surface)',
                             fontSize: 'var(--app-text-body)',
                             fontFamily: 'var(--md-sys-typescale-body-large-font-family)'
                         }}
@@ -175,8 +175,8 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         onClick={(e) => { e.stopPropagation(); handleAdd(); }}
                         style={{
                             borderRadius: 'var(--md-sys-shape-corner-full)',
-                            backgroundColor: newItem.trim() ? 'var(--app-color-primary)' : 'var(--md-sys-color-surface-variant)',
-                            color: newItem.trim() ? 'var(--app-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
+                            backgroundColor: newItem.trim() ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-variant)',
+                                color: newItem.trim() ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
                             border: 'none',
                             width: 'var(--md-sys-spacing-8)',
                             height: 'var(--md-sys-spacing-8)',
@@ -184,18 +184,18 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                             alignItems: 'center',
                             justifyContent: 'center',
                             cursor: newItem.trim() ? 'pointer' : 'not-allowed',
-                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)'
+                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                         }}
                         disabled={!newItem.trim()}
                     >
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--app-spacing-container)',
+                            fontSize: 'var(--md-sys-spacing-4)',
                             userSelect: 'none'
                         }}>arrow_forward</span>
                     </button>
                 </div>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "0.4", marginTop: 'var(--app-spacing-element)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", fontWeight: "bold" }}>
+                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "0.4", marginTop: 'var(--md-sys-spacing-3)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", fontWeight: "bold" }}>
                     Premi Invio o usa la virgola per aggiungere più elementi
                 </p>
             </div>

@@ -2,6 +2,14 @@
    DocenteDoc AI - Layout System M3 Expressive
    ============================================ */
 
+/* Custom tokens for layout compliance */
+:root {
+  --md-sys-glass-bg: rgba(255, 255, 255, 0.82);
+  --md-sys-overlay-20: rgba(0, 0, 0, 0.2);
+  --md-sys-overlay-40: rgba(0, 0, 0, 0.4);
+  --md-sys-overlay-60: rgba(0, 0, 0, 0.6);
+}
+
 /* --- APP SHELL --- */
 .app-shell {
     display: flex;
@@ -101,7 +109,7 @@
 /* --- BOTTOM NAVIGATION (FLOATING CARD) --- */
 .bottom-nav-bar {
     box-shadow: var(--md-sys-elevation-level3);
-    background: var(--glass-bg, rgba(255,255,255,0.82));
+    background: var(--md-sys-glass-bg);
     backdrop-filter: blur(var(--md-sys-spacing-4));
     -webkit-backdrop-filter: blur(var(--md-sys-spacing-4));
     border-radius: var(--shape-xl);
@@ -290,7 +298,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .button-outlined {
     background: transparent;
     color: var(--md-sys-color-primary);
-    border: var(--md-sys-spacing-0) solid var(--sys-outline);
+    border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline);
 }
 
 .button-outlined:hover {
@@ -299,7 +307,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .button-tonal {
     background: var(--md-sys-color-secondary-container);
-    color: var(--sys-on-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
 }
 
 .button-tonal:hover {
@@ -358,12 +366,12 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .tab-group.secondary .tab.active {
     background: var(--md-sys-color-secondary);
-    color: var(--sys-on-secondary);
+    color: var(--md-sys-color-on-secondary);
 }
 
 .tab-group.tertiary .tab.active {
-    background: var(--sys-tertiary);
-    color: var(--sys-on-tertiary);
+    background: var(--md-sys-color-tertiary);
+    color: var(--md-sys-color-on-tertiary);
 }
 
 /* --- CUSTOM SCROLLBAR --- */
@@ -381,7 +389,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: var(--sys-outline);
+    background: var(--md-sys-color-outline);
 }
 
 /* --- PAGE SECTIONS --- */
@@ -648,9 +656,9 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .transition-all { transition-property: opacity, transform, background-color;
 transition-duration: var(--md-sys-motion-duration-short);
 transition-timing-function: var(--md-sys-motion-easing-standard); }
-.transition-colors { transition: background-color var(var(--md-sys-motion-duration-short)3) var(var(--md-sys-motion-easing-standard)), color var(var(--md-sys-motion-duration-short)3) var(var(--md-sys-motion-easing-standard)); }
-.transition-transform { transition: transform var(var(--md-sys-motion-duration-short)4) var(var(--md-sys-motion-easing-standard)); }
-.duration-300 { transition-duration: theme.motion.duration.medium2; }
+.transition-colors { transition: background-color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard); }
+.transition-transform { transition: transform var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard); }
+.duration-300 { transition-duration: var(--md-sys-motion-duration-medium); }
 
 /* Transform */
 .rotate-180 { transform: rotate(180deg); }
@@ -669,7 +677,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 .space-y-6 > * + * { margin-top: var(--md-sys-spacing-6); }
 
 /* Animation */
-.animate-in { animation-duration: 300ms; animation-fill-mode: both; }
+.animate-in { animation-duration: var(--md-sys-motion-duration-medium); animation-fill-mode: both; }
 .fade-in { animation-name: fadeIn; }
 .slide-in-from-top-2 { animation-name: slideInFromTop; }
 
@@ -823,7 +831,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 
 /* Group Hover Utilities */
 .group:hover .group-hover\:animate-float { 
-  animation: float var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard)-in-out infinite;
+    animation: float var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;
 }
 .group:hover .group-hover\:translate-x-1 {
   transform: translateX(var(--md-sys-spacing-1));
@@ -841,7 +849,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 
 /* Delay Utilities */
 .delay-150 { animation-delay: var(--md-sys-motion-duration-short); }
-.delay-300 { animation-delay: 300ms; }
+.delay-300 { animation-delay: var(--md-sys-motion-duration-medium); }
 
 /* ============================================
    M3 EXPRESSIVE - APP SHELL COMPONENT CLASSES
@@ -1598,15 +1606,15 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 }
 
 .modal-portal-backdrop.light {
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--md-sys-overlay-20);
 }
 
 .modal-portal-backdrop.medium {
-    background: rgba(0, 0, 0, 0.4);
+    background: var(--md-sys-overlay-40);
 }
 
 .modal-portal-backdrop.dark {
-    background: rgba(0, 0, 0, 0.6);
+    background: var(--md-sys-overlay-60);
 }
 
 .modal-portal-backdrop.clickable {

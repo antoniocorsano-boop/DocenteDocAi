@@ -49,7 +49,7 @@ test.describe('M3 Responsive Compatibility', () => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto('http://localhost:5173');
 
-    // Test form inputs are touch-friendly (minimum 44px touch target)
+    // Test form inputs are touch-friendly (minimum var(--app-spacing-touch) touch target)
     const inputs = page.locator('input, textarea, select, button').all();
     for (const input of await inputs) {
       const box = await input.boundingBox();
