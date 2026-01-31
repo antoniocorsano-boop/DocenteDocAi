@@ -378,6 +378,23 @@
      MD3 SPECIAL TOKENS (Expressive - Edge Cases)
      =========================================== */
   --md-sys-special-viewport-height: calc(var(--md-sys-spacing-15) - var(--md-sys-border-width-thin));
+    /* ===========================================
+      APP-SCOPE TOKENS (Temporary app-level semantic tokens)
+      These are conservative mappings used during the MD3 remediation
+      pass. They are intentionally defined here (app scope) and map to
+      existing MD3 tokens. After RFC approval these can be refined.
+      =========================================== */
+    --app-color-brand-primary: var(--md-sys-color-primary);
+    --app-color-brand-on-primary: var(--md-sys-color-on-primary);
+    --app-color-surface-muted: var(--md-sys-color-surface-container-low);
+    --app-color-on-surface-muted: var(--md-sys-color-on-surface);
+    --app-color-accent-1: var(--md-sys-color-secondary);
+    --app-color-accent-2: var(--md-sys-color-tertiary);
+    --app-color-error: var(--md-sys-color-error);
+    --app-color-warning: var(--md-sys-color-warning);
+
+    /* Touch target spacing token requested in governance work */
+    --app-spacing-touch: var(--md-sys-spacing-11); /* 44px */
 
 /* --- VISUAL STYLES OVERRIDES --- */
 
