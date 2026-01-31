@@ -29,7 +29,7 @@ export const Default: Story = {
     data: [
       { label: 'Completed', value: 65, color: 'var(--md-sys-color-primary)' },
       { label: 'In Progress', value: 25, color: 'var(--md-sys-color-secondary)' },
-      { label: 'Pending', value: 10, color: 'var(--sys-tertiary)' },
+      { label: 'Pending', value: 10, color: 'var(--md-sys-color-tertiary)' },
     ],
   },
 };
@@ -39,8 +39,8 @@ export const GradeDistribution: Story = {
     data: [
       { label: 'A', value: 20, color: 'var(--md-sys-color-primary)' },
       { label: 'B', value: 35, color: 'var(--md-sys-color-secondary)' },
-      { label: 'C', value: 30, color: 'var(--sys-tertiary)' },
-      { label: 'D', value: 10, color: 'var(--sys-error)' },
+      { label: 'C', value: 30, color: 'var(--md-sys-color-tertiary)' },
+      { label: 'D', value: 10, color: 'var(--md-sys-color-error)' },
       { label: 'F', value: 5, color: 'var(--md-sys-color-surface-variant)' },
     ],
   },
@@ -51,8 +51,8 @@ export const BudgetAllocation: Story = {
     data: [
       { label: 'Salaries', value: 40, color: 'var(--md-sys-color-primary)' },
       { label: 'Operations', value: 25, color: 'var(--md-sys-color-secondary)' },
-      { label: 'Marketing', value: 20, color: 'var(--sys-tertiary)' },
-      { label: 'R&D', value: 15, color: 'var(--sys-error)' },
+      { label: 'Marketing', value: 20, color: 'var(--md-sys-color-tertiary)' },
+      { label: 'R&D', value: 15, color: 'var(--md-sys-color-error)' },
     ],
   },
 };
@@ -72,8 +72,8 @@ export const BrowserShare: Story = {
     data: [
       { label: 'Chrome', value: 65, color: 'var(--md-sys-color-primary)' },
       { label: 'Safari', value: 20, color: 'var(--md-sys-color-secondary)' },
-      { label: 'Firefox', value: 10, color: 'var(--sys-tertiary)' },
-      { label: 'Edge', value: 5, color: 'var(--sys-error)' },
+      { label: 'Firefox', value: 10, color: 'var(--md-sys-color-tertiary)' },
+      { label: 'Edge', value: 5, color: 'var(--md-sys-color-error)' },
     ],
   },
 };
@@ -82,7 +82,7 @@ export const TwoSegments: Story = {
   args: {
     data: [
       { label: 'Pass', value: 85, color: 'var(--md-sys-color-primary)' },
-      { label: 'Fail', value: 15, color: 'var(--sys-error)' },
+      { label: 'Fail', value: 15, color: 'var(--md-sys-color-error)' },
     ],
   },
 };
@@ -90,14 +90,14 @@ export const TwoSegments: Story = {
 export const ManySegments: Story = {
   args: {
     data: [
-      { label: 'Segment 1', value: 15, color: 'var(--sys-error)' },
-      { label: 'Segment 2', value: 12, color: 'var(--sys-error-container)' },
-      { label: 'Segment 3', value: 10, color: 'var(--sys-tertiary)' },
-      { label: 'Segment 4', value: 13, color: 'var(--sys-tertiary-container)' },
+      { label: 'Segment 1', value: 15, color: 'var(--md-sys-color-error)' },
+      { label: 'Segment 2', value: 12, color: 'var(--md-sys-color-error-container)' },
+      { label: 'Segment 3', value: 10, color: 'var(--md-sys-color-tertiary)' },
+      { label: 'Segment 4', value: 13, color: 'var(--md-sys-color-tertiary-container)' },
       { label: 'Segment 5', value: 11, color: 'var(--md-sys-color-secondary)' },
       { label: 'Segment 6', value: 14, color: 'var(--md-sys-color-primary)' },
       { label: 'Segment 7', value: 10, color: 'var(--md-sys-color-surface-variant)' },
-      { label: 'Segment 8', value: 15, color: 'var(--sys-outline)' },
+      { label: 'Segment 8', value: 15, color: 'var(--md-sys-color-outline)' },
     ],
   },
 };
@@ -106,8 +106,8 @@ export const AttendanceRate: Story = {
   args: {
     data: [
       { label: 'Present', value: 90, color: 'var(--md-sys-color-primary)' },
-      { label: 'Absent', value: 5, color: 'var(--sys-error)' },
-      { label: 'Excused', value: 5, color: 'var(--sys-tertiary)' },
+      { label: 'Absent', value: 5, color: 'var(--md-sys-color-error)' },
+      { label: 'Excused', value: 5, color: 'var(--md-sys-color-tertiary)' },
     ],
   },
 };
@@ -124,9 +124,9 @@ export const CourseCompletion: Story = {
 export const DocumentTypes: Story = {
   args: {
     data: [
-      { label: 'PDF', value: 40, color: 'var(--sys-error)' },
+      { label: 'PDF', value: 40, color: 'var(--md-sys-color-error)' },
       { label: 'DOCX', value: 30, color: 'var(--md-sys-color-primary)' },
-      { label: 'PPTX', value: 20, color: 'var(--sys-tertiary)' },
+      { label: 'PPTX', value: 20, color: 'var(--md-sys-color-tertiary)' },
       { label: 'XLSX', value: 10, color: 'var(--md-sys-color-secondary)' },
     ],
   },
@@ -135,10 +135,10 @@ export const DocumentTypes: Story = {
 export const Equal: Story = {
   args: {
     data: [
-      { label: 'Q1', value: 25, color: 'var(--sys-error)' },
+      { label: 'Q1', value: 25, color: 'var(--md-sys-color-error)' },
       { label: 'Q2', value: 25, color: 'var(--md-sys-color-primary)' },
       { label: 'Q3', value: 25, color: 'var(--md-sys-color-secondary)' },
-      { label: 'Q4', value: 25, color: 'var(--sys-tertiary)' },
+      { label: 'Q4', value: 25, color: 'var(--md-sys-color-tertiary)' },
     ],
   },
 };
@@ -147,8 +147,8 @@ export const StudentEngagement: Story = {
   args: {
     data: [
       { label: 'Highly Engaged', value: 35, color: 'var(--md-sys-color-primary)' },
-      { label: 'Moderately Engaged', value: 45, color: 'var(--sys-tertiary)' },
-      { label: 'Low Engagement', value: 20, color: 'var(--sys-error)' },
+      { label: 'Moderately Engaged', value: 45, color: 'var(--md-sys-color-tertiary)' },
+      { label: 'Low Engagement', value: 20, color: 'var(--md-sys-color-error)' },
     ],
   },
 };
@@ -156,9 +156,9 @@ export const StudentEngagement: Story = {
 export const CustomColors: Story = {
   args: {
     data: [
-      { label: 'Category A', value: 30, color: 'var(--sys-error-container)' },
-      { label: 'Category B', value: 25, color: 'var(--sys-tertiary)' },
-      { label: 'Category C', value: 20, color: 'var(--sys-tertiary-container)' },
+      { label: 'Category A', value: 30, color: 'var(--md-sys-color-error-container)' },
+      { label: 'Category B', value: 25, color: 'var(--md-sys-color-tertiary)' },
+      { label: 'Category C', value: 20, color: 'var(--md-sys-color-tertiary-container)' },
       { label: 'Category D', value: 15, color: 'var(--md-sys-color-secondary)' },
       { label: 'Category E', value: 10, color: 'var(--md-sys-color-primary)' },
     ],

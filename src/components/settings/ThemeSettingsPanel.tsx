@@ -41,7 +41,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         fontFamily: 'var(--md-sys-typescale-headline-small-font)',
         fontSize: 'var(--md-sys-typescale-headline-small-size)',
         fontWeight: 'var(--md-sys-typescale-headline-small-weight)',
-        lineHeight: 'var(--app-text-title-line-height)',
+        lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)',
         marginBottom: 'var(--md-sys-spacing-4)'
       }}>Theme Settings</h2>
 
@@ -51,7 +51,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
           fontFamily: 'var(--md-sys-typescale-body-large-font)',
           fontSize: 'var(--md-sys-typescale-body-large-size)',
           fontWeight: 'var(--md-sys-typescale-body-large-weight)',
-          lineHeight: 'var(--app-text-body-line-height)',
+          lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
           display: 'flex',
           alignItems: 'center',
           gap: 'var(--md-sys-spacing-2)'
@@ -72,7 +72,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
           fontFamily: 'var(--md-sys-typescale-title-large-font)',
           fontSize: 'var(--md-sys-typescale-title-large-size)',
           fontWeight: 'var(--md-sys-typescale-title-large-weight)',
-          lineHeight: 'var(--app-text-title-line-height)'
+          lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)'
         }}>Color Overrides (MD3 System Colors)</h3>
         <div style={{
           display: 'grid',
@@ -97,7 +97,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 fontFamily: 'var(--md-sys-typescale-label-large-font)',
                 fontSize: 'var(--md-sys-typescale-label-large-size)',
                 fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-                lineHeight: 'var(--app-text-label-line-height)',
+                lineHeight: 'var(--md-sys-typescale-label-large-font-size-line-height)',
                 display: 'block',
                 marginBottom: 'var(--md-sys-spacing-1)'
               }}>{label}</label>
@@ -128,7 +128,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
           fontFamily: 'var(--md-sys-typescale-title-large-font)',
           fontSize: 'var(--md-sys-typescale-title-large-size)',
           fontWeight: 'var(--md-sys-typescale-title-large-weight)',
-          lineHeight: 'var(--app-text-title-line-height)'
+          lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)'
         }}>Typography Scale (MD3 System)</h3>
         <div style={{
           display: 'grid',
@@ -151,7 +151,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 fontFamily: 'var(--md-sys-typescale-label-large-font)',
                 fontSize: 'var(--md-sys-typescale-label-large-size)',
                 fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-                lineHeight: 'var(--app-text-label-line-height)',
+                lineHeight: 'var(--md-sys-typescale-label-large-font-size-line-height)',
                 display: 'block',
                 marginBottom: 'var(--md-sys-spacing-1)'
               }}>{label}</label>
@@ -180,7 +180,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
           fontFamily: 'var(--md-sys-typescale-title-large-font)',
           fontSize: 'var(--md-sys-typescale-title-large-size)',
           fontWeight: 'var(--md-sys-typescale-title-large-weight)',
-          lineHeight: 'var(--app-text-title-line-height)'
+          lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)'
         }}>Spacing Scale (MD3 System)</h3>
         <div style={{
           display: 'grid',
@@ -205,7 +205,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 fontFamily: 'var(--md-sys-typescale-label-large-font)',
                 fontSize: 'var(--md-sys-typescale-label-large-size)',
                 fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-                lineHeight: 'var(--app-text-label-line-height)',
+                lineHeight: 'var(--md-sys-typescale-label-large-font-size-line-height)',
                 display: 'block',
                 marginBottom: 'var(--md-sys-spacing-1)'
               }}>{label}</label>
@@ -227,7 +227,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
           fontFamily: 'var(--md-sys-typescale-title-large-font)',
           fontSize: 'var(--md-sys-typescale-title-large-size)',
           fontWeight: 'var(--md-sys-typescale-title-large-weight)',
-          lineHeight: 'var(--app-text-title-line-height)'
+          lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)'
         }}>Motion & Easing (MD3 System)</h3>
         <div style={{
           display: 'grid',
@@ -250,7 +250,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 fontFamily: 'var(--md-sys-typescale-label-large-font)',
                 fontSize: 'var(--md-sys-typescale-label-large-size)',
                 fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-                lineHeight: 'var(--app-text-label-line-height)',
+                lineHeight: 'var(--md-sys-typescale-label-large-font-size-line-height)',
                 display: 'block',
                 marginBottom: 'var(--md-sys-spacing-1)'
               }}>{label}</label>

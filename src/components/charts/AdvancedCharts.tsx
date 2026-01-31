@@ -92,7 +92,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
                 {/* Labels (X Axis) */}
                 {data.map((point, i) => (
                     (data.length < 8 || i === 0 || i === data.length - 1 || i % Math.ceil(data.length / 5) === 0) && (
-                        <text key={i} x={getX(i)} y={height - 5} fontSize="var(--app-text-label)" textAnchor="middle" fill={themeColor.onSurfaceVariant}>
+                        <text key={i} x={getX(i)} y={height - 5} fontSize="var(--md-sys-typescale-label-large-font-size)" textAnchor="middle" fill={themeColor.onSurfaceVariant}>
                             {point.label}
                         </text>
                     )
@@ -185,9 +185,9 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
                                 y={labelPos.y}
                                 textAnchor="middle"
                                 dominantBaseline="middle"
-                                fontSize="var(--app-text-label)"
+                                fontSize="var(--md-sys-typescale-label-large-font-size)"
                                 fill={themeColor.onSurface}
-                                style={{ fontWeight: "var(--app-text-label-weight)" }}
+                                style={{ fontWeight: "var(--md-sys-typescale-label-large-font-size-weight)" }}
                             >
                                 {d.axis}
                             </text>

@@ -8,7 +8,7 @@ Follow these guidelines strictly to refactor Home.tsx:
 1. Layout Structure
 - Desktop: NavigationRail on left, main content right (handled by ViewManager/AppLayout)
 - Mobile: BottomNav (if available), main content full width (handled by ViewManager/AppLayout)
-- Main content: single column, centered, max-width handled by `var(--content-max-width)` (ViewManager/AppLayout)
+- Main content: single column, centered, max-width handled by `var(--md-sys-breakpoint-content-max-width)` (ViewManager/AppLayout)
 - All spacing/padding use MD3 tokens (--md-sys-spacing-*)
 - Avoid mixing shorthand and non-shorthand padding/margin
 
@@ -240,7 +240,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             bottom: 'var(--md-sys-spacing-6)',
             right: 'var(--md-sys-spacing-6)',
             /* MD3 Exception: fallback for z-index if token missing, see governance contract */
-            zIndex: 'var(--app-z-modal)'
+            zIndex: 'var(--md-sys-z-modal)'
           }}
         />
       </M3Surface>

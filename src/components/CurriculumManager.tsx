@@ -270,7 +270,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                         }
                                     }}
                                 >
-                                    <span  style={{ fontSize: "var(--app-text-label)" }}>delete</span>
+                                    <span  style={{ fontSize: "var(--md-sys-typescale-label-large-font-size)" }}>delete</span>
                                 </M3Button>
                             </div>
                         ))}

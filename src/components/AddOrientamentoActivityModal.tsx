@@ -94,9 +94,9 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                   gap: 'var(--md-sys-spacing-2)'
                 }}>
                     <label style={{
-                      fontSize: 'var(--app-text-body)',
-                      fontWeight: 'var(--app-text-body-weight)',
-                      lineHeight: 'var(--app-text-body-line-height)',
+                      fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                      fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)',
+                      lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
                       color: 'var(--md-sys-color-on-surface-variant)'
                     }}>Classi Coinvolte</label>
                     <div style={{
@@ -118,7 +118,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                                 style={{
                                   padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
                                   borderRadius: 'var(--md-sys-shape-corner-full)',
-                                  fontSize: 'var(--app-text-body)',
+                                  fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                   fontWeight: '700',
                                   transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`, // MD3 motion tokens for duration and easing
                                   border: 'none',

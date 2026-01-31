@@ -404,7 +404,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         <div key={kb.id} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: 'var(--md-sys-spacing-2)' }}>
                                             <input type="checkbox" id={`kb-annual-${kb.id}`} checked={selectedKbFiles.includes(kb.id)} onChange={() => toggleKbFile(kb.id)} />
                                             <label htmlFor={`kb-annual-${kb.id}`} style={{ display: 'flex', flexDirection: 'row', width: 'var(--md-sys-percent-full)', justifyContent: 'flex-start', cursor: 'pointer' }} title={kb.fileName}>
-                                                {selectedKbFiles.includes(kb.id) && <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--app-text-body)' }}>check</span>}
+                                                {selectedKbFiles.includes(kb.id) && <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>check</span>}
                                                 <span style={{ fontFamily: 'Material Symbols Outlined', color: 'var(--md-sys-color-primary)', marginRight: "var(--md-sys-spacing-2)" }}>description</span>
                                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</span>
                                             </label>

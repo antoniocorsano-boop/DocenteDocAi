@@ -1,0 +1,318 @@
+/**
+ * NavigationRail - M3 Expressive Styles
+ * 
+ * Material Design 3 Expressive Navigation Rail component
+ * Features:
+ * - var(--md-sys-spacing-20) width vertical navigation
+ * - Icon + label stacked layout
+ * - Smooth 0.3s transitions
+ * - Responsive: collapses to bottom nav on mobile
+ * - var(--md-sys-spacing-1) base unit spacing
+ */
+
+/* ============================================================================
+   NAVIGATION RAIL CONTAINER
+   ============================================================================ */
+
+.m3-navigation-rail {
+  /* Layout - Mobile Default (Bottom Nav) */
+  position: fixed;
+  top: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: var(--md-sys-spacing-16);
+  
+  /* Appearance */
+  background: var(--md-sys-color-surface);
+  border-top: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
+  border-right: none;
+  
+  /* Layout behavior */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  
+  /* Z-index */
+  z-index: var(--md-sys-z-modal);
+  
+  /* Smooth transitions */
+  @apply m3-transition-standard;
+}
+
+/* Aura Style (Glassmorphism) */
+[data-visual-style="aura"] .m3-navigation-rail {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+}
+
+/* Desktop: Vertical rail (>=var(--breakpoint-compact)) */
+@media (min-width: var(--breakpoint-compact)) {
+  .m3-navigation-rail {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    width: var(--nav-rail-width, var(--md-sys-spacing-20));
+    height: 100%;
+    border-top: none;
+    border-right: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}
+
+/* Container for navigation items */
+.m3-navigation-rail__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: var(--spacing-2, var(--md-sys-spacing-2)) 0;
+  width: 100%;
+  align-items: center;
+}
+
+@media (min-width: var(--breakpoint-compact)) {
+  .m3-navigation-rail__container {
+    flex-direction: column;
+    gap: var(--spacing-2, var(--md-sys-spacing-2));
+    padding-top: var(--spacing-4, var(--md-sys-spacing-4));
+    padding-bottom: var(--spacing-4, var(--md-sys-spacing-4));
+    justify-content: flex-start;
+  }
+}
+
+/* ============================================================================
+   NAVIGATION RAIL ITEMS
+   ============================================================================ */
+
+.m3-navigation-rail__item {
+  /* Reset button styles */
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-1, var(--md-sys-spacing-1)); /* var(--md-sys-spacing-1) gap between icon and label */
+  
+  /* Size */
+  width: var(--md-sys-layout-fab-size);
+  min-height: var(--md-sys-layout-fab-size);
+  padding: var(--spacing-2, var(--md-sys-spacing-2)) 0;
+  
+  /* Shape */
+  border-radius: var(--shape-m, var(--md-sys-spacing-4));
+  
+  /* State colors - default */
+  color: var(--md-sys-color-on-surface-variant);
+  background: transparent;
+  
+  /* Transition */
+  @apply m3-transition-interactive;
+  
+  /* Remove tap highlight on mobile */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover state */
+.m3-navigation-rail__item:hover {
+  background: rgba(var(--md-sys-color-primary-rgb), 0.08);
+}
+
+/* Focus state (keyboard navigation) */
+.m3-navigation-rail__item:focus-visible {
+  background: rgba(var(--md-sys-color-primary-rgb), 0.12);
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
+  outline-offset: var(--md-sys-spacing-1);
+}
+
+/* Active state */
+.m3-navigation-rail__item.active {
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-primary);
+  box-shadow: var(--md-sys-elevation-1);
+}
+
+/* Active hover */
+.m3-navigation-rail__item.active:hover {
+  background: rgba(var(--md-sys-color-primary-rgb), 0.14);
+}
+
+/* ============================================================================
+   ICON CONTAINER
+   ============================================================================ */
+
+.m3-navigation-rail__icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1));
+  height: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1));
+  border-radius: var(--md-sys-percent-50);
+  @apply m3-transition-color;
+}
+
+/* Icon styling */
+.m3-navigation-rail__icon-container .material-symbols-outlined {
+  font-size: calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
+  line-height: 1;
+  color: inherit;
+  @apply m3-transition-standard;
+}
+
+/* Filled icon for active state */
+.m3-navigation-rail__icon-container .filled-icon {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Icon container background for active state */
+.m3-navigation-rail__item.active .m3-navigation-rail__icon-container {
+  background: transparent; /* Icon already highlighted by container background */
+}
+
+/* Google Expressive Pill Indicator */
+[data-visual-style="expressive"] .m3-navigation-rail__item.active .m3-navigation-rail__icon-container {
+  background: var(--md-sys-color-primary-container);
+  width: calc(var(--md-sys-spacing-16) * var(--sys-font-scale, 1));
+  height: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1));
+  border-radius: calc(var(--md-sys-spacing-4) * var(--sys-font-scale, 1));
+  color: var(--md-sys-color-on-primary-container);
+}
+
+[data-visual-style="expressive"] .m3-navigation-rail__item.active .m3-navigation-rail__icon-container .material-symbols-outlined {
+  color: var(--md-sys-color-on-primary-container);
+}
+
+/* ============================================================================
+   BADGE (Optional notification indicator)
+   ============================================================================ */
+
+.m3-navigation-rail__badge {
+  position: absolute;
+  top: -var(--md-sys-spacing-1);
+  right: -var(--md-sys-spacing-1);
+  
+  /* Size */
+  min-width: var(--md-sys-spacing-4);
+  height: var(--md-sys-spacing-4);
+  padding: 0 var(--md-sys-spacing-1);
+  
+  /* Appearance */
+  background: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-error);
+  border-radius: var(--md-sys-shape-corner-small);
+  
+  /* Typography */
+  font-size: var(--md-sys-typescale-label-small-size);
+  font-weight: 700;
+  line-height: var(--md-sys-spacing-4);
+  text-align: center;
+  
+  /* Ensure it's on top */
+  z-index: var(--md-sys-z-base);
+  
+  /* Animation */
+  animation: badge-appear var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
+}
+
+@keyframes badge-appear {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ============================================================================
+   LABEL
+   ============================================================================ */
+
+.m3-navigation-rail__label {
+  /* Typography handled by .m3-label-medium class */
+  font-size: var(--md-sys-spacing-3);
+  font-weight: 500;
+  letter-spacing: var(--md-sys-border-width-thin);
+  text-align: center;
+  color: inherit;
+  
+  /* Prevent text wrapping */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: var(--md-sys-layout-fab-size);
+}
+
+/* ============================================================================
+   RESPONSIVE: TABLET (var(--breakpoint-compact) - var(--breakpoint-compact))
+   ============================================================================ */
+
+@media (min-width: var(--breakpoint-compact)) and (max-width: var(--breakpoint-compact)) {
+  /* Optionally keep rail but adjust if needed */
+  .m3-navigation-rail {
+    width: var(--md-sys-spacing-18); /* Slightly narrower on tablets */
+  }
+  
+  .m3-navigation-rail__item {
+    width: var(--md-sys-spacing-13);
+  }
+  
+  .m3-navigation-rail__label {
+    font-size: var(--md-sys-typescale-label-large-font-size);
+  }
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .m3-navigation-rail {
+    border-right-width: var(--md-sys-spacing-1);
+  }
+  
+  .m3-navigation-rail__item:focus-visible {
+    outline-width: var(--md-sys-spacing-1);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .m3-navigation-rail,
+  .m3-navigation-rail__item,
+  .m3-navigation-rail__icon-container,
+  .m3-navigation-rail__badge {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .m3-navigation-rail {
+    background: var(--md-sys-color-surface);
+    border-right-color: var(--md-sys-color-outline-variant);
+  }
+  
+  .m3-navigation-rail__item {
+    color: var(--md-sys-color-on-surface-variant);
+  }
+  
+  .m3-navigation-rail__item.active {
+    background: var(--md-sys-color-primary-container);
+  }
+}
+
+

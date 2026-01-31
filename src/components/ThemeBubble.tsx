@@ -38,13 +38,13 @@ const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onC
 
                 {/* Checkmark Overlay */}
                 <div  style={{ color: themeColors.primary }}>
-                     <span  style={{ fontSize: "var(--app-text-title)", fontWeight: "bold" }}>check_circle</span>
+                     <span  style={{ fontSize: "var(--md-sys-typescale-title-large-font-size)", fontWeight: "bold" }}>check_circle</span>
                 </div>
             </div>
 
             <div  style={{
                 color: themeColors.onSurface,
-                fontSize: 'var(--app-text-body)',
+                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                 fontWeight: 500,
                 marginTop: spacing.xs
             }}>

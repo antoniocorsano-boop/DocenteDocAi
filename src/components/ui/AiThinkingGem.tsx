@@ -10,9 +10,9 @@ interface AiThinkingGemProps {
 const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, inline = false }) => {
     // MD3 token-based sizing
     const sizeMap = {
-        small: { width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', icon: 'var(--app-text-title)' },
-        medium: { width: 'var(--md-sys-spacing-14)', height: 'var(--md-sys-spacing-14)', icon: 'var(--app-text-title)' },
-        large: { width: 'var(--md-sys-spacing-22)', height: 'var(--md-sys-spacing-22)', icon: 'var(--app-text-display)' }
+        small: { width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', icon: 'var(--md-sys-typescale-title-large-font-size)' },
+        medium: { width: 'var(--md-sys-spacing-14)', height: 'var(--md-sys-spacing-14)', icon: 'var(--md-sys-typescale-title-large-font-size)' },
+        large: { width: 'var(--md-sys-spacing-22)', height: 'var(--md-sys-spacing-22)', icon: 'var(--md-sys-typescale-display)' }
     };
 
     const dim = sizeMap[size];
@@ -73,7 +73,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                 <div
                     style={{
                         position: 'relative',
-                        zIndex: 'var(--app-z-tooltip)',
+                        zIndex: 'var(--md-sys-z-tooltip)',
                         width: 'var(--md-sys-percent-100)',
                         height: 'var(--md-sys-percent-100)',
                         display: 'flex',
@@ -97,9 +97,9 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                 <p
                     style={{
                         fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
-                        fontSize: 'var(--app-text-label)',
-                        fontWeight: 'var(--app-text-label-weight)',
-                        lineHeight: 'var(--app-text-label-line-height)',
+                        fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                        fontWeight: 'var(--md-sys-typescale-label-large-font-size-weight)',
+                        lineHeight: 'var(--md-sys-typescale-label-large-font-size-line-height)',
                         color: 'var(--md-sys-color-primary)',
                         letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
                         textTransform: 'uppercase',

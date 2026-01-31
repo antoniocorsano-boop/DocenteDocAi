@@ -49,8 +49,8 @@
   -webkit-backdrop-filter: var(--glass-blur);
 }
 
-/* Desktop: Vertical rail (>=var(--breakpoint-compact)) */
-@media (min-width: var(--breakpoint-compact)) {
+/* Desktop: Vertical rail (>=var(--md-sys-breakpoint-compact)) */
+@media (min-width: var(--md-sys-breakpoint-compact)) {
   .m3-navigation-rail {
     top: 0;
     bottom: 0;
@@ -75,7 +75,7 @@
   align-items: center;
 }
 
-@media (min-width: var(--breakpoint-compact)) {
+@media (min-width: var(--md-sys-breakpoint-compact)) {
   .m3-navigation-rail__container {
     flex-direction: column;
     gap: var(--spacing-2, var(--md-sys-spacing-2));
@@ -155,15 +155,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1));
-  height: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1));
+  width: calc(var(--md-sys-spacing-8) * var(--md-sys-color-font-scale, 1));
+  height: calc(var(--md-sys-spacing-8) * var(--md-sys-color-font-scale, 1));
   border-radius: var(--md-sys-percent-50);
   @apply m3-transition-color;
 }
 
 /* Icon styling */
 .m3-navigation-rail__icon-container .material-symbols-outlined {
-  font-size: calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-6) * var(--md-sys-color-font-scale, 1));
   line-height: 1;
   color: inherit;
   @apply m3-transition-standard;
@@ -182,9 +182,9 @@
 /* Google Expressive Pill Indicator */
 [data-visual-style="expressive"] .m3-navigation-rail__item.active .m3-navigation-rail__icon-container {
   background: var(--md-sys-color-primary-container);
-  width: calc(var(--md-sys-spacing-16) * var(--sys-font-scale, 1));
-  height: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1));
-  border-radius: calc(var(--md-sys-spacing-4) * var(--sys-font-scale, 1));
+  width: calc(var(--md-sys-spacing-16) * var(--md-sys-color-font-scale, 1));
+  height: calc(var(--md-sys-spacing-8) * var(--md-sys-color-font-scale, 1));
+  border-radius: calc(var(--md-sys-spacing-4) * var(--md-sys-color-font-scale, 1));
   color: var(--md-sys-color-on-primary-container);
 }
 
@@ -255,10 +255,10 @@
 }
 
 /* ============================================================================
-   RESPONSIVE: TABLET (var(--breakpoint-compact) - var(--breakpoint-compact))
+   RESPONSIVE: TABLET (var(--md-sys-breakpoint-compact) - var(--md-sys-breakpoint-compact))
    ============================================================================ */
 
-@media (min-width: var(--breakpoint-compact)) and (max-width: var(--breakpoint-compact)) {
+@media (min-width: var(--md-sys-breakpoint-compact)) and (max-width: var(--md-sys-breakpoint-compact)) {
   /* Optionally keep rail but adjust if needed */
   .m3-navigation-rail {
     width: var(--md-sys-spacing-18); /* Slightly narrower on tablets */

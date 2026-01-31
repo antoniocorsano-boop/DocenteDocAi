@@ -52,14 +52,14 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
                     borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                     paddingTop: '0'
                 }}>
-                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900",  fontSize: "var(--app-text-label)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Annulla</M3Button>
+                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900",  fontSize: "var(--md-sys-typescale-label-large-font-size)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Annulla</M3Button>
                     <M3Button 
                         onClick={handleSubmit} 
                         variant="filled" 
                         disabled={!prompt.trim()}
-                        style={{ fontWeight: "900",  fontSize: "var(--app-text-label)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}
+                        style={{ fontWeight: "900",  fontSize: "var(--md-sys-typescale-label-large-font-size)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}
                     >
-                        <span  style={{  marginRight: "var(--md-sys-spacing-2)", fontSize: "var(--app-text-body)"  }}>auto_awesome</span>
+                        <span  style={{  marginRight: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-large-font-size)"  }}>auto_awesome</span>
                         Genera Immagine
                     </M3Button>
                 </M3DialogActions>

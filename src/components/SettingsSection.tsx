@@ -82,11 +82,11 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
     };
 
     const titleStyle: React.CSSProperties = {
-        fontWeight: 'var(--app-text-body-weight)',
+        fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)',
         color: titleColor,
         fontFamily: 'var(--md-sys-typescale-font-family)',
-        fontSize: 'var(--app-text-body)',
-        lineHeight: 'var(--app-text-body-line-height)'
+        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+        lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)'
     };
 
     const subtitleStyle: React.CSSProperties = {
@@ -96,9 +96,9 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         fontFamily: 'var(--md-sys-typescale-font-family)',
-        fontSize: 'var(--app-text-body)',
-        lineHeight: 'var(--app-text-body-line-height)',
-        fontWeight: 'var(--app-text-body-weight)'
+        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+        lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
+        fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)'
     };
 
     const contentStyle: React.CSSProperties = {

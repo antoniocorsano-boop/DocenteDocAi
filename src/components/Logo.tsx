@@ -71,7 +71,7 @@ const LogoComponent: React.FC<LogoProps> = ({ isAiThinking = false, onHomeNaviga
       
       {/* Overlay per le fasi di implosione e pace */}
       {(chaosStage === 'implosion' || chaosStage === 'peace') && document.body && ReactDOM.createPortal(
-        <div style={{ position: 'fixed', inset: 0, zIndex: 'var(--app-z-tooltip)', backgroundColor: chaosStage === 'implosion' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-surface)', opacity: 0.7, pointerEvents: 'auto' }} data-chaos-stage={chaosStage}></div>,
+        <div style={{ position: 'fixed', inset: 0, zIndex: 'var(--md-sys-z-tooltip)', backgroundColor: chaosStage === 'implosion' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-surface)', opacity: 0.7, pointerEvents: 'auto' }} data-chaos-stage={chaosStage}></div>,
         document.body
       )}
 

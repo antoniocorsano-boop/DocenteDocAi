@@ -215,7 +215,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                             {materials.length === 0 && (
                                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)", opacity: "0.3" }}>
                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)'}}>inventory_2</span>
-                                    <p style={{ color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--app-text-body)' }}>Nessun materiale selezionato</p>
+                                    <p style={{ color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>Nessun materiale selezionato</p>
                                 </div>
                             )}
                         </div>

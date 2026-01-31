@@ -67,7 +67,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 borderRadius: 'var(--md-sys-shape-corner-full)',
                 opacity: 0.1,
                 filter: 'blur(var(--md-sys-blur-40))',
-                zIndex: 'var(--app-z-base)'}} />
+                zIndex: 'var(--md-sys-z-base)'}} />
             <div style={{position: 'absolute',
                 bottom: 'var(--md-sys-spacing-8)',
                 left: 'var(--md-sys-spacing-8)',
@@ -77,7 +77,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 borderRadius: 'var(--md-sys-shape-corner-full)',
                 opacity: 0.08,
                 filter: 'blur(var(--md-sys-blur-30))',
-                zIndex: 'var(--app-z-base)'}} />
+                zIndex: 'var(--md-sys-z-base)'}} />
 
             <div style={{position: 'relative',
                 zIndex: 'var(--md-sys-z-raised)',
@@ -224,7 +224,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                 <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-surface)',
                                     fontWeight: 600,
                                     textTransform: 'uppercase',
-                                    letterSpacing: '0.1em'}}>ORA</M3Typography>
+                                    letterSpacing: 'var(--app-legacy-0_1em)'}}>ORA</M3Typography>
                             </div>
                             {visibleDays.map((day, idx) => (
                                 <div 
@@ -244,7 +244,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                             : 'var(--md-sys-color-on-surface)',
                                         fontWeight: 600,
                                         textTransform: 'uppercase',
-                                        letterSpacing: '0.1em'}}>{day.substring(0, 3)}</M3Typography>
+                                        letterSpacing: 'var(--app-legacy-0_1em)'}}>{day.substring(0, 3)}</M3Typography>
                                 </div>
                             ))}
 

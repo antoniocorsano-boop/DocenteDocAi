@@ -195,7 +195,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                         border: 'none',
                                         backgroundColor: `var(--md-sys-color-${workflow.themeColor})`,
                                         color: `var(--md-sys-color-on-${workflow.themeColor})`,
-                                        fontSize: 'var(--app-text-label)',
+                                        fontSize: 'var(--md-sys-typescale-label-large-font-size)',
                                         fontWeight: 600,
                                         cursor: 'pointer',
                                         display: 'flex',

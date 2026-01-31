@@ -33,7 +33,7 @@ const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
             <span
                 style={{
                     fontFamily: 'Material Symbols Outlined',
-                    fontSize: 'var(--app-text-body)',
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                     color: 'var(--md-sys-color-tertiary)',
                     fontWeight: 'bold',
                     animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`
@@ -43,11 +43,11 @@ const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
             </span>
             <span
                 style={{
-                    fontSize: 'var(--app-text-body)',
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                     fontWeight: '800',
                     color: 'var(--md-sys-color-tertiary)',
                     textTransform: 'uppercase',
-                    letterSpacing: '0.15em'
+                    letterSpacing: 'var(--app-legacy-0_15em)'
                 }}
             >
                 {label}

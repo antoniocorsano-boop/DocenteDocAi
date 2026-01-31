@@ -36,18 +36,18 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
     const cornerMedium = 'var(--md-sys-shape-corner-medium)';
     const durationShort2 = 'var(--md-sys-motion-duration-short2)';
     const easingStandard = 'var(--md-sys-motion-easing-standard)';
-    const bodyMediumFontSize = 'var(--app-text-body)';
-    const bodyMediumFontWeight = 'var(--app-text-body-weight)';
-    const bodyMediumLineHeight = 'var(--app-text-body-line-height)';
-    const titleMediumFontSize = 'var(--app-text-title)';
-    const titleMediumFontWeight = 'var(--app-text-title-weight)';
-    const titleMediumLineHeight = 'var(--app-text-title-line-height)';
-    const bodyLargeFontSize = 'var(--app-text-body)';
-    const bodyLargeFontWeight = 'var(--app-text-body-weight)';
-    const bodyLargeLineHeight = 'var(--app-text-body-line-height)';
-    const bodySmallFontSize = 'var(--app-text-body)';
-    const bodySmallFontWeight = 'var(--app-text-body-weight)';
-    const bodySmallLineHeight = 'var(--app-text-body-line-height)';
+    const bodyMediumFontSize = 'var(--md-sys-typescale-body-large-font-size)';
+    const bodyMediumFontWeight = 'var(--md-sys-typescale-body-large-font-size-weight)';
+    const bodyMediumLineHeight = 'var(--md-sys-typescale-body-large-font-size-line-height)';
+    const titleMediumFontSize = 'var(--md-sys-typescale-title-large-font-size)';
+    const titleMediumFontWeight = 'var(--md-sys-typescale-title-large-font-size-weight)';
+    const titleMediumLineHeight = 'var(--md-sys-typescale-title-large-font-size-line-height)';
+    const bodyLargeFontSize = 'var(--md-sys-typescale-body-large-font-size)';
+    const bodyLargeFontWeight = 'var(--md-sys-typescale-body-large-font-size-weight)';
+    const bodyLargeLineHeight = 'var(--md-sys-typescale-body-large-font-size-line-height)';
+    const bodySmallFontSize = 'var(--md-sys-typescale-body-large-font-size)';
+    const bodySmallFontWeight = 'var(--md-sys-typescale-body-large-font-size-weight)';
+    const bodySmallLineHeight = 'var(--md-sys-typescale-body-large-font-size-line-height)';
     
     return (
         <div

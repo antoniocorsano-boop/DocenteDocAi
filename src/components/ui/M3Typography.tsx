@@ -120,13 +120,13 @@ const M3Typography: React.FC<M3TypographyProps> = ({
       fontSize: 'var(--md-sys-typescale-label-large-font-size)',
       lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
       fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
-      letterSpacing: '0.1em'
+      letterSpacing: 'var(--app-legacy-0_1em)'
     },
     'button-secondary': {
       fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
       lineHeight: 'var(--md-sys-typescale-label-medium-line-height)',
       fontWeight: 'var(--md-sys-typescale-label-medium-font-weight)',
-      letterSpacing: '0.05em'
+      letterSpacing: 'var(--app-legacy-0_05em)'
     }
   };
 

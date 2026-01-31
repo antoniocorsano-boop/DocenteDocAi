@@ -45,7 +45,7 @@ function M3ProgressBar({
     fontFamily: 'var(--md-sys-typescale-body-small-font)',
     fontSize: 'var(--md-sys-typescale-body-small-size)',
     fontWeight: 'var(--md-sys-typescale-body-small-weight)',
-    lineHeight: 'var(--app-text-body-line-height)',
+    lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
     letterSpacing: 'var(--md-sys-typescale-body-small-tracking)'
   };
 

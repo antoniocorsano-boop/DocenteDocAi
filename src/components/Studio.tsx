@@ -301,14 +301,14 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         <div key={entry.id} >
                             <input type="checkbox" id={`studio-file-${entry.id}`} checked={selectedFileIds.includes(entry.id)} onChange={() => handleFileToggle(entry.id)} />
                             <label htmlFor={`studio-file-${entry.id}`} >
-                                {selectedFileIds.includes(entry.id) && <span  style={{ fontSize: 'var(--app-text-title)' }}>check</span>}
+                                {selectedFileIds.includes(entry.id) && <span  style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>check</span>}
                                 <span  style={{color: "var(--md-sys-color-primary)", fontSize: 'var(--md-sys-spacing-4)'}}>{entry.isGenerated ? 'auto_awesome' : 'description'}</span>
                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{entry.fileName}</span>
                             </label>
                         </div>
                     ))}
                     {availableFiles.length === 0 && (
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--app-text-body)', padding: 'var(--md-sys-spacing-8)'}}>Nessun file disponibile in questo set.</p>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-large-font-size)', padding: 'var(--md-sys-spacing-8)'}}>Nessun file disponibile in questo set.</p>
                     )}
                 </div>
             </div>

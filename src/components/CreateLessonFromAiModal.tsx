@@ -233,13 +233,13 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                     border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     transition: 'border-color var(--md-sys-motion-duration-medium4)',
                                     fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
-                                    fontSize: 'var(--app-text-body)',
-                                    lineHeight: 'var(--app-text-body-line-height)',
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                    lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
                                     color: 'var(--md-sys-color-on-surface-variant)',
                                 }}
                             />
                             {matchingCurriculum && !obiettivi && (
-                                <p  style={{fontSize: 'var(--app-text-body)', color: "var(--md-sys-color-primary)", marginTop: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "bold", cursor: "pointer"}} onClick={() => setIsObjectivePickerOpen(true)}>
+                                <p  style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: "var(--md-sys-color-primary)", marginTop: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "bold", cursor: "pointer"}} onClick={() => setIsObjectivePickerOpen(true)}>
                                     <span  style={{  fontSize: "var(--md-sys-spacing-4)"  }}>info</span> 
                                     Curricolo disponibile: {matchingCurriculum.gradeLevel} di {matchingCurriculum.subject}
                                 </p>
@@ -272,7 +272,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                             }}
                                         >
                                             {selectedSlotKey === key && <span  style={{  fontSize: "var(--md-sys-spacing-4)"  }}>check</span>}
-                                            <span  style={{ fontSize: 'var(--app-text-body)' }}>{slot.giorno} {slot.ora}</span>
+                                            <span  style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{slot.giorno} {slot.ora}</span>
                                         </button>
                                     ))}
                                 </div>
@@ -287,7 +287,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                     onClick={handleGenerateAdaptations} 
                                     disabled={isAdaptationsLoading} 
                                     variant="text"
-                                    style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", fontSize: 'var(--app-text-body)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
+                                    style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", fontSize: 'var(--md-sys-typescale-body-large-font-size)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
                                     title="Usa l'AI per suggerire adattamenti basati sui Piani di Inclusione della classe"
                                 >
                                     {isAdaptationsLoading ? (
@@ -311,8 +311,8 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                     border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     transition: 'border-color var(--md-sys-motion-duration-medium4)',
                                     fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
-                                    fontSize: 'var(--app-text-body)',
-                                    lineHeight: 'var(--app-text-body-line-height)',
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                    lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
                                     color: 'var(--md-sys-color-on-surface-variant)',
                                 }}
                             ></TextArea>
@@ -354,7 +354,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                             style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--md-sys-percent-100)", textAlign: "left", padding: 'var(--md-sys-spacing-6)', transition: "color var(--md-sys-motion-duration-medium)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)' }}
                                         >
                                             <span  style={{color: "var(--md-sys-color-primary)",  fontSize: "var(--md-sys-spacing-4)" , transition: "transform var(--md-sys-motion-duration-medium)"}}>add_circle</span>
-                                            <span style={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--app-text-label)', fontWeight: "500" }}>{obj.text}</span>
+                                            <span style={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "500" }}>{obj.text}</span>
                                         </button>
                                     ))}
                                 </div>

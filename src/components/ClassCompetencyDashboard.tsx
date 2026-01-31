@@ -113,13 +113,13 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', display: "flex", borderRadius: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-1)' }}>
                     <button 
                         onClick={() => setSortBy('competency')} 
-                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--app-text-body)', fontWeight: 'var(--app-text-body-weight-medium)', color: 'var(--md-sys-color-on-primary)'}}
+                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight-medium)', color: 'var(--md-sys-color-on-primary)'}}
                     >
                         Alfabetico
                     </button>
                     <button 
                         onClick={() => setSortBy('performance')} 
-                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--app-text-body)', fontWeight: 'var(--app-text-body-weight-medium)', color: 'var(--md-sys-color-on-primary)'}}
+                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight-medium)', color: 'var(--md-sys-color-on-primary)'}}
                     >
                         Rendimento
                     </button>
@@ -139,11 +139,11 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                             <span style={{ color: 'var(--md-sys-color-on-primary-container)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", backgroundColor: "var(--md-sys-color-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-medium)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>
                                                 {summary.competency.codice}
                                             </span>
-                                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--app-text-body)' }}>
+                                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>
                                                 {summary.totalEvaluated}/{classStudents.length} Valutati
                                             </span>
                                         </div>
-                                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--app-text-title)', fontWeight: 'var(--app-text-title-weight)' }}>
+                                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)' }}>
                                             {summary.competency.nome}
                                         </h3>
                                     </div>
@@ -180,13 +180,13 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                             style={{padding: 'var(--md-sys-spacing-8)'}}
                                         >
                                             <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                                                <div style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 'var(--app-text-body-weight-bold)'}}>
+                                                <div style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight-bold)'}}>
                                                     {lc.level.nome.charAt(0)}
                                                 </div>
-                                                <div style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--app-text-display)', fontWeight: 'var(--app-text-display-weight)' }}>{lc.count}</div>
+                                                <div style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-display)', fontWeight: 'var(--md-sys-typescale-display-font-weight)' }}>{lc.count}</div>
                                             </div>
                                             <div style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", marginBottom: 'var(--md-sys-spacing-4)'}}>Studenti</div>
-                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--app-text-body)', lineHeight: 'var(--app-text-body-line-height)' }}>
+                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-body-large-font-size)', lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)' }}>
                                                 {lc.level.descrizione}
                                             </p>
                                         </div>
@@ -200,7 +200,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                 {competencySummaries.length === 0 && (
                     <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.3, marginBottom: 'var(--md-sys-spacing-8)' }}>bar_chart</span>
-                        <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--app-text-title)', fontWeight: 'var(--app-text-title-weight)' }}>Nessun dato</p>
+                        <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)' }}>Nessun dato</p>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Non hai ancora configurato le competenze in Impostazioni.</p>
                     </div>
                 )}

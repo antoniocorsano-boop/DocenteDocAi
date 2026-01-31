@@ -105,7 +105,7 @@ const ManualSection: React.FC<ManualSectionProps> = ({
                     <span
                         style={{
                             fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--app-text-body)',
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             color: color.onPrimary
                         }}
                     >

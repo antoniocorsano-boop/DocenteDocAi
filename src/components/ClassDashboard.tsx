@@ -55,7 +55,7 @@ const StudentDashboardItem = React.memo(({ student, evaluations, onClick }: Stud
                         fontFamily: 'var(--md-sys-typescale-body-small-font)',
                         fontSize: 'var(--md-sys-typescale-body-small-size)',
                         fontWeight: 'var(--md-sys-typescale-body-small-weight)',
-                        lineHeight: 'var(--app-text-body-line-height)',
+                        lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
                         color: trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)'
                     }}>
                         {trend === 'up' ? 'In crescita' : trend === 'down' ? 'In calo' : 'Stabile'}
@@ -149,7 +149,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             fontFamily: 'var(--md-sys-typescale-headline-small-font)',
                                             fontSize: 'var(--md-sys-typescale-headline-small-size)',
                                             fontWeight: 'var(--md-sys-typescale-headline-small-weight)',
-                                            lineHeight: 'var(--app-text-title-line-height)'
+                                            lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)'
                                         }}>Nessuna lezione programmata</h2>
                                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Puoi avviare una lezione libera o un'attività improvvisata.</p>
                                     </div>
@@ -172,7 +172,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                         <div >
-                                            <span style={{ fontFamily: 'Material Symbols Outlined', fontWeight: 400, fontStyle: 'normal', fontSize: 'var(--icon-size-medium)', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle' }}>mail</span>
+                                            <span style={{ fontFamily: 'Material Symbols Outlined', fontWeight: 400, fontStyle: 'normal', fontSize: 'var(--md-sys-icon-size-medium)', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle' }}>mail</span>
                                             <span >
                                                 {inboxCount}
                                             </span>
@@ -183,7 +183,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                                 fontFamily: 'var(--md-sys-typescale-title-large-font)',
                                                 fontSize: 'var(--md-sys-typescale-title-large-size)',
                                                 fontWeight: 'var(--md-sys-typescale-title-large-weight)',
-                                                lineHeight: 'var(--app-text-title-line-height)'
+                                                lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)'
                                             }}>Inbox Compiti</h3>
                                             <p style={{
                                                 color: 'var(--md-sys-color-on-tertiary-container)',
@@ -191,12 +191,12 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                                 fontFamily: 'var(--md-sys-typescale-body-medium-font)',
                                                 fontSize: 'var(--md-sys-typescale-body-medium-size)',
                                                 fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
-                                                lineHeight: 'var(--app-text-body-line-height)'
+                                                lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)'
                                             }}>{inboxCount} elaborati consegnati da valutare.</p>
                                         </div>
                                     </div>
                                     <div >
-                                        <span style={{ fontFamily: 'Material Symbols Outlined', fontWeight: 400, fontStyle: 'normal', fontSize: 'var(--icon-size-medium)', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle' }}>arrow_forward</span>
+                                        <span style={{ fontFamily: 'Material Symbols Outlined', fontWeight: 400, fontStyle: 'normal', fontSize: 'var(--md-sys-icon-size-medium)', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle' }}>arrow_forward</span>
                                     </div>
                                 </div>
                             </M3Card>
@@ -208,7 +208,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 1. SEZIONE REGISTRO & DIDATTICA */}
                         <section>
                             <div >
-                                <span style={{ fontFamily: 'Material Symbols Outlined', fontWeight: 400, fontStyle: 'normal', fontSize: 'var(--icon-size-medium)', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle', color: 'var(--md-sys-color-primary)' }}>auto_stories</span>
+                                <span style={{ fontFamily: 'Material Symbols Outlined', fontWeight: 400, fontStyle: 'normal', fontSize: 'var(--md-sys-icon-size-medium)', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle', color: 'var(--md-sys-color-primary)' }}>auto_stories</span>
                                 <h3 >Registro & Didattica</h3>
                             </div>
                             <div >
@@ -371,7 +371,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             fontFamily: 'var(--md-sys-typescale-body-medium-font)',
                                             fontSize: 'var(--md-sys-typescale-body-medium-size)',
                                             fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
-                                            lineHeight: 'var(--app-text-body-line-height)',
+                                            lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
                                             color: 'var(--md-sys-color-on-surface-variant)'
                                         }}>Nessuno studente in elenco.</p>
                                     </div>

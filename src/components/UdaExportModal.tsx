@@ -157,10 +157,10 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                             style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-8)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', textAlign: "left", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)" }}
                         >
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: sys.colors.on-primaryContainer , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--md-sys-motion-duration-medium)"}}>
-                                <span  style={{ fontSize: "var(--app-text-display)" }}>picture_as_pdf</span>
+                                <span  style={{ fontSize: "var(--md-sys-typescale-display)" }}>picture_as_pdf</span>
                             </div>
                             <div>
-                                <p  style={{ fontWeight: "bold", fontSize: "var(--app-text-body)" }}>Esporta in PDF</p>
+                                <p  style={{ fontWeight: "bold", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Esporta in PDF</p>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Ideale per stampa e archiviazione</p>
                             </div>
                         </button>
@@ -171,10 +171,10 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                             style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-8)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', textAlign: "left", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)" }}
                         >
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: sys.colors.on-secondary-container, width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--md-sys-motion-duration-medium)" }}>
-                                <span  style={{ fontSize: "var(--app-text-display)" }}>description</span>
+                                <span  style={{ fontSize: "var(--md-sys-typescale-display)" }}>description</span>
                             </div>
                             <div>
-                                <p  style={{ fontWeight: "bold", fontSize: "var(--app-text-body)" }}>Esporta in Word</p>
+                                <p  style={{ fontWeight: "bold", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Esporta in Word</p>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Per modifiche manuali successive</p>
                             </div>
                         </button>
@@ -185,10 +185,10 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                             style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-8)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', textAlign: "left", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}
                         >
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: sys.colors.on-tertiary-container , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--md-sys-motion-duration-medium)"}}>
-                                <span  style={{ fontSize: "var(--app-text-display)" }}>auto_awesome</span>
+                                <span  style={{ fontSize: "var(--md-sys-typescale-display)" }}>auto_awesome</span>
                             </div>
                             <div>
-                                <p  style={{ fontWeight: "bold", fontSize: "var(--app-text-body)" }}>Report con AI</p>
+                                <p  style={{ fontWeight: "bold", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Report con AI</p>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Genera analisi e suggerimenti didattici</p>
                             </div>
                         </button>

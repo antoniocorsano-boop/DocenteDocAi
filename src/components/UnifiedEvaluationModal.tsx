@@ -79,7 +79,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                             <span style={{ color: 'var(--md-sys-color-on-primary)' }}>{getTestTypeIcon(prova.tipo)}</span>
                         </div>
                         <div style={{ flexGrow: "1" }}>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 'var(--md-sys-spacing-8)', opacity: "0.6"}}>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--app-legacy-0_1em)", marginBottom: 'var(--md-sys-spacing-8)', opacity: "0.6"}}>
                                 {student.cognome} {student.nome} • {prova.materia}
                             </p>
                             <SelectField
@@ -100,7 +100,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                             <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) var(--md-sys-percent-10), transparent)',  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center" }}>
                                 <span  style={{color: "var(--md-sys-color-primary)", fontSize: 'var(--md-sys-spacing-4)'}}>verified</span>
                             </div>
-                            <h3  style={{ fontWeight: "900", letterSpacing: "-0.005em" }}>Competenze Valutate</h3>
+                            <h3  style={{ fontWeight: "900", letterSpacing: "-var(--app-legacy-0_005em)" }}>Competenze Valutate</h3>
                         </div>
 
                         {relevantCompetencies.length > 0 ? (
@@ -151,7 +151,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                                               fontWeight: 900,
                                                               display: 'block',
                                                             }}>{level.nome}</span>
-                                                            <p style={{fontSize: 'var(--app-text-body)', fontWeight: 'var(--app-text-body-weight)'}}>{level.descrizione}</p>
+                                                            <p style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)'}}>{level.descrizione}</p>
                                                         </div>
                                                     </label>
                                                 );

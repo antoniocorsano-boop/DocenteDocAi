@@ -208,8 +208,8 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
                 color: isRecording 
                     ? 'var(--md-sys-color-on-error-container)' 
                     : 'var(--md-sys-color-on-secondary-container)',
-                fontSize: 'var(--app-text-label)',
-                fontWeight: 'var(--app-text-label-weight)',
+                fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                fontWeight: 'var(--md-sys-typescale-label-large-font-size-weight)',
                 cursor: isProcessing ? 'not-allowed' : 'pointer',
                 opacity: isProcessing ? 0.6 : 1,
                 transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
@@ -250,9 +250,9 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
                     transition: 'transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'}}>{isRecording ? 'mic_off' : 'mic'}</span>
             )}
             {!compact && !isProcessing && (
-                <span style={{fontSize: 'var(--app-text-label)',
+                <span style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)',
                     fontWeight: 600,
-                    letterSpacing: '0.1em',
+                    letterSpacing: 'var(--app-legacy-0_1em)',
                     textTransform: 'uppercase'}}>{isRecording ? 'Stop' : 'Detta Nota'}</span>
             )}
         </button>

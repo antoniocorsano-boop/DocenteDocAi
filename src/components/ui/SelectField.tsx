@@ -66,10 +66,10 @@ const SelectField: React.FC<SelectFieldProps> = ({
                         border: 'none',
                         backgroundColor: 'transparent',
                         color: 'var(--md-sys-color-on-surface)',
-                        fontSize: 'var(--app-text-body)',
+                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                         fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
-                        fontWeight: 'var(--app-text-body-weight)',
-                        lineHeight: 'var(--app-text-body-line-height)',
+                        fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)',
+                        lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
                         letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)',
                         outline: 'none',
                         appearance: 'none',
@@ -121,7 +121,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     <span
                         style={{fontFamily: 'Material Symbols Outlined',
                             color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--app-text-body)'}}
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}
                         aria-hidden="true"
                     >
                         error

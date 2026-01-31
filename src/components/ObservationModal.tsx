@@ -37,7 +37,7 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
                     textTransform: 'uppercase'
                 }}>{label}</span>
                 <span style={{
-                    fontSize: 'var(--app-text-body)',
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                     fontWeight: '900',
                     color: 'var(--md-sys-color-primary)'
                 }}>{value}/4</span>

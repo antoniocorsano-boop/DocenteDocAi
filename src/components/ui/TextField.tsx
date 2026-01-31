@@ -106,7 +106,7 @@ const TextField: React.FC<TextFieldProps> = ({
                                 ? 'var(--md-sys-color-primary)'
                                 : 'var(--md-sys-color-on-surface-variant)',
                             pointerEvents: 'none',
-                            zIndex: 'var(--app-z-tooltip)' // MD3 z-index token
+                            zIndex: 'var(--md-sys-z-tooltip)' // MD3 z-index token
                         }}
                     >
                         {label}
@@ -120,10 +120,10 @@ const TextField: React.FC<TextFieldProps> = ({
                             border: 'none',
                             backgroundColor: 'transparent',
                             color: 'var(--md-sys-color-on-surface)',
-                            fontSize: 'var(--app-text-body)',
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
-                            fontWeight: 'var(--app-text-body-weight)',
-                            lineHeight: 'var(--app-text-body-line-height)',
+                            fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)',
+                            lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
                             letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)',
                             outline: 'none',
                             paddingTop: isLabelFloating ? 'var(--md-sys-spacing-2)' : 0,
@@ -168,7 +168,7 @@ const TextField: React.FC<TextFieldProps> = ({
                         style={{
                             fontFamily: 'Material Symbols Outlined',
                             color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--app-text-body)'
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)'
                         }}
                         aria-hidden="true"
                     >

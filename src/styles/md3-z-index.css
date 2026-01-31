@@ -104,6 +104,6 @@
    }
    
    ❌ FORBIDDEN (TypeScript):
-   style={{ zIndex: 'var(--app-z-tooltip)' }}
+   style={{ zIndex: 'var(--md-sys-z-tooltip)' }}
    
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */

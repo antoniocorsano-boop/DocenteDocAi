@@ -271,7 +271,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                 justifyContent: 'center',
                                 width: 'var(--md-sys-spacing-7)',
                                 height: 'var(--md-sys-spacing-7)',
-                                fontSize: 'var(--typography-body-medium-fontSize)',
+                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                 fontWeight: isToday ? 700 : 500,
                                 color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
                                 background: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
@@ -333,7 +333,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                             borderRight: i < 6 ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' : 'none'
                         }}>
                             <div style={{
-                                fontSize: 'var(--typography-label-small-fontSize)',
+                                fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                                 fontWeight: 700,
                                 color: 'var(--md-sys-color-on-surface-variant)',
                                 textTransform: 'uppercase',
@@ -343,7 +343,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                 {DAYS_SHORT[i]}
                             </div>
                             <div style={{
-                                fontSize: 'var(--typography-body-medium-fontSize)',
+                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                 fontWeight: 500,
                                 color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
                                 background: isToday ? 'var(--md-sys-color-primary)' : 'transparent',

@@ -105,7 +105,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                 <div style={{display: "flex", gap: 'var(--md-sys-spacing-16)'}}>
                   <div style={{ flex: 1 }}>
                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-medium)', padding: 'var(--md-sys-spacing-8)'}}>
-                      <span style={{color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--app-text-title)'}}>search</span>
+                      <span style={{color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-title-large-font-size)'}}>search</span>
                       <input
                         type="text"
                         placeholder="Cerca template..."
@@ -198,7 +198,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                                 </M3Typography>
                               )}
 
-                              <div style={{fontSize: 'var(--app-text-body)', color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-4)'}}>
+                              <div style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-4)'}}>
                                 {new Date(template.createdAt).toLocaleDateString('it-IT')}
                               </div>
 

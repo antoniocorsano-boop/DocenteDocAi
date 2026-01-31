@@ -31,19 +31,19 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
         return {
           width: 'var(--md-sys-spacing-8)',
           height: 'var(--md-sys-spacing-8)',
-          fontSize: 'var(--app-text-label)'
+          fontSize: 'var(--md-sys-typescale-label-large-font-size)'
         };
       case 'large':
         return {
           width: 'var(--md-sys-spacing-12)',
           height: 'var(--md-sys-spacing-12)',
-          fontSize: 'var(--app-text-title)'
+          fontSize: 'var(--md-sys-typescale-title-large-font-size)'
         };
       default: // medium
         return {
           width: 'var(--md-sys-spacing-10)',
           height: 'var(--md-sys-spacing-10)',
-          fontSize: 'var(--app-text-label)'
+          fontSize: 'var(--md-sys-typescale-label-large-font-size)'
         };
     }
   };
@@ -89,8 +89,8 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
     opacity: disabled ? 0.38 : (hovered && (variant === 'filled' || variant === 'tonal') ? 0.8 : 1),
     pointerEvents: disabled ? 'none' : 'auto',
     fontFamily: 'var(--md-sys-typescale-font-family)',
-    fontWeight: 'var(--app-text-label-weight)',
-    lineHeight: 'var(--app-text-label-line-height)',
+    fontWeight: 'var(--md-sys-typescale-label-large-font-size-weight)',
+    lineHeight: 'var(--md-sys-typescale-label-large-font-size-line-height)',
     letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
     ...getSizeStyles(),
     ...getVariantStyles()

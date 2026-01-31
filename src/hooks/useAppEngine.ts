@@ -565,7 +565,7 @@ export const useAppEngine = () => {
             startPos: 0,
             width: 100,
             color: 'var(--md-sys-color-primary)',
-            borderColor: 'var(--sys-outline)',
+            borderColor: 'var(--md-sys-color-outline)',
             textColor: 'var(--md-sys-color-on-primary)',
         };
         setUda(prev => [...prev, newUda]); // Use destructured action

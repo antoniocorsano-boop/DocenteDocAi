@@ -198,10 +198,10 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             >
                                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
                                     <div
-                                        style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-1)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-primary-container)', color: 'var(--md-sys-color-on-primary-container)', fontWeight: 900, fontSize: 'var(--app-text-label)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)' }}
+                                        style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-1)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-primary-container)', color: 'var(--md-sys-color-on-primary-container)', fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)' }}
                                     >
-                                        <span style={{ fontSize: 'var(--app-text-title)' }}>{getTestTypeIcon(p.tipo)}</span>
-                                        <M3Typography variant="label-small" style={{ fontWeight: 900, fontSize: 'var(--app-text-label)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', color: 'var(--md-sys-color-on-primary-container)' }}>{new Date(p.data).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' })}</M3Typography>
+                                        <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>{getTestTypeIcon(p.tipo)}</span>
+                                        <M3Typography variant="label-small" style={{ fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', color: 'var(--md-sys-color-on-primary-container)' }}>{new Date(p.data).toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit' })}</M3Typography>
                                     </div>
                                     <M3Typography
                                         variant="body-small"
@@ -252,7 +252,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                 <td style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface-variant)' }}>
                                     {performance.trend && (
                                         <span
-                                            style={{ fontSize: 'var(--app-text-title)', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}
+                                            style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}
                                         >
                                             {trendIcon}
                                         </span>
@@ -272,13 +272,13 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                         >
                                             {voteValue ? (
                                                 <div
-                                                    style={{ display: 'inline-block', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 900, fontSize: 'var(--app-text-label)', textAlign: 'center', backgroundColor: isNegative ? 'var(--md-sys-color-error-container)' : parseFloat(voteValue) >= 9 ? 'var(--md-sys-color-tertiary-container)' : parseFloat(voteValue) >= 7 ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-secondary-container)', color: isNegative ? 'var(--md-sys-color-on-error-container)' : parseFloat(voteValue) >= 9 ? 'var(--md-sys-color-on-tertiary-container)' : parseFloat(voteValue) >= 7 ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-secondary-container)' }}
+                                                    style={{ display: 'inline-block', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', textAlign: 'center', backgroundColor: isNegative ? 'var(--md-sys-color-error-container)' : parseFloat(voteValue) >= 9 ? 'var(--md-sys-color-tertiary-container)' : parseFloat(voteValue) >= 7 ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-secondary-container)', color: isNegative ? 'var(--md-sys-color-on-error-container)' : parseFloat(voteValue) >= 9 ? 'var(--md-sys-color-on-tertiary-container)' : parseFloat(voteValue) >= 7 ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-secondary-container)' }}
                                                 >
                                                     {voteValue}
                                                 </div>
                                             ) : (
                                                 <div
-                                                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-spacing-6)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', cursor: 'pointer', fontSize: 'var(--app-text-label)' }}
+                                                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-spacing-6)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', cursor: 'pointer', fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}
                                                 >
                                                     <span>add</span>
                                                 </div>
@@ -330,21 +330,21 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                 </M3Typography>
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-2)' }}>
                                     <div
-                                        style={{ display: 'inline-block', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 900, fontSize: 'var(--app-text-label)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', backgroundColor: isInsufficient ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)', color: isInsufficient ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)' }}
+                                        style={{ display: 'inline-block', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', backgroundColor: isInsufficient ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)', color: isInsufficient ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)' }}
                                     >
                                         Media: {performance.grade || 'N/D'}
                                     </div>
                                     {performance.trend && (
                                         <div
-                                            style={{ display: 'inline-block', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 900, fontSize: 'var(--app-text-label)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', backgroundColor: performance.trend === 'up' ? 'var(--md-sys-color-tertiary-container)' : performance.trend === 'down' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-secondary-container)', color: performance.trend === 'up' ? 'var(--md-sys-color-on-tertiary-container)' : performance.trend === 'down' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-secondary-container)' }}
+                                            style={{ display: 'inline-block', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', backgroundColor: performance.trend === 'up' ? 'var(--md-sys-color-tertiary-container)' : performance.trend === 'down' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-secondary-container)', color: performance.trend === 'up' ? 'var(--md-sys-color-on-tertiary-container)' : performance.trend === 'down' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-secondary-container)' }}
                                         >
-                                            <span style={{ fontSize: 'var(--app-text-title)' }}>{trendIcon}</span>
+                                            <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>{trendIcon}</span>
                                             {performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile'}
                                         </div>
                                     )}
                                 </div>
                             </div>
-                            <span style={{ fontSize: 'var(--app-text-title)', color: 'var(--md-sys-color-on-surface-variant)' }}>chevron_right</span>
+                            <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>chevron_right</span>
                         </div>
                     </div>
                 );
@@ -367,7 +367,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                         style={{ padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-error-container)', border: 'var(--md-sys-border-width-medium) solid var(--md-sys-color-error)' }}
                     >
                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)' }}>
-                            <span style={{ color: 'var(--md-sys-color-error)', fontSize: 'var(--app-text-title)' }}>warning</span>
+                            <span style={{ color: 'var(--md-sys-color-error)', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>warning</span>
                         </div>
 
                         <div style={{ paddingTop: 'var(--md-sys-spacing-3)', borderTop: 'var(--md-sys-spacing-0) solid var(--md-sys-color-shadow)', marginTop: 'var(--md-sys-spacing-3)' }}>
@@ -386,7 +386,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             </div>
 
                             <div
-                                style={{ display: 'inline-block', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 900, fontSize: 'var(--app-text-label)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', backgroundColor: 'var(--md-sys-color-surface-container-low)', color: 'var(--md-sys-color-on-surface)', marginBottom: 'var(--md-sys-spacing-3)' }}
+                                style={{ display: 'inline-block', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', backgroundColor: 'var(--md-sys-color-surface-container-low)', color: 'var(--md-sys-color-on-surface)', marginBottom: 'var(--md-sys-spacing-3)' }}
                             >
                                 Media insufficiente: {grade}
                             </div>
@@ -398,13 +398,13 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-3)' }}>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); onOpenInclusionPlanEditor(student); }}
-                                    style={{ flex: 1, padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-error)', color: 'var(--md-sys-color-on-error)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', fontSize: 'var(--app-text-label)', border: 'none', cursor: 'pointer', transition: 'background-color var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-standard)' }}
+                                    style={{ flex: 1, padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-error)', color: 'var(--md-sys-color-on-error)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', border: 'none', cursor: 'pointer', transition: 'background-color var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-standard)' }}
                                 >
                                     Piano Inclusione
                                 </button>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); setViewingStudent(student); }}
-                                    style={{ flex: 1, padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-surface-container-highest)', color: 'var(--md-sys-color-on-surface)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', fontSize: 'var(--app-text-label)', border: 'none', cursor: 'pointer', transition: 'background-color var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-standard)' }}
+                                    style={{ flex: 1, padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-surface-container-highest)', color: 'var(--md-sys-color-on-surface)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', border: 'none', cursor: 'pointer', transition: 'background-color var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-standard)' }}
                                 >
                                     Analizza
                                 </button>
@@ -414,9 +414,9 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                 );
             }) : (
                 <div style={{ padding: 'var(--md-sys-spacing-8)', textAlign: 'center', color: 'var(--md-sys-color-on-surface-variant)' }}>
-                    <span style={{ fontSize: 'var(--app-text-display)', color: 'var(--md-sys-color-tertiary)', marginBottom: 'var(--md-sys-spacing-4)', display: 'block' }}>verified_user</span>
+                    <span style={{ fontSize: 'var(--md-sys-typescale-display)', color: 'var(--md-sys-color-tertiary)', marginBottom: 'var(--md-sys-spacing-4)', display: 'block' }}>verified_user</span>
                     <M3Typography variant="headline-small" style={{ fontWeight: 900, color: 'var(--md-sys-color-on-surface)', marginBottom: 'var(--md-sys-spacing-2)' }}>Nessuna criticità</M3Typography>
-                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--app-text-body)' }}>
+                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>
                         Tutti gli studenti mantengono una media sufficiente.
                     </M3Typography>
                 </div>
@@ -442,12 +442,12 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     <div
                         style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}
                     >
-                        <span style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--app-text-title)' }}>class</span>
+                        <span style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>class</span>
                         <select
                             id="class-select"
                             value={selectedClass}
                             onChange={e => setSelectedClass(e.target.value)}
-                            style={{ color: 'var(--md-sys-color-on-surface)', backgroundColor: 'transparent', fontWeight: 900, fontSize: 'var(--app-text-body)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', border: 'none', cursor: 'pointer' }}
+                            style={{ color: 'var(--md-sys-color-on-surface)', backgroundColor: 'transparent', fontWeight: 900, fontSize: 'var(--md-sys-typescale-body-large-font-size)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', border: 'none', cursor: 'pointer' }}
                         >
                             {userClasses.map(c => (
                                 <option
@@ -466,14 +466,14 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             onClick={() => setIsAddProvaModalOpen(true)}
                             style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', border: 'none', cursor: 'pointer' }}
                         >
-                            <span style={{ fontSize: 'var(--app-text-title)' }}>add</span>
+                            <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>add</span>
                             Nuova Prova
                         </button>
                         <button
                             onClick={() => setIsExportModalOpen(true)}
                             style={{ backgroundColor: 'var(--md-sys-color-surface-container-highest)', color: 'var(--md-sys-color-on-surface)', borderRadius: 'var(--md-sys-shape-corner-large)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', border: 'none', cursor: 'pointer' }}
                         >
-                            <span style={{ fontSize: 'var(--app-text-title)' }}>download</span>
+                            <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>download</span>
                             Esporta
                         </button>
                     </div>
@@ -506,9 +506,9 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id as ViewTab)}
-                                    style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', fontWeight: 900, fontSize: 'var(--app-text-label)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', backgroundColor: activeTab === tab.id ? 'var(--md-sys-color-primary)' : 'transparent', color: activeTab === tab.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)', border: 'none', cursor: 'pointer', position: 'relative' }}
+                                    style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', backgroundColor: activeTab === tab.id ? 'var(--md-sys-color-primary)' : 'transparent', color: activeTab === tab.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)', border: 'none', cursor: 'pointer', position: 'relative' }}
                                 >
-                                    <span style={{ fontSize: 'var(--app-text-title)' }}>{tab.icon}</span>
+                                    <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>{tab.icon}</span>
                                     {tab.label}
                                     {tab.badge && (
                                         <div
@@ -521,7 +521,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
-                                                fontSize: 'var(--app-text-body)',
+                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                 fontWeight: 'bold',
                                                 position: 'absolute',
                                                 top: 'calc(-1 * var(--md-sys-spacing-2))',

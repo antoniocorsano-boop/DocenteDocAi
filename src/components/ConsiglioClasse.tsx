@@ -439,7 +439,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 size="small"
                                 
                             >
-                                {expandedColumns[key as keyof typeof expandedColumns] && <span  style={{ fontSize: 'var(--app-text-label)' }}>check</span>}
+                                {expandedColumns[key as keyof typeof expandedColumns] && <span  style={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>check</span>}
                                 {key.charAt(0).toUpperCase() + key.slice(1)}
                             </M3Button>
                         ))}

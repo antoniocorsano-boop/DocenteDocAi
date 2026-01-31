@@ -45,19 +45,19 @@ const EmptyState: React.FC<EmptyStateProps> = ({
         }}>
             <span style={{
                 fontFamily: 'Material Symbols Outlined',
-                fontSize: 'var(--app-text-display)',
+                fontSize: 'var(--md-sys-typescale-display)',
                 fontWeight: 300
             }}>{icon}</span>
         </div>
         <h3 style={{
-            fontSize: 'var(--app-text-title)',
+            fontSize: 'var(--md-sys-typescale-title-large-font-size)',
             fontFamily: 'var(--md-sys-typescale-font-family)',
             color: 'var(--md-sys-color-on-surface)',
             fontWeight: 800,
-            letterSpacing: '-0.025em'
+            letterSpacing: '-var(--app-legacy-0_025em)'
         }}>{title}</h3>
         <p style={{
-            fontSize: 'var(--app-text-body)',
+            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
             fontFamily: 'var(--md-sys-typescale-font-family)',
             color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-state-opacity-60), transparent)`,
             maxWidth: 'var(--md-sys-spacing-16)',

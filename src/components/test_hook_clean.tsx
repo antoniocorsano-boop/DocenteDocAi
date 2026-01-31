@@ -16,7 +16,7 @@ export const TestCleanComponent: React.FC = () => {
         style={{
           color: 'var(--md-sys-color-on-surface)',
           fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
-          fontSize: 'var(--app-text-body)'
+          fontSize: 'var(--md-sys-typescale-body-large-font-size)'
         }}
       >
         This should pass ESLint checks

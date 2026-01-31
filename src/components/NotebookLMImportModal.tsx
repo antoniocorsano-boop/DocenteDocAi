@@ -111,7 +111,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
             <div style={{ backgroundColor: sys.colors.primary/10 , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
               <span style={{ color: 'var(--md-sys-color-primary)' }}>cloud_off</span>
             </div>
-            <h3 style={{fontSize: "var(--app-text-title)", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Connessione Google Richiesta</h3>
+            <h3 style={{fontSize: "var(--md-sys-typescale-title-large-font-size)", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Connessione Google Richiesta</h3>
             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>
               Per importare i tuoi materiali da NotebookLM, devi prima connettere il tuo account Google.
             </p>

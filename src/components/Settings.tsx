@@ -104,14 +104,14 @@ const SettingsGroup: React.FC<{
                         boxShadow: 'var(--md-sys-elevation-level1)'}}>
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--app-text-body)'
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)'
                         }}>{icon}</span>
                     </div>
                     <div style={{ minWidth: 0, flex: 1 }}>
                         <M3Typography variant="title-large" style={{color: 'var(--md-sys-color-on-surface)',
                             fontWeight: 900,
                             margin: 0,
-                            letterSpacing: '-0.025em'}}>{title}</M3Typography>
+                            letterSpacing: 'var(--md-sys-typescale-tracking-xxxxs, -0.025em)'}}>{title}</M3Typography>
                         {subtitle && <M3Typography variant="body-small" style={{color: 'var(--md-sys-color-on-surface-variant)',
                             margin: 0,
                             opacity: 0.7}}>{subtitle}</M3Typography>}
@@ -119,7 +119,7 @@ const SettingsGroup: React.FC<{
                 </div>
                 <span style={{fontFamily: 'Material Symbols Outlined',
                     color: 'var(--md-sys-color-on-surface-variant)',
-                    fontSize: 'var(--app-text-body)',
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                     transition: `transform var(--md-sys-motion-duration-short1) var(--md-sys-motion-easing-standard)`,
                     transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'}}>expand_more</span>
             </summary>
@@ -425,13 +425,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             }}>
                                 <span style={{
                                     fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-title)',
+                                    fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                                     color: 'var(--md-sys-color-primary)'
                                 }}>dashboard_customize</span>
                                 <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                                     fontWeight: 900,
                                     textTransform: 'uppercase',
-                                    letterSpacing: '0.15em'}}>Modalità Interfaccia</M3Typography>
+                                    letterSpacing: 'var(--md-sys-typescale-tracking-xs, 0.15em)'}}>Modalità Interfaccia</M3Typography>
                             </div>
                             <TabGroup
                                 tabs={[
@@ -457,12 +457,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-4)'}}>
                                 <span style={{fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-body)',
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     color: 'var(--md-sys-color-primary)'}}>auto_awesome</span>
                                 <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                                     fontWeight: 900,
                                     textTransform: 'uppercase',
-                                    letterSpacing: '0.15em'}}>Ecosistema Visivo</M3Typography>
+                                    letterSpacing: 'var(--md-sys-typescale-tracking-xs, 0.15em)'}}>Ecosistema Visivo</M3Typography>
                             </div>
                             <div style={{display: 'grid',
                                 gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-sizing-grid-large), var(--md-sys-grid-fr-1)))',
@@ -495,7 +495,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             textAlign: 'center'}}
                                     >
                                         <span style={{fontFamily: 'Material Symbols Outlined',
-                                            fontSize: 'var(--app-text-body)',
+                                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                             color: themeState.visualStyle === style.id
                                                 ? 'var(--md-sys-color-on-primary-container)'
                                                 : 'var(--md-sys-color-on-surface-variant)'}}>{style.icon}</span>
@@ -522,12 +522,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-4)'}}>
                                 <span style={{fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-body)',
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     color: 'var(--md-sys-color-primary)'}}>palette</span>
                                 <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                                     fontWeight: 900,
                                     textTransform: 'uppercase',
-                                    letterSpacing: '0.15em'}}>Tema & Colori</M3Typography>
+                                    letterSpacing: 'var(--md-sys-typescale-tracking-xs, 0.15em)'}}>Tema & Colori</M3Typography>
                             </div>
 
                             <div style={{marginBottom: 'var(--md-sys-spacing-4)'}}>
@@ -549,7 +549,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         colors={{
                                             primary: theme.colors.primary ?? 'var(--md-sys-color-primary)',
                                             secondary: theme.colors.secondary ?? 'var(--md-sys-color-secondary)',
-                                            tertiary: theme.colors.tertiary ?? 'var(--sys-tertiary)'
+                                            tertiary: theme.colors.tertiary ?? 'var(--md-sys-color-tertiary)'
                                         }}
                                         isSelected={themeState.customizationName === theme.name}
                                         onClick={() => onSaveTheme({ ...themeState, customizationName: theme.name, customColors: theme.colors })} />
@@ -563,12 +563,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     gap: 'var(--md-sys-spacing-4)',
                                     marginBottom: 'var(--md-sys-spacing-4)'}}>
                                     <span style={{fontFamily: 'Material Symbols Outlined',
-                                        fontSize: 'var(--app-text-body)',
+                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                         color: 'var(--md-sys-color-primary)'}}>magic_button</span>
                                     <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                                         fontWeight: 900,
                                         textTransform: 'uppercase',
-                                        letterSpacing: '0.15em'}}>Generatore AI</M3Typography>
+                                        letterSpacing: 'var(--md-sys-typescale-tracking-xs, 0.15em)'}}>Generatore AI</M3Typography>
                                 </div>
                                 <div style={{display: 'flex',
                                     gap: 'var(--md-sys-spacing-4)',
@@ -613,13 +613,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 paddingBottom: 'var(--md-sys-spacing-4)',
                                 borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
                                 <span style={{fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-body)',
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     color: 'var(--md-sys-color-primary)'}}>tune</span>
                                 <M3Typography
                                     variant="label-small"
                                     style={{color: 'var(--md-sys-color-primary)',
                                         fontWeight: 900,
-                                        letterSpacing: '0.1em',
+                                        letterSpacing: 'var(--md-sys-typescale-tracking-xxs, 0.1em)',
                                         textTransform: 'uppercase'}}
                                 >
                                     Parametri Strutturali
@@ -770,13 +770,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 gap: 'var(--md-sys-spacing-4)',
                                 marginBottom: 'var(--md-sys-spacing-4)'}}>
                                 <span style={{fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-body)',
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     color: 'var(--md-sys-color-primary)'}}>import_export</span>
                                 <M3Typography
                                     variant="label-small"
                                     style={{color: 'var(--md-sys-color-primary)',
                                         fontWeight: 900,
-                                        letterSpacing: '0.1em',
+                                        letterSpacing: 'var(--md-sys-typescale-tracking-xxs, 0.1em)',
                                         textTransform: 'uppercase'}}
                                 >
                                     Backup Tema
@@ -799,7 +799,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 >
                                     <span style={{fontFamily: 'Material Symbols Outlined',
                                         marginRight: 'var(--md-sys-spacing-4)',
-                                        fontSize: 'var(--app-text-body)'}}>download</span>
+                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>download</span>
                                     ESPORTA TEMA
                                 </M3Button>
                                 <div style={{
@@ -825,7 +825,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         >
                                             <span style={{fontFamily: 'Material Symbols Outlined',
                                                 marginRight: 'var(--md-sys-spacing-4)',
-                                                fontSize: 'var(--app-text-body)'}}>upload</span>
+                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>upload</span>
                                             IMPORTA TEMA
                                         </M3Button>
                                     </label>
@@ -841,12 +841,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-4)'}}>
                                 <span style={{fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-body)',
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     color: 'var(--md-sys-color-primary)'}}>refresh</span>
                                 <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                                     fontWeight: 900,
                                     textTransform: 'uppercase',
-                                    letterSpacing: '0.15em'}}>Manutenzione Brand</M3Typography>
+                                    letterSpacing: 'var(--md-sys-typescale-tracking-xs, 0.15em)'}}>Manutenzione Brand</M3Typography>
                             </div>
                             <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)',
                                 margin: 0}}>Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</M3Typography>
@@ -868,12 +868,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-4)'}}>
                                 <span style={{fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-body)',
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     color: 'var(--md-sys-color-primary)'}}>tune</span>
                                 <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                                     fontWeight: 900,
                                     textTransform: 'uppercase',
-                                    letterSpacing: '0.15em'}}>M3 Theme Panel</M3Typography>
+                                    letterSpacing: 'var(--md-sys-typescale-tracking-xs, 0.15em)'}}>M3 Theme Panel</M3Typography>
                             </div>
                             <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)',
                                 margin: 0}}>Personalizza i token M3 per colori, tipografia, spacing e motion con anteprima live.</M3Typography>
@@ -943,13 +943,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             gap: 'var(--md-sys-spacing-4)',
                             marginBottom: 'var(--md-sys-spacing-4)'}}>
                             <span style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-body)',
+                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 color: 'var(--md-sys-color-secondary)'}}>smart_toy</span>
                             <M3Typography
                                 variant="label-small"
                                 style={{color: 'var(--md-sys-color-secondary)',
                                     fontWeight: 900,
-                                    letterSpacing: '0.1em',
+                                    letterSpacing: 'var(--md-sys-typescale-tracking-xxs, 0.1em)',
                                     textTransform: 'uppercase'}}
                             >
                                 Modello Intelligenza
@@ -976,7 +976,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 : 'var(--md-sys-color-primary)'}`
                         }}>
                             <span style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-body)',
+                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 color: currentAiProfile === 'esperto'
                                     ? 'var(--md-sys-color-on-secondary-container)'
                                     : 'var(--md-sys-color-on-primary-container)',
@@ -1010,13 +1010,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     alignItems: 'center',
                                     gap: 'var(--md-sys-spacing-4)'}}>
                                     <span style={{fontFamily: 'Material Symbols Outlined',
-                                        fontSize: 'var(--app-text-body)',
+                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                         color: 'var(--md-sys-color-primary)'}}>calendar_month</span>
                                     <M3Typography
                                         variant="label-large"
                                         style={{color: 'var(--md-sys-color-on-surface)',
                                             fontWeight: 900,
-                                            letterSpacing: '0.025em',
+                                            letterSpacing: 'var(--md-sys-typescale-tracking-xxxxs, 0.025em)',
                                             textTransform: 'uppercase'}}
                                     >
                                         Anno Scolastico
@@ -1027,7 +1027,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     variant="tonal"
                                 >
                                     <span style={{fontFamily: 'Material Symbols Outlined',
-                                        fontSize: 'var(--app-text-body)',
+                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                         marginRight: 'var(--md-sys-spacing-4)'}}>add_circle</span>
                                     Aggiungi
                                 </M3Button>
@@ -1072,13 +1072,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     alignItems: 'center',
                                     gap: 'var(--md-sys-spacing-4)'}}>
                                     <span style={{fontFamily: 'Material Symbols Outlined',
-                                        fontSize: 'var(--app-text-body)',
+                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                         color: 'var(--md-sys-color-secondary)'}}>school</span>
                                     <M3Typography
                                         variant="label-large"
                                         style={{color: 'var(--md-sys-color-on-surface)',
                                             fontWeight: 900,
-                                            letterSpacing: '0.025em',
+                                            letterSpacing: 'var(--md-sys-typescale-tracking-xxxxs, 0.025em)',
                                             textTransform: 'uppercase'}}
                                     >
                                         Gestione Cattedra
@@ -1107,13 +1107,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     gap: 'var(--md-sys-spacing-4)',
                                     marginBottom: 'var(--md-sys-spacing-4)'}}>
                                     <span style={{fontFamily: 'Material Symbols Outlined',
-                                        fontSize: 'var(--app-text-body)',
+                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                         color: 'var(--md-sys-color-primary)'}}>account_tree</span>
                                     <M3Typography
                                         variant="label-small"
                                         style={{color: 'var(--md-sys-color-primary)',
                                             fontWeight: 900,
-                                            letterSpacing: '0.1em',
+                                            letterSpacing: 'var(--md-sys-typescale-tracking-xxs, 0.1em)',
                                             textTransform: 'uppercase'}}
                                     >
                                         Formazione Classi Strutturata
@@ -1207,7 +1207,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 >
                                     <span style={{fontFamily: 'Material Symbols Outlined',
                                         marginRight: 'var(--md-sys-spacing-4)',
-                                        fontSize: 'var(--app-text-body)'}}>auto_awesome</span>
+                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>auto_awesome</span>
                                     Genera Combinazioni Classi
                                 </M3Button>
                             </div>
@@ -1239,7 +1239,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     >
                                         <span style={{
                                             fontFamily: 'Material Symbols Outlined',
-                                            fontSize: 'var(--app-text-body)'
+                                            fontSize: 'var(--md-sys-typescale-body-large-font-size)'
                                         }}>add</span>
                                     </M3Button>
                                 </div>
@@ -1260,7 +1260,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                 fontWeight: 600,
                                                 color: 'var(--md-sys-color-on-surface)',
                                                 borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                                                fontSize: 'var(--app-text-body)'}}>Materia / Classe</th>
+                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>Materia / Classe</th>
                                             {localSettings.classi.map(cls => (
                                                 <th key={cls} style={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                                                     textAlign: 'center',
@@ -1268,7 +1268,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                     color: 'var(--md-sys-color-on-surface)',
                                                     borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                                     borderLeft: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                                                    fontSize: 'var(--app-text-body)',
+                                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                     position: 'relative'}}>
                                                     <div style={{display: 'flex',
                                                         alignItems: 'center',
@@ -1281,7 +1281,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                 border: 'none',
                                                                 color: 'var(--md-sys-color-error)',
                                                                 cursor: 'pointer',
-                                                                fontSize: 'var(--app-text-body)',
+                                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                                 padding: 'var(--md-sys-spacing-4)',
                                                                 borderRadius: 'var(--md-sys-shape-corner-small)',
                                                                 display: 'flex',
@@ -1332,7 +1332,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                         >
                                                             <span style={{
                                                                 fontFamily: 'Material Symbols Outlined',
-                                                                fontSize: 'var(--app-text-body)'
+                                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)'
                                                             }}>delete</span>
                                                         </button>
                                                     </div>
@@ -1362,7 +1362,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                     <>
                                                                         <span style={{fontFamily: 'Material Symbols Outlined',
                                                                             color: 'var(--md-sys-color-primary)',
-                                                                            fontSize: 'var(--app-text-body)',
+                                                                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                                             marginRight: 'var(--md-sys-spacing-4)'}}>check_circle</span>
                                                                         <div style={{display: 'flex',
                                                                             alignItems: 'center',
@@ -1377,16 +1377,16 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                                     borderRadius: 'var(--md-sys-shape-corner-small)',
                                                                                     backgroundColor: 'var(--md-sys-color-surface)',
                                                                                     color: 'var(--md-sys-color-on-surface)',
-                                                                                    fontSize: 'var(--app-text-body)',
+                                                                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                                                     textAlign: 'center'}} />
-                                                                            <span style={{fontSize: 'var(--app-text-body)',
+                                                                            <span style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                                                 color: 'var(--md-sys-color-on-surface-variant)'}}>h</span>
                                                                         </div>
                                                                     </>
                                                                 ) : (
                                                                     <span style={{fontFamily: 'Material Symbols Outlined',
                                                                         color: 'var(--md-sys-color-outline-variant)',
-                                                                        fontSize: 'var(--app-text-body)'}}>add</span>
+                                                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>add</span>
                                                                 )}
                                                             </div>
                                                         </td>
@@ -1481,7 +1481,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             variant="tonal"
                                         >
                                             <span style={{fontFamily: 'Material Symbols Outlined',
-                                                fontSize: 'var(--app-text-body)',
+                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                 marginRight: 'var(--md-sys-spacing-4)'}}>refresh</span>
                                             Riattiva
                                         </M3Button>
@@ -1609,7 +1609,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 color: driveState.isAuthenticated ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)'}}>
                                 <span style={{
                                     fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-body)'
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)'
                                 }}>{driveState.isAuthenticated ? 'cloud_done' : 'cloud_off'}</span>
                             </div>
                             <div style={{display: 'flex',
@@ -1637,7 +1637,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 variant="filled"
                             >
                                 <span style={{fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-body)',
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     marginRight: 'var(--md-sys-spacing-4)'}}>{driveState.isSyncing ? 'sync' : 'cloud_upload'}</span>
                                 {driveState.isSyncing ? '...' : 'Salva'}
                             </M3Button>
@@ -1658,13 +1658,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         marginTop: 'var(--md-sys-spacing-4)'}}>
                         <M3Button onClick={onExportData} variant="tonal">
                             <span style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-body)',
+                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 marginRight: 'var(--md-sys-spacing-4)'}}>download</span>
                             Backup Locale
                         </M3Button>
                         <M3Button onClick={() => fileInputRef.current?.click()} variant="tonal">
                             <span style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-body)',
+                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 marginRight: 'var(--md-sys-spacing-4)'}}>upload</span>
                             Ripristina File
                         </M3Button>
@@ -1713,7 +1713,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     </M3Typography>
                                 </div>
                                 <span style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-body)',
+                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 color: errorLogger.getErrorStats().total > 0 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)'}}>{errorLogger.getErrorStats().total > 0 ? 'error' : 'check_circle'}</span>
                             </div>
                             <div style={{display: 'flex',
@@ -1725,7 +1725,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                 marginBottom: 'var(--md-sys-spacing-4)'}}>
                                 <span style={{fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-body)',
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     color: 'var(--md-sys-color-primary)'}}>info</span>
                                 <M3Typography
                                     variant="body-small"
@@ -1745,7 +1745,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                      style={{width: 'var(--md-sys-percent-100)'}}
                                 >
                                     <span style={{fontFamily: 'Material Symbols Outlined',
-                                        fontSize: 'var(--app-text-body)',
+                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                         marginRight: 'var(--md-sys-spacing-4)'}}>terminal</span>
                                     Console Browser (F12)
                                 </M3Button>
@@ -1765,7 +1765,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                      style={{width: 'var(--md-sys-percent-100)'}}
                                 >
                                     <span style={{fontFamily: 'Material Symbols Outlined',
-                                        fontSize: 'var(--app-text-body)',
+                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                         marginRight: 'var(--md-sys-spacing-4)'}}>download</span>
                                     Esporta JSON
                                 </M3Button>
@@ -1780,7 +1780,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                      style={{width: 'var(--md-sys-percent-100)'}}
                                 >
                                     <span style={{fontFamily: 'Material Symbols Outlined',
-                                        fontSize: 'var(--app-text-body)',
+                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                         marginRight: 'var(--md-sys-spacing-4)'}}>delete</span>
                                     Elimina Log
                                 </M3Button>

@@ -357,7 +357,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                               borderRadius: 'var(--md-sys-shape-corner-full)',
                               fontSize: 'var(--md-sys-typescale-label-small-size)',
                               fontWeight: 'var(--md-sys-typescale-label-small-weight)',
-                              lineHeight: 'var(--app-text-label-line-height)',
+                              lineHeight: 'var(--md-sys-typescale-label-large-font-size-line-height)',
                               backgroundColor: doc.format === 'pdf' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',
                               color: doc.format === 'pdf' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)'
                             }}>

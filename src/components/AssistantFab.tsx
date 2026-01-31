@@ -209,7 +209,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
                       
                       style={{
                         ...posStyle,
-                        zIndex: 'var(--app-z-tooltip)',
+                        zIndex: 'var(--md-sys-z-tooltip)',
                       }}
                       onClick={() => handleAction(a)}
                       aria-label={a.label}
@@ -240,7 +240,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           width: var(--md-sys-spacing-12);
           height: var(--md-sys-spacing-12);
           box-shadow: var(--md-sys-elevation-1);
-          font-size: var(--app-text-display);
+          font-size: var(--md-sys-typescale-display);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -281,7 +281,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          z-index: 'var(--app-z-tooltip)';
+          z-index: 'var(--md-sys-z-tooltip)';
         }
         .mui-fab-expressive.assistant-fab-secondary {
           position: absolute;
@@ -292,7 +292,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           border-radius: var(--md-sys-shape-corner-medium);
           box-shadow: var(--md-sys-elevation-1);
           padding: var(--md-sys-spacing-3) var(--md-sys-spacing-5);
-          font-size: var(--app-text-body);
+          font-size: var(--md-sys-typescale-body-large-font-size);
           display: flex;
           align-items: center;
           min-width: var(--md-sys-spacing-12);
@@ -315,7 +315,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           position: fixed;
           inset: 0;
           background: var(--md-sys-color-scrim);
-          z-index: 'var(--app-z-modal)';
+          z-index: 'var(--md-sys-z-modal)';
           backdrop-filter: blur(var(--md-sys-blur-small));
         }
         .assistant-fab-sheet {
@@ -334,10 +334,10 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
           display: flex;
           flex-direction: column;
           gap: var(--md-sys-spacing-4);
-          z-index: 'var(--app-z-tooltip)';
+          z-index: 'var(--md-sys-z-tooltip)';
           animation: assistant-sheet-enter var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-decelerated);
         }
-        @media (min-width: var(--breakpoint-compact)) {
+        @media (min-width: var(--md-sys-breakpoint-compact)) {
           .assistant-fab-sheet {
             bottom: var(--md-sys-spacing-6);
           }

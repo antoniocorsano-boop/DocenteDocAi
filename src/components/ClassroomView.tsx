@@ -335,7 +335,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                             transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium)'
                                                         }}
                                                     >
-                                                        <span style={{ fontSize: 'var(--app-text-body)' }}>
+                                                        <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>
                                                             {status === 'presente' ? 'check' : status === 'assente' ? 'close' : 'schedule'}
                                                         </span>
                                                     </button>
@@ -362,7 +362,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                     <div style={{ display: 'flex', justifyContent: 'center', marginTop: 'var(--md-sys-spacing-1)' }}>
                                                         <span
                                                             style={{
-                                                                fontSize: 'var(--app-text-title)',
+                                                                fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                                                                 color: stat.trend === 'up' ? 'var(--md-sys-color-tertiary)' : stat.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)'
                                                             }}
                                                         >
@@ -386,7 +386,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                 {/* Column 5: Notes */}
                                                 <div style={{ textAlign: 'center' }}>
                                                     {stat.notes ? (
-                                                        <span style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--app-text-title)' }} title={typeof stat.notes === 'string' ? stat.notes : 'Note presenti'}>edit_note</span>
+                                                        <span style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }} title={typeof stat.notes === 'string' ? stat.notes : 'Note presenti'}>edit_note</span>
                                                     ) : (
                                                         <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-outline)' }}>-</M3Typography>
                                                     )}
@@ -399,7 +399,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                             style={{
                                                                 padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
                                                                 borderRadius: 'var(--md-sys-shape-corner-full)',
-                                                                fontSize: 'var(--app-text-body)',
+                                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                                 fontWeight: 'bold',
                                                                 textTransform: 'uppercase',
                                                                 letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
@@ -423,7 +423,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                                 gap: 'var(--md-sys-spacing-1)'
                                                             }}
                                                         >
-                                                            <span style={{ fontSize: 'var(--app-text-body)' }}>star</span> {badges.length}
+                                                            <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>star</span> {badges.length}
                                                         </div>
                                                     )}
                                                 </div>
@@ -442,7 +442,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                         }}
                                                         aria-label={`Azioni per ${student.cognome}`}
                                                     >
-                                                        <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--app-text-title)' }} aria-hidden="true">more_vert</span>
+                                                        <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }} aria-hidden="true">more_vert</span>
                                                     </button>
                                                 </div>
                                             </div>
@@ -497,7 +497,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                                 }}
                             >
-                                <span style={{ fontSize: 'var(--app-text-body)' }}>content_copy</span>
+                                <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>content_copy</span>
                                 Copia
                             </button>
                             <button
@@ -518,7 +518,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                                 }}
                             >
-                                <span style={{ fontSize: 'var(--app-text-body)' }}>share</span>
+                                <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>share</span>
                                 Condividi
                             </button>
                             <button
@@ -539,7 +539,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                                 }}
                             >
-                                <span style={{ fontSize: 'var(--app-text-body)' }}>assignment</span>
+                                <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>assignment</span>
                                 Stampa Compiti (PDF)
                             </button>
                         </div>
@@ -583,7 +583,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                 justifyContent: 'center'
                                             }}
                                         >
-                                            <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--app-text-title)' }}>
+                                            <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>
                                                 {mat.type === 'link' ? 'link' : 'article'}
                                             </span>
                                         </div>
@@ -596,7 +596,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                             </div>
                         ) : (
                             <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-4)', opacity: 0.6 }}>
-                                <span style={{ marginBottom: 'var(--md-sys-spacing-2)', fontSize: 'var(--app-text-title)', color: 'var(--md-sys-color-on-surface-variant)' }}>folder_off</span>
+                                <span style={{ marginBottom: 'var(--md-sys-spacing-2)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>folder_off</span>
                                 <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessun materiale.</M3Typography>
                             </div>
                         )}
@@ -604,7 +604,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         {lesson.adattamenti && (
                             <div style={{ color: 'var(--md-sys-color-on-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-secondary-container)' }}>
                                 <M3Typography variant="title-medium" style={{ fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-2)' }}>
-                                    <span style={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--app-text-title)' }}>accessibility_new</span>
+                                    <span style={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>accessibility_new</span>
                                     Inclusione
                                 </M3Typography>
                                 <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-secondary-container)', opacity: 0.9, whiteSpace: 'pre-wrap' }}>{lesson.adattamenti}</M3Typography>
@@ -627,7 +627,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         boxShadow: 'var(--md-sys-elevation-level3)'
                     }}
                 >
-                    <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--app-text-title)' }}>mic</span>
+                    <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>mic</span>
                 </button>
             </div>
 
@@ -642,7 +642,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', paddingBottom: 'var(--md-sys-spacing-2)' }}>
                             <Avatar name={`${selectedStudentForActions.nome}`} size="md" />
                             <div>
-                                <M3Typography variant="headline-small" style={{ fontSize: 'var(--app-text-body)', fontWeight: '900', color: 'var(--md-sys-color-on-surface)' }}>{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</M3Typography>
+                                <M3Typography variant="headline-small" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: '900', color: 'var(--md-sys-color-on-surface)' }}>{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</M3Typography>
                                 <M3Typography variant="body-small" style={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--md-sys-color-primary)' }}>Azioni Rapide</M3Typography>
                             </div>
                         </div>
@@ -664,7 +664,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 }}
                             >
                                 <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
-                                    <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--app-text-body)' }}>grading</span>
+                                    <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>grading</span>
                                 </div>
                                 <M3Typography variant="label-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--md-sys-color-on-primary-container)' }}>Voto</M3Typography>
                             </button>
@@ -684,7 +684,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 }}
                             >
                                 <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-secondary)', color: 'var(--md-sys-color-on-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
-                                    <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--app-text-body)' }}>visibility</span>
+                                    <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>visibility</span>
                                 </div>
                                 <M3Typography variant="label-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--md-sys-color-on-secondary-container)' }}>Osserva</M3Typography>
                             </button>
@@ -704,7 +704,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 }}
                             >
                                 <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-on-surface-variant)', color: 'var(--md-sys-color-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
-                                    <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--app-text-body)' }}>person</span>
+                                    <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>person</span>
                                 </div>
                                 <M3Typography variant="label-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: '900', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)' }}>Profilo</M3Typography>
                             </button>
@@ -730,8 +730,8 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             color: badge.color
                                         }}
                                     >
-                                        <span style={{ fontSize: 'var(--app-text-body)' }}>{badge.icon}</span>
-                                        <M3Typography variant="label-small" style={{ fontSize: 'var(--app-text-body)', fontWeight: 'bold' }}>{badge.label}</M3Typography>
+                                        <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{badge.icon}</span>
+                                        <M3Typography variant="label-small" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'bold' }}>{badge.label}</M3Typography>
                                     </button>
                                 ))}
                             </div>

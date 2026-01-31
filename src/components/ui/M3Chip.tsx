@@ -39,13 +39,13 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
   // Typography tokens
   const labelLarge = {
     fontFamily: 'var(--md-sys-typescale-label-large-font)',
-    fontSize: 'var(--app-text-label)',
+    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
     fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-    lineHeight: 'var(--app-text-label-line-height)',
+    lineHeight: 'var(--md-sys-typescale-label-large-font-size-line-height)',
     letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'
   };
   const bodySmall = {
-    fontSize: 'var(--app-text-body)'
+    fontSize: 'var(--md-sys-typescale-body-large-font-size)'
   };
 
   // Variant styles using MD3 design tokens

@@ -158,7 +158,7 @@ const ActionTile: React.FC<ActionTileProps> = ({
                             whiteSpace: 'nowrap',
                             margin: 0,
                             textTransform: 'uppercase',
-                            letterSpacing: '0.08em'}}
+                            letterSpacing: 'var(--app-legacy-0_08em)'}}
                     >
                         {subtitle}
                     </M3Typography>

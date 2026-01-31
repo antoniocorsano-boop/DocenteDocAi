@@ -142,22 +142,22 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>error</span>
-                        <p style={{  fontSize: "var(--app-text-label)" , fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{error}</p>
+                        <p style={{  fontSize: "var(--md-sys-typescale-label-large-font-size)" , fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{error}</p>
                     </div>
                 )}
             </M3DialogContent>
 
             <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30 , borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", paddingTop: "0"}}>
-                <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900",  fontSize: "var(--app-text-label)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Annulla</M3Button>
+                <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900",  fontSize: "var(--md-sys-typescale-label-large-font-size)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Annulla</M3Button>
                 <M3Button 
                     onClick={handleGenerate} 
                     variant="filled" 
                     disabled={isLoading || !ideaText.trim()}
-                     style={{ fontWeight: "900",  fontSize: "var(--app-text-label)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}
+                     style={{ fontWeight: "900",  fontSize: "var(--md-sys-typescale-label-large-font-size)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}
                 >
                     {isLoading ? <AiThinkingGem size={20} /> : (
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                            <span  style={{  fontSize: "var(--app-text-body)"  }}>auto_awesome</span>
+                            <span  style={{  fontSize: "var(--md-sys-typescale-body-large-font-size)"  }}>auto_awesome</span>
                             <span>Genera Piano</span>
                         </div>
                     )}

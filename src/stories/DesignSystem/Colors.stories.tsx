@@ -23,28 +23,28 @@ const ColorDocumentation = () => (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-workflow-card-min-width), var(--md-sys-grid-fr-1)))', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-6)' }}>
       <ColorSwatch name="Secondary" token="--md-sys-color-secondary" hex="var(--md-sys-color-secondary)" />
       <ColorSwatch name="Secondary Container" token="--md-sys-color-secondary-container" hex="var(--md-sys-color-secondary-container)" />
-      <ColorSwatch name="On Secondary" token="--sys-on-secondary" hex="#FFFFFF" border />
+      <ColorSwatch name="On Secondary" token="--md-sys-color-on-secondary" hex="#FFFFFF" border />
     </div>
 
     <h2 style={{ fontSize: 'var(--md-sys-typescale-title-large-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>Tertiary Colors</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-workflow-card-min-width), var(--md-sys-grid-fr-1)))', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-6)' }}>
-      <ColorSwatch name="Tertiary" token="--sys-tertiary" hex="var(--md-sys-color-tertiary)" />
-      <ColorSwatch name="Tertiary Container" token="--sys-tertiary-container" hex="var(--md-sys-color-tertiary-container)" />
-      <ColorSwatch name="On Tertiary" token="--sys-on-tertiary" hex="#FFFFFF" border />
+      <ColorSwatch name="Tertiary" token="--md-sys-color-tertiary" hex="var(--md-sys-color-tertiary)" />
+      <ColorSwatch name="Tertiary Container" token="--md-sys-color-tertiary-container" hex="var(--md-sys-color-tertiary-container)" />
+      <ColorSwatch name="On Tertiary" token="--md-sys-color-on-tertiary" hex="#FFFFFF" border />
     </div>
 
     <h2 style={{ fontSize: 'var(--md-sys-typescale-title-large-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>Semantic Colors</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-workflow-card-min-width), var(--md-sys-grid-fr-1)))', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-6)' }}>
-      <ColorSwatch name="Error" token="--sys-error" hex="#B3261E" />
-      <ColorSwatch name="Warning" token="--sys-warning" hex="#E65100" />
-      <ColorSwatch name="On Error" token="--sys-on-error" hex="#FFFFFF" border />
+      <ColorSwatch name="Error" token="--md-sys-color-error" hex="#B3261E" />
+      <ColorSwatch name="Warning" token="--md-sys-color-warning" hex="#E65100" />
+      <ColorSwatch name="On Error" token="--md-sys-color-on-error" hex="#FFFFFF" border />
     </div>
 
     <h2 style={{ fontSize: 'var(--md-sys-typescale-title-large-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>Surface & Background Colors</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, var(--md-sys-grid-fr-1)))', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-6)' }}>
-      <ColorSwatch name="Background" token="--sys-background" hex="#FDFBFF" border />
+      <ColorSwatch name="Background" token="--md-sys-color-background" hex="#FDFBFF" border />
       <ColorSwatch name="Surface" token="--md-sys-color-surface" hex="#FDFBFF" border />
-      <ColorSwatch name="On Background" token="--sys-on-background" hex="#1C1B1F" />
+      <ColorSwatch name="On Background" token="--md-sys-color-on-background" hex="#1C1B1F" />
     </div>
 
     <h2 style={{ fontSize: 'var(--md-sys-typescale-title-large-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>Surface Containers (Elevation)</h2>
@@ -61,7 +61,7 @@ const ColorDocumentation = () => (
 
     <h2 style={{ fontSize: 'var(--md-sys-typescale-title-large-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>Outline & Accessibility</h2>
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, var(--md-sys-grid-fr-1)))', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-6)' }}>
-      <ColorSwatch name="Outline" token="--sys-outline" hex="#79747E" />
+      <ColorSwatch name="Outline" token="--md-sys-color-outline" hex="#79747E" />
       <ColorSwatch name="Outline Variant" token="--md-sys-color-outline-variant" hex="#C4C7C5" border />
     </div>
 

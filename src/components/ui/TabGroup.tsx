@@ -113,8 +113,8 @@ const TabGroup: React.FC<TabGroupProps> = ({
                             color: isActive
                                 ? variantColors.activeText
                                 : 'var(--md-sys-color-on-surface-variant)',
-                            fontSize: 'var(--app-text-label)',
-                            fontWeight: 'var(--app-text-label-weight)',
+                            fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                            fontWeight: 'var(--md-sys-typescale-label-large-font-size-weight)',
                             textTransform: 'uppercase',
                             letterSpacing: 'var(--md-sys-typescale-label-small-letter-spacing)',
                             cursor: 'pointer',
@@ -135,7 +135,7 @@ const TabGroup: React.FC<TabGroupProps> = ({
                             <span
                                 style={{
                                     fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-label)'
+                                    fontSize: 'var(--md-sys-typescale-label-large-font-size)'
                                 }}
                                 aria-hidden="true"
                             >
@@ -165,8 +165,8 @@ const TabGroup: React.FC<TabGroupProps> = ({
                                     borderRadius: 'var(--md-sys-shape-corner-full)',
                                     backgroundColor: 'var(--md-sys-color-error)',
                                     color: 'var(--md-sys-color-on-error)',
-                                    fontSize: 'var(--app-text-label)',
-                                    fontWeight: 'var(--app-text-label-weight)',
+                                    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                                    fontWeight: 'var(--md-sys-typescale-label-large-font-size-weight)',
                                     lineHeight: 1
                                 }}
                                 aria-label={`${tab.badge} elementi`}

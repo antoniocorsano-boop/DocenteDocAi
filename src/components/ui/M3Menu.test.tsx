@@ -316,7 +316,7 @@ describe('M3Menu', () => {
     );
     
     const popover = container.querySelector('.m3-popover') as HTMLElement;
-    expect(popover.style.minWidth).toBe('300px');
+    expect(popover.style.minWidth).toBe('var(--app-legacy-300px)');
   });
 
   it('applies custom maxWidth', () => {
@@ -331,7 +331,7 @@ describe('M3Menu', () => {
     );
     
     const popover = container.querySelector('.m3-popover') as HTMLElement;
-    expect(popover.style.maxWidth).toBe('250px');
+    expect(popover.style.maxWidth).toBe('var(--app-legacy-250px)');
   });
 
   it('applies custom className', () => {

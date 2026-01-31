@@ -34,7 +34,7 @@ const MD3_TOKENS = {
   elevation1: 'var(--md-sys-elevation-level1)',
 
   // Typography
-  labelLargeFontWeight: 'var(--app-text-label-weight)',
+  labelLargeFontWeight: 'var(--md-sys-typescale-label-large-font-size-weight)',
 } as const;
 
 /**

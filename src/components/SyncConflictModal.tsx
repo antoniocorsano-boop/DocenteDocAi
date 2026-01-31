@@ -43,11 +43,11 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                     }}
                                                 >
                             <div>
-                                <p style={{fontSize: 'var(--app-text-label)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
-                                    <span style={{ fontSize: 'var(--app-text-body)', fontFamily: 'Material Symbols Outlined' }}>devices</span>
+                                <p style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
+                                    <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontFamily: 'Material Symbols Outlined' }}>devices</span>
                                     Dati Locali (Attuali)
                                 </p>
-                                <p style={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--app-text-body)', fontWeight: "900" }}>
+                                <p style={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "900" }}>
                                     {localDate ? localDate.toLocaleString() : 'Nessun dato'}
                                 </p>
                             </div>
@@ -78,11 +78,11 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                     }}
                                                 >
                             <div>
-                                <p style={{fontSize: 'var(--app-text-label)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
-                                    <span style={{ fontSize: 'var(--app-text-body)', fontFamily: 'Material Symbols Outlined' }}>cloud</span>
+                                <p style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
+                                    <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontFamily: 'Material Symbols Outlined' }}>cloud</span>
                                     Cloud (Drive)
                                 </p>
-                                <p  style={{fontSize: 'var(--app-text-body)', fontWeight: "900", color: "var(--md-sys-color-primary)"}}>
+                                <p  style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "900", color: "var(--md-sys-color-primary)"}}>
                                     {remoteDate.toLocaleString()}
                                 </p>
                             </div>

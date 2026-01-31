@@ -45,13 +45,13 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
             alignItems: 'center',
             color: activeView === item.id ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
             fontFamily: 'var(--md-sys-typescale-label-medium-font-family)',
-            fontSize: 'var(--app-text-label)',
+            fontSize: 'var(--md-sys-typescale-label-large-font-size)',
             padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
             borderRadius: 'var(--md-sys-shape-corner-full)',
             outline: 'none',
           }}
         >
-          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--app-text-title)' }}>{item.icon}</span>
+          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>{item.icon}</span>
           <span>{item.label}</span>
         </button>
       ))}

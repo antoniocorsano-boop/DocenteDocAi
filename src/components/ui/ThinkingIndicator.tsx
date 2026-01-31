@@ -15,19 +15,19 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
 
   const sizeStyles = {
     small: {
-      fontSize: 'var(--app-text-body)',
-      lineHeight: 'var(--app-text-body-line-height)',
-      fontWeight: 'var(--app-text-body-weight)'
+      fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
+      fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)'
     },
     medium: {
-      fontSize: 'var(--app-text-body)',
-      lineHeight: 'var(--app-text-body-line-height)',
-      fontWeight: 'var(--app-text-body-weight)'
+      fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
+      fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)'
     },
     large: {
-      fontSize: 'var(--app-text-title)',
-      lineHeight: 'var(--app-text-title-line-height)',
-      fontWeight: 'var(--app-text-title-weight)'
+      fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+      lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)',
+      fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)'
     }
   };
 
@@ -107,10 +107,10 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
         <span
           style={{
             fontFamily: 'Material Symbols Outlined',
-            fontSize: 'var(--app-text-body)',
+            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
             color: 'var(--md-sys-color-primary)',
-            fontWeight: 'var(--app-text-body-weight)',
-            lineHeight: 'var(--app-text-body-line-height)'
+            fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)',
+            lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)'
           }}
         >
           smart_toy

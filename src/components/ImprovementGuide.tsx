@@ -187,7 +187,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
         if (!analysis) return;
 
         let html = `
-        <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); body { font-family: 'Roboto', sans-serif; line-height: var(--app-text-title-line-height); } h1 { color: 'var(--md-sys-color-primary)'; /* MD3 fix */ } h2 { color: 'var(--md-sys-color-primary)'; /* MD3 fix */ border-bottom: var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant); /* MD3 fix */ padding-bottom: var(--md-sys-spacing-1); margin-top: var(--md-sys-spacing-5); } p { margin-bottom: var(--md-sys-spacing-2); } ul { margin-bottom: var(--md-sys-spacing-2); } strong { color: 'var(--md-sys-color-primary)'; /* MD3 fix */ } .header-info { background-color: 'var(--md-sys-color-surface)'; /* MD3 fix */ padding: 'var(--md-sys-spacing-3)'; border-radius: var(--md-corner-4); /* MD3 fix */ margin-bottom: var(--md-sys-spacing-5); }</style>
+        <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); body { font-family: 'Roboto', sans-serif; line-height: var(--md-sys-typescale-title-large-font-size-line-height); } h1 { color: 'var(--md-sys-color-primary)'; /* MD3 fix */ } h2 { color: 'var(--md-sys-color-primary)'; /* MD3 fix */ border-bottom: var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant); /* MD3 fix */ padding-bottom: var(--md-sys-spacing-1); margin-top: var(--md-sys-spacing-5); } p { margin-bottom: var(--md-sys-spacing-2); } ul { margin-bottom: var(--md-sys-spacing-2); } strong { color: 'var(--md-sys-color-primary)'; /* MD3 fix */ } .header-info { background-color: 'var(--md-sys-color-surface)'; /* MD3 fix */ padding: 'var(--md-sys-spacing-3)'; border-radius: var(--md-sys-shape-corner-4); /* MD3 fix */ margin-bottom: var(--md-sys-spacing-5); }</style>
         `;
 
         html += `<h1>Analisi Classe ${selectedClass}</h1>`;
@@ -320,10 +320,10 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
                 <div  style={{padding: 'var(--md-sys-spacing-8)'}}>
                     {competencyLevelData.map(compData => (
                         <div key={compData.name} style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                            <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--app-text-body)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "0.7" }}>{compData.name}</h3>
+                            <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "0.7" }}>{compData.name}</h3>
                             <BarChart
                                 data={compData.levels.map(l => ({ label: l.name, value: l.value }))}
-                                color="var(--sys-tertiary)"
+                                color="var(--md-sys-color-tertiary)"
                                 horizontal
                             />
                         </div>

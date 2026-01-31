@@ -265,7 +265,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                             )}
                                         </div>
                                         <p
-                                            style={{fontSize: 'var(--app-text-body)',
+                                            style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                 color: 'var(--md-sys-color-on-surface-variant)',
                                                 display: '-webkit-box',
                                                 overflow: 'hidden',
@@ -273,7 +273,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                                 lineClamp: 2,
                                                 WebkitBoxOrient: 'vertical',
                                                 margin: `0 0 ${'var(--md-sys-spacing-2)'} 0`,
-                                                lineHeight: 'var(--app-text-body-line-height)'}}
+                                                lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)'}}
                                         >
                                             {notifica.messaggio}
                                         </p>

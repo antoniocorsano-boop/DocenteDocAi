@@ -19,7 +19,7 @@ const inputStyle: React.CSSProperties = {
   backgroundColor: 'var(--md-sys-color-surface-container-highest)',
   color: 'var(--md-sys-color-on-surface)',
   fontFamily: 'var(--md-sys-typescale-body-large-font)',
-  fontSize: 'var(--app-text-body)',
+  fontSize: 'var(--md-sys-typescale-body-large-font-size)',
 };
 
 const inputFocusStyle: React.CSSProperties = {
@@ -36,7 +36,7 @@ const inputErrorStyle: React.CSSProperties = {
 
 const helperStyle: React.CSSProperties = {
   marginTop: 'var(--md-sys-spacing-1)',
-  fontSize: 'var(--app-text-body)',
+  fontSize: 'var(--md-sys-typescale-body-large-font-size)',
   fontFamily: 'var(--md-sys-typescale-body-small-font)',
   color: 'var(--md-sys-color-on-surface-variant)',
 };
@@ -73,9 +73,9 @@ function M3DatePicker({
           htmlFor={inputId}
           style={{display: 'block',
             marginBottom: 'var(--md-sys-spacing-2)', 
-            fontSize: 'var(--app-text-body)',
+            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
             fontFamily: 'var(--md-sys-typescale-body-large-font)',
-            fontWeight: 'var(--app-text-body-weight)',
+            fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)',
             color: 'var(--md-sys-color-on-surface)'}}
         >
           {label}

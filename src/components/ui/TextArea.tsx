@@ -34,10 +34,10 @@ const TextArea: React.FC<TextAreaProps> = ({
             <label
                 htmlFor={props.id}
                 style={{color: 'var(--md-sys-color-on-surface-variant)',
-                    fontSize: 'var(--app-text-label)',
+                    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
                     fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
-                    fontWeight: 'var(--app-text-label-weight)',
-                    lineHeight: 'var(--app-text-label-line-height)',
+                    fontWeight: 'var(--md-sys-typescale-label-large-font-size-weight)',
+                    lineHeight: 'var(--md-sys-typescale-label-large-font-size-line-height)',
                     letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
                     marginBottom: 'var(--md-sys-spacing-2)'}}
             >
@@ -62,10 +62,10 @@ const TextArea: React.FC<TextAreaProps> = ({
                         border: 'none',
                         backgroundColor: 'transparent',
                         color: 'var(--md-sys-color-on-surface)',
-                        fontSize: 'var(--app-text-body)',
+                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                         fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
-                        fontWeight: 'var(--app-text-body-weight)',
-                        lineHeight: 'var(--app-text-body-line-height)',
+                        fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)',
+                        lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
                         letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)',
                         outline: 'none',
                         resize: 'none',
@@ -102,17 +102,17 @@ const TextArea: React.FC<TextAreaProps> = ({
                     <span
                         style={{fontFamily: 'Material Symbols Outlined',
                             color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--app-text-body)'}}
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}
                         aria-hidden="true"
                     >
                         error
                     </span>
                     <span
                         style={{color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--app-text-body)',
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
-                            fontWeight: 'var(--app-text-body-weight)',
-                            lineHeight: 'var(--app-text-body-line-height)',
+                            fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)',
+                            lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
                             letterSpacing: 'var(--md-sys-typescale-body-small-letter-spacing)'}}
                     >
                         {errorMessage}

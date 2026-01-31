@@ -65,7 +65,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                         <span style={{ color: 'var(--md-sys-color-on-tertiary)' }}>folder_shared</span>
                     </div>
                     <div>
-                        <h3  style={{ fontSize: "var(--app-text-title)" , color: "var(--md-sys-color-tertiary)", marginBottom: 'var(--md-sys-spacing-4)'}}>Gestione Piani Centralizzata</h3>
+                        <h3  style={{ fontSize: "var(--md-sys-typescale-title-large-font-size)" , color: "var(--md-sys-color-tertiary)", marginBottom: 'var(--md-sys-spacing-4)'}}>Gestione Piani Centralizzata</h3>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Crea o modifica PDP/PEI per ogni studente. L’AI ti guida nella compilazione suggerendo strategie personalizzate.</p>
                     </div>
                 </div>
@@ -202,10 +202,10 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                     <div>
                                         <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,   fontSize: "var(--app-text-label)"  }}>Classe {student.classe}</p>
+                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,   fontSize: "var(--md-sys-typescale-label-large-font-size)"  }}>Classe {student.classe}</p>
                                     </div>
                                 </div>
-                                <div style={{ backgroundColor: sys.colors.error/10 , color: "var(--md-sys-color-error)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)',  borderRadius: "var(--md-sys-shape-corner-small)", fontSize: "var(--app-text-label)" , fontWeight: "bold"}}>
+                                <div style={{ backgroundColor: sys.colors.error/10 , color: "var(--md-sys-color-error)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)',  borderRadius: "var(--md-sys-shape-corner-small)", fontSize: "var(--md-sys-typescale-label-large-font-size)" , fontWeight: "bold"}}>
                                     Media: {grade}
                                 </div>
                             </div>

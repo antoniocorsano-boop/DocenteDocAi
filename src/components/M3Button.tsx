@@ -68,7 +68,7 @@ export const M3Button: React.FC<M3ButtonProps> = ({
     transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-2) var(--md-sys-motion-easing-standard)',
     fontSize: 'var(--md-sys-typescale-label-large-font)',
     fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-    lineHeight: 'var(--app-text-label-line-height)',
+    lineHeight: 'var(--md-sys-typescale-label-large-font-size-line-height)',
     fontFamily: 'inherit',
     display: 'flex',
     alignItems: 'center',

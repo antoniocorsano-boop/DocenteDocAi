@@ -14,9 +14,9 @@
   display: flex;
   flex-direction: column;
 }
-@media (min-width: var(--breakpoint-compact)) {
+@media (min-width: var(--md-sys-breakpoint-compact)) {
   .dialog-container {
-    max-width: var(--breakpoint-compact);
+    max-width: var(--md-sys-breakpoint-compact);
     border-radius: var(--md-sys-shape-corner-large);
   }
 }
@@ -26,7 +26,7 @@
     border-radius: var(--md-sys-shape-corner-extra-large);
   }
 }
-@media (min-width: var(--content-max-width)) {
+@media (min-width: var(--md-sys-breakpoint-content-max-width)) {
   .dialog-container {
     max-width: var(--md-sys-layout-popup-min-width);
     border-radius: var(--md-sys-shape-corner-extra-large);

@@ -92,7 +92,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             fontSize: 'var(--md-sys-typescale-body-small-size)',
                             fontWeight: 'var(--md-sys-typescale-body-small-weight)',
-                            lineHeight: 'var(--app-text-body-line-height)',
+                            lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)',
                             animation: 'zoom-in-95 var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)-out',
                             cursor: 'pointer',
                             transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
@@ -129,7 +129,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                     ))}
                     
                         {items.length === 0 && (
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--app-text-body)', opacity: "0.4", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Nessun elemento aggiunto...</p>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-large-font-size)', opacity: "0.4", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Nessun elemento aggiunto...</p>
                         )}
                 </div>
                 
@@ -164,7 +164,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                             outline: 'none',
                             backgroundColor: 'transparent',
                             color: 'var(--md-sys-color-on-surface)',
-                            fontSize: 'var(--app-text-body)',
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             fontFamily: 'var(--md-sys-typescale-body-large-font-family)'
                         }}
                         placeholder={placeholder}

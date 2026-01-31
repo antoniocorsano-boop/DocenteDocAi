@@ -56,7 +56,7 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
     return (
       <div >
         <div >
-          <span  style={{  fontSize: "var(--app-text-body)"  }}>check_circle</span>
+          <span  style={{  fontSize: "var(--md-sys-typescale-body-large-font-size)"  }}>check_circle</span>
           {entry.text.replace(/\[|\]/g, '')}
         </div>
       </div>

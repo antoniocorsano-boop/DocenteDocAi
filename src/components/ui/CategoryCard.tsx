@@ -107,7 +107,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                 style={{
                     textAlign: 'center',
                     fontWeight: 900,
-                    letterSpacing: '-0.025em',
+                    letterSpacing: '-var(--app-legacy-0_025em)',
                     color: 'var(--md-sys-color-on-surface)',
                     margin: 0
                 }}

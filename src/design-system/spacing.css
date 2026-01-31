@@ -241,7 +241,7 @@
    RESPONSIVE BREAKPOINTS
    ======================================== */
 
-@media (min-width: var(--breakpoint-compact)) {
+@media (min-width: var(--md-sys-breakpoint-compact)) {
   /* Tablet spacing adjustments */
   .md\:gap-4 { gap: var(--md-sys-spacing-4); }
   .md\:gap-6 { gap: var(--md-sys-spacing-6); }
@@ -282,9 +282,9 @@
   padding-right: var(--md-sys-spacing-4);
 }
 
-@media (min-width: var(--breakpoint-sm)) {
+@media (min-width: var(--md-sys-breakpoint-sm)) {
   .container {
-    max-width: var(--breakpoint-sm);
+    max-width: var(--md-sys-breakpoint-sm);
   }
 }
 
@@ -304,15 +304,15 @@
   }
 }
 
-@media (min-width: var(--breakpoint-xl)) {
+@media (min-width: var(--md-sys-breakpoint-xl)) {
   .container {
-    max-width: var(--breakpoint-xl);
+    max-width: var(--md-sys-breakpoint-xl);
   }
 }
 
-@media (min-width: var(--breakpoint-2xl)) {
+@media (min-width: var(--md-sys-breakpoint-2xl)) {
   .container {
-    max-width: var(--breakpoint-2xl);
+    max-width: var(--md-sys-breakpoint-2xl);
   }
 }
 

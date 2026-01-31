@@ -100,7 +100,7 @@ const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
         fontSize: MD3_TOKENS.bodySmallFontSize,
         fontFamily: MD3_TOKENS.bodySmallFontFamily,
         fontWeight: MD3_TOKENS.bodySmallFontWeight,
-        letterSpacing: '0.2em',
+        letterSpacing: 'var(--app-legacy-0_2em)',
         textTransform: 'uppercase'
     };
 

@@ -21,10 +21,10 @@ const Avatar: React.FC<AvatarProps> = ({ name, src, size = 'md' }) => {
         .substring(0, 2);
 
     const sizeStyles = {
-        sm: { width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', fontSize: 'var(--app-text-body)' },
-        md: { width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', fontSize: 'var(--app-text-body)' },
-        lg: { width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', fontSize: 'var(--app-text-body)' },
-        xl: { width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', fontSize: 'var(--app-text-display)' }
+        sm: { width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' },
+        md: { width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' },
+        lg: { width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' },
+        xl: { width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', fontSize: 'var(--md-sys-typescale-display)' }
     };
 
     return (

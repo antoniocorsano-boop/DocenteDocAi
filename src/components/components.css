@@ -56,7 +56,7 @@
   height: var(--md-sys-spacing-12);
   background-color: color-mix(in srgb, var(--md-sys-color-primary) var(--md-sys-percent-10), transparent);
   backdrop-filter: blur(var(--md-sys-spacing-2));
-  border-radius: var(--md-corner-medium);
+  border-radius: var(--md-sys-shape-corner-medium);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,7 +69,7 @@
 
 /* Home component specific styles */
 .home-hero-icon {
-  font-size: var(--typography-display-large-size);
+  font-size: var(--md-sys-typescale-display-large-size);
   color: var(--md-sys-color-primary);
 }
 
@@ -121,7 +121,7 @@
 }
 
 .home-card-icon-font {
-  font-size: var(--typography-title-medium-size);
+  font-size: var(--md-sys-typescale-title-medium-size);
 }
 
 .home-relative-z10 {
@@ -319,7 +319,7 @@
 
 .home-hero-title {
   font-family: var(--typography-headline-large-family, 'Roboto', sans-serif);
-  font-size: var(--typography-headline-large-size);
+  font-size: var(--md-sys-typescale-headline-large-size);
   color: var(--md-sys-color-on-surface);
   font-weight: normal;
   max-width: calc(var(--md-sys-spacing-20) * 8);
@@ -329,7 +329,7 @@
 
 .home-hero-subtitle {
   font-family: var(--typography-title-medium-family, 'Roboto', sans-serif);
-  font-size: var(--typography-title-medium-size);
+  font-size: var(--md-sys-typescale-title-medium-size);
   color: var(--md-sys-color-on-surface-variant);
   max-width: calc(var(--md-sys-spacing-20) * 7.2);
   margin-left: auto;
@@ -373,7 +373,7 @@
   border: none;
   cursor: pointer;
   text-align: left;
-  transition: background-color var(--motion-easing-standard);
+  transition: background-color var(--md-sys-motion-easing-standard);
 }
 
 .class-dashboard-student-item:hover {
@@ -459,7 +459,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 @media (min-width: var(--md-sys-breakpoint-tablet)) {
   .class-dashboard-student-list {
-    max-height: var(--breakpoint-compact);
+    max-height: var(--md-sys-breakpoint-compact);
   }
 }
 
@@ -559,7 +559,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .class-dashboard-chevron {
   color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-30), transparent);
-  transition: transform var(--motion-easing-standard);
+  transition: transform var(--md-sys-motion-easing-standard);
 }
 
 .class-dashboard-student-item:hover .class-dashboard-chevron {
@@ -695,7 +695,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
+  transition: background-color var(--md-sys-motion-easing-standard), color var(--md-sys-motion-easing-standard);
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-primary {
@@ -712,7 +712,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
+  transition: background-color var(--md-sys-motion-easing-standard), color var(--md-sys-motion-easing-standard);
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-tertiary {
@@ -729,7 +729,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
+  transition: background-color var(--md-sys-motion-easing-standard), color var(--md-sys-motion-easing-standard);
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-secondary {
@@ -746,7 +746,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
+  transition: background-color var(--md-sys-motion-easing-standard), color var(--md-sys-motion-easing-standard);
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-outline {
@@ -1013,7 +1013,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   padding: var(--md-sys-spacing-8);
 }
 
-@media (min-width: var(--breakpoint-sm)) {
+@media (min-width: var(--md-sys-breakpoint-sm)) {
   .uda-picker-grid {
     grid-template-columns: repeat(2, 1fr);
   }

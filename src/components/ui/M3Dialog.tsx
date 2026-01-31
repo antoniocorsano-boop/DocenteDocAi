@@ -98,17 +98,17 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   const spacing4 = 'var(--md-sys-spacing-4)';
   const spacing6 = 'var(--md-sys-spacing-6)';
   const cornerLarge = 'var(--md-sys-shape-corner-large)';
-  const headlineLargeFontSize = 'var(--app-text-title)';
-  const headlineLargeFontWeight = 'var(--app-text-title-weight)';
-  const headlineLargeLineHeight = 'var(--app-text-title-line-height)';
+  const headlineLargeFontSize = 'var(--md-sys-typescale-title-large-font-size)';
+  const headlineLargeFontWeight = 'var(--md-sys-typescale-title-large-font-size-weight)';
+  const headlineLargeLineHeight = 'var(--md-sys-typescale-title-large-font-size-line-height)';
   const headlineLargeLetterSpacing = 'var(--md-sys-typescale-headline-large-letter-spacing)';
-  const bodyLargeFontSize = 'var(--app-text-body)';
-  const bodyLargeFontWeight = 'var(--app-text-body-weight)';
-  const bodyLargeLineHeight = 'var(--app-text-body-line-height)';
+  const bodyLargeFontSize = 'var(--md-sys-typescale-body-large-font-size)';
+  const bodyLargeFontWeight = 'var(--md-sys-typescale-body-large-font-size-weight)';
+  const bodyLargeLineHeight = 'var(--md-sys-typescale-body-large-font-size-line-height)';
 
   // Use MD3 z-index tokens directly instead of dynamic calculation
-  const backdropZIndex = 'var(--app-z-tooltip)';
-  const contentZIndex = 'var(--app-z-tooltip)';
+  const backdropZIndex = 'var(--md-sys-z-tooltip)';
+  const contentZIndex = 'var(--md-sys-z-tooltip)';
   const [closeButtonHovered, setCloseButtonHovered] = useState(false);
 
   // Use centralized keyboard navigation hook
@@ -374,11 +374,11 @@ export const M3ConfirmDialog: React.FC<{
   const onPrimaryColor = 'var(--md-sys-color-on-primary)';
   const onSurfaceColor = 'var(--md-sys-color-on-surface)';
   const cornerLargeValue = 'var(--md-sys-shape-corner-large)';
-  const labelLargeFontSizeValue = 'var(--app-text-label)';
-  const labelLargeFontWeightValue = 'var(--app-text-label-weight)';
-  const bodyLargeFontSizeValue = 'var(--app-text-body)';
-  const bodyLargeFontWeightValue = 'var(--app-text-body-weight)';
-  const bodyLargeLineHeightValue = 'var(--app-text-body-line-height)';
+  const labelLargeFontSizeValue = 'var(--md-sys-typescale-label-large-font-size)';
+  const labelLargeFontWeightValue = 'var(--md-sys-typescale-label-large-font-size-weight)';
+  const bodyLargeFontSizeValue = 'var(--md-sys-typescale-body-large-font-size)';
+  const bodyLargeFontWeightValue = 'var(--md-sys-typescale-body-large-font-size-weight)';
+  const bodyLargeLineHeightValue = 'var(--md-sys-typescale-body-large-font-size-line-height)';
 
   return (
     <M3Dialog

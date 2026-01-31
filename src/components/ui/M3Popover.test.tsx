@@ -225,7 +225,7 @@ describe('M3Popover', () => {
     );
     
     const popover = container.querySelector('.m3-popover') as HTMLElement;
-    expect(popover.style.minWidth).toBe('300px');
+    expect(popover.style.minWidth).toBe('var(--app-legacy-300px)');
   });
 
   it('applies custom zIndex', () => {

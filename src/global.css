@@ -239,7 +239,7 @@
 }
 
 /* Breakpoints */
-@media (max-width: var(--breakpoint-compact)) {
+@media (max-width: var(--md-sys-breakpoint-compact)) {
   :root {
     --md-sys-breakpoint: mobile;
   }
@@ -251,7 +251,7 @@
   }
 }
 
-@media (min-width: var(--md-sys-layout-fab-size)) and (max-width: var(--breakpoint-large)) {
+@media (min-width: var(--md-sys-layout-fab-size)) and (max-width: var(--md-sys-breakpoint-large)) {
   :root {
     --md-sys-breakpoint: desktop;
   }

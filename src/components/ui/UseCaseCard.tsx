@@ -35,7 +35,7 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                     justifyContent: "center",
                     color: 'var(--md-sys-color-on-primary)'
                 }}>
-                    <span style={{ fontSize: 'var(--app-text-title)' }}>lightbulb</span>
+                    <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>lightbulb</span>
                 </div>
                 <p style={{
                     color: 'var(--md-sys-color-primary)',
@@ -68,7 +68,7 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                         <p style={{
                             color: 'var(--md-sys-color-outline)',
                             fontWeight: "bold",
-                            lineHeight: 'var(--app-text-body-line-height)'
+                            lineHeight: 'var(--md-sys-typescale-body-large-font-size-line-height)'
                         }} dangerouslySetInnerHTML={{ __html: step }}></p>
                     </li>
                 ))}
@@ -80,7 +80,7 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                     display: "flex",
                     gap: 'var(--md-sys-spacing-8)',
                     padding: 'var(--md-sys-spacing-8)',
-                    fontSize: 'var(--app-text-body)',
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                     border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
                 }}>
                     <span style={{

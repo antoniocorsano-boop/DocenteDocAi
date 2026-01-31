@@ -166,7 +166,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 }}
             ></div>
 
-            <div style={{position: 'relative', zIndex: 'var(--app-z-modal)', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: MD3_TOKENS.spacing4}}>
+            <div style={{position: 'relative', zIndex: 'var(--md-sys-z-modal)', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: MD3_TOKENS.spacing4}}>
                 {/* MD3 z-index token */}
                 <div style={{
                     width: MD3_TOKENS.spacing14,
@@ -198,13 +198,13 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 )}
             </div>
 
-            <div style={{position: 'relative', zIndex: 'var(--app-z-modal)', flexGrow: 1, display: 'flex', flexDirection: 'column', gap: MD3_TOKENS.spacing4}}>
+            <div style={{position: 'relative', zIndex: 'var(--md-sys-z-modal)', flexGrow: 1, display: 'flex', flexDirection: 'column', gap: MD3_TOKENS.spacing4}}>
                 {/* MD3 z-index token */}
                 <h3 style={{
                     fontSize: MD3_TOKENS.headlineSmallFontSize,
                     fontFamily: MD3_TOKENS.headlineSmallFontFamily,
                     fontWeight: MD3_TOKENS.headlineSmallFontWeight,
-                    letterSpacing: '-0.005em',
+                    letterSpacing: '-var(--app-legacy-0_005em)',
                     lineHeight: '1.25'
                 }}>{title}</h3>
                 <p style={{

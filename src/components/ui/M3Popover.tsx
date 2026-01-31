@@ -360,8 +360,8 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
               <div
                 style={{
                   fontFamily: 'var(--md-sys-typescale-body-medium-font-family)',
-                  fontSize: 'var(--app-text-body)',
-                  fontWeight: 'var(--app-text-body-weight)',
+                  fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                  fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)',
                   lineHeight: 'var(--md-sys-spacing-6)',
                   margin: `0 0 var(--md-sys-spacing-1) 0`,
                   color: 'var(--md-sys-color-on-surface)'
@@ -374,8 +374,8 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
               <div
                 style={{
                   fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
-                  fontSize: 'var(--app-text-body)',
-                  fontWeight: 'var(--app-text-body-weight)',
+                  fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                  fontWeight: 'var(--md-sys-typescale-body-large-font-size-weight)',
                   lineHeight: 'var(--md-sys-spacing-4)',
                   margin: 0,
                   color: 'var(--md-sys-color-on-surface-variant)'

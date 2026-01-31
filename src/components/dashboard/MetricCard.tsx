@@ -69,8 +69,8 @@ const formatTrend = (trend?: number) => {
 
   return (
     <span style={{
-      fontSize: 'var(--app-text-body)',
-      fontWeight: 'var(--app-text-label-weight)',
+      fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+      fontWeight: 'var(--md-sys-typescale-label-large-font-size-weight)',
       color: color,
       display: 'flex',
       alignItems: 'center',
@@ -149,8 +149,8 @@ export const MetricCard: React.FC<MetricCardProps> = ({
           )}
           <div>
             <h3 style={{
-              fontSize: 'var(--app-text-body)',
-              fontWeight: 'var(--app-text-label-weight)',
+              fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+              fontWeight: 'var(--md-sys-typescale-label-large-font-size-weight)',
               color: 'var(--md-sys-color-on-surface-variant)',
               lineHeight: '1.25'
             }}>
@@ -158,7 +158,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
             </h3>
             {description && (
               <p style={{
-                fontSize: 'var(--app-text-body)',
+                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                 color: 'var(--md-sys-color-on-surface-variant)',
                 opacity: '0.7',
                 marginTop: 'var(--md-sys-spacing-1)'
@@ -187,7 +187,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       }}>
         <span
           style={{
-            fontSize: 'var(--app-text-title)',
+            fontSize: 'var(--md-sys-typescale-title-large-font-size)',
             fontWeight: '700',
             lineHeight: '1',
             color: 'var(--md-sys-color-on-surface)'
@@ -198,8 +198,8 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         {unit && (
           <span
             style={{
-              fontSize: 'var(--app-text-body)',
-              fontWeight: 'var(--app-text-label-weight)',
+              fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+              fontWeight: 'var(--md-sys-typescale-label-large-font-size-weight)',
               color: 'var(--md-sys-color-on-surface-variant)'
             }}
           >

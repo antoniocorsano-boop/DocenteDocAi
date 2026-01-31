@@ -118,7 +118,7 @@ export const CategoryComparison: Story = {
       { label: 'English', value: 88 },
       { label: 'Art', value: 95 },
     ],
-    color: 'var(--sys-tertiary)',
+    color: 'var(--md-sys-color-tertiary)',
     horizontal: true,
   },
 };
@@ -134,7 +134,7 @@ export const WebsiteTraffic: Story = {
       { label: 'Sat', value: 2100 },
       { label: 'Sun', value: 1500 },
     ],
-    color: 'var(--sys-error)',
+    color: 'var(--md-sys-color-error)',
     horizontal: false,
   },
 };
@@ -156,7 +156,7 @@ export const LargeDataset: Story = {
       label: `Day ${i + 1}`,
       value: Math.floor(Math.random() * 100) + 20,
     })),
-    color: 'var(--sys-tertiary)',
+    color: 'var(--md-sys-color-tertiary)',
     horizontal: false,
   },
 };
@@ -169,7 +169,7 @@ export const ErrorColor: Story = {
       { label: 'Medium', value: 25 },
       { label: 'Low', value: 40 },
     ],
-    color: 'var(--sys-error)',
+    color: 'var(--md-sys-color-error)',
     horizontal: true,
   },
 };
@@ -195,7 +195,7 @@ export const UniformValues: Story = {
       { label: 'C', value: 50 },
       { label: 'D', value: 50 },
     ],
-    color: 'var(--sys-tertiary)',
+    color: 'var(--md-sys-color-tertiary)',
     horizontal: false,
   },
 };

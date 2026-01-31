@@ -61,7 +61,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                 variant="label-large"
                 style={{
                     textTransform: 'uppercase',
-                    letterSpacing: '0.5em',
+                    letterSpacing: 'var(--app-legacy-0_5em)',
                     color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-40), transparent)`
                 }}
             >

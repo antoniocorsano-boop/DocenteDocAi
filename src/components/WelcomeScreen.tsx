@@ -152,7 +152,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                                                 paddingLeft: 'var(--md-sys-spacing-4)',
                                                 paddingRight: 'var(--md-sys-spacing-4)',
                                                 textTransform: 'uppercase',
-                                                letterSpacing: '0.1em',
+                                                letterSpacing: 'var(--app-legacy-0_1em)',
                                             }}
                                         >
                                             Servirà per suggerire le materie corrette.
@@ -186,7 +186,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                                     aria-label="Continua"
                                 >
                                     Continua
-                                    <span style={{ fontWeight: 900, fontSize: 'var(--app-text-label)', marginLeft: 'var(--md-sys-spacing-3)' }}>arrow_forward</span>
+                                    <span style={{ fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>arrow_forward</span>
                                 </M3Button>
             ) : (
                                 <M3Button
@@ -197,7 +197,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                                     aria-label="Inizia Ora"
                                 >
                                     Inizia Ora
-                                    <span style={{ fontWeight: 900, fontSize: 'var(--app-text-label)', marginLeft: 'var(--md-sys-spacing-3)' }}>check</span>
+                                    <span style={{ fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>check</span>
                                 </M3Button>
             )}
         </div>
@@ -255,7 +255,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                             aria-label="Entra nella Dashboard"
                         >
                             Entra nella Dashboard
-                            <span style={{ fontWeight: 900, fontSize: 'var(--app-text-label)', marginLeft: 'var(--md-sys-spacing-3)' }}>login</span>
+                            <span style={{ fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>login</span>
                         </M3Button>
       </form>
   );

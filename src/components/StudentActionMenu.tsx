@@ -178,7 +178,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         </M3Typography>
                         <span
                             style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-body)',
+                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 color: trendColor,
                                 display: 'block',
                                 lineHeight: 1}}
@@ -253,7 +253,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                 >
                     <span
                         style={{fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--app-text-body)',
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             color: 'var(--md-sys-color-primary)'}}
                     >
                         add_circle
@@ -273,7 +273,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                 >
                     <span
                         style={{fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--app-text-body)',
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             color: 'var(--md-sys-color-secondary)'}}
                     >
                         person_search

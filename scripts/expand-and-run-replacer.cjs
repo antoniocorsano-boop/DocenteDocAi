@@ -3,7 +3,9 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const SRC = path.join(ROOT, 'src');
+// Optional target directory relative to repo root (default: 'src')
+const TARGET = process.argv[2] || 'src';
+const SRC = path.join(ROOT, TARGET);
 const MAPPING_FILE = path.join(ROOT, 'reports', 'mapping.json');
 
 function readMapping() {

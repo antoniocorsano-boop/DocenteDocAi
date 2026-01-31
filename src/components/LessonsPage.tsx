@@ -174,7 +174,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                     }}>
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--app-text-display)',
+                            fontSize: 'var(--md-sys-typescale-display)',
                             color: 'var(--md-sys-color-on-primary-container)'
                         }}>lightbulb</span>
                     </div>
@@ -210,18 +210,18 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                     }}>
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--app-text-title)',
+                            fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                             color: 'var(--md-sys-color-primary)'
                         }}>auto_awesome</span>
                         <span style={{
-                            fontSize: 'var(--app-text-title)',
-                            fontWeight: 'var(--app-text-title-weight)',
+                            fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                            fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)',
                             color: 'var(--md-sys-color-on-surface)'
                         }}>Generatore Sequenze Lezioni</span>
                     </div>
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
-                        fontSize: 'var(--app-text-title)',
+                        fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                         color: 'var(--md-sys-color-on-surface-variant)'
                     }}>expand_more</span>
                 </summary>
@@ -264,7 +264,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                             flex: 1
                                         }}>{selectedUdaIds.includes(uda.id) && <span style={{
                                             fontFamily: 'Material Symbols Outlined',
-                                            fontSize: 'var(--app-text-body)',
+                                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                             color: 'var(--md-sys-color-primary)',
                                             marginRight: 'var(--md-sys-spacing-2)'
                                         }}>check</span>}{uda.title}</label>
@@ -302,7 +302,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                             alignItems: 'center'
                                         }}>{selectedClasses.includes(c) && <span style={{
                                             fontFamily: 'Material Symbols Outlined',
-                                            fontSize: 'var(--app-text-title)',
+                                            fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                                             color: 'var(--md-sys-color-primary)',
                                             marginRight: 'var(--md-sys-spacing-2)'
                                         }}>check</span>}{c}</label>
@@ -325,7 +325,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                 <M3Typography variant="title-large">3. Contesto KB</M3Typography>
                                 <span style={{
                                     color: 'var(--md-sys-color-on-surface-variant)',
-                                    fontSize: 'var(--app-text-body)'
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)'
                                 }}>{selectedKbIds.length} selezionati</span>
                             </div>
                             <div style={{
@@ -352,12 +352,12 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                         }} title={kb.fileName}>
                                             {selectedKbIds.includes(kb.id) && <span style={{
                                                 fontFamily: 'Material Symbols Outlined',
-                                                fontSize: 'var(--app-text-title)',
+                                                fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                                                 color: 'var(--md-sys-color-primary)'
                                             }}>check</span>}
                                             <span style={{
                                                 color: 'var(--md-sys-color-primary)',
-                                                fontSize: 'var(--app-text-body)',
+                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                 fontFamily: 'Material Symbols Outlined'
                                             }}>{kb.isGenerated ? 'auto_awesome' : 'description'}</span>
                                             <span style={{
@@ -388,8 +388,8 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                             border: 'none',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             padding: 'var(--md-sys-spacing-4)',
-                            fontSize: 'var(--app-text-label)',
-                            fontWeight: 'var(--app-text-label-weight)',
+                            fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                            fontWeight: 'var(--md-sys-typescale-label-large-font-size-weight)',
                             cursor: selectedUdaIds.length === 0 || selectedClasses.length === 0 ? 'not-allowed' : 'pointer',
                             display: 'flex',
                             alignItems: 'center',
@@ -399,7 +399,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                         }}>
                             <span style={{
                                 fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-title)'
+                                fontSize: 'var(--md-sys-typescale-title-large-font-size)'
                             }}>auto_awesome</span>
                             Genera Sequenze di Lezioni
                         </button>
@@ -453,7 +453,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                 border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
                                 padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
-                                fontSize: 'var(--app-text-body)',
+                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 cursor: 'pointer'
                             }}>
                                 <option value="">Tutte le classi</option>
@@ -472,7 +472,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                 border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
                                 padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
-                                fontSize: 'var(--app-text-body)',
+                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 cursor: 'pointer'
                             }}>
                                 <option value="">Tutte le UDA</option>
@@ -493,7 +493,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                             }} title="Rimuovi filtri">
                                 <span style={{
                                     fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-title)',
+                                    fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                                     color: 'var(--md-sys-color-on-surface-variant)'
                                 }}>filter_alt_off</span>
                             </button>
@@ -524,13 +524,13 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                     justifyContent: 'space-between'
                                 }}>
                                     <span style={{
-                                        fontSize: 'var(--app-text-title)',
-                                        fontWeight: 'var(--app-text-title-weight)',
+                                        fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                                        fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)',
                                         color: 'var(--md-sys-color-on-surface)'
                                     }}>Classe {classKey}</span>
                                     <span style={{
                                         fontFamily: 'Material Symbols Outlined',
-                                        fontSize: 'var(--app-text-title)',
+                                        fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                                         color: 'var(--md-sys-color-on-surface-variant)'
                                     }}>expand_more</span>
                                 </summary>
@@ -556,12 +556,12 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                             }}>
                                                 <span style={{
                                                     color: 'var(--md-sys-color-primary)',
-                                                    fontSize: 'var(--app-text-title)',
-                                                    fontWeight: 'var(--app-text-title-weight)'
+                                                    fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                                                    fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)'
                                                 }}>{udaKey} ({lessonItems.length})</span>
                                                 <span style={{
                                                     fontFamily: 'Material Symbols Outlined',
-                                                    fontSize: 'var(--app-text-body)',
+                                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                     color: 'var(--md-sys-color-on-surface-variant)'
                                                 }}>expand_more</span>
                                             </summary>
@@ -599,8 +599,8 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                                             border: 'none',
                                                             borderRadius: 'var(--md-sys-shape-corner-large)',
                                                             padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-                                                            fontSize: 'var(--app-text-label)',
-                                                            fontWeight: 'var(--app-text-label-weight)',
+                                                            fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                                                            fontWeight: 'var(--md-sys-typescale-label-large-font-size-weight)',
                                                             cursor: 'pointer',
                                                             display: 'flex',
                                                             alignItems: 'center',
@@ -610,7 +610,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                                         }}>
                                                             <span style={{
                                                                 fontFamily: 'Material Symbols Outlined',
-                                                                fontSize: 'var(--app-text-title)'
+                                                                fontSize: 'var(--md-sys-typescale-title-large-font-size)'
                                                             }}>door_open</span>
                                                             Avvia
                                                         </button>
@@ -632,7 +632,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                         }}>
                             <span style={{
                                 fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-display)',
+                                fontSize: 'var(--md-sys-typescale-display)',
                                 color: 'var(--md-sys-color-on-surface-variant)',
                                 display: 'block',
                                 marginBottom: 'var(--md-sys-spacing-4)'
