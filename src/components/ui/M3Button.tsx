@@ -76,7 +76,7 @@ const M3Button: React.FC<M3ButtonProps> = ({
     pointerEvents: disabled ? 'none' : 'auto',
     border: 'none',
     textDecoration: 'none',
-    width: fullWidth ? 'var(--app-layout-full)' : 'auto',
+    width: fullWidth ? 'var(--md-sys-percent-100)' : 'auto',
     gap: spacing4,
     // Add hover and focus states with motion
       ':hover': {
@@ -102,7 +102,7 @@ const M3Button: React.FC<M3ButtonProps> = ({
         return {
           backgroundColor: 'transparent',
           color: primary,
-          border: `var(--app-border-normal) solid ${outline}`
+          border: `var(--md-sys-border-width-normal) solid ${outline}`
         };
       case 'text':
         return {

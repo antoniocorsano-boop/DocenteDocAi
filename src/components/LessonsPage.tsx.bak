@@ -222,7 +222,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
                         fontSize: 'var(--app-text-title)',
-                        color: 'var(--md-sys-color-on-surface-variant)'
+                        color: 'var(--app-color-on-surface-variant)'
                     }}>expand_more</span>
                 </summary>
                 <div style={{
@@ -324,7 +324,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                             }}>
                                 <M3Typography variant="title-large">3. Contesto KB</M3Typography>
                                 <span style={{
-                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    color: 'var(--app-color-on-surface-variant)',
                                     fontSize: 'var(--app-text-body)'
                                 }}>{selectedKbIds.length} selezionati</span>
                             </div>
@@ -370,7 +370,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                     </div>
                                 ))}
                                 {knowledgeBase.length === 0 && <M3Typography variant="body-medium" style={{
-                                    color: 'var(--md-sys-color-on-surface-variant)'
+                                    color: 'var(--app-color-on-surface-variant)'
                                 }}>KB vuota.</M3Typography>}
                             </div>
                         </div>
@@ -384,7 +384,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                         <button onClick={handleGenerateSequences} disabled={selectedUdaIds.length === 0 || selectedClasses.length === 0} style={{
                             width: 'var(--app-layout-full)',
                             backgroundColor: selectedUdaIds.length === 0 || selectedClasses.length === 0 ? 'var(--md-sys-color-surface-container-highest)' : 'var(--app-color-primary)',
-                            color: selectedUdaIds.length === 0 || selectedClasses.length === 0 ? 'var(--md-sys-color-on-surface-variant)' : 'var(--app-color-on-primary)',
+                            color: selectedUdaIds.length === 0 || selectedClasses.length === 0 ? 'var(--app-color-on-surface-variant)' : 'var(--app-color-on-primary)',
                             border: 'none',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             padding: 'var(--app-spacing-container)',
@@ -494,7 +494,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                 <span style={{
                                     fontFamily: 'Material Symbols Outlined',
                                     fontSize: 'var(--app-text-title)',
-                                    color: 'var(--md-sys-color-on-surface-variant)'
+                                    color: 'var(--app-color-on-surface-variant)'
                                 }}>filter_alt_off</span>
                             </button>
                         )}
@@ -531,7 +531,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                     <span style={{
                                         fontFamily: 'Material Symbols Outlined',
                                         fontSize: 'var(--app-text-title)',
-                                        color: 'var(--md-sys-color-on-surface-variant)'
+                                        color: 'var(--app-color-on-surface-variant)'
                                     }}>expand_more</span>
                                 </summary>
                                 <div style={{
@@ -562,7 +562,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                                 <span style={{
                                                     fontFamily: 'Material Symbols Outlined',
                                                     fontSize: 'var(--app-text-body)',
-                                                    color: 'var(--md-sys-color-on-surface-variant)'
+                                                    color: 'var(--app-color-on-surface-variant)'
                                                 }}>expand_more</span>
                                             </summary>
                                             <div style={{
@@ -590,7 +590,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                                                                 flex: 1
                                                             }}>{lesson.contenuto}</M3Typography>
                                                             <M3Typography variant="body-small" style={{
-                                                                color: 'var(--md-sys-color-on-surface-variant)'
+                                                                color: 'var(--app-color-on-surface-variant)'
                                                             }}>{lesson.materia} • {lesson.tipoLezione || 'Lezione'}</M3Typography>
                                                         </div>
                                                         <button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `archive-${Date.now()}`, lesson)} style={{
@@ -633,16 +633,16 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                             <span style={{
                                 fontFamily: 'Material Symbols Outlined',
                                 fontSize: 'var(--app-text-display)',
-                                color: 'var(--md-sys-color-on-surface-variant)',
+                                color: 'var(--app-color-on-surface-variant)',
                                 display: 'block',
                                 marginBottom: 'var(--app-spacing-container)'
                             }}>history_edu</span>
                             <M3Typography variant="body-large" style={{
-                                color: 'var(--md-sys-color-on-surface-variant)',
+                                color: 'var(--app-color-on-surface-variant)',
                                 marginBottom: 'var(--app-spacing-component)'
                             }}>Nessuna lezione trovata</M3Typography>
                             <M3Typography variant="body-medium" style={{
-                                color: 'var(--md-sys-color-on-surface-variant)'
+                                color: 'var(--app-color-on-surface-variant)'
                             }}>Modifica i filtri o crea una nuova lezione.</M3Typography>
                         </div>
                     )}

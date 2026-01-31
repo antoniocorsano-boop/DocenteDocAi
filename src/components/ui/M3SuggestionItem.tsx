@@ -24,7 +24,7 @@ const M3SuggestionItem: React.FC<M3SuggestionItemProps> = ({
         opacity: isHovered && onClick ? 0.9 : 0.8,
         padding: spacing[4],
         borderRadius: shape.corner.large,
-        border: `var(--app-border-normal) solid ${isHovered && onClick ? color.primary : color.outlineVariant}`,
+        border: `var(--md-sys-border-width-normal) solid ${isHovered && onClick ? color.primary : color.outlineVariant}`,
         transition: `border-color ${motion.duration.short} ${motion.easing.standard}`,
         cursor: onClick ? 'pointer' : 'default'}}
       onMouseEnter={() => setIsHovered(true)}

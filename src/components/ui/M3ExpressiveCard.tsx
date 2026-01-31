@@ -16,7 +16,7 @@ const MD3_TOKENS = {
   surfaceContainerHigh: 'var(--md-sys-color-surface-container-high)',
   onSurface: 'var(--md-sys-color-on-surface)',
   surfaceContainerLow: 'var(--md-sys-color-surface-container-low)',
-  onSurfaceVariant: 'var(--app-color-on-surface-variant)',
+  onSurfaceVariant: 'var(--md-sys-color-on-surface-variant)',
   outlineVariant: 'var(--md-sys-color-outline-variant)',
 
   // Shape
@@ -24,7 +24,7 @@ const MD3_TOKENS = {
 
   // Spacing
   spacing1: 'var(--md-sys-spacing-1)',
-  spacing4: 'var(--app-spacing-container)',
+  spacing4: 'var(--md-sys-spacing-4)',
   spacing8: 'var(--md-sys-spacing-8)',
   spacing14: 'var(--md-sys-spacing-14)',
   spacing16: 'var(--md-sys-spacing-16)',
@@ -35,7 +35,7 @@ const MD3_TOKENS = {
   blur48: 'var(--md-sys-blur-48)',
 
   // Border Width
-  borderWidthNormal: 'var(--app-border-normal)',
+  borderWidthNormal: 'var(--md-sys-border-width-normal)',
 
   // Percentages
   percent0: 'var(--md-sys-percent-0)',
@@ -43,7 +43,7 @@ const MD3_TOKENS = {
 
   // Motion
   durationShort2: 'var(--md-sys-motion-duration-short2)',
-  easingStandard: 'var(--app-easing-standard)',
+  easingStandard: 'var(--md-sys-motion-easing-standard)',
 
   // Elevation
   elevation1: 'var(--md-sys-elevation-level1)',
@@ -111,7 +111,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
         flexDirection: 'column',
         backdropFilter: `blur(${MD3_TOKENS.blurLarge})`,
         WebkitBackdropFilter: `blur(${MD3_TOKENS.blurLarge})`,
-        transition: `all var(--app-motion-quick) var(--app-easing-standard)`,
+        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
         cursor: isClickable ? 'pointer' : 'default',
         boxShadow: hovered ? 'var(--md-sys-elevation-level3)' : 'var(--md-sys-elevation-level1)',
         outline: 'none',
@@ -192,7 +192,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                     <span style={{
                         fontFamily: 'Material Symbols Outlined',
                         fontSize: MD3_TOKENS.titleMediumFontSize,
-                        transition: `opacity var(--app-motion-quick) var(--app-easing-standard)`,
+                        transition: `opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
                         opacity: hovered ? 0.7 : 0.5
                     }}>arrow_forward</span>
                 )}

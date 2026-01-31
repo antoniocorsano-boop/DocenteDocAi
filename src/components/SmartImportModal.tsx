@@ -72,22 +72,22 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
             headline="Trasforma vecchi documenti in file standardizzati"
             mode="fullscreen"
         >
-            <M3DialogContent style={{height: 'var(--app-layout-full)', display: "flex", flexDirection: "column", padding: 'var(--md-sys-spacing-8)'}}>
+            <M3DialogContent style={{height: 'var(--md-sys-percent-100)', display: "flex", flexDirection: "column", padding: 'var(--md-sys-spacing-8)'}}>
                 {step === 'upload' && (
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: 'var(--app-layout-full)' }}>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: 'var(--md-sys-percent-100)' }}>
                         <div
                             {...getRootProps()}
                             style={{
-                                width: 'var(--app-layout-full)',
+                                width: 'var(--md-sys-percent-100)',
                                 maxWidth: 'calc(var(--md-sys-spacing-20) * 7.2)',
                                 height: 'calc(var(--md-sys-spacing-20) * 4)',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                border: `var(--app-border-thick) dashed ${isDragActive ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                                border: `var(--md-sys-border-width-thick) dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                 borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-                                backgroundColor: isDragActive ? 'var(--app-color-primary-container)' : 'var(--md-sys-color-surface-container-low)',
+                                backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-low)',
                                 transitionProperty: 'opacity, transform, background-color, color, border-color, box-shadow',
                                 transitionDuration: 'var(--md-sys-motion-duration-short)',
                                 transitionTimingFunction: 'var(--md-sys-motion-easing-standard)',
@@ -100,49 +100,49 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                             <div style={{
                                 width: 'var(--md-sys-spacing-20)',
                                 height: 'var(--md-sys-spacing-20)',
-                                borderRadius: 'var(--app-layout-half)',
+                                borderRadius: 'var(--md-sys-percent-50)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                marginBottom: 'var(--app-spacing-section)',
+                                marginBottom: 'var(--md-sys-spacing-6)',
                                 boxShadow: 'var(--md-sys-elevation-level1)',
-                                backgroundColor: isDragActive ? 'var(--app-color-primary)' : 'var(--md-sys-color-surface-container-high)',
-                                color: isDragActive ? 'var(--app-color-on-primary)' : 'var(--app-color-primary)'
+                                backgroundColor: isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
+                                color: isDragActive ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-primary)'
                             }}>
                                 <span style={{ fontFamily: 'Material Symbols Outlined' }}>transform</span>
                             </div>
                             <M3Typography variant="headline-medium" style={{ textAlign: 'center' }}>Carica la vecchia Programmazione</M3Typography>
-                            <div style={{marginTop: 'var(--app-spacing-container)', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'var(--md-sys-spacing-8)'}}>
+                            <div style={{marginTop: 'var(--md-sys-spacing-4)', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'var(--md-sys-spacing-8)'}}>
                                 <span style={{
                                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                                    color: 'var(--app-color-on-surface-variant)',
-                                    borderRadius: 'var(--app-spacing-container)',
-                                    fontSize: 'var(--app-spacing-element)',
-                                    border: 'var(--app-border-normal) solid var(--md-sys-color-outline)',
-                                    padding: 'var(--md-sys-spacing-1) var(--app-spacing-component)'
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    borderRadius: 'var(--md-sys-spacing-4)',
+                                    fontSize: 'var(--md-sys-spacing-3)',
+                                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
+                                    padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)'
                                 }}>.PDF</span>
                                 <span style={{
                                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                                    color: 'var(--app-color-on-surface-variant)',
-                                    borderRadius: 'var(--app-spacing-container)',
-                                    fontSize: 'var(--app-spacing-element)',
-                                    border: 'var(--app-border-normal) solid var(--md-sys-color-outline)',
-                                    padding: 'var(--md-sys-spacing-1) var(--app-spacing-component)'
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    borderRadius: 'var(--md-sys-spacing-4)',
+                                    fontSize: 'var(--md-sys-spacing-3)',
+                                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
+                                    padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)'
                                 }}>.DOCX</span>
                                 <span style={{
                                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                                    color: 'var(--app-color-on-surface-variant)',
-                                    borderRadius: 'var(--app-spacing-container)',
-                                    fontSize: 'var(--app-spacing-element)',
-                                    border: 'var(--app-border-normal) solid var(--md-sys-color-outline)',
-                                    padding: 'var(--md-sys-spacing-1) var(--app-spacing-component)'
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    borderRadius: 'var(--md-sys-spacing-4)',
+                                    fontSize: 'var(--md-sys-spacing-3)',
+                                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
+                                    padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)'
                                 }}>.TXT</span>
                             </div>
                             <M3Typography variant="body-medium" style={{
-                                marginTop: 'var(--app-spacing-section)',
+                                marginTop: 'var(--md-sys-spacing-6)',
                                 textAlign: 'center',
                                 opacity: 0.8,
-                                color: 'var(--app-color-on-surface-variant)'
+                                color: 'var(--md-sys-color-on-surface-variant)'
                             }}>
                                 Trascina qui il file o clicca per selezionare.
                             </M3Typography>
@@ -151,48 +151,48 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                 )}
 
                 {step === 'processing' && (
-                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: 'var(--app-layout-full)', gap: 'var(--md-sys-spacing-8)'}}>
+                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: 'var(--md-sys-percent-100)', gap: 'var(--md-sys-spacing-8)'}}>
                         <div >
-                            <div  style={{borderRadius: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', width: 'var(--app-spacing-container)', borderBottom: 'var(--md-sys-spacing-1) solid var(--md-sys-color-outline)', borderColor: 'var(--app-color-primary)'}}></div>
+                            <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-spacing-1) solid var(--md-sys-color-outline)', borderColor: 'var(--md-sys-color-primary)'}}></div>
                             <div  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <span style={{color: 'var(--app-color-primary)', fontFamily: 'Material Symbols Outlined'}}>auto_awesome</span>
+                                <span style={{color: 'var(--md-sys-color-primary)', fontFamily: 'Material Symbols Outlined'}}>auto_awesome</span>
                             </div>
                         </div>
-                        <div style={{textAlign: 'center', gap: 'var(--app-spacing-component)'}}>
-                            <M3Typography variant="body-large" style={{color: 'var(--app-color-primary)'}}>{processingStatus}</M3Typography>
-                            <M3Typography variant="body-medium" style={{color: 'var(--app-color-on-surface-variant)'}}>L'Intelligenza Artificiale sta riorganizzando il contenuto...</M3Typography>
+                        <div style={{textAlign: 'center', gap: 'var(--md-sys-spacing-2)'}}>
+                            <M3Typography variant="body-large" style={{color: 'var(--md-sys-color-primary)'}}>{processingStatus}</M3Typography>
+                            <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)'}}>L'Intelligenza Artificiale sta riorganizzando il contenuto...</M3Typography>
                         </div>
                     </div>
                 )}
 
                 {step === 'result' && (
-                    <div  style={{display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--app-spacing-section)', height: 'var(--app-layout-full)', minHeight: '0'}}>
+                    <div  style={{display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-percent-100)', minHeight: '0'}}>
                         <div style={{
                             backgroundColor: 'var(--md-sys-color-surface-container-low)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             display: 'flex',
                             flexDirection: 'column',
-                            height: 'var(--app-layout-full)',
+                            height: 'var(--md-sys-percent-100)',
                             minHeight: '0',
-                            border: 'var(--app-border-normal) solid var(--md-sys-color-outline)'
+                            border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
                         }}>
                             <div style={{
                                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                 padding: 'var(--md-sys-spacing-8)',
-                                borderBottom: 'var(--app-border-normal) solid var(--md-sys-color-outline)',
+                                borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-8)'
                             }}>
-                                <span style={{ color: 'var(--app-color-on-surface-variant)', fontFamily: 'Material Symbols Outlined' }}>description</span>
-                                <M3Typography variant="title-large" style={{ color: 'var(--app-color-on-surface-variant)' }}>Testo Originale (Estratto)</M3Typography>
+                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'Material Symbols Outlined' }}>description</span>
+                                <M3Typography variant="title-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Testo Originale (Estratto)</M3Typography>
                             </div>
                             <div style={{
-                                color: 'var(--app-color-on-surface-variant)',
+                                color: 'var(--md-sys-color-on-surface-variant)',
                                 flexGrow: '1',
-                                padding: 'var(--app-spacing-section)',
+                                padding: 'var(--md-sys-spacing-6)',
                                 overflowY: 'auto',
-                                fontSize: 'var(--app-spacing-element)',
+                                fontSize: 'var(--md-sys-spacing-3)',
                                 whiteSpace: 'pre-wrap',
                                 lineHeight: '1.625'
                             }}>
@@ -203,21 +203,21 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             display: 'flex',
                             flexDirection: 'column',
-                            height: 'var(--app-layout-full)',
+                            height: 'var(--md-sys-percent-100)',
                             minHeight: '0',
-                            backgroundColor: 'var(--app-color-surface)'
+                            backgroundColor: 'var(--md-sys-color-surface)'
                         }}>
                             {/* Decorative overlay removed to avoid accidental hardcoded token matches */}
                             <div aria-hidden="true" style={{ height: 0 }} />
 
                             <div style={{
-                                backgroundColor: 'var(--app-color-surface)',
+                                backgroundColor: 'var(--md-sys-color-surface)',
                                 padding: 'var(--md-sys-spacing-8)',
-                                borderBottom: 'var(--app-border-normal) solid var(--md-sys-color-outline)',
+                                borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-8)',
-                                color: 'var(--app-color-primary)'
+                                color: 'var(--md-sys-color-primary)'
                             }}>
                                 <span style={{
   fontFamily: 'Material Symbols Outlined'

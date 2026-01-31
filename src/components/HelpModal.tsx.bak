@@ -47,7 +47,7 @@ const ManualSection: React.FC<{ title: string; icon: string; defaultOpen?: boole
                 </div>
                 <span style={{
                     fontFamily: 'Material Symbols Outlined',
-                    color: 'var(--md-sys-color-on-surface-variant)',
+                    color: 'var(--app-color-on-surface-variant)',
                     transition: 'transform var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
                     transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
                 }}>expand_more</span>

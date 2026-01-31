@@ -10,21 +10,21 @@ interface TeacherPresentationViewProps {
 
 const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNavigate }) => {
   return (
-        <div  style={{minHeight: "var(--md-sys-viewport-height-full)", width: 'var(--app-layout-full)', backgroundColor: "var(--app-color-surface)"}}>
+        <div  style={{minHeight: "var(--md-sys-viewport-height-full)", width: 'var(--md-sys-percent-100)', backgroundColor: "var(--md-sys-color-surface)"}}>
             {/* Aura Ornaments */}
-            <div style={{ backgroundColor: sys.colors.primary/5 ,  borderRadius: 'var(--app-spacing-container)' }} />
-            <div style={{ backgroundColor: sys.colors.tertiary/5 ,  borderRadius: 'var(--app-spacing-container)' }} />
+            <div style={{ backgroundColor: sys.colors.primary/5 ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
+            <div style={{ backgroundColor: sys.colors.tertiary/5 ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
 
-            <div  style={{padding: 'var(--app-spacing-section)', marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)"}}>
+            <div  style={{padding: 'var(--md-sys-spacing-6)', marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)"}}>
                 
                 {/* Slide 1: Intro */}
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.3, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: "center", border: 'var(--app-border-normal) solid var(--md-sys-color-outline)', gap: 'var(--md-sys-spacing-8)' }}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.3, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: "center", border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', gap: 'var(--md-sys-spacing-8)' }}>
                     <div  style={{display: "inline-block", marginBottom: 'var(--md-sys-spacing-8)'}}>
                         <Logo title="DocenteDoc AI" />
                     </div>
-                    <div style={{marginTop: 'var(--app-spacing-container)'}}>
-                        <h1 style={{ color: 'var(--app-color-on-primary)', fontWeight: "900", letterSpacing: "-0.005em", lineHeight: "1.25" }}>Il Tuo Copilota Didattico</h1>
-                        <p style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: 'var(--app-text-title)', fontWeight: "500", opacity: "0.8", marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)", lineHeight: "1.625" }}>
+                    <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
+                        <h1 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", letterSpacing: "-0.005em", lineHeight: "1.25" }}>Il Tuo Copilota Didattico</h1>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--app-text-title)', fontWeight: "500", opacity: "0.8", marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", lineHeight: "1.625" }}>
                             Tecnologia, Privacy e Innovazione al servizio dell'insegnamento.
                             Riduci il carico burocratico, aumenta l'efficacia didattica e riscopri la passione per l'insegnamento.
                         </p>
@@ -34,7 +34,7 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                 {/* Slide 2: Privacy */}
                 <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                     <SectionHeader title="La Nostra Promessa: Privacy Assoluta" icon="security"  />
-                    <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--app-spacing-section)'}}>
+                    <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                         <InfoCard
                             title="I Tuoi Dati, Solo Tuoi: Local-First"
                             description="Tutti i dati sensibili (studenti, voti, note) sono crittografati e salvati ESCLUSIVAMENTE sul tuo dispositivo. Nessun server centrale accede o raccoglie le tue informazioni. Massima privacy, totale controllo."
@@ -51,7 +51,7 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                 {/* Slide 3: AI */}
                 <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                     <SectionHeader title="L'Intelligenza Artificiale al Tuo Fianco" icon="psychology"  />
-                    <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--app-spacing-section)'}}>
+                    <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                          <InfoCard
                             title="AI come Copilota, non Pilota"
                             description="La nostra AI è il tuo assistente intelligente: genera bozze di lezioni, crea verifiche e ti supporta nell'analisi. MAI prende decisioni al posto tuo. Tu mantieni sempre il controllo finale e la revisione."
@@ -68,7 +68,7 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                 {/* Slide 4: Workflows */}
                 <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                     <SectionHeader title="Flussi di Lavoro Semplificati" icon="alt_route"  />
-                    <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--app-spacing-section)'}}>
+                    <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                         <ActionTile 
                             title="Centro Operativo"
                             subtitle="Tutti i processi in un click"
@@ -99,7 +99,7 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                 {/* Slide 5: Impact */}
                 <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                     <SectionHeader title="L'Impatto sul Futuro" icon="school"  />
-                    <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--app-spacing-section)'}}>
+                    <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                         <InfoCard
                             title="Sviluppo di Competenze Reali"
                             description="Andiamo oltre la media aritmetica. DocenteDoc AI ti aiuta a tracciare e valorizzare le competenze reali degli studenti, fornendo un profilo completo per la loro crescita personale e professionale."
@@ -114,10 +114,10 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                 </div>
 
                 {/* Slide 6: Call to Action */}
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30, borderRadius: ref.shape[6], padding: 'var(--app-spacing-container)' , textAlign: "center", border: 'var(--app-border-normal) solid var(--md-sys-color-outline)', gap: 'var(--md-sys-spacing-8)'}}>
-                    <div style={{marginTop: 'var(--app-spacing-container)'}}>
-                        <h2 style={{ color: 'var(--app-color-on-primary)', fontWeight: "900", letterSpacing: "-0.005em" }}>Insegna Meglio, Vivi Meglio.</h2>
-                        <p style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: 'var(--app-text-title)', fontWeight: "500", opacity: "0.8", marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)", lineHeight: "1.625" }}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30, borderRadius: ref.shape[6], padding: 'var(--md-sys-spacing-4)' , textAlign: "center", border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', gap: 'var(--md-sys-spacing-8)'}}>
+                    <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
+                        <h2 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", letterSpacing: "-0.005em" }}>Insegna Meglio, Vivi Meglio.</h2>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--app-text-title)', fontWeight: "500", opacity: "0.8", marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", lineHeight: "1.625" }}>
                             DocenteDoc AI è stato creato per semplificare la tua vita professionale, garantendo sicurezza e innovazione.
                             Esplora subito il tuo copilota didattico e trasforma il tuo modo di insegnare.
                         </p>
@@ -125,11 +125,11 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                     <M3Button 
                         onClick={() => onNavigate('home')} 
                         variant="filled"
-                         style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-slow) var(--app-easing-standard)' }}
+                         style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard)' }}
                     >
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                             <span style={{ fontSize: 'var(--app-text-title)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Inizia Subito!</span>
-                            <span  style={{ fontSize: 'var(--app-text-title)', transition: "transform var(--app-motion-slow)" }}>arrow_forward</span>
+                            <span  style={{ fontSize: 'var(--app-text-title)', transition: "transform var(--md-sys-motion-duration-long)" }}>arrow_forward</span>
                         </div>
                     </M3Button>
                 </div>

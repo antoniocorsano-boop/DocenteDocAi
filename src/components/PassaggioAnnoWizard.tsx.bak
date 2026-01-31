@@ -197,7 +197,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                         { icon: "delete_sweep", text: "Reset registro voti, lezioni e assenze giornaliere." },
                                         { icon: "trending_up", text: "Promozione classi (es. 1A → 2A) con gestione bocciature." }
                                     ].map((item, i) => (
-                                        <li key={i} style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)' }}>
+                                        <li key={i} style={{ color: 'var(--app-color-on-surface-variant)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)' }}>
                                             <span style={{ color: 'var(--app-color-primary)', fontSize: "var(--app-spacing-section)" }}>{item.icon}</span>
                                             <span style={{ fontWeight: "500" }}>{item.text}</span>
                                         </li>
@@ -214,7 +214,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                 <div style={{ display: "flex", gap: 'var(--app-spacing-section)' }}>
                                     <span style={{ backgroundColor: 'var(--app-color-primary)', color: 'var(--app-color-on-primary)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>{stats.promote} Promossi</span>
                                     <span style={{ backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>{stats.retain} Bocciati</span>
-                                    <span style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>{stats.archive} Archiviati</span>
+                                    <span style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', color: 'var(--app-color-on-surface-variant)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>{stats.archive} Archiviati</span>
                                 </div>
                             </div>
                             
@@ -222,11 +222,11 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                 <table style={{ width: 'var(--app-layout-full)' }}>
                                     <thead>
                                         <tr style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
-                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Studente</th>
-                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Classe</th>
-                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Media</th>
-                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Esito</th>
-                                            <th style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Futuro</th>
+                                            <th style={{ color: 'var(--app-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Studente</th>
+                                            <th style={{ color: 'var(--app-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Classe</th>
+                                            <th style={{ color: 'var(--app-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Media</th>
+                                            <th style={{ color: 'var(--app-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Esito</th>
+                                            <th style={{ color: 'var(--app-color-on-surface-variant)', textAlign: "left", padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Futuro</th>
                                         </tr>
                                     </thead>
                                     <tbody >
@@ -237,7 +237,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                             return (
                                                 <tr key={s.id}  style={{ transition: "color var(--app-motion-standard)" }}>
                                                     <td style={{ color: 'var(--app-color-on-primary)', padding: 'var(--md-sys-spacing-8)', fontWeight: "900"}}>{s.cognome} {s.nome}</td>
-                                                    <td style={{ color: 'var(--md-sys-color-on-surface-variant)', padding: 'var(--md-sys-spacing-8)', fontWeight: "500"}}>{s.classe}</td>
+                                                    <td style={{ color: 'var(--app-color-on-surface-variant)', padding: 'var(--md-sys-spacing-8)', fontWeight: "500"}}>{s.classe}</td>
                                                     <td style={{
                                                         padding: 'var(--md-sys-spacing-8)',
                                                         fontWeight: '900',
@@ -261,7 +261,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                                                                outcome?.action === "archive" || outcome?.action === "transfer" ? 'var(--md-sys-color-surface-container-high)' :
                                                                                'var(--app-color-primary-container)',
                                                                 color: outcome?.action === "retain" ? 'var(--md-sys-color-error)' :
-                                                                     outcome?.action === "archive" || outcome?.action === "transfer" ? 'var(--md-sys-color-on-surface-variant)' :
+                                                                     outcome?.action === "archive" || outcome?.action === "transfer" ? 'var(--app-color-on-surface-variant)' :
                                                                      'var(--app-color-primary)',
                                                                 transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)',
                                                                 cursor: 'pointer',
@@ -274,7 +274,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                                             <option value="archive">Diplomato</option>
                                                         </select>
                                                     </td>
-                                                    <td style={{ color: 'var(--md-sys-color-on-surface-variant)', padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "0.6" }}>{outcome?.nextClass}</td>
+                                                    <td style={{ color: 'var(--app-color-on-surface-variant)', padding: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "0.6" }}>{outcome?.nextClass}</td>
                                                 </tr>
                                             );
                                         })}
@@ -290,7 +290,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                 <span style={{ color: 'var(--md-sys-color-on-error-container)' }}>warning</span>
                             </div>
                             <h3 style={{ color: 'var(--app-color-on-primary)', fontWeight: "900", marginBottom: 'var(--md-sys-spacing-8)' }}>Confermi l'operazione?</h3>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)', lineHeight: "1.625" }}>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)', lineHeight: "1.625" }}>
                                 L'anno scolastico verr� impostato a <strong style={{color: 'var(--app-color-primary)'}}>{nextYear}</strong>.
                                 <br/><br/>
                                 ?? I dati giornalieri verranno <strong style={{color: "var(--md-sys-color-error)"}}>resettati</strong>. I dati storici saranno salvati nel profilo di ogni studente.
@@ -305,7 +305,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                         "Reset Piani di Inclusione",
                                         "Promozione studenti secondo schema"
                                     ].map((text, i) => (
-                                        <li key={i} style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)' }}>
+                                        <li key={i} style={{ color: 'var(--app-color-on-surface-variant)', display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)' }}>
                                             <span style={{ borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--app-color-primary)' }}></span>
                                             {text}
                                         </li>

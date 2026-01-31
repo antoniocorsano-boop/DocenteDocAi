@@ -100,7 +100,7 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
 
                 {/* Phases Timeline */}
                 <div>
-                    <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: "var(--app-text-body)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--app-spacing-component)'}}>Fasi di Lavoro</h3>
+                    <h3 style={{ color: 'var(--app-color-on-surface-variant)', fontSize: "var(--app-text-body)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--app-spacing-component)'}}>Fasi di Lavoro</h3>
                     <div  style={{gap: 'var(--app-spacing-element)'}}>
                         {uda.phases.map((phase) => (
                             <div key={phase.id} >
@@ -110,7 +110,7 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
                                     <span style={{ color: 'var(--app-color-on-secondary-container)', fontSize: "var(--app-text-body)", fontWeight: "900", backgroundColor: "var(--app-color-secondary-container)", borderRadius: "var(--md-sys-shape-corner-small)", textTransform: "uppercase"}}>{phase.duration}h</span>
                                 </div>
                                 <p  style={{fontSize: "var(--app-text-body)", color: "var(--app-color-on-surface)", fontWeight: "500"}}>{phase.description}</p>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)',  fontSize: "var(--app-text-body)" }}>{phase.activities}</p>
+                                <p style={{ color: 'var(--app-color-on-surface-variant)',  fontSize: "var(--app-text-body)" }}>{phase.activities}</p>
                             </div>
                         ))}
                     </div>

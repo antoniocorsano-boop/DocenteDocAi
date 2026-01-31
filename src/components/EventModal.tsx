@@ -60,8 +60,8 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
             <M3DialogContent style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                 <form id="event-modal-form" onSubmit={handleSubmit} style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                     <div>
-                        <label style={{color: "var(--app-color-primary)", fontWeight: "900", textTransform: "uppercase", paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', marginBottom: 'var(--md-sys-spacing-8)', display: "block"}}>Tipo Evento</label>
-                        <div  style={{display: "flex", gap: 'var(--app-spacing-section)', overflowX: "auto"}}>
+                        <label style={{color: "var(--md-sys-color-primary)", fontWeight: "900", textTransform: "uppercase", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-8)', display: "block"}}>Tipo Evento</label>
+                        <div  style={{display: "flex", gap: 'var(--md-sys-spacing-6)', overflowX: "auto"}}>
                             {eventTypes.map(t => (
                                 <M3ChoiceCard
                                     key={t.value}

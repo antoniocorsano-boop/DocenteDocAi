@@ -57,7 +57,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
             level={1}
         >
             <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 0.3, gap: 'var(--app-spacing-container)' }}>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)' }}>Scegli come condividere il contenuto</p>
+                <p style={{ color: 'var(--app-color-on-surface-variant)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)' }}>Scegli come condividere il contenuto</p>
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-spacing-section)' }}>
                     <button 
@@ -89,7 +89,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                         </div>
                         <div>
                             <p style={{ fontSize: 'var(--app-spacing-touch)', fontWeight: 'bold' }}>Condividi via...</p>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>WhatsApp, Email, Drive</p>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' }}>WhatsApp, Email, Drive</p>
                         </div>
                     </button>
 
@@ -122,7 +122,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                         </div>
                         <div>
                             <p style={{ fontSize: 'var(--app-spacing-touch)', fontWeight: 'bold' }}>{copyStatus === 'copied' ? 'Copiato!' : 'Copia Formattato'}</p>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Per registro elettronico o Padlet</p>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Per registro elettronico o Padlet</p>
                         </div>
                     </button>
                 </div>

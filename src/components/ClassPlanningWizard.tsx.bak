@@ -340,7 +340,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 backgroundColor: isDone ? 'var(--app-color-primary)' : isActive ? 'var(--app-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
-                                color: isDone ? 'var(--app-color-on-primary)' : isActive ? 'var(--app-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
+                                color: isDone ? 'var(--app-color-on-primary)' : isActive ? 'var(--app-color-on-primary-container)' : 'var(--app-color-on-surface-variant)',
                                 border: `var(--app-border-thin) solid ${isActive ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                 fontWeight: 'bold',
                                 transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)'
@@ -422,7 +422,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </label>
                                         </div>
                                     )) : (
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</p>
+                                        <p style={{ color: 'var(--app-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</p>
                                     )}
                                 </div>
                             </InfoCard>
@@ -448,7 +448,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                 borderRadius: 'var(--md-sys-shape-corner-large)',
                                                 border: `var(--app-border-thin) solid ${situationTags.includes(tag) ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                                 backgroundColor: situationTags.includes(tag) ? 'var(--app-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
-                                                color: situationTags.includes(tag) ? 'var(--app-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
+                                                color: situationTags.includes(tag) ? 'var(--app-color-on-primary-container)' : 'var(--app-color-on-surface-variant)',
                                                 cursor: 'pointer',
                                                 transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)',
                                                 fontSize: 'var(--md-sys-typescale-body-small-size)'
@@ -548,7 +548,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ gap: 'var(--app-spacing-element)', overflowY: "auto", maxHeight: 'var(--md-sys-spacing-24)' }}>
                                     {plannedUdas.map((uda, idx) => (
                                         <div key={uda.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)', padding: 'var(--app-spacing-section)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", transition: "color var(--app-motion-standard) var(--app-easing-standard)" }}>
-                                            <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)', cursor: 'grab' }} title="Trascina per riordinare">drag_indicator</span>
+                                            <span className="material-symbols-outlined" style={{ color: 'var(--app-color-on-surface-variant)', cursor: 'grab' }} title="Trascina per riordinare">drag_indicator</span>
                                             
                                             <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                                                 <div style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--app-spacing-container)' }}>
@@ -557,7 +557,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                     </span>
                                                     <p style={{ color: 'var(--app-color-on-surface)', fontWeight: "bold" }}>{uda.title}</p>
                                                 </div>
-                                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "0.8" }}>{uda.topic || uda.title}</p>
+                                                <p style={{ color: 'var(--app-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "0.8" }}>{uda.topic || uda.title}</p>
                                             </div>
 
                                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>
@@ -568,7 +568,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                     style={{ padding: 'var(--app-spacing-container)', width: "var(--md-sys-spacing-10)", textAlign: "center", backgroundColor: "transparent", fontWeight: "bold", border: "none" }} 
                                                     title="Modifica ore stimate"
                                                 />
-                                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>ore</span>
+                                                <span style={{ color: 'var(--app-color-on-surface-variant)' }}>ore</span>
                                             </div>
 
                                             <button onClick={() => removeUdaFromPlan(idx)} style={{ color: "var(--md-sys-color-error)", background: 'none', border: 'none', cursor: 'pointer' }} title="Rimuovi UDA" aria-label="Rimuovi questa UDA dal piano">
@@ -578,8 +578,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     ))}
                                     {plannedUdas.length === 0 && (
                                         <div style={{ padding: 'var(--app-spacing-container)', backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>
-                                            <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>calendar_today</span>
-                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</p>
+                                            <span className="material-symbols-outlined" style={{ color: 'var(--app-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>calendar_today</span>
+                                            <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</p>
                                         </div>
                                     )}
                                 </div>
@@ -617,7 +617,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                 {new Date(item.start).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })} - {new Date(item.end).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })}
                                             </p>
                                             <h4 style={{ marginBottom: 'var(--app-spacing-container)' }}>{item.uda.title}</h4>
-                                            <div style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                                            <div style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: 'var(--app-color-on-surface-variant)' }}>
                                                 <span className="material-symbols-outlined" style={{  fontSize: "var(--md-sys-typescale-body-small-size)"  }}>schedule</span>
                                                 <span>{item.uda.hours} ore stimate</span>
                                             </div>
@@ -635,7 +635,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             </div>
                             <div>
                                 <h3 style={{ color: 'var(--app-color-on-surface)', marginBottom: 'var(--md-sys-spacing-8)' }}>Pianificazione Completata!</h3>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", justifyContent: "center" }}>
+                                <p style={{ color: 'var(--app-color-on-surface-variant)', display: "flex", justifyContent: "center" }}>
                                     Tutte le UDA e le lezioni sono state salvate. Ora puoi generare il documento di programmazione annuale completo.
                                 </p>
                             </div>

@@ -71,12 +71,12 @@ const LogoComponent: React.FC<LogoProps> = ({ isAiThinking = false, onHomeNaviga
       
       {/* Overlay per le fasi di implosione e pace */}
       {(chaosStage === 'implosion' || chaosStage === 'peace') && document.body && ReactDOM.createPortal(
-        <div style={{ position: 'fixed', inset: 0, zIndex: 'var(--app-z-tooltip)', backgroundColor: chaosStage === 'implosion' ? 'var(--md-sys-color-error)' : 'var(--app-color-surface)', opacity: 0.7, pointerEvents: 'auto' }} data-chaos-stage={chaosStage}></div>,
+        <div style={{ position: 'fixed', inset: 0, zIndex: 'var(--app-z-tooltip)', backgroundColor: chaosStage === 'implosion' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-surface)', opacity: 0.7, pointerEvents: 'auto' }} data-chaos-stage={chaosStage}></div>,
         document.body
       )}
 
       <div 
-        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'box-shadow var(--app-motion-standard)', boxShadow: isAiThinking ? '0 0 0 var(--md-sys-spacing-1) var(--app-color-primary)' : undefined, width: 'var(--app-logo-width)' }} data-chaos-stage={chaosStage} data-ai-thinking={isAiThinking} 
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'box-shadow var(--md-sys-motion-duration-medium)', boxShadow: isAiThinking ? '0 0 0 var(--md-sys-spacing-1) var(--md-sys-color-primary)' : undefined, width: 'var(--app-logo-width)' }} data-chaos-stage={chaosStage} data-ai-thinking={isAiThinking} 
         onClick={handleLogoClick}
       >
         <svg viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

@@ -24,11 +24,11 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
         right: 0,
         bottom: 0,
         zIndex: 'var(--md-sys-z-nav)',
-        background: 'var(--app-color-surface)',
-        borderTop: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+        background: 'var(--md-sys-color-surface)',
+        borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
         display: 'flex',
         justifyContent: 'space-around',
-        padding: 'var(--app-spacing-component) 0',
+        padding: 'var(--md-sys-spacing-2) 0',
       }}
     >
       {navItems.map(item => (
@@ -43,10 +43,10 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            color: activeView === item.id ? 'var(--app-color-primary)' : 'var(--app-color-on-surface-variant)',
+            color: activeView === item.id ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
             fontFamily: 'var(--md-sys-typescale-label-medium-font-family)',
             fontSize: 'var(--app-text-label)',
-            padding: 'var(--md-sys-spacing-1) var(--app-spacing-component)',
+            padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
             borderRadius: 'var(--md-sys-shape-corner-full)',
             outline: 'none',
           }}

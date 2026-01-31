@@ -112,7 +112,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
               <span style={{ color: 'var(--app-color-primary)' }}>cloud_off</span>
             </div>
             <h3 style={{fontSize: "var(--app-text-title)", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Connessione Google Richiesta</h3>
-            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>
+            <p style={{ color: 'var(--app-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>
               Per importare i tuoi materiali da NotebookLM, devi prima connettere il tuo account Google.
             </p>
             <M3Button variant="filled" onClick={onConnect} >
@@ -126,14 +126,14 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
 
             {step === 'select' && !loading && !error && (
               <>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>Seleziona i materiali da importare nella Knowledge Base.</p>
+                <p style={{ color: 'var(--app-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>Seleziona i materiali da importare nella Knowledge Base.</p>
                 <div  style={{overflowY: "auto", border: "var(--app-border-thin) solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-spacing-1)", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                  {files.length === 0 && <div style={{ color: 'var(--md-sys-color-on-surface-variant)' , padding: 'var(--md-sys-spacing-8)', textAlign: "center"}}>Nessun file trovato.</div>}
+                  {files.length === 0 && <div style={{ color: 'var(--app-color-on-surface-variant)' , padding: 'var(--md-sys-spacing-8)', textAlign: "center"}}>Nessun file trovato.</div>}
                   {files.map(f => (
                     <label key={f.id}  style={{display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', paddingTop: 'var(--app-spacing-container)', paddingBottom: 'var(--app-spacing-container)', borderBottom: "var(--app-border-thin) solid var(--md-sys-color-outline)", cursor: "pointer"}}>
                       <input type="checkbox" checked={selected.has(f.id)} onChange={() => handleSelect(f.id)} />
                       <span style={{ flex: "1", fontWeight: "500" }}>{f.name}</span>
-                      <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{f.lastModified ? new Date(f.lastModified).toLocaleString() : ''}</span>
+                      <span style={{ color: 'var(--app-color-on-surface-variant)' }}>{f.lastModified ? new Date(f.lastModified).toLocaleString() : ''}</span>
                     </label>
                   ))}
                 </div>
@@ -144,7 +144,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
 
         {step === 'catalog' && (
           <>
-            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>Catalogazione materiali importati:</p>
+            <p style={{ color: 'var(--app-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>Catalogazione materiali importati:</p>
             <div  style={{gap: 'var(--app-spacing-container)', overflowY: "auto"}}>
               {imported.map(entry => (
                 <div key={entry.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , padding: 'var(--app-spacing-section)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-spacing-1)"}}>

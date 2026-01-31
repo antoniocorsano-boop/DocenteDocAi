@@ -108,7 +108,7 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
             right: 16,
             background: 'none',
             border: 'none',
-            color: 'var(--app-color-on-surface-variant)',
+            color: 'var(--md-sys-color-on-surface-variant)',
             fontSize: 28,
             cursor: 'pointer',
             borderRadius: 'var(--md-sys-shape-corner-full)',
@@ -139,13 +139,13 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
         >
           <h4 style={{ margin: 0, color: 'var(--md-sys-color-on-surface)' }}>Wizard: {selectedNode.label}</h4>
           {wizardLoading ? (
-            <div style={{ color: 'var(--app-color-on-surface-variant)' }}>Generazione wizard AI…</div>
+            <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Generazione wizard AI…</div>
           ) : (
             <ul style={{ padding: 0, margin: 'var(--md-sys-spacing-4) 0', listStyle: 'none' }}>
               {wizardSteps.map((step: NKAWizardStep) => (
                 <li key={step.id} style={{ marginBottom: 'var(--md-sys-spacing-3)' }}>
                   <strong style={{ color: 'var(--md-sys-color-primary)' }}>{step.title}</strong>
-                  <div style={{ color: 'var(--app-color-on-surface-variant)' }}>{step.description}</div>
+                  <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{step.description}</div>
                   {step.actions.map((a: string) => (
                     <button
                       key={a}

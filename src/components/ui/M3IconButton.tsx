@@ -53,24 +53,24 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
     switch (variant) {
       case 'filled':
         return {
-          backgroundColor: 'var(--app-color-primary-container)',
-          color: 'var(--app-color-on-primary-container)'
+          backgroundColor: 'var(--md-sys-color-primary-container)',
+          color: 'var(--md-sys-color-on-primary-container)'
         };
       case 'tonal':
         return {
-          backgroundColor: 'var(--app-color-secondary-container)',
-          color: 'var(--app-color-on-secondary-container)'
+          backgroundColor: 'var(--md-sys-color-secondary-container)',
+          color: 'var(--md-sys-color-on-secondary-container)'
         };
       case 'outlined':
         return {
           backgroundColor: hovered ? 'var(--md-sys-color-surface-variant)' : 'transparent',
-          color: 'var(--app-color-on-surface)',
-          border: `var(--app-border-normal) solid var(--md-sys-color-outline)`
+          color: 'var(--md-sys-color-on-surface)',
+          border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`
         };
       default: // standard
         return {
           backgroundColor: hovered ? 'var(--md-sys-color-surface-variant)' : 'transparent',
-          color: 'var(--app-color-on-surface-variant)'
+          color: 'var(--md-sys-color-on-surface-variant)'
         };
     }
   };
@@ -81,9 +81,9 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 'var(--md-sys-shape-corner-full)',
-    transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`,
-    outline: focused ? `var(--app-border-thick) solid var(--app-color-primary)` : 'none',
-    outlineOffset: focused ? 'var(--app-spacing-component)' : '0',
+    transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+    outline: focused ? `var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)` : 'none',
+    outlineOffset: focused ? 'var(--md-sys-spacing-2)' : '0',
     border: 'none',
     cursor: disabled ? 'not-allowed' : 'pointer',
     opacity: disabled ? 0.38 : (hovered && (variant === 'filled' || variant === 'tonal') ? 0.8 : 1),

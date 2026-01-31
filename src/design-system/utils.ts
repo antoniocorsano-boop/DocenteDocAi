@@ -27,7 +27,7 @@ export const lightColors: ColorTokens = {
   secondary: LEGACY_COLORS.secondary, onSecondary: LEGACY_COLORS.white, secondaryContainer: LEGACY_COLORS.primaryContainer, onSecondaryContainer: LEGACY_COLORS.onSecondaryContainer,
   tertiary: LEGACY_COLORS.tertiary, onTertiary: LEGACY_COLORS.white, tertiaryContainer: LEGACY_COLORS.gold, onTertiaryContainer: LEGACY_COLORS.onTertiaryContainer,
   error: LEGACY_COLORS.error, onError: LEGACY_COLORS.white, errorContainer: LEGACY_COLORS.errorContainer, onErrorContainer: LEGACY_COLORS.onErrorContainer,
-  background: 'var(--app-color-surface)', onBackground: 'var(--app-color-on-surface)',
+  background: 'var(--md-sys-color-surface)', onBackground: 'var(--md-sys-color-on-surface)',
   surface: LEGACY_COLORS.surfaceLight, onSurface: LEGACY_COLORS.onBackground, surfaceVariant: LEGACY_COLORS.surfaceVariant, onSurfaceVariant: LEGACY_COLORS.onSurfaceVariant,
   outline: LEGACY_COLORS.outline, outlineVariant: LEGACY_COLORS.outlineVariant,
   surfaceContainerLowest: LEGACY_COLORS.white, surfaceContainerLow: LEGACY_COLORS.surfaceContainerLow, surfaceContainer: LEGACY_COLORS.surfaceContainer, surfaceContainerHigh: LEGACY_COLORS.surfaceContainerHigh, surfaceContainerHighest: LEGACY_COLORS.surfaceContainerHighest,
@@ -160,14 +160,14 @@ export const getRelativeLuminance = (r: number, g: number, b: number): number =>
 
 export const getLegibleTextColor = (hexBackgroundColor: string): string => {
     const rgb = hexToRgb(hexBackgroundColor);
-    if (!rgb) return 'var(--app-color-on-surface)'; 
+    if (!rgb) return 'var(--md-sys-color-on-surface)'; 
 
     const bgLuminance = getRelativeLuminance(rgb.r, rgb.g, rgb.b);
     
     const contrastWhite = (1.0 + 0.05) / (bgLuminance + 0.05);
     const contrastBlack = (bgLuminance + 0.05) / (0.0 + 0.05);
 
-    return contrastBlack >= contrastWhite ? 'var(--app-color-on-surface)' : '#FFFFFF';
+    return contrastBlack >= contrastWhite ? 'var(--md-sys-color-on-surface)' : '#FFFFFF';
 };
 
 

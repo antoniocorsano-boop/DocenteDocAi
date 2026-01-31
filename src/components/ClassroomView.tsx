@@ -183,17 +183,17 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
     };
 
     return (
-        <div style={{ maxWidth: 'var(--md-sys-percent-full)', display: 'flex', justifyContent: 'center', padding: 'var(--app-spacing-container)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--app-spacing-container)' }}>
+        <div style={{ maxWidth: 'var(--md-sys-percent-full)', display: 'flex', justifyContent: 'center', padding: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--md-sys-spacing-4)' }}>
                 <button
                     onClick={onCloseView}
                     style={{
                         backgroundColor: 'var(--md-sys-color-surface-container-low)',
                         border: 'none',
                         borderRadius: 'var(--md-sys-shape-corner-medium)',
-                        padding: 'var(--app-spacing-component)',
+                        padding: 'var(--md-sys-spacing-2)',
                         cursor: 'pointer',
-                        color: 'var(--app-color-on-surface-variant)'
+                        color: 'var(--md-sys-color-on-surface-variant)'
                     }}
                     title="Torna indietro"
                     aria-label="Chiudi vista lezione e torna alla lista lezioni"
@@ -201,12 +201,12 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                     <span style={{ fontFamily: 'Material Symbols Outlined' }} aria-hidden="true">arrow_back</span>
                 </button>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-container)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)', color: 'var(--app-color-on-surface-variant)' }} aria-label="Presenti:">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }} aria-label="Presenti:">
                         <span aria-hidden="true">group</span>
                         <M3Typography variant="label-small">{attendanceSummary.present} PRES.</M3Typography>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)', color: attendanceSummary.absent > 0 ? 'var(--md-sys-color-error)' : 'var(--app-color-on-surface-variant)' }} aria-label="Assenti:">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)', color: attendanceSummary.absent > 0 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }} aria-label="Assenti:">
                         <span aria-hidden="true">person_off</span>
                         <M3Typography variant="label-small">{attendanceSummary.absent} ASS.</M3Typography>
                     </div>
@@ -215,11 +215,11 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 <button
                     onClick={() => onFinalizeRegister(draftKey)}
                     style={{
-                        backgroundColor: 'var(--app-color-primary)',
-                        color: 'var(--app-color-on-primary)',
+                        backgroundColor: 'var(--md-sys-color-primary)',
+                        color: 'var(--md-sys-color-on-primary)',
                         border: 'none',
                         borderRadius: 'var(--md-sys-shape-corner-medium)',
-                        padding: 'var(--app-spacing-component) var(--app-spacing-element)',
+                        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
                         cursor: 'pointer',
                         fontWeight: 'bold',
                         textTransform: 'uppercase',
@@ -232,11 +232,11 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 </button>
             </div>
 
-            <div style={{ marginBottom: 'var(--app-spacing-section)' }}>
-                <M3Typography variant="headline-large" style={{ color: 'var(--app-color-on-surface)', fontWeight: 'bold', marginBottom: 'var(--md-sys-spacing-1)' }}>{lesson.materia}</M3Typography>
-                <M3Typography variant="body-large" style={{ color: 'var(--app-color-on-surface-variant)' }}>{lesson.contenuto || 'Lezione'}</M3Typography>
+            <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
+                <M3Typography variant="headline-large" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'bold', marginBottom: 'var(--md-sys-spacing-1)' }}>{lesson.materia}</M3Typography>
+                <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{lesson.contenuto || 'Lezione'}</M3Typography>
 
-                <div style={{ marginTop: 'var(--app-spacing-container)' }}>
+                <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
                     <TabGroup
                         activeTab={activeTab}
                         onTabChange={(id) => setActiveTab(id as ClassroomTab)}
@@ -251,23 +251,23 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 </div>
             </div>
 
-            <div style={{ marginBottom: 'var(--app-spacing-container)' }}>
+            <div style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>
 
                 {activeTab === 'register' && (
-                    <div style={{ marginTop: 'var(--app-spacing-container)' }}>
+                    <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
                         {lesson.obiettivi && (
-                            <div style={{ backgroundColor: 'var(--app-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--app-spacing-section)', border: 'var(--app-border-thin) solid var(--md-sys-color-outline)', marginBottom: 'var(--md-sys-spacing-8)' }}>
-                                <M3Typography variant="title-medium" style={{ fontWeight: 'bold', color: 'var(--app-color-primary)', textTransform: 'uppercase', marginBottom: 'var(--app-spacing-container)' }}>Obiettivi Didattici</M3Typography>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', marginBottom: 'var(--md-sys-spacing-8)' }}>
+                                <M3Typography variant="title-medium" style={{ fontWeight: 'bold', color: 'var(--md-sys-color-primary)', textTransform: 'uppercase', marginBottom: 'var(--md-sys-spacing-4)' }}>Obiettivi Didattici</M3Typography>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)' }}>
                                     {lesson.obiettivi.split('\n').filter(o => o.trim()).map((obj, idx) => (
-                                        <label key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--app-spacing-element)', cursor: 'pointer', padding: 'var(--md-sys-spacing-1)', borderRadius: 'var(--md-sys-shape-corner-small)' }}>
+                                        <label key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-3)', cursor: 'pointer', padding: 'var(--md-sys-spacing-1)', borderRadius: 'var(--md-sys-shape-corner-small)' }}>
                                             <input
                                                 type="checkbox"
                                                 checked={checkedObjectives[idx] || false}
                                                 onChange={(e) => handleObjectiveCheck(idx, e.target.checked)}
-                                                style={{ width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)' }}
+                                                style={{ width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)' }}
                                             />
-                                            <M3Typography variant="body-medium" style={{ lineHeight: '1.5', color: checkedObjectives[idx] ? 'var(--app-color-on-surface-variant)' : 'var(--app-color-on-surface)', textDecoration: checkedObjectives[idx] ? 'line-through' : 'none' }}>
+                                            <M3Typography variant="body-medium" style={{ lineHeight: '1.5', color: checkedObjectives[idx] ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-surface)', textDecoration: checkedObjectives[idx] ? 'line-through' : 'none' }}>
                                                 {obj.replace(/^- /, '')}
                                             </M3Typography>
                                         </label>
@@ -277,7 +277,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         )}
 
                         <div
-                            style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--app-spacing-container)' }}
+                            style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-4)' }}
                             ref={studentGridRef}
                             onKeyDown={handleStudentGridKeyDown}
                             role="grid"
@@ -297,13 +297,13 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                         onFocus={() => setFocusedStudentIndex(index)}
                                         tabIndex={isFocused ? 0 : -1}
                                         style={{
-                                            backgroundColor: 'var(--app-color-surface-container)',
+                                            backgroundColor: 'var(--md-sys-color-surface-container)',
                                             borderRadius: 'var(--md-sys-shape-corner-extra-large)',
                                             boxShadow: 'var(--md-sys-elevation-level2)',
-                                            border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
-                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard)',
+                                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium)',
                                             cursor: 'pointer',
-                                            outline: isFocused ? 'var(--app-border-normal) solid var(--app-color-primary)' : 'none',
+                                            outline: isFocused ? 'var(--md-sys-border-width-normal) solid var(--md-sys-color-primary)' : 'none',
                                             outlineOffset: 'var(--md-sys-spacing-1)'
                                         }}
                                         onKeyDown={e => {
@@ -315,10 +315,10 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                         role="gridcell"
                                         aria-label={`${student.cognome}, voto, presenze`}
                                     >
-                                        <div style={{ padding: 'var(--app-spacing-element)' }}>
-                                            <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--app-spacing-container)', alignItems: 'center' }}>
+                                        <div style={{ padding: 'var(--md-sys-spacing-3)' }}>
+                                            <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-4)', alignItems: 'center' }}>
                                                 {/* Column 1: Avatar + Name + Presence + BES/DSA */}
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-container)' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                                     <button
                                                         onClick={(e) => { e.stopPropagation(); handleAttendanceToggle(student.id); }}
                                                         style={{
@@ -328,11 +328,11 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                             display: 'flex',
                                                             alignItems: 'center',
                                                             justifyContent: 'center',
-                                                            backgroundColor: status === 'presente' ? 'var(--app-color-primary-container)' : status === 'assente' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-tertiary-container)',
-                                                            color: status === 'presente' ? 'var(--app-color-on-primary-container)' : status === 'assente' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-tertiary-container)',
+                                                            backgroundColor: status === 'presente' ? 'var(--md-sys-color-primary-container)' : status === 'assente' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-tertiary-container)',
+                                                            color: status === 'presente' ? 'var(--md-sys-color-on-primary-container)' : status === 'assente' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-tertiary-container)',
                                                             border: 'none',
                                                             cursor: 'pointer',
-                                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard)'
+                                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium)'
                                                         }}
                                                     >
                                                         <span style={{ fontSize: 'var(--app-text-body)' }}>
@@ -341,10 +341,10 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                     </button>
                                                     <Avatar name={`${student.nome}`} size="md" />
                                                     <div style={{ minWidth: 0, flex: 1 }}>
-                                                        <M3Typography variant="title-small" style={{ fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: status === 'assente' ? 'var(--app-color-on-surface-variant)' : 'var(--app-color-on-surface)', textDecoration: status === 'assente' ? 'line-through' : 'none' }}>
+                                                        <M3Typography variant="title-small" style={{ fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: status === 'assente' ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-surface)', textDecoration: status === 'assente' ? 'line-through' : 'none' }}>
                                                             {student.cognome} {student.nome}
                                                         </M3Typography>
-                                                        <M3Typography variant="body-small" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--app-color-on-surface-variant)' }}>{student.classe}</M3Typography>
+                                                        <M3Typography variant="body-small" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--md-sys-color-on-surface-variant)' }}>{student.classe}</M3Typography>
                                                     </div>
                                                 </div>
 
@@ -354,7 +354,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                         variant="title-large"
                                                         style={{
                                                             fontWeight: 'bold',
-                                                            color: parseFloat(stat.grade || '0') > 7 ? 'var(--app-color-primary)' : parseFloat(stat.grade || '0') > 6 ? 'var(--app-color-secondary)' : 'var(--md-sys-color-error)'
+                                                            color: parseFloat(stat.grade || '0') > 7 ? 'var(--md-sys-color-primary)' : parseFloat(stat.grade || '0') > 6 ? 'var(--md-sys-color-secondary)' : 'var(--md-sys-color-error)'
                                                         }}
                                                     >
                                                         {stat.grade || '-'}
@@ -363,7 +363,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                         <span
                                                             style={{
                                                                 fontSize: 'var(--app-text-title)',
-                                                                color: stat.trend === 'up' ? 'var(--md-sys-color-tertiary)' : stat.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--app-color-on-surface-variant)'
+                                                                color: stat.trend === 'up' ? 'var(--md-sys-color-tertiary)' : stat.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)'
                                                             }}
                                                         >
                                                             {stat.trend === 'up' ? 'trending_up' : stat.trend === 'down' ? 'trending_down' : 'trending_flat'}
@@ -373,39 +373,39 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 
                                                 {/* Column 3: Written Evals */}
                                                 <div style={{ textAlign: 'center' }}>
-                                                    <M3Typography variant="body-small" style={{ color: 'var(--app-color-on-surface-variant)' }}>Scritti</M3Typography>
-                                                    <M3Typography variant="body-medium" style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: 'bold' }}>{stat.writtenCount > 0 ? `${stat.writtenCount} - ${stat.writtenAvg}` : '-'}</M3Typography>
+                                                    <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Scritti</M3Typography>
+                                                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'bold' }}>{stat.writtenCount > 0 ? `${stat.writtenCount} - ${stat.writtenAvg}` : '-'}</M3Typography>
                                                 </div>
 
                                                 {/* Column 4: Oral Evals */}
                                                 <div style={{ textAlign: 'center' }}>
-                                                    <M3Typography variant="body-small" style={{ color: 'var(--app-color-on-surface-variant)' }}>Orali</M3Typography>
-                                                    <M3Typography variant="body-medium" style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: 'bold' }}>{stat.oralCount > 0 ? `${stat.oralCount} - ${stat.oralAvg}` : '-'}</M3Typography>
+                                                    <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Orali</M3Typography>
+                                                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'bold' }}>{stat.oralCount > 0 ? `${stat.oralCount} - ${stat.oralAvg}` : '-'}</M3Typography>
                                                 </div>
 
                                                 {/* Column 5: Notes */}
                                                 <div style={{ textAlign: 'center' }}>
                                                     {stat.notes ? (
-                                                        <span style={{ color: 'var(--app-color-primary)', fontSize: 'var(--app-text-title)' }} title={typeof stat.notes === 'string' ? stat.notes : 'Note presenti'}>edit_note</span>
+                                                        <span style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--app-text-title)' }} title={typeof stat.notes === 'string' ? stat.notes : 'Note presenti'}>edit_note</span>
                                                     ) : (
                                                         <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-outline)' }}>-</M3Typography>
                                                     )}
                                                 </div>
 
                                                 {/* Column 6: Homework + Participation */}
-                                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--app-spacing-component)' }}>
+                                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
                                                     {hwStatus && (
                                                         <div
                                                             style={{
-                                                                padding: 'var(--md-sys-spacing-1) var(--app-spacing-component)',
+                                                                padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
                                                                 borderRadius: 'var(--md-sys-shape-corner-full)',
                                                                 fontSize: 'var(--app-text-body)',
                                                                 fontWeight: 'bold',
                                                                 textTransform: 'uppercase',
                                                                 letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                                                                backgroundColor: hwStatus === 'missing' ? 'var(--md-sys-color-error-container)' : hwStatus === 'partial' ? 'var(--app-color-surface-container)' : 'var(--app-color-primary-container)',
-                                                                color: hwStatus === 'missing' ? 'var(--md-sys-color-on-error-container)' : hwStatus === 'partial' ? 'var(--app-color-on-surface-variant)' : 'var(--app-color-on-primary-container)',
-                                                                border: 'var(--app-border-thin) solid var(--md-sys-color-outline)'
+                                                                backgroundColor: hwStatus === 'missing' ? 'var(--md-sys-color-error-container)' : hwStatus === 'partial' ? 'var(--md-sys-color-surface-container)' : 'var(--md-sys-color-primary-container)',
+                                                                color: hwStatus === 'missing' ? 'var(--md-sys-color-on-error-container)' : hwStatus === 'partial' ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary-container)',
+                                                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)'
                                                             }}
                                                         >
                                                             {hwStatus === 'missing' ? 'No Compiti' : hwStatus === 'partial' ? 'Parziali' : 'OK'}
@@ -414,10 +414,10 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                     {badges.length > 0 && (
                                                         <div
                                                             style={{
-                                                                padding: 'var(--md-sys-spacing-1) var(--app-spacing-component)',
+                                                                padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
                                                                 borderRadius: 'var(--md-sys-shape-corner-small)',
-                                                                backgroundColor: 'var(--app-color-secondary-container)',
-                                                                color: 'var(--app-color-on-secondary-container)',
+                                                                backgroundColor: 'var(--md-sys-color-secondary-container)',
+                                                                color: 'var(--md-sys-color-on-secondary-container)',
                                                                 display: 'flex',
                                                                 alignItems: 'center',
                                                                 gap: 'var(--md-sys-spacing-1)'
@@ -438,7 +438,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                             borderRadius: 'var(--md-sys-shape-corner-medium)',
                                                             padding: 'var(--md-sys-spacing-1)',
                                                             cursor: 'pointer',
-                                                            color: 'var(--app-color-on-surface-variant)'
+                                                            color: 'var(--md-sys-color-on-surface-variant)'
                                                         }}
                                                         aria-label={`Azioni per ${student.cognome}`}
                                                     >
@@ -455,9 +455,9 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 )}
 
                 {activeTab === 'notes' && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-spacing-component)' }}>
-                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--app-color-surface)', padding: 'var(--app-spacing-container)', border: 'var(--app-border-thin) solid var(--md-sys-color-outline)' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--app-spacing-container)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
+                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface)', padding: 'var(--md-sys-spacing-4)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--md-sys-spacing-4)' }}>
                                 <M3Typography variant="title-medium">Note Pubbliche (Registro)</M3Typography>
                                 <VoiceNoteRecorder onTranscription={(text) => onUpdateDraftEntry(draftKey, { notes: (draftEntry.notes ? draftEntry.notes + '\n' : '') + text })} compact />
                             </div>
@@ -466,11 +466,11 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 onChange={e => onUpdateDraftEntry(draftKey, { notes: e.target.value })}
                                 style={{
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                                    border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                    padding: 'var(--app-spacing-component)',
+                                    padding: 'var(--md-sys-spacing-2)',
                                     width: 'var(--md-sys-percent-full)',
-                                    color: 'var(--app-color-on-surface)',
+                                    color: 'var(--md-sys-color-on-surface)',
                                     fontFamily: 'inherit'
                                 }}
                                 rows={8}
@@ -478,18 +478,18 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                             />
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--app-spacing-element)' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
                             <button
                                 onClick={() => setIsCopyModalOpen(true)}
                                 style={{
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    gap: 'var(--app-spacing-component)',
-                                    padding: 'var(--app-spacing-component) var(--app-spacing-element)',
+                                    gap: 'var(--md-sys-spacing-2)',
+                                    padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                                    color: 'var(--app-color-on-surface)',
-                                    border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                                    color: 'var(--md-sys-color-on-surface)',
+                                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
                                     cursor: 'pointer',
                                     fontWeight: 'bold',
@@ -506,11 +506,11 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    gap: 'var(--app-spacing-component)',
-                                    padding: 'var(--app-spacing-component) var(--app-spacing-element)',
+                                    gap: 'var(--md-sys-spacing-2)',
+                                    padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                                    color: 'var(--app-color-on-surface)',
-                                    border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                                    color: 'var(--md-sys-color-on-surface)',
+                                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
                                     cursor: 'pointer',
                                     fontWeight: 'bold',
@@ -527,11 +527,11 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    gap: 'var(--app-spacing-component)',
-                                    padding: 'var(--app-spacing-component) var(--app-spacing-element)',
+                                    gap: 'var(--md-sys-spacing-2)',
+                                    padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                                    color: 'var(--app-color-on-surface)',
-                                    border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                                    color: 'var(--md-sys-color-on-surface)',
+                                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
                                     cursor: 'pointer',
                                     fontWeight: 'bold',
@@ -553,20 +553,20 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 )}
 
                 {activeTab === 'resources' && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-spacing-component)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
                         {lesson.materialiDidattici && lesson.materialiDidattici.length > 0 ? (
-                            <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--app-spacing-element)' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
                                 {lesson.materialiDidattici.map(mat => (
                                     <div
                                         key={mat.id}
                                         style={{
                                             borderRadius: 'var(--md-sys-shape-corner-large)',
-                                            backgroundColor: 'var(--app-color-surface)',
-                                            padding: 'var(--app-spacing-element)',
-                                            border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                                            backgroundColor: 'var(--md-sys-color-surface)',
+                                            padding: 'var(--md-sys-spacing-3)',
+                                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                             display: 'flex',
                                             alignItems: 'center',
-                                            gap: 'var(--app-spacing-element)',
+                                            gap: 'var(--md-sys-spacing-3)',
                                             cursor: 'pointer'
                                         }}
                                         onClick={() => handlePreviewMaterial(mat)}
@@ -588,33 +588,33 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             </span>
                                         </div>
                                         <div style={{ flexGrow: 1, minWidth: 0 }}>
-                                            <M3Typography variant="body-medium" style={{ fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--app-color-on-surface)' }}>{mat.label || mat.fileName}</M3Typography>
-                                            <M3Typography variant="body-small" style={{ color: 'var(--app-color-on-surface-variant)', textTransform: 'uppercase' }}>{mat.type}</M3Typography>
+                                            <M3Typography variant="body-medium" style={{ fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--md-sys-color-on-surface)' }}>{mat.label || mat.fileName}</M3Typography>
+                                            <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', textTransform: 'uppercase' }}>{mat.type}</M3Typography>
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         ) : (
-                            <div style={{ textAlign: 'center', padding: 'var(--app-spacing-container)', opacity: 0.6 }}>
-                                <span style={{ marginBottom: 'var(--app-spacing-component)', fontSize: 'var(--app-text-title)', color: 'var(--app-color-on-surface-variant)' }}>folder_off</span>
-                                <M3Typography variant="body-large" style={{ color: 'var(--app-color-on-surface-variant)' }}>Nessun materiale.</M3Typography>
+                            <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-4)', opacity: 0.6 }}>
+                                <span style={{ marginBottom: 'var(--md-sys-spacing-2)', fontSize: 'var(--app-text-title)', color: 'var(--md-sys-color-on-surface-variant)' }}>folder_off</span>
+                                <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessun materiale.</M3Typography>
                             </div>
                         )}
 
                         {lesson.adattamenti && (
-                            <div style={{ color: 'var(--app-color-on-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--app-spacing-container)', backgroundColor: 'var(--app-color-secondary-container)' }}>
-                                <M3Typography variant="title-medium" style={{ fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-component)', marginBottom: 'var(--app-spacing-component)' }}>
-                                    <span style={{ color: 'var(--app-color-on-secondary-container)', fontSize: 'var(--app-text-title)' }}>accessibility_new</span>
+                            <div style={{ color: 'var(--md-sys-color-on-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-secondary-container)' }}>
+                                <M3Typography variant="title-medium" style={{ fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-2)' }}>
+                                    <span style={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--app-text-title)' }}>accessibility_new</span>
                                     Inclusione
                                 </M3Typography>
-                                <M3Typography variant="body-medium" style={{ color: 'var(--app-color-on-secondary-container)', opacity: 0.9, whiteSpace: 'pre-wrap' }}>{lesson.adattamenti}</M3Typography>
+                                <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-secondary-container)', opacity: 0.9, whiteSpace: 'pre-wrap' }}>{lesson.adattamenti}</M3Typography>
                             </div>
                         )}
                     </div>
                 )}
             </div>
 
-            <div style={{ position: 'fixed', bottom: 'var(--app-spacing-container)', right: 'var(--app-spacing-container)' }}>
+            <div style={{ position: 'fixed', bottom: 'var(--md-sys-spacing-4)', right: 'var(--md-sys-spacing-4)' }}>
                 <button
                     onClick={onOpenLiveAssistant}
                     style={{
@@ -622,7 +622,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         color: 'var(--md-sys-color-on-tertiary-container)',
                         border: 'none',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
-                        padding: 'var(--app-spacing-element)',
+                        padding: 'var(--md-sys-spacing-3)',
                         cursor: 'pointer',
                         boxShadow: 'var(--md-sys-elevation-level3)'
                     }}
@@ -639,54 +639,54 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                     level={1}
                 >
                     <M3DialogContent>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-component)', marginBottom: 'var(--app-spacing-element)', borderBottom: 'var(--app-border-thin) solid var(--md-sys-color-outline)', paddingBottom: 'var(--app-spacing-component)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', paddingBottom: 'var(--md-sys-spacing-2)' }}>
                             <Avatar name={`${selectedStudentForActions.nome}`} size="md" />
                             <div>
-                                <M3Typography variant="headline-small" style={{ fontSize: 'var(--app-text-body)', fontWeight: '900', color: 'var(--app-color-on-surface)' }}>{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</M3Typography>
-                                <M3Typography variant="body-small" style={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--app-color-primary)' }}>Azioni Rapide</M3Typography>
+                                <M3Typography variant="headline-small" style={{ fontSize: 'var(--app-text-body)', fontWeight: '900', color: 'var(--md-sys-color-on-surface)' }}>{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</M3Typography>
+                                <M3Typography variant="body-small" style={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--md-sys-color-primary)' }}>Azioni Rapide</M3Typography>
                             </div>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, var(--md-sys-grid-fr-1))', gap: 'var(--app-spacing-element)', marginBottom: 'var(--app-spacing-element)' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, var(--md-sys-grid-fr-1))', gap: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-3)' }}>
                             <button
                                 onClick={() => { setQuickEvalStudent(selectedStudentForActions); setSelectedStudentForActions(null); }}
                                 style={{
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                                    backgroundColor: 'var(--app-color-primary-container)',
+                                    backgroundColor: 'var(--md-sys-color-primary-container)',
                                     border: 'none',
                                     display: 'flex',
                                     flexDirection: 'column',
                                     alignItems: 'center',
-                                    gap: 'var(--app-spacing-component)',
-                                    padding: 'var(--app-spacing-element)',
+                                    gap: 'var(--md-sys-spacing-2)',
+                                    padding: 'var(--md-sys-spacing-3)',
                                     cursor: 'pointer',
-                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard)'
+                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium)'
                                 }}
                             >
-                                <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--app-color-primary)', color: 'var(--app-color-on-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--app-motion-standard)' }}>
+                                <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
                                     <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--app-text-body)' }}>grading</span>
                                 </div>
-                                <M3Typography variant="label-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--app-color-on-primary-container)' }}>Voto</M3Typography>
+                                <M3Typography variant="label-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--md-sys-color-on-primary-container)' }}>Voto</M3Typography>
                             </button>
                             <button
                                 onClick={() => { setObservationStudent(selectedStudentForActions); setSelectedStudentForActions(null); }}
                                 style={{
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                                    backgroundColor: 'var(--app-color-secondary-container)',
+                                    backgroundColor: 'var(--md-sys-color-secondary-container)',
                                     border: 'none',
                                     display: 'flex',
                                     flexDirection: 'column',
                                     alignItems: 'center',
-                                    gap: 'var(--app-spacing-component)',
-                                    padding: 'var(--app-spacing-element)',
+                                    gap: 'var(--md-sys-spacing-2)',
+                                    padding: 'var(--md-sys-spacing-3)',
                                     cursor: 'pointer',
-                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard)'
+                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium)'
                                 }}
                             >
-                                <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--app-color-secondary)', color: 'var(--app-color-on-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--app-motion-standard)' }}>
+                                <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-secondary)', color: 'var(--md-sys-color-on-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
                                     <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--app-text-body)' }}>visibility</span>
                                 </div>
-                                <M3Typography variant="label-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--app-color-on-secondary-container)' }}>Osserva</M3Typography>
+                                <M3Typography variant="label-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--md-sys-color-on-secondary-container)' }}>Osserva</M3Typography>
                             </button>
                             <button
                                 onClick={() => { setViewingStudentProfile(selectedStudentForActions); setSelectedStudentForActions(null); }}
@@ -697,22 +697,22 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     display: 'flex',
                                     flexDirection: 'column',
                                     alignItems: 'center',
-                                    gap: 'var(--app-spacing-component)',
-                                    padding: 'var(--app-spacing-element)',
+                                    gap: 'var(--md-sys-spacing-2)',
+                                    padding: 'var(--md-sys-spacing-3)',
                                     cursor: 'pointer',
-                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard)'
+                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium)'
                                 }}
                             >
-                                <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--app-color-on-surface-variant)', color: 'var(--app-color-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--app-motion-standard)' }}>
+                                <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-on-surface-variant)', color: 'var(--md-sys-color-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
                                     <span style={{ fontFamily: 'Material Symbols Outlined', fontSize: 'var(--app-text-body)' }}>person</span>
                                 </div>
-                                <M3Typography variant="label-small" style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: '900', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)' }}>Profilo</M3Typography>
+                                <M3Typography variant="label-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: '900', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)' }}>Profilo</M3Typography>
                             </button>
                         </div>
 
-                        <div style={{ marginBottom: 'var(--app-spacing-element)' }}>
-                            <M3Typography variant="title-small" style={{ fontWeight: '900', textTransform: 'uppercase', marginBottom: 'var(--app-spacing-component)', paddingLeft: 'var(--app-spacing-component)', paddingRight: 'var(--app-spacing-component)', color: 'var(--app-color-on-surface-variant)' }}>Partecipazione</M3Typography>
-                            <div style={{ display: 'flex', gap: 'var(--app-spacing-component)', overflowX: 'auto' }}>
+                        <div style={{ marginBottom: 'var(--md-sys-spacing-3)' }}>
+                            <M3Typography variant="title-small" style={{ fontWeight: '900', textTransform: 'uppercase', marginBottom: 'var(--md-sys-spacing-2)', paddingLeft: 'var(--md-sys-spacing-2)', paddingRight: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface-variant)' }}>Partecipazione</M3Typography>
+                            <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', overflowX: 'auto' }}>
                                 {PARTICIPATION_BADGES.map(badge => (
                                     <button
                                         key={badge.id}
@@ -721,9 +721,9 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             backgroundColor: 'var(--md-sys-color-surface-container-high)',
                                             border: 'none',
                                             borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                            padding: 'var(--app-spacing-component)',
+                                            padding: 'var(--md-sys-spacing-2)',
                                             cursor: 'pointer',
-                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard)',
+                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium)',
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: 'var(--md-sys-spacing-1)',
@@ -738,7 +738,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         </div>
 
                         <div>
-                            <M3Typography variant="title-small" style={{ fontWeight: '900', textTransform: 'uppercase', marginBottom: 'var(--app-spacing-component)', paddingLeft: 'var(--app-spacing-component)', paddingRight: 'var(--app-spacing-component)', color: 'var(--app-color-on-surface-variant)' }}>Compiti</M3Typography>
+                            <M3Typography variant="title-small" style={{ fontWeight: '900', textTransform: 'uppercase', marginBottom: 'var(--md-sys-spacing-2)', paddingLeft: 'var(--md-sys-spacing-2)', paddingRight: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface-variant)' }}>Compiti</M3Typography>
                             <TabGroup
                                 tabs={[
                                     { id: 'completed', label: 'Svolti' },
@@ -808,7 +808,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
             )}
 
             {viewingStudentProfile && (
-                <div style={{ backgroundColor: 'var(--app-color-surface)', overflowY: 'auto', padding: 'var(--app-spacing-container)' }}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface)', overflowY: 'auto', padding: 'var(--md-sys-spacing-4)' }}>
                     <StudentProfile
                         student={viewingStudentProfile}
                         evaluations={evaluations.filter(e => e.studenteId === viewingStudentProfile.id)}

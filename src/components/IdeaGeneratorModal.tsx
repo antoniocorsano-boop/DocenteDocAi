@@ -64,7 +64,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
     return (
         <M3Dialog
             title={
-                <div style={{display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)'}}>
+                <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                     <span  style={{color: "var(--md-sys-color-tertiary)"}}>lightbulb</span>
                     <span>AI Lesson Lab</span>
                 </div>
@@ -73,7 +73,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
             maxWidth="xl"
             level={1}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30, padding: 'var(--app-spacing-container)' }}>
+            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30, padding: 'var(--md-sys-spacing-4)' }}>
                 <SelectField 
                     label="Classe Destinazione" 
                     value={targetClass} 
@@ -101,13 +101,13 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                     <div  style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <label  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', cursor: "pointer"}}>
                             <div ><input type="checkbox" checked={useKb} onChange={e => setUseKb(e.target.checked)} /><span ></span></div>
-                            <span style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Usa Context Knowledge Base</span>
+                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Usa Context Knowledge Base</span>
                         </label>
-                        <span style={{ color: 'var(--app-color-primary)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{selectedKbIds.length} file</span>
+                        <span style={{ color: 'var(--md-sys-color-primary)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{selectedKbIds.length} file</span>
                     </div>
                     
                     {useKb && knowledgeBase.length > 0 && (
-                        <div style={{ padding: 'var(--app-spacing-container)', backgroundColor: 'var(--md-sys-color-surface-container-low)'/50, borderRadius: 'var(--md-sys-shape-corner-large)' , display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", border: "var(--app-border-thin) solid var(--md-sys-color-outline)", overflowY: "auto"}}>
+                        <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)'/50, borderRadius: 'var(--md-sys-shape-corner-large)' , display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", overflowY: "auto"}}>
                             {knowledgeBase.map(k => (
                                 <label key={k.id} style={{
                                     display: 'flex',
@@ -115,22 +115,22 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                                     gap: 'var(--md-sys-spacing-8)',
                                     padding: 'var(--md-sys-spacing-12)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                                    border: selectedKbIds.includes(k.id) ? ' var(--app-border-medium) solid var(--app-color-primary)' : 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
-                                    backgroundColor: selectedKbIds.includes(k.id) ? 'var(--app-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
-                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
+                                    border: selectedKbIds.includes(k.id) ? ' var(--md-sys-border-width-medium) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                                    backgroundColor: selectedKbIds.includes(k.id) ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
+                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                                     cursor: 'pointer',
-                                    marginBottom: 'var(--app-spacing-component)'
+                                    marginBottom: 'var(--md-sys-spacing-2)'
                                 }}>
                                     <input type="checkbox" checked={selectedKbIds.includes(k.id)} onChange={() => handleKbToggle(k.id)} style={{ display: "none" }} />
                                     <span style={{
                                         fontFamily: 'Material Symbols Outlined',
                                         fontSize: 'var(--md-sys-typescale-body-small-size)',
-                                        color: selectedKbIds.includes(k.id) ? 'var(--app-color-primary)' : 'var(--app-color-on-surface-variant)',
+                                        color: selectedKbIds.includes(k.id) ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
                                         userSelect: 'none'
                                     }}>
                                         {selectedKbIds.includes(k.id) ? 'check_box' : 'check_box_outline_blank'}
                                     </span>
-                                    <span style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{k.fileName}</span>
+                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{k.fileName}</span>
                                 </label>
                             ))}
                         </div>
@@ -138,7 +138,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                 </div>
 
                 {error && (
-                    <div style={{ padding: 'var(--app-spacing-container)', backgroundColor: sys.colors.error/10, borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--app-border-thin) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: "var(--md-sys-color-error)"}}>
+                    <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: sys.colors.error/10, borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: "var(--md-sys-color-error)"}}>
                         <span style={{
   fontFamily: 'Material Symbols Outlined'
 }}>error</span>
@@ -147,7 +147,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                 )}
             </M3DialogContent>
 
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30 , borderTop: "var(--app-border-thin) solid var(--md-sys-color-outline)", paddingTop: "0"}}>
+            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30 , borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", paddingTop: "0"}}>
                 <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900",  fontSize: "var(--app-text-label)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Annulla</M3Button>
                 <M3Button 
                     onClick={handleGenerate} 

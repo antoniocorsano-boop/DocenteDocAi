@@ -233,7 +233,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 {expandedColumns.rendimento && <>
                                     <td style={{ color: sys.colors.center }}>{performance.grade || 'N/D'}</td>
                                     <td style={{ color: sys.colors.center }}>
-                                        {performance.trend && <span title={performance.trend || ''} className="material-symbols-outlined" style={{ color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>{trendIcon}</span>}
+                                        {performance.trend && <span title={performance.trend || ''} className="material-symbols-outlined" style={{ color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--app-color-on-surface-variant)' }}>{trendIcon}</span>}
                                     </td>
                                 </>}
                                 {expandedColumns.valutazione && <>
@@ -251,7 +251,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     <div >
                                         <textarea value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ flexGrow: "1" }} rows={2} placeholder="Giudizio sintetico..."></textarea>
                                         <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
-                                            <span style={{ color: "var(--md-sys-color-on-surface-variant)" }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
+                                            <span style={{ color: "var(--app-color-on-surface-variant)" }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
                                         </M3Button>
                                     </div>
                                 </td>}
@@ -285,8 +285,8 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--app-spacing-container)'}}>
                                         <span >Media: <strong>{performance.grade || 'N/D'}</strong></span>
                                         {performance.trend && (
-                                            <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-container)', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>
-                                                <span style={{ color: "var(--md-sys-color-on-surface-variant)" }}>{trendIcon}</span>
+                                            <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-container)', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--app-color-on-surface-variant)' }}>
+                                                <span style={{ color: "var(--app-color-on-surface-variant)" }}>{trendIcon}</span>
                                             </span>
                                         )}
                                     </div>

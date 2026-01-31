@@ -53,7 +53,7 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <h3 style={{ color: 'var(--app-color-on-primary)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }}>
-          {icon && <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }} aria-hidden="true">{icon}</span>}
+          {icon && <span style={{ color: 'var(--app-color-on-surface-variant)' }} aria-hidden="true">{icon}</span>}
           {title}
         </h3>
         {!isEditing && (
@@ -90,7 +90,7 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
             </div>
           </div>
         ) : (
-          <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+          <div style={{ color: 'var(--app-color-on-surface-variant)' }}>
             {renderContent()}
           </div>
         )}

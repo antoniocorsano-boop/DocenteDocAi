@@ -107,11 +107,11 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
             title="Anteprima Verifica"
             headline="Visualizza e stampa la verifica generata"
             buttons={
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: 'var(--app-layout-full)', alignItems: 'center', gap: 'var(--app-spacing-section)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-container)' }}>
-                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', padding: 'var(--app-spacing-container)', borderRadius: 'var(--md-sys-shape-corner-medium)', transition: 'color var(--app-motion-standard)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: 'var(--md-sys-percent-100)', alignItems: 'center', gap: 'var(--md-sys-spacing-6)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
+                        <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-medium)', transition: 'color var(--md-sys-motion-duration-medium)' }}>
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-small)' }}>
-                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--app-color-surface)' }}></div>
+                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-surface)' }}></div>
                             </div>
                             <input
                                 type="checkbox"
@@ -119,10 +119,10 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                 onChange={e => setShowAnswers(e.target.checked)}
                                 style={{ display: 'none' }}
                             />
-                            <span style={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.7, transition: 'opacity var(--app-motion-standard)' }}>Soluzioni Docente</span>
+                            <span style={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.7, transition: 'opacity var(--md-sys-motion-duration-medium)' }}>Soluzioni Docente</span>
                         </label>
                     </div>
-                    <div style={{ display: 'flex', gap: 'var(--app-spacing-container)' }}>
+                    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-4)' }}>
                         <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
                         <M3Button
                             onClick={handleExportDocx}
@@ -143,48 +143,48 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
             }
             fullscreen={true}
         >
-            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-8)', overflowY: 'auto', height: 'var(--app-layout-full)', opacity: 0.3 }}>
+            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-8)', overflowY: 'auto', height: 'var(--md-sys-percent-100)', opacity: 0.3 }}>
                 {/* Aura Ornaments */}
-                <div style={{ width: 'var(--app-layout-full)', height: 'var(--app-layout-full)' }}>
-                    <div style={{ backgroundColor: 'var(--app-color-primary)', borderRadius: 'var(--md-sys-shape-corner-medium)', opacity: 0.05 }} />
-                    <div style={{ backgroundColor: 'var(--app-color-secondary)', borderRadius: 'var(--md-sys-shape-corner-medium)', opacity: 0.05, animationDelay: 'var(--app-motion-slow)' }} />
+                <div style={{ width: 'var(--md-sys-percent-100)', height: 'var(--md-sys-percent-100)' }}>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-primary)', borderRadius: 'var(--md-sys-shape-corner-medium)', opacity: 0.05 }} />
+                    <div style={{ backgroundColor: 'var(--md-sys-color-secondary)', borderRadius: 'var(--md-sys-shape-corner-medium)', opacity: 0.05, animationDelay: 'var(--md-sys-motion-duration-long)' }} />
                 </div>
 
-                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', marginTop: 0, marginLeft: 'var(--app-layout-auto)', marginBottom: 0, marginRight: 'var(--app-layout-auto)', backgroundColor: 'var(--app-color-surface)', padding: 'var(--md-sys-spacing-8)', border: 'var(--app-border-normal) solid var(--md-sys-color-outline)', maxWidth: 'var(--md-sys-layout-workflow-card-min-width)' }}>
+                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', marginTop: 0, marginLeft: 'var(--md-sys-margin-auto)', marginBottom: 0, marginRight: 'var(--md-sys-margin-auto)', backgroundColor: 'var(--md-sys-color-surface)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', maxWidth: 'var(--md-sys-layout-workflow-card-min-width)' }}>
                     {/* Watermark for preview */}
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <span style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: 'bold', whiteSpace: 'nowrap' }}>DOCENTEDOC AI</span>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'bold', whiteSpace: 'nowrap' }}>DOCENTEDOC AI</span>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <h1 style={{ color: 'var(--app-color-on-surface)', fontWeight: 'bold', marginBottom: 'var(--app-spacing-section)', textAlign: 'center', textTransform: 'uppercase', lineHeight: 1 }}>{quiz.title}</h1>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', width: 'var(--app-layout-full)', fontSize: 'var(--app-text-title)' }}>
+                        <h1 style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'bold', marginBottom: 'var(--md-sys-spacing-6)', textAlign: 'center', textTransform: 'uppercase', lineHeight: 1 }}>{quiz.title}</h1>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: 'var(--md-sys-percent-100)', fontSize: 'var(--app-text-title)' }}>
                             <span>Argomento: <span style={{ fontWeight: 'bold' }}>{quiz.topic}</span></span>
                             <span>Data: ______________</span>
                         </div>
-                        <div style={{ width: 'var(--app-layout-full)', fontSize: 'var(--app-text-title)', marginTop: 'var(--app-spacing-container)', textAlign: 'left' }}>
+                        <div style={{ width: 'var(--md-sys-percent-100)', fontSize: 'var(--app-text-title)', marginTop: 'var(--md-sys-spacing-4)', textAlign: 'left' }}>
                             <span>Nome e Cognome: __________________________________________________</span>
                         </div>
                     </div>
 
                     {/* Questions */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-spacing-section)', marginTop: 'var(--md-sys-spacing-12)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', marginTop: 'var(--md-sys-spacing-12)' }}>
                         {quiz.questions.map((question, index) => (
-                            <div key={index} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-spacing-container)', border: 'var(--app-border-normal) solid var(--md-sys-color-outline)', borderRadius: 'var(--md-sys-shape-corner-medium)', padding: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
-                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--app-spacing-container)' }}>
-                                    <span style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: 'bold', minWidth: 'var(--md-sys-spacing-8)' }}>{index + 1}.</span>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-spacing-container)', width: 'var(--app-layout-full)' }}>
-                                        <M3Typography variant="body-large" style={{ color: 'var(--app-color-on-surface)', fontWeight: 500 }}>
+                            <div key={index} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', borderRadius: 'var(--md-sys-shape-corner-medium)', padding: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
+                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-4)' }}>
+                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'bold', minWidth: 'var(--md-sys-spacing-8)' }}>{index + 1}.</span>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-percent-100)' }}>
+                                        <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 500 }}>
                                             {question.question}
                                         </M3Typography>
                                         {question.type === 'multiple-choice' && (
-                                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-spacing-component)', marginLeft: 'var(--md-sys-spacing-8)' }}>
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)', marginLeft: 'var(--md-sys-spacing-8)' }}>
                                                 {question.options?.map((option, optionIndex) => (
-                                                    <div key={optionIndex} style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-container)' }}>
-                                                        <span style={{ color: 'var(--app-color-on-surface-variant)', minWidth: 'var(--app-spacing-section)' }}>
+                                                    <div key={optionIndex} style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
+                                                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', minWidth: 'var(--md-sys-spacing-6)' }}>
                                                             {String.fromCharCode(65 + optionIndex)}.
                                                         </span>
-                                                        <M3Typography variant="body-medium" style={{ color: 'var(--app-color-on-surface)' }}>
+                                                        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>
                                                             {option}
                                                         </M3Typography>
                                                     </div>
@@ -192,21 +192,21 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                             </div>
                                         )}
                                         {question.type === 'true-false' && (
-                                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--app-spacing-component)', marginLeft: 'var(--md-sys-spacing-8)' }}>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-container)' }}>
-                                                    <span style={{ color: 'var(--app-color-on-surface-variant)', minWidth: 'var(--app-spacing-section)' }}>A.</span>
-                                                    <M3Typography variant="body-medium" style={{ color: 'var(--app-color-on-surface)' }}>Vero</M3Typography>
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)', marginLeft: 'var(--md-sys-spacing-8)' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
+                                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)', minWidth: 'var(--md-sys-spacing-6)' }}>A.</span>
+                                                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>Vero</M3Typography>
                                                 </div>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-container)' }}>
-                                                    <span style={{ color: 'var(--app-color-on-surface-variant)', minWidth: 'var(--app-spacing-section)' }}>B.</span>
-                                                    <M3Typography variant="body-medium" style={{ color: 'var(--app-color-on-surface)' }}>Falso</M3Typography>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
+                                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)', minWidth: 'var(--md-sys-spacing-6)' }}>B.</span>
+                                                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>Falso</M3Typography>
                                                 </div>
                                             </div>
                                         )}
                                         {question.type === 'open-ended' && (
-                                            <div style={{ marginLeft: 'var(--md-sys-spacing-8)', marginTop: 'var(--app-spacing-container)' }}>
-                                                <div style={{ border: 'var(--app-border-normal) solid var(--md-sys-color-outline)', borderRadius: 'var(--md-sys-shape-corner-small)', padding: 'var(--app-spacing-container)', backgroundColor: 'var(--app-color-surface)', minHeight: 'var(--md-sys-spacing-16)' }}>
-                                                    <M3Typography variant="body-small" style={{ color: 'var(--app-color-on-surface-variant)' }}>
+                                            <div style={{ marginLeft: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)' }}>
+                                                <div style={{ border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', borderRadius: 'var(--md-sys-shape-corner-small)', padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', minHeight: 'var(--md-sys-spacing-16)' }}>
+                                                    <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                                                         Risposta aperta...
                                                     </M3Typography>
                                                 </div>
@@ -218,8 +218,8 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                         ))}
                     </div>
 
-                    <div style={{ borderTop: 'var(--app-border-normal) solid var(--md-sys-color-outline)', textAlign: 'center', paddingTop: 'var(--app-spacing-container)', marginTop: 'var(--md-sys-spacing-12)' }}>
-                        <M3Typography variant="body-small" style={{ color: 'var(--app-color-on-surface-variant)' }}>
+                    <div style={{ borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', textAlign: 'center', paddingTop: 'var(--md-sys-spacing-4)', marginTop: 'var(--md-sys-spacing-12)' }}>
+                        <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                             Generato con DocenteDoc AI - Il tuo assistente didattico intelligente
                         </M3Typography>
                     </div>

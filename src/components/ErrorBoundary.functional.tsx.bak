@@ -23,7 +23,7 @@ const ErrorFallback: React.FC<{ error: Error; resetErrorBoundary: () => void }> 
           <span style={{ color: 'var(--md-sys-color-on-error)' }}>dizzy</span>
         </div>
         <h1 style={{ color: 'var(--app-color-on-primary)', fontWeight: "900", marginBottom: 'var(--app-spacing-component)'}}>Qualcosa è andato storto</h1>
-        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--app-spacing-section)'}}>
+        <p style={{ color: 'var(--app-color-on-surface-variant)', marginBottom: 'var(--app-spacing-section)'}}>
           Si è verificato un errore imprevisto nell'interfaccia. Non preoccuparti, i tuoi dati sono al sicuro nel database locale.
         </p>
         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--app-spacing-container)', textAlign: "left", marginBottom: 'var(--app-spacing-section)'}}>

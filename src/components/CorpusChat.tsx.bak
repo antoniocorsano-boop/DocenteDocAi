@@ -154,7 +154,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                                 alignItems: 'center',
                                 gap: 'var(--app-spacing-component)'}}>
                                 <div style={{borderRadius: 'var(--app-layout-half)'}} />
-                                <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)',
+                                <M3Typography variant="body-medium" style={{color: 'var(--app-color-on-surface-variant)',
                                     margin: 0}}>Sto pensando...</M3Typography>
                             </div>
                         </div>
@@ -178,7 +178,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
   fontFamily: 'Material Symbols Outlined'
 , color: 'var(--app-color-on-secondary-container)'}}>quiz</span>
                         </div>
-                        <M3Typography variant="body-large" style={{color: 'var(--md-sys-color-on-surface-variant)',
+                        <M3Typography variant="body-large" style={{color: 'var(--app-color-on-surface-variant)',
                             margin: 0}}>Poni una domanda ai documenti in questo set.</M3Typography>
                     </div>
                 )}
@@ -311,7 +311,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             ? 'var(--md-sys-color-surface-container-high)' 
                             : 'var(--app-color-primary)',
                         color: (isLoading || !chatInput.trim()) 
-                            ? 'var(--md-sys-color-on-surface-variant)' 
+                            ? 'var(--app-color-on-surface-variant)' 
                             : 'var(--app-color-on-primary)',
                         cursor: (isLoading || !chatInput.trim()) ? 'not-allowed' : 'pointer',
                         display: 'flex',

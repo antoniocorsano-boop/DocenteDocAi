@@ -98,7 +98,7 @@
 }
 
 .home-suggestion-desc {
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
   margin-top: var(--md-sys-spacing-2);
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -153,7 +153,7 @@
 .home-lesson-content {
   font-size: var(--md-sys-typescale-body-large-font-size);
   line-height: var(--md-sys-typescale-body-large-line-height);
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
   font-weight: 500;
   opacity: 0.8;
   display: -webkit-box;
@@ -191,7 +191,7 @@
 }
 
 .home-on-surface-variant {
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .home-suggestion-container {
@@ -250,7 +250,7 @@
 
 .home-suggestion-desc {
   font-size: var(--md-sys-typescale-body-medium-font-size);
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
   font-weight: 500;
   opacity: 0.8;
   position: relative;
@@ -277,7 +277,7 @@
 .home-other-title {
   text-transform: uppercase;
   letter-spacing: 0.3em;
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
   font-weight: 900;
   opacity: 0.5;
 }
@@ -330,7 +330,7 @@
 .home-hero-subtitle {
   font-family: var(--typography-title-medium-family, 'Roboto', sans-serif);
   font-size: var(--typography-title-medium-size);
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
   max-width: calc(var(--md-sys-spacing-20) * 7.2);
   margin-left: auto;
   margin-right: auto;
@@ -470,7 +470,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   justify-content: center;
   height: var(--md-sys-layout-card-width);
   text-align: center;
-  color: color-mix(in srgb, var(--app-color-on-surface-variant) var(--md-sys-percent-40), transparent);
+  color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-40), transparent);
   padding: var(--md-sys-spacing-8);
   border: var(--md-sys-spacing-1) dashed color-mix(in srgb, var(--md-sys-color-outline-variant) var(--md-sys-percent-20), transparent);
   border-radius: var(--md-sys-shape-corner-large);
@@ -498,7 +498,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .class-dashboard-body-small {
   font-size: var(--md-sys-typescale-body-small-font-size);
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .class-dashboard-label-small {
@@ -506,7 +506,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .class-dashboard-card-title {
@@ -516,7 +516,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .class-dashboard-card-desc {
   font-size: var(--md-sys-typescale-label-small-font-size);
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .class-dashboard-trend-up {
@@ -528,7 +528,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .class-dashboard-trend-neutral {
-  color: color-mix(in srgb, var(--app-color-on-surface-variant) var(--md-sys-percent-40), transparent);
+  color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-40), transparent);
 }
 
 .class-dashboard-student-name {
@@ -558,7 +558,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .class-dashboard-chevron {
-  color: color-mix(in srgb, var(--app-color-on-surface-variant) var(--md-sys-percent-30), transparent);
+  color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-30), transparent);
   transition: transform var(--motion-easing-standard);
 }
 
@@ -630,7 +630,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .class-dashboard-hero-description {
   font-size: var(--md-sys-typescale-body-medium-font-size);
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
   display: -webkit-box;
   -webkit-line-clamp: 1;
   line-clamp: 1;
@@ -742,7 +742,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   height: var(--md-sys-spacing-12);
   border-radius: var(--md-sys-shape-corner-medium);
   background-color: var(--md-sys-color-surface-container-high);
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -855,7 +855,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .uda-editor-subtitle {
   font-size: var(--md-sys-typescale-body-small-size);
-  color: color-mix(in srgb, var(--app-color-on-surface-variant) var(--md-sys-percent-60), transparent);
+  color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-60), transparent);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -1185,7 +1185,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .uda-planner-subtitle {
   font-size: var(--md-sys-typescale-body-small-size);
-  color: color-mix(in srgb, var(--app-color-on-surface-variant) var(--md-sys-percent-60), transparent);
+  color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-60), transparent);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.2em;

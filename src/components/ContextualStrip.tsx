@@ -26,15 +26,15 @@ const ContextualStrip: React.FC<ContextualStripProps> = ({ message, actionLabel,
         justifyContent: 'space-between',
         gap: 'var(--md-sys-spacing-8)',
         backgroundColor: 'var(--md-sys-color-surface-container-high)',
-        color: 'var(--app-color-on-surface)',
+        color: 'var(--md-sys-color-on-surface)',
         borderRadius: 'var(--md-sys-shape-corner-large)',
-        boxShadow: 'var(--app-elevation-level-2)',
+        boxShadow: 'var(--md-sys-elevation-2)',
         padding: 'var(--md-sys-spacing-8)',
         minHeight: 'var(--md-sys-spacing-14)',
         margin: 'var(--md-sys-spacing-8) 0',
         opacity: visible ? 1 : 0,
-        transform: visible ? 'translateY(0)' : 'translateY(var(--app-spacing-section))',
-        transition: 'opacity var(--app-motion-standard) var(--app-easing-standard), transform var(--app-motion-standard) var(--app-easing-standard)',
+        transform: visible ? 'translateY(0)' : 'translateY(var(--md-sys-spacing-6))',
+        transition: 'opacity var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
         pointerEvents: visible ? 'auto' : 'none',
         zIndex: 'var(--md-sys-z-nav)'
     };
@@ -42,7 +42,7 @@ const ContextualStrip: React.FC<ContextualStripProps> = ({ message, actionLabel,
     return (
         <div style={stripStyle}>
             {/* Icon & Message Group */}
-            <div style={{ display: "flex", alignItems: "flex-start", gap: 'var(--app-spacing-section)', flexGrow: 1, minWidth: 0 }}>
+            <div style={{ display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)', flexGrow: 1, minWidth: 0 }}>
                 <div
                     style={{
                         backgroundColor: 'var(--md-sys-color-tertiary-container)',
@@ -61,7 +61,7 @@ const ContextualStrip: React.FC<ContextualStripProps> = ({ message, actionLabel,
             </div>
 
             {/* Actions Group */}
-            <div style={{ display: "flex", alignItems: "center", gap: 'var(--app-spacing-container)', flexShrink: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)', flexShrink: 0 }}>
                 <button onClick={onAction}>
                     {actionLabel}
                 </button>

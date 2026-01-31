@@ -68,7 +68,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
         >
             <form onSubmit={handleSubmit} >
                 <M3DialogContent >
-                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)'}}>{student.cognome} {student.nome} - {competenza.nome}</p>
+                    <p style={{ color: 'var(--app-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)'}}>{student.cognome} {student.nome} - {competenza.nome}</p>
 
                     <div>
                         <label >Livello Raggiunto</label>
@@ -94,13 +94,13 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                         <div style={{ flexGrow: "1" }}>
                                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                                                 <span >{level.nome}</span>
-                                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Voto: {level.voto}</span>
+                                                <span style={{ color: 'var(--app-color-on-surface-variant)' }}>Voto: {level.voto}</span>
                                             </div>
                                                                                         <p style={{
                                                                                             fontSize: 'var(--md-sys-typescale-body-medium-size)',
                                                                                             fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
                                                                                             marginTop: 'var(--md-sys-spacing-8)',
-                                                                                            color: selectedLevelId === level.id ? 'var(--app-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)'
+                                                                                            color: selectedLevelId === level.id ? 'var(--app-color-on-primary-container)' : 'var(--app-color-on-surface-variant)'
                                                                                         }}>{level.descrizione}</p>
                                         </div>
                                     </label>
@@ -122,7 +122,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                             <label htmlFor="note" >Note (Opzionale)</label>
                             <div  style={{ display: "flex", alignItems: "center" }}>
                                 {!selectedLevelId && !isGeneratingNote && (
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>(Seleziona un livello)</span>
+                                    <span style={{ color: 'var(--app-color-on-surface-variant)' }}>(Seleziona un livello)</span>
                                 )}
                                 <M3Button
                                     type="button"
@@ -133,9 +133,9 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
                                     title="Genera nota con AI"
                                 >
                                     {isGeneratingNote ? (
-                                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>sync</span>
+                                        <span style={{ color: 'var(--app-color-on-surface-variant)' }}>sync</span>
                                     ) : (
-                                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>auto_awesome</span>
+                                        <span style={{ color: 'var(--app-color-on-surface-variant)' }}>auto_awesome</span>
                                     )}
                                     <span >{isGeneratingNote ? 'Generando...' : 'Suggerisci nota'}</span>
                                 </M3Button>

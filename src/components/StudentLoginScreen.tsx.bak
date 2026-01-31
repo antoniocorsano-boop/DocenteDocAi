@@ -77,7 +77,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                             <h1 style={{ color: 'var(--app-color-on-primary)', fontWeight: "900", lineHeight: "1" }}>
                                 Accesso<br /><span style={{color: 'var(--app-color-primary)'}}>Diario</span>
                             </h1>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-headline-small-size)", fontWeight: "500", opacity: "0.7" }}>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-headline-small-size)", fontWeight: "500", opacity: "0.7" }}>
                                 {welcomeMessage}
                             </p>
                         </div>
@@ -85,7 +85,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
 
                     <div  style={{borderTop: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
                         <blockquote style={{marginTop: 'var(--app-spacing-container)'}}>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-headline-medium-size)", lineHeight: "1.625" }}>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-headline-medium-size)", lineHeight: "1.625" }}>
                                 "{quote.text}"
                             </p>
                             <footer  style={{fontSize: "var(--md-sys-typescale-body-large-size)", fontWeight: "900", textTransform: "uppercase", color: "var(--app-color-primary)"}}>
@@ -116,12 +116,12 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
 
                         <div  style={{ display: "none" }}>
                             <h2 style={{ color: 'var(--app-color-on-primary)', fontWeight: "900" }}>Identificati</h2>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-size)", opacity: "0.7" }}>Seleziona la tua classe per iniziare</p>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-size)", opacity: "0.7" }}>Seleziona la tua classe per iniziare</p>
                         </div>
 
                         {step === 'class' && (
                             <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-size)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center", opacity: "0.6" }}>Seleziona la tua classe</p>
+                                <p style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-size)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center", opacity: "0.6" }}>Seleziona la tua classe</p>
                                 <div style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                                     {uniqueClasses.map(cls => (
                                         <M3Button 

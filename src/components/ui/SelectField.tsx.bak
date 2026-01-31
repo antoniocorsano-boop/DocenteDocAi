@@ -42,7 +42,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                 variant="label-large"
                 as="label"
                 htmlFor={props.id}
-                style={{color: 'var(--md-sys-color-on-surface-variant)'}}
+                style={{color: 'var(--app-color-on-surface-variant)'}}
             >
                 {label}
             </M3Typography>
@@ -87,7 +87,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                         top: 'var(--app-layout-half)',
                         transform: 'translateY(-50%)',
                         pointerEvents: 'none',
-                        color: 'var(--md-sys-color-on-surface-variant)',
+                        color: 'var(--app-color-on-surface-variant)',
                         fontSize: 'var(--app-spacing-container)',
                         transition: `color var(--app-motion-quick) var(--app-easing-standard)`}}
                     aria-hidden="true"

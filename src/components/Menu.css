@@ -29,7 +29,7 @@
 
 .nav-item {
   background: var(--md-sys-color-surface-container-lowest);
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
   border-radius: var(--sys-shape-corner-medium, var(--md-sys-spacing-4));
   outline: none;
   padding: var(--sys-spacing-xs, var(--md-sys-spacing-2)) var(--sys-spacing-s, var(--md-sys-spacing-3));
@@ -71,7 +71,7 @@
 
 .material-symbols-outlined {
   font-size: var(--icon-size-medium);
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
   pointer-events: none;
 }
 
@@ -85,7 +85,7 @@
   font-variation-settings: var(--font-variation-settings);
   letter-spacing: 0.12em;
   margin-top: var(--md-sys-spacing-1);
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .nav-item.active .m3-label-small {

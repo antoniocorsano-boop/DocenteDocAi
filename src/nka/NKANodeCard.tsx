@@ -39,7 +39,7 @@ function NKANodeCard({ node, onSelect }: NKANodeCardProps): React.JSX.Element {
       }}
     >
       <M3Typography variant="title-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>{node.label}</M3Typography>
-      <M3Typography variant="body-small" style={{ color: 'var(--app-color-on-surface-variant)' }} id={`nka-node-depth-${node.id}`}>
+      <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }} id={`nka-node-depth-${node.id}`}>
         Profondità {Math.round(node.depth * 100)}%
       </M3Typography>
       <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-2)' }}>

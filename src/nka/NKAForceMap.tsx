@@ -108,7 +108,7 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
       }}
     >
       {loading && (
-        <text x={width/2} y={height/2} textAnchor="middle" fontSize="var(--md-sys-typescale-headline-small-size)" fill="var(--app-color-on-surface-variant)">
+        <text x={width/2} y={height/2} textAnchor="middle" fontSize="var(--md-sys-typescale-headline-small-size)" fill="var(--md-sys-color-on-surface-variant)">
           Calcolo disposizione AI…
         </text>
       )}

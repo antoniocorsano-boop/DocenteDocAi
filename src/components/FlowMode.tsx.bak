@@ -162,7 +162,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                         style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 , textAlign: "center", opacity: "0.5", border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}
                     >
                         <span style={{ color: 'var(--app-color-primary)', opacity: 0.4, marginBottom: 'var(--md-sys-spacing-8)'}}>event_busy</span>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "bold" }}>Nessun evento o lezione oggi.</p>
+                        <p style={{ color: 'var(--app-color-on-surface-variant)' ,  fontWeight: "bold" }}>Nessun evento o lezione oggi.</p>
                         <button onClick={() => actions.handleNavigate('timetable')} style={{ backgroundColor: sys.colors.primary/10 , marginTop: 'var(--app-spacing-container)', paddingTop: 'var(--app-spacing-container)', paddingBottom: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)', color: "var(--app-color-primary)", fontWeight: "900", fontSize: "var(--app-text-label)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)'}}>
                             Configura Orario
                         </button>
@@ -217,10 +217,10 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-variant)' }}></div>
                                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-variant)', width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)' }}></div>
                                 <div style={{display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)', paddingTop: 'var(--app-spacing-container)', paddingBottom: 'var(--app-spacing-container)'}}>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", width: 'var(--app-spacing-container)', textTransform: "uppercase" }}>{item.time}</span>
+                                    <span style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: "900", width: 'var(--app-spacing-container)', textTransform: "uppercase" }}>{item.time}</span>
                                     <div>
                                         <p style={{ color: 'var(--app-color-on-primary)', fontWeight: "bold" }}>{item.title}</p>
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "500", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{item.subtitle}</p>
+                                        <p style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: "500", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{item.subtitle}</p>
                                     </div>
                                 </div>
                             </div>
@@ -239,10 +239,10 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
                             >
                                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--app-spacing-section)'}}>
                                     <span style={{ backgroundColor: 'var(--app-color-primary-container)', fontWeight: "900", color: "var(--app-color-primary)", borderRadius: 'var(--app-spacing-container)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>{item.time}</span>
-                                    {item.type === 'lesson' && <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "900", textTransform: "uppercase", opacity: "0.5" }}>Lezione</span>}
+                                    {item.type === 'lesson' && <span style={{ color: 'var(--app-color-on-surface-variant)' ,  fontWeight: "900", textTransform: "uppercase", opacity: "0.5" }}>Lezione</span>}
                                 </div>
                                 <h3 style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "900", transition: "color var(--app-motion-standard)" }}>{item.title}</h3>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "500", marginTop: 'var(--app-spacing-container)'}}>{item.subtitle}</p>
+                                <p style={{ color: 'var(--app-color-on-surface-variant)' , fontWeight: "500", marginTop: 'var(--app-spacing-container)'}}>{item.subtitle}</p>
                             </div>
                         </div>
                     );
@@ -253,13 +253,13 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--app-spacing-section)', display: 'flex', justifyContent: 'center' }}>
                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 0.8, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--app-spacing-container)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)' }}>
                     
-                    <button onClick={() => actions.handleNavigate('settings')} style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)', display: "flex", alignItems: "center", justifyContent: "center", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)' }}>
+                    <button onClick={() => actions.handleNavigate('settings')} style={{ color: 'var(--app-color-on-surface-variant)' ,  width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)', display: "flex", alignItems: "center", justifyContent: "center", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)' }}>
                         {}
                         <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>settings</span>
                         {}
                     </button>
 
-                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.5, color: 'var(--md-sys-color-on-surface-variant)', flexGrow: "1", borderRadius: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', display: "flex", alignItems: "center", fontSize: "var(--md-sys-typescale-label-medium-size)", fontWeight: "bold", border: "var(--app-border-thin) solid var(--md-sys-color-outline)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)'}} onClick={onOpenLiveAssistant}>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.5, color: 'var(--app-color-on-surface-variant)', flexGrow: "1", borderRadius: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', display: "flex", alignItems: "center", fontSize: "var(--md-sys-typescale-label-medium-size)", fontWeight: "bold", border: "var(--app-border-thin) solid var(--md-sys-color-outline)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)'}} onClick={onOpenLiveAssistant}>
                         Chiedi all'assistente...
                     </div>
 

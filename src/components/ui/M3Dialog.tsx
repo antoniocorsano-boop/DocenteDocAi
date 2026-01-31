@@ -92,11 +92,11 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   // MD3 CSS Variables - Direct token usage (no useTheme dependency)
   const scrim = 'var(--md-sys-color-scrim)';
   const surfaceContainerHigh = 'var(--md-sys-color-surface-container-high)';
-  const onSurface = 'var(--app-color-on-surface)';
-  const onSurfaceVariant = 'var(--app-color-on-surface-variant)';
+  const onSurface = 'var(--md-sys-color-on-surface)';
+  const onSurfaceVariant = 'var(--md-sys-color-on-surface-variant)';
   const outlineVariant = 'var(--md-sys-color-outline-variant)';
-  const spacing4 = 'var(--app-spacing-container)';
-  const spacing6 = 'var(--app-spacing-section)';
+  const spacing4 = 'var(--md-sys-spacing-4)';
+  const spacing6 = 'var(--md-sys-spacing-6)';
   const cornerLarge = 'var(--md-sys-shape-corner-large)';
   const headlineLargeFontSize = 'var(--app-text-title)';
   const headlineLargeFontWeight = 'var(--app-text-title-weight)';
@@ -168,7 +168,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
             backgroundColor: scrim,
             opacity: 0.32, // MD3 scrim opacity
             backdropFilter: `blur(var(--md-sys-blur-2xl))`, // MD3 glass blur
-            animation: `fade-in var(--app-motion-standard) var(--md-sys-motion-easing-decelerated)`
+            animation: `fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-decelerated)`
           }}
           aria-hidden="true"
         />
@@ -177,10 +177,10 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
       {/* Dialog Panel - M3 Expressive */}
       <div
         style={{
-          width: 'var(--app-layout-full)',
+          width: 'var(--md-sys-percent-100)',
           ...(mode === 'fullscreen'
             ? {
-                height: 'var(--app-layout-full)',
+                height: 'var(--md-sys-percent-100)',
                 maxHeight: 'var(--md-sys-percent-90)',
                 maxWidth: 'var(--md-sys-spacing-80)', // Using MD3 spacing equivalent
               }
@@ -189,7 +189,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
                 maxHeight: 'var(--md-sys-percent-90)'
               }
           ),
-          margin: 'var(--app-layout-auto)',
+          margin: 'var(--md-sys-margin-auto)',
           backgroundColor: surfaceContainerHigh,
           borderRadius: cornerLarge,
           boxShadow: 'var(--md-sys-elevation-level3)',
@@ -212,7 +212,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
               justifyContent: 'space-between',
               alignItems: 'flex-start',
               padding: spacing6,
-              borderBottom: `var(--app-border-normal) solid ${outlineVariant}`
+              borderBottom: `var(--md-sys-border-width-normal) solid ${outlineVariant}`
             }}
           >
             {/* Title & Subtitle */}
@@ -263,7 +263,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
                   backgroundColor: closeButtonHovered ? surfaceContainerHigh : 'transparent',
                   border: 'none',
                   cursor: 'pointer',
-                  transition: `background-color var(--app-motion-quick) var(--app-easing-standard)`}}
+                  transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                 onMouseEnter={() => setCloseButtonHovered(true)}
                 onMouseLeave={() => setCloseButtonHovered(false)}
                 data-focus-priority="-1"
@@ -294,10 +294,10 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
         {(buttons || footerContent) && (
           <div
             style={{padding: spacing6,
-              borderTop: `var(--app-border-normal) solid ${outlineVariant}`,
+              borderTop: `var(--md-sys-border-width-normal) solid ${outlineVariant}`,
               display: 'flex',
               justifyContent: 'flex-end',
-              gap: 'var(--app-spacing-element)'}}
+              gap: 'var(--md-sys-spacing-3)'}}
           >
             {footerContent || buttons}
           </div>
@@ -318,7 +318,7 @@ export const M3DialogContent: React.FC<{ children: React.ReactNode; style?: Reac
   return (
     <div
       style={{flex: 1,
-        padding: 'var(--app-spacing-section)',
+        padding: 'var(--md-sys-spacing-6)',
         overflowY: 'auto',
         ...style}}
     >
@@ -336,11 +336,11 @@ export const M3DialogActions: React.FC<{ children: React.ReactNode; style?: Reac
 }) => {
   return (
     <div
-      style={{padding: 'var(--app-spacing-section)',
-        borderTop: `var(--app-border-normal) solid var(--md-sys-color-outline-variant)`,
+      style={{padding: 'var(--md-sys-spacing-6)',
+        borderTop: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)`,
         display: 'flex',
         justifyContent: 'flex-end',
-        gap: 'var(--app-spacing-element)',
+        gap: 'var(--md-sys-spacing-3)',
         ...style}}
     >
       {children}
@@ -369,10 +369,10 @@ export const M3ConfirmDialog: React.FC<{
   danger = false,
 }) => {
   // MD3 CSS Variables - Direct token usage (no useTheme dependency)
-  const primaryColor = 'var(--app-color-primary)';
+  const primaryColor = 'var(--md-sys-color-primary)';
   const errorColor = 'var(--md-sys-color-error)';
-  const onPrimaryColor = 'var(--app-color-on-primary)';
-  const onSurfaceColor = 'var(--app-color-on-surface)';
+  const onPrimaryColor = 'var(--md-sys-color-on-primary)';
+  const onSurfaceColor = 'var(--md-sys-color-on-surface)';
   const cornerLargeValue = 'var(--md-sys-shape-corner-large)';
   const labelLargeFontSizeValue = 'var(--app-text-label)';
   const labelLargeFontWeightValue = 'var(--app-text-label-weight)';
@@ -390,7 +390,7 @@ export const M3ConfirmDialog: React.FC<{
           <button
             onClick={onCancel}
             style={{
-              padding: `var(--app-spacing-element) ${spacing4}`,
+              padding: `var(--md-sys-spacing-3) ${spacing4}`,
               border: 'none',
               backgroundColor: 'transparent',
               color: primaryColor,
@@ -404,7 +404,7 @@ export const M3ConfirmDialog: React.FC<{
           </button>
           <button
             onClick={onConfirm}
-            style={{padding: `var(--app-spacing-element) ${spacing4}`,
+            style={{padding: `var(--md-sys-spacing-3) ${spacing4}`,
               border: 'none',
               backgroundColor: danger ? errorColor : primaryColor,
               color: onPrimaryColor,

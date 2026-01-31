@@ -18,7 +18,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
   // MD3 Token mapping - no useTheme() dependency
   // Color tokens
   const surface = 'var(--app-color-surface)';
-  const onSurfaceVariant = 'var(--md-sys-color-on-surface-variant)';
+  const onSurfaceVariant = 'var(--app-color-on-surface-variant)';
   const outline = 'var(--md-sys-color-outline)';
   const surfaceVariant = 'var(--md-sys-color-surface-variant)';
   const secondaryContainer = 'var(--app-color-secondary-container)';

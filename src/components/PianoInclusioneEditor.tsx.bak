@@ -161,7 +161,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                     Obiettivi per Materia (PEI/PDP)
                                 </h3>
                             </div>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "var(--md-sys-typescale-body-small-size)", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' , fontSize: "var(--md-sys-typescale-body-small-size)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                 Definire gli obiettivi minimi o differenziati per ciascuna disciplina, se previsto dal piano.
                             </p>
                             

@@ -61,18 +61,18 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                             if (id === 'text' || id === 'json') setActiveTab(id);
                         }}
                         variant="primary"
-                        style={{ width: "var(--app-layout-full)" }}
+                        style={{ width: "var(--md-sys-percent-100)" }}
                     />
                 </div>
 
                 <div >
                     <div style={{
-                        padding: 'var(--app-spacing-container)',
-                        backgroundColor: 'var(--app-color-on-primary)',
+                        padding: 'var(--md-sys-spacing-4)',
+                        backgroundColor: 'var(--md-sys-color-on-primary)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         display: "flex",
                         flexWrap: "wrap",
-                        border: "var(--app-border-thin) solid var(--md-sys-color-outline)"
+                        border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"
                     }}>
                         <label  style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
                             <input type="checkbox" checked={includeAbsents} onChange={e => setIncludeAbsents(e.target.checked)}  /> 
@@ -100,7 +100,7 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
             <M3DialogActions  style={{ paddingTop: "0" }}>
                 <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
                 <M3Button onClick={() => handleCopy(activeTab === 'text' ? generatedText : generatedJson)} variant="filled" >
-                    <span  style={{ marginRight: "var(--app-spacing-component)" }}>content_copy</span> COPIA
+                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>content_copy</span> COPIA
                 </M3Button>
             </M3DialogActions>
         </M3Dialog>

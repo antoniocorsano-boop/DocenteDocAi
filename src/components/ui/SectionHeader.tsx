@@ -26,11 +26,11 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 'var(--app-spacing-container)',
-            marginBottom: 'var(--app-spacing-container)',
-            marginTop: 'var(--app-spacing-container)',
-            paddingLeft: 'var(--app-spacing-container)',
-            paddingRight: 'var(--app-spacing-container)'
+            gap: 'var(--md-sys-spacing-4)',
+            marginBottom: 'var(--md-sys-spacing-4)',
+            marginTop: 'var(--md-sys-spacing-4)',
+            paddingLeft: 'var(--md-sys-spacing-4)',
+            paddingRight: 'var(--md-sys-spacing-4)'
         }}
     >
         {icon && (
@@ -42,14 +42,14 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                     width: 'var(--md-sys-spacing-8)',
                     height: 'var(--md-sys-spacing-8)',
                     borderRadius: 'var(--md-sys-shape-corner-medium)',
-                    backgroundColor: 'var(--app-color-primary-container)',
-                    color: 'var(--app-color-on-primary-container)'
+                    backgroundColor: 'var(--md-sys-color-primary-container)',
+                    color: 'var(--md-sys-color-on-primary-container)'
                 }}
             >
                 <span
                     style={{
                         fontFamily: 'Material Symbols Outlined',
-                        fontSize: 'var(--app-spacing-section)'
+                        fontSize: 'var(--md-sys-spacing-6)'
                     }}
                 >
                     {icon}
@@ -62,7 +62,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                 style={{
                     textTransform: 'uppercase',
                     letterSpacing: '0.5em',
-                    color: `color-mix(in srgb, var(--app-color-on-surface-variant) var(--md-sys-percent-40), transparent)`
+                    color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-40), transparent)`
                 }}
             >
                 {title}
@@ -71,8 +71,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                 <M3Typography
                     variant="body-small"
                     style={{
-                        marginTop: 'var(--app-spacing-component)',
-                        color: `color-mix(in srgb, var(--app-color-on-surface-variant) var(--md-sys-percent-60), transparent)`
+                        marginTop: 'var(--md-sys-spacing-2)',
+                        color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-60), transparent)`
                     }}
                 >
                     {subtitle}

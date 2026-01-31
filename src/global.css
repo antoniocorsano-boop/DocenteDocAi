@@ -361,7 +361,7 @@
 }
 
 .color-on-surface-variant {
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .color-primary {
@@ -477,7 +477,7 @@
 }
 
 .color-on-surface-variant {
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .color-primary {
@@ -654,7 +654,7 @@
 }
 
 .color-on-surface-variant {
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .color-primary {
@@ -756,7 +756,7 @@
 }
 
 .md3-share-description {
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
   padding-left: var(--md-sys-spacing-4);
   padding-right: var(--md-sys-spacing-4);
 }
@@ -811,7 +811,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .md3-share-button-subtitle {
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 /* MD3 Utility Classes for StudentTransferModal */
@@ -876,7 +876,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .md3-transfer-warning-text {
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
   padding-left: var(--md-sys-spacing-4);
   padding-right: var(--md-sys-spacing-4);
 }
@@ -942,7 +942,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .md3-transfer-warning-text {
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
   padding-left: var(--md-sys-spacing-4);
   padding-right: var(--md-sys-spacing-4);
 }
@@ -967,7 +967,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .md3-editable-icon {
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .md3-editable-edit-btn {
@@ -1001,7 +1001,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .md3-editable-display {
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .md3-editable-list {
@@ -1325,7 +1325,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .md3-orient-classes-label {
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .md3-orient-classes-container {
@@ -1382,7 +1382,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .md3-ai-description {
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .md3-ai-textarea-container {
@@ -1452,7 +1452,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   font-size: var(--md-sys-typescale-body-medium-font-size);
   font-weight: var(--md-sys-typescale-body-medium-font-weight);
   line-height: var(--md-sys-typescale-body-medium-line-height);
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .md3-orient-classes-container {
@@ -1480,7 +1480,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .md3-orient-class-button-unselected {
   background-color: var(--md-sys-color-surface-container-high);
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 /* MD3 Utility Classes for AddProvaModal */
 .md3-prova-dialog-content {
@@ -1493,7 +1493,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   font-size: var(--md-sys-typescale-body-medium-font-size);
   font-weight: var(--md-sys-typescale-body-medium-font-weight);
   line-height: var(--md-sys-typescale-body-medium-line-height);
-  color: var(--app-color-on-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
 }
 
 .md3-prova-grid {

@@ -424,7 +424,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                 <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--app-spacing-section)' }}>
                     <div>
                         <M3Typography variant="headline-medium">Reportistica & Documenti</M3Typography>
-                        <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                        <M3Typography variant="body-large" style={{ color: 'var(--app-color-on-surface-variant)' }}>
                             Genera documentazione didattica, verbali e reportistica avanzata.
                         </M3Typography>
                     </div>
@@ -489,7 +489,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                             </InfoCard>
                         )) : (
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: 'center', opacity: 0.5 }}>
-                                <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>drafts</span>
+                                <span className="material-symbols-outlined" style={{ color: 'var(--app-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>drafts</span>
                                 <M3Typography variant="body-medium">Nessun documento generato di recente.</M3Typography>
                             </div>
                         )}

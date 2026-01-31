@@ -271,17 +271,17 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
       <M3DialogContent>
           {/* Progress Bar durante generazione */}
           {progress && (
-            <div style={{ backgroundColor: 'var(--app-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)'}}>
+            <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)'}}>
               <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <span  style={{ fontWeight: "500" }}>Generazione in corso...</span>
-                <span style={{ color: 'var(--app-color-on-surface-variant)' }}>{progress.current}/{progress.total}</span>
+                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{progress.current}/{progress.total}</span>
               </div>
-              <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' , width: 'var(--app-layout-full)', borderRadius: 'var(--app-spacing-container)', height: 'var(--app-spacing-component)', marginBottom: 'var(--md-sys-spacing-8)'}}>
+              <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' , width: 'var(--md-sys-percent-100)', borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <div
-                   style={{backgroundColor: "var(--app-color-primary)", height: 'var(--app-spacing-component)', borderRadius: 'var(--app-spacing-container)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)', width: `${(progress.current / progress.total) * 100}%` }}
+                   style={{backgroundColor: "var(--md-sys-color-primary)", height: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-spacing-4)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', width: `${(progress.current / progress.total) * 100}%` }}
                 ></div>
               </div>
-              <p style={{ color: 'var(--app-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{progress.currentDoc}</p>
+              <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{progress.currentDoc}</p>
             </div>
           )}
 
@@ -315,10 +315,10 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
           </div>
 
           {/* Lista documenti raggruppati */}
-          <div  style={{gap: 'var(--app-spacing-container)', overflowY: "auto"}}>
+          <div  style={{gap: 'var(--md-sys-spacing-4)', overflowY: "auto"}}>
             {Object.entries(groupedDocuments).map(([groupName, docs]) => (
               <div key={groupName}>
-                <h3 style={{ color: 'var(--app-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                   {groupName} ({docs.length})
                 </h3>
                 <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
@@ -328,17 +328,17 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                       <div
                         key={doc.id}
                         style={{
-                          padding: 'var(--app-spacing-section)',
-                          border: isSelected ? 'var(--app-border-thick) solid var(--app-color-primary)' : 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)',
+                          padding: 'var(--md-sys-spacing-6)',
+                          border: isSelected ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                           borderRadius: 'var(--md-sys-shape-corner-small)',
                           cursor: isGenerating ? 'not-allowed' : 'pointer',
-                          transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)',
-                          backgroundColor: isSelected ? 'var(--app-color-secondary-container)' : 'transparent',
+                          transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                          backgroundColor: isSelected ? 'var(--md-sys-color-secondary-container)' : 'transparent',
                           opacity: isGenerating ? 0.6 : 1
                         }}
                         onClick={() => !isGenerating && toggleDocumentSelection(doc.id)}
                       >
-                        <div style={{display: "flex", alignItems: "flex-start", gap: 'var(--app-spacing-section)'}}>
+                        <div style={{display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)'}}>
                           <input
                             type="checkbox"
                             checked={isSelected}
@@ -349,17 +349,17 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                           />
                           <div style={{ flex: "1", minWidth: "0" }}>
                             <p  style={{ fontWeight: "500", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.title}</p>
-                            <p style={{ color: 'var(--app-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.subtitle}</p>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.subtitle}</p>
                             <span style={{
                               display: 'inline-block',
-                              padding: 'var(--md-sys-spacing-1) var(--app-spacing-container)',
-                              marginTop: 'var(--app-spacing-container)',
+                              padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-4)',
+                              marginTop: 'var(--md-sys-spacing-4)',
                               borderRadius: 'var(--md-sys-shape-corner-full)',
                               fontSize: 'var(--md-sys-typescale-label-small-size)',
                               fontWeight: 'var(--md-sys-typescale-label-small-weight)',
                               lineHeight: 'var(--app-text-label-line-height)',
-                              backgroundColor: doc.format === 'pdf' ? 'var(--md-sys-color-error-container)' : 'var(--app-color-primary-container)',
-                              color: doc.format === 'pdf' ? 'var(--md-sys-color-on-error-container)' : 'var(--app-color-on-primary-container)'
+                              backgroundColor: doc.format === 'pdf' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',
+                              color: doc.format === 'pdf' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)'
                             }}>
                               {doc.format.toUpperCase()}
                             </span>

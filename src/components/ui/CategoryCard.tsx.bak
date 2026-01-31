@@ -119,7 +119,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                     variant="body-small"
                     style={{
                         textAlign: 'center',
-                        color: 'var(--md-sys-color-on-surface-variant)',
+                        color: 'var(--app-color-on-surface-variant)',
                         opacity: 0.7,
                         lineHeight: 1.3,
                         padding: '0 var(--app-spacing-container)',

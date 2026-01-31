@@ -1,5 +1,5 @@
 // MD3 Compliant - Block I Migration Complete (6 violations eliminated)
-// Note: Icon font sizes (var(--app-spacing-container)) retained with eslint-disable comments for Material Icons
+// Note: Icon font sizes (var(--md-sys-spacing-4)) retained with eslint-disable comments for Material Icons
 import React, { useState, useEffect, useMemo } from 'react';
 import { Lezione, AiSettings, Studente, PianoInclusione, Slot, CurriculumSubject } from '../types';
 import { generateInclusivityAdaptations } from '../services/aiService';
@@ -186,7 +186,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                 maxWidth="lg"
                 level={1}
             >
-                <form id="create-lesson-ai-form" onSubmit={handleSubmit} style={{ width: "var(--app-layout-full)" }}>
+                <form id="create-lesson-ai-form" onSubmit={handleSubmit} style={{ width: "var(--md-sys-percent-100)" }}>
                     <M3DialogContent >
                         <TextField 
                             label="Argomento" 
@@ -206,7 +206,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
 
                         <div>
                             <div  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <label  style={{color: "var(--app-color-primary)", textTransform: "uppercase"}}>Obiettivi</label>
+                                <label  style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase"}}>Obiettivi</label>
                                 {matchingCurriculum && (
                                     <M3Button 
                                         type="button" 
@@ -215,7 +215,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                          style={{ textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", borderRadius: 'var(--md-sys-shape-corner-medium)' }}
                                         title="Seleziona dal curricolo"
                                     >
-                                        <span  style={{  fontSize: "var(--app-spacing-container)"  }}>library_add</span>
+                                        <span  style={{  fontSize: "var(--md-sys-spacing-4)"  }}>library_add</span>
                                         Curricolo
                                     </M3Button>
                                 )}
@@ -229,26 +229,26 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                 style={{ 
                                     borderRadius: 'var(--md-sys-shape-corner-medium)', 
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)', 
-                                    padding: 'var(--app-spacing-section)',
-                                    border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                                    padding: 'var(--md-sys-spacing-6)',
+                                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     transition: 'border-color var(--md-sys-motion-duration-medium4)',
                                     fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
                                     fontSize: 'var(--app-text-body)',
                                     lineHeight: 'var(--app-text-body-line-height)',
-                                    color: 'var(--app-color-on-surface-variant)',
+                                    color: 'var(--md-sys-color-on-surface-variant)',
                                 }}
                             />
                             {matchingCurriculum && !obiettivi && (
-                                <p  style={{fontSize: 'var(--app-text-body)', color: "var(--app-color-primary)", marginTop: 'var(--app-spacing-container)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "bold", cursor: "pointer"}} onClick={() => setIsObjectivePickerOpen(true)}>
-                                    <span  style={{  fontSize: "var(--app-spacing-container)"  }}>info</span> 
+                                <p  style={{fontSize: 'var(--app-text-body)', color: "var(--md-sys-color-primary)", marginTop: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "bold", cursor: "pointer"}} onClick={() => setIsObjectivePickerOpen(true)}>
+                                    <span  style={{  fontSize: "var(--md-sys-spacing-4)"  }}>info</span> 
                                     Curricolo disponibile: {matchingCurriculum.gradeLevel} di {matchingCurriculum.subject}
                                 </p>
                             )}
                         </div>
                         
                         {slots && availableSlots.length > 0 && (
-                            <div style={{ backgroundColor: 'var(--app-color-secondary-container)', padding: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", gap: 'var(--app-spacing-section)' }}>
-                                <label style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase" }}>Pianificazione Rapida (Opzionale)</label>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', padding: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", gap: 'var(--md-sys-spacing-6)' }}>
+                                <label style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase" }}>Pianificazione Rapida (Opzionale)</label>
                                 <div  style={{ display: "flex", flexWrap: "wrap" }}>
                                     {availableSlots.map(([key, slot]) => (
                                         <button
@@ -259,19 +259,19 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                                 height: 'var(--md-sys-spacing-12)',
                                                 padding: 'var(--md-sys-spacing-0) var(--md-sys-spacing-8)',
                                                 borderRadius: 'var(--md-sys-shape-corner-full)',
-                                                border: selectedSlotKey === key ? 'var(--app-border-thin) solid var(--app-color-primary)' : 'var(--app-border-thin) solid var(--md-sys-color-outline)',
-                                                backgroundColor: selectedSlotKey === key ? 'var(--app-color-primary)' : 'var(--md-sys-color-surface-container-high)',
-                                                color: selectedSlotKey === key ? 'var(--app-color-on-primary)' : 'var(--app-color-on-surface-variant)',
+                                                border: selectedSlotKey === key ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
+                                                backgroundColor: selectedSlotKey === key ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
+                                                color: selectedSlotKey === key ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
                                                 fontWeight: selectedSlotKey === key ? 700 : 500,
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 gap: 'var(--md-sys-spacing-8)',
-                                                margin: 'var(--app-spacing-container) 0',
+                                                margin: 'var(--md-sys-spacing-4) 0',
                                                 cursor: 'pointer',
-                                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)'
+                                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                                             }}
                                         >
-                                            {selectedSlotKey === key && <span  style={{  fontSize: "var(--app-spacing-container)"  }}>check</span>}
+                                            {selectedSlotKey === key && <span  style={{  fontSize: "var(--md-sys-spacing-4)"  }}>check</span>}
                                             <span  style={{ fontSize: 'var(--app-text-body)' }}>{slot.giorno} {slot.ora}</span>
                                         </button>
                                     ))}
@@ -281,19 +281,19 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
 
                         <div>
                             <div  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <label  style={{color: "var(--app-color-primary)", fontWeight: "900", textTransform: "uppercase"}}>Adattamenti per l'Inclusività</label>
+                                <label  style={{color: "var(--md-sys-color-primary)", fontWeight: "900", textTransform: "uppercase"}}>Adattamenti per l'Inclusività</label>
                                 <M3Button 
                                     type="button" 
                                     onClick={handleGenerateAdaptations} 
                                     disabled={isAdaptationsLoading} 
                                     variant="text"
-                                    style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", fontSize: 'var(--app-text-body)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)' }}
+                                    style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", fontSize: 'var(--app-text-body)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
                                     title="Usa l'AI per suggerire adattamenti basati sui Piani di Inclusione della classe"
                                 >
                                     {isAdaptationsLoading ? (
                                         <AiThinkingGem size="small" inline text="Suggerisco..." />
                                     ) : (
-                                        <span  style={{  fontSize: "var(--app-spacing-container)"  }}>auto_awesome</span>
+                                        <span  style={{  fontSize: "var(--md-sys-spacing-4)"  }}>auto_awesome</span>
                                     )}
                                     {isAdaptationsLoading ? '' : 'Suggerisci con AI'}
                                 </M3Button>
@@ -307,13 +307,13 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                                 style={{ 
                                     borderRadius: 'var(--md-sys-shape-corner-medium)', 
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)', 
-                                    padding: 'var(--app-spacing-section)',
-                                    border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                                    padding: 'var(--md-sys-spacing-6)',
+                                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     transition: 'border-color var(--md-sys-motion-duration-medium4)',
                                     fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
                                     fontSize: 'var(--app-text-body)',
                                     lineHeight: 'var(--app-text-body-line-height)',
-                                    color: 'var(--app-color-on-surface-variant)',
+                                    color: 'var(--md-sys-color-on-surface-variant)',
                                 }}
                             ></TextArea>
                         </div>
@@ -322,7 +322,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                     <M3DialogActions  style={{ paddingTop: "0" }}>
                         <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
                         <M3Button type="submit" variant="filled" >
-                            <span  style={{ marginRight: "var(--app-spacing-component)", fontWeight: "900" }}>{selectedSlotKey ? 'event_available' : 'archive'}</span>
+                            <span  style={{ marginRight: "var(--md-sys-spacing-2)", fontWeight: "900" }}>{selectedSlotKey ? 'event_available' : 'archive'}</span>
                             {selectedSlotKey ? 'Salva e Pianifica' : 'Salva in Archivio'}
                         </M3Button>
                     </M3DialogActions>
@@ -338,23 +338,23 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                     level={2}
                 >
                     <M3DialogContent style={{marginTop: 'var(--md-sys-spacing-8)'}}>
-                        <p  style={{color: "var(--app-color-primary)", textTransform: "uppercase"}}>{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
+                        <p  style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase"}}>{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
                         {matchingCurriculum.nuclei.map(nucleo => (
                             <details key={nucleo.id}  open>
                                 <summary >
-                                    <span style={{ color: 'var(--app-color-on-primary)', fontWeight: "900" }}>{nucleo.title}</span>
-                                    <span style={{ color: 'var(--app-color-on-surface-variant)',  fontSize: "var(--app-spacing-container)"  }}>expand_more</span>
+                                    <span style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900" }}>{nucleo.title}</span>
+                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)',  fontSize: "var(--md-sys-spacing-4)"  }}>expand_more</span>
                                 </summary>
-                                <div style={{padding: 'var(--md-sys-spacing-8)', gap: 'var(--app-spacing-element)', backgroundColor: "var(--app-color-surface)"}}>
+                                <div style={{padding: 'var(--md-sys-spacing-8)', gap: 'var(--md-sys-spacing-3)', backgroundColor: "var(--md-sys-color-surface)"}}>
                                     {nucleo.objectives.map(obj => (
                                         <button 
                                             key={obj.id}
                                             type="button"
                                             onClick={() => handleAddObjective(obj.text)}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--app-layout-full)", textAlign: "left", padding: 'var(--app-spacing-section)', transition: "color var(--app-motion-standard)", display: "flex", alignItems: "flex-start", gap: 'var(--app-spacing-section)' }}
+                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--md-sys-percent-100)", textAlign: "left", padding: 'var(--md-sys-spacing-6)', transition: "color var(--md-sys-motion-duration-medium)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)' }}
                                         >
-                                            <span  style={{color: "var(--app-color-primary)",  fontSize: "var(--app-spacing-container)" , transition: "transform var(--app-motion-standard)"}}>add_circle</span>
-                                            <span style={{ color: 'var(--app-color-on-primary)', fontSize: 'var(--app-text-label)', fontWeight: "500" }}>{obj.text}</span>
+                                            <span  style={{color: "var(--md-sys-color-primary)",  fontSize: "var(--md-sys-spacing-4)" , transition: "transform var(--md-sys-motion-duration-medium)"}}>add_circle</span>
+                                            <span style={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--app-text-label)', fontWeight: "500" }}>{obj.text}</span>
                                         </button>
                                     ))}
                                 </div>
@@ -363,7 +363,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
                     </M3DialogContent>
 
                     <M3DialogActions>
-                        <M3Button type="button" onClick={() => setIsObjectivePickerOpen(false)} variant="filled"  style={{ width: "var(--app-layout-full)", fontWeight: "900" }}>CONFERMA SELEZIONE</M3Button>
+                        <M3Button type="button" onClick={() => setIsObjectivePickerOpen(false)} variant="filled"  style={{ width: "var(--md-sys-percent-100)", fontWeight: "900" }}>CONFERMA SELEZIONE</M3Button>
                     </M3DialogActions>
                 </M3Dialog>
             )}

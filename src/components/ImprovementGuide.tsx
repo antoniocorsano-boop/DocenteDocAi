@@ -177,7 +177,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
         if (totalObjectives === 0) return null;
 
         return [
-            { label: 'Raggiunti', value: checkedObjectives, color: 'var(--app-color-primary)' },
+            { label: 'Raggiunti', value: checkedObjectives, color: 'var(--md-sys-color-primary)' },
             { label: 'Non Verificati', value: totalObjectives - checkedObjectives, color: 'var(--md-sys-color-surfaceContainerHighest)' }
         ];
     }, [register, lessons, selectedClass]);
@@ -187,7 +187,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
         if (!analysis) return;
 
         let html = `
-        <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); body { font-family: 'Roboto', sans-serif; line-height: var(--app-text-title-line-height); } h1 { color: 'var(--app-color-primary)'; /* MD3 fix */ } h2 { color: 'var(--app-color-primary)'; /* MD3 fix */ border-bottom: var(--app-border-thin) solid var(--md-sys-color-outline-variant); /* MD3 fix */ padding-bottom: var(--md-sys-spacing-1); margin-top: var(--app-spacing-touch); } p { margin-bottom: var(--app-spacing-component); } ul { margin-bottom: var(--app-spacing-component); } strong { color: 'var(--app-color-primary)'; /* MD3 fix */ } .header-info { background-color: 'var(--app-color-surface)'; /* MD3 fix */ padding: 'var(--app-spacing-element)'; border-radius: var(--md-corner-4); /* MD3 fix */ margin-bottom: var(--app-spacing-touch); }</style>
+        <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap'); body { font-family: 'Roboto', sans-serif; line-height: var(--app-text-title-line-height); } h1 { color: 'var(--md-sys-color-primary)'; /* MD3 fix */ } h2 { color: 'var(--md-sys-color-primary)'; /* MD3 fix */ border-bottom: var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant); /* MD3 fix */ padding-bottom: var(--md-sys-spacing-1); margin-top: var(--md-sys-spacing-5); } p { margin-bottom: var(--md-sys-spacing-2); } ul { margin-bottom: var(--md-sys-spacing-2); } strong { color: 'var(--md-sys-color-primary)'; /* MD3 fix */ } .header-info { background-color: 'var(--md-sys-color-surface)'; /* MD3 fix */ padding: 'var(--md-sys-spacing-3)'; border-radius: var(--md-corner-4); /* MD3 fix */ margin-bottom: var(--md-sys-spacing-5); }</style>
         `;
 
         html += `<h1>Analisi Classe ${selectedClass}</h1>`;
@@ -302,13 +302,13 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 
             {/* Charts */}
             <div >
-                <InfoCard title="Distribuzione Voti" icon="bar_chart" style={{ height: "var(--app-layout-full)" }}>
-                    <div style={{padding: 'var(--app-spacing-section)'}}>
-                        <BarChart data={gradeDistributionData} color="var(--app-color-secondary)" />
+                <InfoCard title="Distribuzione Voti" icon="bar_chart" style={{ height: "var(--md-sys-percent-100)" }}>
+                    <div style={{padding: 'var(--md-sys-spacing-6)'}}>
+                        <BarChart data={gradeDistributionData} color="var(--md-sys-color-secondary)" />
                     </div>
                 </InfoCard>
                 {objectiveAchievementData && (
-                    <InfoCard title="Raggiungimento Obiettivi" icon="pie_chart" style={{ height: "var(--app-layout-full)" }}>
+                    <InfoCard title="Raggiungimento Obiettivi" icon="pie_chart" style={{ height: "var(--md-sys-percent-100)" }}>
                         <div style={{display: "flex", justifyContent: "center", padding: 'var(--md-sys-spacing-8)'}}>
                             <DonutChart data={objectiveAchievementData} />
                         </div>
@@ -319,8 +319,8 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
             <InfoCard title="Livelli di Competenza" icon="school">
                 <div  style={{padding: 'var(--md-sys-spacing-8)'}}>
                     {competencyLevelData.map(compData => (
-                        <div key={compData.name} style={{marginTop: 'var(--app-spacing-container)'}}>
-                            <h3 style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: "var(--app-text-body)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "0.7" }}>{compData.name}</h3>
+                        <div key={compData.name} style={{marginTop: 'var(--md-sys-spacing-4)'}}>
+                            <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--app-text-body)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "0.7" }}>{compData.name}</h3>
                             <BarChart
                                 data={compData.levels.map(l => ({ label: l.name, value: l.value }))}
                                 color="var(--sys-tertiary)"

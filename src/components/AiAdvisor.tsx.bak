@@ -91,7 +91,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                 Consulente Didattico AI
             </h2>
             <p style={{
-                color: 'var(--md-sys-color-on-surface-variant)',
+                color: 'var(--app-color-on-surface-variant)',
                 fontSize: 'var(--app-text-body)',
                 lineHeight: 1.5,
                 margin: 0
@@ -141,7 +141,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                     <label style={{
                         fontSize: 'var(--app-text-body)',
                         backgroundColor: advisorStatus ? 'var(--md-sys-color-surface-container-high)' : 'var(--app-color-primary)',
-                        color: advisorStatus ? 'var(--md-sys-color-on-surface-variant)' : 'var(--app-color-on-primary)',
+                        color: advisorStatus ? 'var(--app-color-on-surface-variant)' : 'var(--app-color-on-primary)',
                         cursor: advisorStatus ? 'not-allowed' : 'pointer',
                         letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                     }}>Tipo di Intervento</label>
@@ -193,7 +193,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                     <button onClick={handleGenerateAdvice} disabled={!!advisorStatus} style={{
                         padding: 'var(--app-spacing-element) var(--app-spacing-section)',
                         backgroundColor: advisorStatus ? 'var(--md-sys-color-surface-container-high)' : 'var(--app-color-primary)',
-                        color: advisorStatus ? 'var(--md-sys-color-on-surface-variant)' : 'var(--app-color-on-primary)',
+                        color: advisorStatus ? 'var(--app-color-on-surface-variant)' : 'var(--app-color-on-primary)',
                         fontWeight: 'bold',
                         cursor: advisorStatus ? 'not-allowed' : 'pointer',
                         transition: `all var(--app-motion-quick) var(--app-easing-standard)`,
@@ -269,7 +269,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                                     margin: 'var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--app-spacing-component) var(--md-sys-spacing-0)'
                                 }}>{item.titolo}</h4>
                                 <p style={{
-                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    color: 'var(--app-color-on-surface-variant)',
                                     fontSize: 'var(--app-text-body)',
                                     lineHeight: 1.5,
                                     margin: 0

@@ -16,7 +16,7 @@ const MD3_TOKENS = {
   surfaceContainerHigh: 'var(--md-sys-color-surface-container-high)',
   onSurface: 'var(--md-sys-color-on-surface)',
   surfaceContainerLow: 'var(--md-sys-color-surface-container-low)',
-  onSurfaceVariant: 'var(--md-sys-color-on-surface-variant)',
+  onSurfaceVariant: 'var(--app-color-on-surface-variant)',
   outlineVariant: 'var(--md-sys-color-outline-variant)',
 
   // Shape

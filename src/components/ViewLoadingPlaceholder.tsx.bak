@@ -48,7 +48,7 @@ export const MinimalViewLoading: React.FC = () => {
         <div  style={{ width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)", borderRadius: 'var(--app-spacing-container)', display: "flex", alignItems: "center", justifyContent: "center" }}>
           <span  style={{fontSize: "var(--app-text-title)", color: "var(--app-color-primary)"}}>hourglass_bottom</span>
         </div>
-        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Caricamento...</p>
+        <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Caricamento...</p>
       </div>
     </div>
   );

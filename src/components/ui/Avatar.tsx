@@ -33,8 +33,8 @@ const Avatar: React.FC<AvatarProps> = ({ name, src, size = 'md' }) => {
         flexShrink: 0,
         borderRadius: 'var(--md-sys-shape-corner-extra-large)',
         overflow: 'hidden',
-        backgroundColor: 'var(--app-color-primary-container)',
-        color: 'var(--app-color-on-primary-container)',
+        backgroundColor: 'var(--md-sys-color-primary-container)',
+        color: 'var(--md-sys-color-on-primary-container)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -42,7 +42,7 @@ const Avatar: React.FC<AvatarProps> = ({ name, src, size = 'md' }) => {
         ...sizeStyles[size]
     }}>
         {src ? (
-            <img src={src} alt={name} style={{ width: 'var(--app-layout-full)', height: 'var(--app-layout-full)', objectFit: 'cover' }} />
+            <img src={src} alt={name} style={{ width: 'var(--md-sys-percent-100)', height: 'var(--md-sys-percent-100)', objectFit: 'cover' }} />
         ) : (
             <span>{initials}</span>
         )}

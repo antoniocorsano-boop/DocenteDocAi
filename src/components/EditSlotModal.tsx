@@ -97,23 +97,23 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
             level={1}
         >
             <M3DialogContent style={{marginTop: 'var(--md-sys-spacing-8)'}}>
-                <div style={{paddingLeft: 'var(--app-spacing-container)',
-  paddingRight: 'var(--app-spacing-container)'}}>
-                    <p style={{color: "var(--app-color-primary)", textTransform: "uppercase"}}>{slot.giorno} • {slot.ora}</p>
+                <div style={{paddingLeft: 'var(--md-sys-spacing-4)',
+  paddingRight: 'var(--md-sys-spacing-4)'}}>
+                    <p style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase"}}>{slot.giorno} • {slot.ora}</p>
                 </div>
 
                 <section>
                     <SectionHeader title="Tipologia Attività" icon="category" />
-                    <div  style={{display: "flex", gap: 'var(--app-spacing-section)', overflowX: "auto", marginTop: 'var(--app-spacing-container)'}}>
+                    <div  style={{display: "flex", gap: 'var(--md-sys-spacing-6)', overflowX: "auto", marginTop: 'var(--md-sys-spacing-4)'}}>
                         <M3ChoiceCard icon="school" label="Lezione" selected={activityType === 'standard'} onClick={() => setActivityType('standard')} />
                         <M3ChoiceCard icon="pending_actions" label="Disp." selected={activityType === 'disposizione'} onClick={() => setActivityType('disposizione')} />
                         <M3ChoiceCard icon="diversity_3" label="Ricev." selected={activityType === 'ricevimento'} onClick={() => setActivityType('ricevimento')} />
                     </div>
                 </section>
 
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                     {activityType === 'standard' && (
-                        <div  style={{gap: 'var(--app-spacing-section)'}}>
+                        <div  style={{gap: 'var(--md-sys-spacing-6)'}}>
                             <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                                 <SelectField
                                     id="slot-class-select"
@@ -162,7 +162,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                     )}
 
                     {activityType === 'disposizione' && (
-                        <div  style={{gap: 'var(--app-spacing-container)'}}>
+                        <div  style={{gap: 'var(--md-sys-spacing-4)'}}>
                             <InfoCard title="Ora di Disposizione" description="Registra la tua presenza per sostituzioni o attività di plesso." icon="pending_actions" variant="secondary" />
                             <TextArea
                                 id="slot-disp-nota"
@@ -176,7 +176,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                     )}
 
                     {activityType === 'ricevimento' && (
-                        <div  style={{gap: 'var(--app-spacing-container)'}}>
+                        <div  style={{gap: 'var(--md-sys-spacing-4)'}}>
                             <InfoCard title="Colloquio Genitori" description="Spazio dedicato al ricevimento delle famiglie." icon="diversity_3" variant="tertiary" />
                             <TextArea
                                 id="slot-ricev-nota"

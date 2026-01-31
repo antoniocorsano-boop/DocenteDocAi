@@ -97,7 +97,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                       fontSize: 'var(--app-text-body)',
                       fontWeight: 'var(--app-text-body-weight)',
                       lineHeight: 'var(--app-text-body-line-height)',
-                      color: 'var(--md-sys-color-on-surface-variant)'
+                      color: 'var(--app-color-on-surface-variant)'
                     }}>Classi Coinvolte</label>
                     <div style={{
                       display: 'flex',
@@ -128,7 +128,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                                     : 'var(--md-sys-color-surface-container-high)',
                                   color: activity.classes?.includes(cls)
                                     ? 'var(--app-color-on-primary)'
-                                    : 'var(--md-sys-color-on-surface-variant)'
+                                    : 'var(--app-color-on-surface-variant)'
                                 }}
                             >
                                 {cls}

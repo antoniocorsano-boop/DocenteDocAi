@@ -23,7 +23,7 @@ interface StudentActionMenuProps {
  * Features:
  * - Pure MD3 token-based styling (colors, spacing, typography, motion, shape)
  * - M3Typography for all text elements
- * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥var(--app-spacing-touch)
+ * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥var(--md-sys-spacing-5)
  * - Student information display with avatar and stats
  * - Performance metrics: grade, trend, participation badges
  * - Quick actions: add evaluation, view profile
@@ -76,15 +76,15 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
         >
             {/* Header with student info */}
             <div
-                style={{backgroundColor: 'var(--app-color-primary)',
+                style={{backgroundColor: 'var(--md-sys-color-primary)',
                     color: 'var(--md-sys-color-on)',
-                    padding: 'var(--app-spacing-container)'}}
+                    padding: 'var(--md-sys-spacing-4)'}}
             >
                 <div
                     style={{display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--app-spacing-element)',
-                        marginBottom: 'var(--app-spacing-container)'}}
+                        gap: 'var(--md-sys-spacing-3)',
+                        marginBottom: 'var(--md-sys-spacing-4)'}}
                 >
                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                     <div
@@ -152,7 +152,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         </M3Typography>
                     </div>
                     <div
-                        style={{width: 'var(--app-spacing-container)',
+                        style={{width: 'var(--md-sys-spacing-4)',
                             height: 'var(--md-sys-spacing-8)',
                             backgroundColor: 'currentColor',
                             opacity: 0.3}}
@@ -187,7 +187,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         </span>
                     </div>
                     <div
-                        style={{width: 'var(--app-spacing-container)',
+                        style={{width: 'var(--md-sys-spacing-4)',
                             height: 'var(--md-sys-spacing-8)',
                             backgroundColor: 'currentColor',
                             opacity: 0.3}}
@@ -225,13 +225,13 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
             </div>
             {/* Actions */}
             <div
-                style={{padding: 'var(--app-spacing-component)'}}
+                style={{padding: 'var(--md-sys-spacing-2)'}}
             >
                 <M3Typography
                     variant="body-small"
-                    style={{margin: 'var(--app-spacing-element) var(--app-spacing-container) var(--app-spacing-component) var(--app-spacing-container)',
+                    style={{margin: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
                         textTransform: 'uppercase',
-                        color: 'var(--app-color-on-surface)',
+                        color: 'var(--md-sys-color-on-surface)',
                         
                         letterSpacing: 'var(--md-sys-typescale-body-small-tracking)', // MD3 COMPLIANT: Using official body-small tracking token
                         
@@ -246,15 +246,15 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     }}
                     variant="text"
                     size="md"
-                    style={{width: 'var(--app-layout-full)', // MD3 EXCEPTION: Functional layout value for full-width buttons
+                    style={{width: 'var(--md-sys-percent-100)', // MD3 EXCEPTION: Functional layout value for full-width buttons
                         justifyContent: 'flex-start',
-                        marginBottom: 'var(--app-spacing-component)',
-                        gap: 'var(--app-spacing-element)'}}
+                        marginBottom: 'var(--md-sys-spacing-2)',
+                        gap: 'var(--md-sys-spacing-3)'}}
                 >
                     <span
                         style={{fontFamily: 'Material Symbols Outlined',
                             fontSize: 'var(--app-text-body)',
-                            color: 'var(--app-color-primary)'}}
+                            color: 'var(--md-sys-color-primary)'}}
                     >
                         add_circle
                     </span>
@@ -267,14 +267,14 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     }}
                     variant="text"
                     size="md"
-                    style={{width: 'var(--app-layout-full)', // MD3 EXCEPTION: Functional layout value for full-width buttons
+                    style={{width: 'var(--md-sys-percent-100)', // MD3 EXCEPTION: Functional layout value for full-width buttons
                         justifyContent: 'flex-start',
-                        gap: 'var(--app-spacing-element)'}}
+                        gap: 'var(--md-sys-spacing-3)'}}
                 >
                     <span
                         style={{fontFamily: 'Material Symbols Outlined',
                             fontSize: 'var(--app-text-body)',
-                            color: 'var(--app-color-secondary)'}}
+                            color: 'var(--md-sys-color-secondary)'}}
                     >
                         person_search
                     </span>

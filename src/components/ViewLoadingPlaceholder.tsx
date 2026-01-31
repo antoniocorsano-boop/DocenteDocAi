@@ -30,7 +30,7 @@ export const ViewLoadingPlaceholder: React.FC<ViewLoadingPlaceholderProps> = ({
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: 'calc(0.6 * var(--md-sys-viewport-height-full))',
-        gap: 'var(--app-spacing-section)'
+        gap: 'var(--md-sys-spacing-6)'
       }}
     >
       <AiThinkingGem size="large" text={message} />
@@ -44,11 +44,11 @@ export const ViewLoadingPlaceholder: React.FC<ViewLoadingPlaceholderProps> = ({
 export const MinimalViewLoading: React.FC = () => {
   return (
     <div  style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <div style={{gap: 'var(--app-spacing-container)', textAlign: "center"}}>
-        <div  style={{ width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)", borderRadius: 'var(--app-spacing-container)', display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <span  style={{fontSize: "var(--app-text-title)", color: "var(--app-color-primary)"}}>hourglass_bottom</span>
+      <div style={{gap: 'var(--md-sys-spacing-4)', textAlign: "center"}}>
+        <div  style={{ width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <span  style={{fontSize: "var(--app-text-title)", color: "var(--md-sys-color-primary)"}}>hourglass_bottom</span>
         </div>
-        <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Caricamento...</p>
+        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Caricamento...</p>
       </div>
     </div>
   );
@@ -59,7 +59,7 @@ export const MinimalViewLoading: React.FC = () => {
  */
 export const SkeletonListLoading: React.FC = () => {
   return (
-    <div style={{gap: 'var(--app-spacing-container)', padding: 'var(--app-spacing-container)'}}>
+    <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-4)'}}>
       {[1, 2, 3].map(i => (
         <div key={i} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  height: 'var(--md-sys-spacing-12)' }} />
       ))}

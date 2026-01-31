@@ -55,7 +55,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
         <M3Typography variant="headline-small" style={{ textAlign: 'center', color: 'var(--app-color-on-surface)' }}>
           Accedi a DocenteDoc AI
         </M3Typography>
-        <M3Typography variant="body-medium" style={{ textAlign: 'center', color: 'var(--md-sys-color-on-surface-variant)' }}>
+        <M3Typography variant="body-medium" style={{ textAlign: 'center', color: 'var(--app-color-on-surface-variant)' }}>
           Inserisci le tue credenziali per continuare
         </M3Typography>
         <TextField

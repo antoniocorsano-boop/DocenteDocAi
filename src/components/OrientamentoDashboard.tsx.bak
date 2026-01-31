@@ -76,7 +76,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                         icon="explore"
                         variant="surface"
                     >
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--app-spacing-container)' }}>
+                        <p style={{ color: 'var(--app-color-on-surface-variant)', marginTop: 'var(--app-spacing-container)' }}>
                             {activity.description}
                         </p>
                     </InfoCard>
@@ -190,7 +190,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 >
                     <div style={{marginTop: 'var(--app-spacing-container)'}}>
                         <span style={{fontWeight: "900", color: 'var(--app-color-primary)'}}>{totalHours}h</span>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--app-spacing-container)' }}>
+                        <p style={{ color: 'var(--app-color-on-surface-variant)', marginTop: 'var(--app-spacing-container)' }}>
                             {totalHours >= 30 ? '✅ Target raggiunto per la classe' : `Mancano ${30 - totalHours}h al target`}
                         </p>
                     </div>

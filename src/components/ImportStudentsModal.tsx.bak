@@ -164,7 +164,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                 <option disabled>──────────</option>
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                             </SelectField>
-                            {targetClass === 'AUTO' && <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--app-spacing-container)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)' }}>Il file CSV deve contenere una colonna con il nome della classe (es. "1A", "2B").</p>}
+                            {targetClass === 'AUTO' && <p style={{ color: 'var(--app-color-on-surface-variant)', marginTop: 'var(--app-spacing-container)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)' }}>Il file CSV deve contenere una colonna con il nome della classe (es. "1A", "2B").</p>}
                         </div>
 
                         <TabGroup
@@ -250,7 +250,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                             >
                                                 <span style={{ backgroundColor: sys.colors.primaryContainer/30, borderRadius: 'var(--md-sys-shape-corner-large)' , color: "var(--app-color-primary)", padding: 'var(--md-sys-spacing-8)', transition: "color var(--app-motion-standard)"}}>description</span>
                                                 <span style={{ color: 'var(--app-color-on-primary)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: "1" }}>{entry.fileName}</span>
-                                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  opacity: "0.5", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)' }}>chevron_right</span>
+                                                <span style={{ color: 'var(--app-color-on-surface-variant)' ,  opacity: "0.5", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)' }}>chevron_right</span>
                                             </div>
                                         ))
                                     ) : (
@@ -297,7 +297,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                             
                         />
 
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)' }}>
+                        <p style={{ color: 'var(--app-color-on-surface-variant)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)' }}>
                             Il sistema ha tentato di associare automaticamente le colonne. Verifica o correggi le associazioni.
                         </p>
 
@@ -339,7 +339,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                             <h4  style={{textTransform: "uppercase", color: "var(--app-color-primary)", fontWeight: "bold", marginBottom: 'var(--app-spacing-section)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>Anteprima Dati (Prime 3 righe)</h4>
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , overflowX: "auto", border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
                                 <table style={{ width: "var(--app-layout-full)", fontSize: "var(--md-sys-typescale-body-medium-size)", textAlign: "left" }}>
-                                    <thead style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' ,  fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", fontWeight: "bold" }}>
+                                    <thead style={{ color: 'var(--app-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' ,  fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", fontWeight: "bold" }}>
                                         <tr>
                                             {csvHeaders.map(h => <th key={h}  style={{paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', whiteSpace: "nowrap"}}>{h}</th>)}
                                         </tr>
@@ -373,14 +373,14 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                 <span  style={{color: "var(--app-color-primary)", fontSize: "var(--md-sys-typescale-title-small-size)"}}>info</span>
                                 <div>
                                     <p style={{ color: 'var(--app-color-on-primary)' , fontWeight: "bold", marginBottom: 'var(--app-spacing-container)'}}>Nota Importante</p>
-                                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Gli studenti verranno assegnati alle classi indicate nel file. Se una classe nel file non esiste nelle tue Impostazioni, lo studente verrà comunque importato ma la classe sarà creata implicitamente.</p>
+                                    <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Gli studenti verranno assegnati alle classi indicate nel file. Se una classe nel file non esiste nelle tue Impostazioni, lo studente verrà comunque importato ma la classe sarà creata implicitamente.</p>
                                 </div>
                             </div>
                         )}
 
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , overflowY: "auto", border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
                             <table style={{ width: "var(--app-layout-full)", fontSize: "var(--md-sys-typescale-body-medium-size)", textAlign: "left" }}>
-                                <thead style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' ,  fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", fontWeight: "bold" }}>
+                                <thead style={{ color: 'var(--app-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' ,  fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", fontWeight: "bold" }}>
                                     <tr>
                                         <th  style={{paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>Cognome</th>
                                         <th  style={{paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>Nome</th>

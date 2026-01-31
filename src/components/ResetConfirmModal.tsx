@@ -22,12 +22,12 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
             maxWidth="sm"
             level={3}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 , gap: 'var(--app-spacing-section)'}}>
-                <div style={{display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)', color: "var(--md-sys-color-error)", marginBottom: 'var(--md-sys-spacing-8)'}}>
+            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 , gap: 'var(--md-sys-spacing-6)'}}>
+                <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', color: "var(--md-sys-color-error)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                     <span style={{ color: 'var(--md-sys-color-error)' }}>warning</span>
                     <span style={{ fontWeight: "bold" }}>Azione Irreversibile</span>
                 </div>
-                <p style={{ color: 'var(--app-color-on-primary)' ,  lineHeight: "1.625" }}>
+                <p style={{ color: 'var(--md-sys-color-on-primary)' ,  lineHeight: "1.625" }}>
                     Stai per cancellare <strong>TUTTI</strong> i dati locali (studenti, voti, lezioni). 
                     Questa azione è <strong style={{color: "var(--md-sys-color-error)"}}>irreversibile</strong> se non hai un backup su Drive.
                 </p>
@@ -42,7 +42,7 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
                 />
             </M3DialogContent>
 
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>
+            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
                 <M3Button 
                     onClick={onConfirm} 

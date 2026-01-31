@@ -79,19 +79,19 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
       {/* Stats Cards */}
       <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--app-spacing-section)'}}>
         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--app-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
-          <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Total Errors</div>
+          <div style={{ color: 'var(--app-color-on-surface-variant)' }}>Total Errors</div>
           <div  style={{fontWeight: "bold", color: "var(--app-color-primary)"}}>{stats.total}</div>
         </div>
         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--app-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
-          <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Errors</div>
+          <div style={{ color: 'var(--app-color-on-surface-variant)' }}>Errors</div>
           <div  style={{fontWeight: "bold", color: "var(--md-sys-color-error)"}}>{stats.bySeverity['error'] || 0}</div>
         </div>
         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--app-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
-          <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Warnings</div>
+          <div style={{ color: 'var(--app-color-on-surface-variant)' }}>Warnings</div>
           <div  style={{fontWeight: "bold", color: "var(--md-sys-color-warning)"}}>{stats.bySeverity['warning'] || 0}</div>
         </div>
         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--app-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
-          <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Infos</div>
+          <div style={{ color: 'var(--app-color-on-surface-variant)' }}>Infos</div>
           <div  style={{fontWeight: "bold", color: "var(--app-color-primary)"}}>{stats.bySeverity['info'] || 0}</div>
         </div>
       </div>
@@ -115,7 +115,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
       {/* Controls */}
       <div style={{display: "flex", gap: 'var(--app-spacing-section)', marginBottom: 'var(--app-spacing-section)', flexWrap: "wrap"}}>
         <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
-          <label style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Tipo:</label>
+          <label style={{ color: 'var(--app-color-on-surface-variant)' }}>Tipo:</label>
           <select
             value={filterType}
             onChange={(e) => setFilterType((e.target as HTMLSelectElement).value as ErrorLog['type'] | 'all')}
@@ -132,7 +132,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
         </div>
 
         <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
-          <label style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Severity:</label>
+          <label style={{ color: 'var(--app-color-on-surface-variant)' }}>Severity:</label>
           <select
             value={filterSeverity}
             onChange={(e) => setFilterSeverity((e.target as HTMLSelectElement).value as ErrorLog['severity'] | 'all')}
@@ -221,7 +221,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5} style={{ color: 'var(--md-sys-color-on-surface-variant)' , padding: 'var(--app-spacing-section)', textAlign: "center"}}>
+                  <td colSpan={5} style={{ color: 'var(--app-color-on-surface-variant)' , padding: 'var(--app-spacing-section)', textAlign: "center"}}>
                     Nessun log trovato
                   </td>
                 </tr>

@@ -170,10 +170,10 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
             <header >
                 <div >
                     <div style={{
-                        backgroundColor: 'var(--app-color-surface)',
-                        padding: 'var(--app-spacing-section)',
+                        backgroundColor: 'var(--md-sys-color-surface)',
+                        padding: 'var(--md-sys-spacing-6)',
                         borderRadius: 'var(--md-sys-shape-corner-full)',
-                        border: `var(--app-border-normal) solid var(--md-sys-color-outline)`
+                        border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`
                     }}>
                         <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Mese precedente" aria-label="Vai al mese precedente" >
                             <span style={{
@@ -205,7 +205,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
 
                     <div >
                         <M3Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza circolare con AI" aria-label="Apri analizzatore AI per circolari" >
-                            <span  style={{color: "var(--app-color-primary)"}} aria-hidden="true">auto_awesome</span>
+                            <span  style={{color: "var(--md-sys-color-primary)"}} aria-hidden="true">auto_awesome</span>
                         </M3Button>
                         <M3Button variant="filled" onClick={() => setEditingEvent({})} title="Crea nuovo evento">
                             <span style={{
@@ -237,16 +237,16 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                             key={i} 
                             style={{
                                 minHeight: 'var(--md-sys-spacing-25)',
-                                padding: 'var(--app-spacing-component)',
-                                borderRight: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)',
-                                borderBottom: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)',
-                                background: !isCurrentMonth ? 'var(--md-sys-color-surface-container-lowest)' : 'var(--app-color-surface)',
+                                padding: 'var(--md-sys-spacing-2)',
+                                borderRight: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
+                                borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
+                                background: !isCurrentMonth ? 'var(--md-sys-color-surface-container-lowest)' : 'var(--md-sys-color-surface)',
                                 opacity: !isCurrentMonth ? 0.5 : 1,
                                 cursor: 'pointer',
-                                transition: 'background-color var(--app-motion-quick) var(var(--app-easing-standard))',
+                                transition: 'background-color var(--md-sys-motion-duration-short) var(var(--md-sys-motion-easing-standard))',
                                 ...(isFocused ? {
-                                    outline: 'var(--app-border-thick) solid var(--app-color-primary)',
-                                    outlineOffset: 'var(--app-border-thick)'
+                                    outline: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)',
+                                    outlineOffset: 'var(--md-sys-border-width-thick)'
                                 } : {})
                             }}
                             role="gridcell"
@@ -273,8 +273,8 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                 height: 'var(--md-sys-spacing-7)',
                                 fontSize: 'var(--typography-body-medium-fontSize)',
                                 fontWeight: isToday ? 700 : 500,
-                                color: isToday ? 'var(--app-color-on-primary)' : 'var(--app-color-on-surface)',
-                                background: isToday ? 'var(--app-color-primary)' : 'transparent',
+                                color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
+                                background: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
                                 borderRadius: 'var(--md-sys-shape-corner-full)'
                             }}>
                                 {date.getDate()}
@@ -284,7 +284,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                     <div 
                                         key={ev.id || idx} 
                                         style={{
-                                            padding: 'var(--md-sys-spacing-0_5) var(--app-spacing-component)',
+                                            padding: 'var(--md-sys-spacing-0_5) var(--md-sys-spacing-2)',
                                             fontSize: 'var(--md-sys-typescale-body-small-size)',
                                             fontWeight: 500,
                                             borderRadius: 'var(--md-sys-shape-corner-extra-small)',
@@ -292,15 +292,15 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis',
                                             cursor: 'pointer',
-                                            transition: 'filter var(--app-motion-quick) var(--app-easing-standard)',
+                                            transition: 'filter var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                             background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
                                                        ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
-                                                       ev.tipo === 'riunione' ? 'var(--app-color-primary-container)' :
-                                                       'var(--app-color-secondary-container)',
+                                                       ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
+                                                       'var(--md-sys-color-secondary-container)',
                                             color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' : 
                                                    ev.tipo === 'scadenza' ? 'var(--md-sys-color-on-tertiary-container)' :
-                                                   ev.tipo === 'riunione' ? 'var(--app-color-on-primary-container)' :
-                                                   'var(--app-color-on-secondary-container)'
+                                                   ev.tipo === 'riunione' ? 'var(--md-sys-color-on-primary-container)' :
+                                                   'var(--md-sys-color-on-secondary-container)'
                                         }}
                                         onClick={(e) => {
                                             e.stopPropagation();
@@ -328,14 +328,14 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                     const isToday = date.toDateString() === new Date().toDateString();
                     return (
                         <div key={i} style={{
-                            padding: 'var(--app-spacing-element) var(--app-spacing-component)',
+                            padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-2)',
                             textAlign: 'center',
-                            borderRight: i < 6 ? 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)' : 'none'
+                            borderRight: i < 6 ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' : 'none'
                         }}>
                             <div style={{
                                 fontSize: 'var(--typography-label-small-fontSize)',
                                 fontWeight: 700,
-                                color: 'var(--app-color-on-surface-variant)',
+                                color: 'var(--md-sys-color-on-surface-variant)',
                                 textTransform: 'uppercase',
                                 letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                                 marginBottom: 'var(--md-sys-spacing-1)'
@@ -345,8 +345,8 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                             <div style={{
                                 fontSize: 'var(--typography-body-medium-fontSize)',
                                 fontWeight: 500,
-                                color: isToday ? 'var(--app-color-on-primary)' : 'var(--app-color-on-surface)',
-                                background: isToday ? 'var(--app-color-primary)' : 'transparent',
+                                color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
+                                background: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
                                 borderRadius: 'var(--md-sys-shape-corner-full)',
                                 display: 'inline-flex',
                                 alignItems: 'center',
@@ -381,7 +381,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                             <div 
                                                 key={ev.id || idx} 
                                                 style={{
-                                                    padding: 'var(--md-sys-spacing-0_5) var(--app-spacing-component)',
+                                                    padding: 'var(--md-sys-spacing-0_5) var(--md-sys-spacing-2)',
                                                     fontSize: 'var(--md-sys-typescale-body-small-size)',
                                                     fontWeight: 500,
                                                     borderRadius: 'var(--md-sys-shape-corner-extra-small)',
@@ -389,15 +389,15 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                                     overflow: 'hidden',
                                                     textOverflow: 'ellipsis',
                                                     cursor: 'pointer',
-                                                    transition: 'filter var(--app-motion-quick) var(--app-easing-standard)',
+                                                    transition: 'filter var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                                     background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
                                                                ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
-                                                               ev.tipo === 'riunione' ? 'var(--app-color-primary-container)' :
-                                                               'var(--app-color-secondary-container)',
+                                                               ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
+                                                               'var(--md-sys-color-secondary-container)',
                                                     color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' : 
                                                            ev.tipo === 'scadenza' ? 'var(--md-sys-color-on-tertiary-container)' :
-                                                           ev.tipo === 'riunione' ? 'var(--app-color-on-primary-container)' :
-                                                           'var(--app-color-on-secondary-container)'
+                                                           ev.tipo === 'riunione' ? 'var(--md-sys-color-on-primary-container)' :
+                                                           'var(--md-sys-color-on-secondary-container)'
                                                 }}
                                                 onClick={() => setEditingEvent(ev)}
                                             >
@@ -418,7 +418,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
     const renderDayView = () => (
         <div >
             <div  style={{padding: 'var(--md-sys-spacing-8)'}}>
-                <h3  style={{color: 'var(--app-color-primary)'}}>
+                <h3  style={{color: 'var(--md-sys-color-primary)'}}>
                     {currentDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
                 </h3>
             </div>
@@ -435,40 +435,40 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                     }}>
                         <span 
                             style={{ 
-                                color: 'var(--app-color-on-surface-variant)',
+                                color: 'var(--md-sys-color-on-surface-variant)',
                                 marginBottom: 'var(--md-sys-spacing-8)'
                             }} 
                             aria-hidden="true"
                         >
                             event_busy
                         </span>
-                        <p style={{ color: 'var(--app-color-on-surface)' }}>
+                        <p style={{ color: 'var(--md-sys-color-on-surface)' }}>
                             Nessun evento per questo giorno
                         </p>
-                        <M3Button variant="text" onClick={() => setEditingEvent({})} style={{marginTop: 'var(--app-spacing-container)'}}>
+                        <M3Button variant="text" onClick={() => setEditingEvent({})} style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                             Aggiungi Evento
                         </M3Button>
                     </div>
                 ) : (
-                    <div  style={{padding: 'var(--md-sys-spacing-8)', gap: 'var(--app-spacing-container)'}}>
+                    <div  style={{padding: 'var(--md-sys-spacing-8)', gap: 'var(--md-sys-spacing-4)'}}>
                         {dayEvents.map(ev => (
                             <div 
                                 key={ev.id} 
                                 style={{
                                     display: 'flex',
-                                    gap: 'var(--app-spacing-container)',
-                                    padding: 'var(--app-spacing-container)',
-                                    borderBottom: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+                                    gap: 'var(--md-sys-spacing-4)',
+                                    padding: 'var(--md-sys-spacing-4)',
+                                    borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                     cursor: 'pointer',
-                                    transition: 'background-color var(--app-motion-quick) var(var(--app-easing-standard)), transform var(--app-motion-quick) var(var(--app-easing-standard))',
+                                    transition: 'background-color var(--md-sys-motion-duration-short) var(var(--md-sys-motion-easing-standard)), transform var(--md-sys-motion-duration-short) var(var(--md-sys-motion-easing-standard))',
                                     background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
                                                ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
-                                               ev.tipo === 'riunione' ? 'var(--app-color-primary-container)' :
-                                               'var(--app-color-secondary-container)',
+                                               ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
+                                               'var(--md-sys-color-secondary-container)',
                                     color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' : 
                                            ev.tipo === 'scadenza' ? 'var(--md-sys-color-on-tertiary-container)' :
-                                           ev.tipo === 'riunione' ? 'var(--app-color-on-primary-container)' :
-                                           'var(--app-color-on-secondary-container)'
+                                           ev.tipo === 'riunione' ? 'var(--md-sys-color-on-primary-container)' :
+                                           'var(--md-sys-color-on-secondary-container)'
                                 }}
                                 onClick={() => setEditingEvent(ev)}
                                 onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.01)'}
@@ -480,7 +480,7 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
                                 <div >
                                     <div  style={{ fontWeight: "bold" }}>{ev.titolo}</div>
                                     {ev.descrizione && <div  style={{ opacity: "0.8" }}>{ev.descrizione}</div>}
-                                    {ev.location && <div  style={{marginTop: 'var(--app-spacing-container)'}}>📍 {ev.location}</div>}
+                                    {ev.location && <div  style={{marginTop: 'var(--md-sys-spacing-4)'}}>📍 {ev.location}</div>}
                                 </div>
                             </div>
                         ))}
@@ -494,42 +494,42 @@ const Calendar: React.FC<CalendarProps> = ({ eventi, setEventi, aiSettings }) =>
         <div  style={{padding: 'var(--md-sys-spacing-8)'}}>
             {Object.keys(agendaGroups).length === 0 ? (
                 <div style={{ padding: 'var(--md-sys-spacing-8)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", opacity: "0.6" }}>
-                    <span style={{ color: "var(--app-color-on-surface-variant)", marginBottom: 'var(--md-sys-spacing-8)' }} aria-hidden="true">event_busy</span>
-                    <p style={{ color: "var(--app-color-on-surface-variant)" }}>Nessun evento questo mese</p>
+                    <span style={{ color: "var(--md-sys-color-on-surface-variant)", marginBottom: 'var(--md-sys-spacing-8)' }} aria-hidden="true">event_busy</span>
+                    <p style={{ color: "var(--md-sys-color-on-surface-variant)" }}>Nessun evento questo mese</p>
                 </div>
             ) : (
-                <div style={{gap: 'var(--app-spacing-section)'}}>
+                <div style={{gap: 'var(--md-sys-spacing-6)'}}>
                     {Object.entries(agendaGroups).map(([date, evts]) => (
-                        <div key={date} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/20, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
-                            <div  style={{color: "var(--app-color-primary)", marginBottom: 'var(--app-spacing-section)', borderBottom: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
+                        <div key={date} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/20, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                            <div  style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-6)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                                 {new Date(date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })}
                             </div>
-                            <div  style={{gap: 'var(--app-spacing-element)'}}>
+                            <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
                                 {evts.map(ev => (
                                     <div 
                                         key={ev.id} 
                                         style={{
                                             display: 'flex',
-                                            gap: 'var(--app-spacing-container)',
-                                            padding: 'var(--app-spacing-container)',
-                                            borderBottom: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+                                            gap: 'var(--md-sys-spacing-4)',
+                                            padding: 'var(--md-sys-spacing-4)',
+                                            borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                             cursor: 'pointer',
-                                            transition: 'background-color var(--app-motion-quick) var(var(--app-easing-standard))',
+                                            transition: 'background-color var(--md-sys-motion-duration-short) var(var(--md-sys-motion-easing-standard))',
                                             background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
                                                        ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
-                                                       ev.tipo === 'riunione' ? 'var(--app-color-primary-container)' :
-                                                       'var(--app-color-secondary-container)',
+                                                       ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
+                                                       'var(--md-sys-color-secondary-container)',
                                             color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' : 
                                                    ev.tipo === 'scadenza' ? 'var(--md-sys-color-on-tertiary-container)' :
-                                                   ev.tipo === 'riunione' ? 'var(--app-color-on-primary-container)' :
-                                                   'var(--app-color-on-secondary-container)'
+                                                   ev.tipo === 'riunione' ? 'var(--md-sys-color-on-primary-container)' :
+                                                   'var(--md-sys-color-on-secondary-container)'
                                         }}
                                         onClick={() => setEditingEvent(ev)}
                                         onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-low)'}
                                         onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
                                                                                                       ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
-                                                                                                      ev.tipo === 'riunione' ? 'var(--app-color-primary-container)' :
-                                                                                                      'var(--app-color-secondary-container)'}
+                                                                                                      ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
+                                                                                                      'var(--md-sys-color-secondary-container)'}
                                     >
                                         <div  style={{ fontWeight: "bold" }}>
                                             {ev.oraInizio || 'Tutto il giorno'}

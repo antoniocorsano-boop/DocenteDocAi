@@ -109,7 +109,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                             alignItems: 'center',
                             justifyContent: 'center',
                             cursor: 'pointer',
-                            color: 'var(--md-sys-color-on-surface-variant)',
+                            color: 'var(--app-color-on-surface-variant)',
                             borderRadius: 'var(--md-sys-shape-corner-full)',
                             transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`}}
                         onMouseEnter={() => {
@@ -213,7 +213,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                                 ? 'var(--md-sys-color-surface-container-high)'
                                                 : 'var(--app-color-primary)',
                                             color: notifica.letta
-                                                ? 'var(--md-sys-color-on-surface-variant)'
+                                                ? 'var(--app-color-on-surface-variant)'
                                                 : 'var(--app-color-on-primary)',
                                             transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`}}
                                     >
@@ -248,7 +248,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                                     whiteSpace: 'nowrap',
                                                     flex: 1,
                                                     color: notifica.letta
-                                                        ? 'var(--md-sys-color-on-surface-variant)'
+                                                        ? 'var(--app-color-on-surface-variant)'
                                                         : 'var(--app-color-on-surface)'}}
                                             >
                                                 {notifica.titolo}
@@ -266,7 +266,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                         </div>
                                         <p
                                             style={{fontSize: 'var(--app-text-body)',
-                                                color: 'var(--md-sys-color-on-surface-variant)',
+                                                color: 'var(--app-color-on-surface-variant)',
                                                 display: '-webkit-box',
                                                 overflow: 'hidden',
                                                 WebkitLineClamp: 2,
@@ -329,14 +329,14 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                             alignItems: 'center',
                             justifyContent: 'center',
                             padding: `${'var(--md-sys-spacing-8)'} ${'var(--app-spacing-section)'}`,
-                            color: 'var(--md-sys-color-on-surface-variant)'}}
+                            color: 'var(--app-color-on-surface-variant)'}}
                     >
                         <div
                             style={{width: 'var(--md-sys-spacing-12)',
                                 height: 'var(--md-sys-spacing-12)',
                                 borderRadius: 'var(--md-sys-shape-corner-full)',
                                 backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                                color: 'var(--md-sys-color-on-surface-variant)',
+                                color: 'var(--app-color-on-surface-variant)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -354,7 +354,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                         </div>
                         <M3Typography
                             variant="body-medium"
-                            style={{color: 'var(--md-sys-color-on-surface-variant)',
+                            style={{color: 'var(--app-color-on-surface-variant)',
                                 textAlign: 'center'}}
                         >
                             Nessuna notifica

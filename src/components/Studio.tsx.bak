@@ -288,8 +288,8 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         />
                     </div>
                      <div  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>attachment</span>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "bold" }}>
+                        <span style={{ color: 'var(--app-color-on-surface-variant)' }}>attachment</span>
+                        <p style={{ color: 'var(--app-color-on-surface-variant)', fontWeight: "bold" }}>
                             {selectedFileIds.length} file selezionati
                         </p>
                     </div>
@@ -308,7 +308,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         </div>
                     ))}
                     {availableFiles.length === 0 && (
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--app-text-body)', padding: 'var(--md-sys-spacing-8)'}}>Nessun file disponibile in questo set.</p>
+                        <p style={{ color: 'var(--app-color-on-surface-variant)' , fontSize: 'var(--app-text-body)', padding: 'var(--md-sys-spacing-8)'}}>Nessun file disponibile in questo set.</p>
                     )}
                 </div>
             </div>
@@ -330,7 +330,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                                 <span  style={{color: "var(--md-sys-color-tertiary)"}}>design_services</span>
                                 Generazione & Creatività
                             </h2>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--app-spacing-container)'}}>Crea nuovi contenuti didattici.</p>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' , marginTop: 'var(--app-spacing-container)'}}>Crea nuovi contenuti didattici.</p>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'generation'))}
                     </div>
@@ -342,7 +342,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                                 <span  style={{color: "var(--app-color-secondary)"}}>analytics</span>
                                 Analisi & Sintesi
                             </h2>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--app-spacing-container)'}}>Rielabora e comprendi i documenti.</p>
+                            <p style={{ color: 'var(--app-color-on-surface-variant)' , marginTop: 'var(--app-spacing-container)'}}>Rielabora e comprendi i documenti.</p>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'analysis'))}
                     </div>

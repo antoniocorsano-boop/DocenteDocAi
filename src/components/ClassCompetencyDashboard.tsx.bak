@@ -102,7 +102,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
             <div >
                 <div >
                     <h1 style={{ color: 'var(--app-color-on-primary)' }}>Competenze {selectedClass}</h1>
-                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                    <p style={{ color: 'var(--app-color-on-surface-variant)' }}>
                         Analisi dei livelli raggiunti per area di competenza.
                     </p>
                 </div>
@@ -139,7 +139,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                             <span style={{ color: 'var(--app-color-on-primary-container)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", backgroundColor: "var(--app-color-primary)", paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', borderRadius: 'var(--md-sys-shape-corner-medium)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>
                                                 {summary.competency.codice}
                                             </span>
-                                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--app-text-body)' }}>
+                                            <span style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: 'var(--app-text-body)' }}>
                                                 {summary.totalEvaluated}/{classStudents.length} Valutati
                                             </span>
                                         </div>
@@ -147,7 +147,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                             {summary.competency.nome}
                                         </h3>
                                     </div>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  transition: "transform var(--app-motion-standard)" }}>expand_more</span>
+                                    <span style={{ color: 'var(--app-color-on-surface-variant)' ,  transition: "transform var(--app-motion-standard)" }}>expand_more</span>
                                 </div>
 
                                 {/* Visual Progress Bar */}
@@ -185,8 +185,8 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                                 </div>
                                                 <div style={{ color: 'var(--app-color-on-primary)' ,  fontSize: 'var(--app-text-display)', fontWeight: 'var(--app-text-display-weight)' }}>{lc.count}</div>
                                             </div>
-                                            <div style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", marginBottom: 'var(--app-spacing-container)'}}>Studenti</div>
-                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--app-text-body)', lineHeight: 'var(--app-text-body-line-height)' }}>
+                                            <div style={{ color: 'var(--app-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", marginBottom: 'var(--app-spacing-container)'}}>Studenti</div>
+                                            <p style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: 'var(--app-text-body)', lineHeight: 'var(--app-text-body-line-height)' }}>
                                                 {lc.level.descrizione}
                                             </p>
                                         </div>
@@ -199,9 +199,9 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                 
                 {competencySummaries.length === 0 && (
                     <div style={{ padding: 'var(--app-spacing-container)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.3, marginBottom: 'var(--md-sys-spacing-8)' }}>bar_chart</span>
+                        <span style={{ color: 'var(--app-color-on-surface-variant)', opacity: 0.3, marginBottom: 'var(--md-sys-spacing-8)' }}>bar_chart</span>
                         <p style={{ color: 'var(--app-color-on-primary)' ,  fontSize: 'var(--app-text-title)', fontWeight: 'var(--app-text-title-weight)' }}>Nessun dato</p>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Non hai ancora configurato le competenze in Impostazioni.</p>
+                        <p style={{ color: 'var(--app-color-on-surface-variant)' }}>Non hai ancora configurato le competenze in Impostazioni.</p>
                     </div>
                 )}
             </div>
@@ -227,11 +227,11 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                                     <p style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</p>
                                                     <div  style={{ display: "flex", alignItems: "center" }}>
                                                         <span style={{borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: viewingStudents.levelColor, width: 'var(--app-spacing-section)', height: 'var(--app-spacing-section)'}}></span>
-                                                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-size)" }}>Livello raggiunto</span>
+                                                        <span style={{ color: 'var(--app-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-size)" }}>Livello raggiunto</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  transition: "transform var(--app-motion-standard)" }}>arrow_forward</span>
+                                            <span style={{ color: 'var(--app-color-on-surface-variant)' ,  transition: "transform var(--app-motion-standard)" }}>arrow_forward</span>
                                         </div>
                                     )
                                 })}

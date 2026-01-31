@@ -52,7 +52,7 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
                     <div style={{ color: sys.colors.on-primaryContainer , width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', backgroundColor: "var(--app-color-primary)", borderRadius: 'var(--app-spacing-container)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                         <span style={{ color: 'var(--app-color-primary)' }}>lock</span>
                     </div>
-                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--app-spacing-container)'}}>Inserisci il PIN docente per uscire</p>
+                    <p style={{ color: 'var(--app-color-on-surface-variant)' , marginTop: 'var(--app-spacing-container)'}}>Inserisci il PIN docente per uscire</p>
                 </div>
 
                 {/* PIN Display */}

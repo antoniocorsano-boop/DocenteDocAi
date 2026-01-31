@@ -73,7 +73,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       display: 'flex',
       flexDirection: 'column',
       minHeight: 'var(--md-sys-viewport-height-full)',
-      background: 'var(--app-color-surface)'
+      background: 'var(--md-sys-color-surface)'
     }}>
       <Header
         title="DocenteDoc AI"
@@ -97,13 +97,13 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       <M3FlexContainer
         flex="var(--md-sys-flex-auto)"
         minHeight="var(--md-sys-spacing-0)"
-        background="var(--app-color-surface)"
+        background="var(--md-sys-color-surface)"
       >
         {!isMobile && (
           <M3Aside
             flexBasis="var(--md-sys-spacing-20)"
-            background="var(--app-color-surface)"
-            borderRight="var(--app-border-thin) solid var(--md-sys-color-outline-variant)"
+            background="var(--md-sys-color-surface)"
+            borderRight="var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)"
             style={{ zIndex: 'var(--md-sys-z-nav)' }}
           >
           </M3Aside>
@@ -113,9 +113,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           display: 'flex',
           flexDirection: 'column',
           boxSizing: 'border-box',
-          background: 'var(--app-color-surface-container)',
+          background: 'var(--md-sys-color-surface-container)',
           // Add bottom padding on mobile to avoid FAB overlapping BottomNav
-          paddingBottom: isMobile ? 'calc(var(--app-spacing-section) + var(--md-sys-size-fab, 72px))' : undefined
+          paddingBottom: isMobile ? 'calc(var(--md-sys-spacing-6) + var(--md-sys-size-fab, 72px))' : undefined
         }}>
           {children}
         </M3Surface>

@@ -46,7 +46,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
             level={1}
         >
             <M3DialogContent>
-                <form id="add-student-form" onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', gap: 'var(--app-spacing-section)'}}>
+                <form id="add-student-form" onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)'}}>
                     <div style={{display: 'grid',
                         gridTemplateColumns: 'var(--md-sys-grid-fr-1)',
                         gap: 'var(--md-sys-spacing-8)'}}>

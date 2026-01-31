@@ -141,7 +141,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                         cursor: 'pointer',
                                         background: active ? 'var(--app-color-primary)' : 'transparent',
                                         borderColor: active ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline)',
-                                        color: active ? 'var(--app-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)'
+                                        color: active ? 'var(--app-color-on-primary)' : 'var(--app-color-on-surface-variant)'
                                     }}
                                     onMouseEnter={(e) => {
                                         if (!active) {
