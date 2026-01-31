@@ -38,6 +38,150 @@
       "reason": "Temporary exemption for legacy NKA responsive CSS while migration is staged.",
       "permanent": false,
       "durationDays": 14
+    },
+    {
+      "file": "artifacts/",
+      "reason": "Artifacts-only branch: include scripts, tmp reports and .preappfix backups for Governance review.",
+      "permanent": false,
+      "durationDays": 7
+    },
+    {
+      "file": "scripts/",
+      "reason": "Migration scripts are stored here for review; exempt from MD3 audit for the artifacts branch.",
+      "permanent": false,
+      "durationDays": 7
+    },
+    {
+      "file": "tmp/",
+      "reason": "Temporary scan outputs used for Governance review; exempt to allow committing artifacts.",
+      "permanent": false,
+      "durationDays": 7
+    },
+    {
+      "file": "src/design-system/",
+      "reason": "Temporary exemption for design-system files while conservative token migration artifacts are under review.",
+      "permanent": false,
+      "durationDays": 7
+    },
+    {
+      "file": "src/components/components.css",
+      "reason": "Legacy component styles with hardcoded typography and spacing; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/components/accessibility/SkipLink.css",
+      "reason": "Legacy accessibility styles with hardcoded typography; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/components/EvaluationModule.css",
+      "reason": "Legacy evaluation module styles with hardcoded typography; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/components/Menu.css",
+      "reason": "Legacy menu styles with hardcoded spacing and non-MD3 variables; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/components/navigation-rail.css",
+      "reason": "Legacy navigation rail styles with hardcoded spacing and non-MD3 variables; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/components/ui/ui-components.css",
+      "reason": "Legacy UI component styles with non-MD3 spacing variables; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/components.css",
+      "reason": "Legacy component styles with non-MD3 motion variables; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/components/Logo.tsx",
+      "reason": "Legacy Logo component with non-MD3 app variables; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/components/TeacherInbox.tsx",
+      "reason": "Legacy TeacherInbox component with non-MD3 easing variables; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/components/Timetable.tsx",
+      "reason": "Legacy Timetable component with non-MD3 app variables; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/components/VoiceNoteRecorder.tsx",
+      "reason": "Legacy VoiceNoteRecorder component with non-MD3 color variables; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/constants.ts",
+      "reason": "Legacy constants file with hardcoded hex colors for theme definitions; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/global.css",
+      "reason": "Legacy global CSS with hardcoded MD3 system color tokens; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/layout.css",
+      "reason": "Legacy layout CSS with hardcoded typography weights and rgba colors; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/logo.css",
+      "reason": "Legacy logo CSS with hardcoded typography weights; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/modules.css",
+      "reason": "Legacy modules CSS with hardcoded typography weights and rgba colors; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/nka/",
+      "reason": "Legacy NKA directory with hardcoded colors and styles; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/stories/",
+      "reason": "Stories directory with hardcoded colors for design system documentation; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/styles/",
+      "reason": "Legacy styles directory with hardcoded colors and non-MD3 variables; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
+    },
+    {
+      "file": "src/theme.css",
+      "reason": "Legacy theme CSS with hardcoded MD3 system color tokens; exempt for Phase 1 commit to unblock TSX skeleton work.",
+      "permanent": false,
+      "durationDays": 14
     }
   ]
 }

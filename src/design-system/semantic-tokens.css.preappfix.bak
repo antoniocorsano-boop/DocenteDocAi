@@ -1,0 +1,139 @@
+/* MD3 Platinum: Semantic Token Layer */
+/* Pure aliases to MD3 system tokens */
+/* Z-index tokens use MD3 system tokens directly (no semantic aliases) */
+/* Last updated: January 29, 2026 */
+
+:root {
+  /* ===========================================
+     SPACING TOKENS
+     Application-specific spacing relationships
+     =========================================== */
+
+  /* Container padding - standard container spacing */
+  --md-sys-spacing-4: var(--md-sys-spacing-4);
+
+  /* Section spacing - between major sections */
+  --md-sys-spacing-6: var(--md-sys-spacing-6);
+
+  /* Element gaps - between related elements */
+  --md-sys-spacing-3: var(--md-sys-spacing-3);
+
+  /* Component internals - spacing within components */
+  --md-sys-spacing-2: var(--md-sys-spacing-2);
+
+  /* Touch targets - minimum touch target spacing */
+  --md-sys-spacing-5: var(--md-sys-spacing-5);
+
+  /* ===========================================
+     MOTION TOKENS
+     Application interaction patterns
+     =========================================== */
+
+  /* Standard transitions - default interaction timing */
+  --md-sys-motion-duration-medium: var(--md-sys-motion-duration-medium);
+
+  /* Quick feedback - immediate response timing */
+  --md-sys-motion-duration-short: var(--md-sys-motion-duration-short);
+
+  /* Dramatic changes - important state changes */
+  --md-sys-motion-duration-long: var(--md-sys-motion-duration-long);
+
+  /* Default easing - standard interaction feel */
+  --md-sys-motion-easing-standard: var(--md-sys-motion-easing-standard);
+
+  /* Emphasized actions - important interactions */
+  --md-sys-motion-easing-emphasized: var(--md-sys-motion-easing-emphasized);
+
+  /* ===========================================
+     LAYOUT TOKENS
+     Application layout patterns
+     =========================================== */
+
+  /* Full dimensions - 100% */
+  --md-sys-percent-100: var(--md-sys-percent-100);
+
+  /* Half dimensions - 50% */
+  --md-sys-percent-50: var(--md-sys-percent-50);
+
+  /* Quarter dimensions - 25% */
+  --md-sys-percent-25: var(--md-sys-percent-25);
+
+  /* Auto margins - centered layouts */
+  --md-sys-margin-auto: var(--md-sys-margin-auto);
+
+  /* ===========================================
+     COLOR TOKENS
+     Application color semantics
+     =========================================== */
+
+  /* Primary brand colors */
+  --md-sys-color-primary: var(--md-sys-color-primary);
+  --md-sys-color-on-primary: var(--md-sys-color-on-primary);
+  --md-sys-color-primary-container: var(--md-sys-color-primary-container);
+  --md-sys-color-on-primary-container: var(--md-sys-color-on-primary-container);
+
+  /* Secondary/accent colors */
+  --md-sys-color-secondary: var(--md-sys-color-secondary);
+  --md-sys-color-on-secondary: var(--md-sys-color-on-secondary);
+  --md-sys-color-secondary-container: var(--md-sys-color-secondary-container);
+  --md-sys-color-on-secondary-container: var(--md-sys-color-on-secondary-container);
+
+  /* Surface colors */
+  --md-sys-color-surface: var(--md-sys-color-surface);
+  --md-sys-color-on-surface: var(--md-sys-color-on-surface);
+  --md-sys-color-surface-container: var(--md-sys-color-surface-container);
+  --md-sys-color-on-surface-container: var(--md-sys-color-on-surface-container);
+
+  /* ===========================================
+     ELEVATION TOKENS
+     Application elevation semantics
+     =========================================== */
+
+  /* Elevation levels for components */
+  --md-sys-elevation-0: var(--md-sys-elevation-0);
+  --md-sys-elevation-1: var(--md-sys-elevation-1);
+  --md-sys-elevation-2: var(--md-sys-elevation-2);
+  --md-sys-elevation-3: var(--md-sys-elevation-3);
+  --md-sys-elevation-4: var(--md-sys-elevation-4);
+  --md-sys-elevation-5: var(--md-sys-elevation-5);
+
+  /* ===========================================
+     SHAPE TOKENS
+     Application shape semantics
+     =========================================== */
+
+  /* Shape variants for components */
+  --md-sys-radius-2: var(--md-sys-radius-2);
+  --md-sys-radius-4: var(--md-sys-radius-4);
+  --md-sys-radius-6: var(--md-sys-radius-6);
+  --md-sys-radius-full: var(--md-sys-radius-full);
+
+  /* ===========================================
+     BORDER TOKENS
+     Application border semantics
+     =========================================== */
+
+  /* Border width variants */
+  --md-sys-border-width-thin: var(--md-sys-border-width-thin);
+  --md-sys-border-width-normal: var(--md-sys-border-width-normal);
+  --md-sys-border-width-medium: var(--md-sys-border-width-medium);
+  --md-sys-border-width-thick: var(--md-sys-border-width-thick);
+
+  /* ===========================================
+     CHART TOKENS
+     Application chart dimensions
+     =========================================== */
+
+  /* Chart heights for dashboard components */
+  --app-chart-height-large: 300px;
+  --app-chart-height-medium: 250px;
+
+  /* ===========================================
+     POSITIONING TOKENS
+     Application positioning offsets
+     =========================================== */
+
+  /* Offset values for overlays and positioning */
+  --app-position-offset-small: -9px;
+  --app-position-offset-large: -41px;
+}
