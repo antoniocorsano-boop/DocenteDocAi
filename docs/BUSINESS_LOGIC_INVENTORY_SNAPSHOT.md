@@ -104,7 +104,7 @@ Nota: questo documento è una "fotografia" della logica di business e delle rego
   - file di origine: `docs/USE_CASES.md` (Analytics Hub)
   - responsabilità: calcoli trend, radar competenze, KPI classe/studente, generazione dataset per visualizzazioni e testo interpretativo via AI.
   - input/output: historical records => analytics models (timeseries, competence radar), narrative summaries.
-  - dipendenze: PersistenceService, AI Orchestration (per interpretazioni).
+  - dipendenze: PersistenceService, AI Orchestration (for interpretazioni).
 
 - **Bridge Service (Registro Bridge / Copy-Paste Helper)**
   - file di origine: `docs/USE_CASES.md`
@@ -185,7 +185,7 @@ Nota: questo documento è una "fotografia" della logica di business e delle rego
 - Human-in-the-loop provenance: ogni output AI deve essere tracciabile (documenti sorgente usati, timestamp, versione modello).
 - Finalizzazione lezione (apertura/chiusura) con tutte le entità collegate (presenze, note, badge) come singolo transaction record.
 - Analytics aggregations e interpretazioni AI per colloqui e report (trend + radar).
-- Voice note -> transcription linkage con lesson/student metadata.
+- Voice note -> transcription linkage with lesson/student metadata.
 - Tutte le regole relative a privacy e consenso (Local-first + BYOC) documentate in persistence workflows.
 
 ---
@@ -228,25 +228,3 @@ Se vuoi, procedo a:
 - generare un report CSV/JSON con tutte le mappature trovate per revisione automatica.
 
 Fatto: prima scansione completata e riferimenti inseriti nel documento. Prossimo: aggiornare `docs/BUSINESS_LOGIC_INVENTORY.md` (se vuoi anche con link a snippet estratti) e committare.
-
-## 7. Classificazione Clean / Hexagonal
-
-- **Domain layer (Entità & Regole di Dominio)**
-  - Entità core: `Student`, `Class`, `Lesson`, `UDA`, `Vote`, `Competency`, `Attendance`, `KnowledgeBase`, `AnalyticsEntity`.
-  - Regole di dominio critiche: mapping `Vote <-> Competency`, calcolo medie pesate, finalizzazione lezione come transaction, privacy-first sync rules.
-
-- **Application / Use-Case layer (Orchestrazioni e Casi d'uso)**
-  - Lesson lifecycle: `startLesson`, `recordAttendance`, `finalizeLesson` — implementati in `src/hooks/useAppEngine.ts` e orchestrati dalle UI (es. `src/components/Home.tsx`).
-  - Assessment workflows: `addEvaluation`, `computeAverages`, `mapCompetency` — implementati in `src/stores/useStudentStore.ts` e `src/services/prompts/analysis.ts` (AI helpers).
-  - Scheduling/planning: `planAnnualSchedule`, `detectConflicts` — entry points in `src/hooks/useAppEngine.ts` e costanti in `src/constants.ts`.
-  - AI generation & RAG use-cases: `generateTest`, `summarizeClass`, `analyzeStudent` — `src/services/aiService.ts`, `src/services/prompts/*`.
-  - Export/Bridge use-cases: `prepareRegistroPayload`, `exportDOCX` — orchestrated by application services calling `src/services/importService.ts` / export templates.
-
-- **Infrastructure layer (Driver, Provider, Persistence)**
-  - Persistence: `src/services/indexedDbService.ts`, `src/services/backupService.ts`, `src/hooks/usePersistence.ts` (drivers and adapters).
-  - Sync / Cloud: `src/services/googleDriveService.ts`, `src/services/notebooklmService.ts` (BYOC & uploads).
-  - AI Client / Provider adapters: `src/services/aiClient.ts` (LLM client, retrying), provider config in `src/services/ai/*`.
-  - Import/Export drivers: `src/services/importService.ts`, template files in `src/design-system`.
-  - Note: UI components (`src/components/*`) should depend only on Application-layer APIs and not on infra details.
-
-Questa classificazione è stata inserita come passo preliminare; procedo ora ad aggiornare lo stato TODO (Application classificato).
