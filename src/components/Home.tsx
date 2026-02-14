@@ -117,52 +117,233 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           width: 'var(--md-sys-percent-full)'
         }}
     >
-        {/* Hero Section: Next Lesson */}
-        <M3HeroCard>
-          <M3Surface>
-            <M3Typography variant="headline-medium">{lessonTagline}</M3Typography>
-            <M3Typography variant="body-large">{lessonDetails}</M3Typography>
-          </M3Surface>
-        </M3HeroCard>
-        {/* Metrics Section */}
+        {/* Hero Section: Next Lesson - Enhanced with better contrast and hierarchy */}
         <M3Surface
           style={{
-            display: 'flex',
-            gap: 'var(--app-spacing-container)',
-            justifyContent: 'space-between',
-            padding: 'var(--app-spacing-container)',
-            marginTop: 'var(--app-spacing-component)'
+            padding: 'var(--md-sys-spacing-6)',
+            borderRadius: 'var(--md-sys-spacing-3)',
+            background: 'var(--md-sys-color-primary-container)',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+            marginBottom: 'var(--md-sys-spacing-4)'
           }}
         >
-          <M3Card>
-            <M3Surface style={{ textAlign: 'center' }}>
-              <M3Typography variant="title-medium">{students?.length ?? 0}</M3Typography>
-              <M3Typography variant="label-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Studenti</M3Typography>
-            </M3Surface>
-          </M3Card>
-          <M3Card>
-            <M3Surface style={{ textAlign: 'center' }}>
-              <M3Typography variant="title-medium">{evaluations?.length ?? 0}</M3Typography>
-              <M3Typography variant="label-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Valutazioni</M3Typography>
-            </M3Surface>
-          </M3Card>
-          {/* Ometto il conteggio dei presenti per conformità e assenza dato */}
+          <M3Typography 
+            variant="headline-medium" 
+            style={{ 
+              color: 'var(--md-sys-color-on-primary-container)',
+              fontWeight: '700',
+              marginBottom: 'var(--md-sys-spacing-3)'
+            }}
+          >
+            {lessonTagline}
+          </M3Typography>
+          <M3Typography 
+            variant="body-large" 
+            style={{ 
+              color: 'var(--md-sys-color-on-primary-container)',
+              lineHeight: '1.5'
+            }}
+          >
+            {lessonDetails}
+          </M3Typography>
         </M3Surface>
-        {/* Recent Activities Section */}
-        <M3Surface style={{ marginTop: 'var(--app-spacing-section)' }}>
-          <M3Typography variant="title-large" style={{ marginBottom: 'var(--app-spacing-component)' }}>Attività recenti</M3Typography>
-          <M3Surface style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 'var(--app-spacing-component)' }}>
+        {/* Metrics Section - Enhanced with larger numbers and better contrast */}
+        <M3Surface
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+            gap: 'var(--md-sys-spacing-4)',
+            marginTop: 'var(--md-sys-spacing-4)'
+          }}
+        >
+          <M3Card
+            onClick={() => onNavigate('aula')}
+            style={{
+              padding: 'var(--md-sys-spacing-4)',
+              cursor: 'pointer',
+              transition: 'transform 200ms, box-shadow 200ms',
+              border: '1px solid var(--md-sys-color-primary-container)'
+            }}
+          >
+            <M3Surface style={{ textAlign: 'center' }}>
+              <span
+                className="material-symbols-outlined"
+                aria-hidden="true"
+                style={{
+                  fontSize: 'var(--md-sys-spacing-6)',
+                  color: 'var(--md-sys-color-primary)',
+                  marginBottom: 'var(--md-sys-spacing-2)',
+                  display: 'block'
+                }}
+              >
+                group
+              </span>
+              <M3Typography 
+                variant="display-small" 
+                style={{ 
+                  color: 'var(--md-sys-color-primary)',
+                  fontWeight: '700',
+                  fontSize: '48px',
+                  lineHeight: '56px'
+                }}
+              >
+                {students?.length ?? 0}
+              </M3Typography>
+              <M3Typography 
+                variant="label-large" 
+                style={{ 
+                  color: 'var(--md-sys-color-on-surface)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  fontWeight: '600',
+                  marginTop: 'var(--md-sys-spacing-2)'
+                }}
+              >
+                Studenti
+              </M3Typography>
+            </M3Surface>
+          </M3Card>
+          <M3Card
+            onClick={() => onNavigate('evaluations' as View)}
+            style={{
+              padding: 'var(--md-sys-spacing-4)',
+              cursor: 'pointer',
+              transition: 'transform 200ms, box-shadow 200ms',
+              border: '1px solid var(--md-sys-color-tertiary-container)'
+            }}
+          >
+            <M3Surface style={{ textAlign: 'center' }}>
+              <span
+                className="material-symbols-outlined"
+                aria-hidden="true"
+                style={{
+                  fontSize: 'var(--md-sys-spacing-6)',
+                  color: 'var(--md-sys-color-tertiary)',
+                  marginBottom: 'var(--md-sys-spacing-2)',
+                  display: 'block'
+                }}
+              >
+                grading
+              </span>
+              <M3Typography 
+                variant="display-small" 
+                style={{ 
+                  color: 'var(--md-sys-color-tertiary)',
+                  fontWeight: '700',
+                  fontSize: '48px',
+                  lineHeight: '56px'
+                }}
+              >
+                {evaluations?.length ?? 0}
+              </M3Typography>
+              <M3Typography 
+                variant="label-large" 
+                style={{ 
+                  color: 'var(--md-sys-color-on-surface)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  fontWeight: '600',
+                  marginTop: 'var(--md-sys-spacing-2)'
+                }}
+              >
+                Valutazioni
+              </M3Typography>
+            </M3Surface>
+          </M3Card>
+        </M3Surface>
+        {/* Recent Activities Section - Enhanced contrast */}
+        <M3Surface style={{ marginTop: 'var(--md-sys-spacing-6)' }}>
+          <M3Typography 
+            variant="title-large" 
+            style={{ 
+              marginBottom: 'var(--md-sys-spacing-4)',
+              color: 'var(--md-sys-color-on-surface)',
+              fontWeight: '600'
+            }}
+          >
+            Attività recenti
+          </M3Typography>
+          <M3Surface style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
             {activities.length === 0 && (
-              <M3Surface>
-                <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-outline-variant)' }}>Nessuna attività recente</M3Typography>
+              <M3Surface
+                style={{
+                  padding: 'var(--md-sys-spacing-6)',
+                  borderRadius: 'var(--md-sys-spacing-3)',
+                  background: 'var(--md-sys-color-surface-variant)',
+                  textAlign: 'center'
+                }}
+              >
+                <span
+                  className="material-symbols-outlined"
+                  aria-hidden="true"
+                  style={{
+                    fontSize: 'var(--md-sys-spacing-8)',
+                    color: 'var(--md-sys-color-on-surface-variant)',
+                    opacity: '0.6',
+                    display: 'block',
+                    marginBottom: 'var(--md-sys-spacing-3)'
+                  }}
+                >
+                  event_busy
+                </span>
+                <M3Typography 
+                  variant="body-large" 
+                  style={{ 
+                    color: 'var(--md-sys-color-on-surface)',
+                    fontWeight: '600',
+                    marginBottom: 'var(--md-sys-spacing-2)'
+                  }}
+                >
+                  Nessuna attività recente
+                </M3Typography>
+                <M3Typography 
+                  variant="body-medium" 
+                  style={{ 
+                    color: 'var(--md-sys-color-on-surface-variant)'
+                  }}
+                >
+                  Le tue attività appariranno qui
+                </M3Typography>
               </M3Surface>
             )}
             {activities.map(activity => (
-              <M3Surface key={activity.id} style={{ padding: 'var(--app-spacing-element)' }}>
-                <M3Typography variant="title-medium">{activity.title}</M3Typography>
-                <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{activity.meta}</M3Typography>
-                <M3Typography variant="label-small" style={{ color: 'var(--md-sys-color-outline-variant)' }}>{activity.time}</M3Typography>
-              </M3Surface>
+              <M3Card 
+                key={activity.id} 
+                style={{ 
+                  padding: 'var(--md-sys-spacing-4)',
+                  borderLeft: '4px solid var(--md-sys-color-primary)'
+                }}
+              >
+                <M3Typography 
+                  variant="title-medium"
+                  style={{
+                    color: 'var(--md-sys-color-on-surface)',
+                    fontWeight: '600',
+                    marginBottom: 'var(--md-sys-spacing-1)'
+                  }}
+                >
+                  {activity.title}
+                </M3Typography>
+                <M3Typography 
+                  variant="body-medium" 
+                  style={{ 
+                    color: 'var(--md-sys-color-on-surface)',
+                    marginBottom: 'var(--md-sys-spacing-1)'
+                  }}
+                >
+                  {activity.meta}
+                </M3Typography>
+                <M3Typography 
+                  variant="label-small" 
+                  style={{ 
+                    color: 'var(--md-sys-color-on-surface-variant)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px'
+                  }}
+                >
+                  {activity.time}
+                </M3Typography>
+              </M3Card>
             ))}
           </M3Surface>
         </M3Surface>

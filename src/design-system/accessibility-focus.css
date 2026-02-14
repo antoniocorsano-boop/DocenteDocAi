@@ -159,11 +159,31 @@ a:focus-visible {
  * Skip link specific focus styling
  * Made to stand out for keyboard users
  */
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: -999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.skip-link:focus,
 .skip-link:focus-visible {
-  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
-  outline-offset: var(--md-sys-spacing-1);
-  top: var(--md-sys-spacing-3);
-  box-shadow: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-shadow) 15%, transparent);
+  position: fixed;
+  top: var(--md-sys-spacing-2);
+  left: var(--md-sys-spacing-2);
+  width: auto;
+  height: auto;
+  padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4);
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  border-radius: var(--md-sys-spacing-2);
+  z-index: 9999;
+  outline: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  font-weight: 600;
+  text-decoration: none;
 }
 
 /**
