@@ -50,3 +50,7 @@ export { MetricCard } from './MetricCard';
 export { CalendarEventCard } from './CalendarEventCard';
 export { ActionCard } from './ActionCard';
 export { Tooltip } from './Tooltip';
+export { PageTransition } from './PageTransition';
+export { ValidatedInput } from './ValidatedInput';
+export { ProgressIndicator } from './ProgressIndicator';
+export { AnimatedCheckbox } from './AnimatedCheckbox';

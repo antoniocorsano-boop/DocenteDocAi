@@ -1,0 +1,209 @@
+// MD3 Gold Compliant
+// Input con validazione inline e feedback visivo
+// Audit: febbraio 2026
+
+import React, { useState } from 'react';
+import { M3Typography } from './index';
+
+interface ValidatedInputProps {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  type?: 'text' | 'email' | 'number' | 'password' | 'tel';
+  required?: boolean;
+  validation?: (value: string) => string | null; // Returns error message or null
+  placeholder?: string;
+  helperText?: string;
+  maxLength?: number;
+  showCharCount?: boolean;
+  disabled?: boolean;
+}
+
+export const ValidatedInput: React.FC<ValidatedInputProps> = ({
+  label,
+  value,
+  onChange,
+  type = 'text',
+  required = false,
+  validation,
+  placeholder,
+  helperText,
+  maxLength,
+  showCharCount = false,
+  disabled = false
+}) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const [touched, setTouched] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    setTouched(true);
+    
+    if (validation && value) {
+      const errorMsg = validation(value);
+      setError(errorMsg);
+    } else if (required && !value) {
+      setError('Campo obbligatorio');
+    } else {
+      setError(null);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    
+    // Respect maxLength
+    if (maxLength && newValue.length > maxLength) {
+      return;
+    }
+    
+    onChange(newValue);
+    
+    // Clear error on typing if previously errored
+    if (error && touched) {
+      if (validation) {
+        const errorMsg = validation(newValue);
+        setError(errorMsg);
+      } else if (required && newValue) {
+        setError(null);
+      }
+    }
+  };
+
+  const hasError = touched && error !== null;
+  const isSuccess = touched && !error && value.length > 0;
+
+  return (
+    <div style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>
+      {/* Label */}
+      <label>
+        <M3Typography
+          variant="label-medium"
+          style={{
+            color: hasError 
+              ? 'var(--md-sys-color-error)' 
+              : isFocused 
+                ? 'var(--md-sys-color-primary)' 
+                : 'var(--md-sys-color-on-surface-variant)',
+            fontWeight: '600',
+            marginBottom: 'var(--md-sys-spacing-2)',
+            display: 'block',
+            transition: 'color 200ms'
+          }}
+        >
+          {label}
+          {required && <span style={{ color: 'var(--md-sys-color-error)' }}> *</span>}
+        </M3Typography>
+
+        {/* Input container */}
+        <div style={{ position: 'relative' }}>
+          <input
+            type={type}
+            value={value}
+            onChange={handleChange}
+            onFocus={() => setIsFocused(true)}
+            onBlur={handleBlur}
+            placeholder={placeholder}
+            disabled={disabled}
+            style={{
+              width: '100%',
+              padding: 'var(--md-sys-spacing-3)',
+              paddingRight: isSuccess || hasError ? 'var(--md-sys-spacing-9)' : 'var(--md-sys-spacing-3)',
+              fontSize: 'var(--md-sys-typescale-body-large-size)',
+              color: 'var(--md-sys-color-on-surface)',
+              backgroundColor: disabled 
+                ? 'var(--md-sys-color-surface-variant)' 
+                : 'var(--md-sys-color-surface-container)',
+              border: `2px solid ${
+                hasError 
+                  ? 'var(--md-sys-color-error)' 
+                  : isFocused 
+                    ? 'var(--md-sys-color-primary)' 
+                    : isSuccess
+                      ? 'var(--md-sys-color-primary)'
+                      : 'var(--md-sys-color-outline-variant)'
+              }`,
+              borderRadius: 'var(--md-sys-spacing-2)',
+              outline: 'none',
+              transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+              cursor: disabled ? 'not-allowed' : 'text'
+            }}
+          />
+
+          {/* Success/Error Icon */}
+          {(isSuccess || hasError) && (
+            <span
+              className="material-symbols-outlined"
+              style={{
+                position: 'absolute',
+                right: 'var(--md-sys-spacing-3)',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                fontSize: '20px',
+                color: hasError 
+                  ? 'var(--md-sys-color-error)' 
+                  : 'var(--md-sys-color-primary)',
+                fontVariationSettings: '"FILL" 1, "wght" 600',
+                pointerEvents: 'none'
+              }}
+            >
+              {hasError ? 'error' : 'check_circle'}
+            </span>
+          )}
+        </div>
+      </label>
+
+      {/* Helper text / Error message / Character count */}
+      <div
+        style={{
+          marginTop: 'var(--md-sys-spacing-2)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}
+      >
+        <M3Typography
+          variant="body-small"
+          style={{
+            color: hasError 
+              ? 'var(--md-sys-color-error)' 
+              : 'var(--md-sys-color-on-surface-variant)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--md-sys-spacing-1)'
+          }}
+        >
+          {hasError && (
+            <span
+              className="material-symbols-outlined"
+              style={{
+                fontSize: '16px',
+                fontVariationSettings: '"FILL" 1, "wght" 600'
+              }}
+            >
+              error
+            </span>
+          )}
+          {hasError ? error : helperText}
+        </M3Typography>
+
+        {showCharCount && maxLength && (
+          <M3Typography
+            variant="body-small"
+            style={{
+              color: value.length >= maxLength 
+                ? 'var(--md-sys-color-error)' 
+                : 'var(--md-sys-color-on-surface-variant)',
+              fontVariantNumeric: 'tabular-nums'
+            }}
+          >
+            {value.length}/{maxLength}
+          </M3Typography>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ValidatedInput;
