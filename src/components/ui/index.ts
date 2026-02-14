@@ -47,3 +47,6 @@ export { default as M3Aside } from './M3Aside';
 export { LoadingState } from './LoadingState';
 export { Skeleton, SkeletonList } from './Skeleton';
 export { MetricCard } from './MetricCard';
+export { CalendarEventCard } from './CalendarEventCard';
+export { ActionCard } from './ActionCard';
+export { Tooltip } from './Tooltip';
