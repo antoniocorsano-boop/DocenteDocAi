@@ -61,7 +61,23 @@ const App: React.FC = () => {
     const handleCloseModal = () => setOpenModal(null);
 
     return (
-        <AppLayout
+        <>
+            {/* Skip links for accessibility */}
+            <a 
+                href="#main-content" 
+                className="skip-link"
+                style={{
+                    position: 'absolute',
+                    top: '-999px',
+                    left: '-999px',
+                    width: '1px',
+                    height: '1px',
+                    overflow: 'hidden'
+                }}
+            >
+                Vai al contenuto principale
+            </a>
+            <AppLayout
             view={view}
             onNavigate={actions.handleNavigate}
             user={user}
@@ -80,13 +96,15 @@ const App: React.FC = () => {
             hasSuggestion={!!activeSuggestion}
         >
             <ErrorBoundary>
-                <ViewManager
-                    view={view}
-                    viewContext={viewContext}
-                    appState={appState}
-                    actions={actions}
-                    modals={modals}
-                />
+                <main id="main-content" role="main" aria-label="Contenuto principale">
+                    <ViewManager
+                        view={view}
+                        viewContext={viewContext}
+                        appState={appState}
+                        actions={actions}
+                        modals={modals}
+                    />
+                </main>
                 <ModalManager appState={appState} actions={actions} modals={modals} />
                 {/* Modal rendering */}
                 {openModal === 'image-analysis-modal' && (
@@ -177,6 +195,7 @@ const App: React.FC = () => {
                 <Snackbar />
             </ErrorBoundary>
         </AppLayout>
+        </>
     );
 };
 

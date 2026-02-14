@@ -1,0 +1,247 @@
+/**
+ * MD3 Dark Theme Variables
+ * Audit: febbraio 2026
+ * 
+ * Dark mode color palette con MD3 token system
+ */
+
+/* ==========================================
+   DARK THEME
+   ========================================== */
+
+.theme-dark,
+[data-theme="dark"] {
+  /* Primary colors */
+  --md-sys-color-primary: #d0bcff;
+  --md-sys-color-on-primary: #381e72;
+  --md-sys-color-primary-container: #4f378b;
+  --md-sys-color-on-primary-container: #eaddff;
+
+  /* Secondary colors */
+  --md-sys-color-secondary: #ccc2dc;
+  --md-sys-color-on-secondary: #332d41;
+  --md-sys-color-secondary-container: #4a4458;
+  --md-sys-color-on-secondary-container: #e8def8;
+
+  /* Tertiary colors */
+  --md-sys-color-tertiary: #efb8c8;
+  --md-sys-color-on-tertiary: #492532;
+  --md-sys-color-tertiary-container: #633b48;
+  --md-sys-color-on-tertiary-container: #ffd8e4;
+
+  /* Error colors */
+  --md-sys-color-error: #f2b8b5;
+  --md-sys-color-on-error: #601410;
+  --md-sys-color-error-container: #8c1d18;
+  --md-sys-color-on-error-container: #f9dedc;
+
+  /* Background colors */
+  --md-sys-color-background: #1c1b1f;
+  --md-sys-color-on-background: #e6e1e5;
+  
+  /* Surface colors */
+  --md-sys-color-surface: #1c1b1f;
+  --md-sys-color-on-surface: #e6e1e5;
+  --md-sys-color-surface-variant: #49454f;
+  --md-sys-color-on-surface-variant: #cac4d0;
+
+  /* Surface containers */
+  --md-sys-color-surface-container-lowest: #0f0d13;
+  --md-sys-color-surface-container-low: #1d1b20;
+  --md-sys-color-surface-container: #211f26;
+  --md-sys-color-surface-container-high: #2b2930;
+  --md-sys-color-surface-container-highest: #36343b;
+
+  /* Outline colors */
+  --md-sys-color-outline: #938f99;
+  --md-sys-color-outline-variant: #49454f;
+
+  /* Success colors (custom) */
+  --md-sys-color-success: #6dd58c;
+  --md-sys-color-on-success: #003919;
+  --md-sys-color-success-container: #005227;
+  --md-sys-color-on-success-container: #95f3af;
+
+  /* Warning colors (custom) */
+  --md-sys-color-warning: #ffb951;
+  --md-sys-color-on-warning: #442b00;
+  --md-sys-color-warning-container: #624000;
+  --md-sys-color-on-warning-container: #ffddb7;
+
+  /* Info colors (custom) */
+  --md-sys-color-info: #9ccaff;
+  --md-sys-color-on-info: #003353;
+  --md-sys-color-info-container: #004a75;
+  --md-sys-color-on-info-container: #d1e4ff;
+
+  /* Shadows */
+  --md-sys-color-shadow: #000000;
+  --md-sys-color-scrim: #000000;
+
+  /* Inverse colors */
+  --md-sys-color-inverse-surface: #e6e1e5;
+  --md-sys-color-inverse-on-surface: #313033;
+  --md-sys-color-inverse-primary: #6750a4;
+}
+
+/* ==========================================
+   HIGH CONTRAST DARK THEME
+   ========================================== */
+
+.theme-dark.contrast-high,
+[data-theme="dark"][data-contrast="high"] {
+  /* Enhanced primary contrast */
+  --md-sys-color-primary: #eaddff;
+  --md-sys-color-on-primary: #1e0e4f;
+  --md-sys-color-primary-container: #6750a4;
+  --md-sys-color-on-primary-container: #ffffff;
+
+  /* Enhanced secondary contrast */
+  --md-sys-color-secondary: #e8def8;
+  --md-sys-color-on-secondary: #1d1929;
+  --md-sys-color-secondary-container: #625b71;
+  --md-sys-color-on-secondary-container: #ffffff;
+
+  /* Enhanced tertiary contrast */
+  --md-sys-color-tertiary: #ffd8e4;
+  --md-sys-color-on-tertiary: #2e111d;
+  --md-sys-color-tertiary-container: #7d5260;
+  --md-sys-color-on-tertiary-container: #ffffff;
+
+  /* Enhanced error contrast */
+  --md-sys-color-error: #ffbab1;
+  --md-sys-color-on-error: #370b1e;
+  --md-sys-color-error-container: #ba1a1a;
+  --md-sys-color-on-error-container: #ffffff;
+
+  /* Enhanced surface contrast */
+  --md-sys-color-surface: #000000;
+  --md-sys-color-on-surface: #ffffff;
+  --md-sys-color-surface-variant: #3a3640;
+  --md-sys-color-on-surface-variant: #e8e0eb;
+
+  /* Enhanced outlines */
+  --md-sys-color-outline: #cac4d0;
+  --md-sys-color-outline-variant: #625b71;
+
+  /* Enhanced shadows */
+  box-shadow: 0 0 0 2px var(--md-sys-color-outline);
+}
+
+/* ==========================================
+   DARK THEME ANIMATIONS
+   ========================================== */
+
+.theme-dark {
+  /* Smooth transitions between themes */
+  transition: 
+    background-color 300ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Disable transitions when reduced motion is enabled */
+.theme-dark.reduced-motion,
+[data-theme="dark"][data-reduced-motion="true"] {
+  transition: none !important;
+}
+
+/* ==========================================
+   DARK THEME SPECIFIC ADJUSTMENTS
+   ========================================== */
+
+.theme-dark {
+  /* Images and media */
+  img:not([src*=".svg"]) {
+    opacity: 0.85;
+  }
+
+  /* Code blocks */
+  pre,
+  code {
+    background-color: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-on-surface);
+  }
+
+  /* Scrollbars (webkit) */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--md-sys-color-surface-container-low);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--md-sys-color-outline-variant);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--md-sys-color-outline);
+  }
+}
+
+/* ==========================================
+   MATERIAL SYMBOLS IN DARK MODE
+   ========================================== */
+
+.theme-dark .material-symbols-outlined {
+  /* Slightly reduce weight for better readability */
+  font-variation-settings: 
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+.theme-dark .material-symbols-outlined[data-filled="true"] {
+  font-variation-settings: 
+    'FILL' 1,
+    'wght' 500,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* ==========================================
+   ELEVATION & SHADOWS IN DARK MODE
+   ========================================== */
+
+.theme-dark {
+  /* Enhanced shadows for better depth perception */
+  --md-sys-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --md-sys-elevation-2: 0 2px 6px rgba(0, 0, 0, 0.6);
+  --md-sys-elevation-3: 0 4px 12px rgba(0, 0, 0, 0.7);
+  --md-sys-elevation-4: 0 8px 24px rgba(0, 0, 0, 0.8);
+  --md-sys-elevation-5: 0 16px 32px rgba(0, 0, 0, 0.9);
+}
+
+/* ==========================================
+   DARK MODE COLOR UTILITIES
+   ========================================== */
+
+.theme-dark .text-primary {
+  color: var(--md-sys-color-primary) !important;
+}
+
+.theme-dark .text-secondary {
+  color: var(--md-sys-color-secondary) !important;
+}
+
+.theme-dark .text-error {
+  color: var(--md-sys-color-error) !important;
+}
+
+.theme-dark .text-success {
+  color: var(--md-sys-color-success) !important;
+}
+
+.theme-dark .bg-primary {
+  background-color: var(--md-sys-color-primary-container) !important;
+  color: var(--md-sys-color-on-primary-container) !important;
+}
+
+.theme-dark .bg-surface {
+  background-color: var(--md-sys-color-surface-container) !important;
+  color: var(--md-sys-color-on-surface) !important;
+}

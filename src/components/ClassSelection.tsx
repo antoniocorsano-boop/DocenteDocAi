@@ -5,7 +5,7 @@ import { View, Valutazione } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { generateCouncilDataPdf } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SectionHeader, TabGroup, M3ExpressiveCard } from './ui';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SectionHeader, TabGroup, M3ExpressiveCard, EmptyState } from './ui';
 import { useStudentStore } from '../stores/useStudentStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
 interface ClassSelectionProps {
@@ -49,28 +49,94 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
     return (
         <div >
              {/* Header Section */}
-            <div >
-                <div >
-                    <h1 style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "900" }}>Le Mie Classi</h1>
-                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Gestione studenti e analisi.</p>
-                </div>
+            <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
+                <h1 style={{ 
+                    color: 'var(--md-sys-color-on-surface)',
+                    fontWeight: '700',
+                    fontSize: 'var(--md-sys-typescale-headline-large-size)',
+                    marginBottom: 'var(--md-sys-spacing-2)'
+                }}>
+                    Le Mie Classi
+                </h1>
+                <p style={{ 
+                    color: 'var(--md-sys-color-on-surface)',
+                    fontSize: 'var(--md-sys-typescale-body-large-size)',
+                    lineHeight: '1.5'
+                }}>
+                    Gestione studenti e analisi.
+                </p>
             </div>
 
             {/* --- GLOBAL AGENDA WIDGET --- */}
             {upcomingTests.length > 0 && (
-                <section >
-                    <h2 style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)" }}>
+                <section style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
+                    <h2 style={{ 
+                        color: 'var(--md-sys-color-on-surface)',
+                        fontSize: 'var(--md-sys-typescale-title-medium-size)',
+                        fontWeight: '600',
+                        textTransform: 'uppercase',
+                        letterSpacing: '1px',
+                        marginBottom: 'var(--md-sys-spacing-4)'
+                    }}>
                         In Arrivo (Tutte le classi)
                     </h2>
-                    <div >
+                    <div style={{ 
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 'var(--md-sys-spacing-3)'
+                    }}>
                         {upcomingTests.map((test, idx) => (
-                            <div key={idx} >
-                                <div>
-                                    <span >{new Date(test.data).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' })}</span>
-                                    <h4 >{test.materia}</h4>
-                                    <p  style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{test.argomento || test.tipo}</p>
+                            <div 
+                                key={idx}
+                                style={{
+                                    padding: 'var(--md-sys-spacing-4)',
+                                    borderRadius: 'var(--md-sys-spacing-3)',
+                                    background: 'var(--md-sys-color-surface-container)',
+                                    borderLeft: '4px solid var(--md-sys-color-tertiary)',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center'
+                                }}
+                            >
+                                <div style={{ flex: 1 }}>
+                                    <span style={{
+                                        color: 'var(--md-sys-color-tertiary)',
+                                        fontSize: 'var(--md-sys-typescale-label-small-size)',
+                                        fontWeight: '600',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.5px'
+                                    }}>
+                                        {new Date(test.data).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' })}
+                                    </span>
+                                    <h4 style={{
+                                        color: 'var(--md-sys-color-on-surface)',
+                                        fontSize: 'var(--md-sys-typescale-title-medium-size)',
+                                        fontWeight: '600',
+                                        marginTop: 'var(--md-sys-spacing-1)',
+                                        marginBottom: 'var(--md-sys-spacing-1)'
+                                    }}>
+                                        {test.materia}
+                                    </h4>
+                                    <p style={{
+                                        color: 'var(--md-sys-color-on-surface-variant)',
+                                        fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        whiteSpace: 'nowrap'
+                                    }}>
+                                        {test.argomento || test.tipo}
+                                    </p>
                                 </div>
-                                <div >{test.className}</div>
+                                <div style={{
+                                    padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                                    borderRadius: 'var(--md-sys-spacing-2)',
+                                    background: 'var(--md-sys-color-primary-container)',
+                                    color: 'var(--md-sys-color-on-primary-container)',
+                                    fontSize: 'var(--md-sys-typescale-label-medium-size)',
+                                    fontWeight: '600'
+                                }}>
+                                    {test.className}
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -111,16 +177,13 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                         })}
                     </div>
                 ) : (
-                    <div style={{ padding: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.5, marginBottom: 'var(--md-sys-spacing-8)' }}>domain_disabled</span>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessuna classe definita</p>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--app-spacing-container)', marginBottom: 'var(--app-spacing-section)' }}>
-                            Vai nelle impostazioni per configurare le tue classi e iniziare.
-                        </p>
-                        <M3Button onClick={() => onNavigate('settings')} variant="filled">
-                            Vai a Impostazioni
-                        </M3Button>
-                    </div>
+                    <EmptyState
+                        icon="school"
+                        title="Nessuna classe configurata"
+                        description="Configura le tue classi nelle impostazioni per iniziare a gestire studenti e valutazioni."
+                        actionLabel="Vai a Impostazioni"
+                        onAction={() => onNavigate('settings')}
+                    />
                 )}
             </section>
 

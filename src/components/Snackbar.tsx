@@ -1,25 +1,34 @@
-// MD3 GOLD COMPLIANT – Audit 2026-01-25
+// MD3 GOLD COMPLIANT – Audit 2026-02-14
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
+// Fase 3 UX: Aggiunto progress bar, warning type, migliore feedback visivo
 import React, { useEffect, useRef, useState } from 'react';
 
 import { useUIStore } from '../stores/useUIStore';
 import { M3Typography } from './ui';
-const SNACKBAR_COLORS = () => ({
+const SNACKBAR_COLORS = {
   success: {
     bg: 'var(--app-color-primary)',
-    color: 'var(--app-color-on-primary)'
+    color: 'var(--app-color-on-primary)',
+    icon: 'check_circle'
   },
   error: {
     bg: 'var(--md-sys-color-error)',
-    color: 'var(--md-sys-color-on-error)'
+    color: 'var(--md-sys-color-on-error)',
+    icon: 'error'
+  },
+  warning: {
+    bg: 'var(--md-sys-color-tertiary)',
+    color: 'var(--md-sys-color-on-tertiary)',
+    icon: 'warning'
   },
   info: {
     bg: 'var(--md-sys-color-surface-container-high)',
-    color: 'var(--app-color-on-surface)'
+    color: 'var(--app-color-on-surface)',
+    icon: 'info'
   }
-});
+} as const;
 
 /**
  * Snackbar - MD3 Pure Notification Component
@@ -49,13 +58,15 @@ const Snackbar: React.FC = () => {
   // MD3 Token mapping - no useTheme() dependency
   const primary = 'var(--app-color-primary)';
   const [isFocused, setIsFocused] = useState(false);
+  const [isCloseHovered, setIsCloseHovered] = useState(false);
+  const [progress, setProgress] = useState(100);
   const { toast, clearToast } = useUIStore(state => ({
     toast: state.modals.toast,
     clearToast: state.actions.clearToast
   }));
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  // Removed unused variable snackbarColors
+  const progressIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleClose = () => {
     if (timeoutRef.current) {
@@ -78,15 +89,33 @@ const Snackbar: React.FC = () => {
 
   useEffect(() => {
     if (toast.visible && clearToast) {
+      // Reset progress
+      setProgress(100);
+      
       // Mostra gli errori per 5 secondi, altri per 3.5 secondi
       const duration = toast.type === 'error' ? 5000 : 3500;
+      const startTime = Date.now();
+      
+      // Progress bar animation
+      progressIntervalRef.current = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, 100 - (elapsed / duration) * 100);
+        setProgress(remaining);
+      }, 16); // ~60fps
+      
       timeoutRef.current = setTimeout(() => {
         clearToast?.();
         timeoutRef.current = null;
       }, duration);
-    } else if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
+    } else {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+        progressIntervalRef.current = null;
+      }
     }
 
     return () => {
@@ -94,11 +123,16 @@ const Snackbar: React.FC = () => {
         clearTimeout(timeoutRef.current);
         timeoutRef.current = null;
       }
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+        progressIntervalRef.current = null;
+      }
     };
-  }, [toast.visible, clearToast]);
+  }, [toast.visible, toast.type, clearToast]);
 
   if (!toast.visible) return null;
-  const { bg, color } = SNACKBAR_COLORS[toast.type] || SNACKBAR_COLORS.info;
+  const colorConfig = SNACKBAR_COLORS[toast.type as keyof typeof SNACKBAR_COLORS] || SNACKBAR_COLORS.info;
+  const { bg, color, icon } = colorConfig;
 
   return (
     <div
@@ -127,13 +161,16 @@ const Snackbar: React.FC = () => {
       onBlur={() => setIsFocused(false)}
     >
       <span
-        style={{fontFamily: 'Material Symbols Outlined',
+        className="material-symbols-outlined"
+        style={{
           fontSize: 'var(--app-spacing-container)',
           color: 'inherit',
-          flexShrink: 0}}
+          flexShrink: 0,
+          fontVariationSettings: '"FILL" 1, "wght" 600'
+        }}
         aria-hidden="true"
       >
-        {toast.type === 'success' ? 'check_circle' : toast.type === 'error' ? 'error' : 'info'}
+        {icon}
       </span>
       <M3Typography
         variant="body-medium"
@@ -147,7 +184,10 @@ const Snackbar: React.FC = () => {
       </M3Typography>
       <button
         onClick={handleClose}
-        style={{backgroundColor: 'transparent',
+        onMouseEnter={() => setIsCloseHovered(true)}
+        onMouseLeave={() => setIsCloseHovered(false)}
+        style={{
+          backgroundColor: isCloseHovered ? 'rgba(255,255,255,0.2)' : 'transparent',
           border: 'none',
           color: 'inherit',
           fontSize: 'var(--app-spacing-touch)',
@@ -158,27 +198,15 @@ const Snackbar: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`,
-          flexShrink: 0}}
-        onMouseEnter={() => {
-          // removed runtime mutation
-        }}
-        onMouseLeave={() => {
-          // removed runtime mutation
-        }}
-        onFocus={() => {
-          // removed runtime mutation
-          // removed runtime mutation
-        }}
-        onBlur={() => {
-          // removed runtime mutation
-          // removed runtime mutation
+          transition: 'all var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
+          transform: isCloseHovered ? 'scale(1.1)' : 'scale(1)',
+          flexShrink: 0
         }}
         aria-label="Chiudi notifica"
       >
         <span
+          className="material-symbols-outlined"
           style={{
-            fontFamily: 'Material Symbols Outlined',
             fontSize: 'inherit',
             color: 'inherit'
           }}
@@ -186,6 +214,30 @@ const Snackbar: React.FC = () => {
           close
         </span>
       </button>
+      
+      {/* Progress bar */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: 'var(--md-sys-spacing-0_5)',
+          backgroundColor: 'rgba(255,255,255,0.2)',
+          borderBottomLeftRadius: 'var(--md-sys-shape-corner-medium)',
+          borderBottomRightRadius: 'var(--md-sys-shape-corner-medium)',
+          overflow: 'hidden'
+        }}
+      >
+        <div
+          style={{
+            height: '100%',
+            width: `${progress}%`,
+            backgroundColor: 'rgba(255,255,255,0.5)',
+            transition: 'width 16ms linear'
+          }}
+        />
+      </div>
       <style>
         {`
           @keyframes snackbar-in {

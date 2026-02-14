@@ -1,0 +1,158 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - navigation "Azioni principali" [ref=e5]:
+      - button "Indietro" [ref=e101]:
+        - generic [ref=e102]: arrow_back
+      - button "Operazioni rapide" [ref=e6]:
+        - generic [ref=e7]: bolt
+    - generic [ref=e8]:
+      - img [ref=e10] [cursor=pointer]:
+        - generic [ref=e17]: DocenteDoc
+        - generic [ref=e18]: AI
+      - generic [ref=e19]: Nome
+    - generic [ref=e20]:
+      - button "Impostazioni" [ref=e21]:
+        - generic [ref=e22]: settings
+      - button "Menu utente" [ref=e23]:
+        - generic [ref=e25]: "N"
+  - generic [ref=e26]:
+    - complementary [ref=e27]:
+      - navigation "Navigazione principale" [ref=e28]:
+        - generic [ref=e29]:
+          - button "Home" [ref=e30] [cursor=pointer]:
+            - generic [ref=e32]: home
+            - generic [ref=e33]: Home
+          - button "Orario" [active] [ref=e34] [cursor=pointer]:
+            - generic [ref=e36]: watch_later
+            - generic [ref=e37]: Orario
+          - button "Progetta" [ref=e38] [cursor=pointer]:
+            - generic [ref=e40]: design_services
+            - generic [ref=e41]: Progetta
+          - button "Classi" [ref=e42] [cursor=pointer]:
+            - generic [ref=e44]: groups
+            - generic [ref=e45]: Classi
+          - button "Orientamento" [ref=e46] [cursor=pointer]:
+            - generic [ref=e48]: explore
+            - generic [ref=e49]: Orientamento
+          - button "Agenda" [ref=e50] [cursor=pointer]:
+            - generic [ref=e52]: calendar_month
+            - generic [ref=e53]: Agenda
+    - generic [ref=e54]:
+      - generic [ref=e106]:
+        - generic [ref=e107]:
+          - generic [ref=e108]:
+            - generic [ref=e110]: calendar_view_week
+            - generic [ref=e111]: Il Mio OrarioPlanning Settimanale
+          - tablist "Sezioni di navigazione" [ref=e113]:
+            - tab "Settimana" [selected] [ref=e114] [cursor=pointer]:
+              - generic [ref=e115]: view_week
+              - generic [ref=e116]: Settimana
+            - tab "Giorno" [ref=e118] [cursor=pointer]:
+              - generic [ref=e119]: calendar_view_day
+              - generic [ref=e120]: Giorno
+          - button "Stampa" [ref=e122] [cursor=pointer]:
+            - generic [ref=e123]: Stampa
+        - generic [ref=e125]:
+          - generic [ref=e126]: auto_awesome
+          - generic [ref=e127]:
+            - heading "Consiglio Rapido" [level=3] [ref=e128]
+            - paragraph [ref=e130]: Clicca su una cella vuota per pianificare. Usa la vista "Giorno" da smartphone per una gestione più focalizzata.
+          - button "Chiudi suggerimento" [ref=e131]: close
+        - generic [ref=e134]:
+          - generic [ref=e136]: ORA
+          - generic [ref=e138]: Lun
+          - generic [ref=e140]: Mar
+          - generic [ref=e142]: Mer
+          - generic [ref=e144]: Gio
+          - generic [ref=e146]: Ven
+          - generic [ref=e148]: Sab
+          - generic [ref=e150]: 08:00
+          - button "Slot Lunedì 08:00, classe 3A, materia Storia" [ref=e152] [cursor=pointer]:
+            - generic [ref=e153]: auto_stories
+            - generic [ref=e154]: 3AStoria
+          - button "Aggiungi lezione a Martedì 08:00" [ref=e156] [cursor=pointer]:
+            - generic [ref=e157]: add_circle
+          - button "Slot Mercoledì 08:00, classe 3A, materia Storia" [ref=e159] [cursor=pointer]:
+            - generic [ref=e160]: school
+            - generic [ref=e161]: 3AStoria
+          - button "Aggiungi lezione a Giovedì 08:00" [ref=e163] [cursor=pointer]:
+            - generic [ref=e164]: add_circle
+          - button "Slot Venerdì 08:00, classe 3A, materia Tecnologia" [ref=e166] [cursor=pointer]:
+            - generic [ref=e167]: science
+            - generic [ref=e168]: 3ATecnologia
+          - button "Aggiungi lezione a Sabato 08:00" [ref=e170] [cursor=pointer]:
+            - generic [ref=e171]: add_circle
+          - generic [ref=e173]: 09:00
+          - button "Slot Lunedì 09:00, classe 3A, materia Geografia" [ref=e175] [cursor=pointer]:
+            - generic [ref=e176]: auto_stories
+            - generic [ref=e177]: 3AGeografia
+          - button "Slot Martedì 09:00, classe 3A, materia Tecnologia" [ref=e179] [cursor=pointer]:
+            - generic [ref=e180]: auto_stories
+            - generic [ref=e181]: 3ATecnologia
+          - button "Aggiungi lezione a Mercoledì 09:00" [ref=e183] [cursor=pointer]:
+            - generic [ref=e184]: add_circle
+          - button "Slot Giovedì 09:00, classe 3A, materia Geografia" [ref=e186] [cursor=pointer]:
+            - generic [ref=e187]: science
+            - generic [ref=e188]: 3AGeografia
+          - button "Slot Venerdì 09:00, classe 3A, materia Tecnologia" [ref=e190] [cursor=pointer]:
+            - generic [ref=e191]: school
+            - generic [ref=e192]: 3ATecnologia
+          - button "Aggiungi lezione a Sabato 09:00" [ref=e194] [cursor=pointer]:
+            - generic [ref=e195]: add_circle
+          - generic [ref=e197]: 10:00
+          - button "Aggiungi lezione a Lunedì 10:00" [ref=e199] [cursor=pointer]:
+            - generic [ref=e200]: add_circle
+          - button "Slot Martedì 10:00, classe 3A, materia Ed. Civica" [ref=e202] [cursor=pointer]:
+            - generic [ref=e203]: auto_stories
+            - generic [ref=e204]: 3AEd. Civica
+          - button "Slot Mercoledì 10:00, classe 3A, materia Tecnologia" [ref=e206] [cursor=pointer]:
+            - generic [ref=e207]: school
+            - generic [ref=e208]: 3ATecnologia
+          - button "Aggiungi lezione a Giovedì 10:00" [ref=e210] [cursor=pointer]:
+            - generic [ref=e211]: add_circle
+          - button "Aggiungi lezione a Venerdì 10:00" [ref=e213] [cursor=pointer]:
+            - generic [ref=e214]: add_circle
+          - button "Aggiungi lezione a Sabato 10:00" [ref=e216] [cursor=pointer]:
+            - generic [ref=e217]: add_circle
+          - generic [ref=e219]: 11:00
+          - button "Slot Lunedì 11:00, classe 3A, materia Tecnologia" [ref=e221] [cursor=pointer]:
+            - generic [ref=e222]: school
+            - generic [ref=e223]: 3ATecnologia
+          - button "Aggiungi lezione a Martedì 11:00" [ref=e225] [cursor=pointer]:
+            - generic [ref=e226]: add_circle
+          - button "Aggiungi lezione a Mercoledì 11:00" [ref=e228] [cursor=pointer]:
+            - generic [ref=e229]: add_circle
+          - button "Slot Giovedì 11:00, classe 3A, materia Storia" [ref=e231] [cursor=pointer]:
+            - generic [ref=e232]: school
+            - generic [ref=e233]: 3AStoria
+          - button "Aggiungi lezione a Venerdì 11:00" [ref=e235] [cursor=pointer]:
+            - generic [ref=e236]: add_circle
+          - button "Aggiungi lezione a Sabato 11:00" [ref=e238] [cursor=pointer]:
+            - generic [ref=e239]: add_circle
+          - generic [ref=e241]: 12:00
+          - button "Aggiungi lezione a Lunedì 12:00" [ref=e243] [cursor=pointer]:
+            - generic [ref=e244]: add_circle
+          - button "Aggiungi lezione a Martedì 12:00" [ref=e246] [cursor=pointer]:
+            - generic [ref=e247]: add_circle
+          - button "Aggiungi lezione a Mercoledì 12:00" [ref=e249] [cursor=pointer]:
+            - generic [ref=e250]: add_circle
+          - button "Aggiungi lezione a Giovedì 12:00" [ref=e252] [cursor=pointer]:
+            - generic [ref=e253]: add_circle
+          - button "Aggiungi lezione a Venerdì 12:00" [ref=e255] [cursor=pointer]:
+            - generic [ref=e256]: add_circle
+          - button "Aggiungi lezione a Sabato 12:00" [ref=e258] [cursor=pointer]:
+            - generic [ref=e259]: add_circle
+          - generic [ref=e261]: 13:00
+          - button "Aggiungi lezione a Lunedì 13:00" [ref=e263] [cursor=pointer]:
+            - generic [ref=e264]: add_circle
+          - button "Aggiungi lezione a Martedì 13:00" [ref=e266] [cursor=pointer]:
+            - generic [ref=e267]: add_circle
+          - button "Aggiungi lezione a Mercoledì 13:00" [ref=e269] [cursor=pointer]:
+            - generic [ref=e270]: add_circle
+          - button "Aggiungi lezione a Giovedì 13:00" [ref=e272] [cursor=pointer]:
+            - generic [ref=e273]: add_circle
+          - button "Aggiungi lezione a Venerdì 13:00" [ref=e275] [cursor=pointer]:
+            - generic [ref=e276]: add_circle
+          - button "Aggiungi lezione a Sabato 13:00" [ref=e278] [cursor=pointer]:
+            - generic [ref=e279]: add_circle
+      - button "Assistente AI" [ref=e100]: auto_mode

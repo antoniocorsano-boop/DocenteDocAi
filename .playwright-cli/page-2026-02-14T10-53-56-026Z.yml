@@ -1,0 +1,82 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - navigation "Azioni principali" [ref=e5]:
+      - button "Operazioni rapide" [ref=e6]:
+        - generic [ref=e7]: bolt
+    - generic [ref=e8]:
+      - img [ref=e10] [cursor=pointer]:
+        - generic [ref=e17]: DocenteDoc
+        - generic [ref=e18]: AI
+      - generic [ref=e19]: Nome
+    - generic [ref=e20]:
+      - button "Impostazioni" [ref=e21]:
+        - generic [ref=e22]: settings
+      - button "Menu utente" [ref=e23]:
+        - generic [ref=e25]: "N"
+  - generic [ref=e26]:
+    - complementary [ref=e27]:
+      - navigation "Navigazione principale" [ref=e28]:
+        - generic [ref=e29]:
+          - button "Home" [ref=e30] [cursor=pointer]:
+            - generic [ref=e32]: home
+            - generic [ref=e33]: Home
+          - button "Orario" [ref=e34] [cursor=pointer]:
+            - generic [ref=e36]: schedule
+            - generic [ref=e37]: Orario
+          - button "Progetta" [ref=e38] [cursor=pointer]:
+            - generic [ref=e40]: design_services
+            - generic [ref=e41]: Progetta
+          - button "Classi" [ref=e42] [cursor=pointer]:
+            - generic [ref=e44]: groups
+            - generic [ref=e45]: Classi
+          - button "Orientamento" [ref=e46] [cursor=pointer]:
+            - generic [ref=e48]: explore
+            - generic [ref=e49]: Orientamento
+          - button "Agenda" [ref=e50] [cursor=pointer]:
+            - generic [ref=e52]: calendar_month
+            - generic [ref=e53]: Agenda
+    - generic [ref=e54]:
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - generic [ref=e59]: 3A • TeoriaRestaurazione e Congresso di Vienna
+          - generic [ref=e60]:
+            - generic [ref=e62]: 8Studenti
+            - generic [ref=e64]: 10Valutazioni
+          - generic [ref=e65]:
+            - text: Attività recenti
+            - generic [ref=e66]:
+              - generic [ref=e67]: Lezione pianificataStoria - 3AOggi
+              - generic [ref=e68]: Lezione pianificataStoria - 3AOggi
+              - generic [ref=e69]: Lezione pianificataStoria - 3AOggi
+              - generic [ref=e70]: Valutazione inseritaStoria - s1Ieri
+              - generic [ref=e71]: Valutazione inseritaStoria - s2Ieri
+          - generic [ref=e73]:
+            - button "Vai a Registro" [ref=e74] [cursor=pointer]:
+              - generic [ref=e75]:
+                - generic [ref=e76]: menu_book
+                - text: Registro
+            - button "Vai a Presenze" [ref=e77] [cursor=pointer]:
+              - generic [ref=e78]:
+                - generic [ref=e79]: fact_check
+                - text: Presenze
+            - button "Vai a Valutazioni" [ref=e80] [cursor=pointer]:
+              - generic [ref=e81]:
+                - generic [ref=e82]: grading
+                - text: Valutazioni
+          - button "Inizia Giornata" [ref=e83] [cursor=pointer]:
+            - generic [ref=e84]: playlist_add_check
+            - generic [ref=e85]: Inizia Giornata
+        - navigation "Navigazione principale mobile" [ref=e86]:
+          - button "Home" [ref=e87]:
+            - generic [ref=e88]: home
+            - generic [ref=e89]: Home
+          - button "Lezioni" [ref=e90]:
+            - generic [ref=e91]: menu_book
+            - generic [ref=e92]: Lezioni
+          - button "Studenti" [ref=e93]:
+            - generic [ref=e94]: group
+            - generic [ref=e95]: Studenti
+          - button "Profilo" [ref=e96]:
+            - generic [ref=e97]: person
+            - generic [ref=e98]: Profilo
+      - button "Assistente AI" [ref=e100]: auto_mode
