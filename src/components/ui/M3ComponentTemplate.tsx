@@ -1,7 +1,7 @@
 // ✅ MD3 Native Compliant - Migrated from useTheme to direct MD3 tokens
 import React from 'react';
-import M3Typography from './M3Typography';
-import M3Button from './M3Button';
+import { M3Typography } from './M3Typography';
+import { M3Button } from './M3Button';
 
 // MD3 Token Constants - Direct CSS Variables
 const MD3_TOKENS = {

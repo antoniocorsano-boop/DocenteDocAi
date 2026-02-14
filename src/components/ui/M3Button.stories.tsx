@@ -1,6 +1,6 @@
 // LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
-import M3Button from './M3Button';
+import { M3Button } from './M3Button';
 
 const meta: Meta<typeof M3Button> = {
   component: M3Button,
