@@ -60,3 +60,5 @@ export { ResponsiveContainer, useBreakpoint } from './ResponsiveContainer';
 export { TouchButton } from './TouchButton';
 export { PullToRefresh } from './PullToRefresh';
 export { FAB, FABSpeedDial } from './FAB';
+export { ThemeToggle } from './ThemeToggle';
+export { AccessibilitySettings } from './AccessibilitySettings';
