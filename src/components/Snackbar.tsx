@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { useUIStore } from '../stores/useUIStore';
 import { M3Typography } from './ui';
-const SNACKBAR_COLORS = () => ({
+const SNACKBAR_COLORS = {
   success: {
     bg: 'var(--app-color-primary)',
     color: 'var(--app-color-on-primary)'
@@ -19,7 +19,7 @@ const SNACKBAR_COLORS = () => ({
     bg: 'var(--md-sys-color-surface-container-high)',
     color: 'var(--app-color-on-surface)'
   }
-});
+} as const;
 
 /**
  * Snackbar - MD3 Pure Notification Component
@@ -98,7 +98,8 @@ const Snackbar: React.FC = () => {
   }, [toast.visible, clearToast]);
 
   if (!toast.visible) return null;
-  const { bg, color } = SNACKBAR_COLORS[toast.type] || SNACKBAR_COLORS.info;
+  const colorConfig = SNACKBAR_COLORS[toast.type as keyof typeof SNACKBAR_COLORS] || SNACKBAR_COLORS.info;
+  const { bg, color } = colorConfig;
 
   return (
     <div
