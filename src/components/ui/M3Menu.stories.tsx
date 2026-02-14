@@ -2,7 +2,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import M3Menu, { M3MenuItemConfig } from './M3Menu';
-import M3Button from './M3Button';
+import { M3Button } from './M3Button';
 
 const meta: Meta<typeof M3Menu> = {
   component: M3Menu,

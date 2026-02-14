@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { M3Surface, M3Typography } from './index';
-import M3Button from '../M3Button';
+import { M3Button } from '../M3Button';
 
 interface EmptyStateProps {
   icon: string;

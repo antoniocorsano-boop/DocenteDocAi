@@ -4,7 +4,7 @@
 
 import React, { useState } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
-import { M3Tooltip } from './index';
+import { Tooltip } from './index';
 
 interface ThemeToggleProps {
   variant?: 'icon' | 'button' | 'menu';
@@ -52,7 +52,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
 
   if (variant === 'icon') {
     return (
-      <M3Tooltip text={tooltipText}>
+      <Tooltip text={tooltipText}>
         <button
           onClick={handleToggle}
           aria-label={label}
@@ -109,7 +109,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
             />
           )}
         </button>
-      </M3Tooltip>
+      </Tooltip>
     );
   }
 
