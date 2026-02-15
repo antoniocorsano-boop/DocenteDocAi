@@ -62,3 +62,4 @@ export { PullToRefresh } from './PullToRefresh';
 export { FAB, FABSpeedDial } from './FAB';
 export { ThemeToggle } from './ThemeToggle';
 export { AccessibilitySettings } from './AccessibilitySettings';
+export { useHoverEffect } from './useHoverEffect';
