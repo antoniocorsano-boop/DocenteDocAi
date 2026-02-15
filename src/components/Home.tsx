@@ -304,9 +304,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 >
                   {activity.meta}
                 </M3Typography>
-                <M3Typography 
-                  variant="label-small" 
-                  style={{ 
+                <M3Typography
+                  variant="label-small"
+                  style={{
                     color: 'var(--md-sys-color-on-surface-variant)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'

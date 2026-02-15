@@ -71,7 +71,6 @@ export {
   default as SkeletonComponent,
 } from './Skeleton';
 export {
-  LoadingState,
   LoadingOverlay,
   LoadingButton,
   default as LoadingStateComponent,

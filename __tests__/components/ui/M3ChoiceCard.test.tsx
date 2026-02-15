@@ -32,7 +32,7 @@ describe('M3ChoiceCard', () => {
     const button = screen.getByRole('button');
     expect(button).toHaveAttribute('aria-pressed', 'true');
     // Check that the background color is set to primary container when selected
-    expect(button.style.backgroundColor).toBe('var(--md-sys-color-primary-container)');
+    expect(button.style.backgroundColor).toBe('var(--app-color-primary-container)');
   });
 
   it('applies default styles when selected is false', () => {
@@ -41,6 +41,6 @@ describe('M3ChoiceCard', () => {
     const button = screen.getByRole('button');
     expect(button).toHaveAttribute('aria-pressed', 'false');
     // Check that the background color contains surface container when not selected
-    expect(button.style.backgroundColor).toContain('var(--md-sys-color-surface-container)');
+    expect(button.style.backgroundColor).toContain('var(--app-color-surface-container)');
   });
 });

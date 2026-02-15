@@ -45,7 +45,7 @@ export const useGoogleDriveSync = (): UseGoogleDriveSyncReturn => {
   // Accesso agli stores
   const { students, lessons, slots, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica, feedSources, draftRegister, finalizedRegister, curricula, submissions, actions: studentActions } = useStudentStore();
   const { actions: academicActions } = useAcademicStore();
-  const { actions: systemActions, setKnowledgeBase } = useSystemStore();
+  const { user, actions: systemActions, setKnowledgeBase } = useSystemStore();
   const { actions: uiActions, driveSyncState } = useUIStore();
   const { actions: settingsActions, settings } = useSettingsStore();
   const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
@@ -230,8 +230,6 @@ export const useGoogleDriveSync = (): UseGoogleDriveSyncReturn => {
       return null;
     }
   }, [settingsActions, showToast]);
-
-  const user = useSystemStore(state => state.user);
 
   return {
     handleConnectDrive,

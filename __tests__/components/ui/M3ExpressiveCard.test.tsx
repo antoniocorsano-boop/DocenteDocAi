@@ -48,9 +48,9 @@ describe('M3ExpressiveCard', () => {
   it('applies correct color styles', () => {
     const { container } = render(<M3ExpressiveCard {...mockProps} color="secondary" />);
     const card = container.firstChild as HTMLElement;
-    
+
     // Check that the card has the expected inline styles for secondary color
-    expect(card.style.backgroundColor).toBe('var(--md-sys-color-secondary-container)');
+    expect(card.style.backgroundColor).toBe('var(--app-color-secondary-container)');
     expect(card.style.backdropFilter).toBe('blur(var(--md-sys-blur-large))');
     expect(card.style.border).toContain('var(--md-sys-color-outline-variant)');
   });

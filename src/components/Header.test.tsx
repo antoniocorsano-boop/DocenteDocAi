@@ -92,7 +92,7 @@ describe('Header M3 Expressive', () => {
     expect(header).toHaveAttribute('role', 'banner');
     expect(header).toHaveStyle({
       position: 'sticky',
-      background: 'var(--md-sys-color-surface)',
+      background: 'var(--app-color-surface)',
       display: 'flex',
       boxShadow: 'var(--md-sys-elevation-level1)'
     });
