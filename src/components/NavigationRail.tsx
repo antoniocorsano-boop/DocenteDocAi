@@ -72,74 +72,53 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
   activeView,
   onNavigate,
 }) => {
-  // Check if we're on mobile - simplified responsive logic
+  // Check if we're on mobile - hide navigation rail on mobile (bottom nav used instead)
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < parseInt(getComputedStyle(document.documentElement).getPropertyValue('--md-sys-breakpoint-mobile')));
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Don't render on mobile - bottom nav is used instead
+  if (isMobile) {
+    return null;
+  }
+
   const containerStyle: React.CSSProperties = {
-    // Base mobile styles (bottom nav)
+    // Desktop navigation rail (vertical sidebar)
     position: 'fixed',
-    top: 'auto',
-    left: 0,
-    right: 0,
+    top: 0,
     bottom: 0,
-    width: 'var(--app-layout-full)',
-    height: 'var(--md-sys-spacing-16)', // Bottom nav height
+    left: 0,
+    right: 'auto',
+    width: 'var(--md-sys-spacing-20)', // Rail width
+    height: 'var(--app-layout-full)',
     backgroundColor: 'var(--app-color-surface)',
-    borderTop: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
-    borderRight: 'none',
+    borderTop: 'none',
+    borderRight: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
     zIndex: 'var(--md-sys-z-nav)',
     transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
-
-    // Desktop overrides
-    ...(isMobile ? {} : {
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 'auto',
-      width: 'var(--md-sys-spacing-20)', // Rail width
-      height: 'var(--app-layout-full)',
-      borderTop: 'none',
-      borderRight: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-    })
   };
 
-  const itemsContainerStyle: React.CSSProperties = isMobile
-    ? {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-        width: 'var(--app-layout-full)',
-        paddingTop: 'var(--app-spacing-component)',
-        paddingBottom: 'var(--app-spacing-component)',
-        paddingLeft: 0,
-        paddingRight: 0,
-      }
-    : {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        width: 'var(--app-layout-full)',
-        gap: 'var(--app-spacing-component)',
-        paddingTop: 'var(--app-spacing-container)',
-        paddingBottom: 'var(--app-spacing-container)',
-        paddingLeft: 0,
-        paddingRight: 0,
-      };
+  const itemsContainerStyle: React.CSSProperties = {
+    // Desktop navigation rail items (vertical layout)
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: 'var(--app-layout-full)',
+    gap: 'var(--app-spacing-component)',
+    paddingTop: 'var(--app-spacing-container)',
+    paddingBottom: 'var(--app-spacing-container)',
+    paddingLeft: 0,
+    paddingRight: 0,
+  };
 
   return (
     <>

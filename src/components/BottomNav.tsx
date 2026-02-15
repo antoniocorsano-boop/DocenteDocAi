@@ -16,22 +16,31 @@ const navItems = [
 
 const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
   return (
-    <nav
-      aria-label="Navigazione principale mobile"
-      style={{
-        position: 'fixed',
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 'var(--md-sys-z-nav)',
-        background: 'var(--md-sys-color-surface-container)',
-        boxShadow: '0 -2px 8px rgba(0,0,0,0.1)',
-        display: 'flex',
-        justifyContent: 'space-around',
-        padding: 'var(--md-sys-spacing-2) 0',
-        paddingBottom: 'calc(var(--md-sys-spacing-2) + env(safe-area-inset-bottom))',
-      }}
-    >
+    <>
+      <style>{`
+        @media (min-width: 1024px) {
+          .bottom-nav-container {
+            display: none !important;
+          }
+        }
+      `}</style>
+      <nav
+        className="bottom-nav-container"
+        aria-label="Navigazione principale mobile"
+        style={{
+          position: 'fixed',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 'var(--md-sys-z-nav)',
+          background: 'var(--md-sys-color-surface-container)',
+          boxShadow: '0 -2px 8px rgba(0,0,0,0.1)',
+          display: 'flex',
+          justifyContent: 'space-around',
+          padding: 'var(--md-sys-spacing-2) 0',
+          paddingBottom: 'calc(var(--md-sys-spacing-2) + env(safe-area-inset-bottom))',
+        }}
+      >
       {navItems.map(item => {
         const isActive = activeView === item.id;
         return (
@@ -89,6 +98,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
         );
       })}
     </nav>
+    </>
   );
 };
 
