@@ -25,6 +25,7 @@ interface AppLayoutProps {
   onInstallApp: () => void;
   onOpenOperations: () => void;
   hasSuggestion: boolean;
+  onOpenNKA?: () => void;
 }
 
 export const AppLayout: React.FC<AppLayoutProps> = ({
@@ -44,7 +45,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   installPrompt,
   onInstallApp,
   onOpenOperations,
-  hasSuggestion
+  hasSuggestion,
+  onOpenNKA
 }) => {
   return (
     <M3Surface style={{
@@ -54,7 +56,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       background: 'var(--app-color-surface)'
     }}>
       <Header
-        title="DocenteDoc AI"
         showBackButton={view !== 'home'}
         onBack={onBack}
         onOpenImageAnalysis={onOpenImageAnalysis}
@@ -71,6 +72,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         onInstallApp={onInstallApp}
         onOpenOperations={onOpenOperations}
         hasSuggestion={hasSuggestion}
+        onOpenNKA={onOpenNKA}
       />
       <M3FlexContainer
         flex="var(--md-sys-flex-auto)"

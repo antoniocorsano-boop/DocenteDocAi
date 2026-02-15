@@ -3,14 +3,26 @@
 // =============================
 
 import React from 'react';
-import { HeaderProps } from '../types';
+import { HeaderProps, BeforeInstallPromptEvent, Notifica } from '../types';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { M3Typography } from './ui/M3Typography';
 import Avatar from './ui/Avatar';
 import Logo from './Logo';
+import NKAHeaderAuraButton from '../nka/NKAHeaderAuraButton';
+import { useNKAStore } from '../nka/useNKAStore';
 
+interface ExtendedHeaderProps extends HeaderProps {
+  onOpenNKA?: () => void;
+  onOpenImageAnalysis?: () => void;
+  onOpenVideoAnalysis?: () => void;
+  onOpenHelp?: () => void;
+  onOpenCircularAnalysis?: (url: string, title: string) => void;
+  setNotifiche?: React.Dispatch<React.SetStateAction<Notifica[]>>;
+  installPrompt?: BeforeInstallPromptEvent | null;
+  onInstallApp?: () => void;
+}
 
-export const Header: React.FC<HeaderProps> = ({
+export const Header: React.FC<ExtendedHeaderProps> = ({
   showBackButton,
   onBack,
   user,
@@ -19,12 +31,15 @@ export const Header: React.FC<HeaderProps> = ({
   onNavigate,
   isAiProcessing,
   hasSuggestion,
-  onOpenOperations
+  onOpenOperations,
+  onOpenNKA
 }) => {
   const teacherName = settings?.nomeInsegnante || '';
   const teacherSurname = settings?.cognomeInsegnante || '';
   const isOnline = useOnlineStatus();
   const unreadCount = notifiche.filter(n => !n.letta).length;
+  const { nodes } = useNKAStore();
+  const hasNewNode = nodes.some(n => n.isNew);
 
   // NOTE: className="material-symbols-outlined" is permitted for MD3 icon font usage only (see copilot-instructions.md)
   return (
@@ -82,6 +97,13 @@ export const Header: React.FC<HeaderProps> = ({
           {/* MD3 icon font usage allowed */}
           <span className="material-symbols-outlined" aria-hidden="true">bolt</span>
         </button>
+        {onOpenNKA && (
+          <NKAHeaderAuraButton
+            hasNewNode={hasNewNode}
+            onClick={onOpenNKA}
+            onLongPress={() => onNavigate('settings')}
+          />
+        )}
       </nav>
 
       {/* Title/Logo */}
