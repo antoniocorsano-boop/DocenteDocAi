@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Report } from '../types';
 import { saveAs } from '../utils/documentUtils';
 
-import { M3IconButton } from './ui';
+import { M3IconButton, EmptyState } from './ui';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for report archive layout, search functionality, and table styling
 interface ArchivioReportProps {
@@ -98,7 +98,15 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                         </tbody>
                     </table>
                 </div>
-                {filteredReports.length === 0 && <p >{reportistica.length > 0 ? 'Nessun report corrisponde alla ricerca.' : 'Nessun report generato. Esportane uno da un progetto per vederlo qui.'}</p>}
+                {filteredReports.length === 0 && (
+                    <EmptyState
+                        icon="folder_open"
+                        title={reportistica.length > 0 ? 'Nessun report corrisponde alla ricerca' : 'Nessun report generato'}
+                        description={reportistica.length > 0
+                            ? 'Prova a cercare con altri termini o ripristina la ricerca.'
+                            : 'Esporta un report da un progetto per vederlo qui.'}
+                    />
+                )}
             </div>
         </div>
     );
