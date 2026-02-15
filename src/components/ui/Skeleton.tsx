@@ -1,117 +1,237 @@
 // MD3 Gold Compliant
-// Skeleton loaders per feedback durante caricamento
+// Component per skeleton loaders (scheletro di caricamento)
 // Audit: febbraio 2026
 
 import React from 'react';
+import M3Surface from './M3Surface';
+import './Skeleton.css';
+
+export type SkeletonVariant = 'text' | 'circular' | 'rectangular' | 'card' | 'list';
 
 interface SkeletonProps {
-  width?: string;
-  height?: string;
-  variant?: 'text' | 'circular' | 'rectangular';
-  animation?: 'pulse' | 'wave';
+  variant?: SkeletonVariant;
+  width?: string | number;
+  height?: string | number;
+  className?: string;
   style?: React.CSSProperties;
+  animation?: 'pulse' | 'wave' | 'none';
 }
 
+/**
+ * Componente Skeleton per visualizzare uno scheletro di caricamento
+ * @param variant - Tipo di skeleton (text, circular, rectangular, card, list)
+ * @param width - Larghezza dello skeleton
+ * @param height - Altezza dello skeleton
+ * @param animation - Tipo di animazione (pulse, wave, none)
+ */
 export const Skeleton: React.FC<SkeletonProps> = ({
-  width = '100%',
-  height = 'var(--md-sys-spacing-4)',
-  variant = 'rectangular',
-  animation = 'pulse',
-  style
+  variant = 'text',
+  width,
+  height,
+  className = '',
+  style,
+  animation = 'pulse'
 }) => {
-  const borderRadius = {
-    text: 'var(--md-sys-spacing-1)',
-    circular: '50%',
-    rectangular: 'var(--md-sys-spacing-2)'
-  }[variant];
+  // Mappatura varianti a stili predefiniti
+  const getVariantStyles = (): React.CSSProperties => {
+    const baseStyles: React.CSSProperties = {
+      background:
+        'linear-gradient(90deg, var(--md-sys-color-surface-container-highest) 0%, var(--md-sys-color-surface-variant) 50%, var(--md-sys-color-surface-container-highest) 100%)',
+      backgroundSize: '200% 100%',
+      borderRadius: 'var(--md-sys-shape-corner-extra-small)',
+    };
+
+    switch (variant) {
+      case 'circular':
+        return {
+          ...baseStyles,
+          borderRadius: '50%',
+          width: width || '40px',
+          height: height || '40px',
+        };
+
+      case 'rectangular':
+        return {
+          ...baseStyles,
+          width: width || '100%',
+          height: height || 'var(--md-sys-spacing-4)',
+          borderRadius: 'var(--md-sys-shape-corner-small)',
+        };
+
+      case 'card':
+        return {
+          ...baseStyles,
+          width: width || '100%',
+          height: height || 'var(--md-sys-spacing-12)',
+          borderRadius: 'var(--md-sys-shape-corner-medium)',
+        };
+
+      case 'list':
+        return {
+          ...baseStyles,
+          width: width || '100%',
+          height: height || 'var(--md-sys-spacing-5)',
+          borderRadius: 'var(--md-sys-shape-corner-extra-small)',
+        };
+
+      case 'text':
+      default:
+        return {
+          ...baseStyles,
+          width: width || '60%',
+          height: height || 'var(--md-sys-spacing-3)',
+          borderRadius: 'var(--md-sys-shape-corner-extra-small)',
+        };
+    }
+  };
+
+  // Animazione
+  const getAnimationClass = (): string => {
+    switch (animation) {
+      case 'wave':
+        return 'skeleton-wave';
+      case 'none':
+        return 'skeleton-none';
+      case 'pulse':
+      default:
+        return 'skeleton-pulse';
+    }
+  };
 
   return (
-    <>
-      <div
-        style={{
-          width,
-          height,
-          borderRadius,
-          background: 'var(--md-sys-color-surface-variant)',
-          animation: animation === 'pulse' 
-            ? 'skeleton-pulse 1.5s ease-in-out infinite' 
-            : 'skeleton-wave 1.5s linear infinite',
-          position: 'relative',
-          overflow: 'hidden',
-          ...style
-        }}
-        aria-hidden="true"
-      >
-        {animation === 'wave' && (
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)',
-              animation: 'skeleton-wave-move 1.5s linear infinite'
-            }}
-          />
-        )}
-      </div>
-      
-      <style>{`
-        @keyframes skeleton-pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-        @keyframes skeleton-wave-move {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-      `}</style>
-    </>
+    <div
+      className={`skeleton ${getAnimationClass()} ${className}`.trim()}
+      style={{
+        ...getVariantStyles(),
+        ...style,
+      }}
+      role="status"
+      aria-label="Caricamento..."
+      aria-live="polite"
+    />
   );
 };
 
-// Skeleton per lista di elementi
-interface SkeletonListProps {
-  count?: number;
-  gap?: string;
-}
-
-export const SkeletonList: React.FC<SkeletonListProps> = ({ 
-  count = 3,
-  gap = 'var(--md-sys-spacing-3)'
-}) => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap }}>
-    {Array.from({ length: count }).map((_, i) => (
+/**
+ * Componente SkeletonCard per scheletro di card completa
+ */
+export const SkeletonCard: React.FC<{ className?: string; style?: React.CSSProperties }> = ({
+  className = '',
+  style,
+}) => {
+  return (
+    <M3Surface
+      className={`skeleton-card ${className}`.trim()}
+      style={{
+        padding: 'var(--md-sys-spacing-4)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--md-sys-spacing-3)',
+        ...style,
+      }}
+      elevation="level1"
+    >
+      {/* Header con icona e testo */}
       <div
-        key={i}
         style={{
           display: 'flex',
           gap: 'var(--md-sys-spacing-3)',
-          padding: 'var(--md-sys-spacing-4)',
-          borderRadius: 'var(--md-sys-spacing-2)',
-          background: 'var(--md-sys-color-surface-container)'
+          alignItems: 'center',
         }}
       >
-        <Skeleton 
-          variant="circular" 
-          width="var(--md-sys-spacing-6)" 
-          height="var(--md-sys-spacing-6)" 
-        />
-        <div style={{ flex: 1 }}>
-          <Skeleton 
-            width="60%" 
-            height="var(--md-sys-spacing-3)" 
-            style={{ marginBottom: 'var(--md-sys-spacing-2)' }}
-          />
-          <Skeleton 
-            width="40%" 
-            height="var(--md-sys-spacing-2)" 
-          />
+        <Skeleton variant="circular" width="40px" height="40px" />
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--md-sys-spacing-1)',
+          }}
+        >
+          <Skeleton variant="text" width="60%" height="16px" />
+          <Skeleton variant="text" width="40%" height="12px" />
         </div>
       </div>
-    ))}
-  </div>
-);
 
-export default Skeleton;
+      {/* Corpo della card */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'var(--md-sys-spacing-2)',
+        }}
+      >
+        <Skeleton variant="rectangular" width="100%" height="12px" />
+        <Skeleton variant="rectangular" width="90%" height="12px" />
+        <Skeleton variant="rectangular" width="70%" height="12px" />
+      </div>
+    </M3Surface>
+  );
+};
+
+/**
+ * Componente SkeletonList per scheletro di lista
+ */
+export const SkeletonList: React.FC<{ items?: number; className?: string; style?: React.CSSProperties }> = ({
+  items = 3,
+  className = '',
+  style,
+}) => {
+  return (
+    <div className={`skeleton-list ${className}`.trim()} style={style}>
+      {Array.from({ length: items }).map((_, index) => (
+        <div
+          key={index}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--md-sys-spacing-3)',
+            padding: 'var(--md-sys-spacing-3)',
+          }}
+        >
+          <Skeleton variant="circular" width="40px" height="40px" />
+          <div
+            style={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'var(--md-sys-spacing-1)',
+            }}
+          >
+            <Skeleton variant="text" width="70%" height="16px" />
+            <Skeleton variant="text" width="50%" height="12px" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+/**
+ * Componente SkeletonGrid per scheletro di griglia
+ */
+export const SkeletonGrid: React.FC<{
+  cols?: number;
+  rows?: number;
+  className?: string;
+  style?: React.CSSProperties;
+}> = ({ cols = 2, rows = 2, className = '', style }) => {
+  return (
+    <div
+      className={`skeleton-grid ${className}`.trim()}
+      style={{
+        display: 'grid',
+        gridTemplateColumns: `repeat(${cols}, 1fr)`,
+        gap: 'var(--md-sys-spacing-3)',
+        ...style,
+      }}
+    >
+      {Array.from({ length: cols * rows }).map((_, index) => (
+        <SkeletonCard key={index} />
+      ))}
+    </div>
+  );
+};
+
+const SkeletonComponent = Skeleton;
+export { Skeleton as default };
