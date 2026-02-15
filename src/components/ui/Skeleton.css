@@ -1,0 +1,79 @@
+/* MD3 Gold Compliant */
+/* Stili per skeleton loaders */
+/* Audit: febbraio 2026 */
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animazione Pulse */
+@keyframes skeleton-pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Animazione Wave */
+@keyframes skeleton-wave {
+  0% {
+    background-position: 200% 0;
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    background-position: -200% 0;
+    opacity: 1;
+  }
+}
+
+/* Classi per skeleton animations */
+.skeleton-pulse {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-wave {
+  animation: skeleton-wave 2s ease-in-out infinite;
+}
+
+.skeleton-none {
+  animation: none;
+}
+
+/* Spinner */
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+.spinner-small {
+  animation: spin 1s linear infinite;
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: relative;
+}
+
+/* Loading button */
+.loading-button.loading {
+  cursor: not-allowed;
+}
+
+/* Accessibility: Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-pulse,
+  .skeleton-wave,
+  .spinner,
+  .spinner-small {
+    animation: none;
+  }
+}

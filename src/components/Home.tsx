@@ -56,7 +56,7 @@ Follow these guidelines strictly to refactor Home.tsx:
 import React, { useMemo } from 'react';
 import BottomNav from './BottomNav';
 import { View, NavigationParams } from '../types';
-import { M3HeroCard, M3Card, M3Surface, M3Typography } from './ui';
+import { M3HeroCard, M3Card, M3Surface, M3Typography, EmptyState } from './ui';
 import M3Fab from './M3Fab';
 import { useAcademicStore } from '../stores/useAcademicStore';
 import { useStudentStore } from '../stores/useStudentStore';
@@ -160,8 +160,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             onClick={() => onNavigate('aula')}
             style={{
               padding: 'var(--md-sys-spacing-4)',
-              cursor: 'pointer',
-              transition: 'transform 200ms, box-shadow 200ms',
               border: '1px solid var(--md-sys-color-primary-container)'
             }}
           >
@@ -207,8 +205,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             onClick={() => onNavigate('evaluations' as View)}
             style={{
               padding: 'var(--md-sys-spacing-4)',
-              cursor: 'pointer',
-              transition: 'transform 200ms, box-shadow 200ms',
               border: '1px solid var(--md-sys-color-tertiary-container)'
             }}
           >
@@ -264,54 +260,29 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             Attività recenti
           </M3Typography>
           <M3Surface style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
-            {activities.length === 0 && (
-              <M3Surface
+            {activities.length === 0 ? (
+              <EmptyState
+                icon="event_busy"
+                title="Nessuna attività recente"
+                description="Le tue attività appariranno qui. Inizia aggiungendo una lezione o un compito."
+                actionLabel="Crea attività"
+                onAction={() => onNavigate('aula' as View)}
+              />
+            ) : (
+              activities.map(activity => (
+              <M3Card
+                key={activity.id}
                 style={{
-                  padding: 'var(--md-sys-spacing-6)',
-                  borderRadius: 'var(--md-sys-spacing-3)',
-                  background: 'var(--md-sys-color-surface-variant)',
-                  textAlign: 'center'
-                }}
-              >
-                <span
-                  className="material-symbols-outlined"
-                  aria-hidden="true"
-                  style={{
-                    fontSize: 'var(--md-sys-spacing-8)',
-                    color: 'var(--md-sys-color-on-surface-variant)',
-                    opacity: '0.6',
-                    display: 'block',
-                    marginBottom: 'var(--md-sys-spacing-3)'
-                  }}
-                >
-                  event_busy
-                </span>
-                <M3Typography 
-                  variant="body-large" 
-                  style={{ 
-                    color: 'var(--md-sys-color-on-surface)',
-                    fontWeight: '600',
-                    marginBottom: 'var(--md-sys-spacing-2)'
-                  }}
-                >
-                  Nessuna attività recente
-                </M3Typography>
-                <M3Typography 
-                  variant="body-medium" 
-                  style={{ 
-                    color: 'var(--md-sys-color-on-surface-variant)'
-                  }}
-                >
-                  Le tue attività appariranno qui
-                </M3Typography>
-              </M3Surface>
-            )}
-            {activities.map(activity => (
-              <M3Card 
-                key={activity.id} 
-                style={{ 
                   padding: 'var(--md-sys-spacing-4)',
                   borderLeft: '4px solid var(--md-sys-color-primary)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateX(4px)';
+                  e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateX(0)';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
                 <M3Typography 
@@ -333,9 +304,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 >
                   {activity.meta}
                 </M3Typography>
-                <M3Typography 
-                  variant="label-small" 
-                  style={{ 
+                <M3Typography
+                  variant="label-small"
+                  style={{
                     color: 'var(--md-sys-color-on-surface-variant)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'
@@ -345,26 +316,36 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 </M3Typography>
               </M3Card>
             ))}
+            )}
           </M3Surface>
         </M3Surface>
         {/* Quick Actions Section */}
         <M3Surface style={{ marginBottom: 'var(--app-spacing-container)' }}>
           <M3Surface style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-24), var(--md-sys-grid-fr-1)))', gap: 'var(--app-spacing-container)' }}>
-            <M3Card ariaLabel="Vai a Registro" onClick={() => onNavigate('register' as View)}>
+            <M3Card
+              ariaLabel="Vai a Registro"
+              onClick={() => onNavigate('register' as View)}
+            >
               <M3Surface style={{ textAlign: 'center', padding: 'var(--app-spacing-container)' }}>
                 {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
                 <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-8)' }}>menu_book</span>
                 <M3Typography variant="title-medium" style={{ marginTop: 'var(--app-spacing-component)' }}>Registro</M3Typography>
               </M3Surface>
             </M3Card>
-            <M3Card ariaLabel="Vai a Presenze" onClick={() => onNavigate('presenze' as View)}>
+            <M3Card
+              ariaLabel="Vai a Presenze"
+              onClick={() => onNavigate('presenze' as View)}
+            >
               <M3Surface style={{ textAlign: 'center', padding: 'var(--app-spacing-container)' }}>
                 {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
                 <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-8)' }}>fact_check</span>
                 <M3Typography variant="title-medium" style={{ marginTop: 'var(--app-spacing-component)' }}>Presenze</M3Typography>
               </M3Surface>
             </M3Card>
-            <M3Card ariaLabel="Vai a Valutazioni" onClick={() => onNavigate('evaluations' as View)}>
+            <M3Card
+              ariaLabel="Vai a Valutazioni"
+              onClick={() => onNavigate('evaluations' as View)}
+            >
               <M3Surface style={{ textAlign: 'center', padding: 'var(--app-spacing-container)' }}>
                 {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
                 <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-8)' }}>grading</span>
