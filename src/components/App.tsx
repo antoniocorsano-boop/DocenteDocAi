@@ -58,6 +58,7 @@ const App: React.FC = () => {
         setCircularAnalysisPayload({ url, title });
         setOpenModal('circular-analysis-modal');
     };
+    const handleOpenNKA = () => setOpenModal('nka-map-modal');
     const handleCloseModal = () => setOpenModal(null);
 
     return (
@@ -94,6 +95,7 @@ const App: React.FC = () => {
             onInstallApp={actions.handleInstallApp}
             onOpenOperations={() => setOpenModal('operations-center')}
             hasSuggestion={!!activeSuggestion}
+            onOpenNKA={handleOpenNKA}
         >
             <ErrorBoundary>
                 <main id="main-content" role="main" aria-label="Contenuto principale">

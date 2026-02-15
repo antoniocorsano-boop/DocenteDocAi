@@ -22,6 +22,7 @@ import './global.css';
 
 // Theme imports
 import { M3ThemeProvider } from './theme/theme';
+import { NKAProvider } from './nka/NKAProvider';
 
 /**
  * STORAGE RECOVERY:
@@ -157,9 +158,11 @@ async function bootstrapApp() {
       <ErrorBoundary>
         <React.StrictMode>
           <M3ThemeProvider>
-            <ModalProvider>
-              <App />
-            </ModalProvider>
+            <NKAProvider>
+              <ModalProvider>
+                <App />
+              </ModalProvider>
+            </NKAProvider>
           </M3ThemeProvider>
         </React.StrictMode>
       </ErrorBoundary>
