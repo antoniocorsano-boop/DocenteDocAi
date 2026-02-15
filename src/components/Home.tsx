@@ -160,17 +160,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             onClick={() => onNavigate('aula')}
             style={{
               padding: 'var(--md-sys-spacing-4)',
-              cursor: 'pointer',
-              transition: 'transform 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1)',
               border: '1px solid var(--md-sys-color-primary-container)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05), 0 4px 8px rgba(0,0,0,0.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = 'none';
             }}
           >
             <M3Surface style={{ textAlign: 'center' }}>
@@ -215,17 +205,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             onClick={() => onNavigate('evaluations' as View)}
             style={{
               padding: 'var(--md-sys-spacing-4)',
-              cursor: 'pointer',
-              transition: 'transform 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1)',
               border: '1px solid var(--md-sys-color-tertiary-container)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05), 0 4px 8px rgba(0,0,0,0.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = 'none';
             }}
           >
             <M3Surface style={{ textAlign: 'center' }}>
@@ -294,9 +274,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 key={activity.id}
                 style={{
                   padding: 'var(--md-sys-spacing-4)',
-                  borderLeft: '4px solid var(--md-sys-color-primary)',
-                  cursor: 'default',
-                  transition: 'transform 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1)'
+                  borderLeft: '4px solid var(--md-sys-color-primary)'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateX(4px)';
@@ -347,18 +325,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <M3Card
               ariaLabel="Vai a Registro"
               onClick={() => onNavigate('register' as View)}
-              style={{
-                cursor: 'pointer',
-                transition: 'transform 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05), 0 4px 8px rgba(0,0,0,0.1)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
             >
               <M3Surface style={{ textAlign: 'center', padding: 'var(--app-spacing-container)' }}>
                 {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
@@ -369,18 +335,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <M3Card
               ariaLabel="Vai a Presenze"
               onClick={() => onNavigate('presenze' as View)}
-              style={{
-                cursor: 'pointer',
-                transition: 'transform 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05), 0 4px 8px rgba(0,0,0,0.1)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
             >
               <M3Surface style={{ textAlign: 'center', padding: 'var(--app-spacing-container)' }}>
                 {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
@@ -391,18 +345,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             <M3Card
               ariaLabel="Vai a Valutazioni"
               onClick={() => onNavigate('evaluations' as View)}
-              style={{
-                cursor: 'pointer',
-                transition: 'transform 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05), 0 4px 8px rgba(0,0,0,0.1)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
             >
               <M3Surface style={{ textAlign: 'center', padding: 'var(--app-spacing-container)' }}>
                 {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
