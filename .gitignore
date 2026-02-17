@@ -33,6 +33,11 @@ Icon?
 *.backup
 *.bak
 
+# CSS temp files
+*.css.temp
+*.css.final-cleanup
+*.css.legacy-removed
+
 # IDE
 .idea/
 .vscode/
