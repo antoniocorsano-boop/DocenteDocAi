@@ -381,7 +381,6 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 gap: 'var(--app-spacing-container)'
             }}>
 
-                <SettingsGroup
                 <InterfaceSettings
                     localSettings={localSettings}
                     themeState={themeState}
@@ -397,10 +396,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     setThemePrompt={setThemePrompt}
                 />
 
-                <SettingsGroup
                 <ProfileSettings localSettings={localSettings} onSettingChange={handleChange} />
 
-                <SettingsGroup
                 <AiDidatticaSettings
                     localSettings={localSettings}
                     currentAiProfile={currentAiProfile}
@@ -516,7 +513,6 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     </div>
                 </SettingsGroup>
 
-                <SettingsGroup
                 <CloudSettings
                     localSettings={localSettings}
                     driveState={driveState}
@@ -527,7 +523,6 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     onImportData={onImportData}
                 />
 
-                <SettingsGroup
                 <DebugSettings showToast={showToast} />
 
                 <SettingsGroup
