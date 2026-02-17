@@ -64,11 +64,11 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
             alignItems: 'center',
             justifyContent: 'center',
             border: 'none',
-            borderRadius: '50%',
+            borderRadius: 'var(--md-sys-shape-corner-full)',
             backgroundColor: 'transparent',
             color: 'var(--md-sys-color-on-surface)',
             cursor: 'pointer',
-            transition: 'background-color 200ms',
+            transition: 'background-color var(--md-sys-motion-duration-medium)',
             overflow: 'hidden'
           }}
           onMouseEnter={(e) => {
@@ -82,7 +82,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
           <span
             className="material-symbols-outlined"
             style={{
-              fontSize: '24px',
+              fontSize: 'var(--md-sys-typescale-headline-medium-size)',
               fontVariationSettings: isSystemTheme 
                 ? '"FILL" 0, "wght" 400' 
                 : '"FILL" 1, "wght" 600',

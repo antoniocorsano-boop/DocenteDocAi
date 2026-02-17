@@ -3,7 +3,6 @@
 // Audit: febbraio 2026
 
 import React, { useState, useRef } from 'react';
-import { M3Typography } from './index';
 
 interface TouchButtonProps {
   children: React.ReactNode;
@@ -58,12 +57,12 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
     small: {
       minHeight: 'var(--md-sys-spacing-9)',
       padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
-      fontSize: '14px'
+      fontSize: 'var(--md-sys-typescale-body-medium-size)'
     },
     medium: {
       minHeight: 'var(--md-sys-spacing-12)',
       padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)',
-      fontSize: '16px'
+      fontSize: 'var(--md-sys-typescale-body-large-size)'
     },
     large: {
       minHeight: 'var(--md-sys-spacing-14)',
