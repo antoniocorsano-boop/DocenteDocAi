@@ -15,23 +15,24 @@
 - [x] Spostare AI profile, anno scolastico, gestione cattedra, matrice interattiva
 - [x] Linee estratte: ~494
 
-#### 1.3 Estrarre Sezione ProfileSettings  
-- [ ] Creare `src/components/settings/ProfileSettings.tsx`
-- [ ] Spostare dati docente e istituto
-- [ ] Linee da spostare: ~43
+#### 1.3 Estrarre Sezione ProfileSettings ✅ COMPLETATO
+- [x] Creare `src/components/settings/ProfileSettings.tsx`
+- [x] Spostare dati docente e istituto
+- [x] Linee estratte: ~43
 
-#### 1.4 Estrarre Sezione CloudSettings
-- [ ] Creare `src/components/settings/CloudSettings.tsx`
-- [ ] Spostare Google Drive, sync
-- [ ] Linee da spostare: ~168
+#### 1.4 Estrarre Sezione CloudSettings ✅ COMPLETATO
+- [x] Creare `src/components/settings/CloudSettings.tsx`
+- [x] Spostare Google Drive, sync, storage info
+- [x] Linee estratte: ~168
 
-#### 1.5 Estrarre Sezione DebugSettings
-- [ ] Creare `src/components/settings/DebugSettings.tsx`
-- [ ] Spostare logging, diagnostics
-- [ ] Linee da spostare: ~120
+#### 1.5 Estrarre Sezione DebugSettings ✅ COMPLETATO
+- [x] Creare `src/components/settings/DebugSettings.tsx`
+- [x] Spostare logging, diagnostics
+- [x] Linee estratte: ~120
 
 **Stima:** 2-3 giorni
-**Risultato atteso:** Settings.tsx ~600 linee (dopo 1.1+1.2: ~900 linee)
+**Risultato attuale:** Settings.tsx ~1,607 linee (riduzione di ~309 linee)
+**Note:** Profile, Cloud e Debug estratti. InterfaceSettings e AiDidatticaSettings estratti in precedenza.
 
 ---
 

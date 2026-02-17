@@ -22,6 +22,9 @@ import {
 import '../design-system/md3-utilities.css';
 import ThemeBubble from './ThemeBubble';
 import { ThemeSettingsPanel } from './settings/ThemeSettingsPanel';
+import { ProfileSettings } from './settings/ProfileSettings';
+import { CloudSettings } from './settings/CloudSettings';
+import { DebugSettings } from './settings/DebugSettings';
 import ChipInputList from './ChipInputList';
 import ResetConfirmModal from './ResetConfirmModal';
 import { useSettingsLogic } from '../hooks/useSettingsLogic';
@@ -883,46 +886,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 </SettingsGroup>
 
                 <SettingsGroup
-                    id="profile"
-                    title="Profilo & Identità"
-                    subtitle="Dati docente e istituto"
-                    icon="badge"
-                    variant="surface"
-                    defaultOpen={false}
-                >
-                    <div
-                        role="region"
-                        aria-label="Profilo & Identità"
-                        tabIndex={0}
-                        style={{display: 'flex',
-                            flexDirection: 'column',
-                            gap: 'var(--app-spacing-container)',
-                            padding: 'var(--app-spacing-container)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            background: 'var(--md-sys-color-surface-container-low)',
-                            boxShadow: 'var(--md-sys-elevation-level1)'}}
-                    >
-                        <M3Typography variant="label-large" style={{color: 'var(--app-color-on-surface)', fontWeight: 900, marginBottom: 'var(--app-spacing-container)'}}>
-                            Profilo & Identità
-                        </M3Typography>
-                        <M3Typography variant="body-small" style={{color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--app-spacing-container)', opacity: 0.8}}>
-                            Dati docente e istituto
-                        </M3Typography>
-                        <div style={{display: 'grid',
-                            gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
-                            gap: 'var(--app-spacing-container)'}}>
-                            <TextField label="Nome" value={localSettings.nomeInsegnante} onChange={e => handleChange('nomeInsegnante', e.target.value)} />
-                            <TextField label="Cognome" value={localSettings.cognomeInsegnante || ''} onChange={e => handleChange('cognomeInsegnante', e.target.value)} />
-                        </div>
-                        <TextField label="Email Istituzionale" type="email" value={localSettings.email || ''} onChange={e => handleChange('email', e.target.value)} placeholder="nome.cognome@scuola.edu.it" />
-                        <div style={{display: 'grid',
-                            gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
-                            gap: 'var(--app-spacing-container)'}}>
-                            <TextField label="Nome Istituto" value={localSettings.nomeIstituto} onChange={e => handleChange('nomeIstituto', e.target.value)} />
-                            <TextField label="Città" value={localSettings.cittaIstituto} onChange={e => handleChange('cittaIstituto', e.target.value)} />
-                        </div>
-                    </div>
-                </SettingsGroup>
+                <ProfileSettings localSettings={localSettings} onSettingChange={handleChange} />
 
                 <SettingsGroup
                     id="ai_didattica"
@@ -1510,290 +1474,18 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 </SettingsGroup>
 
                 <SettingsGroup
-                    id="cloud"
-                    title="Dati & Cloud"
-                    subtitle="Backup e Storage"
-                    icon="cloud_sync"
-                    variant="surface"
-                    defaultOpen={false}
-                >
-                    {/* Always render all children, do not hide section if storageInfo is missing */}
-                    {storageInfo && (
-                        <div style={{marginBottom: 'var(--app-spacing-container)',
-                            padding: 'var(--app-spacing-container)',
-                            backgroundColor: 'var(--app-color-surface-container)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'}}>
-                            <div style={{display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                marginBottom: 'var(--app-spacing-container)'}}>
-                                <M3Typography
-                                    variant="label-large"
-                                    style={{color: 'var(--app-color-on-surface)',
-                                        fontWeight: 600}}
-                                >
-                                    Storage Dispositivo
-                                </M3Typography>
-                                <M3Typography
-                                    variant="body-medium"
-                                    style={{color: 'var(--md-sys-color-on-surface-variant)',
-                                        fontWeight: 500}}
-                                >
-                                    {storageInfo.used}MB / {storageInfo.total}MB
-                                </M3Typography>
-                            </div>
-                            <div  style={{width: 'var(--app-layout-full)'}}>
-                                <div style={{
-                                    width: `${storageInfo.percent}%`,
-                                    height: 'var(--app-layout-full)',
-                                    backgroundColor: storageInfo.percent > 80 ? 'var(--md-sys-color-error)' : 'var(--app-color-primary)',
-                                    borderRadius: 'var(--app-spacing-container)',
-                                    transition: 'width var(--app-motion-standard) var(--app-easing-standard)'
-                                }}></div>
-                            </div>
-                            <M3Typography
-                                variant="body-small"
-                                style={{color: 'var(--md-sys-color-on-surface-variant)'}}
-                            >
-                                Dati salvati in IndexedDB (senza limiti LocalStorage).
-                            </M3Typography>
-                        </div>
-                    )}
-
-                    {/* Reminder banner se backup cloud troppo vecchio */}
-                    {(() => {
-                        const DAYS_LIMIT = 30;
-                        let showReminder = false;
-                        let lastSyncDate: Date | null = null;
-                        if (driveState.lastSyncTime) {
-                            lastSyncDate = new Date(driveState.lastSyncTime);
-                            const now = new Date();
-                            const diffDays = Math.floor((now.getTime() - lastSyncDate.getTime()) / (1000 * 60 * 60 * 24));
-                            showReminder = diffDays >= DAYS_LIMIT;
-                        } else {
-                            showReminder = true;
-                        }
-                        if (showReminder) {
-                            return (
-                                <InfoCard
-                                    title="Backup cloud non aggiornato!"
-                                    description="Esegui un backup cloud e verifica il ripristino periodicamente per la sicurezza dei tuoi dati."
-                                    icon="warning"
-                                    variant="secondary" />
-                            );
-                        }
-                        return null;
-                    })()}
-
-                    <div style={{
-                        padding: 'var(--app-spacing-element)',
-                        backgroundColor: driveState.isAuthenticated ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surfaceContainer)',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: `var(--app-border-thin) solid ${driveState.isAuthenticated ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: 'var(--md-sys-spacing-1)'
-                    }}>
-                        <div style={{display: 'flex',
-                            alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-1)'}}>
-                            <div style={{width: 'var(--app-spacing-container)',
-                                height: 'var(--app-spacing-container)',
-                                borderRadius: 'var(--md-sys-shape-corner-large)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                backgroundColor: driveState.isAuthenticated ? 'var(--app-color-primary)' : 'var(--md-sys-color-surface-container-high)',
-                                color: driveState.isAuthenticated ? 'var(--app-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)'}}>
-                                <span style={{
-                                    fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-body)'
-                                }}>{driveState.isAuthenticated ? 'cloud_done' : 'cloud_off'}</span>
-                            </div>
-                            <div style={{display: 'flex',
-                                flexDirection: 'column',
-                                gap: 'var(--app-spacing-container)'}}>
-                                <M3Typography
-                                    variant="label-large"
-                                    style={{color: 'var(--app-color-on-surface)',
-                                        fontWeight: 600}}
-                                >
-                                    {driveState.isAuthenticated ? 'Google Drive Connesso' : 'Backup Cloud Disattivo'}
-                                </M3Typography>
-                                <M3Typography
-                                    variant="body-small"
-                                    style={{color: 'var(--md-sys-color-on-surface-variant)'}}
-                                >
-                                    {driveState.lastSyncTime ? `Ultimo: ${(new Date(driveState.lastSyncTime)).toLocaleString()}` : 'Nessun backup cloud'}
-                                </M3Typography>
-                            </div>
-                        </div>
-                        {driveState.isAuthenticated ? (
-                            <M3Button
-                                onClick={() => onSyncToDrive()}
-                                disabled={driveState.isSyncing}
-                                variant="filled"
-                            >
-                                <span style={{fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-body)',
-                                    marginRight: 'var(--app-spacing-container)'}}>{driveState.isSyncing ? 'sync' : 'cloud_upload'}</span>
-                                {driveState.isSyncing ? '...' : 'Salva'}
-                            </M3Button>
-                        ) : (
-                            settings.googleClientId && (
-                                <M3Button
-                                    onClick={onConnectDrive}
-                                    variant="filled"
-                                >
-                                    Connetti
-                                </M3Button>
-                            )
-                        )}
-                    </div>
-                    <div style={{display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(calc(var(--md-sys-spacing-20) * 2.5), var(--md-sys-grid-fr-1)))',
-                        gap: 'var(--app-spacing-container)',
-                        marginTop: 'var(--app-spacing-container)'}}>
-                        <M3Button onClick={onExportData} variant="tonal">
-                            <span style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-body)',
-                                marginRight: 'var(--app-spacing-container)'}}>download</span>
-                            Backup Locale
-                        </M3Button>
-                        <M3Button onClick={() => fileInputRef.current?.click()} variant="tonal">
-                            <span style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-body)',
-                                marginRight: 'var(--app-spacing-container)'}}>upload</span>
-                            Ripristina File
-                        </M3Button>
-                        <input type="file" ref={fileInputRef} style={{
-                            position: 'absolute',
-                            opacity: 0,
-                            pointerEvents: 'none'
-                        }} accept=".json,.csv,.xlsx,.xls" onChange={handleFileChange} />
-                    </div>
-                </SettingsGroup>
+                <CloudSettings
+                    localSettings={localSettings}
+                    driveState={driveState}
+                    storageInfo={storageInfo}
+                    onConnectDrive={onConnectDrive}
+                    onSyncToDrive={onSyncToDrive}
+                    onExportData={onExportData}
+                    onImportData={onImportData}
+                />
 
                 <SettingsGroup
-                    id="debug_logging"
-                    title="Debug & Logging"
-                    subtitle="Visualizza e gestisci i log degli errori"
-                    icon="bug_report"
-                    variant="surface"
-                    defaultOpen={false}
-                >
-                    <div style={{display: 'flex',
-                        flexDirection: 'column',
-                        gap: 'var(--app-spacing-container)'}}>
-                        <div style={{padding: 'var(--app-spacing-container)',
-                            backgroundColor: 'var(--app-color-surface-container)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'}}>
-                            <div style={{display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'flex-start',
-                                marginBottom: 'var(--app-spacing-container)'}}>
-                                <div style={{display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: 'var(--app-spacing-container)'}}>
-                                    <M3Typography
-                                        variant="label-large"
-                                        style={{color: 'var(--app-color-on-surface)',
-                                            fontWeight: 600}}
-                                    >
-                                        Log degli Errori
-                                    </M3Typography>
-                                    <M3Typography
-                                        variant="body-medium"
-                                        style={{color: 'var(--md-sys-color-on-surface-variant)'}}
-                                    >
-                                        Visualizza tutti gli errori registrati durante l'utilizzo dell'app
-                                    </M3Typography>
-                                </div>
-                                <span style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-body)',
-                                color: errorLogger.getErrorStats().total > 0 ? 'var(--md-sys-color-error)' : 'var(--app-color-primary)'}}>{errorLogger.getErrorStats().total > 0 ? 'error' : 'check_circle'}</span>
-                            </div>
-                            <div style={{display: 'flex',
-                                alignItems: 'center',
-                                gap: 'var(--app-spacing-container)',
-                                padding: 'var(--app-spacing-container)',
-                                backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                                borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
-                                marginBottom: 'var(--app-spacing-container)'}}>
-                                <span style={{fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-body)',
-                                    color: 'var(--app-color-primary)'}}>info</span>
-                                <M3Typography
-                                    variant="body-small"
-                                    style={{color: 'var(--md-sys-color-on-surface-variant)'}}
-                                >
-                                    {errorLogger.getErrorStats().total} log registrati
-                                </M3Typography>
-                            </div>
-                            <div style={{display: 'flex',
-                                flexDirection: 'column',
-                                gap: 'var(--app-spacing-container)'}}>
-                                <M3Button
-                                    onClick={() => {
-                                        showToast('Apri la console del browser (F12) e digita: window.__errorLogger.getRecentErrors()', 'info');
-                                    } }
-                                    variant="tonal"
-                                     style={{width: 'var(--app-layout-full)'}}
-                                >
-                                    <span style={{fontFamily: 'Material Symbols Outlined',
-                                        fontSize: 'var(--app-text-body)',
-                                        marginRight: 'var(--app-spacing-container)'}}>terminal</span>
-                                    Console Browser (F12)
-                                </M3Button>
-                                <M3Button
-                                    onClick={() => {
-                                        const json = errorLogger.exportLogsAsJson();
-                                        const blob = new Blob([json], { type: 'application/json' });
-                                        const url = URL.createObjectURL(blob);
-                                        const a = document.createElement('a');
-                                        a.href = url;
-                                        a.download = `error-logs-${new Date().toISOString().slice(0, 10)}.json`;
-                                        a.click();
-                                        URL.revokeObjectURL(url);
-                                        showToast('Log esportati in JSON', 'success');
-                                    } }
-                                    variant="tonal"
-                                     style={{width: 'var(--app-layout-full)'}}
-                                >
-                                    <span style={{fontFamily: 'Material Symbols Outlined',
-                                        fontSize: 'var(--app-text-body)',
-                                        marginRight: 'var(--app-spacing-container)'}}>download</span>
-                                    Esporta JSON
-                                </M3Button>
-                                <M3Button
-                                    onClick={() => {
-                                        if (confirm('Sei sicuro di voler eliminare tutti i log?')) {
-                                            errorLogger.clearAllLogs();
-                                            showToast('Tutti i log sono stati eliminati', 'success');
-                                        }
-                                    } }
-                                    variant="text"
-                                     style={{width: 'var(--app-layout-full)'}}
-                                >
-                                    <span style={{fontFamily: 'Material Symbols Outlined',
-                                        fontSize: 'var(--app-text-body)',
-                                        marginRight: 'var(--app-spacing-container)'}}>delete</span>
-                                    Elimina Log
-                                </M3Button>
-                            </div>
-                        </div>
-
-                        <InfoCard
-                            title="Come usare"
-                            description="Premi F12 per aprire la console, digita window.__errorLogger.getRecentErrors(10) per visualizzare gli ultimi 10 errori."
-                            icon="info"
-                            variant="secondary" />
-                    </div>
-                </SettingsGroup>
+                <DebugSettings showToast={showToast} />
 
                 <SettingsGroup
                     id="advanced"
