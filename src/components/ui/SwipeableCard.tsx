@@ -108,13 +108,13 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
             paddingLeft: 'var(--md-sys-spacing-4)',
             gap: 'var(--md-sys-spacing-2)',
             opacity: actionTriggered ? 1 : 0.7,
-            transition: 'opacity 150ms'
+            transition: 'opacity var(--md-sys-motion-duration-short)'
           }}
         >
           <span
             className="material-symbols-outlined"
             style={{
-              fontSize: '24px',
+              fontSize: 'var(--md-sys-typescale-headline-medium-size)',
               color: leftAction.color,
               fontVariationSettings: '"FILL" 1, "wght" 600'
             }}
@@ -149,7 +149,7 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
             paddingRight: 'var(--md-sys-spacing-4)',
             gap: 'var(--md-sys-spacing-2)',
             opacity: actionTriggered ? 1 : 0.7,
-            transition: 'opacity 150ms'
+            transition: 'opacity var(--md-sys-motion-duration-short)'
           }}
         >
           <span
@@ -164,7 +164,7 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
           <span
             className="material-symbols-outlined"
             style={{
-              fontSize: '24px',
+              fontSize: 'var(--md-sys-typescale-headline-medium-size)',
               color: rightAction.color,
               fontVariationSettings: '"FILL" 1, "wght" 600'
             }}

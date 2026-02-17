@@ -39,13 +39,13 @@ export const Tooltip: React.FC<TooltipProps> = ({
   const positionStyles = {
     top: {
       bottom: '100%',
-      left: '50%',
+      left: 'var(--md-sys-percent-50)',
       transform: 'translateX(-50%) translateY(-8px)',
       marginBottom: 'var(--md-sys-spacing-2)'
     },
     bottom: {
-      top: '100%',
-      left: '50%',
+      top: 'var(--md-sys-percent-100)',
+      left: 'var(--md-sys-percent-50)',
       transform: 'translateX(-50%) translateY(8px)',
       marginTop: 'var(--md-sys-spacing-2)'
     },
@@ -123,14 +123,14 @@ export const Tooltip: React.FC<TooltipProps> = ({
               borderStyle: 'solid',
               ...(position === 'top' && {
                 bottom: '-6px',
-                left: '50%',
+                left: 'var(--md-sys-percent-50)',
                 transform: 'translateX(-50%)',
                 borderWidth: '6px 6px 0 6px',
                 borderColor: 'var(--md-sys-color-inverse-surface) transparent transparent transparent'
               }),
               ...(position === 'bottom' && {
                 top: '-6px',
-                left: '50%',
+                left: 'var(--md-sys-percent-50)',
                 transform: 'translateX(-50%)',
                 borderWidth: '0 6px 6px 6px',
                 borderColor: 'transparent transparent var(--md-sys-color-inverse-surface) transparent'

@@ -397,10 +397,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     setThemePrompt={setThemePrompt}
                 />
 
-                <SettingsGroup
                 <ProfileSettings localSettings={localSettings} onSettingChange={handleChange} />
 
-                <SettingsGroup
                 <AiDidatticaSettings
                     localSettings={localSettings}
                     currentAiProfile={currentAiProfile}

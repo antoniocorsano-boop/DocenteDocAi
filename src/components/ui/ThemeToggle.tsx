@@ -64,7 +64,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
             alignItems: 'center',
             justifyContent: 'center',
             border: 'none',
-            borderRadius: '50%',
+            borderRadius: 'var(--md-sys-shape-corner-full)',
             backgroundColor: 'transparent',
             color: 'var(--md-sys-color-on-surface)',
             cursor: 'pointer',
@@ -102,7 +102,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
                 right: 'var(--md-sys-spacing-1)',
                 width: 'var(--md-sys-spacing-1)',
                 height: 'var(--md-sys-spacing-1)',
-                borderRadius: '50%',
+                borderRadius: 'var(--md-sys-shape-corner-full)',
                 backgroundColor: 'var(--md-sys-color-primary)',
                 boxShadow: '0 0 4px var(--md-sys-color-primary)'
               }}
