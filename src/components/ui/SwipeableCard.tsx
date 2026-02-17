@@ -112,7 +112,7 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
           }}
         >
           <span
-            className="material-symbols-outlined"
+            style={{ fontFamily: 'Material Symbols Outlined' }}
             style={{
               fontSize: 'var(--md-sys-typescale-headline-medium-size)',
               color: leftAction.color,
@@ -162,7 +162,7 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
             {rightAction.label}
           </span>
           <span
-            className="material-symbols-outlined"
+            style={{ fontFamily: 'Material Symbols Outlined' }}
             style={{
               fontSize: 'var(--md-sys-typescale-headline-medium-size)',
               color: rightAction.color,

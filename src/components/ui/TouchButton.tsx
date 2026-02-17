@@ -149,7 +149,7 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
       {/* Icon */}
       {icon && !loading && (
         <span
-          className="material-symbols-outlined"
+          style={{ fontFamily: 'Material Symbols Outlined' }}
           style={{
             fontSize: '20px',
             fontVariationSettings: '"FILL" 0, "wght" 600'
