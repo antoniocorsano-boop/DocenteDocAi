@@ -29,6 +29,15 @@ Thumbs.db
 Icon?
 *.lnk
 
+# Backup files
+*.backup
+*.bak
+
+# CSS temp files
+*.css.temp
+*.css.final-cleanup
+*.css.legacy-removed
+
 # IDE
 .idea/
 .vscode/

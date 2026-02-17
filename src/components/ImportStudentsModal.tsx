@@ -6,6 +6,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useFileDrop } from '../hooks/useFileDrop';
 import { Studente, KnowledgeBaseEntry } from '../types';
 import { ImportService } from '../services/importService';
+import { sanitizeHtml } from '../utils/htmlSanitizer';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, SelectField, InfoCard } from './ui';
 interface ImportStudentsModalProps {
     onClose: () => void;
@@ -280,7 +281,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
 }}>lightbulb</span>
                                     <h3  style={{ fontWeight: "bold" }}>Suggerimento AI: XLSX to CSV</h3>
                                 </div>
-                                <div style={{ color: sys.colors.on-tertiary-container ,  opacity: "0.9" }} dangerouslySetInnerHTML={{ __html: infoMessage.replace(/\n/g, '<br />') }} />
+                                <div style={{ color: sys.colors.on-tertiary-container ,  opacity: "0.9" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(infoMessage.replace(/\n/g, '<br />')) }} />
                             </div>
                         )}
                     </div>

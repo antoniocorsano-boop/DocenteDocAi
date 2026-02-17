@@ -101,7 +101,7 @@ export const FAB: React.FC<FABProps> = ({
             ? '0 2px 8px rgba(0,0,0,0.2)' 
             : '0 4px 12px rgba(0,0,0,0.25)',
         cursor: disabled ? 'not-allowed' : 'pointer',
-        transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: 'all 200ms var(--md-sys-motion-easing-standard)',
         transform: isPressed && !disabled 
           ? `${positionStyles.transform || ''} scale(0.95)` 
           : `${positionStyles.transform || ''} scale(1)`,

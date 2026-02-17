@@ -45,7 +45,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({
       style={{
         padding: 'var(--md-sys-spacing-4)',
         cursor: disabled ? 'not-allowed' : 'pointer',
-        transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: 'all 200ms var(--md-sys-motion-easing-standard)',
         opacity: disabled ? 0.5 : 1,
         border: `1px solid var(--md-sys-color-outline-variant)`,
         display: 'flex',

@@ -182,7 +182,7 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
         onTouchEnd={handleTouchEnd}
         style={{
           transform: `translateX(${translateX}px)`,
-          transition: isDragging ? 'none' : 'transform 250ms cubic-bezier(0.4, 0, 0.2, 1)',
+          transition: isDragging ? 'none' : 'transform 250ms var(--md-sys-motion-easing-standard)',
           backgroundColor: 'var(--md-sys-color-surface-container)',
           cursor: disabled ? 'default' : 'grab',
           userSelect: 'none'

@@ -5,6 +5,7 @@
 import React from 'react';
 import { M3Typography } from './ui';
 import { View } from '../types';
+import { sanitizeHtml } from '../utils/htmlSanitizer';
 interface Workflow {
     id: string;
     icon: string;
@@ -182,7 +183,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                             </div>
                                             <M3Typography variant="body-medium" style={{color: 'var(--app-color-on-surface)',
                                                 margin: 0,
-                                                lineHeight: 1.5}} dangerouslySetInnerHTML={{ __html: step }} />
+                                                lineHeight: 1.5}} dangerouslySetInnerHTML={{ __html: sanitizeHtml(step) }} />
                                         </li>
                                     ))}
                                 </ol>

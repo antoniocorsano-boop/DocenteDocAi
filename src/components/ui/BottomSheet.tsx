@@ -121,7 +121,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
           bottom: 0,
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
           zIndex: 9998,
-          animation: 'backdrop-fade-in 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+          animation: 'backdrop-fade-in 300ms var(--md-sys-motion-easing-standard)',
           backdropFilter: 'blur(2px)'
         }}
         aria-hidden="true"
@@ -150,8 +150,8 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
           flexDirection: 'column',
           boxShadow: '0 -4px 16px rgba(0,0,0,0.2)',
           transform: `translateY(${translateY}px)`,
-          transition: isDragging ? 'none' : 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
-          animation: 'sheet-slide-up 300ms cubic-bezier(0.4, 0, 0.2, 1)'
+          transition: isDragging ? 'none' : 'transform 300ms var(--md-sys-motion-easing-standard)',
+          animation: 'sheet-slide-up 300ms var(--md-sys-motion-easing-standard)'
         }}
       >
         {/* Drag handle */}

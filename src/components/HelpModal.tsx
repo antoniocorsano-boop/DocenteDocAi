@@ -4,118 +4,10 @@ import { View, HelpModalProps } from '../types';
 import { generateTechnicalDocumentContent, generateAcademicEssayContent } from '../services/aiService';
 import { generateFullAppGuidePdf, saveAs } from '../utils/documentUtils';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, InfoCard, M3Typography } from './ui';
+import { ManualSection, UseCaseCard } from './help';
+import { sanitizeHtml } from '../utils/htmlSanitizer';
 
 type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'faq' | 'specs' | 'normativa';
-
-// --- HELPERS ---
-const ManualSection: React.FC<{ title: string; icon: string; defaultOpen?: boolean; children: React.ReactNode }> = ({ title, icon, defaultOpen = false, children }) => {
-    const [isOpen, setIsOpen] = useState(defaultOpen);
-    return (
-        <div style={{
-            border: `var(--app-border-thin) solid var(--md-sys-color-outline-variant)`,
-            borderRadius: 'var(--md-sys-shape-corner-large)',
-            marginBottom: 'var(--app-spacing-container)',
-            overflow: 'hidden'
-        }}>
-            <button
-                onClick={() => setIsOpen(!isOpen)}
-                style={{
-                    width: 'var(--app-layout-full)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: 'var(--app-spacing-container)',
-                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    border: 'none',
-                    cursor: 'pointer',
-                    transition: 'background-color var(--md-sys-motion-duration-short2) var(--app-easing-standard)'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)'}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-low)'}
-            >
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 'var(--app-spacing-element)'
-                }}>
-                    <span style={{
-                        fontFamily: 'Material Symbols Outlined',
-                        color: 'var(--app-color-primary)',
-                        fontSize: 'var(--md-sys-typescale--font-size)'
-                    }}>{icon}</span>
-                    <M3Typography variant="title-medium">{title}</M3Typography>
-                </div>
-                <span style={{
-                    fontFamily: 'Material Symbols Outlined',
-                    color: 'var(--md-sys-color-on-surface-variant)',
-                    transition: 'transform var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
-                    transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
-                }}>expand_more</span>
-            </button>
-            {isOpen && <div style={{
-                padding: 'var(--app-spacing-container)',
-                backgroundColor: 'var(--app-color-surface)',
-                borderTop: `var(--app-border-thin) solid var(--md-sys-color-outline-variant)`
-            }}>{children}</div>}
-        </div>
-    );
-};
-
-const UseCaseCard: React.FC<{ scenario: string; steps: string[]; tip?: string }> = ({ scenario, steps, tip }) => (
-    <div style={{
-        backgroundColor: 'var(--md-sys-color-surface-container-low)',
-        borderRadius: 'var(--md-sys-shape-corner-large)',
-        padding: 'var(--app-spacing-container)',
-        border: `var(--app-border-thin) solid var(--md-sys-color-outline-variant)`
-    }}>
-        <M3Typography variant="body-large" style={{
-            fontWeight: 'bold',
-            color: 'var(--app-color-primary)',
-            marginBottom: 'var(--app-spacing-element)'
-        }}>{scenario}</M3Typography>
-        <ol style={{
-            margin: 0,
-            paddingLeft: 'var(--app-spacing-touch)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 'var(--app-spacing-component)'
-        }}>
-            {steps.map((step, i) => (
-                <li key={i} style={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: 'var(--app-spacing-component)',
-                    color: 'var(--app-color-on-surface)'
-                }}>
-                    <span style={{
-                        fontFamily: 'Material Symbols Outlined',
-                        color: 'var(--app-color-primary)',
-                        fontSize: 'var(--md-sys-typescale--font-size)',
-                        marginTop: 'var(--md-sys-spacing-1)',
-                        flexShrink: 0
-                    }}>check_circle</span>
-                    <span dangerouslySetInnerHTML={{ __html: step }}></span>
-                </li>
-            ))}
-        </ol>
-        {tip && (
-            <div style={{
-                marginTop: 'var(--app-spacing-element)',
-                padding: 'var(--app-spacing-element)',
-                backgroundColor: 'var(--app-color-secondary-container)',
-                borderRadius: 'var(--md-sys-shape-corner-medium)',
-                borderLeft: `var(--app-border-medium) solid var(--app-color-secondary)`
-            }}>
-                <span style={{
-                    fontFamily: 'Material Symbols Outlined',
-                    color: 'var(--app-color-secondary)',
-                    marginRight: 'var(--app-spacing-component)'
-                }}>lightbulb</span>
-                <M3Typography variant="body-medium" style={{ color: 'var(--app-color-on-secondary-container)' }}>{tip}</M3Typography>
-            </div>
-        )}
-    </div>
-);
 
 // --- CONTENUTO DEL MANUALE INTEGRALE (Whitepaper Tecnico-Operativo) ---
 const MANUAL_MARKDOWN_CONTENT = `# DocenteDoc AI: Documento Tecnico e Manuale Integrale
@@ -710,7 +602,7 @@ const TechnicalSpecs = () => (
                         <span style={{
                             fontSize: 'var(--md-sys-typescale--font-size)',
                             lineHeight: "1.625"
-                        }} dangerouslySetInnerHTML={{ __html: spec }}></span>
+                        }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(spec) }}></span>
                     </li>
                 ))}
             </ul>
@@ -824,7 +716,7 @@ const FaqContent = () => (
                         padding: 'var(--app-spacing-element)',
                         fontWeight: "bold"
                     }}>
-                        <span dangerouslySetInnerHTML={{ __html: faq.q }}></span>
+                        <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(faq.q) }}></span>
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
                             transition: "transform var(--app-motion-standard)",
@@ -837,7 +729,7 @@ const FaqContent = () => (
                         opacity: "0.8",
                         lineHeight: "1.625",
                         fontSize: 'var(--md-sys-typescale--font-size)'
-                    }} dangerouslySetInnerHTML={{ __html: faq.a }}></div>
+                    }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(faq.a) }}></div>
                 </details>
             ))}
         </div>

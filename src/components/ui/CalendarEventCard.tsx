@@ -97,7 +97,7 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
         borderRadius: 'var(--md-sys-spacing-2)',
         borderLeft: `4px solid ${config.borderColor}`,
         cursor: 'pointer',
-        transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: 'all 200ms var(--md-sys-motion-easing-standard)',
         display: 'flex',
         alignItems: 'center',
         gap: 'var(--md-sys-spacing-2)'
