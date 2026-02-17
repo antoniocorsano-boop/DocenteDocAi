@@ -6,6 +6,7 @@ import { generateFullAppGuidePdf, saveAs } from '../utils/documentUtils';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, InfoCard, M3Typography } from './ui';
 import { ManualSection, UseCaseCard } from './help';
 import { sanitizeHtml } from '../utils/htmlSanitizer';
+import { ImprovementsTab, ManualTab, GuideTab, FaqTab } from './tabs';
 
 type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'faq' | 'specs' | 'normativa';
 
@@ -953,12 +954,12 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
   
   const renderContent = () => {
     switch(activeTab) {
-      case 'improvements': return <ImprovementsList onNavigate={onNavigate} onClose={onClose} onGenerate={handleGenerateFullDocument} isGenerating={isGenerating} />;
-      case 'manual': return <DigitalTeacherManual />; 
-      case 'guide': return <UserGuide />;
+      case 'improvements': return <ImprovementsTab onNavigate={onNavigate} onClose={onClose} onGenerate={handleGenerateFullDocument} isGenerating={isGenerating} />;
+      case 'manual': return <ManualTab />; 
+      case 'guide': return <GuideTab />;
       case 'setup': return <SetupGuide />;
       case 'assistant': return <VocalAssistantGuideContent />;
-      case 'faq': return <FaqContent />;
+      case 'faq': return <FaqTab />;
       case 'specs': return <TechnicalSpecs />;
       case 'normativa': return <NormativaContent />;
       default: return null;

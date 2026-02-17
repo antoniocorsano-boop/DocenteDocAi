@@ -40,14 +40,15 @@
 ### FASE 2: Completare HelpModal.tsx
 **Target:** Ridurre da 1,067 a <500 linee
 
-#### 2.1 Estrarre Tab Components
-- [ ] Creare `src/components/help/tabs/ImprovementsTab.tsx`
-- [ ] Creare `src/components/help/tabs/ManualTab.tsx`
-- [ ] Creare `src/components/help/tabs/GuideTab.tsx`
-- [ ] Creare `src/components/help/tabs/FaqTab.tsx`
+#### 2.1 Estrarre Tab Components ✅ COMPLETATO
+- [x] Creare `src/components/help/tabs/ImprovementsTab.tsx`
+- [x] Creare `src/components/help/tabs/ManualTab.tsx`
+- [x] Creare `src/components/help/tabs/GuideTab.tsx`
+- [x] Creare `src/components/help/tabs/FaqTab.tsx`
+- [x] Aggiornare HelpModal.tsx per usare i nuovi tab
 
 **Stima:** 1-2 giorni
-**Risultato atteso:** HelpModal.tsx ~500 linee
+**Risultato attuale:** 4 tab components creati, HelpModal.tsx ancora da ottimizzare (i componenti vecchi sono ancora nel file)
 
 ---
 
