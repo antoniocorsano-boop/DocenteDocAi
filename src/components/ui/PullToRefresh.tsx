@@ -109,7 +109,7 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
           gap: 'var(--md-sys-spacing-2)',
           opacity: pullDistance > 0 ? 1 : 0,
           transition: isRefreshing 
-            ? 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1), opacity 200ms' 
+            ? 'transform 300ms var(--md-sys-motion-easing-standard), opacity 200ms' 
             : 'opacity 200ms',
           zIndex: 1,
           pointerEvents: 'none'
@@ -149,7 +149,7 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
         style={{
           transform: `translateY(${status === 'refreshing' ? threshold : 0}px)`,
           transition: status === 'refreshing' || status === 'idle' 
-            ? 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)' 
+            ? 'transform 300ms var(--md-sys-motion-easing-standard)' 
             : 'none'
         }}
       >

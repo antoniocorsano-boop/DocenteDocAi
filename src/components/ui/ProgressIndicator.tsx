@@ -44,7 +44,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
             height: '100%',
             width: '30%',
             backgroundColor: colorMap[color],
-            animation: 'progress-indeterminate 2s cubic-bezier(0.4, 0, 0.2, 1) infinite',
+            animation: 'progress-indeterminate 2s var(--md-sys-motion-easing-standard) infinite',
             transformOrigin: 'left center'
           }}
         />

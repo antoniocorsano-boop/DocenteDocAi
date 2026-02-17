@@ -71,7 +71,7 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+            transition: 'all 200ms var(--md-sys-motion-easing-standard)',
             ...(isFocused && {
               outline: '2px solid var(--md-sys-color-primary)',
               outlineOffset: '2px'
@@ -85,7 +85,7 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
               viewBox="0 0 16 16"
               fill="none"
               style={{
-                animation: 'check-in 200ms cubic-bezier(0.4, 0, 0.2, 1)'
+                animation: 'check-in 200ms var(--md-sys-motion-easing-standard)'
               }}
             >
               <path
@@ -97,7 +97,7 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
                 style={{
                   strokeDasharray: 20,
                   strokeDashoffset: checked ? 0 : 20,
-                  transition: 'stroke-dashoffset 200ms cubic-bezier(0.4, 0, 0.2, 1) 50ms'
+                  transition: 'stroke-dashoffset 200ms var(--md-sys-motion-easing-standard) 50ms'
                 }}
               />
             </svg>

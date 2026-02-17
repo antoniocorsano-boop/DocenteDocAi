@@ -123,7 +123,7 @@ export const AccessibilitySettings: React.FC = () => {
               backgroundColor: contrast === 'high'
                 ? 'var(--md-sys-color-on-primary)'
                 : 'var(--md-sys-color-on-surface-variant)',
-              transition: 'left 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+              transition: 'left 200ms var(--md-sys-motion-easing-standard)',
               boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
             }}
           />
@@ -212,7 +212,7 @@ export const AccessibilitySettings: React.FC = () => {
               backgroundColor: reducedMotion
                 ? 'var(--md-sys-color-on-primary)'
                 : 'var(--md-sys-color-on-surface-variant)',
-              transition: 'left 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+              transition: 'left 200ms var(--md-sys-motion-easing-standard)',
               boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
             }}
           />

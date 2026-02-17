@@ -123,7 +123,7 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
         fontWeight: '600',
         borderRadius: 'var(--md-sys-spacing-5)',
         cursor: disabled || loading ? 'not-allowed' : 'pointer',
-        transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: 'all 200ms var(--md-sys-motion-easing-standard)',
         transform: isPressed && !disabled && !loading ? 'scale(0.98)' : 'scale(1)',
         opacity: disabled ? 0.5 : 1,
         userSelect: 'none',

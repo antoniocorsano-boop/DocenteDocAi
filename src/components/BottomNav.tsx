@@ -63,7 +63,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
               padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
               borderRadius: 'var(--md-sys-spacing-3)',
               cursor: 'pointer',
-              transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+              transition: 'all 200ms var(--md-sys-motion-easing-standard)',
               position: 'relative',
             }}
           >

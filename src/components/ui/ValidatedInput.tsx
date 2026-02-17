@@ -126,7 +126,7 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
               }`,
               borderRadius: 'var(--md-sys-spacing-2)',
               outline: 'none',
-              transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+              transition: 'all 200ms var(--md-sys-motion-easing-standard)',
               cursor: disabled ? 'not-allowed' : 'text'
             }}
           />

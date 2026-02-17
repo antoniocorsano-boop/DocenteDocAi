@@ -87,7 +87,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
                 ? '"FILL" 0, "wght" 400' 
                 : '"FILL" 1, "wght" 600',
               transform: isAnimating ? 'rotate(360deg)' : 'rotate(0deg)',
-              transition: 'transform 400ms cubic-bezier(0.4, 0, 0.2, 1)'
+              transition: 'transform 400ms var(--md-sys-motion-easing-standard)'
             }}
           >
             {icon}
@@ -147,7 +147,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
               ? '"FILL" 0, "wght" 400' 
               : '"FILL" 1, "wght" 600',
             transform: isAnimating ? 'rotate(360deg)' : 'rotate(0deg)',
-            transition: 'transform 400ms cubic-bezier(0.4, 0, 0.2, 1)'
+            transition: 'transform 400ms var(--md-sys-motion-easing-standard)'
           }}
         >
           {icon}
