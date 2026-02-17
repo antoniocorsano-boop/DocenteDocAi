@@ -6,7 +6,7 @@ import { generateFullAppGuidePdf, saveAs } from '../utils/documentUtils';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, InfoCard, M3Typography } from './ui';
 import { ManualSection, UseCaseCard } from './help';
 import { sanitizeHtml } from '../utils/htmlSanitizer';
-import { ImprovementsTab, ManualTab, GuideTab, FaqTab } from './tabs';
+import { ImprovementsTab, ManualTab, GuideTab, FaqTab } from './help/tabs';
 
 type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'faq' | 'specs' | 'normativa';
 
