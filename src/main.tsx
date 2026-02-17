@@ -152,7 +152,7 @@ async function bootstrapApp() {
 
     // Dynamically import App after stores are ready to avoid initialization races
     const { App } = await import('./components/App');
-    const { ModalProvider } = await import('./context/ModalContext');
+    const { ModalProvider } = await import('./contexts/ModalContext');
 
     root.render(
       <ErrorBoundary>

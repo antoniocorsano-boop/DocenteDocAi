@@ -107,7 +107,7 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
             placeholder={placeholder}
             disabled={disabled}
             style={{
-              width: '100%',
+              width: 'var(--md-sys-percent-100)',
               padding: 'var(--md-sys-spacing-3)',
               paddingRight: isSuccess || hasError ? 'var(--md-sys-spacing-9)' : 'var(--md-sys-spacing-3)',
               fontSize: 'var(--md-sys-typescale-body-large-size)',
