@@ -4,6 +4,7 @@
 // @do-not-extend
 
 import React from 'react';
+import { sanitizeHtml } from '../../utils/htmlSanitizer';
 
 interface UseCaseCardProps {
     scenario: string;
@@ -69,7 +70,7 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                             color: 'var(--md-sys-color-outline)',
                             fontWeight: "bold",
                             lineHeight: 'var(--app-text-body-line-height)'
-                        }} dangerouslySetInnerHTML={{ __html: step }}></p>
+                        }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(step) }}></p>
                     </li>
                 ))}
             </ol>
