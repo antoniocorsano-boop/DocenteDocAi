@@ -58,7 +58,7 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
     small: {
       minHeight: 'var(--md-sys-spacing-9)',
       padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
-      fontSize: '14px'
+      fontSize: 'var(--md-sys-typescale-label-medium-size)'
     },
     medium: {
       minHeight: 'var(--md-sys-spacing-12)',
@@ -68,7 +68,7 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
     large: {
       minHeight: 'var(--md-sys-spacing-14)',
       padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-8)',
-      fontSize: '18px'
+      fontSize: 'var(--md-sys-typescale-title-medium-size)'
     }
   }[size];
 
@@ -149,7 +149,7 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
       {/* Icon */}
       {icon && !loading && (
         <span
-          className="material-symbols-outlined"
+          style={{ fontFamily: 'Material Symbols Outlined' }}
           style={{
             fontSize: '20px',
             fontVariationSettings: '"FILL" 0, "wght" 600'

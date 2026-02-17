@@ -89,7 +89,7 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
             fontWeight: '600',
             marginBottom: 'var(--md-sys-spacing-2)',
             display: 'block',
-            transition: 'color 200ms'
+            transition: 'color var(--md-sys-motion-duration-short)'
           }}
         >
           {label}
@@ -126,7 +126,7 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
               }`,
               borderRadius: 'var(--md-sys-spacing-2)',
               outline: 'none',
-              transition: 'all 200ms var(--md-sys-motion-easing-standard)',
+              transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
               cursor: disabled ? 'not-allowed' : 'text'
             }}
           />
@@ -134,7 +134,7 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
           {/* Success/Error Icon */}
           {(isSuccess || hasError) && (
             <span
-              className="material-symbols-outlined"
+              style={{ fontFamily: 'Material Symbols Outlined' }}
               style={{
                 position: 'absolute',
                 right: 'var(--md-sys-spacing-3)',
@@ -176,7 +176,7 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
         >
           {hasError && (
             <span
-              className="material-symbols-outlined"
+              style={{ fontFamily: 'Material Symbols Outlined' }}
               style={{
                 fontSize: '16px',
                 fontVariationSettings: '"FILL" 1, "wght" 600'
