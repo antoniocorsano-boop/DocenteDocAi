@@ -38,8 +38,8 @@ export const sanitizeHtml = (
   options: SanitizeOptions = {}
 ): string => {
   const {
-    allowedTags = DEFAULT_ALLOWED_TAGS,
-    allowedAttributes = DEFAULT_ALLOWED_ATTRIBUTES,
+    allowedTags: _allowedTags = DEFAULT_ALLOWED_TAGS,
+    allowedAttributes: _allowedAttributes = DEFAULT_ALLOWED_ATTRIBUTES,
     stripScripts = true
   } = options;
 

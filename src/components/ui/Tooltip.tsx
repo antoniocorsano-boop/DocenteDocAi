@@ -3,7 +3,6 @@
 // Audit: febbraio 2026
 
 import React, { useState, useRef, useId } from 'react';
-import { M3Typography } from './index';
 
 interface TooltipProps {
   content: string;
@@ -38,26 +37,26 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
   const positionStyles = {
     top: {
-      bottom: '100%',
-      left: '50%',
+      bottom: 'var(--md-sys-percent-100)',
+      left: 'var(--md-sys-percent-50)',
       transform: 'translateX(-50%) translateY(-8px)',
       marginBottom: 'var(--md-sys-spacing-2)'
     },
     bottom: {
-      top: '100%',
-      left: '50%',
+      top: 'var(--md-sys-percent-100)',
+      left: 'var(--md-sys-percent-50)',
       transform: 'translateX(-50%) translateY(8px)',
       marginTop: 'var(--md-sys-spacing-2)'
     },
     left: {
-      right: '100%',
-      top: '50%',
+      right: 'var(--md-sys-percent-100)',
+      top: 'var(--md-sys-percent-50)',
       transform: 'translateY(-50%) translateX(-8px)',
       marginRight: 'var(--md-sys-spacing-2)'
     },
     right: {
-      left: '100%',
-      top: '50%',
+      left: 'var(--md-sys-percent-100)',
+      top: 'var(--md-sys-percent-50)',
       transform: 'translateY(-50%) translateX(8px)',
       marginLeft: 'var(--md-sys-spacing-2)'
     }

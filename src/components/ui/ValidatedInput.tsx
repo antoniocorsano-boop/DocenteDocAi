@@ -89,7 +89,7 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
             fontWeight: '600',
             marginBottom: 'var(--md-sys-spacing-2)',
             display: 'block',
-            transition: 'color 200ms'
+            transition: 'color var(--md-sys-motion-duration-medium)'
           }}
         >
           {label}
