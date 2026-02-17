@@ -5,6 +5,7 @@ import { generateTechnicalDocumentContent, generateAcademicEssayContent } from '
 import { generateFullAppGuidePdf, saveAs } from '../utils/documentUtils';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, InfoCard, M3Typography } from './ui';
 import { ManualSection, UseCaseCard } from './help';
+import { sanitizeHtml } from '../utils/htmlSanitizer';
 
 type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'faq' | 'specs' | 'normativa';
 
@@ -601,7 +602,7 @@ const TechnicalSpecs = () => (
                         <span style={{
                             fontSize: 'var(--md-sys-typescale--font-size)',
                             lineHeight: "1.625"
-                        }} dangerouslySetInnerHTML={{ __html: spec }}></span>
+                        }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(spec) }}></span>
                     </li>
                 ))}
             </ul>
@@ -715,7 +716,7 @@ const FaqContent = () => (
                         padding: 'var(--app-spacing-element)',
                         fontWeight: "bold"
                     }}>
-                        <span dangerouslySetInnerHTML={{ __html: faq.q }}></span>
+                        <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(faq.q) }}></span>
                         <span style={{
                             fontFamily: 'Material Symbols Outlined',
                             transition: "transform var(--app-motion-standard)",
@@ -728,7 +729,7 @@ const FaqContent = () => (
                         opacity: "0.8",
                         lineHeight: "1.625",
                         fontSize: 'var(--md-sys-typescale--font-size)'
-                    }} dangerouslySetInnerHTML={{ __html: faq.a }}></div>
+                    }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(faq.a) }}></div>
                 </details>
             ))}
         </div>
