@@ -29,6 +29,10 @@ Thumbs.db
 Icon?
 *.lnk
 
+# Backup files
+*.backup
+*.bak
+
 # IDE
 .idea/
 .vscode/
