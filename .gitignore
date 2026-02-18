@@ -69,3 +69,25 @@ scripts/audit-md3-expressive.js
 
 *storybook.log
 storybook-static
+
+# ESLint output files
+eslint-output.json
+eslint-output.txt
+temp-eslint-output.json
+
+# Screenshot artifacts
+*.png
+!public/**/*.png
+
+# Report files
+md3-*.json
+
+# Temporary data files
+mock-student-data.ts
+demo-data.encoded
+test-ai-payloads.json
+project-metrics.json
+
+# Build logs
+build-log.txt
+build-result.txt

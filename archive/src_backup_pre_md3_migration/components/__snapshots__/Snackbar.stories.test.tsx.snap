@@ -1,3 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`Snackbar Story Snapshots > renders default story correctly 1`] = `<div />`;
