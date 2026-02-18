@@ -102,8 +102,8 @@ export const SettingsGroup: React.FC<SettingsGroupProps> = ({
                         flexShrink: 0
                     }}>
                         <span
-                            className="material-symbols-outlined"
                             style={{
+                                fontFamily: '"Material Symbols Outlined"',
                                 fontSize: 'var(--md-sys-typescale-body-large-size)',
                                 fontVariationSettings: '"FILL" 1, "wght" 600'
                             }}
@@ -135,8 +135,8 @@ export const SettingsGroup: React.FC<SettingsGroupProps> = ({
                     </div>
                 </div>
                 <span
-                    className="material-symbols-outlined"
                     style={{
+                        fontFamily: '"Material Symbols Outlined"',
                         color: 'var(--md-sys-color-on-surface-variant)',
                         transition: `transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
                         transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'

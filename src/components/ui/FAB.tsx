@@ -113,8 +113,8 @@ export const FAB: React.FC<FABProps> = ({
       }}
     >
       <span
-        className="material-symbols-outlined"
         style={{
+          fontFamily: '"Material Symbols Outlined"',
           fontSize: sizeMap.iconSize,
           fontVariationSettings: '"FILL" 1, "wght" 600'
         }}
@@ -253,8 +253,8 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
                 }}
               >
                 <span
-                  className="material-symbols-outlined"
                   style={{
+                    fontFamily: '"Material Symbols Outlined"',
                     fontSize: '20px',
                     fontVariationSettings: '"FILL" 1, "wght" 600'
                   }}

@@ -431,7 +431,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     <M3Button
                         variant="tonal"
                         aria-label="Export Massivo"
-                        startIcon={<span className="material-symbols-outlined">folder_zip</span>}
+                        startIcon={<span>folder_zip</span>}
                         onClick={() => setIsBatchExportOpen(true)}
                     >
                         Export Massivo
@@ -489,7 +489,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                             </InfoCard>
                         )) : (
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: 'center', opacity: 0.5 }}>
-                                <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>drafts</span>
+                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>drafts</span>
                                 <M3Typography variant="body-medium">Nessun documento generato di recente.</M3Typography>
                             </div>
                         )}

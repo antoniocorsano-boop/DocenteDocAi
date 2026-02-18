@@ -218,7 +218,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 >
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--app-spacing-container)' }}>
                                         <div >
-                                            <span className="material-symbols-outlined">book</span>
+                                            <span>book</span>
                                         </div>
                                         <div>
                                             <h4 >Diario di Bordo</h4>
@@ -232,7 +232,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 >
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--app-spacing-container)' }}>
                                         <div >
-                                            <span className="material-symbols-outlined">accessibility_new</span>
+                                            <span>accessibility_new</span>
                                         </div>
                                         <div>
                                             <h4 >Inclusione</h4>
@@ -246,7 +246,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 2. SEZIONE VALUTAZIONE & COMPETENZE */}
                         <section>
                             <div >
-                                <span className="material-symbols-outlined" style={{color: "var(--app-color-secondary)"}}>grading</span>
+                                <span style={{color: "var(--app-color-secondary)"}}>grading</span>
                                 <h3 >Valutazione & Competenze</h3>
                             </div>
                             <div >
@@ -272,7 +272,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 >
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--app-spacing-container)' }}>
                                         <div >
-                                            <span className="material-symbols-outlined">psychology</span>
+                                            <span>psychology</span>
                                         </div>
                                         <div>
                                             <h4 >Competenze</h4>
@@ -286,7 +286,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 3. SEZIONE ANALISI & REPORT */}
                         <section>
                             <div >
-                                <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>analytics</span>
+                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>analytics</span>
                                 <h3 >Analisi & Report</h3>
                             </div>
                             <div >

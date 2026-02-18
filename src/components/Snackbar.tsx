@@ -161,8 +161,8 @@ const Snackbar: React.FC = () => {
       onBlur={() => setIsFocused(false)}
     >
       <span
-        className="material-symbols-outlined"
         style={{
+          fontFamily: '"Material Symbols Outlined"',
           fontSize: 'var(--app-spacing-container)',
           color: 'inherit',
           flexShrink: 0,
@@ -205,8 +205,8 @@ const Snackbar: React.FC = () => {
         aria-label="Chiudi notifica"
       >
         <span
-          className="material-symbols-outlined"
           style={{
+            fontFamily: '"Material Symbols Outlined"',
             fontSize: 'inherit',
             color: 'inherit'
           }}

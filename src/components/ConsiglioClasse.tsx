@@ -292,7 +292,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <span className="material-symbols-outlined" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--app-motion-quick) var(--app-easing-standard)' }}>expand_more</span>
+                            <span style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--app-motion-quick) var(--app-easing-standard)' }}>expand_more</span>
                         </div>
                         <div style={{
                             display: isExpanded ? 'block' : 'none',
