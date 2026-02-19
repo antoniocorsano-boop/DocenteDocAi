@@ -28,8 +28,8 @@ export const MetricCard: React.FC<MetricCardProps> = ({
     primary: 'var(--md-sys-color-primary)',
     secondary: 'var(--md-sys-color-secondary)',
     tertiary: 'var(--md-sys-color-tertiary)',
-    success: '#4CAF50',
-    warning: '#FF9800',
+    success: 'var(--md-sys-color-tertiary)',
+    warning: 'var(--md-sys-color-secondary)',
     error: 'var(--md-sys-color-error)'
   };
 
@@ -37,8 +37,8 @@ export const MetricCard: React.FC<MetricCardProps> = ({
     primary: 'var(--md-sys-color-primary-container)',
     secondary: 'var(--md-sys-color-secondary-container)',
     tertiary: 'var(--md-sys-color-tertiary-container)',
-    success: '#4CAF5020',
-    warning: '#FF980020',
+    success: 'var(--md-sys-color-tertiary-container)',
+    warning: 'var(--md-sys-color-secondary-container)',
     error: 'var(--md-sys-color-error-container)'
   };
 
@@ -114,9 +114,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({
               padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
               borderRadius: 'var(--md-sys-spacing-4)',
               background: trend === 'up' 
-                ? '#4CAF5020' 
+                ? 'var(--md-sys-color-tertiary-container)' 
                 : trend === 'down' 
-                ? '#F4433620' 
+                ? 'var(--md-sys-color-error-container)' 
                 : 'var(--md-sys-color-surface-variant)',
               marginTop: 'var(--md-sys-spacing-1)'
             }}
