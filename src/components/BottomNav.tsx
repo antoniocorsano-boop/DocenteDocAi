@@ -33,7 +33,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
           bottom: 0,
           zIndex: 'var(--md-sys-z-nav)',
           background: 'var(--md-sys-color-surface-container)',
-          boxShadow: '0 -2px 8px rgba(0,0,0,0.1)',
+          boxShadow: 'var(--md-sys-elevation-level1)',
           display: 'flex',
           justifyContent: 'space-around',
           padding: 'var(--md-sys-spacing-2) 0',

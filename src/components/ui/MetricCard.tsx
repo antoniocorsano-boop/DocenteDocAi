@@ -126,7 +126,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
               aria-hidden="true"
               style={{
                 fontSize: 'var(--md-sys-spacing-3)',
-                color: trend === 'up' ? '#4CAF50' : trend === 'down' ? '#F44336' : 'inherit'
+                color: trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)'
               }}
             >
               {trend === 'up' ? 'trending_up' : trend === 'down' ? 'trending_down' : 'remove'}
@@ -134,7 +134,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
             <M3Typography
               variant="label-small"
               style={{
-                color: trend === 'up' ? '#4CAF50' : trend === 'down' ? '#F44336' : 'inherit',
+                color: trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)',
                 fontWeight: '600'
               }}
             >

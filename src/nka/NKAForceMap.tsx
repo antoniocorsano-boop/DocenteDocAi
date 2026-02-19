@@ -132,9 +132,8 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
             cy={node.y}
             r={32}
             fill={`var(--md-sys-color-primary${node.color})`}
-            stroke="var(--md-sys-color-primary30)"
+            stroke="var(--md-sys-color-outline)"
             strokeWidth={node.elevation}
-            className={`nka-shape-${node.shape}`}
           />
           <text x={node.x} y={node.y + 4} textAnchor="middle" fontSize="var(--md-sys-typescale-body-large-size)" fill="var(--md-sys-color-on-primaryContainer)">
             {node.label}
