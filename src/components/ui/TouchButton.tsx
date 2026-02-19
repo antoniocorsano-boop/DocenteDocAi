@@ -3,7 +3,6 @@
 // Audit: febbraio 2026
 
 import React, { useState, useRef } from 'react';
-import { M3Typography } from './index';
 
 interface TouchButtonProps {
   children: React.ReactNode;
