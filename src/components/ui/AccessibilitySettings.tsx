@@ -62,8 +62,8 @@ export const AccessibilitySettings: React.FC = () => {
             }}
           >
             <span
-              className="material-symbols-outlined"
               style={{
+                fontFamily: '"Material Symbols Outlined"',
                 fontSize: '20px',
                 color: 'var(--md-sys-color-primary)',
                 fontVariationSettings: '"FILL" 1, "wght" 600'
@@ -151,8 +151,8 @@ export const AccessibilitySettings: React.FC = () => {
             }}
           >
             <span
-              className="material-symbols-outlined"
               style={{
+                fontFamily: '"Material Symbols Outlined"',
                 fontSize: '20px',
                 color: 'var(--md-sys-color-primary)',
                 fontVariationSettings: '"FILL" 1, "wght" 600'
@@ -236,8 +236,8 @@ export const AccessibilitySettings: React.FC = () => {
           }}
         >
           <span
-            className="material-symbols-outlined"
             style={{
+              fontFamily: '"Material Symbols Outlined"',
               fontSize: '18px',
               color: 'var(--md-sys-color-on-primary-container)',
               fontVariationSettings: '"FILL" 1, "wght" 600',

@@ -65,8 +65,7 @@ const App: React.FC = () => {
         <>
             {/* Skip links for accessibility */}
             <a 
-                href="#main-content" 
-                className="skip-link"
+                href="#main-content"
                 style={{
                     position: 'absolute',
                     top: '-999px',

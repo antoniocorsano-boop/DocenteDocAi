@@ -41,9 +41,9 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
       {/* Icona grande o illustrazione custom */}
       {illustration || (
         <span
-          className="material-symbols-outlined"
           aria-hidden="true"
           style={{
+            fontFamily: '"Material Symbols Outlined"',
             fontSize: 'var(--md-sys-spacing-12)',
             color: 'var(--md-sys-color-primary)',
             opacity: '0.6'

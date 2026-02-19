@@ -81,9 +81,9 @@ export const ActionCard: React.FC<ActionCardProps> = ({
         }}
       >
         <span
-          className="material-symbols-outlined"
           aria-hidden="true"
           style={{
+            fontFamily: '"Material Symbols Outlined"',
             fontSize: 'var(--md-sys-spacing-6)',
             color: config.iconColor,
             fontVariationSettings: '"FILL" 0, "wght" 500'
@@ -119,9 +119,9 @@ export const ActionCard: React.FC<ActionCardProps> = ({
       {/* Indicatore freccia */}
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <span
-          className="material-symbols-outlined"
           aria-hidden="true"
           style={{
+            fontFamily: '"Material Symbols Outlined"',
             fontSize: '20px',
             color: config.iconColor,
             opacity: 0.6

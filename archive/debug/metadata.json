@@ -1,9 +1,0 @@
-{
-  "requestFramePermissions": [
-    "camera",
-    "microphone",
-    "geolocation"
-  ],
-  "name": "DocenteDoc AI",
-  "description": "Ecosistema didattico intelligente con persistenza IndexedDB e AI assistita."
-}

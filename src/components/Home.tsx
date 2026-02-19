@@ -167,9 +167,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           >
             <M3Surface style={{ textAlign: 'center' }}>
               <span
-                className="material-symbols-outlined"
                 aria-hidden="true"
                 style={{
+                  fontFamily: '"Material Symbols Outlined"',
                   fontSize: 'var(--md-sys-spacing-6)',
                   color: 'var(--md-sys-color-primary)',
                   marginBottom: 'var(--md-sys-spacing-2)',
@@ -214,9 +214,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           >
             <M3Surface style={{ textAlign: 'center' }}>
               <span
-                className="material-symbols-outlined"
                 aria-hidden="true"
                 style={{
+                  fontFamily: '"Material Symbols Outlined"',
                   fontSize: 'var(--md-sys-spacing-6)',
                   color: 'var(--md-sys-color-tertiary)',
                   marginBottom: 'var(--md-sys-spacing-2)',
@@ -274,9 +274,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 }}
               >
                 <span
-                  className="material-symbols-outlined"
                   aria-hidden="true"
                   style={{
+                    fontFamily: '"Material Symbols Outlined"',
                     fontSize: 'var(--md-sys-spacing-8)',
                     color: 'var(--md-sys-color-on-surface-variant)',
                     opacity: '0.6',
@@ -352,22 +352,19 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           <M3Surface style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-24), var(--md-sys-grid-fr-1)))', gap: 'var(--app-spacing-container)' }}>
             <M3Card ariaLabel="Vai a Registro" onClick={() => onNavigate('register' as View)}>
               <M3Surface style={{ textAlign: 'center', padding: 'var(--app-spacing-container)' }}>
-                {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
-                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-8)' }}>menu_book</span>
+                <span aria-hidden="true" style={{ fontFamily: '"Material Symbols Outlined"', fontSize: 'var(--md-sys-spacing-8)' }}>menu_book</span>
                 <M3Typography variant="title-medium" style={{ marginTop: 'var(--app-spacing-component)' }}>Registro</M3Typography>
               </M3Surface>
             </M3Card>
             <M3Card ariaLabel="Vai a Presenze" onClick={() => onNavigate('presenze' as View)}>
               <M3Surface style={{ textAlign: 'center', padding: 'var(--app-spacing-container)' }}>
-                {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
-                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-8)' }}>fact_check</span>
+                <span aria-hidden="true" style={{ fontFamily: '"Material Symbols Outlined"', fontSize: 'var(--md-sys-spacing-8)' }}>fact_check</span>
                 <M3Typography variant="title-medium" style={{ marginTop: 'var(--app-spacing-component)' }}>Presenze</M3Typography>
               </M3Surface>
             </M3Card>
             <M3Card ariaLabel="Vai a Valutazioni" onClick={() => onNavigate('evaluations' as View)}>
               <M3Surface style={{ textAlign: 'center', padding: 'var(--app-spacing-container)' }}>
-                {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
-                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-8)' }}>grading</span>
+                <span aria-hidden="true" style={{ fontFamily: '"Material Symbols Outlined"', fontSize: 'var(--md-sys-spacing-8)' }}>grading</span>
                 <M3Typography variant="title-medium" style={{ marginTop: 'var(--app-spacing-component)' }}>Valutazioni</M3Typography>
               </M3Surface>
             </M3Card>
@@ -384,7 +381,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         */}
         {/* Primary FAB: Inizia Giornata (MD3 floating, policy exception documented) */}
         <M3Fab
-          icon={<span className="material-symbols-outlined" aria-hidden="true">playlist_add_check</span>}
+          icon={<span style={{ fontFamily: '"Material Symbols Outlined"' }} aria-hidden="true">playlist_add_check</span>}
           label="Inizia Giornata"
           aria-label="Inizia giornata - Appello"
           variant="primary" // MD3 Gold: fallback to allowed type

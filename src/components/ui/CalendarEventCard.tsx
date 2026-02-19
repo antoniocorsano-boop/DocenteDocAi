@@ -113,9 +113,9 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
     >
       {/* Icona tipo */}
       <span
-        className="material-symbols-outlined"
         aria-hidden="true"
         style={{
+          fontFamily: '"Material Symbols Outlined"',
           fontSize: '20px',
           color: config.borderColor,
           fontVariationSettings: '"FILL" 1, "wght" 600'
@@ -156,9 +156,9 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
 
       {/* Freccia indicatore */}
       <span
-        className="material-symbols-outlined"
         aria-hidden="true"
         style={{
+          fontFamily: '"Material Symbols Outlined"',
           fontSize: '18px',
           color: config.color,
           opacity: 0.7

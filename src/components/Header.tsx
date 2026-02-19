@@ -75,8 +75,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
               color: 'var(--md-sys-color-on-surface-variant)'
             }}
           >
-            {/* MD3 icon font usage allowed */}
-            <span className="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            <span style={{ fontFamily: '"Material Symbols Outlined"' }} aria-hidden="true">arrow_back</span>
           </button>
         )}
         <button
@@ -94,8 +93,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
             color: hasSuggestion ? 'var(--app-color-primary)' : 'var(--md-sys-color-on-surface-variant)'
           }}
         >
-          {/* MD3 icon font usage allowed */}
-          <span className="material-symbols-outlined" aria-hidden="true">bolt</span>
+          <span style={{ fontFamily: '"Material Symbols Outlined"' }} aria-hidden="true">bolt</span>
         </button>
         {onOpenNKA && (
           <NKAHeaderAuraButton
@@ -130,8 +128,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
               color: 'var(--md-sys-color-on-error-container)'
             }}
           >
-            {/* MD3 icon font usage allowed */}
-            <span className="material-symbols-outlined" aria-hidden="true">cloud_off</span>
+            <span style={{ fontFamily: '"Material Symbols Outlined"' }} aria-hidden="true">cloud_off</span>
             <M3Typography variant="label-small" style={{ fontWeight: 500 }}>Offline</M3Typography>
           </div>
         )}
@@ -150,8 +147,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
             color: 'var(--md-sys-color-on-surface-variant)'
           }}
         >
-          {/* MD3 icon font usage allowed */}
-          <span className="material-symbols-outlined" aria-hidden="true">settings</span>
+          <span style={{ fontFamily: '"Material Symbols Outlined"' }} aria-hidden="true">settings</span>
         </button>
         <button
           aria-label="Menu utente"

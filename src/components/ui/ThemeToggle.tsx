@@ -80,8 +80,8 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
         >
           {/* Icon with rotation animation */}
           <span
-            className="material-symbols-outlined"
             style={{
+              fontFamily: '"Material Symbols Outlined"',
               fontSize: '24px',
               fontVariationSettings: isSystemTheme 
                 ? '"FILL" 0, "wght" 400' 
@@ -140,8 +140,8 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
         }}
       >
         <span
-          className="material-symbols-outlined"
           style={{
+            fontFamily: '"Material Symbols Outlined"',
             fontSize: '20px',
             fontVariationSettings: isSystemTheme 
               ? '"FILL" 0, "wght" 400' 
@@ -205,8 +205,8 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
         >
           {/* Icon */}
           <span
-            className="material-symbols-outlined"
             style={{
+              fontFamily: '"Material Symbols Outlined"',
               fontSize: '20px',
               fontVariationSettings: mode === themeMode 
                 ? '"FILL" 1, "wght" 600' 
@@ -224,8 +224,8 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
           {/* Checkmark */}
           {mode === themeMode && (
             <span
-              className="material-symbols-outlined"
               style={{
+                fontFamily: '"Material Symbols Outlined"',
                 fontSize: '18px',
                 fontVariationSettings: '"FILL" 1, "wght" 600'
               }}

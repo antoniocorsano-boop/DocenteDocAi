@@ -134,8 +134,8 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
           {/* Success/Error Icon */}
           {(isSuccess || hasError) && (
             <span
-              className="material-symbols-outlined"
               style={{
+                fontFamily: '"Material Symbols Outlined"',
                 position: 'absolute',
                 right: 'var(--md-sys-spacing-3)',
                 top: '50%',
@@ -176,8 +176,8 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
         >
           {hasError && (
             <span
-              className="material-symbols-outlined"
               style={{
+                fontFamily: '"Material Symbols Outlined"',
                 fontSize: '16px',
                 fontVariationSettings: '"FILL" 1, "wght" 600'
               }}

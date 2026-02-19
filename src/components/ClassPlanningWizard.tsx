@@ -416,7 +416,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         <div key={kb.id} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: 'var(--app-spacing-component)' }}>
                                             <input type="checkbox" id={`kb-annual-${kb.id}`} checked={selectedKbFiles.includes(kb.id)} onChange={() => toggleKbFile(kb.id)} />
                                             <label htmlFor={`kb-annual-${kb.id}`} style={{ display: "flex", alignItems: "center", gap: "var(--app-spacing-component)" }} title={kb.fileName}>
-                                                {selectedKbFiles.includes(kb.id) && <span className="material-symbols-outlined" style={{  fontSize: 'var(--app-spacing-container)'  }}>check</span>}
+                                                {selectedKbFiles.includes(kb.id) && <span style={{  fontSize: 'var(--app-spacing-container)'  }}>check</span>}
                                                 <span style={{ color: 'var(--app-color-primary)', marginRight: "var(--app-spacing-component)" }}>description</span>
                                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</span>
                                             </label>
@@ -548,7 +548,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ gap: 'var(--app-spacing-element)', overflowY: "auto", maxHeight: 'var(--md-sys-spacing-24)' }}>
                                     {plannedUdas.map((uda, idx) => (
                                         <div key={uda.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)', padding: 'var(--app-spacing-section)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", transition: "color var(--app-motion-standard) var(--app-easing-standard)" }}>
-                                            <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)', cursor: 'grab' }} title="Trascina per riordinare">drag_indicator</span>
+                                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)', cursor: 'grab' }} title="Trascina per riordinare">drag_indicator</span>
                                             
                                             <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                                                 <div style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--app-spacing-container)' }}>
@@ -572,13 +572,13 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </div>
 
                                             <button onClick={() => removeUdaFromPlan(idx)} style={{ color: "var(--md-sys-color-error)", background: 'none', border: 'none', cursor: 'pointer' }} title="Rimuovi UDA" aria-label="Rimuovi questa UDA dal piano">
-                                                <span className="material-symbols-outlined" aria-hidden="true">delete</span>
+                                                <span aria-hidden="true">delete</span>
                                             </button>
                                         </div>
                                     ))}
                                     {plannedUdas.length === 0 && (
                                         <div style={{ padding: 'var(--app-spacing-container)', backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--app-border-thin) solid var(--md-sys-color-outline)" }}>
-                                            <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>calendar_today</span>
+                                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>calendar_today</span>
                                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</p>
                                         </div>
                                     )}
@@ -618,7 +618,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </p>
                                             <h4 style={{ marginBottom: 'var(--app-spacing-container)' }}>{item.uda.title}</h4>
                                             <div style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: 'var(--md-sys-color-on-surface-variant)' }}>
-                                                <span className="material-symbols-outlined" style={{  fontSize: "var(--md-sys-typescale-body-small-size)"  }}>schedule</span>
+                                                <span style={{  fontSize: "var(--md-sys-typescale-body-small-size)"  }}>schedule</span>
                                                 <span>{item.uda.hours} ore stimate</span>
                                             </div>
                                         </div>
@@ -631,7 +631,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     {step === 'document' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)', alignItems: "center", justifyContent: "center", textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>
                             <div style={{ backgroundColor: 'var(--app-color-primary)', width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', borderRadius: 'var(--md-sys-spacing-16)', color: 'var(--app-color-on-primary)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
-                                <span className="material-symbols-outlined" style={{ color: 'var(--app-color-on-primary)' }}>task_alt</span>
+                                <span style={{ color: 'var(--app-color-on-primary)' }}>task_alt</span>
                             </div>
                             <div>
                                 <h3 style={{ color: 'var(--app-color-on-surface)', marginBottom: 'var(--md-sys-spacing-8)' }}>Pianificazione Completata!</h3>
@@ -642,7 +642,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <M3Button onClick={handleGenerateDoc} disabled={isProcessing} variant="filled" style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }} title="Scarica il documento finale">
                                 {isProcessing ? <AiThinkingGem size="small" inline text="Generazione..." /> : (
                                     <>
-                                        <span className="material-symbols-outlined">description</span>
+                                        <span>description</span>
                                         Genera Documento Word
                                     </>
                                 )}
