@@ -147,15 +147,19 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
 
                         {activeTab === 'file' && (
                             <div 
-                                {...getRootProps()} 
-                                // eslint-disable-next-line design-system/no-classname
-                                className={`flex-grow flex flex-col items-center justify-center border-2 border-dashed rounded-[var(--md-sys-shape-corner-extra-large)] transition-all ${
-                                    isDragActive 
-                                        ? 'border-primary bg-primary/5' 
-                                        : 'border-[var(--md-sys-color-outline-variant)]/50 bg-[var(--md-sys-color-surfaceContainerLow)]'
-                                } ${isUploading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-[var(--md-sys-color-surfaceContainer)]'}`}
+                                style={{
+                                    flexGrow: 1,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    border: 'var(--app-border-thin) dashed var(--md-sys-color-outline-variant)',
+                                    borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+                                    transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                    padding: 'var(--app-spacing-container)',
+                                    cursor: 'pointer',
+                                }}
                             >
-                                <input {...getInputProps()} />
                                 <div style={{ backgroundColor: 'var(--app-color-primary)', opacity: 0.1, width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                     <span style={{ color: 'var(--app-color-primary)' }}>upload_file</span>
                                 </div>

@@ -25,7 +25,6 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
         }
       `}</style>
       <nav
-        className="bottom-nav-container"
         aria-label="Navigazione principale mobile"
         style={{
           position: 'fixed',
