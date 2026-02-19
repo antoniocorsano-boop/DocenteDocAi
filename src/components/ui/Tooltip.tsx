@@ -96,7 +96,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
           role="tooltip"
           style={{
             position: 'absolute',
-            zIndex: 1000,
+            zIndex: 'var(--md-sys-z-tooltip)',
             padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
             background: 'var(--md-sys-color-inverse-surface)',
             color: 'var(--md-sys-color-inverse-on-surface)',
