@@ -19,13 +19,12 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
     <>
       <style>{`
         @media (min-width: 1024px) {
-          .bottom-nav-container {
+          nav[aria-label="Navigazione principale mobile"] {
             display: none !important;
           }
         }
       `}</style>
       <nav
-        className="bottom-nav-container"
         aria-label="Navigazione principale mobile"
         style={{
           position: 'fixed',
@@ -34,7 +33,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
           bottom: 0,
           zIndex: 'var(--md-sys-z-nav)',
           background: 'var(--md-sys-color-surface-container)',
-          boxShadow: '0 -2px 8px rgba(0,0,0,0.1)',
+          boxShadow: 'var(--md-sys-elevation-level1)',
           display: 'flex',
           justifyContent: 'space-around',
           padding: 'var(--md-sys-spacing-2) 0',

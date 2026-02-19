@@ -123,7 +123,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             padding: 'var(--md-sys-spacing-6)',
             borderRadius: 'var(--md-sys-spacing-3)',
             background: 'var(--md-sys-color-primary-container)',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+            boxShadow: 'var(--md-sys-elevation-level1)',
             marginBottom: 'var(--md-sys-spacing-4)'
           }}
         >

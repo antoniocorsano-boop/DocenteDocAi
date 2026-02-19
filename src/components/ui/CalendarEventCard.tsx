@@ -76,7 +76,7 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = 'translateX(2px)';
-          e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level1)';
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = 'translateX(0)';
@@ -104,7 +104,7 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'translateY(-2px)';
-        e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.15)';
+        e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level2)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = 'translateY(0)';

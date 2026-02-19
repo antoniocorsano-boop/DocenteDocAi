@@ -98,9 +98,6 @@ export interface M3PopoverProps {
   /** Custom styles */
   style?: React.CSSProperties;
   
-  /** Custom className */
-  className?: string;
-  
   /** Z-index */
   zIndex?: number;
 }
@@ -191,7 +188,6 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
   maxWidth = 400,
   showBackdrop = true,
   style = {},
-  className,
   zIndex = 1300,
 }) => {
   const popoverRef = useRef<HTMLDivElement>(null);
@@ -293,8 +289,6 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
       {/* Backdrop */}
       {showBackdrop && (
         <div
-          // eslint-disable-next-line design-system/no-classname
-          className="m3-popover__backdrop"
           style={{position: 'fixed',
             top: 0,
             left: 0,
@@ -312,8 +306,6 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
       {/* Popover */}
       <div
         ref={popoverRef}
-        // eslint-disable-next-line design-system/no-classname
-        className={`m3-popover ${className || ''}`.trim()}
         style={{
           position: 'fixed',
           top: `${position.top}px`,

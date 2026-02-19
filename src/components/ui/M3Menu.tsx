@@ -64,9 +64,6 @@ export interface M3MenuProps {
   /** Max width of menu */
   maxWidth?: number | string;
   
-  /** Custom className */
-  className?: string;
-  
   /** Custom z-index for the menu */
   zIndex?: number;
 }
@@ -83,7 +80,6 @@ export const M3Menu: React.FC<M3MenuProps> = ({
   title,
   minWidth = 200,
   maxWidth = 320,
-  className,
   zIndex,
 }) => {
   const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -159,9 +155,11 @@ export const M3Menu: React.FC<M3MenuProps> = ({
       zIndex={zIndex} // eslint-disable-line design-system/no-invalid-component-props
     >
       <div role="menu"
-        // eslint-disable-next-line design-system/no-classname
-        className={`m3-menu ${className || ''}`.trim()}
-        style={{ outline: 'none' }}>
+        style={{ 
+          outline: 'none',
+          minWidth: typeof minWidth === 'number' ? `${minWidth}px` : minWidth,
+          maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
+        }}>
         {items.map((item, index) => (
           <React.Fragment key={item.key}>
             <button
@@ -171,13 +169,19 @@ export const M3Menu: React.FC<M3MenuProps> = ({
               role="menuitem"
               onClick={handleItemClick.bind(null, index)}
               disabled={item.disabled}
-              // eslint-disable-next-line design-system/no-classname
-              className={item.variant === 'error' ? 'm3-menu-item--error' : undefined}
               style={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--md-sys-spacing-2)',
+                padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                border: 'none',
+                borderRadius: 'var(--md-sys-shape-corner-medium)',
+                textAlign: 'left',
                 opacity: item.disabled ? 'var(--md-sys-state-opacity-disabled)' : '1',
                 cursor: item.disabled ? 'not-allowed' : 'pointer',
                 backgroundColor: focusedIndex === index ? 'var(--md-sys-color-surface-container-high)' : 'transparent',
-                color: item.variant === 'error' ? 'var(--md-sys-color-error)' : 'inherit'
+                color: item.variant === 'error' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface)'
               }}
               onMouseEnter={() => !item.disabled && setFocusedIndex(index)}
               onMouseLeave={() => setFocusedIndex(-1)}
@@ -208,8 +212,6 @@ export const M3Menu: React.FC<M3MenuProps> = ({
             {item.divider && (
               <div
                 role="separator"
-                // eslint-disable-next-line design-system/no-classname
-                className="m3-menu__divider"
                 style={{
                   height: 'var(--md-sys-spacing-1)',
                   backgroundColor: 'var(--md-sys-color-outline-variant)',

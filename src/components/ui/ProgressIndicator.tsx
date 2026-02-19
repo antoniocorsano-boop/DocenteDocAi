@@ -35,7 +35,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
           right: 0,
           height: 'var(--md-sys-spacing-0_5)',
           backgroundColor: 'var(--md-sys-color-surface-variant)',
-          zIndex: 9999,
+          zIndex: 'var(--md-sys-z-progress)',
           overflow: 'hidden'
         }}
       >

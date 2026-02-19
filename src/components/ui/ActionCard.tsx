@@ -57,7 +57,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({
         if (!disabled) {
           e.currentTarget.style.background = config.hoverBg;
           e.currentTarget.style.transform = 'translateY(-4px)';
-          e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15)';
+          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level2)';
         }
       }}
       onMouseLeave={(e) => {

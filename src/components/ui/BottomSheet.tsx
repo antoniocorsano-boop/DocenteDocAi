@@ -119,8 +119,8 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          zIndex: 9998,
+          backgroundColor: 'var(--md-sys-color-scrim)',
+          zIndex: 'var(--md-sys-z-modal)',
           animation: 'backdrop-fade-in 300ms var(--md-sys-motion-easing-standard)',
           backdropFilter: 'blur(2px)'
         }}
@@ -145,10 +145,10 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
           backgroundColor: 'var(--md-sys-color-surface-container-low)',
           borderTopLeftRadius: 'var(--md-sys-spacing-4)',
           borderTopRightRadius: 'var(--md-sys-spacing-4)',
-          zIndex: 9999,
+          zIndex: 'var(--md-sys-z-modal)',
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: '0 -4px 16px rgba(0,0,0,0.2)',
+          boxShadow: 'var(--md-sys-elevation-level3)',
           transform: `translateY(${translateY}px)`,
           transition: isDragging ? 'none' : 'transform 300ms var(--md-sys-motion-easing-standard)',
           animation: 'sheet-slide-up 300ms var(--md-sys-motion-easing-standard)'

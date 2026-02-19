@@ -124,7 +124,7 @@ export const AccessibilitySettings: React.FC = () => {
                 ? 'var(--md-sys-color-on-primary)'
                 : 'var(--md-sys-color-on-surface-variant)',
               transition: 'left 200ms var(--md-sys-motion-easing-standard)',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+              boxShadow: 'var(--md-sys-elevation-level1)'
             }}
           />
         </button>
@@ -213,7 +213,7 @@ export const AccessibilitySettings: React.FC = () => {
                 ? 'var(--md-sys-color-on-primary)'
                 : 'var(--md-sys-color-on-surface-variant)',
               transition: 'left 200ms var(--md-sys-motion-easing-standard)',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+              boxShadow: 'var(--md-sys-elevation-level1)'
             }}
           />
         </button>
