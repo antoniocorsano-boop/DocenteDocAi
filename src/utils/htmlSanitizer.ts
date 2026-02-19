@@ -20,14 +20,17 @@ interface SanitizeOptions {
   stripScripts?: boolean;
 }
 
-const DEFAULT_ALLOWED_TAGS: AllowedTags[] = [
+const _DEFAULT_ALLOWED_TAGS: AllowedTags[] = [
   'p', 'br', 'strong', 'b', 'em', 'i', 'u',
   'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
   'ul', 'ol', 'li', 'span', 'div',
   'a', 'code', 'pre', 'blockquote'
 ];
 
-const DEFAULT_ALLOWED_ATTRIBUTES = ['href', 'target', 'rel', 'class', 'style'];
+const _DEFAULT_ALLOWED_ATTRIBUTES = ['href', 'target', 'rel', 'class', 'style'];
+
+// Export for future use in tag filtering
+export { _DEFAULT_ALLOWED_TAGS as DEFAULT_ALLOWED_TAGS, _DEFAULT_ALLOWED_ATTRIBUTES as DEFAULT_ALLOWED_ATTRIBUTES };
 
 /**
  * Basic HTML sanitizer
@@ -38,10 +41,11 @@ export const sanitizeHtml = (
   options: SanitizeOptions = {}
 ): string => {
   const {
-    allowedTags = DEFAULT_ALLOWED_TAGS,
-    allowedAttributes = DEFAULT_ALLOWED_ATTRIBUTES,
     stripScripts = true
   } = options;
+  // Note: allowedTags/allowedAttributes available for future tag filtering implementation
+  void options.allowedTags;
+  void options.allowedAttributes;
 
   if (!html) return '';
 

@@ -3,7 +3,6 @@
 // Audit: febbraio 2026
 
 import React, { useState, useRef, useId } from 'react';
-import { M3Typography } from './index';
 
 interface TooltipProps {
   content: string;
