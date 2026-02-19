@@ -101,7 +101,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
             background: 'var(--md-sys-color-inverse-surface)',
             color: 'var(--md-sys-color-inverse-on-surface)',
             borderRadius: 'var(--md-sys-spacing-1)',
-            boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+            boxShadow: 'var(--md-sys-elevation-level2)',
             maxWidth: 'var(--md-sys-spacing-16)',
             whiteSpace: 'normal',
             fontSize: 'var(--md-sys-typescale-body-small-size)',

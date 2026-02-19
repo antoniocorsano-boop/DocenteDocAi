@@ -98,15 +98,15 @@ export const FAB: React.FC<FABProps> = ({
         boxShadow: disabled 
           ? 'none' 
           : isPressed 
-            ? '0 2px 8px rgba(0,0,0,0.2)' 
-            : '0 4px 12px rgba(0,0,0,0.25)',
+            ? 'var(--md-sys-elevation-level1)' 
+            : 'var(--md-sys-elevation-level2)',
         cursor: disabled ? 'not-allowed' : 'pointer',
         transition: 'all 200ms var(--md-sys-motion-easing-standard)',
         transform: isPressed && !disabled 
           ? `${positionStyles.transform || ''} scale(0.95)` 
           : `${positionStyles.transform || ''} scale(1)`,
         opacity: disabled ? 0.5 : 1,
-        zIndex: 1000,
+        zIndex: 'var(--md-sys-z-fab)',
         userSelect: 'none',
         WebkitTapHighlightColor: 'transparent',
         ...positionStyles
@@ -190,8 +190,8 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.3)',
-            zIndex: 999,
+            backgroundColor: 'var(--md-sys-color-scrim)',
+            zIndex: 'var(--md-sys-z-modal)',
             animation: 'fade-in 200ms ease-out'
           }}
         />
@@ -205,7 +205,7 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
             display: 'flex',
             flexDirection: 'column',
             gap: 'var(--md-sys-spacing-3)',
-            zIndex: 1000,
+            zIndex: 'var(--md-sys-z-modal)',
             ...positionStyles,
             bottom: `calc(${positionStyles.bottom} + var(--md-sys-spacing-14) + var(--md-sys-spacing-2))`
           }}
@@ -232,7 +232,7 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
                   fontSize: '14px',
                   fontWeight: '500',
                   whiteSpace: 'nowrap',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+                  boxShadow: 'var(--md-sys-elevation-level1)'
                 }}
               >
                 {action.label}
@@ -249,7 +249,7 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
                   backgroundColor: 'var(--md-sys-color-secondary-container)',
                   color: 'var(--md-sys-color-on-secondary-container)',
                   borderRadius: 'var(--md-sys-spacing-3)',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                  boxShadow: 'var(--md-sys-elevation-level1)'
                 }}
               >
                 <span
