@@ -19,7 +19,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
     <>
       <style>{`
         @media (min-width: 1024px) {
-          .bottom-nav-container {
+          nav[aria-label="Navigazione principale mobile"] {
             display: none !important;
           }
         }
