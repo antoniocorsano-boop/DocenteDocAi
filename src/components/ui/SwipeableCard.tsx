@@ -112,8 +112,8 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
           }}
         >
           <span
-            className="material-symbols-outlined"
             style={{
+              fontFamily: '"Material Symbols Outlined"',
               fontSize: '24px',
               color: leftAction.color,
               fontVariationSettings: '"FILL" 1, "wght" 600'
@@ -162,8 +162,8 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
             {rightAction.label}
           </span>
           <span
-            className="material-symbols-outlined"
             style={{
+              fontFamily: '"Material Symbols Outlined"',
               fontSize: '24px',
               color: rightAction.color,
               fontVariationSettings: '"FILL" 1, "wght" 600'

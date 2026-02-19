@@ -66,9 +66,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         {/* Icona opzionale */}
         {icon && (
           <span
-            className="material-symbols-outlined"
             aria-hidden="true"
             style={{
+              fontFamily: '"Material Symbols Outlined"',
               fontSize: 'var(--md-sys-spacing-6)',
               color: colorMap[color],
               marginBottom: 'var(--md-sys-spacing-1)'
@@ -122,9 +122,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({
             }}
           >
             <span
-              className="material-symbols-outlined"
               aria-hidden="true"
               style={{
+                fontFamily: '"Material Symbols Outlined"',
                 fontSize: 'var(--md-sys-spacing-3)',
                 color: trend === 'up' ? '#4CAF50' : trend === 'down' ? '#F44336' : 'inherit'
               }}

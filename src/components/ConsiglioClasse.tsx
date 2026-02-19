@@ -233,7 +233,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 {expandedColumns.rendimento && <>
                                     <td style={{ color: sys.colors.center }}>{performance.grade || 'N/D'}</td>
                                     <td style={{ color: sys.colors.center }}>
-                                        {performance.trend && <span title={performance.trend || ''} className="material-symbols-outlined" style={{ color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>{trendIcon}</span>}
+                                        {performance.trend && <span title={performance.trend || ''} style={{ fontFamily: '"Material Symbols Outlined"', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>{trendIcon}</span>}
                                     </td>
                                 </>}
                                 {expandedColumns.valutazione && <>
