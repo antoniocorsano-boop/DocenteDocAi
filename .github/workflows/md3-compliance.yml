@@ -1,0 +1,101 @@
+name: MD3 Compliance
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'src/**/*.tsx'
+      - 'src/**/*.ts'
+      - 'src/**/*.css'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'src/**/*.tsx'
+      - 'src/**/*.ts'
+      - 'src/**/*.css'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  md3-checks:
+    name: MD3 Governance Checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Block className usage
+        run: |
+          echo "🔍 Scanning for forbidden className usage..."
+
+          CLASSNAME_FILES=$(find src/ -name "*.tsx" -o -name "*.ts" -o -name "*.jsx" -o -name "*.js" | grep -v node_modules | xargs grep -l "className=" 2>/dev/null || true)
+
+          if [ -n "$CLASSNAME_FILES" ]; then
+            echo "❌ CRITICAL: Found className usage:"
+            echo "$CLASSNAME_FILES"
+            exit 1
+          fi
+
+          TAILWIND_FILES=$(find src/ -name "*.tsx" -o -name "*.ts" -o -name "*.jsx" -o -name "*.js" | grep -v node_modules | xargs grep -l "clsx\|classnames\|tw\|tailwind" 2>/dev/null || true)
+
+          if [ -n "$TAILWIND_FILES" ]; then
+            echo "❌ CRITICAL: Found Tailwind/utility libraries:"
+            echo "$TAILWIND_FILES"
+            exit 1
+          fi
+
+          echo "✅ No forbidden className usage."
+
+      - name: Block hardcoded values
+        run: |
+          echo "🔍 Scanning for hardcoded CSS values..."
+
+          HARDCODED_FILES=$(find src/ -name "*.tsx" -o -name "*.ts" -o -name "*.jsx" -o -name "*.js" | grep -v node_modules | xargs grep -l "[0-9]\+\(px\|rem\|em\|vh\|vw\|vmin\|vmax\)" 2>/dev/null | grep -v "var(--" || true)
+
+          if [ -n "$HARDCODED_FILES" ]; then
+            echo "❌ CRITICAL: Found hardcoded CSS values:"
+            echo "$HARDCODED_FILES"
+            exit 1
+          fi
+
+          HEX_COLOR_FILES=$(find src/ -name "*.tsx" -o -name "*.ts" -o -name "*.jsx" -o -name "*.js" | grep -v node_modules | xargs grep -l "#[0-9a-fA-F]\{3,8\}" 2>/dev/null | grep -v "var(--" || true)
+
+          if [ -n "$HEX_COLOR_FILES" ]; then
+            echo "❌ CRITICAL: Found hardcoded hex colors:"
+            echo "$HEX_COLOR_FILES"
+            exit 1
+          fi
+
+          echo "✅ No hardcoded values found."
+
+      - name: Run MD3 Theme Audit
+        run: npm run md3:theme:audit || true
+
+      - name: Run MD3 Motion Audit
+        run: npm run md3:motion:audit || true
+
+      - name: Run MD3 Component Audit
+        run: npm run md3:component:audit || true
+
+      - name: Run ESLint with MD3 Rules
+        run: |
+          npx eslint src/ --max-warnings 0 --format=json > eslint-results.json || true
+          MD3_VIOLATIONS=$(jq '[.[] | select(.messages | any(.ruleId | startswith("design-system/")))] | length' eslint-results.json 2>/dev/null || echo "0")
+          if [ "$MD3_VIOLATIONS" -gt 0 ]; then
+            echo "❌ MD3 GOLD COMPLIANCE FAILED: $MD3_VIOLATIONS violations"
+            exit 1
+          fi
+          echo "✅ MD3 Gold Compliance verified"

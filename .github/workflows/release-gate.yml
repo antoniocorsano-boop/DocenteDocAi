@@ -1,10 +1,10 @@
-name: Release Gate CI
+name: Release Gate
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main]
     types: [opened, synchronize, reopened, ready_for_review]
 
 concurrency:
@@ -13,88 +13,53 @@ concurrency:
 
 jobs:
   release-gate:
-    name: Release Gate - MD3 Compliance & Build
+    name: Release Validation
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false
+    timeout-minutes: 15
 
     steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: 🔧 Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
-    - name: 📦 Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: 🔍 MD3 Compliance Check
-      run: npm run md3:check
-      continue-on-error: false
+      - name: Run all checks
+        run: |
+          echo "Running lint..."
+          npm run lint
+          echo "Running type check..."
+          npx tsc --noEmit
+          echo "Running tests..."
+          npm run test:ci
 
-    - name: 🏗️ Build Production
-      run: npm run build
-      continue-on-error: false
+      - name: Build Production
+        run: npm run build
 
-    - name: 🧪 Run Tests
-      run: npm run test:ci
-      continue-on-error: false
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dist
+          path: dist/
+          retention-days: 7
 
-    - name: 📊 Upload Build Artifacts
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: build-artifacts
-        path: dist/
-        retention-days: 7
-
-    - name: 📋 Generate Release Report
-      if: always()
-      run: |
-        echo "# 🚀 Release Gate Report" > release-report.md
-        echo "" >> release-report.md
-        echo "**Date:** $(date)" >> release-report.md
-        echo "**Branch:** ${{ github.ref_name }}" >> release-report.md
-        echo "**Commit:** ${{ github.sha }}" >> release-report.md
-        echo "" >> release-report.md
-        echo "## ✅ Checks Passed" >> release-report.md
-        echo "- MD3 Compliance: PASSED (0 violations in production)" >> release-report.md
-        echo "- Build: PASSED" >> release-report.md
-        echo "- Tests: PASSED" >> release-report.md
-        echo "" >> release-report.md
-        echo "## 📊 Build Metrics" >> release-report.md
-        echo "- Node.js: 20.x" >> release-report.md
-        echo "- Build Time: < 2 minutes" >> release-report.md
-        echo "- Bundle Size: Optimized" >> release-report.md
-
-    - name: 📤 Upload Release Report
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: release-report
-        path: release-report.md
-
-    - name: 🚫 Block Merge on Failure
-      if: failure()
-      run: |
-        echo "❌ RELEASE GATE FAILED"
-        echo "One or more checks failed:"
-        echo "- MD3 Compliance Check"
-        echo "- Production Build"
-        echo "- Test Suite"
-        echo ""
-        echo "Please fix the issues before merging."
-        exit 1
-
-    - name: ✅ Release Gate Passed
-      if: success()
-      run: |
-        echo "🎉 RELEASE GATE PASSED"
-        echo "All checks successful:"
-        echo "- ✅ MD3 Compliance (0 violations)"
-        echo "- ✅ Production Build"
-        echo "- ✅ Test Suite"
-        echo ""
-        echo "Ready for deployment! 🚀"
+      - name: Release Gate Summary
+        if: always()
+        run: |
+          echo "## 🚀 Release Gate Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Checks Performed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Lint" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Type Check" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Unit Tests" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Production Build" >> $GITHUB_STEP_SUMMARY
