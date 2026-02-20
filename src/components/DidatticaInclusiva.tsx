@@ -109,7 +109,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                             width: 'var(--md-sys-spacing-10)',
                                             height: 'var(--md-sys-spacing-10)',
                                             
-                                            borderRadius: 'var(--app-layout-half)',
+                                            borderRadius: 'var(--md-sys-shape-corner-full)',
                                             
                                             display: 'flex',
                                             alignItems: 'center',
@@ -215,7 +215,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                             <M3Button 
                                 onClick={() => setEditingStudent(student)} 
                                 variant="tonal"
-                                 style={{ width: "var(--app-layout-full)" }}
+                                 style={{ width: "var(--md-sys-percent-100)" }}
                             >
                                 <span  style={{ marginRight: "var(--app-spacing-component)" }}>add_circle</span>
                                 Crea Piano
@@ -242,9 +242,9 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         boxShadow: 'var(--md-sys-elevation-level1)',
                         padding: 'var(--md-sys-spacing-8)',
-                        margin: 'var(--md-sys-spacing-8) var(--app-layout-auto) 0 var(--app-layout-auto)',
+                        margin: 'var(--md-sys-spacing-8) var(--md-sys-margin-auto) 0 var(--md-sys-margin-auto)',
                         maxWidth: 1000,
-                        width: 'var(--app-layout-full)'
+                        width: 'var(--md-sys-percent-100)'
                     }}
                 >
                     <SectionHeader
