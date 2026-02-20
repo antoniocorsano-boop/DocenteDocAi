@@ -91,7 +91,7 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
       onTouchEnd={handleTouchEnd}
       style={{
         position: 'relative',
-        height: '100%',
+        height: 'var(--md-sys-percent-100)',
         overflowY: 'auto',
         WebkitOverflowScrolling: 'touch'
       }}
@@ -100,18 +100,18 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
       <div
         style={{
           position: 'absolute',
-          top: 0,
-          left: '50%',
-          transform: `translateX(-50%) translateY(${Math.min(pullDistance - 40, 20)}px)`,
+          top: 'var(--md-sys-spacing-0)',
+          left: 'var(--md-sys-percent-50)',
+          transform: `translateX(calc(var(--md-sys-percent-50) * -1)) translateY(${Math.min(pullDistance - 40, 20)}px)`,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           gap: 'var(--md-sys-spacing-2)',
           opacity: pullDistance > 0 ? 1 : 0,
           transition: isRefreshing 
-            ? 'transform 300ms var(--md-sys-motion-easing-standard), opacity 200ms' 
-            : 'opacity 200ms',
-          zIndex: 1,
+            ? 'transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), opacity var(--md-sys-motion-duration-short)' 
+            : 'opacity var(--md-sys-motion-duration-short)',
+          zIndex: 'var(--md-sys-z-raised)',
           pointerEvents: 'none'
         }}
       >
@@ -120,20 +120,20 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
           style={{
             width: 'var(--md-sys-spacing-8)',
             height: 'var(--md-sys-spacing-8)',
-            border: '3px solid var(--md-sys-color-primary-container)',
+            border: 'var(--md-sys-border-width-medium) solid var(--md-sys-color-primary-container)',
             borderTopColor: 'var(--md-sys-color-primary)',
-            borderRadius: '50%',
+            borderRadius: 'var(--md-sys-shape-corner-full)',
             transform: `scale(${spinnerScale}) rotate(${isRefreshing ? '0deg' : `${rotation}deg`})`,
-            transition: 'transform 200ms',
-            animation: isRefreshing ? 'spin 1s linear infinite' : 'none'
+            transition: 'transform var(--md-sys-motion-duration-short)',
+            animation: isRefreshing ? 'spin var(--md-sys-motion-duration-extra-long) linear infinite' : 'none'
           }}
         />
 
         {/* Status text */}
         <span
           style={{
-            fontSize: '12px',
-            fontWeight: '600',
+            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+            fontWeight: 'var(--md-sys-typescale-label-small-font-weight)',
             color: 'var(--md-sys-color-on-surface-variant)',
             opacity: spinnerScale
           }}
@@ -149,7 +149,7 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
         style={{
           transform: `translateY(${status === 'refreshing' ? threshold : 0}px)`,
           transition: status === 'refreshing' || status === 'idle' 
-            ? 'transform 300ms var(--md-sys-motion-easing-standard)' 
+            ? 'transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' 
             : 'none'
         }}
       >
