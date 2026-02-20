@@ -32,9 +32,9 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
 
   // Calculate sheet height
   const sheetHeight = {
-    auto: '60vh',
-    half: '50vh',
-    full: '90vh'
+    auto: 'var(--md-sys-percent-60)',
+    half: 'var(--md-sys-percent-50)',
+    full: 'var(--md-sys-percent-90)'
   }[height];
 
   // Lock body scroll when sheet is open
@@ -115,14 +115,14 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
         onClick={handleBackdropClick}
         style={{
           position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          zIndex: 9998,
-          animation: 'backdrop-fade-in 300ms var(--md-sys-motion-easing-standard)',
-          backdropFilter: 'blur(2px)'
+          top: 'var(--md-sys-spacing-0)',
+          left: 'var(--md-sys-spacing-0)',
+          right: 'var(--md-sys-spacing-0)',
+          bottom: 'var(--md-sys-spacing-0)',
+          backgroundColor: 'var(--md-sys-color-scrim)',
+          zIndex: 'var(--md-sys-z-modal)',
+          animation: 'backdrop-fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+          backdropFilter: 'blur(var(--md-sys-blur-small))'
         }}
         aria-hidden="true"
       />
@@ -138,20 +138,20 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
         onTouchEnd={handleTouchEnd}
         style={{
           position: 'fixed',
-          bottom: 0,
-          left: 0,
-          right: 0,
+          bottom: 'var(--md-sys-spacing-0)',
+          left: 'var(--md-sys-spacing-0)',
+          right: 'var(--md-sys-spacing-0)',
           maxHeight: sheetHeight,
           backgroundColor: 'var(--md-sys-color-surface-container-low)',
-          borderTopLeftRadius: 'var(--md-sys-spacing-4)',
-          borderTopRightRadius: 'var(--md-sys-spacing-4)',
-          zIndex: 9999,
+          borderTopLeftRadius: 'var(--md-sys-shape-corner-large)',
+          borderTopRightRadius: 'var(--md-sys-shape-corner-large)',
+          zIndex: 'var(--md-sys-z-modal)',
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: '0 -4px 16px rgba(0,0,0,0.2)',
+          boxShadow: 'var(--md-sys-elevation-3)',
           transform: `translateY(${translateY}px)`,
-          transition: isDragging ? 'none' : 'transform 300ms var(--md-sys-motion-easing-standard)',
-          animation: 'sheet-slide-up 300ms var(--md-sys-motion-easing-standard)'
+          transition: isDragging ? 'none' : 'transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+          animation: 'sheet-slide-up var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'
         }}
       >
         {/* Drag handle */}
@@ -183,7 +183,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
             style={{
               padding: 'var(--md-sys-spacing-4)',
               paddingTop: showHandle ? 'var(--md-sys-spacing-2)' : 'var(--md-sys-spacing-4)',
-              borderBottom: '1px solid var(--md-sys-color-outline-variant)'
+              borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
             }}
           >
             <M3Typography
@@ -220,10 +220,10 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
         
         @keyframes sheet-slide-up {
           from {
-            transform: translateY(100%);
+            transform: translateY(var(--md-sys-percent-100));
           }
           to {
-            transform: translateY(0);
+            transform: translateY(var(--md-sys-spacing-0));
           }
         }
       `}</style>

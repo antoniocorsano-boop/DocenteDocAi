@@ -66,7 +66,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
   };
 
   return (
-    <div  style={{padding: 'var(--app-spacing-section)', marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)"}}>
+    <div  style={{padding: 'var(--app-spacing-section)', marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)"}}>
       <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--app-spacing-section)'}}>
         <h1 >Error Logs Dashboard</h1>
         {onClose && (
@@ -165,7 +165,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
       {/* Logs Table */}
       <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
         <div style={{ overflowX: "auto" }}>
-          <table  style={{ width: "var(--app-layout-full)" }}>
+          <table  style={{ width: "var(--md-sys-percent-100)" }}>
             <thead style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
               <tr>
                 <th  style={{textAlign: "left", padding: 'var(--app-spacing-section)'}}>Time</th>
