@@ -73,3 +73,7 @@ export { default as M3Snackbar } from './M3Snackbar';
 export { default as M3Surface } from './M3Surface';
 export { default as M3PageTransition } from './M3PageTransition';
 export { default as M3DynamicColorPicker } from './M3DynamicColorPicker';
+
+// Additional M3 Components
+export { default as M3LinearProgress } from './M3LinearProgress';
+export { default as M3NavigationDrawer } from './M3NavigationDrawer';
