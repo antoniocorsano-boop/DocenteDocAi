@@ -163,7 +163,7 @@
 
 /* Icon styling */
 .m3-navigation-rail__icon-container .material-symbols-outlined {
-  font-font-size: calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
   line-height: 1;
   color: inherit;
   @apply m3-transition-standard;
@@ -212,7 +212,7 @@
   border-radius: var(--md-sys-shape-corner-small);
   
   /* Typography */
-  font-font-size: var(--md-sys-typescale-label-small-font-size);
+  font-size: var(--md-sys-typescale-label-small-font-size);
   font-weight: 700;
   line-height: var(--md-sys-spacing-4);
   text-align: center;
@@ -241,7 +241,7 @@
 
 .m3-navigation-rail__label {
   /* Typography handled by .m3-label-medium class */
-  font-font-size: var(--md-sys-spacing-3);
+  font-size: var(--md-sys-spacing-3);
   font-weight: 500;
   letter-spacing: var(--md-sys-border-width-thin);
   text-align: center;
@@ -269,7 +269,7 @@
   }
   
   .m3-navigation-rail__label {
-    font-font-size: var(--md-sys-typescale-label-large-font-font-size);
+    font-size: var(--md-sys-typescale-label-large-font-size);
   }
 }
 

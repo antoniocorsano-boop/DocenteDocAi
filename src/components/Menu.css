@@ -70,7 +70,7 @@
 }
 
 .material-symbols-outlined {
-  font-font-size: var(--icon-font-size-medium);
+  font-size: var(--icon-font-size-medium);
   color: var(--md-sys-color-on-surface-variant);
   pointer-events: none;
 }
@@ -80,7 +80,7 @@
 }
 
 .m3-label-small {
-  font-font-size: var(--md-sys-typescale-label-small-font-size);
+  font-size: var(--md-sys-typescale-label-small-font-size);
   font-font-family: var(--font-variable);
   font-variation-settings: var(--font-variation-settings);
   letter-spacing: 0.12em;
@@ -94,7 +94,7 @@
 
 /* Dedicated class for menu navigation labels */
 .nav-label {
-  font-weight: 900; /* font-black equivalent */
+  font-weight: 700; /* font-black equivalent */
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }

@@ -100,10 +100,10 @@
   box-shadow: var(--md-sys-elevation1);
 }
 .font-body-medium {
-  font-font-size: var(--md-sys-typescale-body-medium-font-size);
+  font-size: var(--md-sys-typescale-body-medium-font-size);
 }
 .font-body-small {
-  font-font-size: var(--md-sys-typescale-body-small-font-size);
+  font-size: var(--md-sys-typescale-body-small-font-size);
 }
 .font-weight-medium {
   font-weight: var(--md-sys-typescale-body-medium-weight);

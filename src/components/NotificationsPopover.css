@@ -16,7 +16,7 @@
 
 .notifications-popover-title {
   font-weight: var(--md-sys-typescale-body-medium-weight);
-  font-font-size: var(--md-sys-typescale-body-medium-font-size);
+  font-size: var(--md-sys-typescale-body-medium-font-size);
   color: var(--md-sys-color-on-surface);
 }
 
@@ -103,7 +103,7 @@
 
 .notifications-popover-card-title {
   font-weight: var(--md-sys-typescale-body-medium-weight);
-  font-font-size: var(--md-sys-typescale-body-small-font-size);
+  font-size: var(--md-sys-typescale-body-small-font-size);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -128,7 +128,7 @@
 }
 
 .notifications-popover-card-message {
-  font-font-size: var(--md-sys-typescale-body-small-font-size);
+  font-size: var(--md-sys-typescale-body-small-font-size);
   color: var(--md-sys-color-on-surface-variant);
   display: -webkit-box;
   overflow: hidden;
@@ -160,7 +160,7 @@
 }
 
 .notifications-popover-empty-title {
-  font-font-size: var(--md-sys-typescale-body-medium-font-size);
+  font-size: var(--md-sys-typescale-body-medium-font-size);
   font-weight: var(--md-sys-typescale-body-medium-weight);
 }
 
