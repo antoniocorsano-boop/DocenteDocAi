@@ -323,7 +323,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
                             <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--app-text-body)", fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "0.7" }}>{compData.name}</h3>
                             <BarChart
                                 data={compData.levels.map(l => ({ label: l.name, value: l.value }))}
-                                color="var(--sys-tertiary)"
+                                color="var(--md-sys-color-tertiary)"
                                 horizontal
                             />
                         </div>

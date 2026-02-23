@@ -133,7 +133,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             icon="auto_fix_high"
                             title="Studio AI"
                             description="Genera quiz, riassunti e materiali dai tuoi documenti."
-                            color="var(--sys-tertiary-container)"
+                            color="var(--md-sys-color-tertiary-container)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Studio AI');
                                 onNavigate('studio');

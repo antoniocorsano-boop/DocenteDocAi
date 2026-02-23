@@ -273,7 +273,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                     )}
                     {chartType === 'radar' && (
                         <Suspense fallback={<div>Loading chart...</div>}>
-                            <RadarChart data={radarData} color="var(--sys-tertiary)" />
+                            <RadarChart data={radarData} color="var(--md-sys-color-tertiary)" />
                         </Suspense>
                     )}
                     {chartType === 'dist' && (
