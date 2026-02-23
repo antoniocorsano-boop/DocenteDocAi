@@ -68,3 +68,7 @@ export { default as M3RadioButton } from './M3RadioButton';
 export { default as M3Slider } from './M3Slider';
 export { default as M3SegmentedButton } from './M3SegmentedButton';
 export { default as M3Snackbar } from './M3Snackbar';
+
+// MD3 Expressive Components
+export { default as M3Surface } from './M3Surface';
+export { default as M3PageTransition } from './M3PageTransition';
