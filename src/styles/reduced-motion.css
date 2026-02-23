@@ -1,0 +1,80 @@
+/**
+ * reduced-motion.css
+ * Global reduced motion styles for accessibility
+ * Respects user preference for reduced motion
+ */
+
+/* Base reduced motion styles */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Reduced motion utility class */
+.reduced-motion *,
+.reduced-motion *::before,
+.reduced-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Specific component overrides for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  /* M3Switch - instant state change */
+  .m3-switch-thumb {
+    transition: none !important;
+  }
+  
+  /* M3Slider - instant value change */
+  .m3-slider-thumb {
+    transition: none !important;
+  }
+  
+  /* M3PageTransition - instant visibility */
+  .m3-page-transition {
+    transition: opacity 0.01ms !important;
+  }
+  
+  /* M3Snackbar - instant appearance */
+  .m3-snackbar {
+    transition: none !important;
+  }
+  
+  /* M3LinearProgress - still animate but faster */
+  .m3-linear-progress-indicator {
+    animation-duration: 0.1s !important;
+  }
+}
+
+/* Focus visible styles (always shown, regardless of motion preference) */
+*:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}
+
+/* Skip to content link (always available) */
+.skip-to-content {
+  position: fixed;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  border-radius: var(--md-sys-shape-corner-medium);
+  font-family: var(--md-sys-typescale-label-large-font-family);
+  font-size: var(--md-sys-typescale-label-large-font-size);
+}
+
+.skip-to-content:focus {
+  top: var(--md-sys-spacing-2);
+}
