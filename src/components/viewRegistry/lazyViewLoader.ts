@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 /**
  * View Loading Utilities & Performance Tracking
  * 

@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 /**
  * PlanningViews.tsx
  * Raggruppa viste relative a pianificazione didattica

@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 /**
  * SettingsViews.tsx
  * Raggruppa viste relative a configurazione e gestione

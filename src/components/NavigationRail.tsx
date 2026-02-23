@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { View } from '../types';
 import { M3Typography } from './ui';

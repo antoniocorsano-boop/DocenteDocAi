@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import M3ExpressiveCard from './M3ExpressiveCard';

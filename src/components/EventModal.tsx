@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 import React, { useState } from 'react';
 import { EventoCalendario, TipoEvento } from '../types';
 import { TextField, TextArea, M3ChoiceCard, M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';

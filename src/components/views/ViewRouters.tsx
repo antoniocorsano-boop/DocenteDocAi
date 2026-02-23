@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 /**
  * ViewRouters.ts
  * Centralizza i router per tutte le categorie di viste

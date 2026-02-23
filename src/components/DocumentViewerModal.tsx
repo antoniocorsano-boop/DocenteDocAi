@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 import React, { useState } from 'react';
 import { sanitizeHTML } from '../utils/securityUtils';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';

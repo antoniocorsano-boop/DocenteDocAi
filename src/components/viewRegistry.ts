@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 import React, { lazy } from 'react';
 import { View } from '../types';
 

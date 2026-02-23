@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 // @legacy
 // @md3-noncompliant
 // @do-not-extend

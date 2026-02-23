@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 /**
  * scan-legacy-components.ts
  * Script per contare i componenti legacy da migrare in DocenteDoc AI

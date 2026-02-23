@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 
 import type { AppState, AppActions, Modals } from '../types';
 

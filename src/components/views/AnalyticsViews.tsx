@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 /**
  * AnalyticsViews.tsx
  * Raggruppa viste relative ad analytics e reporting

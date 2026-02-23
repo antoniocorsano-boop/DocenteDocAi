@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, TimetableSettings, AiSettings, Report, ValutazioneCompetenza, PeriodoValutazione } from '../types';

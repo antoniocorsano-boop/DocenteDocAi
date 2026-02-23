@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 /**
  * SchedulingViews.tsx
  * Raggruppa viste relative a orari, calendari e lezioni

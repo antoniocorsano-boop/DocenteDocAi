@@ -1,5 +1,4 @@
 import { renderWithM3Theme } from '../test-utils';
-// LEGACY - MD3 Non-compliant
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
 import ChipInputList from './ChipInputList';
