@@ -72,3 +72,4 @@ export { default as M3Snackbar } from './M3Snackbar';
 // MD3 Expressive Components
 export { default as M3Surface } from './M3Surface';
 export { default as M3PageTransition } from './M3PageTransition';
+export { default as M3DynamicColorPicker } from './M3DynamicColorPicker';
