@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 import React from 'react';
 import { DndContext, useDraggable, useDroppable, DragEndEvent } from '@dnd-kit/core';
 

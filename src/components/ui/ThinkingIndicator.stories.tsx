@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import ThinkingIndicator from './ThinkingIndicator';
 

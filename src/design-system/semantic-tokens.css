@@ -98,6 +98,27 @@
   --app-elevation-level-5: var(--md-sys-elevation-5);
 
   /* ===========================================
+     TONAL ELEVATION TOKENS (MD3 Expressive)
+     Surface tint overlay with primary color
+     =========================================== */
+
+  /* Tonal elevation - surface tint intensity */
+  --app-tonal-elevation-level-0: transparent;
+  --app-tonal-elevation-level-1: color-mix(in srgb, var(--md-sys-color-primary) 5%, transparent);
+  --app-tonal-elevation-level-2: color-mix(in srgb, var(--md-sys-color-primary) 8%, transparent);
+  --app-tonal-elevation-level-3: color-mix(in srgb, var(--md-sys-color-primary) 11%, transparent);
+  --app-tonal-elevation-level-4: color-mix(in srgb, var(--md-sys-color-primary) 14%, transparent);
+  --app-tonal-elevation-level-5: color-mix(in srgb, var(--md-sys-color-primary) 17%, transparent);
+
+  /* Combined tonal surfaces (surface + tonal overlay) */
+  --app-surface-tonal-level-0: var(--md-sys-color-surface);
+  --app-surface-tonal-level-1: color-mix(in srgb, var(--md-sys-color-primary) 5%, var(--md-sys-color-surface));
+  --app-surface-tonal-level-2: color-mix(in srgb, var(--md-sys-color-primary) 8%, var(--md-sys-color-surface));
+  --app-surface-tonal-level-3: color-mix(in srgb, var(--md-sys-color-primary) 11%, var(--md-sys-color-surface));
+  --app-surface-tonal-level-4: color-mix(in srgb, var(--md-sys-color-primary) 14%, var(--md-sys-color-surface));
+  --app-surface-tonal-level-5: color-mix(in srgb, var(--md-sys-color-primary) 17%, var(--md-sys-color-surface));
+
+  /* ===========================================
      SHAPE TOKENS
      Application shape semantics
      =========================================== */

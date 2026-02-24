@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 
 // M3Expressive: QuickNotePopover - Quick note input popover with voice recording
 import React, { useState } from 'react';

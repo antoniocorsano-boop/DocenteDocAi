@@ -104,8 +104,8 @@
   gap: var(--spacing-1, var(--md-sys-spacing-1)); /* var(--md-sys-spacing-1) gap between icon and label */
   
   /* Size */
-  width: var(--md-sys-layout-fab-size);
-  min-height: var(--md-sys-layout-fab-size);
+  width: var(--md-sys-layout-fab-font-size);
+  min-height: var(--md-sys-layout-fab-font-size);
   padding: var(--spacing-2, var(--md-sys-spacing-2)) 0;
   
   /* Shape */
@@ -212,7 +212,7 @@
   border-radius: var(--md-sys-shape-corner-small);
   
   /* Typography */
-  font-size: var(--md-sys-typescale-label-small-size);
+  font-size: var(--md-sys-typescale-label-small-font-size);
   font-weight: 700;
   line-height: var(--md-sys-spacing-4);
   text-align: center;
@@ -251,7 +251,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: var(--md-sys-layout-fab-size);
+  max-width: var(--md-sys-layout-fab-font-size);
 }
 
 /* ============================================================================

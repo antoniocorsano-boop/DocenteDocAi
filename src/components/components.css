@@ -44,7 +44,7 @@
   background-color: color-mix(in srgb, var(--md-sys-color-primary) var(--md-sys-percent-10), transparent);
   color: var(--md-sys-color-primary);
   border-radius: var(--md-sys-shape-corner-full);
-  font-size: var(--md-sys-typescale-label-small-size);
+  font-size: var(--md-sys-typescale-label-small-font-size);
   font-weight: var(--md-sys-typescale-body-medium-weight);
   text-transform: uppercase;
   letter-spacing: 0.3em;
@@ -69,7 +69,7 @@
 
 /* Home component specific styles */
 .home-hero-icon {
-  font-size: var(--typography-display-large-size);
+  font-size: var(--md-sys-typescale-display-large-font-size);
   color: var(--md-sys-color-primary);
 }
 
@@ -121,7 +121,7 @@
 }
 
 .home-card-icon-font {
-  font-size: var(--typography-title-medium-size);
+  font-size: var(--md-sys-typescale-title-medium-font-size);
 }
 
 .home-relative-z10 {
@@ -138,7 +138,7 @@
 
 .home-primary-label {
   color: var(--md-sys-color-primary);
-  font-weight: 900;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }
@@ -240,7 +240,7 @@
 }
 
 .home-suggestion-message {
-  font-weight: 900;
+  font-weight: 700;
   color: var(--md-sys-color-on-surface);
   line-height: var(--md-sys-typescale-headline-small-line-height);
   position: relative;
@@ -278,7 +278,7 @@
   text-transform: uppercase;
   letter-spacing: 0.3em;
   color: var(--md-sys-color-on-surface-variant);
-  font-weight: 900;
+  font-weight: 700;
   opacity: 0.5;
 }
 
@@ -318,8 +318,8 @@
 }
 
 .home-hero-title {
-  font-family: var(--typography-headline-large-family, 'Roboto', sans-serif);
-  font-size: var(--typography-headline-large-size);
+  font-font-family: var(--md-sys-typescale-headline-large-font-family, 'Roboto', sans-serif);
+  font-size: var(--md-sys-typescale-headline-large-font-size);
   color: var(--md-sys-color-on-surface);
   font-weight: normal;
   max-width: calc(var(--md-sys-spacing-20) * 8);
@@ -328,8 +328,8 @@
 }
 
 .home-hero-subtitle {
-  font-family: var(--typography-title-medium-family, 'Roboto', sans-serif);
-  font-size: var(--typography-title-medium-size);
+  font-font-family: var(--md-sys-typescale-title-medium-font-family, 'Roboto', sans-serif);
+  font-size: var(--md-sys-typescale-title-medium-font-size);
   color: var(--md-sys-color-on-surface-variant);
   max-width: calc(var(--md-sys-spacing-20) * 7.2);
   margin-left: auto;
@@ -356,7 +356,7 @@
 }
 
 .home-card-icon-base {
-  font-family: 'Material Symbols Outlined';
+  font-font-family: 'Material Symbols Outlined';
   margin-bottom: var(--md-sys-spacing-4);
   color: var(--md-sys-color-primary);
 }
@@ -848,15 +848,15 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .uda-editor-title {
-  font-size: var(--md-sys-typescale-headline-medium-size);
-  font-weight: 900;
+  font-size: var(--md-sys-typescale-headline-medium-font-size);
+  font-weight: 700;
   letter-spacing: -0.025em;
 }
 
 .uda-editor-subtitle {
-  font-size: var(--md-sys-typescale-body-small-size);
+  font-size: var(--md-sys-typescale-body-small-font-size);
   color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-60), transparent);
-  font-weight: 900;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   margin-top: var(--md-sys-spacing-4);
@@ -903,7 +903,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .uda-editor-link-icon {
-  font-size: var(--md-sys-typescale-body-small-size);
+  font-size: var(--md-sys-typescale-body-small-font-size);
   color: var(--md-sys-color-secondary);
   animation: pulse var(--md-sys-motion-duration-extra-long) infinite;
 }
@@ -911,7 +911,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .uda-editor-link-text {
   font-size: var(--md-sys-spacing-3);
   color: var(--md-sys-color-secondary);
-  font-weight: 900;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   opacity: 0.7;
@@ -926,7 +926,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .uda-competency-label {
   font-size: var(--md-sys-typescale-label-large-font-size);
   color: var(--md-sys-color-primary);
-  font-weight: 900;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.3em;
   padding-left: var(--md-sys-spacing-4);
@@ -960,7 +960,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   background-color: var(--md-sys-color-primary);
   color: var(--md-sys-color-on-primary);
   font-size: var(--md-sys-spacing-3);
-  font-weight: 900;
+  font-weight: 700;
   padding: var(--md-sys-spacing-1) var(--md-sys-spacing-4);
   border-radius: var(--md-sys-spacing-12);
   box-shadow: var(--md-sys-elevation-level1);
@@ -982,8 +982,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .uda-competency-placeholder-text {
-  font-size: var(--md-sys-typescale-body-small-size);
-  font-weight: 900;
+  font-size: var(--md-sys-typescale-body-small-font-size);
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -1060,8 +1060,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .uda-picker-code {
-  font-weight: 900;
-  font-size: var(--md-sys-typescale-body-small-size);
+  font-weight: 700;
+  font-size: var(--md-sys-typescale-body-small-font-size);
   line-height: 1;
   margin-bottom: var(--md-sys-spacing-1);
   overflow: hidden;
@@ -1177,16 +1177,16 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .uda-planner-title {
-  font-size: var(--md-sys-typescale-headline-medium-size);
-  font-weight: 900;
+  font-size: var(--md-sys-typescale-headline-medium-font-size);
+  font-weight: 700;
   color: var(--md-sys-color-on-surface);
   letter-spacing: -0.025em;
 }
 
 .uda-planner-subtitle {
-  font-size: var(--md-sys-typescale-body-small-size);
+  font-size: var(--md-sys-typescale-body-small-font-size);
   color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-60), transparent);
-  font-weight: 900;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }
@@ -1226,7 +1226,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .uda-planner-table-header th {
   text-align: left;
   padding: var(--md-sys-spacing-6);
-  font-size: var(--md-sys-typescale-label-large-size);
+  font-size: var(--md-sys-typescale-label-large-font-size);
   text-transform: uppercase;
   letter-spacing: 0.2em;
   opacity: 0.6;
@@ -1255,7 +1255,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .uda-table-cell-title {
-  font-weight: 900;
+  font-weight: 700;
   color: var(--md-sys-color-primary);
   transition: color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
 }
@@ -1297,7 +1297,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .uda-ai-bridge-icon {
-  font-size: var(--md-sys-typescale-title-medium-size);
+  font-size: var(--md-sys-typescale-title-medium-font-size);
 }
 
 .uda-table-cell-actions {

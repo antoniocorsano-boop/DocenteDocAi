@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 import React, { useState, useMemo } from 'react';
 import { RegisterEntry, RegisterViewProps } from '../types';

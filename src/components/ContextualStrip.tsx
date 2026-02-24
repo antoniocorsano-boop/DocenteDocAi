@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 
 import React, { useEffect, useState } from 'react';
 interface ContextualStripProps {

@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 
 // M3Expressive: EventActionPopover - Event action management popover with M3 tokens
 import React from 'react';

@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 
 import * as React from 'react';
 import { messages } from '../messages';

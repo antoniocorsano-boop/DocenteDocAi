@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 /**
  * EvaluationViews.tsx
  * Raggruppa viste relative a valutazioni, competenze e registro

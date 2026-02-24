@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 
 import React, { useMemo } from 'react';
 import { Studente, Valutazione } from '../types';
@@ -42,7 +41,7 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
 
         return [
             { label: 'Sufficienti', value: totalStudents - studentsWithInsufficient, color: 'var(--app-color-primary)' },
-            { label: 'Insufficienti', value: studentsWithInsufficient, color: 'var(--sys-error)' }
+            { label: 'Insufficienti', value: studentsWithInsufficient, color: 'var(--md-sys-color-error)' }
         ];
     }, [students, evaluations]);
 
@@ -61,7 +60,7 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
   justifyContent: 'center'
 }}>
                             {classPerformanceData.length > 0 ? (
-                                <BarChart data={classPerformanceData} color="var(--sys-tertiary)" />
+                                <BarChart data={classPerformanceData} color="var(--md-sys-color-tertiary)" />
                             ) : (
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , padding: 'var(--md-sys-spacing-8)'}}>Dati insufficienti per generare il grafico.</p>
                             )}

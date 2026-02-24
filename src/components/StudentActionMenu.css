@@ -16,7 +16,7 @@
 }
 .student-action-header-name {
   margin: 0;
-  font-size: var(--md-sys-typescale-body-medium-size);
+  font-size: var(--md-sys-typescale-body-medium-font-size);
   font-weight: var(--md-sys-typescale-body-medium-weight);
   color: var(--md-sys-color-on-primary-container);
   overflow: hidden;
@@ -25,14 +25,14 @@
 }
 .student-action-header-class {
   margin: 0;
-  font-size: var(--md-sys-typescale-body-small-size);
+  font-size: var(--md-sys-typescale-body-small-font-size);
   opacity: 0.8;
 }
 .student-action-stats-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: var(--md-sys-typescale-body-small-size);
+  font-size: var(--md-sys-typescale-body-small-font-size);
 }
 .student-action-stats-col {
   text-align: center;
@@ -40,7 +40,7 @@
 }
 .student-action-stats-label {
   margin: 0 0 var(--md-sys-spacing-1) 0;
-  font-size: var(--md-sys-typescale-label-small-size);
+  font-size: var(--md-sys-typescale-label-small-font-size);
   font-weight: var(--md-sys-typescale-body-medium-weight);
   opacity: 0.7;
   text-transform: uppercase;
@@ -48,7 +48,7 @@
 }
 .student-action-stats-value {
   margin: 0;
-  font-size: var(--md-sys-typescale-body-medium-size);
+  font-size: var(--md-sys-typescale-body-medium-font-size);
   font-weight: var(--md-sys-typescale-body-medium-weight);
 }
 .student-action-stats-divider {
@@ -58,14 +58,14 @@
   opacity: 0.3;
 }
 .student-action-trend-icon {
-  font-size: var(--md-sys-typescale-body-medium-size);
+  font-size: var(--md-sys-typescale-body-medium-font-size);
 }
 .student-action-actions {
   padding: var(--md-sys-spacing-2);
 }
 .student-action-actions-label {
   margin: var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-2) var(--md-sys-spacing-4);
-  font-size: var(--md-sys-typescale-body-small-size);
+  font-size: var(--md-sys-typescale-body-small-font-size);
   font-weight: var(--md-sys-typescale-body-medium-weight);
   text-transform: uppercase;
   color: var(--md-sys-color-on-surface-variant);
@@ -75,11 +75,11 @@
   margin-bottom: var(--md-sys-spacing-2);
 }
 .student-action-add-icon {
-  font-size: var(--md-sys-typescale-body-medium-size);
+  font-size: var(--md-sys-typescale-body-medium-font-size);
   color: var(--md-sys-color-primary);
 }
 .student-action-profile-icon {
-  font-size: var(--md-sys-typescale-body-medium-size);
+  font-size: var(--md-sys-typescale-body-medium-font-size);
   color: var(--md-sys-color-secondary);
 }
 

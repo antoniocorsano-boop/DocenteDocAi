@@ -1,5 +1,4 @@
 import { renderWithM3Theme } from './test-utils';
-// LEGACY - MD3 Non-compliant
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

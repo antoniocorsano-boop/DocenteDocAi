@@ -1,4 +1,3 @@
-// LEGACY - MD3 Non-compliant
 export { default as M3SurfaceCard } from './M3SurfaceCard';
 export { default as M3Surface } from './M3SurfaceCard';
 export { default as M3ExpressiveCard } from './M3ExpressiveCard';
@@ -62,3 +61,19 @@ export { PullToRefresh } from './PullToRefresh';
 export { FAB, FABSpeedDial } from './FAB';
 export { ThemeToggle } from './ThemeToggle';
 export { AccessibilitySettings } from './AccessibilitySettings';
+
+// MD3 Core Components (added for MD3 Expressive compliance)
+export { default as M3Switch } from './M3Switch';
+export { default as M3RadioButton } from './M3RadioButton';
+export { default as M3Slider } from './M3Slider';
+export { default as M3SegmentedButton } from './M3SegmentedButton';
+export { default as M3Snackbar } from './M3Snackbar';
+
+// MD3 Expressive Components
+export { default as M3Surface } from './M3Surface';
+export { default as M3PageTransition } from './M3PageTransition';
+export { default as M3DynamicColorPicker } from './M3DynamicColorPicker';
+
+// Additional M3 Components
+export { default as M3LinearProgress } from './M3LinearProgress';
+export { default as M3NavigationDrawer } from './M3NavigationDrawer';
