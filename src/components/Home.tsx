@@ -121,9 +121,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <M3Surface
           style={{
             padding: 'var(--md-sys-spacing-6)',
-            borderRadius: 'var(--md-sys-spacing-3)',
+            borderRadius: 'var(--md-sys-radius-3)',
             background: 'var(--md-sys-color-primary-container)',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+            boxShadow: 'var(--md-sys-elevation-2)',
             marginBottom: 'var(--md-sys-spacing-4)'
           }}
         >
@@ -151,7 +151,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <M3Surface
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(140px, var(--md-sys-grid-fr-1)))',
             gap: 'var(--md-sys-spacing-4)',
             marginTop: 'var(--md-sys-spacing-4)'
           }}
@@ -161,8 +161,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             style={{
               padding: 'var(--md-sys-spacing-4)',
               cursor: 'pointer',
-              transition: 'transform 200ms, box-shadow 200ms',
-              border: '1px solid var(--md-sys-color-primary-container)'
+              transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+              border: 'var(--md-sys-spacing-0) solid var(--md-sys-color-primary-container)'
             }}
           >
             <M3Surface style={{ textAlign: 'center' }}>
@@ -178,13 +178,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               >
                 group
               </span>
-              <M3Typography 
-                variant="display-small" 
-                style={{ 
+              <M3Typography
+                variant="display-small"
+                style={{
                   color: 'var(--md-sys-color-primary)',
                   fontWeight: '700',
-                  fontSize: '48px',
-                  lineHeight: '56px'
+                  fontSize: 'var(--md-sys-typescale-display-small-font-size)',
+                  lineHeight: 'var(--md-sys-typescale-display-small-line-height)'
                 }}
               >
                 {students?.length ?? 0}
@@ -208,8 +208,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             style={{
               padding: 'var(--md-sys-spacing-4)',
               cursor: 'pointer',
-              transition: 'transform 200ms, box-shadow 200ms',
-              border: '1px solid var(--md-sys-color-tertiary-container)'
+              transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+              border: 'var(--md-sys-spacing-0) solid var(--md-sys-color-tertiary-container)'
             }}
           >
             <M3Surface style={{ textAlign: 'center' }}>
@@ -225,13 +225,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               >
                 grading
               </span>
-              <M3Typography 
-                variant="display-small" 
-                style={{ 
+              <M3Typography
+                variant="display-small"
+                style={{
                   color: 'var(--md-sys-color-tertiary)',
                   fontWeight: '700',
-                  fontSize: '48px',
-                  lineHeight: '56px'
+                  fontSize: 'var(--md-sys-typescale-display-small-font-size)',
+                  lineHeight: 'var(--md-sys-typescale-display-small-line-height)'
                 }}
               >
                 {evaluations?.length ?? 0}
