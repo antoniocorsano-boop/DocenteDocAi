@@ -25,19 +25,18 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
         }
       `}</style>
       <nav
-        className="bottom-nav-container"
         aria-label="Navigazione principale mobile"
         style={{
           position: 'fixed',
-          left: 0,
-          right: 0,
-          bottom: 0,
+          left: 'var(--md-sys-spacing-0)',
+          right: 'var(--md-sys-spacing-0)',
+          bottom: 'var(--md-sys-spacing-0)',
           zIndex: 'var(--md-sys-z-nav)',
           background: 'var(--md-sys-color-surface-container)',
-          boxShadow: '0 -2px 8px rgba(0,0,0,0.1)',
+          boxShadow: 'var(--md-sys-elevation-3)',
           display: 'flex',
           justifyContent: 'space-around',
-          padding: 'var(--md-sys-spacing-2) 0',
+          padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-0)',
           paddingBottom: 'calc(var(--md-sys-spacing-2) + env(safe-area-inset-bottom))',
         }}
       >
@@ -50,8 +49,8 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
             aria-current={isActive ? 'page' : undefined}
             onClick={() => onNavigate(item.id as View)}
             style={{
-              background: isActive 
-                ? 'var(--md-sys-color-primary-container)' 
+              background: isActive
+                ? 'var(--md-sys-color-primary-container)'
                 : 'transparent',
               border: 'none',
               display: 'flex',
@@ -61,22 +60,22 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
               minWidth: 'var(--md-sys-spacing-10)',
               minHeight: 'var(--md-sys-spacing-8)',
               padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
-              borderRadius: 'var(--md-sys-spacing-3)',
+              borderRadius: 'var(--md-sys-radius-3)',
               cursor: 'pointer',
-              transition: 'all 200ms var(--md-sys-motion-easing-standard)',
+              transition: 'color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
               position: 'relative',
             }}
           >
-            <span 
-              className="material-symbols-outlined" 
-              aria-hidden="true" 
-              style={{ 
-                fontSize: '24px',
+            <span
+              className="material-symbols-outlined"
+              aria-hidden="true"
+              style={{
+                fontSize: 'var(--md-sys-spacing-6)',
                 color: isActive
                   ? 'var(--md-sys-color-on-primary-container)'
                   : 'var(--md-sys-color-on-surface-variant)',
                 fontVariationSettings: isActive ? '"FILL" 1, "wght" 600' : '"FILL" 0, "wght" 400',
-                transition: 'all 200ms'
+                transition: 'color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
               }}
             >
               {item.icon}
@@ -84,7 +83,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
             <span
               style={{
                 fontFamily: 'var(--md-sys-typescale-label-small-font-family)',
-                fontSize: '11px',
+                fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                 fontWeight: isActive ? '600' : '400',
                 letterSpacing: '0.5px',
                 color: isActive

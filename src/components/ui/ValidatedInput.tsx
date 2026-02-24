@@ -81,15 +81,15 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
         <M3Typography
           variant="label-medium"
           style={{
-            color: hasError 
-              ? 'var(--md-sys-color-error)' 
-              : isFocused 
-                ? 'var(--md-sys-color-primary)' 
+            color: hasError
+              ? 'var(--md-sys-color-error)'
+              : isFocused
+                ? 'var(--md-sys-color-primary)'
                 : 'var(--md-sys-color-on-surface-variant)',
             fontWeight: '600',
             marginBottom: 'var(--md-sys-spacing-2)',
             display: 'block',
-            transition: 'color 200ms'
+            transition: 'color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
           }}
         >
           {label}
@@ -124,9 +124,9 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
                       ? 'var(--md-sys-color-primary)'
                       : 'var(--md-sys-color-outline-variant)'
               }`,
-              borderRadius: 'var(--md-sys-spacing-2)',
+              borderRadius: 'var(--md-sys-radius-2)',
               outline: 'none',
-              transition: 'all 200ms var(--md-sys-motion-easing-standard)',
+              transition: 'color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
               cursor: disabled ? 'not-allowed' : 'text'
             }}
           />
@@ -138,11 +138,11 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
               style={{
                 position: 'absolute',
                 right: 'var(--md-sys-spacing-3)',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                fontSize: '20px',
-                color: hasError 
-                  ? 'var(--md-sys-color-error)' 
+                top: 'var(--md-sys-percent-50)',
+                transform: 'translateY(calc(var(--md-sys-percent-50) * -1))',
+                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                color: hasError
+                  ? 'var(--md-sys-color-error)'
                   : 'var(--md-sys-color-primary)',
                 fontVariationSettings: '"FILL" 1, "wght" 600',
                 pointerEvents: 'none'
@@ -178,7 +178,7 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
             <span
               className="material-symbols-outlined"
               style={{
-                fontSize: '16px',
+                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                 fontVariationSettings: '"FILL" 1, "wght" 600'
               }}
             >

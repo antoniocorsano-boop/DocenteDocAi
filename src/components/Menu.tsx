@@ -92,7 +92,7 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
               boxShadow: 'none',
               cursor: 'pointer',
               border: 'none',
-              transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`,
+              transition: `color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
               position: 'relative'}}
             onMouseEnter={() => {
               if (!active) {

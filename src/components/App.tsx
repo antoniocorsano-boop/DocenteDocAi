@@ -64,15 +64,14 @@ const App: React.FC = () => {
     return (
         <>
             {/* Skip links for accessibility */}
-            <a 
-                href="#main-content" 
-                className="skip-link"
+            <a
+                href="#main-content"
                 style={{
                     position: 'absolute',
-                    top: '-999px',
-                    left: '-999px',
-                    width: '1px',
-                    height: '1px',
+                    top: 'var(--md-sys-spacing-80)',
+                    left: 'var(--md-sys-spacing-80)',
+                    width: 'var(--md-sys-spacing-0)',
+                    height: 'var(--md-sys-spacing-0)',
                     overflow: 'hidden'
                 }}
             >
