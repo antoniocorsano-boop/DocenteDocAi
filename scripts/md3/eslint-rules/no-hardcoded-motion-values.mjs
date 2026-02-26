@@ -56,10 +56,16 @@ export default {
       '--md-sys-motion-duration-medium',
       '--md-sys-motion-duration-long',
       '--md-sys-motion-duration-extra-long',
+      '--md-sys-motion-duration-spin',
+      '--md-sys-motion-duration-loop',
+      '--md-sys-motion-duration-loop-slow',
+      '--md-sys-motion-duration-loop-medium',
+      '--md-sys-motion-duration-loop-long',
       '--md-sys-motion-easing-standard',
       '--md-sys-motion-easing-emphasized',
       '--md-sys-motion-easing-decelerated',
       '--md-sys-motion-easing-accelerated',
+      '--md-sys-motion-easing-linear',
     ];
 
     // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

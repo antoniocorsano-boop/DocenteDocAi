@@ -66,6 +66,8 @@
   --md-sys-color-surface-rgb: 253, 251, 255;
   --md-sys-color-on-surface: #1C1B1F;
   --md-sys-color-on-surface-rgb: 28, 27, 31;
+  --md-sys-color-scrim: rgba(0, 0, 0, 0.32);
+  --md-sys-color-scrim-light: rgba(0, 0, 0, 0.16);
 
   /* Superfici Aura - Containers */
   --md-sys-color-surface-container-lowest: #FFFFFF;
@@ -150,9 +152,13 @@
      =========================================== */
   --md-sys-spacing-0: 0px;
   --md-sys-spacing-1: 4px;      /* Extra small */
+  --md-sys-spacing-1_5: 6px;    /* Tooltip arrow / micro spacing */
   --md-sys-spacing-2: 8px;      /* Small */
+  --md-sys-spacing-2_5: 10px;   /* Medium-small */
   --md-sys-spacing-3: 12px;     /* Compact */
+  --md-sys-spacing-3_5: 14px;   /* Compact-medium */
   --md-sys-spacing-4: 16px;     /* Medium (default) */
+  --md-sys-spacing-4_5: 18px;   /* Medium-heading */
   --md-sys-spacing-5: 20px;     /* Medium-large */
   --md-sys-spacing-6: 24px;     /* Large */
   --md-sys-spacing-7: 28px;     /* Extra large */
@@ -642,10 +648,15 @@
      long:       emphasized motion (drawer, navigation, modal)
      extra-long: decorative/hero animations (page transitions)
   */
-  --md-sys-motion-duration-short: 100ms;      /* Micro-interactions */
-  --md-sys-motion-duration-medium: 250ms;     /* Standard transitions */
-  --md-sys-motion-duration-long: 400ms;       /* Emphasized motion */
-  --md-sys-motion-duration-extra-long: 600ms; /* Hero animations */
+  --md-sys-motion-duration-short: 100ms;        /* Micro-interactions */
+  --md-sys-motion-duration-medium: 250ms;       /* Standard transitions */
+  --md-sys-motion-duration-long: 400ms;         /* Emphasized motion */
+  --md-sys-motion-duration-extra-long: 600ms;   /* Hero animations */
+  --md-sys-motion-duration-spin: 800ms;         /* Spinner / looping animations */
+  --md-sys-motion-duration-loop: 1000ms;        /* Slow looping animations */
+  --md-sys-motion-duration-loop-slow: 1500ms;   /* Skeleton / slow pulse animations */
+  --md-sys-motion-duration-loop-medium: 2000ms; /* Progress indeterminate */
+  --md-sys-motion-duration-loop-long: 7000ms;   /* Long background animations */
 
   /* --- MD3 EASING TOKENS ---
      Aligned to Material Design 3 easing specifications
@@ -658,6 +669,7 @@
   --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);     /* Emphasized (M3 signature) */
   --md-sys-motion-easing-decelerated: cubic-bezier(0, 0, 0.2, 1);    /* Deceleration curve */
   --md-sys-motion-easing-accelerated: cubic-bezier(0.4, 0, 1, 1);    /* Acceleration curve */
+  --md-sys-motion-easing-linear: linear;                              /* Linear (spinner, progress) */
 
   /* --- LEGACY TOKENS (DEPRECATED) ---
      Maintained for backward compatibility during Phase 5 migration

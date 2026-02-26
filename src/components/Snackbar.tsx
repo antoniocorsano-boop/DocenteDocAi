@@ -231,10 +231,10 @@ const Snackbar: React.FC = () => {
       >
         <div
           style={{
-            height: '100%',
+            height: 'var(--md-sys-percent-100)',
             width: `${progress}%`,
             backgroundColor: 'rgba(255,255,255,0.5)',
-            transition: 'width 16ms linear'
+            transition: `width var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-linear)`
           }}
         />
       </div>

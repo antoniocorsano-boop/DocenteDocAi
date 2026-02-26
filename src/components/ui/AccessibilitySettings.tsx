@@ -19,7 +19,6 @@ export const AccessibilitySettings: React.FC = () => {
         gap: 'var(--md-sys-spacing-4)'
       }}
     >
-      {/* Header */}
       <div>
         <M3Typography
           variant="title-medium"
@@ -41,7 +40,6 @@ export const AccessibilitySettings: React.FC = () => {
         </M3Typography>
       </div>
 
-      {/* High Contrast Toggle */}
       <div
         style={{
           display: 'flex',
@@ -64,7 +62,7 @@ export const AccessibilitySettings: React.FC = () => {
             <span
               className="material-symbols-outlined"
               style={{
-                fontSize: '20px',
+                fontSize: 'var(--md-sys-spacing-5)',
                 color: 'var(--md-sys-color-primary)',
                 fontVariationSettings: '"FILL" 1, "wght" 600'
               }}
@@ -92,7 +90,6 @@ export const AccessibilitySettings: React.FC = () => {
           </M3Typography>
         </div>
 
-        {/* Toggle Switch */}
         <button
           role="switch"
           aria-checked={contrast === 'high'}
@@ -107,30 +104,29 @@ export const AccessibilitySettings: React.FC = () => {
               ? 'var(--md-sys-color-primary)'
               : 'var(--md-sys-color-surface-variant)',
             cursor: 'pointer',
-            transition: 'background-color 200ms',
+            transition: `background-color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`,
             flexShrink: 0
           }}
         >
           <div
             style={{
               position: 'absolute',
-              top: '50%',
-              left: contrast === 'high' ? 'calc(100% - var(--md-sys-spacing-7))' : 'var(--md-sys-spacing-1)',
+              top: 'var(--md-sys-percent-50)',
+              left: contrast === 'high' ? 'calc(var(--md-sys-percent-100) - var(--md-sys-spacing-7))' : 'var(--md-sys-spacing-1)',
               transform: 'translateY(-50%)',
               width: 'var(--md-sys-spacing-6)',
               height: 'var(--md-sys-spacing-6)',
-              borderRadius: '50%',
+              borderRadius: 'var(--md-sys-percent-50)',
               backgroundColor: contrast === 'high'
                 ? 'var(--md-sys-color-on-primary)'
                 : 'var(--md-sys-color-on-surface-variant)',
-              transition: 'left 200ms var(--md-sys-motion-easing-standard)',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+              transition: `left var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`,
+              boxShadow: 'var(--md-sys-elevation-1)'
             }}
           />
         </button>
       </div>
 
-      {/* Reduced Motion Toggle */}
       <div
         style={{
           display: 'flex',
@@ -153,7 +149,7 @@ export const AccessibilitySettings: React.FC = () => {
             <span
               className="material-symbols-outlined"
               style={{
-                fontSize: '20px',
+                fontSize: 'var(--md-sys-spacing-5)',
                 color: 'var(--md-sys-color-primary)',
                 fontVariationSettings: '"FILL" 1, "wght" 600'
               }}
@@ -181,7 +177,6 @@ export const AccessibilitySettings: React.FC = () => {
           </M3Typography>
         </div>
 
-        {/* Toggle Switch */}
         <button
           role="switch"
           aria-checked={reducedMotion}
@@ -196,30 +191,29 @@ export const AccessibilitySettings: React.FC = () => {
               ? 'var(--md-sys-color-primary)'
               : 'var(--md-sys-color-surface-variant)',
             cursor: 'pointer',
-            transition: 'background-color 200ms',
+            transition: `background-color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`,
             flexShrink: 0
           }}
         >
           <div
             style={{
               position: 'absolute',
-              top: '50%',
-              left: reducedMotion ? 'calc(100% - var(--md-sys-spacing-7))' : 'var(--md-sys-spacing-1)',
+              top: 'var(--md-sys-percent-50)',
+              left: reducedMotion ? 'calc(var(--md-sys-percent-100) - var(--md-sys-spacing-7))' : 'var(--md-sys-spacing-1)',
               transform: 'translateY(-50%)',
               width: 'var(--md-sys-spacing-6)',
               height: 'var(--md-sys-spacing-6)',
-              borderRadius: '50%',
+              borderRadius: 'var(--md-sys-percent-50)',
               backgroundColor: reducedMotion
                 ? 'var(--md-sys-color-on-primary)'
                 : 'var(--md-sys-color-on-surface-variant)',
-              transition: 'left 200ms var(--md-sys-motion-easing-standard)',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+              transition: `left var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`,
+              boxShadow: 'var(--md-sys-elevation-1)'
             }}
           />
         </button>
       </div>
 
-      {/* Info note */}
       <div
         style={{
           padding: 'var(--md-sys-spacing-3)',
@@ -238,7 +232,7 @@ export const AccessibilitySettings: React.FC = () => {
           <span
             className="material-symbols-outlined"
             style={{
-              fontSize: '18px',
+              fontSize: 'var(--md-sys-spacing-4_5)',
               color: 'var(--md-sys-color-on-primary-container)',
               fontVariationSettings: '"FILL" 1, "wght" 600',
               flexShrink: 0

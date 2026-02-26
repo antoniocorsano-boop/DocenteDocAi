@@ -33,7 +33,6 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (disabled || loading) return;
 
-    // Create ripple effect
     const button = buttonRef.current;
     if (button) {
       const rect = button.getBoundingClientRect();
@@ -43,7 +42,6 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
 
       setRipples(prev => [...prev, { x, y, id }]);
 
-      // Remove ripple after animation
       setTimeout(() => {
         setRipples(prev => prev.filter(r => r.id !== id));
       }, 600);
@@ -52,47 +50,45 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
     onClick();
   };
 
-  // Size mapping
   const sizeMap = {
     small: {
       minHeight: 'var(--md-sys-spacing-9)',
       padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
-      fontSize: '14px'
+      fontSize: 'var(--md-sys-spacing-3_5)'
     },
     medium: {
       minHeight: 'var(--md-sys-spacing-12)',
       padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)',
-      fontSize: '16px'
+      fontSize: 'var(--md-sys-typescale-body-medium-font-size)'
     },
     large: {
       minHeight: 'var(--md-sys-spacing-14)',
       padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-8)',
-      fontSize: '18px'
+      fontSize: 'var(--md-sys-spacing-4_5)'
     }
   }[size];
 
-  // Variant styles
   const variantStyles = {
     filled: {
-      backgroundColor: disabled 
-        ? 'var(--md-sys-color-surface-variant)' 
+      backgroundColor: disabled
+        ? 'var(--md-sys-color-surface-variant)'
         : 'var(--md-sys-color-primary)',
-      color: disabled 
-        ? 'var(--md-sys-color-on-surface-variant)' 
+      color: disabled
+        ? 'var(--md-sys-color-on-surface-variant)'
         : 'var(--md-sys-color-on-primary)',
       border: 'none'
     },
     outlined: {
       backgroundColor: 'transparent',
-      color: disabled 
-        ? 'var(--md-sys-color-on-surface-variant)' 
+      color: disabled
+        ? 'var(--md-sys-color-on-surface-variant)'
         : 'var(--md-sys-color-primary)',
       border: `2px solid ${disabled ? 'var(--md-sys-color-outline-variant)' : 'var(--md-sys-color-primary)'}`
     },
     text: {
       backgroundColor: 'transparent',
-      color: disabled 
-        ? 'var(--md-sys-color-on-surface-variant)' 
+      color: disabled
+        ? 'var(--md-sys-color-on-surface-variant)'
         : 'var(--md-sys-color-primary)',
       border: 'none'
     }
@@ -115,14 +111,14 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
         alignItems: 'center',
         justifyContent: 'center',
         gap: 'var(--md-sys-spacing-2)',
-        width: fullWidth ? '100%' : 'auto',
+        width: fullWidth ? 'var(--md-sys-percent-100)' : 'auto',
         minHeight: sizeMap.minHeight,
         padding: sizeMap.padding,
         fontSize: sizeMap.fontSize,
         fontWeight: '600',
         borderRadius: 'var(--md-sys-spacing-5)',
         cursor: disabled || loading ? 'not-allowed' : 'pointer',
-        transition: 'all 200ms var(--md-sys-motion-easing-standard)',
+        transition: `transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), opacity var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`,
         transform: isPressed && !disabled && !loading ? 'scale(0.98)' : 'scale(1)',
         opacity: disabled ? 0.5 : 1,
         userSelect: 'none',
@@ -131,26 +127,24 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
         ...variantStyles
       }}
     >
-      {/* Loading spinner */}
       {loading && (
         <div
           style={{
-            width: '20px',
-            height: '20px',
+            width: 'var(--md-sys-spacing-5)',
+            height: 'var(--md-sys-spacing-5)',
             border: '2px solid currentColor',
             borderTopColor: 'transparent',
-            borderRadius: '50%',
-            animation: 'spin 0.8s linear infinite'
+            borderRadius: 'var(--md-sys-percent-50)',
+            animation: `spin var(--md-sys-motion-duration-spin) var(--md-sys-motion-easing-linear) infinite`
           }}
         />
       )}
 
-      {/* Icon */}
       {icon && !loading && (
         <span
           className="material-symbols-outlined"
           style={{
-            fontSize: '20px',
+            fontSize: 'var(--md-sys-spacing-5)',
             fontVariationSettings: '"FILL" 0, "wght" 600'
           }}
         >
@@ -158,10 +152,8 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
         </span>
       )}
 
-      {/* Label */}
       <span>{children}</span>
 
-      {/* Ripple effects */}
       {ripples.map(ripple => (
         <span
           key={ripple.id}
@@ -169,12 +161,13 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
             position: 'absolute',
             left: ripple.x,
             top: ripple.y,
-            width: '10px',
-            height: '10px',
-            borderRadius: '50%',
-            backgroundColor: 'rgba(255, 255, 255, 0.6)',
+            width: 'var(--md-sys-spacing-2_5)',
+            height: 'var(--md-sys-spacing-2_5)',
+            borderRadius: 'var(--md-sys-percent-50)',
+            backgroundColor: 'var(--md-sys-color-on-primary)',
+            opacity: 0.6,
             transform: 'translate(-50%, -50%)',
-            animation: 'ripple-expand 600ms ease-out',
+            animation: `ripple-expand var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-decelerated)`,
             pointerEvents: 'none'
           }}
         />

@@ -37,32 +37,31 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
   const positionStyles = {
     top: {
-      bottom: '100%',
-      left: '50%',
+      bottom: 'var(--md-sys-percent-100)',
+      left: 'var(--md-sys-percent-50)',
       transform: 'translateX(-50%) translateY(-8px)',
       marginBottom: 'var(--md-sys-spacing-2)'
     },
     bottom: {
-      top: '100%',
-      left: '50%',
+      top: 'var(--md-sys-percent-100)',
+      left: 'var(--md-sys-percent-50)',
       transform: 'translateX(-50%) translateY(8px)',
       marginTop: 'var(--md-sys-spacing-2)'
     },
     left: {
-      right: '100%',
-      top: '50%',
+      right: 'var(--md-sys-percent-100)',
+      top: 'var(--md-sys-percent-50)',
       transform: 'translateY(-50%) translateX(-8px)',
       marginRight: 'var(--md-sys-spacing-2)'
     },
     right: {
-      left: '100%',
-      top: '50%',
+      left: 'var(--md-sys-percent-100)',
+      top: 'var(--md-sys-percent-50)',
       transform: 'translateY(-50%) translateX(8px)',
       marginLeft: 'var(--md-sys-spacing-2)'
     }
   };
 
-  // Clone children e aggiungi props per accessibilità
   const childrenWithProps = React.cloneElement(children, {
     onMouseEnter: (e: React.MouseEvent) => {
       showTooltip();
@@ -85,35 +84,37 @@ export const Tooltip: React.FC<TooltipProps> = ({
     'aria-describedby': isVisible || isFocused ? tooltipId : undefined
   });
 
+  const arrowNeg = 'calc(0px - var(--md-sys-spacing-1_5))';
+  const arrowSize = 'var(--md-sys-spacing-1_5)';
+
   return (
     <div style={{ position: 'relative', display: 'inline-block' }}>
       {childrenWithProps}
-      
+
       {(isVisible || isFocused) && (
         <div
           id={tooltipId}
           role="tooltip"
           style={{
             position: 'absolute',
-            zIndex: 1000,
+            zIndex: 'var(--md-sys-z-tooltip)',
             padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
             background: 'var(--md-sys-color-inverse-surface)',
             color: 'var(--md-sys-color-inverse-on-surface)',
             borderRadius: 'var(--md-sys-spacing-1)',
-            boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+            boxShadow: 'var(--md-sys-elevation-2)',
             maxWidth: 'var(--md-sys-spacing-16)',
             whiteSpace: 'normal',
-            fontSize: 'var(--md-sys-typescale-body-small-size)',
+            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
             fontWeight: '500',
             lineHeight: '1.4',
             pointerEvents: 'none',
-            animation: 'tooltip-fade-in 200ms ease-out',
+            animation: `tooltip-fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-decelerated)`,
             ...positionStyles[position]
           }}
         >
           {content}
-          
-          {/* Arrow */}
+
           <div
             style={{
               position: 'absolute',
@@ -121,38 +122,38 @@ export const Tooltip: React.FC<TooltipProps> = ({
               height: 0,
               borderStyle: 'solid',
               ...(position === 'top' && {
-                bottom: '-6px',
-                left: '50%',
+                bottom: arrowNeg,
+                left: 'var(--md-sys-percent-50)',
                 transform: 'translateX(-50%)',
-                borderWidth: '6px 6px 0 6px',
+                borderWidth: `${arrowSize} ${arrowSize} 0 ${arrowSize}`,
                 borderColor: 'var(--md-sys-color-inverse-surface) transparent transparent transparent'
               }),
               ...(position === 'bottom' && {
-                top: '-6px',
-                left: '50%',
+                top: arrowNeg,
+                left: 'var(--md-sys-percent-50)',
                 transform: 'translateX(-50%)',
-                borderWidth: '0 6px 6px 6px',
+                borderWidth: `0 ${arrowSize} ${arrowSize} ${arrowSize}`,
                 borderColor: 'transparent transparent var(--md-sys-color-inverse-surface) transparent'
               }),
               ...(position === 'left' && {
-                right: '-6px',
-                top: '50%',
+                right: arrowNeg,
+                top: 'var(--md-sys-percent-50)',
                 transform: 'translateY(-50%)',
-                borderWidth: '6px 0 6px 6px',
+                borderWidth: `${arrowSize} 0 ${arrowSize} ${arrowSize}`,
                 borderColor: 'transparent transparent transparent var(--md-sys-color-inverse-surface)'
               }),
               ...(position === 'right' && {
-                left: '-6px',
-                top: '50%',
+                left: arrowNeg,
+                top: 'var(--md-sys-percent-50)',
                 transform: 'translateY(-50%)',
-                borderWidth: '6px 6px 6px 0',
+                borderWidth: `${arrowSize} ${arrowSize} ${arrowSize} 0`,
                 borderColor: 'transparent var(--md-sys-color-inverse-surface) transparent transparent'
               })
             }}
           />
         </div>
       )}
-      
+
       <style>{`
         @keyframes tooltip-fade-in {
           from {

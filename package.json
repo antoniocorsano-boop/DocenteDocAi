@@ -89,7 +89,7 @@
     "@axe-core/cli": "^4.11.0",
     "@axe-core/playwright": "^4.11.0",
     "@commitlint/config-conventional": "^20.3.0",
-    "@eslint/js": "^9.39.2",
+    "@eslint/js": "^9.39.3",
     "@mdx-js/mdx": "^2.3.0",
     "@mdx-js/react": "^2.3.0",
     "@playwright/test": "^1.57.0",
