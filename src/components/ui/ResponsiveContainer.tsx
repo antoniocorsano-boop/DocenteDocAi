@@ -22,13 +22,13 @@ export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
     md: '768px',   // Tablet portrait
     lg: '1024px',  // Tablet landscape / Small desktop
     xl: '1280px',  // Desktop
-    full: '100%'
+    full: 'var(--md-sys-percent-100)'
   };
 
   return (
     <div
       style={{
-        width: '100%',
+        width: 'var(--md-sys-percent-100)',
         maxWidth: maxWidthMap[maxWidth],
         margin: centered ? '0 auto' : '0',
         padding: padding ? 'var(--md-sys-spacing-4)' : '0'
@@ -40,7 +40,7 @@ export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
 };
 
 // Hook per responsive breakpoints
-export const useBreakpoint = () => {
+export const useBreakpoint = (): { breakpoint: 'mobile' | 'tablet' | 'desktop'; isMobile: boolean; isTablet: boolean; isDesktop: boolean; isTouchDevice: boolean } => {
   const [breakpoint, setBreakpoint] = React.useState<'mobile' | 'tablet' | 'desktop'>('desktop');
 
   React.useEffect(() => {

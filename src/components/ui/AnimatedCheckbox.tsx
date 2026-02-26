@@ -13,6 +13,8 @@ interface AnimatedCheckboxProps {
   helperText?: string;
 }
 
+const checkDelay = 'var(--md-sys-motion-duration-short)';
+
 export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
   label,
   checked,
@@ -32,7 +34,7 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
         opacity: disabled ? 0.5 : 1,
         padding: 'var(--md-sys-spacing-2)',
         borderRadius: 'var(--md-sys-spacing-2)',
-        transition: 'background-color 200ms',
+        transition: `background-color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`,
         ...(isFocused && !disabled && {
           backgroundColor: 'var(--md-sys-color-surface-container)'
         })
@@ -71,7 +73,7 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            transition: 'all 200ms var(--md-sys-motion-easing-standard)',
+            transition: `background-color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), border-color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`,
             ...(isFocused && {
               outline: '2px solid var(--md-sys-color-primary)',
               outlineOffset: '2px'
@@ -85,7 +87,7 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
               viewBox="0 0 16 16"
               fill="none"
               style={{
-                animation: 'check-in 200ms var(--md-sys-motion-easing-standard)'
+                animation: `check-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`
               }}
             >
               <path
@@ -97,7 +99,7 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
                 style={{
                   strokeDasharray: 20,
                   strokeDashoffset: checked ? 0 : 20,
-                  transition: 'stroke-dashoffset 200ms var(--md-sys-motion-easing-standard) 50ms'
+                  transition: `stroke-dashoffset var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard) ${checkDelay}`
                 }}
               />
             </svg>

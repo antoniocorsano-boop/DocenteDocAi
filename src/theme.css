@@ -68,6 +68,11 @@
   --md-sys-color-on-surface-rgb: 28, 27, 31;
   --md-sys-color-scrim: rgba(0, 0, 0, 0.32);
   --md-sys-color-scrim-light: rgba(0, 0, 0, 0.16);
+  --md-sys-color-white-overlay-dim: rgba(255, 255, 255, 0.2);
+  --md-sys-color-white-overlay-medium: rgba(255, 255, 255, 0.5);
+  --md-sys-color-shadow-low: rgba(0, 0, 0, 0.1);
+  --md-sys-color-shadow-medium: rgba(0, 0, 0, 0.15);
+  --md-sys-color-shimmer: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
 
   /* Superfici Aura - Containers */
   --md-sys-color-surface-container-lowest: #FFFFFF;

@@ -38,8 +38,8 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
           height: spinnerSize,
           border: '4px solid var(--md-sys-color-primary-container)',
           borderTopColor: 'var(--md-sys-color-primary)',
-          borderRadius: '50%',
-          animation: 'spin 1s linear infinite'
+          borderRadius: 'var(--md-sys-percent-50)',
+          animation: `spin var(--md-sys-motion-duration-spin) var(--md-sys-motion-easing-linear) infinite`
         }}
         role="status"
         aria-label="Caricamento in corso"

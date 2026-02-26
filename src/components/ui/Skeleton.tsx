@@ -50,7 +50,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
               left: 0,
               right: 0,
               bottom: 0,
-              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)',
+              background: 'var(--md-sys-color-shimmer)',
               animation: `skeleton-wave-move var(--md-sys-motion-duration-loop-slow) var(--md-sys-motion-easing-linear) infinite`
             }}
           />
@@ -94,18 +94,14 @@ export const SkeletonList: React.FC<SkeletonListProps> = ({
       >
         <Skeleton
           variant="circular"
-          width="var(--md-sys-spacing-6)"
-          height="var(--md-sys-spacing-6)"
+          style={{ width: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-spacing-6)' }}
         />
         <div style={{ flex: 1 }}>
           <Skeleton
-            width="var(--md-sys-percent-60)"
-            height="var(--md-sys-spacing-3)"
-            style={{ marginBottom: 'var(--md-sys-spacing-2)' }}
+            style={{ width: 'var(--md-sys-percent-60)', height: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-2)' }}
           />
           <Skeleton
-            width="var(--md-sys-percent-40)"
-            height="var(--md-sys-spacing-2)"
+            style={{ width: 'var(--md-sys-percent-40)', height: 'var(--md-sys-spacing-2)' }}
           />
         </div>
       </div>

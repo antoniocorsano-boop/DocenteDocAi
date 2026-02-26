@@ -45,7 +45,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({
       style={{
         padding: 'var(--md-sys-spacing-4)',
         cursor: disabled ? 'not-allowed' : 'pointer',
-        transition: 'all 200ms var(--md-sys-motion-easing-standard)',
+        transition: `transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), background var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`,
         opacity: disabled ? 0.5 : 1,
         border: `1px solid var(--md-sys-color-outline-variant)`,
         display: 'flex',
@@ -57,7 +57,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({
         if (!disabled) {
           e.currentTarget.style.background = config.hoverBg;
           e.currentTarget.style.transform = 'translateY(-4px)';
-          e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15)';
+          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-3)';
         }
       }}
       onMouseLeave={(e) => {
@@ -122,7 +122,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({
           className="material-symbols-outlined"
           aria-hidden="true"
           style={{
-            fontSize: '20px',
+            fontSize: 'var(--md-sys-spacing-5)',
             color: config.iconColor,
             opacity: 0.6
           }}

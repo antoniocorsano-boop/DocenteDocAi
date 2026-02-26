@@ -187,7 +187,7 @@ const Snackbar: React.FC = () => {
         onMouseEnter={() => setIsCloseHovered(true)}
         onMouseLeave={() => setIsCloseHovered(false)}
         style={{
-          backgroundColor: isCloseHovered ? 'rgba(255,255,255,0.2)' : 'transparent',
+          backgroundColor: isCloseHovered ? 'var(--md-sys-color-white-overlay-dim)' : 'transparent',
           border: 'none',
           color: 'inherit',
           fontSize: 'var(--app-spacing-touch)',
@@ -223,7 +223,7 @@ const Snackbar: React.FC = () => {
           left: 0,
           right: 0,
           height: 'var(--md-sys-spacing-0_5)',
-          backgroundColor: 'rgba(255,255,255,0.2)',
+          backgroundColor: 'var(--md-sys-color-white-overlay-dim)',
           borderBottomLeftRadius: 'var(--md-sys-shape-corner-medium)',
           borderBottomRightRadius: 'var(--md-sys-shape-corner-medium)',
           overflow: 'hidden'
@@ -233,7 +233,7 @@ const Snackbar: React.FC = () => {
           style={{
             height: 'var(--md-sys-percent-100)',
             width: `${progress}%`,
-            backgroundColor: 'rgba(255,255,255,0.5)',
+            backgroundColor: 'var(--md-sys-color-white-overlay-medium)',
             transition: `width var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-linear)`
           }}
         />
