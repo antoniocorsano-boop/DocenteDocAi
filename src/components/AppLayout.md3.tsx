@@ -1,11 +1,22 @@
 // MD3 Gold Compliant
-// Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
-// Audit: gennaio 2026
+// Mobile-first responsive app shell using MD3 navigation patterns
+// Audit: febbraio 2026
 import React from 'react';
 import NavigationRail from './NavigationRail';
+import BottomNav from './BottomNav';
 import { Header } from './Header';
 import { M3Surface, M3FlexContainer, M3Aside } from './ui';
+import { useBreakpoint } from './ui/ResponsiveContainer';
 import { View, UserProfile, TimetableSettings, Notifica, BeforeInstallPromptEvent, NavigationParams } from '../types';
+
+const NAV_ITEMS = [
+  { id: 'home' as View, label: 'Home', icon: 'home', activeIcon: 'home' },
+  { id: 'timetable' as View, label: 'Orario', icon: 'schedule', activeIcon: 'watch_later' },
+  { id: 'progettazione-hub' as View, label: 'Progetta', icon: 'design_services', activeIcon: 'edit_document' },
+  { id: 'aula' as View, label: 'Classi', icon: 'groups', activeIcon: 'groups' },
+  { id: 'orientamento' as View, label: 'Orienta', icon: 'explore', activeIcon: 'explore' },
+  { id: 'calendario' as View, label: 'Agenda', icon: 'calendar_month', activeIcon: 'event_note' },
+];
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -48,6 +59,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   hasSuggestion,
   onOpenNKA
 }) => {
+  const { isMobile, isTablet } = useBreakpoint();
+  const showBottomNav = isMobile;
+  const showRail = !isMobile;
+
+  const handleNavigate = (v: View, c?: unknown) => onNavigate(v, c as NavigationParams);
+
   return (
     <M3Surface style={{
       display: 'flex',
@@ -73,41 +90,51 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         onOpenOperations={onOpenOperations}
         hasSuggestion={hasSuggestion}
         onOpenNKA={onOpenNKA}
+        isMobile={isMobile}
+        isTablet={isTablet}
       />
+
       <M3FlexContainer
         flex="var(--md-sys-flex-auto)"
         minHeight="var(--md-sys-spacing-0)"
         background="var(--app-color-surface)"
       >
-        <M3Aside
-          flexBasis="var(--md-sys-spacing-20)"
-          background="var(--app-color-surface)"
-          borderRight="var(--app-border-thin) solid var(--md-sys-color-outline-variant)"
-          style={{ zIndex: 'var(--md-sys-z-nav)' }}
-        >
-          <NavigationRail
-            items={[
-              { id: 'home', label: 'Home', icon: 'home', activeIcon: 'home' },
-              { id: 'timetable', label: 'Orario', icon: 'schedule', activeIcon: 'watch_later' },
-              { id: 'progettazione-hub', label: 'Progetta', icon: 'design_services', activeIcon: 'edit_document' },
-              { id: 'aula', label: 'Classi', icon: 'groups', activeIcon: 'groups' },
-              { id: 'orientamento', label: 'Orientamento', icon: 'explore', activeIcon: 'explore' },
-              { id: 'calendario', label: 'Agenda', icon: 'calendar_month', activeIcon: 'event_note' },
-            ]}
-            activeView={view}
-            onNavigate={(v, c) => onNavigate(v, c as NavigationParams)}
-          />
-        </M3Aside>
+        {showRail && (
+          <M3Aside
+            flexBasis="var(--md-sys-spacing-20)"
+            background="var(--app-color-surface)"
+            borderRight="var(--app-border-thin) solid var(--md-sys-color-outline-variant)"
+            style={{ zIndex: 'var(--md-sys-z-nav)', flexShrink: 0 }}
+          >
+            <NavigationRail
+              items={NAV_ITEMS}
+              activeView={view}
+              onNavigate={handleNavigate}
+            />
+          </M3Aside>
+        )}
+
         <M3Surface style={{
           flex: 'var(--md-sys-flex-auto)',
           display: 'flex',
           flexDirection: 'column',
           boxSizing: 'border-box',
-          background: 'var(--app-color-surface-container)'
+          background: 'var(--app-color-surface-container)',
+          overflowY: 'auto',
+          paddingBottom: showBottomNav ? 'var(--md-sys-spacing-16)' : 'var(--md-sys-spacing-0)',
+          minWidth: 'var(--md-sys-spacing-0)',
         }}>
           {children}
         </M3Surface>
       </M3FlexContainer>
+
+      {showBottomNav && (
+        <BottomNav
+          activeView={view}
+          onNavigate={(v) => onNavigate(v)}
+          items={NAV_ITEMS}
+        />
+      )}
     </M3Surface>
   );
 };

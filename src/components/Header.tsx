@@ -1,5 +1,6 @@
 // =============================
 // MD3 GOLD COMPLIANT HEADER
+// Mobile-first responsive top app bar
 // =============================
 
 import React from 'react';
@@ -20,6 +21,8 @@ interface ExtendedHeaderProps extends HeaderProps {
   setNotifiche?: React.Dispatch<React.SetStateAction<Notifica[]>>;
   installPrompt?: BeforeInstallPromptEvent | null;
   onInstallApp?: () => void;
+  isMobile?: boolean;
+  isTablet?: boolean;
 }
 
 export const Header: React.FC<ExtendedHeaderProps> = ({
@@ -32,7 +35,9 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
   isAiProcessing,
   hasSuggestion,
   onOpenOperations,
-  onOpenNKA
+  onOpenNKA,
+  isMobile = false,
+  isTablet = false,
 }) => {
   const teacherName = settings?.nomeInsegnante || '';
   const teacherSurname = settings?.cognomeInsegnante || '';
@@ -40,6 +45,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
   const unreadCount = notifiche.filter(n => !n.letta).length;
   const { nodes } = useNKAStore();
   const hasNewNode = nodes.some(n => n.isNew);
+  const showTeacherName = !isMobile && (teacherName || teacherSurname);
 
   // NOTE: className="material-symbols-outlined" is permitted for MD3 icon font usage only (see copilot-instructions.md)
   return (
@@ -51,28 +57,30 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
         zIndex: 'var(--md-sys-z-app-bar)',
         background: 'var(--app-color-surface)',
         boxShadow: 'var(--md-sys-elevation-level1)',
-        minHeight: 'var(--md-sys-spacing-12)',
+        minHeight: isMobile ? 'var(--md-sys-spacing-14)' : 'var(--md-sys-spacing-12)',
         display: 'flex',
         alignItems: 'center',
-        paddingInline: 'var(--app-spacing-section)',
+        paddingInline: isMobile ? 'var(--app-spacing-component)' : 'var(--app-spacing-section)',
+        gap: 'var(--md-sys-spacing-1)',
       }}
     >
-      {/* Leading: Back + Aura */}
-      <nav style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-element)' }} aria-label="Azioni principali">
+      {/* Leading: Back + Operations + Aura */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)', flexShrink: 0 }}>
         {showBackButton && (
           <button
             aria-label="Indietro"
             onClick={onBack}
             style={{
-              width: 'var(--app-spacing-section)',
-              aspectRatio: '1',
+              width: 'var(--md-sys-spacing-12)',
+              height: 'var(--md-sys-spacing-12)',
               borderRadius: 'var(--md-sys-shape-corner-large)',
               background: 'none',
               border: 'none',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: 'var(--md-sys-color-on-surface-variant)'
+              color: 'var(--md-sys-color-on-surface-variant)',
+              cursor: 'pointer',
             }}
           >
             {/* MD3 icon font usage allowed */}
@@ -83,15 +91,16 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
           aria-label="Operazioni rapide"
           onClick={onOpenOperations}
           style={{
-            width: 'var(--app-spacing-section)',
-            aspectRatio: '1',
+            width: 'var(--md-sys-spacing-12)',
+            height: 'var(--md-sys-spacing-12)',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             background: 'none',
             border: 'none',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: hasSuggestion ? 'var(--app-color-primary)' : 'var(--md-sys-color-on-surface-variant)'
+            color: hasSuggestion ? 'var(--app-color-primary)' : 'var(--md-sys-color-on-surface-variant)',
+            cursor: 'pointer',
           }}
         >
           {/* MD3 icon font usage allowed */}
@@ -104,18 +113,36 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
             onLongPress={() => onNavigate('settings')}
           />
         )}
-      </nav>
-
-      {/* Title/Logo */}
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--app-spacing-component)' }}>
-        <Logo isAiThinking={isAiProcessing} onHomeNavigate={() => !showBackButton && onNavigate('home')} />
-        <M3Typography variant="title-large" style={{ color: 'var(--app-color-on-surface)' }}>
-          {teacherName} {teacherSurname}
-        </M3Typography>
       </div>
 
-      {/* Trailing: Status, Settings, Avatar */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-element)' }}>
+      {/* Center: Logo + Teacher name (hidden on mobile) */}
+      <div style={{
+        flex: 1,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: isMobile ? 'flex-start' : 'center',
+        gap: 'var(--app-spacing-component)',
+        minWidth: 'var(--md-sys-spacing-0)',
+        overflow: 'hidden',
+      }}>
+        <Logo isAiThinking={isAiProcessing} onHomeNavigate={() => !showBackButton && onNavigate('home')} />
+        {showTeacherName && (
+          <M3Typography
+            variant={isTablet ? 'title-medium' : 'title-large'}
+            style={{
+              color: 'var(--app-color-on-surface)',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {teacherName} {teacherSurname}
+          </M3Typography>
+        )}
+      </div>
+
+      {/* Trailing: Offline badge + Settings + Avatar */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)', flexShrink: 0 }}>
         {!isOnline && (
           <div
             title="Modalità Offline"
@@ -123,48 +150,54 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
               display: 'flex',
               alignItems: 'center',
               gap: 'var(--md-sys-spacing-1)',
-              paddingInline: 'var(--app-spacing-component)',
+              paddingInline: 'var(--md-sys-spacing-2)',
               paddingBlock: 'var(--md-sys-spacing-1)',
               borderRadius: 'var(--md-sys-shape-corner-large)',
               background: 'var(--md-sys-color-error-container)',
-              color: 'var(--md-sys-color-on-error-container)'
+              color: 'var(--md-sys-color-on-error-container)',
             }}
           >
             {/* MD3 icon font usage allowed */}
-            <span className="material-symbols-outlined" aria-hidden="true">cloud_off</span>
-            <M3Typography variant="label-small" style={{ fontWeight: 500 }}>Offline</M3Typography>
+            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-5)' }}>cloud_off</span>
+            {!isMobile && (
+              <M3Typography variant="label-small" style={{ fontWeight: 500 }}>Offline</M3Typography>
+            )}
           </div>
         )}
-        <button
-          aria-label="Impostazioni"
-          onClick={() => onNavigate('settings')}
-          style={{
-            width: 'var(--app-spacing-section)',
-            aspectRatio: '1',
-            borderRadius: 'var(--md-sys-shape-corner-large)',
-            background: 'none',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'var(--md-sys-color-on-surface-variant)'
-          }}
-        >
-          {/* MD3 icon font usage allowed */}
-          <span className="material-symbols-outlined" aria-hidden="true">settings</span>
-        </button>
+        {!isMobile && (
+          <button
+            aria-label="Impostazioni"
+            onClick={() => onNavigate('settings')}
+            style={{
+              width: 'var(--md-sys-spacing-12)',
+              height: 'var(--md-sys-spacing-12)',
+              borderRadius: 'var(--md-sys-shape-corner-large)',
+              background: 'none',
+              border: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--md-sys-color-on-surface-variant)',
+              cursor: 'pointer',
+            }}
+          >
+            {/* MD3 icon font usage allowed */}
+            <span className="material-symbols-outlined" aria-hidden="true">settings</span>
+          </button>
+        )}
         <button
           aria-label="Menu utente"
           style={{
-            width: 'var(--app-spacing-section)',
-            aspectRatio: '1',
+            width: 'var(--md-sys-spacing-12)',
+            height: 'var(--md-sys-spacing-12)',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             background: 'none',
             border: 'none',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            position: 'relative'
+            cursor: 'pointer',
+            position: 'relative',
           }}
         >
           <Avatar
@@ -176,28 +209,28 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
             <span
               style={{
                 position: 'absolute',
-                top: 0,
-                right: 0,
-                width: 'var(--app-spacing-element)',
-                aspectRatio: '1',
-                borderRadius: 'var(--md-sys-shape-corner-large)',
+                top: 'var(--md-sys-spacing-1)',
+                right: 'var(--md-sys-spacing-1)',
+                width: 'var(--md-sys-spacing-4)',
+                height: 'var(--md-sys-spacing-4)',
+                borderRadius: 'var(--md-sys-shape-corner-full)',
                 background: 'var(--md-sys-color-error)',
-                border: 'var(--app-border-thin) solid var(--app-color-surface)',
+                border: `var(--app-border-thin) solid var(--app-color-surface)`,
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
               }}
               aria-label={`${unreadCount} notifiche non lette`}
             >
               <span
                 style={{
-                  fontSize: 'var(--app-spacing-element)',
+                  fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                   fontWeight: 700,
                   color: 'var(--md-sys-color-on-error)',
-                  lineHeight: 1
+                  lineHeight: 1,
                 }}
               >
-                {unreadCount > 99 ? '99+' : unreadCount}
+                {unreadCount > 9 ? '9+' : unreadCount}
               </span>
             </span>
           )}

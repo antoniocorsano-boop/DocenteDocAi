@@ -18,10 +18,10 @@ export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
   centered = true
 }) => {
   const maxWidthMap = {
-    sm: '640px',   // Mobile landscape
-    md: '768px',   // Tablet portrait
-    lg: '1024px',  // Tablet landscape / Small desktop
-    xl: '1280px',  // Desktop
+    sm: '640px',
+    md: '768px',
+    lg: '1024px',
+    xl: '1280px',
     full: 'var(--md-sys-percent-100)'
   };
 
@@ -30,7 +30,7 @@ export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
       style={{
         width: 'var(--md-sys-percent-100)',
         maxWidth: maxWidthMap[maxWidth],
-        margin: centered ? '0 auto' : '0',
+        margin: centered ? '0 var(--md-sys-margin-auto)' : '0',
         padding: padding ? 'var(--md-sys-spacing-4)' : '0'
       }}
     >
@@ -39,23 +39,19 @@ export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
   );
 };
 
-// Hook per responsive breakpoints
+const getBreakpoint = (): 'mobile' | 'tablet' | 'desktop' => {
+  if (typeof window === 'undefined') return 'desktop';
+  const w = window.innerWidth;
+  if (w < 768) return 'mobile';
+  if (w < 1024) return 'tablet';
+  return 'desktop';
+};
+
 export const useBreakpoint = (): { breakpoint: 'mobile' | 'tablet' | 'desktop'; isMobile: boolean; isTablet: boolean; isDesktop: boolean; isTouchDevice: boolean } => {
-  const [breakpoint, setBreakpoint] = React.useState<'mobile' | 'tablet' | 'desktop'>('desktop');
+  const [breakpoint, setBreakpoint] = React.useState<'mobile' | 'tablet' | 'desktop'>(getBreakpoint);
 
   React.useEffect(() => {
-    const updateBreakpoint = () => {
-      const width = window.innerWidth;
-      if (width < 768) {
-        setBreakpoint('mobile');
-      } else if (width < 1024) {
-        setBreakpoint('tablet');
-      } else {
-        setBreakpoint('desktop');
-      }
-    };
-
-    updateBreakpoint();
+    const updateBreakpoint = () => setBreakpoint(getBreakpoint());
     window.addEventListener('resize', updateBreakpoint);
     return () => window.removeEventListener('resize', updateBreakpoint);
   }, []);
