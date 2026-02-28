@@ -97,15 +97,13 @@ const App: React.FC = () => {
             onOpenNKA={handleOpenNKA}
         >
             <ErrorBoundary>
-                <main id="main-content" role="main" aria-label="Contenuto principale">
-                    <ViewManager
-                        view={view}
-                        viewContext={viewContext}
-                        appState={appState}
-                        actions={actions}
-                        modals={modals}
-                    />
-                </main>
+                <ViewManager
+                    view={view}
+                    viewContext={viewContext}
+                    appState={appState}
+                    actions={actions}
+                    modals={modals}
+                />
                 <ModalManager appState={appState} actions={actions} modals={modals} />
                 {/* Modal rendering */}
                 {openModal === 'image-analysis-modal' && (
