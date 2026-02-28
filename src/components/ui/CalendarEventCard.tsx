@@ -68,7 +68,7 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
           fontSize: 'var(--md-sys-typescale-label-small-size)',
           fontWeight: '600',
           cursor: 'pointer',
-          transition: 'all 200ms',
+          transition: `transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`,
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
@@ -76,7 +76,7 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = 'translateX(2px)';
-          e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-1)';
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = 'translateX(0)';
@@ -97,14 +97,14 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
         borderRadius: 'var(--md-sys-spacing-2)',
         borderLeft: `4px solid ${config.borderColor}`,
         cursor: 'pointer',
-        transition: 'all 200ms var(--md-sys-motion-easing-standard)',
+        transition: `transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`,
         display: 'flex',
         alignItems: 'center',
         gap: 'var(--md-sys-spacing-2)'
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'translateY(-2px)';
-        e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.15)';
+        e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-2)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = 'translateY(0)';
@@ -116,7 +116,7 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
         className="material-symbols-outlined"
         aria-hidden="true"
         style={{
-          fontSize: '20px',
+          fontSize: 'var(--md-sys-spacing-5)',
           color: config.borderColor,
           fontVariationSettings: '"FILL" 1, "wght" 600'
         }}
@@ -159,7 +159,7 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
         className="material-symbols-outlined"
         aria-hidden="true"
         style={{
-          fontSize: '18px',
+          fontSize: 'var(--md-sys-spacing-4_5)',
           color: config.color,
           opacity: 0.7
         }}

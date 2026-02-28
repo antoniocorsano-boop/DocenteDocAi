@@ -13,7 +13,7 @@ interface SkeletonProps {
 }
 
 export const Skeleton: React.FC<SkeletonProps> = ({
-  width = '100%',
+  width = 'var(--md-sys-percent-100)',
   height = 'var(--md-sys-spacing-4)',
   variant = 'rectangular',
   animation = 'pulse',
@@ -21,7 +21,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
 }) => {
   const borderRadius = {
     text: 'var(--md-sys-spacing-1)',
-    circular: '50%',
+    circular: 'var(--md-sys-percent-50)',
     rectangular: 'var(--md-sys-spacing-2)'
   }[variant];
 
@@ -33,9 +33,9 @@ export const Skeleton: React.FC<SkeletonProps> = ({
           height,
           borderRadius,
           background: 'var(--md-sys-color-surface-variant)',
-          animation: animation === 'pulse' 
-            ? 'skeleton-pulse 1.5s ease-in-out infinite' 
-            : 'skeleton-wave 1.5s linear infinite',
+          animation: animation === 'pulse'
+            ? `skeleton-pulse var(--md-sys-motion-duration-loop-slow) var(--md-sys-motion-easing-standard) infinite`
+            : `skeleton-wave var(--md-sys-motion-duration-loop-slow) var(--md-sys-motion-easing-linear) infinite`,
           position: 'relative',
           overflow: 'hidden',
           ...style
@@ -50,13 +50,13 @@ export const Skeleton: React.FC<SkeletonProps> = ({
               left: 0,
               right: 0,
               bottom: 0,
-              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)',
-              animation: 'skeleton-wave-move 1.5s linear infinite'
+              background: 'var(--md-sys-color-shimmer)',
+              animation: `skeleton-wave-move var(--md-sys-motion-duration-loop-slow) var(--md-sys-motion-easing-linear) infinite`
             }}
           />
         )}
       </div>
-      
+
       <style>{`
         @keyframes skeleton-pulse {
           0%, 100% { opacity: 1; }
@@ -71,13 +71,12 @@ export const Skeleton: React.FC<SkeletonProps> = ({
   );
 };
 
-// Skeleton per lista di elementi
 interface SkeletonListProps {
   count?: number;
   gap?: string;
 }
 
-export const SkeletonList: React.FC<SkeletonListProps> = ({ 
+export const SkeletonList: React.FC<SkeletonListProps> = ({
   count = 3,
   gap = 'var(--md-sys-spacing-3)'
 }) => (
@@ -93,20 +92,16 @@ export const SkeletonList: React.FC<SkeletonListProps> = ({
           background: 'var(--md-sys-color-surface-container)'
         }}
       >
-        <Skeleton 
-          variant="circular" 
-          width="var(--md-sys-spacing-6)" 
-          height="var(--md-sys-spacing-6)" 
+        <Skeleton
+          variant="circular"
+          style={{ width: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-spacing-6)' }}
         />
         <div style={{ flex: 1 }}>
-          <Skeleton 
-            width="60%" 
-            height="var(--md-sys-spacing-3)" 
-            style={{ marginBottom: 'var(--md-sys-spacing-2)' }}
+          <Skeleton
+            style={{ width: 'var(--md-sys-percent-60)', height: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-2)' }}
           />
-          <Skeleton 
-            width="40%" 
-            height="var(--md-sys-spacing-2)" 
+          <Skeleton
+            style={{ width: 'var(--md-sys-percent-40)', height: 'var(--md-sys-spacing-2)' }}
           />
         </div>
       </div>

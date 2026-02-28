@@ -10,7 +10,7 @@ interface FABProps {
   onClick: () => void;
   size?: 'small' | 'medium' | 'large';
   position?: 'bottom-right' | 'bottom-center' | 'bottom-left';
-  extended?: boolean; // Show label alongside icon
+  extended?: boolean;
   disabled?: boolean;
 }
 
@@ -25,26 +25,24 @@ export const FAB: React.FC<FABProps> = ({
 }) => {
   const [isPressed, setIsPressed] = useState(false);
 
-  // Size mapping
   const sizeMap = {
     small: {
       width: 'var(--md-sys-spacing-10)',
       height: 'var(--md-sys-spacing-10)',
-      iconSize: '20px'
+      iconSize: 'var(--md-sys-spacing-5)'
     },
     medium: {
       width: 'var(--md-sys-spacing-14)',
       height: 'var(--md-sys-spacing-14)',
-      iconSize: '24px'
+      iconSize: 'var(--md-sys-spacing-6)'
     },
     large: {
       width: 'var(--md-sys-spacing-16)',
       height: 'var(--md-sys-spacing-16)',
-      iconSize: '28px'
+      iconSize: 'var(--md-sys-spacing-7)'
     }
   }[size];
 
-  // Position mapping
   const positionStyles = {
     'bottom-right': {
       bottom: 'var(--md-sys-spacing-4)',
@@ -52,7 +50,7 @@ export const FAB: React.FC<FABProps> = ({
     },
     'bottom-center': {
       bottom: 'var(--md-sys-spacing-4)',
-      left: '50%',
+      left: 'var(--md-sys-percent-50)',
       transform: 'translateX(-50%)'
     },
     'bottom-left': {
@@ -87,26 +85,26 @@ export const FAB: React.FC<FABProps> = ({
         height: sizeMap.height,
         padding: extended ? '0 var(--md-sys-spacing-4)' : '0',
         minWidth: extended ? 'var(--md-sys-spacing-14)' : sizeMap.width,
-        backgroundColor: disabled 
-          ? 'var(--md-sys-color-surface-variant)' 
+        backgroundColor: disabled
+          ? 'var(--md-sys-color-surface-variant)'
           : 'var(--md-sys-color-primary-container)',
-        color: disabled 
-          ? 'var(--md-sys-color-on-surface-variant)' 
+        color: disabled
+          ? 'var(--md-sys-color-on-surface-variant)'
           : 'var(--md-sys-color-on-primary-container)',
         border: 'none',
-        borderRadius: extended ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
-        boxShadow: disabled 
-          ? 'none' 
-          : isPressed 
-            ? '0 2px 8px rgba(0,0,0,0.2)' 
-            : '0 4px 12px rgba(0,0,0,0.25)',
+        borderRadius: 'var(--md-sys-spacing-4)',
+        boxShadow: disabled
+          ? 'none'
+          : isPressed
+            ? 'var(--md-sys-elevation-2)'
+            : 'var(--md-sys-elevation-3)',
         cursor: disabled ? 'not-allowed' : 'pointer',
-        transition: 'all 200ms var(--md-sys-motion-easing-standard)',
-        transform: isPressed && !disabled 
-          ? `${positionStyles.transform || ''} scale(0.95)` 
+        transition: `transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), opacity var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`,
+        transform: isPressed && !disabled
+          ? `${positionStyles.transform || ''} scale(0.95)`
           : `${positionStyles.transform || ''} scale(1)`,
         opacity: disabled ? 0.5 : 1,
-        zIndex: 1000,
+        zIndex: 'var(--md-sys-z-modal)',
         userSelect: 'none',
         WebkitTapHighlightColor: 'transparent',
         ...positionStyles
@@ -121,12 +119,12 @@ export const FAB: React.FC<FABProps> = ({
       >
         {icon}
       </span>
-      
+
       {extended && label && (
         <span
           style={{
             fontWeight: '600',
-            fontSize: '14px',
+            fontSize: 'var(--md-sys-spacing-3_5)',
             whiteSpace: 'nowrap'
           }}
         >
@@ -137,7 +135,6 @@ export const FAB: React.FC<FABProps> = ({
   );
 };
 
-// FAB with multiple actions (Speed Dial)
 interface FABAction {
   icon: string;
   label: string;
@@ -169,7 +166,7 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
     },
     'bottom-center': {
       bottom: 'var(--md-sys-spacing-4)',
-      left: '50%',
+      left: 'var(--md-sys-percent-50)',
       transform: 'translateX(-50%)'
     },
     'bottom-left': {
@@ -180,7 +177,6 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
 
   return (
     <>
-      {/* Backdrop */}
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
@@ -190,14 +186,13 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.3)',
-            zIndex: 999,
-            animation: 'fade-in 200ms ease-out'
+            backgroundColor: 'var(--md-sys-color-scrim)',
+            zIndex: 'var(--md-sys-z-snackbar)',
+            animation: `fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-decelerated)`
           }}
         />
       )}
 
-      {/* Actions */}
       {isOpen && (
         <div
           style={{
@@ -205,7 +200,7 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
             display: 'flex',
             flexDirection: 'column',
             gap: 'var(--md-sys-spacing-3)',
-            zIndex: 1000,
+            zIndex: 'var(--md-sys-z-modal)',
             ...positionStyles,
             bottom: `calc(${positionStyles.bottom} + var(--md-sys-spacing-14) + var(--md-sys-spacing-2))`
           }}
@@ -218,27 +213,25 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 gap: 'var(--md-sys-spacing-3)',
-                animation: `slide-up 250ms ease-out ${index * 50}ms both`,
+                animation: `slide-up var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-decelerated) ${index * 50}ms both`,
                 cursor: 'pointer'
               }}
             >
-              {/* Label */}
               <div
                 style={{
                   padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
                   backgroundColor: 'var(--md-sys-color-surface-container-high)',
                   color: 'var(--md-sys-color-on-surface)',
                   borderRadius: 'var(--md-sys-spacing-1)',
-                  fontSize: '14px',
+                  fontSize: 'var(--md-sys-spacing-3_5)',
                   fontWeight: '500',
                   whiteSpace: 'nowrap',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+                  boxShadow: 'var(--md-sys-elevation-2)'
                 }}
               >
                 {action.label}
               </div>
 
-              {/* Mini FAB */}
               <div
                 style={{
                   width: 'var(--md-sys-spacing-10)',
@@ -249,13 +242,13 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
                   backgroundColor: 'var(--md-sys-color-secondary-container)',
                   color: 'var(--md-sys-color-on-secondary-container)',
                   borderRadius: 'var(--md-sys-spacing-3)',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                  boxShadow: 'var(--md-sys-elevation-2)'
                 }}
               >
                 <span
                   className="material-symbols-outlined"
                   style={{
-                    fontSize: '20px',
+                    fontSize: 'var(--md-sys-spacing-5)',
                     fontVariationSettings: '"FILL" 1, "wght" 600'
                   }}
                 >
@@ -267,7 +260,6 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
         </div>
       )}
 
-      {/* Main FAB */}
       <FAB
         icon={isOpen ? 'close' : mainIcon}
         onClick={() => setIsOpen(!isOpen)}
@@ -282,7 +274,7 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
         @keyframes slide-up {
           from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(var(--md-sys-spacing-5));
           }
           to {
             opacity: 1;

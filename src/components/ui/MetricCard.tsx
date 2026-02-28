@@ -28,8 +28,8 @@ export const MetricCard: React.FC<MetricCardProps> = ({
     primary: 'var(--md-sys-color-primary)',
     secondary: 'var(--md-sys-color-secondary)',
     tertiary: 'var(--md-sys-color-tertiary)',
-    success: '#4CAF50',
-    warning: '#FF9800',
+    success: 'var(--md-sys-color-tertiary)',
+    warning: 'var(--md-sys-color-secondary)',
     error: 'var(--md-sys-color-error)'
   };
 
@@ -37,9 +37,15 @@ export const MetricCard: React.FC<MetricCardProps> = ({
     primary: 'var(--md-sys-color-primary-container)',
     secondary: 'var(--md-sys-color-secondary-container)',
     tertiary: 'var(--md-sys-color-tertiary-container)',
-    success: '#4CAF5020',
-    warning: '#FF980020',
+    success: 'var(--md-sys-color-tertiary-container)',
+    warning: 'var(--md-sys-color-secondary-container)',
     error: 'var(--md-sys-color-error-container)'
+  };
+
+  const trendColorMap = {
+    up: 'var(--md-sys-color-tertiary)',
+    down: 'var(--md-sys-color-error)',
+    neutral: 'inherit'
   };
 
   return (
@@ -50,7 +56,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         flex: '1',
         minWidth: 'var(--md-sys-spacing-14)',
         cursor: onClick ? 'pointer' : 'default',
-        transition: 'transform 200ms, box-shadow 200ms',
+        transition: `transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`,
         border: `1px solid ${containerColorMap[color]}`
       }}
     >
@@ -63,7 +69,6 @@ export const MetricCard: React.FC<MetricCardProps> = ({
           textAlign: 'center'
         }}
       >
-        {/* Icona opzionale */}
         {icon && (
           <span
             className="material-symbols-outlined"
@@ -77,21 +82,19 @@ export const MetricCard: React.FC<MetricCardProps> = ({
             {icon}
           </span>
         )}
-        
-        {/* Valore principale */}
+
         <M3Typography
           variant="display-small"
           style={{
             color: colorMap[color],
             fontWeight: '700',
-            fontSize: '48px',
-            lineHeight: '56px'
+            fontSize: 'var(--md-sys-spacing-12)',
+            lineHeight: 'var(--md-sys-spacing-14)'
           }}
         >
           {value}
         </M3Typography>
-        
-        {/* Label */}
+
         <M3Typography
           variant="label-large"
           style={{
@@ -103,8 +106,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         >
           {label}
         </M3Typography>
-        
-        {/* Trend opzionale */}
+
         {trend && trendValue && (
           <M3Surface
             style={{
@@ -113,10 +115,10 @@ export const MetricCard: React.FC<MetricCardProps> = ({
               gap: 'var(--md-sys-spacing-1)',
               padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
               borderRadius: 'var(--md-sys-spacing-4)',
-              background: trend === 'up' 
-                ? '#4CAF5020' 
-                : trend === 'down' 
-                ? '#F4433620' 
+              background: trend === 'up'
+                ? 'var(--md-sys-color-tertiary-container)'
+                : trend === 'down'
+                ? 'var(--md-sys-color-error-container)'
                 : 'var(--md-sys-color-surface-variant)',
               marginTop: 'var(--md-sys-spacing-1)'
             }}
@@ -126,7 +128,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
               aria-hidden="true"
               style={{
                 fontSize: 'var(--md-sys-spacing-3)',
-                color: trend === 'up' ? '#4CAF50' : trend === 'down' ? '#F44336' : 'inherit'
+                color: trendColorMap[trend]
               }}
             >
               {trend === 'up' ? 'trending_up' : trend === 'down' ? 'trending_down' : 'remove'}
@@ -134,7 +136,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
             <M3Typography
               variant="label-small"
               style={{
-                color: trend === 'up' ? '#4CAF50' : trend === 'down' ? '#F44336' : 'inherit',
+                color: trendColorMap[trend],
                 fontWeight: '600'
               }}
             >

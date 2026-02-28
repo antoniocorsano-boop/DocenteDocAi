@@ -35,16 +35,16 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
           right: 0,
           height: 'var(--md-sys-spacing-0_5)',
           backgroundColor: 'var(--md-sys-color-surface-variant)',
-          zIndex: 9999,
+          zIndex: 'var(--md-sys-z-max)',
           overflow: 'hidden'
         }}
       >
         <div
           style={{
-            height: '100%',
-            width: '30%',
+            height: 'var(--md-sys-percent-100)',
+            width: 'var(--md-sys-percent-30)',
             backgroundColor: colorMap[color],
-            animation: 'progress-indeterminate 2s var(--md-sys-motion-easing-standard) infinite',
+            animation: `progress-indeterminate var(--md-sys-motion-duration-loop-medium) var(--md-sys-motion-easing-standard) infinite`,
             transformOrigin: 'left center'
           }}
         />

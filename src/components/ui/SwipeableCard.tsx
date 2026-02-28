@@ -16,7 +16,7 @@ interface SwipeableCardProps {
   children: React.ReactNode;
   leftAction?: SwipeAction;
   rightAction?: SwipeAction;
-  threshold?: number; // px to trigger action
+  threshold?: number;
   disabled?: boolean;
 }
 
@@ -46,11 +46,9 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
     const deltaX = e.touches[0].clientX - startX.current;
     const newTranslateX = currentX.current + deltaX;
 
-    // Limit swipe distance
     const maxSwipe = 120;
     const limitedTranslateX = Math.max(-maxSwipe, Math.min(maxSwipe, newTranslateX));
-    
-    // Check if action should be triggered
+
     if (leftAction && limitedTranslateX >= threshold) {
       setActionTriggered(true);
     } else if (rightAction && limitedTranslateX <= -threshold) {
@@ -66,7 +64,6 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
     if (disabled) return;
     setIsDragging(false);
 
-    // Trigger action if threshold reached
     if (leftAction && translateX >= threshold && actionTriggered) {
       leftAction.onAction();
       setTranslateX(0);
@@ -74,10 +71,9 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
       rightAction.onAction();
       setTranslateX(0);
     } else {
-      // Reset position
       setTranslateX(0);
     }
-    
+
     setActionTriggered(false);
   };
 
@@ -93,7 +89,6 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
         touchAction: disabled ? 'auto' : 'pan-y'
       }}
     >
-      {/* Left Action */}
       {showLeftAction && (
         <div
           style={{
@@ -108,13 +103,13 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
             paddingLeft: 'var(--md-sys-spacing-4)',
             gap: 'var(--md-sys-spacing-2)',
             opacity: actionTriggered ? 1 : 0.7,
-            transition: 'opacity 150ms'
+            transition: `opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
           }}
         >
           <span
             className="material-symbols-outlined"
             style={{
-              fontSize: '24px',
+              fontSize: 'var(--md-sys-spacing-6)',
               color: leftAction.color,
               fontVariationSettings: '"FILL" 1, "wght" 600'
             }}
@@ -125,7 +120,7 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
             style={{
               color: leftAction.color,
               fontWeight: '600',
-              fontSize: '14px'
+              fontSize: 'var(--md-sys-spacing-3_5)'
             }}
           >
             {leftAction.label}
@@ -133,7 +128,6 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
         </div>
       )}
 
-      {/* Right Action */}
       {showRightAction && (
         <div
           style={{
@@ -149,14 +143,14 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
             paddingRight: 'var(--md-sys-spacing-4)',
             gap: 'var(--md-sys-spacing-2)',
             opacity: actionTriggered ? 1 : 0.7,
-            transition: 'opacity 150ms'
+            transition: `opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
           }}
         >
           <span
             style={{
               color: rightAction.color,
               fontWeight: '600',
-              fontSize: '14px'
+              fontSize: 'var(--md-sys-spacing-3_5)'
             }}
           >
             {rightAction.label}
@@ -164,7 +158,7 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
           <span
             className="material-symbols-outlined"
             style={{
-              fontSize: '24px',
+              fontSize: 'var(--md-sys-spacing-6)',
               color: rightAction.color,
               fontVariationSettings: '"FILL" 1, "wght" 600'
             }}
@@ -174,7 +168,6 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
         </div>
       )}
 
-      {/* Card Content */}
       <div
         ref={cardRef}
         onTouchStart={handleTouchStart}
@@ -182,7 +175,7 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
         onTouchEnd={handleTouchEnd}
         style={{
           transform: `translateX(${translateX}px)`,
-          transition: isDragging ? 'none' : 'transform 250ms var(--md-sys-motion-easing-standard)',
+          transition: isDragging ? 'none' : `transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`,
           backgroundColor: 'var(--md-sys-color-surface-container)',
           cursor: disabled ? 'default' : 'grab',
           userSelect: 'none'

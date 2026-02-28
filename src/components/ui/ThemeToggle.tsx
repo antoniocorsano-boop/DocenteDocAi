@@ -20,8 +20,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
 
   const handleToggle = () => {
     setIsAnimating(true);
-    
-    // Cycle through: auto → light → dark → auto
+
     if (mode === 'auto') {
       setMode('light');
     } else if (mode === 'light') {
@@ -33,17 +32,14 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
     setTimeout(() => setIsAnimating(false), 400);
   };
 
-  // Icon based on current effective theme
   const icon = effectiveTheme === 'dark' ? 'dark_mode' : 'light_mode';
-  
-  // Label based on mode
-  const label = mode === 'auto' 
-    ? 'Tema automatico' 
-    : mode === 'light' 
-      ? 'Tema chiaro' 
+
+  const label = mode === 'auto'
+    ? 'Tema automatico'
+    : mode === 'light'
+      ? 'Tema chiaro'
       : 'Tema scuro';
 
-  // Tooltip text
   const tooltipText = mode === 'auto'
     ? `Tema automatico (${effectiveTheme === 'dark' ? 'Scuro' : 'Chiaro'})`
     : mode === 'light'
@@ -64,11 +60,11 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
             alignItems: 'center',
             justifyContent: 'center',
             border: 'none',
-            borderRadius: '50%',
+            borderRadius: 'var(--md-sys-percent-50)',
             backgroundColor: 'transparent',
             color: 'var(--md-sys-color-on-surface)',
             cursor: 'pointer',
-            transition: 'background-color 200ms',
+            transition: `background-color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`,
             overflow: 'hidden'
           }}
           onMouseEnter={(e) => {
@@ -78,22 +74,20 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
             e.currentTarget.style.backgroundColor = 'transparent';
           }}
         >
-          {/* Icon with rotation animation */}
           <span
             className="material-symbols-outlined"
             style={{
-              fontSize: '24px',
-              fontVariationSettings: isSystemTheme 
-                ? '"FILL" 0, "wght" 400' 
+              fontSize: 'var(--md-sys-spacing-6)',
+              fontVariationSettings: isSystemTheme
+                ? '"FILL" 0, "wght" 400'
                 : '"FILL" 1, "wght" 600',
               transform: isAnimating ? 'rotate(360deg)' : 'rotate(0deg)',
-              transition: 'transform 400ms var(--md-sys-motion-easing-standard)'
+              transition: `transform var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard)`
             }}
           >
             {icon}
           </span>
 
-          {/* System indicator dot */}
           {isSystemTheme && (
             <div
               style={{
@@ -102,7 +96,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
                 right: 'var(--md-sys-spacing-1)',
                 width: 'var(--md-sys-spacing-1)',
                 height: 'var(--md-sys-spacing-1)',
-                borderRadius: '50%',
+                borderRadius: 'var(--md-sys-percent-50)',
                 backgroundColor: 'var(--md-sys-color-primary)',
                 boxShadow: '0 0 4px var(--md-sys-color-primary)'
               }}
@@ -127,10 +121,10 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
           borderRadius: 'var(--md-sys-spacing-5)',
           backgroundColor: 'var(--md-sys-color-surface-container)',
           color: 'var(--md-sys-color-on-surface)',
-          fontSize: '14px',
+          fontSize: 'var(--md-sys-spacing-3_5)',
           fontWeight: '500',
           cursor: 'pointer',
-          transition: 'all 200ms'
+          transition: `background-color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
@@ -142,12 +136,12 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
         <span
           className="material-symbols-outlined"
           style={{
-            fontSize: '20px',
-            fontVariationSettings: isSystemTheme 
-              ? '"FILL" 0, "wght" 400' 
+            fontSize: 'var(--md-sys-spacing-5)',
+            fontVariationSettings: isSystemTheme
+              ? '"FILL" 0, "wght" 400'
               : '"FILL" 1, "wght" 600',
             transform: isAnimating ? 'rotate(360deg)' : 'rotate(0deg)',
-            transition: 'transform 400ms var(--md-sys-motion-easing-standard)'
+            transition: `transform var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard)`
           }}
         >
           {icon}
@@ -157,7 +151,6 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
     );
   }
 
-  // variant === 'menu'
   return (
     <div
       style={{
@@ -166,7 +159,6 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
         gap: 'var(--md-sys-spacing-1)'
       }}
     >
-      {/* Menu items for each theme option */}
       {(['auto', 'light', 'dark'] as const).map((themeMode) => (
         <button
           key={themeMode}
@@ -179,18 +171,18 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
             padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
             border: 'none',
             borderRadius: 'var(--md-sys-spacing-2)',
-            backgroundColor: mode === themeMode 
-              ? 'var(--md-sys-color-primary-container)' 
+            backgroundColor: mode === themeMode
+              ? 'var(--md-sys-color-primary-container)'
               : 'transparent',
             color: mode === themeMode
               ? 'var(--md-sys-color-on-primary-container)'
               : 'var(--md-sys-color-on-surface)',
-            fontSize: '14px',
+            fontSize: 'var(--md-sys-spacing-3_5)',
             fontWeight: mode === themeMode ? '600' : '400',
             cursor: 'pointer',
             textAlign: 'left',
-            width: '100%',
-            transition: 'all 200ms'
+            width: 'var(--md-sys-percent-100)',
+            transition: `background-color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`
           }}
           onMouseEnter={(e) => {
             if (mode !== themeMode) {
@@ -203,30 +195,27 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
             }
           }}
         >
-          {/* Icon */}
           <span
             className="material-symbols-outlined"
             style={{
-              fontSize: '20px',
-              fontVariationSettings: mode === themeMode 
-                ? '"FILL" 1, "wght" 600' 
+              fontSize: 'var(--md-sys-spacing-5)',
+              fontVariationSettings: mode === themeMode
+                ? '"FILL" 1, "wght" 600'
                 : '"FILL" 0, "wght" 400'
             }}
           >
             {themeMode === 'auto' ? 'brightness_auto' : themeMode === 'light' ? 'light_mode' : 'dark_mode'}
           </span>
 
-          {/* Label */}
           <span style={{ flex: 1 }}>
             {themeMode === 'auto' ? 'Automatico' : themeMode === 'light' ? 'Chiaro' : 'Scuro'}
           </span>
 
-          {/* Checkmark */}
           {mode === themeMode && (
             <span
               className="material-symbols-outlined"
               style={{
-                fontSize: '18px',
+                fontSize: 'var(--md-sys-spacing-4_5)',
                 fontVariationSettings: '"FILL" 1, "wght" 600'
               }}
             >

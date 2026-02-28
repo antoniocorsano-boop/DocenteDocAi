@@ -125,7 +125,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
 
                         <section  style={{borderTop: 'var(--app-border-normal) solid var(--md-sys-color-outline)'}}>
                             <h3  style={{fontWeight: "900", marginBottom: 'var(--app-spacing-section)', display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)'}}>
-                                <span style={{ color: var(--md-sys-color-on-tertiary) , width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900"}}>3</span> 
+                                <span style={{ color: 'var(--md-sys-color-on-tertiary)', width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)', backgroundColor: 'var(--md-sys-color-tertiary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '900'}}>3</span> 
                                 Raccolta (Opzionale)
                             </h3>
                             <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end"}}>
