@@ -20,10 +20,7 @@ export interface NavigationRailProps {
   onNavigate: (view: View, context?: unknown) => void;
 }
 
-const isItemActive = (
-  item: NavigationRailItem,
-  currentView: View
-): boolean => {
+const isItemActive = (item: NavigationRailItem, currentView: View): boolean => {
   const parentMap: Partial<Record<View, View[]>> = {
     "progettazione-hub": [
       "knowledge-base",

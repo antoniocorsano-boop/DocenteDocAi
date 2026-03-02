@@ -134,7 +134,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       <div
         style={{
           display: "flex",
-          flex: "1 1 auto",
+          flex: "var(--md-sys-flex-auto)",
           minHeight: "0",
           position: "relative",
         }}
@@ -153,7 +153,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
               zIndex: "var(--md-sys-z-nav)",
               position: "sticky",
               top: "0",
-              height: "100vh",
+              height: "var(--md-sys-viewport-height-full)",
             }}
           >
             <NavigationRail
@@ -173,9 +173,11 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
               style={{
                 position: "fixed",
                 inset: "0",
-                background: "rgba(0,0,0,0.4)",
+                background:
+                  "color-mix(in srgb, var(--md-sys-color-shadow) var(--md-sys-backdrop-medium, 40%), transparent)",
                 zIndex: "var(--md-sys-z-modal)",
-                backdropFilter: "blur(2px)",
+                backdropFilter:
+                  "blur(var(--md-sys-blur-small, var(--md-sys-spacing-1)))",
               }}
             />
             <nav
@@ -186,7 +188,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                 left: "0",
                 bottom: "0",
                 width: "var(--md-sys-spacing-56)",
-                maxWidth: "80vw",
+                maxWidth: "var(--md-sys-percent-80)",
                 background: "var(--md-sys-color-surface-container-low)",
                 zIndex: "var(--md-sys-z-modal)",
                 display: "flex",
@@ -248,7 +250,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
 
               <div
                 style={{
-                  flex: "1 1 auto",
+                  flex: "var(--md-sys-flex-auto)",
                   overflowY: "auto",
                   padding: "var(--md-sys-spacing-2) var(--md-sys-spacing-3)",
                 }}
@@ -264,7 +266,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                         display: "flex",
                         alignItems: "center",
                         gap: "var(--md-sys-spacing-4)",
-                        width: "100%",
+                        width: "var(--md-sys-percent-100)",
                         padding:
                           "var(--md-sys-spacing-3) var(--md-sys-spacing-4)",
                         borderRadius: "var(--md-sys-radius-7)",
@@ -322,7 +324,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                     display: "flex",
                     alignItems: "center",
                     gap: "var(--md-sys-spacing-4)",
-                    width: "100%",
+                    width: "var(--md-sys-percent-100)",
                     padding: "var(--md-sys-spacing-3) var(--md-sys-spacing-4)",
                     borderRadius: "var(--md-sys-radius-7)",
                     border: "none",
@@ -364,7 +366,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           role="main"
           aria-label="Contenuto principale"
           style={{
-            flex: "1 1 auto",
+            flex: "var(--md-sys-flex-auto)",
             minWidth: "0",
             display: "flex",
             flexDirection: "column",
