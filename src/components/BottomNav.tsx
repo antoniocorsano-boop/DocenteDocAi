@@ -1,94 +1,156 @@
-import React from 'react';
-import { View } from '../types';
+// MD3 Gold Compliant
+// BottomNav - MD3 Navigation Bar for mobile (compact breakpoint)
+// Audit: febbraio 2026
+
+import React from "react";
+import { View } from "../types";
 
 interface BottomNavProps {
   activeView: View;
   onNavigate: (view: View) => void;
 }
 
-// Example items, should match NavigationRail for consistency
-const navItems = [
-  { id: 'home', label: 'Home', icon: 'home' },
-  { id: 'lessons', label: 'Lezioni', icon: 'menu_book' },
-  { id: 'students', label: 'Studenti', icon: 'group' },
-  { id: 'profile', label: 'Profilo', icon: 'person' },
+const NAV_ITEMS = [
+  { id: "home" as View, label: "Home", icon: "home", activeIcon: "home" },
+  {
+    id: "timetable" as View,
+    label: "Orario",
+    icon: "schedule",
+    activeIcon: "watch_later",
+  },
+  {
+    id: "progettazione-hub" as View,
+    label: "Progetta",
+    icon: "design_services",
+    activeIcon: "edit_document",
+  },
+  { id: "aula" as View, label: "Classi", icon: "groups", activeIcon: "groups" },
+  {
+    id: "calendario" as View,
+    label: "Agenda",
+    icon: "calendar_month",
+    activeIcon: "event_note",
+  },
 ];
 
+const ACTIVE_VIEWS: Partial<Record<View, View>> = {
+  "knowledge-base": "progettazione-hub",
+  studio: "progettazione-hub",
+  lessons: "progettazione-hub",
+  uda: "progettazione-hub",
+  rubriche: "progettazione-hub",
+  reportistica: "progettazione-hub",
+  "didattica-inclusiva": "progettazione-hub",
+  "curriculum-manager": "progettazione-hub",
+  evaluations: "aula",
+  register: "aula",
+  studenti: "aula",
+  "improvement-guide": "aula",
+  "consiglio-di-classe": "aula",
+  "class-competency-dashboard": "aula",
+  analytics: "aula",
+  "teacher-inbox": "aula",
+};
+
+const TRANSITION_COLOR =
+  "color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-emphasized)";
+const TRANSITION_BG =
+  "background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-emphasized)";
+const TRANSITION_ICON = `${TRANSITION_COLOR}, font-variation-settings var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-emphasized)`;
+
 const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
+  const resolvedActive = (ACTIVE_VIEWS[activeView] as View) ?? activeView;
+
   return (
-    <>
-      <style>{`
-        @media (min-width: 1024px) {
-          .bottom-nav-container {
-            display: none !important;
-          }
-        }
-      `}</style>
-      <nav
-        aria-label="Navigazione principale mobile"
-        style={{
-          position: 'fixed',
-          left: 'var(--md-sys-spacing-0)',
-          right: 'var(--md-sys-spacing-0)',
-          bottom: 'var(--md-sys-spacing-0)',
-          zIndex: 'var(--md-sys-z-nav)',
-          background: 'var(--md-sys-color-surface-container)',
-          boxShadow: 'var(--md-sys-elevation-3)',
-          display: 'flex',
-          justifyContent: 'space-around',
-          padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-0)',
-          paddingBottom: 'calc(var(--md-sys-spacing-2) + env(safe-area-inset-bottom))',
-        }}
-      >
-      {navItems.map(item => {
-        const isActive = activeView === item.id;
+    <nav
+      aria-label="Navigazione principale"
+      style={{
+        position: "fixed",
+        left: "0",
+        right: "0",
+        bottom: "0",
+        zIndex: "var(--md-sys-z-nav)",
+        background: "var(--md-sys-color-surface-container)",
+        boxShadow: "var(--md-sys-elevation-3)",
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "flex-end",
+        paddingTop: "var(--md-sys-spacing-2)",
+        paddingBottom:
+          "calc(var(--md-sys-spacing-2) + env(safe-area-inset-bottom, 0px))",
+        paddingInline: "var(--md-sys-spacing-1)",
+        borderTop:
+          "var(--app-border-thin) solid var(--md-sys-color-outline-variant)",
+      }}
+    >
+      {NAV_ITEMS.map((item) => {
+        const isActive = resolvedActive === item.id;
         return (
           <button
             key={item.id}
             aria-label={item.label}
-            aria-current={isActive ? 'page' : undefined}
-            onClick={() => onNavigate(item.id as View)}
+            aria-current={isActive ? "page" : undefined}
+            onClick={() => onNavigate(item.id)}
             style={{
-              background: isActive
-                ? 'var(--md-sys-color-primary-container)'
-                : 'transparent',
-              border: 'none',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 'var(--md-sys-spacing-1)',
-              minWidth: 'var(--md-sys-spacing-10)',
-              minHeight: 'var(--md-sys-spacing-8)',
-              padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
-              borderRadius: 'var(--md-sys-radius-3)',
-              cursor: 'pointer',
-              transition: 'color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-              position: 'relative',
+              flex: "1",
+              background: "transparent",
+              border: "none",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "var(--md-sys-spacing-1)",
+              padding: "var(--md-sys-spacing-1) var(--md-sys-spacing-1)",
+              borderRadius: "var(--md-sys-radius-3)",
+              cursor: "pointer",
+              minHeight: "var(--md-sys-spacing-12)",
+              transition: TRANSITION_COLOR,
+              WebkitTapHighlightColor: "transparent",
+              position: "relative",
             }}
           >
-            <span
-              className="material-symbols-outlined"
-              aria-hidden="true"
+            <div
               style={{
-                fontSize: 'var(--md-sys-spacing-6)',
-                color: isActive
-                  ? 'var(--md-sys-color-on-primary-container)'
-                  : 'var(--md-sys-color-on-surface-variant)',
-                fontVariationSettings: isActive ? '"FILL" 1, "wght" 600' : '"FILL" 0, "wght" 400',
-                transition: 'color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "var(--md-sys-spacing-14)",
+                height: "var(--md-sys-spacing-8)",
+                borderRadius: "var(--md-sys-radius-7)",
+                background: isActive
+                  ? "var(--md-sys-color-secondary-container)"
+                  : "transparent",
+                transition: TRANSITION_BG,
               }}
             >
-              {item.icon}
-            </span>
+              <span
+                className="material-symbols-outlined"
+                aria-hidden="true"
+                style={{
+                  fontSize: "var(--md-sys-spacing-6)",
+                  color: isActive
+                    ? "var(--md-sys-color-on-secondary-container)"
+                    : "var(--md-sys-color-on-surface-variant)",
+                  fontVariationSettings: isActive
+                    ? "'FILL' 1, 'wght' 600"
+                    : "'FILL' 0, 'wght' 400",
+                  transition: TRANSITION_ICON,
+                }}
+              >
+                {isActive ? item.activeIcon : item.icon}
+              </span>
+            </div>
             <span
               style={{
-                fontFamily: 'var(--md-sys-typescale-label-small-font-family)',
-                fontSize: 'var(--md-sys-typescale-label-small-font-size)',
-                fontWeight: isActive ? '600' : '400',
-                letterSpacing: '0.5px',
+                fontFamily: "var(--font-family)",
+                fontSize:
+                  "var(--md-sys-typescale-label-small-font-size, var(--md-sys-spacing-3))",
+                fontWeight: isActive ? "600" : "400",
+                letterSpacing: "var(--md-sys-typescale-label-small-tracking)",
                 color: isActive
-                  ? 'var(--md-sys-color-on-primary-container)'
-                  : 'var(--md-sys-color-on-surface-variant)',
+                  ? "var(--md-sys-color-on-surface)"
+                  : "var(--md-sys-color-on-surface-variant)",
+                transition: TRANSITION_COLOR,
+                lineHeight: "1",
               }}
             >
               {item.label}
@@ -97,7 +159,6 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
         );
       })}
     </nav>
-    </>
   );
 };
 
