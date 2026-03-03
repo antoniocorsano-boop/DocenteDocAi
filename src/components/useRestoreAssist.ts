@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 
 import type { AppState, AppActions, Modals } from '../types';
 
@@ -43,7 +43,4 @@ export const useRestoreAssist = (
     onClose: () => window.location.reload(),
   };
 };
-
-
-
 

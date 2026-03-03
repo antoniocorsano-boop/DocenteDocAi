@@ -24,4 +24,3 @@ export function unlockNode(state: GameState, nodeId: string): GameState {
   return { unlocked, progress, badges };
 }
 
-

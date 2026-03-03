@@ -60,4 +60,3 @@ export const DEFAULT_TEMPLATES: DocumentTemplate[] = [
   }
 ];
 
-

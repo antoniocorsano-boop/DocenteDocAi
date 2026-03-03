@@ -51,7 +51,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         minWidth: 'var(--md-sys-spacing-14)',
         cursor: onClick ? 'pointer' : 'default',
         transition: 'transform 200ms, box-shadow 200ms',
-        border: `1px solid ${containerColorMap[color]}`
+        border: `var(--md-sys-border-width-thin) solid ${containerColorMap[color]}`
       }}
     >
       <M3Surface
@@ -84,8 +84,8 @@ export const MetricCard: React.FC<MetricCardProps> = ({
           style={{
             color: colorMap[color],
             fontWeight: '700',
-            fontSize: '48px',
-            lineHeight: '56px'
+            fontSize: 'var(--md-sys-typescale-display-medium-font-size)',
+            lineHeight: 'var(--md-sys-typescale-display-medium-line-height)'
           }}
         >
           {value}
@@ -97,7 +97,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
           style={{
             color: 'var(--md-sys-color-on-surface)',
             textTransform: 'uppercase',
-            letterSpacing: '1px',
+            letterSpacing: 'var(--md-sys-typescale-metric-label-tracking)',
             fontWeight: '600'
           }}
         >
@@ -114,9 +114,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({
               padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
               borderRadius: 'var(--md-sys-spacing-4)',
               background: trend === 'up' 
-                ? '#4CAF5020' 
+                ? 'color-mix(in srgb, var(--md-sys-color-tertiary) 12%, transparent)' 
                 : trend === 'down' 
-                ? '#F4433620' 
+                ? 'color-mix(in srgb, var(--md-sys-color-error) 12%, transparent)' 
                 : 'var(--md-sys-color-surface-variant)',
               marginTop: 'var(--md-sys-spacing-1)'
             }}
@@ -126,7 +126,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
               aria-hidden="true"
               style={{
                 fontSize: 'var(--md-sys-spacing-3)',
-                color: trend === 'up' ? '#4CAF50' : trend === 'down' ? '#F44336' : 'inherit'
+                color: trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'inherit'
               }}
             >
               {trend === 'up' ? 'trending_up' : trend === 'down' ? 'trending_down' : 'remove'}
@@ -134,7 +134,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
             <M3Typography
               variant="label-small"
               style={{
-                color: trend === 'up' ? '#4CAF50' : trend === 'down' ? '#F44336' : 'inherit',
+                color: trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'inherit',
                 fontWeight: '600'
               }}
             >

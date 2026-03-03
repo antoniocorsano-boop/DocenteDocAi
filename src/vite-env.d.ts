@@ -24,4 +24,3 @@ interface AppInstrumentation {
     [key: string]: unknown;
 }
 
-

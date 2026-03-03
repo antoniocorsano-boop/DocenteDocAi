@@ -47,12 +47,12 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
             maxWidth="sm"
             level={3}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 ,  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "var(--app-layout-full)" }}>
+            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 ,  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "var(--md-sys-percent-100)" }}>
                 <div style={{textAlign: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                    <div style={{ color: sys.colors.on-primaryContainer , width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', backgroundColor: "var(--app-color-primary)", borderRadius: 'var(--app-spacing-container)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                        <span style={{ color: 'var(--app-color-primary)' }}>lock</span>
+                    <div style={{ color: sys.colors.on-primaryContainer , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "var(auto)", marginRight: "var(auto)", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                        <span style={{ color: 'var(--md-sys-color-primary)' }}>lock</span>
                     </div>
-                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--app-spacing-container)'}}>Inserisci il PIN docente per uscire</p>
+                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Inserisci il PIN docente per uscire</p>
                 </div>
 
                 {/* PIN Display */}
@@ -61,16 +61,16 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
                         <div 
                             key={i}
                             style={{
-                                width: 'var(--app-spacing-container)', // MD3 spacing token
-                                height: 'var(--app-spacing-container)', // MD3 spacing token
+                                width: 'var(--md-sys-spacing-4)', // MD3 spacing token
+                                height: 'var(--md-sys-spacing-4)', // MD3 spacing token
                                 
-                                borderRadius: 'var(--app-layout-half)', // circular indicator
+                                borderRadius: 'var(50%)', // circular indicator
                                 
-                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick)', // transition-all duration-200
+                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short)', // transition-all duration-200
                                 backgroundColor: i < pin.length 
-                                    ? (error ? 'var(--md-sys-color-error)' : 'var(--app-color-primary)')
+                                    ? (error ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)')
                                     : 'var(--md-sys-color-surface-container-high)',
-                                border: i >= pin.length ? `var(--app-border-thin) solid var(--md-sys-color-outline)` : 'none',
+                                border: i >= pin.length ? `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)` : 'none',
                                 transform: i < pin.length ? `scale(${error ? 1.25 : 1.1})` : 'scale(1)'
                             }}
                         />
@@ -83,7 +83,7 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
 
                 <PinPad onInput={handleInput} onDelete={handleDelete} />
 
-                <M3Button onClick={onCancel} variant="text"  style={{ width: "var(--app-layout-full)" }}>
+                <M3Button onClick={onCancel} variant="text"  style={{ width: "var(--md-sys-percent-100)" }}>
                     Annulla
                 </M3Button>
             </M3DialogContent>
@@ -92,11 +92,4 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
 };
 
 export default PinPadModal;
-
-
-
-
-
-
-
 

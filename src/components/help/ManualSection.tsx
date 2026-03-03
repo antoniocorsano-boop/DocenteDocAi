@@ -13,23 +13,23 @@ export const ManualSection: React.FC<ManualSectionProps> = ({ title, icon, defau
     const [isOpen, setIsOpen] = useState(defaultOpen);
     return (
         <div style={{
-            border: `var(--app-border-thin) solid var(--md-sys-color-outline-variant)`,
+            border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`,
             borderRadius: 'var(--md-sys-shape-corner-large)',
-            marginBottom: 'var(--app-spacing-container)',
+            marginBottom: 'var(--md-sys-spacing-4)',
             overflow: 'hidden'
         }}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 style={{
-                    width: 'var(--app-layout-full)',
+                    width: 'var(--md-sys-percent-100)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: 'var(--app-spacing-container)',
+                    padding: 'var(--md-sys-spacing-4)',
                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
                     border: 'none',
                     cursor: 'pointer',
-                    transition: 'background-color var(--md-sys-motion-duration-short2) var(--app-easing-standard)'
+                    transition: 'background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)'}
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-low)'}
@@ -37,26 +37,24 @@ export const ManualSection: React.FC<ManualSectionProps> = ({ title, icon, defau
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--app-spacing-element)'
+                    gap: 'var(--md-sys-spacing-3)'
                 }}>
                     <span style={{
-                        fontFamily: 'Material Symbols Outlined',
-                        color: 'var(--app-color-primary)',
+                        color: 'var(--md-sys-color-primary)',
                         fontSize: 'var(--md-sys-typescale--font-size)'
                     }}>{icon}</span>
                     <M3Typography variant="title-medium">{title}</M3Typography>
                 </div>
                 <span style={{
-                    fontFamily: 'Material Symbols Outlined',
                     color: 'var(--md-sys-color-on-surface-variant)',
-                    transition: 'transform var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
+                    transition: 'transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                     transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
                 }}>expand_more</span>
             </button>
             {isOpen && <div style={{
-                padding: 'var(--app-spacing-container)',
-                backgroundColor: 'var(--app-color-surface)',
-                borderTop: `var(--app-border-thin) solid var(--md-sys-color-outline-variant)`
+                padding: 'var(--md-sys-spacing-4)',
+                backgroundColor: 'var(--md-sys-color-surface)',
+                borderTop: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
             }}>{children}</div>}
         </div>
     );

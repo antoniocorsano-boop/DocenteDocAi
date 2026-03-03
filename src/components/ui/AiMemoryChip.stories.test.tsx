@@ -1,5 +1,5 @@
 import { renderWithM3Theme } from './test-utils';
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React from 'react';
 import { render } from '@testing-library/react';
 import AiMemoryChip from './AiMemoryChip';
@@ -10,9 +10,4 @@ describe('AiMemoryChip Story Snapshots', () => {
     expect(container).toMatchSnapshot();
   });
 });
-
-
-
-
-
 

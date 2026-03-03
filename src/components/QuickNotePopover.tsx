@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 
 // M3Expressive: QuickNotePopover - Quick note input popover with voice recording
 import React, { useState } from 'react';
@@ -44,9 +44,7 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
                         
                         aria-label="Chiudi nota"
                     >
-                        <span style={{
-  fontFamily: 'Material Symbols Outlined'
-, fontSize: 'var(--md-sys-typescale-body-medium-size)'}}>
+                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>
                             close
                         </span>
                     </button>
@@ -80,12 +78,4 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
 };
 
 export default QuickNotePopover;
-
-
-
-
-
-
-
-
 

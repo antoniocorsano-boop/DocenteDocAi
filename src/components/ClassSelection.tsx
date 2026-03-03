@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 
 import React, { useState, useMemo } from 'react';
 import { View, Valutazione } from '../types';
@@ -75,7 +75,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                         fontSize: 'var(--md-sys-typescale-title-medium-size)',
                         fontWeight: '600',
                         textTransform: 'uppercase',
-                        letterSpacing: '1px',
+                        letterSpacing: 'var(--md-sys-typescale-title-medium-tracking)',
                         marginBottom: 'var(--md-sys-spacing-4)'
                     }}>
                         In Arrivo (Tutte le classi)
@@ -92,7 +92,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                     padding: 'var(--md-sys-spacing-4)',
                                     borderRadius: 'var(--md-sys-spacing-3)',
                                     background: 'var(--md-sys-color-surface-container)',
-                                    borderLeft: '4px solid var(--md-sys-color-tertiary)',
+                                    borderLeft: 'var(--md-sys-spacing-1) solid var(--md-sys-color-tertiary)',
                                     display: 'flex',
                                     justifyContent: 'space-between',
                                     alignItems: 'center'
@@ -104,7 +104,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                         fontSize: 'var(--md-sys-typescale-label-small-size)',
                                         fontWeight: '600',
                                         textTransform: 'uppercase',
-                                        letterSpacing: '0.5px'
+                                        letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                                     }}>
                                         {new Date(test.data).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' })}
                                     </span>
@@ -296,10 +296,10 @@ const PrintCenterModal: React.FC<{
             onClose={onClose}
             maxWidth="md"
         >
-            <M3DialogContent style={{gap: 'var(--app-spacing-section)'}}>
+            <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
                     <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
                     
-                    <div style={{gap: 'var(--app-spacing-component)'}}>
+                    <div style={{gap: 'var(--md-sys-spacing-2)'}}>
                         <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "500" }}>Periodo</label>
                         <TabGroup
                             tabs={[
@@ -311,7 +311,7 @@ const PrintCenterModal: React.FC<{
                         />
                     </div>
 
-                    <div style={{gap: 'var(--app-spacing-component)'}}>
+                    <div style={{gap: 'var(--md-sys-spacing-2)'}}>
                         <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "500" }}>Classi</label>
                         <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                             {userClasses.map(c => (
@@ -319,22 +319,22 @@ const PrintCenterModal: React.FC<{
                                     key={c} 
                                     onClick={() => toggleClass(c)}
                                     style={{
-                                        padding: 'var(--app-spacing-container)',
+                                        padding: 'var(--md-sys-spacing-4)',
                                         borderRadius: 'var(--md-sys-shape-corner-full)',
-                                        border: 'var(--app-border-thin) solid',
+                                        border: 'var(--md-sys-border-width-thin) solid',
                                         cursor: 'pointer',
-                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-easing-standard) var(--app-motion-quick)',
+                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                         display: 'flex',
                                         alignItems: 'center',
                                         gap: 'var(--md-sys-spacing-8)',
                                         backgroundColor: selectedClasses.includes(c) 
-                                            ? 'var(--app-color-primary)' 
+                                            ? 'var(--md-sys-color-primary)' 
                                             : 'var(--md-sys-color-surface-container-low)',
                                         color: selectedClasses.includes(c) 
-                                            ? 'var(--app-color-on-primary)' 
+                                            ? 'var(--md-sys-color-on-primary)' 
                                             : 'var(--md-sys-color-on-surface-variant)',
                                         borderColor: selectedClasses.includes(c) 
-                                            ? 'var(--app-color-primary)' 
+                                            ? 'var(--md-sys-color-primary)' 
                                             : 'var(--md-sys-color-outline-variant)'
                                     }}
                                     onMouseEnter={(e) => {
@@ -366,11 +366,4 @@ const PrintCenterModal: React.FC<{
 }
 
 export default React.memo(ClassSelection);
-
-
-
-
-
-
-
 

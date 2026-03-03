@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import InfoCard from './InfoCard';
 
@@ -279,13 +279,4 @@ export const Accessibility: Story = {
 
 // Import React for the Dismissible story
 import React from 'react';
-
-
-
-
-
-
-
-
-
 

@@ -67,4 +67,3 @@ export const getAvatarColors = (str: string): { bg: string; textColor: string } 
     return AVATAR_PALETTES[index];
 };
 
-

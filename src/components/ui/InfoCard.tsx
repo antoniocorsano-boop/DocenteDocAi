@@ -43,13 +43,13 @@ const InfoCard: React.FC<InfoCardProps> = ({
             style={{
                 position: 'relative',
                 cursor: onClick ? 'pointer' : 'default',
-                padding: 'var(--app-spacing-section)' // large padding
+                padding: 'var(--md-sys-spacing-6)' // large padding
             }}
         >
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--app-spacing-container)'
+                gap: 'var(--md-sys-spacing-4)'
             }}>
                 {/* Header with icon and close button */}
                 {(icon || onClose) && (
@@ -70,8 +70,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                             }}>
                                 <span
                                     style={{
-                                        fontFamily: 'Material Symbols Outlined',
-                                        fontSize: 'var(--app-spacing-section)', // infoCard.iconSize
+                                        fontSize: 'var(--md-sys-spacing-6)', // infoCard.iconSize
                                         color: 'var(--md-sys-color-on-surface-variant)'
                                     }}
                                 >
@@ -88,7 +87,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                                 style={{
                                     width: 'var(--md-sys-spacing-10)', // infoCard.buttonSize
                                     height: 'var(--md-sys-spacing-10)', // infoCard.buttonSize
-                                    borderRadius: 'var(--app-layout-half)',
+                                    borderRadius: 'var(50%)',
                                     backgroundColor: 'transparent',
                                     border: 'none',
                                     display: 'flex',
@@ -100,7 +99,6 @@ const InfoCard: React.FC<InfoCardProps> = ({
                                 aria-label="Chiudi"
                             >
                                 <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>close</span>
                             </button>
                         )}
@@ -111,7 +109,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--app-spacing-element)'
+                    gap: 'var(--md-sys-spacing-3)'
                 }}>
                     {title && (
                         <M3Typography variant="headline-small">
@@ -131,7 +129,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                     <div style={{
                         display: 'flex',
                         justifyContent: 'flex-end',
-                        marginTop: 'var(--app-spacing-container)'
+                        marginTop: 'var(--md-sys-spacing-4)'
                     }}>
                         {action}
                     </div>
@@ -142,11 +140,4 @@ const InfoCard: React.FC<InfoCardProps> = ({
 };
 
 export default InfoCard;
-
-
-
-
-
-
-
 

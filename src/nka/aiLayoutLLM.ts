@@ -39,4 +39,3 @@ export async function getLLMNeuralLayout(nodes: readonly NKANode[], width: numbe
   }
 }
 
-

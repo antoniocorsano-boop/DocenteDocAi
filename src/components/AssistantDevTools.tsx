@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React, { useState } from 'react';
 import { M3Button } from './ui';
 import { SystemSuggestion } from '../types';
@@ -52,11 +52,4 @@ const AssistantDevTools: React.FC<Props> = ({ actions }) => {
 };
 
 export default AssistantDevTools;
-
-
-
-
-
-
-
 

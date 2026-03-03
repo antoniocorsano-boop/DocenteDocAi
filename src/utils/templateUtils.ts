@@ -71,4 +71,3 @@ export const getDocumentTemplate = (templateId: string, context: TemplateContext
     return content;
 };
 
-

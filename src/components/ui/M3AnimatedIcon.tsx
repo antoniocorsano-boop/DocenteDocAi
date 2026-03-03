@@ -32,7 +32,6 @@ const M3AnimatedIcon: React.FC<M3AnimatedIconProps> = ({
 
     return (
         <span style={{
-            fontFamily: 'Material Symbols Outlined',
             fontSize: sizeMap[size],
             color: colorMap[color],
             userSelect: 'none',
@@ -44,11 +43,4 @@ const M3AnimatedIcon: React.FC<M3AnimatedIconProps> = ({
 };
 
 export default M3AnimatedIcon;
-
-
-
-
-
-
-
 

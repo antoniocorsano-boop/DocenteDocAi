@@ -50,7 +50,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
               left: 0,
               right: 0,
               bottom: 0,
-              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)',
+              background: 'linear-gradient(90deg, transparent, color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent), transparent)',
               animation: 'skeleton-wave-move 1.5s linear infinite'
             }}
           />

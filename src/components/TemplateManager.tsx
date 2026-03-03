@@ -104,14 +104,14 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
               {/* Barra di ricerca e controlli */}
                 <div style={{display: "flex", gap: 'var(--md-sys-spacing-16)'}}>
                   <div style={{ flex: 1 }}>
-                    <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--app-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-medium)', padding: 'var(--md-sys-spacing-8)'}}>
-                      <span style={{color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--app-text-title)'}}>search</span>
+                    <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-medium)', padding: 'var(--md-sys-spacing-8)'}}>
+                      <span style={{color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-title-large-font-size)'}}>search</span>
                       <input
                         type="text"
                         placeholder="Cerca template..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        style={{border: "none", backgroundColor: "transparent", width: 'var(--app-layout-full)', color: 'var(--app-color-on-surface)', fontSize: 'var(--md-sys-typography-body-large-font-size)', outline: "none"}}
+                        style={{border: "none", backgroundColor: "transparent", width: 'var(--md-sys-percent-100)', color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typography-body-large-font-size)', outline: "none"}}
                       />
                     </div>
                   </div>
@@ -120,7 +120,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                     variant="filled"
                     style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
                   >
-                    <span  style={{ marginRight: 'var(--app-spacing-component)' }}>add</span>
+                    <span  style={{ marginRight: 'var(--md-sys-spacing-2)' }}>add</span>
                     Nuovo Template
                   </M3Button>
                 </div>
@@ -162,14 +162,14 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                             <InfoCard
                               key={template.id}
                               variant="elevated"
-                              style={{ cursor: "pointer", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)' }}
+                              style={{ cursor: "pointer", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}
                             >
                               <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 'var(--md-sys-spacing-12)'}}>
                                 <div style={{flex: 1, display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
                                   <M3Typography variant="title-small">
                                     {template.name}
                                   </M3Typography>
-                                  <span style={{backgroundColor: template.type === 'student_profile' ? 'var(--app-color-primary-container)' : template.type === 'lesson_plan' ? 'var(--app-color-secondary-container)' : 'var(--md-sys-color-tertiary-container)', color: template.type === 'student_profile' ? 'var(--app-color-on-primary-container)' : template.type === 'lesson_plan' ? 'var(--app-color-on-secondary-container)' : 'var(--md-sys-color-on-tertiary-container)', padding: 'var(--app-spacing-container)', borderRadius: 'var(--md-sys-shape-corner-small)', fontSize: 'var(--md-sys-typography-label-small-font-size)'}}>
+                                  <span style={{backgroundColor: template.type === 'student_profile' ? 'var(--md-sys-color-primary-container)' : template.type === 'lesson_plan' ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-tertiary-container)', color: template.type === 'student_profile' ? 'var(--md-sys-color-on-primary-container)' : template.type === 'lesson_plan' ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-tertiary-container)', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontSize: 'var(--md-sys-typography-label-small-font-size)'}}>
                                     {getTypeLabel(template.type)}
                                   </span>
                                 </div>
@@ -198,7 +198,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                                 </M3Typography>
                               )}
 
-                              <div style={{fontSize: 'var(--app-text-body)', color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--app-spacing-container)'}}>
+                              <div style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-4)'}}>
                                 {new Date(template.createdAt).toLocaleDateString('it-IT')}
                               </div>
 

@@ -22,7 +22,7 @@ interface MenuItemDef {
  * - Bottom navigation bar with 5 main sections
  * - Pure MD3 token-based styling (colors, spacing, typography, motion, shape)
  * - M3Typography for all text elements
- * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥44px
+ * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥ var(--md-sys-spacing-11)
  * - Active state indication with primary container colors
  * - Responsive layout with proper spacing
  *
@@ -59,11 +59,11 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        width: 'var(--app-layout-full)',
+        width: 'var(--md-sys-percent-100)',
         minHeight: 'var(--md-sys-spacing-16)', // minimum touch target
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
         boxShadow: 'var(--md-sys-elevation-level1)',
-        borderTop: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+        borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
         zIndex: 'var(--md-sys-z-sticky)',
         position: 'fixed',
         bottom: 0,
@@ -79,11 +79,11 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
           <button
             key={item.id}
             onClick={() => onNavigate(item.id, null)}
-            style={{backgroundColor: active ? 'var(--app-color-primary)' : 'var(--md-sys-color-surface-container-low)',
-              color: active ? 'var(--app-color-on-primary)' : 'var(--app-color-on-surface)',
+            style={{backgroundColor: active ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-low)',
+              color: active ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
               borderRadius: 'var(--md-sys-shape-corner-medium)',
               outline: 'none',
-              padding: 'var(--md-sys-spacing-1) var(--app-spacing-component)', // compact padding
+              padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', // compact padding
               minWidth: 'var(--md-sys-spacing-14)', // minimum touch target
               display: 'flex',
               flexDirection: 'column',
@@ -118,17 +118,16 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
           >
             <div
               style={{marginBottom: 'var(--md-sys-spacing-1)', // compact spacing
-                backgroundColor: active ? 'var(--app-color-primary)' : 'transparent',
+                backgroundColor: active ? 'var(--md-sys-color-primary)' : 'transparent',
                 borderRadius: 'var(--md-sys-shape-corner-full)',
-                padding: 'var(--app-spacing-component)', // icon container padding
+                padding: 'var(--md-sys-spacing-2)', // icon container padding
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`}}
+                transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
             >
               <span
                 style={{
-  fontFamily: 'Material Symbols Outlined'
 }}
                 aria-hidden="true"
               >
@@ -141,8 +140,8 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
                 textTransform: 'uppercase',
                 letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                 marginTop: 'var(--md-sys-spacing-1)', // compact margin
-                color: active ? 'var(--md-sys-color-on)' : 'var(--app-color-on-surface)',
-                transition: `color var(--md-sys-motion-duration-short2) var(--app-easing-standard)`}}
+                color: active ? 'var(--md-sys-color-on)' : 'var(--md-sys-color-on-surface)',
+                transition: `color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
             >
               {item.label}
             </M3Typography>
@@ -154,11 +153,4 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
 };
 
 export default Menu;
-
-
-
-
-
-
-
 

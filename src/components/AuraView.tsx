@@ -23,11 +23,11 @@ const AuraView: React.FC<AuraViewProps> = ({ children, fullWidth = false }) => {
             style={{
                 display: 'flex',
                 justifyContent: 'center',
-                width: 'var(--app-layout-full)',
+                width: 'var(--md-sys-percent-100)',
                 ...(fullWidth ? {} : { maxWidth: 'var(--md-sys-layout-max-width)' })
             }}
         >
-            <div style={{ width: 'var(--app-layout-full)' }}>
+            <div style={{ width: 'var(--md-sys-percent-100)' }}>
                 {children}
             </div>
         </div>
@@ -37,11 +37,4 @@ const AuraView: React.FC<AuraViewProps> = ({ children, fullWidth = false }) => {
 export default AuraView;
 
 // M3Expressive refactor COMPLETED: AuraView.tsx - Replaced hardcoded Tailwind classes with dedicated aura-view-wrapper CSS classes using M3 tokens for spacing and responsive layout.
-
-
-
-
-
-
-
 

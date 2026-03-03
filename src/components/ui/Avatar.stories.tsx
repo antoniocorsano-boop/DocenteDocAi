@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import Avatar from './Avatar';
@@ -223,13 +223,4 @@ export const TwoCharInitials: Story = {
     },
   },
 };
-
-
-
-
-
-
-
-
-
 

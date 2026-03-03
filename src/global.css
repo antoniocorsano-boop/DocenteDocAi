@@ -1,4 +1,4 @@
-/* MD3 Platinum: Semantic Token Layer */
+﻿/* MD3 Platinum: Semantic Token Layer */
 @import './design-system/semantic-tokens.css';
 @import './design-system/tokens/md3-z-index.css';
 
@@ -63,21 +63,22 @@
   --md-sys-typescale-body-medium-font-size: var(--md-sys-typescale-body-medium-font-size);
   --md-sys-typescale-body-medium-line-height: 1.4;
   --md-sys-typescale-body-medium-font-weight: 400;
-  --md-sys-typescale-body1-font-size: theme.typography.body1.fontSize;
-  --md-sys-typescale-body1-line-height: theme.typography.body1.lineHeight;
-  --md-sys-typescale-body1-font-weight: theme.typography.body1.fontWeight;
-  --md-sys-typescale-body2-font-size: theme.typography.body2.fontSize;
-  --md-sys-typescale-body2-line-height: theme.typography.body2.lineHeight;
-  --md-sys-typescale-body2-font-weight: theme.typography.body1.fontWeight;
-  --md-sys-typescale-heading1-font-size: theme.typography.heading1.fontSize;
-  --md-sys-typescale-heading1-line-height: theme.typography.heading1.lineHeight;
-  --md-sys-typescale-heading1-font-weight: theme.typography.body1.fontWeight;
-  --md-sys-typescale-heading2-font-size: theme.typography.heading2.fontSize;
-  --md-sys-typescale-heading2-line-height: theme.typography.heading2.lineHeight;
-  --md-sys-typescale-heading2-font-weight: theme.typography.body1.fontWeight;
-  --md-sys-typescale-caption-font-size: theme.typography.caption.fontSize;
-  --md-sys-typescale-caption-line-height: theme.typography.caption.lineHeight;
-  --md-sys-typescale-caption-font-weight: theme.typography.body1.fontWeight;
+  /* DEPRECATED legacy aliases — map to MD3 tokens */
+  --md-sys-typescale-body1-font-size: var(--md-sys-typescale-body-large-font-size);
+  --md-sys-typescale-body1-line-height: var(--md-sys-typescale-body-large-line-height);
+  --md-sys-typescale-body1-font-weight: var(--md-sys-typescale-body-large-font-weight, 400);
+  --md-sys-typescale-body2-font-size: var(--md-sys-typescale-body-medium-font-size);
+  --md-sys-typescale-body2-line-height: var(--md-sys-typescale-body-medium-line-height);
+  --md-sys-typescale-body2-font-weight: var(--md-sys-typescale-body-medium-font-weight, 400);
+  --md-sys-typescale-heading1-font-size: var(--md-sys-typescale-headline-large-font-size);
+  --md-sys-typescale-heading1-line-height: var(--md-sys-typescale-headline-large-line-height);
+  --md-sys-typescale-heading1-font-weight: var(--md-sys-typescale-headline-large-font-weight, 400);
+  --md-sys-typescale-heading2-font-size: var(--md-sys-typescale-headline-medium-font-size);
+  --md-sys-typescale-heading2-line-height: var(--md-sys-typescale-headline-medium-line-height);
+  --md-sys-typescale-heading2-font-weight: var(--md-sys-typescale-headline-medium-font-weight, 400);
+  --md-sys-typescale-caption-font-size: var(--md-sys-typescale-label-small-font-size);
+  --md-sys-typescale-caption-line-height: var(--md-sys-typescale-label-small-line-height);
+  --md-sys-typescale-caption-font-weight: var(--md-sys-typescale-label-small-font-weight, 500);
 
   /* MD3 Typography Scale - Complete Set */
   --md-sys-typescale-font-family: 'Roboto', sans-serif;
@@ -231,25 +232,25 @@
 }
 
 /* Breakpoints */
-@media (max-width: var(--breakpoint-compact)) {
+@media (max-width: 599px) {
   :root {
     --md-sys-breakpoint: mobile;
   }
 }
 
-@media (min-width: var(--md-sys-layout-card-width)) and (max-width: var(--md-sys-layout-avatar-size)) {
+@media (min-width: 600px) and (max-width: 1023px) {
   :root {
     --md-sys-breakpoint: tablet;
   }
 }
 
-@media (min-width: var(--md-sys-layout-fab-size)) and (max-width: var(--breakpoint-large)) {
+@media (min-width: 1024px) and (max-width: 1439px) {
   :root {
     --md-sys-breakpoint: desktop;
   }
 }
 
-@media (min-width: var(--md-sys-layout-button-min-width)) {
+@media (min-width: 1440px) {
   :root {
     --md-sys-breakpoint: large;
   }

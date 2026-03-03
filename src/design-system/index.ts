@@ -75,7 +75,6 @@ export { defaultLightTheme };
 /** Default dark theme instance. */
 export { defaultDarkTheme };
 
-
 // --- Main Functions (Moved from utils.ts) ---
 
 const generateRolePalette = (hexSeed: string, mode: 'light' | 'dark', role: 'primary' | 'secondary' | 'tertiary' | 'error') => {
@@ -272,5 +271,4 @@ export const applyTheme = (theme: Theme): void => {
     root.style.setProperty(tokenInfo.cssVar, tokenInfo.value);
   }
 };
-
 

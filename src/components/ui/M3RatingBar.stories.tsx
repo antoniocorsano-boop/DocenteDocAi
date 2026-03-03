@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import M3RatingBar from './M3RatingBar';
@@ -136,13 +136,4 @@ export const ThreeStarRating: Story = {
     onChange: (rating) => console.log(`Quick rating: ${rating}/3`),
   },
 };
-
-
-
-
-
-
-
-
-
 

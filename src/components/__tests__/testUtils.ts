@@ -165,4 +165,3 @@ export function createMD3ComplianceSnapshot(container: HTMLElement) {
   };
 }
 
-

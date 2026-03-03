@@ -34,10 +34,3 @@ const ProfileSelectionScreen: React.FC<ProfileSelectionScreenProps> = ({ profile
 
 export default ProfileSelectionScreen;
 
-
-
-
-
-
-
-

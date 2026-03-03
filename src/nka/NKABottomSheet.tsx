@@ -10,14 +10,12 @@ import { generateWizardForNodeLLM } from './wizardAI.llm';
 import { NKAWizardStep } from './wizardAI';
 import GameMode from './GameMode';
 
-
 interface NKABottomSheetProps {
   open: boolean;
   nodes: readonly NKANode[];
   onClose: () => void;
   onNodeSelect: (node: NKANode) => void;
 }
-
 
 const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, onNodeSelect }) => {
   // Advanced: sound feedback, force map, wizard, game mode
@@ -66,7 +64,8 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
           left: 0,
           width: 'var(--md-sys-viewport-width-full)',
           height: 'var(--md-sys-viewport-height-full)',
-          background: 'rgba(0,0,0,0.32)',
+          background: 'var(--md-sys-color-scrim)',
+          opacity: 0.32,
           zIndex: 'var(--md-sys-z-modal)', // --md-sys-z-modal
         }}
       />
@@ -202,5 +201,4 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
 };
 
 export default NKABottomSheet;
-
 

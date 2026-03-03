@@ -73,4 +73,3 @@ export async function callAiWithRetry<T>(operation: () => Promise<T>, retries = 
 
 export const isAiConfigured = (): boolean => !!import.meta.env.VITE_GEMINI_API_KEY;
 
-

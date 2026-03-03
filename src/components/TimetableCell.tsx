@@ -20,9 +20,8 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, onClick }) 
   const isDisposition = lesson?.tipoLezione === 'Disposizione' || materia === 'Disposizione';
   const isRicevimento = lesson?.tipoLezione === 'Ricevimento' || materia === 'Ricevimento';
   const hasContent = !!classe || isDisposition || isRicevimento;
-  
-  
-    const isDone = lesson?.svolta;
+
+const isDone = lesson?.svolta;
     const hasAi = !!lesson?.externalLink;
   const typeIcon = lesson?.tipoLezione ? LESSON_TYPE_ICONS[lesson.tipoLezione] : (hasContent ? 'school' : null);
 
@@ -32,9 +31,9 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, onClick }) 
                 style={{
                     // timetable-cell timetable-cell-empty styles
                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    border: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)',
+                    border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                     borderRadius: 'var(--md-sys-shape-corner-small)',
-                    padding: 'var(--app-spacing-component)',
+                    padding: 'var(--md-sys-spacing-2)',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -56,7 +55,6 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, onClick }) 
                 <span  aria-hidden="true" />
                 <div >
                     <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>add_circle</span>
                 </div>
             </div>
@@ -67,10 +65,10 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, onClick }) 
         <div
             style={{
                 // timetable-cell timetable-cell-content styles
-                backgroundColor: isDisposition ? 'var(--md-sys-color-tertiary-container)' : isRicevimento ? 'var(--app-color-secondary-container)' : isDone ? 'var(--app-color-surface-container)' : 'var(--md-sys-color-surface-container-high)',
-                border: `var(--app-border-normal) solid ${isDone ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`,
+                backgroundColor: isDisposition ? 'var(--md-sys-color-tertiary-container)' : isRicevimento ? 'var(--md-sys-color-secondary-container)' : isDone ? 'var(--md-sys-color-surface-container)' : 'var(--md-sys-color-surface-container-high)',
+                border: `var(--md-sys-border-width-normal) solid ${isDone ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`,
                 borderRadius: 'var(--md-sys-shape-corner-small)',
-                padding: 'var(--app-spacing-component)',
+                padding: 'var(--md-sys-spacing-2)',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -117,11 +115,4 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, onClick }) 
 };
 
 export default TimetableCell;
-
-
-
-
-
-
-
 

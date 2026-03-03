@@ -61,4 +61,3 @@ export const calculatePerformance = (
   return { grade, trend };
 };
 
-

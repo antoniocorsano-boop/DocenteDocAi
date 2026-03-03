@@ -801,4 +801,3 @@ export const generateFullAppGuidePdf = async (
     return new Blob([pdfBytes as unknown as BlobPart], { type: 'application/pdf' });
 };
 
-

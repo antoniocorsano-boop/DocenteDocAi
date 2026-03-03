@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Expressive — Navigation Rail
 import React from 'react';
 import { View } from '../types';
 import { M3Typography } from './ui';
@@ -10,7 +10,7 @@ import { M3Typography } from './ui';
  * - Responsive navigation: vertical rail on desktop, bottom nav on mobile
  * - Pure MD3 token-based styling (colors, spacing, typography, motion, shape)
  * - M3Typography for all text elements
- * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥44px
+ * - Accessibility: ARIA labels, keyboard navigation, focus management, touch targets ≥ var(--md-sys-spacing-11)
  * - Active state indication with primary container colors
  * - Optional notification badges
  * - Smooth transitions and hover states
@@ -74,6 +74,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
 }) => {
   // Check if we're on mobile - hide navigation rail on mobile (bottom nav used instead)
   const [isMobile, setIsMobile] = React.useState(false);
+  const [focusedId, setFocusedId] = React.useState<View | null>(null);
 
   React.useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -88,22 +89,15 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
   }
 
   const containerStyle: React.CSSProperties = {
-    // Desktop navigation rail (vertical sidebar)
-    position: 'fixed',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 'auto',
-    width: 'var(--md-sys-spacing-20)', // Rail width
-    height: 'var(--app-layout-full)',
-    backgroundColor: 'var(--app-color-surface)',
-    borderTop: 'none',
-    borderRight: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+    // In-flow vertical nav (no position:fixed — parent aside handles sizing)
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    zIndex: 'var(--md-sys-z-nav)',
-    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'var(--md-sys-color-surface)',
+    borderTop: 'none',
+    transition: 'background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
   };
 
   const itemsContainerStyle: React.CSSProperties = {
@@ -112,10 +106,10 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    width: 'var(--app-layout-full)',
-    gap: 'var(--app-spacing-component)',
-    paddingTop: 'var(--app-spacing-container)',
-    paddingBottom: 'var(--app-spacing-container)',
+    width: 'var(--md-sys-percent-100)',
+    gap: 'var(--md-sys-spacing-2)',
+    paddingTop: 'var(--md-sys-spacing-4)',
+    paddingBottom: 'var(--md-sys-spacing-4)',
     paddingLeft: 0,
     paddingRight: 0,
   };
@@ -150,7 +144,8 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
             backgroundColor: 'transparent',
             border: 'none',
             cursor: 'pointer',
-            outline: 'none',
+            outline: focusedId === item.id ? 'var(--md-sys-border-width-medium) solid var(--md-sys-color-primary)' : 'none',
+            outlineOffset: focusedId === item.id ? 'var(--md-sys-spacing-0-5)' : '0',
 
             // Layout
             display: 'flex',
@@ -162,24 +157,24 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
             // Size
             width: 'var(--md-sys-spacing-14)', // Touch target width
             minHeight: 'var(--md-sys-spacing-14)', // Touch target height
-            padding: 'var(--app-spacing-component) 0', // Vertical padding
+            padding: 'var(--md-sys-spacing-2) 0', // Vertical padding
 
             // Shape
             borderRadius: 'var(--md-sys-shape-corner-extra-large)', // Rounded corners
 
             // State colors - default
-            color: 'var(--md-sys-color-onSurface-variant)',
+            color: 'var(--md-sys-color-on-surface-variant)',
 
             // Transition
-            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
+            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
 
             // Remove tap highlight on mobile
             WebkitTapHighlightColor: 'transparent',
 
             // Active state
             ...(isActive && {
-              backgroundColor: 'var(--md-sys-color-primaryContainer)',
-              color: 'var(--md-sys-color-on-primaryContainer)',
+              backgroundColor: 'var(--md-sys-color-primary-container)',
+              color: 'var(--md-sys-color-on-primary-container)',
               boxShadow: 'var(--md-sys-elevation-level1)',
             })
           };
@@ -199,14 +194,8 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                   // removed runtime mutation
                 }
               }}
-              onFocus={() => {
-                // removed runtime mutation
-                // removed runtime mutation
-              }}
-              onBlur={() => {
-                // removed runtime mutation
-                // removed runtime mutation
-              }}
+              onFocus={() => setFocusedId(item.id)}
+              onBlur={() => setFocusedId(null)}
               aria-label={item.label}
               aria-current={isActive ? 'page' : undefined}
             >
@@ -219,15 +208,15 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                   width: 'var(--md-sys-spacing-8)', // Icon container width
                   height: 'var(--md-sys-spacing-8)', // Icon container height
                   borderRadius: 'var(--md-sys-shape-corner-full)', // Circular
-                  transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`}}
+                  transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
               >
                 <span
-                  style={{fontFamily: 'Material Symbols Outlined',
-                    fontSize: 'var(--app-spacing-section)', // Icon size
+                  style={{
+                    fontSize: 'var(--md-sys-spacing-6)', // Icon size
                     lineHeight: 1,
                     color: 'inherit',
                     fontVariationSettings: isActive ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24",
-                    transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`}}
+                    transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
                   aria-hidden="true"
                 >
                   {isActive ? item.activeIcon : item.icon}
@@ -240,18 +229,18 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                       position: 'absolute',
                       top: `calc(-1 * var(--md-sys-spacing-1))`, // Offset from top
                       right: `calc(-1 * var(--md-sys-spacing-1))`, // Offset from right
-                      minWidth: 'var(--app-spacing-container)', // Minimum badge width
-                      height: 'var(--app-spacing-container)', // Badge height
+                      minWidth: 'var(--md-sys-spacing-4)', // Minimum badge width
+                      height: 'var(--md-sys-spacing-4)', // Badge height
                       padding: `0 var(--md-sys-spacing-1)` , // Horizontal padding
                       backgroundColor: 'var(--md-sys-color-error)',
                       color: 'var(--md-sys-color-on-error)',
                       borderRadius: 'var(--md-sys-shape-corner-small)', // Badge corner radius
-                      fontSize: 'var(--app-spacing-container)',
+                      fontSize: 'var(--md-sys-spacing-4)',
                       fontWeight: '700',
-                      lineHeight: 'var(--app-spacing-container)', // Badge line height
+                      lineHeight: 'var(--md-sys-spacing-4)', // Badge line height
                       textAlign: 'center',
                       zIndex: 'var(--md-sys-z-raised)',
-                      animation: 'badge-appear var(--app-motion-standard) var(--app-easing-standard)'}}
+                      animation: 'badge-appear var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}
                     aria-label={`${item.badge} notifiche`}
                   >
                     {item.badge > 99 ? '99+' : item.badge}
@@ -262,7 +251,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
               {/* Label */}
               <M3Typography
                 variant="label-medium"
-                style={{fontSize: 'var(--app-spacing-element)', // Label font size
+                style={{fontSize: 'var(--md-sys-spacing-3)', // Label font size
                   fontWeight: '500',
                   textAlign: 'center',
                   color: 'inherit',
@@ -270,7 +259,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                   maxWidth: 'var(--md-sys-spacing-12)', // Label max width
-                  transition: `color var(--md-sys-motion-duration-short2) var(--app-easing-standard)`}}
+                  transition: `color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
               >
                 {item.label}
               </M3Typography>
@@ -284,11 +273,4 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
 };
 
 export default NavigationRail;
-
-
-
-
-
-
-
 

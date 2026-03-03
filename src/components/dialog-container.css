@@ -1,4 +1,4 @@
-/* Responsive dialog-container for all screen sizes (mobile, notebook, desktop) */
+﻿/* Responsive dialog-container for all screen sizes (mobile, notebook, desktop) */
 .dialog-container {
   width: 100vw;
   max-width: 95vw;
@@ -14,19 +14,19 @@
   display: flex;
   flex-direction: column;
 }
-@media (min-width: var(--breakpoint-compact)) {
+@media (min-width: 600px) {
   .dialog-container {
     max-width: var(--breakpoint-compact);
     border-radius: var(--md-sys-shape-corner-large);
   }
 }
-@media (min-width: var(--md-sys-layout-card-min-height)) {
+@media (min-width: 768px) {
   .dialog-container {
     max-width: var(--md-sys-layout-card-min-height);
     border-radius: var(--md-sys-shape-corner-extra-large);
   }
 }
-@media (min-width: var(--content-max-width)) {
+@media (min-width: 1024px) {
   .dialog-container {
     max-width: var(--md-sys-layout-popup-min-width);
     border-radius: var(--md-sys-shape-corner-extra-large);

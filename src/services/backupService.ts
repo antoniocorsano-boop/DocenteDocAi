@@ -273,4 +273,3 @@ export const resetDbForTesting = (): void => {
     dbInitPromise = null;
 };
 
-

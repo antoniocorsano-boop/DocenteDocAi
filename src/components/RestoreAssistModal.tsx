@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 
 import * as React from 'react';
 import { messages } from '../messages';
@@ -83,11 +83,4 @@ const RestoreAssistModal: React.FC<RestoreAssistModalProps> = ({
 export default RestoreAssistModal;
 
 export default RestoreAssistModal;
-
-
-
-
-
-
-
 

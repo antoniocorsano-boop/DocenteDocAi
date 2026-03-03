@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React, { useState } from 'react';
 import { useTheme } from '../../theme/theme';
 
@@ -58,7 +58,6 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
                         onMouseUp={() => setPressedKey(null)}
                     >
                         <span style={{
-                            fontFamily: 'Material Symbols Outlined',
                             fontSize: typography.labelLarge.fontSize,
                             fontWeight: 300
                         }}>backspace</span>
@@ -77,8 +76,8 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
                             backgroundColor: isHovered ? color.surface : color.surfaceContainerLow,
                             fontSize: typography.labelLarge.fontSize,
                             fontWeight: 800,
-                            border: `var(--app-border-thick) solid ${isHovered ? color.primary : `color-mix(in srgb, ${color.outlineVariant} var(--md-sys-percent-30), transparent)`}`,
-                            transition: `all var(--app-motion-quick) var(--app-easing-standard)`,
+                            border: `var(--md-sys-border-width-thick) solid ${isHovered ? color.primary : `color-mix(in srgb, ${color.outlineVariant} var(--md-sys-percent-30), transparent)`}`,
+                            transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
@@ -100,11 +99,4 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
 };
 
 export default PinPad;
-
-
-
-
-
-
-
 

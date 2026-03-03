@@ -1,5 +1,5 @@
 import { renderWithM3Theme } from '../ui/test-utils';
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React from 'react';
 import { render } from '@testing-library/react';
 import BarChart from './BarChart';
@@ -10,9 +10,4 @@ describe('BarChart Story Snapshots', () => {
     expect(container).toMatchSnapshot();
   });
 });
-
-
-
-
-
 

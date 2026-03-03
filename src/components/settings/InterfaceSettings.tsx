@@ -52,23 +52,23 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--app-spacing-container)',
-                    padding: 'var(--app-spacing-container)',
+                    gap: 'var(--md-sys-spacing-4)',
+                    padding: 'var(--md-sys-spacing-4)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     background: 'var(--md-sys-color-surface-container-low)',
                     boxShadow: 'var(--md-sys-elevation-level1)'
                 }}
             >
                 <M3Typography variant="label-large" style={{
-                    color: 'var(--app-color-on-surface)',
+                    color: 'var(--md-sys-color-on-surface)',
                     fontWeight: 900,
-                    marginBottom: 'var(--app-spacing-element)'
+                    marginBottom: 'var(--md-sys-spacing-3)'
                 }}>
                     Interfaccia & Esperienza Visiva
                 </M3Typography>
                 <M3Typography variant="body-small" style={{
                     color: 'var(--md-sys-color-on-surface-variant)',
-                    marginBottom: 'var(--app-spacing-container)',
+                    marginBottom: 'var(--md-sys-spacing-4)',
                     opacity: 0.8
                 }}>
                     Personalizza l'aspetto e il comportamento dell'app
@@ -78,19 +78,18 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--app-spacing-element)'
+                    gap: 'var(--md-sys-spacing-3)'
                 }}>
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--app-spacing-element)'
+                        gap: 'var(--md-sys-spacing-3)'
                     }}>
                         <span style={{
-                            fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--app-text-title)',
-                            color: 'var(--app-color-primary)'
+                            fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                            color: 'var(--md-sys-color-primary)'
                         }}>dashboard_customize</span>
-                        <M3Typography variant="label-small" style={{color: 'var(--app-color-primary)',
+                        <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                             fontWeight: 900,
                             textTransform: 'uppercase',
                             letterSpacing: '0.15em'}}>Modalità Interfaccia</M3Typography>
@@ -114,21 +113,20 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                 {/* SEZIONE 2: ECOISTEMA VISIVO */}
                 <div style={{display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--app-spacing-container)'}}>
+                    gap: 'var(--md-sys-spacing-4)'}}>
                     <div style={{display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--app-spacing-container)'}}>
-                        <span style={{fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--app-text-body)',
-                            color: 'var(--app-color-primary)'}}>auto_awesome</span>
-                        <M3Typography variant="label-small" style={{color: 'var(--app-color-primary)',
+                        gap: 'var(--md-sys-spacing-4)'}}>
+                        <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            color: 'var(--md-sys-color-primary)'}}>auto_awesome</span>
+                        <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                             fontWeight: 900,
                             textTransform: 'uppercase',
                             letterSpacing: '0.15em'}}>Ecosistema Visivo</M3Typography>
                     </div>
                     <div style={{display: 'grid',
                         gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-sizing-grid-large), var(--md-sys-grid-fr-1)))',
-                        gap: 'var(--app-spacing-container)'}}>
+                        gap: 'var(--md-sys-spacing-4)'}}>
                         {[
                             { id: 'aura', label: 'Aura', icon: 'blur_on', desc: 'Glassmorphism' },
                             { id: 'expressive', label: 'Google', icon: 'android', desc: 'Expressive' },
@@ -143,31 +141,30 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                 style={{display: 'flex',
                                     flexDirection: 'column',
                                     alignItems: 'center',
-                                    gap: 'var(--app-spacing-container)',
-                                    padding: 'var(--app-spacing-container)',
+                                    gap: 'var(--md-sys-spacing-4)',
+                                    padding: 'var(--md-sys-spacing-4)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
                                     border: themeState.visualStyle === style.id
-                                        ? 'var(--app-border-thick) solid var(--app-color-primary)'
-                                        : 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+                                        ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)'
+                                        : 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                     backgroundColor: themeState.visualStyle === style.id
-                                        ? 'var(--app-color-primary-container)'
+                                        ? 'var(--md-sys-color-primary-container)'
                                         : 'var(--md-sys-color-surface-container-high)',
                                     cursor: 'pointer',
-                                    transition: `all var(--md-sys-motion-duration-short1) var(--app-easing-standard)`,
+                                    transition: `all var(--md-sys-motion-duration-short1) var(--md-sys-motion-easing-standard)`,
                                     textAlign: 'center'}}
                             >
-                                <span style={{fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-body)',
+                                <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     color: themeState.visualStyle === style.id
-                                        ? 'var(--app-color-on-primary-container)'
+                                        ? 'var(--md-sys-color-on-primary-container)'
                                         : 'var(--md-sys-color-on-surface-variant)'}}>{style.icon}</span>
                                 <M3Typography variant="label-medium" style={{color: themeState.visualStyle === style.id
-                                        ? 'var(--app-color-on-primary-container)'
-                                        : 'var(--app-color-on-surface)',
+                                        ? 'var(--md-sys-color-on-primary-container)'
+                                        : 'var(--md-sys-color-on-surface)',
                                     fontWeight: themeState.visualStyle === style.id ? 600 : 500,
                                     margin: 0}}>{style.label}</M3Typography>
                                 <M3Typography variant="body-small" style={{color: themeState.visualStyle === style.id
-                                        ? 'var(--app-color-on-primary-container)'
+                                        ? 'var(--md-sys-color-on-primary-container)'
                                         : 'var(--md-sys-color-on-surface-variant)',
                                     margin: 0,
                                     opacity: 0.8}}>{style.desc}</M3Typography>
@@ -179,20 +176,19 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                 {/* SEZIONE 3: TEMA E COLORI */}
                 <div style={{display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--app-spacing-container)'}}>
+                    gap: 'var(--md-sys-spacing-4)'}}>
                     <div style={{display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--app-spacing-container)'}}>
-                        <span style={{fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--app-text-body)',
-                            color: 'var(--app-color-primary)'}}>palette</span>
-                        <M3Typography variant="label-small" style={{color: 'var(--app-color-primary)',
+                        gap: 'var(--md-sys-spacing-4)'}}>
+                        <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            color: 'var(--md-sys-color-primary)'}}>palette</span>
+                        <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                             fontWeight: 900,
                             textTransform: 'uppercase',
                             letterSpacing: '0.15em'}}>Tema & Colori</M3Typography>
                     </div>
 
-                    <div style={{marginBottom: 'var(--app-spacing-container)'}}>
+                    <div style={{marginBottom: 'var(--md-sys-spacing-4)'}}>
                         <TabGroup
                             tabs={[{ id: 'light', label: 'Chiaro', icon: 'light_mode' }, { id: 'dark', label: 'Scuro', icon: 'dark_mode' }, { id: 'system', label: 'Sistema', icon: 'brightness_auto' }]}
                             activeTab={themeState.mode}
@@ -202,15 +198,15 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
 
                     <div style={{display: 'grid',
                         gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-sizing-grid-medium), var(--md-sys-grid-fr-1)))',
-                        gap: 'var(--app-spacing-container)',
-                        marginBottom: 'var(--app-spacing-container)'}}>
+                        gap: 'var(--md-sys-spacing-4)',
+                        marginBottom: 'var(--md-sys-spacing-4)'}}>
                         {THEME_CUSTOMIZATIONS.map(theme => (
                             <ThemeBubble
                                 key={theme.name}
                                 name={theme.name}
                                 colors={{
-                                    primary: theme.colors.primary ?? 'var(--app-color-primary)',
-                                    secondary: theme.colors.secondary ?? 'var(--app-color-secondary)',
+                                    primary: theme.colors.primary ?? 'var(--md-sys-color-primary)',
+                                    secondary: theme.colors.secondary ?? 'var(--md-sys-color-secondary)',
                                     tertiary: theme.colors.tertiary ?? 'var(--sys-tertiary)'
                                 }}
                                 isSelected={themeState.customizationName === theme.name}
@@ -218,22 +214,21 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                         ))}
                     </div>
 
-                    <div style={{borderTop: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
-                        paddingTop: 'var(--app-spacing-container)'}}>
+                    <div style={{borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                        paddingTop: 'var(--md-sys-spacing-4)'}}>
                         <div style={{display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--app-spacing-container)',
-                            marginBottom: 'var(--app-spacing-container)'}}>
-                            <span style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-body)',
-                                color: 'var(--app-color-primary)'}}>magic_button</span>
-                            <M3Typography variant="label-small" style={{color: 'var(--app-color-primary)',
+                            gap: 'var(--md-sys-spacing-4)',
+                            marginBottom: 'var(--md-sys-spacing-4)'}}>
+                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                color: 'var(--md-sys-color-primary)'}}>magic_button</span>
+                            <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                                 fontWeight: 900,
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.15em'}}>Generatore AI</M3Typography>
                         </div>
                         <div style={{display: 'flex',
-                            gap: 'var(--app-spacing-container)',
+                            gap: 'var(--md-sys-spacing-4)',
                             alignItems: 'flex-end'}}>
                             <div style={{ flex: 1 }}>
                                 <TextField
@@ -248,14 +243,13 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                 disabled={isGeneratingTheme || !themePrompt.trim()}
                                 variant="filled"
                                 style={{minWidth: '0',
-                                    width: 'var(--app-spacing-container)',
-                                    height: 'var(--app-spacing-container)',
+                                    width: 'var(--md-sys-spacing-4)',
+                                    height: 'var(--md-sys-spacing-4)',
                                     padding: '0',
                                     boxShadow: 'var(--md-sys-elevation-level2)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)'}}
                             >
                                 <span style={{
-                                    fontFamily: 'Material Symbols Outlined'
                                 }}>{isGeneratingTheme ? 'sync' : 'auto_awesome'}</span>
                             </M3Button>
                         </div>
@@ -263,23 +257,22 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                 </div>
 
                 {/* SEZIONE 4: PARAMETRI AVANZATI */}
-                <div style={{marginTop: 'var(--app-spacing-container)',
-                    padding: 'var(--app-spacing-container)',
-                    backgroundColor: 'var(--app-color-surface-container)',
+                <div style={{marginTop: 'var(--md-sys-spacing-4)',
+                    padding: 'var(--md-sys-spacing-4)',
+                    backgroundColor: 'var(--md-sys-color-surface-container)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                    border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'}}>
+                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
                     <div style={{display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--app-spacing-container)',
-                        marginBottom: 'var(--app-spacing-container)',
-                        paddingBottom: 'var(--app-spacing-container)',
-                        borderBottom: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'}}>
-                        <span style={{fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--app-text-body)',
-                            color: 'var(--app-color-primary)'}}>tune</span>
+                        gap: 'var(--md-sys-spacing-4)',
+                        marginBottom: 'var(--md-sys-spacing-4)',
+                        paddingBottom: 'var(--md-sys-spacing-4)',
+                        borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
+                        <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            color: 'var(--md-sys-color-primary)'}}>tune</span>
                         <M3Typography
                             variant="label-small"
-                            style={{color: 'var(--app-color-primary)',
+                            style={{color: 'var(--md-sys-color-primary)',
                                 fontWeight: 900,
                                 letterSpacing: '0.1em',
                                 textTransform: 'uppercase'}}
@@ -289,10 +282,10 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                     </div>
                     <div style={{display: 'flex',
                         flexDirection: 'column',
-                        gap: 'var(--app-spacing-container)'}}>
+                        gap: 'var(--md-sys-spacing-4)'}}>
                         <div style={{display: 'flex',
                             flexDirection: 'column',
-                            gap: 'var(--app-spacing-container)'}}>
+                            gap: 'var(--md-sys-spacing-4)'}}>
                             <div style={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
@@ -300,7 +293,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             }}>
                                 <M3Typography
                                     variant="body-medium"
-                                    style={{color: 'var(--app-color-on-surface)',
+                                    style={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 500}}
                                 >
                                     Intensità Blur Vetro
@@ -317,11 +310,11 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                 type="range" min="0" max="100" step="5"
                                 value={themeState.glassBlur || 30}
                                 onChange={e => onThemeChange('glassBlur', parseInt(e.target.value))}
-                                style={{width: 'var(--app-layout-full)'}} />
+                                style={{width: 'var(--md-sys-percent-100)'}} />
                         </div>
                         <div style={{display: 'flex',
                             flexDirection: 'column',
-                            gap: 'var(--app-spacing-container)'}}>
+                            gap: 'var(--md-sys-spacing-4)'}}>
                             <div style={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
@@ -329,7 +322,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             }}>
                                 <M3Typography
                                     variant="body-medium"
-                                    style={{color: 'var(--app-color-on-surface)',
+                                    style={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 500}}
                                 >
                                     Scala Font
@@ -346,11 +339,11 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                 type="range" min="0.8" max="1.4" step="0.1"
                                 value={themeState.fontScale || 1}
                                 onChange={e => onThemeChange('fontScale', parseFloat(e.target.value))}
-                                style={{width: 'var(--app-layout-full)'}} />
+                                style={{width: 'var(--md-sys-percent-100)'}} />
                         </div>
                         <div style={{display: 'flex',
                             flexDirection: 'column',
-                            gap: 'var(--app-spacing-container)'}}>
+                            gap: 'var(--md-sys-spacing-4)'}}>
                             <div style={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
@@ -358,7 +351,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             }}>
                                 <M3Typography
                                     variant="body-medium"
-                                    style={{color: 'var(--app-color-on-surface)',
+                                    style={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 500}}
                                 >
                                     Livello Contrasto
@@ -375,11 +368,11 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                 type="range" min="-50" max="50" step="5"
                                 value={themeState.contrastLevel || 0}
                                 onChange={e => onThemeChange('contrastLevel', parseInt(e.target.value))}
-                                style={{width: 'var(--app-layout-full)'}} />
+                                style={{width: 'var(--md-sys-percent-100)'}} />
                         </div>
                         <div style={{display: 'flex',
                             flexDirection: 'column',
-                            gap: 'var(--app-spacing-container)'}}>
+                            gap: 'var(--md-sys-spacing-4)'}}>
                             <div style={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
@@ -387,7 +380,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             }}>
                                 <M3Typography
                                     variant="body-medium"
-                                    style={{color: 'var(--app-color-on-surface)',
+                                    style={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 500}}
                                 >
                                     Arrotondamento Bordi
@@ -401,7 +394,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                 </M3Typography>
                             </div>
                             <div style={{display: 'flex',
-                                gap: 'var(--app-spacing-container)',
+                                gap: 'var(--md-sys-spacing-4)',
                                 flexWrap: 'wrap'}}>
                                 {[0.5, 1, 1.5, 2].map(m => (
                                     <M3Button
@@ -410,7 +403,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                         size="small"
                                         onClick={() => onThemeChange('radiusMultiplier', m)}
                                         style={{
-                                            minWidth: 'var(--app-spacing-container)'
+                                            minWidth: 'var(--md-sys-spacing-4)'
                                         }}
                                     >
                                         {m === 1 ? 'Standard' : `${m}x`}
@@ -422,21 +415,20 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                 </div>
 
                 {/* SEZIONE 5: EXPORT/IMPORT TEMA */}
-                <div style={{marginTop: 'var(--app-spacing-container)',
-                    padding: 'var(--app-spacing-container)',
-                    backgroundColor: 'var(--app-color-surface-container)',
+                <div style={{marginTop: 'var(--md-sys-spacing-4)',
+                    padding: 'var(--md-sys-spacing-4)',
+                    backgroundColor: 'var(--md-sys-color-surface-container)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                    border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'}}>
+                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
                     <div style={{display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--app-spacing-container)',
-                        marginBottom: 'var(--app-spacing-container)'}}>
-                        <span style={{fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--app-text-body)',
-                            color: 'var(--app-color-primary)'}}>import_export</span>
+                        gap: 'var(--md-sys-spacing-4)',
+                        marginBottom: 'var(--md-sys-spacing-4)'}}>
+                        <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            color: 'var(--md-sys-color-primary)'}}>import_export</span>
                         <M3Typography
                             variant="label-small"
-                            style={{color: 'var(--app-color-primary)',
+                            style={{color: 'var(--md-sys-color-primary)',
                                 fontWeight: 900,
                                 letterSpacing: '0.1em',
                                 textTransform: 'uppercase'}}
@@ -447,21 +439,20 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                     <M3Typography
                         variant="body-medium"
                         style={{color: 'var(--md-sys-color-on-surface-variant)',
-                            marginBottom: 'var(--app-spacing-container)',
+                            marginBottom: 'var(--md-sys-spacing-4)',
                             lineHeight: 1.5}}
                     >
                         Salva o carica configurazioni di tema personalizzate per riutilizzarle in futuro.
                     </M3Typography>
                     <div style={{display: 'flex',
-                        gap: 'var(--app-spacing-container)',
+                        gap: 'var(--md-sys-spacing-4)',
                         alignItems: 'center'}}>
                         <M3Button
                             onClick={onExportTheme}
                             variant="outlined"
                         >
-                            <span style={{fontFamily: 'Material Symbols Outlined',
-                                marginRight: 'var(--app-spacing-container)',
-                                fontSize: 'var(--app-text-body)'}}>download</span>
+                            <span className="material-symbols-outlined" style={{marginRight: 'var(--md-sys-spacing-4)',
+                                fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>download</span>
                             ESPORTA TEMA
                         </M3Button>
                         <div style={{
@@ -485,9 +476,8 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                 <M3Button
                                     variant="outlined"
                                 >
-                                    <span style={{fontFamily: 'Material Symbols Outlined',
-                                        marginRight: 'var(--app-spacing-container)',
-                                        fontSize: 'var(--app-text-body)'}}>upload</span>
+                                    <span className="material-symbols-outlined" style={{marginRight: 'var(--md-sys-spacing-4)',
+                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>upload</span>
                                     IMPORTA TEMA
                                 </M3Button>
                             </label>
@@ -498,14 +488,13 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                 {/* SEZIONE 6: MANUTENZIONE BRAND */}
                 <div style={{display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--app-spacing-container)'}}>
+                    gap: 'var(--md-sys-spacing-4)'}}>
                     <div style={{display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--app-spacing-container)'}}>
-                        <span style={{fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--app-text-body)',
-                            color: 'var(--app-color-primary)'}}>refresh</span>
-                        <M3Typography variant="label-small" style={{color: 'var(--app-color-primary)',
+                        gap: 'var(--md-sys-spacing-4)'}}>
+                        <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            color: 'var(--md-sys-color-primary)'}}>refresh</span>
+                        <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                             fontWeight: 900,
                             textTransform: 'uppercase',
                             letterSpacing: '0.15em'}}>Manutenzione Brand</M3Typography>
@@ -516,8 +505,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                         onClick={onForceRefresh}
                         variant="tonal"
                     >
-                        <span style={{fontFamily: 'Material Symbols Outlined',
-                            marginRight: 'var(--app-spacing-container)'}}>cached</span>
+                        <span className="material-symbols-outlined" style={{marginRight: 'var(--md-sys-spacing-4)'}}>cached</span>
                         AGGIORNA BRAND E CACHE
                     </M3Button>
                 </div>
@@ -525,14 +513,13 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                 {/* SEZIONE 7: M3 THEME SETTINGS PANEL */}
                 <div style={{display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--app-spacing-container)'}}>
+                    gap: 'var(--md-sys-spacing-4)'}}>
                     <div style={{display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--app-spacing-container)'}}>
-                        <span style={{fontFamily: 'Material Symbols Outlined',
-                            fontSize: 'var(--app-text-body)',
-                            color: 'var(--app-color-primary)'}}>tune</span>
-                        <M3Typography variant="label-small" style={{color: 'var(--app-color-primary)',
+                        gap: 'var(--md-sys-spacing-4)'}}>
+                        <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            color: 'var(--md-sys-color-primary)'}}>tune</span>
+                        <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                             fontWeight: 900,
                             textTransform: 'uppercase',
                             letterSpacing: '0.15em'}}>M3 Theme Panel</M3Typography>

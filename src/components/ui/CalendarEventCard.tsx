@@ -2,7 +2,7 @@
 // Card per eventi calendario con contrasto migliorato
 // Audit: febbraio 2026
 
-import React from 'react';
+import React, { useState } from 'react';
 import { M3Surface, M3Typography } from './index';
 
 interface CalendarEventCardProps {
@@ -20,6 +20,15 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
   onClick,
   compact = false
 }) => {
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (onClick && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      onClick(e as unknown as React.MouseEvent);
+    }
+  };
+
   const typeConfig = {
     urgente: {
       bg: 'var(--md-sys-color-error-container)',
@@ -59,12 +68,18 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
     return (
       <div
         onClick={onClick}
+        onKeyDown={handleKeyDown}
+        role="button"
+        tabIndex={0}
+        aria-label={`${title}${time ? `, ${time}` : ''}`}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
         style={{
           padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
           background: config.bg,
           color: config.color,
           borderRadius: 'var(--md-sys-spacing-1)',
-          borderLeft: `3px solid ${config.borderColor}`,
+          borderLeft: `var(--md-sys-border-width-thick) solid ${config.borderColor}`,
           fontSize: 'var(--md-sys-typescale-label-small-size)',
           fontWeight: '600',
           cursor: 'pointer',
@@ -72,11 +87,12 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
           overflow: 'hidden',
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
-          marginBottom: 'var(--md-sys-spacing-1)'
+          marginBottom: 'var(--md-sys-spacing-1)',
+          outline: isFocused ? `var(--md-sys-border-width-thick) solid ${config.borderColor}` : 'none'
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'translateX(2px)';
-          e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+          e.currentTarget.style.transform = 'translateX(var(--md-sys-spacing-0-5))';
+          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level1)';
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = 'translateX(0)';
@@ -91,32 +107,40 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
   return (
     <M3Surface
       onClick={onClick}
+      // @ts-ignore - M3Surface supports div props via spread
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+      aria-label={`${title}${time ? `, ${time}` : ''}`}
       style={{
         padding: 'var(--md-sys-spacing-3)',
         background: config.bg,
         borderRadius: 'var(--md-sys-spacing-2)',
-        borderLeft: `4px solid ${config.borderColor}`,
+        borderLeft: `var(--md-sys-border-width-thick) solid ${config.borderColor}`,
         cursor: 'pointer',
         transition: 'all 200ms var(--md-sys-motion-easing-standard)',
         display: 'flex',
         alignItems: 'center',
-        gap: 'var(--md-sys-spacing-2)'
+        gap: 'var(--md-sys-spacing-2)',
+        outline: isFocused ? `var(--md-sys-border-width-thick) solid ${config.borderColor}` : 'none'
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-2px)';
-        e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.15)';
+        e.currentTarget.style.transform = 'translateY(calc(-1 * var(--md-sys-spacing-0-5)))';
+        e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level2)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = 'translateY(0)';
         e.currentTarget.style.boxShadow = 'none';
       }}
+      onFocus={() => setIsFocused(true)} // M3Surface potrebbe non esporre onFocus direttamente nell'interfaccia, ma lo passa al div
+      onBlur={() => setIsFocused(false)}
     >
       {/* Icona tipo */}
       <span
         className="material-symbols-outlined"
         aria-hidden="true"
         style={{
-          fontSize: '20px',
+          fontSize: 'var(--md-sys-typescale-title-small-font-size)',
           color: config.borderColor,
           fontVariationSettings: '"FILL" 1, "wght" 600'
         }}
@@ -133,7 +157,7 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
               color: config.color,
               fontWeight: '600',
               textTransform: 'uppercase',
-              letterSpacing: '0.5px',
+              letterSpacing: 'var(--md-sys-typescale-label-small-tracking)',
               marginBottom: 'var(--md-sys-spacing-1)'
             }}
           >
@@ -159,7 +183,7 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
         className="material-symbols-outlined"
         aria-hidden="true"
         style={{
-          fontSize: '18px',
+          fontSize: 'var(--md-sys-typescale-body-large-font-size)',
           color: config.color,
           opacity: 0.7
         }}

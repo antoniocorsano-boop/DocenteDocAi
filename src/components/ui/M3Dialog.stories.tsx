@@ -273,13 +273,3 @@ export const SmallDialog: Story = {
   },
 };
 
-
-
-
-
-
-
-
-
-
-

@@ -3,22 +3,22 @@
 exports[`UseCaseCard Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    style="background-color: var(--app-color-surface); border-radius: var(--md-sys-shape-corner-medium); padding: var(--app-spacing-section); border: var(--app-border-normal) solid var(--md-sys-color-outline);"
+    style="background-color: var(--md-sys-color-surface); border-radius: var(--md-sys-shape-corner-medium); padding: var(--md-sys-spacing-6); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline);"
   >
     <div
-      style="display: flex; align-items: center; gap: var(--app-spacing-section); margin-bottom: var(--md-sys-spacing-8);"
+      style="display: flex; align-items: center; gap: var(--md-sys-spacing-6); margin-bottom: var(--md-sys-spacing-8);"
     >
       <div
-        style="border-radius: var(--md-sys-shape-corner-medium); background-color: var(--app-color-primary); width: var(--md-sys-spacing-32); height: var(--md-sys-spacing-32); display: flex; align-items: center; justify-content: center; color: var(--app-color-on-primary);"
+        style="border-radius: var(--md-sys-shape-corner-medium); background-color: var(--md-sys-color-primary); width: var(--md-sys-spacing-32); height: var(--md-sys-spacing-32); display: flex; align-items: center; justify-content: center; color: var(--md-sys-color-on-primary);"
       >
         <span
-          style="font-size: var(--app-text-title);"
+          style="font-size: var(--md-sys-typescale-title-large-font-size);"
         >
           lightbulb
         </span>
       </div>
       <p
-        style="color: var(--app-color-primary); text-transform: uppercase; font-weight: 900; opacity: 0.7;"
+        style="color: var(--md-sys-color-primary); text-transform: uppercase; font-weight: 900; opacity: 0.7;"
       >
         Scenario
       </p>
@@ -31,18 +31,18 @@ exports[`UseCaseCard Story Snapshots > renders default story correctly 1`] = `
       "
     </p>
     <ol
-      style="margin-top: var(--app-spacing-container);"
+      style="margin-top: var(--md-sys-spacing-4);"
     >
       <li
         style="display: flex; gap: var(--md-sys-spacing-8); align-items: flex-start;"
       >
         <span
-          style="background-color: var(--app-color-surface); color: var(--app-color-primary); width: var(--app-spacing-section); height: var(--app-spacing-section); border-radius: var(--md-sys-shape-corner-full); display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0; transition: color var(--app-motion-standard);"
+          style="background-color: var(--md-sys-color-surface); color: var(--md-sys-color-primary); width: var(--md-sys-spacing-6); height: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-full); display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0; transition: color var(--md-sys-motion-duration-medium);"
         >
           1
         </span>
         <p
-          style="color: var(--md-sys-color-outline); font-weight: bold; line-height: var(--app-text-body-line-height);"
+          style="color: var(--md-sys-color-outline); font-weight: bold; line-height: var(--md-sys-typescale-body-large-line-height);"
         >
           Step 1
         </p>

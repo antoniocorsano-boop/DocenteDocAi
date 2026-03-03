@@ -1,4 +1,4 @@
-/**
+﻿/**
  * M3 Interactive Elements
  * 
  * Reusable CSS classes for interactive elements (buttons, cards, etc.)
@@ -38,7 +38,7 @@
 .m3-interactive-card:hover {
   /* M3 token replacement: rgba(0, 0, 0, 0.1) → var(--md-sys-color-shadow) */
   box-shadow: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1) var(--md-sys-color-shadow);
-  transform: translateY(-var(--md-sys-spacing-0));
+  transform: translateY(calc(-1 * var(--md-sys-spacing-0)));
 }
 
 .m3-interactive-card:focus-visible {

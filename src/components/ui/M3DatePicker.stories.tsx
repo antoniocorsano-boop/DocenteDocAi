@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import M3DatePicker from './M3DatePicker';
@@ -158,13 +158,4 @@ export const States: Story = {
     </div>
   ),
 };
-
-
-
-
-
-
-
-
-
 

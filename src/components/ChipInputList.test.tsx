@@ -1,5 +1,5 @@
 import { renderWithM3Theme } from '../test-utils';
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
 import ChipInputList from './ChipInputList';
@@ -57,11 +57,4 @@ describe('ChipInputList', () => {
     expect(onRemove).toHaveBeenCalledWith(0);
   });
 });
-
-
-
-
-
-
-
 

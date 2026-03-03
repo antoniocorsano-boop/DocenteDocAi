@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import M3Popover from './M3Popover';
@@ -289,13 +289,4 @@ export const NoBackdrop: Story = {
     );
   },
 };
-
-
-
-
-
-
-
-
-
 

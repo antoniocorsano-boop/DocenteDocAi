@@ -95,7 +95,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    gap: 'var(--app-spacing-container)'
+                    gap: 'var(--md-sys-spacing-4)'
                 }}
             >
                 <SectionHeader 
@@ -113,7 +113,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--app-spacing-section)'
+                gap: 'var(--md-sys-spacing-6)'
             }}
         >
             <SectionHeader 
@@ -128,7 +128,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                     style={{
                         display: 'grid',
                         gridTemplateColumns: `repeat(auto-fit, minmax(var(--md-sys-spacing-25), var(--md-sys-grid-fr-1)))`,
-                        gap: 'var(--app-spacing-container)'
+                        gap: 'var(--md-sys-spacing-4)'
                     }}
                 >
                     <SelectField label="Classe" value={selectedClass} onChange={e => { setSelectedClass(e.target.value); setSelectedStudentId('all'); }}>
@@ -146,21 +146,21 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         style={{
                             display: 'flex',
                             flexDirection: 'column',
-                            gap: 'var(--app-spacing-component)'
+                            gap: 'var(--md-sys-spacing-2)'
                         }}
                     >
                         <label
                             style={{
-                                fontSize: 'var(--app-text-body)',
-                                fontWeight: 'var(--app-text-body-weight)',
-                                lineHeight: 'var(--app-text-body-line-height)',
+                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+                                lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
                                 color: 'var(--md-sys-color-on-surface-variant)'
                             }}
                         >Modalità Vista</label>
                         <div
                             style={{
                                 display: 'flex',
-                                gap: 'var(--app-spacing-component)',
+                                gap: 'var(--md-sys-spacing-2)',
                                 flexWrap: 'wrap'
                             }}
                         >
@@ -211,14 +211,14 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 'var(--app-spacing-section)',
-                    marginBottom: 'var(--app-spacing-section)'
+                    gap: 'var(--md-sys-spacing-6)',
+                    marginBottom: 'var(--md-sys-spacing-6)'
                 }}
             >
                 <div
                     style={{
                         color: 'var(--md-sys-color-on-surface-variant)',
-                        fontSize: 'var(--app-text-body)',
+                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                         fontWeight: '700',
                         textTransform: 'uppercase',
                         letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.1em)'
@@ -227,7 +227,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                     <h2
                         style={{
                             color: 'var(--md-sys-color-on-surface-variant)',
-                            fontSize: 'var(--app-text-body)',
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             fontWeight: '700',
                             textTransform: 'uppercase',
                             letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.1em)'
@@ -244,13 +244,13 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         style={{
                             display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--app-spacing-component)'
+                            gap: 'var(--md-sys-spacing-2)'
                         }}
                     >
                         {isAiLoading ? <AiThinkingGem size="small" inline /> : <span
                             style={{
                                 fontFamily: "'Material Symbols Outlined'",
-                                marginRight: 'var(--app-spacing-component)'
+                                marginRight: 'var(--md-sys-spacing-2)'
                             }}
                         >auto_awesome</span>}
                         ANALISI AI
@@ -263,12 +263,12 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        width: 'var(--app-layout-full)'
+                        width: 'var(--md-sys-percent-100)'
                     }}
                 >
                     {chartType === 'trend' && (
                         <Suspense fallback={<div>Loading chart...</div>}>
-                            <LineChart data={trendData} color="var(--app-color-primary)" />
+                            <LineChart data={trendData} color="var(--md-sys-color-primary)" />
                         </Suspense>
                     )}
                     {chartType === 'radar' && (
@@ -278,7 +278,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                     )}
                     {chartType === 'dist' && (
                         <Suspense fallback={<div>Loading chart...</div>}>
-                            <BarChart data={distData} color="var(--app-color-secondary)" />
+                            <BarChart data={distData} color="var(--md-sys-color-secondary)" />
                         </Suspense>
                     )}
                 </div>
@@ -288,8 +288,8 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         style={{
                             backgroundColor: 'var(--md-sys-color-surface-container-high)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
-                            padding: 'var(--app-spacing-section)',
-                            border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                            padding: 'var(--md-sys-spacing-6)',
+                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                             width: 'var(--md-sys-percent-full)'
                         }}
                     >
@@ -298,18 +298,18 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         ) : (
                             <div
                                 style={{
-                                    marginTop: 'var(--app-spacing-container)'
+                                    marginTop: 'var(--md-sys-spacing-4)'
                                 }}
                             >
                                 <div
                                     style={{
                                         display: 'flex',
-                                        gap: 'var(--app-spacing-container)'
+                                        gap: 'var(--md-sys-spacing-4)'
                                     }}
                                 >
                                     <div
                                         style={{
-                                            backgroundColor: 'var(--app-color-primary-container)',
+                                            backgroundColor: 'var(--md-sys-color-primary-container)',
                                             width: 'var(--md-sys-spacing-10)',
                                             height: 'var(--md-sys-spacing-10)',
                                             borderRadius: 'var(--md-sys-shape-corner-medium)',
@@ -321,14 +321,14 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                     >
                                         <span
                                             style={{
-                                                color: 'var(--app-color-on-primary-container)',
+                                                color: 'var(--md-sys-color-on-primary-container)',
                                                 fontFamily: "'Material Symbols Outlined'"
                                             }}
                                         >lightbulb</span>
                                     </div>
                                     <p
                                         style={{
-                                            color: 'var(--app-color-on-surface)',
+                                            color: 'var(--md-sys-color-on-surface)',
                                             fontWeight: '500',
                                             lineHeight: '1.625'
                                         }}
@@ -336,7 +336,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                 </div>
                                 <div
                                     style={{
-                                        marginTop: 'var(--app-spacing-container)'
+                                        marginTop: 'var(--md-sys-spacing-4)'
                                     }}
                                 >
                                     <AiMemoryChip label={`Insight AI • Dati Classe ${selectedClass}`} />
@@ -351,11 +351,4 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
 };
 
 export default AnalyticsHub;
-
-
-
-
-
-
-
 

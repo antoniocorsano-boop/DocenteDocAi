@@ -1,8 +1,6 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
-// ...existing code...
-// ...existing code...
 import React, { useState } from 'react';
 
 function useGuidanceDismissed(id: string): [boolean, () => void] {
@@ -45,29 +43,18 @@ const Guidance: React.FC<GuidanceProps> = ({ id, icon, title, children, isGlobal
   return (
     <div >
       <div >
-        <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>{icon}</span>
+        <span className="material-symbols-outlined">{icon}</span>
       </div>
       <div >
         <h3 >{title}</h3>
         <div >{children}</div>
       </div>
       <button onClick={dismiss}  aria-label="Chiudi suggerimento">
-        <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>close</span>
+        <span className="material-symbols-outlined">close</span>
       </button>
     </div>
   );
 };
 
 export default Guidance;
-
-
-
-
-
-
-
 

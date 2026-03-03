@@ -35,12 +35,12 @@ export const SettingsGroup: React.FC<SettingsGroupProps> = ({
 
     const variantStyles = {
         primary: {
-            bg: 'var(--app-color-primary-container)',
-            color: 'var(--app-color-on-primary-container)'
+            bg: 'var(--md-sys-color-primary-container)',
+            color: 'var(--md-sys-color-on-primary-container)'
         },
         secondary: {
-            bg: 'var(--app-color-secondary-container)',
-            color: 'var(--app-color-on-secondary-container)'
+            bg: 'var(--md-sys-color-secondary-container)',
+            color: 'var(--md-sys-color-on-secondary-container)'
         },
         tertiary: {
             bg: 'var(--md-sys-color-tertiary-container)',
@@ -59,10 +59,10 @@ export const SettingsGroup: React.FC<SettingsGroupProps> = ({
             style={{
                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                 backdropFilter: 'blur(var(--md-sys-elevation-backdrop-blur))',
-                border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                 borderRadius: 'var(--md-sys-shape-corner-extra-large)',
                 overflow: 'hidden',
-                transition: `all var(--md-sys-motion-duration-medium1) var(--app-easing-standard)`,
+                transition: `all var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard)`,
                 boxShadow: isOpen ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)'
             }}
             open={isOpen}
@@ -75,18 +75,18 @@ export const SettingsGroup: React.FC<SettingsGroupProps> = ({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: 'var(--app-spacing-touch)',
+                    padding: 'var(--md-sys-spacing-5)',
                     cursor: 'pointer',
                     listStyle: 'none',
                     backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                    borderBottom: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
-                    transition: `background-color var(--md-sys-motion-duration-short1) var(--app-easing-standard)`
+                    borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                    transition: `background-color var(--md-sys-motion-duration-short1) var(--md-sys-motion-easing-standard)`
                 }}
             >
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--app-spacing-container)',
+                    gap: 'var(--md-sys-spacing-4)',
                     minWidth: 0,
                     flex: 1
                 }}>
@@ -145,7 +145,7 @@ export const SettingsGroup: React.FC<SettingsGroupProps> = ({
                     expand_more
                 </span>
             </summary>
-            <div style={{ padding: 'var(--app-spacing-container)' }}>
+            <div style={{ padding: 'var(--md-sys-spacing-4)' }}>
                 {children}
             </div>
         </details>

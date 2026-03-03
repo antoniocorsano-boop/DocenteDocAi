@@ -33,10 +33,3 @@ describe('DemoGantt keyboard accessibility', () => {
   });
 });
 
-
-
-
-
-
-
-

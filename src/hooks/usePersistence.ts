@@ -183,4 +183,3 @@ export const usePersistence = (isDataLoaded: boolean) => {
     }, [isDataLoaded]);
 };
 
-

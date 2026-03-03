@@ -14,10 +14,8 @@ import ErrorBoundary from './components/ErrorBoundary';
 
 // CSS Architecture
 import './theme.css';
-import './layout.css';
 import './components.css';
 import './logo.css';
-import './modules.css';
 import './global.css';
 
 // Theme imports
@@ -185,5 +183,4 @@ async function bootstrapApp() {
 }
 
 bootstrapApp();
-
 

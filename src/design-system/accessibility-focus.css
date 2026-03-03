@@ -181,7 +181,7 @@ a:focus-visible {
   border-radius: var(--md-sys-spacing-2);
   z-index: 9999;
   outline: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--md-sys-color-scrim) 30%, transparent);
   font-weight: 600;
   text-decoration: none;
 }
@@ -194,7 +194,7 @@ a:focus-visible {
 [role="menubar"] li:focus-visible,
 [role="menu"] li:focus-visible {
   outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
-  outline-offset: -var(--md-sys-spacing-1);
+  outline-offset: calc(-1 * var(--md-sys-spacing-1));
   background-color: var(--md-sys-color-primary, transparent);
   background-color: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
 }

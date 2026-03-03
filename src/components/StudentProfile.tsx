@@ -303,8 +303,8 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                             width: 'var(--md-sys-spacing-10)',
                                             height: 'var(--md-sys-spacing-10)',
                                             borderRadius: 'var(--md-sys-shape-corner-small)',
-                                            backgroundColor: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-error-container)' : 'var(--app-color-primary-container)',
-                                            color: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-on-error-container)' : 'var(--app-color-on-primary-container)',
+                                            backgroundColor: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',
+                                            color: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)',
                                             fontWeight: 'bold',
                                             fontSize: 'var(--md-sys-typescale-label-large-size)'
                                         }}>
@@ -318,7 +318,6 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                             <span >{new Date(ev.data).toLocaleDateString()}</span>
                                             <M3Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="icon" >
                                                 <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>delete</span>
                                             </M3Button>
                                         </div>
@@ -358,19 +357,19 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                         <h3 >{competenza.nome}</h3>
                                     </div>
                                     <div style={{
-                                        padding: 'var(--app-spacing-component) var(--app-spacing-element)',
+                                        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
                                         borderRadius: 'var(--md-sys-shape-corner-small)',
                                         fontSize: 'var(--md-sys-typescale-body-small-size)',
                                         fontWeight: 'bold',
                                         textAlign: 'center',
                                         backgroundColor: levelColor.includes('advanced') ? 'var(--md-sys-color-tertiary-container)' :
-                                                        levelColor.includes('intermediate') ? 'var(--app-color-secondary-container)' :
-                                                        levelColor.includes('basic') ? 'var(--app-color-primary-container)' :
+                                                        levelColor.includes('intermediate') ? 'var(--md-sys-color-secondary-container)' :
+                                                        levelColor.includes('basic') ? 'var(--md-sys-color-primary-container)' :
                                                         'var(--md-sys-color-surface-container-highest)',
                                         color: levelColor.includes('advanced') ? 'var(--md-sys-color-on-tertiary-container)' :
-                                               levelColor.includes('intermediate') ? 'var(--app-color-on-secondary-container)' :
-                                               levelColor.includes('basic') ? 'var(--app-color-on-primary-container)' :
-                                               'var(--app-color-on-surface)'
+                                               levelColor.includes('intermediate') ? 'var(--md-sys-color-on-secondary-container)' :
+                                               levelColor.includes('basic') ? 'var(--md-sys-color-on-primary-container)' :
+                                               'var(--md-sys-color-on-surface)'
                                     }}>
                                         {level?.nome}
                                     </div>
@@ -437,7 +436,6 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                 <div >
                     <M3Button onClick={onBack} variant="icon" >
                         <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>arrow_back</span>
                     </M3Button>
                     <div >
@@ -498,11 +496,4 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
 };
 
 export default StudentProfile;
-
-
-
-
-
-
-
 

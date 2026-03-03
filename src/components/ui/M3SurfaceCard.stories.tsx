@@ -202,10 +202,3 @@ export const Expressive: Story = {
   },
 };
 
-
-
-
-
-
-
-

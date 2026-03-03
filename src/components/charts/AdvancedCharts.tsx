@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 
 import React from 'react';
 import { useTheme } from '../../theme/theme';
@@ -14,7 +14,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
   const { layers: { sys: { color: themeColor } } } = useTheme();
 
     if (data.length === 0) {
-        return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "var(--app-layout-full)", opacity: "0.5", color: themeColor.onSurfaceVariant }}>Nessun dato disponibile.</div>;
+        return <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)", opacity: "0.5", color: themeColor.onSurfaceVariant }}>Nessun dato disponibile.</div>;
     }
 
     const padding = 30;
@@ -50,8 +50,8 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
     }
 
     return (
-        <div  style={{ width: "var(--app-layout-full)", height }}>
-            <svg viewBox={`0 0 ${width} ${height}`}  style={{ width: "var(--app-layout-full)", height: "var(--app-layout-full)" }}>
+        <div  style={{ width: "var(--md-sys-percent-100)", height }}>
+            <svg viewBox={`0 0 ${width} ${height}`}  style={{ width: "var(--md-sys-percent-100)", height: "var(--md-sys-percent-100)" }}>
                 {/* Grids */}
                 <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke={themeColor.outlineVariant} strokeWidth="1" />
                 <line x1={padding} y1={padding} x2={padding} y2={height - padding} stroke={themeColor.outlineVariant} strokeWidth="1" />
@@ -92,7 +92,7 @@ export const LineChart: React.FC<LineChartProps> = ({ data, color, height = 250 
                 {/* Labels (X Axis) */}
                 {data.map((point, i) => (
                     (data.length < 8 || i === 0 || i === data.length - 1 || i % Math.ceil(data.length / 5) === 0) && (
-                        <text key={i} x={getX(i)} y={height - 5} fontSize="var(--app-text-label)" textAnchor="middle" fill={themeColor.onSurfaceVariant}>
+                        <text key={i} x={getX(i)} y={height - 5} fontSize="var(--md-sys-typescale-label-large-font-size)" textAnchor="middle" fill={themeColor.onSurfaceVariant}>
                             {point.label}
                         </text>
                     )
@@ -185,9 +185,9 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
                                 y={labelPos.y}
                                 textAnchor="middle"
                                 dominantBaseline="middle"
-                                fontSize="var(--app-text-label)"
+                                fontSize="var(--md-sys-typescale-label-large-font-size)"
                                 fill={themeColor.onSurface}
-                                style={{ fontWeight: "var(--app-text-label-weight)" }}
+                                style={{ fontWeight: "var(--md-sys-typescale-label-large-weight)" }}
                             >
                                 {d.axis}
                             </text>
@@ -198,11 +198,4 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
         </div>
     );
 };
-
-
-
-
-
-
-
 

@@ -5,7 +5,6 @@ import { getInitialGameState, unlockNode, GameState } from './gameLogic';
 import { playNkaSound } from './sound';
 import { M3ProgressBar, M3Chip, M3ChipGroup, M3Button, M3ButtonGroup } from '../components/ui';
 
-
 interface GameModeProps {
   nodes?: readonly NKANode[];
 }
@@ -71,5 +70,4 @@ const GameMode: React.FC<GameModeProps> = ({ nodes = [] as readonly NKANode[] })
 };
 
 export default GameMode;
-
 

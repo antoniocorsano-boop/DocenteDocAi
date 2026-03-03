@@ -31,19 +31,19 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
         return {
           width: 'var(--md-sys-spacing-8)',
           height: 'var(--md-sys-spacing-8)',
-          fontSize: 'var(--app-text-label)'
+          fontSize: 'var(--md-sys-typescale-label-large-font-size)'
         };
       case 'large':
         return {
           width: 'var(--md-sys-spacing-12)',
           height: 'var(--md-sys-spacing-12)',
-          fontSize: 'var(--app-text-title)'
+          fontSize: 'var(--md-sys-typescale-title-large-font-size)'
         };
       default: // medium
         return {
           width: 'var(--md-sys-spacing-10)',
           height: 'var(--md-sys-spacing-10)',
-          fontSize: 'var(--app-text-label)'
+          fontSize: 'var(--md-sys-typescale-label-large-font-size)'
         };
     }
   };
@@ -53,19 +53,19 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
     switch (variant) {
       case 'filled':
         return {
-          backgroundColor: 'var(--app-color-primary-container)',
-          color: 'var(--app-color-on-primary-container)'
+          backgroundColor: 'var(--md-sys-color-primary-container)',
+          color: 'var(--md-sys-color-on-primary-container)'
         };
       case 'tonal':
         return {
-          backgroundColor: 'var(--app-color-secondary-container)',
-          color: 'var(--app-color-on-secondary-container)'
+          backgroundColor: 'var(--md-sys-color-secondary-container)',
+          color: 'var(--md-sys-color-on-secondary-container)'
         };
       case 'outlined':
         return {
           backgroundColor: hovered ? 'var(--md-sys-color-surface-variant)' : 'transparent',
-          color: 'var(--app-color-on-surface)',
-          border: `var(--app-border-normal) solid var(--md-sys-color-outline)`
+          color: 'var(--md-sys-color-on-surface)',
+          border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`
         };
       default: // standard
         return {
@@ -81,16 +81,16 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 'var(--md-sys-shape-corner-full)',
-    transition: `all var(--md-sys-motion-duration-short2) var(--app-easing-standard)`,
-    outline: focused ? `var(--app-border-thick) solid var(--app-color-primary)` : 'none',
-    outlineOffset: focused ? 'var(--app-spacing-component)' : '0',
+    transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+    outline: focused ? `var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)` : 'none',
+    outlineOffset: focused ? 'var(--md-sys-spacing-2)' : '0',
     border: 'none',
     cursor: disabled ? 'not-allowed' : 'pointer',
     opacity: disabled ? 0.38 : (hovered && (variant === 'filled' || variant === 'tonal') ? 0.8 : 1),
     pointerEvents: disabled ? 'none' : 'auto',
     fontFamily: 'var(--md-sys-typescale-font-family)',
-    fontWeight: 'var(--app-text-label-weight)',
-    lineHeight: 'var(--app-text-label-line-height)',
+    fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+    lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
     letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
     ...getSizeStyles(),
     ...getVariantStyles()
@@ -98,7 +98,6 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
 
   // Icon styles
   const iconStyle: React.CSSProperties = {
-    fontFamily: 'Material Symbols Outlined',
     userSelect: 'none',
     fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"
   };
@@ -117,6 +116,7 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
       onBlur={() => setFocused(false)}
     >
       <span
+        className="material-symbols-outlined"
         style={iconStyle}
         aria-hidden="true"
       >
@@ -127,11 +127,4 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
 };
 
 export default M3IconButton;
-
-
-
-
-
-
-
 

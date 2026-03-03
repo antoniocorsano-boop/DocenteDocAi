@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 /**
  * View Loading Utilities & Performance Tracking
  * 
@@ -87,6 +87,4 @@ export function preloadView(viewName: View): void {
       console.warn(`[lazy-load] Failed to preload view: ${viewName}`, err);
     });
 }
-
-
 

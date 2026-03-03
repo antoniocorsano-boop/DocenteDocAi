@@ -2,7 +2,6 @@
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 
-
 /* M3Expressive - FeedManager Component */
 
 import React, { useState } from 'react';
@@ -108,7 +107,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                         disabled={true} 
                         
                     >
-                        <span  style={{ marginRight: "var(--app-spacing-component)" }}>add_link</span>
+                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_link</span>
                         Aggiungi
                     </M3Button>
                 </div>
@@ -123,7 +122,6 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                                 <div >
                                     <div >
                                         <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>rss_feed</span>
                                     </div>
                                     <div >
@@ -138,7 +136,6 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                                         
                                     >
                                         <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>delete</span>
                                     </M3Button>
                                     <M3Button 
@@ -172,11 +169,4 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
 };
 
 export default FeedManager;
-
-
-
-
-
-
-
 

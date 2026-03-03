@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 // EXCLUDED FROM PRODUCTION: This Storybook file is for demo/documentation only and must NOT be included in production builds.
 // Per MD3 governance, this file is not maintained for MD3 Gold compliance. See COPILOT_RULES.md and DESIGN_SYSTEM_POLICY.md.
 /* eslint-disable */
@@ -108,7 +108,6 @@ const ColorSwatch: React.FC<ColorSwatchProps> = ({ name, token, hex, border = fa
   </div>
 );
 
-
 // ---
 // WARNING: This file is excluded from production and is for Storybook/demo use only.
 // ---
@@ -130,5 +129,4 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const AllColors: Story = {};
-
 

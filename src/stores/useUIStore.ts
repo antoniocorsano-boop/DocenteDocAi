@@ -84,12 +84,6 @@ export interface UIActions {
 // Complete store type - combines state and actions
 export type UIStore = UIState & { actions: UIActions };
 
-
-
-
-
-
-
 // ============================================================================
 // STORE IMPLEMENTATION
 // ============================================================================
@@ -280,5 +274,4 @@ export function normalizeLegacyState(state: Partial<UIState>): Partial<UIState> 
     }
     return state;
 }
-
 

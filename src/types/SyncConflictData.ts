@@ -7,4 +7,3 @@ export interface SyncConflictData {
   lastModifiedRemote: string;
 }
 
-

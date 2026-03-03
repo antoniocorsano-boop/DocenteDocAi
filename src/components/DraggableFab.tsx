@@ -1,8 +1,6 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
-// ...existing code...
-// ...existing code...
 import React, { useState, useRef } from 'react';
 
 interface DraggableFabProps {
@@ -120,17 +118,8 @@ export const DraggableFab: React.FC<DraggableFabProps> = ({ onClick, ariaLabel }
             aria-label={ariaLabel}
             title={ariaLabel}
         >
-            <span style={{
-  fontFamily: 'Material Symbols Outlined'
-}}>mic</span>
+            <span className="material-symbols-outlined">mic</span>
         </button>
     );
 };
-
-
-
-
-
-
-
 

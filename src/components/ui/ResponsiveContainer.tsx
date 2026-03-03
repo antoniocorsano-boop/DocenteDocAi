@@ -18,11 +18,11 @@ export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
   centered = true
 }) => {
   const maxWidthMap = {
-    sm: '640px',   // Mobile landscape
-    md: '768px',   // Tablet portrait
-    lg: '1024px',  // Tablet landscape / Small desktop
-    xl: '1280px',  // Desktop
-    full: '100%'
+    sm: 'var(--md-sys-breakpoint-sm)',       // 640px - Mobile landscape
+    md: 'var(--md-sys-breakpoint-tablet)',    // 768px - Tablet portrait
+    lg: 'var(--md-sys-breakpoint-desktop)',   // 1024px - Tablet landscape / Small desktop
+    xl: 'var(--md-sys-breakpoint-xl)',        // 1280px - Desktop
+    full: 'var(--md-sys-percent-100)'
   };
 
   return (

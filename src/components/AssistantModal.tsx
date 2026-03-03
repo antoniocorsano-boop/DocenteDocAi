@@ -217,16 +217,16 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: 'var(--app-spacing-container)',
-      backgroundColor: 'var(--app-color-surface)',
-      borderBottom: `var(--app-border-normal) solid var(--md-sys-color-outline)`
+      padding: 'var(--md-sys-spacing-4)',
+      backgroundColor: 'var(--md-sys-color-surface)',
+      borderBottom: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`
     }}>
       <div style={{
         flexGrow: 1,
         minWidth: "0"
       }}>
         <h2 style={{
-          color: 'var(--app-color-on-surface)',
+          color: 'var(--md-sys-color-on-surface)',
           fontWeight: 'bold',
           letterSpacing: "var(--md-sys-typescale-body-medium-tracking)"
         }}>
@@ -239,16 +239,16 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: 'var(--app-spacing-container)',
+          gap: 'var(--md-sys-spacing-4)',
           borderRadius: 'medium',
           width: "var(--md-sys-spacing-10)",
           height: "var(--md-sys-spacing-10)",
-          transition: "color var(--app-motion-standard) var(--app-easing-standard)"
+          transition: "color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)"
         }}
         data-focus-priority="-1"
         aria-label="Chiudi assistente"
       >
-        <span style={{ fontFamily: 'Material Symbols Outlined' }}>close</span>
+        <span className="material-symbols-outlined">close</span>
       </button>
     </div>
   );
@@ -270,7 +270,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
             <div style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: 'var(--app-spacing-container)',
+              gap: 'var(--md-sys-spacing-4)',
               overflowY: 'auto',
               
               maxHeight: 'var(--md-sys-viewport-height-50)'
@@ -279,7 +279,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
               {messages.length === 0 && (
                 <div style={{
                   textAlign: 'center',
-                  color: 'var(--app-color-primary)'
+                  color: 'var(--md-sys-color-primary)'
                 }}>
                   Come posso aiutarti?
                 </div>
@@ -288,10 +288,10 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                 <div
                   key={i}
                   style={{
-                    padding: 'var(--app-spacing-container)',
+                    padding: 'var(--md-sys-spacing-4)',
                     borderRadius: 'var(--md-sys-shape-corner-medium)',
-                    backgroundColor: msg.role === 'user' ? 'var(--app-color-primary)' : 'var(--md-sys-color-surface-container-high)',
-                    color: msg.role === 'user' ? 'var(--app-color-on-primary)' : 'var(--app-color-on-surface)',
+                    backgroundColor: msg.role === 'user' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
+                    color: msg.role === 'user' ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
                     marginLeft: msg.role === 'user' ? 'var(--md-sys-spacing-12)' : '0',
                     marginRight: msg.role === 'user' ? '0' : 'var(--md-sys-spacing-12)'
                   }}
@@ -299,13 +299,13 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                   {msg.text}
                 </div>
               ))}
-              {loading && <div style={{ color: 'onSurfaceVariant' }}>Sto pensando…</div>}
+              {loading && <div role="status" aria-live="polite" aria-atomic="true" style={{ color: 'onSurfaceVariant' }}>Sto pensando…</div>}
             </div>
             <div style={{
               display: 'flex',
               flexDirection: 'row',
               flexWrap: 'wrap',
-              gap: 'var(--app-spacing-component)'
+              gap: 'var(--md-sys-spacing-2)'
             }}>
               {SUGGESTED_PROMPTS.map((p) => (
                 <M3Button
@@ -313,8 +313,8 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                   variant="outlined"
                   onClick={() => handlePrompt(p)}
                   style={{
-                    marginRight: 'var(--app-spacing-component)',
-                    marginBottom: 'var(--app-spacing-component)'
+                    marginRight: 'var(--md-sys-spacing-2)',
+                    marginBottom: 'var(--md-sys-spacing-2)'
                   }}
                 >
                   {p}
@@ -325,7 +325,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
         )}
 
         {mode === 'docs' && (
-          <div style={{ marginTop: 'var(--app-spacing-container)' }}>
+          <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
             <div style={{
               display: 'flex',
               flexDirection: 'row',
@@ -336,22 +336,22 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-                gap: 'var(--app-spacing-component)'
+                gap: 'var(--md-sys-spacing-2)'
               }}>
-                <span style={{ fontFamily: 'Material Symbols Outlined', color: 'var(--app-color-secondary)' }}>import_contacts</span>
+                <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-secondary)' }}>import_contacts</span>
                 <h3>NotebookLM</h3>
               </div>
               <div style={{
                 display: 'flex',
                 flexDirection: 'row',
-                gap: 'var(--app-spacing-component)'
+                gap: 'var(--md-sys-spacing-2)'
               }}>
                 <M3Button
                   variant="text"
                   onClick={handleNbSync}
                   disabled={nbLoading}
                 >
-                  <span style={{ fontFamily: 'Material Symbols Outlined' }}>sync</span>
+                  <span className="material-symbols-outlined">sync</span>
                 </M3Button>
                 <input
                   type="file"
@@ -366,12 +366,12 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                   onClick={() => nbFileInput.current?.click()}
                   disabled={nbLoading}
                 >
-                  <span style={{ fontFamily: 'Material Symbols Outlined' }}>upload</span>
+                  <span className="material-symbols-outlined">upload</span>
                 </M3Button>
               </div>
             </div>
             {nbError && <div style={{
-              padding: 'var(--app-spacing-container)',
+              padding: 'var(--md-sys-spacing-4)',
               borderRadius: 'var(--md-sys-shape-corner-medium)',
               color: 'var(--md-sys-color-error)',
               backgroundColor: 'var(--md-sys-color-error-container)'
@@ -380,7 +380,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
             <div style={{
               display: 'flex',
               flexDirection: 'column',
-              gap: 'var(--app-spacing-container)',
+              gap: 'var(--md-sys-spacing-4)',
               overflowY: 'auto',
               
               maxHeight: 'var(--md-sys-viewport-height-40)'
@@ -392,10 +392,10 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                   flexDirection: 'row',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  padding: 'var(--app-spacing-container)',
+                  padding: 'var(--md-sys-spacing-4)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)',
                   backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                  border: `var(--app-border-thin) solid var(--md-sys-color-outline)`
+                  border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)`
                 }}>
                   <div style={{
                     flexGrow: 1,
@@ -414,7 +414,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
                     color="error"
                     onClick={() => handleNbDelete(file.id)}
                   >
-                    <span style={{ fontFamily: 'Material Symbols Outlined' }}>delete</span>
+                    <span className="material-symbols-outlined">delete</span>
                   </M3Button>
                 </div>
               ))}
@@ -427,12 +427,12 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
         <M3DialogActions style={{
           display: 'flex',
           flexDirection: 'row',
-          gap: 'var(--app-spacing-section)',
+          gap: 'var(--md-sys-spacing-6)',
           alignItems: 'flex-end',
           width: 'var(--md-sys-percent-full)',
-          padding: 'var(--app-spacing-container)',
+          padding: 'var(--md-sys-spacing-4)',
           backgroundColor: 'var(--md-sys-color-surface-container-low)',
-          borderTop: "var(--app-border-thin) solid var(--md-sys-color-outline)"
+          borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"
         }}>
         <div style={{ flexGrow: 1 }}>
           <TextField
@@ -448,14 +448,14 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
         <M3Button
           variant="text"
           style={{
-            color: isRecording ? 'var(--md-sys-color-error)' : 'var(--app-color-secondary)',
-            padding: 'var(--app-spacing-container)',
+            color: isRecording ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-secondary)',
+            padding: 'var(--md-sys-spacing-4)',
             minWidth: '0'
           }}
           onClick={isRecording ? stopVoiceInput : startVoiceInput}
           title={isRecording ? 'Stop' : 'Voice input'}
         >
-          <span style={{ fontFamily: 'Material Symbols Outlined' }}>
+          <span className="material-symbols-outlined">
             {isRecording ? 'mic' : 'mic_none'}
           </span>
         </M3Button>
@@ -467,10 +467,10 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: 'var(--app-spacing-container)'
+            gap: 'var(--md-sys-spacing-4)'
           }}
         >
-          <span style={{ fontFamily: 'Material Symbols Outlined' }}>send</span>
+          <span className="material-symbols-outlined">send</span>
         </M3Button>
         {voiceError && <p style={{
           color: 'var(--md-sys-color-error)',
@@ -483,11 +483,4 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
 }
 
 export default AssistantModal;
-
-
-
-
-
-
-
 

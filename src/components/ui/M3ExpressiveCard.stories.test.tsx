@@ -1,5 +1,5 @@
 import { renderWithM3Theme } from './test-utils';
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React from 'react';
 import { render } from '@testing-library/react';
 import M3ExpressiveCard from './M3ExpressiveCard';
@@ -16,9 +16,4 @@ describe('M3ExpressiveCard Story Snapshots', () => {
     expect(container).toMatchSnapshot();
   });
 });
-
-
-
-
-
 

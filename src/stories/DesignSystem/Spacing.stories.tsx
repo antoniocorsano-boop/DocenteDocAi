@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -16,7 +16,7 @@ const SpacingDocumentation = () => (
 
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-workflow-card-min-width), var(--md-sys-grid-fr-1)))', gap: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)' }}>
       {[
-        { value: '0px', description: 'No spacing - elements touching' },
+        { value: 'var(--md-sys-spacing-0)', description: 'No spacing - elements touching' },
         { value: 'var(--md-sys-spacing-1)', description: 'Minimal spacing' },
         { value: 'var(--md-sys-spacing-1)', description: 'Extra small spacing' },
         { value: 'var(--md-sys-spacing-2)', description: 'Small spacing (1 unit)' },
@@ -166,5 +166,4 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const AllSpacing: Story = {};
-
 

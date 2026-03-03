@@ -7,4 +7,3 @@ export interface NKASettings {
   reducedMotion: boolean;
 }
 
-

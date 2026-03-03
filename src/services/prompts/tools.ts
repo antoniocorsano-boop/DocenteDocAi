@@ -144,4 +144,3 @@ Usa i seguenti placeholder se pertinenti:
 }
 `;
 
-

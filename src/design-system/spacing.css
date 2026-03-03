@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Material Design 3 Expressive - Spacing System
  * Base Unit: var(--md-sys-spacing-1) grid system
  * 
@@ -241,7 +241,7 @@
    RESPONSIVE BREAKPOINTS
    ======================================== */
 
-@media (min-width: var(--breakpoint-compact)) {
+@media (min-width: 600px) {
   /* Tablet spacing adjustments */
   .md\:gap-4 { gap: var(--md-sys-spacing-4); }
   .md\:gap-6 { gap: var(--md-sys-spacing-6); }
@@ -255,7 +255,7 @@
   .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
-@media (min-width: var(--md-sys-breakpoint-desktop)) {
+@media (min-width: 1024px) {
   /* Desktop spacing adjustments */
   .lg\:gap-6 { gap: var(--md-sys-spacing-6); }
   .lg\:gap-8 { gap: var(--md-sys-spacing-8); }
@@ -282,13 +282,13 @@
   padding-right: var(--md-sys-spacing-4);
 }
 
-@media (min-width: var(--breakpoint-sm)) {
+@media (min-width: 480px) {
   .container {
     max-width: var(--breakpoint-sm);
   }
 }
 
-@media (min-width: var(--md-sys-breakpoint-tablet)) {
+@media (min-width: 768px) {
   .container {
     max-width: var(--md-sys-breakpoint-tablet);
     padding-left: var(--md-sys-spacing-6);
@@ -296,7 +296,7 @@
   }
 }
 
-@media (min-width: var(--md-sys-breakpoint-desktop)) {
+@media (min-width: 1024px) {
   .container {
     max-width: var(--md-sys-breakpoint-desktop);
     padding-left: var(--md-sys-spacing-8);
@@ -304,13 +304,13 @@
   }
 }
 
-@media (min-width: var(--breakpoint-xl)) {
+@media (min-width: 1440px) {
   .container {
     max-width: var(--breakpoint-xl);
   }
 }
 
-@media (min-width: var(--breakpoint-2xl)) {
+@media (min-width: 1600px) {
   .container {
     max-width: var(--breakpoint-2xl);
   }

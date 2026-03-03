@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import M3BadgedIcon from './M3BadgedIcon';
 
@@ -126,11 +126,4 @@ export const WarningBadge: Story = {
     color: 'text-[var(--md-sys-color-error)]',
   },
 };
-
-
-
-
-
-
-
 

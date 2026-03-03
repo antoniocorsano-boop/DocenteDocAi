@@ -26,8 +26,8 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
             maxWidth="sm"
             level={1}
         >
-            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} style={{gap: 'var(--app-spacing-section)'}}>
-                <M3DialogContent style={{gap: 'var(--app-spacing-section)'}}>
+            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} style={{gap: 'var(--md-sys-spacing-6)'}}>
+                <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
                     <TextArea
                         id="doc-generator-prompt"
                         label="Descrivi il documento che vuoi creare"
@@ -39,10 +39,10 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
                     />
                 </M3DialogContent>
 
-                <M3DialogActions style={{gap: 'var(--app-spacing-section)'}}>
+                <M3DialogActions style={{gap: 'var(--md-sys-spacing-6)'}}>
                     <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
                     <M3Button type="button" onClick={handleSubmit} variant="filled">
-                        <span  style={{ marginRight: "var(--app-spacing-component)" }}>auto_awesome</span>
+                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>auto_awesome</span>
                         Genera Documento
                     </M3Button>
                 </M3DialogActions>
@@ -52,12 +52,4 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
 };
 
 export default DocumentGeneratorModal;
-
-
-
-
-
-
-
-
 

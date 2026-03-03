@@ -1,5 +1,5 @@
 import { renderWithM3Theme } from './test-utils';
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React from 'react';
 import { render } from '@testing-library/react';
 import M3Dialog from './M3Dialog';
@@ -14,9 +14,4 @@ describe('M3Dialog Story Snapshots', () => {
     expect(container).toMatchSnapshot();
   });
 });
-
-
-
-
-
 

@@ -9,8 +9,8 @@ import { useUIStore } from '../stores/useUIStore';
 import { M3Typography } from './ui';
 const SNACKBAR_COLORS = {
   success: {
-    bg: 'var(--app-color-primary)',
-    color: 'var(--app-color-on-primary)',
+    bg: 'var(--md-sys-color-primary)',
+    color: 'var(--md-sys-color-on-primary)',
     icon: 'check_circle'
   },
   error: {
@@ -25,7 +25,7 @@ const SNACKBAR_COLORS = {
   },
   info: {
     bg: 'var(--md-sys-color-surface-container-high)',
-    color: 'var(--app-color-on-surface)',
+    color: 'var(--md-sys-color-on-surface)',
     icon: 'info'
   }
 } as const;
@@ -56,7 +56,7 @@ const SNACKBAR_COLORS = {
  */
 const Snackbar: React.FC = () => {
   // MD3 Token mapping - no useTheme() dependency
-  const primary = 'var(--app-color-primary)';
+  const primary = 'var(--md-sys-color-primary)';
   const [isFocused, setIsFocused] = useState(false);
   const [isCloseHovered, setIsCloseHovered] = useState(false);
   const [progress, setProgress] = useState(100);
@@ -137,23 +137,23 @@ const Snackbar: React.FC = () => {
   return (
     <div
       style={{position: 'fixed',
-        left: 'var(--app-layout-half)',
+        left: 'var(50%)',
         bottom: 'var(--md-sys-spacing-8)',
         transform: 'translateX(-50%)',
         minWidth: 'var(--md-sys-spacing-14)',
         maxWidth: 'calc(0.9 * var(--md-sys-viewport-width-full))',
-        padding: `var(--app-spacing-element) var(--app-spacing-touch) var(--app-spacing-element) var(--app-spacing-container)` ,
+        padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-5) var(--md-sys-spacing-3) var(--md-sys-spacing-4)` ,
         borderRadius: 'var(--md-sys-shape-corner-medium)',
         boxShadow: 'var(--md-sys-elevation-level3)',
         display: 'flex',
         alignItems: 'center',
-        gap: 'var(--app-spacing-element)',
+        gap: 'var(--md-sys-spacing-3)',
         backgroundColor: bg,
         color: color,
         zIndex: 'var(--md-sys-z-snackbar)',
-        animation: 'snackbar-in var(--app-motion-quick) var(--md-sys-motion-easing-expressive) both',
-        outline: isFocused ? `var(--app-border-normal) solid ${primary}` : 'none',
-        outlineOffset: isFocused ? 'var(--app-spacing-component)' : '0'}}
+        animation: 'snackbar-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-expressive) both',
+        outline: isFocused ? `var(--md-sys-border-width-normal) solid ${primary}` : 'none',
+        outlineOffset: isFocused ? 'var(--md-sys-spacing-2)' : '0'}}
       role="status"
       aria-live="polite"
       tabIndex={0}
@@ -163,7 +163,7 @@ const Snackbar: React.FC = () => {
       <span
         className="material-symbols-outlined"
         style={{
-          fontSize: 'var(--app-spacing-container)',
+          fontSize: 'var(--md-sys-spacing-4)',
           color: 'inherit',
           flexShrink: 0,
           fontVariationSettings: '"FILL" 1, "wght" 600'
@@ -187,18 +187,18 @@ const Snackbar: React.FC = () => {
         onMouseEnter={() => setIsCloseHovered(true)}
         onMouseLeave={() => setIsCloseHovered(false)}
         style={{
-          backgroundColor: isCloseHovered ? 'rgba(255,255,255,0.2)' : 'transparent',
+          backgroundColor: isCloseHovered ? 'color-mix(in srgb, var(--md-sys-color-inverse-on-surface) 20%, transparent)' : 'transparent',
           border: 'none',
           color: 'inherit',
-          fontSize: 'var(--app-spacing-touch)',
-          marginLeft: 'var(--app-spacing-component)',
+          fontSize: 'var(--md-sys-spacing-5)',
+          marginLeft: 'var(--md-sys-spacing-2)',
           borderRadius: 'var(--md-sys-shape-corner-full)',
           cursor: 'pointer',
           padding: 'var(--md-sys-spacing-1)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          transition: 'all var(--md-sys-motion-duration-short2) var(--app-easing-standard)',
+          transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
           transform: isCloseHovered ? 'scale(1.1)' : 'scale(1)',
           flexShrink: 0
         }}
@@ -223,7 +223,7 @@ const Snackbar: React.FC = () => {
           left: 0,
           right: 0,
           height: 'var(--md-sys-spacing-0_5)',
-          backgroundColor: 'rgba(255,255,255,0.2)',
+          backgroundColor: 'color-mix(in srgb, var(--md-sys-color-inverse-on-surface) 20%, transparent)',
           borderBottomLeftRadius: 'var(--md-sys-shape-corner-medium)',
           borderBottomRightRadius: 'var(--md-sys-shape-corner-medium)',
           overflow: 'hidden'
@@ -233,7 +233,7 @@ const Snackbar: React.FC = () => {
           style={{
             height: '100%',
             width: `${progress}%`,
-            backgroundColor: 'rgba(255,255,255,0.5)',
+            backgroundColor: 'color-mix(in srgb, var(--md-sys-color-inverse-on-surface) 50%, transparent)',
             transition: 'width 16ms linear'
           }}
         />
@@ -257,11 +257,4 @@ const Snackbar: React.FC = () => {
 };
 
 export default Snackbar;
-
-
-
-
-
-
-
 

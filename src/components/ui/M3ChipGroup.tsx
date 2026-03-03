@@ -20,8 +20,8 @@ function M3ChipGroup({
   // MD3 Token mapping - no useTheme() dependency
   // Spacing tokens
   const spacing1 = 'var(--md-sys-spacing-1)';
-  const spacing2 = 'var(--app-spacing-component)';
-  const spacing3 = 'var(--app-spacing-element)';
+  const spacing2 = 'var(--md-sys-spacing-2)';
+  const spacing3 = 'var(--md-sys-spacing-3)';
 
   const getSpacing = () => {
     switch (spacing) {

@@ -43,8 +43,10 @@ vi.mock('../../src/components/ui', () => ({
         const Component = as || 'span';
         return React.createElement(Component, { 'data-testid': 'm3-typography', style }, children);
     },
-    M3HeroCard: ({ children, onClick }: any) => (
+    M3HeroCard: ({ children, onClick, headline, supportingText }: any) => (
         <div data-testid="m3-hero-card" onClick={onClick}>
+            {headline && <div>{headline}</div>}
+            {supportingText && <div>{supportingText}</div>}
             {children}
         </div>
     ),
@@ -101,6 +103,12 @@ vi.mock('../../src/components/ui', () => ({
             {children}
         </aside>
     ),
+    M3Chip: ({ children, label, onClick, ...props }: any) => (
+        <button data-testid="m3-chip" onClick={onClick} {...props}>{label || children}</button>
+    ),
+    M3StateLayer: ({ children, ...props }: any) => (
+        <div data-testid="m3-state-layer" {...props}>{children}</div>
+    ),
     AppLayout: ({ children }: any) => (
         <div data-testid="app-layout">
             {children}
@@ -130,7 +138,7 @@ describe('Home Component', () => {
             />
         );
         // Hero section
-        expect(screen.getAllByText(/Pianifica la prossima lezione|Prossima Lezione/)).not.toHaveLength(0);
+        expect(screen.getAllByText(/Buongiorno|Buon pomeriggio|Buona sera|Pianifica la prossima lezione|Prossima Lezione/)).not.toHaveLength(0);
         // Metrics section
         expect(screen.getAllByText('Studenti')).not.toHaveLength(0);
         expect(screen.getAllByText('Valutazioni')).not.toHaveLength(0);

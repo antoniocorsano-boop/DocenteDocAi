@@ -334,4 +334,3 @@ export const DEMO_DATA = {
     knowledgeBase
 };
 
-

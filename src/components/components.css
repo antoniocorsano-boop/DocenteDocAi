@@ -1,4 +1,4 @@
-/* MD3 Home component styles for CSP compliance */
+﻿/* MD3 Home component styles for CSP compliance */
 
 .home-container {
   padding-top: var(--md-sys-spacing-4);
@@ -419,7 +419,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   gap: var(--md-sys-spacing-8);
 }
 
-@media (min-width: var(--md-sys-breakpoint-desktop)) {
+@media (min-width: 1024px) {
   .class-dashboard-tools-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -457,7 +457,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   max-height: var(--md-sys-spacing-16);
 }
 
-@media (min-width: var(--md-sys-breakpoint-tablet)) {
+@media (min-width: 768px) {
   .class-dashboard-student-list {
     max-height: var(--breakpoint-compact);
   }
@@ -582,7 +582,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   gap: var(--md-sys-spacing-8);
 }
 
-@media (min-width: var(--md-sys-breakpoint-desktop)) {
+@media (min-width: 1024px) {
   .class-dashboard-main-grid {
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -874,7 +874,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   gap: var(--md-sys-spacing-6);
 }
 
-@media (min-width: var(--md-sys-breakpoint-tablet)) {
+@media (min-width: 768px) {
   .uda-editor-grid {
     grid-template-columns: 2fr 1fr 1fr;
   }
@@ -1013,7 +1013,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   padding: var(--md-sys-spacing-8);
 }
 
-@media (min-width: var(--breakpoint-sm)) {
+@media (min-width: 480px) {
   .uda-picker-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1135,7 +1135,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   padding-right: var(--md-sys-spacing-4);
 }
 
-@media (min-width: var(--md-sys-breakpoint-tablet)) {
+@media (min-width: 768px) {
   .uda-planner-header {
     flex-direction: row;
     justify-content: space-between;
@@ -1152,7 +1152,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   align-self: flex-start;
 }
 
-@media (min-width: var(--md-sys-breakpoint-tablet)) {
+@media (min-width: 768px) {
   .uda-planner-title-section {
     align-self: auto;
   }
@@ -1196,7 +1196,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   padding-right: var(--md-sys-spacing-4);
 }
 
-@media (min-width: var(--md-sys-breakpoint-tablet)) {
+@media (min-width: 768px) {
   .uda-planner-guidance {
     padding-left: 0;
     padding-right: 0;

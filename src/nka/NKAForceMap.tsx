@@ -14,8 +14,6 @@ interface NKAForceMapProps {
   height?: number;
 }
 
-
-
 export function separatePositions<T extends { x: number; y: number }>(positions: T[], minDistance: number): T[] {
   // Simple iterative repulsion to resolve small overlaps
   const pts = positions.map(p => ({ ...p }));
@@ -146,5 +144,4 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
 };
 
 export default NKAForceMap;
-
 

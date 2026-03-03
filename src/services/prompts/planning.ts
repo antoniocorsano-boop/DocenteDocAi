@@ -181,4 +181,3 @@ CONTESTO: ${ctx}
 Suggerisci 3-4 metodologie attive (es. Flipped Classroom, Debate, Cooperative Learning) e strumenti digitali appropriati per il contesto fornito.
 `;
 
-

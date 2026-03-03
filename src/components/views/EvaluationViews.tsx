@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 /**
  * EvaluationViews.tsx
  * Raggruppa viste relative a valutazioni, competenze e registro
@@ -96,11 +96,4 @@ export const EvaluationViewsRenderer: React.FC<{
             return null;
     }
 };
-
-
-
-
-
-
-
 

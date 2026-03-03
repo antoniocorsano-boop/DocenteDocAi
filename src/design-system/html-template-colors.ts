@@ -53,7 +53,8 @@ export function getStyledHeader(title: string): string {
  * @returns HTML string with styled footer
  */
 export function getStyledFooter(text: string): string {
-  return `<p style="text-align: center; font-size: 10px; color: ${HTML_TEMPLATE_COLORS.text.footer};">${text}</p>`;
+  // Font size matches --md-sys-typescale-footnote-size token (10px)
+  return `<p style="text-align: center; font-size: var(--md-sys-typescale-footnote-size, 10px); color: ${HTML_TEMPLATE_COLORS.text.footer};">${text}</p>`;
 }
 
 /**
@@ -64,5 +65,4 @@ export function getStyledFooter(text: string): string {
 export function getStyledSectionHeader(title: string): string {
   return `<div style="background-color: ${HTML_TEMPLATE_COLORS.structure.headerBg}; padding: 15px; border-radius: var(--md-sys-shape-corner-small);"><h2>${title}</h2></div>`;
 }
-
 

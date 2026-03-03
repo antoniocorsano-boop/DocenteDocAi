@@ -61,21 +61,20 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
             defaultOpen={false}
         >
             {/* SEZIONE 1: MODELLO AI */}
-            <div style={{marginBottom: 'var(--app-spacing-container)',
-                padding: 'var(--app-spacing-container)',
-                backgroundColor: 'var(--app-color-surface-container)',
+            <div style={{marginBottom: 'var(--md-sys-spacing-4)',
+                padding: 'var(--md-sys-spacing-4)',
+                backgroundColor: 'var(--md-sys-color-surface-container)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'}}>
+                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
                 <div style={{display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--app-spacing-container)',
-                    marginBottom: 'var(--app-spacing-container)'}}>
-                    <span style={{fontFamily: 'Material Symbols Outlined',
-                        fontSize: 'var(--app-text-body)',
-                        color: 'var(--app-color-secondary)'}}>smart_toy</span>
+                    gap: 'var(--md-sys-spacing-4)',
+                    marginBottom: 'var(--md-sys-spacing-4)'}}>
+                    <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                        color: 'var(--md-sys-color-secondary)'}}>smart_toy</span>
                     <M3Typography
                         variant="label-small"
-                        style={{color: 'var(--app-color-secondary)',
+                        style={{color: 'var(--md-sys-color-secondary)',
                             fontWeight: 900,
                             letterSpacing: '0.1em',
                             textTransform: 'uppercase'}}
@@ -97,27 +96,26 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                 <div style={{
                     display: 'flex',
                     alignItems: 'flex-start',
-                    gap: 'var(--app-spacing-element)',
-                    padding: 'var(--app-spacing-section)',
+                    gap: 'var(--md-sys-spacing-3)',
+                    padding: 'var(--md-sys-spacing-6)',
                     backgroundColor: currentAiProfile === 'esperto'
-                        ? 'var(--app-color-secondary-container)'
+                        ? 'var(--md-sys-color-secondary-container)'
                         : 'var(--md-sys-color-primaryContainer)',
                     borderRadius: 'var(--md-sys-shape-corner-medium)',
-                    border: `var(--app-border-thin) solid ${currentAiProfile === 'esperto'
-                        ? 'var(--app-color-secondary)'
-                        : 'var(--app-color-primary)'}`
+                    border: `var(--md-sys-border-width-thin) solid ${currentAiProfile === 'esperto'
+                        ? 'var(--md-sys-color-secondary)'
+                        : 'var(--md-sys-color-primary)'}`
                 }}>
-                    <span style={{fontFamily: 'Material Symbols Outlined',
-                        fontSize: 'var(--app-text-body)',
+                    <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                         color: currentAiProfile === 'esperto'
-                            ? 'var(--app-color-on-secondary-container)'
-                            : 'var(--app-color-on-primary-container)',
-                        marginTop: 'var(--app-spacing-container)'}}>info</span>
+                            ? 'var(--md-sys-color-on-secondary-container)'
+                            : 'var(--md-sys-color-on-primary-container)',
+                        marginTop: 'var(--md-sys-spacing-4)'}}>info</span>
                     <M3Typography
                         variant="body-medium"
                         style={{color: currentAiProfile === 'esperto'
-                                ? 'var(--app-color-on-secondary-container)'
-                                : 'var(--app-color-on-primary-container)',
+                                ? 'var(--md-sys-color-on-secondary-container)'
+                                : 'var(--md-sys-color-on-primary-container)',
                             lineHeight: 1.5,
                             margin: 0}}
                     >
@@ -128,25 +126,24 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
 
             <div style={{display: 'flex',
                 flexDirection: 'column',
-                gap: 'var(--app-spacing-container)'}}>
+                gap: 'var(--md-sys-spacing-4)'}}>
                 {/* SEZIONE 2: ANNO SCOLASTICO */}
-                <div style={{padding: 'var(--app-spacing-container)',
-                    backgroundColor: 'var(--app-color-surface-container)',
+                <div style={{padding: 'var(--md-sys-spacing-4)',
+                    backgroundColor: 'var(--md-sys-color-surface-container)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                    border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'}}>
+                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
                     <div style={{display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        marginBottom: 'var(--app-spacing-container)'}}>
+                        marginBottom: 'var(--md-sys-spacing-4)'}}>
                         <div style={{display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--app-spacing-container)'}}>
-                            <span style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-body)',
-                                color: 'var(--app-color-primary)'}}>calendar_month</span>
+                            gap: 'var(--md-sys-spacing-4)'}}>
+                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                color: 'var(--md-sys-color-primary)'}}>calendar_month</span>
                             <M3Typography
                                 variant="label-large"
-                                style={{color: 'var(--app-color-on-surface)',
+                                style={{color: 'var(--md-sys-color-on-surface)',
                                     fontWeight: 900,
                                     letterSpacing: '0.025em',
                                     textTransform: 'uppercase'}}
@@ -158,16 +155,15 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             onClick={onAddNextYear}
                             variant="tonal"
                         >
-                            <span style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-body)',
-                                marginRight: 'var(--app-spacing-container)'}}>add_circle</span>
+                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                marginRight: 'var(--md-sys-spacing-4)'}}>add_circle</span>
                             Aggiungi
                         </M3Button>
                     </div>
 
                     <div style={{display: 'grid',
                         gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
-                        gap: 'var(--app-spacing-container)'}}>
+                        gap: 'var(--md-sys-spacing-4)'}}>
                         <SelectField
                             label="Anno Corrente"
                             value={localSettings.annoScolasticoCorrente}
@@ -192,23 +188,22 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                 </div>
 
                 {/* SEZIONE 3: GESTIONE CATTEDRA */}
-                <div style={{padding: 'var(--app-spacing-container)',
-                    backgroundColor: 'var(--app-color-surface-container)',
+                <div style={{padding: 'var(--md-sys-spacing-4)',
+                    backgroundColor: 'var(--md-sys-color-surface-container)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                    border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'}}>
+                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
                     <div style={{display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        marginBottom: 'var(--app-spacing-container)'}}>
+                        marginBottom: 'var(--md-sys-spacing-4)'}}>
                         <div style={{display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--app-spacing-container)'}}>
-                            <span style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-body)',
-                                color: 'var(--app-color-secondary)'}}>school</span>
+                            gap: 'var(--md-sys-spacing-4)'}}>
+                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                color: 'var(--md-sys-color-secondary)'}}>school</span>
                             <M3Typography
                                 variant="label-large"
-                                style={{color: 'var(--app-color-on-surface)',
+                                style={{color: 'var(--md-sys-color-on-surface)',
                                     fontWeight: 900,
                                     letterSpacing: '0.025em',
                                     textTransform: 'uppercase'}}
@@ -229,21 +224,20 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                     </div>
 
                     {/* FORMAZIONE CLASSI STRUTTURATA */}
-                    <div style={{marginTop: 'var(--app-spacing-container)',
-                        padding: 'var(--app-spacing-container)',
-                        backgroundColor: 'var(--app-color-surface-container)',
+                    <div style={{marginTop: 'var(--md-sys-spacing-4)',
+                        padding: 'var(--md-sys-spacing-4)',
+                        backgroundColor: 'var(--md-sys-color-surface-container)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'}}>
+                        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
                         <div style={{display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--app-spacing-container)',
-                            marginBottom: 'var(--app-spacing-container)'}}>
-                            <span style={{fontFamily: 'Material Symbols Outlined',
-                                fontSize: 'var(--app-text-body)',
-                                color: 'var(--app-color-primary)'}}>account_tree</span>
+                            gap: 'var(--md-sys-spacing-4)',
+                            marginBottom: 'var(--md-sys-spacing-4)'}}>
+                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                color: 'var(--md-sys-color-primary)'}}>account_tree</span>
                             <M3Typography
                                 variant="label-small"
-                                style={{color: 'var(--app-color-primary)',
+                                style={{color: 'var(--md-sys-color-primary)',
                                     fontWeight: 900,
                                     letterSpacing: '0.1em',
                                     textTransform: 'uppercase'}}
@@ -254,8 +248,8 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
 
                         <div style={{display: 'grid',
                             gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
-                            gap: 'var(--app-spacing-container)',
-                            marginBottom: 'var(--app-spacing-container)'}}>
+                            gap: 'var(--md-sys-spacing-4)',
+                            marginBottom: 'var(--md-sys-spacing-4)'}}>
                             <SelectField
                                 label="Ordinamento Scolastico"
                                 value={selLevel}
@@ -272,21 +266,21 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
 
                         <div style={{display: 'grid',
                             gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
-                            gap: 'var(--app-spacing-container)',
-                            marginBottom: 'var(--app-spacing-container)'}}>
+                            gap: 'var(--md-sys-spacing-4)',
+                            marginBottom: 'var(--md-sys-spacing-4)'}}>
                             <div style={{display: 'flex',
                                 flexDirection: 'column',
-                                gap: 'var(--app-spacing-container)'}}>
+                                gap: 'var(--md-sys-spacing-4)'}}>
                                 <M3Typography
                                     variant="body-medium"
-                                    style={{color: 'var(--app-color-on-surface)',
+                                    style={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 500}}
                                 >
                                     Livelli / Anni
                                 </M3Typography>
                                 <div style={{display: 'flex',
                                     flexWrap: 'wrap',
-                                    gap: 'var(--app-spacing-container)'}}>
+                                    gap: 'var(--md-sys-spacing-4)'}}>
                                     {['1', '2', '3', '4', '5'].map(y => (
                                         <M3Button
                                             key={y}
@@ -294,7 +288,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                             size="small"
                                             onClick={() => setSelYears((prev: string[]) => prev.includes(y) ? prev.filter(i => i !== y) : [...prev, y])}
                                             style={{
-                                                minWidth: 'var(--app-spacing-container)'
+                                                minWidth: 'var(--md-sys-spacing-4)'
                                             }}
                                         >
                                             {y}° Anno
@@ -304,17 +298,17 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             </div>
                             <div style={{display: 'flex',
                                 flexDirection: 'column',
-                                gap: 'var(--app-spacing-container)'}}>
+                                gap: 'var(--md-sys-spacing-4)'}}>
                                 <M3Typography
                                     variant="body-medium"
-                                    style={{color: 'var(--app-color-on-surface)',
+                                    style={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 500}}
                                 >
                                     Sezioni
                                 </M3Typography>
                                 <div style={{display: 'flex',
                                     flexWrap: 'wrap',
-                                    gap: 'var(--app-spacing-container)'}}>
+                                    gap: 'var(--md-sys-spacing-4)'}}>
                                     {['A', 'B', 'C', 'D', 'E', 'F'].map(s => (
                                         <M3Button
                                             key={s}
@@ -322,7 +316,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                             size="small"
                                             onClick={() => setSelSections((prev: string[]) => prev.includes(s) ? prev.filter(i => i !== s) : [...prev, s])}
                                             style={{
-                                                minWidth: 'var(--app-spacing-container)'
+                                                minWidth: 'var(--md-sys-spacing-4)'
                                             }}
                                         >
                                             {s}
@@ -337,21 +331,20 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             variant="filled"
                             disabled={selYears.length === 0 || selSections.length === 0}
                         >
-                            <span style={{fontFamily: 'Material Symbols Outlined',
-                                marginRight: 'var(--app-spacing-container)',
-                                fontSize: 'var(--app-text-body)'}}>auto_awesome</span>
+                            <span className="material-symbols-outlined" style={{marginRight: 'var(--md-sys-spacing-4)',
+                                fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>auto_awesome</span>
                             Genera Combinazioni Classi
                         </M3Button>
                     </div>
 
                     {/* INPUT RAPIDI PER AGGIUNGERE MATERIE */}
-                    <div style={{marginTop: 'var(--app-spacing-container)',
-                        padding: 'var(--app-spacing-container)',
-                        backgroundColor: 'var(--app-color-surface-container)',
+                    <div style={{marginTop: 'var(--md-sys-spacing-4)',
+                        padding: 'var(--md-sys-spacing-4)',
+                        backgroundColor: 'var(--md-sys-color-surface-container)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'}}>
+                        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
                         <div style={{display: 'flex',
-                            gap: 'var(--app-spacing-container)',
+                            gap: 'var(--md-sys-spacing-4)',
                             alignItems: 'center'}}>
                             <div style={{
                                 flex: 1
@@ -362,7 +355,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                     value={newSubjectName}
                                     onChange={e => setNewSubjectName(e.target.value)}
                                     onKeyDown={e => e.key === 'Enter' && onAddSubject()}
-                                    style={{width: 'var(--app-layout-full)'}}
+                                    style={{width: 'var(--md-sys-percent-100)'}}
                                 />
                             </div>
                             <M3Button
@@ -370,42 +363,41 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                 variant="filled"
                             >
                                 <span style={{
-                                    fontFamily: 'Material Symbols Outlined',
-                                    fontSize: 'var(--app-text-body)'
+                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)'
                                 }}>add</span>
                             </M3Button>
                         </div>
                     </div>
 
                     {/* MATRICE INTERATTIVA */}
-                    <div style={{marginTop: 'var(--app-spacing-container)',
-                        padding: 'var(--app-spacing-container)',
-                        backgroundColor: 'var(--app-color-surface-container)',
+                    <div style={{marginTop: 'var(--md-sys-spacing-4)',
+                        padding: 'var(--md-sys-spacing-4)',
+                        backgroundColor: 'var(--md-sys-color-surface-container)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+                        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                         overflowX: 'auto'}}>
-                        <table style={{width: 'var(--app-layout-full)'}}>
+                        <table style={{width: 'var(--md-sys-percent-100)'}}>
                             <thead>
                                 <tr style={{backgroundColor: 'var(--md-sys-color-surface-container-high)'}}>
-                                    <th style={{padding: `var(--app-spacing-element) var(--app-spacing-container)`,
+                                    <th style={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                                         textAlign: 'left',
                                         fontWeight: 600,
-                                        color: 'var(--app-color-on-surface)',
-                                        borderBottom: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
-                                        fontSize: 'var(--app-text-body)'}}>Materia / Classe</th>
+                                        color: 'var(--md-sys-color-on-surface)',
+                                        borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>Materia / Classe</th>
                                     {localSettings.classi.map(cls => (
-                                        <th key={cls} style={{padding: `var(--app-spacing-element) var(--app-spacing-container)`,
+                                        <th key={cls} style={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                                             textAlign: 'center',
                                             fontWeight: 600,
-                                            color: 'var(--app-color-on-surface)',
-                                            borderBottom: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
-                                            borderLeft: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
-                                            fontSize: 'var(--app-text-body)',
+                                            color: 'var(--md-sys-color-on-surface)',
+                                            borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                                            borderLeft: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                             position: 'relative'}}>
                                             <div style={{display: 'flex',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
-                                                gap: 'var(--app-spacing-container)'}}>
+                                                gap: 'var(--md-sys-spacing-4)'}}>
                                                 <span>{cls}</span>
                                                 <button
                                                     onClick={() => onSettingChange('classi', localSettings.classi.filter(c => c !== cls))}
@@ -413,14 +405,14 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                                         border: 'none',
                                                         color: 'var(--md-sys-color-error)',
                                                         cursor: 'pointer',
-                                                        fontSize: 'var(--app-text-body)',
-                                                        padding: 'var(--app-spacing-container)',
+                                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                                        padding: 'var(--md-sys-spacing-4)',
                                                         borderRadius: 'var(--md-sys-shape-corner-small)',
                                                         display: 'flex',
                                                         alignItems: 'center',
                                                         justifyContent: 'center',
-                                                        width: 'var(--app-spacing-container)',
-                                                        height: 'var(--app-spacing-container)'}}
+                                                        width: 'var(--md-sys-spacing-4)',
+                                                        height: 'var(--md-sys-spacing-4)'}}
                                                 >
                                                     ×
                                                 </button>
@@ -431,20 +423,20 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             </thead>
                             <tbody>
                                 {localSettings.disciplines.map(subj => (
-                                    <tr key={subj} style={{borderBottom: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'}}>
-                                        <td style={{padding: `var(--app-spacing-element) var(--app-spacing-container)`,
+                                    <tr key={subj} style={{borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
+                                        <td style={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                                             backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                                            borderRight: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)'}}>
+                                            borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
                                             <div style={{display: 'flex',
                                                 alignItems: 'center',
                                                 justifyContent: 'space-between',
-                                                gap: 'var(--app-spacing-container)'}}>
+                                                gap: 'var(--md-sys-spacing-4)'}}>
                                                 <div style={{display: 'flex',
                                                     alignItems: 'center',
-                                                    gap: 'var(--app-spacing-container)',
+                                                    gap: 'var(--md-sys-spacing-4)',
                                                     flex: 1}}>
                                                     <span style={{fontWeight: 500,
-                                                        color: 'var(--app-color-on-surface)'}}>{subj}</span>
+                                                        color: 'var(--md-sys-color-on-surface)'}}>{subj}</span>
                                                     <M3Button
                                                         onClick={() => handleBulkAssign(subj)}
                                                         variant="outlined"
@@ -459,12 +451,11 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                                         border: 'none',
                                                         color: 'var(--md-sys-color-error)',
                                                         cursor: 'pointer',
-                                                        padding: 'var(--app-spacing-container)',
+                                                        padding: 'var(--md-sys-spacing-4)',
                                                         borderRadius: 'var(--md-sys-shape-corner-small)'}}
                                                 >
                                                     <span style={{
-                                                        fontFamily: 'Material Symbols Outlined',
-                                                        fontSize: 'var(--app-text-body)'
+                                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)'
                                                     }}>delete</span>
                                                 </button>
                                             </div>
@@ -472,9 +463,9 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                         {localSettings.classi.map(cls => {
                                             const assignment = localSettings.teachingAssignments.find(a => a.classId === cls && a.subjectId === subj);
                                             return (
-                                                <td key={`${subj}-${cls}`} style={{padding: 'var(--app-spacing-container)',
+                                                <td key={`${subj}-${cls}`} style={{padding: 'var(--md-sys-spacing-4)',
                                                     textAlign: 'center',
-                                                    borderLeft: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+                                                    borderLeft: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                                     cursor: 'pointer'}}>
                                                     <div
                                                         onClick={() => toggleAssociation(cls, subj)}
@@ -482,43 +473,41 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                                             display: 'flex',
                                                             alignItems: 'center',
                                                             justifyContent: 'center',
-                                                            padding: 'var(--app-spacing-element)',
+                                                            padding: 'var(--md-sys-spacing-3)',
                                                             borderRadius: 'var(--md-sys-shape-corner-medium)',
                                                             backgroundColor: assignment ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surfaceContainer)',
-                                                            border: `var(--app-border-thin) solid ${assignment ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
-                                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)',
-                                                            minHeight: 'var(--app-spacing-container)'
+                                                            border: `var(--md-sys-border-width-thin) solid ${assignment ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                                            minHeight: 'var(--md-sys-spacing-4)'
                                                         }}
                                                     >
                                                         {assignment ? (
                                                             <>
-                                                                <span style={{fontFamily: 'Material Symbols Outlined',
-                                                                    color: 'var(--app-color-primary)',
-                                                                    fontSize: 'var(--app-text-body)',
-                                                                    marginRight: 'var(--app-spacing-container)'}}>check_circle</span>
+                                                                <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-primary)',
+                                                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                                                    marginRight: 'var(--md-sys-spacing-4)'}}>check_circle</span>
                                                                 <div style={{display: 'flex',
                                                                     alignItems: 'center',
-                                                                    gap: 'var(--app-spacing-container)'}} onClick={e => e.stopPropagation()}>
+                                                                    gap: 'var(--md-sys-spacing-4)'}} onClick={e => e.stopPropagation()}>
                                                                     <input
                                                                         type="number"
                                                                         value={assignment.hoursPerWeek}
                                                                         onChange={e => updateAssignmentHours(assignment.classId, subj, parseInt(e.target.value) || 1)}
-                                                                        style={{width: 'var(--app-spacing-container)',
+                                                                        style={{width: 'var(--md-sys-spacing-4)',
                                                                             padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-1)',
-                                                                            border: 'var(--app-border-thin) solid var(--md-sys-color-outline)',
+                                                                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                                                             borderRadius: 'var(--md-sys-shape-corner-small)',
-                                                                            backgroundColor: 'var(--app-color-surface)',
-                                                                            color: 'var(--app-color-on-surface)',
-                                                                            fontSize: 'var(--app-text-body)',
+                                                                            backgroundColor: 'var(--md-sys-color-surface)',
+                                                                            color: 'var(--md-sys-color-on-surface)',
+                                                                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                                             textAlign: 'center'}} />
-                                                                    <span style={{fontSize: 'var(--app-text-body)',
+                                                                    <span style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                                         color: 'var(--md-sys-color-on-surface-variant)'}}>h</span>
                                                                 </div>
                                                             </>
                                                         ) : (
-                                                            <span style={{fontFamily: 'Material Symbols Outlined',
-                                                                color: 'var(--md-sys-color-outline-variant)',
-                                                                fontSize: 'var(--app-text-body)'}}>add</span>
+                                                            <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-outline-variant)',
+                                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>add</span>
                                                         )}
                                                     </div>
                                                 </td>
@@ -528,7 +517,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                 ))}
                                 {localSettings.disciplines.length === 0 && (
                                     <tr>
-                                        <td colSpan={localSettings.classi.length + 1} style={{padding: 'var(--app-spacing-container)',
+                                        <td colSpan={localSettings.classi.length + 1} style={{padding: 'var(--md-sys-spacing-4)',
                                             textAlign: 'center',
                                             color: 'var(--md-sys-color-on-surface-variant)',
                                             fontStyle: 'italic'}}>

@@ -21,4 +21,3 @@ export function getAINeuralLayout(nodes: readonly NKANode[], width: number, heig
   }));
 }
 
-

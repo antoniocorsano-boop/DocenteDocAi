@@ -1,7 +1,5 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
-// ...existing code...
-// ...existing code...
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { useUIStore } from '../stores/useUIStore';
 
@@ -95,12 +93,4 @@ const ErrorFallback: React.FC<{ error?: Error }> = ({ error }) => {
 
 export { ErrorBoundary };
 export default ErrorBoundary;
-
-
-
-
-
-
-
-
 

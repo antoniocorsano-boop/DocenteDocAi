@@ -1,7 +1,4 @@
-// LEGACY - MD3 Non-compliant
-// @legacy
-// @md3-noncompliant
-// @do-not-extend
+// MD3 Compliant
 
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
@@ -101,11 +98,4 @@ export const Compact: Story = {
     ),
   },
 };
-
-
-
-
-
-
-
 

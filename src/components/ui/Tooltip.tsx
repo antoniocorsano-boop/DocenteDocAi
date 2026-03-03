@@ -39,25 +39,25 @@ export const Tooltip: React.FC<TooltipProps> = ({
     top: {
       bottom: '100%',
       left: '50%',
-      transform: 'translateX(-50%) translateY(-8px)',
+      transform: 'translateX(-50%) translateY(calc(-1 * var(--md-sys-spacing-2)))',
       marginBottom: 'var(--md-sys-spacing-2)'
     },
     bottom: {
       top: '100%',
       left: '50%',
-      transform: 'translateX(-50%) translateY(8px)',
+      transform: 'translateX(-50%) translateY(var(--md-sys-spacing-2))',
       marginTop: 'var(--md-sys-spacing-2)'
     },
     left: {
       right: '100%',
       top: '50%',
-      transform: 'translateY(-50%) translateX(-8px)',
+      transform: 'translateY(-50%) translateX(calc(-1 * var(--md-sys-spacing-2)))',
       marginRight: 'var(--md-sys-spacing-2)'
     },
     right: {
       left: '100%',
       top: '50%',
-      transform: 'translateY(-50%) translateX(8px)',
+      transform: 'translateY(-50%) translateX(var(--md-sys-spacing-2))',
       marginLeft: 'var(--md-sys-spacing-2)'
     }
   };
@@ -100,7 +100,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
             background: 'var(--md-sys-color-inverse-surface)',
             color: 'var(--md-sys-color-inverse-on-surface)',
             borderRadius: 'var(--md-sys-spacing-1)',
-            boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+            boxShadow: 'var(--md-sys-elevation-level2)',
             maxWidth: 'var(--md-sys-spacing-16)',
             whiteSpace: 'normal',
             fontSize: 'var(--md-sys-typescale-body-small-size)',
@@ -121,31 +121,31 @@ export const Tooltip: React.FC<TooltipProps> = ({
               height: 0,
               borderStyle: 'solid',
               ...(position === 'top' && {
-                bottom: '-6px',
+                bottom: 'calc(-1 * var(--md-sys-tooltip-arrow-size))',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                borderWidth: '6px 6px 0 6px',
+                borderWidth: 'var(--md-sys-tooltip-arrow-size) var(--md-sys-tooltip-arrow-size) 0 var(--md-sys-tooltip-arrow-size)',
                 borderColor: 'var(--md-sys-color-inverse-surface) transparent transparent transparent'
               }),
               ...(position === 'bottom' && {
-                top: '-6px',
+                top: 'calc(-1 * var(--md-sys-tooltip-arrow-size))',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                borderWidth: '0 6px 6px 6px',
+                borderWidth: '0 var(--md-sys-tooltip-arrow-size) var(--md-sys-tooltip-arrow-size) var(--md-sys-tooltip-arrow-size)',
                 borderColor: 'transparent transparent var(--md-sys-color-inverse-surface) transparent'
               }),
               ...(position === 'left' && {
-                right: '-6px',
+                right: 'calc(-1 * var(--md-sys-tooltip-arrow-size))',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                borderWidth: '6px 0 6px 6px',
+                borderWidth: 'var(--md-sys-tooltip-arrow-size) 0 var(--md-sys-tooltip-arrow-size) var(--md-sys-tooltip-arrow-size)',
                 borderColor: 'transparent transparent transparent var(--md-sys-color-inverse-surface)'
               }),
               ...(position === 'right' && {
-                left: '-6px',
+                left: 'calc(-1 * var(--md-sys-tooltip-arrow-size))',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                borderWidth: '6px 6px 6px 0',
+                borderWidth: 'var(--md-sys-tooltip-arrow-size) var(--md-sys-tooltip-arrow-size) var(--md-sys-tooltip-arrow-size) 0',
                 borderColor: 'transparent var(--md-sys-color-inverse-surface) transparent transparent'
               })
             }}
@@ -157,17 +157,17 @@ export const Tooltip: React.FC<TooltipProps> = ({
         @keyframes tooltip-fade-in {
           from {
             opacity: 0;
-            transform: ${position === 'top' ? 'translateX(-50%) translateY(-4px)' :
-                         position === 'bottom' ? 'translateX(-50%) translateY(4px)' :
-                         position === 'left' ? 'translateY(-50%) translateX(-4px)' :
-                         'translateY(-50%) translateX(4px)'};
+            transform: ${position === 'top' ? 'translateX(-50%) translateY(calc(-1 * var(--md-sys-spacing-1)))' :
+                         position === 'bottom' ? 'translateX(-50%) translateY(var(--md-sys-spacing-1))' :
+                         position === 'left' ? 'translateY(-50%) translateX(calc(-1 * var(--md-sys-spacing-1)))' :
+                         'translateY(-50%) translateX(var(--md-sys-spacing-1))'};
           }
           to {
             opacity: 1;
-            transform: ${position === 'top' ? 'translateX(-50%) translateY(-8px)' :
-                         position === 'bottom' ? 'translateX(-50%) translateY(8px)' :
-                         position === 'left' ? 'translateY(-50%) translateX(-8px)' :
-                         'translateY(-50%) translateX(8px)'};
+            transform: ${position === 'top' ? 'translateX(-50%) translateY(calc(-1 * var(--md-sys-spacing-2)))' :
+                         position === 'bottom' ? 'translateX(-50%) translateY(var(--md-sys-spacing-2))' :
+                         position === 'left' ? 'translateY(-50%) translateX(calc(-1 * var(--md-sys-spacing-2)))' :
+                         'translateY(-50%) translateX(var(--md-sys-spacing-2))'};
           }
         }
       `}</style>

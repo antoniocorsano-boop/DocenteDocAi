@@ -115,7 +115,7 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
               backgroundColor: disabled 
                 ? 'var(--md-sys-color-surface-variant)' 
                 : 'var(--md-sys-color-surface-container)',
-              border: `2px solid ${
+              border: `var(--md-sys-border-width-medium) solid ${
                 hasError 
                   ? 'var(--md-sys-color-error)' 
                   : isFocused 

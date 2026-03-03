@@ -39,10 +39,10 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
   const renderSelection = () => (
             <div
                 style={{
-                    width: 'var(--app-layout-full)',
+                    width: 'var(--md-sys-percent-100)',
                     padding: 'var(--md-sys-spacing-8)',
                     border: 'var(--md-sys-spacing-0) solid var(--md-sys-color-outline)',
-                    backgroundColor: 'var(--app-color-surface)',
+                    backgroundColor: 'var(--md-sys-color-surface)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     display: 'flex',
                     flexDirection: 'column',
@@ -52,8 +52,8 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
             >
                     <div
                         style={{
-                            padding: 'var(--app-spacing-section)',
-                            border: 'var(--app-border-normal) solid var(--md-sys-color-outline)',
+                            padding: 'var(--md-sys-spacing-6)',
+                            border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                             borderRadius: 'var(--md-sys-shape-corner-medium)',
                             backgroundColor: 'var(--md-sys-color-surface-container-low)',
                         }}
@@ -69,8 +69,8 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                         style={{
                             display: 'grid',
                             gridTemplateColumns: 'var(--md-sys-grid-fr-1)',
-                            gap: 'var(--app-spacing-section)',
-                            width: 'var(--app-layout-full)',
+                            gap: 'var(--md-sys-spacing-6)',
+                            width: 'var(--md-sys-percent-100)',
                         }}
                     >
               <ActionTile 
@@ -79,7 +79,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 icon="auto_fix_high"
                 variant="primary"
                 onClick={() => setMode('wizard')}
- style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)' }}
+ style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
               />
               <ActionTile 
                 title="Accesso Rapido"
@@ -87,7 +87,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 icon="bolt"
                 variant="surface"
                 onClick={() => setMode('quick')}
- style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)' }}
+ style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
               />
           </div>
           
@@ -105,18 +105,18 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
         <form
             onSubmit={handleWizardSubmit}
             style={{
-                width: 'var(--app-layout-full)',
+                width: 'var(--md-sys-percent-100)',
                 padding: 'var(--md-sys-spacing-8)',
                 border: 'var(--md-sys-spacing-0) solid var(--md-sys-color-outline)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                backgroundColor: 'var(--app-color-surface)',
+                backgroundColor: 'var(--md-sys-color-surface)',
             }}
         >
-        <div style={{ width: 'var(--app-layout-full)' }}>
+        <div style={{ width: 'var(--md-sys-percent-100)' }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => { if(step > 1) setStep(s => s-1); else setMode('selection'); }} />
-                <M3Typography variant="label-large" style={{ color: 'var(--app-color-primary)', textTransform: 'uppercase' }}>Passo {step} di 3</M3Typography>
-                <div style={{ width: 'var(--app-spacing-container)' }}></div>
+                <M3Typography variant="label-large" style={{ color: 'var(--md-sys-color-primary)', textTransform: 'uppercase' }}>Passo {step} di 3</M3Typography>
+                <div style={{ width: 'var(--md-sys-spacing-4)' }}></div>
             </div>
             
             {step === 1 && (
@@ -148,9 +148,9 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                                         <M3Typography
                                             variant="body-small"
                                             style={{
-                                                marginTop: 'var(--app-spacing-container)',
-                                                paddingLeft: 'var(--app-spacing-container)',
-                                                paddingRight: 'var(--app-spacing-container)',
+                                                marginTop: 'var(--md-sys-spacing-4)',
+                                                paddingLeft: 'var(--md-sys-spacing-4)',
+                                                paddingRight: 'var(--md-sys-spacing-4)',
                                                 textTransform: 'uppercase',
                                                 letterSpacing: '0.1em',
                                             }}
@@ -175,29 +175,29 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
             )}
         </div>
 
-        <div style={{ width: 'var(--app-layout-full)' }}>
+        <div style={{ width: 'var(--md-sys-percent-100)' }}>
             {step < 3 ? (
                                 <M3Button
                                     type="button"
                                     variant="filled"
-                                    style={{ width: 'var(--app-layout-full)', textTransform: 'uppercase' }}
+                                    style={{ width: 'var(--md-sys-percent-100)', textTransform: 'uppercase' }}
                                     onClick={() => setStep(s => s + 1)}
                                     disabled={(step === 1 && !name) || (step === 3 && !className)}
                                     aria-label="Continua"
                                 >
                                     Continua
-                                    <span style={{ fontWeight: 900, fontSize: 'var(--app-text-label)', marginLeft: 'var(--app-spacing-element)' }}>arrow_forward</span>
+                                    <span style={{ fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>arrow_forward</span>
                                 </M3Button>
             ) : (
                                 <M3Button
                                     type="submit"
                                     variant="filled"
-                                    style={{ width: 'var(--app-layout-full)', textTransform: 'uppercase' }}
+                                    style={{ width: 'var(--md-sys-percent-100)', textTransform: 'uppercase' }}
                                     disabled={!className}
                                     aria-label="Inizia Ora"
                                 >
                                     Inizia Ora
-                                    <span style={{ fontWeight: 900, fontSize: 'var(--app-text-label)', marginLeft: 'var(--app-spacing-element)' }}>check</span>
+                                    <span style={{ fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>check</span>
                                 </M3Button>
             )}
         </div>
@@ -208,11 +208,11 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
             <form
                 onSubmit={handleQuickSubmit}
                 style={{
-                    width: 'var(--app-layout-full)',
+                    width: 'var(--md-sys-percent-100)',
                     padding: 'var(--md-sys-spacing-8)',
                     border: 'var(--md-sys-spacing-0) solid var(--md-sys-color-outline)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                    backgroundColor: 'var(--app-color-surface)',
+                    backgroundColor: 'var(--md-sys-color-surface)',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -223,7 +223,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
           
                     <div
                         style={{
-                            padding: 'var(--app-spacing-section)',
+                            padding: 'var(--md-sys-spacing-6)',
                             border: 'var(--md-sys-spacing-0) solid var(--md-sys-color-outline)',
                             borderRadius: 'var(--md-sys-shape-corner-medium)',
                             backgroundColor: 'var(--md-sys-color-surface-container-low)',
@@ -235,7 +235,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
           <M3Typography variant="headline-large" style={{marginBottom: 'var(--md-sys-spacing-8)'}}>Accesso Rapido</M3Typography>
           <M3Typography variant="body-large" style={{textTransform: "uppercase"}}>Configurazione manuale</M3Typography>
           
-          <div style={{ width: "var(--app-layout-full)" }}>
+          <div style={{ width: "var(--md-sys-percent-100)" }}>
             <TextField 
                 id="quick-name"
                 label="Nome Docente"
@@ -251,11 +251,11 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                         <M3Button
                             type="submit"
                             variant="filled"
-                            style={{ width: 'var(--app-layout-full)', textTransform: 'uppercase' }}
+                            style={{ width: 'var(--md-sys-percent-100)', textTransform: 'uppercase' }}
                             aria-label="Entra nella Dashboard"
                         >
                             Entra nella Dashboard
-                            <span style={{ fontWeight: 900, fontSize: 'var(--app-text-label)', marginLeft: 'var(--app-spacing-element)' }}>login</span>
+                            <span style={{ fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>login</span>
                         </M3Button>
       </form>
   );
@@ -266,7 +266,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: 'var(--app-color-surface)',
+                backgroundColor: 'var(--md-sys-color-surface)',
                 position: 'fixed',
                 top: 0,
                 right: 0,
@@ -284,10 +284,10 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                         left: 'calc(var(--md-sys-percent-10) * -1)',
                         width: 'var(--md-sys-percent-40)',
                         height: 'var(--md-sys-percent-40)',
-                        background: 'var(--app-color-primary)',
+                        background: 'var(--md-sys-color-primary)',
                         opacity: 0.1,
                         filter: 'blur(var(--md-sys-blur-120))',
-                        animation: 'pulse var(--app-motion-slow) infinite',
+                        animation: 'pulse var(--md-sys-motion-duration-long) infinite',
                     }}
                 ></div>
                 <div
@@ -298,18 +298,18 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                         right: 'calc(var(--md-sys-percent-10) * -1)',
                         width: 'var(--md-sys-percent-40)',
                         height: 'var(--md-sys-percent-40)',
-                        background: 'var(--app-color-secondary)',
+                        background: 'var(--md-sys-color-secondary)',
                         opacity: 0.1,
                         filter: 'blur(var(--md-sys-blur-120))',
-                        animation: 'pulse var(--app-motion-slow) infinite',
+                        animation: 'pulse var(--md-sys-motion-duration-long) infinite',
                     }}
                 ></div>
                 <div
                     style={{
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         position: 'absolute',
-                        top: 'var(--app-layout-half)',
-                        left: 'var(--app-layout-half)',
+                        top: 'var(50%)',
+                        left: 'var(50%)',
                         transform: 'translate(-50%, -50%)',
                         width: 'var(--md-sys-percent-60)',
                         height: 'var(--md-sys-percent-60)',
@@ -327,11 +327,4 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
 };
 
 export default WelcomeScreen;
-
-
-
-
-
-
-
 

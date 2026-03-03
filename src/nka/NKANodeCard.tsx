@@ -70,4 +70,3 @@ function NKANodeCard({ node, onSelect }: NKANodeCardProps): React.JSX.Element {
 
 export default NKANodeCard;
 
-

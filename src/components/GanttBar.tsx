@@ -51,10 +51,3 @@ const GanttBar: React.FC<GanttBarProps> = ({ uda, onClick }) => {
 
 export default GanttBar;
 
-
-
-
-
-
-
-

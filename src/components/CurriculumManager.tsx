@@ -1,6 +1,5 @@
 // MD3 Compliant - Block M Migration (9 violations eliminated)
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations. ✅ COMPLETED
-// ...existing code...
 import React, { useState } from 'react';
 import { CurriculumSubject, CurriculumNucleo, AiSettings, TimetableSettings, View } from '../types';
 import { parseCurriculumFromText } from '../services/aiService';
@@ -129,7 +128,6 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                 title="Elimina Nucleo"
                             >
                                 <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>delete</span>
                             </M3Button>
                         </div>
@@ -137,11 +135,11 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                             {nucleo.objectives.map((obj, oIdx) => (
                                 <div key={obj.id} >
                                     <span style={{
-                                        width: 'var(--app-spacing-component)',
-                                        height: 'var(--app-spacing-component)',
-                                        borderRadius: 'var(--app-layout-half)',
+                                        width: 'var(--md-sys-spacing-2)',
+                                        height: 'var(--md-sys-spacing-2)',
+                                        borderRadius: 'var(50%)',
                                         flexShrink: 0,
-                                        background: obj.type === 'skill' ? 'var(--md-sys-color-tertiary)' : 'var(--app-color-secondary)'
+                                        background: obj.type === 'skill' ? 'var(--md-sys-color-tertiary)' : 'var(--md-sys-color-secondary)'
                                     }}></span>
                                     <input 
                                         
@@ -175,7 +173,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                 variant="tonal"
                                 
                             >
-                                <span  style={{ marginRight: "var(--app-spacing-component)" }}>add</span> Aggiungi Obiettivo
+                                <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span> Aggiungi Obiettivo
                             </M3Button>
                         </div>
                     </InfoCard>
@@ -188,7 +186,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                     variant="outlined"
                     
                 >
-                    <span  style={{ marginRight: "var(--app-spacing-component)" }}>add_circle</span> Nuovo Nucleo Fondante
+                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_circle</span> Nuovo Nucleo Fondante
                 </M3Button>
             </div>
         );
@@ -201,7 +199,6 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                     <div >
                         <M3Button onClick={() => onNavigate('home')} variant="text" >
                             <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>arrow_back</span>
                         </M3Button>
                         <h1 >Curricoli</h1>
@@ -224,12 +221,12 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     padding: 'var(--md-sys-spacing-8)',
                                     borderRadius: 'var(--md-sys-shape-corner-medium)',
                                     cursor: 'pointer',
-                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)',
+                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                     display: 'flex',
                                     justifyContent: 'space-between',
                                     alignItems: 'center',
-                                    background: selectedCurriculumId === curr.id ? 'var(--app-color-primary)' : 'transparent',
-                                    color: selectedCurriculumId === curr.id ? 'var(--app-color-on-primary)' : 'inherit',
+                                    background: selectedCurriculumId === curr.id ? 'var(--md-sys-color-primary)' : 'transparent',
+                                    color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'inherit',
                                     boxShadow: selectedCurriculumId === curr.id ? 'var(--md-sys-elevation-level3)' : 'none',
                                     transform: selectedCurriculumId === curr.id ? 'scale(1.02)' : 'scale(1)'
                                 }}
@@ -254,7 +251,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     style={{
                                         minWidth: 0,
                                         padding: 'var(--md-sys-spacing-1)',
-                                        color: selectedCurriculumId === curr.id ? 'var(--app-color-on-primary)' : 'var(--md-sys-color-error)',
+                                        color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-error)',
                                         opacity: selectedCurriculumId === curr.id ? 1 : 0
                                     }}
                                     onMouseEnter={(e) => {
@@ -270,7 +267,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                         }
                                     }}
                                 >
-                                    <span  style={{ fontSize: "var(--app-text-label)" }}>delete</span>
+                                    <span  style={{ fontSize: "var(--md-sys-typescale-label-large-font-size)" }}>delete</span>
                                 </M3Button>
                             </div>
                         ))}
@@ -298,7 +295,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                      />
                                     {activeTab === 'editor' && (
                                         <M3Button onClick={() => setIsImporting(true)} variant="tonal" >
-                                            <span  style={{ marginRight: "var(--app-spacing-component)" }}>auto_awesome</span> AI Import
+                                            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>auto_awesome</span> AI Import
                                         </M3Button>
                                     )}
                                 </div>
@@ -350,11 +347,4 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
 };
 
 export default CurriculumManager;
-
-
-
-
-
-
-
 

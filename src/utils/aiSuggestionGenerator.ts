@@ -114,4 +114,3 @@ const getFallbackSuggestions = (appState: AppState): AiSuggestion[] => {
     return suggestions.slice(0, 3); // Max 3 fallback suggestions
 };
 
-

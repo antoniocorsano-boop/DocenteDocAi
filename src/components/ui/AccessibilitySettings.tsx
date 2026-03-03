@@ -64,7 +64,7 @@ export const AccessibilitySettings: React.FC = () => {
             <span
               className="material-symbols-outlined"
               style={{
-                fontSize: '20px',
+                fontSize: 'var(--md-sys-typescale-title-small-font-size)',
                 color: 'var(--md-sys-color-primary)',
                 fontVariationSettings: '"FILL" 1, "wght" 600'
               }}
@@ -124,7 +124,7 @@ export const AccessibilitySettings: React.FC = () => {
                 ? 'var(--md-sys-color-on-primary)'
                 : 'var(--md-sys-color-on-surface-variant)',
               transition: 'left 200ms var(--md-sys-motion-easing-standard)',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+              boxShadow: 'var(--md-sys-elevation-level2)'
             }}
           />
         </button>
@@ -153,7 +153,7 @@ export const AccessibilitySettings: React.FC = () => {
             <span
               className="material-symbols-outlined"
               style={{
-                fontSize: '20px',
+                fontSize: 'var(--md-sys-typescale-title-small-font-size)',
                 color: 'var(--md-sys-color-primary)',
                 fontVariationSettings: '"FILL" 1, "wght" 600'
               }}
@@ -213,7 +213,7 @@ export const AccessibilitySettings: React.FC = () => {
                 ? 'var(--md-sys-color-on-primary)'
                 : 'var(--md-sys-color-on-surface-variant)',
               transition: 'left 200ms var(--md-sys-motion-easing-standard)',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+              boxShadow: 'var(--md-sys-elevation-level2)'
             }}
           />
         </button>
@@ -225,7 +225,7 @@ export const AccessibilitySettings: React.FC = () => {
           padding: 'var(--md-sys-spacing-3)',
           borderRadius: 'var(--md-sys-spacing-2)',
           backgroundColor: 'var(--md-sys-color-primary-container)',
-          border: '1px solid var(--md-sys-color-primary)'
+          border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-primary)'
         }}
       >
         <div
@@ -238,7 +238,7 @@ export const AccessibilitySettings: React.FC = () => {
           <span
             className="material-symbols-outlined"
             style={{
-              fontSize: '18px',
+              fontSize: 'var(--md-sys-typescale-body-large-font-size)',
               color: 'var(--md-sys-color-on-primary-container)',
               fontVariationSettings: '"FILL" 1, "wght" 600',
               flexShrink: 0

@@ -1,5 +1,5 @@
 import { renderWithM3Theme } from '../test-utils';
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, within, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -25,7 +25,7 @@ vi.mock('./ui', async () => {
       </button>
     ),
     M3ExpressiveCard: ({ title, description, children }: any) => (
-      <div>
+      <div data-testid="m3-expressive-card">
         <div>{title}</div>
         <div>{description}</div>
         {children}
@@ -116,6 +116,14 @@ vi.mock('./ui', async () => {
       >
         {children}
       </aside>
+    ),
+    M3Chip: ({ children, label, onClick, ...props }: any) => (
+      <button data-testid="m3-chip" onClick={onClick} {...props}>
+        {label || children}
+      </button>
+    ),
+    M3StateLayer: ({ children, ...props }: any) => (
+      <div data-testid="m3-state-layer" {...props}>{children}</div>
     ),
   };
 });
@@ -534,7 +542,7 @@ describe('Home Component', () => {
       );
 
       // Check for M3 components that use corner radius tokens
-      const m3Cards = container.querySelectorAll('[data-testid="m3-card"], [data-testid="m3-expressive-card"], [data-testid="m3-hero-card"]');
+      const m3Cards = container.querySelectorAll('[data-testid="m3-card"], [data-testid="m3-expressive-card"], [data-testid="m3-hero-card"], [data-testid="m3-state-layer"], [data-testid="m3-chip"]');
       expect(m3Cards.length).toBeGreaterThan(0);
     });
 
@@ -637,11 +645,4 @@ describe('Home Component', () => {
     });
   });
 });
-
-
-
-
-
-
-
 

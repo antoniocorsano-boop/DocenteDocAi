@@ -1,10 +1,6 @@
-// LEGACY - MD3 Non-compliant
-// @legacy
-// @md3-noncompliant
-// @do-not-extend
+// MD3 Compliant — Quiz Skeleton
 
 import React from 'react';
-import { useTheme } from '../../theme/theme';
 
 interface QuizSkeletonProps {
     questions?: number;
@@ -13,31 +9,31 @@ interface QuizSkeletonProps {
 const QuizSkeleton: React.FC<QuizSkeletonProps> = ({
     questions = 5
 }) => {
-    const { layers: { ref: { spacing } } } = useTheme();
-
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: spacing[4] }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             {Array.from({ length: questions }).map((_, i) => (
-                <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: spacing[2] }}>
+                <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
                     {/* Question skeleton */}
                     <div
-                        style={{height: layers.ref.spacing['8'],
-                            backgroundColor: ' layers.sys.color.surfaceContainerHigh',
-                            borderRadius: 'layers.ref.shape.corner.small',
-                            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--app-easing-standard) infinite`,
-                            width: 'var(--md-sys-percent-85)'}}
+                        style={{
+                            height: 'var(--md-sys-spacing-8)',
+                            backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                            borderRadius: 'var(--md-sys-shape-corner-small)',
+                            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`,
+                            width: 'var(--md-sys-percent-85)'
+                        }}
                     />
 
                     {/* Answer options skeleton */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: spacing[1], marginLeft: spacing[4] }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)', marginLeft: 'var(--md-sys-spacing-4)' }}>
                         {Array.from({ length: 4 }).map((_, j) => (
                             <div
                                 key={j}
                                 style={{
-                                    height: layers.ref.spacing['4'],
-                                    backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)',
+                                    height: 'var(--md-sys-spacing-4)',
+                                    backgroundColor: 'var(--md-sys-color-surface-container-high)',
                                     borderRadius: 'var(--md-sys-shape-corner-small)',
-                                    animation: `pulse var(--md-sys-motion-duration-extra-long) var(--app-easing-standard) infinite`,
+                                    animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`,
                                     width: 'var(--md-sys-percent-70)',
                                     animationDelay: `${(i * 4 + j) * 0.05}s`
                                 }}
@@ -51,11 +47,4 @@ const QuizSkeleton: React.FC<QuizSkeletonProps> = ({
 };
 
 export default QuizSkeleton;
-
-
-
-
-
-
-
 

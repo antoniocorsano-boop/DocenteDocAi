@@ -23,4 +23,3 @@ DESCRIZIONE: ${description}
 Genera una tabella HTML ben formattata.
 `;
 
-

@@ -1,11 +1,9 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 // MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // M3Expressive refactor: COMPLETED - Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
-// ...existing code...
-// ...existing code...
 import React, { useMemo, Suspense } from 'react';
 import { VIEW_CONFIGS, Home, ClassDashboard, ClassSelection, ClassroomView, StudentClassroomView } from './viewRegistry';
 import RegisterImportDialog from './RegisterImportDialog';
@@ -371,11 +369,11 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         ) : (
                                                         <div
                                                             style={{
-                                                                width: config.fullWidth ? 'var(--app-layout-full)' : 'var(--app-layout-full)',
+                                                                width: config.fullWidth ? 'var(--md-sys-percent-100)' : 'var(--md-sys-percent-100)',
                                                                 maxWidth: config.fullWidth ? 'none' : 'calc(var(--md-sys-spacing-20) * 22.4)', // MD3 spacing token equivalent
-                                                                margin: config.fullWidth ? undefined : '0 var(--app-layout-auto)',
-                                                                paddingLeft: config.fullWidth ? undefined : 'var(--app-spacing-container)',
-                                                                paddingRight: config.fullWidth ? undefined : 'var(--app-spacing-container)',
+                                                                margin: config.fullWidth ? undefined : '0 var(auto)',
+                                                                paddingLeft: config.fullWidth ? undefined : 'var(--md-sys-spacing-4)',
+                                                                paddingRight: config.fullWidth ? undefined : 'var(--md-sys-spacing-4)',
                                                             }}
                                                         >
                                                             <Component {...componentProps} />
@@ -386,9 +384,9 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                     // 404 Fallback
                     return (
                         <AuraView>
-                            <div style={{ padding: 'var(--app-spacing-container)', textAlign: "center", opacity: "0.5" }}>
+                            <div style={{ padding: 'var(--md-sys-spacing-4)', textAlign: "center", opacity: "0.5" }}>
                                 <h2 >Vista "{view}" non trovata</h2>
-                                <button onClick={() => actions.handleNavigate('home')}  style={{marginTop: 'var(--app-spacing-container)'}}>
+                                <button onClick={() => actions.handleNavigate('home')}  style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                                     Torna alla Home
                                 </button>
                             </div>
@@ -421,11 +419,4 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
 }
 
 export default ViewManager;
-
-
-
-
-
-
-
 

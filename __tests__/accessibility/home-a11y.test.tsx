@@ -101,6 +101,12 @@ vi.mock('../../src/components/ui', async () => {
         {children}
       </aside>
     ),
+    M3Chip: ({ children, label, onClick, ...props }: any) => (
+      <button data-testid="m3-chip" onClick={onClick} {...props}>{label || children}</button>
+    ),
+    M3StateLayer: ({ children, ...props }: any) => (
+      <div data-testid="m3-state-layer" {...props}>{children}</div>
+    ),
   };
 });
 

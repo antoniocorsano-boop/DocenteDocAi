@@ -1,10 +1,10 @@
 // MD3 Gold Compliant
-// Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
-// Audit: gennaio 2026
+// App Shell: height-constrained flex column for proper scroll containment
+// Audit: marzo 2026
 import React from 'react';
 import NavigationRail from './NavigationRail';
+import BottomNav from './BottomNav';
 import { Header } from './Header';
-import { M3Surface, M3FlexContainer, M3Aside } from './ui';
 import { View, UserProfile, TimetableSettings, Notifica, BeforeInstallPromptEvent, NavigationParams } from '../types';
 
 interface AppLayoutProps {
@@ -28,6 +28,15 @@ interface AppLayoutProps {
   onOpenNKA?: () => void;
 }
 
+const NAV_ITEMS = [
+  { id: 'home' as View,               label: 'Home',       icon: 'home',            activeIcon: 'home' },
+  { id: 'timetable' as View,          label: 'Orario',     icon: 'schedule',        activeIcon: 'watch_later' },
+  { id: 'progettazione-hub' as View,  label: 'Progetta',   icon: 'design_services', activeIcon: 'edit_document' },
+  { id: 'aula' as View,               label: 'Classi',     icon: 'groups',          activeIcon: 'groups' },
+  { id: 'orientamento' as View,       label: 'Orientamento', icon: 'explore',       activeIcon: 'explore' },
+  { id: 'calendario' as View,         label: 'Agenda',     icon: 'calendar_month',  activeIcon: 'event_note' },
+];
+
 export const AppLayout: React.FC<AppLayoutProps> = ({
   children,
   view,
@@ -48,13 +57,24 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   hasSuggestion,
   onOpenNKA
 }) => {
+  const [isDesktop, setIsDesktop] = React.useState(() => window.innerWidth >= 1024);
+
+  React.useEffect(() => {
+    const onResize = () => setIsDesktop(window.innerWidth >= 1024);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
   return (
-    <M3Surface style={{
+    // Outer shell: full viewport height, no overflow — contains everything
+    <div style={{
       display: 'flex',
       flexDirection: 'column',
-      minHeight: 'var(--md-sys-viewport-height-full)',
-      background: 'var(--app-color-surface)'
+      height: '100dvh',
+      overflow: 'hidden',
+      background: 'var(--md-sys-color-surface)',
     }}>
+      {/* Header: static in flow, never overlaps content */}
       <Header
         showBackButton={view !== 'home'}
         onBack={onBack}
@@ -74,40 +94,53 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         hasSuggestion={hasSuggestion}
         onOpenNKA={onOpenNKA}
       />
-      <M3FlexContainer
-        flex="var(--md-sys-flex-auto)"
-        minHeight="var(--md-sys-spacing-0)"
-        background="var(--app-color-surface)"
-      >
-        <M3Aside
-          flexBasis="var(--md-sys-spacing-20)"
-          background="var(--app-color-surface)"
-          borderRight="var(--app-border-thin) solid var(--md-sys-color-outline-variant)"
-          style={{ zIndex: 'var(--md-sys-z-nav)' }}
-        >
-          <NavigationRail
-            items={[
-              { id: 'home', label: 'Home', icon: 'home', activeIcon: 'home' },
-              { id: 'timetable', label: 'Orario', icon: 'schedule', activeIcon: 'watch_later' },
-              { id: 'progettazione-hub', label: 'Progetta', icon: 'design_services', activeIcon: 'edit_document' },
-              { id: 'aula', label: 'Classi', icon: 'groups', activeIcon: 'groups' },
-              { id: 'orientamento', label: 'Orientamento', icon: 'explore', activeIcon: 'explore' },
-              { id: 'calendario', label: 'Agenda', icon: 'calendar_month', activeIcon: 'event_note' },
-            ]}
-            activeView={view}
-            onNavigate={(v, c) => onNavigate(v, c as NavigationParams)}
-          />
-        </M3Aside>
-        <M3Surface style={{
-          flex: 'var(--md-sys-flex-auto)',
-          display: 'flex',
-          flexDirection: 'column',
-          boxSizing: 'border-box',
-          background: 'var(--app-color-surface-container)'
+
+      {/* Body row: nav sidebar + scrollable content */}
+      <div style={{
+        display: 'flex',
+        flex: 1,
+        overflow: 'hidden', // contain children
+        minHeight: 0,       // allow flex child to shrink below content size
+      }}>
+        {/* Navigation Rail: in-flow sidebar, hidden on mobile */}
+        {isDesktop && (
+          <aside
+            style={{
+              width: 'var(--md-sys-spacing-20)',
+              flexShrink: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              background: 'var(--md-sys-color-surface)',
+              borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+              overflowY: 'auto',
+              overflowX: 'hidden',
+            }}
+            aria-label="Navigazione laterale"
+          >
+            <NavigationRail
+              items={NAV_ITEMS}
+              activeView={view}
+              onNavigate={(v, c) => onNavigate(v, c as NavigationParams)}
+            />
+          </aside>
+        )}
+
+        {/* Main content: fills remaining width, scrolls independently */}
+        <main style={{
+          flex: 1,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          background: 'var(--md-sys-color-surface-container)',
+          // Bottom padding for mobile bottom nav (64px + safe area)
+          paddingBottom: isDesktop ? undefined : 'calc(var(--md-sys-spacing-16) + env(safe-area-inset-bottom, 0px))',
+          minWidth: 0, // allow flex child to shrink
         }}>
           {children}
-        </M3Surface>
-      </M3FlexContainer>
-    </M3Surface>
+        </main>
+      </div>
+
+      {/* BottomNav: position:fixed, auto-hidden on desktop via its own CSS */}
+      <BottomNav activeView={view} onNavigate={(v) => onNavigate(v)} />
+    </div>
   );
 };

@@ -24,7 +24,7 @@
  * 1. Calculate initial position based on anchor element and alignment props
  * 2. Check if popover fits within viewport boundaries (top, bottom, left, right)
  * 3. If overflow detected, automatically flip to opposite side (e.g., bottom ? top)
- * 4. Apply var(--app-spacing-component) minimum margin from viewport edges
+ * 4. Apply var(--md-sys-spacing-2) minimum margin from viewport edges
  * 5. Re-calculate on scroll, resize, or anchor element movement
  * 
  * Click-outside behavior:
@@ -323,7 +323,7 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
           zIndex,
           transformOrigin: position.transformOrigin,
           backgroundColor: 'var(--md-sys-color-surfaceContainer)',
-          border: 'var(--app-border-normal) solid var(--md-sys-color-outline-variant)',
+          border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
           borderRadius: 'var(--md-sys-shape-corner-large)',
           boxShadow: 'var(--md-sys-elevation-level2)',
           ...style,
@@ -352,19 +352,19 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
         {(title || subtitle) && (
           <div
             style={{
-              padding: 'var(--app-spacing-container)',
-              borderBottom: `var(--app-border-normal) solid var(--app-color-on-primary)`
+              padding: 'var(--md-sys-spacing-4)',
+              borderBottom: `var(--md-sys-border-width-normal) solid var(--md-sys-color-on-primary)`
             }}
           >
             {title && (
               <div
                 style={{
                   fontFamily: 'var(--md-sys-typescale-body-medium-font-family)',
-                  fontSize: 'var(--app-text-body)',
-                  fontWeight: 'var(--app-text-body-weight)',
-                  lineHeight: 'var(--app-spacing-section)',
+                  fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                  fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+                  lineHeight: 'var(--md-sys-spacing-6)',
                   margin: `0 0 var(--md-sys-spacing-1) 0`,
-                  color: 'var(--app-color-on-surface)'
+                  color: 'var(--md-sys-color-on-surface)'
                 }}
               >
                 {title}
@@ -374,9 +374,9 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
               <div
                 style={{
                   fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
-                  fontSize: 'var(--app-text-body)',
-                  fontWeight: 'var(--app-text-body-weight)',
-                  lineHeight: 'var(--app-spacing-container)',
+                  fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                  fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+                  lineHeight: 'var(--md-sys-spacing-4)',
                   margin: 0,
                   color: 'var(--md-sys-color-on-surface-variant)'
                 }}
@@ -389,10 +389,9 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
         
         {/* Content */}
         <div
-           
-          
-          style={{
-            padding: 'var(--app-spacing-container)',
+
+style={{
+            padding: 'var(--md-sys-spacing-4)',
             overflowY: 'auto',
             maxHeight: 'min(var(--md-sys-spacing-20), var(--md-sys-viewport-70))'
           }}
@@ -414,7 +413,7 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
         }
         
         .m3-popover__content::-webkit-scrollbar {
-          width: var(--app-spacing-component);
+          width: var(--md-sys-spacing-2);
         }
         
         .m3-popover__content::-webkit-scrollbar-track {
@@ -435,11 +434,4 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
 };
 
 export default M3Popover;
-
-
-
-
-
-
-
 

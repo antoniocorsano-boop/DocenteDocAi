@@ -181,7 +181,7 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
       />
 
       {/* Modal Content */}
-      <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  width: 'var(--app-layout-full)' }}>
+      <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  width: 'var(--md-sys-percent-100)' }}>
         {children}
       </div>
     </div>,
@@ -211,11 +211,4 @@ export const useModalController = (modalId: string): { openModal: (component: Re
 
   return { openModal, closeModal, isOpen };
 };
-
-
-
-
-
-
-
 

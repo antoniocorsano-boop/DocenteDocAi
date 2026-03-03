@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import TextField from './TextField';
 
@@ -179,13 +179,4 @@ export const URLInput: Story = {
     leadingIcon: 'link',
   },
 };
-
-
-
-
-
-
-
-
-
 

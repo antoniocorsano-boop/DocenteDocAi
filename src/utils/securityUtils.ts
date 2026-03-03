@@ -54,4 +54,3 @@ export const sanitizeHTML = (html: string): string => {
     return doc.body.innerHTML;
 };
 
-

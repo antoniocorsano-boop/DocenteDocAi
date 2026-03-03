@@ -1,5 +1,5 @@
 import { renderWithM3Theme } from '../ui/test-utils';
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React from 'react';
 import { render } from '@testing-library/react';
 import DonutChart from './DonutChart';
@@ -10,9 +10,4 @@ describe('DonutChart Story Snapshots', () => {
     expect(container).toMatchSnapshot();
   });
 });
-
-
-
-
-
 

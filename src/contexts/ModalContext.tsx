@@ -1,7 +1,3 @@
-// @legacy
-// @md3-noncompliant
-// @do-not-extend
-
 /**
  * Material Design 3 Expressive - Modal Management System
  * Architettura degli Overlay - Soluzione "Modal Hell"
@@ -391,5 +387,4 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
 // ============================================================================
 
 export { ModalContext, type ModalContextType, type ModalInstance, type PushModalOptions };
-
 

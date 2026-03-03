@@ -41,10 +41,10 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
       ref={itemRef}
       style={{
         // student-manager-item-card styles
-        backgroundColor: student.isArchived ? 'var(--md-sys-color-surface-container-low)' : 'var(--app-color-surface-container)',
+        backgroundColor: student.isArchived ? 'var(--md-sys-color-surface-container-low)' : 'var(--md-sys-color-surface-container)',
         borderRadius: 'var(--md-sys-shape-corner-medium)',
-        padding: 'var(--app-spacing-container)',
-        border: `var(--app-border-normal) solid ${student.isArchived ? 'var(--md-sys-color-outline-variant)' : 'var(--md-sys-color-outline)'}`
+        padding: 'var(--md-sys-spacing-4)',
+        border: `var(--md-sys-border-width-normal) solid ${student.isArchived ? 'var(--md-sys-color-outline-variant)' : 'var(--md-sys-color-outline)'}`
       }}
       aria-label={`Studente ${student.cognome} ${student.nome}, classe ${student.classe}${student.isArchived ? ', archiviato' : ''}`}
       tabIndex={isFocused ? 0 : -1}
@@ -79,7 +79,6 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
                   aria-label={`Ripristina ${student.cognome} ${student.nome} come studente attivo`}
               >
                   <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }} aria-hidden="true">restore_from_trash</span>
               </M3Button>
           ) : (
@@ -92,7 +91,6 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
                       aria-label={`Cambia classe per ${student.cognome} ${student.nome}`}
                   >
                       <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }} aria-hidden="true">transfer_within_a_station</span>
                   </M3Button>
                   <M3Button 
@@ -103,7 +101,6 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
                       aria-label={`Modifica dati per ${student.cognome} ${student.nome}`}
                   >
                       <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }} aria-hidden="true">edit</span>
                   </M3Button>
               </>
@@ -116,7 +113,6 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
               aria-label={`Elimina ${student.cognome} ${student.nome} dal sistema`}
           >
               <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }} aria-hidden="true">delete</span>
           </M3Button>
       </div>
@@ -246,7 +242,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                         variant={showArchived ? "tonal" : "text"}
                         style={{
                             // student-manager-archive-toggle styles
-                            marginLeft: 'var(--app-spacing-component)'
+                            marginLeft: 'var(--md-sys-spacing-2)'
                         }}
                         title={showArchived ? 'Nascondi studenti archiviati' : 'Mostra studenti archiviati'}
                         aria-label={showArchived ? 'Nascondi archivio studenti' : 'Mostra archivio studenti'}
@@ -317,11 +313,4 @@ const StudentManager: React.FC<StudentManagerProps> = ({
 export default StudentManager;
 
 // M3Expressive refactor COMPLETED: StudentManager.tsx - Replaced all hardcoded Tailwind classes with dedicated student-manager-* CSS classes using M3 tokens for student cards, badges, actions, filters, and layout.
-
-
-
-
-
-
-
 

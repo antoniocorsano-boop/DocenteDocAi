@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 /**
  * SkipLink Component
  * 
@@ -64,11 +64,4 @@ export const SkipLink: React.FC = () => {
 };
 
 export default SkipLink;
-
-
-
-
-
-
-
 

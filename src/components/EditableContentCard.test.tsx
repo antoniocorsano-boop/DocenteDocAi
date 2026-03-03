@@ -1,5 +1,5 @@
 import { renderWithM3Theme } from '../test-utils';
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
@@ -47,11 +47,4 @@ describe('EditableContentCard', () => {
     expect(screen.getByText('Contenuto iniziale')).toBeInTheDocument();
   });
 });
-
-
-
-
-
-
-
 

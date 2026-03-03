@@ -3,10 +3,10 @@
 exports[`M3Chip Story Snapshots > renders default story correctly 1`] = `
 <div>
   <button
-    style="font-family: var(--md-sys-typescale-label-large-font); font-size: var(--app-text-label); font-weight: var(--md-sys-typescale-label-large-weight); line-height: var(--app-text-label-line-height); letter-spacing: var(--md-sys-typescale-label-large-tracking); border-radius: var(--md-sys-shape-corner-small); transition: all var(--md-sys-motion-duration-short-2) var(--app-easing-standard); outline: none; border: var(--app-border-normal) solid var(--app-color-secondary-container); background-color: var(--app-color-secondary-container); cursor: pointer; color: var(--app-color-on-secondary-container);"
+    style="font-family: var(--md-sys-typescale-label-large-font); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-label-large-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-tracking); border-radius: var(--md-sys-shape-corner-small); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); outline: none; border: var(--md-sys-border-width-normal) solid var(--md-sys-color-secondary-container); background-color: var(--md-sys-color-secondary-container); cursor: pointer; color: var(--md-sys-color-on-secondary-container);"
   >
     <span
-      style="display: inline-flex; align-items: center; gap: var(--app-spacing-component); border-radius: var(--md-sys-shape-corner-small); padding: var(--app-spacing-component) var(--app-spacing-element); transition: all var(--md-sys-motion-duration-short-2) var(--app-easing-standard); opacity: 1; cursor: default; pointer-events: auto;"
+      style="display: inline-flex; align-items: center; gap: var(--md-sys-spacing-2); border-radius: var(--md-sys-shape-corner-small); padding: var(--md-sys-spacing-2) var(--md-sys-spacing-3); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); opacity: 1; cursor: default; pointer-events: auto;"
     >
       Test Chip
     </span>

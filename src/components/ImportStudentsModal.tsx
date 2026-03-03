@@ -152,7 +152,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
         switch (step) {
             case 'upload':
                 return (
-                    <div style={{display: "flex", flexDirection: "column", gap: 'var(--app-spacing-section)'}}>
+                    <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
                         <div>
                             <SelectField
                                 id="import-target-class"
@@ -165,14 +165,14 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                 <option disabled>──────────</option>
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                             </SelectField>
-                            {targetClass === 'AUTO' && <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--app-spacing-container)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)' }}>Il file CSV deve contenere una colonna con il nome della classe (es. "1A", "2B").</p>}
+                            {targetClass === 'AUTO' && <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>Il file CSV deve contenere una colonna con il nome della classe (es. "1A", "2B").</p>}
                         </div>
 
                         <TabGroup
                             tabs={[{ id: 'file', label: 'Carica File' }, { id: 'kb', label: 'Da Knowledge Base' }]}
                             activeTab={importSource}
                             onChange={(id: string) => setImportSource(id as 'file' | 'kb')}
-                            style={{ width: "var(--app-layout-full)" }}
+                            style={{ width: "var(--md-sys-percent-100)" }}
                         />
 
                         {importSource === 'file' ? (
@@ -186,7 +186,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                             download="modello_studenti.csv"
                                             
                                         >
-                                            <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)", marginRight: "var(--app-spacing-component)" }}>download</span>
+                                            <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)", marginRight: "var(--md-sys-spacing-2)" }}>download</span>
                                             Scarica Modello
                                         </a>
                                     }
@@ -206,16 +206,16 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                         padding: 'var(--md-sys-spacing-8)',
                                         height: 'var(--md-sys-layout-dropzone-height)', // Dropzone height
                                         borderRadius: 'var(--md-sys-shape-corner-large)',
-                                        border: `var(--app-border-thin) dashed ${isDragActive ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
-                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-easing-standard) var(--app-motion-standard)',
+                                        border: `var(--md-sys-border-width-thin) dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
                                         cursor: 'pointer',
                                         opacity: isLoading ? 0.5 : 1,
                                         pointerEvents: isLoading ? 'none' : 'auto',
-                                        backgroundColor: isDragActive ? 'var(--app-color-primary-container)' : 'transparent'
+                                        backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'transparent'
                                     }}
                                     onMouseEnter={(e) => {
                                         if (!isDragActive && !isLoading) {
-                                            e.currentTarget.style.borderColor = 'var(--app-color-primary)';
+                                            e.currentTarget.style.borderColor = 'var(--md-sys-color-primary)';
                                             e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
                                         }
                                     }}
@@ -228,35 +228,35 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                 >
                                     <input {...getInputProps()} />
                                     {isLoading ? (
-                                        <div  style={{borderRadius: 'var(--md-sys-shape-corner-full)', height: "var(--md-sys-spacing-10)", width: "var(--md-sys-spacing-10)", borderColor: "var(--app-color-primary)"}}></div>
+                                        <div  style={{borderRadius: 'var(--md-sys-shape-corner-full)', height: "var(--md-sys-spacing-10)", width: "var(--md-sys-spacing-10)", borderColor: "var(--md-sys-color-primary)"}}></div>
                                     ) : (
                                         <>
-                                            <span style={{color: "var(--app-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>{isDragActive ? 'download' : 'upload_file'}</span>
-                                            <h3 style={{ color: 'var(--app-color-on-primary)' ,  fontWeight: "bold", textAlign: "center" }}>Trascina il file .csv o .xlsx qui</h3>
-                                            <p  style={{opacity: "0.6", marginTop: 'var(--app-spacing-container)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>o clicca per selezionare</p>
+                                            <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>{isDragActive ? 'download' : 'upload_file'}</span>
+                                            <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold", textAlign: "center" }}>Trascina il file .csv o .xlsx qui</h3>
+                                            <p  style={{opacity: "0.6", marginTop: 'var(--md-sys-spacing-4)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>o clicca per selezionare</p>
                                         </>
                                     )}
                                 </div>
                             </div>
                         ) : (
                             <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
-                                <p  style={{textTransform: "uppercase", color: "var(--app-color-primary)", fontWeight: "bold"}}>Seleziona un file CSV dalla KB</p>
-                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , overflowY: "auto", padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", gap: 'var(--app-spacing-container)'}}>
+                                <p  style={{textTransform: "uppercase", color: "var(--md-sys-color-primary)", fontWeight: "bold"}}>Seleziona un file CSV dalla KB</p>
+                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , overflowY: "auto", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-4)'}}>
                                     {knowledgeBase.length > 0 ? (
                                         knowledgeBase.map(entry => (
                                             <div
                                                 key={entry.id}
                                                 onClick={() => handleKbFileSelect(entry)}
-                                                style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)', padding: 'var(--app-spacing-section)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)', cursor: "pointer"}}
+                                                style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: "pointer"}}
                                             >
-                                                <span style={{ backgroundColor: sys.colors.primaryContainer/30, borderRadius: 'var(--md-sys-shape-corner-large)' , color: "var(--app-color-primary)", padding: 'var(--md-sys-spacing-8)', transition: "color var(--app-motion-standard)"}}>description</span>
-                                                <span style={{ color: 'var(--app-color-on-primary)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: "1" }}>{entry.fileName}</span>
-                                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  opacity: "0.5", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)' }}>chevron_right</span>
+                                                <span style={{ backgroundColor: sys.colors.primaryContainer/30, borderRadius: 'var(--md-sys-shape-corner-large)' , color: "var(--md-sys-color-primary)", padding: 'var(--md-sys-spacing-8)', transition: "color var(--md-sys-motion-duration-medium)"}}>description</span>
+                                                <span style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: "1" }}>{entry.fileName}</span>
+                                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  opacity: "0.5", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}>chevron_right</span>
                                             </div>
                                         ))
                                     ) : (
                                         <div style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 'var(--md-sys-spacing-8)', opacity: "0.6"}}>
-                                            <span style={{ color: "var(--app-color-primary)" }}>folder_off</span>
+                                            <span style={{ color: "var(--md-sys-color-primary)" }}>folder_off</span>
                                             <p style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>Nessun file nella Knowledge Base.</p>
                                         </div>
                                     )}
@@ -265,19 +265,17 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         )}
 
                         {error && (
-                            <div style={{ color: sys.colors.on-error-container, borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "flex-start", gap: 'var(--app-spacing-section)', padding: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-error)"}}>
+                            <div style={{ color: sys.colors.on-error-container, borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-error)"}}>
                                 <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>error</span>
                                 <p style={{ fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "500" }}>{error}</p>
                             </div>
                         )}
 
                         {infoMessage && (
-                            <div style={{ color: sys.colors.on-tertiary-container, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--app-spacing-touch)', backgroundColor: "var(--md-sys-color-tertiary)"}}>
+                            <div style={{ color: sys.colors.on-tertiary-container, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-5)', backgroundColor: "var(--md-sys-color-tertiary)"}}>
                                 <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                                     <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>lightbulb</span>
                                     <h3  style={{ fontWeight: "bold" }}>Suggerimento AI: XLSX to CSV</h3>
                                 </div>
@@ -289,7 +287,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
 
             case 'mapping':
                 return (
-                    <div style={{display: "flex", flexDirection: "column", gap: 'var(--app-spacing-section)'}}>
+                    <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
                         <InfoCard
                             title="Mappa le colonne"
                             description={`File: ${fileName} | Destinazione: ${targetClass === 'AUTO' ? 'Rilevamento Automatico' : targetClass}`}
@@ -298,7 +296,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                             
                         />
 
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)' }}>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>
                             Il sistema ha tentato di associare automaticamente le colonne. Verifica o correggi le associazioni.
                         </p>
 
@@ -337,18 +335,18 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         </div>
 
                         <div>
-                            <h4  style={{textTransform: "uppercase", color: "var(--app-color-primary)", fontWeight: "bold", marginBottom: 'var(--app-spacing-section)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>Anteprima Dati (Prime 3 righe)</h4>
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , overflowX: "auto", border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
-                                <table style={{ width: "var(--app-layout-full)", fontSize: "var(--md-sys-typescale-body-medium-size)", textAlign: "left" }}>
+                            <h4  style={{textTransform: "uppercase", color: "var(--md-sys-color-primary)", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Anteprima Dati (Prime 3 righe)</h4>
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , overflowX: "auto", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                                <table style={{ width: "var(--md-sys-percent-100)", fontSize: "var(--md-sys-typescale-body-medium-size)", textAlign: "left" }}>
                                     <thead style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' ,  fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", fontWeight: "bold" }}>
                                         <tr>
-                                            {csvHeaders.map(h => <th key={h}  style={{paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', whiteSpace: "nowrap"}}>{h}</th>)}
+                                            {csvHeaders.map(h => <th key={h}  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', whiteSpace: "nowrap"}}>{h}</th>)}
                                         </tr>
                                     </thead>
                                     <tbody >
                                         {csvData.slice(0, 3).map((row, index) => (
-                                            <tr key={index}  style={{backgroundColor: "var(--app-color-surface)", transition: "color var(--app-motion-standard)"}}>
-                                                {csvHeaders.map(h => <td key={h} style={{ color: 'var(--app-color-on-primary)' , paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', whiteSpace: "nowrap", fontWeight: "500"}}>{row[h]}</td>)}
+                                            <tr key={index}  style={{backgroundColor: "var(--md-sys-color-surface)", transition: "color var(--md-sys-motion-duration-medium)"}}>
+                                                {csvHeaders.map(h => <td key={h} style={{ color: 'var(--md-sys-color-on-primary)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', whiteSpace: "nowrap", fontWeight: "500"}}>{row[h]}</td>)}
                                             </tr>
                                         ))}
                                     </tbody>
@@ -360,7 +358,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
 
             case 'confirm':
                 return (
-                    <div style={{display: "flex", flexDirection: "column", gap: 'var(--app-spacing-section)'}}>
+                    <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
                         <InfoCard
                             title="Conferma Importazione"
                             description={`Stai per importare ${studentsToImport.length} studenti. Gli studenti già presenti saranno ignorati.`}
@@ -370,30 +368,30 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         />
 
                         {targetClass === 'AUTO' && (
-                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--app-border-thin) solid var(--md-sys-color-outline)", fontSize: "var(--md-sys-typescale-body-medium-size)", display: "flex", gap: 'var(--app-spacing-section)', alignItems: "flex-start"}}>
-                                <span  style={{color: "var(--app-color-primary)", fontSize: "var(--md-sys-typescale-title-small-size)"}}>info</span>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", fontSize: "var(--md-sys-typescale-body-medium-size)", display: "flex", gap: 'var(--md-sys-spacing-6)', alignItems: "flex-start"}}>
+                                <span  style={{color: "var(--md-sys-color-primary)", fontSize: "var(--md-sys-typescale-title-small-size)"}}>info</span>
                                 <div>
-                                    <p style={{ color: 'var(--app-color-on-primary)' , fontWeight: "bold", marginBottom: 'var(--app-spacing-container)'}}>Nota Importante</p>
+                                    <p style={{ color: 'var(--md-sys-color-on-primary)' , fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Nota Importante</p>
                                     <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Gli studenti verranno assegnati alle classi indicate nel file. Se una classe nel file non esiste nelle tue Impostazioni, lo studente verrà comunque importato ma la classe sarà creata implicitamente.</p>
                                 </div>
                             </div>
                         )}
 
-                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , overflowY: "auto", border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
-                            <table style={{ width: "var(--app-layout-full)", fontSize: "var(--md-sys-typescale-body-medium-size)", textAlign: "left" }}>
+                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , overflowY: "auto", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                            <table style={{ width: "var(--md-sys-percent-100)", fontSize: "var(--md-sys-typescale-body-medium-size)", textAlign: "left" }}>
                                 <thead style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' ,  fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", fontWeight: "bold" }}>
                                     <tr>
-                                        <th  style={{paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>Cognome</th>
-                                        <th  style={{paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>Nome</th>
-                                        <th  style={{paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>Classe</th>
+                                        <th  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Cognome</th>
+                                        <th  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Nome</th>
+                                        <th  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Classe</th>
                                     </tr>
                                 </thead>
                                 <tbody >
                                     {studentsToImport.map((student, index) => (
-                                        <tr key={index}  style={{backgroundColor: "var(--app-color-surface)", transition: "color var(--app-motion-standard)"}}>
-                                            <td style={{ color: 'var(--app-color-on-primary)' , paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', fontWeight: "bold"}}>{student.cognome}</td>
-                                            <td style={{ color: 'var(--app-color-on-primary)' , paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>{student.nome}</td>
-                                            <td  style={{paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}><span style={{ color: sys.colors.on-primaryContainer , paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)', backgroundColor: "var(--app-color-primary)", fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)"}}>{student.classe}</span></td>
+                                        <tr key={index}  style={{backgroundColor: "var(--md-sys-color-surface)", transition: "color var(--md-sys-motion-duration-medium)"}}>
+                                            <td style={{ color: 'var(--md-sys-color-on-primary)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', fontWeight: "bold"}}>{student.cognome}</td>
+                                            <td style={{ color: 'var(--md-sys-color-on-primary)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>{student.nome}</td>
+                                            <td  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}><span style={{ color: sys.colors.on-primaryContainer , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)"}}>{student.classe}</span></td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -438,11 +436,4 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
 };
 
 export default ImportStudentsModal;
-
-
-
-
-
-
-
 

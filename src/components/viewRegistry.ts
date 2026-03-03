@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React, { lazy } from 'react';
 import { View } from '../types';
 
@@ -72,5 +72,4 @@ export const VIEW_CONFIGS: Partial<Record<View, ViewConfig>> = {
     'teacher-presentation-view': { id: 'teacher-presentation-view', component: TeacherPresentationView, auraWrapper: true },
     'orientamento': { id: 'orientamento', component: OrientamentoDashboard, auraWrapper: true, fullWidth: true },
 };
-
 

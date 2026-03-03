@@ -57,17 +57,17 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
     small: {
       minHeight: 'var(--md-sys-spacing-9)',
       padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
-      fontSize: '14px'
+      fontSize: 'var(--md-sys-typescale-label-medium-font-size)'
     },
     medium: {
       minHeight: 'var(--md-sys-spacing-12)',
       padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)',
-      fontSize: '16px'
+      fontSize: 'var(--md-sys-typescale-body-large-font-size)'
     },
     large: {
       minHeight: 'var(--md-sys-spacing-14)',
       padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-8)',
-      fontSize: '18px'
+      fontSize: 'var(--md-sys-typescale-body-large-font-size)'
     }
   }[size];
 
@@ -135,9 +135,9 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
       {loading && (
         <div
           style={{
-            width: '20px',
-            height: '20px',
-            border: '2px solid currentColor',
+            width: 'var(--md-sys-spacing-5)',
+            height: 'var(--md-sys-spacing-5)',
+            border: 'var(--md-sys-border-width-normal) solid currentColor',
             borderTopColor: 'transparent',
             borderRadius: '50%',
             animation: 'spin 0.8s linear infinite'
@@ -150,7 +150,7 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
         <span
           className="material-symbols-outlined"
           style={{
-            fontSize: '20px',
+            fontSize: 'var(--md-sys-typescale-title-small-font-size)',
             fontVariationSettings: '"FILL" 0, "wght" 600'
           }}
         >
@@ -169,10 +169,10 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
             position: 'absolute',
             left: ripple.x,
             top: ripple.y,
-            width: '10px',
-            height: '10px',
+            width: 'var(--md-sys-spacing-2-5)',
+            height: 'var(--md-sys-spacing-2-5)',
             borderRadius: '50%',
-            backgroundColor: 'rgba(255, 255, 255, 0.6)',
+            backgroundColor: 'color-mix(in srgb, var(--md-sys-color-on-primary) 60%, transparent)',
             transform: 'translate(-50%, -50%)',
             animation: 'ripple-expand 600ms ease-out',
             pointerEvents: 'none'

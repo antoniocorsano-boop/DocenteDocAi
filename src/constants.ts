@@ -126,7 +126,6 @@ export const DEFAULT_COMPETENZE: Competenza[] = [
     { id: 'comp-key-8', codice: 'C. Chiave 8', nome: 'Competenza in materia di consapevolezza ed espressione culturali', framework: 'Competenze Chiave Europee (2018)', livelli: createLivelli('ck8') },
 ];
 
-
 export const INITIAL_KB_GUIDE: KnowledgeBaseEntry = {
     id: 'kb-guide-initial',
     fileName: 'Flusso di Progettazione Didattica con AI.txt',
@@ -256,5 +255,4 @@ export const SCHOOL_LEVELS = [
     "Scuola Secondaria di I Grado",
     "Scuola Secondaria di II Grado"
 ];
-
 

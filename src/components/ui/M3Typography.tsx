@@ -11,121 +11,63 @@ export interface M3TypographyProps {
   as?: 'div' | 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   children: React.ReactNode;
   style?: React.CSSProperties;
+  color?: string;
 }
+
+/** Maps each MD3 typescale variant to its direct --md-sys-typescale-* tokens. */
+type TypographyConfig = {
+  key: string;       // maps to --md-sys-typescale-{key}-{property}
+  defaultTag: M3TypographyProps['as'];
+};
+
+const VARIANT_MAP: Record<NonNullable<M3TypographyProps['variant']>, TypographyConfig> = {
+  'display-large':    { key: 'display-large',   defaultTag: 'h1' },
+  'display-medium':   { key: 'display-medium',  defaultTag: 'h1' },
+  'display-small':    { key: 'display-small',   defaultTag: 'h1' },
+  'headline-large':   { key: 'headline-large',  defaultTag: 'h2' },
+  'headline-medium':  { key: 'headline-medium', defaultTag: 'h2' },
+  'headline-small':   { key: 'headline-small',  defaultTag: 'h3' },
+  'title-large':      { key: 'title-large',     defaultTag: 'h4' },
+  'title-medium':     { key: 'title-medium',    defaultTag: 'h5' },
+  'title-small':      { key: 'title-small',     defaultTag: 'h6' },
+  'body-large':       { key: 'body-large',      defaultTag: 'p'  },
+  'body-medium':      { key: 'body-medium',     defaultTag: 'p'  },
+  'body-small':       { key: 'body-small',      defaultTag: 'p'  },
+  'label-large':      { key: 'label-large',     defaultTag: 'span' },
+  'label-medium':     { key: 'label-medium',    defaultTag: 'span' },
+  'label-small':      { key: 'label-small',     defaultTag: 'span' },
+  // backwards-compat aliases used throughout the app
+  'button-primary':   { key: 'label-large',     defaultTag: 'span' },
+  'button-secondary': { key: 'label-medium',    defaultTag: 'span' },
+};
+
+/** Extra overrides for legacy button variants */
+const BUTTON_OVERRIDES: Partial<Record<NonNullable<M3TypographyProps['variant']>, React.CSSProperties>> = {
+  'button-primary':   { fontWeight: '900', letterSpacing: '0.1em' },
+  'button-secondary': { fontWeight: '700', letterSpacing: '0.05em' },
+};
 
 const M3Typography: React.FC<M3TypographyProps> = ({
   variant = 'body-large',
-  as: Component = 'span',
+  as,
   children,
-  style = {}
+  style = {},
+  color,
 }) => {
-  // Map MD3 variants to CSS custom properties
-  const typographyMap: Record<string, {
-    fontSize: string;
-    lineHeight: string;
-    fontWeight: string;
-    letterSpacing?: string;
-  }> = {
-    'display-large': {
-      fontSize: 'var(--app-text-display)',
-      lineHeight: 'var(--app-text-display-line-height)',
-      fontWeight: 'var(--app-text-display-weight)'
-    },
-    'display-medium': {
-      fontSize: 'var(--app-text-display)',
-      lineHeight: 'var(--app-text-display-line-height)',
-      fontWeight: 'var(--app-text-display-weight)'
-    },
-    'display-small': {
-      fontSize: 'var(--app-text-display)',
-      lineHeight: 'var(--app-text-display-line-height)',
-      fontWeight: 'var(--app-text-display-weight)'
-    },
-    'headline-large': {
-      fontSize: 'var(--app-text-title)',
-      lineHeight: 'var(--app-text-title-line-height)',
-      fontWeight: 'var(--app-text-title-weight)'
-    },
-    'headline-medium': {
-      fontSize: 'var(--app-text-title)',
-      lineHeight: 'var(--app-text-title-line-height)',
-      fontWeight: 'var(--app-text-title-weight)'
-    },
-    'headline-small': {
-      fontSize: 'var(--app-text-title)',
-      lineHeight: 'var(--app-text-title-line-height)',
-      fontWeight: 'var(--app-text-title-weight)'
-    },
-    'title-large': {
-      fontSize: 'var(--app-text-title)',
-      lineHeight: 'var(--app-text-title-line-height)',
-      fontWeight: 'var(--app-text-title-weight)'
-    },
-    'title-medium': {
-      fontSize: 'var(--app-text-title)',
-      lineHeight: 'var(--app-text-title-line-height)',
-      fontWeight: 'var(--app-text-title-weight)'
-    },
-    'title-small': {
-      fontSize: 'var(--app-text-title)',
-      lineHeight: 'var(--app-text-title-line-height)',
-      fontWeight: 'var(--app-text-title-weight)'
-    },
-    'body-large': {
-      fontSize: 'var(--app-text-body)',
-      lineHeight: 'var(--app-text-body-line-height)',
-      fontWeight: 'var(--app-text-body-weight)'
-    },
-    'body-medium': {
-      fontSize: 'var(--app-text-body)',
-      lineHeight: 'var(--app-text-body-line-height)',
-      fontWeight: 'var(--app-text-body-weight)'
-    },
-    'body-small': {
-      fontSize: 'var(--app-text-body)',
-      lineHeight: 'var(--app-text-body-line-height)',
-      fontWeight: 'var(--app-text-body-weight)'
-    },
-    'label-large': {
-      fontSize: 'var(--app-text-label)',
-      lineHeight: 'var(--app-text-label-line-height)',
-      fontWeight: 'var(--app-text-label-weight)'
-    },
-    'label-medium': {
-      fontSize: 'var(--app-text-label)',
-      lineHeight: 'var(--app-text-label-line-height)',
-      fontWeight: 'var(--app-text-label-weight)'
-    },
-    'label-small': {
-      fontSize: 'var(--app-text-label)',
-      lineHeight: 'var(--app-text-label-line-height)',
-      fontWeight: 'var(--app-text-label-weight)'
-    },
-    'button-primary': {
-      fontSize: 'var(--app-text-label)',
-      lineHeight: 'var(--app-text-label-line-height)',
-      fontWeight: '900',
-      letterSpacing: '0.1em'
-    },
-    'button-secondary': {
-      fontSize: 'var(--app-text-label)',
-      lineHeight: 'var(--app-text-label-line-height)',
-      fontWeight: '700',
-      letterSpacing: '0.05em'
-    }
-  };
+  const config = VARIANT_MAP[variant] ?? VARIANT_MAP['body-large'];
+  const k = config.key;
+  const Component = as ?? config.defaultTag ?? 'span';
 
-  const typographyConfig = typographyMap[variant] || typographyMap['body-large'];
-
-  // Typography styles using MD3 CSS custom properties
-  const typographyStyles = {
-    fontFamily: 'var(--md-sys-typescale-font-family)',
-    fontSize: typographyConfig.fontSize,
-    fontWeight: typographyConfig.fontWeight,
-    lineHeight: typographyConfig.lineHeight,
-    letterSpacing: typographyConfig.letterSpacing || 'var(--md-sys-typescale-body-large-letter-spacing)',
-    color: 'var(--app-color-on-surface)', // Default color from MD3 sys layer
-    ...style
+  const typographyStyles: React.CSSProperties = {
+    fontFamily:    'var(--font-family)',
+    fontSize:      `var(--md-sys-typescale-${k}-font-size)`,
+    fontWeight:    `var(--md-sys-typescale-${k}-font-weight)`,
+    lineHeight:    `var(--md-sys-typescale-${k}-line-height)`,
+    letterSpacing: `var(--md-sys-typescale-${k}-tracking)`,
+    color:         color ?? 'inherit',
+    margin:        0,
+    ...BUTTON_OVERRIDES[variant],
+    ...style,
   };
 
   return (
@@ -137,10 +79,4 @@ const M3Typography: React.FC<M3TypographyProps> = ({
 
 export default M3Typography;
 export { M3Typography };
-
-
-
-
-
-
 

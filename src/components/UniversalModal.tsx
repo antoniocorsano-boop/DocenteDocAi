@@ -38,10 +38,3 @@ export default UniversalModal;
 
 export default UniversalModal;
 
-
-
-
-
-
-
-

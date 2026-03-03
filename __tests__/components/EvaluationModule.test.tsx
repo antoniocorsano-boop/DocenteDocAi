@@ -1,5 +1,7 @@
 import { describe, it, expect, vi, beforeEach, Mock } from 'vitest';
 import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
+import { M3ThemeProvider } from '../../src/theme/theme';
+import React from 'react';
 import EvaluationModule from '../../src/components/EvaluationModule';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, Competenza, Lezione } from '../../src/types';
 import * as evaluationUtils from '../../src/utils/evaluationUtils';
@@ -441,20 +443,22 @@ describe('EvaluationModule', () => {
 
   it('dovrebbe mostrare messaggio di stato vuoto se nessuno studente nella classe', () => {
     render(
-      <EvaluationModule
-        students={mockStudents}
-        evaluations={mockEvaluations}
-        setEvaluations={mockSetEvaluations}
-        competencyEvaluations={mockCompetencyEvaluations}
-        setCompetencyEvaluations={mockSetCompetencyEvaluations}
-        userClasses={['3A', '3B', '4A']}
-        settings={mockSettings}
-        aiSettings={mockAiSettings}
-        initialClass="4A"
-        onOpenInclusionPlanEditor={mockOnOpenInclusionPlanEditor}
-        showGuidanceTips={false}
-        lessons={mockLessons}
-      />
+      <M3ThemeProvider>
+        <EvaluationModule
+          students={mockStudents}
+          evaluations={mockEvaluations}
+          setEvaluations={mockSetEvaluations}
+          competencyEvaluations={mockCompetencyEvaluations}
+          setCompetencyEvaluations={mockSetCompetencyEvaluations}
+          userClasses={['3A', '3B', '4A']}
+          settings={mockSettings}
+          aiSettings={mockAiSettings}
+          initialClass="4A"
+          onOpenInclusionPlanEditor={mockOnOpenInclusionPlanEditor}
+          showGuidanceTips={false}
+          lessons={mockLessons}
+        />
+      </M3ThemeProvider>
     );
 
     expect(screen.getByText(/Nessuno studente/i)).toBeInTheDocument();

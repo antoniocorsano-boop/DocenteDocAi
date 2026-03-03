@@ -45,32 +45,32 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
                     Copia il testo di una circolare o di una email e incollalo qui sotto. L'AI estrarrà automaticamente date, orari e dettagli per creare l'evento nel calendario.
                 </p>
 
-                <div style={{ marginTop: 'var(--app-spacing-container)' }}>
+                <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
                     <label htmlFor="event-text" >Testo della comunicazione</label>
                     <textarea
                         id="event-text"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
-                        style={{ width: 'var(--app-layout-full)' }}
+                        style={{ width: 'var(--md-sys-percent-100)' }}
                         rows={10}
                         placeholder="Es. 'Si comunica che il consiglio della classe 3A è convocato per il giorno 15/10/2024 alle ore 15:30...'"
                         disabled={isLoading}
                         autoFocus
                     />
                 </div>
-                {error && <p style={{ color: 'var(--md-sys-color-error)', textAlign: 'center', marginTop: 'var(--app-spacing-container)' }}>{error}</p>}
+                {error && <p style={{ color: 'var(--md-sys-color-error)', textAlign: 'center', marginTop: 'var(--md-sys-spacing-4)' }}>{error}</p>}
             </M3DialogContent>
             <M3DialogActions style={{ paddingTop: 0 }}>
                 <M3Button variant="text" onClick={onClose} type="button" disabled={isLoading}>Annulla</M3Button>
                 <M3Button variant="filled" onClick={handleParse} type="button" disabled={isLoading || !text.trim()}>
                     {isLoading ? (
                         <>
-                            <div style={{ borderRadius: 'var(--app-spacing-container)', height: 'var(--md-sys-layout-avatar-size)', width: 'var(--md-sys-layout-avatar-size)', marginRight: 'var(--app-spacing-component)' }}></div>
+                            <div style={{ borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-layout-avatar-size)', width: 'var(--md-sys-layout-avatar-size)', marginRight: 'var(--md-sys-spacing-2)' }}></div>
                             Analisi in corso...
                         </>
                     ) : (
                         <>
-                            <span style={{ marginRight: 'var(--app-spacing-component)' }}>auto_awesome</span>
+                            <span style={{ marginRight: 'var(--md-sys-spacing-2)' }}>auto_awesome</span>
                             Analizza Testo
                         </>
                     )}
@@ -81,11 +81,4 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
 };
 
 export default AiEventParserModal;
-
-
-
-
-
-
-
 

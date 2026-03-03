@@ -9,7 +9,7 @@ const UniversalModalDemo: React.FC = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div style={{padding: 'var(--app-spacing-section)'}}>
+    <div style={{padding: 'var(--md-sys-spacing-6)'}}>
       <M3Button
         variant="filled"
         onClick={() => setOpen(true)}
@@ -21,11 +21,11 @@ const UniversalModalDemo: React.FC = () => {
         title="Esempio di Modale Universale"
         onClose={() => setOpen(false)}
       >
-        <p style={{ color: 'var(--app-color-on-primary)' }}>
+        <p style={{ color: 'var(--md-sys-color-on-primary)' }}>
           Questo è un esempio di contenuto per il nuovo modale accessibile e responsive.<br />
           Premi <b>ESC</b> o clicca fuori dal modale per chiudere.
         </p>
-        <div  style={{display: "flex", justifyContent: "flex-end", gap: 'var(--app-spacing-element)'}}>
+        <div  style={{display: "flex", justifyContent: "flex-end", gap: 'var(--md-sys-spacing-3)'}}>
           <M3Button
             onClick={() => setOpen(false)}
             variant="tonal"
@@ -48,12 +48,4 @@ const UniversalModalDemo: React.FC = () => {
 };
 
 export default UniversalModalDemo;
-
-
-
-
-
-
-
-
 

@@ -14,8 +14,3 @@ describe('Snackbar Story Snapshots', () => {
   });
 });
 
-
-
-
-
-

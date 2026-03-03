@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 /**
  * AnalyticsViews.tsx
  * Raggruppa viste relative ad analytics e reporting
@@ -117,11 +117,4 @@ export const AnalyticsViewsRenderer: React.FC<{
             return null;
     }
 };
-
-
-
-
-
-
-
 

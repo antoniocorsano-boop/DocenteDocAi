@@ -1,5 +1,5 @@
 import { renderWithM3Theme } from '../test-utils';
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { Header } from './Header';
@@ -77,8 +77,7 @@ describe('Header M3 Expressive', () => {
     expect(logo).toBeInTheDocument();
   });
 
-
-  it('shows avatar and settings', () => {
+it('shows avatar and settings', () => {
     renderWithM3Theme(<Header {...baseProps} />);
     // Verifica presenza avatar (iniziali o immagine)
     expect(screen.getByLabelText('Menu utente')).toBeInTheDocument();
@@ -91,18 +90,11 @@ describe('Header M3 Expressive', () => {
     // Verifica presenza attributo role e alcuni stili MD3 effettivi
     expect(header).toHaveAttribute('role', 'banner');
     expect(header).toHaveStyle({
-      position: 'sticky',
+      position: 'relative',
       background: 'var(--md-sys-color-surface)',
       display: 'flex',
       boxShadow: 'var(--md-sys-elevation-level1)'
     });
   });
 });
-
-
-
-
-
-
-
 

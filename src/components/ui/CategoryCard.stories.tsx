@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import CategoryCard from './CategoryCard';
@@ -402,13 +402,4 @@ export const CustomColors: Story = {
     },
   },
 };
-
-
-
-
-
-
-
-
-
 

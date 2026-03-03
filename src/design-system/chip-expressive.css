@@ -29,9 +29,9 @@
 	line-height: 1;
 	cursor: default;
 	user-select: none;
-	transition: background-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
-}
-
+		transition: background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+		            box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
+		            transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-emphasized);
 .chip-expressive:hover {
 	background: var(--chip-bg-hover);
 }
@@ -69,7 +69,7 @@
 
 .chip-expressive--outline {
 	background: transparent;
-	border: var(--md-sys-spacing-0) solid rgba(var(--md-sys-color-outline-variant-rgb), 0.06);
+	border: var(--md-sys-border-width-thin) solid rgba(var(--md-sys-color-outline-variant-rgb), 0.5);
 }
 
 /* Visually-hidden utility for accessibility */
@@ -78,7 +78,7 @@
 	width: var(--md-sys-spacing-0);
 	height: var(--md-sys-spacing-0);
 	padding: 0;
-	margin: -var(--md-sys-spacing-0);
+	margin: 0;
 	overflow: hidden;
 	clip: rect(0, 0, 0, 0);
 	white-space: nowrap;

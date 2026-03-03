@@ -67,12 +67,3 @@ export const Info: Story = {
   },
 };
 
-
-
-
-
-
-
-
-
-

@@ -69,7 +69,6 @@ export const defaultDarkTheme: Theme = {
   contrastLevel: 0,
 };
 
-
 // --- Color Utilities ---
 
 interface RGB { r: number; g: number; b: number; }
@@ -168,5 +167,4 @@ export const getLegibleTextColor = (hexBackgroundColor: string): string => {
 
     return contrastBlack >= contrastWhite ? '#000000' : '#FFFFFF';
 };
-
 

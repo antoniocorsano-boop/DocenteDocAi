@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import M3Typography from './M3Typography';
 
@@ -187,11 +187,4 @@ export const LabelSmall: Story = {
     as: 'span',
   },
 };
-
-
-
-
-
-
-
 

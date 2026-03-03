@@ -41,7 +41,6 @@ const M3BadgedIcon: React.FC<M3BadgedIconProps> = ({
     return (
         <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{
-                fontFamily: 'Material Symbols Outlined',
                 fontSize: sizeMap[size].container,
                 color: colorMap[color],
                 userSelect: 'none',
@@ -72,11 +71,4 @@ const M3BadgedIcon: React.FC<M3BadgedIconProps> = ({
 };
 
 export default M3BadgedIcon;
-
-
-
-
-
-
-
 

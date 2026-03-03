@@ -39,7 +39,7 @@
   flex-direction: column;
   gap: var(--md-sys-spacing-4);
 }
-@media (max-width: var(--breakpoint-compact)) {
+@media (max-width: 599px) {
   .nka-bottom-sheet, .nka-wizard-modal {
     border-radius: var(--md-sys-shape-corner-medium) var(--md-sys-spacing-4) 0 0;
     padding: var(--md-sys-spacing-3) var(--md-sys-spacing-1) var(--md-sys-spacing-6) var(--md-sys-spacing-1);

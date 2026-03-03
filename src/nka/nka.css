@@ -1,4 +1,4 @@
-/* NKA custom styles (M3-compliant overrides only) */
+﻿/* NKA custom styles (M3-compliant overrides only) */
 .nka-aura-btn {
   position: relative;
   border: none;
@@ -16,9 +16,9 @@
   animation: m3-emphasized-pulse var(--md-sys-motion-duration-long) infinite;
 }
 @keyframes m3-emphasized-pulse {
-  var(--md-sys-percent-0)   { transform: scale(1);  opacity: 0.4; }
-  var(--md-sys-percent-50)  { transform: scale(1.08); opacity: 0.2; }
-  var(--md-sys-percent-100) { transform: scale(1);  opacity: 0.4; }
+  0% { transform: scale(1);  opacity: 0.4; }
+  50% { transform: scale(1.08); opacity: 0.2; }
+  100% { transform: scale(1);  opacity: 0.4; }
 }
 .nka-badge {
   position: absolute;
@@ -34,7 +34,7 @@
 .nka-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.32);
+  background: color-mix(in srgb, var(--md-sys-color-scrim) 32%, transparent);
   z-index: var(--md-sys-z-tooltip);
   backdrop-filter: blur(var(--md-sys-spacing-0));
 }

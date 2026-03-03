@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -32,21 +32,19 @@ const TypographyDocumentation = () => (
       fontSize="var(--md-sys-spacing-4)"
       fontWeight={400}
       lineHeight="1.25rem"
-      letterSpacing="-0.25px"
+      letterSpacing="var(--md-sys-typescale-display-large-tracking)"
     />
-    <TypeSample
-      text="Display Medium"
       fontSize="1.5rem"
       fontWeight={400}
       lineHeight="1.25rem"
-      letterSpacing="-0.15px"
+      letterSpacing="var(--md-sys-typescale-tracking-condensed)"
     />
     <TypeSample
       text="Display Small"
       fontSize="var(--md-sys-typescale-body-large-font-size)"
       fontWeight={400}
       lineHeight="var(--md-sys-typescale-body-large-line-height)"
-      letterSpacing="-0.25px"
+      letterSpacing="var(--md-sys-typescale-display-large-tracking)"
     />
 
     <h2 style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: 'var(--md-sys-typescale-body-large-font-size)', marginBottom: 'var(--md-sys-typescale-body-large-font-size)' }}>Headline Styles</h2>
@@ -59,7 +57,7 @@ const TypographyDocumentation = () => (
       fontSize="var(--md-sys-spacing-8)"
       fontWeight={400}
       lineHeight="1.25rem"
-      letterSpacing="-0.25px"
+      letterSpacing="var(--md-sys-typescale-display-large-tracking)"
       compact
     />
     <TypeSample
@@ -67,7 +65,7 @@ const TypographyDocumentation = () => (
       fontSize="1rem"
       fontWeight={400}
       lineHeight="1.25rem"
-      letterSpacing="-0.25px"
+      letterSpacing="var(--md-sys-typescale-display-large-tracking)"
       compact
     />
     <TypeSample
@@ -98,7 +96,7 @@ const TypographyDocumentation = () => (
       fontSize="var(--md-sys-spacing-4)"
       fontWeight={500}
       lineHeight="var(--md-sys-spacing-6)"
-      letterSpacing="0.15px"
+      letterSpacing="var(--md-sys-typescale-tracking-title)"
       compact
       bgColor="var(--md-sys-color-surfaceContainerLow)"
     />
@@ -107,7 +105,7 @@ const TypographyDocumentation = () => (
       fontSize={layers.ref.spacing['4']}
       fontWeight={500}
       lineHeight={layers.ref.spacing['4']}
-      letterSpacing="0.1px"
+      letterSpacing="var(--md-sys-typescale-tracking-title-sm)"
       compact
       bgColor="var(--md-sys-color-surfaceContainerLow)"
     />
@@ -122,7 +120,7 @@ const TypographyDocumentation = () => (
       <div style={{ fontSize: 'var(--md-sys-spacing-3)', color: sys.colors['666'], fontFamily: 'monospace', marginBottom: 'var(--md-sys-spacing-3)' }}>
         var(--md-sys-spacing-4) • Weight 400 • Line height var(--md-sys-spacing-6) • Letter spacing 0.5px
       </div>
-      <p style={{ margin: '0', fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', letterSpacing: '0.5px', color: sys.colors['333'] }}>
+      <p style={{ margin: '0', fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-spacing-6)', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', color: sys.colors['333'] }}>
         This is a sample body large text. It&apos;s used for primary content and longer passages of text that need to be easily readable and comfortable to scan.
       </p>
     </div>
@@ -132,7 +130,7 @@ const TypographyDocumentation = () => (
       fontSize={layers.ref.spacing['4']}
       fontWeight={400}
       lineHeight={layers.ref.spacing['4']}
-      letterSpacing="0.25px"
+      letterSpacing="var(--md-sys-typescale-tracking-body)"
       compact
       bgColor="var(--md-sys-color-surfaceContainerLowest)"
     />
@@ -156,7 +154,7 @@ const TypographyDocumentation = () => (
       fontSize={layers.ref.spacing['4']}
       fontWeight={500}
       lineHeight={layers.ref.spacing['4']}
-      letterSpacing="0.1px"
+      letterSpacing="var(--md-sys-typescale-tracking-title-sm)"
       compact
       bgColor="var(--md-sys-color-surfaceContainerLow)"
     />
@@ -165,7 +163,7 @@ const TypographyDocumentation = () => (
       fontSize="var(--md-sys-spacing-3)"
       fontWeight={500}
       lineHeight="var(--md-sys-spacing-4)"
-      letterSpacing="0.5px"
+      letterSpacing="var(--md-sys-typescale-label-medium-tracking)"
       compact
       bgColor="var(--md-sys-color-surfaceContainerLow)"
     />
@@ -174,7 +172,7 @@ const TypographyDocumentation = () => (
       fontSize={layers.ref.spacing['4']}
       fontWeight={500}
       lineHeight="var(--md-sys-spacing-4)"
-      letterSpacing="0.5px"
+      letterSpacing="var(--md-sys-typescale-label-small-tracking)"
       compact
       bgColor="var(--md-sys-color-surfaceContainerLow)"
     />
@@ -241,5 +239,4 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const AllTypography: Story = {};
-
 

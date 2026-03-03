@@ -1,6 +1,5 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
-// ...existing code...
 import React, { useState, useMemo } from 'react';
 import { View, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, RegisterEntry } from '../types';
 import { ActionTile, SectionHeader, M3Dialog, M3DialogContent, M3Button } from './ui';
@@ -195,21 +194,21 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        backgroundColor: selectedProcess.variant === 'primary' ? 'var(--app-color-primary-container)' :
-                                       selectedProcess.variant === 'secondary' ? 'var(--app-color-secondary-container)' :
+                        backgroundColor: selectedProcess.variant === 'primary' ? 'var(--md-sys-color-primary-container)' :
+                                       selectedProcess.variant === 'secondary' ? 'var(--md-sys-color-secondary-container)' :
                                        selectedProcess.variant === 'tertiary' ? 'var(--md-sys-color-tertiary-container)' :
                                        'var(--md-sys-color-surface-container-high)',
-                        color: selectedProcess.variant === 'primary' ? 'var(--app-color-on-primary-container)' :
-                              selectedProcess.variant === 'secondary' ? 'var(--app-color-on-secondary-container)' :
+                        color: selectedProcess.variant === 'primary' ? 'var(--md-sys-color-on-primary-container)' :
+                              selectedProcess.variant === 'secondary' ? 'var(--md-sys-color-on-secondary-container)' :
                               selectedProcess.variant === 'tertiary' ? 'var(--md-sys-color-on-tertiary-container)' :
-                              'var(--app-color-on-surface)',
+                              'var(--md-sys-color-on-surface)',
                         fontSize: 'var(--md-sys-spacing-10)',
                         marginTop: 0,
-                        marginLeft: 'var(--app-layout-auto)',
-                        marginBottom: 'var(--app-spacing-container)',
-                        marginRight: 'var(--app-layout-auto)',
+                        marginLeft: 'auto',
+                        marginBottom: 'var(--md-sys-spacing-4)',
+                        marginRight: 'auto',
                         boxShadow: 'var(--md-sys-elevation-level2)',
-                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)'
+                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'
                     }}>
                         <span >{selectedProcess.icon}</span>
                     </div>
@@ -323,11 +322,4 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
 export default OperationsCenter;
 
 // M3Expressive refactor COMPLETED: OperationsCenter.tsx - Replaced all hardcoded Tailwind classes with dedicated operations-center-* CSS classes using M3 tokens for layout, process details, timeline, suggestion cards, and action tiles.
-
-
-
-
-
-
-
 

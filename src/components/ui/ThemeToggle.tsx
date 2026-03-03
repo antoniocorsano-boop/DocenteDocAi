@@ -82,7 +82,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
           <span
             className="material-symbols-outlined"
             style={{
-              fontSize: '24px',
+              fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
               fontVariationSettings: isSystemTheme 
                 ? '"FILL" 0, "wght" 400' 
                 : '"FILL" 1, "wght" 600',
@@ -123,11 +123,11 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
           alignItems: 'center',
           gap: 'var(--md-sys-spacing-2)',
           padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
-          border: '1px solid var(--md-sys-color-outline)',
+          border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
           borderRadius: 'var(--md-sys-spacing-5)',
           backgroundColor: 'var(--md-sys-color-surface-container)',
           color: 'var(--md-sys-color-on-surface)',
-          fontSize: '14px',
+          fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
           fontWeight: '500',
           cursor: 'pointer',
           transition: 'all 200ms'
@@ -142,7 +142,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
         <span
           className="material-symbols-outlined"
           style={{
-            fontSize: '20px',
+            fontSize: 'var(--md-sys-typescale-title-small-font-size)',
             fontVariationSettings: isSystemTheme 
               ? '"FILL" 0, "wght" 400' 
               : '"FILL" 1, "wght" 600',
@@ -185,7 +185,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
             color: mode === themeMode
               ? 'var(--md-sys-color-on-primary-container)'
               : 'var(--md-sys-color-on-surface)',
-            fontSize: '14px',
+            fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
             fontWeight: mode === themeMode ? '600' : '400',
             cursor: 'pointer',
             textAlign: 'left',
@@ -207,7 +207,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
           <span
             className="material-symbols-outlined"
             style={{
-              fontSize: '20px',
+              fontSize: 'var(--md-sys-typescale-title-small-font-size)',
               fontVariationSettings: mode === themeMode 
                 ? '"FILL" 1, "wght" 600' 
                 : '"FILL" 0, "wght" 400'
@@ -226,7 +226,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
             <span
               className="material-symbols-outlined"
               style={{
-                fontSize: '18px',
+                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                 fontVariationSettings: '"FILL" 1, "wght" 600'
               }}
             >

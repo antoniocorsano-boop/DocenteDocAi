@@ -1003,8 +1003,7 @@ export interface AppActions {
     showToast: (message: string, type?: 'success' | 'error' | 'info') => void;
     clearToast: () => void;
 
-
-    handleNavigate: (view: View, context?: unknown) => void;
+handleNavigate: (view: View, context?: unknown) => void;
     handleBack: (force?: boolean) => void;
     handleLoadDemoData: () => void;
     handleCleanDemoData: () => void;
@@ -1376,5 +1375,4 @@ export interface TechnicalDocumentContent {
 
 // --- EXTENDED DATA STATE FOR TESTING ---
 // Legacy ExtendedDataState removed. Use AppState for comprehensive state representation.
-
 

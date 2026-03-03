@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 /**
  * ViewRouters.ts
  * Centralizza i router per tutte le categorie di viste
@@ -139,11 +139,4 @@ export const ViewRouter: React.FC<ViewRouterProps> = ({ viewName, props }) => {
             return null;
     }
 };
-
-
-
-
-
-
-
 

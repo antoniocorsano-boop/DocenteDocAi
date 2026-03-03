@@ -21,7 +21,7 @@ const ImageSkeleton: React.FC<ImageSkeletonProps> = ({
         style={{
             backgroundColor: color.surfaceContainerHigh,
             borderRadius: shape.corner.small,
-            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--app-easing-standard) infinite`,
+            animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -36,7 +36,6 @@ const ImageSkeleton: React.FC<ImageSkeletonProps> = ({
             color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-state-opacity-disabled), transparent)`
         }}>
             <span style={{
-                fontFamily: 'Material Symbols Outlined',
                 fontSize: typography.displaySmall.fontSize
             }}>image</span>
             <span style={{
@@ -49,11 +48,4 @@ const ImageSkeleton: React.FC<ImageSkeletonProps> = ({
 };
 
 export default ImageSkeleton;
-
-
-
-
-
-
-
 

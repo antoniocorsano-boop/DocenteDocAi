@@ -60,7 +60,7 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
             width: 'var(--md-sys-spacing-5)',
             height: 'var(--md-sys-spacing-5)',
             borderRadius: 'var(--md-sys-spacing-1)',
-            border: `2px solid ${
+            border: `var(--md-sys-border-width-medium) solid ${
               checked 
                 ? 'var(--md-sys-color-primary)' 
                 : 'var(--md-sys-color-outline)'
@@ -73,8 +73,8 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
             justifyContent: 'center',
             transition: 'all 200ms var(--md-sys-motion-easing-standard)',
             ...(isFocused && {
-              outline: '2px solid var(--md-sys-color-primary)',
-              outlineOffset: '2px'
+              outline: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-primary)',
+              outlineOffset: 'var(--md-sys-spacing-0-5)'
             })
           }}
         >

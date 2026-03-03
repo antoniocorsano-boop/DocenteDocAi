@@ -1,6 +1,5 @@
-// MD3 Compliant - M3SurfaceCard component with layered theme destructuring
+﻿// MD3 Compliant
 import React, { useState } from 'react';
-import { useTheme } from '../../theme/theme';
 
 interface M3SurfaceCardProps {
   children: React.ReactNode;
@@ -17,13 +16,20 @@ interface M3SurfaceCardProps {
   style?: React.CSSProperties; // MD3 compatibility shim
 }
 
+const colorTokens: Record<string, { bg: string; fg: string }> = {
+  primary:       { bg: 'var(--md-sys-color-primary-container)',   fg: 'var(--md-sys-color-on-primary-container)' },
+  secondary:     { bg: 'var(--md-sys-color-secondary-container)', fg: 'var(--md-sys-color-on-secondary-container)' },
+  tertiary:      { bg: 'var(--md-sys-color-tertiary)',            fg: 'var(--md-sys-color-on-tertiary)' },
+  surface:       { bg: 'var(--md-sys-color-surface-container-high)', fg: 'var(--md-sys-color-on-surface)' },
+  surfaceVariant:{ bg: 'var(--md-sys-color-surface-container-low)',  fg: 'var(--md-sys-color-on-surface-variant)' },
+};
+
 /**
  * M3SurfaceCard - Base component for standardized surface styling.
  * Supports various variants for different use cases.
  */
 const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
   children,
-  variant = 'low',
   interactive = false,
   glass = false,
   expressive = false,
@@ -33,62 +39,34 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
   role,
   tabIndex,
   'aria-label': ariaLabel,
-  // elevation prop removed (was unused)
   style,
 }) => {
   const [hovered, setHovered] = useState(false);
-  const { layers } = useTheme();
-  const themeColor = layers.sys.colors;
-  const shape = layers.ref.shape;
-  const motion = layers.motion;
-
-  const colorTokens: Record<string, { bg: string; fg: string }> = {
-    primary: { bg: themeColor.primaryContainer, fg: themeColor.onPrimaryContainer },
-    secondary: { bg: themeColor.secondaryContainer, fg: themeColor.onSecondaryContainer },
-    tertiary: { bg: themeColor.tertiary, fg: themeColor.onTertiary },
-    surface: { bg: themeColor.surfaceContainerHigh, fg: themeColor.onSurface },
-    surfaceVariant: { bg: themeColor.surfaceContainerLow, fg: themeColor.onSurfaceVariant }
-  };
-
   const palette = colorTokens[color];
 
   const baseStyle: React.CSSProperties = {
-    border: `var(--app-border-normal) solid ${themeColor.outlineVariant}`,
-    borderRadius: shape.large,
-    position: expressive ? ('relative' as React.CSSProperties['position']) : undefined,
+    border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)`,
+    borderRadius: 'var(--md-sys-shape-corner-large)',
+    position: expressive ? 'relative' : undefined,
     overflow: expressive ? 'hidden' : undefined,
     backdropFilter: glass ? 'blur(var(--md-sys-blur-large))' : undefined,
-    WebkitBackdropFilter: glass ? 'blur(var(--md-sys-blur-large))' : undefined, // Safari support
-  };
-
-  const variantStyle = variant === 'low'
-    ? { backgroundColor: glass ? undefined : palette.bg, opacity: 0.5 }
-    : { backgroundColor: glass ? undefined : palette.bg, opacity: 0.5 };
-
-  const interactiveStyle = interactive ? {
-    transition: `background-color ${motion.duration.short2} ${motion.easing.standard}`,
-    cursor: onClick ? 'pointer' : undefined,
-    backgroundColor: hovered ? themeColor.surfaceContainerLow : (glass ? themeColor.surface : palette.bg),
-    opacity: glass && hovered ? 0.1 : undefined
-  } : {};
-
-  const glassStyle = glass ? {
-    backgroundColor: themeColor.surface,
-    opacity: 0.1,
-  } : {};
-
-  const combinedStyle = {
-    ...baseStyle,
-    ...variantStyle,
-    ...interactiveStyle,
-    ...glassStyle,
+    WebkitBackdropFilter: glass ? 'blur(var(--md-sys-blur-large))' : undefined,
+    backgroundColor: glass ? 'var(--md-sys-color-surface)' : palette.bg,
     color: palette.fg,
-    ...style,
   };
+
+  const interactiveStyle: React.CSSProperties = interactive ? {
+    transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+    cursor: onClick ? 'pointer' : undefined,
+    backgroundColor: hovered
+      ? 'var(--md-sys-color-surface-container-low)'
+      : (glass ? 'var(--md-sys-color-surface)' : palette.bg),
+    opacity: glass && hovered ? 0.1 : undefined,
+  } : {};
 
   return (
     <div
-      style={combinedStyle}
+      style={{ ...baseStyle, ...interactiveStyle, ...style }}
       onMouseEnter={() => interactive && setHovered(true)}
       onMouseLeave={() => interactive && setHovered(false)}
       onClick={onClick}
@@ -96,7 +74,6 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
       role={role}
       tabIndex={tabIndex}
       aria-label={ariaLabel}
-      // elevation prop intentionally ignored for MD3 compatibility
     >
       {children}
     </div>
@@ -104,10 +81,3 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
 };
 
 export default M3SurfaceCard;
-
-
-
-
-
-
-

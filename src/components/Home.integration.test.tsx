@@ -1,5 +1,5 @@
 import { renderWithM3Theme } from '../test-utils';
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -39,7 +39,7 @@ vi.mock('./ui', () => ({
   ),
   M3Typography: ({ children, variant, as, style }: any) => {
     const Component = as || 'span';
-    return React.createElement(Component, { 'data-testid': 'm3-typography', style: { ...style, fontSize: 'var(--app-text-body)' } }, children);
+    return React.createElement(Component, { 'data-testid': 'm3-typography', style: { ...style, fontSize: 'var(--md-sys-typescale-body-large-font-size)' } }, children);
   },
   M3HeroCard: ({ children, onClick }: any) => (
     <div data-testid="m3-hero-card" onClick={onClick} style={{borderRadius: 'var(--md-sys-shape-corner-large)'}}>
@@ -107,6 +107,12 @@ vi.mock('./ui', () => ({
     >
       {children}
     </aside>
+  ),
+  M3Chip: ({ children, label, onClick, ...props }: any) => (
+    <button data-testid="m3-chip" onClick={onClick} {...props}>{label || children}</button>
+  ),
+  M3StateLayer: ({ children, ...props }: any) => (
+    <div data-testid="m3-state-layer" {...props}>{children}</div>
   ),
 }));
 
@@ -185,11 +191,4 @@ describe('Home Component - Integration (lean)', () => {
     expect(elementsWithMD3Styles.length).toBeGreaterThan(0);
   });
 });
-
-
-
-
-
-
-
 

@@ -249,4 +249,3 @@ if (typeof window !== 'undefined') {
   (globalThis as typeof globalThis & { __errorLogger: typeof errorLogger }).__errorLogger = errorLogger;
 }
 
-

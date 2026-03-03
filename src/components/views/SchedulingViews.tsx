@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 /**
  * SchedulingViews.tsx
  * Raggruppa viste relative a orari, calendari e lezioni
@@ -100,11 +100,4 @@ export const SchedulingViewsRenderer: React.FC<{
             return null;
     }
 };
-
-
-
-
-
-
-
 

@@ -40,26 +40,26 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
             onClose={onClose}
             maxWidth="lg"
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 , display: "flex", justifyContent: "center", alignItems: "center", padding: 'var(--app-spacing-section)'}}>
+            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 , display: "flex", justifyContent: "center", alignItems: "center", padding: 'var(--md-sys-spacing-6)'}}>
                 <div >
                     <img 
                         src={dataUrl} 
                         alt={prompt} 
-                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , maxWidth: "var(--app-layout-full)", border: "var(--app-border-thin) solid var(--md-sys-color-outline)"}} 
+                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , maxWidth: "var(--md-sys-percent-100)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}} 
                     />
-                    <div style={{ backgroundColor: sys.colors.black/40, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', opacity: "0", transition: "opacity var(--app-motion-standard)"}}>
-                        <p style={{ color: sys.colors.white ,  fontSize: "var(--app-text-body)", fontWeight: "500" }}>"{prompt}"</p>
+                    <div style={{ backgroundColor: sys.colors.black/40, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', opacity: "0", transition: "opacity var(--md-sys-motion-duration-medium)"}}>
+                        <p style={{ color: sys.colors.white ,  fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "500" }}>"{prompt}"</p>
                     </div>
                 </div>
             </M3DialogContent>
 
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/80 , padding: 'var(--app-spacing-section)', borderTop: "var(--app-border-thin) solid var(--md-sys-color-outline)"}}>
+            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/80 , padding: 'var(--md-sys-spacing-6)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                 <M3Button 
                     onClick={handleSave} 
                     variant="outlined" 
                     
                 >
-                    <span  style={{ marginRight: "var(--app-spacing-component)" }}>save</span>
+                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>save</span>
                     Salva in Knowledge Base
                 </M3Button>
                 <M3Button 
@@ -72,7 +72,7 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
                     onClick={handleDownload} 
                     variant="filled"
                 >
-                    <span  style={{ marginRight: "var(--app-spacing-component)" }}>download</span>
+                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>download</span>
                     Scarica
                 </M3Button>
             </M3DialogActions>
@@ -81,11 +81,4 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
 };
 
 export default ImageViewerModal;
-
-
-
-
-
-
-
 

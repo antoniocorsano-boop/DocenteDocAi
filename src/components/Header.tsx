@@ -46,25 +46,25 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
     <header
       role="banner"
       style={{
-        position: 'sticky',
-        top: 0,
+        flexShrink: 0,
+        position: 'relative',
         zIndex: 'var(--md-sys-z-app-bar)',
-        background: 'var(--app-color-surface)',
+        background: 'var(--md-sys-color-surface)',
         boxShadow: 'var(--md-sys-elevation-level1)',
         minHeight: 'var(--md-sys-spacing-12)',
         display: 'flex',
         alignItems: 'center',
-        paddingInline: 'var(--app-spacing-section)',
+        paddingInline: 'var(--md-sys-spacing-6)',
       }}
     >
       {/* Leading: Back + Aura */}
-      <nav style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-element)' }} aria-label="Azioni principali">
+      <nav style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }} aria-label="Azioni principali">
         {showBackButton && (
           <button
             aria-label="Indietro"
             onClick={onBack}
             style={{
-              width: 'var(--app-spacing-section)',
+              width: 'var(--md-sys-spacing-6)',
               aspectRatio: '1',
               borderRadius: 'var(--md-sys-shape-corner-large)',
               background: 'none',
@@ -83,7 +83,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
           aria-label="Operazioni rapide"
           onClick={onOpenOperations}
           style={{
-            width: 'var(--app-spacing-section)',
+            width: 'var(--md-sys-spacing-6)',
             aspectRatio: '1',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             background: 'none',
@@ -91,7 +91,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: hasSuggestion ? 'var(--app-color-primary)' : 'var(--md-sys-color-on-surface-variant)'
+            color: hasSuggestion ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)'
           }}
         >
           {/* MD3 icon font usage allowed */}
@@ -107,15 +107,15 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
       </nav>
 
       {/* Title/Logo */}
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--app-spacing-component)' }}>
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-2)' }}>
         <Logo isAiThinking={isAiProcessing} onHomeNavigate={() => !showBackButton && onNavigate('home')} />
-        <M3Typography variant="title-large" style={{ color: 'var(--app-color-on-surface)' }}>
+        <M3Typography variant="title-large" style={{ color: 'var(--md-sys-color-on-surface)' }}>
           {teacherName} {teacherSurname}
         </M3Typography>
       </div>
 
       {/* Trailing: Status, Settings, Avatar */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--app-spacing-element)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
         {!isOnline && (
           <div
             title="Modalità Offline"
@@ -123,7 +123,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
               display: 'flex',
               alignItems: 'center',
               gap: 'var(--md-sys-spacing-1)',
-              paddingInline: 'var(--app-spacing-component)',
+              paddingInline: 'var(--md-sys-spacing-2)',
               paddingBlock: 'var(--md-sys-spacing-1)',
               borderRadius: 'var(--md-sys-shape-corner-large)',
               background: 'var(--md-sys-color-error-container)',
@@ -139,7 +139,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
           aria-label="Impostazioni"
           onClick={() => onNavigate('settings')}
           style={{
-            width: 'var(--app-spacing-section)',
+            width: 'var(--md-sys-spacing-6)',
             aspectRatio: '1',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             background: 'none',
@@ -156,7 +156,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
         <button
           aria-label="Menu utente"
           style={{
-            width: 'var(--app-spacing-section)',
+            width: 'var(--md-sys-spacing-6)',
             aspectRatio: '1',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             background: 'none',
@@ -178,11 +178,11 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
                 position: 'absolute',
                 top: 0,
                 right: 0,
-                width: 'var(--app-spacing-element)',
+                width: 'var(--md-sys-spacing-3)',
                 aspectRatio: '1',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
                 background: 'var(--md-sys-color-error)',
-                border: 'var(--app-border-thin) solid var(--app-color-surface)',
+                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-surface)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
@@ -191,7 +191,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
             >
               <span
                 style={{
-                  fontSize: 'var(--app-spacing-element)',
+                  fontSize: 'var(--md-sys-spacing-3)',
                   fontWeight: 700,
                   color: 'var(--md-sys-color-on-error)',
                   lineHeight: 1

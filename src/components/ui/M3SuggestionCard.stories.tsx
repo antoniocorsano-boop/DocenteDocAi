@@ -1,7 +1,4 @@
 // MD3 Compliant - Block G Migration (14 violations eliminated)
-// @legacy
-// @md3-noncompliant
-// @do-not-extend
 
 /** @jsxImportSource react */
 import type { Meta, StoryObj } from '@storybook/react';

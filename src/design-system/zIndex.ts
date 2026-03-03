@@ -50,4 +50,3 @@ export function getModalContentZIndex(level: number): string {
   return getModalZIndex(level);
 }
 
-

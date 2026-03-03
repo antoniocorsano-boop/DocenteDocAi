@@ -36,7 +36,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
         style={{
           width: spinnerSize,
           height: spinnerSize,
-          border: '4px solid var(--md-sys-color-primary-container)',
+          border: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary-container)',
           borderTopColor: 'var(--md-sys-color-primary)',
           borderRadius: '50%',
           animation: 'spin 1s linear infinite'

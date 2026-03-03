@@ -1,7 +1,4 @@
-// LEGACY - MD3 Non-compliant
-// @legacy
-// @md3-noncompliant
-// @do-not-extend
+// MD3 Compliant
 
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
@@ -70,7 +67,7 @@ export const WithIconAndAction: Story = {
             Consider using visual aids for better engagement
           </M3Typography>
         </div>
-        <button style={{ color: layers.sys.color.primary ,  border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", borderRadius: layers.ref.spacing['4'], fontSize: "var(--app-text-body)", transition: `color var(--md-sys-motion-duration-medium)` }}>
+        <button style={{ color: layers.sys.color.primary ,  border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", borderRadius: layers.ref.spacing['4'], fontSize: "var(--md-sys-typescale-body-large-font-size)", transition: `color var(--md-sys-motion-duration-medium)` }}>
           Apply
         </button>
       </div>
@@ -135,11 +132,4 @@ export const ReadOnly: Story = {
     ),
   },
 };
-
-
-
-
-
-
-
 

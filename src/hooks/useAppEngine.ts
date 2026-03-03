@@ -998,8 +998,7 @@ export const useAppEngine = () => {
         setNotifiche: setNotifiche,
     }), [modals, circularAnalysisModal, syncConflictModal, createLessonContext, editingSlotKey, activeSlotKey, lessonViewContext, loadingModalMessage, toast, uiActions, setNotifiche]);
 
-
-    return {
+return {
         view,
         viewContext,
         appState: appStateObject,
@@ -1007,5 +1006,4 @@ export const useAppEngine = () => {
         modals: modalsProxy
     };
 };
-
 

@@ -156,8 +156,8 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                         {/* Obiettivi per Materia */}
                         <InfoCard variant="elevated" >
                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
-                                <span  style={{color: "var(--app-color-primary)"}}>subject</span>
-                                <h3 style={{fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", color: "var(--app-color-primary)", textTransform: "uppercase", letterSpacing: "0.05em"}}>
+                                <span  style={{color: "var(--md-sys-color-primary)"}}>subject</span>
+                                <h3 style={{fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.05em"}}>
                                     Obiettivi per Materia (PEI/PDP)
                                 </h3>
                             </div>
@@ -170,7 +170,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                     <div key={materia} >
                                         <div >
                                             <label >
-                                                <span style={{ color: "var(--app-color-primary)" }}>book</span>
+                                                <span style={{ color: "var(--md-sys-color-primary)" }}>book</span>
                                                 {materia}
                                             </label>
                                             <M3Button
@@ -184,7 +184,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                                 {loadingSection === `obj-${materia}` ? (
                                                     <AiThinkingGem size="small" inline />
                                                 ) : (
-                                                    <span style={{ color: 'var(--app-color-primary)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)" }}>auto_awesome</span>
+                                                    <span style={{ color: 'var(--md-sys-color-primary)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)" }}>auto_awesome</span>
                                                 )}
                                             </M3Button>
                                         </div>
@@ -213,7 +213,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                             variant="outlined"
                             
                         >
-                            <span  style={{ marginRight: "var(--app-spacing-component)" }}>delete</span>
+                            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>delete</span>
                             Elimina
                         </M3Button>
                     )}
@@ -238,11 +238,4 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
 };
 
 export default PianoInclusioneEditor;
-
-
-
-
-
-
-
 

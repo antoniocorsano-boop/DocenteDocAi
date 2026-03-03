@@ -46,7 +46,7 @@ const DashboardHeader: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 'var(--app-spacing-section)'
+        marginBottom: 'var(--md-sys-spacing-6)'
       }}
     >
       <div>
@@ -54,9 +54,9 @@ const DashboardHeader: React.FC = () => {
           style={{
             fontSize: 'var(--md-sys-typescale-headline-large-size)',
             fontWeight: 'var(--md-sys-typescale-headline-large-weight)',
-            lineHeight: 'var(--app-text-title-line-height)',
-            marginBottom: 'var(--app-spacing-component)',
-            color: 'var(--app-color-on-surface)'
+            lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)',
+            marginBottom: 'var(--md-sys-spacing-2)',
+            color: 'var(--md-sys-color-on-surface)'
           }}
         >
           Dashboard Operativa
@@ -65,7 +65,7 @@ const DashboardHeader: React.FC = () => {
           style={{
             fontSize: 'var(--md-sys-typescale-body-large-size)',
             fontWeight: 'var(--md-sys-typescale-body-large-weight)',
-            lineHeight: 'var(--app-text-body-line-height)',
+            lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
             color: 'var(--md-sys-color-on-surface-variant)'
           }}
         >
@@ -77,7 +77,7 @@ const DashboardHeader: React.FC = () => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 'var(--app-spacing-container)'
+          gap: 'var(--md-sys-spacing-4)'
         }}
       >
         {/* Auto Refresh Toggle */}
@@ -85,14 +85,14 @@ const DashboardHeader: React.FC = () => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 'var(--app-spacing-component)'
+            gap: 'var(--md-sys-spacing-2)'
           }}
         >
           <label
             style={{
               fontSize: 'var(--md-sys-typescale-body-medium-size)',
               fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
-              lineHeight: 'var(--app-text-body-line-height)',
+              lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
               color: 'var(--md-sys-color-on-surface-variant)',
               cursor: 'pointer'
             }}
@@ -104,12 +104,12 @@ const DashboardHeader: React.FC = () => {
             style={{
               position: 'relative',
               display: 'inline-flex',
-              height: 'var(--app-spacing-section)',
+              height: 'var(--md-sys-spacing-6)',
               width: 'var(--md-sys-spacing-11)',
               alignItems: 'center',
               borderRadius: 'var(--md-sys-radius-3)',
-              transition: 'background-color var(--app-motion-quick) var(--app-easing-standard)',
-              backgroundColor: autoRefresh ? 'var(--app-color-primary)' : 'var(--md-sys-color-outline-variant)',
+              transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+              backgroundColor: autoRefresh ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)',
               border: 'none',
               cursor: 'pointer'
             }}
@@ -117,12 +117,12 @@ const DashboardHeader: React.FC = () => {
             <span
               style={{
                 display: 'inline-block',
-                height: 'var(--app-spacing-container)',
-                width: 'var(--app-spacing-container)',
-                borderRadius: 'var(--app-shape-small)',
-                backgroundColor: 'var(--app-color-on-primary)',
-                transition: 'transform var(--app-motion-quick) var(--app-easing-standard)',
-                transform: autoRefresh ? 'translateX(var(--app-spacing-touch))' : 'translateX(var(--md-sys-spacing-1))'
+                height: 'var(--md-sys-spacing-4)',
+                width: 'var(--md-sys-spacing-4)',
+                borderRadius: 'var(--md-sys-shape-corner-small)',
+                backgroundColor: 'var(--md-sys-color-on-primary)',
+                transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                transform: autoRefresh ? 'translateX(var(--md-sys-spacing-5))' : 'translateX(var(--md-sys-spacing-1))'
               }}
             />
           </button>
@@ -135,15 +135,15 @@ const DashboardHeader: React.FC = () => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 'var(--app-spacing-component)',
-            padding: 'var(--app-spacing-component) var(--app-spacing-container)',
+            gap: 'var(--md-sys-spacing-2)',
+            padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
             borderRadius: 'var(--md-sys-shape-corner-medium)',
             fontSize: 'var(--md-sys-typescale-label-large-size)',
             fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-            lineHeight: 'var(--app-text-label-line-height)',
-            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-quick) var(--app-easing-standard)',
-            backgroundColor: isLoading ? 'var(--md-sys-color-surface-container-high)' : 'var(--app-color-primary)',
-            color: isLoading ? 'var(--md-sys-color-on-surface-variant)' : 'var(--app-color-on-primary)',
+            lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
+            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+            backgroundColor: isLoading ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-primary)',
+            color: isLoading ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',
             border: 'none',
             cursor: isLoading ? 'not-allowed' : 'pointer'
           }}
@@ -151,9 +151,9 @@ const DashboardHeader: React.FC = () => {
           {isLoading ? (
             <svg
               style={{
-                animation: 'spin var(--app-motion-slow) var(--app-easing-standard) infinite',
-                height: 'var(--app-spacing-container)',
-                width: 'var(--app-spacing-container)'
+                animation: 'spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite',
+                height: 'var(--md-sys-spacing-4)',
+                width: 'var(--md-sys-spacing-4)'
               }}
               fill="none"
               viewBox="0 0 24 24"
@@ -164,8 +164,8 @@ const DashboardHeader: React.FC = () => {
           ) : (
             <svg
               style={{
-                height: 'var(--app-spacing-container)',
-                width: 'var(--app-spacing-container)'
+                height: 'var(--md-sys-spacing-4)',
+                width: 'var(--md-sys-spacing-4)'
               }}
               fill="none"
               stroke="currentColor"
@@ -182,7 +182,7 @@ const DashboardHeader: React.FC = () => {
           style={{
             fontSize: 'var(--md-sys-typescale-body-small-size)',
             fontWeight: 'var(--md-sys-typescale-body-small-weight)',
-            lineHeight: 'var(--app-text-body-line-height)',
+            lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
             color: 'var(--md-sys-color-on-surface-variant)'
           }}
         >
@@ -205,17 +205,17 @@ const AlertsSection: React.FC = () => {
         <div
           style={{
             borderRadius: 'var(--md-sys-radius-3)',
-            border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
             backgroundColor: 'var(--md-sys-color-surface-container-low)',
-            padding: 'var(--app-spacing-section)',
+            padding: 'var(--md-sys-spacing-6)',
           }}
         >
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: 'var(--app-spacing-element)',
-            marginBottom: 'var(--app-spacing-container)',
+            gap: 'var(--md-sys-spacing-3)',
+            marginBottom: 'var(--md-sys-spacing-4)',
           }}
         >
           <div
@@ -225,14 +225,14 @@ const AlertsSection: React.FC = () => {
               justifyContent: 'center',
               width: 'var(--md-sys-spacing-8)',
               height: 'var(--md-sys-spacing-8)',
-              borderRadius: 'var(--app-shape-small)',
+              borderRadius: 'var(--md-sys-shape-corner-small)',
               backgroundColor: 'var(--md-sys-color-tertiary-container)',
             }}
           >
             <svg
               style={{
-                width: 'var(--app-spacing-container)',
-                height: 'var(--app-spacing-container)',
+                width: 'var(--md-sys-spacing-4)',
+                height: 'var(--md-sys-spacing-4)',
                 color: 'var(--md-sys-color-tertiary)',
               }}
               fill="currentColor"
@@ -243,9 +243,9 @@ const AlertsSection: React.FC = () => {
           </div>
           <h3
             style={{
-              fontSize: 'var(--app-text-title)',
-              fontWeight: 'var(--app-text-title-weight)',
-              color: 'var(--app-color-on-surface)',
+              fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+              fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)',
+              color: 'var(--md-sys-color-on-surface)',
             }}
           >
             Tutto OK
@@ -253,7 +253,7 @@ const AlertsSection: React.FC = () => {
         </div>
         <p
           style={{
-            fontSize: 'var(--app-text-body)',
+            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
             color: 'var(--md-sys-color-on-surface-variant)',
           }}
         >
@@ -267,17 +267,17 @@ const AlertsSection: React.FC = () => {
     <div
       style={{
         borderRadius: 'var(--md-sys-radius-3)',
-        border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
-        padding: 'var(--app-spacing-section)',
+        padding: 'var(--md-sys-spacing-6)',
       }}
     >
       <div
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: 'var(--app-spacing-element)',
-          marginBottom: 'var(--app-spacing-container)',
+          gap: 'var(--md-sys-spacing-3)',
+          marginBottom: 'var(--md-sys-spacing-4)',
         }}
       >
         <div
@@ -287,14 +287,14 @@ const AlertsSection: React.FC = () => {
             justifyContent: 'center',
             width: 'var(--md-sys-spacing-8)',
             height: 'var(--md-sys-spacing-8)',
-            borderRadius: 'var(--app-shape-small)',
+            borderRadius: 'var(--md-sys-shape-corner-small)',
             backgroundColor: 'var(--md-sys-color-error-container)',
           }}
         >
           <svg
             style={{
-              width: 'var(--app-spacing-container)',
-              height: 'var(--app-spacing-container)',
+              width: 'var(--md-sys-spacing-4)',
+              height: 'var(--md-sys-spacing-4)',
               color: 'var(--md-sys-color-error)',
             }}
             fill="currentColor"
@@ -305,9 +305,9 @@ const AlertsSection: React.FC = () => {
         </div>
         <h3
           style={{
-            fontSize: 'var(--app-text-title)',
-            fontWeight: 'var(--app-text-title-weight)',
-            color: 'var(--app-color-on-surface)',
+            fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+            fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)',
+            color: 'var(--md-sys-color-on-surface)',
           }}
         >
           Alert Attivi ({alerts.length})
@@ -318,7 +318,7 @@ const AlertsSection: React.FC = () => {
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 'var(--app-spacing-element)',
+          gap: 'var(--md-sys-spacing-3)',
         }}
       >
         {alerts.slice(0, 5).map((alert) => (
@@ -327,21 +327,21 @@ const AlertsSection: React.FC = () => {
             style={{
               display: 'flex',
               alignItems: 'flex-start',
-              gap: 'var(--app-spacing-element)',
-              padding: 'var(--app-spacing-element)',
-              borderRadius: 'var(--app-shape-small)',
-              border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+              gap: 'var(--md-sys-spacing-3)',
+              padding: 'var(--md-sys-spacing-3)',
+              borderRadius: 'var(--md-sys-shape-corner-small)',
+              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
               backgroundColor: 'var(--md-sys-color-surface-container-highest)',
             }}
           >
             <div
               style={{
-                width: 'var(--app-spacing-component)',
-                height: 'var(--app-spacing-component)',
-                borderRadius: 'var(--app-layout-half)',
-                marginTop: 'var(--app-spacing-component)',
+                width: 'var(--md-sys-spacing-2)',
+                height: 'var(--md-sys-spacing-2)',
+                borderRadius: 'var(50%)',
+                marginTop: 'var(--md-sys-spacing-2)',
                 backgroundColor: alert.type === 'critical' ? 'var(--md-sys-color-error)' :
-                               alert.type === 'warning' ? 'var(--app-color-secondary)' :
+                               alert.type === 'warning' ? 'var(--md-sys-color-secondary)' :
                                'var(--md-sys-color-tertiary)',
               }}
             />
@@ -354,29 +354,29 @@ const AlertsSection: React.FC = () => {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 'var(--app-spacing-component)',
+                  gap: 'var(--md-sys-spacing-2)',
                   marginBottom: 'var(--md-sys-spacing-1)',
                 }}
               >
                 <span
                   style={{
-                    fontSize: 'var(--app-text-body)',
-                    fontWeight: 'var(--app-text-label-weight)',
-                    color: 'var(--app-color-on-surface)',
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                    fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+                    color: 'var(--md-sys-color-on-surface)',
                   }}
                 >
                   {alert.title}
                 </span>
                 <span
                   style={{
-                    fontSize: 'var(--app-text-body)',
-                    padding: 'var(--md-sys-spacing-1) var(--app-spacing-component)',
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                    padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
                     borderRadius: 'var(--md-sys-radius-3)',
                     backgroundColor: alert.type === 'critical' ? 'var(--md-sys-color-error-container)' :
-                                   alert.type === 'warning' ? 'var(--app-color-secondary-container)' :
+                                   alert.type === 'warning' ? 'var(--md-sys-color-secondary-container)' :
                                    'var(--md-sys-color-tertiary-container)',
                     color: alert.type === 'critical' ? 'var(--md-sys-color-on-error-container)' :
-                          alert.type === 'warning' ? 'var(--app-color-on-secondary-container)' :
+                          alert.type === 'warning' ? 'var(--md-sys-color-on-secondary-container)' :
                           'var(--md-sys-color-on-tertiary-container)',
                   }}
                 >
@@ -385,7 +385,7 @@ const AlertsSection: React.FC = () => {
               </div>
               <p
                 style={{
-                  fontSize: 'var(--app-text-body)',
+                  fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                   color: 'var(--md-sys-color-on-surface-variant)',
                 }}
               >
@@ -393,7 +393,7 @@ const AlertsSection: React.FC = () => {
               </p>
               <p
                 style={{
-                  fontSize: 'var(--app-text-body)',
+                  fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                   marginTop: 'var(--md-sys-spacing-1)',
                   color: 'var(--md-sys-color-on-surface-variant)',
                 }}
@@ -450,25 +450,25 @@ export const Dashboard: React.FC = () => {
       <div
         style={{
           minHeight: 'var(--md-sys-viewport-height-full)',
-          padding: 'var(--app-spacing-section)',
+          padding: 'var(--md-sys-spacing-6)',
         }}
       >
         <div
           style={{
             maxWidth: 'calc(var(--md-sys-layout-panel-max-width) * 1.6)', // 1280px using MD3 tokens
-            margin: '0 var(--app-layout-auto)',
+            margin: '0 var(auto)',
             borderRadius: 'var(--md-sys-radius-3)',
-            border: 'var(--app-border-thin) solid var(--md-sys-color-error)',
+            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-error)',
             backgroundColor: 'var(--md-sys-color-error-container)',
-            padding: 'var(--app-spacing-section)',
+            padding: 'var(--md-sys-spacing-6)',
           }}
         >
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: 'var(--app-spacing-element)',
-              marginBottom: 'var(--app-spacing-container)',
+              gap: 'var(--md-sys-spacing-3)',
+              marginBottom: 'var(--md-sys-spacing-4)',
             }}
           >
             <svg
@@ -484,8 +484,8 @@ export const Dashboard: React.FC = () => {
             </svg>
             <h2
               style={{
-                fontSize: 'var(--app-text-title)',
-                fontWeight: 'var(--app-text-title-weight)',
+                fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)',
                 color: 'var(--md-sys-color-on-error-container)',
               }}
             >
@@ -494,8 +494,8 @@ export const Dashboard: React.FC = () => {
           </div>
           <p
             style={{
-              fontSize: 'var(--app-text-body)',
-              marginBottom: 'var(--app-spacing-container)',
+              fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+              marginBottom: 'var(--md-sys-spacing-4)',
               color: 'var(--md-sys-color-on-error-container)',
             }}
           >
@@ -504,13 +504,13 @@ export const Dashboard: React.FC = () => {
           <button
             onClick={fetchMetrics}
             style={{
-              padding: 'var(--md-sys-spacing-1) var(--app-spacing-component)',
+              padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
               backgroundColor: 'var(--md-sys-color-error)',
               color: 'var(--md-sys-color-on-error)',
-              borderRadius: 'var(--app-shape-small)',
+              borderRadius: 'var(--md-sys-shape-corner-small)',
               border: 'none',
               cursor: 'pointer',
-              transition: 'background-color var(--app-motion-quick) var(--app-easing-standard)',
+              transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
             }}
             onMouseOver={(e) => {
               e.currentTarget.style.backgroundColor = 'var(--md-sys-color-error-hover)';
@@ -545,11 +545,11 @@ export const Dashboard: React.FC = () => {
             style={{
               width: 'var(--md-sys-layout-fab-size)',
               height: 'var(--md-sys-layout-fab-size)',
-              borderRadius: 'var(--app-layout-full)',
-              border: 'var(--app-border-medium) solid transparent',
-              borderTopColor: 'var(--app-color-primary)',
-              animation: 'spin var(--app-motion-slow) var(--app-easing-standard) infinite',
-              margin: '0 var(--app-layout-auto) var(--app-spacing-container)',
+              borderRadius: 'var(--md-sys-percent-100)',
+              border: 'var(--md-sys-border-width-normal) solid transparent',
+              borderTopColor: 'var(--md-sys-color-primary)',
+              animation: 'spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite',
+              margin: '0 var(auto) var(--md-sys-spacing-4)',
             }}
           />
           <p
@@ -569,13 +569,13 @@ export const Dashboard: React.FC = () => {
       <div
         style={{
           minHeight: 'var(--md-sys-viewport-height-full)',
-          padding: 'var(--app-spacing-section)',
+          padding: 'var(--md-sys-spacing-6)',
         }}
       >
         <div
           style={{
             maxWidth: 'calc(var(--md-sys-layout-panel-max-width) * 1.6)', // 1280px using MD3 tokens
-            margin: '0 var(--app-layout-auto)',
+            margin: '0 var(auto)',
             textAlign: 'center',
           }}
         >
@@ -595,13 +595,13 @@ export const Dashboard: React.FC = () => {
     <div
       style={{
         minHeight: 'var(--md-sys-viewport-height-full)',
-        padding: 'var(--app-spacing-section)',
+        padding: 'var(--md-sys-spacing-6)',
       }}
     >
       <div
         style={{
           maxWidth: 'calc(var(--md-sys-layout-panel-max-width) * 1.6)', // 1280px using MD3 tokens
-          margin: '0 var(--app-layout-auto)',
+          margin: '0 var(auto)',
           display: 'flex',
           flexDirection: 'column',
           gap: 'var(--md-sys-spacing-8)',
@@ -615,7 +615,7 @@ export const Dashboard: React.FC = () => {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(280px, var(--md-sys-grid-fr-1)))',
-            gap: 'var(--app-spacing-section)',
+            gap: 'var(--md-sys-spacing-6)',
           }}
         >
           <FPSCard current={current} baseline={baseline} />
@@ -636,17 +636,17 @@ export const Dashboard: React.FC = () => {
           <div
             style={{
               borderRadius: 'var(--md-sys-radius-3)',
-              border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
               backgroundColor: 'var(--md-sys-color-surface-container-low)',
-              padding: 'var(--app-spacing-section)',
+              padding: 'var(--md-sys-spacing-6)',
             }}
           >
             <h3
               style={{
-                fontSize: 'var(--app-text-title)',
-                fontWeight: 'var(--app-text-title-weight)',
-                marginBottom: 'var(--app-spacing-container)',
-                color: 'var(--app-color-on-surface)',
+                fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)',
+                marginBottom: 'var(--md-sys-spacing-4)',
+                color: 'var(--md-sys-color-on-surface)',
               }}
             >
               Trend Performance (7 giorni)
@@ -658,17 +658,17 @@ export const Dashboard: React.FC = () => {
           <div
             style={{
               borderRadius: 'var(--md-sys-radius-3)',
-              border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
               backgroundColor: 'var(--md-sys-color-surface-container-low)',
-              padding: 'var(--app-spacing-section)',
+              padding: 'var(--md-sys-spacing-6)',
             }}
           >
             <h3
               style={{
-                fontSize: 'var(--app-text-title)',
-                fontWeight: 'var(--app-text-title-weight)',
-                marginBottom: 'var(--app-spacing-container)',
-                color: 'var(--app-color-on-surface)',
+                fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)',
+                marginBottom: 'var(--md-sys-spacing-4)',
+                color: 'var(--md-sys-color-on-surface)',
               }}
             >
               Utilizzo Memoria
@@ -680,17 +680,17 @@ export const Dashboard: React.FC = () => {
           <div
             style={{
               borderRadius: 'var(--md-sys-radius-3)',
-              border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
               backgroundColor: 'var(--md-sys-color-surface-container-low)',
-              padding: 'var(--app-spacing-section)',
+              padding: 'var(--md-sys-spacing-6)',
             }}
           >
             <h3
               style={{
-                fontSize: 'var(--app-text-title)',
-                fontWeight: 'var(--app-text-title-weight)',
-                marginBottom: 'var(--app-spacing-container)',
-                color: 'var(--app-color-on-surface)',
+                fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)',
+                marginBottom: 'var(--md-sys-spacing-4)',
+                color: 'var(--md-sys-color-on-surface)',
               }}
             >
               Errori AI per Categoria
@@ -702,17 +702,17 @@ export const Dashboard: React.FC = () => {
           <div
             style={{
               borderRadius: 'var(--md-sys-radius-3)',
-              border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
               backgroundColor: 'var(--md-sys-color-surface-container-low)',
-              padding: 'var(--app-spacing-section)',
+              padding: 'var(--md-sys-spacing-6)',
             }}
           >
             <h3
               style={{
-                fontSize: 'var(--app-text-title)',
-                fontWeight: 'var(--app-text-title-weight)',
-                marginBottom: 'var(--app-spacing-container)',
-                color: 'var(--app-color-on-surface)',
+                fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)',
+                marginBottom: 'var(--md-sys-spacing-4)',
+                color: 'var(--md-sys-color-on-surface)',
               }}
             >
               Tempi Lazy Loading
@@ -725,17 +725,17 @@ export const Dashboard: React.FC = () => {
         <div
           style={{
             borderRadius: 'var(--md-sys-radius-3)',
-            border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
             backgroundColor: 'var(--md-sys-color-surface-container-low)',
-            padding: 'var(--app-spacing-section)',
+            padding: 'var(--md-sys-spacing-6)',
           }}
         >
           <h3
             style={{
-              fontSize: 'var(--app-text-title)',
-              fontWeight: 'var(--app-text-title-weight)',
-              marginBottom: 'var(--app-spacing-container)',
-              color: 'var(--app-color-on-surface)',
+              fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+              fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)',
+              marginBottom: 'var(--md-sys-spacing-4)',
+              color: 'var(--md-sys-color-on-surface)',
             }}
           >
             Trend Bundle Size (7 giorni)
@@ -751,9 +751,9 @@ export const Dashboard: React.FC = () => {
           <div
             style={{
               borderRadius: 'var(--md-sys-radius-3)',
-              border: 'var(--app-border-thin) solid var(--md-sys-color-outline-variant)',
+              border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
               backgroundColor: 'var(--md-sys-color-surface-container-low)',
-              padding: 'var(--app-spacing-section)',
+              padding: 'var(--md-sys-spacing-6)',
             }}
           >
             <div
@@ -761,23 +761,23 @@ export const Dashboard: React.FC = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                marginBottom: 'var(--app-spacing-container)',
+                marginBottom: 'var(--md-sys-spacing-4)',
               }}
             >
               <h3
                 style={{
-                  fontSize: 'var(--app-text-title)',
-                  fontWeight: 'var(--app-text-title-weight)',
-                  color: 'var(--app-color-on-surface)',
+                  fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                  fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)',
+                  color: 'var(--md-sys-color-on-surface)',
                 }}
               >
                 Efficienza Lazy Loading
               </h3>
               <div
                 style={{
-                  fontSize: 'var(--app-text-title)',
-                  fontWeight: 'var(--app-text-title-weight)',
-                  color: 'var(--app-color-primary)',
+                  fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                  fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)',
+                  color: 'var(--md-sys-color-primary)',
                 }}
               >
                 {lazyLoading.efficiency}%
@@ -788,7 +788,7 @@ export const Dashboard: React.FC = () => {
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(200px, var(--md-sys-grid-fr-1)))',
-                gap: 'var(--app-spacing-container)',
+                gap: 'var(--md-sys-spacing-4)',
               }}
             >
               <div
@@ -798,8 +798,8 @@ export const Dashboard: React.FC = () => {
               >
                 <div
                   style={{
-                    fontSize: 'var(--app-text-body)',
-                    fontWeight: 'var(--app-text-body-weight)',
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                    fontWeight: 'var(--md-sys-typescale-body-large-weight)',
                     marginBottom: 'var(--md-sys-spacing-1)',
                     color: 'var(--md-sys-color-on-surface-variant)',
                   }}
@@ -808,9 +808,9 @@ export const Dashboard: React.FC = () => {
                 </div>
                 <div
                   style={{
-                    fontSize: 'var(--app-text-title)',
-                    fontWeight: 'var(--app-text-title-weight)',
-                    color: 'var(--app-color-on-surface)',
+                    fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                    fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)',
+                    color: 'var(--md-sys-color-on-surface)',
                   }}
                 >
                   {lazyLoading.totalComponents}
@@ -823,8 +823,8 @@ export const Dashboard: React.FC = () => {
               >
                 <div
                   style={{
-                    fontSize: 'var(--app-text-body)',
-                    fontWeight: 'var(--app-text-body-weight)',
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                    fontWeight: 'var(--md-sys-typescale-body-large-weight)',
                     marginBottom: 'var(--md-sys-spacing-1)',
                     color: 'var(--md-sys-color-on-surface-variant)',
                   }}
@@ -833,9 +833,9 @@ export const Dashboard: React.FC = () => {
                 </div>
                 <div
                   style={{
-                    fontSize: 'var(--app-text-title)',
-                    fontWeight: 'var(--app-text-title-weight)',
-                    color: 'var(--app-color-on-surface)',
+                    fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                    fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)',
+                    color: 'var(--md-sys-color-on-surface)',
                   }}
                 >
                   {lazyLoading.averageLoadTime}ms
@@ -848,8 +848,8 @@ export const Dashboard: React.FC = () => {
               >
                 <div
                   style={{
-                    fontSize: 'var(--app-text-body)',
-                    fontWeight: 'var(--app-text-body-weight)',
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                    fontWeight: 'var(--md-sys-typescale-body-large-weight)',
                     marginBottom: 'var(--md-sys-spacing-1)',
                     color: 'var(--md-sys-color-on-surface-variant)',
                   }}
@@ -858,16 +858,16 @@ export const Dashboard: React.FC = () => {
                 </div>
                 <div
                   style={{
-                    fontSize: 'var(--app-text-body)',
-                    fontWeight: 'var(--app-text-body-weight)',
-                    padding: 'var(--md-sys-spacing-1) var(--app-spacing-component)',
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                    fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+                    padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
                     borderRadius: 'var(--md-sys-radius-3)',
                     display: 'inline-block',
                     backgroundColor: lazyLoading.efficiency >= 80 ? 'var(--md-sys-color-tertiary-container)' :
-                                   lazyLoading.efficiency >= 60 ? 'var(--app-color-secondary-container)' :
+                                   lazyLoading.efficiency >= 60 ? 'var(--md-sys-color-secondary-container)' :
                                    'var(--md-sys-color-error-container)',
                     color: lazyLoading.efficiency >= 80 ? 'var(--md-sys-color-on-tertiary-container)' :
-                          lazyLoading.efficiency >= 60 ? 'var(--app-color-on-secondary-container)' :
+                          lazyLoading.efficiency >= 60 ? 'var(--md-sys-color-on-secondary-container)' :
                           'var(--md-sys-color-on-error-container)',
                   }}
                 >

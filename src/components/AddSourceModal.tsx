@@ -1,7 +1,6 @@
 // MD3 Compliant - Block J Migration Complete (6 violations eliminated)
 // Note: Drop zone height uses var(--md-sys-spacing-48) for functional UX (closest MD3 token available)
 
-
 import React, { useState, useCallback } from 'react';
 import { useFileDrop } from '../hooks/useFileDrop';
 import { KnowledgeBaseEntry, Corpus } from '../types';
@@ -66,17 +65,17 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
             <M3DialogContent style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                 {isLoading ? (
                     <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                        <div  style={{borderRadius: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', width: 'var(--app-spacing-container)', borderBottom: 'var(--md-sys-spacing-1) solid var(--md-sys-color-outline)', borderColor: "var(--app-color-primary)"}}></div>
-                        <p  style={{color: "var(--app-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>{loadingMessage}</p>
+                        <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-spacing-1) solid var(--md-sys-color-outline)', borderColor: "var(--md-sys-color-primary)"}}></div>
+                        <p  style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>{loadingMessage}</p>
                     </div>
                 ) : (
                     <>
                         <section>
-                            <h3  style={{marginBottom: 'var(--app-spacing-section)', display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)'}}>
+                            <h3  style={{marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                 <span style={{ color: 'var(--md-sys-color-on-primary-container)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-radius-4)', backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center"}}>1</span> 
                                 Seleziona Destinazione
                             </h3>
-                            <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--app-spacing-section)'}}>
+                            <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                                 {/* MD3 grid fr tokens */}
                                 {KB_CATEGORIES.map(cat => (
                                     <CategoryCard 
@@ -98,17 +97,17 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                             filter: !selectedCategory ? 'grayscale(100%)' : 'none',
                             pointerEvents: !selectedCategory ? 'none' : 'auto'
                         }}>
-                            <h3  style={{marginBottom: 'var(--app-spacing-section)', display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)'}}>
+                            <h3  style={{marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                 <span style={{ color: 'var(--md-sys-color-on-secondary-container)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-radius-4)', backgroundColor: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center"}}>2</span>
                                 Carica File
                             </h3>
                             <div {...getRootProps()} style={{
                                 height: 'var(--md-sys-spacing-48)', // MD3 spacing token for drop zone height
                                 border: isDragActive ? 'var(--md-sys-elevation-2) dashed var(--md-sys-color-primary)' : 'var(--md-sys-elevation-0) dashed var(--md-sys-color-outline-variant)',
-                                backgroundColor: isDragActive ? 'var(--app-color-primary-container)' : 'transparent',
+                                backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'transparent',
                                 opacity: isDragActive ? 0.1 : 1,
-                                transform: isDragActive ? 'scale(var(--md-sys-spacing-1) + var(--app-scale-multiplier))' : 'scale(var(--md-sys-spacing-0) + var(--app-scale-multiplier))',
-                                transition: `all var(--app-motion-quick) var(--app-easing-standard)`, // MD3 motion tokens for duration and easing
+                                transform: isDragActive ? 'scale(var(--md-sys-spacing-1) + var(1))' : 'scale(var(--md-sys-spacing-0) + var(1))',
+                                transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`, // MD3 motion tokens for duration and easing
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
@@ -117,15 +116,15 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                 borderRadius: 'var(--md-sys-shape-corner-extra-large)'
                             }}>
                                 <input {...getInputProps()} />
-                                <span style={{color: "var(--app-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>{isDragActive ? 'download' : 'upload_file'}</span>
+                                <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>{isDragActive ? 'download' : 'upload_file'}</span>
                                 <p style={{ color: "var(--md-sys-color-on-surface-variant)" }}>Trascina i file qui o clicca per sfogliare</p>
                                 <p style={{opacity: "var(--md-sys-state-opacity-disabled-layer)", marginTop: 'var(--md-sys-spacing-6)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-on-surface-variant)"}}>Supporto PDF, DOCX, TXT</p>
                             </div>
                         </section>
 
-                        <section  style={{borderTop: 'var(--app-border-normal) solid var(--md-sys-color-outline)'}}>
-                            <h3  style={{fontWeight: "900", marginBottom: 'var(--app-spacing-section)', display: "flex", alignItems: "center", gap: 'var(--app-spacing-section)'}}>
-                                <span style={{ color: var(--md-sys-color-on-tertiary) , width: 'var(--app-spacing-container)', height: 'var(--app-spacing-container)', borderRadius: 'var(--app-spacing-container)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900"}}>3</span> 
+                        <section  style={{borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'}}>
+                            <h3  style={{fontWeight: "900", marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+                                <span style={{ color: 'var(--md-sys-color-on-tertiary)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900"}}>3</span> 
                                 Raccolta (Opzionale)
                             </h3>
                             <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end"}}>
@@ -142,12 +141,11 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                     title={isCreating ? "Annulla creazione" : "Crea nuova raccolta"}
                                 >
                                     <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>{isCreating ? 'remove' : 'add'}</span>
                                 </M3Button>
                             </div>
                             {isCreating && (
-                                 <div  style={{marginTop: 'var(--app-spacing-section)', display: "flex", gap: 'var(--app-spacing-section)'}}>
+                                 <div  style={{marginTop: 'var(--md-sys-spacing-6)', display: "flex", gap: 'var(--md-sys-spacing-6)'}}>
                                     <TextField 
                                         id="new-corpus-name-input" 
                                         label="Nome Nuova Raccolta" 
@@ -161,18 +159,11 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                         </section>
                     </>
                 )}
-                {error && <div style={{ color: sys.colors.on-error-container , marginTop: 'var(--app-spacing-container)', padding: 'var(--app-spacing-section)', backgroundColor: "var(--md-sys-color-error)", borderRadius: 'var(--md-sys-shape-corner-small)'}}>{error}</div>}
+                {error && <div style={{ color: sys.colors.on-error-container , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-6)', backgroundColor: "var(--md-sys-color-error)", borderRadius: 'var(--md-sys-shape-corner-small)'}}>{error}</div>}
             </M3DialogContent>
         </M3Dialog>
     );
 };
 
 export default AddSourceModal;
-
-
-
-
-
-
-
 

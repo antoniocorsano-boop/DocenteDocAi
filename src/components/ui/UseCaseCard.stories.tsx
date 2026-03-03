@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import UseCaseCard from './UseCaseCard';
@@ -219,13 +219,4 @@ export const QuickStart: Story = {
     tip: 'AI-generated content is a starting point - always review and personalize for your students',
   },
 };
-
-
-
-
-
-
-
-
-
 

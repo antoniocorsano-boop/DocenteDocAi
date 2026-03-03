@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 
 import React, { useState } from 'react';
 
@@ -68,11 +68,4 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
 };
 
 export default DonutChart;
-
-
-
-
-
-
-
 

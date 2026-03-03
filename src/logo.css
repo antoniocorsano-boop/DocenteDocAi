@@ -1,10 +1,10 @@
-.app-logo-container {
+﻿.app-logo-container {
   display: flex;
   align-items: center;
   gap: var(--md-sys-spacing-2);
   cursor: pointer;
   user-select: none;
-  transition: transform 0.5s var(--motion-expressive);
+  transition: transform var(--md-sys-motion-duration-long) var(--motion-easing-expressive);
   position: relative;
 }
 
@@ -46,7 +46,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   fill: var(--md-sys-color-tertiary);
   font-family: 'Roboto Mono', monospace;
   font-weight: 900;
-  font-size: theme.typography.body2.fontSize;
+  font-size: var(--md-sys-typescale-body-medium-font-size);
   filter: drop-shadow(0 0 var(--md-sys-spacing-1) var(--md-sys-color-tertiary));
 }
 
@@ -58,7 +58,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 @keyframes logo-sparkle-glow {
   0%, 100% { opacity: 1; transform: scale(1); }
-  var(--md-sys-percent-50) { opacity: 0.7; transform: scale(1.2); }
+  50% { opacity: 0.7; transform: scale(1.2); }
 }
 
 /* Stato Thinking AI */
@@ -79,7 +79,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   inset: 0;
   z-index: var(--md-sys-z-skip-link);
   pointer-events: none;
-  background: white;
+  background: var(--md-sys-color-surface);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -92,7 +92,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .universe-overlay.implosion {
   opacity: 1;
-  background: white;
+  background: var(--md-sys-color-surface);
   transform: scale(0);
   animation: implosion-zoom 0.4s var(--motion-standard) forwards;
 }
@@ -107,9 +107,9 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 @keyframes chaos-shake {
-  var(--md-sys-percent-0) { transform: translate(var(--md-sys-spacing-1), var(--md-sys-spacing-1)); }
-  var(--md-sys-percent-50) { transform: translate(-var(--md-sys-spacing-1), -var(--md-sys-spacing-1)); }
-  var(--md-sys-percent-100) { transform: translate(var(--md-sys-spacing-1), -var(--md-sys-spacing-1)); }
+  0% { transform: translate(var(--md-sys-spacing-1), var(--md-sys-spacing-1)); }
+  50% { transform: translate(calc(-1 * var(--md-sys-spacing-1)), calc(-1 * var(--md-sys-spacing-1))); }
+  100% { transform: translate(var(--md-sys-spacing-1), calc(-1 * var(--md-sys-spacing-1))); }
 }
 
 @keyframes implosion-zoom {

@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 
 // M3Expressive: EventActionPopover - Event action management popover with M3 tokens
 import React from 'react';
@@ -58,7 +58,6 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
                     
                 >
                     <span style={{
-  fontFamily: 'Material Symbols Outlined',
   fontSize: 'var(--md-sys-typescale-body-medium-size)'
 }}>
                         edit
@@ -71,7 +70,6 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
                     
                 >
                     <span style={{
-  fontFamily: 'Material Symbols Outlined',
   fontSize: 'var(--md-sys-typescale-body-medium-size)'
 }}>
                         delete
@@ -84,12 +82,4 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
 };
 
 export default EventActionPopover;
-
-
-
-
-
-
-
-
 

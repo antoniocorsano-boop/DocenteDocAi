@@ -11,21 +11,21 @@ export type M3BottomAppBarProps = React.HTMLAttributes<HTMLDivElement> & {
 function M3BottomAppBar({ children, elevated, style, ...props }: M3BottomAppBarProps): React.ReactElement {
   // MD3 Token mapping - no useTheme() dependency
   // Color tokens
-  const surface = 'var(--app-color-surface)';
+  const surface = 'var(--md-sys-color-surface)';
   const outlineVariant = 'var(--md-sys-color-outline-variant)';
 
   // Elevation token
-  const level2 = 'var(--app-elevation-level-2)';
+  const level2 = 'var(--md-sys-elevation-level2)';
 
   const baseStyle: React.CSSProperties = {
-    width: 'var(--app-layout-full)',
+    width: 'var(--md-sys-percent-100)',
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
-    gap: 'var(--app-spacing-component)',
-    padding: `var(--app-spacing-component) var(--app-spacing-element)`,
+    gap: 'var(--md-sys-spacing-2)',
+    padding: `var(--md-sys-spacing-2) var(--md-sys-spacing-3)`,
     backgroundColor: surface,
-    borderTop: `var(--app-border-normal) solid ${outlineVariant}`,
+    borderTop: `var(--md-sys-border-width-normal) solid ${outlineVariant}`,
     boxSizing: 'border-box',
   };
 
@@ -44,11 +44,4 @@ function M3BottomAppBar({ children, elevated, style, ...props }: M3BottomAppBarP
 }
 
 export default M3BottomAppBar;
-
-
-
-
-
-
-
 

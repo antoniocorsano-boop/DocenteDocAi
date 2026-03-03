@@ -56,15 +56,15 @@ export const ActionCard: React.FC<ActionCardProps> = ({
       onMouseEnter={(e) => {
         if (!disabled) {
           e.currentTarget.style.background = config.hoverBg;
-          e.currentTarget.style.transform = 'translateY(-4px)';
-          e.currentTarget.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15)';
+          e.currentTarget.style.transform = 'translateY(calc(-1 * var(--md-sys-spacing-1)))';
+          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level3)';
         }
       }}
       onMouseLeave={(e) => {
         if (!disabled) {
           e.currentTarget.style.background = 'var(--md-sys-color-surface)';
           e.currentTarget.style.transform = 'translateY(0)';
-          e.currentTarget.style.boxShadow = '';
+          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level1)';
         }
       }}
     >
@@ -122,7 +122,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({
           className="material-symbols-outlined"
           aria-hidden="true"
           style={{
-            fontSize: '20px',
+            fontSize: 'var(--md-sys-typescale-title-small-font-size)',
             color: config.iconColor,
             opacity: 0.6
           }}

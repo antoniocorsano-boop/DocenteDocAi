@@ -62,4 +62,3 @@ export const parseCSVWithHeaders = (csvText: string): { headers: string[], data:
     return { headers, data };
 };
 
-

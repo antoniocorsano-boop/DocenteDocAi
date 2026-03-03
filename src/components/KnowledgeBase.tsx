@@ -102,7 +102,6 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                     <div >
                         <M3Button onClick={() => setCurrentView({ type: 'root', id: '' })} variant="text" >
                             <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>arrow_back</span>
                         </M3Button>
                         <h2 >{categoryInfo?.label || 'File'}</h2>
@@ -158,7 +157,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     }
 
     return (
-        <div  style={{maxWidth: 'var(--app-layout-full)', marginLeft: 'var(--app-layout-auto)', marginRight: 'var(--app-layout-auto)', width: 'var(--app-layout-full)', paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>
+        <div  style={{maxWidth: 'var(--md-sys-percent-100)', marginLeft: 'var(auto)', marginRight: 'var(auto)', width: 'var(--md-sys-percent-100)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
             <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <SectionHeader 
                     title="Knowledge Base" 
@@ -167,7 +166,6 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                 />
                 <M3Button onClick={() => setIsAddSourceModalOpen(true)} variant="filled" style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                     <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>add_circle</span>
                     Carica Documenti
                 </M3Button>
@@ -220,11 +218,4 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
 };
 
 export default KnowledgeBase;
-
-
-
-
-
-
-
 

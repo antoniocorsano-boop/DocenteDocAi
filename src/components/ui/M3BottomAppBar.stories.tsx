@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import M3BottomAppBar from './M3BottomAppBar';
@@ -294,13 +294,4 @@ export const Accessibility: Story = {
     },
   },
 };
-
-
-
-
-
-
-
-
-
 

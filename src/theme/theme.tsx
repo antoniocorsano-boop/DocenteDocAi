@@ -1,7 +1,3 @@
-// @legacy
-// @md3-noncompliant
-// @do-not-extend
-
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { tokenLayers, TokenLayers } from './tokens';
 

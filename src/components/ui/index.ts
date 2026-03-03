@@ -1,6 +1,6 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Expressive UI component library
 export { default as M3SurfaceCard } from './M3SurfaceCard';
-export { default as M3Surface } from './M3SurfaceCard';
+export { default as M3Surface } from './M3Surface';
 export { default as M3ExpressiveCard } from './M3ExpressiveCard';
 export { default as M3Button } from './M3Button';
 export { default as TextField } from './TextField';
@@ -51,6 +51,8 @@ export { CalendarEventCard } from './CalendarEventCard';
 export { ActionCard } from './ActionCard';
 export { Tooltip } from './Tooltip';
 export { PageTransition } from './PageTransition';
+export type { PageTransitionVariant } from './PageTransition';
+export { M3StateLayer } from './M3StateLayer';
 export { ValidatedInput } from './ValidatedInput';
 export { ProgressIndicator } from './ProgressIndicator';
 export { AnimatedCheckbox } from './AnimatedCheckbox';

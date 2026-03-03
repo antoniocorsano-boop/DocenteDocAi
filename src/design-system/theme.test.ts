@@ -14,7 +14,6 @@ afterAll(() => {
   consoleErrorSpy.mockRestore();
 });
 
-
 describe('Design System Core', () => {
 
     it('should have a valid version number', () => {
@@ -111,5 +110,4 @@ describe('Theme Creation', () => {
         expect(defaultLightTheme.colors.primary).toBe(originalPrimary);
     });
 });
-
 

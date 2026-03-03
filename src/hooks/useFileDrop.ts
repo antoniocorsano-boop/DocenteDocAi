@@ -81,4 +81,3 @@ export function useFileDrop(options: UseFileDropOptions = {}): UseFileDropReturn
   };
 }
 
-

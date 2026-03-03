@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 /**
  * SettingsViews.tsx
  * Raggruppa viste relative a configurazione e gestione
@@ -205,11 +205,4 @@ export const SettingsViewsRenderer: React.FC<{
             return null;
     }
 };
-
-
-
-
-
-
-
 

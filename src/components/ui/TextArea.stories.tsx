@@ -206,12 +206,3 @@ export const NotesTaking: Story = {
   },
 };
 
-
-
-
-
-
-
-
-
-

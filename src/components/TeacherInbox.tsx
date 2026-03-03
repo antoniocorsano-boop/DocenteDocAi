@@ -1,6 +1,5 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
-// ...existing code...
 import React, { useState } from 'react';
 import { HomeworkSubmission, Studente, Lezione } from '../types';
 import { Avatar } from './ui';
@@ -59,7 +58,6 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                             <span >inbox</span> Inbox Compiti
                         </h2>
                         <button onClick={onClose}  aria-label="Chiudi inbox"><span style={{
-  fontFamily: 'Material Symbols Outlined'
 }} aria-hidden="true">close</span></button>
                     </div>
 
@@ -77,8 +75,8 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                                     style={{
                                         borderRadius: 'var(--md-sys-shape-corner-small)',
                                         transition: 'var(--md-easing-standard)',
-                                        backgroundColor: isSelected ? 'var(--app-color-secondary-container)' : 'var(--app-color-surface-container)',
-                                        padding: 'var(--app-spacing-element)',
+                                        backgroundColor: isSelected ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface-container)',
+                                        padding: 'var(--md-sys-spacing-3)',
                                         cursor: 'pointer'
                                     }}
                                 >
@@ -118,7 +116,7 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                 <div >
                     {selectedSubmission ? (
                         <div >
-                            <div  style={{ marginLeft: "var(--app-layout-auto)", marginRight: "var(--app-layout-auto)" }}>
+                            <div  style={{ marginLeft: "var(auto)", marginRight: "var(auto)" }}>
                                 <HomeworkSubmissionCard
                                     submission={selectedSubmission}
                                     student={getStudentDisplay(selectedSubmission.studentId).obj!}
@@ -142,11 +140,4 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
 export default TeacherInbox;
 
 // M3Expressive refactor COMPLETED: TeacherInbox.tsx - Replaced all hardcoded Tailwind classes with dedicated teacher-inbox-* CSS classes using M3 tokens for sidebar layout, submission items, graded items, and empty states.
-
-
-
-
-
-
-
 

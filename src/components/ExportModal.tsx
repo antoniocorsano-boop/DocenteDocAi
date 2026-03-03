@@ -300,8 +300,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
         }
     };
 
-
-    return (
+return (
         <M3Dialog
             onClose={onClose}
             title="Esporta Report Classe"
@@ -376,11 +375,4 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
 };
 
 export default React.memo(ExportModal);
-
-
-
-
-
-
-
 

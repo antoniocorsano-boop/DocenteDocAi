@@ -1,15 +1,12 @@
 // Aura button for header (M3 icon button + glow)
 import * as React from 'react';
-// ...existing code...
 import { playNkaSound } from './sound';
-
 
 interface NKAHeaderAuraButtonProps {
   hasNewNode: boolean;
   onClick: () => void;
   onLongPress: () => void;
 }
-
 
 const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, onClick, onLongPress }: NKAHeaderAuraButtonProps) => {
   const timerRef = React.useRef<NodeJS.Timeout | null>(null);
@@ -74,7 +71,6 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
       <span
         aria-hidden="true"
         style={{
-          fontFamily: 'Material Symbols Outlined',
           fontSize: 28,
           color: 'var(--md-sys-color-on-primary)',
           filter: 'drop-shadow(0 0 var(--md-sys-spacing-2) var(--md-sys-color-primary))',
@@ -103,5 +99,4 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
 };
 
 export default NKAHeaderAuraButton;
-
 

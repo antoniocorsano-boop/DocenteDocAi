@@ -26,9 +26,9 @@ const createNewUda = (): Uda => ({
     externalLink: '',
     startPos: 0,
     width: 100,
-    color: 'var(--app-color-primary)',
+    color: 'var(--md-sys-color-primary)',
     borderColor: 'var(--md-sys-color-outline)',
-    textColor: 'var(--app-color-on-primary)'
+    textColor: 'var(--md-sys-color-on-primary)'
 });
 
 interface UdaEditorProps {
@@ -174,7 +174,6 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                             ) : (
                                 <div >
                                     <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>add_circle</span>
                                     <span >Tocca per selezionare competenze</span>
                                 </div>
@@ -190,7 +189,6 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                 
                             >
                                 <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>delete</span>
                                 Elimina
                             </M3Button>
@@ -198,7 +196,6 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                         <M3Button onClick={handleClose} variant="text">Annulla</M3Button>
                         <M3Button onClick={handleSave} variant="primary" >
                             <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>save</span>
                             Salva Progetto
                         </M3Button>
@@ -223,28 +220,28 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                                                                         style={{
                                                                                             display: 'flex',
                                                                                             alignItems: 'center',
-                                                                                            gap: 'var(--app-spacing-container)',
-                                                                                            padding: 'var(--app-spacing-section)',
+                                                                                            gap: 'var(--md-sys-spacing-4)',
+                                                                                            padding: 'var(--md-sys-spacing-6)',
                                                                                             borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                                                                            backgroundColor: isSelected ? 'var(--app-color-primary-container)' : 'var(--md-sys-color-surface-container-low)',
-                                                                                            border: isSelected ? 'var(--app-border-thick) solid var(--app-color-primary)' : 'var(--app-border-normal) solid var(--md-sys-color-outline)',
+                                                                                            backgroundColor: isSelected ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-low)',
+                                                                                            border: isSelected ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                                                                                             fontWeight: isSelected ? 700 : 400,
                                                                                             cursor: 'pointer',
-                                                                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--app-motion-standard) var(--app-easing-standard)',
+                                                                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                                                                                         }}
                                                                                 >
                                                                                         <div
                                                                                             style={{
-                                                                                                width: 'var(--app-spacing-section)',
-                                                                                                height: 'var(--app-spacing-section)',
+                                                                                                width: 'var(--md-sys-spacing-6)',
+                                                                                                height: 'var(--md-sys-spacing-6)',
                                                                                                 borderRadius: 'var(--md-sys-shape-corner-full)',
-                                                                                                backgroundColor: isSelected ? 'var(--app-color-primary)' : 'var(--app-color-surface)',
+                                                                                                backgroundColor: isSelected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
                                                                                                 display: 'flex',
                                                                                                 alignItems: 'center',
                                                                                                 justifyContent: 'center',
-                                                                                                color: isSelected ? 'var(--app-color-on-primary)' : 'var(--md-sys-color-outline)',
-                                                                                                border: isSelected ? 'none' : 'var(--app-border-normal) solid var(--md-sys-color-outline)',
-                                                                                                marginRight: 'var(--app-spacing-container)',
+                                                                                                color: isSelected ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-outline)',
+                                                                                                border: isSelected ? 'none' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
+                                                                                                marginRight: 'var(--md-sys-spacing-4)',
                                                                                             }}
                                                                                         >
                                                                                             {isSelected && <span>check</span>}
@@ -259,7 +256,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                             </div>
                         </M3DialogContent>
                         <M3DialogActions >
-                            <M3Button onClick={handlePickerClose} variant="primary" style={{ width: "var(--app-layout-full)" }}>Conferma Selezione</M3Button>
+                            <M3Button onClick={handlePickerClose} variant="primary" style={{ width: "var(--md-sys-percent-100)" }}>Conferma Selezione</M3Button>
                         </M3DialogActions>
                     </M3Dialog>
                 )}
@@ -332,7 +329,6 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                         
                     >
                         <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>add</span>
                         Nuovo Progetto
                     </M3Button>
@@ -353,7 +349,7 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                         competenze={competenze}
                     />
                 ) : (
-                    <div  style={{paddingLeft: 'var(--app-spacing-container)', paddingRight: 'var(--app-spacing-container)'}}>
+                    <div  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
                         <div >
                             {udas.length > 0 ? (
                                 <div  style={{ overflowX: "auto" }}>
@@ -404,7 +400,6 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                                                                 
                                                             >
                                                                 <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>ios_share</span>
                                                             </M3Button>
                                                             <M3Button 
@@ -413,7 +408,6 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                                                                 
                                                             >
                                                                 <span style={{
-  fontFamily: 'Material Symbols Outlined'
 }}>edit</span>
                                                             </M3Button>
                                                         </div>
@@ -454,12 +448,4 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
 };
 
 export default UdaPlanner;
-
-
-
-
-
-
-
-
 

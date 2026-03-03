@@ -29,7 +29,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
       style={{
         minHeight: 'var(--md-sys-viewport-height-full)',
         width: 'var(--md-sys-viewport-width-full)',
-        background: 'var(--app-color-surface)',
+        background: 'var(--md-sys-color-surface)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -43,7 +43,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
           boxShadow: 'var(--md-sys-elevation-level1)',
           padding: 'var(--md-sys-spacing-8)',
           minWidth: 0,
-          width: 'var(--app-layout-full)',
+          width: 'var(--md-sys-percent-100)',
           maxWidth: 'var(--md-sys-spacing-96)',
           display: 'flex',
           flexDirection: 'column',
@@ -52,7 +52,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
         }}
         aria-label="Login docente"
       >
-        <M3Typography variant="headline-small" style={{ textAlign: 'center', color: 'var(--app-color-on-surface)' }}>
+        <M3Typography variant="headline-small" style={{ textAlign: 'center', color: 'var(--md-sys-color-on-surface)' }}>
           Accedi a DocenteDoc AI
         </M3Typography>
         <M3Typography variant="body-medium" style={{ textAlign: 'center', color: 'var(--md-sys-color-on-surface-variant)' }}>
@@ -77,19 +77,19 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
           fullWidth
         />
         {error && (
-          <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-error)', width: 'var(--app-layout-full)', textAlign: 'center' }}>{error}</M3Typography>
+          <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-error)', width: 'var(--md-sys-percent-100)', textAlign: 'center' }}>{error}</M3Typography>
         )}
         <M3Button
           type="submit"
           variant="filled"
-          style={{ width: 'var(--app-layout-full)' }}
+          style={{ width: 'var(--md-sys-percent-100)' }}
         >
           Accedi
         </M3Button>
         <M3Button
           type="button"
           variant="text"
-          style={{ width: 'var(--app-layout-full)' }}
+          style={{ width: 'var(--md-sys-percent-100)' }}
           onClick={() => alert('Funzione recupero password non implementata')}
         >
           Recupera password
@@ -99,15 +99,5 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
   );
 };
 
-
-
 export default SignInScreen;
-
-
-
-
-
-
-
-
 

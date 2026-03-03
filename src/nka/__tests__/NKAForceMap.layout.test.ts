@@ -24,4 +24,3 @@ describe('NKAForceMap layout helpers', () => {
   });
 });
 
-

@@ -2,8 +2,6 @@
 // Tutti i valori di design (colori, spacing, tipografia, elevazione, shape) sono gestiti esclusivamente tramite token MD3 (`var(--md-sys-*)`).
 // Nessun valore hardcoded (px, rem, %, hex, rgba) presente. Nessun uso di className custom. Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md.
 // Audit e refactor completati: 2026-01-25.
-// ...existing code...
-// ...existing code...
 import React from 'react';
 import SlotActionModal from './SlotActionModal';
 import SyncConflictModal from './SyncConflictModal';
@@ -153,11 +151,4 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
         </>
     );
 };
-
-
-
-
-
-
-
 

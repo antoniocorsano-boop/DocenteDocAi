@@ -15,37 +15,37 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
   const [isHovered, setIsHovered] = React.useState(false);
   const [isFocused, setIsFocused] = React.useState(false);
 
-  // MD3 Token mapping - no useTheme() dependency
+  // MD3 Token mapping — direct --md-sys-* tokens only
   // Color tokens
-  const surface = 'var(--app-color-surface)';
+  const surface = 'var(--md-sys-color-surface)';
   const onSurfaceVariant = 'var(--md-sys-color-on-surface-variant)';
   const outline = 'var(--md-sys-color-outline)';
   const surfaceVariant = 'var(--md-sys-color-surface-variant)';
-  const secondaryContainer = 'var(--app-color-secondary-container)';
-  const onSecondaryContainer = 'var(--app-color-on-secondary-container)';
+  const secondaryContainer = 'var(--md-sys-color-secondary-container)';
+  const onSecondaryContainer = 'var(--md-sys-color-on-secondary-container)';
 
   // Shape tokens
   const small = 'var(--md-sys-shape-corner-small)';
   const full = 'var(--md-sys-shape-corner-full)';
 
   // Elevation tokens
-  const level1 = 'var(--app-elevation-level-1)';
-  const level2 = 'var(--app-elevation-level-2)';
+  const level1 = 'var(--md-sys-elevation-level1)';
+  const level2 = 'var(--md-sys-elevation-level2)';
 
   // Motion tokens
-  const short2 = 'var(--md-sys-motion-duration-short-2)';
-  const standard = 'var(--app-easing-standard)';
+  const short2 = 'var(--md-sys-motion-duration-short2)';
+  const standard = 'var(--md-sys-motion-easing-standard)';
 
   // Typography tokens
   const labelLarge = {
     fontFamily: 'var(--md-sys-typescale-label-large-font)',
-    fontSize: 'var(--app-text-label)',
+    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
     fontWeight: 'var(--md-sys-typescale-label-large-weight)',
-    lineHeight: 'var(--app-text-label-line-height)',
+    lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
     letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'
   };
   const bodySmall = {
-    fontSize: 'var(--app-text-body)'
+    fontSize: 'var(--md-sys-typescale-body-small-font-size)'
   };
 
   // Variant styles using MD3 design tokens
@@ -56,7 +56,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
       case 'outlined':
         baseStyles.backgroundColor = surface;
         baseStyles.color = onSurfaceVariant;
-        baseStyles.border = `var(--app-border-thick) solid ${outline}`;
+        baseStyles.border = `var(--md-sys-border-width-thick) solid ${outline}`;
         if (isHovered || isFocused) {
           baseStyles.borderColor = onSurfaceVariant;
         }
@@ -64,7 +64,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
       case 'elevated':
         baseStyles.backgroundColor = surface;
         baseStyles.color = onSurfaceVariant;
-        baseStyles.border = `var(--app-border-normal) solid ${surfaceVariant}`;
+        baseStyles.border = `var(--md-sys-border-width-normal) solid ${surfaceVariant}`;
         baseStyles.boxShadow = level1;
         if (isHovered || isFocused) {
           baseStyles.boxShadow = level2;
@@ -73,7 +73,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
       default: // filled
         baseStyles.backgroundColor = secondaryContainer;
         baseStyles.color = onSecondaryContainer;
-        baseStyles.border = `var(--app-border-normal) solid ${secondaryContainer}`;
+        baseStyles.border = `var(--md-sys-border-width-normal) solid ${secondaryContainer}`;
         break;
     }
 
@@ -84,9 +84,9 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
   const containerStyle: React.CSSProperties = {
     display: 'inline-flex',
     alignItems: 'center',
-    gap: 'var(--app-spacing-component)',
+    gap: 'var(--md-sys-spacing-2)',
     borderRadius: small,
-    padding: `var(--app-spacing-component) var(--app-spacing-element)`,
+    padding: `var(--md-sys-spacing-2) var(--md-sys-spacing-3)`,
     transition: `all ${short2} ${standard}`,
     opacity: disabled ? 0.38 : (variant === 'filled' && (isHovered || isFocused) ? 0.8 : 1),
     cursor: disabled ? 'not-allowed' : 'default',
@@ -111,8 +111,8 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
 
   // Delete button styles
   const deleteButtonStyle: React.CSSProperties = {
-    width: 'var(--app-spacing-container)',
-    height: 'var(--app-spacing-container)',
+    width: 'var(--md-sys-spacing-4)',
+    height: 'var(--md-sys-spacing-4)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -128,7 +128,6 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
 
   // Icon styles
   const iconStyle: React.CSSProperties = {
-    fontFamily: 'Material Symbols Outlined',
     fontSize: bodySmall.fontSize,
     fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24",
     userSelect: 'none'
@@ -162,7 +161,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
             disabled={disabled}
             aria-label="Remove"
           >
-            <span style={iconStyle}>close</span>
+            <span className="material-symbols-outlined" style={iconStyle}>close</span>
           </button>
         )}
       </span>
@@ -171,11 +170,4 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
 }
 
 export default M3Chip;
-
-
-
-
-
-
-
 

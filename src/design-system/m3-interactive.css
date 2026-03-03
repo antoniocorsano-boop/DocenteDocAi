@@ -1,4 +1,4 @@
-/**
+﻿/**
  * M3 Interactive States - Standardized Hover/Focus/Active Patterns
  * Created: 2026-01-06 (Post-Uniformity Audit - P1 High Priority)
  * 
@@ -122,7 +122,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   border-radius: var(--md-sys-shape-corner-large);
   background-color: transparent;
   color: var(--md-sys-color-on-surface);
-  font-size: theme.typography.body2.fontSize;
+  font-size: var(--md-sys-typescale-body-medium-font-size);
   font-weight: 500;
   font-family: var(--font-family);
   cursor: pointer;
@@ -226,7 +226,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .m3-interactive-card:hover {
   background-color: var(--md-sys-color-surface-container);
-  transform: translateY(-var(--md-sys-spacing-1));
+  transform: translateY(calc(-1 * var(--md-sys-spacing-1)));
   box-shadow: var(--md-sys-elevation-level2);
   border-color: var(--md-sys-color-outline);
 }
@@ -285,7 +285,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   border-radius: var(--md-sys-shape-corner-small);
   background-color: transparent;
   color: var(--md-sys-color-on-surface);
-  font-size: theme.typography.body2.fontSize;
+  font-size: var(--md-sys-typescale-body-medium-font-size);
   font-weight: 500;
   cursor: pointer;
   transition-property: opacity, transform, background-color;
@@ -302,7 +302,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .m3-interactive-menu-item:focus-visible {
   outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
-  outline-offset: -var(--md-sys-spacing-1);
+  outline-offset: calc(-1 * var(--md-sys-spacing-1));
 }
 
 .m3-interactive-menu-item:active {

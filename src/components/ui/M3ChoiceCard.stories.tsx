@@ -1,4 +1,4 @@
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import M3ChoiceCard from './M3ChoiceCard';
@@ -152,13 +152,4 @@ export const Group: Story = {
     );
   },
 };
-
-
-
-
-
-
-
-
-
 

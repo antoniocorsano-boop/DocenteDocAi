@@ -77,4 +77,3 @@
  * 6. TODO: Verificare ARIA accessibility
  */
 
-

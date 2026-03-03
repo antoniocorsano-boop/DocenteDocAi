@@ -75,4 +75,3 @@ export const generateNextSchoolYear = (currentYear: string): string => {
     return `${y}/${y + 1}`;
 };
 
-

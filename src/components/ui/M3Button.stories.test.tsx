@@ -1,8 +1,8 @@
 import { renderWithM3Theme } from './test-utils';
-// LEGACY - MD3 Non-compliant
+// MD3 Compliant
 import React from 'react';
 import { render } from '@testing-library/react';
-import { M3Button } from './M3Button';
+import M3Button from './M3Button';
 
 describe('M3Button Story Snapshots', () => {
   it('renders default story correctly', () => {
@@ -10,9 +10,4 @@ describe('M3Button Story Snapshots', () => {
     expect(container).toMatchSnapshot();
   });
 });
-
-
-
-
-
 

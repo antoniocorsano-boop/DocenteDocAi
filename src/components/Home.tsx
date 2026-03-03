@@ -8,7 +8,7 @@ Follow these guidelines strictly to refactor Home.tsx:
 1. Layout Structure
 - Desktop: NavigationRail on left, main content right (handled by ViewManager/AppLayout)
 - Mobile: BottomNav (if available), main content full width (handled by ViewManager/AppLayout)
-- Main content: single column, centered, max-width ~800–1200px (handled by ViewManager/AppLayout)
+- Main content: single column, centered, max-width ~var(--md-sys-layout-content-max-width) (handled by ViewManager/AppLayout)
 - All spacing/padding use MD3 tokens (--md-sys-spacing-*)
 - Avoid mixing shorthand and non-shorthand padding/margin
 
@@ -53,10 +53,10 @@ Follow these guidelines strictly to refactor Home.tsx:
 =============================
 */
 
-import React, { useMemo } from 'react';
-import BottomNav from './BottomNav';
+import React, { useMemo, useRef, useEffect } from 'react';
 import { View, NavigationParams } from '../types';
-import { M3Card, M3Surface, M3Typography } from './ui';
+import { M3Card, M3Surface, M3Typography, M3Chip, M3StateLayer } from './ui';
+import M3HeroCard from './ui/M3HeroCard';
 import M3Fab from './M3Fab';
 import { useAcademicStore } from '../stores/useAcademicStore';
 import { useStudentStore } from '../stores/useStudentStore';
@@ -69,6 +69,21 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const lessons = useAcademicStore(state => state.lessons);
   const students = useStudentStore(state => state.students);
   const evaluations = useStudentStore(state => state.evaluations) || [];
+
+  // Ref to the nearest scrollable ancestor — passed to M3Fab for auto-collapse on scroll
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    let el: HTMLElement | null = anchorRef.current?.parentElement ?? null;
+    while (el) {
+      const { overflowY } = getComputedStyle(el);
+      if (overflowY === 'auto' || overflowY === 'scroll') {
+        scrollContainerRef.current = el;
+        break;
+      }
+      el = el.parentElement;
+    }
+  }, []);
 
   interface RecentActivity {
     id: string;
@@ -105,301 +120,290 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   }, [lessons]);
   const lessonTagline = nextLesson ? `${nextLesson.classe} • ${nextLesson.tipoLezione ?? 'Lezione in classe'}` : 'Pianifica la prossima lezione';
   const lessonDetails = nextLesson?.obiettivi || nextLesson?.contenuto || 'Utilizza l’integrazione AI per costruire contenuti e obiettivi in pochi tap.';
-  const activeView: View = 'home';
+
+  // Time-based greeting
+  const greeting = useMemo(() => {
+    const h = new Date().getHours();
+    if (h < 12) return 'Buongiorno';
+    if (h < 18) return 'Buon pomeriggio';
+    return 'Buona sera';
+  }, []);
+
+  // Quick action chips definition
+  const quickActions: { label: string; icon: string; view: View }[] = [
+    { label: 'Registro',    icon: 'menu_book',    view: 'register' as View },
+    { label: 'Presenze',    icon: 'fact_check',   view: 'presenze' as View },
+    { label: 'Valutazioni', icon: 'grading',      view: 'evaluations' as View },
+    { label: 'Orario',      icon: 'schedule',     view: 'timetable' as View },
+    { label: 'Agenda',      icon: 'calendar_month', view: 'calendario' as View },
+  ];
 
   return (
     <>
+      {/* Invisible anchor used to find the scrollable parent for FAB collapse */}
+      <div ref={anchorRef} style={{ position: 'absolute', pointerEvents: 'none' }} aria-hidden="true" />
+
       <M3Surface
         style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: 'var(--app-spacing-section)',
-          width: 'var(--md-sys-percent-full)'
+          gap: 'var(--md-sys-spacing-6)',
+          padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-4) calc(var(--md-sys-spacing-20) + env(safe-area-inset-bottom, 0px))',
+          maxWidth: 'var(--md-sys-layout-content-max-width)',
+          margin: '0 auto',
+          width: '100%',
+          boxSizing: 'border-box',
         }}
-    >
-        {/* Hero Section: Next Lesson - Enhanced with better contrast and hierarchy */}
-        <M3Surface
+      >
+        {/* ── HERO BANNER ─────────────────────────────────────────── */}
+        <M3HeroCard
+          headline={greeting}
+          supportingText={
+            nextLesson
+              ? `${lessonTagline} — ${lessonDetails.slice(0, 60)}${lessonDetails.length > 60 ? '…' : ''}`
+              : lessonDetails
+          }
+          decorativeIcon={nextLesson ? 'school' : 'auto_awesome'}
+          color="primary"
+        />
+
+        {/* ── QUICK ACTION CHIPS (horizontal scroll) ───────────────── */}
+        <div
+          role="toolbar"
+          aria-label="Azioni rapide"
           style={{
-            padding: 'var(--md-sys-spacing-6)',
-            borderRadius: 'var(--md-sys-radius-3)',
-            background: 'var(--md-sys-color-primary-container)',
-            boxShadow: 'var(--md-sys-elevation-2)',
-            marginBottom: 'var(--md-sys-spacing-4)'
+            display: 'flex',
+            gap: 'var(--md-sys-spacing-2)',
+            overflowX: 'auto',
+            scrollSnapType: 'x mandatory',
+            WebkitOverflowScrolling: 'touch',
+            paddingBottom: 'var(--md-sys-spacing-1)',
+            // Hide scrollbar but keep scroll
+            scrollbarWidth: 'none',
           }}
         >
-          <M3Typography 
-            variant="headline-medium" 
-            style={{ 
-              color: 'var(--md-sys-color-on-primary-container)',
-              fontWeight: '700',
-              marginBottom: 'var(--md-sys-spacing-3)'
-            }}
-          >
-            {lessonTagline}
-          </M3Typography>
-          <M3Typography 
-            variant="body-large" 
-            style={{ 
-              color: 'var(--md-sys-color-on-primary-container)',
-              lineHeight: '1.5'
-            }}
-          >
-            {lessonDetails}
-          </M3Typography>
-        </M3Surface>
-        {/* Metrics Section - Enhanced with larger numbers and better contrast */}
-        <M3Surface
+          {quickActions.map(qa => (
+            <div key={qa.view} style={{ scrollSnapAlign: 'start', flexShrink: 0 }}>
+              <M3Chip
+                label={qa.label}
+                variant="outlined"
+                onClick={() => onNavigate(qa.view)}
+                aria-label={`Vai a ${qa.label}`}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* ── METRIC CARDS (2-col grid) ────────────────────────────── */}
+        <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(140px, var(--md-sys-grid-fr-1)))',
-            gap: 'var(--md-sys-spacing-4)',
-            marginTop: 'var(--md-sys-spacing-4)'
+            gridTemplateColumns: '1fr 1fr',
+            gap: 'var(--md-sys-spacing-3)',
           }}
         >
-          <M3Card
+          {/* Studenti */}
+          <M3StateLayer
+            as="div"
+            role="button"
+            tabIndex={0}
+            stateColor="var(--md-sys-color-on-primary-container)"
             onClick={() => onNavigate('aula')}
+            onKeyDown={e => e.key === 'Enter' && onNavigate('aula')}
+            aria-label={`${students?.length ?? 0} studenti — vai a Classi`}
             style={{
-              padding: 'var(--md-sys-spacing-4)',
+              borderRadius: 'var(--md-sys-shape-corner-large)',
+              background: 'var(--md-sys-color-primary-container)',
+              padding: 'var(--md-sys-spacing-5)',
               cursor: 'pointer',
-              transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-              border: 'var(--md-sys-spacing-0) solid var(--md-sys-color-primary-container)'
+              aspectRatio: '1 / 1',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
             }}
           >
-            <M3Surface style={{ textAlign: 'center' }}>
-              <span
-                className="material-symbols-outlined"
-                aria-hidden="true"
-                style={{
-                  fontSize: 'var(--md-sys-spacing-6)',
-                  color: 'var(--md-sys-color-primary)',
-                  marginBottom: 'var(--md-sys-spacing-2)',
-                  display: 'block'
-                }}
-              >
-                group
-              </span>
-              <M3Typography
-                variant="display-small"
-                style={{
-                  color: 'var(--md-sys-color-primary)',
-                  fontWeight: '700',
-                  fontSize: 'var(--md-sys-typescale-display-small-font-size)',
-                  lineHeight: 'var(--md-sys-typescale-display-small-line-height)'
-                }}
-              >
+            <span
+              className="material-symbols-outlined"
+              aria-hidden="true"
+              style={{
+                fontSize: 'var(--md-sys-spacing-8)',
+                color: 'var(--md-sys-color-on-primary-container)',
+                fontVariationSettings: '"FILL" 1',
+              }}
+            >group</span>
+            <div>
+              <div style={{
+                fontFamily: 'var(--md-sys-typescale-display-small-font)',
+                fontSize: 'var(--md-sys-typescale-display-small-size)',
+                fontWeight: 'var(--md-sys-typescale-display-small-weight)',
+                lineHeight: 1,
+                color: 'var(--md-sys-color-on-primary-container)',
+              }}>
                 {students?.length ?? 0}
-              </M3Typography>
-              <M3Typography 
-                variant="label-large" 
-                style={{ 
-                  color: 'var(--md-sys-color-on-surface)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
-                  fontWeight: '600',
-                  marginTop: 'var(--md-sys-spacing-2)'
-                }}
-              >
-                Studenti
-              </M3Typography>
-            </M3Surface>
-          </M3Card>
-          <M3Card
+              </div>
+              <div style={{
+                marginTop: 'var(--md-sys-spacing-1)',
+                fontFamily: 'var(--md-sys-typescale-label-medium-font)',
+                fontSize: 'var(--md-sys-typescale-label-medium-size)',
+                fontWeight: 'var(--md-sys-typescale-label-medium-weight)',
+                color: 'color-mix(in srgb, var(--md-sys-color-on-primary-container) 75%, transparent)',
+              }}>Studenti</div>
+            </div>
+          </M3StateLayer>
+
+          {/* Valutazioni */}
+          <M3StateLayer
+            as="div"
+            role="button"
+            tabIndex={0}
+            stateColor="var(--md-sys-color-on-tertiary-container)"
             onClick={() => onNavigate('evaluations' as View)}
+            onKeyDown={e => e.key === 'Enter' && onNavigate('evaluations' as View)}
+            aria-label={`${evaluations?.length ?? 0} valutazioni`}
             style={{
-              padding: 'var(--md-sys-spacing-4)',
+              borderRadius: 'var(--md-sys-shape-corner-large)',
+              background: 'var(--md-sys-color-tertiary-container)',
+              padding: 'var(--md-sys-spacing-5)',
               cursor: 'pointer',
-              transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-              border: 'var(--md-sys-spacing-0) solid var(--md-sys-color-tertiary-container)'
+              aspectRatio: '1 / 1',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
             }}
           >
-            <M3Surface style={{ textAlign: 'center' }}>
-              <span
-                className="material-symbols-outlined"
-                aria-hidden="true"
-                style={{
-                  fontSize: 'var(--md-sys-spacing-6)',
-                  color: 'var(--md-sys-color-tertiary)',
-                  marginBottom: 'var(--md-sys-spacing-2)',
-                  display: 'block'
-                }}
-              >
-                grading
-              </span>
-              <M3Typography
-                variant="display-small"
-                style={{
-                  color: 'var(--md-sys-color-tertiary)',
-                  fontWeight: '700',
-                  fontSize: 'var(--md-sys-typescale-display-small-font-size)',
-                  lineHeight: 'var(--md-sys-typescale-display-small-line-height)'
-                }}
-              >
+            <span
+              className="material-symbols-outlined"
+              aria-hidden="true"
+              style={{
+                fontSize: 'var(--md-sys-spacing-8)',
+                color: 'var(--md-sys-color-on-tertiary-container)',
+                fontVariationSettings: '"FILL" 1',
+              }}
+            >grading</span>
+            <div>
+              <div style={{
+                fontFamily: 'var(--md-sys-typescale-display-small-font)',
+                fontSize: 'var(--md-sys-typescale-display-small-size)',
+                fontWeight: 'var(--md-sys-typescale-display-small-weight)',
+                lineHeight: 1,
+                color: 'var(--md-sys-color-on-tertiary-container)',
+              }}>
                 {evaluations?.length ?? 0}
-              </M3Typography>
-              <M3Typography 
-                variant="label-large" 
-                style={{ 
-                  color: 'var(--md-sys-color-on-surface)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
-                  fontWeight: '600',
-                  marginTop: 'var(--md-sys-spacing-2)'
-                }}
-              >
-                Valutazioni
-              </M3Typography>
-            </M3Surface>
-          </M3Card>
-        </M3Surface>
-        {/* Recent Activities Section - Enhanced contrast */}
-        <M3Surface style={{ marginTop: 'var(--md-sys-spacing-6)' }}>
-          <M3Typography 
-            variant="title-large" 
-            style={{ 
-              marginBottom: 'var(--md-sys-spacing-4)',
-              color: 'var(--md-sys-color-on-surface)',
-              fontWeight: '600'
-            }}
+              </div>
+              <div style={{
+                marginTop: 'var(--md-sys-spacing-1)',
+                fontFamily: 'var(--md-sys-typescale-label-medium-font)',
+                fontSize: 'var(--md-sys-typescale-label-medium-size)',
+                fontWeight: 'var(--md-sys-typescale-label-medium-weight)',
+                color: 'color-mix(in srgb, var(--md-sys-color-on-tertiary-container) 75%, transparent)',
+              }}>Valutazioni</div>
+            </div>
+          </M3StateLayer>
+        </div>
+
+        {/* ── RECENT ACTIVITY ──────────────────────────────────────── */}
+        <section aria-label="Attività recenti">
+          <M3Typography
+            variant="title-large"
+            style={{ marginBottom: 'var(--md-sys-spacing-3)' }}
           >
             Attività recenti
           </M3Typography>
-          <M3Surface style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
-            {activities.length === 0 && (
-              <M3Surface
+
+          {activities.length === 0 ? (
+            <M3Surface
+              level={2}
+              shape="corner-large"
+              style={{
+                padding: 'var(--md-sys-spacing-6)',
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 'var(--md-sys-spacing-2)',
+              }}
+            >
+              <span
+                className="material-symbols-outlined"
+                aria-hidden="true"
                 style={{
-                  padding: 'var(--md-sys-spacing-6)',
-                  borderRadius: 'var(--md-sys-spacing-3)',
-                  background: 'var(--md-sys-color-surface-variant)',
-                  textAlign: 'center'
+                  fontSize: 'var(--md-sys-spacing-10)',
+                  color: 'var(--md-sys-color-on-surface-variant)',
+                  fontVariationSettings: '"FILL" 0, "wght" 300',
                 }}
-              >
-                <span
-                  className="material-symbols-outlined"
-                  aria-hidden="true"
+              >event_busy</span>
+              <M3Typography variant="title-medium">Nessuna attività recente</M3Typography>
+              <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                Le tue attività appariranno qui
+              </M3Typography>
+            </M3Surface>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)' }}>
+              {activities.map((activity, index) => (
+                <M3StateLayer
+                  key={activity.id}
+                  as="div"
                   style={{
-                    fontSize: 'var(--md-sys-spacing-8)',
-                    color: 'var(--md-sys-color-on-surface-variant)',
-                    opacity: '0.6',
-                    display: 'block',
-                    marginBottom: 'var(--md-sys-spacing-3)'
+                    borderRadius: index === 0
+                      ? 'var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-small) var(--md-sys-shape-corner-small)'
+                      : index === activities.length - 1
+                      ? 'var(--md-sys-shape-corner-small) var(--md-sys-shape-corner-small) var(--md-sys-shape-corner-large) var(--md-sys-shape-corner-large)'
+                      : 'var(--md-sys-shape-corner-small)',
+                    background: 'var(--md-sys-color-surface-container)',
+                    padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--md-sys-spacing-4)',
                   }}
                 >
-                  event_busy
-                </span>
-                <M3Typography 
-                  variant="body-large" 
-                  style={{ 
-                    color: 'var(--md-sys-color-on-surface)',
-                    fontWeight: '600',
-                    marginBottom: 'var(--md-sys-spacing-2)'
-                  }}
-                >
-                  Nessuna attività recente
-                </M3Typography>
-                <M3Typography 
-                  variant="body-medium" 
-                  style={{ 
-                    color: 'var(--md-sys-color-on-surface-variant)'
-                  }}
-                >
-                  Le tue attività appariranno qui
-                </M3Typography>
-              </M3Surface>
-            )}
-            {activities.map(activity => (
-              <M3Card 
-                key={activity.id} 
-                style={{ 
-                  padding: 'var(--md-sys-spacing-4)',
-                  borderLeft: '4px solid var(--md-sys-color-primary)'
-                }}
-              >
-                <M3Typography 
-                  variant="title-medium"
-                  style={{
-                    color: 'var(--md-sys-color-on-surface)',
-                    fontWeight: '600',
-                    marginBottom: 'var(--md-sys-spacing-1)'
-                  }}
-                >
-                  {activity.title}
-                </M3Typography>
-                <M3Typography 
-                  variant="body-medium" 
-                  style={{ 
-                    color: 'var(--md-sys-color-on-surface)',
-                    marginBottom: 'var(--md-sys-spacing-1)'
-                  }}
-                >
-                  {activity.meta}
-                </M3Typography>
-                <M3Typography 
-                  variant="label-small" 
-                  style={{ 
-                    color: 'var(--md-sys-color-on-surface-variant)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.5px'
-                  }}
-                >
-                  {activity.time}
-                </M3Typography>
-              </M3Card>
-            ))}
-          </M3Surface>
-        </M3Surface>
-        {/* Quick Actions Section */}
-        <M3Surface style={{ marginBottom: 'var(--app-spacing-container)' }}>
-          <M3Surface style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-24), var(--md-sys-grid-fr-1)))', gap: 'var(--app-spacing-container)' }}>
-            <M3Card ariaLabel="Vai a Registro" onClick={() => onNavigate('register' as View)}>
-              <M3Surface style={{ textAlign: 'center', padding: 'var(--app-spacing-container)' }}>
-                {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
-                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-8)' }}>menu_book</span>
-                <M3Typography variant="title-medium" style={{ marginTop: 'var(--app-spacing-component)' }}>Registro</M3Typography>
-              </M3Surface>
-            </M3Card>
-            <M3Card ariaLabel="Vai a Presenze" onClick={() => onNavigate('presenze' as View)}>
-              <M3Surface style={{ textAlign: 'center', padding: 'var(--app-spacing-container)' }}>
-                {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
-                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-8)' }}>fact_check</span>
-                <M3Typography variant="title-medium" style={{ marginTop: 'var(--app-spacing-component)' }}>Presenze</M3Typography>
-              </M3Surface>
-            </M3Card>
-            <M3Card ariaLabel="Vai a Valutazioni" onClick={() => onNavigate('evaluations' as View)}>
-              <M3Surface style={{ textAlign: 'center', padding: 'var(--app-spacing-container)' }}>
-                {/* MD3 Exception: fontSize for icon uses px for Material Symbols, see governance contract */}
-                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-8)' }}>grading</span>
-                <M3Typography variant="title-medium" style={{ marginTop: 'var(--app-spacing-component)' }}>Valutazioni</M3Typography>
-              </M3Surface>
-            </M3Card>
-          </M3Surface>
-        </M3Surface>
-        {/* AI Suggestions Section (commented out, enable if needed) */}
-        {/*
-        <M3Surface as="section" elevation={0} style={{ marginTop: 'var(--app-spacing-section)' }}>
-          <M3Typography variant="title-large" style={{ marginBottom: 'var(--app-spacing-component)' }}>Suggerimenti AI</M3Typography>
-          <M3SuggestionCard>
-            <M3SuggestionItem suggestion="Prova la nuova funzione di generazione quiz!" />
-          </M3SuggestionCard>
-        </M3Surface>
-        */}
-        {/* Primary FAB: Inizia Giornata (MD3 floating, policy exception documented) */}
-        <M3Fab
-          icon={<span className="material-symbols-outlined" aria-hidden="true">playlist_add_check</span>}
-          label="Inizia Giornata"
-          aria-label="Inizia giornata - Appello"
-          variant="primary" // MD3 Gold: fallback to allowed type
-          onClick={() => onNavigate('aula' as View)}
-          style={{
-            position: 'fixed',
-            bottom: 'var(--app-spacing-section)',
-            right: 'var(--app-spacing-section)',
-            /* MD3 Exception: fallback for z-index if token missing, see governance contract */
-            zIndex: 'var(--app-z-modal)'
-          }}
-        />
+                  {/* Left accent indicator */}
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      width: 'var(--md-sys-spacing-1)',
+                      alignSelf: 'stretch',
+                      borderRadius: 'var(--md-sys-shape-corner-full)',
+                      background: 'var(--md-sys-color-primary)',
+                      flexShrink: 0,
+                    }}
+                  />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <M3Typography variant="title-small" style={{ color: 'var(--md-sys-color-on-surface)' }}>
+                      {activity.title}
+                    </M3Typography>
+                    {activity.meta && (
+                      <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-1)' }}>
+                        {activity.meta}
+                      </M3Typography>
+                    )}
+                  </div>
+                  {activity.time && (
+                    <M3Typography variant="label-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', flexShrink: 0 }}>
+                      {activity.time}
+                    </M3Typography>
+                  )}
+                </M3StateLayer>
+              ))}
+            </div>
+          )}
+        </section>
       </M3Surface>
-      {/* BottomNav for mobile (MD3) */}
-      <BottomNav activeView={activeView} onNavigate={onNavigate} />
+
+      {/* ── PRIMARY FAB ──────────────────────────────────────────── */}
+      <M3Fab
+        icon={<span className="material-symbols-outlined" aria-hidden="true">playlist_add_check</span>}
+        label="Inizia Giornata"
+        aria-label="Inizia giornata - Appello"
+        variant="primary"
+        scrollContainerRef={scrollContainerRef}
+        onClick={() => onNavigate('aula' as View)}
+        style={{
+          position: 'fixed',
+          bottom: 'calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-4) + env(safe-area-inset-bottom, 0px))',
+          right: 'var(--md-sys-spacing-4)',
+          zIndex: 'var(--md-sys-z-modal)',
+        }}
+      />
     </>
   );
 };
