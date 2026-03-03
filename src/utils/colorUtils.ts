@@ -34,7 +34,7 @@ export const generateHueFromString = (str: string): number => {
 // Pastel/Light backgrounds with Dark contrasting text.
 // Better for readability and fits the modern M3 look.
 // 
-// These are NOT used in component styling—use var(--sys-*) tokens instead.
+  // These are NOT used in component styling—use var(--md-sys-color-*) tokens instead.
 // Exception documented in: docs/DESIGN_SYSTEM_CONSOLIDATION.md § 5
 const AVATAR_PALETTES = [
     { bg: '#EADDFF', text: '#21005D' }, // --md-sys-color-primary-container / --md-sys-color-on-primary-container

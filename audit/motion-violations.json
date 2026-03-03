@@ -1,158 +1,93 @@
 {
-  "timestamp": "2026-03-03T19:43:03.405Z",
-  "totalViolations": 17,
-  "totalFiles": 6,
+  "timestamp": "2026-03-03T20:22:57.029Z",
+  "totalViolations": 10,
+  "totalFiles": 2,
   "scannedFiles": 439,
   "typeBreakdown": {
-    "hardcodedDuration": 7,
-    "hardcodedEasing": 5,
-    "inlineStyleTemporal": 5
+    "hardcodedDuration": 5,
+    "hardcodedDelay": 1,
+    "hardcodedEasing": 4
   },
   "topViolators": [
     {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "count": 7
-    },
-    {
-      "file": "src\\components\\ui\\LoadingState.tsx",
-      "count": 3
-    },
-    {
-      "file": "src\\components\\ui\\TouchButton.tsx",
-      "count": 3
-    },
-    {
-      "file": "src\\components\\ui\\ProgressIndicator.tsx",
-      "count": 2
-    },
-    {
-      "file": "src\\design-system\\motion.css",
-      "count": 1
+      "file": "src\\theme.css",
+      "count": 8
     },
     {
       "file": "src\\layout.css",
-      "count": 1
+      "count": 2
     }
   ],
   "violations": [
     {
-      "file": "src\\components\\ui\\LoadingState.tsx",
-      "line": 43,
-      "type": "hardcodedDuration",
-      "match": "animation: 'spin 1s",
-      "context": "}}"
-    },
-    {
-      "file": "src\\components\\ui\\LoadingState.tsx",
-      "line": 43,
-      "type": "hardcodedEasing",
-      "match": "animation: 'spin 1s linear",
-      "context": "}}"
-    },
-    {
-      "file": "src\\components\\ui\\LoadingState.tsx",
-      "line": 37,
-      "type": "inlineStyleTemporal",
-      "match": "style={{\r\n          width: spinnerSize,\r\n          height: spinnerSize,\r\n          border: 'var(--md",
-      "context": "width: spinnerSize,"
-    },
-    {
-      "file": "src\\components\\ui\\ProgressIndicator.tsx",
-      "line": 48,
-      "type": "hardcodedDuration",
-      "match": "animation: 'progress-indeterminate 2s",
-      "context": "transformOrigin: 'left center'"
-    },
-    {
-      "file": "src\\components\\ui\\ProgressIndicator.tsx",
-      "line": 44,
-      "type": "inlineStyleTemporal",
-      "match": "style={{\r\n            height: '100%',\r\n            width: '30%',\r\n            backgroundColor: color",
-      "context": "height: '100%',"
-    },
-    {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "line": 37,
-      "type": "hardcodedDuration",
-      "match": "animation: animation === 'pulse' \r\n            ? 'skeleton-pulse 1.5s",
-      "context": "? 'skeleton-pulse 1.5s ease-in-out infinite'"
-    },
-    {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "line": 46,
-      "type": "hardcodedDuration",
-      "match": "animation === 'wave' && (\r\n          <div\r\n            style={{\r\n              position: 'absolute',",
-      "context": "<div"
-    },
-    {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "line": 37,
-      "type": "hardcodedEasing",
-      "match": "animation: animation === 'pulse' \r\n            ? 'skeleton-pulse 1.5s ease-in-out",
-      "context": "? 'skeleton-pulse 1.5s ease-in-out infinite'"
-    },
-    {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "line": 46,
-      "type": "hardcodedEasing",
-      "match": "animation === 'wave' && (\r\n          <div\r\n            style={{\r\n              position: 'absolute',",
-      "context": "<div"
-    },
-    {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "line": 55,
-      "type": "hardcodedEasing",
-      "match": "animation: 'skeleton-wave-move 1.5s linear",
-      "context": "}}"
-    },
-    {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "line": 32,
-      "type": "inlineStyleTemporal",
-      "match": "style={{\r\n          width,\r\n          height,\r\n          borderRadius,\r\n          background: 'var(-",
-      "context": "width,"
-    },
-    {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "line": 48,
-      "type": "inlineStyleTemporal",
-      "match": "style={{\r\n              position: 'absolute',\r\n              top: 0,\r\n              left: 0,\r\n      ",
-      "context": "position: 'absolute',"
-    },
-    {
-      "file": "src\\components\\ui\\TouchButton.tsx",
-      "line": 126,
-      "type": "hardcodedDuration",
-      "match": "transition: 'all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',\r\n      ",
-      "context": "transform: isPressed && !disabled && !loading ? 'scale(0.98)' : 'scale(1)',"
-    },
-    {
-      "file": "src\\components\\ui\\TouchButton.tsx",
-      "line": 126,
-      "type": "hardcodedEasing",
-      "match": "transition: 'all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',\r\n      ",
-      "context": "transform: isPressed && !disabled && !loading ? 'scale(0.98)' : 'scale(1)',"
-    },
-    {
-      "file": "src\\components\\ui\\TouchButton.tsx",
-      "line": 138,
-      "type": "inlineStyleTemporal",
-      "match": "style={{\r\n            width: 'var(--md-sys-spacing-5)',\r\n            height: 'var(--md-sys-spacing-5",
-      "context": "width: 'var(--md-sys-spacing-5)',"
-    },
-    {
-      "file": "src\\design-system\\motion.css",
-      "line": 216,
-      "type": "hardcodedDuration",
-      "match": "ANIMATION:\r\n<button className=\"m3-transition-fab\">FAB</button>\r\n*/\r\n\r\n/* ===========================",
-      "context": "<button className=\"m3-transition-fab\">FAB</button>"
-    },
-    {
       "file": "src\\layout.css",
-      "line": 675,
+      "line": 673,
       "type": "hardcodedDuration",
       "match": "Animation */\r\n.animate-in { animation-duration: 300ms",
       "context": ".animate-in { animation-duration: 300ms; animation-fill-mode: both; }"
+    },
+    {
+      "file": "src\\layout.css",
+      "line": 846,
+      "type": "hardcodedDelay",
+      "match": "animation-delay: 300ms",
+      "context": ""
+    },
+    {
+      "file": "src\\theme.css",
+      "line": 896,
+      "type": "hardcodedDuration",
+      "match": "animation: fade 1.5s",
+      "context": "}"
+    },
+    {
+      "file": "src\\theme.css",
+      "line": 900,
+      "type": "hardcodedDuration",
+      "match": "animation: shine 1.5s",
+      "context": "}"
+    },
+    {
+      "file": "src\\theme.css",
+      "line": 920,
+      "type": "hardcodedDuration",
+      "match": "animation: aura-pulse 8s",
+      "context": "}"
+    },
+    {
+      "file": "src\\theme.css",
+      "line": 936,
+      "type": "hardcodedDuration",
+      "match": "animation: float 4s",
+      "context": "}"
+    },
+    {
+      "file": "src\\theme.css",
+      "line": 896,
+      "type": "hardcodedEasing",
+      "match": "animation: fade 1.5s ease-in-out",
+      "context": "}"
+    },
+    {
+      "file": "src\\theme.css",
+      "line": 900,
+      "type": "hardcodedEasing",
+      "match": "animation: shine 1.5s ease-in-out",
+      "context": "}"
+    },
+    {
+      "file": "src\\theme.css",
+      "line": 920,
+      "type": "hardcodedEasing",
+      "match": "animation: aura-pulse 8s ease-in-out",
+      "context": "}"
+    },
+    {
+      "file": "src\\theme.css",
+      "line": 936,
+      "type": "hardcodedEasing",
+      "match": "animation: float 4s ease-in-out",
+      "context": "}"
     }
   ]
 }

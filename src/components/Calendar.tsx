@@ -267,7 +267,7 @@ const renderHeader = () => {
                                 justifyContent: 'center',
                                 width: 'var(--md-sys-spacing-7)',
                                 height: 'var(--md-sys-spacing-7)',
-                                fontSize: 'var(--typography-body-medium-fontSize)',
+                                fontSize: 'var(--md-sys-typescale-body-medium-size)',
                                 fontWeight: isToday ? 700 : 500,
                                 color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
                                 background: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
@@ -329,7 +329,7 @@ const renderHeader = () => {
                             borderRight: i < 6 ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' : 'none'
                         }}>
                             <div style={{
-                                fontSize: 'var(--typography-label-small-fontSize)',
+                                fontSize: 'var(--md-sys-typescale-label-small-size)',
                                 fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                 color: 'var(--md-sys-color-on-surface-variant)',
                                 textTransform: 'uppercase',
@@ -339,7 +339,7 @@ const renderHeader = () => {
                                 {DAYS_SHORT[i]}
                             </div>
                             <div style={{
-                                fontSize: 'var(--typography-body-medium-fontSize)',
+                                fontSize: 'var(--md-sys-typescale-body-medium-size)',
                                 fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                 color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
                                 background: isToday ? 'var(--md-sys-color-primary)' : 'transparent',

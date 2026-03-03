@@ -1,15 +1,16 @@
 {
   "summary": {
-    "totalFiles": 445,
-    "totalLines": 92838,
-    "totalTokens": 3257,
-    "totalSemanticTokens": 1428,
-    "hardcodedViolations": 2324,
+    "totalFiles": 486,
+    "totalLines": 97775,
+    "totalTokens": 5556,
+    "totalSemanticTokens": 39,
+    "hardcodedViolations": 2619,
     "coverage": {},
     "unusedDefinedTokens": [
       "--md-sys-backdrop-light",
       "--md-sys-backdrop-medium",
       "--md-sys-backdrop-dark",
+      "--md-sys-spacing-0-5",
       "--md-sys-blur-small",
       "--md-sys-blur-medium",
       "--md-sys-blur-large",
@@ -40,6 +41,8 @@
       "--md-sys-radius-full",
       "--md-sys-layout-grid-min",
       "--md-sys-layout-grid-min-wide",
+      "--md-sys-layout-grid-min-card",
+      "--md-sys-layout-grid-min-large",
       "--md-sys-layout-card-width",
       "--md-sys-layout-card-min-height",
       "--md-sys-layout-avatar-size",
@@ -60,26 +63,85 @@
       "--md-sys-border-width-thin",
       "--md-sys-border-width-normal",
       "--md-sys-border-width-medium",
+      "--md-sys-border-width-accent",
       "--md-sys-border-width-thick",
       "--md-sys-special-viewport-height",
+      "--md-sys-motion-duration-short2",
+      "--md-sys-motion-duration-short4",
+      "--md-sys-motion-spring-expressive-fast-spatial",
+      "--md-sys-motion-spring-expressive-fast-spatial-duration",
+      "--md-sys-motion-spring-expressive-default-spatial",
+      "--md-sys-motion-spring-expressive-default-spatial-duration",
+      "--md-sys-motion-spring-expressive-slow-spatial",
+      "--md-sys-motion-spring-expressive-slow-spatial-duration",
+      "--md-sys-motion-spring-expressive-fast-effects",
+      "--md-sys-motion-spring-expressive-fast-effects-duration",
+      "--md-sys-motion-spring-expressive-default-effects",
+      "--md-sys-motion-spring-expressive-default-effects-duration",
+      "--md-sys-motion-spring-expressive-slow-effects",
+      "--md-sys-motion-spring-expressive-slow-effects-duration",
+      "--md-sys-motion-spring-standard-fast-spatial",
+      "--md-sys-motion-spring-standard-fast-spatial-duration",
+      "--md-sys-motion-spring-standard-default-spatial",
+      "--md-sys-motion-spring-standard-default-spatial-duration",
+      "--md-sys-motion-spring-standard-slow-spatial",
+      "--md-sys-motion-spring-standard-slow-spatial-duration",
       "--md-sys-elevation1",
       "--md-sys-elevation2",
       "--md-sys-elevation3",
       "--md-sys-state-opacity-disabled",
+      "--md-sys-state-opacity-scrim",
       "--md-sys-state-opacity-tooltip",
+      "--md-sys-state-opacity-icon-muted",
+      "--md-sys-state-opacity-tint-hairline",
+      "--md-sys-state-opacity-tint-thin",
+      "--md-sys-state-opacity-tint-faint",
+      "--md-sys-state-opacity-tint-subtle",
+      "--md-sys-state-opacity-tint-moderate",
+      "--md-sys-state-opacity-empty",
+      "--md-sys-state-opacity-placeholder",
+      "--md-sys-state-opacity-secondary",
+      "--md-sys-state-opacity-supporting",
+      "--md-sys-state-opacity-caption",
+      "--md-sys-state-opacity-hover-overlay",
+      "--md-sys-breakpoint-compact",
+      "--md-sys-breakpoint-medium",
+      "--md-sys-breakpoint-expanded",
+      "--md-sys-tooltip-arrow-size",
+      "--md-sys-layout-content-max-width",
+      "--md-sys-breakpoint-sm",
+      "--md-sys-breakpoint-xl",
       "--md-sys-chart-height-large",
       "--md-sys-chart-height-medium"
     ],
     "unusedSemanticTokens": [
+      "--app-section-header-letter-spacing",
       "--app-color-on-primary",
       "--app-color-primary-container",
       "--app-color-on-primary-container",
       "--app-color-on-secondary",
       "--app-color-secondary-container",
       "--app-color-on-secondary-container",
+      "--app-color-on-tertiary",
+      "--app-color-tertiary-container",
+      "--app-color-on-tertiary-container",
+      "--app-color-on-error",
+      "--app-color-error-container",
+      "--app-color-on-error-container",
       "--app-color-on-surface",
       "--app-color-surface-container",
       "--app-color-on-surface-container",
+      "--app-color-surface-container-lowest",
+      "--app-color-surface-container-low",
+      "--app-color-surface-container-high",
+      "--app-color-surface-container-highest",
+      "--app-color-surface-variant",
+      "--app-color-on-surface-variant",
+      "--app-color-outline-variant",
+      "--app-color-on-background",
+      "--app-color-inverse-surface",
+      "--app-color-inverse-on-surface",
+      "--app-color-inverse-primary",
       "--app-elevation-level-0",
       "--app-elevation-level-1",
       "--app-elevation-level-2",
@@ -90,11 +152,11 @@
   },
   "categories": {
     "spacing": {
-      "md3TokensUsed": 30,
-      "semanticTokensUsed": 5,
-      "totalUsage": 2484,
-      "semanticUsage": 2116,
-      "semanticAdoption": 46,
+      "md3TokensUsed": 33,
+      "semanticTokensUsed": 3,
+      "totalUsage": 3818,
+      "semanticUsage": 6,
+      "semanticAdoption": 0.15690376569037656,
       "mostUsedMd3": [
         "--md-sys-spacing-16",
         "--md-sys-spacing-0",
@@ -105,17 +167,15 @@
       "mostUsedSemantic": [
         "--app-spacing-container",
         "--app-spacing-element",
-        "--app-spacing-touch",
-        "--app-spacing-section",
-        "--app-spacing-component"
+        "--app-spacing-touch"
       ]
     },
     "color": {
-      "md3TokensUsed": 69,
-      "semanticTokensUsed": 33,
-      "totalUsage": 2065,
-      "semanticUsage": 3981,
-      "semanticAdoption": 65.84518690043004,
+      "md3TokensUsed": 81,
+      "semanticTokensUsed": 19,
+      "totalUsage": 3037,
+      "semanticUsage": 45,
+      "semanticAdoption": 1.4600908500973393,
       "mostUsedMd3": [
         "--md-sys-color-primary",
         "--md-sys-color-on-primary",
@@ -124,19 +184,19 @@
         "--md-sys-color-secondary"
       ],
       "mostUsedSemantic": [
-        "--app-z-modal",
-        "--app-motion-quick",
-        "--app-color-primary",
-        "--app-spacing-container",
-        "--app-spacing-element"
+        "--app-z-tooltip",
+        "--app-easing-standard",
+        "--app-color-surface",
+        "--app-spacing-section",
+        "--app-spacing-component"
       ]
     },
     "typography": {
-      "md3TokensUsed": 123,
-      "semanticTokensUsed": 4,
-      "totalUsage": 718,
-      "semanticUsage": 884,
-      "semanticAdoption": 55.181023720349565,
+      "md3TokensUsed": 142,
+      "semanticTokensUsed": 0,
+      "totalUsage": 1351,
+      "semanticUsage": 0,
+      "semanticAdoption": 0,
       "mostUsedMd3": [
         "--md-sys-typescale-display-large-font-size",
         "--md-sys-typescale-display-large-font-weight",
@@ -144,38 +204,32 @@
         "--md-sys-typescale-display-medium-font-weight",
         "--md-sys-typescale-display-small-font-size"
       ],
-      "mostUsedSemantic": [
-        "--app-text-label",
-        "--app-text-title",
-        "--app-text-body",
-        "--app-text-display"
-      ]
+      "mostUsedSemantic": []
     },
     "motion": {
-      "md3TokensUsed": 13,
-      "semanticTokensUsed": 5,
-      "totalUsage": 384,
-      "semanticUsage": 628,
-      "semanticAdoption": 62.055335968379445,
+      "md3TokensUsed": 12,
+      "semanticTokensUsed": 4,
+      "totalUsage": 655,
+      "semanticUsage": 14,
+      "semanticAdoption": 2.092675635276532,
       "mostUsedMd3": [
         "--md-sys-motion-easing-standard",
-        "--md-sys-motion-duration-short",
-        "--md-sys-motion-duration-long",
-        "--md-sys-motion-easing-emphasized",
-        "--md-sys-motion-easing-accelerated"
+        "--md-sys-motion-duration-medium",
+        "--md-sys-motion-duration-extra-long",
+        "--md-sys-motion-duration-micro",
+        "--md-sys-motion-easing-decelerated"
       ],
       "mostUsedSemantic": [
         "--app-motion-quick",
         "--app-motion-standard",
         "--app-motion-slow",
-        "--app-easing-emphasized",
-        "--app-easing-standard"
+        "--app-easing-emphasized"
       ]
     },
     "elevation": {
       "md3TokensUsed": 5,
       "semanticTokensUsed": 0,
-      "totalUsage": 157,
+      "totalUsage": 176,
       "semanticUsage": 0,
       "semanticAdoption": 0,
       "mostUsedMd3": [
@@ -190,7 +244,7 @@
     "shape": {
       "md3TokensUsed": 10,
       "semanticTokensUsed": 0,
-      "totalUsage": 603,
+      "totalUsage": 661,
       "semanticUsage": 0,
       "semanticAdoption": 0,
       "mostUsedMd3": [
@@ -203,11 +257,11 @@
       "mostUsedSemantic": []
     },
     "zIndex": {
-      "md3TokensUsed": 12,
-      "semanticTokensUsed": 4,
-      "totalUsage": 84,
-      "semanticUsage": 40,
-      "semanticAdoption": 32.25806451612903,
+      "md3TokensUsed": 11,
+      "semanticTokensUsed": 1,
+      "totalUsage": 103,
+      "semanticUsage": 2,
+      "semanticAdoption": 1.9047619047619049,
       "mostUsedMd3": [
         "--md-sys-z-modal",
         "--md-sys-z-base",
@@ -215,19 +269,14 @@
         "--md-sys-z-skip-link",
         "--md-sys-z-snackbar"
       ],
-      "mostUsedSemantic": [
-        "--app-z-modal",
-        "--app-z-base",
-        "--app-z-overlay",
-        "--app-z-tooltip"
-      ]
+      "mostUsedSemantic": ["--app-z-tooltip"]
     },
     "layout": {
-      "md3TokensUsed": 34,
-      "semanticTokensUsed": 4,
-      "totalUsage": 379,
-      "semanticUsage": 526,
-      "semanticAdoption": 58.12154696132596,
+      "md3TokensUsed": 33,
+      "semanticTokensUsed": 2,
+      "totalUsage": 508,
+      "semanticUsage": 4,
+      "semanticAdoption": 0.78125,
       "mostUsedMd3": [
         "--md-sys-flex-none",
         "--md-sys-flex-grow",
@@ -235,12 +284,7 @@
         "--md-sys-grid-fr-4",
         "--md-sys-viewport-width-full"
       ],
-      "mostUsedSemantic": [
-        "--app-layout-full",
-        "--app-layout-quarter",
-        "--app-layout-auto",
-        "--app-layout-half"
-      ]
+      "mostUsedSemantic": ["--app-layout-full", "--app-layout-quarter"]
     }
   },
   "overusedTokens": [],
@@ -251,7 +295,7 @@
       "priority": "CRITICAL",
       "category": "MD3_COMPLIANCE",
       "title": "Address hardcoded value violations",
-      "description": "2324 hardcoded values found (px, rem, z-index, etc.)",
+      "description": "2619 hardcoded values found (px, rem, z-index, etc.)",
       "impact": "Critical MD3 Gold compliance violations",
       "effort": "HIGH"
     },
@@ -259,8 +303,32 @@
       "priority": "HIGH",
       "category": "SEMANTIC_ADOPTION",
       "title": "Increase semantic token adoption in spacing",
-      "description": "Only 46.0% of spacing usage uses semantic tokens",
-      "impact": "368 direct MD3 tokens could be abstracted",
+      "description": "Only 0.2% of spacing usage uses semantic tokens",
+      "impact": "3812 direct MD3 tokens could be abstracted",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": "HIGH",
+      "category": "SEMANTIC_ADOPTION",
+      "title": "Increase semantic token adoption in color",
+      "description": "Only 1.5% of color usage uses semantic tokens",
+      "impact": "2992 direct MD3 tokens could be abstracted",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": "HIGH",
+      "category": "SEMANTIC_ADOPTION",
+      "title": "Increase semantic token adoption in typography",
+      "description": "Only 0.0% of typography usage uses semantic tokens",
+      "impact": "1351 direct MD3 tokens could be abstracted",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": "HIGH",
+      "category": "SEMANTIC_ADOPTION",
+      "title": "Increase semantic token adoption in motion",
+      "description": "Only 2.1% of motion usage uses semantic tokens",
+      "impact": "641 direct MD3 tokens could be abstracted",
       "effort": "MEDIUM"
     },
     {
@@ -268,7 +336,7 @@
       "category": "SEMANTIC_ADOPTION",
       "title": "Increase semantic token adoption in elevation",
       "description": "Only 0.0% of elevation usage uses semantic tokens",
-      "impact": "157 direct MD3 tokens could be abstracted",
+      "impact": "176 direct MD3 tokens could be abstracted",
       "effort": "MEDIUM"
     },
     {
@@ -276,15 +344,23 @@
       "category": "SEMANTIC_ADOPTION",
       "title": "Increase semantic token adoption in shape",
       "description": "Only 0.0% of shape usage uses semantic tokens",
-      "impact": "603 direct MD3 tokens could be abstracted",
+      "impact": "661 direct MD3 tokens could be abstracted",
       "effort": "MEDIUM"
     },
     {
-      "priority": "MEDIUM",
+      "priority": "HIGH",
       "category": "SEMANTIC_ADOPTION",
       "title": "Increase semantic token adoption in zIndex",
-      "description": "Only 32.3% of zIndex usage uses semantic tokens",
-      "impact": "44 direct MD3 tokens could be abstracted",
+      "description": "Only 1.9% of zIndex usage uses semantic tokens",
+      "impact": "101 direct MD3 tokens could be abstracted",
+      "effort": "MEDIUM"
+    },
+    {
+      "priority": "HIGH",
+      "category": "SEMANTIC_ADOPTION",
+      "title": "Increase semantic token adoption in layout",
+      "description": "Only 0.8% of layout usage uses semantic tokens",
+      "impact": "504 direct MD3 tokens could be abstracted",
       "effort": "MEDIUM"
     },
     {
@@ -292,7 +368,7 @@
       "category": "SEMANTIC_EXPANSION",
       "title": "Consider adding semantic tokens for elevation",
       "description": "No semantic elevation tokens defined, all usage is direct MD3",
-      "impact": "Could improve consistency for 157 usages",
+      "impact": "Could improve consistency for 176 usages",
       "effort": "MEDIUM"
     },
     {
@@ -300,7 +376,7 @@
       "category": "SEMANTIC_EXPANSION",
       "title": "Consider adding semantic tokens for shape",
       "description": "No semantic shape tokens defined, all usage is direct MD3",
-      "impact": "Could improve consistency for 603 usages",
+      "impact": "Could improve consistency for 661 usages",
       "effort": "MEDIUM"
     }
   ]

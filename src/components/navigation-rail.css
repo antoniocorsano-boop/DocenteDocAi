@@ -160,8 +160,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1));
-  height: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1));
+  width: calc(var(--md-sys-spacing-8) * var(--md-sys-typescale-font-scale, 1));
+  height: calc(var(--md-sys-spacing-8) * var(--md-sys-typescale-font-scale, 1));
   border-radius: var(--md-sys-percent-50);
   transition: background-color var(--motion-duration-short2) var(--motion-easing-standard),
               color var(--motion-duration-short2) var(--motion-easing-standard);
@@ -169,7 +169,7 @@
 
 /* Icon styling */
 .m3-navigation-rail__icon-container .material-symbols-outlined {
-  font-size: calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-6) * var(--md-sys-typescale-font-scale, 1));
   line-height: 1;
   color: inherit;
   transition-property: opacity, transform, background-color;

@@ -14,25 +14,25 @@
 
 .m3-display-large {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-typescale-display-large-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-display-large-font-size) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-display-large-font-weight, 400);
-  line-height: calc(var(--md-sys-typescale-display-large-line-height) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-display-large-line-height) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-typescale-display-large-tracking, 0px);
 }
 
 .m3-display-medium {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-typescale-display-medium-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-display-medium-font-size) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-display-medium-font-weight, 400);
-  line-height: calc(var(--md-sys-typescale-display-medium-line-height) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-display-medium-line-height) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-typescale-display-medium-tracking, 0px);
 }
 
 .m3-display-small {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-typescale-display-small-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-display-small-font-size) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-display-small-font-weight, 400);
-  line-height: calc(var(--md-sys-typescale-display-small-line-height) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-display-small-line-height) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-typescale-display-small-tracking, 0px);
 }
 
@@ -42,25 +42,25 @@
 
 .m3-headline-large {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-typescale-headline-large-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-headline-large-font-size) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-headline-large-font-weight, 400);
-  line-height: calc(var(--md-sys-typescale-headline-large-line-height) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-headline-large-line-height) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-typescale-headline-large-tracking, 0px);
 }
 
 .m3-headline-medium {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-typescale-headline-medium-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-headline-medium-font-size) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-headline-medium-font-weight, 400);
-  line-height: calc(var(--md-sys-typescale-headline-medium-line-height) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-headline-medium-line-height) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-typescale-headline-medium-tracking, 0px);
 }
 
 .m3-headline-small {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-typescale-headline-small-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-headline-small-font-size) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-headline-small-font-weight, 400);
-  line-height: calc(var(--md-sys-typescale-headline-small-line-height) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-headline-small-line-height) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-typescale-headline-small-tracking, 0px);
 }
 
@@ -70,25 +70,25 @@
 
 .m3-title-large {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-typescale-title-large-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-title-large-font-size) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-title-large-font-weight, 400);
-  line-height: calc(var(--md-sys-typescale-title-large-line-height) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-title-large-line-height) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-typescale-title-large-tracking, 0px);
 }
 
 .m3-title-medium {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-typescale-title-medium-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-title-medium-font-size) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-title-medium-font-weight, 500);
-  line-height: calc(var(--md-sys-typescale-title-medium-line-height) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-title-medium-line-height) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-typescale-title-medium-tracking, 0px);
 }
 
 .m3-title-small {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-typescale-title-small-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-title-small-font-size) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-title-small-font-weight, 500);
-  line-height: calc(var(--md-sys-typescale-title-small-line-height) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-title-small-line-height) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-typescale-title-small-tracking, 0px);
 }
 
@@ -98,33 +98,33 @@
 
 .m3-label-large {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-typescale-label-large-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-label-large-font-size) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-label-large-font-weight, 500);
-  line-height: calc(var(--md-sys-typescale-label-large-line-height) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-label-large-line-height) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-typescale-label-large-tracking, 0.5px);
 }
 
 .m3-label-medium {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-typescale-label-medium-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-label-medium-font-size) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-label-medium-font-weight, 500);
-  line-height: calc(var(--md-sys-typescale-label-medium-line-height) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-label-medium-line-height) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-typescale-label-medium-tracking, 0.5px);
 }
 
 .m3-label-small {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-typescale-label-small-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-label-small-font-size) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-label-small-font-weight, 500);
-  line-height: calc(var(--md-sys-typescale-label-small-line-height) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-label-small-line-height) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-typescale-label-small-tracking, 0.5px);
 }
 
 .m3-label-tiny {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-spacing-3) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-3) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-label-small-font-weight, 500);
-  line-height: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-body-medium-font-size) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-border-width-thin);
 }
 
@@ -134,25 +134,25 @@
 
 .m3-body-large {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-typescale-body-large-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-body-large-font-size) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-body-large-font-weight, 400);
-  line-height: calc(var(--md-sys-typescale-body-large-line-height) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-body-large-line-height) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-typescale-body-large-tracking, 0px);
 }
 
 .m3-body-medium {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-body-medium-font-size) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-body-medium-font-weight, 400);
-  line-height: calc(var(--md-sys-typescale-body-medium-line-height) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-body-medium-line-height) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-typescale-body-medium-tracking, 0px);
 }
 
 .m3-body-small {
   font-family: var(--font-family, 'Roboto Flex', sans-serif);
-  font-size: calc(var(--md-sys-typescale-body-small-font-size) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-typescale-body-small-font-size) * var(--md-sys-typescale-font-scale, 1));
   font-weight: var(--md-sys-typescale-body-small-font-weight, 400);
-  line-height: calc(var(--md-sys-typescale-body-small-line-height) * var(--sys-font-scale, 1));
+  line-height: calc(var(--md-sys-typescale-body-small-line-height) * var(--md-sys-typescale-font-scale, 1));
   letter-spacing: var(--md-sys-typescale-body-small-tracking, 0px);
 }
 
@@ -290,94 +290,94 @@
 
 /* ============================================================================
    ICON SYSTEM - Material Symbols Outlined
-   Supports dynamic scaling via --sys-font-scale
+   Supports dynamic scaling via --md-sys-typescale-font-scale
    ========================================================================= */
 
 .m3-icon-xs {
-  font-size: calc(var(--md-sys-spacing-4) * var(--sys-font-scale, 1)) !important;
-  width: calc(var(--md-sys-spacing-4) * var(--sys-font-scale, 1));
-  height: calc(var(--md-sys-spacing-4) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-4) * var(--md-sys-typescale-font-scale, 1)) !important;
+  width: calc(var(--md-sys-spacing-4) * var(--md-sys-typescale-font-scale, 1));
+  height: calc(var(--md-sys-spacing-4) * var(--md-sys-typescale-font-scale, 1));
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .m3-icon-tiny {
-  font-size: calc(var(--md-sys-spacing-3) * var(--sys-font-scale, 1)) !important;
-  width: calc(var(--md-sys-spacing-3) * var(--sys-font-scale, 1));
-  height: calc(var(--md-sys-spacing-3) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-3) * var(--md-sys-typescale-font-scale, 1)) !important;
+  width: calc(var(--md-sys-spacing-3) * var(--md-sys-typescale-font-scale, 1));
+  height: calc(var(--md-sys-spacing-3) * var(--md-sys-typescale-font-scale, 1));
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .m3-icon-sm {
-  font-size: calc(var(--md-sys-spacing-5) * var(--sys-font-scale, 1)) !important;
-  width: calc(var(--md-sys-spacing-5) * var(--sys-font-scale, 1));
-  height: calc(var(--md-sys-spacing-5) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-5) * var(--md-sys-typescale-font-scale, 1)) !important;
+  width: calc(var(--md-sys-spacing-5) * var(--md-sys-typescale-font-scale, 1));
+  height: calc(var(--md-sys-spacing-5) * var(--md-sys-typescale-font-scale, 1));
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .m3-icon-medium, .m3-icon-base {
-  font-size: calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1)) !important;
-  width: calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
-  height: calc(var(--md-sys-spacing-6) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-6) * var(--md-sys-typescale-font-scale, 1)) !important;
+  width: calc(var(--md-sys-spacing-6) * var(--md-sys-typescale-font-scale, 1));
+  height: calc(var(--md-sys-spacing-6) * var(--md-sys-typescale-font-scale, 1));
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .m3-icon-md-lg {
-  font-size: calc(var(--md-sys-spacing-7) * var(--sys-font-scale, 1)) !important;
-  width: calc(var(--md-sys-spacing-7) * var(--sys-font-scale, 1));
-  height: calc(var(--md-sys-spacing-7) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-7) * var(--md-sys-typescale-font-scale, 1)) !important;
+  width: calc(var(--md-sys-spacing-7) * var(--md-sys-typescale-font-scale, 1));
+  height: calc(var(--md-sys-spacing-7) * var(--md-sys-typescale-font-scale, 1));
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .m3-icon-lg {
-  font-size: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1)) !important;
-  width: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1));
-  height: calc(var(--md-sys-spacing-8) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-8) * var(--md-sys-typescale-font-scale, 1)) !important;
+  width: calc(var(--md-sys-spacing-8) * var(--md-sys-typescale-font-scale, 1));
+  height: calc(var(--md-sys-spacing-8) * var(--md-sys-typescale-font-scale, 1));
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .m3-icon-xl {
-  font-size: calc(var(--md-sys-spacing-10) * var(--sys-font-scale, 1)) !important;
-  width: calc(var(--md-sys-spacing-10) * var(--sys-font-scale, 1));
-  height: calc(var(--md-sys-spacing-10) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-10) * var(--md-sys-typescale-font-scale, 1)) !important;
+  width: calc(var(--md-sys-spacing-10) * var(--md-sys-typescale-font-scale, 1));
+  height: calc(var(--md-sys-spacing-10) * var(--md-sys-typescale-font-scale, 1));
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .m3-icon-2xl {
-  font-size: calc(var(--md-sys-spacing-12) * var(--sys-font-scale, 1)) !important;
-  width: calc(var(--md-sys-spacing-12) * var(--sys-font-scale, 1));
-  height: calc(var(--md-sys-spacing-12) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-spacing-12) * var(--md-sys-typescale-font-scale, 1)) !important;
+  width: calc(var(--md-sys-spacing-12) * var(--md-sys-typescale-font-scale, 1));
+  height: calc(var(--md-sys-spacing-12) * var(--md-sys-typescale-font-scale, 1));
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .m3-icon-hero {
-  font-size: calc(var(--md-sys-layout-popup-min-width) * var(--sys-font-scale, 1)) !important;
-  width: calc(var(--md-sys-layout-popup-min-width) * var(--sys-font-scale, 1));
-  height: calc(var(--md-sys-layout-popup-min-width) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-layout-popup-min-width) * var(--md-sys-typescale-font-scale, 1)) !important;
+  width: calc(var(--md-sys-layout-popup-min-width) * var(--md-sys-typescale-font-scale, 1));
+  height: calc(var(--md-sys-layout-popup-min-width) * var(--md-sys-typescale-font-scale, 1));
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .m3-icon-xl-hero {
-  font-size: calc(var(--md-sys-layout-card-min-height) * var(--sys-font-scale, 1)) !important;
-  width: calc(var(--md-sys-layout-card-min-height) * var(--sys-font-scale, 1));
-  height: calc(var(--md-sys-layout-card-min-height) * var(--sys-font-scale, 1));
+  font-size: calc(var(--md-sys-layout-card-min-height) * var(--md-sys-typescale-font-scale, 1)) !important;
+  width: calc(var(--md-sys-layout-card-min-height) * var(--md-sys-typescale-font-scale, 1));
+  height: calc(var(--md-sys-layout-card-min-height) * var(--md-sys-typescale-font-scale, 1));
   display: inline-flex;
   align-items: center;
   justify-content: center;

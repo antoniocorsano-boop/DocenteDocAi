@@ -207,7 +207,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                 colors={{
                                     primary: theme.colors.primary ?? 'var(--md-sys-color-primary)',
                                     secondary: theme.colors.secondary ?? 'var(--md-sys-color-secondary)',
-                                    tertiary: theme.colors.tertiary ?? 'var(--sys-tertiary)'
+                                    tertiary: theme.colors.tertiary ?? 'var(--md-sys-color-tertiary)'
                                 }}
                                 isSelected={themeState.customizationName === theme.name}
                                 onClick={() => onSaveTheme({ ...themeState, customizationName: theme.name, customColors: theme.colors })} />

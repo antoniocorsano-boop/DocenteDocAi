@@ -14,24 +14,24 @@ export const baseDesignSystem: Readonly<DesignSystemDefinition> = Object.freeze(
     primaryContainer: { value: defaultLightTheme.colors.primaryContainer, description: 'A container color derived from the primary color.', cssVar: '--md-sys-color-primary-container' },
     onPrimaryContainer: { value: defaultLightTheme.colors.onPrimaryContainer, description: 'Text and icons on top of the primary container color.', cssVar: '--md-sys-color-on-primary-container' },
     secondary: { value: defaultLightTheme.colors.secondary, description: 'The secondary color for less prominent elements.', cssVar: '--md-sys-color-secondary' },
-    onSecondary: { value: defaultLightTheme.colors.onSecondary, description: 'Text and icons on top of the secondary color.', cssVar: '--sys-on-secondary' },
+    onSecondary: { value: defaultLightTheme.colors.onSecondary, description: 'Text and icons on top of the secondary color.', cssVar: '--md-sys-color-on-secondary' },
     secondaryContainer: { value: defaultLightTheme.colors.secondaryContainer, description: 'A container color derived from the secondary color.', cssVar: '--md-sys-color-secondary-container' },
-    onSecondaryContainer: { value: defaultLightTheme.colors.onSecondaryContainer, description: 'Text and icons on top of the secondary container color.', cssVar: '--sys-on-secondary-container' },
-    tertiary: { value: defaultLightTheme.colors.tertiary, description: 'The tertiary color for contrasting accents.', cssVar: '--sys-tertiary' },
-    onTertiary: { value: defaultLightTheme.colors.onTertiary, description: 'Text and icons on top of the tertiary color.', cssVar: '--sys-on-tertiary' },
-    tertiaryContainer: { value: defaultLightTheme.colors.tertiaryContainer, description: 'A container color derived from the tertiary color.', cssVar: '--sys-tertiary-container' },
-    onTertiaryContainer: { value: defaultLightTheme.colors.onTertiaryContainer, description: 'Text and icons on top of the tertiary container color.', cssVar: '--sys-on-tertiary-container' },
-    error: { value: defaultLightTheme.colors.error, description: 'Color for error states.', cssVar: '--sys-error' },
-    onError: { value: defaultLightTheme.colors.onError, description: 'Text and icons on top of the error color.', cssVar: '--sys-on-error' },
-    errorContainer: { value: defaultLightTheme.colors.errorContainer, description: 'A container color for error states.', cssVar: '--sys-error-container' },
-    onErrorContainer: { value: defaultLightTheme.colors.onErrorContainer, description: 'Text and icons on top of the error container color.', cssVar: '--sys-on-error-container' },
-    background: { value: defaultLightTheme.colors.background, description: 'The main background color of the app.', cssVar: '--sys-background' },
-    onBackground: { value: defaultLightTheme.colors.onBackground, description: 'Text and icons on top of the background color.', cssVar: '--sys-on-background' },
+    onSecondaryContainer: { value: defaultLightTheme.colors.onSecondaryContainer, description: 'Text and icons on top of the secondary container color.', cssVar: '--md-sys-color-on-secondary-container' },
+    tertiary: { value: defaultLightTheme.colors.tertiary, description: 'The tertiary color for contrasting accents.', cssVar: '--md-sys-color-tertiary' },
+    onTertiary: { value: defaultLightTheme.colors.onTertiary, description: 'Text and icons on top of the tertiary color.', cssVar: '--md-sys-color-on-tertiary' },
+    tertiaryContainer: { value: defaultLightTheme.colors.tertiaryContainer, description: 'A container color derived from the tertiary color.', cssVar: '--md-sys-color-tertiary-container' },
+    onTertiaryContainer: { value: defaultLightTheme.colors.onTertiaryContainer, description: 'Text and icons on top of the tertiary container color.', cssVar: '--md-sys-color-on-tertiary-container' },
+    error: { value: defaultLightTheme.colors.error, description: 'Color for error states.', cssVar: '--md-sys-color-error' },
+    onError: { value: defaultLightTheme.colors.onError, description: 'Text and icons on top of the error color.', cssVar: '--md-sys-color-on-error' },
+    errorContainer: { value: defaultLightTheme.colors.errorContainer, description: 'A container color for error states.', cssVar: '--md-sys-color-error-container' },
+    onErrorContainer: { value: defaultLightTheme.colors.onErrorContainer, description: 'Text and icons on top of the error container color.', cssVar: '--md-sys-color-on-error-container' },
+    background: { value: defaultLightTheme.colors.background, description: 'The main background color of the app.', cssVar: '--md-sys-color-background' },
+    onBackground: { value: defaultLightTheme.colors.onBackground, description: 'Text and icons on top of the background color.', cssVar: '--md-sys-color-on-background' },
     surface: { value: defaultLightTheme.colors.surface, description: 'The color of component surfaces like cards and menus.', cssVar: '--md-sys-color-surface' },
     onSurface: { value: defaultLightTheme.colors.onSurface, description: 'Text and icons on top of surface colors.', cssVar: '--md-sys-color-on-surface' },
     surfaceVariant: { value: defaultLightTheme.colors.surfaceVariant, description: 'A variant of the surface color for subtle differentiation.', cssVar: '--md-sys-color-surface-variant' },
     onSurfaceVariant: { value: defaultLightTheme.colors.onSurfaceVariant, description: 'Text and icons on top of surface variant colors.', cssVar: '--md-sys-color-on-surface-variant' },
-    outline: { value: defaultLightTheme.colors.outline, description: 'Color for borders and dividers.', cssVar: '--sys-outline' },
+    outline: { value: defaultLightTheme.colors.outline, description: 'Color for borders and dividers.', cssVar: '--md-sys-color-outline' },
     outlineVariant: { value: defaultLightTheme.colors.outlineVariant, description: 'A subtler color for borders and dividers.', cssVar: '--md-sys-color-outline-variant' },
     surfaceContainerLowest: { value: defaultLightTheme.colors.surfaceContainerLowest, description: 'Lowest emphasis surface color.', cssVar: '--md-sys-color-surface-container-lowest' },
     surfaceContainerLow: { value: defaultLightTheme.colors.surfaceContainerLow, description: 'Low emphasis surface color.', cssVar: '--md-sys-color-surface-container-low' },
@@ -230,15 +230,15 @@ export const applyTheme = (theme: Theme): void => {
     root.style.setProperty('--glass-blur-px', `${themeToApply.glassBlur}px`);
   }
   if (themeToApply.radiusMultiplier !== undefined) {
-    root.style.setProperty('--sys-radius-multiplier', themeToApply.radiusMultiplier.toString());
+    root.style.setProperty('--md-sys-shape-scale-factor', themeToApply.radiusMultiplier.toString());
   }
   
   const fontScale = themeToApply.fontScale ?? 1;
-  root.style.setProperty('--sys-font-scale', fontScale.toString());
+  root.style.setProperty('--md-sys-typescale-font-scale', fontScale.toString());
   root.style.setProperty('--nav-rail-width', `${80 * fontScale}px`);
 
   if (themeToApply.contrastLevel !== undefined) {
-    root.style.setProperty('--sys-contrast-level', themeToApply.contrastLevel.toString());
+    root.style.setProperty('--md-sys-accessibility-contrast-level', themeToApply.contrastLevel.toString());
     root.setAttribute('data-contrast-level', themeToApply.contrastLevel.toString());
   }
   

@@ -73,7 +73,7 @@ export const WithDescription: Story = {
     id: '3',
     label: 'Literature',
     icon: 'library_books',
-    color: 'var(--sys-tertiary)',
+    color: 'var(--md-sys-color-tertiary)',
     isSelected: false,
     description: 'Explore language and writing',
     onClick: () => console.log('Literature selected'),
@@ -85,7 +85,7 @@ export const SelectedWithDescription: Story = {
     id: '4',
     label: 'History',
     icon: 'history',
-    color: 'var(--sys-error)',
+    color: 'var(--md-sys-color-error)',
     isSelected: true,
     description: 'Timeline and events',
     onClick: () => console.log('History selected'),
@@ -108,7 +108,7 @@ export const Music: Story = {
     id: '6',
     label: 'Music',
     icon: 'music_note',
-    color: 'var(--sys-outline)',
+    color: 'var(--md-sys-color-outline)',
     isSelected: false,
     onClick: () => console.log('Music selected'),
   },
@@ -153,8 +153,8 @@ export const Interactive: Story = {
     const categories = [
       { id: '1', label: 'Math', icon: 'calculate', color: 'var(--md-sys-color-primary)' },
       { id: '2', label: 'Science', icon: 'science', color: 'var(--md-sys-color-secondary)' },
-      { id: '3', label: 'English', icon: 'language', color: 'var(--sys-tertiary)' },
-      { id: '4', label: 'History', icon: 'history', color: 'var(--sys-error)' },
+      { id: '3', label: 'English', icon: 'language', color: 'var(--md-sys-color-tertiary)' },
+      { id: '4', label: 'History', icon: 'history', color: 'var(--md-sys-color-error)' },
     ];
 
     return (
@@ -205,10 +205,10 @@ export const AllCategories: Story = {
     const categories = [
       { id: '1', label: 'Mathematics', icon: 'calculate', color: 'var(--md-sys-color-primary)', description: 'Numbers and logic' },
       { id: '2', label: 'Science', icon: 'science', color: 'var(--md-sys-color-secondary)', description: 'Natural sciences' },
-      { id: '3', label: 'Literature', icon: 'library_books', color: 'var(--sys-tertiary)', description: 'Language & writing' },
-      { id: '4', label: 'History', icon: 'history', color: 'var(--sys-error)', description: 'Past events' },
+      { id: '3', label: 'Literature', icon: 'library_books', color: 'var(--md-sys-color-tertiary)', description: 'Language & writing' },
+      { id: '4', label: 'History', icon: 'history', color: 'var(--md-sys-color-error)', description: 'Past events' },
       { id: '5', label: 'Arts', icon: 'palette', color: 'var(--md-sys-color-surface-variant)', description: 'Creative expression' },
-      { id: '6', label: 'Music', icon: 'music_note', color: 'var(--sys-outline)', description: 'Rhythm & sound' },
+      { id: '6', label: 'Music', icon: 'music_note', color: 'var(--md-sys-color-outline)', description: 'Rhythm & sound' },
       { id: '7', label: 'PE', icon: 'sports_soccer', color: 'var(--md-sys-color-secondary)', description: 'Health & sports' },
       { id: '8', label: 'Tech', icon: 'computer', color: 'var(--md-sys-color-primary)', description: 'Digital skills' },
     ];
@@ -285,7 +285,7 @@ export const Grid: Story = {
         id="3"
         label="English"
         icon="language"
-        color="var(--sys-tertiary)"
+        color="var(--md-sys-color-tertiary)"
         isSelected={false}
         onClick={() => {}}
       />
@@ -368,7 +368,7 @@ export const CustomColors: Story = {
   render: () => {
     const [selected, setSelected] = useState<string>('1');
 
-    const colors = ['var(--md-sys-color-primary)', 'var(--md-sys-color-secondary)', 'var(--sys-tertiary)', 'var(--sys-error)', 'var(--md-sys-color-surface-variant)', 'var(--sys-outline)'];
+    const colors = ['var(--md-sys-color-primary)', 'var(--md-sys-color-secondary)', 'var(--md-sys-color-tertiary)', 'var(--md-sys-color-error)', 'var(--md-sys-color-surface-variant)', 'var(--md-sys-color-outline)'];
 
     return (
       <div

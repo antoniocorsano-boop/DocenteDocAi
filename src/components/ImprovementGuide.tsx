@@ -321,7 +321,7 @@ const handleExportDocx = async () => {
                             <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "var(--md-sys-state-opacity-supporting)" }}>{compData.name}</h3>
                             <BarChart
                                 data={compData.levels.map(l => ({ label: l.name, value: l.value }))}
-                                color="var(--sys-tertiary)"
+                                color="var(--md-sys-color-tertiary)"
                                 horizontal
                             />
                         </div>

@@ -1,35 +1,36 @@
 # MD3 Design Token Coverage and Usage Audit
 
-**Generated:** 2026-01-30T14:30:08.495Z
+**Generated:** 2026-03-03T19:55:48.715Z
 **MD3 Gold Compliance:** Analysis Only (No Changes Made)
 
 ## 📊 Summary
 
-- **Files Analyzed:** 445
-- **Lines of Code:** 92.838
-- **MD3 Tokens Used:** 3257
-- **Semantic Tokens Used:** 1428
-- **Hardcoded Violations:** 2324
-- **Semantic Adoption Rate:** 30.5%
+- **Files Analyzed:** 486
+- **Lines of Code:** 97.775
+- **MD3 Tokens Used:** 5556
+- **Semantic Tokens Used:** 39
+- **Hardcoded Violations:** 2619
+- **Semantic Adoption Rate:** 0.7%
 
 ## 📈 Token Usage by Category
 
-| Category | MD3 Used | Semantic Used | Total Usage | Semantic % |
-|----------|----------|---------------|-------------|------------|
-| spacing | 30 | 5 | 4600 | 46.0% |
-| color | 69 | 33 | 6046 | 65.8% |
-| typography | 123 | 4 | 1602 | 55.2% |
-| motion | 13 | 5 | 1012 | 62.1% |
-| elevation | 5 | 0 | 157 | 0.0% |
-| shape | 10 | 0 | 603 | 0.0% |
-| zIndex | 12 | 4 | 124 | 32.3% |
-| layout | 34 | 4 | 905 | 58.1% |
+| Category   | MD3 Used | Semantic Used | Total Usage | Semantic % |
+| ---------- | -------- | ------------- | ----------- | ---------- |
+| spacing    | 33       | 3             | 3824        | 0.2%       |
+| color      | 81       | 19            | 3082        | 1.5%       |
+| typography | 142      | 0             | 1351        | 0.0%       |
+| motion     | 12       | 4             | 669         | 2.1%       |
+| elevation  | 5        | 0             | 176         | 0.0%       |
+| shape      | 10       | 0             | 661         | 0.0%       |
+| zIndex     | 11       | 1             | 105         | 1.9%       |
+| layout     | 33       | 2             | 512         | 0.8%       |
 
 ## 📦 Unused Defined Tokens
 
 - `--md-sys-backdrop-light`
 - `--md-sys-backdrop-medium`
 - `--md-sys-backdrop-dark`
+- `--md-sys-spacing-0-5`
 - `--md-sys-blur-small`
 - `--md-sys-blur-medium`
 - `--md-sys-blur-large`
@@ -60,6 +61,8 @@
 - `--md-sys-radius-full`
 - `--md-sys-layout-grid-min`
 - `--md-sys-layout-grid-min-wide`
+- `--md-sys-layout-grid-min-card`
+- `--md-sys-layout-grid-min-large`
 - `--md-sys-layout-card-width`
 - `--md-sys-layout-card-min-height`
 - `--md-sys-layout-avatar-size`
@@ -80,56 +83,132 @@
 - `--md-sys-border-width-thin`
 - `--md-sys-border-width-normal`
 - `--md-sys-border-width-medium`
+- `--md-sys-border-width-accent`
 - `--md-sys-border-width-thick`
 - `--md-sys-special-viewport-height`
+- `--md-sys-motion-duration-short2`
+- `--md-sys-motion-duration-short4`
+- `--md-sys-motion-spring-expressive-fast-spatial`
+- `--md-sys-motion-spring-expressive-fast-spatial-duration`
+- `--md-sys-motion-spring-expressive-default-spatial`
+- `--md-sys-motion-spring-expressive-default-spatial-duration`
+- `--md-sys-motion-spring-expressive-slow-spatial`
+- `--md-sys-motion-spring-expressive-slow-spatial-duration`
+- `--md-sys-motion-spring-expressive-fast-effects`
+- `--md-sys-motion-spring-expressive-fast-effects-duration`
+- `--md-sys-motion-spring-expressive-default-effects`
+- `--md-sys-motion-spring-expressive-default-effects-duration`
+- `--md-sys-motion-spring-expressive-slow-effects`
+- `--md-sys-motion-spring-expressive-slow-effects-duration`
+- `--md-sys-motion-spring-standard-fast-spatial`
+- `--md-sys-motion-spring-standard-fast-spatial-duration`
+- `--md-sys-motion-spring-standard-default-spatial`
+- `--md-sys-motion-spring-standard-default-spatial-duration`
+- `--md-sys-motion-spring-standard-slow-spatial`
+- `--md-sys-motion-spring-standard-slow-spatial-duration`
 - `--md-sys-elevation1`
 - `--md-sys-elevation2`
 - `--md-sys-elevation3`
 - `--md-sys-state-opacity-disabled`
+- `--md-sys-state-opacity-scrim`
 - `--md-sys-state-opacity-tooltip`
+- `--md-sys-state-opacity-icon-muted`
+- `--md-sys-state-opacity-tint-hairline`
+- `--md-sys-state-opacity-tint-thin`
+- `--md-sys-state-opacity-tint-faint`
+- `--md-sys-state-opacity-tint-subtle`
+- `--md-sys-state-opacity-tint-moderate`
+- `--md-sys-state-opacity-empty`
+- `--md-sys-state-opacity-placeholder`
+- `--md-sys-state-opacity-secondary`
+- `--md-sys-state-opacity-supporting`
+- `--md-sys-state-opacity-caption`
+- `--md-sys-state-opacity-hover-overlay`
+- `--md-sys-breakpoint-compact`
+- `--md-sys-breakpoint-medium`
+- `--md-sys-breakpoint-expanded`
+- `--md-sys-tooltip-arrow-size`
+- `--md-sys-layout-content-max-width`
+- `--md-sys-breakpoint-sm`
+- `--md-sys-breakpoint-xl`
 - `--md-sys-chart-height-large`
 - `--md-sys-chart-height-medium`
 
 ## 💡 Recommendations
 
 ### 1. Address hardcoded value violations [CRITICAL]
+
 **Category:** MD3_COMPLIANCE
-**Description:** 2324 hardcoded values found (px, rem, z-index, etc.)
+**Description:** 2619 hardcoded values found (px, rem, z-index, etc.)
 **Impact:** Critical MD3 Gold compliance violations
 **Effort:** HIGH
 
 ### 2. Increase semantic token adoption in spacing [HIGH]
+
 **Category:** SEMANTIC_ADOPTION
-**Description:** Only 46.0% of spacing usage uses semantic tokens
-**Impact:** 368 direct MD3 tokens could be abstracted
+**Description:** Only 0.2% of spacing usage uses semantic tokens
+**Impact:** 3812 direct MD3 tokens could be abstracted
 **Effort:** MEDIUM
 
-### 3. Increase semantic token adoption in elevation [HIGH]
+### 3. Increase semantic token adoption in color [HIGH]
+
+**Category:** SEMANTIC_ADOPTION
+**Description:** Only 1.5% of color usage uses semantic tokens
+**Impact:** 2992 direct MD3 tokens could be abstracted
+**Effort:** MEDIUM
+
+### 4. Increase semantic token adoption in typography [HIGH]
+
+**Category:** SEMANTIC_ADOPTION
+**Description:** Only 0.0% of typography usage uses semantic tokens
+**Impact:** 1351 direct MD3 tokens could be abstracted
+**Effort:** MEDIUM
+
+### 5. Increase semantic token adoption in motion [HIGH]
+
+**Category:** SEMANTIC_ADOPTION
+**Description:** Only 2.1% of motion usage uses semantic tokens
+**Impact:** 641 direct MD3 tokens could be abstracted
+**Effort:** MEDIUM
+
+### 6. Increase semantic token adoption in elevation [HIGH]
+
 **Category:** SEMANTIC_ADOPTION
 **Description:** Only 0.0% of elevation usage uses semantic tokens
-**Impact:** 157 direct MD3 tokens could be abstracted
+**Impact:** 176 direct MD3 tokens could be abstracted
 **Effort:** MEDIUM
 
-### 4. Increase semantic token adoption in shape [HIGH]
+### 7. Increase semantic token adoption in shape [HIGH]
+
 **Category:** SEMANTIC_ADOPTION
 **Description:** Only 0.0% of shape usage uses semantic tokens
-**Impact:** 603 direct MD3 tokens could be abstracted
+**Impact:** 661 direct MD3 tokens could be abstracted
 **Effort:** MEDIUM
 
-### 5. Increase semantic token adoption in zIndex [MEDIUM]
+### 8. Increase semantic token adoption in zIndex [HIGH]
+
 **Category:** SEMANTIC_ADOPTION
-**Description:** Only 32.3% of zIndex usage uses semantic tokens
-**Impact:** 44 direct MD3 tokens could be abstracted
+**Description:** Only 1.9% of zIndex usage uses semantic tokens
+**Impact:** 101 direct MD3 tokens could be abstracted
 **Effort:** MEDIUM
 
-### 6. Consider adding semantic tokens for elevation [LOW]
+### 9. Increase semantic token adoption in layout [HIGH]
+
+**Category:** SEMANTIC_ADOPTION
+**Description:** Only 0.8% of layout usage uses semantic tokens
+**Impact:** 504 direct MD3 tokens could be abstracted
+**Effort:** MEDIUM
+
+### 10. Consider adding semantic tokens for elevation [LOW]
+
 **Category:** SEMANTIC_EXPANSION
 **Description:** No semantic elevation tokens defined, all usage is direct MD3
-**Impact:** Could improve consistency for 157 usages
+**Impact:** Could improve consistency for 176 usages
 **Effort:** MEDIUM
 
-### 7. Consider adding semantic tokens for shape [LOW]
+### 11. Consider adding semantic tokens for shape [LOW]
+
 **Category:** SEMANTIC_EXPANSION
 **Description:** No semantic shape tokens defined, all usage is direct MD3
-**Impact:** Could improve consistency for 603 usages
+**Impact:** Could improve consistency for 661 usages
 **Effort:** MEDIUM
