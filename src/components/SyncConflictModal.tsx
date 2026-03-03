@@ -43,15 +43,15 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                     }}
                                                 >
                             <div>
-                                <p style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
+                                <p style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
                                     <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>devices</span>
                                     Dati Locali (Attuali)
                                 </p>
-                                <p style={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "900" }}>
+                                <p style={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-black)" }}>
                                     {localDate ? localDate.toLocaleString() : 'Nessun dato'}
                                 </p>
                             </div>
-                            {!isRemoteNewer && <span style={{backgroundColor: "var(--md-sys-color-secondary)", color: "var(--md-sys-color-on-secondary-container)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-2)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.05em"}}>Più Recente</span>}
+                            {!isRemoteNewer && <span style={{backgroundColor: "var(--md-sys-color-secondary)", color: "var(--md-sys-color-on-secondary-container)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-2)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.05em"}}>Più Recente</span>}
                         </div>
 
                         {/* DIRECTION ARROW */}
@@ -78,15 +78,15 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                     }}
                                                 >
                             <div>
-                                <p style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
+                                <p style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
                                     <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>cloud</span>
                                     Cloud (Drive)
                                 </p>
-                                <p  style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "900", color: "var(--md-sys-color-primary)"}}>
+                                <p  style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)"}}>
                                     {remoteDate.toLocaleString()}
                                 </p>
                             </div>
-                            {isRemoteNewer && <span style={{backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-2)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.05em"}}>Consigliato</span>}
+                            {isRemoteNewer && <span style={{backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-2)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.05em"}}>Consigliato</span>}
                         </div>
                     </div>
 

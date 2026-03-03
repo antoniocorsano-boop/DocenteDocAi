@@ -23,7 +23,7 @@ const UniversalModal: React.FC<UniversalModalProps> = ({
       level={1}
     >
       <M3DialogContent style={{backgroundColor: 'var(--md-sys-color-surface-container-high)',
-        opacity: 0.3,
+        opacity: 'var(--md-sys-state-opacity-tint-moderate)',
         backdropFilter: 'blur(var(--md-sys-blur-small))'}}>
         {children}
       </M3DialogContent>
@@ -33,8 +33,6 @@ const UniversalModal: React.FC<UniversalModalProps> = ({
     </M3Dialog>
   );
 };
-
-export default UniversalModal;
 
 export default UniversalModal;
 

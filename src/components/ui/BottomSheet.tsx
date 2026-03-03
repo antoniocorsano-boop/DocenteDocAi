@@ -171,7 +171,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
                 height: 'var(--md-sys-spacing-0_5)',
                 backgroundColor: 'var(--md-sys-color-on-surface-variant)',
                 borderRadius: 'var(--md-sys-spacing-1)',
-                opacity: 0.4
+                opacity: 'var(--md-sys-state-opacity-empty)'
               }}
             />
           </div>
@@ -191,7 +191,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
               variant="title-large"
               style={{
                 color: 'var(--md-sys-color-on-surface)',
-                fontWeight: '600'
+                fontWeight: 'var(--md-sys-typescale-weight-semibold)'
               }}
             >
               {title}

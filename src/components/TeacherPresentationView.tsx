@@ -18,13 +18,13 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
             <div  style={{padding: 'var(--md-sys-spacing-6)', marginLeft: "var(auto)", marginRight: "var(auto)"}}>
                 
                 {/* Slide 1: Intro */}
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.3, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: "center", border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', gap: 'var(--md-sys-spacing-8)' }}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 'var(--md-sys-state-opacity-tint-moderate)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: "center", border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', gap: 'var(--md-sys-spacing-8)' }}>
                     <div  style={{display: "inline-block", marginBottom: 'var(--md-sys-spacing-8)'}}>
                         <Logo title="DocenteDoc AI" />
                     </div>
                     <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                        <h1 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", letterSpacing: "-0.005em", lineHeight: "1.25" }}>Il Tuo Copilota Didattico</h1>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: "500", opacity: "0.8", marginLeft: "var(auto)", marginRight: "var(auto)", lineHeight: "1.625" }}>
+                        <h1 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em", lineHeight: "1.25" }}>Il Tuo Copilota Didattico</h1>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-medium)", opacity: "var(--md-sys-state-opacity-caption)", marginLeft: "var(auto)", marginRight: "var(auto)", lineHeight: "1.625" }}>
                             Tecnologia, Privacy e Innovazione al servizio dell'insegnamento.
                             Riduci il carico burocratico, aumenta l'efficacia didattica e riscopri la passione per l'insegnamento.
                         </p>
@@ -116,8 +116,8 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                 {/* Slide 6: Call to Action */}
                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30, borderRadius: ref.shape[6], padding: 'var(--md-sys-spacing-4)' , textAlign: "center", border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', gap: 'var(--md-sys-spacing-8)'}}>
                     <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                        <h2 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", letterSpacing: "-0.005em" }}>Insegna Meglio, Vivi Meglio.</h2>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: "500", opacity: "0.8", marginLeft: "var(auto)", marginRight: "var(auto)", lineHeight: "1.625" }}>
+                        <h2 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em" }}>Insegna Meglio, Vivi Meglio.</h2>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-medium)", opacity: "var(--md-sys-state-opacity-caption)", marginLeft: "var(auto)", marginRight: "var(auto)", lineHeight: "1.625" }}>
                             DocenteDoc AI è stato creato per semplificare la tua vita professionale, garantendo sicurezza e innovazione.
                             Esplora subito il tuo copilota didattico e trasforma il tuo modo di insegnare.
                         </p>
@@ -128,7 +128,7 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                          style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard)' }}
                     >
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                            <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em" }}>Inizia Subito!</span>
+                            <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Inizia Subito!</span>
                             <span  style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', transition: "transform var(--md-sys-motion-duration-long)" }}>arrow_forward</span>
                         </div>
                     </M3Button>

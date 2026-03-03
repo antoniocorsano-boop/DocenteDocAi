@@ -136,7 +136,7 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
             </div>
             <M3Typography
               variant="label-small"
-              style={{fontWeight: '900', // font-black equivalent
+              style={{fontWeight: 'var(--md-sys-typescale-weight-black)', // font-black equivalent
                 textTransform: 'uppercase',
                 letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                 marginTop: 'var(--md-sys-spacing-1)', // compact margin

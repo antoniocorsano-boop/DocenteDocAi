@@ -116,7 +116,7 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                                 border: `var(--md-sys-border-width-thin) solid ${rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`
                                             }}>
                                                 {rubrica.criteri.some(c => c.competenzaId === comp.id) && <span  style={{ fontSize: "var(--md-sys-typescale-title-small-size)" }}>check</span>}
-                                                <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontWeight: "bold", fontSize: "var(--md-sys-typescale-body-small-size)" }}>{comp.nome}</span>
+                                                <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-small-size)" }}>{comp.nome}</span>
                                             </label>
                                         </div>
                                     ))}
@@ -132,8 +132,8 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                     return (
                                         <InfoCard key={competenza.id} variant="elevated" style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 , padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)'}}>
-                                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.secondary/10 , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900", fontSize: "var(--md-sys-typescale-body-medium-size)"}}>{competenza.codice.charAt(0)}</div>
-                                                <h4 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>{competenza.nome}</h4>
+                                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.secondary/10 , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-medium-size)"}}>{competenza.codice.charAt(0)}</div>
+                                                <h4 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>{competenza.nome}</h4>
                                             </div>
                                             
                                             <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
@@ -163,8 +163,8 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                     </div>
                 </M3DialogContent>
                 <M3DialogActions>
-                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
-                    <M3Button onClick={handleSubmit} variant="filled"  style={{ fontWeight: "900", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Salva Rubrica</M3Button>
+                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
+                    <M3Button onClick={handleSubmit} variant="filled"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Salva Rubrica</M3Button>
                 </M3DialogActions>
             </form>
         </M3Dialog>

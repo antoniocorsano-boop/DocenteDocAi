@@ -132,7 +132,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
           >
             {/* MD3 icon font usage allowed */}
             <span className="material-symbols-outlined" aria-hidden="true">cloud_off</span>
-            <M3Typography variant="label-small" style={{ fontWeight: 500 }}>Offline</M3Typography>
+            <M3Typography variant="label-small" style={{ fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Offline</M3Typography>
           </div>
         )}
         <button
@@ -192,7 +192,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
               <span
                 style={{
                   fontSize: 'var(--md-sys-spacing-3)',
-                  fontWeight: 700,
+                  fontWeight: 'var(--md-sys-typescale-weight-bold)',
                   color: 'var(--md-sys-color-on-error)',
                   lineHeight: 1
                 }}

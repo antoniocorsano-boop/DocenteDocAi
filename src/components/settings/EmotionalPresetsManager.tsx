@@ -307,8 +307,7 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
 };
 
 const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({ selectedPreset, onPresetChange }) => {
-  const { layers, updateOverrides, resetOverrides } = useTheme();
-  const { spacing } = layers.ref;
+  const { updateOverrides, resetOverrides } = useTheme();
   const [hoveredPreset, setHoveredPreset] = useState<EmotionalPreset | null>(null);
 
   useEffect(() => {
@@ -327,11 +326,11 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({ selec
   return (
     <div
       style={{
-        backgroundColor: layers.sys.color.surface,
-        padding: spacing['4'],
+        backgroundColor: 'var(--md-sys-color-surface)',
+        padding: 'var(--md-sys-spacing-4)',
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(calc(var(--md-sys-spacing-20) * 3.125), var(--md-sys-grid-fr-1)))',
-        gap: spacing['4']
+        gap: 'var(--md-sys-spacing-4)'
       }}
     >
       {(Object.keys(presets) as EmotionalPreset[]).map((presetKey) => {
@@ -343,30 +342,30 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({ selec
           <M3Card
             key={presetKey}
             style={{
-              padding: spacing['4'],
+              padding: 'var(--md-sys-spacing-4)',
               cursor: 'pointer',
-              border: isSelected ? `var(--md-sys-border-width-thick) solid ${layers.sys.color.primary}` : 'none',
+              border: isSelected ? `var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)` : 'none',
               opacity: isHovered ? 0.8 : 1,
-              backgroundColor: layers.sys.color.surfaceContainerLow,
-              boxShadow: isSelected ? layers.elevation.level2 : layers.elevation.level1
+              backgroundColor: 'var(--md-sys-color-surface-container-low)',
+              boxShadow: isSelected ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)'
             }}
             onMouseEnter={() => setHoveredPreset(presetKey)}
             onMouseLeave={() => setHoveredPreset(null)}
             onClick={() => handleSelect(presetKey)}
             aria-selected={isSelected}
           >
-            <M3Typography variant="title-medium" style={{ marginBottom: spacing['2'], color: layers.sys.color.onSurface }}>
+            <M3Typography variant="title-medium" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
               {preset.name}
             </M3Typography>
-            <M3Typography variant="body-medium" style={{ marginBottom: spacing['3'], color: layers.sys.color.onSurface }}>
+            <M3Typography variant="body-medium" style={{ marginBottom: 'var(--md-sys-spacing-3)', color: 'var(--md-sys-color-on-surface)' }}>
               {preset.description}
             </M3Typography>
             {isSelected ? (
-              <M3Typography variant="body-large" style={{ color: layers.sys.color.primary }}>
+              <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-primary)' }}>
                 Selected
               </M3Typography>
             ) : (
-              <M3Button variant="outlined" style={{ color: layers.sys.color.primary }}>
+              <M3Button variant="outlined" style={{ color: 'var(--md-sys-color-primary)' }}>
                 Select
               </M3Button>
             )}

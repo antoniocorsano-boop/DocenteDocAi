@@ -95,7 +95,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
           role="tooltip"
           style={{
             position: 'absolute',
-            zIndex: 1000,
+            zIndex: 'var(--md-sys-z-tooltip)',
             padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
             background: 'var(--md-sys-color-inverse-surface)',
             color: 'var(--md-sys-color-inverse-on-surface)',
@@ -104,10 +104,10 @@ export const Tooltip: React.FC<TooltipProps> = ({
             maxWidth: 'var(--md-sys-spacing-16)',
             whiteSpace: 'normal',
             fontSize: 'var(--md-sys-typescale-body-small-size)',
-            fontWeight: '500',
+            fontWeight: 'var(--md-sys-typescale-weight-medium)',
             lineHeight: '1.4',
             pointerEvents: 'none',
-            animation: 'tooltip-fade-in 200ms ease-out',
+            animation: 'tooltip-fade-in var(--md-sys-motion-duration-short4) ease-out',
             ...positionStyles[position]
           }}
         >

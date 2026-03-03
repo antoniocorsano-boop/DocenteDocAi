@@ -226,7 +226,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                         return (
                             <tr key={student.id}>
                                 <td >
-                                    <M3Button variant="text" onClick={() => onViewStudentProfile(student)} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  fontWeight: "500" }} type="button">
+                                    <M3Button variant="text" onClick={() => onViewStudentProfile(student)} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  fontWeight: "var(--md-sys-typescale-weight-medium)" }} type="button">
                                         {student.cognome} {student.nome}
                                     </M3Button>
                                 </td>
@@ -408,7 +408,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 <span style={{
 }}>description</span>
                             </div>
-                            <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>Report Narrativo Suggerito</h3>
+                            <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>Report Narrativo Suggerito</h3>
                         </div>
                         <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
                             <M3Button variant="text" onClick={() => setNarrativeReport(null)}>Chiudi</M3Button>

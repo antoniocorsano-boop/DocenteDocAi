@@ -118,13 +118,13 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                 <input {...getInputProps()} />
                                 <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>{isDragActive ? 'download' : 'upload_file'}</span>
                                 <p style={{ color: "var(--md-sys-color-on-surface-variant)" }}>Trascina i file qui o clicca per sfogliare</p>
-                                <p style={{opacity: "var(--md-sys-state-opacity-disabled-layer)", marginTop: 'var(--md-sys-spacing-6)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-on-surface-variant)"}}>Supporto PDF, DOCX, TXT</p>
+                                <p style={{opacity: "var(--md-sys-state-opacity-disabled-layer)", marginTop: 'var(--md-sys-spacing-6)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-on-surface-variant)"}}>Supporto PDF, DOCX, TXT</p>
                             </div>
                         </section>
 
                         <section  style={{borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'}}>
-                            <h3  style={{fontWeight: "900", marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
-                                <span style={{ color: 'var(--md-sys-color-on-tertiary)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900"}}>3</span> 
+                            <h3  style={{fontWeight: "var(--md-sys-typescale-weight-black)", marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+                                <span style={{ color: 'var(--md-sys-color-on-tertiary)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "var(--md-sys-typescale-weight-black)"}}>3</span> 
                                 Raccolta (Opzionale)
                             </h3>
                             <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end"}}>
@@ -153,7 +153,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                         onChange={e => setNewCorpusName(e.target.value)} 
                                         placeholder="Es. Programmazioni 2024" 
                                     />
-                                    <M3Button onClick={handleCreateCorpus} variant="primary"  style={{ fontWeight: "900" }}>CREA</M3Button>
+                                    <M3Button onClick={handleCreateCorpus} variant="primary"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)" }}>CREA</M3Button>
                                 </div>
                             )}
                         </section>

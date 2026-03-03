@@ -64,11 +64,11 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
             alignItems: 'center',
             justifyContent: 'center',
             border: 'none',
-            borderRadius: '50%',
+            borderRadius: 'var(--md-sys-shape-corner-full)',
             backgroundColor: 'transparent',
             color: 'var(--md-sys-color-on-surface)',
             cursor: 'pointer',
-            transition: 'background-color 200ms',
+            transition: 'background-color var(--md-sys-motion-duration-short4)',
             overflow: 'hidden'
           }}
           onMouseEnter={(e) => {
@@ -87,7 +87,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
                 ? '"FILL" 0, "wght" 400' 
                 : '"FILL" 1, "wght" 600',
               transform: isAnimating ? 'rotate(360deg)' : 'rotate(0deg)',
-              transition: 'transform 400ms var(--md-sys-motion-easing-standard)'
+              transition: 'transform var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard)'
             }}
           >
             {icon}
@@ -102,9 +102,9 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
                 right: 'var(--md-sys-spacing-1)',
                 width: 'var(--md-sys-spacing-1)',
                 height: 'var(--md-sys-spacing-1)',
-                borderRadius: '50%',
+                borderRadius: 'var(--md-sys-shape-corner-full)',
                 backgroundColor: 'var(--md-sys-color-primary)',
-                boxShadow: '0 0 4px var(--md-sys-color-primary)'
+                boxShadow: '0 0 var(--md-sys-spacing-1) var(--md-sys-color-primary)'
               }}
             />
           )}
@@ -128,9 +128,9 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
           backgroundColor: 'var(--md-sys-color-surface-container)',
           color: 'var(--md-sys-color-on-surface)',
           fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
-          fontWeight: '500',
+          fontWeight: 'var(--md-sys-typescale-weight-medium)',
           cursor: 'pointer',
-          transition: 'all 200ms'
+          transition: 'all var(--md-sys-motion-duration-short4)'
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
@@ -147,7 +147,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
               ? '"FILL" 0, "wght" 400' 
               : '"FILL" 1, "wght" 600',
             transform: isAnimating ? 'rotate(360deg)' : 'rotate(0deg)',
-            transition: 'transform 400ms var(--md-sys-motion-easing-standard)'
+            transition: 'transform var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard)'
           }}
         >
           {icon}
@@ -186,11 +186,11 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
               ? 'var(--md-sys-color-on-primary-container)'
               : 'var(--md-sys-color-on-surface)',
             fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
-            fontWeight: mode === themeMode ? '600' : '400',
+            fontWeight: mode === themeMode ? 'var(--md-sys-typescale-weight-semibold)' : 'var(--md-sys-typescale-weight-regular)',
             cursor: 'pointer',
             textAlign: 'left',
-            width: '100%',
-            transition: 'all 200ms'
+            width: 'var(--md-sys-percent-100)',
+            transition: 'all var(--md-sys-motion-duration-short4)'
           }}
           onMouseEnter={(e) => {
             if (mode !== themeMode) {

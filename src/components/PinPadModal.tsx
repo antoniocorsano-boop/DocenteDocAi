@@ -64,7 +64,7 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
                                 width: 'var(--md-sys-spacing-4)', // MD3 spacing token
                                 height: 'var(--md-sys-spacing-4)', // MD3 spacing token
                                 
-                                borderRadius: 'var(50%)', // circular indicator
+                                borderRadius: 'var(--md-sys-shape-corner-full)', // circular indicator
                                 
                                 transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short)', // transition-all duration-200
                                 backgroundColor: i < pin.length 
@@ -78,7 +78,7 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
                 </div>
 
                 {error && (
-                    <p  style={{color: "var(--md-sys-color-error)", textAlign: "center", fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>PIN Errato</p>
+                    <p  style={{color: "var(--md-sys-color-error)", textAlign: "center", fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>PIN Errato</p>
                 )}
 
                 <PinPad onInput={handleInput} onDelete={handleDelete} />

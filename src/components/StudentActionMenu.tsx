@@ -100,7 +100,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'nowrap',
-                                fontWeight: '500'}}
+                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                         >
                             {student.cognome} {student.nome}
                         </M3Typography>
@@ -108,7 +108,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                             variant="body-small"
                             style={{margin: 0,
                                 color: 'color-mix(in srgb, var(--md-sys-color-on) 80%, transparent)', // MD3 EXCEPTION: Functional opacity for secondary text (no specific token available)
-                                fontWeight: '400'}}
+                                fontWeight: 'var(--md-sys-typescale-weight-regular)'}}
                         >
                             Classe {student.classe}
                         </M3Typography>
@@ -137,7 +137,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                                 
                                 letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', // MD3 COMPLIANT: Using official label-small tracking token
                                 
-                                fontWeight: '500'}}
+                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                         >
                             Media
                         </M3Typography>
@@ -145,7 +145,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                             variant="body-medium"
                             style={{
                                 margin: 0,
-                                fontWeight: '500'
+                                fontWeight: 'var(--md-sys-typescale-weight-medium)'
                             }}
                         >
                             {grade || '-'}
@@ -155,7 +155,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         style={{width: 'var(--md-sys-spacing-4)',
                             height: 'var(--md-sys-spacing-8)',
                             backgroundColor: 'currentColor',
-                            opacity: 0.3}}
+                            opacity: 'var(--md-sys-state-opacity-tint-moderate)'}}
                     />
                     {/* Trend */}
                     <div
@@ -172,7 +172,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                                 
                                 letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', // MD3 COMPLIANT: Using official label-small tracking token
                                 
-                                fontWeight: '500'}}
+                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                         >
                             Trend
                         </M3Typography>
@@ -190,7 +190,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         style={{width: 'var(--md-sys-spacing-4)',
                             height: 'var(--md-sys-spacing-8)',
                             backgroundColor: 'currentColor',
-                            opacity: 0.3}}
+                            opacity: 'var(--md-sys-state-opacity-tint-moderate)'}}
                     />
                     {/* Badge/Participation */}
                     <div
@@ -207,7 +207,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                                 
                                 letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', // MD3 COMPLIANT: Using official label-small tracking token
                                 
-                                fontWeight: '500'}}
+                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                         >
                             Badge
                         </M3Typography>
@@ -215,7 +215,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                             variant="body-medium"
                             style={{
                                 margin: 0,
-                                fontWeight: '500'
+                                fontWeight: 'var(--md-sys-typescale-weight-medium)'
                             }}
                         >
                             {participationToday}
@@ -235,7 +235,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         
                         letterSpacing: 'var(--md-sys-typescale-body-small-tracking)', // MD3 COMPLIANT: Using official body-small tracking token
                         
-                        fontWeight: '500'}}
+                        fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                 >
                     Azioni Rapide
                 </M3Typography>

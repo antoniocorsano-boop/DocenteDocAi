@@ -27,6 +27,7 @@ const M3Card: React.FC<M3CardProps> = ({
 }) => {
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
+  const [pressed, setPressed] = useState(false);
   const isClickable = Boolean(onClick);
 
   // MD3 Token mapping - no useTheme() dependency
@@ -46,6 +47,7 @@ const M3Card: React.FC<M3CardProps> = ({
   // Motion tokens
   const short2 = 'var(--md-sys-motion-duration-short2)';
   const standard = 'var(--md-sys-motion-easing-standard)';
+  const springDefaultSpatial = 'var(--md-sys-motion-spring-expressive-default-spatial)';
 
   // Padding styles using MD3 spacing tokens
   const getPaddingStyles = (): string => {
@@ -89,7 +91,13 @@ const M3Card: React.FC<M3CardProps> = ({
   const baseStyle: React.CSSProperties = {
     padding: getPaddingStyles(),
     borderRadius: large,
-    transition: isClickable ? `box-shadow ${short2} ${standard}` : undefined,
+    transition: [
+      `transform var(--md-sys-motion-duration-short4) ${springDefaultSpatial}`,
+      `box-shadow ${short2} ${standard}`
+    ].join(', '),
+    transform: isClickable
+      ? pressed ? 'scale(0.98)' : hovered ? 'scale(1.02)' : 'scale(1)'
+      : 'scale(1)',
     cursor: isClickable ? 'pointer' : undefined,
     outline: focused && isClickable ? `var(--md-sys-border-width-thick) solid ${primary}` : 'none',
     outlineOffset: focused ? 'var(--md-sys-spacing-2)' : 'var(--md-sys-spacing-0)',
@@ -116,8 +124,13 @@ const M3Card: React.FC<M3CardProps> = ({
       }}
       onMouseLeave={(e) => {
         setHovered(false);
+        setPressed(false);
         onMouseLeave?.(e);
       }}
+      onMouseDown={() => isClickable && setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      onTouchStart={() => isClickable && setPressed(true)}
+      onTouchEnd={() => setPressed(false)}
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
     >

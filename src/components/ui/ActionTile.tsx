@@ -169,7 +169,7 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 style={{
                     width: 'var(--md-sys-spacing-8)',
                     height: 'var(--md-sys-spacing-8)',
-                    borderRadius: 'var(50%)',
+                    borderRadius: 'var(--md-sys-shape-corner-full)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',

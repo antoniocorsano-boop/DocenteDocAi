@@ -157,7 +157,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                         <InfoCard variant="elevated" >
                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                                 <span  style={{color: "var(--md-sys-color-primary)"}}>subject</span>
-                                <h3 style={{fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.05em"}}>
+                                <h3 style={{fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.05em"}}>
                                     Obiettivi per Materia (PEI/PDP)
                                 </h3>
                             </div>

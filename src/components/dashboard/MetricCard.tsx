@@ -160,7 +160,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
               <p style={{
                 fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                 color: 'var(--md-sys-color-on-surface-variant)',
-                opacity: '0.7',
+                opacity: 'var(--md-sys-state-opacity-supporting)',
                 marginTop: 'var(--md-sys-spacing-1)'
               }}>
                 {description}
@@ -188,7 +188,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         <span
           style={{
             fontSize: 'var(--md-sys-typescale-title-large-font-size)',
-            fontWeight: '700',
+            fontWeight: 'var(--md-sys-typescale-weight-bold)',
             lineHeight: '1',
             color: 'var(--md-sys-color-on-surface)'
           }}
@@ -218,7 +218,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
           style={{
             width: 'var(--md-sys-spacing-2)',
             height: 'var(--md-sys-spacing-2)',
-            borderRadius: 'var(50%)',
+            borderRadius: 'var(--md-sys-shape-corner-full)',
             backgroundColor: statusColor
           }}
         />

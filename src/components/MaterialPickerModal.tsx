@@ -138,7 +138,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                         )
                                     })}
                                     {filteredKb.length === 0 && (
-                                        <div  style={{ textAlign: "center", opacity: "0.5" }}>Nessun documento trovato.</div>
+                                        <div  style={{ textAlign: "center", opacity: "var(--md-sys-state-opacity-placeholder)" }}>Nessun documento trovato.</div>
                                     )}
                                 </div>
                             </div>
@@ -155,11 +155,11 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                 } ${isUploading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-[var(--md-sys-color-surfaceContainer)]'}`}
                             >
                                 <input {...getInputProps()} />
-                                <div style={{ backgroundColor: 'var(--md-sys-color-primary)', opacity: 0.1, width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                                <div style={{ backgroundColor: 'var(--md-sys-color-primary)', opacity: 'var(--md-sys-state-opacity-tint-faint)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                     <span style={{ color: 'var(--md-sys-color-primary)' }}>upload_file</span>
                                 </div>
                                 <p >Trascina qui i file</p>
-                                <p  style={{opacity: "0.7", marginTop: 'var(--md-sys-spacing-4)'}}>oppure clicca per sfogliare</p>
+                                <p  style={{opacity: "var(--md-sys-state-opacity-supporting)", marginTop: 'var(--md-sys-spacing-4)'}}>oppure clicca per sfogliare</p>
                             </div>
                         )}
 
@@ -189,7 +189,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-6)', display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <h3 >Selezionati</h3>
-                            <span  style={{borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", fontSize: "var(--md-sys-typescale-body-small-size)", fontWeight: "bold"}}>
+                            <span  style={{borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", fontSize: "var(--md-sys-typescale-body-small-size)", fontWeight: "var(--md-sys-typescale-weight-bold)"}}>
                                 {materials.length}
                             </span>
                         </div>
@@ -211,7 +211,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                 </div>
                             ))}
                             {materials.length === 0 && (
-                                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)", opacity: "0.3" }}>
+                                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)", opacity: "var(--md-sys-state-opacity-tint-moderate)" }}>
                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)'}}>inventory_2</span>
                                     <p style={{ color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>Nessun materiale selezionato</p>
                                 </div>
@@ -227,8 +227,6 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
         </M3Dialog>
     );
 };
-
-export default MaterialPickerModal;
 
 export default MaterialPickerModal;
 

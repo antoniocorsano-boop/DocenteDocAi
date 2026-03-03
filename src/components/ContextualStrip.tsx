@@ -67,7 +67,7 @@ const ContextualStrip: React.FC<ContextualStripProps> = ({ message, actionLabel,
                 </button>
                 <button
                     onClick={onDismiss}
-                    style={{ opacity: 0.7 }}
+                    style={{ opacity: 'var(--md-sys-state-opacity-supporting)' }}
                     aria-label="Chiudi suggerimento"
                 >
                     <span className="material-symbols-outlined">close</span>

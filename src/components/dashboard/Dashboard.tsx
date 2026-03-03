@@ -158,8 +158,8 @@ const DashboardHeader: React.FC = () => {
               fill="none"
               viewBox="0 0 24 24"
             >
-              <circle style={{opacity: 0.25}} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path style={{opacity: 0.75}} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              <circle style={{opacity: 'var(--md-sys-state-opacity-tint-subtle)'}} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path style={{opacity: 'var(--md-sys-state-opacity-supporting)'}} fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
             </svg>
           ) : (
             <svg
@@ -338,7 +338,7 @@ const AlertsSection: React.FC = () => {
               style={{
                 width: 'var(--md-sys-spacing-2)',
                 height: 'var(--md-sys-spacing-2)',
-                borderRadius: 'var(50%)',
+                borderRadius: 'var(--md-sys-shape-corner-full)',
                 marginTop: 'var(--md-sys-spacing-2)',
                 backgroundColor: alert.type === 'critical' ? 'var(--md-sys-color-error)' :
                                alert.type === 'warning' ? 'var(--md-sys-color-secondary)' :
@@ -614,7 +614,7 @@ export const Dashboard: React.FC = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, var(--md-sys-grid-fr-1)))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min-card), var(--md-sys-grid-fr-1)))',
             gap: 'var(--md-sys-spacing-6)',
           }}
         >
@@ -628,7 +628,7 @@ export const Dashboard: React.FC = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, var(--md-sys-grid-fr-1)))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min-large), var(--md-sys-grid-fr-1)))',
             gap: 'var(--md-sys-spacing-8)',
           }}
         >
@@ -787,7 +787,7 @@ export const Dashboard: React.FC = () => {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, var(--md-sys-grid-fr-1)))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min-wide), var(--md-sys-grid-fr-1)))',
                 gap: 'var(--md-sys-spacing-4)',
               }}
             >

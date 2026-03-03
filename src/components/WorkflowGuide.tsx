@@ -85,9 +85,9 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                 gap: 'var(--md-sys-spacing-3)',
                 marginBottom: 'var(--md-sys-spacing-6)',
                 color: 'var(--md-sys-color-on-surface)',
-                fontWeight: 900}}>
+                fontWeight: 'var(--md-sys-typescale-weight-black)'}}>
                 <span style={{
-, fontSize: 'var(--md-sys-spacing-4)',
+ fontSize: 'var(--md-sys-spacing-4)',
                     color: 'var(--md-sys-color-secondary)'}}>alt_route</span>
                 Percorsi Veloci
             </M3Typography>
@@ -126,7 +126,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                     flexShrink: 0
                                 }}>
                                     <span style={{
-, 
+ 
                                         fontSize: 'var(--md-sys-spacing-4)'
                                     }}>{workflow.icon}</span>
                                 </div>
@@ -135,14 +135,13 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                     minWidth: 0
                                 }}>
                                     <M3Typography variant="title-large" style={{color: 'var(--md-sys-color-on-surface)',
-                                        fontWeight: 600,
+                                        fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                         margin: 0,
                                         marginBottom: 'var(--md-sys-spacing-1)'}}>{workflow.title}</M3Typography>
                                     <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface)',
                                         margin: 0}}>{workflow.description}</M3Typography>
                                 </div>
-                                <span style={{
-, color: 'var(--md-sys-color-on-surface)',
+                                <span style={{color: 'var(--md-sys-color-on-surface)',
                                     fontSize: 'var(--md-sys-spacing-4)',
                                     transition: `transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
                                     transform: 'rotate(0deg)'}}>expand_more</span>
@@ -165,14 +164,14 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                             <div style={{
                                                 width: 'var(--md-sys-spacing-4)',
                                                 height: 'var(--md-sys-spacing-4)',
-                                                borderRadius: 'var(50%)',
+                                                borderRadius: 'var(--md-sys-shape-corner-full)',
                                                 backgroundColor: `var(--md-sys-color-${workflow.themeColor}-container)`,
                                                 color: `var(--md-sys-color-on-${workflow.themeColor}-container)`,
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
                                                 fontSize: 'var(--md-sys-spacing-4)',
-                                                fontWeight: 600,
+                                                fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                                 flexShrink: 0,
                                                 marginTop: 'var(--md-sys-spacing-4)'
                                             }}>
@@ -194,7 +193,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                         backgroundColor: `var(--md-sys-color-${workflow.themeColor})`,
                                         color: `var(--md-sys-color-on-${workflow.themeColor})`,
                                         fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                                        fontWeight: 600,
+                                        fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                         cursor: 'pointer',
                                         display: 'flex',
                                         alignItems: 'center',
@@ -213,7 +212,6 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                     }}
                                 >
                                     Avvia Percorso <span style={{
-, 
                                         fontSize: 'var(--md-sys-spacing-4)'
                                     }}>arrow_forward</span>
                                 </button>

@@ -93,7 +93,7 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
             <div style={{flexGrow: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: spacing1}}>
                 <div style={{
                     color: onSurface,
-                    fontWeight: 'bold',
+                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',

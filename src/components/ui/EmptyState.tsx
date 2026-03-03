@@ -46,7 +46,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
           style={{
             fontSize: 'var(--md-sys-spacing-12)',
             color: 'var(--md-sys-color-primary)',
-            opacity: '0.6'
+            opacity: 'var(--md-sys-state-opacity-secondary)'
           }}
         >
           {icon}
@@ -58,7 +58,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         variant="headline-small"
         style={{
           color: 'var(--md-sys-color-on-surface)',
-          fontWeight: '600'
+          fontWeight: 'var(--md-sys-typescale-weight-semibold)'
         }}
       >
         {title}

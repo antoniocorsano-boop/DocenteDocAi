@@ -79,7 +79,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                 alignItems: 'center',
                 gap: 'var(--md-sys-spacing-3)',
                 fontSize: 'var(--md-sys-typescale-title-large-font-size)',
-                fontWeight: 'bold',
+                fontWeight: 'var(--md-sys-typescale-weight-bold)',
                 color: 'var(--md-sys-color-on-surface)',
                 margin: 0
             }}>
@@ -114,7 +114,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                 }}>
                     <label htmlFor="student-select-advisor" style={{
                         fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                        fontWeight: 'bold',
+                        fontWeight: 'var(--md-sys-typescale-weight-bold)',
                         color: 'var(--md-sys-color-on-surface)',
                         textTransform: 'uppercase',
                         letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
@@ -193,7 +193,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                         padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)',
                         backgroundColor: advisorStatus ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-primary)',
                         color: advisorStatus ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',
-                        fontWeight: 'bold',
+                        fontWeight: 'var(--md-sys-typescale-weight-bold)',
                         cursor: advisorStatus ? 'not-allowed' : 'pointer',
                         transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
                         display: 'flex',
@@ -235,7 +235,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                 }}>
                     <h3 style={{
                         fontSize: 'var(--md-sys-typescale-title-large-font-size)',
-                        fontWeight: 'bold',
+                        fontWeight: 'var(--md-sys-typescale-weight-bold)',
                         color: 'var(--md-sys-color-on-surface)',
                         margin: 'var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-4) var(--md-sys-spacing-0)',
                         display: 'flex',
@@ -262,7 +262,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                             }}>
                                 <h4 style={{
                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                    fontWeight: 'bold',
+                                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                     color: 'var(--md-sys-color-on-surface)',
                                     margin: 'var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-2) var(--md-sys-spacing-0)'
                                 }}>{item.titolo}</h4>

@@ -305,7 +305,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                             borderRadius: 'var(--md-sys-shape-corner-small)',
                                             backgroundColor: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',
                                             color: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)',
-                                            fontWeight: 'bold',
+                                            fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                             fontSize: 'var(--md-sys-typescale-label-large-size)'
                                         }}>
                                             {ev.voto}
@@ -360,7 +360,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                         padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
                                         borderRadius: 'var(--md-sys-shape-corner-small)',
                                         fontSize: 'var(--md-sys-typescale-body-small-size)',
-                                        fontWeight: 'bold',
+                                        fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                         textAlign: 'center',
                                         backgroundColor: levelColor.includes('advanced') ? 'var(--md-sys-color-tertiary-container)' :
                                                         levelColor.includes('intermediate') ? 'var(--md-sys-color-secondary-container)' :

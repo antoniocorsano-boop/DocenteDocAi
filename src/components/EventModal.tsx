@@ -60,7 +60,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
             <M3DialogContent style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                 <form id="event-modal-form" onSubmit={handleSubmit} style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                     <div>
-                        <label style={{color: "var(--md-sys-color-primary)", fontWeight: "900", textTransform: "uppercase", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-8)', display: "block"}}>Tipo Evento</label>
+                        <label style={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-8)', display: "block"}}>Tipo Evento</label>
                         <div  style={{display: "flex", gap: 'var(--md-sys-spacing-6)', overflowX: "auto"}}>
                             {eventTypes.map(t => (
                                 <M3ChoiceCard
@@ -118,7 +118,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
             </M3DialogContent>
             <M3DialogActions>
                 {event.id && (
-                    <M3Button onClick={() => onDelete(event.id!)} variant="text"  style={{ fontWeight: "900" }}>
+                    <M3Button onClick={() => onDelete(event.id!)} variant="text"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)" }}>
                         Elimina
                     </M3Button>
                 )}

@@ -181,7 +181,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                 <div  style={{ gridTemplateColumns: `repeat(${months.length}, 1fr)`, minWidth: `${minWidth}px` }}>
                     {months.map((m, i) => (
                         <div key={i} >
-                            <span >{m.label} <span style={{ fontSize: "var(--md-sys-typescale-label-large-font-size)", opacity: "0.7", fontWeight: "normal" }}>{m.year}</span></span>
+                            <span >{m.label} <span style={{ fontSize: "var(--md-sys-typescale-label-large-font-size)", opacity: "var(--md-sys-state-opacity-supporting)", fontWeight: "normal" }}>{m.year}</span></span>
                         </div>
                     ))}
                 </div>

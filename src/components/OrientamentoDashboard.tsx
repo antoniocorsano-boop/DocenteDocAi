@@ -60,7 +60,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
     const renderActivitiesTab = () => (
         <div style={{gap: 'var(--md-sys-spacing-6)'}}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>Attivit� di Orientamento</h3>
+                <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>Attivit� di Orientamento</h3>
                 <M3Button onClick={() => setIsAddActivityModalOpen(true)} variant="filled">
                     <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span>
                     Nuova Attivit�
@@ -96,7 +96,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
 
     const renderStudentsTab = () => (
         <div style={{gap: 'var(--md-sys-spacing-6)'}}>
-            <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900" }}>Stato E-Portfolio Studenti</h3>
+            <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>Stato E-Portfolio Studenti</h3>
             <div  style={{border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                 <table  style={{ width: 'var(--md-sys-percent-100)' }}>
                     <thead>
@@ -118,12 +118,12 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                                     <td style={{padding: 'var(--md-sys-spacing-6)'}}>
                                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                             <Avatar name={`${student.nome} ${student.cognome}`} size="sm" />
-                                            <span style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</span>
+                                            <span style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{student.cognome} {student.nome}</span>
                                         </div>
                                     </td>
                                     <td style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center"}}>
                                         <div style={{display: "flex", flexDirection: "column", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
-                                            <span style={{fontWeight: "900", color: "var(--md-sys-color-primary)"}}>{totalHours}/30h</span>
+                                            <span style={{fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)"}}>{totalHours}/30h</span>
                                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', width: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)' }}>
                                                 <div 
                                                     style={{
@@ -189,7 +189,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     variant="primary"
                 >
                     <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                        <span style={{fontWeight: "900", color: 'var(--md-sys-color-primary)'}}>{totalHours}h</span>
+                        <span style={{fontWeight: "var(--md-sys-typescale-weight-black)", color: 'var(--md-sys-color-primary)'}}>{totalHours}h</span>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)' }}>
                             {totalHours >= 30 ? '✅ Target raggiunto per la classe' : `Mancano ${30 - totalHours}h al target`}
                         </p>
@@ -203,7 +203,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     variant="tertiary"
                 >
                     <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                        <span style={{fontWeight: "900", color: 'var(--md-sys-color-tertiary)'}}>
+                        <span style={{fontWeight: "var(--md-sys-typescale-weight-black)", color: 'var(--md-sys-color-tertiary)'}}>
                             {filteredStudents.filter(s => studentStates[s.id]?.hasCapolavoro).length}/{filteredStudents.length}
                         </span>
                     </div>
@@ -216,7 +216,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     variant="secondary"
                 >
                     <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                        <span style={{fontWeight: "900", color: 'var(--md-sys-color-secondary)'}}>
+                        <span style={{fontWeight: "var(--md-sys-typescale-weight-black)", color: 'var(--md-sys-color-secondary)'}}>
                             {filteredStudents.filter(s => studentStates[s.id]?.hasAutovalutazione).length}/{filteredStudents.length}
                         </span>
                     </div>

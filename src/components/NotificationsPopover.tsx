@@ -82,7 +82,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
             >
                 <M3Typography
                     variant="body-medium"
-                    style={{fontWeight: '500',
+                    style={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
                         color: 'var(--md-sys-color-on-surface)'}}
                 >
                     Notifiche
@@ -242,7 +242,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                         >
                                             <M3Typography
                                                 variant="body-small"
-                                                style={{fontWeight: '500',
+                                                style={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                                     overflow: 'hidden',
                                                     textOverflow: 'ellipsis',
                                                     whiteSpace: 'nowrap',

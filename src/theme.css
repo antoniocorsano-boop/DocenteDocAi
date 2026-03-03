@@ -176,6 +176,7 @@
   --md-sys-spacing-35: 140px;  /* Hero icon size, FAB extended width */
   --md-sys-spacing-42: 168px; /* 672px - dialog max-w-2xl */
   --md-sys-spacing-56: 224px; /* 896px - dialog max-w-4xl */
+  --md-sys-spacing-64: 256px; /* PIN pad / compact panel max-w */
   --md-sys-spacing-80: 320px; /* 1280px - dialog fullscreen max */
 
   /* Flex values */
@@ -308,6 +309,14 @@
   --md-sys-typescale-label-small-line-height: var(--md-sys-spacing-4);
   --md-sys-typescale-label-small-font-weight: 500;
   --md-sys-typescale-label-small-tracking: 0.5px;
+  /* Emphasis weight — used for bold labels, event titles, metric values */
+  --md-sys-typescale-weight-black: 900;     /* display/hero ultra-bold */
+  --md-sys-typescale-weight-extrabold: 800; /* strong emphasis */
+  --md-sys-typescale-weight-bold: 700;      /* display/hero numeric values */
+  --md-sys-typescale-weight-semibold: 600;
+  --md-sys-typescale-weight-medium: 500;    /* label/title emphasis */
+  --md-sys-typescale-weight-regular: 400;   /* body text */
+  --md-sys-typescale-weight-light: 300;     /* light/decorative text */
 
   /* MD3 Typescale tracking aliases (for components & stories) */
   --md-sys-typescale-tracking-condensed: -0.15px;  /* compact headings / display-medium */
@@ -321,6 +330,8 @@
      =========================================== */
   --md-sys-layout-grid-min: 150px;
   --md-sys-layout-grid-min-wide: 200px;
+  --md-sys-layout-grid-min-card: 280px;  /* standard card column */
+  --md-sys-layout-grid-min-large: 400px; /* wide/feature card column */
   --md-sys-layout-card-width: 300px;
   --md-sys-layout-card-min-height: 200px;
   --md-sys-layout-avatar-size: 40px;
@@ -653,9 +664,13 @@
      extra-long: decorative/hero animations (page transitions)
   */
   --md-sys-motion-duration-short: 100ms;      /* Micro-interactions */
+  --md-sys-motion-duration-short2: 150ms;     /* Fast opacity/visibility */
+  --md-sys-motion-duration-short4: 200ms;     /* Standard component state */
   --md-sys-motion-duration-medium: 250ms;     /* Standard transitions */
   --md-sys-motion-duration-long: 400ms;       /* Emphasized motion */
   --md-sys-motion-duration-extra-long: 600ms; /* Hero animations */
+  --md-sys-motion-duration-instant: 16ms;     /* Single-frame adjustments */
+  --md-sys-motion-duration-micro: 50ms;       /* Transition delay offset */
 
   /* --- MD3 EASING TOKENS ---
      Aligned to Material Design 3 easing specifications
@@ -779,8 +794,23 @@
   --md-sys-shape-corner-full: var(--md-sys-radius-full);
 
   /* M3 State Opacity Tokens */
-  --md-sys-state-opacity-disabled: 0.38;
-  --md-sys-state-opacity-tooltip: 0.97;
+  --md-sys-state-opacity-disabled: 0.38;     /* disabled controls */
+  --md-sys-state-opacity-scrim: 0.32;        /* overlay/backdrop scrim */
+  --md-sys-state-opacity-tooltip: 0.97;      /* tooltip background */
+  --md-sys-state-opacity-icon-muted: 0.7;    /* secondary/decorative icons */
+
+  /* M3 Semantic Opacity Scale */
+  --md-sys-state-opacity-tint-hairline: 0.05; /* ultra-faint decorative glow */
+  --md-sys-state-opacity-tint-thin: 0.08;     /* hairline tinted borders */
+  --md-sys-state-opacity-tint-faint: 0.1;    /* decorative tinted backgrounds */
+  --md-sys-state-opacity-tint-subtle: 0.2;   /* subtle tinted icon containers */
+  --md-sys-state-opacity-tint-moderate: 0.3; /* inactive/placeholder overlay */
+  --md-sys-state-opacity-empty: 0.4;         /* empty-state content */
+  --md-sys-state-opacity-placeholder: 0.5;   /* placeholder / hint text */
+  --md-sys-state-opacity-secondary: 0.6;     /* secondary/supporting content */
+  --md-sys-state-opacity-supporting: 0.7;    /* supporting text, captions */
+  --md-sys-state-opacity-caption: 0.8;       /* caption / de-emphasised body */
+  --md-sys-state-opacity-hover-overlay: 0.9; /* near-opaque hover state */
 }
 
 .theme-dark {
@@ -1465,6 +1495,19 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     opacity: 1;
     transform: scale(1);
   }
+}
+
+/* M3 Expressive dialog/sheet enter — spring overshoot */
+@keyframes md3-dialog-enter {
+  0%   { opacity: 0; transform: scale(0.8)  translateY(12px); }
+  60%  { opacity: 1; transform: scale(1.03) translateY(-2px); }
+  100% { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+/* M3 staggered-list item entrance */
+@keyframes md3-item-enter {
+  from { opacity: 0; transform: translateY(var(--md-sys-spacing-3, 12px)); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 /* --- AURA GLASSMORPHISM --- */
 .aura-glass {

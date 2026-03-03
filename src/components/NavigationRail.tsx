@@ -236,7 +236,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                       color: 'var(--md-sys-color-on-error)',
                       borderRadius: 'var(--md-sys-shape-corner-small)', // Badge corner radius
                       fontSize: 'var(--md-sys-spacing-4)',
-                      fontWeight: '700',
+                      fontWeight: 'var(--md-sys-typescale-weight-bold)',
                       lineHeight: 'var(--md-sys-spacing-4)', // Badge line height
                       textAlign: 'center',
                       zIndex: 'var(--md-sys-z-raised)',
@@ -252,7 +252,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
               <M3Typography
                 variant="label-medium"
                 style={{fontSize: 'var(--md-sys-spacing-3)', // Label font size
-                  fontWeight: '500',
+                  fontWeight: 'var(--md-sys-typescale-weight-medium)',
                   textAlign: 'center',
                   color: 'inherit',
                   whiteSpace: 'nowrap',

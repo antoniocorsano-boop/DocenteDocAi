@@ -119,7 +119,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
                   aria-hidden="true"
                   style={{
                     position: 'relative',
-                    zIndex: 1,
+                    zIndex: 'var(--md-sys-z-content)',
                     fontSize: 'var(--md-sys-spacing-6)', // 24px
                     color: isActive
                       ? 'var(--md-sys-color-on-secondary-container)'

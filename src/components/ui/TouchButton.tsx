@@ -87,7 +87,7 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
       color: disabled 
         ? 'var(--md-sys-color-on-surface-variant)' 
         : 'var(--md-sys-color-primary)',
-      border: `2px solid ${disabled ? 'var(--md-sys-color-outline-variant)' : 'var(--md-sys-color-primary)'}`
+      border: `var(--md-sys-border-width-medium) solid ${disabled ? 'var(--md-sys-color-outline-variant)' : 'var(--md-sys-color-primary)'}`
     },
     text: {
       backgroundColor: 'transparent',
@@ -119,10 +119,10 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
         minHeight: sizeMap.minHeight,
         padding: sizeMap.padding,
         fontSize: sizeMap.fontSize,
-        fontWeight: '600',
+        fontWeight: 'var(--md-sys-typescale-weight-semibold)',
         borderRadius: 'var(--md-sys-spacing-5)',
         cursor: disabled || loading ? 'not-allowed' : 'pointer',
-        transition: 'all 200ms var(--md-sys-motion-easing-standard)',
+        transition: 'all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',
         transform: isPressed && !disabled && !loading ? 'scale(0.98)' : 'scale(1)',
         opacity: disabled ? 0.5 : 1,
         userSelect: 'none',
@@ -139,7 +139,7 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
             height: 'var(--md-sys-spacing-5)',
             border: 'var(--md-sys-border-width-normal) solid currentColor',
             borderTopColor: 'transparent',
-            borderRadius: '50%',
+            borderRadius: 'var(--md-sys-shape-corner-full)',
             animation: 'spin 0.8s linear infinite'
           }}
         />
@@ -171,10 +171,10 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
             top: ripple.y,
             width: 'var(--md-sys-spacing-2-5)',
             height: 'var(--md-sys-spacing-2-5)',
-            borderRadius: '50%',
+            borderRadius: 'var(--md-sys-shape-corner-full)',
             backgroundColor: 'color-mix(in srgb, var(--md-sys-color-on-primary) 60%, transparent)',
             transform: 'translate(-50%, -50%)',
-            animation: 'ripple-expand 600ms ease-out',
+            animation: 'ripple-expand var(--md-sys-motion-duration-extra-long) ease-out',
             pointerEvents: 'none'
           }}
         />

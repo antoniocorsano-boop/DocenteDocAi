@@ -17,7 +17,7 @@ export const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }
         border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
     }}>
         <M3Typography variant="body-large" style={{
-            fontWeight: 'bold',
+            fontWeight: 'var(--md-sys-typescale-weight-bold)',
             color: 'var(--md-sys-color-primary)',
             marginBottom: 'var(--md-sys-spacing-3)'
         }}>{scenario}</M3Typography>

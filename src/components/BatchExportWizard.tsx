@@ -273,7 +273,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
           {progress && (
             <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)'}}>
               <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                <span  style={{ fontWeight: "500" }}>Generazione in corso...</span>
+                <span  style={{ fontWeight: "var(--md-sys-typescale-weight-medium)" }}>Generazione in corso...</span>
                 <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{progress.current}/{progress.total}</span>
               </div>
               <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' , width: 'var(--md-sys-percent-100)', borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-8)'}}>
@@ -288,7 +288,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
           {/* Controlli selezione */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-              <span  style={{ fontWeight: "500" }}>
+              <span  style={{ fontWeight: "var(--md-sys-typescale-weight-medium)" }}>
                 Selezionati: {selectedDocuments.length} di {availableDocuments.length}
               </span>
               <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
@@ -318,7 +318,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
           <div  style={{gap: 'var(--md-sys-spacing-4)', overflowY: "auto"}}>
             {Object.entries(groupedDocuments).map(([groupName, docs]) => (
               <div key={groupName}>
-                <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                   {groupName} ({docs.length})
                 </h3>
                 <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
@@ -348,7 +348,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                             aria-label={`Seleziona ${doc.title}`}
                           />
                           <div style={{ flex: "1", minWidth: "0" }}>
-                            <p  style={{ fontWeight: "500", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.title}</p>
+                            <p  style={{ fontWeight: "var(--md-sys-typescale-weight-medium)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.title}</p>
                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.subtitle}</p>
                             <span style={{
                               display: 'inline-block',

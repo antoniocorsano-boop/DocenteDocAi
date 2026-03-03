@@ -75,7 +75,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
 
                 {/* Add Entry Section */}
                 <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                    <h4  style={{ fontWeight: "900" }}>Aggiungi Documento/Riflessione</h4>
+                    <h4  style={{ fontWeight: "var(--md-sys-typescale-weight-black)" }}>Aggiungi Documento/Riflessione</h4>
                     <div  style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
                         <div style={{ flex: "1" }}>
                             <TextField
@@ -102,7 +102,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
 
                 {/* Entries List */}
                 <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                    <h4  style={{ fontWeight: "900" }}>Documenti Caricati</h4>
+                    <h4  style={{ fontWeight: "var(--md-sys-typescale-weight-black)" }}>Documenti Caricati</h4>
                     <div style={{gap: 'var(--md-sys-spacing-2)'}}>
                         {entries.length === 0 ? (
                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  textAlign: "center" }}>Nessun documento caricato</p>
@@ -114,11 +114,11 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                                             <span  style={{color: "var(--md-sys-color-primary)", fontSize: "var(--md-sys-typescale-body-medium-size)"}}>
                                                 {entry.category === 'capolavoro' ? 'auto_awesome' : 'description'}
                                             </span>
-                                            <span style={{ fontWeight: "bold" }}>{entry.title}</span>
+                                            <span style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{entry.title}</span>
                                         </div>
                                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{entry.date}</p>
                                     </div>
-                                    <span style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', color: 'var(--md-sys-color-on-secondary-container)', borderRadius: 'var(--md-sys-spacing-4)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                                    <span style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', color: 'var(--md-sys-color-on-secondary-container)', borderRadius: 'var(--md-sys-spacing-4)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                                         {entry.category}
                                     </span>
                                 </div>

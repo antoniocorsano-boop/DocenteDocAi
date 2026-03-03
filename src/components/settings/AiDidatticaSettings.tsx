@@ -75,7 +75,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                     <M3Typography
                         variant="label-small"
                         style={{color: 'var(--md-sys-color-secondary)',
-                            fontWeight: 900,
+                            fontWeight: 'var(--md-sys-typescale-weight-black)',
                             letterSpacing: '0.1em',
                             textTransform: 'uppercase'}}
                     >
@@ -144,7 +144,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             <M3Typography
                                 variant="label-large"
                                 style={{color: 'var(--md-sys-color-on-surface)',
-                                    fontWeight: 900,
+                                    fontWeight: 'var(--md-sys-typescale-weight-black)',
                                     letterSpacing: '0.025em',
                                     textTransform: 'uppercase'}}
                             >
@@ -204,7 +204,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             <M3Typography
                                 variant="label-large"
                                 style={{color: 'var(--md-sys-color-on-surface)',
-                                    fontWeight: 900,
+                                    fontWeight: 'var(--md-sys-typescale-weight-black)',
                                     letterSpacing: '0.025em',
                                     textTransform: 'uppercase'}}
                             >
@@ -238,7 +238,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             <M3Typography
                                 variant="label-small"
                                 style={{color: 'var(--md-sys-color-primary)',
-                                    fontWeight: 900,
+                                    fontWeight: 'var(--md-sys-typescale-weight-black)',
                                     letterSpacing: '0.1em',
                                     textTransform: 'uppercase'}}
                             >
@@ -274,7 +274,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                 <M3Typography
                                     variant="body-medium"
                                     style={{color: 'var(--md-sys-color-on-surface)',
-                                        fontWeight: 500}}
+                                        fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                 >
                                     Livelli / Anni
                                 </M3Typography>
@@ -302,7 +302,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                 <M3Typography
                                     variant="body-medium"
                                     style={{color: 'var(--md-sys-color-on-surface)',
-                                        fontWeight: 500}}
+                                        fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                 >
                                     Sezioni
                                 </M3Typography>
@@ -381,14 +381,14 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                 <tr style={{backgroundColor: 'var(--md-sys-color-surface-container-high)'}}>
                                     <th style={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                                         textAlign: 'left',
-                                        fontWeight: 600,
+                                        fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                         color: 'var(--md-sys-color-on-surface)',
                                         borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                         fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>Materia / Classe</th>
                                     {localSettings.classi.map(cls => (
                                         <th key={cls} style={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                                             textAlign: 'center',
-                                            fontWeight: 600,
+                                            fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                             color: 'var(--md-sys-color-on-surface)',
                                             borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                             borderLeft: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
@@ -435,7 +435,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                                     alignItems: 'center',
                                                     gap: 'var(--md-sys-spacing-4)',
                                                     flex: 1}}>
-                                                    <span style={{fontWeight: 500,
+                                                    <span style={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                                         color: 'var(--md-sys-color-on-surface)'}}>{subj}</span>
                                                     <M3Button
                                                         onClick={() => handleBulkAssign(subj)}

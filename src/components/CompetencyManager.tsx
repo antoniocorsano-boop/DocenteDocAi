@@ -78,7 +78,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
                                 transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                 fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                                fontWeight: 500,
+                                fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 whiteSpace: 'nowrap',
@@ -168,7 +168,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                 <div >
                                     {comp.livelli.map(lvl => (
                                         <div key={lvl.id} >
-                                            <strong>{lvl.nome}:</strong> <span style={{ opacity: "0.8" }}>{lvl.descrizione}</span>
+                                            <strong>{lvl.nome}:</strong> <span style={{ opacity: "var(--md-sys-state-opacity-caption)" }}>{lvl.descrizione}</span>
                                         </div>
                                     ))}
                                 </div>

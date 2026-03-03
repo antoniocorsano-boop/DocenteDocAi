@@ -169,7 +169,7 @@ const SetupGuide = () => (
         }}>
             <M3Typography variant="title-medium" style={{
                 color: 'var(--md-sys-color-primary)',
-                fontWeight: 'bold',
+                fontWeight: 'var(--md-sys-typescale-weight-bold)',
                 marginBottom: 'var(--md-sys-spacing-3)'
             }}>1. Impostazioni Generali</M3Typography>
             <M3Typography variant="body-medium" style={{
@@ -197,7 +197,7 @@ const SetupGuide = () => (
         }}>
             <M3Typography variant="title-medium" style={{
                 color: 'var(--md-sys-color-on-primary-container)',
-                fontWeight: 'bold',
+                fontWeight: 'var(--md-sys-typescale-weight-bold)',
                 marginBottom: 'var(--md-sys-spacing-3)'
             }}>2. Configurazione Classi e Materie</M3Typography>
             <M3Typography variant="body-medium" style={{
@@ -225,7 +225,7 @@ const SetupGuide = () => (
         }}>
             <M3Typography variant="title-medium" style={{
                 color: 'var(--md-sys-color-on-primary-container)',
-                fontWeight: 'bold',
+                fontWeight: 'var(--md-sys-typescale-weight-bold)',
                 marginBottom: 'var(--md-sys-spacing-3)'
             }}>3. Inserimento Studenti</M3Typography>
             <M3Typography variant="body-medium" style={{
@@ -253,7 +253,7 @@ const SetupGuide = () => (
         }}>
             <M3Typography variant="title-medium" style={{
                 color: 'var(--md-sys-color-on-primary-container)',
-                fontWeight: 'bold',
+                fontWeight: 'var(--md-sys-typescale-weight-bold)',
                 marginBottom: 'var(--md-sys-spacing-3)'
             }}>4. Costruzione Orario</M3Typography>
             <M3Typography variant="body-medium" style={{
@@ -322,10 +322,10 @@ const DigitalTeacherManual = () => {
 
             <ManualSection title="1. Normativa, Sicurezza e Privacy" icon="security" defaultOpen>
                 <div style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>
-                     <M3Typography variant="button-primary" style={{ fontWeight: 'bold', marginBottom: 'var(--md-sys-spacing-2)' }}>GDPR & Sovranità del Dato</M3Typography>
+                     <M3Typography variant="button-primary" style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', marginBottom: 'var(--md-sys-spacing-2)' }}>GDPR & Sovranità del Dato</M3Typography>
                      <M3Typography variant="body-medium" style={{ marginBottom: 'var(--md-sys-spacing-3)' }}>L'architettura <strong>Local-First</strong> garantisce che i dati sensibili degli studenti (voti, PEI) non vengano mai inviati a server proprietari del fornitore del software. Il titolare del trattamento resta la scuola/docente.</M3Typography>
 
-                     <M3Typography variant="button-primary" style={{ fontWeight: 'bold', marginBottom: 'var(--md-sys-spacing-2)' }}>Norme Scolastiche</M3Typography>
+                     <M3Typography variant="button-primary" style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', marginBottom: 'var(--md-sys-spacing-2)' }}>Norme Scolastiche</M3Typography>
                      <M3Typography variant="body-medium" style={{ marginBottom: 'var(--md-sys-spacing-3)' }}>Il sistema supporta nativamente:</M3Typography>
                      <ul style={{ margin: 0, paddingLeft: 'var(--md-sys-spacing-5)' }}>
                          <li><strong>L. 170/2010 & Dir. BES:</strong> Modulo Inclusione dedicato.</li>
@@ -385,7 +385,7 @@ const DigitalTeacherManual = () => {
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-2)',
                             color: 'var(--md-sys-color-primary)',
-                            fontWeight: 'bold',
+                            fontWeight: 'var(--md-sys-typescale-weight-bold)',
                             marginBottom: 'var(--md-sys-spacing-3)'
                         }}>
                             <span style={{
@@ -409,7 +409,7 @@ const DigitalTeacherManual = () => {
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-2)',
                             color: 'var(--md-sys-color-secondary)',
-                            fontWeight: 'bold',
+                            fontWeight: 'var(--md-sys-typescale-weight-bold)',
                             marginBottom: 'var(--md-sys-spacing-3)'
                         }}>
                             <span style={{
@@ -462,7 +462,7 @@ const VocalAssistantGuideContent = () => (
                 }}>
                     <M3Typography variant="title-medium" style={{
                         color: 'var(--md-sys-color-primary)',
-                        fontWeight: "bold",
+                        fontWeight: "var(--md-sys-typescale-weight-bold)",
                         marginBottom: 'var(--md-sys-spacing-6)',
                         display: "flex",
                         alignItems: "center",
@@ -524,7 +524,7 @@ const UserGuide = () => (
                 }}>1. Centro Operativo</M3Typography>
                 <M3Typography variant="body-medium" style={{
                     lineHeight: "1.625",
-                    opacity: "0.8"
+                    opacity: "var(--md-sys-state-opacity-caption)"
                 }}>Tutto parte dall'icona <strong>Fulmine (⚡)</strong> in alto. Lì trovi i processi divisi per "Quotidianità" (Aula) e "Progettazione" (Strategia). Segui i pallini di suggerimento.</M3Typography>
             </div>
             <div style={{
@@ -538,7 +538,7 @@ const UserGuide = () => (
                 }}>2. Progettazione Intelligente</M3Typography>
                 <M3Typography variant="body-medium" style={{
                     lineHeight: "1.625",
-                    opacity: "0.8"
+                    opacity: "var(--md-sys-state-opacity-caption)"
                 }}>Carica i tuoi PDF nella <strong>Knowledge Base</strong>. Usa il <strong>Wizard Annuale</strong> nel Centro Operativo per creare percorsi didattici che l'AI validerà automaticamente.</M3Typography>
             </div>
             <div style={{
@@ -552,7 +552,7 @@ const UserGuide = () => (
                 }}>3. In Aula (Continuità)</M3Typography>
                 <M3Typography variant="body-medium" style={{
                     lineHeight: "1.625",
-                    opacity: "0.8"
+                    opacity: "var(--md-sys-state-opacity-caption)"
                 }}>Quando apri una lezione, vedrai automaticamente il riepilogo della lezione precedente per riprendere il filo. Usa il <strong>Centro Operativo</strong> per avviare l'Assistente Vocale.</M3Typography>
             </div>
             <div style={{
@@ -566,7 +566,7 @@ const UserGuide = () => (
                 }}>4. Analisi & Report</M3Typography>
                 <M3Typography variant="body-medium" style={{
                     lineHeight: "1.625",
-                    opacity: "0.8"
+                    opacity: "var(--md-sys-state-opacity-caption)"
                 }}>Prima dei consigli di classe, visita l'<strong>Analytics Hub</strong> per avere grafici chiari. Genera poi il PDF del verbale con un click.</M3Typography>
             </div>
         </div>
@@ -619,7 +619,7 @@ const NormativaContent: React.FC = () => (
             padding: 'var(--md-sys-spacing-4)'
         }}>
             <M3Typography variant="title-medium" style={{
-                fontWeight: "bold",
+                fontWeight: "var(--md-sys-typescale-weight-bold)",
                 color: 'var(--md-sys-color-primary)'
             }}>I Tuoi Dati, Il Tuo Cloud</M3Typography>
             <ul style={{
@@ -706,7 +706,7 @@ const FaqContent = () => (
                         justifyContent: "space-between",
                         alignItems: "center",
                         padding: 'var(--md-sys-spacing-3)',
-                        fontWeight: "bold"
+                        fontWeight: "var(--md-sys-typescale-weight-bold)"
                     }}>
                         <span dangerouslySetInnerHTML={{ __html: sanitizeHtml(faq.q) }}></span>
                         <span style={{
@@ -717,7 +717,7 @@ const FaqContent = () => (
                     <div style={{
                         padding: 'var(--md-sys-spacing-3)',
                         fontFamily: 'var(--md-sys-typescale-body-medium-font)',
-                        opacity: "0.8",
+                        opacity: "var(--md-sys-state-opacity-caption)",
                         lineHeight: "1.625",
                         fontSize: 'var(--md-sys-typescale--font-size)'
                     }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(faq.a) }}></div>
@@ -762,7 +762,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                         }}>{icon}</span>
                     </div>
                     <M3Typography variant="title-medium" style={{
-                        fontWeight: "bold",
+                        fontWeight: "var(--md-sys-typescale-weight-bold)",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap",
@@ -776,7 +776,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                 }}>v4.1.0</M3Typography>
             </div>
             <M3Typography variant="body-medium" style={{
-                opacity: "0.7",
+                opacity: "var(--md-sys-state-opacity-supporting)",
                 lineHeight: "1.625",
                 display: "-webkit-box",
                 WebkitLineClamp: "2",
@@ -870,7 +870,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                     }}>
                         <M3Typography variant="title-large">Manuale Completo PDF</M3Typography>
                         <M3Typography variant="body-medium" style={{
-                            opacity: "0.7"
+                            opacity: "var(--md-sys-state-opacity-supporting)"
                         }}>
                             Scarica il manuale PDF aggiornato alla versione 4.1.0 con la guida al Centro Operativo e le specifiche tecniche.
                         </M3Typography>
@@ -1007,7 +1007,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
               <li>Focus visibile, aria-label obbligatorio, test aggiornati</li>
               <li>Consulta la <a href="/docs/MIGRAZIONE_COMPONENTI_M3.md" target="_blank" rel="noopener" style={{
                 color: 'var(--md-sys-color-primary)',
-                fontWeight: "bold"
+                fontWeight: "var(--md-sys-typescale-weight-bold)"
               }}>guida M3 aggiornata</a> per dettagli e best practice</li>
             </ul>
           </div>

@@ -242,7 +242,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
                     height: 'var(--md-sys-spacing-4)',
                     border: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-outline)',
                     borderTop: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)',
-                    borderRadius: 'var(50%)',
+                    borderRadius: 'var(--md-sys-shape-corner-full)',
                     animation: 'spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite'}} />
             ) : (
                 <span className="material-symbols-outlined" style={{fontSize: compact ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
@@ -250,7 +250,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
             )}
             {!compact && !isProcessing && (
                 <span style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                    fontWeight: 600,
+                    fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase'}}>{isRecording ? 'Stop' : 'Detta Nota'}</span>
             )}

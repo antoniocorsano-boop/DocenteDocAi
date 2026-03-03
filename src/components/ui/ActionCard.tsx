@@ -45,9 +45,9 @@ export const ActionCard: React.FC<ActionCardProps> = ({
       style={{
         padding: 'var(--md-sys-spacing-4)',
         cursor: disabled ? 'not-allowed' : 'pointer',
-        transition: 'all 200ms var(--md-sys-motion-easing-standard)',
+        transition: 'all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',
         opacity: disabled ? 0.5 : 1,
-        border: `1px solid var(--md-sys-color-outline-variant)`,
+        border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`,
         display: 'flex',
         flexDirection: 'column',
         gap: 'var(--md-sys-spacing-3)',
@@ -99,7 +99,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({
           variant="title-medium"
           style={{
             color: 'var(--md-sys-color-on-surface)',
-            fontWeight: '600',
+            fontWeight: 'var(--md-sys-typescale-weight-semibold)',
             marginBottom: 'var(--md-sys-spacing-1)'
           }}
         >
@@ -124,7 +124,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({
           style={{
             fontSize: 'var(--md-sys-typescale-title-small-font-size)',
             color: config.iconColor,
-            opacity: 0.6
+            opacity: 'var(--md-sys-state-opacity-secondary)'
           }}
         >
           arrow_forward

@@ -1,6 +1,5 @@
-// MD3 Compliant - Updated for layered theme access
+// MD3 Compliant - Pure CSS tokens, no useTheme dependency
 import React from 'react';
-import { useTheme } from '../../theme/theme';
 
 interface DocumentSkeletonProps {
     lines?: number;
@@ -14,15 +13,14 @@ interface DocumentSkeletonProps {
 const DocumentSkeleton: React.FC<DocumentSkeletonProps> = ({
     lines = 5
 }) => {
-    const { layers: { sys: { color }, ref: { spacing, shape } } } = useTheme();
 
     return (
-    <div style={{display: 'flex', flexDirection: 'column', gap: spacing[4]}}>
+    <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)'}}>
         {/* Title skeleton */}
         <div style={{
-            height: spacing[4],
-            backgroundColor: color.surfaceContainerHigh,
-            borderRadius: shape.corner.small,
+            height: 'var(--md-sys-spacing-4)',
+            backgroundColor: 'var(--md-sys-color-surface-container-high)',
+            borderRadius: 'var(--md-sys-shape-corner-small)',
             animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`,
             width: 'var(--md-sys-percent-70)'
         }} />
@@ -32,9 +30,9 @@ const DocumentSkeleton: React.FC<DocumentSkeletonProps> = ({
             <div
                 key={i}
                 style={{
-                    height: spacing[8],
-                    backgroundColor: color.surfaceContainerHigh,
-                    borderRadius: shape.corner.full,
+                    height: 'var(--md-sys-spacing-8)',
+                    backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                    borderRadius: 'var(--md-sys-shape-corner-full)',
                     animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`,
                     width: i === lines - 1 ? 'var(--md-sys-percent-60)' : 'var(--md-sys-percent-100)',
                     animationDelay: `${i * 0.1}s`

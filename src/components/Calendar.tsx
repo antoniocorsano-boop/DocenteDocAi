@@ -282,7 +282,7 @@ const renderHeader = () => {
                                         style={{
                                             padding: 'var(--md-sys-spacing-0_5) var(--md-sys-spacing-2)',
                                             fontSize: 'var(--md-sys-typescale-body-small-size)',
-                                            fontWeight: 500,
+                                            fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                             borderRadius: 'var(--md-sys-shape-corner-extra-small)',
                                             whiteSpace: 'nowrap',
                                             overflow: 'hidden',
@@ -330,7 +330,7 @@ const renderHeader = () => {
                         }}>
                             <div style={{
                                 fontSize: 'var(--typography-label-small-fontSize)',
-                                fontWeight: 700,
+                                fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                 color: 'var(--md-sys-color-on-surface-variant)',
                                 textTransform: 'uppercase',
                                 letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
@@ -340,7 +340,7 @@ const renderHeader = () => {
                             </div>
                             <div style={{
                                 fontSize: 'var(--typography-body-medium-fontSize)',
-                                fontWeight: 500,
+                                fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                 color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
                                 background: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
                                 borderRadius: 'var(--md-sys-shape-corner-full)',
@@ -379,7 +379,7 @@ const renderHeader = () => {
                                                 style={{
                                                     padding: 'var(--md-sys-spacing-0_5) var(--md-sys-spacing-2)',
                                                     fontSize: 'var(--md-sys-typescale-body-small-size)',
-                                                    fontWeight: 500,
+                                                    fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                                     borderRadius: 'var(--md-sys-shape-corner-extra-small)',
                                                     whiteSpace: 'nowrap',
                                                     overflow: 'hidden',
@@ -427,7 +427,7 @@ const renderHeader = () => {
                         alignItems: "center", 
                         justifyContent: "center", 
                         textAlign: "center", 
-                        opacity: "0.6" 
+                        opacity: "var(--md-sys-state-opacity-secondary)" 
                     }}>
                         <span 
                             style={{ 
@@ -470,12 +470,12 @@ const renderHeader = () => {
                                 onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.01)'}
                                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                             >
-                                <div  style={{ fontWeight: "bold" }}>
+                                <div  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
                                     {ev.oraInizio || 'Tutto il giorno'}
                                 </div>
                                 <div >
-                                    <div  style={{ fontWeight: "bold" }}>{ev.titolo}</div>
-                                    {ev.descrizione && <div  style={{ opacity: "0.8" }}>{ev.descrizione}</div>}
+                                    <div  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{ev.titolo}</div>
+                                    {ev.descrizione && <div  style={{ opacity: "var(--md-sys-state-opacity-caption)" }}>{ev.descrizione}</div>}
                                     {ev.location && <div  style={{marginTop: 'var(--md-sys-spacing-4)'}}>📍 {ev.location}</div>}
                                 </div>
                             </div>
@@ -489,7 +489,7 @@ const renderHeader = () => {
     const renderAgendaView = () => (
         <div  style={{padding: 'var(--md-sys-spacing-8)'}}>
             {Object.keys(agendaGroups).length === 0 ? (
-                <div style={{ padding: 'var(--md-sys-spacing-8)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", opacity: "0.6" }}>
+                <div style={{ padding: 'var(--md-sys-spacing-8)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", opacity: "var(--md-sys-state-opacity-secondary)" }}>
                     <span style={{ color: "var(--md-sys-color-on-surface-variant)", marginBottom: 'var(--md-sys-spacing-8)' }} aria-hidden="true">event_busy</span>
                     <p style={{ color: "var(--md-sys-color-on-surface-variant)" }}>Nessun evento questo mese</p>
                 </div>
@@ -527,12 +527,12 @@ const renderHeader = () => {
                                                                                                       ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
                                                                                                       'var(--md-sys-color-secondary-container)'}
                                     >
-                                        <div  style={{ fontWeight: "bold" }}>
+                                        <div  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
                                             {ev.oraInizio || 'Tutto il giorno'}
                                         </div>
                                         <div >
-                                            <div  style={{ fontWeight: "bold" }}>{ev.titolo}</div>
-                                            {ev.descrizione && <div  style={{ opacity: "0.8" }}>{ev.descrizione}</div>}
+                                            <div  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{ev.titolo}</div>
+                                            {ev.descrizione && <div  style={{ opacity: "var(--md-sys-state-opacity-caption)" }}>{ev.descrizione}</div>}
                                         </div>
                                     </div>
                                 ))}

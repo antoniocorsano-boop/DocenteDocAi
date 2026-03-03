@@ -25,7 +25,7 @@ export const AccessibilitySettings: React.FC = () => {
           variant="title-medium"
           style={{
             color: 'var(--md-sys-color-on-surface)',
-            fontWeight: '600',
+            fontWeight: 'var(--md-sys-typescale-weight-semibold)',
             marginBottom: 'var(--md-sys-spacing-1)'
           }}
         >
@@ -75,7 +75,7 @@ export const AccessibilitySettings: React.FC = () => {
               variant="body-medium"
               style={{
                 color: 'var(--md-sys-color-on-surface)',
-                fontWeight: '500'
+                fontWeight: 'var(--md-sys-typescale-weight-medium)'
               }}
             >
               Contrasto elevato
@@ -107,7 +107,7 @@ export const AccessibilitySettings: React.FC = () => {
               ? 'var(--md-sys-color-primary)'
               : 'var(--md-sys-color-surface-variant)',
             cursor: 'pointer',
-            transition: 'background-color 200ms',
+            transition: 'background-color var(--md-sys-motion-duration-short4)',
             flexShrink: 0
           }}
         >
@@ -119,11 +119,11 @@ export const AccessibilitySettings: React.FC = () => {
               transform: 'translateY(-50%)',
               width: 'var(--md-sys-spacing-6)',
               height: 'var(--md-sys-spacing-6)',
-              borderRadius: '50%',
+              borderRadius: 'var(--md-sys-shape-corner-full)',
               backgroundColor: contrast === 'high'
                 ? 'var(--md-sys-color-on-primary)'
                 : 'var(--md-sys-color-on-surface-variant)',
-              transition: 'left 200ms var(--md-sys-motion-easing-standard)',
+              transition: 'left var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',
               boxShadow: 'var(--md-sys-elevation-level2)'
             }}
           />
@@ -164,7 +164,7 @@ export const AccessibilitySettings: React.FC = () => {
               variant="body-medium"
               style={{
                 color: 'var(--md-sys-color-on-surface)',
-                fontWeight: '500'
+                fontWeight: 'var(--md-sys-typescale-weight-medium)'
               }}
             >
               Riduci movimento
@@ -196,7 +196,7 @@ export const AccessibilitySettings: React.FC = () => {
               ? 'var(--md-sys-color-primary)'
               : 'var(--md-sys-color-surface-variant)',
             cursor: 'pointer',
-            transition: 'background-color 200ms',
+            transition: 'background-color var(--md-sys-motion-duration-short4)',
             flexShrink: 0
           }}
         >
@@ -208,11 +208,11 @@ export const AccessibilitySettings: React.FC = () => {
               transform: 'translateY(-50%)',
               width: 'var(--md-sys-spacing-6)',
               height: 'var(--md-sys-spacing-6)',
-              borderRadius: '50%',
+              borderRadius: 'var(--md-sys-shape-corner-full)',
               backgroundColor: reducedMotion
                 ? 'var(--md-sys-color-on-primary)'
                 : 'var(--md-sys-color-on-surface-variant)',
-              transition: 'left 200ms var(--md-sys-motion-easing-standard)',
+              transition: 'left var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',
               boxShadow: 'var(--md-sys-elevation-level2)'
             }}
           />

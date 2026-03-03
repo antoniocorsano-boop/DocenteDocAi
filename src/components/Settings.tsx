@@ -108,12 +108,12 @@ const SettingsGroup: React.FC<{
                     </div>
                     <div style={{ minWidth: 0, flex: 1 }}>
                         <M3Typography variant="title-large" style={{color: 'var(--md-sys-color-on-surface)',
-                            fontWeight: 900,
+                            fontWeight: 'var(--md-sys-typescale-weight-black)',
                             margin: 0,
                             letterSpacing: '-0.025em'}}>{title}</M3Typography>
                         {subtitle && <M3Typography variant="body-small" style={{color: 'var(--md-sys-color-on-surface-variant)',
                             margin: 0,
-                            opacity: 0.7}}>{subtitle}</M3Typography>}
+                            opacity: 'var(--md-sys-state-opacity-supporting)'}}>{subtitle}</M3Typography>}
                     </div>
                 </div>
                 <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-on-surface-variant)',
@@ -397,7 +397,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     >
                         <M3Typography variant="label-large" style={{
                             color: 'var(--md-sys-color-on-surface)',
-                            fontWeight: 900,
+                            fontWeight: 'var(--md-sys-typescale-weight-black)',
                             marginBottom: 'var(--md-sys-spacing-3)'
                         }}>
                             Interfaccia & Esperienza Visiva
@@ -405,7 +405,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <M3Typography variant="body-small" style={{
                             color: 'var(--md-sys-color-on-surface-variant)',
                             marginBottom: 'var(--md-sys-spacing-4)',
-                            opacity: 0.8
+                            opacity: 'var(--md-sys-state-opacity-caption)'
                         }}>
                             Personalizza l'aspetto e il comportamento dell'app
                         </M3Typography>
@@ -425,7 +425,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     color: 'var(--md-sys-color-primary)'
                                 }}>dashboard_customize</span>
                                 <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
-                                    fontWeight: 900,
+                                    fontWeight: 'var(--md-sys-typescale-weight-black)',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.15em'}}>Modalità Interfaccia</M3Typography>
                             </div>
@@ -455,7 +455,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     color: 'var(--md-sys-color-primary)'}}>auto_awesome</span>
                                 <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
-                                    fontWeight: 900,
+                                    fontWeight: 'var(--md-sys-typescale-weight-black)',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.15em'}}>Ecosistema Visivo</M3Typography>
                             </div>
@@ -502,7 +502,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                 ? 'var(--md-sys-color-on-primary-container)'
                                                 : 'var(--md-sys-color-on-surface-variant)',
                                             margin: 0,
-                                            opacity: 0.8}}>{style.desc}</M3Typography>
+                                            opacity: 'var(--md-sys-state-opacity-caption)'}}>{style.desc}</M3Typography>
                                     </button>
                                 ))}
                             </div>
@@ -518,7 +518,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     color: 'var(--md-sys-color-primary)'}}>palette</span>
                                 <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
-                                    fontWeight: 900,
+                                    fontWeight: 'var(--md-sys-typescale-weight-black)',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.15em'}}>Tema & Colori</M3Typography>
                             </div>
@@ -558,7 +558,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                         color: 'var(--md-sys-color-primary)'}}>magic_button</span>
                                     <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
-                                        fontWeight: 900,
+                                        fontWeight: 'var(--md-sys-typescale-weight-black)',
                                         textTransform: 'uppercase',
                                         letterSpacing: '0.15em'}}>Generatore AI</M3Typography>
                                 </div>
@@ -608,7 +608,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <M3Typography
                                     variant="label-small"
                                     style={{color: 'var(--md-sys-color-primary)',
-                                        fontWeight: 900,
+                                        fontWeight: 'var(--md-sys-typescale-weight-black)',
                                         letterSpacing: '0.1em',
                                         textTransform: 'uppercase'}}
                                 >
@@ -629,14 +629,14 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         <M3Typography
                                             variant="body-medium"
                                             style={{color: 'var(--md-sys-color-on-surface)',
-                                                fontWeight: 500}}
+                                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                         >
                                             Intensità Blur Vetro
                                         </M3Typography>
                                         <M3Typography
                                             variant="body-small"
                                             style={{color: 'var(--md-sys-color-on-surface-variant)',
-                                                fontWeight: 600}}
+                                                fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
                                         >
                                             {themeState.glassBlur || 30}px
                                         </M3Typography>
@@ -658,14 +658,14 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         <M3Typography
                                             variant="body-medium"
                                             style={{color: 'var(--md-sys-color-on-surface)',
-                                                fontWeight: 500}}
+                                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                         >
                                             Scala Font
                                         </M3Typography>
                                         <M3Typography
                                             variant="body-small"
                                             style={{color: 'var(--md-sys-color-on-surface-variant)',
-                                                fontWeight: 600}}
+                                                fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
                                         >
                                             {themeState.fontScale || 1}x
                                         </M3Typography>
@@ -687,14 +687,14 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         <M3Typography
                                             variant="body-medium"
                                             style={{color: 'var(--md-sys-color-on-surface)',
-                                                fontWeight: 500}}
+                                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                         >
                                             Livello Contrasto
                                         </M3Typography>
                                         <M3Typography
                                             variant="body-small"
                                             style={{color: 'var(--md-sys-color-on-surface-variant)',
-                                                fontWeight: 600}}
+                                                fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
                                         >
                                             {themeState.contrastLevel || 0}
                                         </M3Typography>
@@ -716,14 +716,14 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         <M3Typography
                                             variant="body-medium"
                                             style={{color: 'var(--md-sys-color-on-surface)',
-                                                fontWeight: 500}}
+                                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                         >
                                             Arrotondamento Bordi
                                         </M3Typography>
                                         <M3Typography
                                             variant="body-small"
                                             style={{color: 'var(--md-sys-color-on-surface-variant)',
-                                                fontWeight: 600}}
+                                                fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
                                         >
                                             x{themeState.radiusMultiplier || 1}
                                         </M3Typography>
@@ -764,7 +764,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <M3Typography
                                     variant="label-small"
                                     style={{color: 'var(--md-sys-color-primary)',
-                                        fontWeight: 900,
+                                        fontWeight: 'var(--md-sys-typescale-weight-black)',
                                         letterSpacing: '0.1em',
                                         textTransform: 'uppercase'}}
                                 >
@@ -830,7 +830,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     color: 'var(--md-sys-color-primary)'}}>refresh</span>
                                 <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
-                                    fontWeight: 900,
+                                    fontWeight: 'var(--md-sys-typescale-weight-black)',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.15em'}}>Manutenzione Brand</M3Typography>
                             </div>
@@ -855,7 +855,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     color: 'var(--md-sys-color-primary)'}}>tune</span>
                                 <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
-                                    fontWeight: 900,
+                                    fontWeight: 'var(--md-sys-typescale-weight-black)',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.15em'}}>M3 Theme Panel</M3Typography>
                             </div>
@@ -886,10 +886,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             background: 'var(--md-sys-color-surface-container-low)',
                             boxShadow: 'var(--md-sys-elevation-level1)'}}
                     >
-                        <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-surface)', fontWeight: 900, marginBottom: 'var(--md-sys-spacing-4)'}}>
+                        <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-black)', marginBottom: 'var(--md-sys-spacing-4)'}}>
                             Profilo & Identità
                         </M3Typography>
-                        <M3Typography variant="body-small" style={{color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-4)', opacity: 0.8}}>
+                        <M3Typography variant="body-small" style={{color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-4)', opacity: 'var(--md-sys-state-opacity-caption)'}}>
                             Dati docente e istituto
                         </M3Typography>
                         <div style={{display: 'grid',
@@ -931,7 +931,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <M3Typography
                                 variant="label-small"
                                 style={{color: 'var(--md-sys-color-secondary)',
-                                    fontWeight: 900,
+                                    fontWeight: 'var(--md-sys-typescale-weight-black)',
                                     letterSpacing: '0.1em',
                                     textTransform: 'uppercase'}}
                             >
@@ -996,7 +996,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <M3Typography
                                         variant="label-large"
                                         style={{color: 'var(--md-sys-color-on-surface)',
-                                            fontWeight: 900,
+                                            fontWeight: 'var(--md-sys-typescale-weight-black)',
                                             letterSpacing: '0.025em',
                                             textTransform: 'uppercase'}}
                                     >
@@ -1056,7 +1056,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <M3Typography
                                         variant="label-large"
                                         style={{color: 'var(--md-sys-color-on-surface)',
-                                            fontWeight: 900,
+                                            fontWeight: 'var(--md-sys-typescale-weight-black)',
                                             letterSpacing: '0.025em',
                                             textTransform: 'uppercase'}}
                                     >
@@ -1090,7 +1090,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <M3Typography
                                         variant="label-small"
                                         style={{color: 'var(--md-sys-color-primary)',
-                                            fontWeight: 900,
+                                            fontWeight: 'var(--md-sys-typescale-weight-black)',
                                             letterSpacing: '0.1em',
                                             textTransform: 'uppercase'}}
                                     >
@@ -1126,7 +1126,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         <M3Typography
                                             variant="body-medium"
                                             style={{color: 'var(--md-sys-color-on-surface)',
-                                                fontWeight: 500}}
+                                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                         >
                                             Livelli / Anni
                                         </M3Typography>
@@ -1154,7 +1154,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         <M3Typography
                                             variant="body-medium"
                                             style={{color: 'var(--md-sys-color-on-surface)',
-                                                fontWeight: 500}}
+                                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                         >
                                             Sezioni
                                         </M3Typography>
@@ -1233,14 +1233,14 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         <tr style={{backgroundColor: 'var(--md-sys-color-surface-container-high)'}}>
                                             <th style={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                                                 textAlign: 'left',
-                                                fontWeight: 600,
+                                                fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                                 color: 'var(--md-sys-color-on-surface)',
                                                 borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                                 fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>Materia / Classe</th>
                                             {localSettings.classi.map(cls => (
                                                 <th key={cls} style={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                                                     textAlign: 'center',
-                                                    fontWeight: 600,
+                                                    fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                                     color: 'var(--md-sys-color-on-surface)',
                                                     borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                                     borderLeft: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
@@ -1287,7 +1287,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                             alignItems: 'center',
                                                             gap: 'var(--md-sys-spacing-4)',
                                                             flex: 1}}>
-                                                            <span style={{fontWeight: 500,
+                                                            <span style={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                                                 color: 'var(--md-sys-color-on-surface)'}}>{subj}</span>
                                                             <M3Button
                                                                 onClick={() => handleBulkAssign(subj)}
@@ -1438,7 +1438,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             <M3Typography
                                                 variant="body-medium"
                                                 style={{color: 'var(--md-sys-color-on-surface)',
-                                                    fontWeight: 500}}
+                                                    fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                             >
                                                 Suggerimento {id}
                                             </M3Typography>
@@ -1503,14 +1503,14 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <M3Typography
                                     variant="label-large"
                                     style={{color: 'var(--md-sys-color-on-surface)',
-                                        fontWeight: 600}}
+                                        fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
                                 >
                                     Storage Dispositivo
                                 </M3Typography>
                                 <M3Typography
                                     variant="body-medium"
                                     style={{color: 'var(--md-sys-color-on-surface-variant)',
-                                        fontWeight: 500}}
+                                        fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                 >
                                     {storageInfo.used}MB / {storageInfo.total}MB
                                 </M3Typography>
@@ -1589,7 +1589,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <M3Typography
                                     variant="label-large"
                                     style={{color: 'var(--md-sys-color-on-surface)',
-                                        fontWeight: 600}}
+                                        fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
                                 >
                                     {driveState.isAuthenticated ? 'Google Drive Connesso' : 'Backup Cloud Disattivo'}
                                 </M3Typography>
@@ -1669,7 +1669,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <M3Typography
                                         variant="label-large"
                                         style={{color: 'var(--md-sys-color-on-surface)',
-                                            fontWeight: 600}}
+                                            fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
                                     >
                                         Log degli Errori
                                     </M3Typography>
@@ -1779,7 +1779,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-primary)',
                                 fontSize: 'var(--md-sys-typescale-label-large-size)'}}>key</span>
                             <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
-                                fontWeight: '900',
+                                fontWeight: 'var(--md-sys-typescale-weight-black)',
                                 textTransform: 'uppercase',
                                 letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'}}>Google Cloud API</M3Typography>
                         </div>
@@ -1802,7 +1802,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-error)',
                                 fontSize: 'var(--md-sys-typescale-label-large-size)'}}>warning</span>
                             <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-error)',
-                                fontWeight: '900',
+                                fontWeight: 'var(--md-sys-typescale-weight-black)',
                                 textTransform: 'uppercase',
                                 letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'}}>Zona Pericolo</M3Typography>
                         </div>
@@ -1822,10 +1822,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     paddingTop: 'var(--md-sys-spacing-4)',
                     paddingBottom: 'var(--md-sys-spacing-4)'}}>
                     <M3Typography variant="body-small" style={{color: 'color-mix(in srgb, var(--md-sys-color-on-surface-variant) 50%, transparent)',
-                        opacity: 0.5}}>
+                        opacity: 'var(--md-sys-state-opacity-placeholder)'}}>
                         DocenteDoc AI v4.0.8 • Stable
                         <div style={{paddingTop: 'var(--md-sys-spacing-4)'}}>
-                            <span style={{fontWeight: '900',
+                            <span style={{fontWeight: 'var(--md-sys-typescale-weight-black)',
                                 textTransform: 'uppercase',
                                 letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'}}>Owner:</span> Antonio Corsano
                             <span style={{display: 'block',
@@ -1840,7 +1840,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             marginRight: 'var(auto)',
                             height: 'var(--md-sys-spacing-4)',
                             fontSize: 'var(--md-sys-typescale-label-small-size)',
-                            fontWeight: '900',
+                            fontWeight: 'var(--md-sys-typescale-weight-black)',
                             textTransform: 'uppercase',
                             letterSpacing: 'var(--md-sys-typescale-label-small-tracking)',
                             transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short2)',

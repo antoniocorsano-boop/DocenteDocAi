@@ -186,7 +186,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                                     aria-label="Continua"
                                 >
                                     Continua
-                                    <span style={{ fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>arrow_forward</span>
+                                    <span style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>arrow_forward</span>
                                 </M3Button>
             ) : (
                                 <M3Button
@@ -197,7 +197,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                                     aria-label="Inizia Ora"
                                 >
                                     Inizia Ora
-                                    <span style={{ fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>check</span>
+                                    <span style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>check</span>
                                 </M3Button>
             )}
         </div>
@@ -255,7 +255,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                             aria-label="Entra nella Dashboard"
                         >
                             Entra nella Dashboard
-                            <span style={{ fontWeight: 900, fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>login</span>
+                            <span style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>login</span>
                         </M3Button>
       </form>
   );
@@ -285,7 +285,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                         width: 'var(--md-sys-percent-40)',
                         height: 'var(--md-sys-percent-40)',
                         background: 'var(--md-sys-color-primary)',
-                        opacity: 0.1,
+                        opacity: 'var(--md-sys-state-opacity-tint-faint)',
                         filter: 'blur(var(--md-sys-blur-120))',
                         animation: 'pulse var(--md-sys-motion-duration-long) infinite',
                     }}
@@ -299,7 +299,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                         width: 'var(--md-sys-percent-40)',
                         height: 'var(--md-sys-percent-40)',
                         background: 'var(--md-sys-color-secondary)',
-                        opacity: 0.1,
+                        opacity: 'var(--md-sys-state-opacity-tint-faint)',
                         filter: 'blur(var(--md-sys-blur-120))',
                         animation: 'pulse var(--md-sys-motion-duration-long) infinite',
                     }}
@@ -314,7 +314,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                         width: 'var(--md-sys-percent-60)',
                         height: 'var(--md-sys-percent-60)',
                         background: 'var(--md-sys-color-tertiary)',
-                        opacity: 0.05,
+                        opacity: 'var(--md-sys-state-opacity-tint-hairline)',
                         filter: 'blur(var(--md-sys-blur-150))',
                     }}
                 ></div>

@@ -247,7 +247,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                                                                             {isSelected && <span>check</span>}
                                                                                         </div>
                                                                                         <div style={{ minWidth: '0' }}>
-                                                                                            <p style={{ fontWeight: 700, margin: 0 }}>{comp.codice}</p>
+                                                                                            <p style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', margin: 0 }}>{comp.codice}</p>
                                                                                             <p style={{ margin: 0 }}>{comp.nome}</p>
                                                                                         </div>
                                         </div>

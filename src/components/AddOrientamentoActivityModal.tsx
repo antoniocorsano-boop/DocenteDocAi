@@ -119,7 +119,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                                   padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
                                   borderRadius: 'var(--md-sys-shape-corner-full)',
                                   fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                  fontWeight: '700',
+                                  fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                   transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`, // MD3 motion tokens for duration and easing
                                   border: 'none',
                                   cursor: 'pointer',

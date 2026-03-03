@@ -53,7 +53,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                         background: 'var(--md-sys-color-surface-container-high)',
                         transform: 'scale(1.2)',
                         animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`,
-                        opacity: 0.4
+                        opacity: 'var(--md-sys-state-opacity-empty)'
                     }}
                 />
 
@@ -89,7 +89,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                         style={{
                             fontSize: dim.icon,
                             color: 'var(--md-sys-color-primary)',
-                            fontWeight: 300
+                            fontWeight: 'var(--md-sys-typescale-weight-light)'
                         }}
                     >
                         diamond

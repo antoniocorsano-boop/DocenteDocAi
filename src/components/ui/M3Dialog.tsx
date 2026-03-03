@@ -166,7 +166,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
             right: 0,
             bottom: 0,
             backgroundColor: scrim,
-            opacity: 0.32, // MD3 scrim opacity
+            opacity: 'var(--md-sys-state-opacity-scrim)', // MD3 scrim opacity (0.32)
             backdropFilter: `blur(var(--md-sys-blur-2xl))`, // MD3 glass blur
             animation: `fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-decelerated)`
           }}
@@ -196,7 +196,8 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
           display: 'flex',
           flexDirection: 'column',
           position: 'relative',
-          zIndex: contentZIndex
+          zIndex: contentZIndex,
+          animation: `md3-dialog-enter var(--md-sys-motion-duration-medium) var(--md-sys-motion-spring-expressive-default-spatial) forwards`
         }}
         role="dialog"
         aria-modal="true"
@@ -237,7 +238,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
                     fontWeight: bodyLargeFontWeight,
                     lineHeight: bodyLargeLineHeight,
                     color: onSurfaceVariant,
-                    opacity: 0.8,
+                    opacity: 'var(--md-sys-state-opacity-caption)',
                     margin: `${spacing4} 0 0 0`,
                     display: '-webkit-box',
                     WebkitLineClamp: 2,

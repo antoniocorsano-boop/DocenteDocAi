@@ -98,7 +98,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                             <div style={{
                                 width: 'var(--md-sys-spacing-20)',
                                 height: 'var(--md-sys-spacing-20)',
-                                borderRadius: 'var(50%)',
+                                borderRadius: 'var(--md-sys-shape-corner-full)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -139,7 +139,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                             <M3Typography variant="body-medium" style={{
                                 marginTop: 'var(--md-sys-spacing-6)',
                                 textAlign: 'center',
-                                opacity: 0.8,
+                                opacity: 'var(--md-sys-state-opacity-caption)',
                                 color: 'var(--md-sys-color-on-surface-variant)'
                             }}>
                                 Trascina qui il file o clicca per selezionare.
@@ -219,7 +219,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                             }}>
                                 <span style={{
 }}>auto_awesome</span>
-                                <h3  style={{ fontWeight: "900" }}>Risultato Ristrutturato</h3>
+                                <h3  style={{ fontWeight: "var(--md-sys-typescale-weight-black)" }}>Risultato Ristrutturato</h3>
                             </div>
                             <div  style={{flexGrow: "1", padding: 'var(--md-sys-spacing-8)', overflowY: "auto"}}>
                                 <div dangerouslySetInnerHTML={{ __html: refactoredHtml }} />

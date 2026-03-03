@@ -87,7 +87,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                                 style={{
                                     width: 'var(--md-sys-spacing-10)', // infoCard.buttonSize
                                     height: 'var(--md-sys-spacing-10)', // infoCard.buttonSize
-                                    borderRadius: 'var(50%)',
+                                    borderRadius: 'var(--md-sys-shape-corner-full)',
                                     backgroundColor: 'transparent',
                                     border: 'none',
                                     display: 'flex',

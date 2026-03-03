@@ -353,7 +353,7 @@
   font-size: var(--md-sys-typescale-label-small-font-size);
   font-weight: 600;
   border-radius: var(--md-sys-spacing-1);
-  z-index: 10000;
+  z-index: var(--md-sys-z-snackbar);
   pointer-events: none;
   opacity: 0;
   /* Briefly show on load, then fade out */

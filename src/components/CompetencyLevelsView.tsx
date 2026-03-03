@@ -66,10 +66,10 @@ const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
             </div>
             <div style={{ flexGrow: "1" }}>
                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 'var(--md-sys-spacing-4)'}}>
-                    <h3 style={{ color: 'var(--md-sys-color-on-surface)' ,  fontWeight: "bold" }}>{nome}</h3>
+                    <h3 style={{ color: 'var(--md-sys-color-on-surface)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{nome}</h3>
                     <span style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-spacing-3)"}}>Valore: {voto}</span>
                 </div>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  opacity: "0.9" }}>{descrizione}</p>
+                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  opacity: "var(--md-sys-state-opacity-hover-overlay)" }}>{descrizione}</p>
             </div>
         </div>
     );

@@ -64,10 +64,10 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         }}>{icon}</span>
                     </div>
                     <div>
-                        <label style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", display: "block" }}>
+                        <label style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", display: "block" }}>
                             {label}
                         </label>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "bold", opacity: "0.5", textTransform: "uppercase" }}>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-bold)", opacity: "var(--md-sys-state-opacity-placeholder)", textTransform: "uppercase" }}>
                             {items.length} {items.length === 1 ? 'elemento' : 'elementi'} salvati
                         </span>
                     </div>
@@ -114,7 +114,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    opacity: '0.7',
+                                    opacity: 'var(--md-sys-state-opacity-supporting)',
                                     transition: 'opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                                 }}
                             >
@@ -127,7 +127,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                     ))}
                     
                     {items.length === 0 && (
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-large-font-size)', opacity: "0.4", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Nessun elemento aggiunto...</p>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-large-font-size)', opacity: "var(--md-sys-state-opacity-empty)", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Nessun elemento aggiunto...</p>
                     )}
                 </div>
                 
@@ -144,7 +144,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                 }} onClick={() => inputRef.current?.focus()}>
                     <span style={{
                         fontSize: 'var(--md-sys-spacing-4)',
-                        opacity: '0.6',
+                        opacity: 'var(--md-sys-state-opacity-secondary)',
                         transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                         color: 'var(--md-sys-color-on-surface-variant)'
                     }} aria-hidden="true">add_circle</span>
@@ -191,7 +191,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         }}>arrow_forward</span>
                     </button>
                 </div>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "0.4", marginTop: 'var(--md-sys-spacing-3)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", fontWeight: "bold" }}>
+                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-empty)", marginTop: 'var(--md-sys-spacing-3)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
                     Premi Invio o usa la virgola per aggiungere più elementi
                 </p>
             </div>

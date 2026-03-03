@@ -219,7 +219,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                     style={{
                         color: 'var(--md-sys-color-on-surface-variant)',
                         fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                        fontWeight: '700',
+                        fontWeight: 'var(--md-sys-typescale-weight-bold)',
                         textTransform: 'uppercase',
                         letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.1em)'
                     }}
@@ -228,7 +228,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         style={{
                             color: 'var(--md-sys-color-on-surface-variant)',
                             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                            fontWeight: '700',
+                            fontWeight: 'var(--md-sys-typescale-weight-bold)',
                             textTransform: 'uppercase',
                             letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.1em)'
                         }}
@@ -329,7 +329,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                     <p
                                         style={{
                                             color: 'var(--md-sys-color-on-surface)',
-                                            fontWeight: '500',
+                                            fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                             lineHeight: '1.625'
                                         }}
                                     >{aiInsight}</p>

@@ -116,7 +116,7 @@ export const SettingsGroup: React.FC<SettingsGroupProps> = ({
                             variant="title-medium"
                             style={{
                                 color: 'var(--md-sys-color-on-surface)',
-                                fontWeight: 600
+                                fontWeight: 'var(--md-sys-typescale-weight-semibold)'
                             }}
                         >
                             {title}

@@ -22,7 +22,7 @@ export const ThemeService = {
       spacingScale: 1.2,
       elevationLevel: 1,
       backdropBlur: 'var(--md-sys-elevation-blur-level1)',
-      opacity: 0.95
+      opacity: 'var(--md-sys-state-opacity-hover-overlay)'
     } as EmotionalPresetTokens,
     energetic: {
       primary: 'var(--md-sys-color-primary)',
@@ -66,7 +66,7 @@ export const ThemeService = {
       cornerRadius: 'var(--md-sys-shape-corner-full)',
       spacingScale: 1.4,
       backdropBlur: 'var(--md-sys-elevation-blur-level2)',
-      opacity: 0.9
+      opacity: 'var(--md-sys-state-opacity-hover-overlay)'
     } as EmotionalPresetTokens,
     professional: {
       primary: 'var(--md-sys-color-primary)',

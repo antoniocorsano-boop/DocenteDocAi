@@ -1,7 +1,6 @@
-// MD3 Compliant - Block J Migration Complete (4 violations eliminated)
+// MD3 Compliant - Pure CSS tokens, no useTheme dependency
 
 import React from 'react';
-import { useTheme } from '../theme/theme';
 
 interface ThemeBubbleProps {
     name: string;
@@ -11,7 +10,6 @@ interface ThemeBubbleProps {
 }
 
 const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onClick }) => {
-    const { layers: { sys: { colors: themeColors }, ref: { spacing } } } = useTheme();
 
     return (
         <button
@@ -37,16 +35,16 @@ const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onC
                 <div  style={{ backgroundColor: colors.tertiary }}></div>
 
                 {/* Checkmark Overlay */}
-                <div  style={{ color: themeColors.primary }}>
-                     <span  style={{ fontSize: "var(--md-sys-typescale-title-large-font-size)", fontWeight: "bold" }}>check_circle</span>
+                <div  style={{ color: 'var(--md-sys-color-primary)' }}>
+                     <span  style={{ fontSize: "var(--md-sys-typescale-title-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)" }}>check_circle</span>
                 </div>
             </div>
 
             <div  style={{
-                color: themeColors.onSurface,
+                color: 'var(--md-sys-color-on-surface)',
                 fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                fontWeight: 500,
-                marginTop: spacing.xs
+                fontWeight: 'var(--md-sys-typescale-weight-medium)',
+                marginTop: 'var(--md-sys-spacing-2)'
             }}>
                 {name}
             </div>

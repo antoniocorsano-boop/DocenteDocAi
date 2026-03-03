@@ -48,7 +48,7 @@ const defaultTheme: MD3Theme = {
         'body-large': {
           fontFamily: 'Roboto, sans-serif',
           fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-          fontWeight: '400',
+          fontWeight: 'var(--md-sys-typescale-weight-regular)',
           lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
         },
       },

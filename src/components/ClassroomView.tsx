@@ -221,7 +221,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         borderRadius: 'var(--md-sys-shape-corner-medium)',
                         padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
                         cursor: 'pointer',
-                        fontWeight: 'bold',
+                        fontWeight: 'var(--md-sys-typescale-weight-bold)',
                         textTransform: 'uppercase',
                         letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'
                     }}
@@ -233,7 +233,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
             </div>
 
             <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
-                <M3Typography variant="headline-large" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'bold', marginBottom: 'var(--md-sys-spacing-1)' }}>{lesson.materia}</M3Typography>
+                <M3Typography variant="headline-large" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)', marginBottom: 'var(--md-sys-spacing-1)' }}>{lesson.materia}</M3Typography>
                 <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{lesson.contenuto || 'Lezione'}</M3Typography>
 
                 <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
@@ -257,7 +257,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                     <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
                         {lesson.obiettivi && (
                             <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', marginBottom: 'var(--md-sys-spacing-8)' }}>
-                                <M3Typography variant="title-medium" style={{ fontWeight: 'bold', color: 'var(--md-sys-color-primary)', textTransform: 'uppercase', marginBottom: 'var(--md-sys-spacing-4)' }}>Obiettivi Didattici</M3Typography>
+                                <M3Typography variant="title-medium" style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-primary)', textTransform: 'uppercase', marginBottom: 'var(--md-sys-spacing-4)' }}>Obiettivi Didattici</M3Typography>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)' }}>
                                     {lesson.obiettivi.split('\n').filter(o => o.trim()).map((obj, idx) => (
                                         <label key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-3)', cursor: 'pointer', padding: 'var(--md-sys-spacing-1)', borderRadius: 'var(--md-sys-shape-corner-small)' }}>
@@ -341,7 +341,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                     </button>
                                                     <Avatar name={`${student.nome}`} size="md" />
                                                     <div style={{ minWidth: 0, flex: 1 }}>
-                                                        <M3Typography variant="title-small" style={{ fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: status === 'assente' ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-surface)', textDecoration: status === 'assente' ? 'line-through' : 'none' }}>
+                                                        <M3Typography variant="title-small" style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: status === 'assente' ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-surface)', textDecoration: status === 'assente' ? 'line-through' : 'none' }}>
                                                             {student.cognome} {student.nome}
                                                         </M3Typography>
                                                         <M3Typography variant="body-small" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--md-sys-color-on-surface-variant)' }}>{student.classe}</M3Typography>
@@ -353,7 +353,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                     <M3Typography
                                                         variant="title-large"
                                                         style={{
-                                                            fontWeight: 'bold',
+                                                            fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                                             color: parseFloat(stat.grade || '0') > 7 ? 'var(--md-sys-color-primary)' : parseFloat(stat.grade || '0') > 6 ? 'var(--md-sys-color-secondary)' : 'var(--md-sys-color-error)'
                                                         }}
                                                     >
@@ -374,13 +374,13 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                 {/* Column 3: Written Evals */}
                                                 <div style={{ textAlign: 'center' }}>
                                                     <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Scritti</M3Typography>
-                                                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'bold' }}>{stat.writtenCount > 0 ? `${stat.writtenCount} - ${stat.writtenAvg}` : '-'}</M3Typography>
+                                                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{stat.writtenCount > 0 ? `${stat.writtenCount} - ${stat.writtenAvg}` : '-'}</M3Typography>
                                                 </div>
 
                                                 {/* Column 4: Oral Evals */}
                                                 <div style={{ textAlign: 'center' }}>
                                                     <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Orali</M3Typography>
-                                                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'bold' }}>{stat.oralCount > 0 ? `${stat.oralCount} - ${stat.oralAvg}` : '-'}</M3Typography>
+                                                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{stat.oralCount > 0 ? `${stat.oralCount} - ${stat.oralAvg}` : '-'}</M3Typography>
                                                 </div>
 
                                                 {/* Column 5: Notes */}
@@ -400,7 +400,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                                 padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
                                                                 borderRadius: 'var(--md-sys-shape-corner-full)',
                                                                 fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                                                fontWeight: 'bold',
+                                                                fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                                                 textTransform: 'uppercase',
                                                                 letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                                                                 backgroundColor: hwStatus === 'missing' ? 'var(--md-sys-color-error-container)' : hwStatus === 'partial' ? 'var(--md-sys-color-surface-container)' : 'var(--md-sys-color-primary-container)',
@@ -492,7 +492,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
                                     cursor: 'pointer',
-                                    fontWeight: 'bold',
+                                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                     textTransform: 'uppercase',
                                     letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                                 }}
@@ -513,7 +513,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
                                     cursor: 'pointer',
-                                    fontWeight: 'bold',
+                                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                     textTransform: 'uppercase',
                                     letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                                 }}
@@ -534,7 +534,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
                                     cursor: 'pointer',
-                                    fontWeight: 'bold',
+                                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                     textTransform: 'uppercase',
                                     letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                                 }}
@@ -588,14 +588,14 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             </span>
                                         </div>
                                         <div style={{ flexGrow: 1, minWidth: 0 }}>
-                                            <M3Typography variant="body-medium" style={{ fontWeight: 'bold', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--md-sys-color-on-surface)' }}>{mat.label || mat.fileName}</M3Typography>
+                                            <M3Typography variant="body-medium" style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--md-sys-color-on-surface)' }}>{mat.label || mat.fileName}</M3Typography>
                                             <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', textTransform: 'uppercase' }}>{mat.type}</M3Typography>
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         ) : (
-                            <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-4)', opacity: 0.6 }}>
+                            <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-4)', opacity: 'var(--md-sys-state-opacity-secondary)' }}>
                                 <span style={{ marginBottom: 'var(--md-sys-spacing-2)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>folder_off</span>
                                 <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessun materiale.</M3Typography>
                             </div>
@@ -603,11 +603,11 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 
                         {lesson.adattamenti && (
                             <div style={{ color: 'var(--md-sys-color-on-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-secondary-container)' }}>
-                                <M3Typography variant="title-medium" style={{ fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-2)' }}>
+                                <M3Typography variant="title-medium" style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-2)' }}>
                                     <span style={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>accessibility_new</span>
                                     Inclusione
                                 </M3Typography>
-                                <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-secondary-container)', opacity: 0.9, whiteSpace: 'pre-wrap' }}>{lesson.adattamenti}</M3Typography>
+                                <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-secondary-container)', opacity: 'var(--md-sys-state-opacity-hover-overlay)', whiteSpace: 'pre-wrap' }}>{lesson.adattamenti}</M3Typography>
                             </div>
                         )}
                     </div>
@@ -642,8 +642,8 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', paddingBottom: 'var(--md-sys-spacing-2)' }}>
                             <Avatar name={`${selectedStudentForActions.nome}`} size="md" />
                             <div>
-                                <M3Typography variant="headline-small" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: '900', color: 'var(--md-sys-color-on-surface)' }}>{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</M3Typography>
-                                <M3Typography variant="body-small" style={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--md-sys-color-primary)' }}>Azioni Rapide</M3Typography>
+                                <M3Typography variant="headline-small" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-black)', color: 'var(--md-sys-color-on-surface)' }}>{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</M3Typography>
+                                <M3Typography variant="body-small" style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--md-sys-color-primary)' }}>Azioni Rapide</M3Typography>
                             </div>
                         </div>
 
@@ -666,7 +666,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
                                     <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>grading</span>
                                 </div>
-                                <M3Typography variant="label-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--md-sys-color-on-primary-container)' }}>Voto</M3Typography>
+                                <M3Typography variant="label-small" style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--md-sys-color-on-primary-container)' }}>Voto</M3Typography>
                             </button>
                             <button
                                 onClick={() => { setObservationStudent(selectedStudentForActions); setSelectedStudentForActions(null); }}
@@ -686,7 +686,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-secondary)', color: 'var(--md-sys-color-on-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
                                     <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>visibility</span>
                                 </div>
-                                <M3Typography variant="label-small" style={{ fontWeight: '900', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--md-sys-color-on-secondary-container)' }}>Osserva</M3Typography>
+                                <M3Typography variant="label-small" style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--md-sys-color-on-secondary-container)' }}>Osserva</M3Typography>
                             </button>
                             <button
                                 onClick={() => { setViewingStudentProfile(selectedStudentForActions); setSelectedStudentForActions(null); }}
@@ -706,12 +706,12 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-on-surface-variant)', color: 'var(--md-sys-color-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
                                     <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>person</span>
                                 </div>
-                                <M3Typography variant="label-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: '900', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)' }}>Profilo</M3Typography>
+                                <M3Typography variant="label-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)' }}>Profilo</M3Typography>
                             </button>
                         </div>
 
                         <div style={{ marginBottom: 'var(--md-sys-spacing-3)' }}>
-                            <M3Typography variant="title-small" style={{ fontWeight: '900', textTransform: 'uppercase', marginBottom: 'var(--md-sys-spacing-2)', paddingLeft: 'var(--md-sys-spacing-2)', paddingRight: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface-variant)' }}>Partecipazione</M3Typography>
+                            <M3Typography variant="title-small" style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', marginBottom: 'var(--md-sys-spacing-2)', paddingLeft: 'var(--md-sys-spacing-2)', paddingRight: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface-variant)' }}>Partecipazione</M3Typography>
                             <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', overflowX: 'auto' }}>
                                 {PARTICIPATION_BADGES.map(badge => (
                                     <button
@@ -731,14 +731,14 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                         }}
                                     >
                                         <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{badge.icon}</span>
-                                        <M3Typography variant="label-small" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'bold' }}>{badge.label}</M3Typography>
+                                        <M3Typography variant="label-small" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{badge.label}</M3Typography>
                                     </button>
                                 ))}
                             </div>
                         </div>
 
                         <div>
-                            <M3Typography variant="title-small" style={{ fontWeight: '900', textTransform: 'uppercase', marginBottom: 'var(--md-sys-spacing-2)', paddingLeft: 'var(--md-sys-spacing-2)', paddingRight: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface-variant)' }}>Compiti</M3Typography>
+                            <M3Typography variant="title-small" style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', marginBottom: 'var(--md-sys-spacing-2)', paddingLeft: 'var(--md-sys-spacing-2)', paddingRight: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface-variant)' }}>Compiti</M3Typography>
                             <TabGroup
                                 tabs={[
                                     { id: 'completed', label: 'Svolti' },

@@ -56,7 +56,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
             maxWidth="sm"
             level={1}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 0.3, gap: 'var(--md-sys-spacing-4)' }}>
+            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 'var(--md-sys-state-opacity-tint-moderate)', gap: 'var(--md-sys-spacing-4)' }}>
                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>Scegli come condividere il contenuto</p>
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
@@ -88,7 +88,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             <span style={{ fontSize: 'var(--md-sys-spacing-6)' }}>share</span>
                         </div>
                         <div>
-                            <p style={{ fontSize: 'var(--md-sys-spacing-5)', fontWeight: 'bold' }}>Condividi via...</p>
+                            <p style={{ fontSize: 'var(--md-sys-spacing-5)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Condividi via...</p>
                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>WhatsApp, Email, Drive</p>
                         </div>
                     </button>
@@ -121,7 +121,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             <span style={{ fontSize: 'var(--md-sys-spacing-6)' }}>{copyStatus === 'copied' ? 'check' : 'content_paste'}</span>
                         </div>
                         <div>
-                            <p style={{ fontSize: 'var(--md-sys-spacing-5)', fontWeight: 'bold' }}>{copyStatus === 'copied' ? 'Copiato!' : 'Copia Formattato'}</p>
+                            <p style={{ fontSize: 'var(--md-sys-spacing-5)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{copyStatus === 'copied' ? 'Copiato!' : 'Copia Formattato'}</p>
                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Per registro elettronico o Padlet</p>
                         </div>
                     </button>

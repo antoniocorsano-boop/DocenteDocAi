@@ -144,8 +144,8 @@ return (
             {/* --- HEADER (Minimal) --- */}
             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container)', display: "flex", justifyContent: "space-between", alignItems: "center", padding: 'var(--md-sys-spacing-6)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                 <div>
-                    <h1 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", letterSpacing: "var(--md-sys-typescale-body-medium-tracking)" }}>Flow</h1>
-                    <p  style={{color: "var(--md-sys-color-primary)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "0.7"}}>{todayName}, {now.toLocaleDateString('it-IT', { day: '2-digit', month: 'long' })}</p>
+                    <h1 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "var(--md-sys-typescale-body-medium-tracking)" }}>Flow</h1>
+                    <p  style={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "var(--md-sys-state-opacity-supporting)"}}>{todayName}, {now.toLocaleDateString('it-IT', { day: '2-digit', month: 'long' })}</p>
                 </div>
                 <button onClick={onOpenOperations} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-on-primary-container)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                     {}
@@ -158,11 +158,11 @@ return (
             <div  style={{flexGrow: "1", overflowY: "auto", gap: 'var(--md-sys-spacing-8)'}}>
                 {timelineItems.length === 0 && (
                     <div 
-                        style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 , textAlign: "center", opacity: "0.5", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}
+                        style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 , textAlign: "center", opacity: "var(--md-sys-state-opacity-placeholder)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}
                     >
-                        <span style={{ color: 'var(--md-sys-color-primary)', opacity: 0.4, marginBottom: 'var(--md-sys-spacing-8)'}}>event_busy</span>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "bold" }}>Nessun evento o lezione oggi.</p>
-                        <button onClick={() => actions.handleNavigate('timetable')} style={{ backgroundColor: sys.colors.primary/10 , marginTop: 'var(--md-sys-spacing-4)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-primary)", fontWeight: "900", fontSize: "var(--md-sys-typescale-label-large-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}>
+                        <span style={{ color: 'var(--md-sys-color-primary)', opacity: 'var(--md-sys-state-opacity-empty)', marginBottom: 'var(--md-sys-spacing-8)'}}>event_busy</span>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Nessun evento o lezione oggi.</p>
+                        <button onClick={() => actions.handleNavigate('timetable')} style={{ backgroundColor: sys.colors.primary/10 , marginTop: 'var(--md-sys-spacing-4)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-label-large-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}>
                             Configura Orario
                         </button>
                     </div>
@@ -178,7 +178,7 @@ return (
                                 <div style={{ backgroundColor: sys.colors.gradient-to-b ,  width: "var(--md-sys-spacing-1)", borderRadius: 'var(--md-sys-spacing-4)' }}></div>
                                 <div  style={{width: "var(--md-sys-spacing-6)", height: "var(--md-sys-spacing-6)", borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)"}}></div>
                                 
-                                <div  style={{marginBottom: 'var(--md-sys-spacing-6)', fontWeight: "900", color: "var(--md-sys-color-primary)", textTransform: "uppercase", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
+                                <div  style={{marginBottom: 'var(--md-sys-spacing-6)', fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)", textTransform: "uppercase", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                     <span  style={{ display: "flex", height: "var(--md-sys-spacing-2)", width: "var(--md-sys-spacing-2)" }}>
                                         <span  style={{display: "inline-flex", height: "var(--md-sys-percent-full)", width: "var(--md-sys-percent-full)", borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", opacity: "0.75"}}></span>
                                         <span  style={{display: "inline-flex", borderRadius: 'var(--md-sys-spacing-4)', height: "var(--md-sys-spacing-2)", width: "var(--md-sys-spacing-2)", backgroundColor: "var(--md-sys-color-primary)"}}></span>
@@ -190,8 +190,8 @@ return (
                                 >
                                     <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 'var(--md-sys-spacing-6)'}}>
                                         <div>
-                                            <h2 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900", letterSpacing: "var(--md-sys-typescale-body-medium-tracking)", lineHeight: "1.25" }}>{item.title}</h2>
-                                            <p style={{ color: 'var(--md-sys-color-on-primary)', opacity: "0.8", fontWeight: "500", marginTop: 'var(--md-sys-spacing-4)'}}>{item.subtitle}</p>
+                                            <h2 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "var(--md-sys-typescale-body-medium-tracking)", lineHeight: "1.25" }}>{item.title}</h2>
+                                            <p style={{ color: 'var(--md-sys-color-on-primary)', opacity: "var(--md-sys-state-opacity-caption)", fontWeight: "var(--md-sys-typescale-weight-medium)", marginTop: 'var(--md-sys-spacing-4)'}}>{item.subtitle}</p>
                                         </div>
                                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", justifyContent: "center" }}>
                                             <span style={{ color: 'var(--md-sys-color-primary)' }}>
@@ -200,7 +200,7 @@ return (
                                         </div>
                                     </div>
                                     {item.actionLabel && (
-                                        <button onClick={item.onAction} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "var(--md-sys-percent-full)", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', backgroundColor: "white", color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "900", fontSize: "var(--md-sys-typescale-label-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}>
+                                        <button onClick={item.onAction} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "var(--md-sys-percent-full)", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', backgroundColor: "white", color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-label-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}>
                                             {item.actionLabel} {}<span  style={{ marginLeft: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-medium-size)" }}>arrow_forward</span>{}
                                         </button>
                                     )}
@@ -212,14 +212,14 @@ return (
                     // PAST ITEMS (Compact, Faded)
                     if (item.status === 'past') {
                         return (
-                            <div key={item.id}  style={{ opacity: "0.4" }}>
+                            <div key={item.id}  style={{ opacity: "var(--md-sys-state-opacity-empty)" }}>
                                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-variant)' }}></div>
                                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-variant)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)' }}></div>
                                 <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", width: 'var(--md-sys-spacing-4)', textTransform: "uppercase" }}>{item.time}</span>
+                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", width: 'var(--md-sys-spacing-4)', textTransform: "uppercase" }}>{item.time}</span>
                                     <div>
-                                        <p style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "bold" }}>{item.title}</p>
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "500", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{item.subtitle}</p>
+                                        <p style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{item.title}</p>
+                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-medium)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{item.subtitle}</p>
                                     </div>
                                 </div>
                             </div>
@@ -237,11 +237,11 @@ return (
                                 onClick={item.onAction}
                             >
                                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
-                                    <span style={{ backgroundColor: 'var(--md-sys-color-primary-container)', fontWeight: "900", color: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>{item.time}</span>
-                                    {item.type === 'lesson' && <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "900", textTransform: "uppercase", opacity: "0.5" }}>Lezione</span>}
+                                    <span style={{ backgroundColor: 'var(--md-sys-color-primary-container)', fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>{item.time}</span>
+                                    {item.type === 'lesson' && <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", opacity: "var(--md-sys-state-opacity-placeholder)" }}>Lezione</span>}
                                 </div>
-                                <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "900", transition: "color var(--md-sys-motion-duration-medium)" }}>{item.title}</h3>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "500", marginTop: 'var(--md-sys-spacing-4)'}}>{item.subtitle}</p>
+                                <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)", transition: "color var(--md-sys-motion-duration-medium)" }}>{item.title}</h3>
+                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "var(--md-sys-typescale-weight-medium)", marginTop: 'var(--md-sys-spacing-4)'}}>{item.subtitle}</p>
                             </div>
                         </div>
                     );
@@ -250,7 +250,7 @@ return (
 
             {/* --- MAGIC BOTTOM BAR (Floating) --- */}
             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-6)', display: 'flex', justifyContent: 'center' }}>
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 0.8, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)' }}>
+                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 'var(--md-sys-state-opacity-caption)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)' }}>
                     
                     <button onClick={() => actions.handleNavigate('settings')} style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}>
                         {}
@@ -258,7 +258,7 @@ return (
                         {}
                     </button>
 
-                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 0.5, color: 'var(--md-sys-color-on-surface-variant)', flexGrow: "1", borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", fontSize: "var(--md-sys-typescale-label-medium-size)", fontWeight: "bold", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}} onClick={onOpenLiveAssistant}>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 'var(--md-sys-state-opacity-placeholder)', color: 'var(--md-sys-color-on-surface-variant)', flexGrow: "1", borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", fontSize: "var(--md-sys-typescale-label-medium-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}} onClick={onOpenLiveAssistant}>
                         Chiedi all'assistente...
                     </div>
 

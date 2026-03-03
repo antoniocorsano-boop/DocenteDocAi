@@ -61,7 +61,7 @@ const SkipLink: React.FC<SkipLinkProps> = ({
         zIndex: 'var(--md-sys-z-sticky)',
         borderRadius: '0 0 var(--md-corner-small) 0',
         fontSize: 'var(--md-sys-typescale-body-medium-size)',
-        fontWeight: 600,}}
+        fontWeight: 'var(--md-sys-typescale-weight-semibold)',}}
       onKeyDown={(e: React.KeyboardEvent<HTMLAnchorElement>) => {
         if (e.key === 'Enter' || e.key === ' ') {
           handleClick(e as unknown as React.MouseEvent<HTMLAnchorElement>);

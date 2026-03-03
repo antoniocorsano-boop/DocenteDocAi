@@ -86,7 +86,7 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
               : isFocused
                 ? 'var(--md-sys-color-primary)'
                 : 'var(--md-sys-color-on-surface-variant)',
-            fontWeight: '600',
+            fontWeight: 'var(--md-sys-typescale-weight-semibold)',
             marginBottom: 'var(--md-sys-spacing-2)',
             display: 'block',
             transition: 'color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'

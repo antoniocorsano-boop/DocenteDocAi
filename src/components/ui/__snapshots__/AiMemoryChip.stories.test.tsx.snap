@@ -9,12 +9,12 @@ exports[`AiMemoryChip Story Snapshots > renders default story correctly 1`] = `
     title="Contesto utilizzato dall'AI"
   >
     <span
-      style="font-size: var(--md-sys-typescale-body-large-font-size); color: var(--md-sys-color-tertiary); font-weight: bold; animation: pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;"
+      style="font-size: var(--md-sys-typescale-body-large-font-size); color: var(--md-sys-color-tertiary); font-weight: var(--md-sys-typescale-weight-bold); animation: pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;"
     >
       psychology
     </span>
     <span
-      style="font-size: var(--md-sys-typescale-body-large-font-size); font-weight: 800; color: var(--md-sys-color-tertiary); text-transform: uppercase; letter-spacing: 0.15em;"
+      style="font-size: var(--md-sys-typescale-body-large-font-size); font-weight: var(--md-sys-typescale-weight-extrabold); color: var(--md-sys-color-tertiary); text-transform: uppercase; letter-spacing: 0.15em;"
     >
       Test Context
     </span>

@@ -105,7 +105,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                 variant="label-large"
                 style={{
                     textAlign: 'center',
-                    fontWeight: 900,
+                    fontWeight: 'var(--md-sys-typescale-weight-black)',
                     letterSpacing: '-0.025em',
                     color: 'var(--md-sys-color-on-surface)',
                     margin: 0
@@ -119,7 +119,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                     style={{
                         textAlign: 'center',
                         color: 'var(--md-sys-color-on-surface-variant)',
-                        opacity: 0.7,
+                        opacity: 'var(--md-sys-state-opacity-supporting)',
                         lineHeight: 1.3,
                         padding: '0 var(--md-sys-spacing-4)',
                         display: '-webkit-box',

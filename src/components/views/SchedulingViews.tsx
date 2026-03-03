@@ -13,8 +13,6 @@
  */
 
 import React from 'react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useTheme } from '../../theme/theme';
 import { Timetable } from '../Timetable';
 import Calendar from '../Calendar';
 import LessonsPage from '../LessonsPage';

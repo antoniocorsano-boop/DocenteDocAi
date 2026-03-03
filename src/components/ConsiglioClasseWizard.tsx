@@ -80,7 +80,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                 </SelectField>
 
                  <div style={{gap: 'var(--md-sys-spacing-2)'}}>
-                    <label  style={{color: "var(--md-sys-color-primary)", fontWeight: "900", textTransform: "uppercase", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Periodo di Valutazione</label>
+                    <label  style={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Periodo di Valutazione</label>
                     <TabGroup
                         tabs={[
                             { id: 'primo-quadrimestre', label: 'Primo Quadrimestre (1Q)' },
@@ -112,10 +112,10 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
             <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
                 <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-5)', border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)`, display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                     <div>
-                        <p style={{fontWeight: "900", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-primary)"}}>Context Active</p>
-                        <h3 style={{ color: 'var(--md-sys-color-on-primary-container)' ,  fontWeight: "900" }}>{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</h3>
+                        <p style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-primary)"}}>Context Active</p>
+                        <h3 style={{ color: 'var(--md-sys-color-on-primary-container)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</h3>
                     </div>
-                    <M3Button variant="tonal" onClick={() => setStep(1)}  style={{ fontSize: "var(--md-sys-typescale-body-small-size)", fontWeight: "bold", textTransform: "uppercase" }}>Cambia</M3Button>
+                    <M3Button variant="tonal" onClick={() => setStep(1)}  style={{ fontSize: "var(--md-sys-typescale-body-small-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase" }}>Cambia</M3Button>
                 </div>
 
                 <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
@@ -147,7 +147,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
              >
                 <M3DialogContent  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
                     <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: `var(--md-sys-border-width-thick) solid var(--md-sys-color-outline)`, borderColor: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-6)'}}></div>
-                    <p  style={{fontWeight: "900", color: "var(--md-sys-color-primary)"}}>{loadingMessage}</p>
+                    <p  style={{fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)"}}>{loadingMessage}</p>
                 </M3DialogContent>
             </M3Dialog>
         )

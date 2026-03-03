@@ -238,7 +238,7 @@ return (
                                 }}
                             />
                             {matchingCurriculum && !obiettivi && (
-                                <p  style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: "var(--md-sys-color-primary)", marginTop: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "bold", cursor: "pointer"}} onClick={() => setIsObjectivePickerOpen(true)}>
+                                <p  style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: "var(--md-sys-color-primary)", marginTop: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "var(--md-sys-typescale-weight-bold)", cursor: "pointer"}} onClick={() => setIsObjectivePickerOpen(true)}>
                                     <span  style={{  fontSize: "var(--md-sys-spacing-4)"  }}>info</span> 
                                     Curricolo disponibile: {matchingCurriculum.gradeLevel} di {matchingCurriculum.subject}
                                 </p>
@@ -247,7 +247,7 @@ return (
                         
                         {slots && availableSlots.length > 0 && (
                             <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', padding: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", gap: 'var(--md-sys-spacing-6)' }}>
-                                <label style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "900", textTransform: "uppercase" }}>Pianificazione Rapida (Opzionale)</label>
+                                <label style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase" }}>Pianificazione Rapida (Opzionale)</label>
                                 <div  style={{ display: "flex", flexWrap: "wrap" }}>
                                     {availableSlots.map(([key, slot]) => (
                                         <button
@@ -280,13 +280,13 @@ return (
 
                         <div>
                             <div  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <label  style={{color: "var(--md-sys-color-primary)", fontWeight: "900", textTransform: "uppercase"}}>Adattamenti per l'Inclusività</label>
+                                <label  style={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase"}}>Adattamenti per l'Inclusività</label>
                                 <M3Button 
                                     type="button" 
                                     onClick={handleGenerateAdaptations} 
                                     disabled={isAdaptationsLoading} 
                                     variant="text"
-                                    style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "900", textTransform: "uppercase", fontSize: 'var(--md-sys-typescale-body-large-font-size)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
+                                    style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", fontSize: 'var(--md-sys-typescale-body-large-font-size)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
                                     title="Usa l'AI per suggerire adattamenti basati sui Piani di Inclusione della classe"
                                 >
                                     {isAdaptationsLoading ? (
@@ -321,7 +321,7 @@ return (
                     <M3DialogActions  style={{ paddingTop: "0" }}>
                         <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
                         <M3Button type="submit" variant="filled" >
-                            <span  style={{ marginRight: "var(--md-sys-spacing-2)", fontWeight: "900" }}>{selectedSlotKey ? 'event_available' : 'archive'}</span>
+                            <span  style={{ marginRight: "var(--md-sys-spacing-2)", fontWeight: "var(--md-sys-typescale-weight-black)" }}>{selectedSlotKey ? 'event_available' : 'archive'}</span>
                             {selectedSlotKey ? 'Salva e Pianifica' : 'Salva in Archivio'}
                         </M3Button>
                     </M3DialogActions>
@@ -341,7 +341,7 @@ return (
                         {matchingCurriculum.nuclei.map(nucleo => (
                             <details key={nucleo.id}  open>
                                 <summary >
-                                    <span style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "900" }}>{nucleo.title}</span>
+                                    <span style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)" }}>{nucleo.title}</span>
                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)',  fontSize: "var(--md-sys-spacing-4)"  }}>expand_more</span>
                                 </summary>
                                 <div style={{padding: 'var(--md-sys-spacing-8)', gap: 'var(--md-sys-spacing-3)', backgroundColor: "var(--md-sys-color-surface)"}}>
@@ -353,7 +353,7 @@ return (
                                             style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--md-sys-percent-100)", textAlign: "left", padding: 'var(--md-sys-spacing-6)', transition: "color var(--md-sys-motion-duration-medium)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)' }}
                                         >
                                             <span  style={{color: "var(--md-sys-color-primary)",  fontSize: "var(--md-sys-spacing-4)" , transition: "transform var(--md-sys-motion-duration-medium)"}}>add_circle</span>
-                                            <span style={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "500" }}>{obj.text}</span>
+                                            <span style={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-medium)" }}>{obj.text}</span>
                                         </button>
                                     ))}
                                 </div>
@@ -362,7 +362,7 @@ return (
                     </M3DialogContent>
 
                     <M3DialogActions>
-                        <M3Button type="button" onClick={() => setIsObjectivePickerOpen(false)} variant="filled"  style={{ width: "var(--md-sys-percent-100)", fontWeight: "900" }}>CONFERMA SELEZIONE</M3Button>
+                        <M3Button type="button" onClick={() => setIsObjectivePickerOpen(false)} variant="filled"  style={{ width: "var(--md-sys-percent-100)", fontWeight: "var(--md-sys-typescale-weight-black)" }}>CONFERMA SELEZIONE</M3Button>
                     </M3DialogActions>
                 </M3Dialog>
             )}

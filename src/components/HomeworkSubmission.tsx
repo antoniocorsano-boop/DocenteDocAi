@@ -59,7 +59,7 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
                         <p >{submission.file?.mimeType}</p>
                     </div>
                 </div>
-                <M3Button onClick={handleDownload} variant="tonal"  style={{ fontSize: "var(--md-sys-typescale-label-large-font-size)", fontWeight: "900" }}>
+                <M3Button onClick={handleDownload} variant="tonal"  style={{ fontSize: "var(--md-sys-typescale-label-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)" }}>
                     <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>download</span> 
                     Scarica
                 </M3Button>

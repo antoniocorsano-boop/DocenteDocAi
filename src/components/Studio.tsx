@@ -288,7 +288,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     </div>
                      <div  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>attachment</span>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "bold" }}>
+                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
                             {selectedFileIds.length} file selezionati
                         </p>
                     </div>

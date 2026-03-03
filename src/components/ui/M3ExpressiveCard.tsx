@@ -139,7 +139,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                     height: MD3_TOKENS.spacing32,
                     filter: `blur(${MD3_TOKENS.blur48})`,
                     pointerEvents: 'none',
-                    opacity: 0.2,
+                    opacity: 'var(--md-sys-state-opacity-tint-subtle)',
                     borderRadius: MD3_TOKENS.spacing32,
                     background: `radial-gradient(circle, ${palette.accent}20 ${MD3_TOKENS.percent0}, transparent ${MD3_TOKENS.percent70})`
                 }}
@@ -153,7 +153,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                     left: 0,
                     right: 0,
                     height: MD3_TOKENS.spacing1,
-                    opacity: 0.6,
+                    opacity: 'var(--md-sys-state-opacity-secondary)',
                     backgroundColor: palette.accent,
                     borderTopLeftRadius: MD3_TOKENS.cornerLarge,
                     borderTopRightRadius: MD3_TOKENS.cornerLarge
@@ -176,7 +176,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 }}>
                     <span className="material-symbols-outlined" style={{
                         fontSize: 'var(--md-sys-typescale-display-large-font-size)',
-                        opacity: 0.9,
+                        opacity: 'var(--md-sys-state-opacity-hover-overlay)',
                         userSelect: 'none',
                         fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"
                     }}>{icon}</span>
@@ -195,16 +195,16 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 <h3 style={{
                     fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                     fontFamily: 'var(--md-sys-typescale-headline-small-font-family)',
-                    fontWeight: 'bold',
+                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
                     letterSpacing: '-0.005em',
                     lineHeight: '1.25'
                 }}>{title}</h3>
                 <p style={{
                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                     fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
-                    opacity: 0.8,
+                    opacity: 'var(--md-sys-state-opacity-caption)',
                     lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-                    fontWeight: '500',
+                    fontWeight: 'var(--md-sys-typescale-weight-medium)',
                     display: '-webkit-box',
                     WebkitLineClamp: 3,
                     WebkitBoxOrient: 'vertical',

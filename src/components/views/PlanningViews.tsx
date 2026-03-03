@@ -15,8 +15,6 @@
  */
 
 import React from 'react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useTheme } from '../../theme/theme';
 import ProgettazioneHub from '../ProgettazioneHub';
 import UdaPlanner from '../UdaPlanner';
 import RubricheManager from '../RubricheManager';

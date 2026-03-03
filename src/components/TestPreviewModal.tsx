@@ -119,7 +119,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                 onChange={e => setShowAnswers(e.target.checked)}
                                 style={{ display: 'none' }}
                             />
-                            <span style={{ fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.7, transition: 'opacity var(--md-sys-motion-duration-medium)' }}>Soluzioni Docente</span>
+                            <span style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 'var(--md-sys-state-opacity-supporting)', transition: 'opacity var(--md-sys-motion-duration-medium)' }}>Soluzioni Docente</span>
                         </label>
                     </div>
                     <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-4)' }}>
@@ -143,7 +143,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
             }
             fullscreen={true}
         >
-            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-8)', overflowY: 'auto', height: 'var(--md-sys-percent-100)', opacity: 0.3 }}>
+            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-8)', overflowY: 'auto', height: 'var(--md-sys-percent-100)', opacity: 'var(--md-sys-state-opacity-tint-moderate)' }}>
                 {/* Aura Ornaments */}
                 <div style={{ width: 'var(--md-sys-percent-100)', height: 'var(--md-sys-percent-100)' }}>
                     <div style={{ backgroundColor: 'var(--md-sys-color-primary)', borderRadius: 'var(--md-sys-shape-corner-medium)', opacity: 0.05 }} />
@@ -153,13 +153,13 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                 <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', marginTop: 0, marginLeft: 'var(auto)', marginBottom: 0, marginRight: 'var(auto)', backgroundColor: 'var(--md-sys-color-surface)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', maxWidth: 'var(--md-sys-layout-workflow-card-min-width)' }}>
                     {/* Watermark for preview */}
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'bold', whiteSpace: 'nowrap' }}>DOCENTEDOC AI</span>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-bold)', whiteSpace: 'nowrap' }}>DOCENTEDOC AI</span>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <h1 style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'bold', marginBottom: 'var(--md-sys-spacing-6)', textAlign: 'center', textTransform: 'uppercase', lineHeight: 1 }}>{quiz.title}</h1>
+                        <h1 style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)', marginBottom: 'var(--md-sys-spacing-6)', textAlign: 'center', textTransform: 'uppercase', lineHeight: 1 }}>{quiz.title}</h1>
                         <div style={{ display: 'flex', justifyContent: 'space-between', width: 'var(--md-sys-percent-100)', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>
-                            <span>Argomento: <span style={{ fontWeight: 'bold' }}>{quiz.topic}</span></span>
+                            <span>Argomento: <span style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{quiz.topic}</span></span>
                             <span>Data: ______________</span>
                         </div>
                         <div style={{ width: 'var(--md-sys-percent-100)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', marginTop: 'var(--md-sys-spacing-4)', textAlign: 'left' }}>
@@ -172,9 +172,9 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                         {quiz.questions.map((question, index) => (
                             <div key={index} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', borderRadius: 'var(--md-sys-shape-corner-medium)', padding: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
                                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-4)' }}>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'bold', minWidth: 'var(--md-sys-spacing-8)' }}>{index + 1}.</span>
+                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-bold)', minWidth: 'var(--md-sys-spacing-8)' }}>{index + 1}.</span>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-percent-100)' }}>
-                                        <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 500 }}>
+                                        <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>
                                             {question.question}
                                         </M3Typography>
                                         {question.type === 'multiple-choice' && (

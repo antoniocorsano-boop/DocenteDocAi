@@ -192,7 +192,7 @@ const M3ComponentTemplate: React.FC<M3ComponentTemplateProps> = ({
             variant="body-medium"
             style={{
               color: colors.onBackground,
-              opacity: 0.87
+              opacity: 'var(--md-sys-state-opacity-caption)'
             }}
           >
             {description}

@@ -132,7 +132,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                             <span  style={{color: 'var(--md-sys-color-primary)'}}>movie</span>
                         </div>
                     </div>
-                    <p  style={{ fontWeight: "900", textTransform: "uppercase", opacity: "0.4" }}>Inizializzazione...</p>
+                    <p  style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", opacity: "var(--md-sys-state-opacity-empty)" }}>Inizializzazione...</p>
                 </div>
             );
         }
@@ -143,10 +143,10 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                     <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-primary)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-primary)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                         <span style={{ color: 'var(--md-sys-color-primary)' }}>vpn_key</span>
                     </div>
-                    <h3 style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "900", letterSpacing: "-0.005em", marginBottom: 'var(--md-sys-spacing-8)' }}>API Key Richiesta</h3>
+                    <h3 style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em", marginBottom: 'var(--md-sys-spacing-8)' }}>API Key Richiesta</h3>
                     <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)', lineHeight: "1.625" }}>
                         Per utilizzare la generazione video (modello Veo), è necessaria una API Key abilitata al billing.
-                        <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer"  style={{color: 'var(--md-sys-color-primary)', fontWeight: "900"}}>
+                        <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer"  style={{color: 'var(--md-sys-color-primary)', fontWeight: "var(--md-sys-typescale-weight-black)"}}>
                             Scopri di più
                         </a>
                     </p>
@@ -166,8 +166,8 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
 }}>edit_note</span>
                         </div>
                         <div>
-                            <h3  style={{fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-4)'}}>1. Prompt Descrittivo</h3>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "0.7" }}>Descrivi la scena che vuoi creare. Sii dettagliato per un risultato migliore.</p>
+                            <h3  style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-4)'}}>1. Prompt Descrittivo</h3>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-supporting)" }}>Descrivi la scena che vuoi creare. Sii dettagliato per un risultato migliore.</p>
                         </div>
                     </div>
                     
@@ -187,7 +187,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                     </div>
 
                     {error && (
-                        <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "bold", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)" }}>
+                        <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)" }}>
                             <span  style={{ fontSize: 'var(--md-sys-spacing-5)' }}>error</span>
                             {error}
                         </div>
@@ -201,8 +201,8 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
 }}>movie</span>
                         </div>
                         <div>
-                            <h3  style={{fontWeight: "900", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-secondary)", marginBottom: 'var(--md-sys-spacing-4)'}}>2. Risultato</h3>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "0.7" }}>Il video generato apparirà qui sotto.</p>
+                            <h3  style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-secondary)", marginBottom: 'var(--md-sys-spacing-4)'}}>2. Risultato</h3>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-supporting)" }}>Il video generato apparirà qui sotto.</p>
                         </div>
                     </div>
 
@@ -215,8 +215,8 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                                         <span style={{ color: 'var(--md-sys-color-primary)' }}>auto_videocam</span>
                                     </div>
                                 </div>
-                                <p style={{ fontWeight: "900", color: 'var(--md-sys-color-primary)', letterSpacing: "-0.005em" }}>{loadingMessage}</p>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.6" }}>Questa operazione pu� richiedere alcuni minuti.</p>
+                                <p style={{ fontWeight: "var(--md-sys-typescale-weight-black)", color: 'var(--md-sys-color-primary)', letterSpacing: "-0.005em" }}>{loadingMessage}</p>
+                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-secondary)" }}>Questa operazione pu� richiedere alcuni minuti.</p>
                             </div>
                         ) : generatedVideoUrl ? (
                             <div  style={{ width: "var(--md-sys-percent-100)", height: "var(--md-sys-percent-100)", display: "flex", flexDirection: "column" }}>
@@ -241,14 +241,14 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                             </div>
                         ) : (
                             <div style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", transition: "transform var(--md-sys-motion-duration-medium)" }}>
-                                <span  style={{marginBottom: 'var(--md-sys-spacing-8)', opacity: "0.2"}}>videocam_off</span>
-                                <p  style={{ fontWeight: "900", textTransform: "uppercase", opacity: "0.4" }}>In attesa di generazione</p>
+                                <span  style={{marginBottom: 'var(--md-sys-spacing-8)', opacity: "var(--md-sys-state-opacity-tint-subtle)"}}>videocam_off</span>
+                                <p  style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", opacity: "var(--md-sys-state-opacity-empty)" }}>In attesa di generazione</p>
                             </div>
                         )}
 
                         {/* Background effect */}
                         {!generatedVideoUrl && (
-                            <div style={{ backgroundColor: 'var(--md-sys-color-gradient-to-br)', opacity: "0.5" }} />
+                            <div style={{ backgroundColor: 'var(--md-sys-color-gradient-to-br)', opacity: "var(--md-sys-state-opacity-placeholder)" }} />
                         )}
                     </div>
                 </div>

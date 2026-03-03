@@ -147,7 +147,7 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
           >
             <M3Typography
               variant="body-small"
-              style={{fontWeight: '500',
+              style={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
                 color: 'inherit',
                 lineHeight: 'var(--md-sys-typescale-body-large-line-height)'}}
             >

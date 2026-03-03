@@ -23,7 +23,7 @@ const ManualSection: React.FC<ManualSectionProps> = ({
             style={{
                 border: 'none',
                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                opacity: 0.5,
+                opacity: 'var(--md-sys-state-opacity-placeholder)',
                 backdropFilter: 'blur(var(--md-sys-blur-small))',
                 WebkitBackdropFilter: 'blur(var(--md-sys-blur-small))',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
@@ -76,7 +76,7 @@ const ManualSection: React.FC<ManualSectionProps> = ({
                     <h3
                         style={{
                             fontSize: 'var(--md-sys-typescale-headline-medium-font-size)',
-                            fontWeight: 900,
+                            fontWeight: 'var(--md-sys-typescale-weight-black)',
                             lineHeight: 'var(--md-sys-typescale-headline-medium-line-height)',
                             letterSpacing: 'var(--md-sys-typescale-headline-medium-tracking)',
                             margin: 0
@@ -89,12 +89,12 @@ const ManualSection: React.FC<ManualSectionProps> = ({
                     style={{
                         width: 'var(--md-sys-spacing-8)',
                         height: 'var(--md-sys-spacing-8)',
-                        borderRadius: '50%',
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         backgroundColor: 'var(--md-sys-color-outline-variant)',
-                        opacity: 0.2,
+                        opacity: 'var(--md-sys-state-opacity-tint-subtle)',
                         transition: `transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized)`,
                         transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
                     }}

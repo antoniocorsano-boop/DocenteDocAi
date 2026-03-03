@@ -123,7 +123,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                             variant="label-small"
                             style={{
                                 color: 'var(--md-sys-color-primary)',
-                                fontWeight: 900,
+                                fontWeight: 'var(--md-sys-typescale-weight-black)',
                                 textTransform: 'uppercase',
                                 letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                                 paddingLeft: 'var(--md-sys-spacing-4)',

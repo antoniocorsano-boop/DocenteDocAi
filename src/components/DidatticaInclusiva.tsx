@@ -75,7 +75,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                 <div key={className} style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
                         <div style={{ backgroundColor: sys.colors.outline-variant/30 ,  flexGrow: "1" }}></div>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/60 ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Classe {className}</span>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/60 ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Classe {className}</span>
                         <div style={{ backgroundColor: sys.colors.outline-variant/30 ,  flexGrow: "1" }}></div>
                     </div>
                     
@@ -92,14 +92,14 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                     <div style={{padding: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                         <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                         <div style={{ flexGrow: "1", minWidth: "0" }}>
-                                            <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.cognome} {student.nome}</p>
+                                            <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.cognome} {student.nome}</p>
                                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)'}}>
                                                 {hasPlan ? (
-                                                    <span style={{ backgroundColor: sys.colors.tertiary-container/50 , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", color: "var(--md-sys-color-tertiary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)'}}>
+                                                    <span style={{ backgroundColor: sys.colors.tertiary-container/50 , fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", color: "var(--md-sys-color-tertiary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)'}}>
                                                         Piano Attivo
                                                     </span>
                                                 ) : (
-                                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/40 , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", borderRadius: 'var(--md-sys-spacing-4)'}}>
+                                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/40 , fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", borderRadius: 'var(--md-sys-spacing-4)'}}>
                                                         Standard
                                                     </span>
                                                 )}
@@ -163,7 +163,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                             <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                             <div style={{ flexGrow: "1" }}>
-                                <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
+                                <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{student.cognome} {student.nome}</h3>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)" }}>Classe {student.classe}</p>
                             </div>
                             <M3Button variant="text" size="small">
@@ -200,11 +200,11 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                 <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                     <div>
-                                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "bold" }}>{student.cognome} {student.nome}</h3>
+                                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{student.cognome} {student.nome}</h3>
                                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,   fontSize: "var(--md-sys-typescale-label-large-font-size)"  }}>Classe {student.classe}</p>
                                     </div>
                                 </div>
-                                <div style={{ backgroundColor: sys.colors.error/10 , color: "var(--md-sys-color-error)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)',  borderRadius: "var(--md-sys-shape-corner-small)", fontSize: "var(--md-sys-typescale-label-large-font-size)" , fontWeight: "bold"}}>
+                                <div style={{ backgroundColor: sys.colors.error/10 , color: "var(--md-sys-color-error)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)',  borderRadius: "var(--md-sys-shape-corner-small)", fontSize: "var(--md-sys-typescale-label-large-font-size)" , fontWeight: "var(--md-sys-typescale-weight-bold)"}}>
                                     Media: {grade}
                                 </div>
                             </div>

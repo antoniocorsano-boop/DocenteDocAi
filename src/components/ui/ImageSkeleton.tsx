@@ -1,6 +1,5 @@
-// MD3 Compliant - Updated for layered theme access
+// MD3 Compliant - Pure CSS tokens, no useTheme dependency
 import React from 'react';
-import { useTheme } from '../../theme/theme';
 
 interface ImageSkeletonProps {
     aspectRatio?: string;
@@ -14,13 +13,12 @@ interface ImageSkeletonProps {
 const ImageSkeleton: React.FC<ImageSkeletonProps> = ({
     aspectRatio = '16/9'
 }) => {
-  const { layers: { sys: { color }, ref: { spacing, shape, typography } } } = useTheme();
 
     return (
     <div
         style={{
-            backgroundColor: color.surfaceContainerHigh,
-            borderRadius: shape.corner.small,
+            backgroundColor: 'var(--md-sys-color-surface-container-high)',
+            borderRadius: 'var(--md-sys-shape-corner-small)',
             animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`,
             display: 'flex',
             alignItems: 'center',
@@ -32,15 +30,15 @@ const ImageSkeleton: React.FC<ImageSkeletonProps> = ({
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: spacing[4],
+            gap: 'var(--md-sys-spacing-4)',
             color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-state-opacity-disabled), transparent)`
         }}>
             <span style={{
-                fontSize: typography.displaySmall.fontSize
+                fontSize: 'var(--md-sys-typescale-display-small-font-size)'
             }}>image</span>
             <span style={{
-                fontSize: typography.bodySmall.fontSize,
-                fontWeight: 500
+                fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                fontWeight: 'var(--md-sys-typescale-weight-medium)'
             }}>Generazione immagine...</span>
         </div>
     </div>

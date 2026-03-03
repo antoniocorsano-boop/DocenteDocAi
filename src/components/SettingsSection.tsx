@@ -52,7 +52,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
 
     const headerStyle: React.CSSProperties = {
         backgroundColor: 'var(--md-sys-color-surface)',
-        opacity: 0.5,
+        opacity: 'var(--md-sys-state-opacity-placeholder)',
         display: 'flex',
         alignItems: 'center',
         gap: 'var(--md-sys-spacing-8)',
@@ -91,7 +91,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
 
     const subtitleStyle: React.CSSProperties = {
         color: 'var(--md-sys-color-on-surface-variant)',
-        opacity: 0.8,
+        opacity: 'var(--md-sys-state-opacity-caption)',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',

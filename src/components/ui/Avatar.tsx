@@ -38,7 +38,7 @@ const Avatar: React.FC<AvatarProps> = ({ name, src, size = 'md' }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        fontWeight: 900,
+        fontWeight: 'var(--md-sys-typescale-weight-black)',
         ...sizeStyles[size]
     }}>
         {src ? (

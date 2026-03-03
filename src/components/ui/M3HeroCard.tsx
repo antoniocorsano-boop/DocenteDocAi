@@ -96,7 +96,7 @@ const M3HeroCard: React.FC<M3HeroCardProps> = ({
       )}
 
       {/* Content */}
-      <div style={{ position: 'relative', zIndex: 1 }}>
+      <div style={{ position: 'relative', zIndex: 'var(--md-sys-z-content)' }}>
         {/* Headline */}
         <div
           style={{

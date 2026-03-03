@@ -9,8 +9,6 @@
  */
 
 import React from 'react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useTheme } from '../../theme/theme';
 import AnalyticsHub from '../AnalyticsHub';
 import ReportisticaHub from '../ReportisticaHub';
 import ImprovementGuide from '../ImprovementGuide';

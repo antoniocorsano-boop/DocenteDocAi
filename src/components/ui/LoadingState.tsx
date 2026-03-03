@@ -38,7 +38,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
           height: spinnerSize,
           border: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary-container)',
           borderTopColor: 'var(--md-sys-color-primary)',
-          borderRadius: '50%',
+          borderRadius: 'var(--md-sys-shape-corner-full)',
           animation: 'spin 1s linear infinite'
         }}
         role="status"
@@ -50,7 +50,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
           variant="body-medium"
           style={{ 
             color: 'var(--md-sys-color-on-surface-variant)',
-            fontWeight: '500'
+            fontWeight: 'var(--md-sys-typescale-weight-medium)'
           }}
         >
           {message}

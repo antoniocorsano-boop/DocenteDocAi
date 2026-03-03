@@ -79,7 +79,7 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                                                 padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
                                                 borderRadius: 'var(--md-sys-shape-corner-small)',
                                                 fontSize: 'var(--md-sys-typescale-body-large-font-size)', // caption equivalent
-                                                fontWeight: 500,
+                                                fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                                 border: 'none',
                                                 backgroundColor: report.modelloUsato.tipo === 'pdf' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',
                                                 color: report.modelloUsato.tipo === 'pdf' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)'

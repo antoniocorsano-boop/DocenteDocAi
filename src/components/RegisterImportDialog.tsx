@@ -176,7 +176,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 {isLoading ? 'sync' : 'upload_file'}
                             </span>
                             <div style={{ textAlign: "center" }}>
-                                <p  style={{ fontWeight: "bold" }}>
+                                <p  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
                                     {isLoading ? 'Analisi in corso...' : 'Trascina qui il file o clicca per selezionarlo'}
                                 </p>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Supporta .csv, .xlsx, .xls</p>
@@ -204,7 +204,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             <InfoCard title="Dati Studente" icon="person">
                                 <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
                                     <div>
-                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Cognome *</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-4)'}}>Cognome *</label>
                                         <select 
                                             value={mapping.cognome}
                                             onChange={(e) => setMapping(prev => ({ ...prev, cognome: e.target.value }))}
@@ -215,7 +215,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         </select>
                                     </div>
                                     <div>
-                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Nome *</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-4)'}}>Nome *</label>
                                         <select 
                                             value={mapping.nome}
                                             onChange={(e) => setMapping(prev => ({ ...prev, nome: e.target.value }))}
@@ -226,7 +226,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         </select>
                                     </div>
                                     <div>
-                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Classe</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-4)'}}>Classe</label>
                                         <select 
                                             value={mapping.classe}
                                             onChange={(e) => setMapping(prev => ({ ...prev, classe: e.target.value }))}
@@ -242,7 +242,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             <InfoCard title="Dati Valutazioni (Opzionale)" icon="grade" variant="secondary">
                                 <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
                                     <div>
-                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Voto</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-4)'}}>Voto</label>
                                         <select 
                                             value={mapping.voto}
                                             onChange={(e) => setMapping(prev => ({ ...prev, voto: e.target.value }))}
@@ -253,7 +253,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         </select>
                                     </div>
                                     <div>
-                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Data</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-4)'}}>Data</label>
                                         <select 
                                             value={mapping.data}
                                             onChange={(e) => setMapping(prev => ({ ...prev, data: e.target.value }))}
@@ -264,7 +264,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                         </select>
                                     </div>
                                     <div>
-                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-4)'}}>Materia</label>
+                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-4)'}}>Materia</label>
                                         <select 
                                             value={mapping.materia}
                                             onChange={(e) => setMapping(prev => ({ ...prev, materia: e.target.value }))}
@@ -279,7 +279,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         </div>
 
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)' , padding: 'var(--md-sys-spacing-8)', overflowX: "auto"}}>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "0.5", marginBottom: 'var(--md-sys-spacing-8)'}}>Anteprima Dati Raw (Prime 3 righe)</p>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-placeholder)", marginBottom: 'var(--md-sys-spacing-8)'}}>Anteprima Dati Raw (Prime 3 righe)</p>
                             <table style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--md-sys-percent-100)' }}>
                                 <thead>
                                     <tr>
@@ -302,7 +302,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                     <div  style={{gap: 'var(--md-sys-spacing-4)'}}>
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', color: "var(--md-sys-color-primary)"}}>
                             <span style={{ color: 'var(--md-sys-color-primary)' }}>check_circle</span>
-                            <h3  style={{ fontWeight: "900" }}>Dati pronti per l&apos;importazione</h3>
+                            <h3  style={{ fontWeight: "var(--md-sys-typescale-weight-black)" }}>Dati pronti per l&apos;importazione</h3>
                         </div>
 
                         <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
@@ -310,11 +310,11 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 <ul style={{gap: 'var(--md-sys-spacing-2)'}}>
                                     <li style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  display: "flex", justifyContent: "space-between" }}>
                                         <span>Studenti:</span>
-                                        <span style={{ fontWeight: "bold" }}>{result.students.length}</span>
+                                        <span style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{result.students.length}</span>
                                     </li>
                                     <li style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  display: "flex", justifyContent: "space-between" }}>
                                         <span>Valutazioni:</span>
-                                        <span style={{ fontWeight: "bold" }}>{result.evaluations.length}</span>
+                                        <span style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{result.evaluations.length}</span>
                                     </li>
                                 </ul>
                             </InfoCard>
@@ -322,7 +322,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             <InfoCard title="Classi rilevate" icon="class" variant="secondary">
                                 <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                                     {Array.from(new Set(result.students.map(s => s.classe))).map(c => (
-                                        <span key={c} style={{ color: sys.colors.on-secondary-container , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-spacing-1)", backgroundColor: "var(--md-sys-color-secondary)", fontWeight: "bold"}}>
+                                        <span key={c} style={{ color: sys.colors.on-secondary-container , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-spacing-1)", backgroundColor: "var(--md-sys-color-secondary)", fontWeight: "var(--md-sys-typescale-weight-bold)"}}>
                                             {c}
                                         </span>
                                     ))}
@@ -341,8 +341,8 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
 
                         {result.errors.length > 0 && (
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.warning-container, color: sys.colors.on-warning-container , padding: 'var(--md-sys-spacing-8)'}}>
-                                <p  style={{fontWeight: "bold", marginBottom: 'var(--md-sys-spacing-8)'}}>Avvisi durante l&apos;analisi:</p>
-                                <ul  style={{ opacity: "0.8" }}>
+                                <p  style={{fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Avvisi durante l&apos;analisi:</p>
+                                <ul  style={{ opacity: "var(--md-sys-state-opacity-caption)" }}>
                                     {result.errors.slice(0, 3).map((err, i) => (
                                         <li key={i}>{err}</li>
                                     ))}

@@ -40,7 +40,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
         padding: 'var(--md-sys-spacing-4)',
         borderRadius: 'var(--md-sys-shape-corner-medium)',
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
-        opacity: 0.5,
+        opacity: 'var(--md-sys-state-opacity-placeholder)',
         border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-on-primary)',
         borderOpacity: 0.3
       }}
@@ -52,7 +52,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
             width: 'var(--md-sys-spacing-2)',
             height: 'var(--md-sys-spacing-2)',
             backgroundColor: 'var(--md-sys-color-primary)',
-            borderRadius: 'var(50%)',
+            borderRadius: 'var(--md-sys-shape-corner-full)',
             animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`, // MD3 motion tokens for duration and easing
             animationDelay: 'var(--md-sys-motion-duration-0)'
           }}
@@ -62,7 +62,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
             width: 'var(--md-sys-spacing-2)',
             height: 'var(--md-sys-spacing-2)',
             backgroundColor: 'var(--md-sys-color-primary)',
-            borderRadius: 'var(50%)',
+            borderRadius: 'var(--md-sys-shape-corner-full)',
             animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`, // MD3 motion tokens for duration and easing
             animationDelay: 'var(--md-sys-motion-duration-short)'
           }}
@@ -72,7 +72,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
             width: 'var(--md-sys-spacing-2)',
             height: 'var(--md-sys-spacing-2)',
             backgroundColor: 'var(--md-sys-color-primary)',
-            borderRadius: 'var(50%)',
+            borderRadius: 'var(--md-sys-shape-corner-full)',
             animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`, // MD3 motion tokens for duration and easing
             animationDelay: 'var(--md-sys-motion-duration-medium)'
           }}
@@ -96,9 +96,9 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
         style={{
           width: 'var(--md-sys-spacing-8)',
           height: 'var(--md-sys-spacing-8)',
-          borderRadius: 'var(50%)',
+          borderRadius: 'var(--md-sys-shape-corner-full)',
           backgroundColor: 'var(--md-sys-color-primary)',
-          opacity: 0.1,
+          opacity: 'var(--md-sys-state-opacity-tint-faint)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'

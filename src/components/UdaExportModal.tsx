@@ -160,7 +160,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                                 <span  style={{ fontSize: "var(--md-sys-typescale-display-large-font-size)" }}>picture_as_pdf</span>
                             </div>
                             <div>
-                                <p  style={{ fontWeight: "bold", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Esporta in PDF</p>
+                                <p  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Esporta in PDF</p>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Ideale per stampa e archiviazione</p>
                             </div>
                         </button>
@@ -174,7 +174,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                                 <span  style={{ fontSize: "var(--md-sys-typescale-display-large-font-size)" }}>description</span>
                             </div>
                             <div>
-                                <p  style={{ fontWeight: "bold", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Esporta in Word</p>
+                                <p  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Esporta in Word</p>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Per modifiche manuali successive</p>
                             </div>
                         </button>
@@ -188,7 +188,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                                 <span  style={{ fontSize: "var(--md-sys-typescale-display-large-font-size)" }}>auto_awesome</span>
                             </div>
                             <div>
-                                <p  style={{ fontWeight: "bold", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Report con AI</p>
+                                <p  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Report con AI</p>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Genera analisi e suggerimenti didattici</p>
                             </div>
                         </button>

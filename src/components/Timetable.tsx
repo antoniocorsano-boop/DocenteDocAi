@@ -65,7 +65,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 height: 'var(--md-sys-spacing-8)',
                 backgroundColor: 'var(--md-sys-color-primary)',
                 borderRadius: 'var(--md-sys-shape-corner-full)',
-                opacity: 0.1,
+                opacity: 'var(--md-sys-state-opacity-tint-faint)',
                 filter: 'blur(var(--md-sys-blur-40))',
                 zIndex: 'var(0)'}} />
             <div style={{position: 'absolute',
@@ -75,7 +75,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 height: 'var(--md-sys-spacing-8)',
                 backgroundColor: 'var(--md-sys-color-secondary)',
                 borderRadius: 'var(--md-sys-shape-corner-full)',
-                opacity: 0.08,
+                opacity: 'var(--md-sys-state-opacity-tint-thin)',
                 filter: 'blur(var(--md-sys-blur-30))',
                 zIndex: 'var(0)'}} />
 
@@ -116,11 +116,11 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                         </div>
                         <div style={{ minWidth: 0, flex: 1 }}>
                             <M3Typography variant="headline-small" style={{color: 'var(--md-sys-color-on-surface)',
-                                fontWeight: 900,
+                                fontWeight: 'var(--md-sys-typescale-weight-black)',
                                 margin: 0}}>Il Mio Orario</M3Typography>
                             <M3Typography variant="body-small" style={{color: 'var(--md-sys-color-on-surface)',
                                 margin: 0,
-                                opacity: 0.8}}>Planning Settimanale</M3Typography>
+                                opacity: 'var(--md-sys-state-opacity-caption)'}}>Planning Settimanale</M3Typography>
                         </div>
                     </div>
                     
@@ -157,7 +157,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                     ariaLabel="Giorno precedente"
                                 />
                                 <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-surface)',
-                                    fontWeight: 600,
+                                    fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                     minWidth: 'var(--md-sys-spacing-16)',
                                     textAlign: 'center'}}>
                                     {visibleDays[0]}
@@ -219,7 +219,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                 justifyContent: 'center',
                                 border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'}}>
                                 <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-surface)',
-                                    fontWeight: 600,
+                                    fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.1em'}}>ORA</M3Typography>
                             </div>
@@ -239,7 +239,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                     <M3Typography variant="label-large" style={{color: day === DAYS_OF_WEEK[(new Date().getDay()+6)%7] 
                                             ? 'var(--md-sys-color-on)' 
                                             : 'var(--md-sys-color-on-surface)',
-                                        fontWeight: 600,
+                                        fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                         textTransform: 'uppercase',
                                         letterSpacing: '0.1em'}}>{day.substring(0, 3)}</M3Typography>
                                 </div>
@@ -256,7 +256,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                         border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                                         borderTop: 'none'}}>
                                         <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface)',
-                                            fontWeight: 500}}>{time}</M3Typography>
+                                            fontWeight: 'var(--md-sys-typescale-weight-medium)'}}>{time}</M3Typography>
                                     </div>
                                     {visibleDays.map((day, dayIdx) => {
                                         const slotKey = `${day}-${time}`;

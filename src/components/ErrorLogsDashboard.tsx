@@ -80,19 +80,19 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
       <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-6)'}}>
         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Total Errors</div>
-          <div  style={{fontWeight: "bold", color: "var(--md-sys-color-primary)"}}>{stats.total}</div>
+          <div  style={{fontWeight: "var(--md-sys-typescale-weight-bold)", color: "var(--md-sys-color-primary)"}}>{stats.total}</div>
         </div>
         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Errors</div>
-          <div  style={{fontWeight: "bold", color: "var(--md-sys-color-error)"}}>{stats.bySeverity['error'] || 0}</div>
+          <div  style={{fontWeight: "var(--md-sys-typescale-weight-bold)", color: "var(--md-sys-color-error)"}}>{stats.bySeverity['error'] || 0}</div>
         </div>
         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Warnings</div>
-          <div  style={{fontWeight: "bold", color: "var(--md-sys-color-warning)"}}>{stats.bySeverity['warning'] || 0}</div>
+          <div  style={{fontWeight: "var(--md-sys-typescale-weight-bold)", color: "var(--md-sys-color-warning)"}}>{stats.bySeverity['warning'] || 0}</div>
         </div>
         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
           <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Infos</div>
-          <div  style={{fontWeight: "bold", color: "var(--md-sys-color-primary)"}}>{stats.bySeverity['info'] || 0}</div>
+          <div  style={{fontWeight: "var(--md-sys-typescale-weight-bold)", color: "var(--md-sys-color-primary)"}}>{stats.bySeverity['info'] || 0}</div>
         </div>
       </div>
 
@@ -106,7 +106,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                 <span >{getTypeIcon(type as ErrorLog['type'])}</span>
                 <span style={{ textTransform: "capitalize" }}>{type}</span>
               </div>
-              <div style={{ fontWeight: "bold", color: "var(--md-sys-color-primary)", marginTop: 'var(--md-sys-spacing-4)'}}>{count}</div>
+              <div style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", color: "var(--md-sys-color-primary)", marginTop: 'var(--md-sys-spacing-4)'}}>{count}</div>
             </div>
           ))}
         </div>
@@ -147,7 +147,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
         <button
           onClick={handleExport}
-           style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", fontWeight: "500", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
+           style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", fontWeight: "var(--md-sys-typescale-weight-medium)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
         >
           <span >download</span>
           Export JSON
@@ -155,7 +155,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
         <button
           onClick={handleClearLogs}
-          style={{ backgroundColor: sys.colors.error, color: sys.colors.on-error , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", fontWeight: "500", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
+          style={{ backgroundColor: sys.colors.error, color: sys.colors.on-error , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", fontWeight: "var(--md-sys-typescale-weight-medium)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
         >
           <span >delete</span>
           Clear All
@@ -183,7 +183,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                       {new Date(log.timestamp).toLocaleTimeString()}
                     </td>
                     <td style={{padding: 'var(--md-sys-spacing-5)'}}>
-                      <span style={{ backgroundColor: sys.colors.primary/10 , display: "inline-flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", color: "var(--md-sys-color-primary)", fontWeight: "500"}}>
+                      <span style={{ backgroundColor: sys.colors.primary/10 , display: "inline-flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-medium)"}}>
                         <span >
                           {getTypeIcon(log.type)}
                         </span>
@@ -197,7 +197,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                         gap: 'var(--md-sys-spacing-4)',
                         padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-1)',
                         borderRadius: 'var(--md-sys-shape-corner-small)',
-                        fontWeight: '500',
+                        fontWeight: 'var(--md-sys-typescale-weight-medium)',
                         textTransform: 'capitalize',
                         backgroundColor: getSeverityColor(log.severity)
                       }}>

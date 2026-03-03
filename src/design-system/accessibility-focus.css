@@ -179,7 +179,7 @@ a:focus-visible {
   background: var(--md-sys-color-primary);
   color: var(--md-sys-color-on-primary);
   border-radius: var(--md-sys-spacing-2);
-  z-index: 9999;
+  z-index: var(--md-sys-z-snackbar);
   outline: none;
   box-shadow: 0 4px 12px color-mix(in srgb, var(--md-sys-color-scrim) 30%, transparent);
   font-weight: 600;

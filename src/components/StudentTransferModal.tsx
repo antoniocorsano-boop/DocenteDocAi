@@ -71,9 +71,9 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
             maxWidth="sm"
             level={1}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 0.3 }}>
+            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 'var(--md-sys-state-opacity-tint-moderate)' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)' }}>
-                    <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', opacity: 0.1, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)' }}>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', opacity: 'var(--md-sys-state-opacity-tint-faint)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)' }}>
                         <p style={{ color: 'var(--md-sys-color-on-primary)' }}>
                             Gestisci lo spostamento di <strong>{student.cognome} {student.nome}</strong>
                         </p>
@@ -129,7 +129,7 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                             )}
                         </div>
                     ) : (
-                        <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', opacity: 0.1, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
+                        <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', opacity: 'var(--md-sys-state-opacity-tint-faint)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
                             <h3 style={{ color: 'var(--md-sys-color-error)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>Motivazione Uscita</h3>
                             <SelectField
                                 label="Esito"

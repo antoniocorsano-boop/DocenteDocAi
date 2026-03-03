@@ -2,7 +2,7 @@
 // Fully compliant with MD3 tokens: uses var(--md-sys-*) CSS variables for theming, spacing, typography, shape, motion, and elevation
 // No useTheme() dependency - all styling uses direct MD3 CSS variables
 
-import React, { ButtonHTMLAttributes } from 'react';
+import React, { ButtonHTMLAttributes, useState } from 'react';
 
 interface M3ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'filled' | 'outlined' | 'text' | 'tonal' | 'elevated';
@@ -27,6 +27,8 @@ const M3Button: React.FC<M3ButtonProps> = ({
 }) => {
   // Extract aria-label from props to handle it properly
   const { 'aria-label': ariaLabel, ...otherProps } = props;
+  const [isPressed, setIsPressed] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   // MD3 Token mapping — direct --md-sys-* tokens only
   // Color tokens
   const primary = 'var(--md-sys-color-primary)';
@@ -61,13 +63,20 @@ const M3Button: React.FC<M3ButtonProps> = ({
   // Motion tokens
   const durationShort2 = 'var(--md-sys-motion-duration-short2)';
   const easingStandard = 'var(--md-sys-motion-easing-standard)';
+  const springFastEffects = 'var(--md-sys-motion-spring-expressive-fast-effects)';
 
   // Base style
   const baseStyle: React.CSSProperties = {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    transition: `all ${durationShort2} ${easingStandard}`,
+    transition: [
+      `transform ${durationShort2} ${springFastEffects}`,
+      `box-shadow ${durationShort2} ${easingStandard}`,
+      `background-color ${durationShort2} ${easingStandard}`,
+      `color ${durationShort2} ${easingStandard}`
+    ].join(', '),
+    transform: disabled ? 'scale(1)' : isPressed ? 'scale(0.96)' : isHovered ? 'scale(1.02)' : 'scale(1)',
     outline: 'none',
     borderRadius: shapeMedium,
     cursor: disabled ? 'not-allowed' : 'pointer',
@@ -170,6 +179,12 @@ const M3Button: React.FC<M3ButtonProps> = ({
       title={title}
       style={combinedStyle}
       aria-label={ariaLabel || title || (typeof children === 'string' ? children : undefined)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => { setIsHovered(false); setIsPressed(false); }}
+      onMouseDown={() => setIsPressed(true)}
+      onMouseUp={() => setIsPressed(false)}
+      onTouchStart={() => setIsPressed(true)}
+      onTouchEnd={() => setIsPressed(false)}
     >
       {startIcon && (
         <span

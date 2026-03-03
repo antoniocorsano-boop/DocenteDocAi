@@ -55,7 +55,7 @@ Follow these guidelines strictly to refactor Home.tsx:
 
 import React, { useMemo, useRef, useEffect } from 'react';
 import { View, NavigationParams } from '../types';
-import { M3Card, M3Surface, M3Typography, M3Chip, M3StateLayer } from './ui';
+import { M3Surface, M3Typography, M3Chip, M3StateLayer } from './ui';
 import M3HeroCard from './ui/M3HeroCard';
 import M3Fab from './M3Fab';
 import { useAcademicStore } from '../stores/useAcademicStore';

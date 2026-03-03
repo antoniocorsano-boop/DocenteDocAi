@@ -171,7 +171,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                         <div >
-                                            <span className="material-symbols-outlined" style={{ fontWeight: 400, fontStyle: 'normal', fontSize: 'var(--icon-size-medium)', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle' }}>mail</span>
+                                            <span className="material-symbols-outlined" style={{ fontWeight: 'var(--md-sys-typescale-weight-regular)', fontStyle: 'normal', fontSize: 'var(--icon-size-medium)', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle' }}>mail</span>
                                             <span >
                                                 {inboxCount}
                                             </span>
@@ -186,7 +186,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             }}>Inbox Compiti</h3>
                                             <p style={{
                                                 color: 'var(--md-sys-color-on-tertiary-container)',
-                                                opacity: '0.7',
+                                                opacity: 'var(--md-sys-state-opacity-supporting)',
                                                 fontFamily: 'var(--md-sys-typescale-body-medium-font)',
                                                 fontSize: 'var(--md-sys-typescale-body-medium-size)',
                                                 fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
@@ -195,7 +195,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         </div>
                                     </div>
                                     <div >
-                                        <span className="material-symbols-outlined" style={{ fontWeight: 400, fontStyle: 'normal', fontSize: 'var(--icon-size-medium)', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle' }}>arrow_forward</span>
+                                        <span className="material-symbols-outlined" style={{ fontWeight: 'var(--md-sys-typescale-weight-regular)', fontStyle: 'normal', fontSize: 'var(--icon-size-medium)', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle' }}>arrow_forward</span>
                                     </div>
                                 </div>
                             </M3Card>
@@ -207,7 +207,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 1. SEZIONE REGISTRO & DIDATTICA */}
                         <section>
                             <div >
-                                <span className="material-symbols-outlined" style={{ fontWeight: 400, fontStyle: 'normal', fontSize: 'var(--icon-size-medium)', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle', color: 'var(--md-sys-color-primary)' }}>auto_stories</span>
+                                <span className="material-symbols-outlined" style={{ fontWeight: 'var(--md-sys-typescale-weight-regular)', fontStyle: 'normal', fontSize: 'var(--icon-size-medium)', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle', color: 'var(--md-sys-color-primary)' }}>auto_stories</span>
                                 <h3 >Registro & Didattica</h3>
                             </div>
                             <div >

@@ -79,7 +79,7 @@ export const Interactive: Story = {
             borderRadius: 'var(--md-sys-spacing-6)',
             cursor: 'pointer',
             fontSize: 'var(--md-sys-typescale-body-large-size)',
-            fontWeight: 600,
+            fontWeight: 'var(--md-sys-typescale-weight-semibold)',
           }}
         >
           Open Knowledge Map

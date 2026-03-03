@@ -337,7 +337,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 backgroundColor: isDone ? 'var(--md-sys-color-primary)' : isActive ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
                                 color: isDone ? 'var(--md-sys-color-on-primary)' : isActive ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
                                 border: `var(--md-sys-border-width-thick) solid ${isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
-                                fontWeight: 'bold',
+                                fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                 // transition rimossa per compliance MD3
                             }}
                             aria-hidden="true"
@@ -489,7 +489,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--md-sys-spacing-2)' }}>
                                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-2)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                                         <label htmlFor="wizard-hours-per-week">Ore/Sett:</label>
-                                        <input id="wizard-hours-per-week" name="wizard-hours-per-week" type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} style={{ width: "var(--md-sys-spacing-10)", backgroundColor: "transparent", textAlign: "center", fontWeight: "bold", borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }} title="Ore settimanali di lezione" />
+                                        <input id="wizard-hours-per-week" name="wizard-hours-per-week" type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} style={{ width: "var(--md-sys-spacing-10)", backgroundColor: "transparent", textAlign: "center", fontWeight: "var(--md-sys-typescale-weight-bold)", borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }} title="Ore settimanali di lezione" />
                                     </div>
                                     <M3Button variant="tonal" onClick={handleGeneratePlanFromKb} disabled={!!planGenerationStatus || selectedKbFiles.length === 0} style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Genera lista UDA dai documenti KB">
                                         {planGenerationStatus ? <AiThinkingGem size="small" inline text={planGenerationStatus} /> : 'Genera da KB'}
@@ -526,12 +526,12 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
                                             <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>
-                                                    <span style={{ fontWeight: "bold", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)' }}>
+                                                    <span style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)' }}>
                                                         UDA {idx + 1}
                                                     </span>
-                                                    <p style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "bold" }}>{uda.title}</p>
+                                                    <p style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{uda.title}</p>
                                                 </div>
-                                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "0.8" }}>{uda.topic || uda.title}</p>
+                                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "var(--md-sys-state-opacity-caption)" }}>{uda.topic || uda.title}</p>
                                             </div>
 
                                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-surface-container-low)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
@@ -541,7 +541,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                     type="number"
                                                     value={uda.hours}
                                                     onChange={e => updateUdaHours(uda.id, parseInt(e.target.value))}
-                                                    style={{ padding: 'var(--md-sys-spacing-4)', width: "var(--md-sys-spacing-10)", textAlign: "center", backgroundColor: "transparent", fontWeight: "bold", border: "none" }}
+                                                    style={{ padding: 'var(--md-sys-spacing-4)', width: "var(--md-sys-spacing-10)", textAlign: "center", backgroundColor: "transparent", fontWeight: "var(--md-sys-typescale-weight-bold)", border: "none" }}
                                                     title="Modifica ore stimate"
                                                 />
                                                 <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>ore</span>
@@ -577,8 +577,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 {schedulePreview.map((item, idx) => (
                                     <div key={idx} style={{ position: "relative", paddingLeft: 'var(--md-sys-spacing-6)' }}>
                                         <div style={{ position: 'absolute', left: 'calc(var(--md-sys-spacing-2) * -1)', top: 'var(--md-sys-spacing-1)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-percent-full)', borderWidth: 'var(--md-sys-border-width-thin)', borderColor: 'var(--md-sys-color-outline-variant)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}></div>
-                                        <p style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", color: "var(--md-sys-color-primary)" }}>{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</p>
-                                        <h4 style={{ fontWeight: "500", color: 'var(--md-sys-color-on-surface)' }}>{item.uda.title}</h4>
+                                        <p style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", color: "var(--md-sys-color-primary)" }}>{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</p>
+                                        <h4 style={{ fontWeight: "var(--md-sys-typescale-weight-medium)", color: 'var(--md-sys-color-on-surface)' }}>{item.uda.title}</h4>
                                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{item.uda.hours} ore</p>
                                     </div>
                                 ))}

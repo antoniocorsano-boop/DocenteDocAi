@@ -103,7 +103,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             alignItems: 'center',
                             justifyContent: 'center'}}>
                             <span style={{
-, color: 'var(--md-sys-color-on-primary)'}}>chat</span>
+ color: 'var(--md-sys-color-on-primary)'}}>chat</span>
                         </div>
                         <M3Typography variant="title-large" style={{color: 'var(--md-sys-color-on-surface)',
                             minWidth: 0,
@@ -151,7 +151,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             <div style={{display: 'flex',
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-2)'}}>
-                                <div style={{borderRadius: 'var(50%)'}} />
+                                <div style={{borderRadius: 'var(--md-sys-shape-corner-full)'}} />
                                 <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)',
                                     margin: 0}}>Sto pensando...</M3Typography>
                             </div>
@@ -173,7 +173,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             alignItems: 'center',
                             justifyContent: 'center'}}>
                             <span style={{
-, color: 'var(--md-sys-color-on-secondary-container)'}}>quiz</span>
+ color: 'var(--md-sys-color-on-secondary-container)'}}>quiz</span>
                         </div>
                         <M3Typography variant="body-large" style={{color: 'var(--md-sys-color-on-surface-variant)',
                             margin: 0}}>Poni una domanda ai documenti in questo set.</M3Typography>
@@ -209,8 +209,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             // removed runtime mutation
                         }}
                     >
-                        <span style={{
-, color: 'var(--md-sys-color-on-secondary-container)'}}>summarize</span>
+                        <span style={{color: 'var(--md-sys-color-on-secondary-container)'}}>summarize</span>
                         <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-secondary-container)',
                             margin: 0}}>Riassumi</M3Typography>
                     </button>
@@ -233,8 +232,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             // removed runtime mutation
                         }}
                     >
-                        <span style={{
-, color: 'var(--md-sys-color-on-tertiary-container)'}}>quiz</span>
+                        <span style={{color: 'var(--md-sys-color-on-tertiary-container)'}}>quiz</span>
                         <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-tertiary-container)',
                             margin: 0}}>Crea Quiz</M3Typography>
                     </button>
@@ -259,8 +257,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             // removed runtime mutation
                         }}
                     >
-                        <span style={{
-, color: 'var(--md-sys-color-on-primary-container)'}}>key</span>
+                        <span style={{color: 'var(--md-sys-color-on-primary-container)'}}>key</span>
                         <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-primary-container)',
                             margin: 0}}>Concetti Chiave</M3Typography>
                     </button>

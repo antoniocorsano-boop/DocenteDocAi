@@ -38,8 +38,8 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                 <p style={{
                     color: 'var(--md-sys-color-primary)',
                     textTransform: "uppercase",
-                    fontWeight: "900",
-                    opacity: "0.7"
+                    fontWeight: "var(--md-sys-typescale-weight-black)",
+                    opacity: "var(--md-sys-state-opacity-supporting)"
                 }}>Scenario</p>
             </div>
             <p style={{ lineHeight: "1.25" }}>"{scenario}"</p>
@@ -59,13 +59,13 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            fontWeight: "900",
+                            fontWeight: "var(--md-sys-typescale-weight-black)",
                             flexShrink: "0",
                             transition: `color var(--md-sys-motion-duration-medium)`
                         }}>{i + 1}</span>
                         <p style={{
                             color: 'var(--md-sys-color-outline)',
-                            fontWeight: "bold",
+                            fontWeight: "var(--md-sys-typescale-weight-bold)",
                             lineHeight: 'var(--md-sys-typescale-body-large-line-height)'
                         }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(step) }}></p>
                     </li>
@@ -83,12 +83,12 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                 }}>
                     <span style={{
                         color: 'var(--md-sys-color-primary)',
-                        fontWeight: "900"
+                        fontWeight: "var(--md-sys-typescale-weight-black)"
                     }}>tips_and_updates</span>
                     <span style={{
                         color: 'var(--md-sys-color-outline)',
-                        fontWeight: "bold",
-                        opacity: "0.8"
+                        fontWeight: "var(--md-sys-typescale-weight-bold)",
+                        opacity: "var(--md-sys-state-opacity-caption)"
                     }}>{tip}</span>
                 </div>
             )}

@@ -175,7 +175,7 @@ const Snackbar: React.FC = () => {
       <M3Typography
         variant="body-medium"
         style={{
-          fontWeight: '600',
+          fontWeight: 'var(--md-sys-typescale-weight-semibold)',
           color: 'inherit',
           flex: 1
         }}
@@ -234,7 +234,7 @@ const Snackbar: React.FC = () => {
             height: '100%',
             width: `${progress}%`,
             backgroundColor: 'color-mix(in srgb, var(--md-sys-color-inverse-on-surface) 50%, transparent)',
-            transition: 'width 16ms linear'
+            transition: 'width var(--md-sys-motion-duration-instant) linear'
           }}
         />
       </div>

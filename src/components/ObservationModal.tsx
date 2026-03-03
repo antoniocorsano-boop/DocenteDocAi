@@ -33,12 +33,12 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
             }}>
                 <span style={{
                     color: 'var(--md-sys-color-primary)',
-                    fontWeight: '900',
+                    fontWeight: 'var(--md-sys-typescale-weight-black)',
                     textTransform: 'uppercase'
                 }}>{label}</span>
                 <span style={{
                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                    fontWeight: '900',
+                    fontWeight: 'var(--md-sys-typescale-weight-black)',
                     color: 'var(--md-sys-color-primary)'
                 }}>{value}/4</span>
             </div>
@@ -90,7 +90,7 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
                     <h3 style={{
                         color: 'var(--md-sys-color-on-primary)',
                         fontSize: 'var(--md-sys-spacing-5)',
-                        fontWeight: 'bold'
+                        fontWeight: 'var(--md-sys-typescale-weight-bold)'
                     }}>{student.cognome} {student.nome}</h3>
                 </div>
                 <div style={{ gap: 'var(--md-sys-spacing-6)' }}>

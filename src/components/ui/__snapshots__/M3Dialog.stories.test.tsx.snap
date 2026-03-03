@@ -10,13 +10,13 @@ exports[`M3Dialog Story Snapshots > renders default story correctly 1`] = `
   >
     <div
       aria-hidden="true"
-      style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; background-color: var(--md-sys-color-scrim); opacity: 0.32; animation: fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-decelerated);"
+      style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; background-color: var(--md-sys-color-scrim); opacity: var(--md-sys-state-opacity-scrim); animation: fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-decelerated);"
     />
     <div
       aria-labelledby="dialog-title"
       aria-modal="true"
       role="dialog"
-      style="width: var(--md-sys-percent-100); max-width: var(--md-sys-spacing-32); max-height: var(--md-sys-percent-90); margin: auto; background-color: var(--md-sys-color-surface-container-high); border-radius: var(--md-sys-shape-corner-large); box-shadow: var(--md-sys-elevation-level3); display: flex; flex-direction: column; position: relative; z-index: var(--md-sys-z-modal);"
+      style="width: var(--md-sys-percent-100); max-width: var(--md-sys-spacing-32); max-height: var(--md-sys-percent-90); margin: auto; background-color: var(--md-sys-color-surface-container-high); border-radius: var(--md-sys-shape-corner-large); box-shadow: var(--md-sys-elevation-level3); display: flex; flex-direction: column; position: relative; z-index: var(--md-sys-z-modal); animation: md3-dialog-enter var(--md-sys-motion-duration-medium) var(--md-sys-motion-spring-expressive-default-spatial) forwards;"
     >
       <div
         style="display: flex; justify-content: space-between; align-items: flex-start; padding: var(--md-sys-spacing-6); border-bottom: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant);"

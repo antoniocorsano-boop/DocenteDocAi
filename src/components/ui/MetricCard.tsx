@@ -50,7 +50,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         flex: '1',
         minWidth: 'var(--md-sys-spacing-14)',
         cursor: onClick ? 'pointer' : 'default',
-        transition: 'transform 200ms, box-shadow 200ms',
+        transition: 'transform var(--md-sys-motion-duration-short4), box-shadow var(--md-sys-motion-duration-short4)',
         border: `var(--md-sys-border-width-thin) solid ${containerColorMap[color]}`
       }}
     >
@@ -83,7 +83,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
           variant="display-small"
           style={{
             color: colorMap[color],
-            fontWeight: '700',
+            fontWeight: 'var(--md-sys-typescale-weight-bold)',
             fontSize: 'var(--md-sys-typescale-display-medium-font-size)',
             lineHeight: 'var(--md-sys-typescale-display-medium-line-height)'
           }}
@@ -98,7 +98,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
             color: 'var(--md-sys-color-on-surface)',
             textTransform: 'uppercase',
             letterSpacing: 'var(--md-sys-typescale-metric-label-tracking)',
-            fontWeight: '600'
+            fontWeight: 'var(--md-sys-typescale-weight-semibold)'
           }}
         >
           {label}
@@ -135,7 +135,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
               variant="label-small"
               style={{
                 color: trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'inherit',
-                fontWeight: '600'
+                fontWeight: 'var(--md-sys-typescale-weight-semibold)'
               }}
             >
               {trendValue}

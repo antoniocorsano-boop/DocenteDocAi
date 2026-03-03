@@ -342,7 +342,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 backgroundColor: isDone ? 'var(--md-sys-color-primary)' : isActive ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
                                 color: isDone ? 'var(--md-sys-color-on-primary)' : isActive ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
                                 border: `var(--md-sys-border-width-thin) solid ${isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
-                                fontWeight: 'bold',
+                                fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                 transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                             }}
                             aria-hidden="true"
@@ -507,7 +507,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)' }}>
                                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-2)' }}>
                                         <span>Ore/Sett:</span>
-                                        <input type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} style={{ width: "var(--md-sys-spacing-10)", backgroundColor: "transparent", textAlign: "center", fontWeight: "bold", borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }} title="Ore settimanali di lezione" />
+                                        <input type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} style={{ width: "var(--md-sys-spacing-10)", backgroundColor: "transparent", textAlign: "center", fontWeight: "var(--md-sys-typescale-weight-bold)", borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }} title="Ore settimanali di lezione" />
                                     </div>
                                     <M3Button onClick={handleGeneratePlanFromKb} disabled={isGeneratingPlan || selectedKbFiles.length === 0} variant="tonal" style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Genera lista UDA dai documenti KB">
                                         {isGeneratingPlan ? <AiThinkingGem size="small" inline text="Leggo..." /> : 'Genera da KB'}
@@ -552,12 +552,12 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             
                                             <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                                                 <div style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>
-                                                    <span style={{ backgroundColor: 'var(--md-sys-color-primary-container)', fontWeight: "bold", color: "var(--md-sys-color-on-primary-container)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)' }}>
+                                                    <span style={{ backgroundColor: 'var(--md-sys-color-primary-container)', fontWeight: "var(--md-sys-typescale-weight-bold)", color: "var(--md-sys-color-on-primary-container)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)' }}>
                                                         UDA {idx + 1}
                                                     </span>
-                                                    <p style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "bold" }}>{uda.title}</p>
+                                                    <p style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{uda.title}</p>
                                                 </div>
-                                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "0.8" }}>{uda.topic || uda.title}</p>
+                                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "var(--md-sys-state-opacity-caption)" }}>{uda.topic || uda.title}</p>
                                             </div>
 
                                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
@@ -565,7 +565,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                     type="number" 
                                                     value={uda.hours} 
                                                     onChange={e => updateUdaHours(uda.id, parseInt(e.target.value))} 
-                                                    style={{ padding: 'var(--md-sys-spacing-4)', width: "var(--md-sys-spacing-10)", textAlign: "center", backgroundColor: "transparent", fontWeight: "bold", border: "none" }} 
+                                                    style={{ padding: 'var(--md-sys-spacing-4)', width: "var(--md-sys-spacing-10)", textAlign: "center", backgroundColor: "transparent", fontWeight: "var(--md-sys-typescale-weight-bold)", border: "none" }} 
                                                     title="Modifica ore stimate"
                                                 />
                                                 <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>ore</span>
@@ -613,7 +613,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     <div key={idx} style={{ position: 'relative' }}>
                                         <div style={{ position: 'absolute', left: 'var(--md-sys-spacing-neg-2)', top: 'var(--md-sys-spacing-1)', width: 'var(--md-sys-spacing-5)', height: 'var(--md-sys-spacing-5)',  borderRadius: 'var(--md-sys-percent-full)' , border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-surface-container-low)', boxShadow: 'var(--md-sys-elevation-level1)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}></div>
                                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
-                                            <p style={{ fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-4)' }}>
+                                            <p style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-4)' }}>
                                                 {new Date(item.start).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })} - {new Date(item.end).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })}
                                             </p>
                                             <h4 style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>{item.uda.title}</h4>

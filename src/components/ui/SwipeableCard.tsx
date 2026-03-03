@@ -107,8 +107,8 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
             alignItems: 'center',
             paddingLeft: 'var(--md-sys-spacing-4)',
             gap: 'var(--md-sys-spacing-2)',
-            opacity: actionTriggered ? 1 : 0.7,
-            transition: 'opacity 150ms'
+            opacity: actionTriggered ? 1 : 'var(--md-sys-state-opacity-icon-muted)' as unknown as number,
+            transition: 'opacity var(--md-sys-motion-duration-short2)'
           }}
         >
           <span
@@ -124,7 +124,7 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
           <span
             style={{
               color: leftAction.color,
-              fontWeight: '600',
+              fontWeight: 'var(--md-sys-typescale-weight-semibold)',
               fontSize: 'var(--md-sys-typescale-label-medium-font-size)'
             }}
           >
@@ -148,14 +148,14 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
             justifyContent: 'flex-end',
             paddingRight: 'var(--md-sys-spacing-4)',
             gap: 'var(--md-sys-spacing-2)',
-            opacity: actionTriggered ? 1 : 0.7,
-            transition: 'opacity 150ms'
+            opacity: actionTriggered ? 1 : 'var(--md-sys-state-opacity-icon-muted)' as unknown as number,
+            transition: 'opacity var(--md-sys-motion-duration-short2)'
           }}
         >
           <span
             style={{
               color: rightAction.color,
-              fontWeight: '600',
+              fontWeight: 'var(--md-sys-typescale-weight-semibold)',
               fontSize: 'var(--md-sys-typescale-label-medium-font-size)'
             }}
           >
@@ -182,7 +182,7 @@ export const SwipeableCard: React.FC<SwipeableCardProps> = ({
         onTouchEnd={handleTouchEnd}
         style={{
           transform: `translateX(${translateX}px)`,
-          transition: isDragging ? 'none' : 'transform 250ms var(--md-sys-motion-easing-standard)',
+          transition: isDragging ? 'none' : 'transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
           backgroundColor: 'var(--md-sys-color-surface-container)',
           cursor: disabled ? 'default' : 'grab',
           userSelect: 'none'

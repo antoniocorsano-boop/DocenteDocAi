@@ -1,0 +1,348 @@
+﻿
+> docentedoc-ai@1.0.0 lint
+> eslint . --ext .js,.jsx,.ts,.tsx
+
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\  nka\    NKANodeCard.tsx
+  1:24  warning  Missing return type on function  @typescript-eslint/explicit-module-boundary-types
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\AppLayout.md3.tsx
+  73:15  warning  MD3 VIOLATION: 'height: 100dvh' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token  design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\BottomNav.tsx
+   45:9   warning  className not allowed in UI components. Use inline style with MD3 tokens instead  design-system/no-classname
+   67:15  warning  className not allowed in UI components. Use inline style with MD3 tokens instead  design-system/no-classname
+   88:17  warning  className not allowed in UI components. Use inline style with MD3 tokens instead  design-system/no-classname
+  122:29  warning  Hardcoded zIndex "1" is forbidden. Use MD3 z-index tokens: var(--md-sys-z-*)      design-system/no-invalid-component-props
+  122:29  warning  Hardcoded zIndex "1" is forbidden. Use MD3 z-index tokens: var(--md-sys-z-*)      design-system/no-invalid-component-props
+  122:29  warning  MD3 VIOLATION: Numeric z-index 1. Use zIndex: 'var(--md-sys-z-*)' instead         design-system/no-numeric-zindex
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\CorpusChat.tsx
+  106:0  error  Parsing error: Property assignment expected
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\Home.tsx
+   58:10  error    'M3Card' is defined but never used                                                                                                                                                             @typescript-eslint/no-unused-vars
+  151:20  warning  MD3 VIOLATION: Hardcoded unit in 'padding: var(--md-sys-spacing-4) var(--md-sys-spacing-4) calc(var(--md-sys-spacing-20) + env(safe-area-inset-bottom, 0px))'. MUST use var(--md-sys-*) token  design-system/enforce-token-usage
+  153:19  warning  MD3 VIOLATION: 'auto' keyword in 'margin: 0 auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token                                                                               design-system/no-hardcoded-layout-values
+  153:19  warning  MD3 VIOLATION: 'margin: 0 auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                                                                                 design-system/no-hardcoded-layout-values
+  154:18  warning  Hardcoded width value "100%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)                                                                                                     design-system/no-invalid-component-props
+  154:18  warning  Hardcoded width value "100%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)                                                                                                     design-system/no-invalid-component-props
+  154:18  warning  MD3 VIOLATION: Percentage unit in 'width: 100%'. Use var(--md-sys-percent-*) token                                                                                                             design-system/no-hardcoded-layout-values
+  154:18  warning  MD3 VIOLATION: 'width: 100%' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                                                                                    design-system/no-hardcoded-layout-values
+  201:34  warning  MD3 VIOLATION: Grid 'fr' unit in 'gridTemplateColumns: 1fr 1fr'. Use var(--md-sys-grid-fr-*) token                                                                                             design-system/no-hardcoded-layout-values
+  402:19  warning  MD3 VIOLATION: Hardcoded unit in 'bottom: calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-4) + env(safe-area-inset-bottom, 0px))'. MUST use var(--md-sys-*) token                         design-system/enforce-token-usage
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\KnowledgeBase.tsx
+  160:74   warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  160:74   warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  160:100  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  160:100  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\M3Fab.tsx
+  108:19  warning  MD3 VIOLATION: Hardcoded unit in 'minWidth: var(--md-sys-spacing-14, 56px)'. MUST use var(--md-sys-*) token   design-system/enforce-token-usage
+  108:19  warning  MD3 VIOLATION: CSS variable fallback contains hardcoded unit. Remove fallback or use MD3 token                design-system/enforce-token-usage
+  109:20  warning  MD3 VIOLATION: Hardcoded unit in 'minHeight: var(--md-sys-spacing-14, 56px)'. MUST use var(--md-sys-*) token  design-system/enforce-token-usage
+  109:20  warning  MD3 VIOLATION: CSS variable fallback contains hardcoded unit. Remove fallback or use MD3 token                design-system/enforce-token-usage
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\NavigationRail.tsx
+  96:12  warning  Hardcoded width value "100%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)                    design-system/no-invalid-component-props
+  96:12  warning  MD3 VIOLATION: Percentage unit in 'width: 100%'. Use var(--md-sys-percent-*) token                            design-system/no-hardcoded-layout-values
+  96:12  warning  MD3 VIOLATION: 'width: 100%' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token   design-system/no-hardcoded-layout-values
+  97:13  warning  Hardcoded height value "100%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)                   design-system/no-invalid-component-props
+  97:13  warning  MD3 VIOLATION: Percentage unit in 'height: 100%'. Use var(--md-sys-percent-*) token                           design-system/no-hardcoded-layout-values
+  97:13  warning  MD3 VIOLATION: 'height: 100%' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token  design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\OperationsCenter.tsx
+  207:37  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  207:37  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  209:38  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  209:38  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\PassaggioAnnoWizard.tsx
+  182:83   warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  182:83   warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  182:109  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  182:109  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+  288:72   warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  288:72   warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  288:98   warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  288:98   warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+  289:346  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  289:346  warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  289:372  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  289:372  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\PinPadModal.tsx
+  52:310  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  52:310  warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  52:336  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  52:336  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ProgettazioneHub.tsx
+  67:35   warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  67:35   warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  67:61   warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  67:61   warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+  72:92   warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  72:92   warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  72:118  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  72:118  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ReportisticaHub.tsx
+  418:29  warning  MD3 VIOLATION: 'auto' keyword in 'margin: var(--md-sys-spacing-8) var(auto) 0 var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\Settings.tsx
+  1839:41  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  1839:41  warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  1840:42  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  1840:42  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\SlotActionModal.tsx
+  88:20  error  Parsing error: '}' expected
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\Snackbar.tsx
+  140:15  warning  MD3 VIOLATION: Percentage unit in 'left: var(50%)'. Use var(--md-sys-percent-*) token                                                     design-system/no-hardcoded-layout-values
+  234:21  warning  Hardcoded height value "100%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)                                               design-system/no-invalid-component-props
+  234:21  warning  Hardcoded height value "100%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)                                               design-system/no-invalid-component-props
+  234:21  warning  MD3 VIOLATION: Percentage unit in 'height: 100%'. Use var(--md-sys-percent-*) token                                                       design-system/no-hardcoded-layout-values
+  234:21  warning  MD3 VIOLATION: 'height: 100%' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                              design-system/no-hardcoded-layout-values
+  237:25  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+  237:25  warning  Hardcoded motion value "width var(--md-sys-motion-duration-instant) linear" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)   design-system/no-invalid-component-props
+  237:25  warning  Hardcoded motion value "width var(--md-sys-motion-duration-instant) linear" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)   design-system/no-invalid-component-props
+  237:25  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+  237:25  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\StudentClassroomView.tsx
+  186:79   warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  186:79   warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  186:105  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  186:105  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+  234:48   warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  234:48   warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  234:74   warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  234:74   warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+  314:169  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  314:169  warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  314:195  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  314:195  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\TeacherInbox.tsx
+  119:56  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  119:56  warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  119:82  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  119:82  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\TeacherPresentationView.tsx
+   18:75   warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+   18:75   warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+   18:101  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+   18:101  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+   27:260  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+   27:260  warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+   27:286  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+   27:286  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+  120:260  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  120:260  warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  120:286  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  120:286  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\TestPreviewModal.tsx
+  153:107  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  153:107  warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  153:150  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  153:150  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\Timetable.tsx
+  70:25  warning  MD3 VIOLATION: z-index 'var(0)' must be var(--z-*), var(--md-sys-z-*), or var(--app-z-*) CSS variable                     design-system/no-numeric-zindex
+  80:25  warning  MD3 VIOLATION: z-index 'var(0)' must be var(--z-*), var(--md-sys-z-*), or var(--app-z-*) CSS variable                     design-system/no-numeric-zindex
+  88:29  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  88:29  warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  89:30  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  89:30  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\Tooltip.tsx
+  74:17  warning  MD3 VIOLATION: Percentage unit in 'left: var(50%)'. Use var(--md-sys-percent-*) token  design-system/no-hardcoded-layout-values
+  82:17  warning  MD3 VIOLATION: Percentage unit in 'left: var(50%)'. Use var(--md-sys-percent-*) token  design-system/no-hardcoded-layout-values
+  91:16  warning  MD3 VIOLATION: Percentage unit in 'top: var(50%)'. Use var(--md-sys-percent-*) token   design-system/no-hardcoded-layout-values
+  99:16  warning  MD3 VIOLATION: Percentage unit in 'top: var(50%)'. Use var(--md-sys-percent-*) token   design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\VideoAnalysisModal.tsx
+  142:381  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  142:381  warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  142:407  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  142:407  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+  213:184  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  213:184  warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  213:210  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  213:210  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ViewLoadingPlaceholder.tsx
+  48:105  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  48:105  warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  48:131  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  48:131  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\WelcomeScreen.tsx
+  311:30  warning  MD3 VIOLATION: Percentage unit in 'top: var(50%)'. Use var(--md-sys-percent-*) token   design-system/no-hardcoded-layout-values
+  312:31  warning  MD3 VIOLATION: Percentage unit in 'left: var(50%)'. Use var(--md-sys-percent-*) token  design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\WorkflowGuide.tsx
+  90:0  error  Parsing error: Property assignment expected
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\dashboard\Dashboard.tsx
+  459:21  warning  MD3 VIOLATION: 'auto' keyword in 'margin: 0 var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token                          design-system/no-hardcoded-layout-values
+  459:21  warning  MD3 VIOLATION: 'margin: 0 var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                            design-system/no-hardcoded-layout-values
+  552:23  warning  MD3 VIOLATION: 'auto' keyword in 'margin: 0 var(auto) var(--md-sys-spacing-4)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  578:21  warning  MD3 VIOLATION: 'auto' keyword in 'margin: 0 var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token                          design-system/no-hardcoded-layout-values
+  578:21  warning  MD3 VIOLATION: 'margin: 0 var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                            design-system/no-hardcoded-layout-values
+  604:19  warning  MD3 VIOLATION: 'auto' keyword in 'margin: 0 var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token                          design-system/no-hardcoded-layout-values
+  604:19  warning  MD3 VIOLATION: 'margin: 0 var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                            design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\settings\ThemeSettingsPanel.tsx
+  36:19  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  36:19  warning  MD3 VIOLATION: 'marginLeft: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  38:20  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: var(auto)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  38:20  warning  MD3 VIOLATION: 'marginRight: var(auto)' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\AccessibilitySettings.tsx
+  222:6  error  Parsing error: '}' expected
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\FAB.tsx
+   55:13  warning  MD3 VIOLATION: Percentage unit in 'left: 50%'. Use var(--md-sys-percent-*) token                                                            design-system/no-hardcoded-layout-values
+  113:17  warning  Hardcoded zIndex "1000" is forbidden. Use MD3 z-index tokens: var(--md-sys-z-*)                                                             design-system/no-invalid-component-props
+  113:17  warning  Hardcoded zIndex "1000" is forbidden. Use MD3 z-index tokens: var(--md-sys-z-*)                                                             design-system/no-invalid-component-props
+  113:17  warning  MD3 VIOLATION: Numeric z-index 1000. Use zIndex: 'var(--md-sys-z-*)' instead                                                                design-system/no-numeric-zindex
+  176:13  warning  MD3 VIOLATION: Percentage unit in 'left: 50%'. Use var(--md-sys-percent-*) token                                                            design-system/no-hardcoded-layout-values
+  199:21  warning  Hardcoded zIndex "999" is forbidden. Use MD3 z-index tokens: var(--md-sys-z-*)                                                              design-system/no-invalid-component-props
+  199:21  warning  Hardcoded zIndex "999" is forbidden. Use MD3 z-index tokens: var(--md-sys-z-*)                                                              design-system/no-invalid-component-props
+  199:21  warning  MD3 VIOLATION: Numeric z-index 999. Use zIndex: 'var(--md-sys-z-*)' instead                                                                 design-system/no-numeric-zindex
+  200:24  warning  Hardcoded motion value "fade-in var(--md-sys-motion-duration-short4) ease-out" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)  design-system/no-invalid-component-props
+  200:24  warning  Hardcoded motion value "fade-in var(--md-sys-motion-duration-short4) ease-out" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)  design-system/no-invalid-component-props
+  213:21  warning  Hardcoded zIndex "1000" is forbidden. Use MD3 z-index tokens: var(--md-sys-z-*)                                                             design-system/no-invalid-component-props
+  213:21  warning  Hardcoded zIndex "1000" is forbidden. Use MD3 z-index tokens: var(--md-sys-z-*)                                                             design-system/no-invalid-component-props
+  213:21  warning  MD3 VIOLATION: Numeric z-index 1000. Use zIndex: 'var(--md-sys-z-*)' instead                                                                design-system/no-numeric-zindex
+  226:28  warning  Hardcoded duration "250ms" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})                design-system/no-hardcoded-motion-values
+  226:28  warning  Hardcoded easing "ease-out" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\LoadingState.tsx
+  42:22  warning  Hardcoded duration "1s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})                 design-system/no-hardcoded-motion-values
+  42:22  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+  42:22  warning  Hardcoded motion value "spin 1s linear infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)                              design-system/no-invalid-component-props
+  42:22  warning  Hardcoded motion value "spin 1s linear infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)                              design-system/no-invalid-component-props
+  42:22  warning  Hardcoded duration "1s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})                 design-system/no-hardcoded-motion-values
+  42:22  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+  42:22  warning  Hardcoded duration "1s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})                 design-system/no-hardcoded-motion-values
+  42:22  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\M3Dialog.tsx
+  192:19  warning  MD3 VIOLATION: 'auto' keyword in 'margin: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  192:19  warning  MD3 VIOLATION: 'margin: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\M3HeroCard.tsx
+  99:51  warning  Hardcoded zIndex "1" is forbidden. Use MD3 z-index tokens: var(--md-sys-z-*)  design-system/no-invalid-component-props
+  99:51  warning  Hardcoded zIndex "1" is forbidden. Use MD3 z-index tokens: var(--md-sys-z-*)  design-system/no-invalid-component-props
+  99:51  warning  MD3 VIOLATION: Numeric z-index 1. Use zIndex: 'var(--md-sys-z-*)' instead     design-system/no-numeric-zindex
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\MetricCard.tsx
+  31:14  warning  Hardcoded color '#4CAF50' found. Use design tokens instead (e.g., var(--sys-primary))  design-system/no-hardcoded-colors
+  32:14  warning  Hardcoded color '#FF9800' found. Use design tokens instead (e.g., var(--sys-primary))  design-system/no-hardcoded-colors
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\PageTransition.tsx
+  75:3  error  Definition for rule 'react-hooks/exhaustive-deps' was not found  react-hooks/exhaustive-deps
+  81:3  error  Definition for rule 'react-hooks/exhaustive-deps' was not found  react-hooks/exhaustive-deps
+  87:3  error  Definition for rule 'react-hooks/exhaustive-deps' was not found  react-hooks/exhaustive-deps
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\PinPad.tsx
+  26:21  warning  MD3 VIOLATION: 'auto' keyword in 'margin: var(--md-sys-spacing-4) auto 0'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\ProgressIndicator.tsx
+  38:19  warning  Hardcoded zIndex "9999" is forbidden. Use MD3 z-index tokens: var(--md-sys-z-*)                                                                               design-system/no-invalid-component-props
+  38:19  warning  Hardcoded zIndex "9999" is forbidden. Use MD3 z-index tokens: var(--md-sys-z-*)                                                                               design-system/no-invalid-component-props
+  38:19  warning  MD3 VIOLATION: Numeric z-index 9999. Use zIndex: 'var(--md-sys-z-*)' instead                                                                                  design-system/no-numeric-zindex
+  44:21  warning  Hardcoded height value "100%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)                                                                   design-system/no-invalid-component-props
+  44:21  warning  Hardcoded height value "100%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)                                                                   design-system/no-invalid-component-props
+  44:21  warning  MD3 VIOLATION: Percentage unit in 'height: 100%'. Use var(--md-sys-percent-*) token                                                                           design-system/no-hardcoded-layout-values
+  44:21  warning  MD3 VIOLATION: 'height: 100%' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                                                  design-system/no-hardcoded-layout-values
+  45:20  warning  Hardcoded width value "30%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)                                                                     design-system/no-invalid-component-props
+  45:20  warning  Hardcoded width value "30%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)                                                                     design-system/no-invalid-component-props
+  45:20  warning  MD3 VIOLATION: Percentage unit in 'width: 30%'. Use var(--md-sys-percent-*) token                                                                             design-system/no-hardcoded-layout-values
+  45:20  warning  MD3 VIOLATION: 'width: 30%' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                                                    design-system/no-hardcoded-layout-values
+  47:24  warning  Hardcoded motion value "progress-indeterminate 2s var(--md-sys-motion-easing-standard) infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)  design-system/no-invalid-component-props
+  47:24  warning  Hardcoded motion value "progress-indeterminate 2s var(--md-sys-motion-easing-standard) infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)  design-system/no-invalid-component-props
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\ResponsiveContainer.tsx
+  31:16  warning  Hardcoded width value "100%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)                   design-system/no-invalid-component-props
+  31:16  warning  Hardcoded width value "100%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)                   design-system/no-invalid-component-props
+  31:16  warning  MD3 VIOLATION: Percentage unit in 'width: 100%'. Use var(--md-sys-percent-*) token                           design-system/no-hardcoded-layout-values
+  31:16  warning  MD3 VIOLATION: 'width: 100%' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token  design-system/no-hardcoded-layout-values
+  43:33  warning  Missing return type on function                                                                              @typescript-eslint/explicit-module-boundary-types
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\SelectField.tsx
+   86:30  warning  Hardcoded top value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+   86:30  warning  Hardcoded top value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+   86:30  warning  MD3 VIOLATION: Percentage unit in 'top: 50%'. Use var(--md-sys-percent-*) token          design-system/no-hardcoded-layout-values
+  102:34  warning  Hardcoded top value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+  102:34  warning  Hardcoded top value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+  102:34  warning  MD3 VIOLATION: Percentage unit in 'top: 50%'. Use var(--md-sys-percent-*) token          design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\Skeleton.tsx
+   24:15  warning  MD3 VIOLATION: Percentage unit in 'circular: 50%'. Use var(--md-sys-percent-*) token                                                      design-system/no-hardcoded-layout-values
+   54:26  warning  Hardcoded duration "1.5s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})               design-system/no-hardcoded-motion-values
+   54:26  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+   54:26  warning  Hardcoded motion value "skeleton-wave-move 1.5s linear infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)              design-system/no-invalid-component-props
+   54:26  warning  Hardcoded motion value "skeleton-wave-move 1.5s linear infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)              design-system/no-invalid-component-props
+   54:26  warning  Hardcoded duration "1.5s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})               design-system/no-hardcoded-motion-values
+   54:26  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+   54:26  warning  Hardcoded duration "1.5s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})               design-system/no-hardcoded-motion-values
+   54:26  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+   98:11  warning  Prop "width" is forbidden on components. Use MD3 wrapper components or CSS classes with MD3 tokens instead                                design-system/no-invalid-component-props
+   99:11  warning  Prop "height" is forbidden on components. Use MD3 wrapper components or CSS classes with MD3 tokens instead                               design-system/no-invalid-component-props
+  103:13  warning  Prop "width" is forbidden on components. Use MD3 wrapper components or CSS classes with MD3 tokens instead                                design-system/no-invalid-component-props
+  104:13  warning  Prop "height" is forbidden on components. Use MD3 wrapper components or CSS classes with MD3 tokens instead                               design-system/no-invalid-component-props
+  108:13  warning  Prop "width" is forbidden on components. Use MD3 wrapper components or CSS classes with MD3 tokens instead                                design-system/no-invalid-component-props
+  109:13  warning  Prop "height" is forbidden on components. Use MD3 wrapper components or CSS classes with MD3 tokens instead                               design-system/no-invalid-component-props
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\TabGroup.tsx
+  179:43  warning  Hardcoded left value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+  179:43  warning  Hardcoded left value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+  179:43  warning  MD3 VIOLATION: Percentage unit in 'left: 50%'. Use var(--md-sys-percent-*) token          design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\Tooltip.tsx
+   40:15  warning  MD3 VIOLATION: Percentage unit in 'bottom: 100%'. Use var(--md-sys-percent-*) token                                                                 design-system/no-hardcoded-layout-values
+   41:13  warning  MD3 VIOLATION: Percentage unit in 'left: 50%'. Use var(--md-sys-percent-*) token                                                                    design-system/no-hardcoded-layout-values
+   46:12  warning  MD3 VIOLATION: Percentage unit in 'top: 100%'. Use var(--md-sys-percent-*) token                                                                    design-system/no-hardcoded-layout-values
+   47:13  warning  MD3 VIOLATION: Percentage unit in 'left: 50%'. Use var(--md-sys-percent-*) token                                                                    design-system/no-hardcoded-layout-values
+   52:14  warning  MD3 VIOLATION: Percentage unit in 'right: 100%'. Use var(--md-sys-percent-*) token                                                                  design-system/no-hardcoded-layout-values
+   53:12  warning  MD3 VIOLATION: Percentage unit in 'top: 50%'. Use var(--md-sys-percent-*) token                                                                     design-system/no-hardcoded-layout-values
+   58:13  warning  MD3 VIOLATION: Percentage unit in 'left: 100%'. Use var(--md-sys-percent-*) token                                                                   design-system/no-hardcoded-layout-values
+   59:12  warning  MD3 VIOLATION: Percentage unit in 'top: 50%'. Use var(--md-sys-percent-*) token                                                                     design-system/no-hardcoded-layout-values
+   98:21  warning  Hardcoded zIndex "1000" is forbidden. Use MD3 z-index tokens: var(--md-sys-z-*)                                                                     design-system/no-invalid-component-props
+   98:21  warning  Hardcoded zIndex "1000" is forbidden. Use MD3 z-index tokens: var(--md-sys-z-*)                                                                     design-system/no-invalid-component-props
+   98:21  warning  MD3 VIOLATION: Numeric z-index 1000. Use zIndex: 'var(--md-sys-z-*)' instead                                                                        design-system/no-numeric-zindex
+  110:24  warning  Hardcoded motion value "tooltip-fade-in var(--md-sys-motion-duration-short4) ease-out" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)  design-system/no-invalid-component-props
+  110:24  warning  Hardcoded motion value "tooltip-fade-in var(--md-sys-motion-duration-short4) ease-out" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)  design-system/no-invalid-component-props
+  125:23  warning  MD3 VIOLATION: Percentage unit in 'left: 50%'. Use var(--md-sys-percent-*) token                                                                    design-system/no-hardcoded-layout-values
+  132:23  warning  MD3 VIOLATION: Percentage unit in 'left: 50%'. Use var(--md-sys-percent-*) token                                                                    design-system/no-hardcoded-layout-values
+  139:22  warning  MD3 VIOLATION: Percentage unit in 'top: 50%'. Use var(--md-sys-percent-*) token                                                                     design-system/no-hardcoded-layout-values
+  146:22  warning  MD3 VIOLATION: Percentage unit in 'top: 50%'. Use var(--md-sys-percent-*) token                                                                     design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\TouchButton.tsx
+  143:24  warning  Hardcoded duration "0.8s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})                           design-system/no-hardcoded-motion-values
+  143:24  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})              design-system/no-hardcoded-motion-values
+  143:24  warning  Hardcoded motion value "spin 0.8s linear infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)                                        design-system/no-invalid-component-props
+  143:24  warning  Hardcoded motion value "spin 0.8s linear infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)                                        design-system/no-invalid-component-props
+  143:24  warning  Hardcoded duration "0.8s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})                           design-system/no-hardcoded-motion-values
+  143:24  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})              design-system/no-hardcoded-motion-values
+  143:24  warning  Hardcoded duration "0.8s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})                           design-system/no-hardcoded-motion-values
+  143:24  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})              design-system/no-hardcoded-motion-values
+  177:24  warning  Hardcoded motion value "ripple-expand var(--md-sys-motion-duration-extra-long) ease-out" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)  design-system/no-invalid-component-props
+  177:24  warning  Hardcoded motion value "ripple-expand var(--md-sys-motion-duration-extra-long) ease-out" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)  design-system/no-invalid-component-props
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\services\ThemeService.ts
+  25:58  error  Parsing error: ',' expected
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\stories\DesignSystem\Typography.stories.tsx
+  41:5  error  Parsing error: Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+Ô£û 251 problems (10 errors, 241 warnings)
+

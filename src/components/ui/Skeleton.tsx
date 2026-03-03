@@ -60,7 +60,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
       <style>{`
         @keyframes skeleton-pulse {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
+          50% { opacity: 'var(--md-sys-state-opacity-placeholder)'; }
         }
         @keyframes skeleton-wave-move {
           0% { transform: translateX(-100%); }

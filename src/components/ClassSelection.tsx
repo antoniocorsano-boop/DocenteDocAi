@@ -52,7 +52,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
             <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
                 <h1 style={{ 
                     color: 'var(--md-sys-color-on-surface)',
-                    fontWeight: '700',
+                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
                     fontSize: 'var(--md-sys-typescale-headline-large-size)',
                     marginBottom: 'var(--md-sys-spacing-2)'
                 }}>
@@ -73,7 +73,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                     <h2 style={{ 
                         color: 'var(--md-sys-color-on-surface)',
                         fontSize: 'var(--md-sys-typescale-title-medium-size)',
-                        fontWeight: '600',
+                        fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                         textTransform: 'uppercase',
                         letterSpacing: 'var(--md-sys-typescale-title-medium-tracking)',
                         marginBottom: 'var(--md-sys-spacing-4)'
@@ -102,7 +102,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                     <span style={{
                                         color: 'var(--md-sys-color-tertiary)',
                                         fontSize: 'var(--md-sys-typescale-label-small-size)',
-                                        fontWeight: '600',
+                                        fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                         textTransform: 'uppercase',
                                         letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                                     }}>
@@ -111,7 +111,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                     <h4 style={{
                                         color: 'var(--md-sys-color-on-surface)',
                                         fontSize: 'var(--md-sys-typescale-title-medium-size)',
-                                        fontWeight: '600',
+                                        fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                         marginTop: 'var(--md-sys-spacing-1)',
                                         marginBottom: 'var(--md-sys-spacing-1)'
                                     }}>
@@ -133,7 +133,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                     background: 'var(--md-sys-color-primary-container)',
                                     color: 'var(--md-sys-color-on-primary-container)',
                                     fontSize: 'var(--md-sys-typescale-label-medium-size)',
-                                    fontWeight: '600'
+                                    fontWeight: 'var(--md-sys-typescale-weight-semibold)'
                                 }}>
                                     {test.className}
                                 </div>
@@ -300,7 +300,7 @@ const PrintCenterModal: React.FC<{
                     <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
                     
                     <div style={{gap: 'var(--md-sys-spacing-2)'}}>
-                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "500" }}>Periodo</label>
+                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "var(--md-sys-typescale-weight-medium)" }}>Periodo</label>
                         <TabGroup
                             tabs={[
                                 { id: 'primo-quadrimestre', label: '1Q' },
@@ -312,7 +312,7 @@ const PrintCenterModal: React.FC<{
                     </div>
 
                     <div style={{gap: 'var(--md-sys-spacing-2)'}}>
-                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "500" }}>Classi</label>
+                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "var(--md-sys-typescale-weight-medium)" }}>Classi</label>
                         <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                             {userClasses.map(c => (
                                 <div 

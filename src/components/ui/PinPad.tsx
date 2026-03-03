@@ -1,6 +1,5 @@
-// MD3 Compliant
+// MD3 Compliant - Pure CSS tokens, no useTheme dependency
 import React, { useState } from 'react';
-import { useTheme } from '../../theme/theme';
 
 interface PinPadProps {
     onInput: (digit: string) => void;
@@ -13,8 +12,6 @@ interface PinPadProps {
  */
 
 const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
-    const { layers: { sys: { color }, ref: { spacing, shape, typography }, motion } } = useTheme();
-
     const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'back'];
 
     const [hoveredKey, setHoveredKey] = useState<string | null>(null);
@@ -24,9 +21,9 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
         <div style={{
             display: 'grid',
             gridTemplateColumns: `repeat(3, var(--md-sys-grid-fr-1))`,
-            gap: spacing[4],
-            maxWidth: spacing[64], // Using calculated value instead of non-existent spacing token
-            margin: `${spacing[4]} auto 0`
+            gap: 'var(--md-sys-spacing-4)',
+            maxWidth: 'var(--md-sys-spacing-64)',
+            margin: 'var(--md-sys-spacing-4) auto 0'
         }}>
             {keys.map((key, i) => {
                 if (key === '') return <div key={i}></div>;
@@ -40,15 +37,15 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
                         onClick={onDelete}
                         aria-label="Cancella"
                         style={{
-                            width: spacing[12],
-                            height: spacing[12],
-                            borderRadius: shape.corner.large,
+                            width: 'var(--md-sys-spacing-12)',
+                            height: 'var(--md-sys-spacing-12)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            transition: `all ${motion.duration.short1} ${motion.easing.standard}`,
+                            transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                             border: 'none',
-                            backgroundColor: isHovered ? color.surfaceContainerHigh : 'transparent',
+                            backgroundColor: isHovered ? 'var(--md-sys-color-surface-container-high)' : 'transparent',
                             cursor: 'pointer',
                             transform: isPressed ? 'scale(0.9)' : 'scale(1)'
                         }}
@@ -58,8 +55,8 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
                         onMouseUp={() => setPressedKey(null)}
                     >
                         <span style={{
-                            fontSize: typography.labelLarge.fontSize,
-                            fontWeight: 300
+                            fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                            fontWeight: 'var(--md-sys-typescale-weight-light)'
                         }}>backspace</span>
                     </button>
                 );
@@ -70,14 +67,14 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
                         onClick={() => onInput(key)}
                         aria-label={`Cifra ${key}`}
                         style={{
-                            width: spacing[12],
-                            height: spacing[12],
-                            borderRadius: shape.corner.large,
-                            backgroundColor: isHovered ? color.surface : color.surfaceContainerLow,
-                            fontSize: typography.labelLarge.fontSize,
-                            fontWeight: 800,
-                            border: `var(--md-sys-border-width-thick) solid ${isHovered ? color.primary : `color-mix(in srgb, ${color.outlineVariant} var(--md-sys-percent-30), transparent)`}`,
-                            transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+                            width: 'var(--md-sys-spacing-12)',
+                            height: 'var(--md-sys-spacing-12)',
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            backgroundColor: isHovered ? 'var(--md-sys-color-surface)' : 'var(--md-sys-color-surface-container-low)',
+                            fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                            fontWeight: 'var(--md-sys-typescale-weight-extrabold)',
+                            border: `var(--md-sys-border-width-thick) solid ${isHovered ? 'var(--md-sys-color-primary)' : 'color-mix(in srgb, var(--md-sys-color-outline-variant) var(--md-sys-percent-30), transparent)'}`,
+                            transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',

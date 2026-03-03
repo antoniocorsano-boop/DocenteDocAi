@@ -25,7 +25,7 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
             <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 , gap: 'var(--md-sys-spacing-6)'}}>
                 <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', color: "var(--md-sys-color-error)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                     <span style={{ color: 'var(--md-sys-color-error)' }}>warning</span>
-                    <span style={{ fontWeight: "bold" }}>Azione Irreversibile</span>
+                    <span style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Azione Irreversibile</span>
                 </div>
                 <p style={{ color: 'var(--md-sys-color-on-primary)' ,  lineHeight: "1.625" }}>
                     Stai per cancellare <strong>TUTTI</strong> i dati locali (studenti, voti, lezioni). 

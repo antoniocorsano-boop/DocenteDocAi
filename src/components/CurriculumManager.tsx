@@ -137,7 +137,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     <span style={{
                                         width: 'var(--md-sys-spacing-2)',
                                         height: 'var(--md-sys-spacing-2)',
-                                        borderRadius: 'var(50%)',
+                                        borderRadius: 'var(--md-sys-shape-corner-full)',
                                         flexShrink: 0,
                                         background: obj.type === 'skill' ? 'var(--md-sys-color-tertiary)' : 'var(--md-sys-color-secondary)'
                                     }}></span>

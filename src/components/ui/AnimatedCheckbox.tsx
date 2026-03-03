@@ -32,7 +32,7 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
         opacity: disabled ? 0.5 : 1,
         padding: 'var(--md-sys-spacing-2)',
         borderRadius: 'var(--md-sys-spacing-2)',
-        transition: 'background-color 200ms',
+        transition: 'background-color var(--md-sys-motion-duration-short4)',
         ...(isFocused && !disabled && {
           backgroundColor: 'var(--md-sys-color-surface-container)'
         })
@@ -71,7 +71,7 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            transition: 'all 200ms var(--md-sys-motion-easing-standard)',
+            transition: 'all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',
             ...(isFocused && {
               outline: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-primary)',
               outlineOffset: 'var(--md-sys-spacing-0-5)'
@@ -85,7 +85,7 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
               viewBox="0 0 16 16"
               fill="none"
               style={{
-                animation: 'check-in 200ms var(--md-sys-motion-easing-standard)'
+                animation: 'check-in var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)'
               }}
             >
               <path
@@ -97,7 +97,7 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
                 style={{
                   strokeDasharray: 20,
                   strokeDashoffset: checked ? 0 : 20,
-                  transition: 'stroke-dashoffset 200ms var(--md-sys-motion-easing-standard) 50ms'
+                  transition: 'stroke-dashoffset var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-micro)'
                 }}
               />
             </svg>
@@ -111,7 +111,7 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
           variant="body-medium"
           style={{
             color: 'var(--md-sys-color-on-surface)',
-            fontWeight: '500',
+            fontWeight: 'var(--md-sys-typescale-weight-medium)',
             marginBottom: helperText ? 'var(--md-sys-spacing-1)' : 0
           }}
         >

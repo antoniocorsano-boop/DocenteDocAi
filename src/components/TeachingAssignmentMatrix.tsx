@@ -110,7 +110,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                                                     title={isActive ? `Rimuovi ${subj} da ${cls}` : `Assegna ${subj} a ${cls}`}
                                                     aria-label={`${subj} in ${cls}: ${isActive ? 'Assegnato' : 'Non assegnato'}`}
                                                 >
-                                                    <span className="material-symbols-outlined" style={{ fontWeight: 400, fontStyle: 'normal', fontSize: 'var(--md-sys-spacing-6)', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle', color: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)' }}>
+                                                    <span className="material-symbols-outlined" style={{ fontWeight: 'var(--md-sys-typescale-weight-regular)', fontStyle: 'normal', fontSize: 'var(--md-sys-spacing-6)', lineHeight: '1', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle', color: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)' }}>
                                                         {isActive ? 'check_circle' : 'add_circle'}
                                                     </span>
                                                 </button>

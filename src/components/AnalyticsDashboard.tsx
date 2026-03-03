@@ -481,7 +481,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     paddingBottom: 'var(--md-sys-spacing-12)'}}>
                     <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-display-large-font-size)',
                       color: 'var(--md-sys-color-on-surface-variant)',
-                      opacity: 0.3,
+                      opacity: 'var(--md-sys-state-opacity-tint-moderate)',
                       marginBottom: 'var(--md-sys-spacing-8)',
                       display: 'block'}}>history</span>
                     <M3Typography variant="body-medium" style={{
@@ -738,7 +738,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     justifyContent: 'space-between',
                     paddingTop: 'var(--md-sys-spacing-4)',
                     borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
-                    opacity: 0.1}}>
+                    opacity: 'var(--md-sys-state-opacity-tint-faint)'}}>
                     <div>
                       <M3Typography
                         variant="label-small"

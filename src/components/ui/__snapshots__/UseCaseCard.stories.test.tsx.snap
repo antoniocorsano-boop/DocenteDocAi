@@ -18,7 +18,7 @@ exports[`UseCaseCard Story Snapshots > renders default story correctly 1`] = `
         </span>
       </div>
       <p
-        style="color: var(--md-sys-color-primary); text-transform: uppercase; font-weight: 900; opacity: 0.7;"
+        style="color: var(--md-sys-color-primary); text-transform: uppercase; font-weight: var(--md-sys-typescale-weight-black); opacity: var(--md-sys-state-opacity-supporting);"
       >
         Scenario
       </p>
@@ -37,12 +37,12 @@ exports[`UseCaseCard Story Snapshots > renders default story correctly 1`] = `
         style="display: flex; gap: var(--md-sys-spacing-8); align-items: flex-start;"
       >
         <span
-          style="background-color: var(--md-sys-color-surface); color: var(--md-sys-color-primary); width: var(--md-sys-spacing-6); height: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-full); display: flex; align-items: center; justify-content: center; font-weight: 900; flex-shrink: 0; transition: color var(--md-sys-motion-duration-medium);"
+          style="background-color: var(--md-sys-color-surface); color: var(--md-sys-color-primary); width: var(--md-sys-spacing-6); height: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-full); display: flex; align-items: center; justify-content: center; font-weight: var(--md-sys-typescale-weight-black); flex-shrink: 0; transition: color var(--md-sys-motion-duration-medium);"
         >
           1
         </span>
         <p
-          style="color: var(--md-sys-color-outline); font-weight: bold; line-height: var(--md-sys-typescale-body-large-line-height);"
+          style="color: var(--md-sys-color-outline); font-weight: var(--md-sys-typescale-weight-bold); line-height: var(--md-sys-typescale-body-large-line-height);"
         >
           Step 1
         </p>

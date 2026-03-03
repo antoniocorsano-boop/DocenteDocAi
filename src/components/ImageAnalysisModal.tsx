@@ -80,7 +80,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
         {/* Left Panel: Upload and Prompt */}
         <div style={{ padding: 'var(--md-sys-spacing-4)', borderRight: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column" }}>
           <div>
-            <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-6)' }}>1. Carica un'immagine</h3>
+            <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-6)' }}>1. Carica un'immagine</h3>
             <div 
               {...getRootProps()}
               style={{
@@ -106,7 +106,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
                       <span style={{ color: 'var(--md-sys-color-primary)' }}>add_photo_alternate</span>
                   </div>
                   <div style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center" }}>
-                      <p style={{ fontWeight: "bold" }}>Trascina o clicca</p>
+                      <p style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Trascina o clicca</p>
                   </div>
                 </>
               )}
@@ -114,7 +114,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
           </div>
           
           <div style={{ flexGrow: "1", display: "flex", flexDirection: "column" }}>
-            <label htmlFor="prompt-textarea" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)' }}>2. Chiedi qualcosa</label>
+            <label htmlFor="prompt-textarea" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)' }}>2. Chiedi qualcosa</label>
             <textarea
               id="prompt-textarea"
               value={prompt}
@@ -136,17 +136,17 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
           >
             {isLoading ? <span >progress_activity</span> : 'Analizza Immagine'}
           </M3Button>
-          {error && <p style={{color: "var(--md-sys-color-error)", fontSize: 'var(--md-sys-typescale-body-large-font-size)', marginTop: 'var(--md-sys-spacing-4)', textAlign: "center", fontWeight: "bold"}}>{error}</p>}
+          {error && <p style={{color: "var(--md-sys-color-error)", fontSize: 'var(--md-sys-typescale-body-large-font-size)', marginTop: 'var(--md-sys-spacing-4)', textAlign: "center", fontWeight: "var(--md-sys-typescale-weight-bold)"}}>{error}</p>}
         </div>
 
         {/* Right Panel: Analysis Result */}
         <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', overflowY: "auto", display: "flex", flexDirection: "column" }}>
-          <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)' }}>Risultato Analisi</h3>
+          <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)' }}>Risultato Analisi</h3>
           <InfoCard variant="elevated">
             {isLoading && (
               <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)" }}>
                 <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderColor: 'var(--md-sys-color-primary)'}}></div>
-                <p  style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "bold", color: 'var(--md-sys-color-primary)'}}>L'AI sta analizzando...</p>
+                <p  style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", color: 'var(--md-sys-color-primary)'}}>L'AI sta analizzando...</p>
               </div>
             )}
             {analysisResult && (
@@ -155,9 +155,9 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
                 </div>
             )}
             {!analysisResult && !isLoading && (
-                <div style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)", textAlign: "center", opacity: "0.5" }}>
+                <div style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)", textAlign: "center", opacity: "var(--md-sys-state-opacity-placeholder)" }}>
                     <span style={{ color: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>visibility</span>
-                    <p style={{ fontWeight: "500" }}>Il risultato dell'analisi apparirà qui.</p>
+                    <p style={{ fontWeight: "var(--md-sys-typescale-weight-medium)" }}>Il risultato dell'analisi apparirà qui.</p>
                 </div>
             )}
           </InfoCard>

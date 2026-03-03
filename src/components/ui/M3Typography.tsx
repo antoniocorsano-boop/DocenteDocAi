@@ -43,8 +43,8 @@ const VARIANT_MAP: Record<NonNullable<M3TypographyProps['variant']>, TypographyC
 
 /** Extra overrides for legacy button variants */
 const BUTTON_OVERRIDES: Partial<Record<NonNullable<M3TypographyProps['variant']>, React.CSSProperties>> = {
-  'button-primary':   { fontWeight: '900', letterSpacing: '0.1em' },
-  'button-secondary': { fontWeight: '700', letterSpacing: '0.05em' },
+  'button-primary':   { fontWeight: 'var(--md-sys-typescale-weight-black)', letterSpacing: '0.1em' },
+  'button-secondary': { fontWeight: 'var(--md-sys-typescale-weight-bold)', letterSpacing: '0.05em' },
 };
 
 const M3Typography: React.FC<M3TypographyProps> = ({
