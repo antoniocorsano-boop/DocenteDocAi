@@ -70,7 +70,7 @@
 }
 
 .material-symbols-outlined {
-  font-size: var(--icon-size-medium);
+  font-size: var(--md-sys-spacing-6);
   color: var(--md-sys-color-on-surface-variant);
   pointer-events: none;
 }
@@ -94,7 +94,7 @@
 
 /* Dedicated class for menu navigation labels */
 .nav-label {
-  font-weight: 900; /* font-black equivalent */
+  font-weight: var(--md-sys-typescale-weight-black); /* font-black equivalent */
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }

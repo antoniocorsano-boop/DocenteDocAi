@@ -136,8 +136,8 @@
     color: var(--md-sys-color-on-surface-variant);
     cursor: pointer;
     min-width: var(--md-sys-layout-fab-size);
-    transition: background-color var(--motion-duration-short2) var(--motion-easing-standard),
-                color var(--motion-duration-short2) var(--motion-easing-standard);
+    transition: background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+                color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
     height: var(--md-sys-layout-fab-size);
     padding: var(--md-sys-spacing-1);
     border-radius: var(--md-sys-shape-corner-large);
@@ -154,7 +154,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     border-radius: inherit;
     background-color: var(--md-sys-color-primary);
     opacity: 0;
-    transition: opacity var(--motion-duration-short3) var(--md-sys-motion-easing-standard);
+    transition: opacity var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
 }
 
 .nav-item:hover::before {
@@ -189,17 +189,17 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .nav-label {
     font-size: var(--md-sys-typescale-label-small-size);
-    font-weight: 600;
+    font-weight: var(--md-sys-typescale-weight-semibold);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-top: var(--md-sys-spacing-1);
     opacity: 0.7;
-    transition: opacity var(--motion-duration-short3) var(--md-sys-motion-easing-standard);
+    transition: opacity var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
 }
 
 .nav-item.active .nav-label {
     opacity: 1;
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     color: var(--md-sys-color-primary);
 }
 
@@ -228,7 +228,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     border-radius: inherit;
     background-color: var(--md-sys-color-on-surface);
     opacity: 0;
-    transition: opacity var(--motion-duration-short3) var(--md-sys-motion-easing-standard);
+    transition: opacity var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
 }
 
 .icon-button:hover::before {
@@ -257,7 +257,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     border-radius: var(--md-sys-shape-corner-full);
     border: none;
     font-size: var(--md-sys-typescale-label-medium-size);
-    font-weight: 600;
+    font-weight: var(--md-sys-typescale-weight-semibold);
     cursor: pointer;
     transition-property: opacity, transform, background-color;
 transition-duration: var(--md-sys-motion-duration-short);
@@ -323,7 +323,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     background: transparent;
     color: var(--md-sys-color-on-surface-variant);
     font-size: var(--md-sys-typescale-label-small-size);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     text-transform: uppercase;
     letter-spacing: var(--md-sys-border-width-thin);
     cursor: pointer;
@@ -397,7 +397,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .section-title {
     font-size: var(--md-sys-typescale-title-large-size);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     color: var(--md-sys-color-on-surface);
 }
 
@@ -582,8 +582,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Motion & micro-interaction utilities */
 .m3-card {
-    transition: transform var(--motion-duration-medium2) var(--md-sys-motion-easing-emphasized),
-                box-shadow var(--motion-duration-medium2) var(--md-sys-motion-easing-emphasized);
+    transition: transform var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-emphasized),
+                box-shadow var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-emphasized);
     will-change: transform, box-shadow;
 }
 .m3-card:hover,
@@ -592,8 +592,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     box-shadow: var(--md-sys-elevation-level3);
 }
 .m3-quick-action {
-    transition: transform var(--motion-duration-short2) var(--md-sys-motion-easing-standard),
-                filter var(--motion-duration-short2) var(--md-sys-motion-easing-standard);
+    transition: transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+                filter var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
 }
 .m3-quick-action:hover { transform: translateY(calc(-1 * var(--md-sys-spacing-1))) scale(1.02); filter: brightness(1.03); }
 .m3-focus-visible:focus { outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary); outline-offset: var(--md-sys-spacing-1); }
@@ -619,10 +619,10 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 /* Font Weight */
-.font-medium { font-weight: 500; }
-.font-semibold { font-weight: 600; }
-.font-bold { font-weight: 700; }
-.font-black { font-weight: 900; }
+.font-medium { font-weight: var(--md-sys-typescale-weight-medium); }
+.font-semibold { font-weight: var(--md-sys-typescale-weight-semibold); }
+.font-bold { font-weight: var(--md-sys-typescale-weight-bold); }
+.font-black { font-weight: var(--md-sys-typescale-weight-black); }
 .font-mono { font-family: monospace; }
 
 /* Uppercase/Tracking */
@@ -649,8 +649,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .transition-all { transition-property: opacity, transform, background-color;
 transition-duration: var(--md-sys-motion-duration-short);
 transition-timing-function: var(--md-sys-motion-easing-standard); }
-.transition-colors { transition: background-color var(--motion-duration-short3) var(--md-sys-motion-easing-standard), color var(--motion-duration-short3) var(--md-sys-motion-easing-standard); }
-.transition-transform { transition: transform var(--motion-duration-short4) var(--md-sys-motion-easing-standard); }
+.transition-colors { transition: background-color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard); }
+.transition-transform { transition: transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard); }
 .duration-300 { transition-duration: theme.motion.duration.medium2; }
 
 /* Transform */
@@ -1166,7 +1166,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
     display: flex;
     gap: var(--md-sys-spacing-2);
     font-size: var(--md-sys-spacing-3);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--md-sys-color-on-surface-variant);
@@ -1216,7 +1216,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 }
 
 .timeline-view-empty-title {
-    font-weight: 500;
+    font-weight: var(--md-sys-typescale-weight-medium);
     color: var(--md-sys-color-on-surface);
 }
 
@@ -1246,7 +1246,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 
 .timeline-view-snackbar-undo {
     color: var(--md-sys-color-primary);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     text-decoration: underline;
     margin-left: var(--md-sys-spacing-2);
 }
@@ -1424,7 +1424,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 /* Assistant FAB Sheet Header Title */
 .assistant-fab-sheet-title {
     font-size: var(--md-sys-typescale-body-medium-font-size);
-    font-weight: 600;
+    font-weight: var(--md-sys-typescale-weight-semibold);
 }
 
 /* Assistant FAB Sheet Header Subtitle */
@@ -1447,7 +1447,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 
 /* Assistant FAB Action Label */
 .assistant-fab-action-label {
-    font-weight: 600;
+    font-weight: var(--md-sys-typescale-weight-semibold);
 }
 
 /* Assistant FAB Action Description */
@@ -1459,7 +1459,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 /* Assistant FAB Menu Action Label */
 .assistant-fab-menu-label {
     margin-left: var(--md-sys-spacing-2);
-    font-weight: 500;
+    font-weight: var(--md-sys-typescale-weight-medium);
 }
 
 /* ============================================
@@ -1510,7 +1510,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 .error-boundary-title {
     font: var(--md-sys-typescale-headline-small-font);
     font-size: var(--md-sys-typescale-headline-small-size);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     color: var(--md-sys-color-on-surface);
     margin-bottom: var(--md-sys-spacing-8);
 }
@@ -1553,7 +1553,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 .error-boundary-details-summary {
     cursor: pointer;
     font-size: var(--md-sys-typescale-body-medium-font-size);
-    font-weight: 500;
+    font-weight: var(--md-sys-typescale-weight-medium);
     color: var(--md-sys-color-on-surface-variant);
     transition: color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
 }
@@ -1755,7 +1755,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 
 /* Process Title */
 .operations-center-process-title {
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
 }
 
 /* Process Description */
@@ -1779,7 +1779,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 /* Process Section Title */
 .operations-center-process-section-title {
     font-size: var(--md-sys-typescale-label-large-font-size);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     text-transform: uppercase;
     letter-spacing: 0.3em;
     color: var(--md-sys-color-primary);
@@ -1814,7 +1814,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 
 /* Process Step Title */
 .operations-center-process-step-title {
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     color: var(--md-sys-color-on-surface);
 }
 
@@ -1841,7 +1841,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
     flex-grow: 2;
     height: var(--md-sys-spacing-14);
     box-shadow: var(--md-sys-elevation-level2);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
 }
 
 /* Operations Center Dialog Content */
@@ -1924,7 +1924,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 
 /* Operations Center Suggestion Title */
 .operations-center-suggestion-title {
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     color: var(--md-sys-color-tertiary);
 }
 
@@ -1941,7 +1941,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
     height: var(--md-sys-spacing-12) !important;
     padding-left: var(--md-sys-spacing-6) !important;
     padding-right: var(--md-sys-spacing-6) !important;
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     box-shadow: var(--md-sys-elevation-level1);
     flex-shrink: 0;
 }
@@ -2028,7 +2028,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
     display: flex;
     align-items: center;
     gap: var(--md-sys-spacing-8);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
 }
 
 /* Teacher Inbox Title Icon */
@@ -2062,7 +2062,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     padding-right: var(--md-sys-spacing-3);
     padding-top: var(--md-sys-spacing-4);
     padding-bottom: var(--md-sys-spacing-4);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     text-transform: uppercase;
     color: var(--md-sys-color-on-surface-variant);
 }
@@ -2094,7 +2094,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Teacher Inbox Student Name */
 .teacher-inbox-student-name {
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -2128,7 +2128,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     padding-right: var(--md-sys-spacing-3);
     padding-top: var(--md-sys-spacing-4);
     padding-bottom: var(--md-sys-spacing-4);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     text-transform: uppercase;
     color: var(--md-sys-color-on-surface-variant);
     margin-top: var(--md-sys-spacing-4);
@@ -2273,7 +2273,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     background: rgba(var(--md-sys-color-primary-rgb), 0.1);
     color: var(--md-sys-color-primary);
     font-size: var(--md-sys-typescale-body-small-font-size);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     border: var(--md-sys-spacing-0) solid rgba(var(--md-sys-color-primary-rgb), 0.2);
@@ -2289,7 +2289,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     background: var(--md-sys-color-surface-container-high);
     color: var(--md-sys-color-on-surface-variant);
     font-size: var(--md-sys-typescale-body-small-font-size);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     border: var(--md-sys-spacing-0) solid rgba(var(--md-sys-color-outline-variant-rgb), 0.2);
@@ -2358,7 +2358,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Student Manager Import Button */
 .student-manager-import-button {
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     font-size: var(--md-sys-spacing-3);
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -2371,7 +2371,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Student Manager Add Button */
 .student-manager-add-button {
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     font-size: var(--md-sys-spacing-3);
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -2421,7 +2421,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Student Manager Archive Toggle */
 .student-manager-archive-toggle {
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     font-size: var(--md-sys-typescale-body-small-font-size);
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -2510,7 +2510,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Curriculum Manager Sidebar Title */
 .curriculum-manager-sidebar-title {
     font-size: var(--md-sys-spacing-5);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     letter-spacing: -0.025em;
     color: var(--md-sys-color-on-surface);
 }
@@ -2532,7 +2532,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Curriculum Manager Create Button */
 .curriculum-manager-create-button {
     width: var(--md-sys-percent-100);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     box-shadow: var(--md-sys-elevation-level2);
     padding-top: var(--md-sys-spacing-4);
     padding-bottom: var(--md-sys-spacing-4);
@@ -2577,7 +2577,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Curriculum Manager Curriculum Subject */
 .curriculum-manager-curriculum-subject {
-    font-weight: 800;
+    font-weight: var(--md-sys-typescale-weight-extrabold);
     font-size: var(--md-sys-typescale-body-medium-font-size);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2590,7 +2590,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .curriculum-manager-curriculum-grade {
     opacity: 0.7;
     text-transform: uppercase;
-    font-weight: 800;
+    font-weight: var(--md-sys-typescale-weight-extrabold);
     letter-spacing: 0.1em;
 }
 
@@ -2646,13 +2646,13 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Curriculum Manager Content Title */
 .curriculum-manager-content-title {
     font-size: var(--md-sys-spacing-6);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     color: var(--md-sys-color-on-surface);
 }
 
 /* Curriculum Manager Content Subtitle */
 .curriculum-manager-content-subtitle {
-    font-weight: 800;
+    font-weight: var(--md-sys-typescale-weight-extrabold);
     text-transform: uppercase;
     letter-spacing: 0.3em;
     color: var(--md-sys-color-primary);
@@ -2670,7 +2670,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .curriculum-manager-ai-import-button {
     padding-left: var(--md-sys-spacing-6);
     padding-right: var(--md-sys-spacing-6);
-    font-weight: 800;
+    font-weight: var(--md-sys-typescale-weight-extrabold);
     box-shadow: var(--md-sys-elevation-level1);
 }
 
@@ -2762,7 +2762,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     outline: none;
     padding-top: var(--md-sys-spacing-4);
     padding-bottom: var(--md-sys-spacing-4);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     color: var(--md-sys-color-on-surface);
     border-bottom: var(--md-sys-spacing-0) solid transparent;
     transition: border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
@@ -2800,7 +2800,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     height: var(--md-sys-spacing-9);
     padding-left: var(--md-sys-spacing-4);
     padding-right: var(--md-sys-spacing-4);
-    font-weight: 800;
+    font-weight: var(--md-sys-typescale-weight-extrabold);
     text-transform: uppercase;
     letter-spacing: 0.2em;
     margin-top: var(--md-sys-spacing-4);
@@ -2821,7 +2821,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     padding-top: var(--md-sys-spacing-8);
     padding-bottom: var(--md-sys-spacing-8);
     border-width: var(--md-sys-spacing-1);
-    font-weight: 800;
+    font-weight: var(--md-sys-typescale-weight-extrabold);
     transition: background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
 }
 
@@ -2869,7 +2869,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Curriculum Manager Import Title */
 .curriculum-manager-import-title {
     font-size: var(--md-sys-spacing-5);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     color: var(--md-sys-color-on-surface);
 }
 
@@ -2994,7 +2994,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     border-radius: var(--md-sys-shape-corner-medium);
     transition: background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
     font-size: var(--md-sys-typescale-body-medium-font-size);
-    font-weight: 500;
+    font-weight: var(--md-sys-typescale-weight-medium);
     display: flex;
     align-items: center;
     white-space: nowrap;
@@ -3092,7 +3092,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Competency Manager Competency Code */
 .competency-manager-competency-code {
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--md-sys-color-primary);
@@ -3104,7 +3104,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Competency Manager Competency Name */
 .competency-manager-competency-name {
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -3135,7 +3135,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Competency Manager Competency Levels Title */
 .competency-manager-competency-levels-title {
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     margin-bottom: var(--md-sys-spacing-8);
     color: var(--md-sys-color-on-surface-variant);
 }
@@ -3252,7 +3252,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Template Manager Empty State Title */
 .template-manager-empty-state-title {
     font-size: var(--md-sys-typescale-title-large-size);
-    font-weight: 500;
+    font-weight: var(--md-sys-typescale-weight-medium);
     color: var(--md-sys-color-on-surface);
     margin-bottom: var(--md-sys-spacing-8);
 }
@@ -3318,7 +3318,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Template Manager Template Name */
 .template-manager-template-name {
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     color: var(--md-sys-color-on-surface);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -3331,7 +3331,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     display: inline-block;
     padding: var(--md-sys-spacing-1) var(--md-sys-spacing-4);
     font-size: var(--md-sys-typescale-body-small-font-size);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border-radius: var(--md-sys-radius-full);
@@ -3497,7 +3497,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Template Manager AI Generation Title */
 .template-manager-ai-generation-title {
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     color: var(--md-sys-color-primary);
     font-size: var(--md-sys-typescale-body-medium-font-size);
 }
@@ -3547,7 +3547,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Template Manager Config Card Title */
 .template-manager-config-card-title {
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     font-size: var(--md-sys-typescale-body-medium-font-size);
     margin-bottom: var(--md-sys-spacing-8);
 }
@@ -3677,7 +3677,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Template Manager Content Editor Title */
 .template-manager-content-editor-title {
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     font-size: var(--md-sys-typescale-body-medium-font-size);
 }
 
@@ -3690,7 +3690,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .template-manager-content-field-label {
     display: block;
     font-size: var(--md-sys-typescale-body-small-font-size);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--md-sys-color-on-surface-variant);
@@ -3750,7 +3750,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Template Manager Content Preview Title */
 .template-manager-content-preview-title {
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     font-size: var(--md-sys-typescale-body-medium-font-size);
 }
 
@@ -3764,7 +3764,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     background: rgba(var(--md-sys-color-success-rgb), 0.1);
     color: var(--md-sys-color-success);
     font-size: var(--md-sys-typescale-label-medium-font-size);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     animation: pulse var(--md-sys-motion-duration-extra-long) infinite;
@@ -3790,7 +3790,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Template Manager Variables Header */
 .template-manager-variables-header {
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     font-size: var(--md-sys-typescale-label-large-font-size);
     margin-bottom: var(--md-sys-spacing-8);
     display: flex;
@@ -3859,7 +3859,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Template Manager Preview Title */
 .template-manager-preview-title {
     font-size: var(--md-sys-typescale-body-small-font-size);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     opacity: 0.5;
@@ -3924,7 +3924,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Template Manager Preview Placeholder Title */
 .template-manager-preview-placeholder-title {
     font-size: var(--md-sys-spacing-3);
-    font-weight: 500;
+    font-weight: var(--md-sys-typescale-weight-medium);
     color: var(--md-sys-color-on-surface);
     margin-bottom: var(--md-sys-spacing-4);
 }
@@ -4017,7 +4017,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Rubriche Manager Title */
 .rubriche-manager-title {
     font-family: var(--md-sys-typescale-headline-medium-font);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     font-size: var(--md-sys-typescale-headline-medium-size);
     line-height: var(--md-sys-typescale-headline-medium-line-height);
     letter-spacing: var(--md-sys-typescale-headline-medium-tracking);
@@ -4035,7 +4035,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Rubriche Manager Create Button */
 .rubriche-manager-create-button {
     box-shadow: var(--md-sys-elevation-level2);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     font-size: var(--md-sys-spacing-3);
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -4293,7 +4293,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Feed Manager Source Update Button */
 .feed-manager-source-update-button {
     font-size: var(--md-sys-spacing-3);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
@@ -4340,7 +4340,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     line-height: var(--md-sys-typescale-title-medium-line-height);
     letter-spacing: var(--md-sys-typescale-title-medium-tracking);
     color: var(--md-sys-color-on-surface);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
 }
 
 /* Feed Manager Empty State Description */
@@ -4419,7 +4419,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     font-size: var(--md-sys-typescale-label-small-size);
     line-height: var(--md-sys-typescale-label-small-line-height);
     letter-spacing: var(--md-sys-typescale-label-small-tracking);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -4427,7 +4427,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Timer Widget Display */
 .classroom-tools-timer-display {
     font-family: 'Courier New', monospace;
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     font-size: var(--md-sys-spacing-9);
     line-height: 1;
     letter-spacing: 0.1em;
@@ -4514,7 +4514,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     font-size: var(--md-sys-typescale-label-small-size);
     line-height: var(--md-sys-typescale-label-small-line-height);
     letter-spacing: var(--md-sys-typescale-label-small-tracking);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -4550,7 +4550,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     font-size: var(--md-sys-typescale-headline-small-size);
     line-height: var(--md-sys-typescale-headline-small-line-height);
     letter-spacing: var(--md-sys-typescale-headline-small-tracking);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     display: block;
     color: var(--md-sys-color-on-surface);
     line-height: 1.2;
@@ -4586,7 +4586,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     font-family: var(--md-sys-typescale-body-small-font);
     font-size: var(--md-sys-typescale-body-small-size);
     line-height: var(--md-sys-typescale-body-small-line-height);
-    font-weight: 500;
+    font-weight: var(--md-sys-typescale-weight-medium);
 }
 
 /* Random Student Widget Button */
@@ -4666,7 +4666,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     color: var(--md-sys-color-on-surface-variant);
     margin: 0;
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
 }
 
 /* Student Action Stats Value */
@@ -4678,7 +4678,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     letter-spacing: var(--md-sys-typescale-title-large-tracking);
     color: var(--md-sys-color-on-surface);
     margin: 0;
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
 }
 
 /* Student Action Stats Divider */
@@ -4710,7 +4710,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     color: var(--md-sys-color-on-surface-variant);
     margin: 0 0 var(--md-sys-spacing-4) 0;
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
 }
 
 /* Student Action Add Button */
@@ -4932,7 +4932,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     font-size: var(--md-sys-typescale-title-medium-size);
     line-height: var(--md-sys-typescale-title-medium-line-height);
     letter-spacing: var(--md-sys-typescale-title-medium-tracking);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
 }
 
 /* Help Modal Manual Section Expand Icon */
@@ -4974,7 +4974,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Help Modal Scenario */
 .help-modal-scenario {
     font-size: var(--md-sys-typescale-body-small-size);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--md-sys-color-primary);
@@ -5005,7 +5005,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
 }
 
 /* Help Modal Tip */
@@ -5092,7 +5092,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Improvement Guide Error Text */
 .improvement-guide-error-text {
     color: var(--md-sys-color-error);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
@@ -5140,7 +5140,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Improvement Guide Title */
 .improvement-guide-title {
     font-size: var(--md-sys-typescale-headline-medium-size);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     letter-spacing: var(--md-sys-typescale-headline-medium-tracking);
     color: var(--md-sys-color-on-surface);
 }
@@ -5148,7 +5148,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Improvement Guide Subtitle */
 .improvement-guide-subtitle {
     color: var(--md-sys-color-on-surface-variant);
-    font-weight: 500;
+    font-weight: var(--md-sys-typescale-weight-medium);
     opacity: 0.7;
 }
 
@@ -5160,7 +5160,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Improvement Guide Button */
 .improvement-guide-button {
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     font-size: var(--md-sys-typescale-body-small-size);
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -5304,7 +5304,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 /* Lesson Analysis Modal Item Title */
 .lesson-analysis-modal-item-title {
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
 }
 
 /* Lesson Analysis Modal Activity Type Chip */
@@ -5338,7 +5338,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .lesson-analysis-modal-target-group-label {
     display: block;
     font-size: var(--md-sys-spacing-3);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     text-transform: uppercase;
     letter-spacing: 0.025em;
     text-align: center;
@@ -5438,7 +5438,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Quick Evaluation Modal Label */
 .quick-evaluation-modal-label {
     font-size: var(--md-sys-typescale-body-small-size);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     color: var(--md-sys-color-primary);
     text-transform: uppercase;
     letter-spacing: 0.025em;
@@ -5523,7 +5523,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .quick-evaluation-modal-level-text.selected {
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     color: var(--md-sys-color-on-primary-container);
 }
 
@@ -5543,7 +5543,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Quick Evaluation Modal Student Name */
 .quick-evaluation-modal-student-name {
     font-size: var(--md-sys-typescale-headline-small-size);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     color: var(--md-sys-color-on-surface);
 }
 
@@ -5656,7 +5656,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Teaching Assignment Matrix Empty Title */
 .teaching-assignment-matrix-empty-title {
     font-family: var(--md-sys-typescale-title-medium-font);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     font-size: var(--md-sys-typescale-title-medium-size);
     line-height: var(--md-sys-typescale-title-medium-line-height);
     letter-spacing: var(--md-sys-typescale-title-medium-tracking);
@@ -5688,7 +5688,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     background-color: rgba(var(--md-sys-color-primary-rgb), 0.1);
     color: var(--md-sys-color-primary);
     font-size: var(--md-sys-spacing-3);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     animation: teaching-assignment-matrix-pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;
@@ -5745,7 +5745,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     color: var(--md-sys-color-on-surface-variant);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     font-size: var(--md-sys-typescale-label-large-font-size);
     box-shadow: var(--md-sys-elevation-level1);
 }
@@ -5756,7 +5756,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     text-align: center;
     min-width: var(--md-sys-layout-button-min-width);
     border-bottom: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     color: var(--md-sys-color-on-surface-variant);
     background-color: var(--md-sys-color-surface-container-high);
     white-space: nowrap;
@@ -5782,7 +5782,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Teaching Assignment Matrix Table Body Cell */
 .teaching-assignment-matrix-table-body-cell {
     padding: var(--md-sys-spacing-8);
-    font-weight: 700;
+    font-weight: var(--md-sys-typescale-weight-bold);
     position: sticky;
     left: 0;
     background-color: var(--md-sys-color-surface-container-low);
@@ -5837,7 +5837,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .teaching-assignment-matrix-toggle-icon.active {
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     opacity: 1;
 }
 
@@ -5871,7 +5871,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     border-radius: var(--md-sys-shape-corner-large);
     background-color: rgba(var(--md-sys-color-surface-container-high-rgb), 0.8);
     color: var(--md-sys-color-on-surface);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
     font-size: var(--md-sys-typescale-body-medium-size);
     text-transform: uppercase;
     letter-spacing: 0.025em;
@@ -5897,7 +5897,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     align-items: center;
     justify-content: center;
     font-size: var(--md-sys-typescale-body-small-size);
-    font-weight: 900;
+    font-weight: var(--md-sys-typescale-weight-black);
 }
 
 /* Teaching Assignment Matrix Mobile Expand Icon */

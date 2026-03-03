@@ -56,7 +56,7 @@
   height: var(--md-sys-spacing-12);
   background-color: color-mix(in srgb, var(--md-sys-color-primary) var(--md-sys-percent-10), transparent);
   backdrop-filter: blur(var(--md-sys-spacing-2));
-  border-radius: var(--md-corner-medium);
+  border-radius: var(--md-sys-shape-corner-medium);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,7 +91,7 @@
 }
 
 .home-suggestion-title {
-  font-weight: 500;
+  font-weight: var(--md-sys-typescale-weight-medium);
   color: var(--md-sys-color-on-surface);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -110,7 +110,7 @@
 .home-suggestion-button {
   margin-top: var(--md-sys-spacing-3);
   font-size: var(--md-sys-typescale-label-small-font-size);
-  font-weight: 500;
+  font-weight: var(--md-sys-typescale-weight-medium);
   color: var(--md-sys-color-primary);
   text-transform: uppercase;
   letter-spacing: 0.3em;
@@ -138,7 +138,7 @@
 
 .home-primary-label {
   color: var(--md-sys-color-primary);
-  font-weight: 900;
+  font-weight: var(--md-sys-typescale-weight-black);
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }
@@ -154,7 +154,7 @@
   font-size: var(--md-sys-typescale-body-large-font-size);
   line-height: var(--md-sys-typescale-body-large-line-height);
   color: var(--md-sys-color-on-surface-variant);
-  font-weight: 500;
+  font-weight: var(--md-sys-typescale-weight-medium);
   opacity: 0.8;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -233,14 +233,14 @@
 }
 
 .home-suggestion-title {
-  font-weight: 500;
+  font-weight: var(--md-sys-typescale-weight-medium);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--md-sys-color-primary);
 }
 
 .home-suggestion-message {
-  font-weight: 900;
+  font-weight: var(--md-sys-typescale-weight-black);
   color: var(--md-sys-color-on-surface);
   line-height: var(--md-sys-typescale-headline-small-line-height);
   position: relative;
@@ -251,7 +251,7 @@
 .home-suggestion-desc {
   font-size: var(--md-sys-typescale-body-medium-font-size);
   color: var(--md-sys-color-on-surface-variant);
-  font-weight: 500;
+  font-weight: var(--md-sys-typescale-weight-medium);
   opacity: 0.8;
   position: relative;
   z-index: var(--md-sys-z-base);
@@ -278,7 +278,7 @@
   text-transform: uppercase;
   letter-spacing: 0.3em;
   color: var(--md-sys-color-on-surface-variant);
-  font-weight: 900;
+  font-weight: var(--md-sys-typescale-weight-black);
   opacity: 0.5;
 }
 
@@ -321,7 +321,7 @@
   font-family: var(--font-family, 'Roboto', sans-serif);
   font-size: var(--md-sys-typescale-headline-large-size);
   color: var(--md-sys-color-on-surface);
-  font-weight: normal;
+  font-weight: var(--md-sys-typescale-weight-regular);
   max-width: calc(var(--md-sys-spacing-20) * 8);
   margin-left: auto;
   margin-right: auto;
@@ -373,7 +373,7 @@
   border: none;
   cursor: pointer;
   text-align: left;
-  transition: background-color var(--motion-easing-standard);
+  transition: background-color var(--md-sys-motion-easing-standard);
 }
 
 .class-dashboard-student-item:hover {
@@ -492,7 +492,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .class-dashboard-title-medium {
   font-size: var(--md-sys-typescale-title-medium-font-size);
-  font-weight: bold;
+  font-weight: var(--md-sys-typescale-weight-bold);
   color: var(--md-sys-color-on-surface);
 }
 
@@ -503,14 +503,14 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .class-dashboard-label-small {
   font-size: var(--md-sys-typescale-label-small-font-size);
-  font-weight: bold;
+  font-weight: var(--md-sys-typescale-weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--md-sys-color-on-surface-variant);
 }
 
 .class-dashboard-card-title {
-  font-weight: bold;
+  font-weight: var(--md-sys-typescale-weight-bold);
   color: var(--md-sys-color-on-surface);
 }
 
@@ -532,7 +532,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .class-dashboard-student-name {
-  font-weight: bold;
+  font-weight: var(--md-sys-typescale-weight-bold);
   color: var(--md-sys-color-on-surface);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -552,14 +552,14 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .class-dashboard-trend-label {
   font-size: var(--md-sys-typescale-label-tiny-font-size);
-  font-weight: bold;
+  font-weight: var(--md-sys-typescale-weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
 .class-dashboard-chevron {
   color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-30), transparent);
-  transition: transform var(--motion-easing-standard);
+  transition: transform var(--md-sys-motion-easing-standard);
 }
 
 .class-dashboard-student-item:hover .class-dashboard-chevron {
@@ -612,7 +612,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .class-dashboard-hero-label {
   font-size: var(--md-sys-typescale-label-small-font-size);
-  font-weight: bold;
+  font-weight: var(--md-sys-typescale-weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--md-sys-color-primary);
@@ -621,7 +621,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .class-dashboard-hero-title {
   font-size: var(--md-sys-typescale-headline-small-font-size);
-  font-weight: bold;
+  font-weight: var(--md-sys-typescale-weight-bold);
   color: var(--md-sys-color-on-surface);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -668,7 +668,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   color: var(--md-sys-color-on-error);
   border-radius: var(--md-sys-shape-corner-full);
   font-size: var(--md-sys-typescale-label-tiny-font-size);
-  font-weight: bold;
+  font-weight: var(--md-sys-typescale-weight-bold);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -695,7 +695,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
+  transition: background-color var(--md-sys-motion-easing-standard), color var(--md-sys-motion-easing-standard);
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-primary {
@@ -712,7 +712,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
+  transition: background-color var(--md-sys-motion-easing-standard), color var(--md-sys-motion-easing-standard);
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-tertiary {
@@ -729,7 +729,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
+  transition: background-color var(--md-sys-motion-easing-standard), color var(--md-sys-motion-easing-standard);
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-secondary {
@@ -746,7 +746,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(--motion-easing-standard), color var(--motion-easing-standard);
+  transition: background-color var(--md-sys-motion-easing-standard), color var(--md-sys-motion-easing-standard);
 }
 
 .class-dashboard-tool-card:hover .class-dashboard-tool-icon-outline {
@@ -789,7 +789,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   padding: var(--md-sys-spacing-1) var(--md-sys-spacing-3);
   border-radius: var(--md-sys-radius-full);
   font-size: var(--md-sys-typescale-label-small-font-size);
-  font-weight: bold;
+  font-weight: var(--md-sys-typescale-weight-bold);
 }
 
 .class-dashboard-icon-large {
@@ -849,14 +849,14 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .uda-editor-title {
   font-size: var(--md-sys-typescale-headline-medium-size);
-  font-weight: 900;
+  font-weight: var(--md-sys-typescale-weight-black);
   letter-spacing: -0.025em;
 }
 
 .uda-editor-subtitle {
   font-size: var(--md-sys-typescale-body-small-size);
   color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-60), transparent);
-  font-weight: 900;
+  font-weight: var(--md-sys-typescale-weight-black);
   text-transform: uppercase;
   letter-spacing: 0.2em;
   margin-top: var(--md-sys-spacing-4);
@@ -911,7 +911,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .uda-editor-link-text {
   font-size: var(--md-sys-spacing-3);
   color: var(--md-sys-color-secondary);
-  font-weight: 900;
+  font-weight: var(--md-sys-typescale-weight-black);
   text-transform: uppercase;
   letter-spacing: 0.2em;
   opacity: 0.7;
@@ -926,7 +926,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .uda-competency-label {
   font-size: var(--md-sys-typescale-label-large-font-size);
   color: var(--md-sys-color-primary);
-  font-weight: 900;
+  font-weight: var(--md-sys-typescale-weight-black);
   text-transform: uppercase;
   letter-spacing: 0.3em;
   padding-left: var(--md-sys-spacing-4);
@@ -960,7 +960,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   background-color: var(--md-sys-color-primary);
   color: var(--md-sys-color-on-primary);
   font-size: var(--md-sys-spacing-3);
-  font-weight: 900;
+  font-weight: var(--md-sys-typescale-weight-black);
   padding: var(--md-sys-spacing-1) var(--md-sys-spacing-4);
   border-radius: var(--md-sys-spacing-12);
   box-shadow: var(--md-sys-elevation-level1);
@@ -983,7 +983,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .uda-competency-placeholder-text {
   font-size: var(--md-sys-typescale-body-small-size);
-  font-weight: 900;
+  font-weight: var(--md-sys-typescale-weight-black);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -1060,7 +1060,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .uda-picker-code {
-  font-weight: 900;
+  font-weight: var(--md-sys-typescale-weight-black);
   font-size: var(--md-sys-typescale-body-small-size);
   line-height: 1;
   margin-bottom: var(--md-sys-spacing-1);
@@ -1073,7 +1073,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   overflow: hidden;
   text-overflow: ellipsis;
   opacity: 0.7;
-  font-weight: 700;
+  font-weight: var(--md-sys-typescale-weight-bold);
   font-size: var(--md-sys-spacing-3);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -1178,7 +1178,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .uda-planner-title {
   font-size: var(--md-sys-typescale-headline-medium-size);
-  font-weight: 900;
+  font-weight: var(--md-sys-typescale-weight-black);
   color: var(--md-sys-color-on-surface);
   letter-spacing: -0.025em;
 }
@@ -1186,7 +1186,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .uda-planner-subtitle {
   font-size: var(--md-sys-typescale-body-small-size);
   color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-60), transparent);
-  font-weight: 900;
+  font-weight: var(--md-sys-typescale-weight-black);
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }
@@ -1255,7 +1255,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .uda-table-cell-title {
-  font-weight: 900;
+  font-weight: var(--md-sys-typescale-weight-black);
   color: var(--md-sys-color-primary);
   transition: color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
 }
@@ -1265,12 +1265,12 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .uda-table-cell-classe {
-  font-weight: 700;
+  font-weight: var(--md-sys-typescale-weight-bold);
   color: color-mix(in srgb, var(--md-sys-color-on-surface) var(--md-sys-percent-70), transparent);
 }
 
 .uda-table-cell-materia {
-  font-weight: 500;
+  font-weight: var(--md-sys-typescale-weight-medium);
   color: color-mix(in srgb, var(--md-sys-color-on-surface) var(--md-sys-percent-60), transparent);
 }
 

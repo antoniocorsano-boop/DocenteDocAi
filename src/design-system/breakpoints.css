@@ -19,20 +19,20 @@
    ============================================================================ */
 
 :root {
-  /* M3 Standard Breakpoints */
-  --breakpoint-compact: var(--breakpoint-compact);    /* Mobile → Tablet transition */
-  --breakpoint-medium: var(--breakpoint-medium);     /* Tablet → Desktop transition (M3 standard) */
-  --breakpoint-expanded: var(--md-sys-breakpoint-desktop);  /* Desktop expanded view */
-  --breakpoint-large: var(--breakpoint-large);     /* Large desktop */
-  --breakpoint-extra-large: var(--breakpoint-extra-large); /* Extra large displays */
+  /* M3 Standard Breakpoints — mapped to canonical --md-sys-breakpoint-* tokens */
+  --breakpoint-compact: var(--md-sys-breakpoint-mobile);       /* 600px: Mobile → Tablet transition */
+  --breakpoint-medium: var(--md-sys-breakpoint-tablet);        /* 768px: Tablet → Desktop transition */
+  --breakpoint-expanded: var(--md-sys-breakpoint-desktop);     /* 1024px: Desktop expanded view */
+  --breakpoint-large: var(--md-sys-breakpoint-large);          /* 1440px: Large desktop */
+  --breakpoint-extra-large: var(--md-sys-breakpoint-large);    /* 1440px: Extra large displays */
   
-  /* Legacy support (for gradual migration) */
-  --breakpoint-xs: var(--breakpoint-xs);   /* Extra small (deprecated, use compact) */
-  --breakpoint-sm: var(--breakpoint-sm);   /* Small (deprecated, use compact) */
-  --breakpoint-md: var(--md-sys-breakpoint-tablet);   /* Medium (deprecated, use medium) */
-  --breakpoint-lg: var(--md-sys-breakpoint-desktop);  /* Large (same as expanded) */
-  --breakpoint-xl: var(--breakpoint-xl);  /* Extra large (deprecated, use large) */
-  --breakpoint-2xl: var(--breakpoint-2xl); /* 2X large (deprecated, use extra-large) */
+  /* Legacy aliases (for gradual migration) */
+  --breakpoint-xs: var(--md-sys-breakpoint-mobile);    /* Deprecated, use --breakpoint-compact */
+  --breakpoint-sm: var(--md-sys-breakpoint-mobile);    /* Deprecated, use --breakpoint-compact */
+  --breakpoint-md: var(--md-sys-breakpoint-tablet);    /* Deprecated, use --breakpoint-medium */
+  --breakpoint-lg: var(--md-sys-breakpoint-desktop);   /* Deprecated, use --breakpoint-expanded */
+  --breakpoint-xl: var(--md-sys-breakpoint-large);     /* Deprecated, use --breakpoint-large */
+  --breakpoint-2xl: var(--md-sys-breakpoint-large);    /* Deprecated, use --breakpoint-extra-large */
 }
 
 /* ============================================================================

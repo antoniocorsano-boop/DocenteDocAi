@@ -4,7 +4,7 @@
   gap: var(--md-sys-spacing-2);
   cursor: pointer;
   user-select: none;
-  transition: transform var(--md-sys-motion-duration-long) var(--motion-easing-expressive);
+  transition: transform var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-emphasized);
   position: relative;
 }
 
@@ -45,7 +45,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .logo-ai-text {
   fill: var(--md-sys-color-tertiary);
   font-family: 'Roboto Mono', monospace;
-  font-weight: 900;
+  font-weight: var(--md-sys-typescale-weight-black);
   font-size: var(--md-sys-typescale-body-medium-font-size);
   filter: drop-shadow(0 0 var(--md-sys-spacing-1) var(--md-sys-color-tertiary));
 }

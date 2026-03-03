@@ -49,7 +49,7 @@ export const WithFAB: Story = {
         <h1>Document List</h1>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
           {['Document 1', 'Document 2', 'Document 3'].map((doc) => (
-            <div key={doc} style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', borderRadius: 'var(--md-corner-medium)', boxShadow: 'var(--md-sys-elevation1)' }}>
+            <div key={doc} style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', borderRadius: 'var(--md-sys-shape-corner-medium)', boxShadow: 'var(--md-sys-elevation-1)' }}>
               {doc}
             </div>
           ))}
@@ -71,7 +71,7 @@ export const WithFAB: Story = {
             border: 'none',
             fontSize: 'var(--md-sys-typescale-headline-medium-size)',
             cursor: 'pointer',
-            boxShadow: 'var(--md-sys-elevation1)',
+            boxShadow: 'var(--md-sys-elevation-1)',
           }}
           title="Create new document"
         >
@@ -133,13 +133,13 @@ export const DocumentEditing: Story = {
         <p>Document content here...</p>
       </div>
       <M3BottomAppBar style={{ display: 'flex', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)', padding: 'var(--md-sys-spacing-4)' }}>
-        <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)', border: 'none', borderRadius: 'var(--md-corner-small)', cursor: 'pointer' }}>
+        <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surface-container-high)', border: 'none', borderRadius: 'var(--md-sys-shape-corner-small)', cursor: 'pointer' }}>
           💾 Save
         </button>
-        <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)', border: 'none', borderRadius: 'var(--md-corner-small)', cursor: 'pointer' }}>
+        <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surface-container-high)', border: 'none', borderRadius: 'var(--md-sys-shape-corner-small)', cursor: 'pointer' }}>
           🔍 Preview
         </button>
-        <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)', border: 'none', borderRadius: 'var(--md-corner-small)', cursor: 'pointer' }}>
+        <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surface-container-high)', border: 'none', borderRadius: 'var(--md-sys-shape-corner-small)', cursor: 'pointer' }}>
           📤 Share
         </button>
       </M3BottomAppBar>
@@ -159,13 +159,13 @@ export const ClassroomToolbar: Story = {
       </div>
       <M3BottomAppBar style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'var(--md-sys-color-surface)', borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)', padding: 'var(--md-sys-spacing-4)' }}>
         <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)' }}>
-          <button style={{ padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)', border: 'none', borderRadius: 'var(--md-corner-small)', cursor: 'pointer' }}>
+          <button style={{ padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)', border: 'none', borderRadius: 'var(--md-sys-shape-corner-small)', cursor: 'pointer' }}>
             👥 Roster
           </button>
-          <button style={{ padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)', border: 'none', borderRadius: 'var(--md-corner-small)', cursor: 'pointer' }}>
+          <button style={{ padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)', border: 'none', borderRadius: 'var(--md-sys-shape-corner-small)', cursor: 'pointer' }}>
             📊 Grades
           </button>
-          <button style={{ padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)', border: 'none', borderRadius: 'var(--md-corner-small)', cursor: 'pointer' }}>
+          <button style={{ padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)', border: 'none', borderRadius: 'var(--md-sys-shape-corner-small)', cursor: 'pointer' }}>
             📚 Materials
           </button>
         </div>

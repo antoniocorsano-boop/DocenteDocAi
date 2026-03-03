@@ -289,7 +289,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
           min-width: var(--md-sys-spacing-11);
           cursor: pointer;
           pointer-events: auto;
-          transition: var(--md-easing-standard);
+          transition: var(--md-sys-motion-easing-standard);
         }
         .mui-fab-expressive.assistant-fab-secondary:hover {
           background: var(--md-sys-color-surface-variant);

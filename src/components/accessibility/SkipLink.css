@@ -19,7 +19,7 @@
   color: var(--md-sys-color-on-primary);
   text-decoration: none;
   font-size: var(--md-sys-typescale-body-medium-font-size);
-  font-weight: 500;
+  font-weight: var(--md-sys-typescale-weight-medium);
   border-radius: var(--md-sys-shape-corner-small);
   
   /* Focus styles */

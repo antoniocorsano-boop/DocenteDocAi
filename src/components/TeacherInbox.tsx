@@ -74,7 +74,7 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                                     onClick={() => setSelectedSubmission(sub)}
                                     style={{
                                         borderRadius: 'var(--md-sys-shape-corner-small)',
-                                        transition: 'var(--md-easing-standard)',
+                                        transition: 'var(--md-sys-motion-easing-standard)',
                                         backgroundColor: isSelected ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-surface-container)',
                                         padding: 'var(--md-sys-spacing-3)',
                                         cursor: 'pointer'
@@ -101,7 +101,7 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                                 <p >Già Corretti</p>
                                 {gradedSubmissions.slice(0, 5).map(sub => {
                                     return (
-                                        <div key={sub.id}  style={{borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-easing-standard)'}}>
+                                        <div key={sub.id}  style={{borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-sys-motion-easing-standard)'}}>
                                             <span >check_circle</span>
                                             <span >{studentInfo.full} - Voto: {sub.teacherFeedback} - {lessonInfo.materia}</span>
                                         </div>

@@ -123,7 +123,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   background-color: transparent;
   color: var(--md-sys-color-on-surface);
   font-size: var(--md-sys-typescale-body-medium-font-size);
-  font-weight: 500;
+  font-weight: var(--md-sys-typescale-weight-medium);
   font-family: var(--font-family);
   cursor: pointer;
   transition-property: opacity, transform, background-color;
@@ -208,7 +208,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   inset: 0;
   background: currentColor;
   opacity: 0;
-  transition: opacity var(--motion-duration-short2) var(--motion-easing-standard);
+  transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
   pointer-events: none;
 }
 
@@ -286,7 +286,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   background-color: transparent;
   color: var(--md-sys-color-on-surface);
   font-size: var(--md-sys-typescale-body-medium-font-size);
-  font-weight: 500;
+  font-weight: var(--md-sys-typescale-weight-medium);
   cursor: pointer;
   transition-property: opacity, transform, background-color;
 transition-duration: var(--md-sys-motion-duration-long);
@@ -312,7 +312,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .m3-interactive-menu-item[aria-selected="true"] {
   background-color: var(--md-sys-color-primary-container);
   color: var(--md-sys-color-on-primary-container);
-  font-weight: 600;
+  font-weight: var(--md-sys-typescale-weight-semibold);
 }
 
 /**
@@ -329,7 +329,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   background-color: transparent;
   color: var(--md-sys-color-on-surface);
   font-size: var(--md-sys-typescale-label-large-font-size);
-  font-weight: 500;
+  font-weight: var(--md-sys-typescale-weight-medium);
   cursor: pointer;
   transition-property: opacity, transform, background-color;
 transition-duration: var(--md-sys-motion-duration-long);
@@ -355,7 +355,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   background-color: var(--md-sys-color-secondary-container);
   border-color: var(--md-sys-color-secondary);
   color: var(--md-sys-color-on-secondary-container);
-  font-weight: 600;
+  font-weight: var(--md-sys-typescale-weight-semibold);
 }
 
 /* ==========================================================================

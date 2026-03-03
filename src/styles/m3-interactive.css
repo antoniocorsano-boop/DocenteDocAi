@@ -10,7 +10,7 @@
 /* Base interactive button class - use on native buttons replacing MUI Button */
 .m3-interactive-button {
   cursor: pointer;
-  transition: background-color var(--app-motion-quick) var(--app-easing-standard);
+  transition: background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
   background-color: transparent;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .m3-interactive-button:focus-visible {
-  outline: var(--md-sys-spacing-1) solid var(--app-color-primary);
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
   outline-offset: var(--md-sys-spacing-1);
   background-color: var(--md-sys-color-surface-container-highest);
 }
@@ -31,18 +31,17 @@
 /* Interactive card class - use on clickable notification cards, list items */
 .m3-interactive-card {
   cursor: pointer;
-  transition: box-shadow var(--app-motion-quick) var(--app-easing-standard),
-              transform var(--app-motion-quick) var(--app-easing-standard);
+  transition: box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+              transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
 }
 
 .m3-interactive-card:hover {
-  /* M3 token replacement: rgba(0, 0, 0, 0.1) → var(--md-sys-color-shadow) */
-  box-shadow: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1) var(--md-sys-color-shadow);
+  box-shadow: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1) color-mix(in srgb, var(--md-sys-color-shadow) 10%, transparent);
   transform: translateY(calc(-1 * var(--md-sys-spacing-0)));
 }
 
 .m3-interactive-card:focus-visible {
-  outline: var(--md-sys-spacing-1) solid var(--app-color-primary);
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
   outline-offset: var(--md-sys-spacing-1);
 }
 
@@ -54,7 +53,7 @@
 /* Close button variant - circular icon buttons */
 .m3-interactive-close {
   cursor: pointer;
-  transition: background-color var(--app-motion-quick) var(--app-easing-standard);
+  transition: background-color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
   background-color: transparent;
   border-radius: var(--md-sys-shape-corner-full);
 }
@@ -64,12 +63,12 @@
 }
 
 .m3-interactive-close:focus-visible {
-  outline: var(--md-sys-spacing-1) solid var(--app-color-primary);
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);
   outline-offset: var(--md-sys-spacing-1);
 }
 
 .m3-interactive-close:active {
-  background-color: var(--app-color-surface-container);
+  background-color: var(--md-sys-color-surface-container);
 }
 
 /* Disabled state for all interactive elements */

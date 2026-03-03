@@ -92,7 +92,7 @@
   border-radius: var(--md-corner-medium);
 }
 .rounded-small {
-  border-radius: var(--md-corner-small);
+  border-radius: var(--md-sys-shape-corner-small);
 }
 .shadow-elevation1 {
   box-shadow: var(--md-sys-elevation1);
@@ -121,13 +121,13 @@ transition-duration: var(--md-sys-motion-duration-long);
 transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 .transition-bg {
-  transition: background-color var(--motion-duration-short3) var(--motion-easing-standard);
+  transition: background-color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
 }
 .transition-transform {
-  transition: transform var(--motion-duration-short3) var(--motion-easing-standard);
+  transition: transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
 }
 .transition-transform-emphasized {
-  transition: transform var(--motion-duration-medium2) var(--motion-easing-emphasized);
+  transition: transform var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-emphasized);
 }
 .overflow-y-auto {
   overflow-y: auto;

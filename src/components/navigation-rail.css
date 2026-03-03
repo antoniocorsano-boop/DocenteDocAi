@@ -119,9 +119,9 @@
   background: transparent;
   
   /* Transition */
-  transition: background-color var(--motion-duration-short2) var(--motion-easing-standard),
-              box-shadow var(--motion-duration-short2) var(--motion-easing-standard),
-              transform var(--motion-duration-short2) var(--motion-easing-standard);
+  transition: background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+              box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+              transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
 
   /* Remove tap highlight on mobile */
   -webkit-tap-highlight-color: transparent;
@@ -163,8 +163,8 @@
   width: calc(var(--md-sys-spacing-8) * var(--md-sys-typescale-font-scale, 1));
   height: calc(var(--md-sys-spacing-8) * var(--md-sys-typescale-font-scale, 1));
   border-radius: var(--md-sys-percent-50);
-  transition: background-color var(--motion-duration-short2) var(--motion-easing-standard),
-              color var(--motion-duration-short2) var(--motion-easing-standard);
+  transition: background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+              color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
 }
 
 /* Icon styling */
@@ -211,7 +211,7 @@
   
   /* Typography */
   font-size: var(--md-sys-typescale-label-small-size);
-  font-weight: 700;
+  font-weight: var(--md-sys-typescale-weight-bold);
   line-height: var(--md-sys-spacing-4);
   text-align: center;
   
@@ -240,7 +240,7 @@
 .m3-navigation-rail__label {
   /* Typography handled by .m3-label-medium class */
   font-size: var(--md-sys-spacing-3);
-  font-weight: 500;
+  font-weight: var(--md-sys-typescale-weight-medium);
   letter-spacing: var(--md-sys-border-width-thin);
   text-align: center;
   color: inherit;

@@ -404,7 +404,63 @@
     }
   ],
   "legacyPatterns": [],
-  "exemptions": [],
+  "exemptions": [
+    {
+      "file": "src/theme.css",
+      "reason": "TOKEN SOURCE — Contains :root MD3 color token definitions (--md-sys-color-*: #hex). These ARE the token values, not violations.",
+      "permanent": true
+    },
+    {
+      "file": "src/global.css",
+      "reason": "TOKEN SOURCE — Contains :root MD3 color token definitions for light/dark modes. Hex values define the token system itself.",
+      "permanent": true
+    },
+    {
+      "file": "src/design-system/utils.ts",
+      "reason": "TOKEN SOURCE — lightColors/darkColors are MD3 source-of-truth color objects. eslint-disabled by design. See docs/DESIGN_SYSTEM_CONSOLIDATION.md § 5.",
+      "permanent": true
+    },
+    {
+      "file": "src/design-system/theme-dark.css",
+      "reason": "TOKEN SOURCE — Dark theme MD3 color token definitions. Hex values are required here.",
+      "permanent": true
+    },
+    {
+      "file": "src/design-system/theme-high-contrast.css",
+      "reason": "TOKEN SOURCE — High-contrast accessibility token definitions. Hex values are required here.",
+      "permanent": true
+    },
+    {
+      "file": "src/constants.ts",
+      "reason": "THEME PRESETS — Color palette preset hex values for the UI theme picker. eslint-disabled. See THEME_CUSTOMIZATIONS export.",
+      "permanent": true
+    },
+    {
+      "file": "src/utils/colorUtils.ts",
+      "reason": "COLOR UTILITY — Color manipulation functions require hex as input. Values read from computedStyle at runtime.",
+      "permanent": true
+    },
+    {
+      "file": "src/design-system/pdf-colors.ts",
+      "reason": "PDF EXPORT — PDF rendering requires concrete hex values; CSS vars not supported in PDF context.",
+      "permanent": true
+    },
+    {
+      "file": "src/stories/DesignSystem/Colors.stories.tsx",
+      "reason": "STORYBOOK DEMO — Color demonstration story showing token values. Hex values are display-only.",
+      "permanent": true
+    },
+    {
+      "file": "src/design-system/semantic-tokens.css",
+      "reason": "TOKEN SOURCE — Contains MD3 semantic token definitions with canonical pixel values. These ARE the token values.",
+      "permanent": true
+    },
+    {
+      "file": "src/design-system/accessibility-focus.css",
+      "reason": "ACCESSIBILITY TECHNIQUE — width: 1px / height: 1px is a standard visually-hidden pattern, not a design token violation.",
+      "permanent": true
+    }
+  ],
   "monitoring": {
     "reportWarnings": true,
     "blockOnNewViolations": true,

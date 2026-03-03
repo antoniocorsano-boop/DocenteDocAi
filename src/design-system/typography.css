@@ -161,11 +161,11 @@
    ========================================================================= */
 
 /* Font weight modifiers */
-.font-light { font-weight: 300; }
+.font-light { font-weight: var(--md-sys-typescale-weight-light); }
 .font-regular { font-weight: var(--md-sys-typescale-body-medium-font-weight, 400); }
-.font-medium { font-weight: 500; }
-.font-bold { font-weight: 700; }
-.font-black { font-weight: 900; }
+.font-medium { font-weight: var(--md-sys-typescale-weight-medium); }
+.font-bold { font-weight: var(--md-sys-typescale-weight-bold); }
+.font-black { font-weight: var(--md-sys-typescale-weight-black); }
 
 /* Text alignment */
 .text-left { text-align: left; }
@@ -390,7 +390,7 @@
 .m3-display-ai {
   font-family: var(--font-family);
   font-size: clamp(var(--md-sys-spacing-8), 5vw, var(--md-sys-spacing-14));
-  font-weight: 300;
+  font-weight: var(--md-sys-typescale-weight-light);
   line-height: 1.2;
   letter-spacing: -0.02em;
 }
@@ -398,7 +398,7 @@
 .m3-thinking-indicator {
   font-family: var(--font-family);
   font-size: var(--md-sys-typescale-body-medium-font-size);
-  font-weight: 500;
+  font-weight: var(--md-sys-typescale-weight-medium);
   font-style: italic;
   opacity: 0.7;
   line-height: 1.4;
@@ -415,7 +415,7 @@
 .m3-ai-content-bold {
   font-family: var(--font-family);
   font-size: var(--md-sys-spacing-4);
-  font-weight: 600;
+  font-weight: var(--md-sys-typescale-weight-semibold);
   line-height: 1.6;
   letter-spacing: 0.01em;
 }

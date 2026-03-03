@@ -182,7 +182,7 @@ a:focus-visible {
   z-index: var(--md-sys-z-snackbar);
   outline: none;
   box-shadow: 0 4px 12px color-mix(in srgb, var(--md-sys-color-scrim) 30%, transparent);
-  font-weight: 600;
+  font-weight: var(--md-sys-typescale-weight-semibold);
   text-decoration: none;
 }
 

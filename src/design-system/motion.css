@@ -85,8 +85,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Use when only color changes (more performant than 'all')
  */
 .m3-transition-color {
-  transition: background-color var(--motion-duration-short2) var(--motion-easing-standard),
-              color var(--motion-duration-short2) var(--motion-easing-standard);
+  transition: background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+              color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
 }
 
 /**
@@ -94,7 +94,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Use for position, scale, rotate changes
  */
 .m3-transition-transform {
-  transition: transform var(--motion-duration-short2) var(--motion-easing-standard);
+  transition: transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
 }
 
 /**
@@ -102,7 +102,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Use for fade in/out effects
  */
 .m3-transition-opacity {
-  transition: opacity var(--motion-duration-short2) var(--motion-easing-standard);
+  transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
 }
 
 /**
@@ -110,7 +110,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Use for elevation changes (cards, buttons)
  */
 .m3-transition-elevation {
-  transition: box-shadow var(--motion-duration-short2) var(--motion-easing-standard);
+  transition: box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
 }
 
 /**
@@ -118,9 +118,9 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Common pattern for interactive cards
  */
 .m3-transition-interactive {
-  transition: background-color var(--motion-duration-short2) var(--motion-easing-standard),
-              box-shadow var(--motion-duration-short2) var(--motion-easing-standard),
-              transform var(--motion-duration-short2) var(--motion-easing-standard);
+  transition: background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+              box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+              transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
 }
 
 /* =============================================================================
@@ -156,8 +156,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Fade + scale-up effect
  */
 .m3-transition-modal-enter {
-  transition: opacity var(--motion-duration-short3) var(--motion-easing-standard),
-              transform var(--motion-duration-short3) var(--motion-easing-standard);
+  transition: opacity var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard),
+              transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
 }
 
 /**
@@ -165,7 +165,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Horizontal or vertical slide transitions
  */
 .m3-transition-drawer {
-  transition: transform var(--motion-duration-short3) var(--motion-easing-standard);
+  transition: transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
 }
 
 /**
@@ -173,8 +173,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Slide up + fade
  */
 .m3-transition-snackbar {
-  transition: transform var(--motion-duration-short2) var(--motion-easing-standard),
-              opacity var(--motion-duration-short2) var(--motion-easing-standard);
+  transition: transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
+              opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
 }
 
 /**
@@ -182,8 +182,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Size change with expressive easing
  */
 .m3-transition-fab {
-  transition: transform var(--motion-duration-short3) var(--motion-easing-expressive),
-              box-shadow var(--motion-duration-short3) var(--motion-easing-standard);
+  transition: transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized),
+              box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
 }
 
 /**
@@ -191,8 +191,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
  * Page-level transitions (use sparingly)
  */
 .m3-transition-page {
-  transition: opacity var(--motion-duration-short4) var(--motion-easing-standard),
-              transform var(--motion-duration-short4) var(--motion-easing-standard);
+  transition: opacity var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+              transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
 }
 
 /* =============================================================================

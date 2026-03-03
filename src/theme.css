@@ -957,108 +957,108 @@ body {
 
 /* --- M3 TYPOGRAPHY UTILITIES --- */
 .m3-display-large {
-  font-family: var(--typography-display-large-fontFamily);
-  font-size: var(--typography-display-large-fontSize);
-  font-weight: var(--typography-display-large-fontWeight);
-  line-height: var(--typography-display-large-lineHeight);
+  font-family: var(--md-sys-typescale-display-large-font);
+  font-size: var(--md-sys-typescale-display-large-size);
+  font-weight: var(--md-sys-typescale-display-large-weight);
+  line-height: var(--md-sys-typescale-display-large-line-height);
 }
 
 .m3-display-medium {
-  font-family: var(--typography-display-medium-fontFamily);
-  font-size: var(--typography-display-medium-fontSize);
-  font-weight: var(--typography-display-medium-fontWeight);
-  line-height: var(--typography-display-medium-lineHeight);
+  font-family: var(--md-sys-typescale-display-medium-font);
+  font-size: var(--md-sys-typescale-display-medium-size);
+  font-weight: var(--md-sys-typescale-display-medium-weight);
+  line-height: var(--md-sys-typescale-display-medium-line-height);
 }
 
 .m3-display-small {
-  font-family: var(--typography-display-small-fontFamily);
-  font-size: var(--typography-display-small-fontSize);
-  font-weight: var(--typography-display-small-fontWeight);
-  line-height: var(--typography-display-small-lineHeight);
+  font-family: var(--md-sys-typescale-display-small-font);
+  font-size: var(--md-sys-typescale-display-small-size);
+  font-weight: var(--md-sys-typescale-display-small-weight);
+  line-height: var(--md-sys-typescale-display-small-line-height);
 }
 
 .m3-headline-large {
-  font-family: var(--typography-headline-large-fontFamily);
-  font-size: var(--typography-headline-large-fontSize);
-  font-weight: var(--typography-headline-large-fontWeight);
-  line-height: var(--typography-headline-large-lineHeight);
+  font-family: var(--md-sys-typescale-headline-large-font);
+  font-size: var(--md-sys-typescale-headline-large-size);
+  font-weight: var(--md-sys-typescale-headline-large-weight);
+  line-height: var(--md-sys-typescale-headline-large-line-height);
 }
 
 .m3-headline-medium {
-  font-family: var(--typography-headline-medium-fontFamily);
-  font-size: var(--typography-headline-medium-fontSize);
-  font-weight: var(--typography-headline-medium-fontWeight);
-  line-height: var(--typography-headline-medium-lineHeight);
+  font-family: var(--md-sys-typescale-headline-medium-font);
+  font-size: var(--md-sys-typescale-headline-medium-size);
+  font-weight: var(--md-sys-typescale-headline-medium-weight);
+  line-height: var(--md-sys-typescale-headline-medium-line-height);
 }
 
 .m3-headline-small {
-  font-family: var(--typography-headline-small-fontFamily);
-  font-size: var(--typography-headline-small-fontSize);
-  font-weight: var(--typography-headline-small-fontWeight);
-  line-height: var(--typography-headline-small-lineHeight);
+  font-family: var(--md-sys-typescale-headline-small-font);
+  font-size: var(--md-sys-typescale-headline-small-size);
+  font-weight: var(--md-sys-typescale-headline-small-weight);
+  line-height: var(--md-sys-typescale-headline-small-line-height);
 }
 
 .m3-title-large {
-  font-family: var(--typography-title-large-fontFamily);
-  font-size: var(--typography-title-large-fontSize);
-  font-weight: var(--typography-title-large-fontWeight);
-  line-height: var(--typography-title-large-lineHeight);
+  font-family: var(--md-sys-typescale-title-large-font);
+  font-size: var(--md-sys-typescale-title-large-size);
+  font-weight: var(--md-sys-typescale-title-large-weight);
+  line-height: var(--md-sys-typescale-title-large-line-height);
 }
 
 .m3-title-medium {
-  font-family: var(--typography-title-medium-fontFamily);
-  font-size: var(--typography-title-medium-fontSize);
-  font-weight: var(--typography-title-medium-fontWeight);
-  line-height: var(--typography-title-medium-lineHeight);
+  font-family: var(--md-sys-typescale-title-medium-font);
+  font-size: var(--md-sys-typescale-title-medium-size);
+  font-weight: var(--md-sys-typescale-title-medium-weight);
+  line-height: var(--md-sys-typescale-title-medium-line-height);
 }
 
 .m3-title-small {
-  font-family: var(--typography-title-small-fontFamily);
-  font-size: var(--typography-title-small-fontSize);
-  font-weight: var(--typography-title-small-fontWeight);
-  line-height: var(--typography-title-small-lineHeight);
+  font-family: var(--md-sys-typescale-title-small-font);
+  font-size: var(--md-sys-typescale-title-small-size);
+  font-weight: var(--md-sys-typescale-title-small-weight);
+  line-height: var(--md-sys-typescale-title-small-line-height);
 }
 
 .m3-body-large {
-  font-family: var(--typography-body-large-fontFamily);
-  font-size: var(--typography-body-large-fontSize);
-  font-weight: var(--typography-body-large-fontWeight);
-  line-height: var(--typography-body-large-lineHeight);
+  font-family: var(--md-sys-typescale-body-large-font);
+  font-size: var(--md-sys-typescale-body-large-size);
+  font-weight: var(--md-sys-typescale-body-large-weight);
+  line-height: var(--md-sys-typescale-body-large-line-height);
 }
 
 .m3-body-medium {
-  font-family: var(--typography-body-medium-fontFamily);
-  font-size: var(--typography-body-medium-fontSize);
-  font-weight: var(--typography-body-medium-fontWeight);
-  line-height: var(--typography-body-medium-lineHeight);
+  font-family: var(--md-sys-typescale-body-medium-font);
+  font-size: var(--md-sys-typescale-body-medium-size);
+  font-weight: var(--md-sys-typescale-body-medium-weight);
+  line-height: var(--md-sys-typescale-body-medium-line-height);
 }
 
 .m3-body-small {
-  font-family: var(--typography-body-small-fontFamily);
-  font-size: var(--typography-body-small-fontSize);
-  font-weight: var(--typography-body-small-fontWeight);
-  line-height: var(--typography-body-small-lineHeight);
+  font-family: var(--md-sys-typescale-body-small-font);
+  font-size: var(--md-sys-typescale-body-small-size);
+  font-weight: var(--md-sys-typescale-body-small-weight);
+  line-height: var(--md-sys-typescale-body-small-line-height);
 }
 
 .m3-label-large {
-  font-family: var(--typography-label-large-fontFamily);
-  font-size: var(--typography-label-large-fontSize);
-  font-weight: var(--typography-label-large-fontWeight);
-  line-height: var(--typography-label-large-lineHeight);
+  font-family: var(--md-sys-typescale-label-large-font);
+  font-size: var(--md-sys-typescale-label-large-size);
+  font-weight: var(--md-sys-typescale-label-large-weight);
+  line-height: var(--md-sys-typescale-label-large-line-height);
 }
 
 .m3-label-medium {
-  font-family: var(--typography-label-medium-fontFamily);
-  font-size: var(--typography-label-medium-fontSize);
-  font-weight: var(--typography-label-medium-fontWeight);
-  line-height: var(--typography-label-medium-lineHeight);
+  font-family: var(--md-sys-typescale-label-medium-font);
+  font-size: var(--md-sys-typescale-label-medium-size);
+  font-weight: var(--md-sys-typescale-label-medium-weight);
+  line-height: var(--md-sys-typescale-label-medium-line-height);
 }
 
 .m3-label-small {
-  font-family: var(--typography-label-small-fontFamily);
-  font-size: var(--typography-label-small-fontSize);
-  font-weight: var(--typography-label-small-fontWeight);
-  line-height: var(--typography-label-small-lineHeight);
+  font-family: var(--md-sys-typescale-label-small-font);
+  font-size: var(--md-sys-typescale-label-small-size);
+  font-weight: var(--md-sys-typescale-label-small-weight);
+  line-height: var(--md-sys-typescale-label-small-line-height);
 }
 
 /* --- M3 COMPONENT CLASSES (COMPLETE AUDIT SPEC) --- */
@@ -1393,7 +1393,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   background: var(--md-sys-color-surface-container);
   color: var(--md-sys-color-on-surface);
   border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
-  font-size: var(--typography-label-large-fontSize);
+  font-size: var(--md-sys-typescale-label-large-size);
   font-weight: 500;
   transition-property: opacity, transform, background-color;
 transition-duration: var(--md-sys-motion-duration-short);
