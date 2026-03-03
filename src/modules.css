@@ -2208,7 +2208,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     border: var(--md-sys-spacing-0) solid color-mix(in srgb, var(--md-sys-color-outline-variant) var(--md-sys-percent-30), transparent);
     border-radius: var(--md-sys-shape-corner-extra-large);
     padding: var(--md-sys-spacing-8);
-    /* M3 token replacement: var(--elevation-3) ? var(--md-sys-elevation-level3) */
+    /* M3 token migrated: elevation-3 → --md-sys-elevation-level3 */
     box-shadow: var(--md-sys-elevation-level3);
     animation: fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)-out, slide-in-from-bottom-4 var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)-out;
 }

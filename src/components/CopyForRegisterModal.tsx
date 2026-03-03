@@ -93,7 +93,7 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                         value={activeTab === 'text' ? generatedText : generatedJson} 
                         readOnly 
                         rows={10}
-                        containerClassName="!bg-[var(--md-sys-color-surfaceContainerHigh)]est shadow-inner font-mono text-xs"
+                        style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', fontFamily: 'monospace', fontSize: 'var(--md-sys-typescale-body-small-size)' }}
                     />
                 </div>
             </M3DialogContent>

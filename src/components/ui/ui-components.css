@@ -89,7 +89,7 @@
   background-color: var(--md-sys-color-surface-container-low);
 }
 .rounded {
-  border-radius: var(--md-corner-medium);
+  border-radius: var(--md-sys-shape-corner-medium);
 }
 .rounded-small {
   border-radius: var(--md-sys-shape-corner-small);

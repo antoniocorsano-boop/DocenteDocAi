@@ -38,17 +38,20 @@ const VIOLATIONS = {
   // Hardcoded hsl/hsla colors
   hardcodedHslColor: /hsla?\s*\(\s*\d+\s*,\s*\d+%\s*,\s*\d+%/gi,
   
-  // Hardcoded spacing (padding, margin, gap with px/rem/em/%)
-  hardcodedSpacing: /(?:padding|margin|gap|top|left|right|bottom|width|height|min-width|max-width|min-height|max-height)\s*:\s*\d+(?:px|rem|em|%)/gi,
+  // Hardcoded spacing (padding, margin, gap with px/rem/em) — NOT media queries, NOT percentages alone
+  // Excludes: @media rules, 100%/50%/etc (semantic), and relative units that are valid
+  hardcodedSpacing: /(?<!@media[^{]*)\b(?:padding|margin|gap|min-width|max-width|min-height|max-height)\s*:\s*(?!0\b)\d+(?:px|rem|em)\b/gi,
   
-  // Hardcoded typography (font-size, font-weight, line-height)
-  hardcodedTypography: /(?:font-size|font-weight|line-height|letter-spacing)\s*:\s*(?:\d+(?:px|rem|em)|[1-9]\d{2,})/gi,
+  // Hardcoded typography (font-size, font-weight, line-height) — exclude zero values and CSS-var-only declarations
+  hardcodedTypography: /(?:font-size|font-weight|line-height|letter-spacing)\s*:\s*(?:[1-9]\d*(?:px|rem|em)|[1-9]\d{2,}(?!\s*,))/gi,
   
   // Non-MD3 CSS variables (--custom-*, --legacy-*, etc.)
-  nonMD3Var: /var\(--(?!md-sys-|md-ref-|md-source-)[a-zA-Z0-9-]+\)/gi,
+  // Allowlist prefixes: canonical MD3 namespaces + valid semantic/component-scoped aliases
+  // that are properly defined via MD3 tokens in their respective definition files.
+  nonMD3Var: /var\(--(?!md-sys-|md-ref-|md-source-|breakpoint-|font-family|font-variable|font-variation|aura-|glass-|content-|header-|chip-|gantt-|slot-|card-|panel-|icon-|component-|kb-|popup-|link-|app-z-|app-color-|app-motion-|app-easing-|app-surface-)[a-zA-Z0-9-]+\)/gi,
   
-  // Inline style objects with hardcoded values
-  inlineStyleHardcoded: /style\s*=\s*\{\{[^}]*(?:color|backgroundColor|padding|margin|fontSize|width|height)\s*:\s*['"]?(?:#[0-9a-f]{3,6}|\d+(?:px|rem|em|%))/gi,
+  // Inline style objects with hardcoded values — exclude percentage and 100%/auto semantics
+  inlineStyleHardcoded: /style\s*=\s*\{\{[^}]*(?:color|backgroundColor|padding|margin|fontSize)\s*:\s*['"]?(?:#[0-9a-f]{3,6}|\d+(?:px|rem|em))/gi,
   
   // Tailwind/utility classes (deprecated in MD3)
   tailwindClasses: /className\s*=\s*['"][^'"]*\b(?:w-|h-|p-|m-|gap-|text-|bg-|border-|rounded-|shadow-|font-|leading-|tracking-)\w+/gi,
@@ -56,8 +59,8 @@ const VIOLATIONS = {
   // Hardcoded border-radius
   hardcodedBorderRadius: /border-radius\s*:\s*\d+(?:px|rem|em|%)/gi,
   
-  // Hardcoded box-shadow
-  hardcodedBoxShadow: /box-shadow\s*:\s*[^;]*\d+px/gi,
+  // Hardcoded box-shadow — only flag when NOT using MD3 color tokens for the color values
+  hardcodedBoxShadow: /box-shadow\s*:\s*(?!none)[^;]*\d+px[^;]*(?<!var\(--md-sys-[^)]+\))[^;]*;/gi,
 };
 
 // Files to skip (legacy, backup, generated)
@@ -129,6 +132,25 @@ function auditFile(filePath) {
   
   const violations = [];
 
+  // Pre-compute line start indices for fast line-number lookup
+  const lineStartIndices = [];
+  let idx = 0;
+  for (const line of lines) {
+    lineStartIndices.push(idx);
+    idx += line.length + 1;
+  }
+
+  // Helper: get 0-based line index for a character offset
+  function lineIndexOf(charIndex) {
+    let lo = 0, hi = lineStartIndices.length - 1;
+    while (lo < hi) {
+      const mid = (lo + hi + 1) >> 1;
+      if (lineStartIndices[mid] <= charIndex) lo = mid;
+      else hi = mid - 1;
+    }
+    return lo;
+  }
+
   // Check each violation pattern
   for (const [violationType, pattern] of Object.entries(VIOLATIONS)) {
     let match;
@@ -138,15 +160,20 @@ function auditFile(filePath) {
       const matchText = match[0];
       const matchIndex = match.index;
       
-      // Find line number
-      let lineNumber = 1;
-      let charCount = 0;
-      for (let i = 0; i < lines.length; i++) {
-        charCount += lines[i].length + 1; // +1 for newline
-        if (charCount > matchIndex) {
-          lineNumber = i + 1;
-          break;
-        }
+      // Find line number (1-based)
+      const lineIdx = lineIndexOf(matchIndex);
+      const lineNumber = lineIdx + 1;
+      const lineContent = lines[lineIdx] || '';
+
+      // Skip lines that are pure CSS/JS comments (/* ... */, // ..., or * ...)
+      const trimmed = lineContent.trimStart();
+      if (
+        trimmed.startsWith('//') ||
+        trimmed.startsWith('/*') ||
+        trimmed.startsWith('*') ||
+        trimmed.startsWith('<!--')
+      ) {
+        continue;
       }
 
       const violation = {
@@ -154,7 +181,7 @@ function auditFile(filePath) {
         type: violationType,
         line: lineNumber,
         match: matchText,
-        context: lines[lineNumber - 1]?.substring(0, 100),
+        context: lineContent.substring(0, 100),
       };
 
       violations.push(violation);

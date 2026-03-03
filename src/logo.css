@@ -37,7 +37,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .logo-main-text {
   fill: var(--md-sys-color-on-surface);
   font-family: 'Roboto', sans-serif;
-  font-weight: 950;
+  font-weight: var(--md-sys-typescale-weight-black);
   font-size: var(--md-sys-typescale-headline-small-font-size);
   letter-spacing: -1.var(--md-sys-spacing-1);
 }

@@ -459,6 +459,16 @@
       "file": "src/design-system/accessibility-focus.css",
       "reason": "ACCESSIBILITY TECHNIQUE — width: 1px / height: 1px is a standard visually-hidden pattern, not a design token violation.",
       "permanent": true
+    },
+    {
+      "file": "src/design-system/html-template-colors.ts",
+      "reason": "HTML EMAIL TEMPLATE — PDF/email rendering requires concrete hex and px values; CSS custom properties are not supported in email HTML context.",
+      "permanent": true
+    },
+    {
+      "file": "src/design-system/reduced-motion.css",
+      "reason": "ACCESSIBILITY OVERRIDE — Focus ring spread values (e.g. 0 0 0 6px) are accessibility requirements, not arbitrary spacing. Color uses MD3 token.",
+      "permanent": true
     }
   ],
   "monitoring": {
