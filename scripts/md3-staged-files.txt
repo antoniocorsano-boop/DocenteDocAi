@@ -1,5 +1,6 @@
-src/components/AssistantFab.tsx
-src/components/ClassDashboard.tsx
-src/components/SkipLink.tsx
-src/components/TeacherInbox.tsx
-src/components/ui/M3BottomAppBar.stories.tsx
+src/components/CopyForRegisterModal.tsx
+src/components/EventModal.tsx
+src/components/ImprovementGuide.tsx
+src/components/RubricEditor.tsx
+src/components/VoiceNoteRecorder.tsx
+src/components/ui/MetricCard.tsx

@@ -327,7 +327,7 @@ exports[`MD3 Visual Regression Snapshots > M3Typography renders correctly for al
 exports[`MD3 Visual Regression Snapshots > ManualSection renders correctly 1`] = `
 <div>
   <details
-    style="border: medium; background-color: var(--md-sys-color-surface-container-low); opacity: 0.5; border-radius: var(--md-sys-shape-corner-large); margin-bottom: var(--md-sys-spacing-4); overflow: hidden; transition: all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);"
+    style="border: medium; background-color: var(--md-sys-color-surface-container-low); opacity: var(--md-sys-state-opacity-placeholder); border-radius: var(--md-sys-shape-corner-large); margin-bottom: var(--md-sys-spacing-4); overflow: hidden; transition: all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);"
   >
     <summary
       style="padding: var(--md-sys-spacing-4); background-color: transparent; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; transition: background-color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);"
@@ -345,13 +345,13 @@ exports[`MD3 Visual Regression Snapshots > ManualSection renders correctly 1`] =
           </span>
         </div>
         <h3
-          style="font-size: var(--md-sys-typescale-headline-medium-font-size); font-weight: 900; line-height: var(--md-sys-typescale-headline-medium-line-height); letter-spacing: var(--md-sys-typescale-headline-medium-tracking); margin: 0px;"
+          style="font-size: var(--md-sys-typescale-headline-medium-font-size); font-weight: var(--md-sys-typescale-weight-black); line-height: var(--md-sys-typescale-headline-medium-line-height); letter-spacing: var(--md-sys-typescale-headline-medium-tracking); margin: 0px;"
         >
           Closed Section
         </h3>
       </div>
       <div
-        style="width: var(--md-sys-spacing-8); height: var(--md-sys-spacing-8); border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--md-sys-color-outline-variant); opacity: 0.2; transition: transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized); transform: rotate(0deg);"
+        style="width: var(--md-sys-spacing-8); height: var(--md-sys-spacing-8); border-radius: var(--md-sys-shape-corner-full); display: flex; align-items: center; justify-content: center; background-color: var(--md-sys-color-outline-variant); opacity: var(--md-sys-state-opacity-tint-subtle); transition: transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized); transform: rotate(0deg);"
       >
         <span
           style="font-size: var(--md-sys-typescale-body-large-font-size); color: var(--md-sys-color-on-primary);"
@@ -370,7 +370,7 @@ exports[`MD3 Visual Regression Snapshots > ManualSection renders correctly 1`] =
   </details>
   <details
     open=""
-    style="border: medium; background-color: var(--md-sys-color-surface-container-low); opacity: 0.5; border-radius: var(--md-sys-shape-corner-large); margin-bottom: var(--md-sys-spacing-4); overflow: hidden; transition: all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);"
+    style="border: medium; background-color: var(--md-sys-color-surface-container-low); opacity: var(--md-sys-state-opacity-placeholder); border-radius: var(--md-sys-shape-corner-large); margin-bottom: var(--md-sys-spacing-4); overflow: hidden; transition: all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);"
   >
     <summary
       style="padding: var(--md-sys-spacing-4); background-color: transparent; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; transition: background-color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);"
@@ -388,13 +388,13 @@ exports[`MD3 Visual Regression Snapshots > ManualSection renders correctly 1`] =
           </span>
         </div>
         <h3
-          style="font-size: var(--md-sys-typescale-headline-medium-font-size); font-weight: 900; line-height: var(--md-sys-typescale-headline-medium-line-height); letter-spacing: var(--md-sys-typescale-headline-medium-tracking); margin: 0px;"
+          style="font-size: var(--md-sys-typescale-headline-medium-font-size); font-weight: var(--md-sys-typescale-weight-black); line-height: var(--md-sys-typescale-headline-medium-line-height); letter-spacing: var(--md-sys-typescale-headline-medium-tracking); margin: 0px;"
         >
           Open Section
         </h3>
       </div>
       <div
-        style="width: var(--md-sys-spacing-8); height: var(--md-sys-spacing-8); border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: var(--md-sys-color-outline-variant); opacity: 0.2; transition: transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized); transform: rotate(180deg);"
+        style="width: var(--md-sys-spacing-8); height: var(--md-sys-spacing-8); border-radius: var(--md-sys-shape-corner-full); display: flex; align-items: center; justify-content: center; background-color: var(--md-sys-color-outline-variant); opacity: var(--md-sys-state-opacity-tint-subtle); transition: transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-emphasized); transform: rotate(180deg);"
       >
         <span
           style="font-size: var(--md-sys-typescale-body-large-font-size); color: var(--md-sys-color-on-primary);"
@@ -417,7 +417,7 @@ exports[`MD3 Visual Regression Snapshots > ManualSection renders correctly 1`] =
 exports[`MD3 Visual Regression Snapshots > MetricCard renders correctly 1`] = `
 <div>
   <div
-    style="padding: var(--md-sys-spacing-4); border-radius: var(--md-sys-shape-corner-large); transition: transform 200ms, box-shadow 200ms; cursor: default; outline: none; outline-offset: var(--md-sys-spacing-0); background-color: var(--md-sys-color-surface-container-low); box-shadow: var(--md-sys-elevation-level1); border: var(--md-sys-border-width-thin) solid var(--md-sys-color-primary-container); flex: 1 1 0%; min-width: var(--md-sys-spacing-14);"
+    style="padding: var(--md-sys-spacing-4); border-radius: var(--md-sys-shape-corner-large); transition: transform var(--md-sys-motion-duration-short4), box-shadow var(--md-sys-motion-duration-short4); transform: scale(1); cursor: default; outline: none; outline-offset: var(--md-sys-spacing-0); background-color: var(--md-sys-color-surface-container-low); box-shadow: var(--md-sys-elevation-level1); border: var(--md-sys-border-width-thin) solid var(--md-sys-color-primary-container); flex: 1 1 0%; min-width: var(--md-sys-spacing-14);"
   >
     <div
       style="background-color: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface); display: flex; flex-direction: column; gap: var(--md-sys-spacing-2); align-items: center; text-align: center;"
@@ -430,12 +430,12 @@ exports[`MD3 Visual Regression Snapshots > MetricCard renders correctly 1`] = `
         visibility
       </span>
       <h1
-        style="font-family: var(--font-family); font-size: var(--md-sys-typescale-display-medium-font-size); font-weight: 700; line-height: var(--md-sys-typescale-display-medium-line-height); letter-spacing: var(--md-sys-typescale-display-small-tracking); color: var(--md-sys-color-primary); margin: 0px;"
+        style="font-family: var(--font-family); font-size: var(--md-sys-typescale-display-medium-font-size); font-weight: var(--md-sys-typescale-weight-bold); line-height: var(--md-sys-typescale-display-medium-line-height); letter-spacing: var(--md-sys-typescale-display-small-tracking); color: var(--md-sys-color-primary); margin: 0px;"
       >
         1,234
       </h1>
       <span
-        style="font-family: var(--font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: 600; line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-metric-label-tracking); color: var(--md-sys-color-on-surface); margin: 0px; text-transform: uppercase;"
+        style="font-family: var(--font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-weight-semibold); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-metric-label-tracking); color: var(--md-sys-color-on-surface); margin: 0px; text-transform: uppercase;"
       >
         Views
       </span>
@@ -450,7 +450,7 @@ exports[`MD3 Visual Regression Snapshots > MetricCard renders correctly 1`] = `
           trending_up
         </span>
         <span
-          style="font-family: var(--font-family); font-size: var(--md-sys-typescale-label-small-font-size); font-weight: 600; line-height: var(--md-sys-typescale-label-small-line-height); letter-spacing: var(--md-sys-typescale-label-small-tracking); color: var(--md-sys-color-tertiary); margin: 0px;"
+          style="font-family: var(--font-family); font-size: var(--md-sys-typescale-label-small-font-size); font-weight: var(--md-sys-typescale-weight-semibold); line-height: var(--md-sys-typescale-label-small-line-height); letter-spacing: var(--md-sys-typescale-label-small-tracking); color: var(--md-sys-color-tertiary); margin: 0px;"
         >
           +5.2%
         </span>
@@ -479,7 +479,7 @@ exports[`MD3 Visual Regression Snapshots > ProgressIndicator renders correctly 1
     aria-valuemax="100"
     aria-valuemin="0"
     role="progressbar"
-    style="position: fixed; top: 0px; left: 0px; right: 0px; height: var(--md-sys-spacing-0_5); background-color: var(--md-sys-color-surface-variant); z-index: 9999; overflow: hidden;"
+    style="position: fixed; top: 0px; left: 0px; right: 0px; height: var(--md-sys-spacing-0_5); background-color: var(--md-sys-color-surface-variant); z-index: var(--md-sys-z-snackbar); overflow: hidden;"
   >
     <div
       style="height: 100%; width: 30%; background-color: var(--md-sys-color-primary); animation: progress-indeterminate 2s var(--md-sys-motion-easing-standard) infinite; transform-origin: left center;"
@@ -603,7 +603,7 @@ exports[`MD3 Visual Regression Snapshots > Skeleton renders correctly 1`] = `
     
         @keyframes skeleton-pulse {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
+          50% { opacity: 'var(--md-sys-state-opacity-placeholder)'; }
         }
         @keyframes skeleton-wave-move {
           0% { transform: translateX(-100%); }
@@ -619,7 +619,7 @@ exports[`MD3 Visual Regression Snapshots > Skeleton renders correctly 1`] = `
     
         @keyframes skeleton-pulse {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
+          50% { opacity: 'var(--md-sys-state-opacity-placeholder)'; }
         }
         @keyframes skeleton-wave-move {
           0% { transform: translateX(-100%); }
@@ -635,7 +635,7 @@ exports[`MD3 Visual Regression Snapshots > Skeleton renders correctly 1`] = `
     
         @keyframes skeleton-pulse {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
+          50% { opacity: 'var(--md-sys-state-opacity-placeholder)'; }
         }
         @keyframes skeleton-wave-move {
           0% { transform: translateX(-100%); }
@@ -657,7 +657,7 @@ exports[`MD3 Visual Regression Snapshots > Skeleton renders correctly 1`] = `
         
         @keyframes skeleton-pulse {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
+          50% { opacity: 'var(--md-sys-state-opacity-placeholder)'; }
         }
         @keyframes skeleton-wave-move {
           0% { transform: translateX(-100%); }
@@ -676,7 +676,7 @@ exports[`MD3 Visual Regression Snapshots > Skeleton renders correctly 1`] = `
           
         @keyframes skeleton-pulse {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
+          50% { opacity: 'var(--md-sys-state-opacity-placeholder)'; }
         }
         @keyframes skeleton-wave-move {
           0% { transform: translateX(-100%); }
@@ -692,7 +692,7 @@ exports[`MD3 Visual Regression Snapshots > Skeleton renders correctly 1`] = `
           
         @keyframes skeleton-pulse {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
+          50% { opacity: 'var(--md-sys-state-opacity-placeholder)'; }
         }
         @keyframes skeleton-wave-move {
           0% { transform: translateX(-100%); }
@@ -713,7 +713,7 @@ exports[`MD3 Visual Regression Snapshots > Skeleton renders correctly 1`] = `
         
         @keyframes skeleton-pulse {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
+          50% { opacity: 'var(--md-sys-state-opacity-placeholder)'; }
         }
         @keyframes skeleton-wave-move {
           0% { transform: translateX(-100%); }
@@ -732,7 +732,7 @@ exports[`MD3 Visual Regression Snapshots > Skeleton renders correctly 1`] = `
           
         @keyframes skeleton-pulse {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
+          50% { opacity: 'var(--md-sys-state-opacity-placeholder)'; }
         }
         @keyframes skeleton-wave-move {
           0% { transform: translateX(-100%); }
@@ -748,7 +748,7 @@ exports[`MD3 Visual Regression Snapshots > Skeleton renders correctly 1`] = `
           
         @keyframes skeleton-pulse {
           0%, 100% { opacity: 1; }
-          50% { opacity: 0.5; }
+          50% { opacity: 'var(--md-sys-state-opacity-placeholder)'; }
         }
         @keyframes skeleton-wave-move {
           0% { transform: translateX(-100%); }

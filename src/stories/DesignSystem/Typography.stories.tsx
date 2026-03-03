@@ -34,10 +34,12 @@ const TypographyDocumentation = () => (
       lineHeight="1.25rem"
       letterSpacing="var(--md-sys-typescale-display-large-tracking)"
     />
-      fontSize="1.5rem"
+    <TypeSample
+      text="Display Medium"
+      fontSize="var(--md-sys-typescale-display-medium-size)"
       fontWeight={400}
-      lineHeight="1.25rem"
-      letterSpacing="var(--md-sys-typescale-tracking-condensed)"
+      lineHeight="var(--md-sys-typescale-display-medium-line-height)"
+      letterSpacing="var(--md-sys-typescale-display-medium-tracking)"
     />
     <TypeSample
       text="Display Small"

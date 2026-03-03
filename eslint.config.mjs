@@ -2,6 +2,7 @@ import js from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
 import { defineConfig } from "eslint/config";
 
 // Custom ESLint rules for design system conformity
@@ -75,7 +76,12 @@ export default defineConfig([
   },
   {
     files: ['**/*.ts', '**/*.tsx'],
+    plugins: {
+      'react-hooks': reactHooks,
+    },
     rules: {
+      'react-hooks/rules-of-hooks': 'warn',
+      'react-hooks/exhaustive-deps': 'warn',
       '@typescript-eslint/no-unused-expressions': 'warn',
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/no-explicit-any': 'error',
