@@ -197,7 +197,7 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
             backgroundColor: 'var(--md-sys-color-scrim)',
             opacity: 'var(--md-sys-state-opacity-scrim)' as unknown as number,
             zIndex: 'var(--md-sys-z-overlay)',
-            animation: 'fade-in var(--md-sys-motion-duration-short4) ease-out'
+            animation: 'fade-in var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-decelerate)'
           }}
         />
       )}
@@ -223,7 +223,7 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 gap: 'var(--md-sys-spacing-3)',
-                animation: `slide-up 250ms ease-out ${index * 50}ms both`,
+                animation: `slide-up var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-decelerate) calc(${index} * var(--md-sys-motion-duration-short1)) both`,
                 cursor: 'pointer'
               }}
             >

@@ -174,7 +174,7 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
             borderRadius: 'var(--md-sys-shape-corner-full)',
             backgroundColor: 'color-mix(in srgb, var(--md-sys-color-on-primary) 60%, transparent)',
             transform: 'translate(-50%, -50%)',
-            animation: 'ripple-expand var(--md-sys-motion-duration-extra-long) ease-out',
+            animation: 'ripple-expand var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-decelerate)',
             pointerEvents: 'none'
           }}
         />

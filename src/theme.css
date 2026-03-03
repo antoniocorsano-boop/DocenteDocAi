@@ -905,7 +905,7 @@ body {
 }
 
 .animate-pulse {
-  animation: pulse var(--md-sys-motion-duration-extra-long) cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 .animate-bounce {

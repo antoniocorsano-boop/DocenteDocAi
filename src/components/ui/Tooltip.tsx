@@ -107,7 +107,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
             fontWeight: 'var(--md-sys-typescale-weight-medium)',
             lineHeight: '1.4',
             pointerEvents: 'none',
-            animation: 'tooltip-fade-in var(--md-sys-motion-duration-short4) ease-out',
+            animation: 'tooltip-fade-in var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-decelerate)',
             ...positionStyles[position]
           }}
         >

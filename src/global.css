@@ -781,7 +781,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 300ms;
+  transition: transform var(--md-sys-motion-duration-medium3) var(--md-sys-motion-easing-standard);
 }
 
 .md3-share-icon-secondary {

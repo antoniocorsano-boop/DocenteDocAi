@@ -25,7 +25,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .logo-d-body {
   fill: var(--md-sys-color-primary);
-  transition: fill 0.4s ease, transform 0.4s ease;
+  transition: fill var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard), transform var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard);
   filter: drop-shadow(0 var(--md-sys-spacing-1) var(--md-sys-blur-medium) rgba(var(--md-sys-color-primary-rgb), 0.2));
 }
 
@@ -81,20 +81,20 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   pointer-events: none;
   background: var(--md-sys-color-surface);
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
 }
 
 .universe-overlay.chaos {
   opacity: 0.4;
   background: radial-gradient(circle, var(--md-sys-color-primary-container) var(--md-sys-percent-0), transparent var(--md-sys-percent-70));
-  animation: chaos-shake 0.1s infinite;
+  animation: chaos-shake var(--md-sys-motion-duration-short1) infinite;
 }
 
 .universe-overlay.implosion {
   opacity: 1;
   background: var(--md-sys-color-surface);
   transform: scale(0);
-  animation: implosion-zoom 0.4s var(--motion-standard) forwards;
+  animation: implosion-zoom var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard) forwards;
 }
 
 .universe-overlay.peace {

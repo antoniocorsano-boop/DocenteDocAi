@@ -826,7 +826,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard); }
 
 /* Group Hover Utilities */
 .group:hover .group-hover\:animate-float { 
-  animation: float var(--md-sys-motion-duration-extra-long) ease-in-out infinite;
+  animation: float var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;
 }
 .group:hover .group-hover\:translate-x-1 {
   transform: translateX(var(--md-sys-spacing-1));
@@ -5406,7 +5406,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Loading Modal Message */
 .loading-modal-message {
     text-align: center;
-    animation: loading-modal-pulse var(--md-sys-motion-duration-extra-long) ease-in-out infinite;
+    animation: loading-modal-pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 @keyframes loading-modal-pulse {
@@ -5693,7 +5693,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    animation: teaching-assignment-matrix-pulse var(--md-sys-motion-duration-extra-long) ease-in-out infinite;
+    animation: teaching-assignment-matrix-pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;
 }
 
 @keyframes teaching-assignment-matrix-pulse {

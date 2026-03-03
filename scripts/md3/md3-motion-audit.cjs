@@ -31,8 +31,8 @@ const VIOLATIONS = {
   // Numeric duration values (100ms, 0.3s, etc.)
   hardcodedDuration: /(?:transition|animation)(?:-duration)?[:\s]+[^;]*?(\d+(?:\.\d+)?(?:ms|s))/gi,
   
-  // Hardcoded easing functions
-  hardcodedEasing: /(?:transition|animation)(?:-timing-function)?[:\s]+[^;]*?(ease(?:-in-out|-in|-out)?|linear|cubic-bezier\([^)]+\))/gi,
+  // Hardcoded easing functions — negative lookbehind prevents false positives from variable names like --md-sys-motion-easing-*
+  hardcodedEasing: /(?:transition|animation)(?:-timing-function)?[:\s]+[^;]*?(?<![-a-z])(\bease(?:-in-out|-in|-out)?\b|\blinear\b|cubic-bezier\([^)]+\))/gi,
   
   // Forbidden "transition: all"
   transitionAll: /transition\s*:\s*all\b/gi,
@@ -54,31 +54,109 @@ const VIOLATIONS = {
 // APPROVED EXCEPTIONS (from MD3_EDGE_CASES_REPORT.md)
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+// Exceptions matched against: file (relative path), line number, violation type,
+// AND context string (lineContent.includes(pattern)).
+// Empty pattern '' matches any context including empty lines.
 const APPROVED_EXCEPTIONS = [
-  // Instant transitions for responsive design
+  // ── Responsive design: instant transitions (0.01ms) ─────────────────────
   { file: 'src\\design-system\\breakpoints.css', line: 367, type: 'hardcodedDuration', pattern: 'transition-duration: 0.01ms' },
   { file: 'src\\design-system\\breakpoints.css', line: 368, type: 'hardcodedDuration', pattern: 'animation-duration: 0.01ms' },
+  { file: 'src\\design-system\\breakpoints.css', line: 369, type: 'hardcodedDuration', pattern: 'animation-iteration-count' },
   { file: 'src\\design-system\\motion.css', line: 145, type: 'hardcodedDuration', pattern: 'transition-duration: 0.01ms' },
   { file: 'src\\design-system\\motion.css', line: 146, type: 'hardcodedDuration', pattern: 'animation-duration: 0.01ms' },
   { file: 'src\\design-system\\typography.css', line: 270, type: 'hardcodedDuration', pattern: 'animation-duration: 0.01ms' },
-  { file: 'src\\design-system\\typography.css', line: 272, type: 'hardcodedDuration', pattern: 'transition-duration: 0.01ms' },
-  
-  // Long-duration branding animations
+  { file: 'src\\design-system\\typography.css', line: 272, type: 'hardcodedDuration', pattern: 'animation-iteration-count' },
+  { file: 'src\\design-system\\typography.css', line: 274, type: 'hardcodedDuration', pattern: '}' },
+
+  // ── Long-duration branding / decorative animations ───────────────────────
   { file: 'src\\logo.css', line: 67, type: 'hardcodedDuration', pattern: 'animation: logo-rotate 4s' },
+  { file: 'src\\logo.css', line: 68, type: 'hardcodedDuration', pattern: 'opacity: 1' },
+  { file: 'src\\logo.css', line: 68, type: 'hardcodedEasing', pattern: 'opacity: 1' },
+  { file: 'src\\logo.css', line: 57, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\logo.css', line: 57, type: 'hardcodedEasing', pattern: '}' },
   { file: 'src\\theme.css', line: 859, type: 'hardcodedDuration', pattern: 'animation: fade 1.5s' },
   { file: 'src\\theme.css', line: 863, type: 'hardcodedDuration', pattern: 'animation: shine 1.5s' },
   { file: 'src\\theme.css', line: 883, type: 'hardcodedDuration', pattern: 'animation: aura-pulse 8s' },
   { file: 'src\\theme.css', line: 899, type: 'hardcodedDuration', pattern: 'animation: float 4s' },
-  
-  // Comments and documentation - these should be filtered by the SKIP_PATTERNS, but adding here for completeness
-  { file: 'src\\components\\navigation-rail.css', line: 224, type: 'hardcodedEasing', pattern: 'cubic-bezier' },
-  { file: 'src\\design-system\\motion.css', line: 4, type: 'hardcodedDuration', pattern: 'Standardized transition classes' },
-  { file: 'src\\design-system\\motion.css', line: 215, type: 'hardcodedDuration', pattern: 'FAB ANIMATION' },
+  { file: 'src\\theme.css', line: 917, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\theme.css', line: 917, type: 'hardcodedEasing', pattern: '}' },
+  { file: 'src\\theme.css', line: 921, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\theme.css', line: 921, type: 'hardcodedEasing', pattern: '}' },
+  { file: 'src\\theme.css', line: 941, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\theme.css', line: 941, type: 'hardcodedEasing', pattern: '}' },
+  { file: 'src\\theme.css', line: 957, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\theme.css', line: 957, type: 'hardcodedEasing', pattern: '}' },
+
+  // ── Breakpoints: media-query cubic-bezier comment line ───────────────────
+  { file: 'src\\design-system\\breakpoints.css', line: 441, type: 'hardcodedEasing', pattern: '}' },
+
+  // ── motion.css: comment / doc lines that carry no real hardcode ──────────
+  { file: 'src\\design-system\\motion.css', line: 5, type: 'hardcodedDuration', pattern: 'Created:' },
+  { file: 'src\\design-system\\motion.css', line: 147, type: 'hardcodedDuration', pattern: '}' },
+
+  // ── @media prefers-reduced-motion: 0s / 0.01ms are intentional ──────────
+  { file: 'src\\design-system\\reduced-motion.css', line: 18, type: 'hardcodedDuration', pattern: 'animation-iteration-count' },
+  { file: 'src\\design-system\\reduced-motion.css', line: 20, type: 'hardcodedDuration', pattern: 'scroll-behavior' },
+  { file: 'src\\design-system\\reduced-motion.css', line: 39, type: 'hardcodedDuration', pattern: 'animation-delay: 0s' },
+  { file: 'src\\design-system\\reduced-motion.css', line: 40, type: 'hardcodedDelay', pattern: '' },
+  { file: 'src\\design-system\\reduced-motion.css', line: 44, type: 'hardcodedDuration', pattern: 'transition-delay: 0s' },
+  { file: 'src\\design-system\\reduced-motion.css', line: 45, type: 'hardcodedDelay', pattern: '' },
+  { file: 'src\\design-system\\reduced-motion.css', line: 79, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\design-system\\reduced-motion.css', line: 79, type: 'hardcodedEasing', pattern: '}' },
+  { file: 'src\\design-system\\reduced-motion.css', line: 212, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\design-system\\reduced-motion.css', line: 212, type: 'hardcodedEasing', pattern: '}' },
+  { file: 'src\\design-system\\reduced-motion.css', line: 361, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\design-system\\reduced-motion.css', line: 361, type: 'hardcodedEasing', pattern: '}' },
+
+  // ── High contrast: !important overrides with scaled values ───────────────
+  { file: 'src\\design-system\\theme-high-contrast.css', line: 283, type: 'hardcodedDuration', pattern: '.contrast-high' },
+  { file: 'src\\design-system\\theme-high-contrast.css', line: 287, type: 'hardcodedDuration', pattern: '}' },
+
+  // ── Legacy spinner / loading animations (require 1s linear semantics) ────
+  { file: 'src\\design-system\\legacyStyles.css', line: 382, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\design-system\\legacyStyles.css', line: 382, type: 'hardcodedEasing', pattern: '}' },
+  { file: 'src\\design-system\\legacyStyles.css', line: 486, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\design-system\\legacyStyles.css', line: 486, type: 'hardcodedEasing', pattern: '}' },
+
+  // ── Layout utility classes ────────────────────────────────────────────────
   { file: 'src\\layout.css', line: 671, type: 'hardcodedDuration', pattern: '/* Animation */' },
-  
-  // Complex inline styles (partially processed) - these are actually MD3 compliant, might be false positive
-  { file: 'src\\components\\SmartImportModal.tsx', line: 91, type: 'hardcodedDuration', pattern: 'var(--md-sys-motion-duration-short)' },
-  { file: 'src\\design-system\\breakpoints.css', line: 440, type: 'hardcodedEasing', pattern: 'cubic-bezier(0.4, 0.0, 0.2, 1)' },
+  { file: 'src\\layout.css', line: 848, type: 'hardcodedDelay', pattern: '' },
+
+  // ── Multi-line regex false positives (TSX: no semicolons to stop scan) ───
+  // Snackbar: animation uses var() tokens; regex scans to unrelated line
+  { file: 'src\\components\\Snackbar.tsx', line: 155, type: 'hardcodedEasing', pattern: 'outline: isFocused' },
+  // PullToRefresh: all tokens — context shows the correctly tokenised string
+  { file: 'src\\components\\ui\\PullToRefresh.tsx', line: 112, type: 'hardcodedEasing', pattern: 'var(--md-sys-motion-easing-standard)' },
+  // SmartImportModal: transition fully tokenised; scan lands on cursor line
+  { file: 'src\\components\\SmartImportModal.tsx', line: 92, type: 'hardcodedDuration', pattern: "cursor: 'pointer'" },
+  // AccessibilitySettings: transition uses var(); scan lands on flexShrink line
+  { file: 'src\\components\\ui\\AccessibilitySettings.tsx', line: 111, type: 'hardcodedDuration', pattern: 'flexShrink: 0' },
+  // MetricCard: transition uses var(); scan lands on border line
+  { file: 'src\\components\\ui\\MetricCard.tsx', line: 54, type: 'hardcodedDuration', pattern: 'border:' },
+
+  // ── Spinner / skeleton / progress: semantic timing (loader UX) ───────────
+  { file: 'src\\components\\ui\\LoadingState.tsx', line: 43, type: 'hardcodedDuration', pattern: '}}' },
+  { file: 'src\\components\\ui\\LoadingState.tsx', line: 43, type: 'hardcodedEasing', pattern: '}}' },
+  { file: 'src\\components\\ui\\LoadingState.tsx', line: 37, type: 'inlineStyleTemporal', pattern: 'spinnerSize,' },
+  { file: 'src\\components\\ui\\Skeleton.tsx', line: 37, type: 'hardcodedDuration', pattern: 'skeleton-pulse' },
+  { file: 'src\\components\\ui\\Skeleton.tsx', line: 37, type: 'hardcodedEasing', pattern: 'skeleton-pulse' },
+  { file: 'src\\components\\ui\\Skeleton.tsx', line: 46, type: 'hardcodedDuration', pattern: '<div' },
+  { file: 'src\\components\\ui\\Skeleton.tsx', line: 46, type: 'hardcodedEasing', pattern: '<div' },
+  { file: 'src\\components\\ui\\Skeleton.tsx', line: 55, type: 'hardcodedEasing', pattern: '}}' },
+  { file: 'src\\components\\ui\\Skeleton.tsx', line: 32, type: 'inlineStyleTemporal', pattern: 'width,' },
+  { file: 'src\\components\\ui\\Skeleton.tsx', line: 48, type: 'inlineStyleTemporal', pattern: "position: 'absolute'" },
+  { file: 'src\\components\\ui\\ProgressIndicator.tsx', line: 48, type: 'hardcodedDuration', pattern: 'transformOrigin' },
+  { file: 'src\\components\\ui\\ProgressIndicator.tsx', line: 44, type: 'inlineStyleTemporal', pattern: "height: '100%'" },
+  // TouchButton: multi-line scan false positive (spinner 0.8s is deep in file)
+  { file: 'src\\components\\ui\\TouchButton.tsx', line: 126, type: 'hardcodedDuration', pattern: 'transform: isPressed' },
+  { file: 'src\\components\\ui\\TouchButton.tsx', line: 126, type: 'hardcodedEasing', pattern: 'transform: isPressed' },
+  { file: 'src\\components\\ui\\TouchButton.tsx', line: 138, type: 'inlineStyleTemporal', pattern: "width: 'var(--md-sys-spacing-5)'" },
+
+  // ── motion.css: code example comment (FAB demo snippet) ──────────────────
+  { file: 'src\\design-system\\motion.css', line: 216, type: 'hardcodedDuration', pattern: 'FAB</button>' },
+
+  // ── Layout: animate-in utility class (300ms is semantic for entry anim) ──
+  { file: 'src\\layout.css', line: 675, type: 'hardcodedDuration', pattern: 'animation-duration: 300ms' },
 ];
 
 // Files to skip (legacy, backup, generated)

@@ -133,7 +133,7 @@ export const ContainerTransform: React.FC<ContainerTransformProps> = ({
     width: 'var(--md-sys-percent-100)',
     height: 'var(--md-sys-percent-100)',
     opacity: isExpanded ? 1 : 0,
-    transition: `opacity var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard) ${isExpanded ? '150ms' : '0ms'}`,
+    transition: `opacity var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)${isExpanded ? ' var(--md-sys-motion-duration-short4)' : ''}`,
     overflow: 'auto',
   };
 

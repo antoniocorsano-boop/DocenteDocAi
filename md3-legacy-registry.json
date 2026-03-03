@@ -1,0 +1,413 @@
+{
+  "legacyFiles": [
+    {
+      "path": "src/components.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/accessibility/SkipLink.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/AnalyticsHub.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/AssistantFab.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/BottomNav.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/Calendar.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/charts/BarChart.stories.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/charts/DonutChart.stories.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/ClassAnalytics.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/ClassDashboard.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/components.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/CopyForRegisterModal.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/dialog-container.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/EvaluationModule.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/EventModal.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/Home.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/ImprovementGuide.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/Menu.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/navigation-rail.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/ProgettazioneHub.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/RubricEditor.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/Settings.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/settings/InterfaceSettings.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/SkipLink.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/Snackbar.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/TeacherInbox.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/ui/CategoryCard.stories.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/ui/M3BottomAppBar.stories.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/ui/M3Typography.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/ui/MetricCard.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/ui/ProgressIndicator.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/ui/ResponsiveContainer.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/ui/ui-components.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/VoiceNoteRecorder.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/constants.ts",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/accessibility-focus.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/breakpoints.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/chip-expressive.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/html-template-colors.ts",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/legacyStyles.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/m3-interactive.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/md3-utilities.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/motion.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/pdf-colors.ts",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/reduced-motion.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/semantic-tokens.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/spacing.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/theme-dark.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/theme-high-contrast.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/typography.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/design-system/utils.ts",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/global.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/hooks/useAppEngine.ts",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/layout.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/logo.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/modules.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/nka/nka.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/nka/NKABottomSheet.stories.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/nka/NKABottomSheet.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/nka/nka-responsive.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/stories/DesignSystem/Colors.stories.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/stories/DesignSystem/Typography.stories.tsx",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/styles/layout/_app-shell.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/styles/m3-interactive.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/styles/md3-z-index.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/theme.css",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/utils/colorUtils.ts",
+      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    }
+  ],
+  "legacyPatterns": [],
+  "exemptions": [],
+  "monitoring": {
+    "reportWarnings": true,
+    "blockOnNewViolations": true,
+    "allowLegacyExpansion": false
+  }
+}

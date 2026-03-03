@@ -1,161 +1,40 @@
 {
-  "timestamp": "2026-03-03T17:28:23.496Z",
-  "totalViolations": 93,
-  "totalFiles": 27,
+  "timestamp": "2026-03-03T19:43:03.405Z",
+  "totalViolations": 17,
+  "totalFiles": 6,
   "scannedFiles": 439,
   "typeBreakdown": {
-    "hardcodedDuration": 49,
-    "hardcodedEasing": 34,
-    "inlineStyleTemporal": 6,
-    "hardcodedDelay": 3,
-    "nonMD3MotionVar": 1
+    "hardcodedDuration": 7,
+    "hardcodedEasing": 5,
+    "inlineStyleTemporal": 5
   },
   "topViolators": [
     {
-      "file": "src\\design-system\\reduced-motion.css",
-      "count": 12
-    },
-    {
-      "file": "src\\logo.css",
-      "count": 11
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "count": 10
-    },
-    {
-      "file": "src\\theme.css",
-      "count": 9
-    },
-    {
       "file": "src\\components\\ui\\Skeleton.tsx",
       "count": 7
-    },
-    {
-      "file": "src\\layout.css",
-      "count": 5
-    },
-    {
-      "file": "src\\components\\ui\\TouchButton.tsx",
-      "count": 4
-    },
-    {
-      "file": "src\\components\\ui\\FAB.tsx",
-      "count": 3
     },
     {
       "file": "src\\components\\ui\\LoadingState.tsx",
       "count": 3
     },
     {
-      "file": "src\\design-system\\motion.css",
+      "file": "src\\components\\ui\\TouchButton.tsx",
       "count": 3
-    },
-    {
-      "file": "src\\components\\navigation-rail.css",
-      "count": 2
     },
     {
       "file": "src\\components\\ui\\ProgressIndicator.tsx",
       "count": 2
     },
     {
-      "file": "src\\design-system\\breakpoints.css",
-      "count": 2
+      "file": "src\\design-system\\motion.css",
+      "count": 1
     },
     {
-      "file": "src\\design-system\\theme-dark.css",
-      "count": 2
-    },
-    {
-      "file": "src\\design-system\\theme-high-contrast.css",
-      "count": 2
-    },
-    {
-      "file": "src\\design-system\\typography.css",
-      "count": 2
-    },
-    {
-      "file": "src\\nka\\nka-responsive.css",
-      "count": 2
-    },
-    {
-      "file": "src\\nka\\nka.css",
-      "count": 2
-    },
-    {
-      "file": "src\\nka\\NKABottomSheet.tsx",
-      "count": 2
-    },
-    {
-      "file": "src\\components\\SmartImportModal.tsx",
+      "file": "src\\layout.css",
       "count": 1
     }
   ],
   "violations": [
-    {
-      "file": "src\\components\\navigation-rail.css",
-      "line": 222,
-      "type": "hardcodedDuration",
-      "match": "Animation */\r\n  animation: badge-appear 0.3s",
-      "context": "animation: badge-appear 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);"
-    },
-    {
-      "file": "src\\components\\navigation-rail.css",
-      "line": 222,
-      "type": "hardcodedEasing",
-      "match": "Animation */\r\n  animation: badge-appear 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)",
-      "context": "animation: badge-appear 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);"
-    },
-    {
-      "file": "src\\components\\SmartImportModal.tsx",
-      "line": 92,
-      "type": "hardcodedDuration",
-      "match": "transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-moti",
-      "context": "cursor: 'pointer',"
-    },
-    {
-      "file": "src\\components\\Snackbar.tsx",
-      "line": 155,
-      "type": "hardcodedEasing",
-      "match": "animation: 'snackbar-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-expressive) b",
-      "context": "outline: isFocused ? `var(--md-sys-border-width-normal) solid ${primary}` : 'none',"
-    },
-    {
-      "file": "src\\components\\ui\\AccessibilitySettings.tsx",
-      "line": 111,
-      "type": "hardcodedDuration",
-      "match": "transition: 'background-color var(--md-sys-motion-duration-short4)',\r\n            flexShrink: 0\r\n   ",
-      "context": "flexShrink: 0"
-    },
-    {
-      "file": "src\\components\\ui\\ContainerTransform.tsx",
-      "line": 137,
-      "type": "hardcodedDuration",
-      "match": "transition: `opacity var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard) ${isE",
-      "context": "overflow: 'auto',"
-    },
-    {
-      "file": "src\\components\\ui\\FAB.tsx",
-      "line": 201,
-      "type": "hardcodedDuration",
-      "match": "animation: 'fade-in var(--md-sys-motion-duration-short4) ease-out'\r\n          }}\r\n        />\r\n      ",
-      "context": "}}"
-    },
-    {
-      "file": "src\\components\\ui\\FAB.tsx",
-      "line": 201,
-      "type": "hardcodedEasing",
-      "match": "animation: 'fade-in var(--md-sys-motion-duration-short4) ease-out",
-      "context": "}}"
-    },
-    {
-      "file": "src\\components\\ui\\FAB.tsx",
-      "line": 227,
-      "type": "hardcodedEasing",
-      "match": "animation: `slide-up 250ms ease-out",
-      "context": "cursor: 'pointer'"
-    },
     {
       "file": "src\\components\\ui\\LoadingState.tsx",
       "line": 43,
@@ -178,13 +57,6 @@
       "context": "width: spinnerSize,"
     },
     {
-      "file": "src\\components\\ui\\MetricCard.tsx",
-      "line": 54,
-      "type": "hardcodedDuration",
-      "match": "transition: 'transform var(--md-sys-motion-duration-short4), box-shadow var(--md-sys-motion-duration",
-      "context": "border: `var(--md-sys-border-width-thin) solid ${containerColorMap[color]}`"
-    },
-    {
       "file": "src\\components\\ui\\ProgressIndicator.tsx",
       "line": 48,
       "type": "hardcodedDuration",
@@ -197,13 +69,6 @@
       "type": "inlineStyleTemporal",
       "match": "style={{\r\n            height: '100%',\r\n            width: '30%',\r\n            backgroundColor: color",
       "context": "height: '100%',"
-    },
-    {
-      "file": "src\\components\\ui\\PullToRefresh.tsx",
-      "line": 112,
-      "type": "hardcodedEasing",
-      "match": "transition: isRefreshing \r\n            ? 'transform var(--md-sys-motion-duration-medium) var(--md-sy",
-      "context": "? 'transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard), opacity var(--md-sys-motion-duration-short)'"
     },
     {
       "file": "src\\components\\ui\\Skeleton.tsx",
@@ -255,13 +120,6 @@
       "context": "position: 'absolute',"
     },
     {
-      "file": "src\\components\\ui\\Tooltip.tsx",
-      "line": 111,
-      "type": "hardcodedEasing",
-      "match": "animation: 'tooltip-fade-in var(--md-sys-motion-duration-short4) ease-out",
-      "context": "...positionStyles[position]"
-    },
-    {
       "file": "src\\components\\ui\\TouchButton.tsx",
       "line": 126,
       "type": "hardcodedDuration",
@@ -274,13 +132,6 @@
       "type": "hardcodedEasing",
       "match": "transition: 'all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',\r\n      ",
       "context": "transform: isPressed && !disabled && !loading ? 'scale(0.98)' : 'scale(1)',"
-    },
-    {
-      "file": "src\\components\\ui\\TouchButton.tsx",
-      "line": 178,
-      "type": "hardcodedEasing",
-      "match": "animation: 'ripple-expand var(--md-sys-motion-duration-extra-long) ease-out",
-      "context": "pointerEvents: 'none'"
     },
     {
       "file": "src\\components\\ui\\TouchButton.tsx",
@@ -290,104 +141,6 @@
       "context": "width: 'var(--md-sys-spacing-5)',"
     },
     {
-      "file": "src\\design-system\\breakpoints.css",
-      "line": 369,
-      "type": "hardcodedDuration",
-      "match": "animation-duration: 0.01ms",
-      "context": "animation-iteration-count: 1 !important;"
-    },
-    {
-      "file": "src\\design-system\\breakpoints.css",
-      "line": 441,
-      "type": "hardcodedEasing",
-      "match": "transition: box-shadow var(--md-sys-motion-duration-short) cubic-bezier(0.4, 0.0, 0.2, 1)",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 212,
-      "type": "hardcodedDuration",
-      "match": "transition: background 0.2s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 372,
-      "type": "hardcodedDuration",
-      "match": "transition: background 0.2s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 376,
-      "type": "hardcodedDuration",
-      "match": "transition: color 0.2s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 380,
-      "type": "hardcodedDuration",
-      "match": "transition: transform 0.2s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 384,
-      "type": "hardcodedDuration",
-      "match": "animation: spin 1s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 484,
-      "type": "hardcodedDuration",
-      "match": "transition: width 0.3s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 488,
-      "type": "hardcodedDuration",
-      "match": "animation: spin 1s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 384,
-      "type": "hardcodedEasing",
-      "match": "animation: spin 1s linear",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 484,
-      "type": "hardcodedEasing",
-      "match": "transition: width 0.3s ease",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\legacyStyles.css",
-      "line": 488,
-      "type": "hardcodedEasing",
-      "match": "animation: spin 1s linear",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\motion.css",
-      "line": 5,
-      "type": "hardcodedDuration",
-      "match": "transition classes based on Material Design 3 motion tokens.\r\n * Created: 2026-01-06 (UI Uniformity ",
-      "context": "* Created: 2026-01-06 (UI Uniformity Audit - P5)"
-    },
-    {
-      "file": "src\\design-system\\motion.css",
-      "line": 147,
-      "type": "hardcodedDuration",
-      "match": "animation-duration: 0.01ms",
-      "context": "}"
-    },
-    {
       "file": "src\\design-system\\motion.css",
       "line": 216,
       "type": "hardcodedDuration",
@@ -395,354 +148,11 @@
       "context": "<button className=\"m3-transition-fab\">FAB</button>"
     },
     {
-      "file": "src\\design-system\\reduced-motion.css",
-      "line": 18,
-      "type": "hardcodedDuration",
-      "match": "animation-duration: 0.01ms",
-      "context": "animation-iteration-count: 1 !important;"
-    },
-    {
-      "file": "src\\design-system\\reduced-motion.css",
-      "line": 20,
-      "type": "hardcodedDuration",
-      "match": "transition-duration: 0.01ms",
-      "context": "scroll-behavior: auto !important;"
-    },
-    {
-      "file": "src\\design-system\\reduced-motion.css",
-      "line": 39,
-      "type": "hardcodedDuration",
-      "match": "animation-duration: 0s",
-      "context": "animation-delay: 0s !important;"
-    },
-    {
-      "file": "src\\design-system\\reduced-motion.css",
-      "line": 44,
-      "type": "hardcodedDuration",
-      "match": "transition-duration: 0s",
-      "context": "transition-delay: 0s !important;"
-    },
-    {
-      "file": "src\\design-system\\reduced-motion.css",
-      "line": 79,
-      "type": "hardcodedDuration",
-      "match": "animation: pulse-simple 2s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\reduced-motion.css",
-      "line": 212,
-      "type": "hardcodedDuration",
-      "match": "animation: skeleton-static 3s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\reduced-motion.css",
-      "line": 361,
-      "type": "hardcodedDuration",
-      "match": "animation: show-notification 4s",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\reduced-motion.css",
-      "line": 79,
-      "type": "hardcodedEasing",
-      "match": "animation: pulse-simple 2s ease-in-out",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\reduced-motion.css",
-      "line": 212,
-      "type": "hardcodedEasing",
-      "match": "animation: skeleton-static 3s ease-in-out",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\reduced-motion.css",
-      "line": 361,
-      "type": "hardcodedEasing",
-      "match": "animation: show-notification 4s ease-in-out",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\reduced-motion.css",
-      "line": 40,
-      "type": "hardcodedDelay",
-      "match": "animation-delay: 0s",
-      "context": ""
-    },
-    {
-      "file": "src\\design-system\\reduced-motion.css",
-      "line": 45,
-      "type": "hardcodedDelay",
-      "match": "transition-delay: 0s",
-      "context": ""
-    },
-    {
-      "file": "src\\design-system\\theme-dark.css",
-      "line": 138,
-      "type": "hardcodedDuration",
-      "match": "transition: \r\n    background-color 300ms",
-      "context": "background-color 300ms cubic-bezier(0.4, 0, 0.2, 1),"
-    },
-    {
-      "file": "src\\design-system\\theme-dark.css",
-      "line": 138,
-      "type": "hardcodedEasing",
-      "match": "transition: \r\n    background-color 300ms cubic-bezier(0.4, 0, 0.2, 1)",
-      "context": "background-color 300ms cubic-bezier(0.4, 0, 0.2, 1),"
-    },
-    {
-      "file": "src\\design-system\\theme-high-contrast.css",
-      "line": 283,
-      "type": "hardcodedDuration",
-      "match": "animation speed in high contrast */\r\n.contrast-high *,\r\n[data-contrast=\"high\"] * {\r\n  animation-dura",
-      "context": ".contrast-high *,"
-    },
-    {
-      "file": "src\\design-system\\theme-high-contrast.css",
-      "line": 287,
-      "type": "hardcodedDuration",
-      "match": "transition-duration: 240ms",
-      "context": "}"
-    },
-    {
-      "file": "src\\design-system\\typography.css",
-      "line": 272,
-      "type": "hardcodedDuration",
-      "match": "animation-duration: 0.01ms",
-      "context": "animation-iteration-count: 1 !important;"
-    },
-    {
-      "file": "src\\design-system\\typography.css",
-      "line": 274,
-      "type": "hardcodedDuration",
-      "match": "transition-duration: 0.01ms",
-      "context": "}"
-    },
-    {
-      "file": "src\\global.css",
-      "line": 785,
-      "type": "hardcodedDuration",
-      "match": "transition: transform 300ms",
-      "context": "}"
-    },
-    {
       "file": "src\\layout.css",
       "line": 675,
       "type": "hardcodedDuration",
       "match": "Animation */\r\n.animate-in { animation-duration: 300ms",
       "context": ".animate-in { animation-duration: 300ms; animation-fill-mode: both; }"
-    },
-    {
-      "file": "src\\layout.css",
-      "line": 830,
-      "type": "hardcodedEasing",
-      "match": "animation: float var(--md-sys-motion-duration-extra-long) ease-in-out",
-      "context": "}"
-    },
-    {
-      "file": "src\\layout.css",
-      "line": 5410,
-      "type": "hardcodedEasing",
-      "match": "animation: loading-modal-pulse var(--md-sys-motion-duration-extra-long) ease-in-out",
-      "context": "}"
-    },
-    {
-      "file": "src\\layout.css",
-      "line": 5697,
-      "type": "hardcodedEasing",
-      "match": "animation: teaching-assignment-matrix-pulse var(--md-sys-motion-duration-extra-long) ease-in-out",
-      "context": "}"
-    },
-    {
-      "file": "src\\layout.css",
-      "line": 848,
-      "type": "hardcodedDelay",
-      "match": "animation-delay: 300ms",
-      "context": ""
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 29,
-      "type": "hardcodedDuration",
-      "match": "transition: fill 0.4s",
-      "context": "filter: drop-shadow(0 var(--md-sys-spacing-1) var(--md-sys-blur-medium) rgba(var(--md-sys-color-primary-rgb), 0.2));"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 57,
-      "type": "hardcodedDuration",
-      "match": "animation: logo-sparkle-glow 3s",
-      "context": "}"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 68,
-      "type": "hardcodedDuration",
-      "match": "animation: logo-rotate 4s",
-      "context": "opacity: 1;"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 85,
-      "type": "hardcodedDuration",
-      "match": "transition: opacity 0.3s",
-      "context": "}"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 91,
-      "type": "hardcodedDuration",
-      "match": "animation: chaos-shake 0.1s",
-      "context": "}"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 98,
-      "type": "hardcodedDuration",
-      "match": "animation: implosion-zoom 0.4s",
-      "context": "}"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 29,
-      "type": "hardcodedEasing",
-      "match": "transition: fill 0.4s ease",
-      "context": "filter: drop-shadow(0 var(--md-sys-spacing-1) var(--md-sys-blur-medium) rgba(var(--md-sys-color-primary-rgb), 0.2));"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 57,
-      "type": "hardcodedEasing",
-      "match": "animation: logo-sparkle-glow 3s ease-in-out",
-      "context": "}"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 68,
-      "type": "hardcodedEasing",
-      "match": "animation: logo-rotate 4s linear",
-      "context": "opacity: 1;"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 85,
-      "type": "hardcodedEasing",
-      "match": "transition: opacity 0.3s ease",
-      "context": "}"
-    },
-    {
-      "file": "src\\logo.css",
-      "line": 98,
-      "type": "nonMD3MotionVar",
-      "match": "var(--motion-standard)",
-      "context": "}"
-    },
-    {
-      "file": "src\\nka\\nka-responsive.css",
-      "line": 15,
-      "type": "hardcodedDuration",
-      "match": "animation: emphasized-enter 150ms",
-      "context": "}"
-    },
-    {
-      "file": "src\\nka\\nka-responsive.css",
-      "line": 15,
-      "type": "hardcodedEasing",
-      "match": "animation: emphasized-enter 150ms cubic-bezier(.2,0,0,1)",
-      "context": "}"
-    },
-    {
-      "file": "src\\nka\\nka.css",
-      "line": 52,
-      "type": "hardcodedDuration",
-      "match": "animation: emphasized-enter 150ms",
-      "context": "}"
-    },
-    {
-      "file": "src\\nka\\nka.css",
-      "line": 52,
-      "type": "hardcodedEasing",
-      "match": "animation: emphasized-enter 150ms cubic-bezier(.2,0,0,1)",
-      "context": "}"
-    },
-    {
-      "file": "src\\nka\\NKABottomSheet.tsx",
-      "line": 120,
-      "type": "hardcodedDuration",
-      "match": "transition: 'background 0.2s",
-      "context": "}}"
-    },
-    {
-      "file": "src\\nka\\NKABottomSheet.tsx",
-      "line": 105,
-      "type": "inlineStyleTemporal",
-      "match": "style={{\r\n            position: 'absolute',\r\n            top: 12,\r\n            right: 16,\r\n         ",
-      "context": "position: 'absolute',"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 917,
-      "type": "hardcodedDuration",
-      "match": "animation: fade 1.5s",
-      "context": "}"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 921,
-      "type": "hardcodedDuration",
-      "match": "animation: shine 1.5s",
-      "context": "}"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 941,
-      "type": "hardcodedDuration",
-      "match": "animation: aura-pulse 8s",
-      "context": "}"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 957,
-      "type": "hardcodedDuration",
-      "match": "animation: float 4s",
-      "context": "}"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 909,
-      "type": "hardcodedEasing",
-      "match": "animation: pulse var(--md-sys-motion-duration-extra-long) cubic-bezier(0.4, 0, 0.6, 1)",
-      "context": "}"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 917,
-      "type": "hardcodedEasing",
-      "match": "animation: fade 1.5s ease-in-out",
-      "context": "}"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 921,
-      "type": "hardcodedEasing",
-      "match": "animation: shine 1.5s ease-in-out",
-      "context": "}"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 941,
-      "type": "hardcodedEasing",
-      "match": "animation: aura-pulse 8s ease-in-out",
-      "context": "}"
-    },
-    {
-      "file": "src\\theme.css",
-      "line": 957,
-      "type": "hardcodedEasing",
-      "match": "animation: float 4s ease-in-out",
-      "context": "}"
     }
   ]
 }

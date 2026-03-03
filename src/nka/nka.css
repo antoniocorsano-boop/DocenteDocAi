@@ -48,7 +48,7 @@
   z-index: var(--md-sys-z-modal);
   min-height: 40vh;
   padding: var(--md-sys-spacing-4);
-  animation: emphasized-enter 150ms cubic-bezier(.2,0,0,1);
+  animation: emphasized-enter var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-emphasized);
 }
 
 .nka-close-btn {
