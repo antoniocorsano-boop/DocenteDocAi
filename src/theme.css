@@ -1,7 +1,8 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:wght@400;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0');
-@import './design-system/chip-expressive.css';
-@import './styles/md3-z-index.css'; */
+@import './design-system/chip-expressive.css'; */
+@import './styles/md3-z-index.css';
+@import './design-system/breakpoints.css';
 
 :root {
   --font-family: 'Roboto Flex', sans-serif;
@@ -79,6 +80,35 @@
   --md-sys-color-warning-rgb: 230, 81, 0;
   --md-sys-color-on-warning: #FFFFFF;
   --md-sys-color-on-warning-rgb: 255, 255, 255;
+
+  /* Success semantic colors (custom, not in MD3 baseline) */
+  --md-sys-color-success: #146C2E;
+  --md-sys-color-success-rgb: 20, 108, 46;
+  --md-sys-color-on-success: #FFFFFF;
+  --md-sys-color-on-success-rgb: 255, 255, 255;
+  --md-sys-color-success-container: #C6EFD4;
+  --md-sys-color-success-container-rgb: 198, 239, 212;
+  --md-sys-color-on-success-container: #002111;
+  /* Primary interaction state */
+  --md-sys-color-primary-hover: color-mix(in srgb, var(--md-sys-color-primary) 88%, transparent);
+
+  /* MD3 baseline colors — scrim, shadow, inverse roles */
+  --md-sys-color-scrim: #000000;
+  --md-sys-color-shadow: #000000;
+  --md-sys-color-inverse-surface: #313033;
+  --md-sys-color-inverse-on-surface: #F4EFF4;
+  --md-sys-color-inverse-primary: #D0BCFF;
+  --md-sys-color-surface-dim: #DED8E1;
+  /* Custom semantic color aliases */
+  --md-sys-color-on-outline: var(--md-sys-color-on-surface-variant);
+  --md-sys-color-secondary-container-hover: color-mix(in srgb, var(--md-sys-color-secondary-container) 88%, transparent);
+  --md-sys-color-on-surface-container: var(--md-sys-color-on-surface-variant);
+  /* Tonal palette aliases */
+  --md-sys-color-primary10: #21005D;
+  --md-sys-color-primary30: #4F378A;
+  --md-sys-color-primary80: #D0BCFF;
+  /* Elevation token alias */
+  --md-sys-elevation-level-2: 0 var(--md-sys-spacing-1) var(--md-sys-spacing-2) rgba(0,0,0,0.3), 0 var(--md-sys-spacing-1) var(--md-sys-spacing-6) rgba(0,0,0,0.15);
 
   /* Surface Presentation Layer — MD3 elevation-based (no glassmorphism) */
   --glass-bg: var(--md-sys-color-surface-container-high);
@@ -325,6 +355,7 @@
      MD3 PERCENTAGE TOKENS (Expressive - Common Values)
      =========================================== */
   --md-sys-percent-0: 0%;
+  --md-sys-percent-5: 5%;
   --md-sys-percent-8: 8%;
   --md-sys-percent-10: 10%;
   --md-sys-percent-12: 12%;
@@ -499,30 +530,30 @@
 
   /* Typography Scale M3 - Complete Token Definitions */
   /* Display Large */
-  --typography-display-large-fontSize: var(--md-sys-typescale-display-large-size); /* MIGRATED TO MD3 */
-  --typography-display-large-fontFamily: var(--md-sys-typescale-display-large-font); /* MIGRATED TO MD3 */
-  --typography-display-large-fontWeight: var(--md-sys-typescale-display-large-weight); /* MIGRATED TO MD3 */
+  --typography-display-large-fontSize: var(--md-sys-typescale-display-large-font-size); /* MIGRATED TO MD3 */
+  --typography-display-large-fontFamily: var(--font-family); /* MIGRATED TO MD3 */
+  --typography-display-large-fontWeight: var(--md-sys-typescale-display-large-font-weight); /* MIGRATED TO MD3 */
   --typography-display-large-lineHeight: var(--md-sys-typescale-display-large-line-height); /* MIGRATED TO MD3 */
   --typography-display-large-letterSpacing: var(--md-sys-typescale-display-large-tracking); /* MIGRATED TO MD3 */
   
   /* Display Medium */
-  --typography-display-medium-fontSize: var(--md-sys-typescale-display-medium-size); /* MIGRATED TO MD3 */
-  --typography-display-medium-fontFamily: var(--md-sys-typescale-display-medium-font); /* MIGRATED TO MD3 */
-  --typography-display-medium-fontWeight: var(--md-sys-typescale-display-medium-weight); /* MIGRATED TO MD3 */
+  --typography-display-medium-fontSize: var(--md-sys-typescale-display-medium-font-size); /* MIGRATED TO MD3 */
+  --typography-display-medium-fontFamily: var(--font-family); /* MIGRATED TO MD3 */
+  --typography-display-medium-fontWeight: var(--md-sys-typescale-display-medium-font-weight); /* MIGRATED TO MD3 */
   --typography-display-medium-lineHeight: var(--md-sys-typescale-display-medium-line-height); /* MIGRATED TO MD3 */
   --typography-display-medium-letterSpacing: var(--md-sys-typescale-display-medium-tracking); /* MIGRATED TO MD3 */
   
   /* Display Small */
-  --typography-display-small-fontSize: var(--md-sys-typescale-display-small-size); /* MIGRATED TO MD3 */
-  --typography-display-small-fontFamily: var(--md-sys-typescale-display-small-font); /* MIGRATED TO MD3 */
-  --typography-display-small-fontWeight: var(--md-sys-typescale-display-small-weight); /* MIGRATED TO MD3 */
+  --typography-display-small-fontSize: var(--md-sys-typescale-display-small-font-size); /* MIGRATED TO MD3 */
+  --typography-display-small-fontFamily: var(--font-family); /* MIGRATED TO MD3 */
+  --typography-display-small-fontWeight: var(--md-sys-typescale-display-small-font-weight); /* MIGRATED TO MD3 */
   --typography-display-small-lineHeight: var(--md-sys-typescale-display-small-line-height); /* MIGRATED TO MD3 */
   --typography-display-small-letterSpacing: var(--md-sys-typescale-display-small-tracking); /* MIGRATED TO MD3 */
   
   /* Headline Large */
-  --typography-headline-large-fontSize: var(--md-sys-typescale-headline-large-size); /* MIGRATED TO MD3 */
-  --typography-headline-large-fontFamily: var(--md-sys-typescale-headline-large-font); /* MIGRATED TO MD3 */
-  --typography-headline-large-fontWeight: var(--md-sys-typescale-headline-large-weight); /* MIGRATED TO MD3 */
+  --typography-headline-large-fontSize: var(--md-sys-typescale-headline-large-font-size); /* MIGRATED TO MD3 */
+  --typography-headline-large-fontFamily: var(--font-family); /* MIGRATED TO MD3 */
+  --typography-headline-large-fontWeight: var(--md-sys-typescale-headline-large-font-weight); /* MIGRATED TO MD3 */
   --typography-headline-large-lineHeight: var(--md-sys-typescale-headline-large-line-height); /* MIGRATED TO MD3 */
   --typography-headline-large-letterSpacing: var(--md-sys-typescale-headline-large-tracking); /* MIGRATED TO MD3 */
   
@@ -704,6 +735,34 @@
   --motion-duration-long2: var(--md-sys-motion-duration-extra-long);
   --motion-duration-long3: var(--md-sys-motion-duration-extra-long);
   --motion-duration-long4: var(--md-sys-motion-duration-extra-long);
+
+  /* md-sys-prefixed motion aliases (for code that uses --md-sys-motion-duration-*N naming) */
+  --md-sys-motion-duration-short1: var(--md-sys-motion-duration-short);
+  --md-sys-motion-duration-short-4: var(--md-sys-motion-duration-medium);
+  --md-sys-motion-duration-medium1: var(--md-sys-motion-duration-medium);
+  --md-sys-motion-duration-medium3: var(--md-sys-motion-duration-long);
+  --md-sys-motion-easing-emphasized-decelerate: var(--md-sys-motion-easing-decelerated);
+
+  /* Z-index custom levels */
+  --md-sys-z-content: 200;
+  --md-sys-z-skip-link: 9999;
+
+  /* Spacing aliases */
+  --md-sys-margin-none: 0;
+  --md-sys-spacing-1-5: 6px;
+  --md-sys-spacing-2-5: 10px;
+  --md-sys-spacing-240: 240px;
+  --md-sys-special-offscreen: -9999px;
+
+  /* Typescale font-size shorthand aliases (for font-size: var(--md-sys-typescale-{role})) */
+  --md-sys-typescale-body-large: var(--md-sys-typescale-body-large-font-size);
+  --md-sys-typescale-body-small: var(--md-sys-typescale-body-small-font-size);
+  --md-sys-typescale-label-large: var(--md-sys-typescale-label-large-font-size);
+  /* Typescale additional sub-tokens */
+  --md-sys-typescale-body-medium-font-family: var(--font-family);
+  --md-sys-typescale-body-medium-letter-spacing: var(--md-sys-typescale-tracking-body);
+  --md-sys-typescale-label-small-font-family: var(--font-family);
+  --md-sys-typescale-label-tiny-font-size: 10px;
   
   /* Icon Size Tokens */
   --icon-size-small: var(--md-sys-spacing-5);        /* Extra small icons (compact UI) */
@@ -766,11 +825,15 @@
 
   /* Official M3 Shape Corner Tokens */
   --md-sys-shape-corner-none: var(--md-sys-spacing-0);
+  --md-sys-shape-corner-extra-small: var(--md-sys-spacing-1);  /* 4dp */
   --md-sys-shape-corner-small: var(--md-sys-spacing-2);
   --md-sys-shape-corner-medium: var(--md-sys-spacing-3);
   --md-sys-shape-corner-large: var(--md-sys-spacing-4);
   --md-sys-shape-corner-extra-large: var(--md-sys-spacing-8);
   --md-sys-shape-corner-full: var(--md-sys-radius-full);
+  /* Soft corner variants (token for use with border-radius on specific sides) */
+  --md-sys-shape-corner-small-soft: var(--md-sys-shape-corner-small);
+  --md-sys-shape-corner-medium-soft: var(--md-sys-shape-corner-medium);
 
   /* M3 State Opacity Tokens */
   --md-sys-state-opacity-disabled: 0.38;     /* disabled controls */
@@ -957,107 +1020,107 @@ body {
 
 /* --- M3 TYPOGRAPHY UTILITIES --- */
 .m3-display-large {
-  font-family: var(--md-sys-typescale-display-large-font);
-  font-size: var(--md-sys-typescale-display-large-size);
-  font-weight: var(--md-sys-typescale-display-large-weight);
+  font-family: var(--font-family);
+  font-size: var(--md-sys-typescale-display-large-font-size);
+  font-weight: var(--md-sys-typescale-display-large-font-weight);
   line-height: var(--md-sys-typescale-display-large-line-height);
 }
 
 .m3-display-medium {
-  font-family: var(--md-sys-typescale-display-medium-font);
-  font-size: var(--md-sys-typescale-display-medium-size);
-  font-weight: var(--md-sys-typescale-display-medium-weight);
+  font-family: var(--font-family);
+  font-size: var(--md-sys-typescale-display-medium-font-size);
+  font-weight: var(--md-sys-typescale-display-medium-font-weight);
   line-height: var(--md-sys-typescale-display-medium-line-height);
 }
 
 .m3-display-small {
-  font-family: var(--md-sys-typescale-display-small-font);
-  font-size: var(--md-sys-typescale-display-small-size);
-  font-weight: var(--md-sys-typescale-display-small-weight);
+  font-family: var(--font-family);
+  font-size: var(--md-sys-typescale-display-small-font-size);
+  font-weight: var(--md-sys-typescale-display-small-font-weight);
   line-height: var(--md-sys-typescale-display-small-line-height);
 }
 
 .m3-headline-large {
-  font-family: var(--md-sys-typescale-headline-large-font);
-  font-size: var(--md-sys-typescale-headline-large-size);
-  font-weight: var(--md-sys-typescale-headline-large-weight);
+  font-family: var(--font-family);
+  font-size: var(--md-sys-typescale-headline-large-font-size);
+  font-weight: var(--md-sys-typescale-headline-large-font-weight);
   line-height: var(--md-sys-typescale-headline-large-line-height);
 }
 
 .m3-headline-medium {
-  font-family: var(--md-sys-typescale-headline-medium-font);
-  font-size: var(--md-sys-typescale-headline-medium-size);
-  font-weight: var(--md-sys-typescale-headline-medium-weight);
+  font-family: var(--font-family);
+  font-size: var(--md-sys-typescale-headline-medium-font-size);
+  font-weight: var(--md-sys-typescale-headline-medium-font-weight);
   line-height: var(--md-sys-typescale-headline-medium-line-height);
 }
 
 .m3-headline-small {
-  font-family: var(--md-sys-typescale-headline-small-font);
-  font-size: var(--md-sys-typescale-headline-small-size);
-  font-weight: var(--md-sys-typescale-headline-small-weight);
+  font-family: var(--font-family);
+  font-size: var(--md-sys-typescale-headline-small-font-size);
+  font-weight: var(--md-sys-typescale-headline-small-font-weight);
   line-height: var(--md-sys-typescale-headline-small-line-height);
 }
 
 .m3-title-large {
-  font-family: var(--md-sys-typescale-title-large-font);
-  font-size: var(--md-sys-typescale-title-large-size);
-  font-weight: var(--md-sys-typescale-title-large-weight);
+  font-family: var(--font-family);
+  font-size: var(--md-sys-typescale-title-large-font-size);
+  font-weight: var(--md-sys-typescale-title-large-font-weight);
   line-height: var(--md-sys-typescale-title-large-line-height);
 }
 
 .m3-title-medium {
-  font-family: var(--md-sys-typescale-title-medium-font);
-  font-size: var(--md-sys-typescale-title-medium-size);
-  font-weight: var(--md-sys-typescale-title-medium-weight);
+  font-family: var(--font-family);
+  font-size: var(--md-sys-typescale-title-medium-font-size);
+  font-weight: var(--md-sys-typescale-title-medium-font-weight);
   line-height: var(--md-sys-typescale-title-medium-line-height);
 }
 
 .m3-title-small {
-  font-family: var(--md-sys-typescale-title-small-font);
-  font-size: var(--md-sys-typescale-title-small-size);
-  font-weight: var(--md-sys-typescale-title-small-weight);
+  font-family: var(--font-family);
+  font-size: var(--md-sys-typescale-title-small-font-size);
+  font-weight: var(--md-sys-typescale-title-small-font-weight);
   line-height: var(--md-sys-typescale-title-small-line-height);
 }
 
 .m3-body-large {
-  font-family: var(--md-sys-typescale-body-large-font);
-  font-size: var(--md-sys-typescale-body-large-size);
-  font-weight: var(--md-sys-typescale-body-large-weight);
+  font-family: var(--font-family);
+  font-size: var(--md-sys-typescale-body-large-font-size);
+  font-weight: var(--md-sys-typescale-body-large-font-weight);
   line-height: var(--md-sys-typescale-body-large-line-height);
 }
 
 .m3-body-medium {
-  font-family: var(--md-sys-typescale-body-medium-font);
-  font-size: var(--md-sys-typescale-body-medium-size);
-  font-weight: var(--md-sys-typescale-body-medium-weight);
+  font-family: var(--font-family);
+  font-size: var(--md-sys-typescale-body-medium-font-size);
+  font-weight: var(--md-sys-typescale-body-medium-font-weight);
   line-height: var(--md-sys-typescale-body-medium-line-height);
 }
 
 .m3-body-small {
-  font-family: var(--md-sys-typescale-body-small-font);
-  font-size: var(--md-sys-typescale-body-small-size);
-  font-weight: var(--md-sys-typescale-body-small-weight);
+  font-family: var(--font-family);
+  font-size: var(--md-sys-typescale-body-small-font-size);
+  font-weight: var(--md-sys-typescale-body-small-font-weight);
   line-height: var(--md-sys-typescale-body-small-line-height);
 }
 
 .m3-label-large {
-  font-family: var(--md-sys-typescale-label-large-font);
-  font-size: var(--md-sys-typescale-label-large-size);
-  font-weight: var(--md-sys-typescale-label-large-weight);
+  font-family: var(--font-family);
+  font-size: var(--md-sys-typescale-label-large-font-size);
+  font-weight: var(--md-sys-typescale-label-large-font-weight);
   line-height: var(--md-sys-typescale-label-large-line-height);
 }
 
 .m3-label-medium {
-  font-family: var(--md-sys-typescale-label-medium-font);
-  font-size: var(--md-sys-typescale-label-medium-size);
-  font-weight: var(--md-sys-typescale-label-medium-weight);
+  font-family: var(--font-family);
+  font-size: var(--md-sys-typescale-label-medium-font-size);
+  font-weight: var(--md-sys-typescale-label-medium-font-weight);
   line-height: var(--md-sys-typescale-label-medium-line-height);
 }
 
 .m3-label-small {
-  font-family: var(--md-sys-typescale-label-small-font);
-  font-size: var(--md-sys-typescale-label-small-size);
-  font-weight: var(--md-sys-typescale-label-small-weight);
+  font-family: var(--font-family);
+  font-size: var(--md-sys-typescale-label-small-font-size);
+  font-weight: var(--md-sys-typescale-label-small-font-weight);
   line-height: var(--md-sys-typescale-label-small-line-height);
 }
 
@@ -1326,7 +1389,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .m3-field-label {
   font-size: var(--md-sys-typescale-label-large);
-  font-weight: var(--md-sys-typescale-label-large-font);
+  font-weight: var(--font-family);
   color: var(--md-sys-color-on-surface);
   line-height: var(--md-sys-typescale-label-large-line-height);
 }
@@ -1362,7 +1425,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   background: transparent;
   color: var(--md-sys-color-on-surface);
   font-size: var(--md-sys-typescale-body-large);
-  font-family: var(--md-sys-typescale-body-large-font);
+  font-family: var(--font-family);
   line-height: var(--md-sys-typescale-body-large-line-height);
   outline: none;
 }
@@ -1375,7 +1438,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .m3-field-error {
   font-size: var(--md-sys-typescale-body-small);
-  font-weight: var(--md-sys-typescale-body-small-font);
+  font-weight: var(--font-family);
   color: var(--md-sys-color-error);
   line-height: var(--md-sys-typescale-body-small-line-height);
   display: flex;
@@ -1393,7 +1456,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   background: var(--md-sys-color-surface-container);
   color: var(--md-sys-color-on-surface);
   border: var(--md-sys-spacing-0) solid var(--md-sys-color-outline-variant);
-  font-size: var(--md-sys-typescale-label-large-size);
+  font-size: var(--md-sys-typescale-label-large-font-size);
   font-weight: 500;
   transition-property: opacity, transform, background-color;
 transition-duration: var(--md-sys-motion-duration-short);
