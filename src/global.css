@@ -60,7 +60,7 @@
   --md-sys-typescale-body-large-font-size: var(--md-sys-spacing-4);
   --md-sys-typescale-body-large-line-height: 1.5;
   --md-sys-typescale-body-large-font-weight: var(--md-sys-typescale-weight-regular);
-  --md-sys-typescale-body-medium-font-size: var(--md-sys-typescale-body-medium-font-size);
+  --md-sys-typescale-body-medium-font-size: var(--md-sys-spacing-4); /* fix: was circular self-reference */
   --md-sys-typescale-body-medium-line-height: 1.4;
   --md-sys-typescale-body-medium-font-weight: var(--md-sys-typescale-weight-regular);
   /* DEPRECATED legacy aliases — map to MD3 tokens */
@@ -122,7 +122,7 @@
   --md-sys-typescale-body-large-line-height: var(--md-sys-spacing-6);
   --md-sys-typescale-body-large-font-weight: var(--md-sys-typescale-weight-regular);
   --md-sys-typescale-body-large-letter-spacing: 0.015em;
-  --md-sys-typescale-body-medium-font-size: var(--md-sys-typescale-body-medium-font-size);
+  --md-sys-typescale-body-medium-font-size: var(--md-sys-spacing-4); /* fix: was circular self-reference */
   --md-sys-typescale-body-medium-line-height: var(--md-sys-spacing-5);
   --md-sys-typescale-body-medium-font-weight: var(--md-sys-typescale-weight-regular);
   --md-sys-typescale-body-medium-letter-spacing: 0.025em;
@@ -138,8 +138,8 @@
   --md-sys-typescale-label-medium-line-height: var(--md-sys-spacing-4);
   --md-sys-typescale-label-medium-font-weight: var(--md-sys-typescale-weight-medium);
   --md-sys-typescale-label-medium-letter-spacing: 0.05em;
-  --md-sys-typescale-label-small-font-size: var(--md-sys-typescale-label-large-font-size);
-  --md-sys-typescale-label-small-line-height: var(--md-sys-typescale-body-medium-font-size);
+  --md-sys-typescale-label-small-font-size: var(--md-sys-spacing-3); /* fix: was indirect circular via label-large */
+  --md-sys-typescale-label-small-line-height: var(--md-sys-spacing-4); /* fix: was using font-size token as line-height */
   --md-sys-typescale-label-small-font-weight: var(--md-sys-typescale-weight-medium);
   --md-sys-typescale-label-small-letter-spacing: 0.05em;
 

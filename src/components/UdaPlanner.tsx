@@ -160,8 +160,9 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                         <div
                             role="button"
                             tabIndex={0}
+                            aria-label="Seleziona competenze target"
                             onClick={handlePickerOpen}
-                            onKeyDown={e => e.key === 'Enter' && handlePickerOpen()}
+                            onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && handlePickerOpen()}
                             style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-2)', alignItems: 'center', minHeight: 'var(--md-sys-spacing-12)', padding: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', cursor: 'pointer', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}
                         >
                             {currentUda.competencyIds.length > 0 ? (
