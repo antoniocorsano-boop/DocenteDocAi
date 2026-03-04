@@ -1,7 +1,7 @@
 // MD3 Compliant
 import React, { useState } from 'react';
 import { EventoCalendario, TipoEvento } from '../types';
-import { TextField, TextArea, M3ChoiceCard, M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
+import { TextField, TextArea, M3ChoiceCard, M3Dialog, M3DialogContent, M3DialogActions, M3Button, M3Typography } from './ui';
 interface EventModalProps {
     eventToEdit?: Partial<EventoCalendario>;
     onClose: () => void;
@@ -22,6 +22,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
         tipo: 'impegno',
         ...eventToEdit
     });
+  const [validationError, setValidationError] = useState('');
 
     const handleChange = (field: keyof EventoCalendario, value: unknown) => {
         const newEvent = { ...event, [field]: value };
@@ -34,9 +35,10 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
     const handleSubmit = (e?: React.FormEvent | React.MouseEvent) => {
         if (e) e.preventDefault();
         if (!event.titolo || !event.data || !event.tipo) {
-            alert("Titolo, data e tipo sono obbligatori.");
+            setValidationError('Titolo, data e tipo sono obbligatori.');
             return;
         }
+        setValidationError('');
         const eventToSave: EventoCalendario = {
             id: event.id || `evt-${Date.now()}`,
             titolo: event.titolo!,
@@ -114,6 +116,11 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
                         rows={3}
                         style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}
                     />
+                {validationError && (
+                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-error)', marginTop: 'var(--md-sys-spacing-2)' }}>
+                        {validationError}
+                    </M3Typography>
+                )}
                 </form>
             </M3DialogContent>
             <M3DialogActions>

@@ -90,7 +90,7 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
           type="button"
           variant="text"
           style={{ width: 'var(--md-sys-percent-100)' }}
-          onClick={() => alert('Funzione recupero password non implementata')}
+          onClick={() => setError('Funzione di recupero password non ancora disponibile. Contatta il tuo amministratore.')}
         >
           Recupera password
         </M3Button>

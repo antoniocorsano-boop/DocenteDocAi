@@ -93,15 +93,15 @@ const handleAction = (action: typeof ACTIONS[number]) => {
           <>
             {isCompactLayout && (
               <>
-                <div  role="presentation" onClick={() => setMenuOpen(false)} />
-                <div  role="dialog" aria-modal="true" aria-label="Azioni assistente">
+                <div className="assistant-fab-sheet-scrim" role="presentation" onClick={() => setMenuOpen(false)} />
+                <div className="assistant-fab-sheet" role="dialog" aria-modal="true" aria-label="Azioni assistente">
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <p>Assistente AI</p>
                       <p>Azioni rapide</p>
                     </div>
                     <button
-                      
+                      className="assistant-fab-sheet-close"
                       aria-label="Chiudi menu assistente"
                       onClick={() => setMenuOpen(false)}
                     >
@@ -112,7 +112,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
                     {ACTIONS.map((action) => (
                       <button
                         key={action.key}
-                        
+                        className="assistant-fab-sheet-action"
                         onClick={() => handleAction(action)}
                         aria-label={action.label}
                       >
@@ -215,7 +215,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          z-index: 'var(--md-sys-z-tooltip)';
+          z-index: var(--md-sys-z-tooltip);
         }
         .mui-fab-expressive.assistant-fab-secondary {
           position: absolute;
@@ -242,7 +242,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
           position: fixed;
           inset: 0;
           background: var(--md-sys-color-scrim);
-          z-index: 'var(--md-sys-z-modal)';
+          z-index: var(--md-sys-z-modal);
           backdrop-filter: blur(var(--md-sys-blur-small));
         }
         .assistant-fab-sheet {
@@ -261,10 +261,11 @@ const handleAction = (action: typeof ACTIONS[number]) => {
           display: flex;
           flex-direction: column;
           gap: var(--md-sys-spacing-4);
-          z-index: 'var(--md-sys-z-tooltip)';
+          z-index: var(--md-sys-z-tooltip);
           animation: assistant-sheet-enter var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-decelerated);
         }
-        @media (min-width: var(--breakpoint-compact)) {
+        /* 640px = compact breakpoint — CSS custom properties cannot be used in @media queries */
+        @media (min-width: 640px) {
           .assistant-fab-sheet {
             bottom: var(--md-sys-spacing-6);
           }

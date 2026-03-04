@@ -89,7 +89,7 @@ Basandoti su questi dati, genera una risposta in formato JSON con la seguente st
 {
   "sintesiGenerale": "Un paragrafo che riassume l'andamento generale della classe, il clima e il livello di partecipazione.",
   "puntiDiForza": ["Un elenco di 2-3 punti di forza principali della classe (es. 'Buona collaborazione', 'Solide basi nelle materie pratiche')."],
-  "areeDiMiglioramento": ["Un elenco di 2-3 aree dove la classe mostra difficolt� o incertezze (es. 'Fragilit� nel problem solving complesso', 'Applicazione del metodo di studio da consolidare')."],
+  "areeDiMiglioramento": ["Un elenco di 2-3 aree dove la classe mostra difficoltà o incertezze (es. 'Fragilità nel problem solving complesso', 'Applicazione del metodo di studio da consolidare')."],
   "casiParticolari": ["Un elenco di 2-3 osservazioni su trend specifici, senza fare nomi, mas descrivendo le situazioni (es. 'Si nota un piccolo gruppo di studenti con un rendimento eccellente e in costante crescita.', 'Alcuni studenti mostrano un calo di rendimento nelle prove scritte, pur mantenendo un buon orale.')."]
 }
 Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve essere solo l'oggetto JSON.

@@ -43,10 +43,10 @@ export const ViewLoadingPlaceholder: React.FC<ViewLoadingPlaceholderProps> = ({
  */
 export const MinimalViewLoading: React.FC = () => {
   return (
-    <div  style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <div style={{gap: 'var(--md-sys-spacing-4)', textAlign: "center"}}>
-        <div  style={{ width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <span  style={{fontSize: "var(--md-sys-typescale-title-large-font-size)", color: "var(--md-sys-color-primary)"}}>hourglass_bottom</span>
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ gap: 'var(--md-sys-spacing-4)', textAlign: "center" }}>
+        <div style={{ width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', marginInline: 'auto', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: "var(--md-sys-typescale-title-large-font-size)", color: "var(--md-sys-color-primary)" }}>hourglass_bottom</span>
         </div>
         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Caricamento...</p>
       </div>
