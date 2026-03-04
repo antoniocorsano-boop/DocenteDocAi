@@ -127,7 +127,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
             <header style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 'var(--md-sys-state-opacity-tint-moderate)', borderBottom: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-6)', display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                 <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                     <Avatar name={`${student.nome} ${student.cognome}`} size="md"  />
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <M3Typography variant="headline-small" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em" }}>Diario di Classe</M3Typography>
                         <M3Typography variant="label-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-supporting)" }}>Classe {student.classe} • {student.nome} {student.cognome}</M3Typography>
                     </div>
@@ -144,7 +144,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                             style={{ color: 'var(--md-sys-color-on-surface)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: "left", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', transition: "color var(--md-sys-motion-duration-medium)"}}
                         >
                             <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>logout</span>
-                            <div >
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <M3Typography variant="label-small" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Termina Sessione</M3Typography>
                                 <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-supporting)" }}>Torna al login studenti</M3Typography>
                             </div>
@@ -156,7 +156,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                             >
                                 <span style={{
 }}>lock</span>
-                                <div >
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <M3Typography variant="label-small" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Menu Docente</M3Typography>
                                     <M3Typography variant="body-small" style={{ opacity: "var(--md-sys-state-opacity-supporting)" }}>Richiede PIN di sicurezza</M3Typography>
                                 </div>

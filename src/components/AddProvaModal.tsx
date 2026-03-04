@@ -95,7 +95,7 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                         </SelectField>
                     </div>
 
-                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <label style={{
                           fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                           fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',

@@ -142,10 +142,10 @@ export const DemoGantt: React.FC = () => {
 
   return (
     <DndContext onDragEnd={handleDragEnd}>
-      <div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
         {/* ARIA live region for screen reader announcements */}
         <div role="status" aria-live="polite" aria-atomic="true" >{liveMessage}</div>
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
           {[...Array(NUM_COLS)].map((_, col) => (
             <GanttColumn key={col} col={col}>
               {state.bars.filter((b) => b.col === col).map((b) => (

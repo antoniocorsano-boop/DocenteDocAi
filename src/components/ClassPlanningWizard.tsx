@@ -391,13 +391,13 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             
                             <InfoCard style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                    <div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <label>Classe Target</label>
                                         <select value={selectedClass} onChange={e => setSelectedClass(e.target.value)} style={{ width: "var(--md-sys-percent-full)" }} title="Seleziona la classe per la programmazione">
                                             {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                                         </select>
                                     </div>
-                                    <div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <label>Materia</label>
                                         <select value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)} style={{ width: "var(--md-sys-percent-full)" }} title="Seleziona la materia">
                                             {settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
@@ -597,11 +597,11 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             
                             <InfoCard style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                    <div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <label>Fine 1° Periodo</label>
                                         <input type="date" value={term1End} onChange={e => setTerm1End(e.target.value)} style={{ width: "var(--md-sys-percent-full)" }} />
                                     </div>
-                                    <div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <label>Termine Lezioni</label>
                                         <input type="date" value={term2End} onChange={e => setTerm2End(e.target.value)} style={{ width: "var(--md-sys-percent-full)" }} />
                                     </div>
@@ -633,7 +633,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <div style={{ backgroundColor: 'var(--md-sys-color-primary)', width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', borderRadius: 'var(--md-sys-spacing-16)', color: 'var(--md-sys-color-on-primary)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                                 <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-primary)' }}>task_alt</span>
                             </div>
-                            <div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <h3 style={{ color: 'var(--md-sys-color-on-surface)', marginBottom: 'var(--md-sys-spacing-8)' }}>Pianificazione Completata!</h3>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", justifyContent: "center" }}>
                                     Tutte le UDA e le lezioni sono state salvate. Ora puoi generare il documento di programmazione annuale completo.

@@ -69,8 +69,8 @@ return (
                 <M3DialogContent >
                     <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)'}}>{student.cognome} {student.nome} - {competenza.nome}</p>
 
-                    <div>
-                        <label >Livello Raggiunto</label>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        <label>Livello Raggiunto</label>
                         <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                             {competenza.livelli.map(level => (
                                 <div key={level.id} style={{
@@ -92,7 +92,7 @@ return (
                                         />
                                         <div style={{ flexGrow: "1" }}>
                                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                                                <span >{level.nome}</span>
+                                                <span>{level.nome}</span>
                                                 <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Voto: {level.voto}</span>
                                             </div>
                                                                                         <p style={{
@@ -108,7 +108,7 @@ return (
                         </div>
                     </div>
 
-                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <label htmlFor="materia" >Materia di Riferimento</label>
                         <select id="materia" value={selectedMateria} onChange={e => setSelectedMateria(e.target.value)}  style={{ width: "var(--md-sys-percent-100)" }} required>
                             <option value="">Seleziona...</option>
@@ -116,7 +116,7 @@ return (
                         </select>
                     </div>
 
-                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <div  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                             <label htmlFor="note" >Note (Opzionale)</label>
                             <div  style={{ display: "flex", alignItems: "center" }}>
@@ -136,7 +136,7 @@ return (
                                     ) : (
                                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>auto_awesome</span>
                                     )}
-                                    <span >{isGeneratingNote ? 'Generando...' : 'Suggerisci nota'}</span>
+                                    <span>{isGeneratingNote ? 'Generando...' : 'Suggerisci nota'}</span>
                                 </M3Button>
                             </div>
                         </div>

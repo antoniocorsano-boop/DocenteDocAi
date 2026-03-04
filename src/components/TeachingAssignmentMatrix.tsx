@@ -50,16 +50,16 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
 
     if (assignments.length === 0) {
         return (
-            <div >
-                <div >
-                    <span >bolt</span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                    <span>bolt</span>
                 </div>
-                <h3 >Configura la Cattedra</h3>
-                <p >
+                <h3>Configura la Cattedra</h3>
+                <p>
                     Usa lo strumento di <strong>Configurazione Rapida</strong> sopra per associare le tue materie alle classi in un colpo solo.
                 </p>
-                <div >
-                    <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         Scorri verso l'alto ↑
                     </div>
                 </div>
@@ -68,14 +68,14 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
     }
 
     return (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             {/* DESKTOP VIEW: MD3 Table */}
-            <div >
-                <div >
-                    <table >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <table>
                         <thead>
                             <tr>
-                                <th >
+                                <th>
                                     Cattedra
                                 </th>
                                 {subjects.map(subj => (
@@ -88,7 +88,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                         <tbody>
                             {classes.map(cls => (
                                 <tr key={cls} >
-                                    <td >
+                                    <td>
                                         {cls}
                                     </td>
                                     {subjects.map(subj => {
@@ -136,7 +136,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                 }, [classes, openClass]);
 
                 return (
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         {classes.map(cls => {
                             const isActiveClass = openClass === cls || !useAccordion;
                             const toggleAccordion = () => setOpenClass(prev => (prev === cls ? null : cls));
@@ -149,19 +149,19 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                                         
                                         aria-expanded={isActiveClass}
                                     >
-                                        <span >
-                                            <span >
+                                        <span>
+                                            <span>
                                                 {cls}
                                             </span>
-                                            <span >Classe {cls}</span>
+                                            <span>Classe {cls}</span>
                                         </span>
                                         <span  aria-hidden="true">
                                             {isActiveClass ? 'expand_less' : 'expand_more'}
                                         </span>
                                     </button>
                                     {isActiveClass && (
-                                        <div >
-                                            <div >
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                                 {subjects.map(subj => {
                                                     const isActive = assignments.some(a => a.classId === cls && a.subjectId === subj);
                                                     return (
@@ -179,8 +179,8 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                                                                 transition: 'background var(--md-sys-motion-duration-short), color var(--md-sys-motion-duration-short)'
                                                             }}
                                                         >
-                                                            {isActive && <span >check</span>}
-                                                            <span >{subj}</span>
+                                                            {isActive && <span>check</span>}
+                                                            <span>{subj}</span>
                                                         </button>
                                                     );
                                                 })}
@@ -195,9 +195,9 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
             })()}
 
             {/* INFO SECTION */}
-            <div >
-                <p >
-                    <span >info</span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <p>
+                    <span>info</span>
                     Tocca le materie per assegnarle alle classi.
                 </p>
             </div>

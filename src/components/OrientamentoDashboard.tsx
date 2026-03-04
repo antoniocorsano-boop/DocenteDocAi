@@ -82,7 +82,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     </InfoCard>
                 ))}
                 {filteredActivities.length === 0 && (
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <EmptyState 
                             title="Nessuna attività" 
                             description="Inizia aggiungendo un'attività di orientamento per questa classe." 
@@ -161,14 +161,14 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
     );
 
     return (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 'var(--md-sys-spacing-8)'}}>
                 <SectionHeader 
                     title="Orientamento & E-Portfolio"
                     subtitle="Monitoraggio delle 30 ore annuali e gestione documenti istituzionali (Linee Guida 2023)."
                      style={{ flexGrow: "1" }}
                 />
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <SelectField 
                         label="Classe"
                         value={selectedClass}

@@ -41,13 +41,13 @@ const Guidance: React.FC<GuidanceProps> = ({ id, icon, title, children, isGlobal
   }
 
   return (
-    <div >
-      <div >
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
         <span className="material-symbols-outlined">{icon}</span>
       </div>
-      <div >
-        <h3 >{title}</h3>
-        <div >{children}</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+        <h3>{title}</h3>
+        <div>{children}</div>
       </div>
       <button onClick={dismiss}  aria-label="Chiudi suggerimento">
         <span className="material-symbols-outlined">close</span>

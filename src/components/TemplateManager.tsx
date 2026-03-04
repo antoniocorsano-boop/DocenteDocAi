@@ -179,7 +179,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                                     onClick={() => setEditingTemplate(template)}
                                     title={`Modifica template ${template.name}`}
                                   >
-                                    <span >edit</span>
+                                    <span>edit</span>
                                   </M3Button>
                                   <M3Button
                                     onClick={() => handleDeleteTemplate(template.id, template.name)}
@@ -187,7 +187,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                                     
                                     title={`Elimina template ${template.name}`}
                                   >
-                                    <span >delete</span>
+                                    <span>delete</span>
                                   </M3Button>
                                 </div>
                               </div>

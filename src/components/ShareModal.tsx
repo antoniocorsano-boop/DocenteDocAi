@@ -87,7 +87,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                         }}>
                             <span style={{ fontSize: 'var(--md-sys-spacing-6)' }}>share</span>
                         </div>
-                        <div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <p style={{ fontSize: 'var(--md-sys-spacing-5)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Condividi via...</p>
                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>WhatsApp, Email, Drive</p>
                         </div>
@@ -120,7 +120,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                         }}>
                             <span style={{ fontSize: 'var(--md-sys-spacing-6)' }}>{copyStatus === 'copied' ? 'check' : 'content_paste'}</span>
                         </div>
-                        <div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <p style={{ fontSize: 'var(--md-sys-spacing-5)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{copyStatus === 'copied' ? 'Copiato!' : 'Copia Formattato'}</p>
                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Per registro elettronico o Padlet</p>
                         </div>

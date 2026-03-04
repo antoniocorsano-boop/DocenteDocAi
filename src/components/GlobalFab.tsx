@@ -122,7 +122,7 @@ export const GlobalFab: React.FC<GlobalFabProps> = ({ currentView, onAction }) =
             aria-label={label}
             title={label}
         >
-            <span >{icon}</span>
+            <span>{icon}</span>
         </button>
     );
 };

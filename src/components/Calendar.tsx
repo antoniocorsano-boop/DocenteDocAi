@@ -166,8 +166,8 @@ const renderHeader = () => {
             : `${MONTHS_LONG[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 
         return (
-            <header >
-                <div >
+            <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <div style={{
                         backgroundColor: 'var(--md-sys-color-surface)',
                         padding: 'var(--md-sys-spacing-6)',
@@ -184,7 +184,7 @@ const renderHeader = () => {
 }} aria-hidden="true">chevron_right</span>
                         </M3Button>
                     </div>
-                    <h2 >{title}</h2>
+                    <h2>{title}</h2>
                 </div>
 
                 <div  style={{gap: 'var(--md-sys-spacing-8)'}}>
@@ -200,7 +200,7 @@ const renderHeader = () => {
                         variant="primary"
                     />
 
-                    <div >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                         <M3Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza circolare con AI" aria-label="Apri analizzatore AI per circolari" >
                             <span  style={{color: "var(--md-sys-color-primary)"}} aria-hidden="true">auto_awesome</span>
                         </M3Button>
@@ -275,7 +275,7 @@ const renderHeader = () => {
                             }}>
                                 {date.getDate()}
                             </span>
-                            <div >
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 {dayEvents.slice(0, 3).map((ev, idx) => (
                                     <div 
                                         key={ev.id || idx} 
@@ -307,7 +307,7 @@ const renderHeader = () => {
                                     </div>
                                 ))}
                                 {dayEvents.length > 3 && (
-                                    <div >+{dayEvents.length - 3} altri</div>
+                                    <div>+{dayEvents.length - 3} altri</div>
                                 )}
                             </div>
                         </div>
@@ -318,8 +318,8 @@ const renderHeader = () => {
     );
 
     const renderWeekView = () => (
-        <div >
-            <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 {weekDates.map((date, i) => {
                     const isToday = date.toDateString() === new Date().toDateString();
                     return (
@@ -359,10 +359,10 @@ const renderHeader = () => {
             <div  ref={scrollContainerRef}>
                 {Array.from({ length: 24 }, (_, hour) => (
                     <div key={hour} >
-                        <div >
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             {hour.toString().padStart(2, '0')}:00
                         </div>
-                        <div >
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             {weekDates.map((date, dayIndex) => {
                                 const dayEvents = eventi.filter(e => {
                                     const eventDate = new Date(e.data);
@@ -397,8 +397,8 @@ const renderHeader = () => {
                                                 }}
                                                 onClick={() => setEditingEvent(ev)}
                                             >
-                                                <div >{ev.titolo}</div>
-                                                <div >{ev.oraInizio} - {ev.oraFine || 'N/A'}</div>
+                                                <div>{ev.titolo}</div>
+                                                <div>{ev.oraInizio} - {ev.oraFine || 'N/A'}</div>
                                             </div>
                                         ))}
                                     </div>
@@ -412,7 +412,7 @@ const renderHeader = () => {
     );
 
     const renderDayView = () => (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <div  style={{padding: 'var(--md-sys-spacing-8)'}}>
                 <h3  style={{color: 'var(--md-sys-color-primary)'}}>
                     {currentDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
@@ -473,7 +473,7 @@ const renderHeader = () => {
                                 <div  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
                                     {ev.oraInizio || 'Tutto il giorno'}
                                 </div>
-                                <div >
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{ev.titolo}</div>
                                     {ev.descrizione && <div  style={{ opacity: "var(--md-sys-state-opacity-caption)" }}>{ev.descrizione}</div>}
                                     {ev.location && <div  style={{marginTop: 'var(--md-sys-spacing-4)'}}>📍 {ev.location}</div>}
@@ -530,7 +530,7 @@ const renderHeader = () => {
                                         <div  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
                                             {ev.oraInizio || 'Tutto il giorno'}
                                         </div>
-                                        <div >
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                             <div  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{ev.titolo}</div>
                                             {ev.descrizione && <div  style={{ opacity: "var(--md-sys-state-opacity-caption)" }}>{ev.descrizione}</div>}
                                         </div>
@@ -552,7 +552,7 @@ const renderHeader = () => {
         >
             {renderHeader()}
             
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 {viewMode === 'month' && renderMonthView()}
                 {viewMode === 'week' && renderWeekView()}
                 {viewMode === 'day' && renderDayView()}

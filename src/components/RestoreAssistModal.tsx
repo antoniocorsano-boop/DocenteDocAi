@@ -29,44 +29,44 @@ const RestoreAssistModal: React.FC<RestoreAssistModalProps> = ({
       level={1}
     >
       <M3DialogContent >
-        <div >
-          <span >warning</span>
-          <p >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+          <span>warning</span>
+          <p>
             {messages.restore.description}
           </p>
         </div>
 
         {error && (
-          <div >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             {error}
           </div>
         )}
 
-        <div >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
           <M3Button onClick={onLoadDemo} variant="filled" >
-            <div >
-              <span >auto_awesome</span>
-              <span >{messages.restore.demo}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+              <span>auto_awesome</span>
+              <span>{messages.restore.demo}</span>
             </div>
           </M3Button>
 
           <M3Button onClick={onRestoreFile} variant="outlined" >
-            <div >
-              <span >upload</span>
-              <span >{messages.restore.file}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+              <span>upload</span>
+              <span>{messages.restore.file}</span>
             </div>
           </M3Button>
 
           <M3Button onClick={onConnectDrive} variant="tonal" >
-            <div >
-              <span >cloud_sync</span>
-              <span >{messages.restore.drive}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+              <span>cloud_sync</span>
+              <span>{messages.restore.drive}</span>
             </div>
           </M3Button>
         </div>
 
-        <div >
-          <p >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+          <p>
             {messages.restore.privacy}
           </p>
         </div>

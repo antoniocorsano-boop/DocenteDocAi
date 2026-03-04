@@ -54,8 +54,8 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
 
   if (isSystem) {
     return (
-      <div >
-        <div >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
           <span  style={{  fontSize: "var(--md-sys-typescale-body-large-font-size)"  }}>check_circle</span>
           {entry.text.replace(/\[|\]/g, '')}
         </div>
@@ -87,9 +87,9 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
       }}>
         <p style={{ whiteSpace: "pre-wrap" }}>{entry.text}</p>
         {entry.sources && (
-          <div >
-            <p >FONTI:</p>
-            <div >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <p>FONTI:</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
               {entry.sources.map((s, i) => (
                 <a key={i} href={s.uri} target="_blank" rel="noreferrer" >
                   {s.title}
@@ -272,18 +272,18 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
   };
 
   return (
-    <div >
-      <div >
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
         {transcripts.map((t, i) => <ChatBubble key={i} entry={t} />)}
         {transcripts.length === 0 && (
-          <div >
-            <span >graphic_eq</span>
-            <p >L'assistente è pronto ad ascoltarti.</p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+            <span>graphic_eq</span>
+            <p>L'assistente è pronto ad ascoltarti.</p>
           </div>
         )}
       </div>
-      <div >
-        <p >{status}</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+        <p>{status}</p>
         <button
           onClick={isConnected ? stopSession : startSession}
           style={{
@@ -313,7 +313,7 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
             }
           }}
         >
-          <span >{isConnected ? 'mic_off' : 'mic'}</span>
+          <span>{isConnected ? 'mic_off' : 'mic'}</span>
         </button>
       </div>
     </div>

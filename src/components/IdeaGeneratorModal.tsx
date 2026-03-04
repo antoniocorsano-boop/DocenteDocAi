@@ -84,7 +84,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                     {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                 </SelectField>
 
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <VoiceNoteRecorder onTranscription={handleTranscription} compact />
                 </div>
                 <TextArea 
@@ -97,10 +97,10 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                     style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/50 }}
                 />
 
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <div  style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <label  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', cursor: "pointer"}}>
-                            <div ><input type="checkbox" checked={useKb} onChange={e => setUseKb(e.target.checked)} /><span ></span></div>
+                            <div><input type="checkbox" checked={useKb} onChange={e => setUseKb(e.target.checked)} /><span></span></div>
                             <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Usa Context Knowledge Base</span>
                         </label>
                         <span style={{ color: 'var(--md-sys-color-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{selectedKbIds.length} file</span>

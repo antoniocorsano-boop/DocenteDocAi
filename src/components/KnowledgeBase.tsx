@@ -78,7 +78,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     };
 
     const renderFolderDashboard = () => (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
              {KB_CATEGORIES.map(cat => (
                  <CategoryCard 
                     key={cat.id} 
@@ -97,17 +97,17 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     const renderFileList = () => {
         const categoryInfo = currentView.type === 'category' ? KB_CATEGORIES.find(c => c.id === currentView.id) : null;
         return (
-            <div >
-                <header >
-                    <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                         <M3Button onClick={() => setCurrentView({ type: 'root', id: '' })} variant="text" >
                             <span style={{
 }}>arrow_back</span>
                         </M3Button>
-                        <h2 >{categoryInfo?.label || 'File'}</h2>
+                        <h2>{categoryInfo?.label || 'File'}</h2>
                     </div>
-                    <div >
-                        <span >search</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                        <span>search</span>
                         <input 
                             type="text" 
                             placeholder="Cerca in questa cartella..." 
@@ -118,21 +118,21 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                     </div>
                 </header>
 
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     {filteredFiles.map(entry => (
                         <div 
                             key={entry.id} 
                             
                             onClick={() => handleFileClick(entry)}
                         >
-                            <div >
-                                <span >
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                                <span>
                                     {entry.category === 'ai_deliverable' ? 'auto_awesome' : (entry.fileContent?.mimeType === 'application/pdf' ? 'picture_as_pdf' : 'description')}
                                 </span>
                             </div>
-                            <div >
-                                <p >{entry.fileName}</p>
-                                <p >
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                <p>{entry.fileName}</p>
+                                <p>
                                     {entry.isGenerated ? 'Generato con AI' : 'Documento locale'}
                                 </p>
                             </div>
@@ -141,14 +141,14 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                                 variant="text" 
                                 
                             >
-                                <span >delete</span>
+                                <span>delete</span>
                             </M3Button>
                         </div>
                     ))}
                     {filteredFiles.length === 0 && (
-                        <div >
-                            <span >search_off</span>
-                            <p >Nessun file trovato in questa cartella.</p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                            <span>search_off</span>
+                            <p>Nessun file trovato in questa cartella.</p>
                         </div>
                     )}
                 </div>
@@ -179,7 +179,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                 style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent)' , marginBottom: 'var(--md-sys-spacing-8)'}}
             />
 
-            <main >
+            <main style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 {currentView.type === 'root' ? renderFolderDashboard() : renderFileList()}
             </main>
 

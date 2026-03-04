@@ -47,7 +47,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
     }, [evaluations, students]);
 
     return (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
              {/* Header Section */}
             <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
                 <h1 style={{ 
@@ -144,14 +144,14 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
             )}
 
             {/* Section 1: Classes Grid (New Widget Style) */}
-            <section>
+            <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                  <SectionHeader 
                     title="Classi Attive" 
                     icon="school"
                 />
                 
                 {userClasses.length > 0 ? (
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         {userClasses.map((className) => {
                             const classStudents = students.filter(s => s.classe === className);
                             const studentCount = classStudents.length;
@@ -188,38 +188,38 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
             </section>
 
             {/* Section 2: Global Tools */}
-            <section>
+            <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                  <SectionHeader 
                     title="Gestione Rapida" 
                     icon="settings_applications"
                 />
                 
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <button 
                         onClick={() => onNavigate('studenti')} 
                         
                     >
-                        <span >group_add</span>
-                        <span >Importazione Massiva</span>
-                        <span >Carica studenti da CSV</span>
+                        <span>group_add</span>
+                        <span>Importazione Massiva</span>
+                        <span>Carica studenti da CSV</span>
                     </button>
 
                     <button 
                         onClick={() => setIsPrintCenterOpen(true)} 
                         
                     >
-                        <span >print</span>
-                        <span >Centro Stampe</span>
-                        <span >Report PDF multi-classe</span>
+                        <span>print</span>
+                        <span>Centro Stampe</span>
+                        <span>Report PDF multi-classe</span>
                     </button>
 
                     <button 
                         onClick={() => onNavigate('analytics')} 
                         
                     >
-                        <span >analytics</span>
-                        <span >Analytics Hub</span>
-                        <span >Dashboard dati avanzata</span>
+                        <span>analytics</span>
+                        <span>Analytics Hub</span>
+                        <span>Dashboard dati avanzata</span>
                     </button>
 
                     <button 
@@ -227,8 +227,8 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                         
                     >
                         <span  style={{color: "var(--md-sys-color-tertiary)"}}>accessibility_new</span>
-                        <span >Didattica Inclusiva</span>
-                        <span >Gestione PEI/PDP globale</span>
+                        <span>Didattica Inclusiva</span>
+                        <span>Gestione PEI/PDP globale</span>
                     </button>
                 </div>
             </section>

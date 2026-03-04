@@ -159,7 +159,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-primary-container)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--md-sys-motion-duration-medium)"}}>
                                 <span  style={{ fontSize: "var(--md-sys-typescale-display-large-font-size)" }}>picture_as_pdf</span>
                             </div>
-                            <div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <p  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Esporta in PDF</p>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Ideale per stampa e archiviazione</p>
                             </div>
@@ -173,7 +173,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-secondary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--md-sys-motion-duration-medium)" }}>
                                 <span  style={{ fontSize: "var(--md-sys-typescale-display-large-font-size)" }}>description</span>
                             </div>
-                            <div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <p  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Esporta in Word</p>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Per modifiche manuali successive</p>
                             </div>
@@ -187,7 +187,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-tertiary-container)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--md-sys-motion-duration-medium)"}}>
                                 <span  style={{ fontSize: "var(--md-sys-typescale-display-large-font-size)" }}>auto_awesome</span>
                             </div>
-                            <div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <p  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Report con AI</p>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Genera analisi e suggerimenti didattici</p>
                             </div>
@@ -196,8 +196,8 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
 
                     {isExporting && (
                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", justifyContent: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)'}}>
-                            <span >sync</span>
-                            <span >Generazione in corso...</span>
+                            <span>sync</span>
+                            <span>Generazione in corso...</span>
                         </div>
                     )}
 

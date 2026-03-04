@@ -70,7 +70,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
     };
 
     return (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <SectionHeader 
                 title="Fonti Esterne & Feed" 
                 subtitle="Gestione delle fonti RSS e sincronizzazione delle circolari."
@@ -85,12 +85,12 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                 
             />
 
-            <div >
-                <h2 >Aggiungi una Nuova Fonte</h2>
-                <p >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <h2>Aggiungi una Nuova Fonte</h2>
+                <p>
                     Puoi incollare l'URL della pagina delle circolari del tuo istituto. L'app *tenterebbe* di cercare un feed RSS.
                 </p>
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <TextField
                         type="url"
                         value={pageUrl}
@@ -113,23 +113,23 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                 </div>
             </div>
             
-            <div >
-                <h2 >Fonti Monitorate</h2>
-                 <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <h2>Fonti Monitorate</h2>
+                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     {sources.length > 0 ? sources.map(source => (
                         <div key={source.id} >
-                            <div >
-                                <div >
-                                    <div >
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                                         <span style={{
 }}>rss_feed</span>
                                     </div>
-                                    <div >
-                                        <p >{source.title}</p>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                        <p>{source.title}</p>
                                         <a href={source.pageUrl} target="_blank" rel="noopener noreferrer" >{source.pageUrl}</a>
                                     </div>
                                 </div>
-                                <div >
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                                     <M3Button 
                                         onClick={() => handleDeleteSource(source.id)} 
                                         variant="text" 
@@ -149,17 +149,17 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                                 </div>
                             </div>
                             
-                            <div >
-                                <p >
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                <p>
                                     La funzionalità di aggiornamento feed è disabilitata per motivi di privacy. Analizza manualmente incollando il testo.
                                 </p>
                             </div>
                         </div>
                     )) : (
-                        <div >
-                            <span >rss_feed</span>
-                            <p >Nessuna fonte monitorata</p>
-                            <p >Aggiungi il sito della tua scuola per ricevere notifiche sulle circolari.</p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                            <span>rss_feed</span>
+                            <p>Nessuna fonte monitorata</p>
+                            <p>Aggiungi il sito della tua scuola per ricevere notifiche sulle circolari.</p>
                         </div>
                     )}
                 </div>

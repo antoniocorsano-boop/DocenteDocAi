@@ -63,8 +63,8 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                     placeholder="Es. Rivoluzione Francese"
                 />
 
-                <div >
-                    <label >Difficoltà</label>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <label>Difficoltà</label>
                     <TabGroup
                         tabs={[{ id: 'easy', label: 'Base' }, { id: 'medium', label: 'Intermedio' }, { id: 'hard', label: 'Avanzato' }]}
                         activeTab={difficulty}
@@ -74,10 +74,10 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                     />
                 </div>
 
-                <div >
-                    <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <label htmlFor="test-qcount-slider" >Numero Quesiti</label>
-                        <span >{questionCount}</span>
+                        <span>{questionCount}</span>
                     </div>
                     <input
                         id="test-qcount-slider"
@@ -91,9 +91,9 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                     />
                 </div>
 
-                <div >
-                    <label >Tipi di Domande</label>
-                    <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <label>Tipi di Domande</label>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <label style={{
                             // test-generator-modal-question-type-chip styles
                             display: 'inline-flex',
@@ -112,8 +112,8 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                                 checked={questionTypes.includes('multiple_choice')}
                                 onChange={() => toggleQuestionType('multiple_choice')}
                             />
-                            {questionTypes.includes('multiple_choice') && <span >check</span>}
-                            <span >Scelta Multipla</span>
+                            {questionTypes.includes('multiple_choice') && <span>check</span>}
+                            <span>Scelta Multipla</span>
                         </label>
 
                         <label style={{
@@ -134,8 +134,8 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                                 checked={questionTypes.includes('true_false')}
                                 onChange={() => toggleQuestionType('true_false')}
                             />
-                            {questionTypes.includes('true_false') && <span >check</span>}
-                            <span >Vero/Falso</span>
+                            {questionTypes.includes('true_false') && <span>check</span>}
+                            <span>Vero/Falso</span>
                         </label>
                     </div>
                 </div>

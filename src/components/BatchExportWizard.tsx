@@ -307,7 +307,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                   
                   disabled={isGenerating}
                 >
-                  <span >description</span>
+                  <span>description</span>
                   Template
                 </M3Button>
               </div>

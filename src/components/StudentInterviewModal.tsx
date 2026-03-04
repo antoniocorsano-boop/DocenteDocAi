@@ -93,7 +93,7 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                             </div>
 
                             <h3  style={{marginBottom: 'var(--md-sys-spacing-8)', fontWeight: "var(--md-sys-typescale-weight-bold)"}}>Media per Materia</h3>
-                            <div >
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <BarChart data={subjectAverages} color="var(--md-sys-color-primary)" horizontal />
                             </div>
                         </div>
@@ -111,7 +111,7 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                             <div style={{gap: 'var(--md-sys-spacing-2)'}}>
                                 {evaluations.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()).slice(0, 5).map(ev => (
                                     <div key={ev.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", justifyContent: "space-between", alignItems: "center", padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: "color var(--md-sys-motion-duration-medium)" }}>
-                                        <div>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                             <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{ev.materia}</p>
                                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>{new Date(ev.data).toLocaleDateString()}</p>
                                         </div>

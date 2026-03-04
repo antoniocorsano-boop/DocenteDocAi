@@ -308,9 +308,9 @@ return (
             level={1}
         >
             <M3DialogContent>
-                <section>
+                <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <SectionHeader title="1. Intestazione Documento" icon="edit" />
-                    <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                         <TextField
                             id="schoolYear"
                             name="schoolYear"
@@ -330,7 +330,7 @@ return (
                         />
                     </div>
                 </section>
-                <section>
+                <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <SectionHeader title="2. Discipline da Includere" icon="filter_list" />
                     <TabGroup
                         tabs={[
@@ -346,7 +346,7 @@ return (
                             : "Il report includerà tutte le discipline che hanno almeno una valutazione per questa classe. La media generale (Σ) sarà calcolata su tutte le materie."}
                     </p>
                 </section>
-                <section>
+                <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <SectionHeader title="3. Formato di Esportazione" icon="output" />
                     <TabGroup
                         tabs={[

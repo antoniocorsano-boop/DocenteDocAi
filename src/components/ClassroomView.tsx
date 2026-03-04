@@ -547,7 +547,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 )}
 
                 {activeTab === 'tools' && (
-                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <ClassroomTools students={classStudents} studentAttendance={studentAttendance} />
                     </div>
                 )}
@@ -641,7 +641,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                     <M3DialogContent>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', paddingBottom: 'var(--md-sys-spacing-2)' }}>
                             <Avatar name={`${selectedStudentForActions.nome}`} size="md" />
-                            <div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                                 <M3Typography variant="headline-small" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-black)', color: 'var(--md-sys-color-on-surface)' }}>{selectedStudentForActions.cognome} {selectedStudentForActions.nome}</M3Typography>
                                 <M3Typography variant="body-small" style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--md-sys-color-primary)' }}>Azioni Rapide</M3Typography>
                             </div>
@@ -737,7 +737,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                             </div>
                         </div>
 
-                        <div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <M3Typography variant="title-small" style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', marginBottom: 'var(--md-sys-spacing-2)', paddingLeft: 'var(--md-sys-spacing-2)', paddingRight: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface-variant)' }}>Compiti</M3Typography>
                             <TabGroup
                                 tabs={[

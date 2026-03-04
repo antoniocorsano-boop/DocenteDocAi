@@ -48,21 +48,21 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
     };
 
     return (
-        <div >
-            <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 
                 {/* Sidebar List */}
-                <div >
-                    <div >
-                        <h2 >
-                            <span >inbox</span> Inbox Compiti
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        <h2>
+                            <span>inbox</span> Inbox Compiti
                         </h2>
                         <button onClick={onClose}  aria-label="Chiudi inbox"><span style={{
 }} aria-hidden="true">close</span></button>
                     </div>
 
-                    <div >
-                        <p >Da Correggere ({pendingSubmissions.length})</p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        <p>Da Correggere ({pendingSubmissions.length})</p>
                         {pendingSubmissions.map(sub => {
                             const studentInfo = getStudentDisplay(sub.studentId);
                             const lessonInfo = getLessonDisplay(sub.lessonId);
@@ -81,29 +81,29 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                                     }}
                                 >
                                     <Avatar name={`${studentInfo.name} ${studentInfo.surname}`} size="sm" />
-                                    <div >
-                                        <p >{studentInfo.full}</p>
-                                        <p >{lessonInfo.materia} - {lessonInfo.contenuto}</p>
-                                        <span >{new Date(sub.date).toLocaleDateString()}</span>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                        <p>{studentInfo.full}</p>
+                                        <p>{lessonInfo.materia} - {lessonInfo.contenuto}</p>
+                                        <span>{new Date(sub.date).toLocaleDateString()}</span>
                                     </div>
                                 </div>
                             );
                         })}
                         
                         {pendingSubmissions.length === 0 && (
-                            <div >
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 Nessun compito in attesa.
                             </div>
                         )}
                         
                         {gradedSubmissions.length > 0 && (
                             <>
-                                <p >Già Corretti</p>
+                                <p>Già Corretti</p>
                                 {gradedSubmissions.slice(0, 5).map(sub => {
                                     return (
                                         <div key={sub.id}  style={{borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-sys-motion-easing-standard)'}}>
-                                            <span >check_circle</span>
-                                            <span >{studentInfo.full} - Voto: {sub.teacherFeedback} - {lessonInfo.materia}</span>
+                                            <span>check_circle</span>
+                                            <span>{studentInfo.full} - Voto: {sub.teacherFeedback} - {lessonInfo.materia}</span>
                                         </div>
                                     )
                                 })}
@@ -113,9 +113,9 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                 </div>
 
                 {/* Main Grading Area */}
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     {selectedSubmission ? (
-                        <div >
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div  style={{ marginLeft: "auto", marginRight: "auto" }}>
                                 <HomeworkSubmissionCard
                                     submission={selectedSubmission}
@@ -126,9 +126,9 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                             </div>
                         </div>
                     ) : (
-                        <div >
-                            <span >rate_review</span>
-                            <p >Seleziona un compito da correggere</p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                            <span>rate_review</span>
+                            <p>Seleziona un compito da correggere</p>
                         </div>
                     )}
                 </div>

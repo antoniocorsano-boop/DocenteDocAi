@@ -23,47 +23,47 @@ const LessonAnalysisModal: React.FC<LessonAnalysisModalProps> = ({ result, onClo
             level={1}
         >
             <M3DialogContent >
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     {contextLabel && <AiMemoryChip label={contextLabel} />}
                     
                     {/* Section 1: Engagement */}
-                    <div >
-                        <div >
-                             <div >
-                                <span >rocket_launch</span>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                                <span>rocket_launch</span>
                              </div>
-                             <h3 >Strategie di Coinvolgimento</h3>
+                             <h3>Strategie di Coinvolgimento</h3>
                         </div>
-                        <div >
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             {result.engagementSuggestions.map((item, index) => (
                                 <div key={index} >
-                                    <div >
-                                        <h4 >{item.title}</h4>
-                                        <span >{item.activityType}</span>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                        <h4>{item.title}</h4>
+                                        <span>{item.activityType}</span>
                                     </div>
-                                    <p >{item.description}</p>
+                                    <p>{item.description}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
 
                     {/* Section 2: Inclusivity */}
-                    <div >
-                         <div >
-                             <div >
-                                <span >diversity_3</span>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                                <span>diversity_3</span>
                              </div>
-                             <h3 >Adattamenti per l'Inclusività (UDL)</h3>
+                             <h3>Adattamenti per l'Inclusività (UDL)</h3>
                         </div>
-                        <div >
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             {result.inclusivityAdaptations.map((item, index) => (
                                 <div key={index} >
-                                     <div >
-                                         <span >
+                                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                                         <span>
                                              {item.targetGroup}
                                          </span>
                                      </div>
-                                     <p >{item.suggestion}</p>
+                                     <p>{item.suggestion}</p>
                                 </div>
                             ))}
                         </div>

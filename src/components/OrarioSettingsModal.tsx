@@ -35,7 +35,7 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
     >
       <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 , gap: 'var(--md-sys-spacing-6)'}}>
         <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <p  style={{marginBottom: 'var(--md-sys-spacing-6)', opacity: "var(--md-sys-state-opacity-supporting)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Tipologia Attività</p>
             <TabGroup
               tabs={tabs}

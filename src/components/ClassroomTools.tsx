@@ -45,22 +45,22 @@ const TimerWidget: React.FC = () => {
     };
 
     return (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             {/* Background Decor */}
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                  timer
             </div>
             
-            <div >
-                <span >timer</span>
-                <span >Cronometro</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                <span>timer</span>
+                <span>Cronometro</span>
             </div>
             
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 {formatTime(time)}
             </div>
             
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <button 
                     onClick={handleReset} 
                      
@@ -116,18 +116,18 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
     };
     
     return (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
              {/* Background Decor */}
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                  casino
             </div>
 
-            <div >
-                <span >casino</span>
-                <span >Estrazione</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                <span>casino</span>
+                <span>Estrazione</span>
             </div>
 
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 {selectedStudent ? (
                     <div style={{
                         display: 'flex',
@@ -142,13 +142,13 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
                         transform: isSelecting ? 'scale(1.05)' : 'scale(1)',
                         transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard)'
                     }}>
-                         <span >{selectedStudent.cognome}</span>
-                         <span >{selectedStudent.nome}</span>
+                         <span>{selectedStudent.cognome}</span>
+                         <span>{selectedStudent.nome}</span>
                     </div>
                 ) : (
-                     <div >
-                        <span >groups</span>
-                        <span >Pronto ad estrarre</span>
+                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                        <span>groups</span>
+                        <span>Pronto ad estrarre</span>
                      </div>
                 )}
             </div>
@@ -168,12 +168,12 @@ const ClassroomTools: React.FC<ClassroomToolsProps> = ({ students, studentAttend
     const presentStudents = students.filter(s => studentAttendance[s.id] === 'presente');
     
     return (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <TimerWidget />
             <RandomStudentWidget presentStudents={presentStudents} />
             
             {/* Placeholder for future tools to fill grid if needed */}
-            {/* <div > ... </div> */}
+            {/* <div> ... </div> */}
         </div>
     );
 };

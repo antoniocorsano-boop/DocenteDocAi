@@ -292,7 +292,7 @@ const DigitalTeacherManual = () => {
                 alignItems: 'flex-start',
                 gap: 'var(--md-sys-spacing-4)'
             }}>
-                <div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <M3Typography variant="headline-small">Manuale Integrale e Normativa</M3Typography>
                     <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>Versione 4.1.0 - M3 Expressive Edition</M3Typography>
                 </div>

@@ -102,7 +102,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                     <p style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase"}}>{slot.giorno} • {slot.ora}</p>
                 </div>
 
-                <section>
+                <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <SectionHeader title="Tipologia Attività" icon="category" />
                     <div  style={{display: "flex", gap: 'var(--md-sys-spacing-6)', overflowX: "auto", marginTop: 'var(--md-sys-spacing-4)'}}>
                         <M3ChoiceCard icon="school" label="Lezione" selected={activityType === 'standard'} onClick={() => setActivityType('standard')} />

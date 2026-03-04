@@ -150,7 +150,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
 
                 {step === 'processing' && (
                     <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: 'var(--md-sys-percent-100)', gap: 'var(--md-sys-spacing-8)'}}>
-                        <div >
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-spacing-1) solid var(--md-sys-color-outline)', borderColor: 'var(--md-sys-color-primary)'}}></div>
                             <div  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <span style={{color: 'var(--md-sys-color-primary)'}}>auto_awesome</span>

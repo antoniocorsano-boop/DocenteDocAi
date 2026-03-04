@@ -118,7 +118,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                         </SelectField>
                     </div>
 
-                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <M3Typography
                             variant="label-small"
                             style={{

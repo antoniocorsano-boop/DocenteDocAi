@@ -56,7 +56,7 @@ const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
 
     return (
         <div style={cardStyle}>
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <span  style={{ fontSize: "var(--md-sys-typescale-headline-medium-font-size)" }}>
                     {cardClass === 'level-avanzato' ? 'workspace_premium' : 
                      cardClass === 'level-intermedio' ? 'star' :
@@ -79,10 +79,10 @@ const CompetencyLevelsView: React.FC<CompetencyLevelsViewProps> = ({ competenze 
     
     return (
         <div  style={{gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)'}}>
-            <div >
-                <div >
-                    <h1 >Descrittori Competenze</h1>
-                    <p >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <h1>Descrittori Competenze</h1>
+                    <p>
                         Livelli di padronanza per le competenze attive (DigCompEdu 3.0 / Standard).
                     </p>
                 </div>
@@ -96,7 +96,7 @@ const CompetencyLevelsView: React.FC<CompetencyLevelsViewProps> = ({ competenze 
                             {competenza.framework || 'Framework Standard'}
                         </span>
                     </div>
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         {competenza.livelli.map(livello => (
                            <LevelCard key={livello.id} livello={livello} />
                         ))}

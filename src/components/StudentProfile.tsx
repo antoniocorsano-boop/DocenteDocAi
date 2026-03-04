@@ -152,97 +152,61 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     };
 
     const renderOverview = () => (
-        <div >
-            <div >
-                <InfoCard 
-                    title="Media Voti"
-                    description={performance.grade || '-'}
-                    icon="analytics"
-                    variant="primary"
-                    
-                />
-                <InfoCard 
-                    title="Andamento"
-                    description={performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile'}
-                    icon={trendIcon}
-                    variant="surface"
-                    
-                />
-                <InfoCard 
-                    title="Assenze"
-                    description={`${attendanceStats.absences} ore`}
-                    icon="event_busy"
-                    variant="secondary"
-                    
-                />
-                <InfoCard 
-                    title="Ritardi"
-                    description={`${attendanceStats.lates} ingressi`}
-                    icon="schedule"
-                    variant="tertiary"
-                    
-                />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--md-sys-spacing-3)' }}>
+                <InfoCard title="Media Voti" description={performance.grade || '-'} icon="analytics" variant="primary" />
+                <InfoCard title="Andamento" description={performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile'} icon={trendIcon} variant="surface" />
+                <InfoCard title="Assenze" description={`${attendanceStats.absences} ore`} icon="event_busy" variant="secondary" />
+                <InfoCard title="Ritardi" description={`${attendanceStats.lates} ingressi`} icon="schedule" variant="tertiary" />
             </div>
 
             {onOpenInclusionPlanEditor && (
-                <div 
-                    
+                <button
                     onClick={() => onOpenInclusionPlanEditor(student)}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-tertiary-container)', border: 'none', cursor: 'pointer', width: 'var(--md-sys-percent-100)', textAlign: 'left' }}
                 >
-                    <div >
-                        <div >
-                            <span >accessibility_new</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-tertiary)', color: 'var(--md-sys-color-on-tertiary)' }}>
+                            <span className="material-symbols-outlined">accessibility_new</span>
                         </div>
-                        <div>
-                            <h3 >Piano di Inclusione (BES/DSA)</h3>
-                            <p >Gestisci misure compensative e dispensative.</p>
+                        <div style={{ flex: 1 }}>
+                            <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-tertiary-container)' }}>Piano di Inclusione (BES/DSA)</h3>
+                            <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-tertiary-container)', opacity: 0.8 }}>Gestisci misure compensative e dispensative.</p>
                         </div>
                     </div>
-                    <span >arrow_forward</span>
-                </div>
+                    <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-tertiary-container)' }}>arrow_forward</span>
+                </button>
             )}
 
             {/* AI Judgment Suggestion Section */}
-            <div >
-                <div >
-                    <div >
-                        <div >
-                            <span >psychology</span>
+            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', padding: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-secondary-container)', color: 'var(--md-sys-color-on-secondary-container)' }}>
+                            <span className="material-symbols-outlined">psychology</span>
                         </div>
-                        <div>
-                            <h3 >Consulente AI: Giudizio</h3>
-                            <p >Genera una bozza di giudizio basata sui dati.</p>
+                        <div style={{ flex: 1 }}>
+                            <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Consulente AI: Giudizio</h3>
+                            <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Genera una bozza di giudizio basata sui dati.</p>
                         </div>
                     </div>
-                    <M3Button 
-                        onClick={handleGenerateAiJudgment} 
-                        variant="filled" 
-                        
-                        disabled={isLoadingAi}
-                    >
+                    <M3Button onClick={handleGenerateAiJudgment} variant="filled" disabled={isLoadingAi}>
                         {isLoadingAi ? '⏳' : 'Genera Bozza'}
                     </M3Button>
                 </div>
 
                 {aiJudgment && (
-                    <div >
-                        <div >
-                            <span >auto_awesome</span>
-                            <span >Suggerimento AI</span>
+                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-primary-container)', padding: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                            <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-primary)' }}>auto_awesome</span>
+                            <span style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', color: 'var(--md-sys-color-on-primary-container)' }}>Suggerimento AI</span>
                         </div>
-                        <p >
-                            "{aiJudgment}"
+                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-primary-container)', fontStyle: 'italic', lineHeight: 1.6 }}>
+                            &ldquo;{aiJudgment}&rdquo;
                         </p>
-                        <div >
-                            <M3Button 
-                                onClick={() => {
-                                    navigator.clipboard.writeText(aiJudgment);
-                                    alert("Giudizio copiato negli appunti!");
-                                }} 
-                                variant="text" 
-                                
-                            >
-                                <span >content_copy</span>
+                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <M3Button onClick={() => { navigator.clipboard.writeText(aiJudgment); alert('Giudizio copiato negli appunti!'); }} variant="text">
+                                <span className="material-symbols-outlined">content_copy</span>
                                 Copia Testo
                             </M3Button>
                         </div>
@@ -251,78 +215,63 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             </div>
 
             {isTerminalYear && (
-                <div >
-                    <div >
-                        <div >
-                            <span >workspace_premium</span>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-secondary)', color: 'var(--md-sys-color-on-secondary)' }}>
+                            <span className="material-symbols-outlined">workspace_premium</span>
                         </div>
-                        <div>
-                            <h3 >Certificazione Competenze</h3>
-                            <p >Fine ciclo studi</p>
+                        <div style={{ flex: 1 }}>
+                            <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Certificazione Competenze</h3>
+                            <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Fine ciclo studi</p>
                         </div>
                     </div>
-                    <M3Button onClick={handleGenerateCertification} variant="tonal"  disabled={isExporting}>
-                        Genera PDF
-                    </M3Button>
+                    <M3Button onClick={handleGenerateCertification} variant="tonal" disabled={isExporting}>Genera PDF</M3Button>
                 </div>
             )}
         </div>
     );
 
     const renderGrades = () => (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             {Object.entries(groupedEvaluations).length > 0 ? (
                 Object.entries(groupedEvaluations).map(([materia, evals]: [string, Valutazione[]]) => (
-                    <div key={materia} >
-                        <div >
-                            <div >
-                                <div >
+                    <div key={materia} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', overflow: 'hidden' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>
                                     {materia.substring(0, 2).toUpperCase()}
                                 </div>
-                                <div>
-                                    <h3 >{materia}</h3>
-                                    <p >{evals.length} prove registrate</p>
+                                <div style={{ flex: 1, minWidth: 0 }}>
+                                    <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{materia}</h3>
+                                    <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{evals.length} prove registrate</p>
                                 </div>
                             </div>
-                            <div >
-                                <span >Media:</span>
-                                <span >
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-primary-container)' }}>
+                                <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-primary-container)' }}>Media:</span>
+                                <span style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-medium-font-size)', color: 'var(--md-sys-color-on-primary-container)' }}>
                                     {(evals.reduce((a, b) => a + (parseFloat(b.voto) || 0), 0) / evals.length).toFixed(1)}
                                 </span>
                             </div>
                         </div>
-                        <div >
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
                             {evals.map(ev => (
                                 <M3ListItem
                                     key={ev.id}
                                     leadingElement={
-                                        <div style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            width: 'var(--md-sys-spacing-10)',
-                                            height: 'var(--md-sys-spacing-10)',
-                                            borderRadius: 'var(--md-sys-shape-corner-small)',
-                                            backgroundColor: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',
-                                            color: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)',
-                                            fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                                            fontSize: 'var(--md-sys-typescale-label-large-font-size)'
-                                        }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)', color: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)', fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>
                                             {ev.voto}
                                         </div>
                                     }
                                     headline={ev.argomento || 'Verifica'}
                                     supportingText={`${ev.tipo} ${ev.note ? `• ${ev.note}` : ''}`}
                                     trailingElement={
-                                        <div >
-                                            <span >{new Date(ev.data).toLocaleDateString()}</span>
-                                            <M3Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="icon" >
-                                                <span style={{
-}}>delete</span>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                                            <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(ev.data).toLocaleDateString()}</span>
+                                            <M3Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="icon">
+                                                <span className="material-symbols-outlined">delete</span>
                                             </M3Button>
                                         </div>
                                     }
-                                    
                                 />
                             ))}
                         </div>
@@ -333,9 +282,9 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     );
 
     const renderCompetencies = () => (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             {Object.entries(groupedCompetencyEvals).length > 0 ? (
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                     {Object.values(groupedCompetencyEvals).map(({ competenza, evals }) => {
                         const latest = evals.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())[0];
                         const level = competenza.livelli.find(l => l.id === latest.livelloId);
@@ -350,11 +299,11 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                         }
 
                         return (
-                            <div key={competenza.id} >
-                                <div >
-                                    <div>
-                                        <p >{competenza.codice}</p>
-                                        <h3 >{competenza.nome}</h3>
+                            <div key={competenza.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', padding: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
+                                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-3)' }}>
+                                    <div style={{ flex: 1, minWidth: 0 }}>
+                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-primary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{competenza.codice}</p>
+                                        <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{competenza.nome}</h3>
                                     </div>
                                     <div style={{
                                         padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
@@ -374,17 +323,17 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                         {level?.nome}
                                     </div>
                                 </div>
-                                <div >
-                                    <div >
-                                        <span >event</span>
-                                        <span >{new Date(latest.data).toLocaleDateString()}</span>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-on-surface-variant)' }}>event</span>
+                                        <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(latest.data).toLocaleDateString()}</span>
                                     </div>
-                                    <p >{level?.descrizione}</p>
+                                    <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{level?.descrizione}</p>
                                 </div>
                                 {latest.nota && (
-                                    <div >
-                                        <span >chat_bubble</span>
-                                        <p >&ldquo;{latest.nota}&rdquo;</p>
+                                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-on-surface-variant)', flexShrink: 0 }}>chat_bubble</span>
+                                        <p style={{ margin: 0, fontStyle: 'italic', color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>&ldquo;{latest.nota}&rdquo;</p>
                                     </div>
                                 )}
                             </div>
@@ -396,26 +345,28 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     );
 
     const renderNotes = () => (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             {studentReceptions.length > 0 ? (
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                     {(studentReceptions || []).map(lesson => (
-                        <div key={lesson.id} >
-                            <div ></div>
-                            <div >
-                                <div >
-                                    <span >meeting_room</span>
-                                    <span >Ricevimento</span>
+                        <div key={lesson.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: 0 }}>
+                            <div style={{ height: 'var(--md-sys-spacing-1)', backgroundColor: 'var(--md-sys-color-primary)' }} />
+                            <div style={{ padding: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-primary-container)' }}>
+                                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-primary)' }}>meeting_room</span>
+                                        <span style={{ fontSize: 'var(--md-sys-typescale-label-medium-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-on-primary-container)' }}>Ricevimento</span>
+                                    </div>
+                                    <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(lesson.data).toLocaleDateString()}</span>
                                 </div>
-                                <span >{new Date(lesson.data).toLocaleDateString()}</span>
+                                <p style={{ margin: 0, color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', lineHeight: 1.6 }}>{lesson.contenuto}</p>
+                                {lesson.obiettivi && (
+                                    <div style={{ padding: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-surface-container-high)', borderLeft: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' }}>
+                                        <p style={{ margin: '0 0 var(--md-sys-spacing-1)', fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-small-font-size)', color: 'var(--md-sys-color-primary)', textTransform: 'uppercase' }}>Esito / Obiettivi</p>
+                                        <p style={{ margin: 0, color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>{lesson.obiettivi}</p>
+                                    </div>
+                                )}
                             </div>
-                            <p >{lesson.contenuto}</p>
-                            {lesson.obiettivi && (
-                                <div >
-                                    <p >Esito / Obiettivi</p>
-                                    <p >{lesson.obiettivi}</p>
-                                </div>
-                            )}
                         </div>
                     ))}
                 </div>
@@ -431,50 +382,40 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     ];
 
     return (
-        <div >
-            <div >
-                <div >
-                    <M3Button onClick={onBack} variant="icon" >
-                        <span style={{
-}}>arrow_back</span>
+        <div style={{ display: 'flex', flexDirection: 'column', height: 'var(--md-sys-percent-100)', overflowY: 'auto', backgroundColor: 'var(--md-sys-color-surface)' }}>
+            {/* Profile Header */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                    <M3Button onClick={onBack} variant="icon">
+                        <span className="material-symbols-outlined">arrow_back</span>
                     </M3Button>
-                    <div >
-                        <Avatar 
-                            name={`${student.nome} ${student.cognome}`} 
-                            size="xl" 
-                            
-                        />
-                        <div>
-                            <h1 >{student.cognome} {student.nome}</h1>
-                            <div >
-                                <span >Classe {student.classe}</span>
-                                {student.hasBES && <span >BES</span>}
-                                {student.hasDSA && <span >DSA</span>}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
+                        <Avatar name={`${student.nome} ${student.cognome}`} size="xl" />
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                            <h1 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{student.cognome} {student.nome}</h1>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-1)', flexWrap: 'wrap' }}>
+                                <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Classe {student.classe}</span>
+                                {student.hasBES && <span style={{ padding: '0 var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>BES</span>}
+                                {student.hasDSA && <span style={{ padding: '0 var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-secondary-container)', color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>DSA</span>}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div >
-                    <M3Button onClick={() => setIsInterviewModeOpen(true)} variant="tonal" >
-                        <span >record_voice_over</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                    <M3Button onClick={() => setIsInterviewModeOpen(true)} variant="tonal">
+                        <span className="material-symbols-outlined">record_voice_over</span>
                         Colloquio
                     </M3Button>
-                    <M3Button onClick={handleExportPdf} variant="filled"  disabled={isExporting}>
-                        <span >download</span>
+                    <M3Button onClick={handleExportPdf} variant="filled" disabled={isExporting}>
+                        <span className="material-symbols-outlined">download</span>
                         Esporta PDF
                     </M3Button>
                 </div>
             </div>
 
-            <TabGroup 
-                tabs={tabs} 
-                activeTab={activeTab} 
-                onTabChange={(id) => setActiveTab(id as ProfileTab)}
-                variant="primary"
-                
-            />
+            <TabGroup tabs={tabs} activeTab={activeTab} onTabChange={(id) => setActiveTab(id as ProfileTab)} variant="primary" />
 
-            <div >
+            <div style={{ flex: 1, padding: 'var(--md-sys-spacing-4)', overflowY: 'auto' }}>
                 {activeTab === 'overview' && renderOverview()}
                 {activeTab === 'grades' && renderGrades()}
                 {activeTab === 'competencies' && renderCompetencies()}

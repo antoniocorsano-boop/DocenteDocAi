@@ -95,7 +95,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                         </div>
                     </div>
 
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <div  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
                             <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) var(--md-sys-percent-10), transparent)',  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center" }}>
                                 <span  style={{color: "var(--md-sys-color-primary)", fontSize: 'var(--md-sys-spacing-4)'}}>verified</span>
@@ -145,7 +145,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                                         <div style={{borderRadius: 'var(--md-sys-shape-corner-full)'}}>
                                                             {isSelected && <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', width: 'var(--md-sys-spacing-2)', height: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-spacing-4)' }} />}
                                                         </div>
-                                                        <div>
+                                                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                                                             <span style={{
                                                               color: isSelected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
                                                               fontWeight: 'var(--md-sys-typescale-weight-black)',

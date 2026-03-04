@@ -141,7 +141,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               gap: 'var(--md-sys-spacing-6)'}}>
               <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-on-tertiary-container)',
                 marginTop: 'var(--md-sys-spacing-4)'}}>privacy_tip</span>
-              <div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <M3Typography
                   variant="label-small"
                   style={{color: 'var(--md-sys-color-on-tertiary-container)',
@@ -189,7 +189,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'}}>
                     <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-tertiary)'}}>description</span>
-                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <M3Typography variant="headline-small" style={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.totalDocumentsGenerated)}</M3Typography>
                       <M3Typography
@@ -213,7 +213,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'}}>
                     <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-secondary)'}}>smart_toy</span>
-                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <M3Typography variant="headline-small" style={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.aiInteractionsCount)}</M3Typography>
                       <M3Typography
@@ -238,7 +238,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     gap: 'var(--md-sys-spacing-6)'}}>
                     <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-primary)',
                       fontSize: 'var(--md-sys-typescale-display-large-font-size)'}}>file_copy</span>
-                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <M3Typography variant="headline-small" style={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.templatesCreated)}</M3Typography>
                       <M3Typography
@@ -263,7 +263,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     gap: 'var(--md-sys-spacing-6)'}}>
                     <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-tertiary)',
                       fontSize: 'var(--md-sys-typescale-display-large-font-size)'}}>batch_prediction</span>
-                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <M3Typography variant="headline-small" style={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.exportBatchesCount)}</M3Typography>
                       <M3Typography
@@ -452,7 +452,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         justifyContent: 'space-between',
                         alignItems: 'flex-start'
                       }}>
-                        <div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                           <M3Typography variant="body-medium" style={{
                             color: 'var(--md-sys-color-on-surface)'}}>{event.featureName}</M3Typography>
                           <M3Typography
@@ -524,7 +524,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                   onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'analytics-toggle': true }))}
                   onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'analytics-toggle': false }))}>
-                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <M3Typography variant="body-medium" style={{
                         color: 'var(--md-sys-color-on-surface)'}}>Analytics Abilitati</M3Typography>
                       <M3Typography variant="body-small" style={{
@@ -586,7 +586,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                       onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'feature-usage-toggle': true }))}
                       onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'feature-usage-toggle': false }))}>
-                        <div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                           <M3Typography variant="body-medium" style={{
                             color: 'var(--md-sys-color-on-surface)'}}>Utilizzo Funzionalità</M3Typography>
                           <M3Typography variant="body-small" style={{
@@ -646,7 +646,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                       onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'document-metrics-toggle': true }))}
                       onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'document-metrics-toggle': false }))}>
-                        <div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                           <M3Typography variant="body-medium" style={{
                             color: 'var(--md-sys-color-on-surface)'}}>Metriche Documenti</M3Typography>
                           <M3Typography variant="body-small" style={{
@@ -739,7 +739,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     paddingTop: 'var(--md-sys-spacing-4)',
                     borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                     opacity: 'var(--md-sys-state-opacity-tint-faint)'}}>
-                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <M3Typography
                         variant="label-small"
                         style={{textTransform: 'uppercase',

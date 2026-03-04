@@ -422,7 +422,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             >
                 {/* HEADER */}
                 <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--md-sys-spacing-6)' }}>
-                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <M3Typography variant="headline-medium">Reportistica & Documenti</M3Typography>
                         <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                             Genera documentazione didattica, verbali e reportistica avanzata.
@@ -439,7 +439,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                 </header>
 
                 {/* QUICK ACTIONS / RECENT */}
-                <section>
+                <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <SectionHeader
                         title="Documentazione Didattica"
                         subtitle="Seleziona la fase dell'anno scolastico"

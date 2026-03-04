@@ -49,12 +49,12 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                             {slot.classe}
                         </span>
                         <span style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface) 20%, transparent)', color: 'var(--md-sys-color-on-primary-container)' ,  border: "none" }}>
-                            <span >{typeIcon}</span>
+                            <span>{typeIcon}</span>
                             {lesson.tipoLezione || 'Lezione'}
                         </span>
                         {attachmentCount > 0 && (
                              <span style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface) 30%, transparent)', color: 'var(--md-sys-color-on-primary-container)' ,  border: "none" }} title={`${attachmentCount} allegati`}>
-                                <span >attachment</span>
+                                <span>attachment</span>
                                 {attachmentCount}
                             </span>
                         )}
@@ -63,14 +63,14 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                 </div>
 
                 {/* Main Content */}
-                <div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <p  style={{textTransform: "uppercase", letterSpacing: "0.05em", opacity: "var(--md-sys-state-opacity-supporting)", marginBottom: 'var(--md-sys-spacing-4)'}}>{slot.materia}</p>
                     <h3  style={{fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: "1.25", marginBottom: 'var(--md-sys-spacing-4)'}}>
                         {lesson.contenuto}
                     </h3>
                     {lesson.nota && (
                         <p style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , marginTop: 'var(--md-sys-spacing-4)', opacity: "var(--md-sys-state-opacity-caption)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
-                            <span >sticky_note_2</span>
+                            <span>sticky_note_2</span>
                             {lesson.nota}
                         </p>
                     )}

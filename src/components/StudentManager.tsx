@@ -57,19 +57,19 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
       }}
     >
       <Avatar name={`${student.nome} ${student.cognome}`} size="lg"  />
-      <div >
-          <h3 >{student.cognome} {student.nome}</h3>
-          <div >
-              <span >Classe {student.classe}</span>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+          <h3>{student.cognome} {student.nome}</h3>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+              <span>Classe {student.classe}</span>
               {student.isArchived && (
-                  <span >
+                  <span>
                       {student.archiveYear ? `Archiviato ${student.archiveYear}` : 'ARCHIVIATO'}
                   </span>
               )}
           </div>
       </div>
 
-      <div >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
           {student.isArchived ? (
               <M3Button 
                   onClick={() => onRestore(student)} 
@@ -193,27 +193,27 @@ const StudentManager: React.FC<StudentManagerProps> = ({
     };
 
     return (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <SectionHeader
                 title="Gestione Studenti"
                 subtitle="Archivia, importa e aggiorna anagrafica e stato classe."
                 actions={
-                    <div >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                         <M3Button onClick={() => setIsImportModalOpen(true)} variant="tonal" >
-                            <span >upload_file</span>
+                            <span>upload_file</span>
                             Importa
                         </M3Button>
                         <M3Button onClick={() => setEditingStudent('new')} variant="filled" >
-                            <span >add</span>
+                            <span>add</span>
                             Nuovo
                         </M3Button>
                     </div>
                 }
             />
 
-            <div >
-                <div >
-                    <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <TextField
                             id="student-search"
                             label="Cerca studente per nome..."
@@ -224,7 +224,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                             aria-label="Ricerca studenti per nome o cognome"
                         />
                     </div>
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <SelectField
                             id="class-filter"
                             label="Seleziona classe"

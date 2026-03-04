@@ -48,8 +48,8 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                 {/* Status Section */}
                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                        <div>
-                            <h4 >Capolavoro</h4>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                            <h4>Capolavoro</h4>
                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Caricato nell&apos;E-Portfolio</p>
                         </div>
                         <input 
@@ -60,8 +60,8 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                         />
                     </div>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                        <div>
-                            <h4 >Autovalutazione</h4>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                            <h4>Autovalutazione</h4>
                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Riflessione critica completata</p>
                         </div>
                         <input 
@@ -109,7 +109,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                         ) : (
                             entries.map(entry => (
                                 <div key={entry.id} style={{ backgroundColor: 'var(--md-sys-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", justifyContent: "space-between", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
-                                    <div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                             <span  style={{color: "var(--md-sys-color-primary)", fontSize: "var(--md-sys-typescale-body-medium-font-size)"}}>
                                                 {entry.category === 'capolavoro' ? 'auto_awesome' : 'description'}

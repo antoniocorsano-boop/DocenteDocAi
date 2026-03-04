@@ -38,25 +38,25 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
     };
 
     return (
-        <div >
-            <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <Avatar name={`${student.nome} ${student.cognome}`} size="lg"  />
-                <div >
-                    <h3 >{student.cognome} {student.nome}</h3>
-                    <p >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <h3>{student.cognome} {student.nome}</h3>
+                    <p>
                         {lesson.materia} • {lesson.contenuto}
                     </p>
                 </div>
             </div>
 
-            <div >
-                <div >
-                    <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>description</span>
                     </div>
-                    <div>
-                        <p >{submission.file?.name || 'Allegato Elaborato'}</p>
-                        <p >{submission.file?.mimeType}</p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        <p>{submission.file?.name || 'Allegato Elaborato'}</p>
+                        <p>{submission.file?.mimeType}</p>
                     </div>
                 </div>
                 <M3Button onClick={handleDownload} variant="tonal"  style={{ fontSize: "var(--md-sys-typescale-label-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)" }}>
@@ -66,8 +66,8 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
             </div>
 
             {submission.status === 'pending' && onGrade && (
-                <div >
-                    <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <SelectField
                             label="Voto Finale"
                             value={grade}
@@ -99,14 +99,14 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
             )}
 
             {submission.status === 'graded' && (
-                <div >
-                    <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                         <span style={{ color: 'var(--md-sys-color-primary)' }}>check</span>
                     </div>
-                    <div>
-                        <p >Valutato con successo</p>
-                        <p >Esito: {submission.teacherFeedback}</p>
-                        {feedback && <p >"{feedback}"</p>}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        <p>Valutato con successo</p>
+                        <p>Esito: {submission.teacherFeedback}</p>
+                        {feedback && <p>"{feedback}"</p>}
                     </div>
                 </div>
             )}

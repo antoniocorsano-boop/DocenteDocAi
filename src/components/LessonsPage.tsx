@@ -137,10 +137,10 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
     }, [uda, filterClass]);
 
 return (
-        <div >
-            <div >
-            <div >
-                <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <M3Typography variant="headline-large">Progetta Lezioni</M3Typography>
                     <M3Typography variant="body-large">Genera e orchestra sequenze di lezioni partendo da UDA e classi.</M3Typography>
                 </div>
@@ -176,7 +176,7 @@ return (
                             color: 'var(--md-sys-color-on-primary-container)'
                         }}>lightbulb</span>
                     </div>
-                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <M3Typography variant="headline-medium">Hai un'idea per una lezione?</M3Typography>
                         <M3Typography variant="body-medium">
                             Tocca qui per trasformarla subito in un piano strutturato con l'AI. Dettala o scrivila.

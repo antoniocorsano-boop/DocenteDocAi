@@ -98,9 +98,9 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
     };
     
     return (
-        <div >
-            <div >
-                <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <h1 style={{ color: 'var(--md-sys-color-on-primary)' }}>Competenze {selectedClass}</h1>
                     <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                         Analisi dei livelli raggiunti per area di competenza.
@@ -223,7 +223,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                         >
                                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                                 <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
-                                                <div>
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                                     <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{student.cognome} {student.nome}</p>
                                                     <div  style={{ display: "flex", alignItems: "center" }}>
                                                         <span style={{borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: viewingStudents.levelColor, width: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-spacing-6)'}}></span>

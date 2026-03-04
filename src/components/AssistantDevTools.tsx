@@ -39,7 +39,7 @@ const AssistantDevTools: React.FC<Props> = ({ actions }) => {
 
   return (
     <div  aria-hidden={false}>
-      <div >
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
         <M3Button variant="outlined" onClick={toggleSuggestion}>
           {suggestionOn ? 'Rimuovi suggerimento' : 'Simula suggerimento'}
         </M3Button>

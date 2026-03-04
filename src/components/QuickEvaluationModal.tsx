@@ -77,10 +77,10 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
     const selectedCompetenza = settings.competenze.find(c => c.id === selectedCompetenzaId);
 
     const renderVotoTab = () => (
-        <div >
-            <div>
-                <label >Tipo Prova</label>
-                <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <label>Tipo Prova</label>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     {EVALUATION_TYPES.map(t => (
                         <M3ChoiceCard
                             key={t}
@@ -94,7 +94,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                 </div>
             </div>
             
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <SelectField
                     id="voto"
                     label="Voto / Giudizio"
@@ -125,7 +125,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
     );
     
     const renderCompetenzaTab = () => (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <SelectField
                 id="competenza"
                 label="Competenza"
@@ -136,9 +136,9 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
             </SelectField>
 
             {selectedCompetenza && (
-                <div>
-                    <label >Livello Raggiunto</label>
-                    <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <label>Livello Raggiunto</label>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         {selectedCompetenza.livelli.map(level => (
                             <label key={level.id} style={{
                                 display: 'flex',
@@ -191,9 +191,9 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
             level={1}
         >
             <M3DialogContent >
-                <div >
-                    <h3 >{student.cognome} {student.nome}</h3>
-                    <p >{lesson.materia} - {new Date().toLocaleDateString('it-IT')}</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <h3>{student.cognome} {student.nome}</h3>
+                    <p>{lesson.materia} - {new Date().toLocaleDateString('it-IT')}</p>
                 </div>
 
                 <TabGroup

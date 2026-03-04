@@ -120,7 +120,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
             </div>
             
             {step === 1 && (
-                <div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <TextField 
                         id="wizard-name"
                         label="Come ti chiami?"
@@ -133,7 +133,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
             )}
 
             {step === 2 && (
-                <div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <SelectField 
                         id="wizard-school-type"
                         label="Tipo di Scuola"
@@ -161,7 +161,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
             )}
 
             {step === 3 && (
-                <div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <TextField 
                         id="wizard-class-name"
                         label="La tua classe principale"

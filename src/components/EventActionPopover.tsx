@@ -46,13 +46,13 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
         >
             {/* Event Description */}
             {event.descrizione && (
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     {event.descrizione}
                 </div>
             )}
 
             {/* Action Buttons */}
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <button
                     onClick={handleEdit}
                     

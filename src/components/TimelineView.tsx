@@ -163,16 +163,16 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
     };
 
     return (
-        <div >
-            <div >
-                <h2 >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <h2>
                     <span style={{
 }}>calendar_view_week</span>
                     Timeline Didattica
                 </h2>
-                <div >
-                    <span ><span ></span> UDA</span>
-                    <span ><span >flag</span> Scadenza</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                    <span><span></span> UDA</span>
+                    <span><span>flag</span> Scadenza</span>
                 </div>
             </div>
 
@@ -181,18 +181,18 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                 <div  style={{ gridTemplateColumns: `repeat(${months.length}, 1fr)`, minWidth: `${minWidth}px` }}>
                     {months.map((m, i) => (
                         <div key={i} >
-                            <span >{m.label} <span style={{ fontSize: "var(--md-sys-typescale-label-large-font-size)", opacity: "var(--md-sys-state-opacity-supporting)", fontWeight: "normal" }}>{m.year}</span></span>
+                            <span>{m.label} <span style={{ fontSize: "var(--md-sys-typescale-label-large-font-size)", opacity: "var(--md-sys-state-opacity-supporting)", fontWeight: "normal" }}>{m.year}</span></span>
                         </div>
                     ))}
                 </div>
 
                 {/* Empty State Overlay */}
                 {isEmpty && (
-                    <div >
-                        <div >
-                            <span >edit_calendar</span>
-                            <p >Nessuna pianificazione.</p>
-                            <p >Usa il Wizard Annuale o crea un&apos;UDA.</p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                            <span>edit_calendar</span>
+                            <p>Nessuna pianificazione.</p>
+                            <p>Usa il Wizard Annuale o crea un&apos;UDA.</p>
                         </div>
                     </div>
                 )}
@@ -204,7 +204,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                             
                             style={{ left: `${todayPosition}%` }}
                         >
-                            <div >OGGI</div>
+                            <div>OGGI</div>
                         </div>
                     )}
                 </div>
@@ -212,7 +212,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                 {/* 3. Content Layers */}
                 <div  style={{ minWidth: `${minWidth}px` }}>
                     {/* Top Row: Events */}
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         {events.filter(e => e.tipo === 'scadenza' || e.tipo === 'consiglio').map(evt => {
                             const pos = getPositionPercentage(evt.data);
                             if (pos < 0 || pos > 100) return null;
@@ -224,10 +224,10 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                                     title={`${evt.titolo} (${new Date(evt.data).toLocaleDateString()})`}
                                     aria-label={`Evento: ${evt.titolo} il ${new Date(evt.data).toLocaleDateString()}`}
                                 >
-                                    <span >
+                                    <span>
                                         {evt.tipo === 'scadenza' ? 'flag' : 'gavel'}
                                     </span>
-                                    <div ></div>
+                                    <div></div>
                                 </div>
                             );
                         })}
@@ -246,9 +246,9 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
 
                     {/* Snackbar preview / undo */}
                     {showSnackbar && lastMove && (
-                        <div >
-                            <div >
-                                <div >UDA spostata. <button  onClick={() => {
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                <div>UDA spostata. <button  onClick={() => {
                                     const original = udas.find(u => u.id === lastMove.udaId);
                                     if (original) {
                                         onSaveUda({ ...original, startDate: lastMove.prevStart, endDate: lastMove.prevEnd });
@@ -264,8 +264,8 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
 
                     {/* Drag Preview Bubble */}
                     {previewMessage && (
-                        <div >
-                            <div > {previewMessage}</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                            <div> {previewMessage}</div>
                         </div>
                     )}
 

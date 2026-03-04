@@ -15,15 +15,15 @@ interface ProfileSelectionScreenProps {
 
 const ProfileSelectionScreen: React.FC<ProfileSelectionScreenProps> = ({ profiles, onSelectProfile }) => {
   return (
-    <div >
-      <div >
-        <h1 >Scegli il tuo profilo</h1>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+        <h1>Scegli il tuo profilo</h1>
         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Seleziona un profilo per continuare.</p>
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
           {profiles.map(profile => (
             <button key={profile.id}  onClick={() => onSelectProfile(profile)}>
               <Avatar name={profile.displayName} src={profile.photoURL} size="lg" />
-              <span >{profile.displayName}</span>
+              <span>{profile.displayName}</span>
             </button>
           ))}
         </div>

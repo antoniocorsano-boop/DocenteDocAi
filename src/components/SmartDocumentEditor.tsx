@@ -285,10 +285,10 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
     }, [editorRef, editorTitle]);
 
     return (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             {/* TOOLBAR */}
-            <div >
-                <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <button onClick={handleCloseSafe}  aria-label="Chiudi editor"><span style={{
 }} aria-hidden="true">arrow_back</span></button>
                     <input 
@@ -297,38 +297,38 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                         onChange={(e) => { setEditorTitle(e.target.value); setIsDirty(true); }} 
                         
                     />
-                    {isDirty && <span >• Modificato</span>}
+                    {isDirty && <span>• Modificato</span>}
                 </div>
                 
                 <div  style={{ display: "none" }}>
                     <button onClick={() => execCmd('bold')}  title="Grassetto" aria-label="Applica grassetto"><span  aria-hidden="true">format_bold</span></button>
                     <button onClick={() => execCmd('italic')}  title="Corsivo" aria-label="Applica corsivo"><span  aria-hidden="true">format_italic</span></button>
                     <button onClick={() => execCmd('formatBlock', 'h2')}  title="Titolo" aria-label="Applica stile titolo"><span  aria-hidden="true">title</span></button>
-                    <div ></div>
+                    <div></div>
                     <button onClick={() => execCmd('insertUnorderedList')}  title="Elenco" aria-label="Inserisci elenco puntato"><span  aria-hidden="true">format_list_bulleted</span></button>
                     <button onClick={handleAiTable}  style={{color: "var(--md-sys-color-primary)"}} title="Tabella AI" aria-label="Genera tabella con AI"><span  aria-hidden="true">table_chart</span></button>
                 </div>
 
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <button onClick={handleCopyForGoogleDocs}  title="Copia per Google Docs">
-                        <span >content_copy</span> Docs
+                        <span>content_copy</span> Docs
                     </button>
                     <button onClick={handleDownload} >
-                        <span >download</span> DOCX
+                        <span>download</span> DOCX
                     </button>
                     <button onClick={handlePrint}  title="Stampa / PDF" aria-label="Stampa o salva come PDF">
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }} aria-hidden="true">print</span>
                     </button>
                     {onSaveToKb && (
                         <button onClick={handleSave} >
-                            <span >save</span> Salva
+                            <span>save</span> Salva
                         </button>
                     )}
                 </div>
             </div>
 
             {/* EDITOR AREA */}
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <div 
                     ref={editorRef}
                     contentEditable
@@ -345,22 +345,22 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                     
                     style={{ top: aiMenuPosition.top, left: aiMenuPosition.left }}
                 >
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <AiThinkingGem size="small" />
-                        <span >AI Assistant</span>
+                        <span>AI Assistant</span>
                     </div>
                     {isAiThinking ? (
-                        <div >Elaborazione...</div>
+                        <div>Elaborazione...</div>
                     ) : (
                         <>
                             <button onClick={() => handleAiRefine("Riscrivi rendendo il tono più formale e professionale.")} >
-                                <span >history_edu</span> Rendi Formale
+                                <span>history_edu</span> Rendi Formale
                             </button>
                             <button onClick={() => handleAiRefine("Espandi questo concetto aggiungendo dettagli pedagogici.")} >
-                                <span >unfold_more</span> Espandi
+                                <span>unfold_more</span> Espandi
                             </button>
                             <button onClick={() => handleAiRefine("Sintetizza in un elenco puntato.")} >
-                                <span >format_list_bulleted</span> Sintetizza
+                                <span>format_list_bulleted</span> Sintetizza
                             </button>
                         </>
                     )}

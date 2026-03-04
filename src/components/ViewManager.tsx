@@ -160,7 +160,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         const currentDraftEntry = draftKey !== undefined ? draftRegister[draftKey] : undefined;
                         
                         if (!currentDraftEntry) {
-                            return <div >Errore: Dati lezione in bozza non trovati.</div>;
+                            return <div>Errore: Dati lezione in bozza non trovati.</div>;
                         }
 
                         return (
@@ -204,9 +204,9 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         const currentStudent = students.find(s => s.id === studentId);
                         if (!currentStudent) {
                             return (
-                                <div >
-                                    <h2 >Errore Accesso Studente</h2>
-                                    <p >
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                    <h2>Errore Accesso Studente</h2>
+                                    <p>
                                         Impossibile trovare il profilo studente selezionato.
                                     </p>
                                     <button onClick={() => handleNavigate('student-dashboard')} >
@@ -385,7 +385,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                     return (
                         <AuraView>
                             <div style={{ padding: 'var(--md-sys-spacing-4)', textAlign: "center", opacity: "var(--md-sys-state-opacity-placeholder)" }}>
-                                <h2 >Vista "{view}" non trovata</h2>
+                                <h2>Vista "{view}" non trovata</h2>
                                 <button onClick={() => actions.handleNavigate('home')}  style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                                     Torna alla Home
                                 </button>

@@ -350,7 +350,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                 );
             })}
             {filteredStudents.length === 0 && (
-                <div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <EmptyState title="Nessuno studente" description="Aggiungi studenti alla classe." icon="group_off" />
                 </div>
             )}
@@ -371,10 +371,10 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                         </div>
 
                         <div style={{ paddingTop: 'var(--md-sys-spacing-3)', borderTop: 'var(--md-sys-spacing-0) solid var(--md-sys-color-shadow)', marginTop: 'var(--md-sys-spacing-3)' }}>
-                            <div>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-2)' }}>
                                     <Avatar name={`${student.nome} ${student.cognome}`} size="lg" />
-                                    <div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <M3Typography variant="headline-small" style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', color: 'var(--md-sys-color-on-error-container)', marginBottom: 'var(--md-sys-spacing-2)' }}>
                                             {student.cognome} {student.nome}
                                         </M3Typography>
@@ -427,7 +427,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     return (
         <div style={{ padding: 'var(--md-sys-spacing-4)' }}>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-4)' }}>
-                <div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <M3Typography variant="headline-large" style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', letterSpacing: 'var(--md-sys-typescale-headline-large-tracking)', color: 'var(--md-sys-color-on-surface)' }}>
                         Registro Valutazioni
                     </M3Typography>
@@ -487,7 +487,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     style={{ padding: 'var(--md-sys-spacing-2)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}
                 >
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-3)' }}>
-                        <div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <M3Typography variant="headline-medium" style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', letterSpacing: 'var(--md-sys-typescale-headline-medium-tracking)', color: 'var(--md-sys-color-on-surface)' }}>
                                 Valutazione Unificata
                             </M3Typography>

@@ -99,7 +99,7 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
                 </InfoCard>
 
                 {/* Phases Timeline */}
-                <div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-2)'}}>Fasi di Lavoro</h3>
                     <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
                         {uda.phases.map((phase) => (

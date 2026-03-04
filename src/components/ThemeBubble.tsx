@@ -26,7 +26,7 @@ const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onC
             title={name}
             aria-label={`Seleziona tema ${name}`}
         >
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 {/* Background (Primary) */}
                 <div  style={{ backgroundColor: colors.primary }}></div>
 

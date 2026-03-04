@@ -230,7 +230,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 fontVariationSettings: '"FILL" 0',
               }}
             >group</span>
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
               <div style={{
                 fontFamily: 'var(--font-family)',
                 fontSize: 'var(--md-sys-typescale-headline-medium-font-size)',
@@ -277,7 +277,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 fontVariationSettings: '"FILL" 0',
               }}
             >grading</span>
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
               <div style={{
                 fontFamily: 'var(--font-family)',
                 fontSize: 'var(--md-sys-typescale-headline-medium-font-size)',

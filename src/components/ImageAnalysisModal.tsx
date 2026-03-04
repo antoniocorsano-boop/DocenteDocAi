@@ -79,7 +79,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
       <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)" }}>
         {/* Left Panel: Upload and Prompt */}
         <div style={{ padding: 'var(--md-sys-spacing-4)', borderRight: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column" }}>
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-6)' }}>1. Carica un'immagine</h3>
             <div 
               {...getRootProps()}
@@ -134,7 +134,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
             variant="filled"
              style={{ width: "var(--md-sys-percent-100)" }}
           >
-            {isLoading ? <span >progress_activity</span> : 'Analizza Immagine'}
+            {isLoading ? <span>progress_activity</span> : 'Analizza Immagine'}
           </M3Button>
           {error && <p style={{color: "var(--md-sys-color-error)", fontSize: 'var(--md-sys-typescale-body-large-font-size)', marginTop: 'var(--md-sys-spacing-4)', textAlign: "center", fontWeight: "var(--md-sys-typescale-weight-bold)"}}>{error}</p>}
         </div>
@@ -150,7 +150,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
               </div>
             )}
             {analysisResult && (
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <p style={{ color: 'var(--md-sys-color-on-primary)', whiteSpace: "pre-wrap", lineHeight: "1.625" }}>{analysisResult}</p>
                 </div>
             )}

@@ -57,18 +57,18 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
     });
 
     return (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             {/* Intro Card */}
-            <div >
-                <h2 >Gestione Framework e Competenze</h2>
-                <p >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <h2>Gestione Framework e Competenze</h2>
+                <p>
                     Seleziona le competenze che vuoi monitorare nel tuo registro. Puoi attivare interi framework come <strong>DigCompEdu 2.2</strong> (con focus IA) o le Competenze Chiave Europee.
                 </p>
             </div>
 
             {/* Filtri Framework: scroll orizzontale su mobile, sidebar su desktop */}
-            <div >
-                <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     {frameworks.map(fw => (
                         <button
                             key={fw}
@@ -100,15 +100,15 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                 }
                             }}
                         >
-                            <span >{fw}</span>
-                            {fw === 'DigCompEdu 2.2' && <span >smart_toy</span>}
+                            <span>{fw}</span>
+                            {fw === 'DigCompEdu 2.2' && <span>smart_toy</span>}
                         </button>
                     ))}
                 </div>
             </div>
 
             {/* Lista Competenze */}
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 {filteredCatalog.map(comp => {
                     const active = isCompetencyActive(comp.id);
                     return (
@@ -120,7 +120,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                 background: active ? 'var(--md-sys-color-surface)' : 'var(--md-sys-color-surface-container-low)'
                             }}
                         >
-                            <summary >
+                            <summary>
                                 <div
                                     onClick={(e) => {
                                         e.preventDefault(); // Prevent details toggle
@@ -154,18 +154,18 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                     }}
                                     title={active ? `Disattiva ${comp.nome}` : `Attiva ${comp.nome}`}
                                 >
-                                    {active && <span >check</span>}
+                                    {active && <span>check</span>}
                                 </div>
                                 <div style={{ flexGrow: "1", minWidth: "0" }}>
-                                    <span >{comp.codice}</span>
-                                    <h3 >{comp.nome}</h3>
-                                    <p >{comp.framework}</p>
+                                    <span>{comp.codice}</span>
+                                    <h3>{comp.nome}</h3>
+                                    <p>{comp.framework}</p>
                                 </div>
-                                <span >expand_more</span>
+                                <span>expand_more</span>
                             </summary>
-                            <div >
-                                <p >DESCRITTORI LIVELLI:</p>
-                                <div >
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                <p>DESCRITTORI LIVELLI:</p>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     {comp.livelli.map(lvl => (
                                         <div key={lvl.id} >
                                             <strong>{lvl.nome}:</strong> <span style={{ opacity: "var(--md-sys-state-opacity-caption)" }}>{lvl.descrizione}</span>

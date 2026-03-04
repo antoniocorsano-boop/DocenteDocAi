@@ -158,7 +158,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                 <div style={{ backgroundColor: 'var(--md-sys-color-primary)', opacity: 'var(--md-sys-state-opacity-tint-faint)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                     <span style={{ color: 'var(--md-sys-color-primary)' }}>upload_file</span>
                                 </div>
-                                <p >Trascina qui i file</p>
+                                <p>Trascina qui i file</p>
                                 <p  style={{opacity: "var(--md-sys-state-opacity-supporting)", marginTop: 'var(--md-sys-spacing-4)'}}>oppure clicca per sfogliare</p>
                             </div>
                         )}
@@ -188,7 +188,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                     {/* Right: Selected */}
                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-6)', display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                            <h3 >Selezionati</h3>
+                            <h3>Selezionati</h3>
                             <span  style={{borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", fontSize: "var(--md-sys-typescale-body-small-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)"}}>
                                 {materials.length}
                             </span>

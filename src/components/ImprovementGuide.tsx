@@ -215,7 +215,7 @@ const handleExportDocx = async () => {
 
     if (loadingStatus) {
         return (
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <AiThinkingGem size="large" text={loadingStatus} />
             </div>
         );
@@ -223,35 +223,35 @@ const handleExportDocx = async () => {
 
     if (error) {
         return (
-            <div >
-                <span >error</span>
-                <p >{error}</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                <span>error</span>
+                <p>{error}</p>
             </div>
         );
     }
 
     return (
-        <div >
-            <div >
-                <div >
-                    <h1 >Analisi Classe {selectedClass}</h1>
-                    <p >Report generato per il consiglio di classe.</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <h1>Analisi Classe {selectedClass}</h1>
+                    <p>Report generato per il consiglio di classe.</p>
                 </div>
-                <div >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                     <M3Button onClick={handleExportDocx} variant="outlined" >
-                        <span >description</span>
+                        <span>description</span>
                         Esporta Word
                     </M3Button>
                     <M3Button onClick={() => window.print()} variant="tonal" >
-                        <span >print</span>
+                        <span>print</span>
                         Stampa
                     </M3Button>
                 </div>
             </div>
 
             {/* AI Summary */}
-            <div >
-                <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <SectionHeader 
                         title="Sintesi dell'AI" 
                         icon="auto_awesome" 
@@ -261,7 +261,7 @@ const handleExportDocx = async () => {
                 </div>
 
                 {analysis && (
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <EditableContentCard
                             title="Sintesi Generale"
                             icon="summarize"
@@ -299,7 +299,7 @@ const handleExportDocx = async () => {
             />
 
             {/* Charts */}
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <InfoCard title="Distribuzione Voti" icon="bar_chart" style={{ height: "var(--md-sys-percent-100)" }}>
                     <div style={{padding: 'var(--md-sys-spacing-6)'}}>
                         <BarChart data={gradeDistributionData} color="var(--md-sys-color-secondary)" />

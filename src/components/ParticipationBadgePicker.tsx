@@ -39,8 +39,8 @@ const ParticipationBadgePicker: React.FC<ParticipationBadgePickerProps> = ({ anc
 
     return (
         <div ref={popoverRef}  style={style}>
-            <p >Assegna Badge</p>
-            <div >
+            <p>Assegna Badge</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 {PARTICIPATION_BADGES.map(badge => (
                     <button 
                         key={badge.id}
@@ -50,7 +50,7 @@ const ParticipationBadgePicker: React.FC<ParticipationBadgePickerProps> = ({ anc
                         <span  style={{ color: badge.color }}>
                             {badge.icon}
                         </span>
-                        <span >{badge.label}</span>
+                        <span>{badge.label}</span>
                     </button>
                 ))}
             </div>

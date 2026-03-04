@@ -195,13 +195,13 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
       `}</style>
       <M3Dialog
         title={
-            <div >
-                <div >
-                    <span >{typeIcon}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
+                <div className="lesson-icon-dynamic" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-large)', flexShrink: 0 }}>
+                    <span className="material-symbols-outlined">{typeIcon}</span>
                 </div>
-                <div >
-                    <h2 >Piano Lezione</h2>
-                    <p >{lesson.id.split('-').slice(0,2).join('-')}</p>
+                <div style={{ flex: 1 }}>
+                    <h2 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Piano Lezione</h2>
+                    <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{lesson.id.split('-').slice(0,2).join('-')}</p>
                 </div>
             </div>
         }
@@ -209,71 +209,63 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         mode="fullscreen"
         level={1}
       >
-        <M3DialogContent >
-            <div >
+        <M3DialogContent>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
                 {/* HERO SECTION */}
-                <div >
+                <div style={{ borderRadius: 'var(--md-sys-shape-corner-extra-large)', backgroundColor: 'var(--md-sys-color-primary-container)', padding: 'var(--md-sys-spacing-6)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     {lesson.unitaDiApprendimento && (
-                        <div >
-                            <span >UDA</span>
-                            <span >{lesson.unitaDiApprendimento}</span>
+                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-primary)', alignSelf: 'flex-start' }}>
+                            <span style={{ fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-on-primary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>UDA</span>
+                            <span style={{ fontSize: 'var(--md-sys-typescale-label-small-font-size)', color: 'var(--md-sys-color-on-primary)' }}>{lesson.unitaDiApprendimento}</span>
                         </div>
                     )}
-                    <h1 >
+                    <h1 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-headline-medium-font-size)', color: 'var(--md-sys-color-on-primary-container)', lineHeight: 1.3 }}>
                         {lesson.contenuto}
                     </h1>
-                    
-                    <div >
-                        <div >
-                            <span >school</span>
-                            <span >{lesson.classe}</span>
-                        </div>
-                        <div >
-                            <span >menu_book</span>
-                            <span >{lesson.materia}</span>
-                        </div>
-                        <div >
-                            <span >category</span>
-                            <span >{lesson.tipoLezione || 'Teoria'}</span>
-                        </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-3)' }}>
+                        {[{ icon: 'school', text: lesson.classe }, { icon: 'menu_book', text: lesson.materia }, { icon: 'category', text: lesson.tipoLezione || 'Teoria' }].map(tag => (
+                            <div key={tag.text} style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-surface-container)', color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-medium-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
+                                <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-4)' }}>{tag.icon}</span>
+                                <span>{tag.text}</span>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
-                <div >
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 'var(--md-sys-spacing-6)', alignItems: 'start' }}>
                     {/* LEFT COLUMN */}
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)' }}>
                         {/* AI Assistant */}
                         {aiSettings && (
-                            <div >
-                                <div >
-                                    <div >
-                                        <span >psychology</span>
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-secondary-container)', padding: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-4)' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-11)', height: 'var(--md-sys-spacing-11)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-secondary)', color: 'var(--md-sys-color-on-secondary)', flexShrink: 0 }}>
+                                        <span className="material-symbols-outlined">psychology</span>
                                     </div>
-                                    <div>
-                                        <p >Assistente Pedagogico</p>
-                                        <p >Analizza inclusività e coinvolgimento</p>
+                                    <div style={{ flex: 1 }}>
+                                        <p style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', color: 'var(--md-sys-color-on-secondary-container)' }}>Assistente Pedagogico</p>
+                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-secondary-container)', opacity: 0.8 }}>Analizza inclusività e coinvolgimento</p>
                                     </div>
                                 </div>
-                                <div >
-                                    <M3Button 
-                                        onClick={handleEnrichLesson} 
-                                        disabled={isEnriching} 
+                                <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
+                                    <M3Button
+                                        onClick={handleEnrichLesson}
+                                        disabled={isEnriching}
                                         variant="tonal"
-                                        
                                         title="Arricchisci con curiosità e spunti AI"
                                     >
                                         {isEnriching ? <AiThinkingGem size="small" inline text="" /> : (
-                                            <div >
-                                                <span >auto_awesome</span>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                                                <span className="material-symbols-outlined">auto_awesome</span>
                                                 Arricchisci
                                             </div>
                                         )}
                                     </M3Button>
-                                    <M3Button 
-                                        onClick={handleAnalyzePedagogy} 
-                                        disabled={isAnalyzing} 
+                                    <M3Button
+                                        onClick={handleAnalyzePedagogy}
+                                        disabled={isAnalyzing}
                                         variant="filled"
-                                        
                                     >
                                         {isAnalyzing ? <AiThinkingGem size="small" inline text="" /> : 'Analizza'}
                                     </M3Button>
@@ -282,40 +274,40 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                         )}
 
                         {/* Objectives */}
-                        <section >
+                        <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                             <SectionHeader title="Obiettivi Didattici" icon="flag" />
-                            <div >
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', padding: 'var(--md-sys-spacing-4)' }}>
                                 {lesson.obiettivi ? (
-                                    <div >
-                                        <ul >
+                                    <div style={{ flex: 1 }}>
+                                        <ul style={{ margin: 0, paddingLeft: 'var(--md-sys-spacing-5)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
                                             {lesson.obiettivi.split('\n').filter(line => line.trim()).map((line, idx) => (
-                                                <li key={idx}>{line.replace(/^- /, '')}</li>
+                                                <li key={idx} style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface)', lineHeight: 1.6 }}>{line.replace(/^- /, '')}</li>
                                             ))}
                                         </ul>
                                     </div>
                                 ) : (
-                                    <p >Nessun obiettivo specificato.</p>
+                                    <p style={{ margin: 0, color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontStyle: 'italic' }}>Nessun obiettivo specificato.</p>
                                 )}
                             </div>
                         </section>
 
                         {/* Content */}
-                        <section >
+                        <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                             <SectionHeader title="Svolgimento e Contenuti" icon="article" />
-                            <div >
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', padding: 'var(--md-sys-spacing-4)' }}>
                                 {lesson.contesto ? (
-                                    <p >{lesson.contesto}</p>
+                                    <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface)', lineHeight: 1.7 }}>{lesson.contesto}</p>
                                 ) : (
-                                    <p >Nessun dettaglio sullo svolgimento.</p>
+                                    <p style={{ margin: 0, color: 'var(--md-sys-color-on-surface-variant)', fontStyle: 'italic' }}>Nessun dettaglio sullo svolgimento.</p>
                                 )}
                             </div>
                         </section>
 
                         {/* Notes */}
                         {lesson.nota && (
-                            <section >
+                            <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                                 <SectionHeader title="Note Docente" icon="sticky_note_2" />
-                                <div >
+                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-4)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface)', lineHeight: 1.7, whiteSpace: 'pre-wrap', borderLeft: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-tertiary)' }}>
                                     {lesson.nota}
                                 </div>
                             </section>
@@ -323,54 +315,53 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                     </div>
 
                     {/* RIGHT COLUMN */}
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)' }}>
                         {/* Materials */}
-                        <div >
-                            <div >
-                                <h3 >
-                                    <span >attachment</span>
+                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', overflow: 'hidden' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                                <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>
+                                    <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-primary)' }}>attachment</span>
                                     Materiali
                                 </h3>
-                                <M3Button onClick={() => setIsMaterialPickerOpen(true)} variant="tonal" >
+                                <M3Button onClick={() => setIsMaterialPickerOpen(true)} variant="icon">
                                     <span className="material-symbols-outlined">add</span>
                                 </M3Button>
                             </div>
-                            
-                            <div >
+                            <div style={{ display: 'flex', flexDirection: 'column', padding: 'var(--md-sys-spacing-2) 0' }}>
                                 {(lesson.materialiDidattici?.length || 0) > 0 ? (
                                     lesson.materialiDidattici!.map(material => (
-                                        <div key={material.id} >
-                                            <div >
-                                                <span >{getMaterialIcon(material)}</span>
+                                        <div key={material.id} style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-primary-container)', color: 'var(--md-sys-color-on-primary-container)', flexShrink: 0 }}>
+                                                <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-5)' }}>{getMaterialIcon(material)}</span>
                                             </div>
-                                            <div >
+                                            <div style={{ flex: 1, minWidth: 0 }}>
                                                 {material.type === 'link' ? (
-                                                    <a href={material.url} target="_blank" rel="noopener noreferrer" >{material.label}</a>
+                                                    <a href={material.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', textDecoration: 'none', fontWeight: 'var(--md-sys-typescale-weight-bold)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }}>{material.label}</a>
                                                 ) : (
-                                                    <span 
-                                                        onClick={() => material.type === 'kb' && handlePreviewKbMaterial(material)} 
-                                                        
+                                                    <span
+                                                        onClick={() => material.type === 'kb' && handlePreviewKbMaterial(material)}
+                                                        style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: material.type === 'kb' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface)', cursor: material.type === 'kb' ? 'pointer' : 'default', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }}
                                                     >
                                                         {material.type === 'kb' ? material.fileName : material.file?.name}
                                                     </span>
                                                 )}
                                             </div>
-                                            <div >
+                                            <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
                                                 {material.type === 'file' && (
-                                                    <M3Button onClick={() => handleDownloadMaterial(material)} variant="text"  title="Scarica">
+                                                    <M3Button onClick={() => handleDownloadMaterial(material)} variant="icon" title="Scarica">
                                                         <span className="material-symbols-outlined">download</span>
                                                     </M3Button>
                                                 )}
-                                                <M3Button onClick={() => handleRemoveMaterial(material.id)} variant="text"  title="Rimuovi">
+                                                <M3Button onClick={() => handleRemoveMaterial(material.id)} variant="icon" title="Rimuovi">
                                                     <span className="material-symbols-outlined">close</span>
                                                 </M3Button>
                                             </div>
                                         </div>
                                     ))
                                 ) : (
-                                    <div >
-                                        <span >folder_off</span>
-                                        <p >Nessun materiale</p>
+                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-6)', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-10)' }}>folder_off</span>
+                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>Nessun materiale</p>
                                     </div>
                                 )}
                             </div>
@@ -382,48 +373,50 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                             icon="diversity_3" 
                             variant={lesson.adattamenti ? 'tertiary' : 'surface'}
                         >
-                            <p >
+                            <p>
                                 {lesson.adattamenti || 'Nessun adattamento specifico registrato.'}
                             </p>
                         </InfoCard>
 
                         {/* Homework */}
-                        <div >
-                            <h3 >
-                                <span >assignment</span>
-                                Compiti per Casa
-                            </h3>
-                            <p >
-                                {lesson.compiti || 'Nessun compito assegnato.'}
-                            </p>
-                            
-                            {settings && lesson.compiti && (
-                                <M3Button onClick={handleExportHomework} disabled={isExporting} variant="outlined" >
-                                    <span >print</span> PDF Compiti
-                                </M3Button>
-                            )}
+                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', overflow: 'hidden' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                                <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-primary)' }}>assignment</span>
+                                <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Compiti per Casa</h3>
+                            </div>
+                            <div style={{ padding: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
+                                <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: lesson.compiti ? 'var(--md-sys-color-on-surface)' : 'var(--md-sys-color-on-surface-variant)', fontStyle: lesson.compiti ? 'normal' : 'italic', lineHeight: 1.6 }}>
+                                    {lesson.compiti || 'Nessun compito assegnato.'}
+                                </p>
+
+                                {settings && lesson.compiti && (
+                                    <M3Button onClick={handleExportHomework} disabled={isExporting} variant="outlined">
+                                        <span className="material-symbols-outlined">print</span> PDF Compiti
+                                    </M3Button>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </M3DialogContent>
-        <M3DialogActions >
-            <div >
-                <span >
+        <M3DialogActions>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 'var(--md-sys-percent-100)', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-3)' }}>
+                <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>
                     Ultima modifica: {new Date().toLocaleDateString()}
                 </span>
-                <div >
-                    <div >
-                        <M3Button onClick={handleExportDocx} disabled={isExporting} variant="tonal"  title="Esporta Word">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
+                        <M3Button onClick={handleExportDocx} disabled={isExporting} variant="icon" title="Esporta Word">
                             <span className="material-symbols-outlined">description</span>
                         </M3Button>
-                        <M3Button onClick={handleExport} disabled={isExporting} variant="tonal"  title="Esporta PDF">
+                        <M3Button onClick={handleExport} disabled={isExporting} variant="icon" title="Esporta PDF">
                             <span className="material-symbols-outlined">picture_as_pdf</span>
                         </M3Button>
                     </div>
-                    <M3Button onClick={onClose} variant="text" >Chiudi</M3Button>
-                    <M3Button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `view-${lesson.id}`, lesson)} variant="filled" >
-                        <span >door_open</span>
+                    <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
+                    <M3Button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `view-${lesson.id}`, lesson)} variant="filled">
+                        <span className="material-symbols-outlined">door_open</span>
                         Avvia Lezione
                     </M3Button>
                 </div>
@@ -439,10 +432,12 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
               maxWidth="2xl"
               level={2}
           >
-              <M3DialogContent >
-                <h3 >{previewingMaterial.fileName}</h3>
-                <div >
-                    <pre >{sanitizeHTML(previewingMaterial.content)}</pre>
+          <M3DialogContent>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-medium-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{previewingMaterial.fileName}</h3>
+                    <div style={{ borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-surface-container)', padding: 'var(--md-sys-spacing-4)', maxHeight: '60vh', overflowY: 'auto' }}>
+                        <pre style={{ margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-word', fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface)', fontFamily: 'monospace' }}>{sanitizeHTML(previewingMaterial.content)}</pre>
+                    </div>
                 </div>
               </M3DialogContent>
               <M3DialogActions>

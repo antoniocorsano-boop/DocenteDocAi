@@ -67,7 +67,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                 <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-secondary) 10%, transparent)' ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
                 <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-tertiary) 10%, transparent)' ,  borderRadius: 'var(--md-sys-spacing-4)', animationDelay: 'var(--md-sys-motion-duration-long)' }} />
                 
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <div style={{display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)'}}>
                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/50, borderRadius: ref.shape[4] , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                             <Logo />
@@ -139,7 +139,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                         <p style={{color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>Nessuna classe disponibile.</p>
                                     </div>
                                 )}
-                                <div >
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                                     <M3Button onClick={handleExitAttempt} variant="text" style={{width: "var(--md-sys-percent-100)", color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>
                                         <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>lock</span>
                                         Menu Docente

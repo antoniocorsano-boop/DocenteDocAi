@@ -65,7 +65,7 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                     />
                 </div>
 
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <div style={{
                         padding: 'var(--md-sys-spacing-4)',
                         backgroundColor: 'var(--md-sys-color-on-primary)',

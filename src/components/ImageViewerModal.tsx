@@ -41,7 +41,7 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
             maxWidth="lg"
         >
             <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 , display: "flex", justifyContent: "center", alignItems: "center", padding: 'var(--md-sys-spacing-6)'}}>
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <img 
                         src={dataUrl} 
                         alt={prompt} 

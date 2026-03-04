@@ -56,29 +56,29 @@ const ErrorFallback: React.FC<{ error?: Error }> = ({ error }) => {
 }, [showToast]);
 
 	return (
-		<div >
-			<div >
-				<div >
-					<span >error</span>
+		<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+			<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+				<div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+					<span>error</span>
 				</div>
 
-				<h2 >
+				<h2>
 					Oops! Qualcosa è andato storto
 				</h2>
 
-				<p >
+				<p>
 					Si è verificato un errore imprevisto nell'applicazione.
 					La pagina verrà ricaricata automaticamente tra pochi secondi.
 				</p>
 
-				<div >
-					<span >refresh</span>
+				<div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+					<span>refresh</span>
 					<span>Ricaricamento in corso...</span>
 				</div>
 
 				{process.env.NODE_ENV === 'development' && error && (
-					<details >
-						<summary >
+					<details>
+						<summary>
 							Dettagli errore (solo in sviluppo)
 						</summary>
 						<pre >

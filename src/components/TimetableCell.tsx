@@ -53,7 +53,7 @@ const isDone = lesson?.svolta;
                 }}
             >
                 <span  aria-hidden="true" />
-                <div >
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                     <span style={{
 }}>add_circle</span>
                 </div>
@@ -90,26 +90,26 @@ const isDone = lesson?.svolta;
         >
             <span  aria-hidden="true" />
             {/* Status Badges (Top) */}
-            <div >
-                <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     {isDone && <div  title="Svolta"></div>}
-                    {hasAi && <span >auto_awesome</span>}
+                    {hasAi && <span>auto_awesome</span>}
                 </div>
-                {typeIcon && <span >{typeIcon}</span>}
+                {typeIcon && <span>{typeIcon}</span>}
             </div>
 
             {/* Labels */}
-            <div >
-                <span >
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                <span>
                     {isDisposition ? 'DISP.' : (isRicevimento ? 'RICEV.' : classe)}
                 </span>
-                <span >
+                <span>
                     {isDisposition ? 'Sostituzione' : (isRicevimento ? 'Genitori' : materia)}
                 </span>
             </div>
 
             {/* Hover Sparkle */}
-            <div ></div>
+            <div></div>
         </div>
     );
 };

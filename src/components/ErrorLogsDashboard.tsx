@@ -68,7 +68,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
   return (
     <div  style={{padding: 'var(--md-sys-spacing-6)', marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)"}}>
       <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
-        <h1 >Error Logs Dashboard</h1>
+        <h1>Error Logs Dashboard</h1>
         {onClose && (
           <button onClick={onClose} style={{ color: 'var(--md-sys-color-on-surface)', cursor: "pointer" }}>
             close
@@ -103,7 +103,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
           {Object.entries(stats.byType).map(([type, count]) => (
             <div key={type} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)' , padding: 'var(--md-sys-spacing-6)'}}>
               <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                <span >{getTypeIcon(type as ErrorLog['type'])}</span>
+                <span>{getTypeIcon(type as ErrorLog['type'])}</span>
                 <span style={{ textTransform: "capitalize" }}>{type}</span>
               </div>
               <div style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", color: "var(--md-sys-color-primary)", marginTop: 'var(--md-sys-spacing-4)'}}>{count}</div>
@@ -149,7 +149,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
           onClick={handleExport}
            style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", fontWeight: "var(--md-sys-typescale-weight-medium)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
         >
-          <span >download</span>
+          <span>download</span>
           Export JSON
         </button>
 
@@ -157,7 +157,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
           onClick={handleClearLogs}
           style={{ backgroundColor: 'var(--md-sys-color-error)', color: 'var(--md-sys-color-on-error)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", fontWeight: "var(--md-sys-typescale-weight-medium)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
         >
-          <span >delete</span>
+          <span>delete</span>
           Clear All
         </button>
       </div>
@@ -184,7 +184,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                     </td>
                     <td style={{padding: 'var(--md-sys-spacing-5)'}}>
                       <span style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)' , display: "inline-flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-medium)"}}>
-                        <span >
+                        <span>
                           {getTypeIcon(log.type)}
                         </span>
                         {log.type}
@@ -209,7 +209,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                     </td>
                     <td style={{padding: 'var(--md-sys-spacing-5)'}}>
                       {log.context && (
-                        <details >
+                        <details>
                           <summary  style={{cursor: "pointer", color: "var(--md-sys-color-primary)"}}>View</summary>
                           <pre style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)', borderRadius: "var(--md-sys-shape-corner-small)", overflow: "auto"}}>
                             {JSON.stringify(log.context, null, 2)}
@@ -235,14 +235,14 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
       {stats.mostRecent && (
         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-error) 10%, transparent)' , marginTop: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
           <div  style={{color: "var(--md-sys-color-error)", marginBottom: 'var(--md-sys-spacing-8)'}}>Most Recent Error</div>
-          <div >
-            <div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
               <strong>Time:</strong> {new Date(stats.mostRecent.timestamp).toLocaleString()}
             </div>
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
               <strong>Type:</strong> {stats.mostRecent.type}
             </div>
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
               <strong>Message:</strong> {stats.mostRecent.message}
             </div>
             {stats.mostRecent.stack && (

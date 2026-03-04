@@ -145,7 +145,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)' }}>
 
                     {/* Hero Section: Lesson or Action */}
-                    <section>
+                    <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         {todaysLesson ? (
                             <M3Card style={{
                                 background: 'var(--md-sys-color-primary-container)',
@@ -233,7 +233,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
 
                     {/* INBOX WIDGET */}
                     {inboxCount > 0 && (
-                        <section>
+                        <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <M3Card
                                 style={{
                                     background: 'var(--md-sys-color-tertiary-container)',
@@ -303,7 +303,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                     {/* TOOLS GRID */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
                         {/* 1. SEZIONE REGISTRO & DIDATTICA */}
-                        <section>
+                        <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)' }}>
                                 <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-6)', color: 'var(--md-sys-color-primary)' }}>auto_stories</span>
                                 <h3 style={{
@@ -365,7 +365,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         </section>
 
                         {/* 2. SEZIONE VALUTAZIONE & COMPETENZE */}
-                        <section>
+                        <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)' }}>
                                 <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-6)', color: 'var(--md-sys-color-secondary)' }}>grading</span>
                                 <h3 style={{
@@ -427,7 +427,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         </section>
 
                         {/* 3. SEZIONE ANALISI & REPORT */}
-                        <section>
+                        <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)' }}>
                                 <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-6)', color: 'var(--md-sys-color-on-surface-variant)' }}>analytics</span>
                                 <h3 style={{
@@ -455,7 +455,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         }}>
                                             <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-spacing-6)' }}>query_stats</span>
                                         </div>
-                                        <div>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                             <h4 style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', fontWeight: 'var(--md-sys-typescale-title-small-font-weight)', color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Analisi AI</h4>
                                             <p style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>Report pedagogico</p>
                                         </div>
@@ -477,7 +477,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         }}>
                                             <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-secondary)', fontSize: 'var(--md-sys-spacing-6)' }}>gavel</span>
                                         </div>
-                                        <div>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                             <h4 style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', fontWeight: 'var(--md-sys-typescale-title-small-font-weight)', color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Consiglio</h4>
                                             <p style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>Scrutini e tabelloni</p>
                                         </div>
@@ -499,7 +499,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         }}>
                                             <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-tertiary)', fontSize: 'var(--md-sys-spacing-6)' }}>groups</span>
                                         </div>
-                                        <div>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                             <h4 style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', fontWeight: 'var(--md-sys-typescale-title-small-font-weight)', color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Anagrafica</h4>
                                             <p style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>Elenco studenti</p>
                                         </div>
@@ -511,7 +511,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                 </div>
 
                 {/* Side Column: Students List */}
-                <div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <M3Card variant="elevated" style={{
                         padding: 'var(--md-sys-spacing-4)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',

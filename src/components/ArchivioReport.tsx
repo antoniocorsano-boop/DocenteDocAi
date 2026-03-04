@@ -33,16 +33,16 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
     };
 
     return (
-        <div >
-            <div >
-                <div >
-                    <h1 >Archivio Report</h1>
-                    <p >Consulta, esporta e salva i report generati con l'AI.</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <h1>Archivio Report</h1>
+                    <p>Consulta, esporta e salva i report generati con l'AI.</p>
                 </div>
             </div>
-            <div >
-                <div >
-                    <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                         <span  aria-hidden="true">search</span>
                         <input 
                             type="text"
@@ -54,15 +54,15 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                         />
                     </div>
                 </div>
-                 <div >
-                    <table >
+                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <table>
                         <thead>
                             <tr>
                                 <th>Nome Report</th>
                                 <th>Data Creazione</th>
                                 <th>Contesto</th>
                                 <th>Modello Usato</th>
-                                <th >Azioni</th>
+                                <th>Azioni</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -88,7 +88,7 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                                             {report.modelloUsato.nome}
                                         </span>
                                     </td>
-                                    <td >
+                                    <td>
                                             <M3IconButton onClick={() => onSaveReportToKb(report)} title="Salva in Knowledge Base" ariaLabel="Salva report in Knowledge Base" icon="inventory_2" />
                                             <M3IconButton onClick={() => handleDownload(report)} title="Scarica" ariaLabel="Scarica report" icon="download" />
                                             <M3IconButton onClick={() => onDeleteReport(report.id)} title="Elimina" ariaLabel="Elimina report" icon="delete" />
@@ -98,7 +98,7 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                         </tbody>
                     </table>
                 </div>
-                {filteredReports.length === 0 && <p >{reportistica.length > 0 ? 'Nessun report corrisponde alla ricerca.' : 'Nessun report generato. Esportane uno da un progetto per vederlo qui.'}</p>}
+                {filteredReports.length === 0 && <p>{reportistica.length > 0 ? 'Nessun report corrisponde alla ricerca.' : 'Nessun report generato. Esportane uno da un progetto per vederlo qui.'}</p>}
             </div>
         </div>
     );

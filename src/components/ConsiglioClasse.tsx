@@ -190,11 +190,11 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
     };
 
     const renderDesktopTable = () => (
-         <div >
-            <table >
+         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <table>
                 <thead >
                     <tr>
-                        <th >Studente</th>
+                        <th>Studente</th>
                         {expandedColumns.rendimento && <>
                             <th style={{ color: 'inherit' }}>Media</th>
                             <th style={{ color: 'inherit' }}>Trend</th>
@@ -225,7 +225,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
 
                         return (
                             <tr key={student.id}>
-                                <td >
+                                <td>
                                     <M3Button variant="text" onClick={() => onViewStudentProfile(student)} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  fontWeight: "var(--md-sys-typescale-weight-medium)" }} type="button">
                                         {student.cognome} {student.nome}
                                     </M3Button>
@@ -248,7 +248,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 </>}
                                 {expandedColumns.giudizio &&
                                 <td style={{ minWidth: 'var(--md-sys-spacing-12)', ...getCellStyle('giudizio') }}>
-                                    <div >
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <textarea value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ flexGrow: "1" }} rows={2} placeholder="Giudizio sintetico..."></textarea>
                                         <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
                                             <span style={{ color: "var(--md-sys-color-on-surface-variant)" }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
@@ -280,10 +280,10 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                         <div  onClick={() => setExpandedStudentId(prev => prev === student.id ? null : student.id)}>
                              <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                 {hasStudentChanged(student.id) && <span  title="Dati modificati in questa sessione"></span>}
-                                <div>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <h3  style={{ cursor: "pointer" }} onClick={(e) => { e.stopPropagation(); onViewStudentProfile(student); }}>{student.cognome} {student.nome}</h3>
                                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)'}}>
-                                        <span >Media: <strong>{performance.grade || 'N/D'}</strong></span>
+                                        <span>Media: <strong>{performance.grade || 'N/D'}</strong></span>
                                         {performance.trend && (
                                             <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>
                                                 <span style={{ color: "var(--md-sys-color-on-surface-variant)" }}>{trendIcon}</span>
@@ -301,16 +301,16 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             animation: isExpanded ? 'slideDown var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)-out' : 'none'
                         }}>
                              <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
-                                <div>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <label htmlFor={`votoDisciplina-${student.id}`} >Voto Disciplina</label>
                                     <input id={`votoDisciplina-${student.id}`} type="text"  value={giudizioStudente.votoDisciplina} onChange={e => handleLocalChange(student.id, 'votoDisciplina', e.target.value)} />
                                 </div>
-                                <div >
-                                    <div>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <label htmlFor={`educazioneCivica-${student.id}`} >Ed. Civica</label>
                                         <input id={`educazioneCivica-${student.id}`} type="text"  value={giudizioStudente.educazioneCivica} onChange={e => handleLocalChange(student.id, 'educazioneCivica', e.target.value)} />
                                     </div>
-                                    <div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <label htmlFor={`comportamento-${student.id}`} >Comportamento</label>
                                         <select id={`comportamento-${student.id}`}  value={giudizioStudente.comportamento} onChange={e => handleLocalChange(student.id, 'comportamento', e.target.value)}>
                                             <option value="">-</option>
@@ -318,7 +318,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                         </select>
                                     </div>
                                 </div>
-                                <div>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-4)'}}>
                                         <label htmlFor={`giudizio-${student.id}`} >Note/Giudizio</label>
                                         <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
@@ -330,12 +330,12 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 {showFinalGrades && (
                                     <>
                                         <hr  />
-                                        <div >
-                                            <div>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                                 <label htmlFor={`votoAmmissione-${student.id}`} >Voto di Ammissione</label>
                                                 <input id={`votoAmmissione-${student.id}`} type="text"  value={giudizioStudente.votoAmmissione} onChange={e => handleLocalChange(student.id, 'votoAmmissione', e.target.value)} />
                                             </div>
-                                            <div>
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                                 <label htmlFor={`votoUscita-${student.id}`} >Voto di Uscita</label>
                                                 <input id={`votoUscita-${student.id}`} type="text"  value={giudizioStudente.votoUscita} onChange={e => handleLocalChange(student.id, 'votoUscita', e.target.value)} />
                                             </div>

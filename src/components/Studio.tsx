@@ -180,7 +180,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
     };
 
     const renderActionGrid = (actions: StudioAction[]) => (
-        <div >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             {actions.map((action) => (
                 <button
                     key={action.id}
@@ -202,16 +202,16 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     disabled={isLoading || (action.requiresContent && selectedFileIds.length === 0) || (action.id === 'image' && hasApiKey === false)}
                     title={(action.id === 'image' && hasApiKey === false) ? "API Key richiesta per la generazione di immagini." : (action.requiresContent && selectedFileIds.length === 0 ? "Seleziona almeno un documento per abilitare questa azione" : action.description)}
                 >
-                    <div >
-                        <span >{action.icon}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                        <span>{action.icon}</span>
                         {action.requiresContent && (
-                            <span >
+                            <span>
                                 Input KB
                             </span>
                         )}
                     </div>
-                    <span >{action.title}</span>
-                    <span >{action.description}</span>
+                    <span>{action.title}</span>
+                    <span>{action.description}</span>
                 </button>
             ))}
         </div>
@@ -228,11 +228,11 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
     };
 
     return (
-        <div >
-            <div >
-                <div >
-                    <h1 >Studio AI</h1>
-                    <p >Laboratorio per trasformare e generare contenuti con il tuo contesto.</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <h1>Studio AI</h1>
+                    <p>Laboratorio per trasformare e generare contenuti con il tuo contesto.</p>
                 </div>
             </div>
             
@@ -251,11 +251,11 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     level={2}
                 >
                     <M3DialogContent >
-                        <p >
+                        <p>
                             Per utilizzare la generazione di immagini e video (modelli Imagen/Veo), è necessaria una API Key abilitata al billing.
                         </p>
                         <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer" >
-                            <span >info</span>
+                            <span>info</span>
                             Scopri di più sul billing
                         </a>
                     </M3DialogContent>
@@ -269,7 +269,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
             )}
 
             {/* Context Selection Card */}
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <h2  style={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                     <span  style={{color: "var(--md-sys-color-primary)"}}>folder_open</span>
                     1. Seleziona Contesto (Knowledge Base)
@@ -295,7 +295,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                 </div>
 
                 {/* Centralized Selection Container */}
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     {availableFiles.map(entry => (
                         <div key={entry.id} >
                             <input type="checkbox" id={`studio-file-${entry.id}`} checked={selectedFileIds.includes(entry.id)} onChange={() => handleFileToggle(entry.id)} />
@@ -321,7 +321,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
 
             {/* Actions Cards - Visible only when not loading */}
             {!isLoading && (
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     {/* Generation Card */}
                     <div  style={{ height: 'var(--md-sys-percent-100)' }}>
                         <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>

@@ -96,17 +96,16 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
     const renderEditor = () => {
         if (!selectedCurriculum) return null;
         return (
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 {selectedCurriculum.nuclei.length === 0 && (
                     <EmptyState title="Programma Vuoto" description="Inizia importando un documento o aggiungendo i nuclei fondanti." icon="library_books" />
                 )}
                 {selectedCurriculum.nuclei.map((nucleo, nIdx) => (
-                    <InfoCard 
-                        key={nucleo.id} 
-                        
+                    <InfoCard
+                        key={nucleo.id}
                     >
-                        <div >
-                            <div >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-3)' }}>
+                            <div style={{ flex: 1 }}>
                                 <TextField 
                                     label="Titolo Nucleo Fondante" 
                                     value={nucleo.title} 
@@ -131,9 +130,9 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
 }}>delete</span>
                             </M3Button>
                         </div>
-                        <div >
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
                             {nucleo.objectives.map((obj, oIdx) => (
-                                <div key={obj.id} >
+                                <div key={obj.id} style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-surface-container)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
                                     <span style={{
                                         width: 'var(--md-sys-spacing-2)',
                                         height: 'var(--md-sys-spacing-2)',
@@ -160,7 +159,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                         variant="text"
                                         
                                     >
-                                        <span >close</span>
+                                        <span>close</span>
                                     </M3Button>
                                 </div>
                             ))}
@@ -193,17 +192,18 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
     };
 
     return (
-        <div >
-            <div >
-                <div >
-                    <div >
-                        <M3Button onClick={() => onNavigate('home')} variant="text" >
-                            <span style={{
-}}>arrow_back</span>
-                        </M3Button>
-                        <h1 >Curricoli</h1>
+        <div style={{ display: 'flex', flexDirection: 'column', height: 'var(--md-sys-percent-100)', backgroundColor: 'var(--md-sys-color-surface)', overflow: 'hidden' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', height: 'var(--md-sys-percent-100)', overflow: 'hidden' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 0, borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', backgroundColor: 'var(--md-sys-color-surface-container-low)', overflow: 'hidden' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                            <M3Button onClick={() => onNavigate('home')} variant="icon">
+                                <span className="material-symbols-outlined">arrow_back</span>
+                            </M3Button>
+                            <h1 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Curricoli</h1>
+                        </div>
                     </div>
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
                         <SelectField label="Materia" value={newSubject} onChange={e => setNewSubject(e.target.value)}>
                             {settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
                         </SelectField>
@@ -212,7 +212,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                             Crea Curricolo
                         </M3Button>
                     </div>
-                    <div >
+                    <div style={{ flex: 1, overflowY: 'auto', padding: 'var(--md-sys-spacing-2)' }}>
                         {curricula.map(curr => (
                             <div
                                 key={curr.id}
@@ -241,9 +241,9 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     }
                                 }}
                             >
-                                <div >
-                                    <p >{curr.subject}</p>
-                                    <p >{curr.gradeLevel}</p>
+                                <div style={{ flex: 1, minWidth: 0 }}>
+                                    <p style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{curr.subject}</p>
+                                    <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)', opacity: 0.85 }}>{curr.gradeLevel}</p>
                                 </div>
                                 <M3Button
                                     onClick={(e) => { e.stopPropagation(); handleDelete(curr.id); }}
@@ -273,15 +273,15 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                         ))}
                     </div>
                 </div>
-                <div >
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
                     {selectedCurriculum ? (
                         <>
-                            <div >
-                                <div>
-                                    <h2 >{selectedCurriculum.subject}</h2>
-                                    <p >{selectedCurriculum.gradeLevel}</p>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-6)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
+                                <div style={{ flex: 1, minWidth: 0 }}>
+                                    <h2 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{selectedCurriculum.subject}</h2>
+                                    <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{selectedCurriculum.gradeLevel}</p>
                                 </div>
-                                <div >
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                                      <TabGroup
                                          activeTab={activeTab}
                                          onTabChange={(id: string) => {
@@ -300,7 +300,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     )}
                                 </div>
                             </div>
-                            {activeTab === 'editor' ? renderEditor() : <div ><EmptyState title="Analisi Copertura" description="La funzione di copertura basata sulle lezioni svolte è in arrivo." icon="analytics" /></div>}
+                                            {activeTab === 'editor' ? <div style={{ flex: 1, overflowY: 'auto', padding: 'var(--md-sys-spacing-6)' }}>{renderEditor()}</div> : <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><EmptyState title="Analisi Copertura" description="La funzione di copertura basata sulle lezioni svolte è in arrivo." icon="analytics" /></div>}
                         </>
                     ) : (
                         <EmptyState title="Seleziona un Curricolo" description="Scegli un programma dalla lista laterale per iniziare la progettazione per obiettivi." icon="menu_book" />
@@ -313,12 +313,12 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                     title="Import AI Curricolo"
                     maxWidth="2xl"
                 >
-                    <M3DialogContent >
-                        <div {...getRootProps()} >
+                    <M3DialogContent>
+                        <div {...getRootProps()} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-large)', border: 'var(--md-sys-border-width-thick) dashed var(--md-sys-color-outline)', backgroundColor: 'var(--md-sys-color-surface-container)', cursor: 'pointer', textAlign: 'center' }}>
                             <input {...getInputProps()} />
-                            <span >upload_file</span>
-                            <p >Carica PDF Programmazione</p>
-                            <p >o trascina il file qui</p>
+                            <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-12)', color: 'var(--md-sys-color-primary)' }}>upload_file</span>
+                            <p style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Carica PDF Programmazione</p>
+                            <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>o trascina il file qui</p>
                         </div>
                         <TextArea 
                             label="O incolla il testo del programma" 

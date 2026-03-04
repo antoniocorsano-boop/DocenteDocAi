@@ -62,9 +62,9 @@ const LogoComponent: React.FC<LogoProps> = ({ isAiThinking = false, onHomeNaviga
   return (
     <>
       {chaosStage === 'chaos' && document.body && ReactDOM.createPortal(
-        <div >
-          <div ></div>
-          <div ></div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+          <div></div>
+          <div></div>
         </div>,
         document.body
       )}

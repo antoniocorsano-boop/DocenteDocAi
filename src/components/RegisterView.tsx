@@ -37,32 +37,32 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
         level={1}
       >
         <M3DialogContent >
-          <div >
-            <h2 >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <h2>
                 {new Date(entry.date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
             </h2>
-            <p >Registro di Classe</p>
+            <p>Registro di Classe</p>
           </div>
 
-          <div >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <InfoCard title="Informazioni Lezione" icon="info">
-                <div >
-                    <p ><strong>Classe:</strong> {entry.classe}</p>
-                    <p ><strong>Materia:</strong> {entry.materia}</p>
-                    <p ><strong>Argomento:</strong> {lesson?.contenuto || 'N/A'}</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <p><strong>Classe:</strong> {entry.classe}</p>
+                    <p><strong>Materia:</strong> {entry.materia}</p>
+                    <p><strong>Argomento:</strong> {lesson?.contenuto || 'N/A'}</p>
                 </div>
             </InfoCard>
 
             <InfoCard title="Appello" icon="group" variant="secondary">
-                <div >
-                    <p ><strong>Presenti:</strong> {presentStudents.length}/{Object.keys(entry.studentAttendance).length}</p>
-                    <p ><strong>Assenti:</strong> {absentStudents.length > 0 ? absentStudents.join(', ') : 'Nessuno'}</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <p><strong>Presenti:</strong> {presentStudents.length}/{Object.keys(entry.studentAttendance).length}</p>
+                    <p><strong>Assenti:</strong> {absentStudents.length > 0 ? absentStudents.join(', ') : 'Nessuno'}</p>
                 </div>
             </InfoCard>
           </div>
 
           <InfoCard title="Note e Osservazioni" icon="notes" variant="tertiary">
-            <p >
+            <p>
                 {entry.notes || 'Nessuna nota registrata per questa lezione.'}
             </p>
           </InfoCard>
@@ -75,25 +75,25 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
   };
   
   return (
-    <div >
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
       {!isModalMode && (
-        <div >
-          <div >
-            <h1 >Diario di Bordo {initialClass && ` - ${initialClass}`}</h1>
-            <p >Registro sintetico delle lezioni.</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <h1>Diario di Bordo {initialClass && ` - ${initialClass}`}</h1>
+            <p>Registro sintetico delle lezioni.</p>
           </div>
         </div>
       )}
       <div style={isModalMode ? {} : { /* register-view-card styles */ }}>
-        <div >
-          <table >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+          <table>
             <thead>
               <tr>
                 <th>Data</th>
                 <th>Classe</th>
                 <th>Materia</th>
                 <th>Argomento</th>
-                <th ></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -105,8 +105,8 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
                     <td>{entry.classe}</td>
                     <td>{entry.materia}</td>
                     <td>{lesson?.contenuto || 'Lezione improvvisata'}</td>
-                    <td >
-                      <span >chevron_right</span>
+                    <td>
+                      <span>chevron_right</span>
                     </td>
                   </tr>
                 );
@@ -114,7 +114,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
             </tbody>
           </table>
         </div>
-        {filteredEntries.length === 0 && <p >Nessuna lezione registrata per questa classe.</p>}
+        {filteredEntries.length === 0 && <p>Nessuna lezione registrata per questa classe.</p>}
       </div>
       {selectedEntry && renderEntryDetails(selectedEntry)}
     </div>

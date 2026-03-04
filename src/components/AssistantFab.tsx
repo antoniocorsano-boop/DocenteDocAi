@@ -153,10 +153,10 @@ const handleAction = (action: typeof ACTIONS[number]) => {
               <>
                 <div  role="presentation" onClick={() => setMenuOpen(false)} />
                 <div  role="dialog" aria-modal="true" aria-label="Azioni assistente">
-                  <div >
-                    <div>
-                      <p >Assistente AI</p>
-                      <p >Azioni rapide</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                      <p>Assistente AI</p>
+                      <p>Azioni rapide</p>
                     </div>
                     <button
                       
@@ -166,7 +166,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
                       <span className="material-symbols-outlined">close</span>
                     </button>
                   </div>
-                  <div >
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     {ACTIONS.map((action) => (
                       <button
                         key={action.key}
@@ -175,9 +175,9 @@ const handleAction = (action: typeof ACTIONS[number]) => {
                         aria-label={action.label}
                       >
                         <span className="material-symbols-outlined">{action.icon}</span>
-                        <div >
-                          <p >{action.label}</p>
-                          <p >{action.description}</p>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                          <p>{action.label}</p>
+                          <p>{action.description}</p>
                         </div>
                       </button>
                     ))}
@@ -186,7 +186,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
               </>
             )}
             {!isCompactLayout && (
-              <div >
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 {/* Close menu / quick close modal button */}
                 <button
                   aria-label="Chiudi menu"
@@ -213,7 +213,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
                       aria-label={a.label}
                     >
                       <span className="material-symbols-outlined">{a.icon}</span>
-                      <span >{a.label}</span>
+                      <span>{a.label}</span>
                     </button>
                   );
                 })}

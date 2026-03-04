@@ -19,11 +19,11 @@ const LoadingModal: React.FC<LoadingModalProps> = ({ message }) => {
       hideBackdrop={true}
     >
       <M3DialogContent >
-        <div >
-          <div ></div>
-          <div ></div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+          <div></div>
+          <div></div>
         </div>
-        <p >{message}</p>
+        <p>{message}</p>
       </M3DialogContent>
     </M3Dialog>
   );

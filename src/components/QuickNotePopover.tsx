@@ -33,11 +33,11 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
             maxWidth={300}
         >
             {/* Header */}
-            <div >
-                <h3 >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <h3>
                     Nota Rapida
                 </h3>
-                <div >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <VoiceNoteRecorder onTranscription={handleTranscription} compact={true} />
                     <button
                         onClick={onClose}
@@ -52,7 +52,7 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
             </div>
 
             {/* Content */}
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <TextField
                     multiline
                     rows={4}

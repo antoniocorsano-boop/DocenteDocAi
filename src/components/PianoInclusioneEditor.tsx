@@ -107,7 +107,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
             <form onSubmit={handleSubmit} >
                 <M3DialogContent >
                     {/* Subtitle */}
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <SectionHeader 
                             title={`${student.cognome} ${student.nome}`}
                             subtitle={`Classe ${student.classe} • Redazione Piano di Inclusione Personalizzato`}
@@ -116,11 +116,11 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                     </div>
 
                     {/* Sections */}
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         {sections.map(section => (
                             <InfoCard key={section.key} variant="elevated" >
-                                <div >
-                                    <h3 >
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                    <h3>
                                         {section.label}
                                     </h3>
                                     <M3Button
@@ -165,11 +165,11 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                 Definire gli obiettivi minimi o differenziati per ciascuna disciplina, se previsto dal piano.
                             </p>
                             
-                            <div >
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 {settings.disciplines.map(materia => (
                                     <div key={materia} >
-                                        <div >
-                                            <label >
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                            <label>
                                                 <span style={{ color: "var(--md-sys-color-primary)" }}>book</span>
                                                 {materia}
                                             </label>

@@ -126,7 +126,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
         if (hasApiKey === null) {
             return (
                 <div style={{ padding: 'var(--md-sys-spacing-4)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 'var(--md-sys-spacing-6)' }}>
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <div  style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-spacing-4)' }}></div>
                         <div  style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                             <span  style={{color: 'var(--md-sys-color-primary)'}}>movie</span>
@@ -165,7 +165,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                             <span style={{
 }}>edit_note</span>
                         </div>
-                        <div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <h3  style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-4)'}}>1. Prompt Descrittivo</h3>
                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-supporting)" }}>Descrivi la scena che vuoi creare. Sii dettagliato per un risultato migliore.</p>
                         </div>
@@ -200,7 +200,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                             <span style={{
 }}>movie</span>
                         </div>
-                        <div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <h3  style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-secondary)", marginBottom: 'var(--md-sys-spacing-4)'}}>2. Risultato</h3>
                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-supporting)" }}>Il video generato apparirà qui sotto.</p>
                         </div>

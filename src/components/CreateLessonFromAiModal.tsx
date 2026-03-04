@@ -203,7 +203,7 @@ return (
                             </SelectField>
                         </div>
 
-                        <div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                 <label  style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase"}}>Obiettivi</label>
                                 {matchingCurriculum && (
@@ -278,7 +278,7 @@ return (
                             </div>
                         )}
 
-                        <div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                 <label  style={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase"}}>Adattamenti per l'Inclusività</label>
                                 <M3Button 
@@ -340,7 +340,7 @@ return (
                         <p  style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase"}}>{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
                         {matchingCurriculum.nuclei.map(nucleo => (
                             <details key={nucleo.id}  open>
-                                <summary >
+                                <summary>
                                     <span style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)" }}>{nucleo.title}</span>
                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)',  fontSize: "var(--md-sys-spacing-4)"  }}>expand_more</span>
                                 </summary>

@@ -28,11 +28,11 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
     };
 
     return (
-        <div >
-            <div >
-            <div >
-                <div >Rubriche di Valutazione</div>
-                <p >Crea e gestisci le griglie di competenza.</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div>Rubriche di Valutazione</div>
+                <p>Crea e gestisci le griglie di competenza.</p>
             </div>
                 <M3Button onClick={() => setEditingRubric('new')} variant="filled" >
                     <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span>
@@ -48,10 +48,10 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                 
             />
 
-            <div >
-                <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 {rubriche.length > 0 ? (
-                    <div >
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         {rubriche.map(rubrica => (
                             <ActionTile 
                                 key={rubrica.id}
@@ -74,7 +74,7 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                 </div>
             </div>
             
-            <div >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <SectionHeader title="Riferimenti" icon="menu_book" variant="tertiary" />
                 <ActionTile 
                     title="Descrittori Livelli"
