@@ -24,7 +24,7 @@ exports[`M3Dialog Story Snapshots > renders default story correctly 1`] = `
         <div>
           <h2
             id="dialog-title"
-            style="font-size: var(--md-sys-typescale-title-large-font-size); font-weight: var(--md-sys-typescale-title-large-weight); line-height: var(--md-sys-typescale-title-large-line-height); letter-spacing: var(--md-sys-typescale-headline-large-letter-spacing); color: var(--md-sys-color-on-surface); margin: 0px;"
+            style="font-size: var(--md-sys-typescale-title-large-font-size); font-weight: var(--md-sys-typescale-title-large-font-weight); line-height: var(--md-sys-typescale-title-large-line-height); letter-spacing: var(--md-sys-typescale-headline-large-letter-spacing); color: var(--md-sys-color-on-surface); margin: 0px;"
           >
             Test Dialog
           </h2>

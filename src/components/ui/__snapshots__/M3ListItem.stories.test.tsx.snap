@@ -9,7 +9,7 @@ exports[`M3ListItem Story Snapshots > renders default story correctly 1`] = `
       style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--md-sys-spacing-1);"
     >
       <div
-        style="color: var(--md-sys-color-on-surface); font-weight: var(--md-sys-typescale-body-large-weight); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--md-sys-typescale-body-large-font-size); line-height: var(--md-sys-typescale-body-large-line-height);"
+        style="color: var(--md-sys-color-on-surface); font-weight: var(--md-sys-typescale-body-large-font-weight); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--md-sys-typescale-body-large-font-size); line-height: var(--md-sys-typescale-body-large-line-height);"
       >
         Test
       </div>

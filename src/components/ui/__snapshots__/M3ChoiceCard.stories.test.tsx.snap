@@ -17,7 +17,7 @@ exports[`M3ChoiceCard Story Snapshots > renders default story correctly 1`] = `
       </span>
     </div>
     <span
-      style="font-size: var(--md-sys-typescale-body-large-font-size); font-family: var(--md-sys-typescale-body-small-font-family); font-weight: var(--md-sys-typescale-body-large-weight); letter-spacing: 0.2em; text-transform: uppercase;"
+      style="font-size: var(--md-sys-typescale-body-large-font-size); font-family: var(--md-sys-typescale-body-small-font-family); font-weight: var(--md-sys-typescale-body-large-font-weight); letter-spacing: 0.2em; text-transform: uppercase;"
     >
       Test
     </span>

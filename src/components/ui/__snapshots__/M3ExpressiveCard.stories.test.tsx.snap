@@ -6,35 +6,29 @@ exports[`M3ExpressiveCard Story Snapshots > renders default story correctly 1`] 
     style="position: relative; background-color: var(--md-sys-color-surface-container-high); color: var(--md-sys-color-on-surface); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-large); padding: var(--md-sys-spacing-8); min-height: var(--md-sys-spacing-8); display: flex; flex-direction: column; transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard); cursor: default; box-shadow: var(--md-sys-elevation-level1); outline: none;"
   >
     <div
-      style="position: absolute; width: var(--md-sys-spacing-32); height: var(--md-sys-spacing-32); filter: blur(var(--md-sys-blur-48)); pointer-events: none; opacity: var(--md-sys-state-opacity-tint-subtle); border-radius: var(--md-sys-spacing-32); background: radial-gradient(circle, var(--md-sys-color-primary)20 var(--md-sys-percent-0), transparent var(--md-sys-percent-70));"
-    />
-    <div
-      style="position: absolute; top: 0px; left: 0px; right: 0px; height: var(--md-sys-spacing-1); opacity: var(--md-sys-state-opacity-secondary); background-color: var(--md-sys-color-primary); border-top-left-radius: var(--md-sys-shape-corner-large); border-top-right-radius: var(--md-sys-shape-corner-large);"
-    />
-    <div
-      style="position: relative; z-index: var(--md-sys-z-modal); display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--md-sys-spacing-4);"
+      style="position: relative; display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--md-sys-spacing-4);"
     >
       <div
-        style="width: var(--md-sys-spacing-14); height: var(--md-sys-spacing-14); border-radius: var(--md-sys-shape-corner-large); background: var(--md-sys-color-surface-container-high); box-shadow: var(--md-sys-elevation-level2); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"
+        style="width: var(--md-sys-spacing-10); height: var(--md-sys-spacing-10); border-radius: var(--md-sys-shape-corner-large); background: var(--md-sys-color-surface-container-high); display: flex; align-items: center; justify-content: center; flex-shrink: 0;"
       >
         <span
           class="material-symbols-outlined"
-          style="font-size: var(--md-sys-typescale-display-large-font-size); opacity: var(--md-sys-state-opacity-hover-overlay); user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"
+          style="font-size: var(--md-sys-typescale-title-large-font-size); color: var(--md-sys-color-primary); user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"
         >
           test-icon
         </span>
       </div>
     </div>
     <div
-      style="position: relative; z-index: var(--md-sys-z-modal); flex-grow: 1; display: flex; flex-direction: column; gap: var(--md-sys-spacing-4);"
+      style="flex-grow: 1; display: flex; flex-direction: column; gap: var(--md-sys-spacing-1);"
     >
       <h3
-        style="font-size: var(--md-sys-typescale-title-large-font-size); font-family: var(--md-sys-typescale-headline-small-font-family); font-weight: var(--md-sys-typescale-weight-bold); letter-spacing: -0.005em; line-height: 1.25;"
+        style="font-size: var(--md-sys-typescale-title-medium-font-size); font-family: var(--md-sys-typescale-title-medium-font-family); font-weight: var(--md-sys-typescale-title-medium-font-weight); letter-spacing: var(--md-sys-typescale-title-medium-letter-spacing); line-height: var(--md-sys-typescale-title-medium-line-height); color: var(--md-sys-color-on-surface);"
       >
         Test Title
       </h3>
       <p
-        style="font-size: var(--md-sys-typescale-body-large-font-size); font-family: var(--md-sys-typescale-body-large-font-family); opacity: var(--md-sys-state-opacity-caption); line-height: var(--md-sys-typescale-body-large-line-height); font-weight: var(--md-sys-typescale-weight-medium); display: -webkit-box; -webkit-line-clamp: 3; overflow: hidden;"
+        style="font-size: var(--md-sys-typescale-body-medium-font-size); font-family: var(--md-sys-typescale-body-medium-font-family); color: var(--md-sys-color-on-surface-variant); line-height: var(--md-sys-typescale-body-medium-line-height); display: -webkit-box; -webkit-line-clamp: 2; overflow: hidden;"
       >
         Test description
       </p>

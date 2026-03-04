@@ -19,7 +19,7 @@ exports[`ThinkingIndicator Story Snapshots > renders default story correctly 1`]
       />
     </div>
     <span
-      style="font-size: var(--md-sys-typescale-body-large-font-size); line-height: var(--md-sys-typescale-body-large-line-height); font-weight: var(--md-sys-typescale-body-large-weight); color: var(--md-sys-color-on-surface-variant); font-family: var(--md-sys-typescale-body-large-font-family); flex-grow: 1;"
+      style="font-size: var(--md-sys-typescale-body-large-font-size); line-height: var(--md-sys-typescale-body-large-line-height); font-weight: var(--md-sys-typescale-body-large-font-weight); color: var(--md-sys-color-on-surface-variant); font-family: var(--md-sys-typescale-body-large-font-family); flex-grow: 1;"
     >
       Pensando...
     </span>
@@ -27,7 +27,7 @@ exports[`ThinkingIndicator Story Snapshots > renders default story correctly 1`]
       style="width: var(--md-sys-spacing-8); height: var(--md-sys-spacing-8); border-radius: var(--md-sys-shape-corner-full); background-color: var(--md-sys-color-primary); opacity: var(--md-sys-state-opacity-tint-faint); display: flex; align-items: center; justify-content: center;"
     >
       <span
-        style="font-size: var(--md-sys-typescale-body-large-font-size); color: var(--md-sys-color-primary); font-weight: var(--md-sys-typescale-body-large-weight); line-height: var(--md-sys-typescale-body-large-line-height);"
+        style="font-size: var(--md-sys-typescale-body-large-font-size); color: var(--md-sys-color-primary); font-weight: var(--md-sys-typescale-body-large-font-weight); line-height: var(--md-sys-typescale-body-large-line-height);"
       >
         smart_toy
       </span>

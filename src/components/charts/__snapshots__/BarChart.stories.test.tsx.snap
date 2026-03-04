@@ -9,7 +9,7 @@ exports[`BarChart Story Snapshots > renders default story correctly 1`] = `
       height="250"
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 500 250"
-      width="100%"
+      width="var(--md-sys-percent-100)"
     >
       <g>
         <rect
