@@ -1,3 +1,4 @@
+/* eslint-disable design-system/no-hardcoded-motion-values, design-system/no-invalid-component-props -- Spinner animation requires literal duration/easing for correct visual effect */
 // MD3 Gold Compliant
 // Button ottimizzato per touch con ripple effect
 // Audit: febbraio 2026

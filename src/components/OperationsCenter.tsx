@@ -204,9 +204,9 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                               'var(--md-sys-color-on-surface)',
                         fontSize: 'var(--md-sys-spacing-10)',
                         marginTop: 0,
-                        marginLeft: 'auto',
+                        marginLeft: 'var(--md-sys-margin-auto)',
                         marginBottom: 'var(--md-sys-spacing-4)',
-                        marginRight: 'auto',
+                        marginRight: 'var(--md-sys-margin-auto)',
                         boxShadow: 'var(--md-sys-elevation-level2)',
                         transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'
                     }}>
@@ -264,6 +264,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                                     <SectionHeader title="Processi Comuni" icon="play_circle" />
+                                    {/* eslint-disable-next-line design-system/no-hardcoded-layout-values -- repeat/minmax cannot be expressed with grid-fr tokens */}
                                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'var(--md-sys-spacing-3)' }}>
                                         {PROCESS_DEFINITIONS.filter(p => p.category === 'daily').map(p => (
                                             <ActionTile
@@ -280,6 +281,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
 
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                                     <SectionHeader title="Pianificazione e Sviluppo" icon="design_services" />
+                                    {/* eslint-disable-next-line design-system/no-hardcoded-layout-values -- repeat/minmax cannot be expressed with grid-fr tokens */}
                                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'var(--md-sys-spacing-3)' }}>
                                         {PROCESS_DEFINITIONS.filter(p => p.category === 'planning').map(p => (
                                             <ActionTile
@@ -296,6 +298,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
 
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                                     <SectionHeader title="Manutenzione del Sistema" icon="build" />
+                                    {/* eslint-disable-next-line design-system/no-hardcoded-layout-values -- repeat/minmax cannot be expressed with grid-fr tokens */}
                                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'var(--md-sys-spacing-3)' }}>
                                         {PROCESS_DEFINITIONS.filter(p => p.category === 'system').map(p => (
                                             <ActionTile

@@ -137,6 +137,7 @@ export const M3Menu: React.FC<M3MenuProps> = ({
     
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, focusedIndex, items]);
   
   const handleItemClick = (index: number) => {

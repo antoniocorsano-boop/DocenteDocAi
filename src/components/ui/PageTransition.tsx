@@ -72,19 +72,16 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
   useEffect(() => {
     triggerEnter();
     return () => { if (frameRef.current) cancelAnimationFrame(frameRef.current); };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Re-trigger on view key change
   useEffect(() => {
     if (transitionKey !== undefined) triggerEnter();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transitionKey]);
 
   // Re-trigger when loading resolves
   useEffect(() => {
     if (!isLoading) triggerEnter();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   const currentStyle: React.CSSProperties = {

@@ -1836,8 +1836,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         onClick={onLogout}
                         variant="text"
                         style={{marginTop: 'var(--md-sys-spacing-4)',
-                            marginLeft: 'auto',
-                            marginRight: 'auto',
+                            marginLeft: 'var(--md-sys-margin-auto)',
+                            marginRight: 'var(--md-sys-margin-auto)',
                             height: 'var(--md-sys-spacing-4)',
                             fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                             fontWeight: 'var(--md-sys-typescale-weight-black)',

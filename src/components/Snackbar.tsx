@@ -137,7 +137,7 @@ const Snackbar: React.FC = () => {
   return (
     <div
       style={{position: 'fixed',
-        left: 'var(50%)',
+        left: 'var(--md-sys-percent-50)',
         bottom: 'var(--md-sys-spacing-8)',
         transform: 'translateX(-50%)',
         minWidth: 'var(--md-sys-spacing-14)',
@@ -234,7 +234,7 @@ const Snackbar: React.FC = () => {
             height: 'var(--md-sys-percent-100)',
             width: `${progress}%`,
             backgroundColor: 'color-mix(in srgb, var(--md-sys-color-inverse-on-surface) 50%, transparent)',
-            transition: 'width var(--md-sys-motion-duration-instant) linear'
+            transition: 'width var(--md-sys-motion-duration-instant) var(--md-sys-motion-easing-standard)'
           }}
         />
       </div>

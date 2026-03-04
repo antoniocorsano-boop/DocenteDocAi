@@ -52,7 +52,7 @@ export const FAB: React.FC<FABProps> = ({
     },
     'bottom-center': {
       bottom: 'var(--md-sys-spacing-4)',
-      left: '50%',
+      left: 'var(--md-sys-percent-50)',
       transform: 'translateX(-50%)'
     },
     'bottom-left': {
@@ -173,7 +173,7 @@ export const FABSpeedDial: React.FC<FABSpeedDialProps> = ({
     },
     'bottom-center': {
       bottom: 'var(--md-sys-spacing-4)',
-      left: '50%',
+      left: 'var(--md-sys-percent-50)',
       transform: 'translateX(-50%)'
     },
     'bottom-left': {

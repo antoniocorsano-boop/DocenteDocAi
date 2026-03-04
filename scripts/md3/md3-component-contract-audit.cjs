@@ -70,23 +70,23 @@ const ALLOWED_CLASSNAMES = [
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const APPROVED_EXCEPTIONS = [
   // ── BottomNav: BEM class names trigger the m- false positive ────────────
-  { file: 'src\\components\\BottomNav.tsx', line: 45, type: 'classNameUtilities', pattern: 'bottom-nav-container' },
-  { file: 'src\\components\\BottomNav.tsx', line: 67, type: 'classNameUtilities', pattern: 'bottom-nav-item' },
-  { file: 'src\\components\\BottomNav.tsx', line: 88, type: 'classNameUtilities', pattern: 'bottom-nav-pill' },
+  { file: 'src\\components\\BottomNav.tsx', line: 46, type: 'classNameUtilities', pattern: 'bottom-nav-container' },
+  { file: 'src\\components\\BottomNav.tsx', line: 68, type: 'classNameUtilities', pattern: 'bottom-nav-item' },
+  { file: 'src\\components\\BottomNav.tsx', line: 89, type: 'classNameUtilities', pattern: 'bottom-nav-pill' },
 
   // ── BarChart: SVG width="100%" is semantic (responsive SVG) ─────────────
   { file: 'src\\components\\charts\\BarChart.tsx', line: 41, type: 'hardcodedSizeProps', pattern: 'preserveAspectRatio' },
   { file: 'src\\components\\charts\\BarChart.tsx', line: 77, type: 'hardcodedSizeProps', pattern: 'preserveAspectRatio' },
 
   // ── Skeleton: width prop is semantic API (how wide the placeholder is) ──
-  { file: 'src\\components\\ui\\Skeleton.tsx', line: 96, type: 'forbiddenProps', pattern: '<Skeleton' },
-  { file: 'src\\components\\ui\\Skeleton.tsx', line: 102, type: 'forbiddenProps', pattern: '<Skeleton' },
-  { file: 'src\\components\\ui\\Skeleton.tsx', line: 103, type: 'hardcodedSizeProps', pattern: 'width="60%"' },
-  { file: 'src\\components\\ui\\Skeleton.tsx', line: 107, type: 'forbiddenProps', pattern: '<Skeleton' },
-  { file: 'src\\components\\ui\\Skeleton.tsx', line: 108, type: 'hardcodedSizeProps', pattern: 'width="40%"' },
+  { file: 'src\\components\\ui\\Skeleton.tsx', line: 97, type: 'forbiddenProps', pattern: '<Skeleton' },
+  { file: 'src\\components\\ui\\Skeleton.tsx', line: 103, type: 'forbiddenProps', pattern: '<Skeleton' },
+  { file: 'src\\components\\ui\\Skeleton.tsx', line: 104, type: 'hardcodedSizeProps', pattern: 'width="60%"' },
+  { file: 'src\\components\\ui\\Skeleton.tsx', line: 108, type: 'forbiddenProps', pattern: '<Skeleton' },
+  { file: 'src\\components\\ui\\Skeleton.tsx', line: 109, type: 'hardcodedSizeProps', pattern: 'width="40%"' },
 
   // ── M3Menu / M3Popover: internal popover anchor prop ────────────────────
-  { file: 'src\\components\\ui\\M3Menu.tsx', line: 151, type: 'forbiddenProps', pattern: 'M3Popover' },
+  { file: 'src\\components\\ui\\M3Menu.tsx', line: 152, type: 'forbiddenProps', pattern: 'M3Popover' },
 
   // ── containerClassName shadow-inner: utility inside named prop ───────────
   { file: 'src\\components\\CopyForRegisterModal.tsx', line: 96, type: 'classNameUtilities', pattern: 'bg-[var(' },
@@ -98,7 +98,7 @@ const APPROVED_EXCEPTIONS = [
   { file: 'src\\components\\Snackbar.tsx', line: 233, type: 'inlineStyleLayout', pattern: 'style={{' },
   { file: 'src\\components\\ui\\AccessibilitySettings.tsx', line: 115, type: 'inlineStyleLayout', pattern: 'style={{' },
   { file: 'src\\components\\ui\\AccessibilitySettings.tsx', line: 204, type: 'inlineStyleLayout', pattern: 'style={{' },
-  { file: 'src\\components\\ui\\ProgressIndicator.tsx', line: 43, type: 'inlineStyleLayout', pattern: 'style={{' },
+  { file: 'src\\components\\ui\\ProgressIndicator.tsx', line: 44, type: 'inlineStyleLayout', pattern: 'style={{' },
   { file: 'src\\components\\ui\\ResponsiveContainer.tsx', line: 30, type: 'inlineStyleLayout', pattern: 'style={{' },
   { file: 'src\\components\\ui\\SelectField.tsx', line: 83, type: 'inlineStyleLayout', pattern: 'style={{' },
   { file: 'src\\components\\ui\\SelectField.tsx', line: 99, type: 'inlineStyleLayout', pattern: 'style={{' },
@@ -107,9 +107,9 @@ const APPROVED_EXCEPTIONS = [
 
   // ── InlineStyleMotion: spinner / loader semantic animations ─────────────
   { file: 'src\\components\\ui\\LoadingState.tsx', line: 36, type: 'inlineStyleMotion', pattern: 'style={{' },
-  { file: 'src\\components\\ui\\ProgressIndicator.tsx', line: 43, type: 'inlineStyleMotion', pattern: 'style={{' },
-  { file: 'src\\components\\ui\\Skeleton.tsx', line: 47, type: 'inlineStyleMotion', pattern: 'style={{' },
-  { file: 'src\\components\\ui\\TouchButton.tsx', line: 137, type: 'inlineStyleMotion', pattern: 'style={{' },
+  { file: 'src\\components\\ui\\ProgressIndicator.tsx', line: 44, type: 'inlineStyleMotion', pattern: 'style={{' },
+  { file: 'src\\components\\ui\\Skeleton.tsx', line: 48, type: 'inlineStyleMotion', pattern: 'style={{' },
+  { file: 'src\\components\\ui\\TouchButton.tsx', line: 138, type: 'inlineStyleMotion', pattern: 'style={{' },
 
   // ── SmartImportModal: SVG inline background in data URI (not a CSS value) ─
   { file: 'src\\components\\SmartImportModal.tsx', line: 209, type: 'forbiddenProps', pattern: 'backgroundImage' },

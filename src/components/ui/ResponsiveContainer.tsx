@@ -40,6 +40,7 @@ export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
 };
 
 // Hook per responsive breakpoints
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useBreakpoint = () => {
   const [breakpoint, setBreakpoint] = React.useState<'mobile' | 'tablet' | 'desktop'>('desktop');
 

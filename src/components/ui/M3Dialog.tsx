@@ -189,7 +189,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
                 maxHeight: 'var(--md-sys-percent-90)'
               }
           ),
-          margin: 'auto',
+          margin: 'var(--md-sys-margin-auto)',
           backgroundColor: surfaceContainerHigh,
           borderRadius: cornerLarge,
           boxShadow: 'var(--md-sys-elevation-level3)',

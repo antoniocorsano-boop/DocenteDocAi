@@ -482,7 +482,7 @@ exports[`MD3 Visual Regression Snapshots > ProgressIndicator renders correctly 1
     style="position: fixed; top: 0px; left: 0px; right: 0px; height: var(--md-sys-spacing-0_5); background-color: var(--md-sys-color-surface-variant); z-index: var(--md-sys-z-snackbar); overflow: hidden;"
   >
     <div
-      style="height: var(--md-sys-percent-100); width: 30%; background-color: var(--md-sys-color-primary); animation: progress-indeterminate 2s var(--md-sys-motion-easing-standard) infinite; transform-origin: left center;"
+      style="height: var(--md-sys-percent-100); width: var(--md-sys-percent-30); background-color: var(--md-sys-color-primary); animation: progress-indeterminate 2s var(--md-sys-motion-easing-standard) infinite; transform-origin: left center;"
     />
   </div>
   <style>
@@ -530,7 +530,7 @@ exports[`MD3 Visual Regression Snapshots > SelectField renders correctly 1`] = `
       <span
         aria-hidden="true"
         class="material-symbols-outlined"
-        style="position: absolute; right: var(--md-sys-spacing-2); top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--md-sys-color-on-surface-variant); font-size: var(--md-sys-spacing-4); transition: color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);"
+        style="position: absolute; right: var(--md-sys-spacing-2); top: var(--md-sys-percent-50); transform: translateY(-50%); pointer-events: none; color: var(--md-sys-color-on-surface-variant); font-size: var(--md-sys-spacing-4); transition: color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);"
       >
         expand_more
       </span>
@@ -560,14 +560,14 @@ exports[`MD3 Visual Regression Snapshots > SelectField renders correctly 1`] = `
       <span
         aria-hidden="true"
         class="material-symbols-outlined"
-        style="position: absolute; right: var(--md-sys-spacing-2); top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--md-sys-color-on-surface-variant); font-size: var(--md-sys-spacing-4); transition: color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);"
+        style="position: absolute; right: var(--md-sys-spacing-2); top: var(--md-sys-percent-50); transform: translateY(-50%); pointer-events: none; color: var(--md-sys-color-on-surface-variant); font-size: var(--md-sys-spacing-4); transition: color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);"
       >
         expand_more
       </span>
       <span
         aria-hidden="true"
         class="material-symbols-outlined"
-        style="position: absolute; left: var(--md-sys-spacing-2); top: 50%; transform: translateY(-50%); color: var(--md-sys-color-error); font-size: var(--md-sys-spacing-4);"
+        style="position: absolute; left: var(--md-sys-spacing-2); top: var(--md-sys-percent-50); transform: translateY(-50%); color: var(--md-sys-color-error); font-size: var(--md-sys-spacing-4);"
       >
         error
       </span>
@@ -613,7 +613,7 @@ exports[`MD3 Visual Regression Snapshots > Skeleton renders correctly 1`] = `
   </style>
   <div
     aria-hidden="true"
-    style="width: var(--md-sys-spacing-10); height: var(--md-sys-spacing-10); border-radius: 50%; background: var(--md-sys-color-surface-variant); animation: skeleton-pulse 1.5s ease-in-out infinite; position: relative; overflow: hidden;"
+    style="width: var(--md-sys-spacing-10); height: var(--md-sys-spacing-10); border-radius: var(--md-sys-percent-50); background: var(--md-sys-color-surface-variant); animation: skeleton-pulse 1.5s ease-in-out infinite; position: relative; overflow: hidden;"
   />
   <style>
     
@@ -651,7 +651,7 @@ exports[`MD3 Visual Regression Snapshots > Skeleton renders correctly 1`] = `
     >
       <div
         aria-hidden="true"
-        style="width: var(--md-sys-spacing-6); height: var(--md-sys-spacing-6); border-radius: 50%; background: var(--md-sys-color-surface-variant); animation: skeleton-pulse 1.5s ease-in-out infinite; position: relative; overflow: hidden;"
+        style="width: var(--md-sys-spacing-6); height: var(--md-sys-spacing-6); border-radius: var(--md-sys-percent-50); background: var(--md-sys-color-surface-variant); animation: skeleton-pulse 1.5s ease-in-out infinite; position: relative; overflow: hidden;"
       />
       <style>
         
@@ -707,7 +707,7 @@ exports[`MD3 Visual Regression Snapshots > Skeleton renders correctly 1`] = `
     >
       <div
         aria-hidden="true"
-        style="width: var(--md-sys-spacing-6); height: var(--md-sys-spacing-6); border-radius: 50%; background: var(--md-sys-color-surface-variant); animation: skeleton-pulse 1.5s ease-in-out infinite; position: relative; overflow: hidden;"
+        style="width: var(--md-sys-spacing-6); height: var(--md-sys-spacing-6); border-radius: var(--md-sys-percent-50); background: var(--md-sys-color-surface-variant); animation: skeleton-pulse 1.5s ease-in-out infinite; position: relative; overflow: hidden;"
       />
       <style>
         
@@ -792,7 +792,7 @@ exports[`MD3 Visual Regression Snapshots > TabGroup renders correctly 1`] = `
       </span>
       <div
         aria-hidden="true"
-        style="position: absolute; bottom: calc(var(--md-sys-spacing-1) * -1); left: 50%; transform: translateX(-50%); width: var(--md-sys-percent-60); height: var(--md-sys-spacing-2); background-color: var(--md-sys-color-primary); border-radius: var(--md-sys-spacing-2);"
+        style="position: absolute; bottom: calc(var(--md-sys-spacing-1) * -1); left: var(--md-sys-percent-50); transform: translateX(-50%); width: var(--md-sys-percent-60); height: var(--md-sys-spacing-2); background-color: var(--md-sys-color-primary); border-radius: var(--md-sys-spacing-2);"
       />
     </button>
     <button

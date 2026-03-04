@@ -139,7 +139,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
 
         if (!hasApiKey) {
             return (
-                <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", marginLeft: 'auto', marginRight: 'auto' }}>
+                <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)' }}>
                     <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-primary)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-primary)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                         <span style={{ color: 'var(--md-sys-color-primary)' }}>vpn_key</span>
                     </div>
@@ -210,7 +210,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                         {isLoading ? (
                             <div style={{ textAlign: "center" }}>
                                 <div style={{ marginBottom: 'var(--md-sys-spacing-8)' }}>
-                                    <div style={{ width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-small)', marginLeft: 'auto', marginRight: 'auto' }}></div>
+                                    <div style={{ width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-small)', marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)' }}></div>
                                     <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                                         <span style={{ color: 'var(--md-sys-color-primary)' }}>auto_videocam</span>
                                     </div>

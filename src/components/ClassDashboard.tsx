@@ -100,6 +100,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
     const evaluations = useStudentStore(state => state.evaluations);
     const slots = useAcademicStore(state => state.slots);
     const lessons = useAcademicStore(state => state.lessons);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const submissions = useAcademicStore(state => state.submissions) || [];
 
     const filteredStudents = useMemo(() => {
@@ -125,8 +126,8 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
     return (
         <div style={{
             padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-4) var(--md-sys-spacing-8)',
-            maxWidth: 'var(--md-sys-layout-content-max-width, 1200px)',
-            margin: '0 auto',
+            maxWidth: 'var(--md-sys-layout-content-max-width)',
+            margin: '0 var(--md-sys-margin-auto)',
             width: 'var(--md-sys-percent-100)',
             boxSizing: 'border-box',
         }}>
@@ -138,7 +139,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
 
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: '1fr',
+                gridTemplateColumns: 'var(--md-sys-grid-fr-1)',
                 gap: 'var(--md-sys-spacing-6)',
             }}>
                 {/* Main Column */}
@@ -314,7 +315,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     margin: 0,
                                 }}>Registro & Didattica</h3>
                             </div>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--md-sys-spacing-3)' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
                                 <M3Card
                                     style={{ cursor: 'pointer', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)' }}
                                     onClick={() => onNavigate('register', selectedClass)}
@@ -376,7 +377,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     margin: 0,
                                 }}>Valutazione & Competenze</h3>
                             </div>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--md-sys-spacing-3)' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
                                 <M3Card
                                     style={{ cursor: 'pointer', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)' }}
                                     onClick={() => onNavigate('evaluations', selectedClass)}
@@ -438,7 +439,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     margin: 0,
                                 }}>Analisi & Report</h3>
                             </div>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 'var(--md-sys-spacing-3)' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
                                 <M3Card
                                     style={{ cursor: 'pointer', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)' }}
                                     onClick={() => onNavigate('improvement-guide', selectedClass)}

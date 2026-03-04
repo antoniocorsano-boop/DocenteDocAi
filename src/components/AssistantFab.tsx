@@ -75,6 +75,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
       clearInterval(intervalDom);
       clearInterval(intervalMenu);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [menuOpen]);
 
 // Rileva la direzione di apertura del menu (up/down) in base alla posizione del FAB
@@ -124,6 +125,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
     } else {
       safeConsole('info', '[AssistantFab] MENU FAB CHIUSO', { menuOpen, mode, stack: new Error().stack });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [menuOpen, mode]);
 
   React.useEffect(() => {
@@ -163,7 +165,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
                       aria-label="Chiudi menu assistente"
                       onClick={() => setMenuOpen(false)}
                     >
-                      <span className="material-symbols-outlined">close</span>
+                                  <span className="material-symbols-outlined">close</span>
                     </button>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
@@ -174,7 +176,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
                         onClick={() => handleAction(action)}
                         aria-label={action.label}
                       >
-                        <span className="material-symbols-outlined">{action.icon}</span>
+                                      <span className="material-symbols-outlined">{action.icon}</span>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                           <p>{action.label}</p>
                           <p>{action.description}</p>
@@ -194,7 +196,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
                   
                   onClick={() => setMenuOpen(false)}
                 >
-                  <span className="material-symbols-outlined">close</span>
+                          <span className="material-symbols-outlined">close</span>
                 </button>
                 {ACTIONS.map((a, i) => {
                   // MD3 Gold: spacing tra azioni con token MD3
@@ -212,7 +214,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
                       onClick={() => handleAction(a)}
                       aria-label={a.label}
                     >
-                      <span className="material-symbols-outlined">{a.icon}</span>
+                                  <span className="material-symbols-outlined">{a.icon}</span>
                       <span>{a.label}</span>
                     </button>
                   );

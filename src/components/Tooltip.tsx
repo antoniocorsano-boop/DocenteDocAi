@@ -48,6 +48,7 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
     return () => {
       clearTimeout(timeout);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getTooltipPosition = (): React.CSSProperties => {
@@ -71,7 +72,7 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
       case 'top':
         return {
           ...baseStyle,
-          left: 'var(50%)',
+          left: 'var(--md-sys-percent-50)',
           bottom: 'var(--md-sys-percent-120)',
           transform: 'translateX(-50%)',
           marginBottom: 'var(--md-sys-spacing-2)'
@@ -79,7 +80,7 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
       case 'bottom':
         return {
           ...baseStyle,
-          left: 'var(50%)',
+          left: 'var(--md-sys-percent-50)',
           top: 'var(--md-sys-percent-120)',
           transform: 'translateX(-50%)',
           marginTop: 'var(--md-sys-spacing-2)'
@@ -88,7 +89,7 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
         return {
           ...baseStyle,
           right: 'var(--md-sys-percent-120)',
-          top: 'var(50%)',
+          top: 'var(--md-sys-percent-50)',
           transform: 'translateY(-50%)',
           marginRight: 'var(--md-sys-spacing-2)'
         };
@@ -96,7 +97,7 @@ const Tooltip: React.FC<TooltipProps> = ({ label, children, position = 'top' }) 
         return {
           ...baseStyle,
           left: 'var(--md-sys-percent-120)',
-          top: 'var(50%)',
+          top: 'var(--md-sys-percent-50)',
           transform: 'translateY(-50%)',
           marginLeft: 'var(--md-sys-spacing-2)'
         };

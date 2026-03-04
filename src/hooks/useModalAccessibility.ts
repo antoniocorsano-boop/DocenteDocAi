@@ -47,6 +47,7 @@ export function useModalAccessibility({
       }
     }
     containerRef.current.addEventListener('keydown', handleTab);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => containerRef.current?.removeEventListener('keydown', handleTab);
   }, [isOpen, containerRef]);
 
@@ -69,6 +70,7 @@ export function useModalAccessibility({
       }
     }
     overlayRef.current.addEventListener('mousedown', handleOverlay);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => overlayRef.current?.removeEventListener('mousedown', handleOverlay);
   }, [isOpen, overlayRef, onOverlayClick]);
 

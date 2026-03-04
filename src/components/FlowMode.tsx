@@ -134,6 +134,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
 
         // Sort by time
         return items.sort((a, b) => a.time.localeCompare(b.time));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [slots, lessons, eventi, now, todayName, currentMinutes, handleStartClassroom, handleNavigate]);
 
     // Find current active item

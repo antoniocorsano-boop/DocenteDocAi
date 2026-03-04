@@ -23,7 +23,7 @@ const PinPad: React.FC<PinPadProps> = ({ onInput, onDelete }) => {
             gridTemplateColumns: `repeat(3, var(--md-sys-grid-fr-1))`,
             gap: 'var(--md-sys-spacing-4)',
             maxWidth: 'var(--md-sys-spacing-64)',
-            margin: 'var(--md-sys-spacing-4) auto 0'
+            margin: 'var(--md-sys-spacing-4) var(--md-sys-margin-auto) 0'
         }}>
             {keys.map((key, i) => {
                 if (key === '') return <div key={i}></div>;

@@ -57,10 +57,12 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
         return students.filter(s => s.classe === draftEntry.classe).sort((a, b) => a.cognome.localeCompare(b.cognome));
     }, [students, draftEntry.classe]);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const studentAttendance = draftEntry.studentAttendance || {};
     const homeworkCheck = draftEntry.homeworkCheck || {};
     const participation = draftEntry.participation || {};
     const checkedObjectives = draftEntry.checkedObjectives || {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const observations = draftEntry.observations || {};
 
     // --- ATTENDANCE LOGIC ---

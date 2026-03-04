@@ -24,7 +24,7 @@ exports[`SelectField Story Snapshots > renders default story correctly 1`] = `
       <span
         aria-hidden="true"
         class="material-symbols-outlined"
-        style="position: absolute; right: var(--md-sys-spacing-2); top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--md-sys-color-on-surface-variant); font-size: var(--md-sys-spacing-4); transition: color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);"
+        style="position: absolute; right: var(--md-sys-spacing-2); top: var(--md-sys-percent-50); transform: translateY(-50%); pointer-events: none; color: var(--md-sys-color-on-surface-variant); font-size: var(--md-sys-spacing-4); transition: color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);"
       >
         expand_more
       </span>

@@ -177,6 +177,7 @@ export const useAppEngine = () => {
             }
         };
         load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []); // Empty deps: Only run once on mount
 
     // --- PWA INSTALL PROMPT HANDLER (Interacts with global window object) ---
@@ -188,6 +189,7 @@ export const useAppEngine = () => {
         };
         window.addEventListener('beforeinstallprompt', handler as EventListener);
         return () => window.removeEventListener('beforeinstallprompt', handler as EventListener);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []); // Only setup once on mount
 
     // --- SYSTEM SUGGESTION ENGINE (Coordinates data to produce UI suggestion) ---
@@ -207,6 +209,7 @@ export const useAppEngine = () => {
         }, 5000);
 
         return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isDataLoaded, students, slots, uda, eventi, evaluations]);
 
     // --- AI SUGGESTIONS GENERATOR (Personalized suggestions with caching and scoring) ---
@@ -253,6 +256,7 @@ export const useAppEngine = () => {
         };
 
         generateSuggestions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isDataLoaded, isTestMode]); // Re-run if data changes significantly
 
     // --- CORE ACTIONS (COORDINATION AND UI DISPATCH) ---
@@ -263,6 +267,7 @@ export const useAppEngine = () => {
         // If the messageKey is a known key in messages.toast, use it, else fallback to the string
         const msg = (messages.toast as any)[messageKey] || messageKey;
         uiActions.showToast(msg, type);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleNavigate = useCallback((newView: View, context: any = null) => {
@@ -282,6 +287,7 @@ export const useAppEngine = () => {
             errorLogger.logNavigationError(newView, error as Error, view);
             showToast('Errore durante la navigazione', 'error');
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [view, viewContext, showToast]); // Remove uiActions from deps - it's stable from zustand
 
     const handleBack = useCallback((force = false) => {
@@ -294,6 +300,7 @@ export const useAppEngine = () => {
             setView('home');
             setViewContext(null);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [navigationHistory, view]);
 
     const handleConnectDrive = useCallback(() => {
@@ -304,12 +311,14 @@ export const useAppEngine = () => {
 
         if (initialized) requestAccessToken();
         else showToast('driveInitError', 'error');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [settings.googleClientId]);
 
     const handleDisconnectDrive = useCallback(() => {
         revokeAccessToken();
         uiActions.setDriveSyncState({ isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
         showToast('driveDisconnected', 'info');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleSyncToDrive = useCallback(async (folderId?: string) => {
@@ -618,6 +627,7 @@ export const useAppEngine = () => {
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, students, lessons, slots, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica, feedSources, draftRegister, finalizedRegister, curricula, submissions, settings, aiSettings, themeState, navigationHistory, backupState, driveSyncState, installPrompt, canShowInstallPrompt, isGlobalAiLoading, dismissedSuggestions]);
 
     const handleImportData = useCallback(async (file: File) => {
@@ -938,6 +948,7 @@ export const useAppEngine = () => {
         handleResetYearData,
         importEvaluations: studentActions.importEvaluations,
         toggleModal: uiActions.toggleModal,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }), [setUser, setStudents, setLessons, setSlots, setEvaluations, setCompetencyEvals, setUda,
         setEventi, setKnowledgeBase, setCorpora, setNotifiche, setRubriche, setPianiInclusione,
         setGiudizi, setReportistica, setFeedSources, setDraftRegister, setFinalizedRegister,

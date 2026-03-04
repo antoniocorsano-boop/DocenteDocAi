@@ -193,6 +193,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', height: 'var(--md-sys-percent-100)', backgroundColor: 'var(--md-sys-color-surface)', overflow: 'hidden' }}>
+            {/* eslint-disable-next-line design-system/no-hardcoded-layout-values -- mixed fr/px grid requires literal values */}
             <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', height: 'var(--md-sys-percent-100)', overflow: 'hidden' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 0, borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', backgroundColor: 'var(--md-sys-color-surface-container-low)', overflow: 'hidden' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>

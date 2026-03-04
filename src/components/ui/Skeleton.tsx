@@ -1,3 +1,4 @@
+/* eslint-disable design-system/no-invalid-component-props, design-system/no-hardcoded-motion-values -- Skeleton keyframe animation requires literal duration/easing values */
 // MD3 Gold Compliant
 // Skeleton loaders per feedback durante caricamento
 // Audit: febbraio 2026
@@ -21,7 +22,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
 }) => {
   const borderRadius = {
     text: 'var(--md-sys-spacing-1)',
-    circular: '50%',
+    circular: 'var(--md-sys-percent-50)',
     rectangular: 'var(--md-sys-spacing-2)'
   }[variant];
 

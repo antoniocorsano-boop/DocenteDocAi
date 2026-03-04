@@ -308,8 +308,8 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                     style={{
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         position: 'absolute',
-                        top: 'var(50%)',
-                        left: 'var(50%)',
+                        top: 'var(--md-sys-percent-50)',
+                        left: 'var(--md-sys-percent-50)',
                         transform: 'translate(-50%, -50%)',
                         width: 'var(--md-sys-percent-60)',
                         height: 'var(--md-sys-percent-60)',

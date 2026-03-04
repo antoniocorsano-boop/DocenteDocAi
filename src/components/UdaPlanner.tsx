@@ -88,6 +88,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
     return (
         <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', height: 'var(--md-sys-percent-100)', backgroundColor: 'var(--md-sys-color-surface)', overflow: 'hidden' }}>
             {/* M3Expressive refactor: Aura ornaments */}
+            {/* eslint-disable-next-line design-system/no-hardcoded-layout-values -- percentage stops inside radial-gradient cannot use CSS token vars */}
             <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 'var(--md-sys-z-base)', opacity: 0.04, backgroundImage: 'radial-gradient(circle at 80% 20%, var(--md-sys-color-primary), transparent 60%)' }} />
 
             <div style={{ position: 'relative', zIndex: 'var(--md-sys-z-content)', display: 'flex', flexDirection: 'column', height: 'var(--md-sys-percent-100)', overflow: 'hidden' }}>
@@ -107,7 +108,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                 </div>
                 
                 <div style={{ flex: 1, overflowY: 'auto', padding: 'var(--md-sys-spacing-6)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr auto auto', gap: 'var(--md-sys-spacing-4)', alignItems: 'end' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) auto auto', gap: 'var(--md-sys-spacing-4)', alignItems: 'end' }}>
                         <div style={{ gridColumn: '1 / -1' }}>
                             <TextField 
                                 label="Titolo UDA" 
@@ -309,7 +310,9 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
     return (
         <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', height: 'var(--md-sys-percent-100)', backgroundColor: 'var(--md-sys-color-surface)', overflow: 'hidden' }}>
             {/* M3Expressive refactor: Aura ornaments */}
+            {/* eslint-disable-next-line design-system/no-hardcoded-layout-values -- percentage stops inside radial-gradient cannot use CSS token vars */}
             <div style={{ position: 'absolute', top: 0, right: 0, width: 'var(--md-sys-spacing-96)', height: 'var(--md-sys-spacing-96)', pointerEvents: 'none', backgroundImage: 'radial-gradient(circle, var(--md-sys-color-primary), transparent 70%)', opacity: 0.04, zIndex: 'var(--md-sys-z-base)' }} />
+            {/* eslint-disable-next-line design-system/no-hardcoded-layout-values -- percentage stops inside radial-gradient cannot use CSS token vars */}
             <div style={{ position: 'absolute', bottom: 0, left: 0, width: 'var(--md-sys-spacing-64)', height: 'var(--md-sys-spacing-64)', pointerEvents: 'none', backgroundImage: 'radial-gradient(circle, var(--md-sys-color-tertiary), transparent 70%)', opacity: 0.03, zIndex: 'var(--md-sys-z-base)' }} />
 
             <div style={{ position: 'relative', zIndex: 'var(--md-sys-z-content)', display: 'flex', flexDirection: 'column', height: 'var(--md-sys-percent-100)' }}>

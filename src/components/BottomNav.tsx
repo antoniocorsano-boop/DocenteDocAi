@@ -1,3 +1,4 @@
+/* eslint-disable design-system/no-classname -- Material Symbols outline icons require className */
 // MD3 Expressive — Bottom Navigation Bar
 // Active indicator: animated pill (scale + opacity) using spring expressive tokens.
 // MD3 spec: pill 64×32dp, corner-full, secondary-container color.

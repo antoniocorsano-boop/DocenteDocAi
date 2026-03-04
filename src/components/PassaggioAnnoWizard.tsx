@@ -179,7 +179,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
         >
             <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
                     {step === "intro" && (
-                        <div  style={{gap: 'var(--md-sys-spacing-8)', marginLeft: 'auto', marginRight: 'auto', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
+                        <div  style={{gap: 'var(--md-sys-spacing-8)', marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
                             <InfoCard 
                                 title={`Chiusura Anno ${settings.annoScolasticoCorrente}`}
                                 description="Procedura guidata per archiviare i dati, calcolare lo storico e preparare le classi per il nuovo anno."
@@ -285,8 +285,8 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                     )}
 
                     {step === "confirm" && (
-                        <div style={{ textAlign: "center", marginLeft: 'auto', marginRight: 'auto' }}>
-                            <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', color: 'var(--md-sys-color-on-error-container)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: 'auto', marginRight: 'auto', marginBottom: 'var(--md-sys-spacing-8)' }}>
+                        <div style={{ textAlign: "center", marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)' }}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', color: 'var(--md-sys-color-on-error-container)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)', marginBottom: 'var(--md-sys-spacing-8)' }}>
                                 <span style={{ color: 'var(--md-sys-color-on-error-container)' }}>warning</span>
                             </div>
                             <h3 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", marginBottom: 'var(--md-sys-spacing-8)' }}>Confermi l'operazione?</h3>

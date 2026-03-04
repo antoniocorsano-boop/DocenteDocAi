@@ -114,7 +114,7 @@ export const AccessibilitySettings: React.FC = () => {
           <div
             style={{
               position: 'absolute',
-              top: '50%',
+              top: 'var(--md-sys-percent-50)',
               left: contrast === 'high' ? 'calc(100% - var(--md-sys-spacing-7))' : 'var(--md-sys-spacing-1)',
               transform: 'translateY(-50%)',
               width: 'var(--md-sys-spacing-6)',
@@ -203,7 +203,7 @@ export const AccessibilitySettings: React.FC = () => {
           <div
             style={{
               position: 'absolute',
-              top: '50%',
+              top: 'var(--md-sys-percent-50)',
               left: reducedMotion ? 'calc(100% - var(--md-sys-spacing-7))' : 'var(--md-sys-spacing-1)',
               transform: 'translateY(-50%)',
               width: 'var(--md-sys-spacing-6)',

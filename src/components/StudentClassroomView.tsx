@@ -183,7 +183,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
             <main  style={{flexGrow: "1", overflowY: "auto", padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-8)'}}>
                 
                 {activeTab === 'feed' && (
-                    <div  style={{gap: 'var(--md-sys-spacing-6)', marginLeft: "auto", marginRight: "auto"}}>
+                    <div  style={{gap: 'var(--md-sys-spacing-6)', marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)"}}>
                         {feedItems.length > 0 ? feedItems.map((item) => (
                             <M3ExpressiveCard 
                                 key={item.id}
@@ -231,7 +231,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 )}
 
                 {activeTab === 'homework' && (
-                    <div  style={{ marginLeft: "auto", marginRight: "auto" }}>
+                    <div  style={{ marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)" }}>
                         
                         <div style={{gap: 'var(--md-sys-spacing-6)'}}>
                             <SectionHeader 
@@ -311,7 +311,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 )}
 
                 {activeTab === 'materials' && (
-                     <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)', marginLeft: "auto", marginRight: "auto"}}>
+                     <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)', marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)"}}>
                         {kb.map(entry => (
                             <M3ExpressiveCard 
                                 key={entry.id}

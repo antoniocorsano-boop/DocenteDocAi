@@ -38,25 +38,25 @@ export const Tooltip: React.FC<TooltipProps> = ({
   const positionStyles = {
     top: {
       bottom: 'var(--md-sys-percent-100)',
-      left: '50%',
+      left: 'var(--md-sys-percent-50)',
       transform: 'translateX(-50%) translateY(calc(-1 * var(--md-sys-spacing-2)))',
       marginBottom: 'var(--md-sys-spacing-2)'
     },
     bottom: {
       top: 'var(--md-sys-percent-100)',
-      left: '50%',
+      left: 'var(--md-sys-percent-50)',
       transform: 'translateX(-50%) translateY(var(--md-sys-spacing-2))',
       marginTop: 'var(--md-sys-spacing-2)'
     },
     left: {
       right: 'var(--md-sys-percent-100)',
-      top: '50%',
+      top: 'var(--md-sys-percent-50)',
       transform: 'translateY(-50%) translateX(calc(-1 * var(--md-sys-spacing-2)))',
       marginRight: 'var(--md-sys-spacing-2)'
     },
     right: {
       left: 'var(--md-sys-percent-100)',
-      top: '50%',
+      top: 'var(--md-sys-percent-50)',
       transform: 'translateY(-50%) translateX(var(--md-sys-spacing-2))',
       marginLeft: 'var(--md-sys-spacing-2)'
     }
@@ -122,28 +122,28 @@ export const Tooltip: React.FC<TooltipProps> = ({
               borderStyle: 'solid',
               ...(position === 'top' && {
                 bottom: 'calc(-1 * var(--md-sys-tooltip-arrow-size))',
-                left: '50%',
+                left: 'var(--md-sys-percent-50)',
                 transform: 'translateX(-50%)',
                 borderWidth: 'var(--md-sys-tooltip-arrow-size) var(--md-sys-tooltip-arrow-size) 0 var(--md-sys-tooltip-arrow-size)',
                 borderColor: 'var(--md-sys-color-inverse-surface) transparent transparent transparent'
               }),
               ...(position === 'bottom' && {
                 top: 'calc(-1 * var(--md-sys-tooltip-arrow-size))',
-                left: '50%',
+                left: 'var(--md-sys-percent-50)',
                 transform: 'translateX(-50%)',
                 borderWidth: '0 var(--md-sys-tooltip-arrow-size) var(--md-sys-tooltip-arrow-size) var(--md-sys-tooltip-arrow-size)',
                 borderColor: 'transparent transparent var(--md-sys-color-inverse-surface) transparent'
               }),
               ...(position === 'left' && {
                 right: 'calc(-1 * var(--md-sys-tooltip-arrow-size))',
-                top: '50%',
+                top: 'var(--md-sys-percent-50)',
                 transform: 'translateY(-50%)',
                 borderWidth: 'var(--md-sys-tooltip-arrow-size) 0 var(--md-sys-tooltip-arrow-size) var(--md-sys-tooltip-arrow-size)',
                 borderColor: 'transparent transparent transparent var(--md-sys-color-inverse-surface)'
               }),
               ...(position === 'right' && {
                 left: 'calc(-1 * var(--md-sys-tooltip-arrow-size))',
-                top: '50%',
+                top: 'var(--md-sys-percent-50)',
                 transform: 'translateY(-50%)',
                 borderWidth: 'var(--md-sys-tooltip-arrow-size) var(--md-sys-tooltip-arrow-size) var(--md-sys-tooltip-arrow-size) 0',
                 borderColor: 'transparent var(--md-sys-color-inverse-surface) transparent transparent'

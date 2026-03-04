@@ -49,6 +49,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
   const visibleDays = useMemo(() => {
       if (viewMode === 'week') return daysToShow;
       return [daysToShow[currentDayIndex]];
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [viewMode, currentDayIndex]);
 
     return (
@@ -67,7 +68,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 borderRadius: 'var(--md-sys-shape-corner-full)',
                 opacity: 'var(--md-sys-state-opacity-tint-faint)',
                 filter: 'blur(var(--md-sys-blur-40))',
-                zIndex: 'var(0)'}} />
+                zIndex: 'var(--md-sys-z-base)'}} />
             <div style={{position: 'absolute',
                 bottom: 'var(--md-sys-spacing-8)',
                 left: 'var(--md-sys-spacing-8)',
@@ -77,7 +78,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 borderRadius: 'var(--md-sys-shape-corner-full)',
                 opacity: 'var(--md-sys-state-opacity-tint-thin)',
                 filter: 'blur(var(--md-sys-blur-30))',
-                zIndex: 'var(0)'}} />
+                zIndex: 'var(--md-sys-z-base)'}} />
 
             <div style={{position: 'relative',
                 zIndex: 'var(--md-sys-z-raised)',
@@ -85,8 +86,8 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 flexDirection: 'column',
                 gap: 'var(--md-sys-spacing-6)',
                 maxWidth: 'var(--md-sys-spacing-80)',
-                marginLeft: 'auto',
-                marginRight: 'auto'}}>
+                marginLeft: 'var(--md-sys-margin-auto)',
+                marginRight: 'var(--md-sys-margin-auto)'}}>
                 {/* HEADER: MD3 Command Island */}
                 <div style={{display: 'flex',
                     alignItems: 'center',

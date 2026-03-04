@@ -178,7 +178,7 @@ const TabGroup: React.FC<TabGroupProps> = ({
                                 style={{
                                     position: 'absolute',
                                     bottom: 'calc(var(--md-sys-spacing-1) * -1)',
-                                    left: '50%',
+                                    left: 'var(--md-sys-percent-50)',
                                     transform: 'translateX(-50%)',
                                     width: 'var(--md-sys-percent-60)',
                                     height: 'var(--md-sys-spacing-2)',

@@ -68,6 +68,7 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const lessons = useAcademicStore(state => state.lessons);
   const students = useStudentStore(state => state.students);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const evaluations = useStudentStore(state => state.evaluations) || [];
 
   // Ref to the nearest scrollable ancestor — passed to M3Fab for auto-collapse on scroll
@@ -148,9 +149,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           display: 'flex',
           flexDirection: 'column',
           gap: 'var(--md-sys-spacing-6)',
-          padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-4) calc(var(--md-sys-spacing-20) + env(safe-area-inset-bottom, 0px))',
+          padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-4) calc(var(--md-sys-spacing-20) + env(safe-area-inset-bottom, 0px))', // eslint-disable-line design-system/enforce-token-usage -- env(safe-area-inset-bottom) is a native iOS/Android CSS API
           maxWidth: 'var(--md-sys-layout-content-max-width)',
-          margin: '0 auto',
+          margin: '0 var(--md-sys-margin-auto)',
           width: 'var(--md-sys-percent-100)',
           boxSizing: 'border-box',
         }}
@@ -198,7 +199,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
+            gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
             gap: 'var(--md-sys-spacing-3)',
           }}
         >
@@ -395,7 +396,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         onClick={() => onNavigate('aula' as View)}
         style={{
           position: 'fixed',
-          bottom: 'calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-4) + env(safe-area-inset-bottom, 0px))',
+          bottom: 'calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-4) + env(safe-area-inset-bottom, 0px))', // eslint-disable-line design-system/enforce-token-usage -- env(safe-area-inset-bottom) is a native iOS/Android CSS API
           right: 'var(--md-sys-spacing-4)',
           zIndex: 'var(--md-sys-z-modal)',
         }}

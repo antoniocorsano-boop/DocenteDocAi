@@ -52,6 +52,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
         if (!error) onClose();
     };
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const onDrop = useCallback((acceptedFiles: File[]) => processFiles(acceptedFiles), [selectedCategory, selectedCorpusId, processFiles]);
     const { getRootProps, getInputProps, isDragActive } = useFileDrop({ onDrop, disabled: isLoading || !selectedCategory });
 

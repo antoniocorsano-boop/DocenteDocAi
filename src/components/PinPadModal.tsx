@@ -49,7 +49,7 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
         >
             <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 ,  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "var(--md-sys-percent-100)" }}>
                 <div style={{textAlign: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                    <div style={{ color: 'var(--md-sys-color-on-primary-container)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "auto", marginRight: "auto", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                    <div style={{ color: 'var(--md-sys-color-on-primary-container)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                         <span style={{ color: 'var(--md-sys-color-primary)' }}>lock</span>
                     </div>
                     <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Inserisci il PIN docente per uscire</p>

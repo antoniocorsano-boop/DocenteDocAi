@@ -456,7 +456,7 @@ export const Dashboard: React.FC = () => {
         <div
           style={{
             maxWidth: 'calc(var(--md-sys-layout-panel-max-width) * 1.6)', // 1280px using MD3 tokens
-            margin: '0 auto',
+            margin: '0 var(--md-sys-margin-auto)',
             borderRadius: 'var(--md-sys-radius-3)',
             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-error)',
             backgroundColor: 'var(--md-sys-color-error-container)',
@@ -549,7 +549,7 @@ export const Dashboard: React.FC = () => {
               border: 'var(--md-sys-border-width-normal) solid transparent',
               borderTopColor: 'var(--md-sys-color-primary)',
               animation: 'spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite',
-              margin: '0 auto var(--md-sys-spacing-4)',
+              margin: '0 var(--md-sys-margin-auto) var(--md-sys-spacing-4)',
             }}
           />
           <p
@@ -575,7 +575,7 @@ export const Dashboard: React.FC = () => {
         <div
           style={{
             maxWidth: 'calc(var(--md-sys-layout-panel-max-width) * 1.6)', // 1280px using MD3 tokens
-            margin: '0 auto',
+            margin: '0 var(--md-sys-margin-auto)',
             textAlign: 'center',
           }}
         >
@@ -601,7 +601,7 @@ export const Dashboard: React.FC = () => {
       <div
         style={{
           maxWidth: 'calc(var(--md-sys-layout-panel-max-width) * 1.6)', // 1280px using MD3 tokens
-          margin: '0 auto',
+          margin: '0 var(--md-sys-margin-auto)',
           display: 'flex',
           flexDirection: 'column',
           gap: 'var(--md-sys-spacing-8)',

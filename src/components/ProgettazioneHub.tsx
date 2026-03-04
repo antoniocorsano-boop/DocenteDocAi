@@ -64,12 +64,12 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
     };
 
     return (
-        <div style={{marginLeft: 'auto', marginRight: 'auto', width: 'var(--md-sys-percent-100)', maxWidth: 'var(--md-sys-layout-content-max-width, 1200px)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-8)', boxSizing: 'border-box'}}>
+        <div style={{marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)', width: 'var(--md-sys-percent-100)', maxWidth: 'var(--md-sys-layout-content-max-width)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-8)', boxSizing: 'border-box'}}>
             
             {/* Header */}
             <div style={{ textAlign: "center", marginBottom: 'var(--md-sys-spacing-6)' }}>
                 <h1 style={{fontFamily: 'var(--font-family)', fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: 'var(--md-sys-typescale-headline-large-font-size)', color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-4)'}}>Progettazione</h1>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', maxWidth: 'var(--md-sys-spacing-80)', marginLeft: 'auto', marginRight: 'auto', fontWeight: "var(--md-sys-typescale-weight-regular)" }}>
+                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', maxWidth: 'var(--md-sys-spacing-80)', marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)', fontWeight: "var(--md-sys-typescale-weight-regular)" }}>
                     Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
                 </p>
             </div>

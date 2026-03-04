@@ -104,9 +104,9 @@ export const M3Fab: React.FC<M3FabProps> = ({
         boxShadow: 'var(--md-sys-elevation-level3)',
         // Shape — animates between circle and pill
         borderRadius,
-        // Size — min 56px (MD3 FAB standard)
-        minWidth: 'var(--md-sys-spacing-14, 56px)',
-        minHeight: 'var(--md-sys-spacing-14, 56px)',
+        // Size — MD3 FAB standard (spacing-14 = 56px)
+        minWidth: 'var(--md-sys-spacing-14)',
+        minHeight: 'var(--md-sys-spacing-14)',
         // Layout
         display: 'inline-flex',
         alignItems: 'center',

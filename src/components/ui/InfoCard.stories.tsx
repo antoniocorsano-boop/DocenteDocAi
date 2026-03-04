@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks -- Storybook render() functions are valid React renders */
 // MD3 Compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import InfoCard from './InfoCard';

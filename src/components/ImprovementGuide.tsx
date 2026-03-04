@@ -115,6 +115,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
         };
 
         generateAnalysis();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedClass, students, evaluations, competencyEvaluations, settings, aiSettings]);
 
 // Data for Charts

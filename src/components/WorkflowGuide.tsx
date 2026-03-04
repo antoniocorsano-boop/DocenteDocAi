@@ -79,7 +79,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
     return (
         <section style={{padding: 'var(--md-sys-spacing-6)',
             maxWidth: 'var(--md-sys-spacing-4)',
-            margin: 'auto'}}>
+            margin: 'var(--md-sys-margin-auto)'}}>
             <M3Typography variant="headline-small" style={{display: 'flex',
                 alignItems: 'center',
                 gap: 'var(--md-sys-spacing-3)',

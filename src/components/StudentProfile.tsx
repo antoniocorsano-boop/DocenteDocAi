@@ -153,7 +153,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
 
     const renderOverview = () => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--md-sys-spacing-3)' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
                 <InfoCard title="Media Voti" description={performance.grade || '-'} icon="analytics" variant="primary" />
                 <InfoCard title="Andamento" description={performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile'} icon={trendIcon} variant="surface" />
                 <InfoCard title="Assenze" description={`${attendanceStats.absences} ore`} icon="event_busy" variant="secondary" />

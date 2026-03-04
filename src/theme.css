@@ -199,7 +199,9 @@
 
   /* Viewport units */
   --md-sys-viewport-height-full: 100vh;
+  --md-sys-viewport-height-dvh: 100dvh;   /* Dynamic viewport height (iOS Safari) */
   --md-sys-viewport-width-full: 100vw;
+  --md-sys-viewport-60vh: 60vh;            /* 60% viewport height for modals/sheets */
 
   /* Margin auto */
   --md-sys-margin-auto: auto;

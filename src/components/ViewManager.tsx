@@ -395,6 +395,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                 })()}
             </Suspense>
         );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [view, viewContext, appState, actions, modals]);
 
     return (

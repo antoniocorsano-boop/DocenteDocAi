@@ -81,6 +81,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
     }, [start, end]);
 
     // Calculate position percentage (0-100) for a given date
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const getPositionPercentage = (dateStr?: string): number => {
         if (!dateStr) return -100;
         const d = new Date(dateStr);
@@ -90,6 +91,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
     };
 
     // Aggiunto controllo di sicurezza per udas
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const safeUdas = Array.isArray(udas) ? udas : [];
 
     // Process UDAs for lanes

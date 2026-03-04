@@ -1,0 +1,415 @@
+﻿
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\AddSourceModal.tsx
+  55:88  warning  React Hook useCallback has unnecessary dependencies: 'selectedCategory' and 'selectedCorpusId'. Either exclude them or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\AppLayout.md3.tsx
+  73:15  warning  MD3 VIOLATION: 'height: 100dvh' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token  design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\AssistantFab.tsx
+   78:6  warning  React Hook React.useEffect has a missing dependency: 'safeConsole'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  127:6  warning  React Hook React.useEffect has a missing dependency: 'safeConsole'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\BottomNav.tsx
+  45:9   warning  className not allowed in UI components. Use inline style with MD3 tokens instead  design-system/no-classname
+  67:15  warning  className not allowed in UI components. Use inline style with MD3 tokens instead  design-system/no-classname
+  88:17  warning  className not allowed in UI components. Use inline style with MD3 tokens instead  design-system/no-classname
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\CircolareAnalysisModal.tsx
+  24:11  warning  The 'handleAnalyze' function makes the dependencies of useMemo Hook (at line 101) change on every render. Move it inside the useMemo callback. Alternatively, wrap the definition of 'handleAnalyze' in its own useCallback() Hook  react-hooks/exhaustive-deps
+  44:11  warning  The 'handleImport' function makes the dependencies of useMemo Hook (at line 101) change on every render. Move it inside the useMemo callback. Alternatively, wrap the definition of 'handleImport' in its own useCallback() Hook    react-hooks/exhaustive-deps
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ClassAnalytics.tsx
+  47:8  warning  React Hook useMemo has an unnecessary dependency: 'evaluations'. Either exclude it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ClassDashboard.tsx
+  103:11  warning  The 'submissions' logical expression could make the dependencies of useMemo Hook (at line 123) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of 'submissions' in its own useMemo() Hook  react-hooks/exhaustive-deps
+  128:23  warning  MD3 VIOLATION: Hardcoded unit in 'maxWidth: var(--md-sys-layout-content-max-width, 1200px)'. MUST use var(--md-sys-*) token                                                                                                                    design-system/enforce-token-usage
+  128:23  warning  MD3 VIOLATION: CSS variable fallback contains hardcoded unit. Remove fallback or use MD3 token                                                                                                                                                 design-system/enforce-token-usage
+  129:21  warning  MD3 VIOLATION: 'auto' keyword in 'margin: 0 auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token                                                                                                                               design-system/no-hardcoded-layout-values
+  129:21  warning  MD3 VIOLATION: 'margin: 0 auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                                                                                                                                 design-system/no-hardcoded-layout-values
+  141:38  warning  MD3 VIOLATION: Grid 'fr' unit in 'gridTemplateColumns: 1fr'. Use var(--md-sys-grid-fr-*) token                                                                                                                                                 design-system/no-hardcoded-layout-values
+  317:81  warning  MD3 VIOLATION: Grid 'fr' unit in 'gridTemplateColumns: 1fr 1fr'. Use var(--md-sys-grid-fr-*) token                                                                                                                                             design-system/no-hardcoded-layout-values
+  379:81  warning  MD3 VIOLATION: Grid 'fr' unit in 'gridTemplateColumns: 1fr 1fr'. Use var(--md-sys-grid-fr-*) token                                                                                                                                             design-system/no-hardcoded-layout-values
+  441:81  warning  MD3 VIOLATION: Grid 'fr' unit in 'gridTemplateColumns: 1fr 1fr 1fr'. Use var(--md-sys-grid-fr-*) token                                                                                                                                         design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ClassroomView.tsx
+  60:11  warning  The 'studentAttendance' logical expression could make the dependencies of useMemo Hook (at line 83) change on every render. To fix this, wrap the initialization of 'studentAttendance' in its own useMemo() Hook  react-hooks/exhaustive-deps
+  64:11  warning  The 'observations' logical expression could make the dependencies of useMemo Hook (at line 138) change on every render. To fix this, wrap the initialization of 'observations' in its own useMemo() Hook           react-hooks/exhaustive-deps
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\CurriculumManager.tsx
+  196:65  warning  MD3 VIOLATION: Grid 'fr' unit in 'gridTemplateColumns: 280px 1fr'. Use var(--md-sys-grid-fr-*) token  design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\FlowMode.tsx
+  137:8  warning  React Hook useMemo has a missing dependency: 'actions'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\Home.tsx
+   71:9   warning  The 'evaluations' logical expression could make the dependencies of useMemo Hook (at line 115) change on every render. To fix this, wrap the initialization of 'evaluations' in its own useMemo() Hook  react-hooks/exhaustive-deps
+  151:20  warning  MD3 VIOLATION: Hardcoded unit in 'padding: var(--md-sys-spacing-4) var(--md-sys-spacing-4) calc(var(--md-sys-spacing-20) + env(safe-area-inset-bottom, 0px))'. MUST use var(--md-sys-*) token           design-system/enforce-token-usage
+  153:19  warning  MD3 VIOLATION: 'auto' keyword in 'margin: 0 auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token                                                                                        design-system/no-hardcoded-layout-values
+  153:19  warning  MD3 VIOLATION: 'margin: 0 auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                                                                                          design-system/no-hardcoded-layout-values
+  201:34  warning  MD3 VIOLATION: Grid 'fr' unit in 'gridTemplateColumns: 1fr 1fr'. Use var(--md-sys-grid-fr-*) token                                                                                                      design-system/no-hardcoded-layout-values
+  398:19  warning  MD3 VIOLATION: Hardcoded unit in 'bottom: calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-4) + env(safe-area-inset-bottom, 0px))'. MUST use var(--md-sys-*) token                                  design-system/enforce-token-usage
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ImprovementGuide.tsx
+  118:8  warning  React Hook useEffect has missing dependencies: 'classCompetencyEvals', 'classEvaluations', and 'classStudents.length'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\KnowledgeBase.tsx
+  160:74  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  160:74  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  160:95  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  160:95  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\LessonView.tsx
+  199:22   warning  className not allowed in UI components. Use inline style with MD3 tokens instead                                 design-system/no-classname
+  236:69   warning  MD3 VIOLATION: Grid 'fr' unit in 'gridTemplateColumns: 1fr 360px'. Use var(--md-sys-grid-fr-*) token             design-system/no-hardcoded-layout-values
+  438:191  warning  MD3 VIOLATION: Hardcoded unit in 'maxHeight: 60vh'. MUST use var(--md-sys-*) token                               design-system/enforce-token-usage
+  438:191  warning  MD3 VIOLATION: Viewport unit in 'maxHeight: 60vh'. Use var(--md-sys-viewport-*) token                            design-system/no-hardcoded-layout-values
+  438:191  warning  MD3 VIOLATION: 'maxHeight: 60vh' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token  design-system/no-hardcoded-layout-values
+  438:191  warning  Hardcoded viewport unit "60vh" is forbidden. Use MD3 viewport tokens: var(--md-sys-viewport-*)                   design-system/no-hardcoded-viewport-units
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\M3Fab.tsx
+  108:19  warning  MD3 VIOLATION: Hardcoded unit in 'minWidth: var(--md-sys-spacing-14, 56px)'. MUST use var(--md-sys-*) token   design-system/enforce-token-usage
+  108:19  warning  MD3 VIOLATION: CSS variable fallback contains hardcoded unit. Remove fallback or use MD3 token                design-system/enforce-token-usage
+  109:20  warning  MD3 VIOLATION: Hardcoded unit in 'minHeight: var(--md-sys-spacing-14, 56px)'. MUST use var(--md-sys-*) token  design-system/enforce-token-usage
+  109:20  warning  MD3 VIOLATION: CSS variable fallback contains hardcoded unit. Remove fallback or use MD3 token                design-system/enforce-token-usage
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\OperationsCenter.tsx
+  207:37  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token                design-system/no-hardcoded-layout-values
+  207:37  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                  design-system/no-hardcoded-layout-values
+  209:38  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token               design-system/no-hardcoded-layout-values
+  209:38  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                 design-system/no-hardcoded-layout-values
+  267:89  warning  MD3 VIOLATION: Grid 'fr' unit in 'gridTemplateColumns: repeat(auto-fill, minmax(260px, 1fr))'. Use var(--md-sys-grid-fr-*) token  design-system/no-hardcoded-layout-values
+  283:89  warning  MD3 VIOLATION: Grid 'fr' unit in 'gridTemplateColumns: repeat(auto-fill, minmax(260px, 1fr))'. Use var(--md-sys-grid-fr-*) token  design-system/no-hardcoded-layout-values
+  299:89  warning  MD3 VIOLATION: Grid 'fr' unit in 'gridTemplateColumns: repeat(auto-fill, minmax(260px, 1fr))'. Use var(--md-sys-grid-fr-*) token  design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\PassaggioAnnoWizard.tsx
+  182:83   warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  182:83   warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  182:104  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  182:104  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+  288:72   warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  288:72   warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  288:93   warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  288:93   warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+  289:346  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  289:346  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  289:367  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  289:367  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\PinPadModal.tsx
+  52:322  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  52:322  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  52:343  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  52:343  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ProgettazioneHub.tsx
+  67:34   warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token           design-system/no-hardcoded-layout-values
+  67:34   warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token             design-system/no-hardcoded-layout-values
+  67:55   warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token          design-system/no-hardcoded-layout-values
+  67:55   warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token            design-system/no-hardcoded-layout-values
+  67:109  warning  MD3 VIOLATION: Hardcoded unit in 'maxWidth: var(--md-sys-layout-content-max-width, 1200px)'. MUST use var(--md-sys-*) token  design-system/enforce-token-usage
+  67:109  warning  MD3 VIOLATION: CSS variable fallback contains hardcoded unit. Remove fallback or use MD3 token                               design-system/enforce-token-usage
+  72:220  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token           design-system/no-hardcoded-layout-values
+  72:220  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token             design-system/no-hardcoded-layout-values
+  72:241  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token          design-system/no-hardcoded-layout-values
+  72:241  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token            design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ReportisticaHub.tsx
+  418:29  warning  MD3 VIOLATION: 'auto' keyword in 'margin: var(--md-sys-spacing-8) auto 0 auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\Settings.tsx
+  1839:41  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  1839:41  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  1840:42  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  1840:42  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\Snackbar.tsx
+  140:15  warning  MD3 VIOLATION: Percentage unit in 'left: var(50%)'. Use var(--md-sys-percent-*) token                                                     design-system/no-hardcoded-layout-values
+  237:25  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+  237:25  warning  Hardcoded motion value "width var(--md-sys-motion-duration-instant) linear" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)   design-system/no-invalid-component-props
+  237:25  warning  Hardcoded motion value "width var(--md-sys-motion-duration-instant) linear" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)   design-system/no-invalid-component-props
+  237:25  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+  237:25  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\StudentClassroomView.tsx
+  186:79   warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  186:79   warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  186:100  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  186:100  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+  234:48   warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  234:48   warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  234:69   warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  234:69   warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+  314:169  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  314:169  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  314:190  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  314:190  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\StudentProfile.tsx
+  156:65  warning  MD3 VIOLATION: Grid 'fr' unit in 'gridTemplateColumns: repeat(2, 1fr)'. Use var(--md-sys-grid-fr-*) token  design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\TeacherInbox.tsx
+  119:56  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  119:56  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  119:77  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  119:77  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\TeacherPresentationView.tsx
+   18:75   warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+   18:75   warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+   18:96   warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+   18:96   warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+   27:260  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+   27:260  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+   27:281  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+   27:281  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+  120:260  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  120:260  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  120:281  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  120:281  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\TeachingAssignmentMatrix.tsx
+  129:38  warning  React Hook "useMemo" cannot be called inside a callback. React Hooks must be called in a React function component or a custom React Hook function                                                                                                                      react-hooks/rules-of-hooks
+  129:97  warning  React Hook useMemo has unnecessary dependencies: 'classes.length' and 'subjects.length'. Either exclude them or remove the dependency array. Outer scope values like 'classes.length' aren't valid dependencies because mutating them doesn't re-render the component  react-hooks/exhaustive-deps
+  130:51  warning  React Hook "useState" cannot be called inside a callback. React Hooks must be called in a React function component or a custom React Hook function                                                                                                                     react-hooks/rules-of-hooks
+  132:17  warning  React Hook "useEffect" cannot be called inside a callback. React Hooks must be called in a React function component or a custom React Hook function                                                                                                                    react-hooks/rules-of-hooks
+  136:20  warning  React Hook useEffect has an unnecessary dependency: 'classes'. Either exclude it or remove the dependency array. Outer scope values like 'classes' aren't valid dependencies because mutating them doesn't re-render the component                                     react-hooks/exhaustive-deps
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\TestPreviewModal.tsx
+  153:107  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  153:107  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  153:145  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  153:145  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\TimelineView.tsx
+  84:11  warning  The 'getPositionPercentage' function makes the dependencies of useMemo Hook (at line 137) change on every render. To fix this, wrap the definition of 'getPositionPercentage' in its own useCallback() Hook                       react-hooks/exhaustive-deps
+  93:11  warning  The 'safeUdas' conditional could make the dependencies of useMemo Hook (at line 137) change on every render. Move it inside the useMemo callback. Alternatively, wrap the initialization of 'safeUdas' in its own useMemo() Hook  react-hooks/exhaustive-deps
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\Timetable.tsx
+  52:6   warning  React Hook useMemo has a missing dependency: 'daysToShow'. Either include it or remove the dependency array          react-hooks/exhaustive-deps
+  70:25  warning  MD3 VIOLATION: z-index 'var(0)' must be var(--z-*), var(--md-sys-z-*), or var(--app-z-*) CSS variable                design-system/no-numeric-zindex
+  80:25  warning  MD3 VIOLATION: z-index 'var(0)' must be var(--z-*), var(--md-sys-z-*), or var(--app-z-*) CSS variable                design-system/no-numeric-zindex
+  88:29  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  88:29  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  89:30  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  89:30  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\Tooltip.tsx
+  51:6   warning  React Hook React.useEffect has a missing dependency: 'timeout'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  74:17  warning  MD3 VIOLATION: Percentage unit in 'left: var(50%)'. Use var(--md-sys-percent-*) token                             design-system/no-hardcoded-layout-values
+  82:17  warning  MD3 VIOLATION: Percentage unit in 'left: var(50%)'. Use var(--md-sys-percent-*) token                             design-system/no-hardcoded-layout-values
+  91:16  warning  MD3 VIOLATION: Percentage unit in 'top: var(50%)'. Use var(--md-sys-percent-*) token                              design-system/no-hardcoded-layout-values
+  99:16  warning  MD3 VIOLATION: Percentage unit in 'top: var(50%)'. Use var(--md-sys-percent-*) token                              design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\UdaPlanner.tsx
+   91:146  warning  MD3 VIOLATION: Percentage unit in 'backgroundImage: radial-gradient(circle at 80% 20%, var(--md-sys-color-primary), transparent 60%)'. Use var(--md-sys-percent-*) token  design-system/no-hardcoded-layout-values
+  110:73   warning  MD3 VIOLATION: Grid 'fr' unit in 'gridTemplateColumns: 1fr auto auto'. Use var(--md-sys-grid-fr-*) token                                                                  design-system/no-hardcoded-layout-values
+  312:178  warning  MD3 VIOLATION: Percentage unit in 'backgroundImage: radial-gradient(circle, var(--md-sys-color-primary), transparent 70%)'. Use var(--md-sys-percent-*) token             design-system/no-hardcoded-layout-values
+  313:180  warning  MD3 VIOLATION: Percentage unit in 'backgroundImage: radial-gradient(circle, var(--md-sys-color-tertiary), transparent 70%)'. Use var(--md-sys-percent-*) token            design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\VideoAnalysisModal.tsx
+  142:381  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  142:381  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  142:402  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  142:402  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+  213:184  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  213:184  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  213:205  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  213:205  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ViewLoadingPlaceholder.tsx
+  48:105  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  48:105  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  48:126  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  48:126  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ViewManager.tsx
+  398:8  warning  React Hook useMemo has missing dependencies: 'aiSettings', 'backupState', 'competencyEvals', 'corpora', 'curricula', 'dismissSuggestion', 'dismissedSuggestions', 'draftRegister', 'driveSyncState', 'ePortfolioEntries', 'evaluations', 'eventi', 'finalizedRegister', 'giudizi', 'handleAddEvaluation', 'handleAddNote', 'handleBack', 'handleCreateUda', 'handleEditSlot', 'handleGradeSubmission', 'handleLoadDemoData', 'handleNavigate', 'installPrompt', 'knowledgeBase', 'lessons', 'onAddLessons', 'onMarkAttendance', 'onSaveEvent', 'onSaveReport', 'onSaveUda', 'onScheduleLesson', 'orientamentoActivities', 'pianiInclusione', 'reportistica', 'rubriche', 'safeSecurityPin', 'safeSubmissions', 'setActiveSlotKey', 'setCompetencyEvals', 'setCorpora', 'setCreateLessonContext', 'setCurricula', 'setDraftRegister', 'setEPortfolioEntries', 'setEvaluations', 'setEventi', 'setFinalizedRegister', 'setIsLiveAssistantModalOpen', 'setIsLoadingModalOpen', 'setIsRegisterImportOpen', 'setKnowledgeBase', 'setLessonViewContext', 'setLessons', 'setLoadingModalMessage', 'setOrientamentoActivities', 'setReportistica', 'setStudentOrientamentoStates', 'setStudentProfileContext', 'setSubmissions', 'setUda', 'setViewContext', 'settings', 'showToast', 'slots', 'studentOrientamentoStates', 'students', 'themeState', 'uda', and 'user'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\WelcomeScreen.tsx
+  311:30  warning  MD3 VIOLATION: Percentage unit in 'top: var(50%)'. Use var(--md-sys-percent-*) token   design-system/no-hardcoded-layout-values
+  312:31  warning  MD3 VIOLATION: Percentage unit in 'left: var(50%)'. Use var(--md-sys-percent-*) token  design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\WorkflowGuide.tsx
+  82:21  warning  MD3 VIOLATION: 'auto' keyword in 'margin: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  82:21  warning  MD3 VIOLATION: 'margin: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\dashboard\Dashboard.tsx
+  459:21  warning  MD3 VIOLATION: 'auto' keyword in 'margin: 0 auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token                          design-system/no-hardcoded-layout-values
+  459:21  warning  MD3 VIOLATION: 'margin: 0 auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                            design-system/no-hardcoded-layout-values
+  552:23  warning  MD3 VIOLATION: 'auto' keyword in 'margin: 0 auto var(--md-sys-spacing-4)'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  578:21  warning  MD3 VIOLATION: 'auto' keyword in 'margin: 0 auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token                          design-system/no-hardcoded-layout-values
+  578:21  warning  MD3 VIOLATION: 'margin: 0 auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                            design-system/no-hardcoded-layout-values
+  604:19  warning  MD3 VIOLATION: 'auto' keyword in 'margin: 0 auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token                          design-system/no-hardcoded-layout-values
+  604:19  warning  MD3 VIOLATION: 'margin: 0 auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                            design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\settings\ThemeSettingsPanel.tsx
+  36:19  warning  MD3 VIOLATION: 'auto' keyword in 'marginLeft: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token   design-system/no-hardcoded-layout-values
+  36:19  warning  MD3 VIOLATION: 'marginLeft: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token     design-system/no-hardcoded-layout-values
+  38:20  warning  MD3 VIOLATION: 'auto' keyword in 'marginRight: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  38:20  warning  MD3 VIOLATION: 'marginRight: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\AccessibilitySettings.tsx
+  117:20  warning  Hardcoded top value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+  117:20  warning  Hardcoded top value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+  117:20  warning  MD3 VIOLATION: Percentage unit in 'top: 50%'. Use var(--md-sys-percent-*) token          design-system/no-hardcoded-layout-values
+  206:20  warning  Hardcoded top value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+  206:20  warning  Hardcoded top value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+  206:20  warning  MD3 VIOLATION: Percentage unit in 'top: 50%'. Use var(--md-sys-percent-*) token          design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\CategoryCard.stories.tsx
+  151:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  203:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  369:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\FAB.tsx
+   55:13  warning  MD3 VIOLATION: Percentage unit in 'left: 50%'. Use var(--md-sys-percent-*) token  design-system/no-hardcoded-layout-values
+  176:13  warning  MD3 VIOLATION: Percentage unit in 'left: 50%'. Use var(--md-sys-percent-*) token  design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\InfoCard.stories.tsx
+  178:35  warning  React Hook "React.useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\LoadingState.tsx
+  42:22  warning  Hardcoded duration "1s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})                 design-system/no-hardcoded-motion-values
+  42:22  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+  42:22  warning  Hardcoded motion value "spin 1s linear infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)                              design-system/no-invalid-component-props
+  42:22  warning  Hardcoded motion value "spin 1s linear infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)                              design-system/no-invalid-component-props
+  42:22  warning  Hardcoded duration "1s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})                 design-system/no-hardcoded-motion-values
+  42:22  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+  42:22  warning  Hardcoded duration "1s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})                 design-system/no-hardcoded-motion-values
+  42:22  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\M3Chip.stories.tsx
+   77:35  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  116:31  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  151:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  201:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  226:31  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  227:31  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\M3ChoiceCard.stories.tsx
+   84:37  warning  React Hook "React.useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  133:37  warning  React Hook "React.useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\M3Dialog.stories.tsx
+   57:33  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+   90:33  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  132:33  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  170:33  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  221:33  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  254:33  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\M3Dialog.tsx
+  192:19  warning  MD3 VIOLATION: 'auto' keyword in 'margin: auto'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+  192:19  warning  MD3 VIOLATION: 'margin: auto' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token    design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\M3Menu.stories.tsx
+   29:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+   77:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  121:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  178:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  242:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  312:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\M3Menu.tsx
+  140:6  warning  React Hook useEffect has a missing dependency: 'handleItemClick'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\M3Popover.stories.tsx
+   29:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+   65:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  145:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  179:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+  240:37  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\M3RatingBar.stories.tsx
+  77:33  warning  React Hook "useState" is called in function "render" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use"  react-hooks/rules-of-hooks
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\PageTransition.tsx
+  75:3  warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/exhaustive-deps')
+  81:3  warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/exhaustive-deps')
+  87:3  warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/exhaustive-deps')
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\PinPad.tsx
+  26:21  warning  MD3 VIOLATION: 'auto' keyword in 'margin: var(--md-sys-spacing-4) auto 0'. Use var(--md-sys-margin-auto) or var(--app-layout-auto) token  design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\ProgressIndicator.tsx
+  45:20  warning  Hardcoded width value "30%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)                                                                     design-system/no-invalid-component-props
+  45:20  warning  Hardcoded width value "30%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)                                                                     design-system/no-invalid-component-props
+  45:20  warning  MD3 VIOLATION: Percentage unit in 'width: 30%'. Use var(--md-sys-percent-*) token                                                                             design-system/no-hardcoded-layout-values
+  45:20  warning  MD3 VIOLATION: 'width: 30%' does not use MD3 token. MUST be var(--md-sys-*) or var(--app-*) semantic token                                                    design-system/no-hardcoded-layout-values
+  47:24  warning  Hardcoded motion value "progress-indeterminate 2s var(--md-sys-motion-easing-standard) infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)  design-system/no-invalid-component-props
+  47:24  warning  Hardcoded motion value "progress-indeterminate 2s var(--md-sys-motion-easing-standard) infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)  design-system/no-invalid-component-props
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\ResponsiveContainer.tsx
+  43:33  warning  Missing return type on function  @typescript-eslint/explicit-module-boundary-types
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\SelectField.tsx
+   86:30  warning  Hardcoded top value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+   86:30  warning  Hardcoded top value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+   86:30  warning  MD3 VIOLATION: Percentage unit in 'top: 50%'. Use var(--md-sys-percent-*) token          design-system/no-hardcoded-layout-values
+  102:34  warning  Hardcoded top value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+  102:34  warning  Hardcoded top value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+  102:34  warning  MD3 VIOLATION: Percentage unit in 'top: 50%'. Use var(--md-sys-percent-*) token          design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\Skeleton.tsx
+   24:15  warning  MD3 VIOLATION: Percentage unit in 'circular: 50%'. Use var(--md-sys-percent-*) token                                                      design-system/no-hardcoded-layout-values
+   54:26  warning  Hardcoded duration "1.5s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})               design-system/no-hardcoded-motion-values
+   54:26  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+   54:26  warning  Hardcoded motion value "skeleton-wave-move 1.5s linear infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)              design-system/no-invalid-component-props
+   54:26  warning  Hardcoded motion value "skeleton-wave-move 1.5s linear infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)              design-system/no-invalid-component-props
+   54:26  warning  Hardcoded duration "1.5s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})               design-system/no-hardcoded-motion-values
+   54:26  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+   54:26  warning  Hardcoded duration "1.5s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})               design-system/no-hardcoded-motion-values
+   54:26  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+   98:11  warning  Prop "width" is forbidden on components. Use MD3 wrapper components or CSS classes with MD3 tokens instead                                design-system/no-invalid-component-props
+   99:11  warning  Prop "height" is forbidden on components. Use MD3 wrapper components or CSS classes with MD3 tokens instead                               design-system/no-invalid-component-props
+  103:13  warning  Prop "width" is forbidden on components. Use MD3 wrapper components or CSS classes with MD3 tokens instead                                design-system/no-invalid-component-props
+  104:13  warning  Prop "height" is forbidden on components. Use MD3 wrapper components or CSS classes with MD3 tokens instead                               design-system/no-invalid-component-props
+  108:13  warning  Prop "width" is forbidden on components. Use MD3 wrapper components or CSS classes with MD3 tokens instead                                design-system/no-invalid-component-props
+  109:13  warning  Prop "height" is forbidden on components. Use MD3 wrapper components or CSS classes with MD3 tokens instead                               design-system/no-invalid-component-props
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\TabGroup.tsx
+  181:43  warning  Hardcoded left value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+  181:43  warning  Hardcoded left value "50%" in inline style is forbidden. Use MD3 tokens: var(--md-sys-*)  design-system/no-invalid-component-props
+  181:43  warning  MD3 VIOLATION: Percentage unit in 'left: 50%'. Use var(--md-sys-percent-*) token          design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\Tooltip.tsx
+   41:13  warning  MD3 VIOLATION: Percentage unit in 'left: 50%'. Use var(--md-sys-percent-*) token  design-system/no-hardcoded-layout-values
+   47:13  warning  MD3 VIOLATION: Percentage unit in 'left: 50%'. Use var(--md-sys-percent-*) token  design-system/no-hardcoded-layout-values
+   53:12  warning  MD3 VIOLATION: Percentage unit in 'top: 50%'. Use var(--md-sys-percent-*) token   design-system/no-hardcoded-layout-values
+   59:12  warning  MD3 VIOLATION: Percentage unit in 'top: 50%'. Use var(--md-sys-percent-*) token   design-system/no-hardcoded-layout-values
+  125:23  warning  MD3 VIOLATION: Percentage unit in 'left: 50%'. Use var(--md-sys-percent-*) token  design-system/no-hardcoded-layout-values
+  132:23  warning  MD3 VIOLATION: Percentage unit in 'left: 50%'. Use var(--md-sys-percent-*) token  design-system/no-hardcoded-layout-values
+  139:22  warning  MD3 VIOLATION: Percentage unit in 'top: 50%'. Use var(--md-sys-percent-*) token   design-system/no-hardcoded-layout-values
+  146:22  warning  MD3 VIOLATION: Percentage unit in 'top: 50%'. Use var(--md-sys-percent-*) token   design-system/no-hardcoded-layout-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\components\ui\TouchButton.tsx
+  143:24  warning  Hardcoded duration "0.8s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})               design-system/no-hardcoded-motion-values
+  143:24  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+  143:24  warning  Hardcoded motion value "spin 0.8s linear infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)                            design-system/no-invalid-component-props
+  143:24  warning  Hardcoded motion value "spin 0.8s linear infinite" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-*)                            design-system/no-invalid-component-props
+  143:24  warning  Hardcoded duration "0.8s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})               design-system/no-hardcoded-motion-values
+  143:24  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+  143:24  warning  Hardcoded duration "0.8s" is forbidden. Use MD3 motion tokens: var(--md-sys-motion-duration-{short|medium|long|extra-long})               design-system/no-hardcoded-motion-values
+  143:24  warning  Hardcoded easing "linear" is forbidden. Use MD3 easing tokens: var(--md-sys-motion-easing-{standard|emphasized|decelerated|accelerated})  design-system/no-hardcoded-motion-values
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\hooks\useAppEngine.ts
+  180:8  warning  React Hook useEffect has missing dependencies: 'academicActions', 'handleLoadDemoData', 'isTestMode', 'setKnowledgeBase', 'setUser', 'settingsActions', 'studentActions', 'systemActions', and 'uiActions'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                               react-hooks/exhaustive-deps
+  191:8  warning  React Hook useEffect has a missing dependency: 'uiActions'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                 react-hooks/exhaustive-deps
+  210:8  warning  React Hook useEffect has a missing dependency: 'systemActions'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                             react-hooks/exhaustive-deps
+  256:8  warning  React Hook useEffect has missing dependencies: 'academicActions', 'activeSuggestion', 'competencyEvals', 'corpora', 'curricula', 'dismissedSuggestions', 'draftRegister', 'evaluations', 'eventi', 'feedSources', 'finalizedRegister', 'giudizi', 'knowledgeBase', 'lessons', 'notifiche', 'pianiInclusione', 'reportistica', 'rubriche', 'selectedClassForDashboard', 'slots', 'studentActions', 'studentProfileContext', 'students', 'submissions', 'suggestions', 'systemActions', 'uda', and 'user'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+  266:8  warning  React Hook useCallback has a missing dependency: 'uiActions'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                               react-hooks/exhaustive-deps
+  285:8  warning  React Hook useCallback has a missing dependency: 'uiActions'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                               react-hooks/exhaustive-deps
+  297:8  warning  React Hook useCallback has a missing dependency: 'uiActions'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                               react-hooks/exhaustive-deps
+  307:8  warning  React Hook useCallback has missing dependencies: 'showToast' and 'uiActions'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                             react-hooks/exhaustive-deps
+  313:8  warning  React Hook useCallback has missing dependencies: 'showToast' and 'uiActions'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                             react-hooks/exhaustive-deps
+  621:8  warning  React Hook useCallback has missing dependencies: 'activeSuggestion', 'selectedClassForDashboard', 'studentProfileContext', and 'suggestions'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                             react-hooks/exhaustive-deps
+  941:9  warning  React Hook useMemo has missing dependencies: 'dismissSuggestionWrapper' and 'handleAddNote'. Either include them or remove the dependency array. Outer scope values like 'pickGoogleDriveFolder' aren't valid dependencies because mutating them doesn't re-render the component                                                                                                                                                                                                                                                                             react-hooks/exhaustive-deps
+
+C:\Users\anton\DocenteDocAI\DocenteDocAi\src\hooks\useModalAccessibility.ts
+  50:31  warning  The ref value 'containerRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'containerRef.current' to a variable inside the effect, and use that variable in the cleanup function  react-hooks/exhaustive-deps
+  72:29  warning  The ref value 'overlayRef.current' will likely have changed by the time this effect cleanup function runs. If this ref points to a node rendered by React, copy 'overlayRef.current' to a variable inside the effect, and use that variable in the cleanup function      react-hooks/exhaustive-deps
+
+Ô£û 285 problems (0 errors, 285 warnings)
+  0 errors and 3 warnings potentially fixable with the `--fix` option.
+

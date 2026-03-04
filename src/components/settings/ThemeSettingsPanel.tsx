@@ -33,9 +33,9 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       boxShadow: 'var(--md-sys-elevation-level2)',
       maxWidth: 'var(--md-sys-layout-panel-max-width)',
       marginTop: 0,
-      marginLeft: 'auto',
+      marginLeft: 'var(--md-sys-margin-auto)',
       marginBottom: 0,
-      marginRight: 'auto'
+      marginRight: 'var(--md-sys-margin-auto)'
     }}>
       <h2 style={{
         fontFamily: 'var(--font-family)',

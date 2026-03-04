@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps -- handleAnalyze/handleImport are intentionally excluded from useMemo deps */
 // MD3 Compliant
 
 import React, { useState, useMemo } from 'react';

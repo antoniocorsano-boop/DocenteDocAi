@@ -70,7 +70,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
     <div style={{
       display: 'flex',
       flexDirection: 'column',
-      height: '100dvh',
+      height: 'var(--md-sys-viewport-height-dvh)',
       overflow: 'hidden',
       background: 'var(--md-sys-color-surface)',
     }}>

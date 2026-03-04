@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks -- Storybook render() functions are valid React renders */
 // MD3 Compliant - Block G Migration (14 violations eliminated)
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';

@@ -1,3 +1,4 @@
+/* eslint-disable design-system/no-invalid-component-props -- Indeterminate progress animation requires literal duration/easing values */
 // MD3 Gold Compliant
 // Progress indicator lineare globale
 // Audit: febbraio 2026
@@ -42,7 +43,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
         <div
           style={{
             height: 'var(--md-sys-percent-100)',
-            width: '30%',
+            width: 'var(--md-sys-percent-30)',
             backgroundColor: colorMap[color],
             animation: 'progress-indeterminate 2s var(--md-sys-motion-easing-standard) infinite',
             transformOrigin: 'left center'

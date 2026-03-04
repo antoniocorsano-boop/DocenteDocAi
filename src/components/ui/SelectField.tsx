@@ -83,7 +83,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     style={{
                         position: 'absolute',
                         right: 'var(--md-sys-spacing-2)',
-                        top: '50%',
+                        top: 'var(--md-sys-percent-50)',
                         transform: 'translateY(-50%)',
                         pointerEvents: 'none',
                         color: 'var(--md-sys-color-on-surface-variant)',
@@ -99,7 +99,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                         style={{
                             position: 'absolute',
                             left: 'var(--md-sys-spacing-2)',
-                            top: '50%',
+                            top: 'var(--md-sys-percent-50)',
                             transform: 'translateY(-50%)',
                             color: 'var(--md-sys-color-error)',
                             fontSize: 'var(--md-sys-spacing-4)'}}
