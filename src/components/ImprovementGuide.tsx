@@ -144,6 +144,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
                     .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())[0];
 
                 if (latestEval) {
+                    const level = comp.livelli.find(l => l.id === latestEval.livelloId);
                     if (level) {
                         levelCounts[level.descrizione]++;
                     }
@@ -178,7 +179,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
 
         return [
             { label: 'Raggiunti', value: checkedObjectives, color: 'var(--md-sys-color-primary)' },
-            { label: 'Non Verificati', value: totalObjectives - checkedObjectives, color: 'var(--md-sys-color-surfaceContainerHighest)' }
+            { label: 'Non Verificati', value: totalObjectives - checkedObjectives, color: 'var(--md-sys-color-surface-container-highest)' }
         ];
     }, [register, lessons, selectedClass]);
 

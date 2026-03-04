@@ -32,7 +32,7 @@ export const Basic: Story = {
     return (
       <div style={{ padding: 'var(--md-sys-spacing-8)' }}>
         <M3Button
-          variant="primary"
+          variant="filled"
           onClick={(e) => setAnchorEl(e.currentTarget)}
         >
           Open Popover
@@ -44,7 +44,7 @@ export const Basic: Story = {
           onClose={() => setAnchorEl(null)}
           title="Popover Title"
         >
-          <div style={{ padding: 'var(--md-sys-spacing-4)', minWidth: layers.ref.spacing['4'] }}>
+          <div style={{ padding: 'var(--md-sys-spacing-4)', minWidth: 'var(--md-sys-spacing-4)' }}>
             <p style={{ margin: `0 0 var(--md-sys-spacing-3) 0`, color: 'var(--md-sys-color-onSurface)' }}>
               This is a basic popover with some content.
             </p>
@@ -68,7 +68,7 @@ export const WithActions: Story = {
     return (
       <div style={{ padding: 'var(--md-sys-spacing-8)' }}>
         <M3Button
-          variant="primary"
+          variant="filled"
           onClick={(e) => setAnchorEl(e.currentTarget)}
         >
           Event Actions
@@ -148,7 +148,7 @@ export const PositionedTop: Story = {
     return (
       <div style={{ padding: 'var(--md-sys-spacing-16) var(--md-sys-spacing-8) var(--md-sys-spacing-8) var(--md-sys-spacing-8)' }}>
         <M3Button
-          variant="primary"
+          variant="filled"
           onClick={(e) => setAnchorEl(e.currentTarget)}
         >
           Popover Above
@@ -161,7 +161,7 @@ export const PositionedTop: Story = {
           anchorVertical="top"
           title="Positioned Above"
         >
-          <div style={{ padding: 'var(--md-sys-spacing-4)', minWidth: layers.ref.spacing['4'] }}>
+          <div style={{ padding: 'var(--md-sys-spacing-4)', minWidth: 'var(--md-sys-spacing-4)' }}>
             <p style={{ margin: '0', color: 'var(--md-sys-color-onSurface)' }}>
               This popover appears above the trigger button.
             </p>
@@ -184,7 +184,7 @@ export const ScrollableContent: Story = {
     return (
       <div style={{ padding: 'var(--md-sys-spacing-8)' }}>
         <M3Button
-          variant="primary"
+          variant="filled"
           onClick={(e) => setAnchorEl(e.currentTarget)}
         >
           Long List
@@ -243,7 +243,7 @@ export const NoBackdrop: Story = {
     return (
       <div style={{ padding: 'var(--md-sys-spacing-8)' }}>
         <M3Button
-          variant="outline"
+          variant="outlined"
           onClick={(e) => setAnchorEl(e.currentTarget)}
         >
           Quick Menu

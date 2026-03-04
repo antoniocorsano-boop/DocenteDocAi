@@ -8,7 +8,7 @@ interface SettingsGroupProps {
     title: string;
     subtitle?: string;
     icon: string;
-    variant: 'primary' | 'secondary' | 'tertiary' | 'surface';
+    variant: 'primary' | 'secondary' | 'tertiary' | 'surface' | 'filled' | 'tonal' | 'elevated';
     defaultOpen: boolean;
     children: React.ReactNode;
 }
@@ -48,6 +48,18 @@ export const SettingsGroup: React.FC<SettingsGroupProps> = ({
         },
         surface: {
             bg: 'var(--md-sys-color-surface-container-high)',
+            color: 'var(--md-sys-color-on-surface)'
+        },
+        filled: {
+            bg: 'var(--md-sys-color-primary-container)',
+            color: 'var(--md-sys-color-on-primary-container)'
+        },
+        tonal: {
+            bg: 'var(--md-sys-color-secondary-container)',
+            color: 'var(--md-sys-color-on-secondary-container)'
+        },
+        elevated: {
+            bg: 'var(--md-sys-color-surface-container-low)',
             color: 'var(--md-sys-color-on-surface)'
         }
     };

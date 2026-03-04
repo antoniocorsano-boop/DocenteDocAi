@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import { HomeworkSubmission, Lezione, Studente } from '../types';
 import { TextField, SelectField, M3Button, Avatar } from './ui';
+import { saveAs } from '../utils/documentUtils';
 import { RATING_OPTIONS } from '../constants';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for homework submission cards, grading forms, and status displays

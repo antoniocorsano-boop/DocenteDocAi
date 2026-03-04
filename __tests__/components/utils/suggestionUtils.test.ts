@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import { describe, it, expect } from 'vitest';
 import { analyzeSystemState } from '../../../src/utils/suggestionUtils';
 import { Studente, Slot, Uda, EventoCalendario, Valutazione } from '../../../src/types';

@@ -98,18 +98,18 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
         <M3Dialog
             title="Allega Materiali"
             onClose={onClose}
-            maxWidth="4xl"
+            maxWidth="2xl"
             level={2}
         >
-            <M3DialogContent style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 }}>
+            <M3DialogContent style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' }}>
                 <div  style={{ display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)" }}>
                     {/* Left: Source */}
                     <div  style={{padding: 'var(--md-sys-spacing-6)', borderRight: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
                         <TabGroup
                             tabs={tabs}
                             activeTab={activeTab}
-                            onChange={(id) => setActiveTab(id)}
-                            variant="secondary"
+                            onChange={(id) => setActiveTab(id as 'kb' | 'file' | 'link')}
+                            variant="tonal"
                         />
 
                         {activeTab === 'kb' && (
@@ -146,15 +146,22 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
 
                         {activeTab === 'file' && (
                             <div 
-                                {...getRootProps()} 
-                                // eslint-disable-next-line design-system/no-classname
-                                className={`flex-grow flex flex-col items-center justify-center border-2 border-dashed rounded-[var(--md-sys-shape-corner-extra-large)] transition-all ${
-                                    isDragActive 
-                                        ? 'border-primary bg-primary/5' 
-                                        : 'border-[var(--md-sys-color-outline-variant)]/50 bg-[var(--md-sys-color-surfaceContainerLow)]'
-                                } ${isUploading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-[var(--md-sys-color-surfaceContainer)]'}`}
+                                style={{ flexGrow: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", border: "2px dashed var(--md-sys-color-outline-variant)", borderRadius: 'var(--md-sys-shape-corner-extra-large)', padding: 'var(--md-sys-spacing-8)', cursor: "pointer" }}
+                                onClick={() => document.getElementById('material-file-input')?.click()}
                             >
-                                <input {...getInputProps()} />
+                                <input
+                                    id="material-file-input"
+                                    type="file"
+                                    multiple
+                                    style={{ display: 'none' }}
+                                    onChange={(e) => {
+                                        const files = Array.from(e.target.files || []);
+                                        files.forEach(file => {
+                                            const mat: MaterialeDidattico = { type: 'file', id: `mat-file-${Date.now()}-${file.name}`, file: { name: file.name, content: '', mimeType: file.type } };
+                                            setMaterials(prev => [...prev, mat]);
+                                        });
+                                    }}
+                                />
                                 <div style={{ backgroundColor: 'var(--md-sys-color-primary)', opacity: 'var(--md-sys-state-opacity-tint-faint)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                     <span style={{ color: 'var(--md-sys-color-primary)' }}>upload_file</span>
                                 </div>

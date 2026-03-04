@@ -46,7 +46,7 @@ stack: ModalInstance[];
   popAllModals: () => void;
   
   // Utilities
-  getZIndex: (level: number) => number;
+  getZIndex: (level: number) => string | number;
   isModalOpen: (id: string) => boolean;
   getTopModal: () => ModalInstance | undefined;
 }
@@ -220,7 +220,7 @@ const [stack, setStack] = useState<ModalInstance[]>([]);
 
   // Calculate Z-index for level using centralized Z_INDEX constant
   // Centralized in: src/design-system/zIndex.ts
-  const getZIndex = useCallback((level: number): number => {
+  const getZIndex = useCallback((level: number): string => {
     return getModalZIndex(level);
   }, []);
 
@@ -257,7 +257,7 @@ const [stack, setStack] = useState<ModalInstance[]>([]);
 
 interface ModalPortalContainerProps {
   stack: ModalInstance[];
-  getZIndex: (level: number) => number;
+  getZIndex: (level: number) => string | number;
 }
 
 /**
@@ -302,7 +302,8 @@ const ModalPortalContainer: React.FC<ModalPortalContainerProps> = ({ stack, getZ
 interface ModalPortalProps {
   id: string;
   level: number;
-  modalZIndex: number;
+  backdropZIndex?: string | number;
+  modalZIndex: string | number;
   backdropClickable?: boolean;
   backdropOpacity?: 'light' | 'medium' | 'dark';
   onBackdropClick?: () => void;

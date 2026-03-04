@@ -47,7 +47,7 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
             maxWidth="sm"
             level={3}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 ,  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "var(--md-sys-percent-100)" }}>
+            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' ,  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "var(--md-sys-percent-100)" }}>
                 <div style={{textAlign: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
                     <div style={{ color: 'var(--md-sys-color-on-primary-container)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                         <span style={{ color: 'var(--md-sys-color-primary)' }}>lock</span>

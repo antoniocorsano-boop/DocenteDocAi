@@ -147,7 +147,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
         <button
           onClick={handleExport}
-           style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", fontWeight: "var(--md-sys-typescale-weight-medium)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
+           style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-surface)", fontWeight: "var(--md-sys-typescale-weight-medium)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
         >
           <span>download</span>
           Export JSON

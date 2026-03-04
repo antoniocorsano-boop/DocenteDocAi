@@ -46,6 +46,10 @@ export interface NavigationRailProps {
   activeView: View;
   /** Navigation callback */
   onNavigate: (view: View, context?: unknown) => void;
+  /** Callback per aprire il drawer con tutte le sezioni */
+  onOpenMore?: () => void;
+  /** Indica se il drawer secondario è aperto (per stile attivo sul bottone Più) */
+  moreOpen?: boolean;
 }
 
 /**
@@ -56,12 +60,18 @@ const isItemActive = (item: NavigationRailItem, currentView: View): boolean => {
   const parentMap: Partial<Record<View, View[]>> = {
     'progettazione-hub': [
       'knowledge-base', 'studio', 'lessons', 'uda', 'rubriche',
-      'reportistica', 'didattica-inclusiva', 'curriculum-manager'
+      'reportistica', 'didattica-inclusiva', 'curriculum-manager',
+      'feed-manager', 'competency-levels'
     ],
     'aula': [
       'evaluations', 'register', 'studenti', 'improvement-guide',
-      'consiglio-di-classe', 'class-competency-dashboard', 'analytics', 'teacher-inbox'
+      'consiglio-di-classe', 'class-competency-dashboard', 'analytics', 'teacher-inbox',
+      'aula-session', 'live-assistant', 'teacher-presentation-view',
+      'student-dashboard', 'student-workspace'
     ],
+    'timetable': [],
+    'orientamento': [],
+    'calendario': [],
   };
 
   return currentView === item.id || (parentMap[item.id]?.includes(currentView) ?? false);
@@ -71,16 +81,19 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
   items,
   activeView,
   onNavigate,
+  onOpenMore,
+  moreOpen = false,
 }) => {
   // Check if we're on mobile - hide navigation rail on mobile (bottom nav used instead)
   const [isMobile, setIsMobile] = React.useState(false);
   const [focusedId, setFocusedId] = React.useState<View | null>(null);
 
   React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(!e.matches);
+    setIsMobile(!mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
   }, []);
 
   // Don't render on mobile - bottom nav is used instead
@@ -265,10 +278,9 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                   fontWeight: 'var(--md-sys-typescale-weight-medium)',
                   textAlign: 'center',
                   color: 'inherit',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  maxWidth: 'var(--md-sys-spacing-12)', // Label max width
+                  overflowWrap: 'break-word',
+                  wordBreak: 'break-word',
+                  maxWidth: 'var(--md-sys-percent-100)',
                   transition: `color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
               >
                 {item.label}
@@ -277,6 +289,94 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
           );
         })}
       </div>
+
+      {/* Bottone "Più" — accesso a tutte le sezioni secondarie */}
+      {onOpenMore && (
+        <div style={{
+          marginTop: 'auto',
+          paddingBottom: 'var(--md-sys-spacing-4)',
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+          <button
+            onClick={onOpenMore}
+            aria-label="Tutte le sezioni"
+            aria-expanded={moreOpen}
+            style={{
+              backgroundColor: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              outline: 'none',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 'var(--md-sys-spacing-1)',
+              width: 'var(--md-sys-spacing-14)',
+              minHeight: 'var(--md-sys-spacing-14)',
+              padding: 'var(--md-sys-spacing-2) 0',
+              borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+              color: moreOpen
+                ? 'var(--md-sys-color-on-surface)'
+                : 'var(--md-sys-color-on-surface-variant)',
+              transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+              WebkitTapHighlightColor: 'transparent',
+            }}
+          >
+            <div style={{
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 'var(--md-sys-spacing-14)',
+              height: 'var(--md-sys-spacing-8)',
+              borderRadius: 'var(--md-sys-shape-corner-full)',
+            }}>
+              <span
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  borderRadius: 'var(--md-sys-shape-corner-full)',
+                  backgroundColor: 'var(--md-sys-color-secondary-container)',
+                  transform: moreOpen ? 'scaleX(1) scaleY(1)' : 'scaleX(0) scaleY(0)',
+                  opacity: moreOpen ? 1 : 0,
+                  transition: 'transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard), opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+                  transformOrigin: 'center',
+                }}
+              />
+              <span
+                className="material-symbols-outlined"
+                style={{
+                  position: 'relative',
+                  zIndex: 'var(--md-sys-z-content)',
+                  fontSize: 'var(--md-sys-spacing-6)',
+                  lineHeight: 1,
+                  color: moreOpen ? 'var(--md-sys-color-on-secondary-container)' : 'inherit',
+                  fontVariationSettings: moreOpen ? "'FILL' 1, 'wght' 400" : "'FILL' 0, 'wght' 400",
+                  transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+                }}
+                aria-hidden="true"
+              >
+                {moreOpen ? 'menu_open' : 'menu'}
+              </span>
+            </div>
+            <M3Typography
+              variant="label-medium"
+              style={{
+                fontSize: 'var(--md-sys-spacing-3)',
+                fontWeight: 'var(--md-sys-typescale-weight-medium)',
+                textAlign: 'center',
+                color: 'inherit',
+                overflowWrap: 'break-word',
+                wordBreak: 'break-word',
+                maxWidth: 'var(--md-sys-percent-100)',
+              }}
+            >
+              Altro
+            </M3Typography>
+          </button>
+        </div>
+      )}
     </nav>
     </>
   );

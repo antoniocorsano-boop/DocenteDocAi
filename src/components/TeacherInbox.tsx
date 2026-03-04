@@ -100,6 +100,8 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                             <>
                                 <p>Già Corretti</p>
                                 {gradedSubmissions.slice(0, 5).map(sub => {
+                                    const studentInfo = getStudentDisplay(sub.studentId);
+                                    const lessonInfo = getLessonDisplay(sub.lessonId);
                                     return (
                                         <div key={sub.id}  style={{borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-sys-motion-easing-standard)'}}>
                                             <span>check_circle</span>

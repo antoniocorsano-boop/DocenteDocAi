@@ -86,7 +86,7 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                         ]}
                         activeTab={mode}
                         onTabChange={(id) => setMode(id as 'change_class' | 'transfer_out')}
-                        variant="secondary"
+                        variant="tonal"
                         style={{ width: 'var(--md-sys-percent-100)' }}
                     />
 
@@ -134,7 +134,7 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                             <SelectField
                                 label="Esito"
                                 value={outcome}
-                                onChange={(e) => setOutcome(e.target.value)}
+                                onChange={(e) => setOutcome(e.target.value as 'Ritirato' | 'Trasferito')}
                                 options={[
                                     { value: 'Trasferito', label: 'Trasferito ad altra scuola' },
                                     { value: 'Ritirato', label: 'Ritirato dagli studi' }

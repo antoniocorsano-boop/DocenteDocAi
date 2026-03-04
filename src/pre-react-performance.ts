@@ -44,18 +44,11 @@ const ensureScheduler = () => {
   // Create scheduler object with all required functions
   const schedulerImpl: Record<string, unknown> = {
     unstable_now: getTimingFunction(),
-    unstable_scheduleCallback: (priority: unknown, callback: FrameRequestCallback | TimerHandler) => {
-      if (typeof setImmediate !== 'undefined') {
-        return setImmediate(callback as TimerHandler);
-      }
+    unstable_scheduleCallback: (_priority: unknown, callback: FrameRequestCallback | TimerHandler) => {
       return setTimeout(callback as TimerHandler, 0);
     },
     unstable_cancelCallback: (timerId: unknown) => {
-      if (typeof clearImmediate !== 'undefined') {
-        clearImmediate(timerId as number);
-      } else {
-        clearTimeout(timerId as number);
-      }
+      clearTimeout(timerId as ReturnType<typeof setTimeout>);
     },
     unstable_shouldYield: () => false,
     unstable_getFirstCallbackNode: () => null,

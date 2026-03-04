@@ -102,7 +102,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                             <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{currentUda.title || 'Senza titolo'}</p>
                         </div>
                     </div>
-                    <M3Button onClick={handleClose} variant="icon">
+                    <M3Button onClick={handleClose} variant="text">
                         <span className="material-symbols-outlined">close</span>
                     </M3Button>
                 </div>
@@ -196,7 +196,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                         )}
                         <div style={{ flex: 1 }} />
                         <M3Button onClick={handleClose} variant="text">Annulla</M3Button>
-                        <M3Button onClick={handleSave} variant="primary">
+                        <M3Button onClick={handleSave} variant="filled">
                             <span className="material-symbols-outlined">save</span>
                             Salva Progetto
                         </M3Button>
@@ -257,7 +257,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                             </div>
                         </M3DialogContent>
                         <M3DialogActions >
-                            <M3Button onClick={handlePickerClose} variant="primary" style={{ width: "var(--md-sys-percent-100)" }}>Conferma Selezione</M3Button>
+                            <M3Button onClick={handlePickerClose} variant="filled" style={{ width: "var(--md-sys-percent-100)" }}>Conferma Selezione</M3Button>
                         </M3DialogActions>
                     </M3Dialog>
                 )}
@@ -328,7 +328,7 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                     </div>
                     <M3Button
                         onClick={handleNewUda}
-                        variant="primary"
+                        variant="filled"
                     >
                         <span className="material-symbols-outlined">add</span>
                         Nuovo Progetto
@@ -397,13 +397,13 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                                                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
                                                             <M3Button
                                                                 onClick={() => handleExportUda(uda)}
-                                                                variant="icon"
+                                                                variant="text"
                                                             >
                                                                 <span className="material-symbols-outlined">ios_share</span>
                                                             </M3Button>
                                                             <M3Button
                                                                 onClick={() => handleEditUda(uda)}
-                                                                variant="icon"
+                                                                variant="text"
                                                             >
                                                                 <span className="material-symbols-outlined">edit</span>
                                                             </M3Button>

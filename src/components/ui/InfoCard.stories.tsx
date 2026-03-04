@@ -131,7 +131,7 @@ export const WithChildren: Story = {
     icon: 'auto_awesome',
     variant: 'primary',
     children: (
-      <ul style={{ marginTop: layers.ref.spacing['4'], paddingLeft: 'var(--md-sys-spacing-6)' }}>
+      <ul style={{ marginTop: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-6)' }}>
         <li>Interactive lessons</li>
         <li>Real-time feedback</li>
         <li>Adaptive learning paths</li>
@@ -163,7 +163,7 @@ export const WithAction: Story = {
           background: 'var(--md-sys-color-primary)',
           color: 'white',
           border: 'none',
-          borderRadius: layers.ref.spacing['4'],
+          borderRadius: 'var(--md-sys-spacing-4)',
           cursor: 'pointer',
           fontWeight: 'bold',
         }}
@@ -179,7 +179,7 @@ export const Dismissible: Story = {
     const [visible, setVisible] = React.useState(true);
 
     if (!visible) {
-      return <div style={{ padding: layers.ref.spacing['4'] }}>Card dismissed. (You can refresh to see it again)</div>;
+      return <div style={{ padding: 'var(--md-sys-spacing-4)' }}>Card dismissed. (You can refresh to see it again)</div>;
     }
 
     return (
@@ -196,7 +196,7 @@ export const Dismissible: Story = {
 
 export const Multiple: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', padding: layers.ref.spacing['4'] }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-4)' }}>
       <InfoCard
         title="Welcome Back"
         description="You have 3 new assignments to review"
@@ -229,7 +229,7 @@ export const Dashboard: Story = {
         display: 'grid',
         gridTemplateColumns: `repeat(2, var(--md-sys-grid-fr-1))`,
         gap: 'var(--md-sys-spacing-6)',
-        padding: layers.ref.spacing['4'],
+        padding: 'var(--md-sys-spacing-4)',
       }}
     >
       <InfoCard

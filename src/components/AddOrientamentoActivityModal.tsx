@@ -139,7 +139,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
             </M3DialogContent>
             <M3DialogActions>
                 <M3Button onClick={onClose} variant="text">{UI_TEXT.CANCEL}</M3Button>
-                <M3Button onClick={handleSave} variant="primary" disabled={!activity.title}>Salva Attività</M3Button>
+                <M3Button onClick={handleSave} variant="filled" disabled={!activity.title}>Salva Attività</M3Button>
             </M3DialogActions>
         </M3Dialog>
     );

@@ -63,6 +63,22 @@ import { useStudentStore } from '../stores/useStudentStore';
 
 interface HomeProps {
   onNavigate: (view: View, params?: NavigationParams) => void;
+  // Additional optional props (ignored by implementation, used by callers)
+  onOpenRegisterImport?: () => void;
+  appState?: unknown;
+  onSuggestionAction?: unknown;
+  onStartClassroom?: unknown;
+  finalizedRegister?: unknown;
+  draftRegister?: unknown;
+  showGuidanceTips?: unknown;
+  suggestions?: unknown;
+  dismissSuggestion?: unknown;
+  onAiProcessing?: unknown;
+  user?: unknown;
+  onConnectDrive?: unknown;
+  aiSettings?: unknown;
+  settings?: unknown;
+  handleOpenOperations?: unknown;
 }
 
 const Home: React.FC<HomeProps> = ({ onNavigate }) => {
@@ -393,11 +409,11 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         aria-label="Inizia giornata - Appello"
         variant="primary"
         scrollContainerRef={scrollContainerRef}
-        onClick={() => onNavigate('aula' as View)}
         style={{
           position: 'fixed',
           bottom: 'calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-4) + env(safe-area-inset-bottom, 0px))', // eslint-disable-line design-system/enforce-token-usage -- env(safe-area-inset-bottom) is a native iOS/Android CSS API
-          right: 'var(--md-sys-spacing-4)',
+          /* Offset a sinistra dell'AssistantFab: spacing-4 (AssistantFab right) + spacing-10 (FAB size) + spacing-4 (gap) = 72px */
+          right: 'calc(var(--md-sys-spacing-4) + var(--md-sys-spacing-10) + var(--md-sys-spacing-4))',
           zIndex: 'var(--md-sys-z-modal)',
         }}
       />

@@ -95,6 +95,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             html += `<h2>Strumenti</h2><p>${uda.tools}</p>`;
 
             const blob = await generateHtmlDocxBlob(html, uda.title);
+            const fileName = `UDA_${uda.title.replace(/\s/g, '_')}_${docType}.docx`;
             saveAs(blob, fileName);
             onClose();
             
@@ -114,7 +115,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             Fasi: ${uda.phases.map(p => p.title).join(', ')}.
             Tipo documento: ${docType === 'docente' ? 'Progettazione tecnica per docenti' : 'Guida semplificata per studenti'}.`;
             
-            const report = await generateMarkdownReport(prompt, aiSettings);
+            const report = await generateMarkdownReport(aiSettings, 'uda-report', { prompt });
             setMarkdownReport(report);
         } catch (error) {
             console.error("AI Report generation failed:", error);
@@ -131,9 +132,9 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             maxWidth="sm"
             level={1}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 }}>
+            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' }}>
                 <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
-                    <div style={{ backgroundColor: sys.colors.primaryContainer/10, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-primary-container)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
                         <p style={{ color: 'var(--md-sys-color-on-primary)' }}>
                             Stai esportando: <strong>{uda.title}</strong>
                         </p>

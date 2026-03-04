@@ -127,7 +127,7 @@ export const Multiple: Story = {
     tip: 'Spaced review helps with long-term retention',
   },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['4'], padding: layers.ref.spacing['4'] }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-4)' }}>
       <UseCaseCard
         scenario="Quick daily review activity"
         steps={[

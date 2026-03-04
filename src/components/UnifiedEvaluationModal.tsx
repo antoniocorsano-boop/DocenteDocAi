@@ -68,7 +68,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
             maxWidth="sm"
             level={1}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30 }}>
+            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 30%, transparent)' }}>
                 {/* Aura Ornaments */}
                 <div style={{ backgroundColor: 'var(--md-sys-color-primary)', opacity: 0.05, borderRadius: 'var(--md-sys-spacing-4)' }} />
                 <div style={{ backgroundColor: 'var(--md-sys-color-secondary)', opacity: 0.05, borderRadius: 'var(--md-sys-spacing-4)' }} />
@@ -169,9 +169,9 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                     </div>
                 </div>
             </M3DialogContent>
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 , borderTop: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
+            <M3DialogActions style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)' , borderTop: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
                 <M3Button onClick={onClose} variant="text">Annulla</M3Button>
-                <M3Button onClick={handleSubmit} variant="primary" icon="save">Salva Valutazione</M3Button>
+                <M3Button onClick={handleSubmit} variant="filled" icon="save">Salva Valutazione</M3Button>
             </M3DialogActions>
         </M3Dialog>
     );

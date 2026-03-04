@@ -3,7 +3,7 @@ import { Lezione, LessonsPageProps, CurriculumSubject, TimetableSettings, Uda } 
 import { generateLessonSequenceForClass } from '../services/aiService';
 // import LessonView from './LessonView';
 const IdeaGeneratorModal = lazy(() => import('./IdeaGeneratorModal'));
-const CreateLessonFromAiModal = lazy(() => import('./CreateLessonFromAiModal'));
+const CreateLessonFromAiModal = lazy(() => import('./CreateLessonFromAiModal').then(m => ({ default: m.CreateLessonFromAiModal })));
 import { M3Typography } from './ui';
 
 // MD3 Compliant - Migration completed

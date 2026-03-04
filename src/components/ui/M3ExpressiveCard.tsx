@@ -67,6 +67,7 @@ interface M3ExpressiveCardProps {
     onClick?: () => void;
     children?: React.ReactNode;
     ariaLabel?: string;
+    style?: React.CSSProperties;
 }
 
 /**
@@ -81,6 +82,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
     onClick,
     children,
     ariaLabel,
+    style,
 }) => {
   const [hovered, setHovered] = useState(false);
     const palette = {

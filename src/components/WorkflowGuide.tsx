@@ -96,7 +96,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                 gap: 'var(--md-sys-spacing-6)'}}>
                 {workflows.map((workflow) => (
                     <div key={workflow.id} style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                        borderRadius: 'var(--md-sys-shape-corner-extra)',
+                        borderRadius: 'var(--md-sys-shape-corner-extra-large)',
                         border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                         overflow: 'hidden',
                         backdropFilter: 'blur(var(--md-sys-blur-20))',

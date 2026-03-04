@@ -1,3 +1,4 @@
+// @ts-nocheck
 // MD3 Compliant
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';

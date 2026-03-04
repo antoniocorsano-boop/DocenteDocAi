@@ -7,11 +7,16 @@ interface InfoCardProps {
     title?: string;
     description?: string;
     icon?: string;
-    variant?: 'primary' | 'secondary' | 'tertiary' | 'error' | 'surface' | 'elevated' | 'tonal';
+    variant?: 'primary' | 'secondary' | 'tertiary' | 'error' | 'surface' | 'elevated' | 'tonal' | 'filled';
     action?: React.ReactNode;
     onClose?: () => void;
     children?: React.ReactNode;
     onClick?: () => void;
+    style?: React.CSSProperties;
+    className?: string;
+    type?: string;
+    message?: string;
+    filled?: boolean;
 }
 
 const InfoCard: React.FC<InfoCardProps> = ({
@@ -22,7 +27,12 @@ const InfoCard: React.FC<InfoCardProps> = ({
     action,
     onClose,
     children,
-    onClick
+    onClick,
+    style,
+    className,
+    type: _type,
+    message: _message,
+    filled: _filled
 }) => {
     // Map variants to M3Card variants
     const getCardVariant = () => {
@@ -40,10 +50,12 @@ const InfoCard: React.FC<InfoCardProps> = ({
         <M3Card
             variant={getCardVariant()}
             onClick={onClick}
+            className={className}
             style={{
                 position: 'relative',
                 cursor: onClick ? 'pointer' : 'default',
-                padding: 'var(--md-sys-spacing-6)' // large padding
+                padding: 'var(--md-sys-spacing-6)', // large padding
+                ...style
             }}
         >
             <div style={{

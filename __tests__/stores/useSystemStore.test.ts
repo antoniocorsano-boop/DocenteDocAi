@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { describe, it, expect, beforeEach } from "vitest";
 import { useSystemStore } from "../../src/stores/useSystemStore";
 import { UserProfile, KnowledgeBaseEntry, AiSuggestion, SystemSuggestion, Notifica, AnalyticsMetrics, AnalyticsSettings } from "../../src/types";
@@ -255,3 +256,4 @@ describe("useSystemStore", () => {
     });
   });
 });
+

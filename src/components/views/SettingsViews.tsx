@@ -77,6 +77,8 @@ export interface SettingsViewsProps {
     onStartClassroom: (classe: string, materia: string, draftKey: string, lesson: Lezione) => void;
     onSuggestionAction: (action: string) => void;
     onOpenOperations: () => void;
+    dismissedSuggestions?: Set<string>;
+    onReactivateSuggestion?: (id: string) => void;
 }
 
 export const SettingsViewsRenderer: React.FC<{
@@ -160,10 +162,12 @@ export const SettingsViewsRenderer: React.FC<{
                     onSelectBackupFolder={props.onSelectBackupFolder}
                     onCreateAppFolder={async () => {
                         props.onCreateAppFolder();
-                        return { id: ', name: ' };
+                        return { id: '', name: '' };
                     }}
                     onClose={() => {}}
                     onOpenBackupInfo={props.onOpenBackupInfo}
+                    dismissedSuggestions={props.dismissedSuggestions ?? new Set()}
+                    onReactivateSuggestion={props.onReactivateSuggestion ?? (() => {})}
                 />
             );
         case 'knowledge-base':

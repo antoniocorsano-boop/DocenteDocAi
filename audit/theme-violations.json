@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-04T15:23:47.178Z",
+  "timestamp": "2026-03-04T16:14:05.889Z",
   "summary": {
     "totalFiles": 439,
     "totalViolations": 525,
@@ -5395,7 +5395,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 441,
+      "line": 443,
       "match": "#007AFF",
       "context": "  --md-sys-color-primary: #007AFF;\r",
       "classification": {
@@ -5408,7 +5408,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 453,
+      "line": 455,
       "match": "#0078D4",
       "context": "  --md-sys-color-primary: #0078D4;\r",
       "classification": {
@@ -5421,7 +5421,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 466,
+      "line": 468,
       "match": "#1a73e8",
       "context": "  --md-sys-color-primary: #1a73e8; /* Google Blue */\r",
       "classification": {
@@ -5434,7 +5434,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 468,
+      "line": 470,
       "match": "#f1f3f4",
       "context": "  --md-sys-color-surface-container-high: #f1f3f4;\r",
       "classification": {
@@ -5447,7 +5447,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 469,
+      "line": 471,
       "match": "#e8eaed",
       "context": "  --md-sys-color-surface-container-highest: #e8eaed;\r",
       "classification": {
@@ -5460,7 +5460,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 483,
+      "line": 485,
       "match": "#000000",
       "context": "  --md-sys-color-outline: #000000;\r",
       "classification": {
@@ -5473,7 +5473,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 484,
+      "line": 486,
       "match": "#000000",
       "context": "  --md-sys-color-outline-variant: #000000;\r",
       "classification": {
@@ -5486,7 +5486,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 485,
+      "line": 487,
       "match": "#FFFFFF",
       "context": "  --md-sys-color-surface-container: #FFFFFF;\r",
       "classification": {
@@ -5499,7 +5499,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 486,
+      "line": 488,
       "match": "#000000",
       "context": "  --md-sys-color-on-surface: #000000;\r",
       "classification": {
@@ -5512,7 +5512,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 490,
+      "line": 492,
       "match": "#FFFFFF",
       "context": "  --md-sys-color-outline: #FFFFFF;\r",
       "classification": {
@@ -5525,7 +5525,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 491,
+      "line": 493,
       "match": "#FFFFFF",
       "context": "  --md-sys-color-outline-variant: #FFFFFF;\r",
       "classification": {
@@ -5538,7 +5538,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 492,
+      "line": 494,
       "match": "#000000",
       "context": "  --md-sys-color-surface-container: #000000;\r",
       "classification": {
@@ -5551,7 +5551,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 493,
+      "line": 495,
       "match": "#FFFFFF",
       "context": "  --md-sys-color-on-surface: #FFFFFF;\r",
       "classification": {
@@ -5564,7 +5564,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 790,
+      "line": 792,
       "match": "#FFFFFF",
       "context": "  --md-sys-color-on-secondary: #FFFFFF;\r",
       "classification": {
@@ -5577,7 +5577,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 792,
+      "line": 794,
       "match": "#1D192B",
       "context": "  --md-sys-color-on-secondary-container: #1D192B;\r",
       "classification": {
@@ -5590,7 +5590,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 793,
+      "line": 795,
       "match": "#7D5260",
       "context": "  --md-sys-color-tertiary: #7D5260;\r",
       "classification": {
@@ -5603,7 +5603,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 794,
+      "line": 796,
       "match": "#FFFFFF",
       "context": "  --md-sys-color-on-tertiary: #FFFFFF;\r",
       "classification": {
@@ -5616,7 +5616,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 795,
+      "line": 797,
       "match": "#FFD8E4",
       "context": "  --md-sys-color-tertiary-container: #FFD8E4;\r",
       "classification": {
@@ -5629,7 +5629,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 796,
+      "line": 798,
       "match": "#31111D",
       "context": "  --md-sys-color-on-tertiary-container: #31111D;\r",
       "classification": {
@@ -5642,7 +5642,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 797,
+      "line": 799,
       "match": "#FDFBFF",
       "context": "  --md-sys-color-background: #FDFBFF;\r",
       "classification": {
@@ -5655,7 +5655,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 798,
+      "line": 800,
       "match": "#1C1B1F",
       "context": "  --md-sys-color-on-background: #1C1B1F;\r",
       "classification": {
@@ -5668,7 +5668,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 803,
+      "line": 805,
       "match": "#79747E",
       "context": "  --md-sys-color-outline: #79747E;\r",
       "classification": {
@@ -5681,7 +5681,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 810,
+      "line": 812,
       "match": "#B3261E",
       "context": "  --md-sys-color-error: #B3261E;\r",
       "classification": {
@@ -5694,7 +5694,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 811,
+      "line": 813,
       "match": "#FFFFFF",
       "context": "  --md-sys-color-on-error: #FFFFFF;\r",
       "classification": {
@@ -5707,7 +5707,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 860,
+      "line": 862,
       "match": "#D0BCFF",
       "context": "  --md-sys-color-primary: #D0BCFF;\r",
       "classification": {
@@ -5720,7 +5720,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 861,
+      "line": 863,
       "match": "#381E72",
       "context": "  --md-sys-color-on-primary: #381E72;\r",
       "classification": {
@@ -5733,7 +5733,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 862,
+      "line": 864,
       "match": "#4F378B",
       "context": "  --md-sys-color-primary-container: #4F378B;\r",
       "classification": {
@@ -5746,7 +5746,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 863,
+      "line": 865,
       "match": "#EADDFF",
       "context": "  --md-sys-color-on-primary-container: #EADDFF;\r",
       "classification": {
@@ -5759,7 +5759,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 864,
+      "line": 866,
       "match": "#141218",
       "context": "  --md-sys-color-background: #141218;\r",
       "classification": {
@@ -5772,7 +5772,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 865,
+      "line": 867,
       "match": "#1C1B1F",
       "context": "  --md-sys-color-surface: #1C1B1F;\r",
       "classification": {
@@ -5785,7 +5785,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 866,
+      "line": 868,
       "match": "#E6E1E5",
       "context": "  --md-sys-color-on-surface: #E6E1E5;\r",
       "classification": {
@@ -5798,7 +5798,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 867,
+      "line": 869,
       "match": "#25232A",
       "context": "  --md-sys-color-surface-container: #25232A;\r",
       "classification": {
@@ -5811,7 +5811,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedHexColor",
-      "line": 868,
+      "line": 870,
       "match": "#36343B",
       "context": "  --md-sys-color-surface-container-highest: #36343B;\r",
       "classification": {
@@ -5850,7 +5850,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 227,
+      "line": 229,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-0: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(",
       "classification": {
@@ -5863,7 +5863,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 228,
+      "line": 230,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-1: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(",
       "classification": {
@@ -5876,7 +5876,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 228,
+      "line": 230,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-1: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(",
       "classification": {
@@ -5889,7 +5889,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 229,
+      "line": 231,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-2: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-blur-medium) va",
       "classification": {
@@ -5902,7 +5902,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 229,
+      "line": 231,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-2: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-blur-medium) va",
       "classification": {
@@ -5915,7 +5915,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 230,
+      "line": 232,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-3: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-2) var(",
       "classification": {
@@ -5928,7 +5928,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 230,
+      "line": 232,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-3: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-2) var(",
       "classification": {
@@ -5941,7 +5941,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 231,
+      "line": 233,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-4: var(--md-sys-spacing-0) var(--md-sys-blur-medium) var(--md-sys-spacing-3) va",
       "classification": {
@@ -5954,7 +5954,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 231,
+      "line": 233,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-4: var(--md-sys-spacing-0) var(--md-sys-blur-medium) var(--md-sys-spacing-3) va",
       "classification": {
@@ -5967,7 +5967,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 232,
+      "line": 234,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-5: var(--md-sys-spacing-0) var(--md-sys-spacing-2) var(--md-sys-spacing-3) var(",
       "classification": {
@@ -5980,7 +5980,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 232,
+      "line": 234,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-5: var(--md-sys-spacing-0) var(--md-sys-spacing-2) var(--md-sys-spacing-3) var(",
       "classification": {
@@ -5993,7 +5993,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 445,
+      "line": 447,
       "match": "rgba(255, 255, 255",
       "context": "  --glass-border: var(--md-sys-spacing-0) solid rgba(255, 255, 255, 0.2);\r",
       "classification": {
@@ -6006,7 +6006,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 649,
+      "line": 651,
       "match": "rgba(103, 80, 164",
       "context": "  --elevation-1: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-3) rgba(103, 8",
       "classification": {
@@ -6019,7 +6019,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 650,
+      "line": 652,
       "match": "rgba(103, 80, 164",
       "context": "  --elevation-2: var(--md-sys-spacing-0) var(--md-sys-spacing-2) var(--md-sys-spacing-6) rgba(103, 8",
       "classification": {
@@ -6032,7 +6032,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 655,
+      "line": 657,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-level1: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1)",
       "classification": {
@@ -6045,7 +6045,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 655,
+      "line": 657,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-level1: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1)",
       "classification": {
@@ -6058,7 +6058,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 656,
+      "line": 658,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-level2: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1)",
       "classification": {
@@ -6071,61 +6071,9 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 656,
+      "line": 658,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-level2: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1)",
-      "classification": {
-        "type": "exempt",
-        "blocking": false,
-        "severity": "info",
-        "message": "Exempt: TOKEN SOURCE — Contains :root MD3 color token definitions (--md-sys-color-*: #hex). These ARE the token values, not violations."
-      }
-    },
-    {
-      "file": "src/theme.css",
-      "type": "hardcodedRgbColor",
-      "line": 657,
-      "match": "rgba(0, 0, 0",
-      "context": "  --md-sys-elevation-level3: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1)",
-      "classification": {
-        "type": "exempt",
-        "blocking": false,
-        "severity": "info",
-        "message": "Exempt: TOKEN SOURCE — Contains :root MD3 color token definitions (--md-sys-color-*: #hex). These ARE the token values, not violations."
-      }
-    },
-    {
-      "file": "src/theme.css",
-      "type": "hardcodedRgbColor",
-      "line": 657,
-      "match": "rgba(0, 0, 0",
-      "context": "  --md-sys-elevation-level3: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1)",
-      "classification": {
-        "type": "exempt",
-        "blocking": false,
-        "severity": "info",
-        "message": "Exempt: TOKEN SOURCE — Contains :root MD3 color token definitions (--md-sys-color-*: #hex). These ARE the token values, not violations."
-      }
-    },
-    {
-      "file": "src/theme.css",
-      "type": "hardcodedRgbColor",
-      "line": 658,
-      "match": "rgba(0, 0, 0",
-      "context": "  --md-sys-elevation-level4: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1)",
-      "classification": {
-        "type": "exempt",
-        "blocking": false,
-        "severity": "info",
-        "message": "Exempt: TOKEN SOURCE — Contains :root MD3 color token definitions (--md-sys-color-*: #hex). These ARE the token values, not violations."
-      }
-    },
-    {
-      "file": "src/theme.css",
-      "type": "hardcodedRgbColor",
-      "line": 658,
-      "match": "rgba(0, 0, 0",
-      "context": "  --md-sys-elevation-level4: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1)",
       "classification": {
         "type": "exempt",
         "blocking": false,
@@ -6137,6 +6085,58 @@
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
       "line": 659,
+      "match": "rgba(0, 0, 0",
+      "context": "  --md-sys-elevation-level3: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1)",
+      "classification": {
+        "type": "exempt",
+        "blocking": false,
+        "severity": "info",
+        "message": "Exempt: TOKEN SOURCE — Contains :root MD3 color token definitions (--md-sys-color-*: #hex). These ARE the token values, not violations."
+      }
+    },
+    {
+      "file": "src/theme.css",
+      "type": "hardcodedRgbColor",
+      "line": 659,
+      "match": "rgba(0, 0, 0",
+      "context": "  --md-sys-elevation-level3: var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-1)",
+      "classification": {
+        "type": "exempt",
+        "blocking": false,
+        "severity": "info",
+        "message": "Exempt: TOKEN SOURCE — Contains :root MD3 color token definitions (--md-sys-color-*: #hex). These ARE the token values, not violations."
+      }
+    },
+    {
+      "file": "src/theme.css",
+      "type": "hardcodedRgbColor",
+      "line": 660,
+      "match": "rgba(0, 0, 0",
+      "context": "  --md-sys-elevation-level4: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1)",
+      "classification": {
+        "type": "exempt",
+        "blocking": false,
+        "severity": "info",
+        "message": "Exempt: TOKEN SOURCE — Contains :root MD3 color token definitions (--md-sys-color-*: #hex). These ARE the token values, not violations."
+      }
+    },
+    {
+      "file": "src/theme.css",
+      "type": "hardcodedRgbColor",
+      "line": 660,
+      "match": "rgba(0, 0, 0",
+      "context": "  --md-sys-elevation-level4: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1)",
+      "classification": {
+        "type": "exempt",
+        "blocking": false,
+        "severity": "info",
+        "message": "Exempt: TOKEN SOURCE — Contains :root MD3 color token definitions (--md-sys-color-*: #hex). These ARE the token values, not violations."
+      }
+    },
+    {
+      "file": "src/theme.css",
+      "type": "hardcodedRgbColor",
+      "line": 661,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-level5: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1)",
       "classification": {
@@ -6149,7 +6149,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedRgbColor",
-      "line": 659,
+      "line": 661,
       "match": "rgba(0, 0, 0",
       "context": "  --md-sys-elevation-level5: var(--md-sys-spacing-0) var(--md-sys-spacing-1) var(--md-sys-spacing-1)",
       "classification": {
@@ -6162,7 +6162,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedSpacing",
-      "line": 343,
+      "line": 345,
       "match": "min-height: 200px",
       "context": "  --md-sys-layout-card-min-height: 200px;\r",
       "classification": {
@@ -6175,7 +6175,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedSpacing",
-      "line": 346,
+      "line": 348,
       "match": "min-width: 64px",
       "context": "  --md-sys-layout-button-min-width: 64px;\r",
       "classification": {
@@ -6188,7 +6188,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedSpacing",
-      "line": 347,
+      "line": 349,
       "match": "min-width: 120px",
       "context": "  --md-sys-layout-popup-min-width: 120px;\r",
       "classification": {
@@ -6201,7 +6201,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedSpacing",
-      "line": 348,
+      "line": 350,
       "match": "max-width: 800px",
       "context": "  --md-sys-layout-panel-max-width: 800px;\r",
       "classification": {
@@ -6214,7 +6214,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 253,
+      "line": 255,
       "match": "font-weight: 400",
       "context": "  --md-sys-typescale-display-large-font-weight: 400;\r",
       "classification": {
@@ -6227,7 +6227,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 257,
+      "line": 259,
       "match": "font-weight: 400",
       "context": "  --md-sys-typescale-display-medium-font-weight: 400;\r",
       "classification": {
@@ -6240,7 +6240,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 261,
+      "line": 263,
       "match": "font-weight: 400",
       "context": "  --md-sys-typescale-display-small-font-weight: 400;\r",
       "classification": {
@@ -6253,7 +6253,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 267,
+      "line": 269,
       "match": "font-weight: 400",
       "context": "  --md-sys-typescale-headline-large-font-weight: 400;\r",
       "classification": {
@@ -6266,7 +6266,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 271,
+      "line": 273,
       "match": "font-weight: 400",
       "context": "  --md-sys-typescale-headline-medium-font-weight: 400;\r",
       "classification": {
@@ -6279,7 +6279,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 275,
+      "line": 277,
       "match": "font-weight: 400",
       "context": "  --md-sys-typescale-headline-small-font-weight: 400;\r",
       "classification": {
@@ -6292,7 +6292,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 281,
+      "line": 283,
       "match": "font-weight: 400",
       "context": "  --md-sys-typescale-title-large-font-weight: 400;\r",
       "classification": {
@@ -6305,7 +6305,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 285,
+      "line": 287,
       "match": "font-weight: 500",
       "context": "  --md-sys-typescale-title-medium-font-weight: 500;\r",
       "classification": {
@@ -6318,7 +6318,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 289,
+      "line": 291,
       "match": "font-weight: 500",
       "context": "  --md-sys-typescale-title-small-font-weight: 500;\r",
       "classification": {
@@ -6331,7 +6331,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 295,
+      "line": 297,
       "match": "font-weight: 400",
       "context": "  --md-sys-typescale-body-large-font-weight: 400;\r",
       "classification": {
@@ -6344,7 +6344,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 299,
+      "line": 301,
       "match": "font-weight: 400",
       "context": "  --md-sys-typescale-body-medium-font-weight: 400;\r",
       "classification": {
@@ -6357,7 +6357,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 303,
+      "line": 305,
       "match": "font-weight: 400",
       "context": "  --md-sys-typescale-body-small-font-weight: 400;\r",
       "classification": {
@@ -6370,7 +6370,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 309,
+      "line": 311,
       "match": "font-weight: 500",
       "context": "  --md-sys-typescale-label-large-font-weight: 500;\r",
       "classification": {
@@ -6383,7 +6383,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 313,
+      "line": 315,
       "match": "font-weight: 500",
       "context": "  --md-sys-typescale-label-medium-font-weight: 500;\r",
       "classification": {
@@ -6396,7 +6396,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 317,
+      "line": 319,
       "match": "font-weight: 500",
       "context": "  --md-sys-typescale-label-small-font-weight: 500;\r",
       "classification": {
@@ -6409,7 +6409,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 766,
+      "line": 768,
       "match": "font-size: 10px",
       "context": "  --md-sys-typescale-label-tiny-font-size: 10px;\r",
       "classification": {
@@ -6422,7 +6422,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 1189,
+      "line": 1191,
       "match": "font-weight: 500",
       "context": "  font-weight: 500;\r",
       "classification": {
@@ -6435,7 +6435,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 1213,
+      "line": 1215,
       "match": "font-weight: 500",
       "context": "  font-weight: 500;\r",
       "classification": {
@@ -6448,7 +6448,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 1232,
+      "line": 1234,
       "match": "font-weight: 500",
       "context": "  font-weight: 500;\r",
       "classification": {
@@ -6461,7 +6461,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 1252,
+      "line": 1254,
       "match": "font-weight: 500",
       "context": "  font-weight: 500;\r",
       "classification": {
@@ -6474,7 +6474,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 1270,
+      "line": 1272,
       "match": "font-weight: 500",
       "context": "  font-weight: 500;\r",
       "classification": {
@@ -6487,7 +6487,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 1346,
+      "line": 1348,
       "match": "font-weight: 500",
       "context": "  font-weight: 500;\r",
       "classification": {
@@ -6500,7 +6500,7 @@
     {
       "file": "src/theme.css",
       "type": "hardcodedTypography",
-      "line": 1461,
+      "line": 1463,
       "match": "font-weight: 500",
       "context": "  font-weight: 500;\r",
       "classification": {
@@ -6513,7 +6513,7 @@
     {
       "file": "src/theme.css",
       "type": "nonMD3Var",
-      "line": 470,
+      "line": 472,
       "match": "var(--motion-easing-expressive)",
       "context": "  --md-sys-motion-easing-standard: var(--motion-easing-expressive);\r",
       "classification": {

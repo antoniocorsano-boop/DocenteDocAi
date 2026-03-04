@@ -239,7 +239,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 </div>
                             </InfoCard>
 
-                            <InfoCard title="Dati Valutazioni (Opzionale)" icon="grade" variant="secondary">
+                            <InfoCard title="Dati Valutazioni (Opzionale)" icon="grade" variant="tonal">
                                 <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-4)'}}>Voto</label>
@@ -319,7 +319,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 </ul>
                             </InfoCard>
 
-                            <InfoCard title="Classi rilevate" icon="class" variant="secondary">
+                            <InfoCard title="Classi rilevate" icon="class" variant="tonal">
                                 <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                                     {Array.from(new Set(result.students.map(s => s.classe))).map(c => (
                                         <span key={c} style={{ color: 'var(--md-sys-color-on-secondary-container)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-spacing-1)", backgroundColor: "var(--md-sys-color-secondary)", fontWeight: "var(--md-sys-typescale-weight-bold)"}}>

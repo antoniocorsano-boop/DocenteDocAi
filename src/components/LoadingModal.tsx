@@ -13,7 +13,8 @@ const LoadingModal: React.FC<LoadingModalProps> = ({ message }) => {
   return (
     <M3Dialog
       onClose={() => {}}
-      maxWidth="xs"
+      title=""
+      maxWidth="sm"
       level={5}
       hideCloseButton
       hideBackdrop={true}

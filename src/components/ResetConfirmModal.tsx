@@ -22,7 +22,7 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
             maxWidth="sm"
             level={3}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 , gap: 'var(--md-sys-spacing-6)'}}>
+            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' , gap: 'var(--md-sys-spacing-6)'}}>
                 <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', color: "var(--md-sys-color-error)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                     <span style={{ color: 'var(--md-sys-color-error)' }}>warning</span>
                     <span style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Azione Irreversibile</span>

@@ -123,7 +123,7 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                 </M3DialogContent>
                 <M3DialogActions>
                     <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
-                    <M3Button type="submit" variant="primary">Crea Prova</M3Button>
+                    <M3Button type="submit" variant="filled">Crea Prova</M3Button>
                 </M3DialogActions>
             </form>
         </M3Dialog>

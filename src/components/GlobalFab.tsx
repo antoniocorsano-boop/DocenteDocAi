@@ -1,5 +1,6 @@
 // MD3 Compliant
-
+// @deprecated — GlobalFab non è montato in alcun punto dell'app (componente orfano).
+// Usare AssistantFab come unico entry point AI globale.
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 import React, { useState, useRef } from 'react';
 import { View } from '../types';

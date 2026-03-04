@@ -8,15 +8,20 @@ import { View } from '../types';
 interface BottomNavProps {
   activeView: View;
   onNavigate: (view: View) => void;
+  /** Apre il drawer con tutte le sezioni secondarie */
+  onOpenMore?: () => void;
+  /** Indica se il drawer secondario è aperto */
+  moreOpen?: boolean;
 }
 
-// Mirror NavigationRail items — max 5 for MD3 bottom nav
-const navItems: { id: View; label: string; icon: string; activeIcon: string }[] = [
+// Mirror NavigationRail items — max 5 per MD3 bottom nav spec
+// La quinta voce "Altro" apre il drawer secondario con tutte le sezioni
+const navItems: { id: View | '__more__'; label: string; icon: string; activeIcon: string }[] = [
   { id: 'home',              label: 'Home',      icon: 'home',            activeIcon: 'home' },
   { id: 'timetable',         label: 'Orario',    icon: 'schedule',        activeIcon: 'watch_later' },
   { id: 'progettazione-hub', label: 'Progetta',  icon: 'design_services', activeIcon: 'edit_document' },
   { id: 'aula',              label: 'Classi',    icon: 'groups',          activeIcon: 'groups' },
-  { id: 'calendario',        label: 'Agenda',    icon: 'calendar_month',  activeIcon: 'event_note' },
+  { id: '__more__',          label: 'Altro',     icon: 'menu',            activeIcon: 'menu_open' },
 ];
 
 // Spring tokens for pill expansion — fast spatial for snappy feel
@@ -28,7 +33,7 @@ const SPRING_EFFECTS =
   'var(--md-sys-motion-spring-expressive-fast-effects-duration, 150ms) ' +
   'var(--md-sys-motion-spring-expressive-fast-effects, cubic-bezier(0.31, 0.94, 0.34, 1.00))';
 
-const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
+const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate, onOpenMore, moreOpen = false }) => {
   return (
     <>
       <style>{`
@@ -61,14 +66,15 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
         }}
       >
         {navItems.map(item => {
-          const isActive = activeView === item.id;
+          const isActive = item.id === '__more__' ? moreOpen : activeView === item.id;
           return (
             <button
               key={item.id}
               className="bottom-nav-item"
               aria-label={item.label}
               aria-current={isActive ? 'page' : undefined}
-              onClick={() => onNavigate(item.id)}
+              aria-expanded={item.id === '__more__' ? moreOpen : undefined}
+              onClick={() => item.id === '__more__' ? onOpenMore?.() : onNavigate(item.id as View)}
               style={{
                 background: 'transparent',
                 border: 'none',

@@ -50,9 +50,9 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
 
             {modals.createLessonContext?.isOpen && modals.createLessonContext?.lezione && (
                 <CreateLessonFromAiModal
-                    content={{ title: ', htmlContent: ', ...(modals.createLessonContext.lezione as object) }}
+                    content={{ title: '', htmlContent: '', ...(modals.createLessonContext.lezione as object) }}
                     onClose={() => modals.setCreateLessonContext?.({ isOpen: false, slotKey: null, lezione: null })}
-                    onSave={(lessonData: Lezione) => {
+                    onSave={(lessonData: Omit<import('../types').Lezione, 'id' | 'svolta'>) => {
                         const newLesson = {
                             ...lessonData,
                             id: `lesson-ai-${Date.now()}`,
@@ -94,7 +94,7 @@ export const ModalManager: React.FC<ModalManagerProps> = ({ appState, actions, m
             {modals.editingSlotKey ? (() => {
                 const slotKey = modals.editingSlotKey as string;
                 if (!slotKey) return null;
-                const slot = slots[slotKey] || { giorno: slotKey.split('-')[0] || ', ora: slotKey.split('-')[1] || ' };
+                const slot = slots[slotKey] || { giorno: slotKey.split('-')[0] || '', ora: slotKey.split('-')[1] || '' };
                 const lesson = slot && slot.lezioneId ? lessons[slot.lezioneId] : undefined;
                 return (
                     <EditSlotModal

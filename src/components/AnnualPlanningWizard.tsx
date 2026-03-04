@@ -501,7 +501,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <InfoCard
                                     title="Organizzazione Moduli"
                                     description="Definisci le Unità di Apprendimento (UDA) in ordine cronologico. L'app calcolerà automaticamente le date sul calendario in base al monte ore di ciascuna UDA."
-                                    variant="secondary"
+                                    variant="tonal"
                                     icon="info"
                                     onClose={() => setShowSequenceHelp(false)}
                                 />

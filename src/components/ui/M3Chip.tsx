@@ -79,13 +79,14 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
     return baseStyles;
   };
 
-  // Container styles
+  // Container styles — MD3 chip spec: 32dp min height (--md-sys-spacing-8)
   const containerStyle: React.CSSProperties = {
     display: 'inline-flex',
     alignItems: 'center',
     gap: 'var(--md-sys-spacing-2)',
     borderRadius: full,
     padding: `var(--md-sys-spacing-1) var(--md-sys-spacing-4)`,
+    minHeight: 'var(--md-sys-spacing-8)', // 32dp — MD3 chip height spec
     transition: `all ${short2} ${standard}`,
     opacity: disabled ? 0.38 : (variant === 'filled' && (isHovered || isFocused) ? 0.8 : 1),
     cursor: disabled ? 'not-allowed' : 'default',
@@ -108,10 +109,10 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
     ...getVariantStyles()
   };
 
-  // Delete button styles
+  // Delete button styles — MD3 min touch: spacing-6 (24px), icon visual: spacing-4 (16px)
   const deleteButtonStyle: React.CSSProperties = {
-    width: 'var(--md-sys-spacing-4)',
-    height: 'var(--md-sys-spacing-4)',
+    width: 'var(--md-sys-spacing-6)',   // 24px min touch target
+    height: 'var(--md-sys-spacing-6)',  // 24px min touch target
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

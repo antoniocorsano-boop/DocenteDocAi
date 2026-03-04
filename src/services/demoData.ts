@@ -31,7 +31,12 @@ const uda: Uda[] = [
         evaluation: 'Verifica orale e valutazione prodotto multimediale',
         tools: 'Libro di testo, Documentari Rai Storia, Canva',
         startDate: '2023-10-01',
-        endDate: '2023-11-30'
+        endDate: '2023-11-30',
+        startPos: 0,
+        width: 200,
+        color: 'var(--md-sys-color-primary-container)',
+        borderColor: 'var(--md-sys-color-primary)',
+        textColor: 'var(--md-sys-color-on-primary-container)'
     },
     {
         id: 'uda-2',
@@ -48,7 +53,12 @@ const uda: Uda[] = [
         evaluation: 'Valutazione tavole tecniche e interrogazione',
         tools: 'Kit disegno, Software CAD, Schede tecniche',
         startDate: '2023-10-15',
-        endDate: '2023-12-15'
+        endDate: '2023-12-15',
+        startPos: 0,
+        width: 200,
+        color: 'var(--md-sys-color-secondary-container)',
+        borderColor: 'var(--md-sys-color-secondary)',
+        textColor: 'var(--md-sys-color-on-secondary-container)'
     },
     {
         id: 'uda-3',
@@ -65,7 +75,12 @@ const uda: Uda[] = [
         evaluation: 'Test scritto e valutazione brochure',
         tools: 'Atlante, Google Earth',
         startDate: '2023-11-01',
-        endDate: '2023-12-20'
+        endDate: '2023-12-20',
+        startPos: 0,
+        width: 200,
+        color: 'var(--md-sys-color-tertiary-container)',
+        borderColor: 'var(--md-sys-color-tertiary)',
+        textColor: 'var(--md-sys-color-on-tertiary-container)'
     }
 ];
 

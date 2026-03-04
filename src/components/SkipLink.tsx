@@ -51,17 +51,7 @@ const SkipLink: React.FC<SkipLinkProps> = ({
       href={href}
       onClick={handleClick}
       aria-label={label}
-      style={{position: 'absolute',
-        top: 'calc(-1 * var(--md-sys-spacing-10))',
-        left: 0,
-        background: 'var(--md-sys-color-primary)',
-        color: 'var(--md-sys-color-on)',
-        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
-        textDecoration: 'none',
-        zIndex: 'var(--md-sys-z-sticky)',
-        borderRadius: '0 0 var(--md-sys-shape-corner-small) 0',
-        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-        fontWeight: 'var(--md-sys-typescale-weight-semibold)',}}
+      className="skip-link"
       onKeyDown={(e: React.KeyboardEvent<HTMLAnchorElement>) => {
         if (e.key === 'Enter' || e.key === ' ') {
           handleClick(e as unknown as React.MouseEvent<HTMLAnchorElement>);

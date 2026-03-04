@@ -8,10 +8,16 @@ export interface M3TypographyProps {
            'body-large' | 'body-medium' | 'body-small' |
            'label-large' | 'label-medium' | 'label-small' |
            'button-primary' | 'button-secondary';
-  as?: 'div' | 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-  children: React.ReactNode;
+  as?: 'div' | 'span' | 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'label';
+  children?: React.ReactNode;
   style?: React.CSSProperties;
   color?: string;
+  id?: string;
+  title?: string;
+  htmlFor?: string;
+  dangerouslySetInnerHTML?: { __html: string };
+  onClick?: (e: React.MouseEvent) => void;
+  className?: string;
 }
 
 /** Maps each MD3 typescale variant to its direct --md-sys-typescale-* tokens. */
@@ -53,6 +59,12 @@ const M3Typography: React.FC<M3TypographyProps> = ({
   children,
   style = {},
   color,
+  id,
+  title,
+  htmlFor,
+  dangerouslySetInnerHTML,
+  onClick,
+  className,
 }) => {
   const config = VARIANT_MAP[variant] ?? VARIANT_MAP['body-large'];
   const k = config.key;
@@ -71,8 +83,16 @@ const M3Typography: React.FC<M3TypographyProps> = ({
   };
 
   return (
-    <Component style={typographyStyles}>
-      {children}
+    <Component
+      style={typographyStyles}
+      id={id}
+      title={title}
+      htmlFor={htmlFor as string | undefined}
+      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+      onClick={onClick}
+      className={className}
+    >
+      {dangerouslySetInnerHTML ? undefined : children}
     </Component>
   );
 };

@@ -88,7 +88,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                         ]}
                         activeTab={periodo}
                         onTabChange={(id) => setPeriodo(id as PeriodoValutazione)}
-                        variant="primary"
+                        variant="filled"
                         style={{ width: 'var(--md-sys-percent-100)' }}
                     />
                 </div>

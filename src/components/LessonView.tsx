@@ -1,4 +1,4 @@
-/* eslint-disable design-system/no-classname -- Material Symbols icons require className */
+﻿/* eslint-disable design-system/no-classname -- Material Symbols icons require className */
 // MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
@@ -12,6 +12,9 @@ import React, { useState } from 'react';
 import { Lezione, MaterialeDidattico, KnowledgeBaseEntry, AiSettings, LessonAnalysisResult, TimetableSettings } from '../types';
 import { generateLessonPdf, generateHtmlDocxBlob, viewPdfInNewTab, generateHomeworkPdf, saveAs } from '../utils/documentUtils';
 import { analyzeLessonPedagogy, addContextToLesson } from '../services/aiService';
+import { sanitizeHTML } from '../utils/securityUtils';
+import { generateHueFromString } from '../utils/colorUtils';
+import { LESSON_TYPE_ICONS } from '../constants';
 import MaterialPickerModal from './MaterialPickerModal';
 import LessonAnalysisModal from './LessonAnalysisModal';
 import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard, SectionHeader, AiThinkingGem } from './ui';
@@ -60,7 +63,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         viewPdfInNewTab(pdfBlob);
     } catch (error) {
         console.error("Failed to generate lesson PDF:", error);
-        alert("Si è verificato un errore durante la generazione del PDF.");
+        alert("Si Ã¨ verificato un errore durante la generazione del PDF.");
     } finally {
         setIsExporting(false);
     }
@@ -77,7 +80,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         viewPdfInNewTab(pdfBlob);
     } catch (error) {
         console.error("Failed to generate homework PDF:", error);
-        alert("Si è verificato un errore durante la generazione della scheda compiti.");
+        alert("Si Ã¨ verificato un errore durante la generazione della scheda compiti.");
     } finally {
         setIsExporting(false);
     }
@@ -95,11 +98,11 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
       if (lesson.unitaDiApprendimento) html += `<p><strong>UDA:</strong> ${lesson.unitaDiApprendimento}</p>`;
       
       html += `<h2>Obiettivi</h2><p>${safeObjectives || 'Nessun obiettivo specificato.'}</p>`;
-      html += `<h2>Contenuti e Attività</h2><p>${safeContext || ''}</p>`;
+      html += `<h2>Contenuti e AttivitÃ </h2><p>${safeContext || ''}</p>`;
       html += `<h2>Compiti</h2><p>${safeHomework || 'Nessun compito assegnato.'}</p>`;
       
       if (lesson.adattamenti) {
-          html += `<h2>Adattamenti (Inclusività)</h2><p>${safeAdaptations}</p>`;
+          html += `<h2>Adattamenti (InclusivitÃ )</h2><p>${safeAdaptations}</p>`;
       }
 
       const blob = await generateHtmlDocxBlob(html, lesson.contenuto);
@@ -160,9 +163,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
       try {
           const result = await analyzeLessonPedagogy(aiSettings, {
               title: lesson.contenuto,
-              subject: lesson.materia,
-              className: lesson.classe,
-              description: `${lesson.obiettivi || '} ${lesson.contesto || '}`
+              description: `${lesson.materia || ''} ${lesson.classe || ''} - ${lesson.obiettivi || ''} ${lesson.contesto || ''}`
           });
           setAnalysisResult(result);
       } catch (error: unknown) {
@@ -247,7 +248,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                     </div>
                                     <div style={{ flex: 1 }}>
                                         <p style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', color: 'var(--md-sys-color-on-secondary-container)' }}>Assistente Pedagogico</p>
-                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-secondary-container)', opacity: 0.8 }}>Analizza inclusività e coinvolgimento</p>
+                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-secondary-container)', opacity: 0.8 }}>Analizza inclusivitÃ  e coinvolgimento</p>
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
@@ -255,7 +256,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                         onClick={handleEnrichLesson}
                                         disabled={isEnriching}
                                         variant="tonal"
-                                        title="Arricchisci con curiosità e spunti AI"
+                                        title="Arricchisci con curiositÃ  e spunti AI"
                                     >
                                         {isEnriching ? <AiThinkingGem size="small" inline text="" /> : (
                                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
@@ -325,7 +326,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                     <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-primary)' }}>attachment</span>
                                     Materiali
                                 </h3>
-                                <M3Button onClick={() => setIsMaterialPickerOpen(true)} variant="icon">
+                                <M3Button onClick={() => setIsMaterialPickerOpen(true)} variant="text">
                                     <span className="material-symbols-outlined">add</span>
                                 </M3Button>
                             </div>
@@ -350,11 +351,11 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                             </div>
                                             <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
                                                 {material.type === 'file' && (
-                                                    <M3Button onClick={() => handleDownloadMaterial(material)} variant="icon" title="Scarica">
+                                                    <M3Button onClick={() => handleDownloadMaterial(material)} variant="text" title="Scarica">
                                                         <span className="material-symbols-outlined">download</span>
                                                     </M3Button>
                                                 )}
-                                                <M3Button onClick={() => handleRemoveMaterial(material.id)} variant="icon" title="Rimuovi">
+                                                <M3Button onClick={() => handleRemoveMaterial(material.id)} variant="text" title="Rimuovi">
                                                     <span className="material-symbols-outlined">close</span>
                                                 </M3Button>
                                             </div>
@@ -371,7 +372,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
 
                         {/* Inclusion */}
                         <InfoCard 
-                            title="Inclusività (BES/DSA)" 
+                            title="InclusivitÃ  (BES/DSA)" 
                             icon="diversity_3" 
                             variant={lesson.adattamenti ? 'tertiary' : 'surface'}
                         >
@@ -409,10 +410,10 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                 </span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
-                        <M3Button onClick={handleExportDocx} disabled={isExporting} variant="icon" title="Esporta Word">
+                        <M3Button onClick={handleExportDocx} disabled={isExporting} variant="text" title="Esporta Word">
                             <span className="material-symbols-outlined">description</span>
                         </M3Button>
-                        <M3Button onClick={handleExport} disabled={isExporting} variant="icon" title="Esporta PDF">
+                        <M3Button onClick={handleExport} disabled={isExporting} variant="text" title="Esporta PDF">
                             <span className="material-symbols-outlined">picture_as_pdf</span>
                         </M3Button>
                     </div>
@@ -463,7 +464,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
             result={analysisResult} 
             onClose={() => setAnalysisResult(null)} 
             title={lesson.contenuto}
-            contextLabel={`Analisi ${lesson.materia} ${lesson.classe} • ${settings?.schoolType || ''}`}
+            contextLabel={`Analisi ${lesson.materia} ${lesson.classe} â€¢ ${settings?.schoolType || ''}`}
           />
       )}
     </>
@@ -471,4 +472,5 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
 };
 
 export default LessonView;
+
 

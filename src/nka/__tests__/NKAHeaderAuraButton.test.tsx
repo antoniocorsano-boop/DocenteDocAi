@@ -7,9 +7,9 @@ describe('NKAHeaderAuraButton', () => {
   it('renders with badge if hasNewNode', () => {
     renderWithM3Theme(<NKAHeaderAuraButton hasNewNode={true} onClick={() => {}} onLongPress={() => {}} />);
     expect(screen.getByRole('button')).toBeInTheDocument();
-    expect(screen.getByLabelText('Apri mappa neurale')).toBeInTheDocument();
+    expect(screen.getByLabelText(/apri mappa neurale/i)).toBeInTheDocument();
     expect(screen.getByText('auto_awesome')).toBeInTheDocument();
-    expect(screen.getByLabelText('Nuovo nodo disponibile')).toBeInTheDocument();
+    expect(screen.getByRole('status', { name: /nuovo nodo disponibile/i })).toBeInTheDocument();
   });
 
   it('calls onClick when clicked', () => {

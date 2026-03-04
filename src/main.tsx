@@ -102,15 +102,14 @@ if (typeof window !== 'undefined') {
 // Conditionally load Google Identity and API scripts only in production and when origin is allowed
 (function loadGoogleScriptsIfAllowed() {
   try {
-    const importMetaTyped = import.meta as ImportMetaTyped;
-    const isProd = importMetaTyped && importMetaTyped.env && importMetaTyped.env.PROD;
-    const isDev = importMetaTyped && importMetaTyped.env && importMetaTyped.env.DEV;
-    const enableGsiDev = importMetaTyped && importMetaTyped.env && importMetaTyped.env.VITE_ENABLE_GSI_DEV === 'true';
-    const gsiClientId = importMetaTyped && importMetaTyped.env && importMetaTyped.env.VITE_GSI_CLIENT_ID;
+    const isProd = import.meta.env.PROD;
+    const isDev = import.meta.env.DEV;
+    const enableGsiDev = import.meta.env.VITE_ENABLE_GSI_DEV === 'true';
+    const gsiClientId = import.meta.env.VITE_GSI_CLIENT_ID;
 
     // Allow listing for scripts and service worker registration.
     // Use VITE_ALLOWED_HOSTS env var as comma-separated list, fallback to known hosts.
-      const envHosts = (importMetaTyped && importMetaTyped.env && importMetaTyped.env.VITE_ALLOWED_HOSTS) || '';
+      const envHosts = import.meta.env.VITE_ALLOWED_HOSTS || '';
       const allowedHosts = envHosts ? envHosts.split(',').map((s: string) => s.trim()).filter(Boolean) : ['docentedoc.app', 'your-production-domain.example'];
     const host = window.location.hostname;
 
@@ -171,7 +170,12 @@ async function bootstrapApp() {
     try {
       root.render(
         <ErrorBoundary>
-          <div style={{padding:20,fontFamily:'sans-serif'}}>
+          <div style={{
+            padding: 'var(--md-sys-spacing-5)',
+            fontFamily: 'var(--md-sys-typescale-body-large-font, sans-serif)',
+            color: 'var(--md-sys-color-on-surface, #1c1b1f)',
+            background: 'var(--md-sys-color-surface, #fffbfe)',
+          }}>
             Errore di inizializzazione dell&apos;applicazione. Aprire la console per dettagli.
           </div>
         </ErrorBoundary>

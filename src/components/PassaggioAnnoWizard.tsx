@@ -184,7 +184,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                 title={`Chiusura Anno ${settings.annoScolasticoCorrente}`}
                                 description="Procedura guidata per archiviare i dati, calcolare lo storico e preparare le classi per il nuovo anno."
                                 icon="school"
-                                variant="primary"
+                                variant="filled"
                                 style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent)' }}
                             />
                             
@@ -233,6 +233,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                         {activeStudents.map((s) => {
                                             const { grade } = calculatePerformance(s.id, "Complessivo", evaluations.filter(e => e.studenteId === s.id));
                                             const isInsufficient = grade && parseFloat(grade) < 6;
+                                            const outcome = outcomes[s.id];
 
                                             return (
                                                 <tr key={s.id}  style={{ transition: "color var(--md-sys-motion-duration-medium)" }}>

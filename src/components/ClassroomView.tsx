@@ -242,7 +242,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                     <TabGroup
                         activeTab={activeTab}
                         onTabChange={(id) => setActiveTab(id as ClassroomTab)}
-                        variant="primary"
+                        variant="filled"
                         tabs={[
                             { id: 'register', label: 'Registro', icon: 'how_to_reg' },
                             { id: 'notes', label: 'Diario', icon: 'edit_note' },

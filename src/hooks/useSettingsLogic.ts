@@ -34,9 +34,9 @@ export const useSettingsLogic = ({
 }: UseSettingsLogicProps): {
     localSettings: TimetableSettings;
     localAiSettings: AiSettings;
-    handleChange: (key: string, value: unknown) => void;
-    handleThemeChange: (key: string, value: unknown) => void;
-    handleAiProfileChange: (profile: string) => void;
+    handleChange: (field: keyof TimetableSettings, value: unknown) => void;
+    handleThemeChange: (partial: Partial<AppThemeState>) => void;
+    handleAiProfileChange: (profile: keyof typeof AI_PROFILES) => void;
     handleResetAiCache: () => void;
     themePrompt: string;
     setThemePrompt: (v: string) => void;
@@ -45,9 +45,9 @@ export const useSettingsLogic = ({
     isResetModalOpen: boolean;
     setIsResetModalOpen: (v: boolean) => void;
     performReset: () => void;
-    handleBulkAssign: (value: string) => void;
+    handleBulkAssign: (selectedClasses: string[], selectedSubjects: string[]) => void;
     toggleAssociation: (studentId: string, classCode: string) => void;
-    updateAssignmentHours: (studentId: string, classCode: string, hours: number) => void;
+    updateAssignmentHours: (id: string, hours: number) => void;
 } => {
     // Local State
     const [localSettings, setLocalSettings] = useState<TimetableSettings>(settings);

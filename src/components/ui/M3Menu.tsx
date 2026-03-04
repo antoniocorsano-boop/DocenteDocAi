@@ -175,10 +175,22 @@ export const M3Menu: React.FC<M3MenuProps> = ({
               // eslint-disable-next-line design-system/no-classname
               className={item.variant === 'error' ? 'm3-menu-item--error' : undefined}
               style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--md-sys-spacing-3)',
+                width: '100%',
+                minHeight: 'var(--md-sys-spacing-12)',  // 48dp — MD3 list item spec
+                padding: 'var(--md-sys-spacing-0) var(--md-sys-spacing-4)',
+                border: 'none',
+                borderRadius: 'var(--md-sys-shape-corner-none)',
+                textAlign: 'left',
+                fontFamily: 'var(--font-family)',
+                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
                 opacity: item.disabled ? 'var(--md-sys-state-opacity-disabled)' : '1',
                 cursor: item.disabled ? 'not-allowed' : 'pointer',
                 backgroundColor: focusedIndex === index ? 'var(--md-sys-color-surface-container-high)' : 'transparent',
-                color: item.variant === 'error' ? 'var(--md-sys-color-error)' : 'inherit'
+                color: item.variant === 'error' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface)'
               }}
               onMouseEnter={() => !item.disabled && setFocusedIndex(index)}
               onMouseLeave={() => setFocusedIndex(-1)}

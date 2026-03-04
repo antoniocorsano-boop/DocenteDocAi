@@ -10,7 +10,7 @@ import EditableContentCard from '../src/components/EditableContentCard';
 
 describe('MD3 Expressive Components - Border Radius Validation', () => {
   test('M3Button uses extra-large border radius', () => {
-    render(<M3Button variant="primary">Test Button</M3Button>);
+    render(<M3Button variant="filled">Test Button</M3Button>);
     const button = screen.getByRole('button');
 
     // Verifica che lo stile includa il token extra-large
@@ -26,6 +26,22 @@ describe('MD3 Expressive Components - Border Radius Validation', () => {
       { id: 'home' as const, label: 'Home', icon: 'home', activeIcon: 'home' }
     ];
     const mockOnNavigate = vi.fn();
+
+    // NavigationRail renders only on desktop — override matchMedia for this test
+    const originalMatchMedia = window.matchMedia;
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: (query: string) => ({
+        matches: query.includes('min-width'),
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      }),
+    });
 
     render(
       <NavigationRail
@@ -43,6 +59,9 @@ describe('MD3 Expressive Components - Border Radius Validation', () => {
       'var(--md-sys-shape-corner-extra-large)',
       'var(--md-sys-shape-corner-medium)'
     ]).toContain(navItem.style.borderRadius);
+
+    // Ripristina matchMedia originale
+    Object.defineProperty(window, 'matchMedia', { writable: true, value: originalMatchMedia });
   });
 
   test('EditableContentCard uses extra-large border radius', () => {

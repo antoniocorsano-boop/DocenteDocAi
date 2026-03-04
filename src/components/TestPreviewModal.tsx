@@ -97,6 +97,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
             y += 5;
         });
 
+        const blob = doc.output('blob');
         viewPdfInNewTab(blob);
     };
 
@@ -126,14 +127,14 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                         <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
                         <M3Button
                             onClick={handleExportDocx}
-                            variant="secondary"
+                            variant="tonal"
                             icon="description"
                         >
                             Word
                         </M3Button>
                         <M3Button
                             onClick={handleExportPDF}
-                            variant="primary"
+                            variant="filled"
                             icon="picture_as_pdf"
                         >
                             PDF
@@ -141,7 +142,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                     </div>
                 </div>
             }
-            fullscreen={true}
+            mode="fullscreen"
         >
             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-8)', overflowY: 'auto', height: 'var(--md-sys-percent-100)', opacity: 'var(--md-sys-state-opacity-tint-moderate)' }}>
                 {/* Aura Ornaments */}
@@ -175,7 +176,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-bold)', minWidth: 'var(--md-sys-spacing-8)' }}>{index + 1}.</span>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-percent-100)' }}>
                                         <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>
-                                            {question.question}
+                                            {question.text}
                                         </M3Typography>
                                         {question.type === 'multiple-choice' && (
                                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)', marginLeft: 'var(--md-sys-spacing-8)' }}>

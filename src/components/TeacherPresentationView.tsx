@@ -114,7 +114,7 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                 </div>
 
                 {/* Slide 6: Call to Action */}
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30, borderRadius: ref.shape[6], padding: 'var(--md-sys-spacing-4)' , textAlign: "center", border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', gap: 'var(--md-sys-spacing-8)'}}>
+                <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 30%, transparent)', borderRadius: 'var(--md-sys-shape-corner-extra-large)', padding: 'var(--md-sys-spacing-4)' , textAlign: "center", border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', gap: 'var(--md-sys-spacing-8)'}}>
                     <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                         <h2 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em" }}>Insegna Meglio, Vivi Meglio.</h2>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-medium)", opacity: "var(--md-sys-state-opacity-caption)", marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", lineHeight: "1.625" }}>

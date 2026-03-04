@@ -1,8 +1,8 @@
 
 import { DEFAULT_TIMETABLE_SETTINGS } from '../constants';
 
-declare const google: unknown;
-declare const gapi: unknown;
+declare const google: any;
+declare const gapi: any;
 
 interface TokenClient {
     requestAccessToken: (options: { prompt?: string; scope?: string }) => void;
@@ -163,14 +163,14 @@ export const pickGoogleDriveFolder = async (apiKey?: string): Promise<{ id: stri
                 .setCallback((data: unknown) => {
                     try {
                         const dd = data as { action?: string; docs?: unknown[] } | undefined;
-                        if (dd?.action === gapi.picker.Action.PICKED) {
+                        if (dd && dd.action === gapi.picker.Action.PICKED) {
                             const doc = dd.docs?.[0] as { id?: string; name?: string } | undefined;
                             if (doc && typeof doc.id === 'string' && typeof doc.name === 'string') {
                                 resolve({ id: doc.id, name: doc.name });
                             } else {
                                 resolve(null);
                             }
-                        } else if (dd?.action === gapi.picker.Action.CANCEL) {
+                        } else if (dd && dd.action === gapi.picker.Action.CANCEL) {
                             resolve(null);
                         }
                     } catch {
@@ -182,7 +182,7 @@ export const pickGoogleDriveFolder = async (apiKey?: string): Promise<{ id: stri
     });
 };
 
-export const createAppFolder = async (): Promise<void> => {
+export const createAppFolder = async (): Promise<{ id: string; name: string }> => {
     const folder = await searchFolder(DEFAULT_BACKUP_FOLDER_NAME);
     if (folder) return folder;
     return await createFolder(DEFAULT_BACKUP_FOLDER_NAME);

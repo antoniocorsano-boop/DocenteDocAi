@@ -1,25 +1,132 @@
 {
-  "timestamp": "2026-03-04T10:52:41.159Z",
-  "totalViolations": 1,
-  "totalFiles": 1,
+  "timestamp": "2026-03-04T16:11:51.684Z",
+  "totalViolations": 12,
+  "totalFiles": 5,
   "scannedFiles": 248,
   "typeBreakdown": {
-    "inlineStyleLayout": 1
+    "classNameUtilities": 3,
+    "forbiddenProps": 4,
+    "inlineStyleMotion": 3,
+    "hardcodedSizeProps": 2
   },
   "topViolators": [
     {
-      "file": "src\\components\\ui\\TabGroup.tsx",
+      "file": "src\\components\\ui\\Skeleton.tsx",
+      "count": 6
+    },
+    {
+      "file": "src\\components\\BottomNav.tsx",
+      "count": 3
+    },
+    {
+      "file": "src\\components\\ui\\M3Menu.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\ui\\ProgressIndicator.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\ui\\TouchButton.tsx",
       "count": 1
     }
   ],
   "violations": [
     {
-      "file": "src\\components\\ui\\TabGroup.tsx",
-      "line": 178,
-      "type": "inlineStyleLayout",
-      "match": "style={{\r\n                                    position: 'absolute',\r\n                               ",
+      "file": "src\\components\\BottomNav.tsx",
+      "line": 46,
+      "type": "classNameUtilities",
+      "match": "className=\"bottom-",
+      "context": "className=\"bottom-nav-container\"",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\BottomNav.tsx",
+      "line": 68,
+      "type": "classNameUtilities",
+      "match": "className=\"bottom-",
+      "context": "className=\"bottom-nav-item\"",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\BottomNav.tsx",
+      "line": 89,
+      "type": "classNameUtilities",
+      "match": "className=\"bottom-",
+      "context": "className=\"bottom-nav-pill\"",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\ui\\M3Menu.tsx",
+      "line": 152,
+      "type": "forbiddenProps",
+      "match": "<M3Popover\r\n      open={open}\r\n      anchorEl={anchorEl}\r\n      onClose={onClose}\r\n      title={titl",
+      "context": "<M3Popover",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\ui\\ProgressIndicator.tsx",
+      "line": 44,
+      "type": "inlineStyleMotion",
+      "match": "style={{\r\n            height: 'var(--md-sys-percent-100)',\r\n            width: 'var(--md-sys-percent",
       "context": "style={{",
-      "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
+      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
+    },
+    {
+      "file": "src\\components\\ui\\Skeleton.tsx",
+      "line": 48,
+      "type": "inlineStyleMotion",
+      "match": "style={{\r\n              position: 'absolute',\r\n              top: 0,\r\n              left: 0,\r\n      ",
+      "context": "style={{",
+      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
+    },
+    {
+      "file": "src\\components\\ui\\Skeleton.tsx",
+      "line": 97,
+      "type": "forbiddenProps",
+      "match": "<Skeleton \r\n          variant=\"circular\" \r\n          width=\"var(--md-sys-spacing-6)\" \r\n          hei",
+      "context": "<Skeleton",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\ui\\Skeleton.tsx",
+      "line": 103,
+      "type": "forbiddenProps",
+      "match": "<Skeleton \r\n            width=\"60%\" \r\n            height=",
+      "context": "<Skeleton",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\ui\\Skeleton.tsx",
+      "line": 108,
+      "type": "forbiddenProps",
+      "match": "<Skeleton \r\n            width=\"40%\" \r\n            height=",
+      "context": "<Skeleton",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+    },
+    {
+      "file": "src\\components\\ui\\Skeleton.tsx",
+      "line": 104,
+      "type": "hardcodedSizeProps",
+      "match": "width=\"60%",
+      "context": "width=\"60%\"",
+      "suggestion": "Use MD3 spacing tokens instead of hardcoded values"
+    },
+    {
+      "file": "src\\components\\ui\\Skeleton.tsx",
+      "line": 109,
+      "type": "hardcodedSizeProps",
+      "match": "width=\"40%",
+      "context": "width=\"40%\"",
+      "suggestion": "Use MD3 spacing tokens instead of hardcoded values"
+    },
+    {
+      "file": "src\\components\\ui\\TouchButton.tsx",
+      "line": 138,
+      "type": "inlineStyleMotion",
+      "match": "style={{\r\n            width: 'var(--md-sys-spacing-5)',\r\n            height: 'var(--md-sys-spacing-5",
+      "context": "style={{",
+      "suggestion": "Use MD3 motion tokens: var(--md-sys-motion-duration-*) and var(--md-sys-motion-easing-*)"
     }
   ]
 }

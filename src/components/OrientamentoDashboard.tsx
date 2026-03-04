@@ -100,7 +100,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
             <div  style={{border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                 <table  style={{ width: 'var(--md-sys-percent-100)' }}>
                     <thead>
-                        <tr style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 }}>
+                        <tr style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)' }}>
                             <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "left", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Studente</th>
                             <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Ore Totali</th>
                             <th  style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Capolavoro</th>
@@ -137,12 +137,12 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                                         </div>
                                     </td>
                                     <td style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center"}}>
-                                        <span style={`material-symbols-outlined ${state.hasCapolavoro  ? {color: 'var(--md-sys-color-tertiary)'} : {}}`}>
+                                        <span className="material-symbols-outlined" style={state.hasCapolavoro ? {color: 'var(--md-sys-color-tertiary)'} : {}}>
                                             {state.hasCapolavoro ? 'check_circle' : 'radio_button_unchecked'}
                                         </span>
                                     </td>
                                     <td style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center"}}>
-                                        <span style={`material-symbols-outlined ${state.hasAutovalutazione  ? {color: 'var(--md-sys-color-tertiary)'} : {}}`}>
+                                        <span className="material-symbols-outlined" style={state.hasAutovalutazione ? {color: 'var(--md-sys-color-tertiary)'} : {}}>
                                             {state.hasAutovalutazione ? 'check_circle' : 'radio_button_unchecked'}
                                         </span>
                                     </td>
@@ -186,7 +186,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     title="Ore Medie Classe" 
                     description="Target Ministeriale: 30h"
                     icon="schedule"
-                    variant="primary"
+                    variant="filled"
                 >
                     <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                         <span style={{fontWeight: "var(--md-sys-typescale-weight-black)", color: 'var(--md-sys-color-primary)'}}>{totalHours}h</span>
@@ -213,7 +213,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     title="Autovalutazioni" 
                     description="Riflessioni caricate"
                     icon="psychology"
-                    variant="secondary"
+                    variant="tonal"
                 >
                     <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                         <span style={{fontWeight: "var(--md-sys-typescale-weight-black)", color: 'var(--md-sys-color-secondary)'}}>

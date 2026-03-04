@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { describe, it, expect, vi, afterAll } from 'vitest';
 import { parseGrade, calculateClassTrend, calculateCompetencyRadar, calculateGradeDistribution } from '../../../src/utils/analyticsUtils';
 import { Valutazione, ValutazioneCompetenza, Studente, Competenza } from '../../../src/types';

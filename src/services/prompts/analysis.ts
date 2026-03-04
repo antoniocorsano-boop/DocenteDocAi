@@ -3,6 +3,7 @@ import {
     Valutazione, 
     ValutazioneCompetenza, 
     Competenza, 
+    Livello,
     PianoInclusione,
     Lezione,
     Uda

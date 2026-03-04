@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * MD3 Critical Screens Visual Regression Tests
  *

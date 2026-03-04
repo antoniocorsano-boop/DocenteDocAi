@@ -207,4 +207,30 @@ a:focus-visible {
   outline-offset: var(--md-sys-spacing-1);
 }
 
+/**
+ * Skip link — WCAG 2.4.1 Bypass Blocks (Level A)
+ * Visibile solo quando riceve focus da tastiera.
+ * La posizione negativa lo nasconde; :focus-visible lo riporta in viewport.
+ */
+.skip-link {
+  position: absolute;
+  top: calc(-1 * var(--md-sys-spacing-10));
+  left: 0;
+  z-index: var(--md-sys-z-sticky);
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  padding: var(--md-sys-spacing-2) var(--md-sys-spacing-4);
+  text-decoration: none;
+  border-radius: 0 0 var(--md-sys-shape-corner-small) 0;
+  font-size: var(--md-sys-typescale-body-medium-font-size);
+  font-weight: var(--md-sys-typescale-weight-semibold);
+  transition: top var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
+}
+
+.skip-link:focus-visible {
+  top: 0;
+  outline: var(--md-sys-spacing-1) solid var(--md-sys-color-on-primary);
+  outline-offset: var(--md-sys-spacing-1);
+}
+
 

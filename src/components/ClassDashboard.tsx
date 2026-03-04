@@ -195,7 +195,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     </div>
                                     <M3Button
                                         onClick={() => onStartPlannedLesson(todaysLesson.lesson.classe, todaysLesson.lesson.materia, `${todaysLesson.slot.giorno}-${todaysLesson.slot.ora}`, todaysLesson.lesson)}
-                                        variant="primary"
+                                        variant="filled"
                                     >
                                         <span className="material-symbols-outlined" aria-hidden="true">door_open</span>
                                         Avvia Aula Digitale
@@ -224,7 +224,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', marginTop: 'var(--md-sys-spacing-1)' }}>Puoi avviare una lezione libera o un'attività improvvisata.</p>
                                     </div>
                                 </div>
-                                <M3Button onClick={() => onStartImpromptuSession(selectedClass)} variant="secondary" style={{ width: 'var(--md-sys-percent-100)' }}>
+                                <M3Button onClick={() => onStartImpromptuSession(selectedClass)} variant="tonal" style={{ width: 'var(--md-sys-percent-100)' }}>
                                     <span className="material-symbols-outlined" aria-hidden="true">add_circle</span>
                                     Avvia Lezione Improvvisata
                                 </M3Button>

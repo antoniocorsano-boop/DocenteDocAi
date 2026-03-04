@@ -23,7 +23,7 @@ export const ThemeService = {
       elevationLevel: 1,
       backdropBlur: 'var(--md-sys-elevation-blur-level1)',
       opacity: 'var(--md-sys-state-opacity-hover-overlay)'
-    } as EmotionalPresetTokens,
+    } as unknown as EmotionalPresetTokens,
     energetic: {
       primary: 'var(--md-sys-color-primary)',
       secondary: 'var(--md-sys-color-secondary)',
@@ -34,7 +34,7 @@ export const ThemeService = {
       spacingScale: 0.9,
       elevationLevel: 3,
       contrastLevel: 1.1
-    } as EmotionalPresetTokens,
+    } as unknown as EmotionalPresetTokens,
     creative: {
       primary: 'var(--md-sys-color-tertiary)',
       secondary: 'var(--md-sys-color-secondary-container)',
@@ -45,7 +45,7 @@ export const ThemeService = {
       spacingScale: 1.3,
       fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
       elevationLevel: 2
-    } as EmotionalPresetTokens,
+    } as unknown as EmotionalPresetTokens,
     focused: {
       primary: 'var(--md-sys-color-primary)',
       secondary: 'var(--md-sys-color-outline)',
@@ -56,7 +56,7 @@ export const ThemeService = {
       spacingScale: 0.8,
       contrastLevel: 1.2,
       elevationLevel: 0
-    } as EmotionalPresetTokens,
+    } as unknown as EmotionalPresetTokens,
     relaxed: {
       primary: 'var(--md-sys-color-primary-light)',
       secondary: 'var(--md-sys-color-secondary-light)',
@@ -67,7 +67,7 @@ export const ThemeService = {
       spacingScale: 1.4,
       backdropBlur: 'var(--md-sys-elevation-blur-level2)',
       opacity: 'var(--md-sys-state-opacity-hover-overlay)'
-    } as EmotionalPresetTokens,
+    } as unknown as EmotionalPresetTokens,
     professional: {
       primary: 'var(--md-sys-color-primary)',
       secondary: 'var(--md-sys-color-secondary)',
@@ -78,7 +78,7 @@ export const ThemeService = {
       spacingScale: 1.0,
       elevationLevel: 2,
       contrastLevel: 1.0
-    } as EmotionalPresetTokens,
+    } as unknown as EmotionalPresetTokens,
     playful: {
       primary: 'var(--md-sys-color-tertiary)',
       secondary: 'var(--md-sys-color-primary-container)',
@@ -89,7 +89,7 @@ export const ThemeService = {
       spacingScale: 1.1,
       fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
       elevationLevel: 4
-    } as EmotionalPresetTokens,
+    } as unknown as EmotionalPresetTokens,
     minimal: {
       primary: 'var(--md-sys-color-on-surface)',
       secondary: 'var(--md-sys-color-outline-variant)',
@@ -100,7 +100,7 @@ export const ThemeService = {
       spacingScale: 0.7,
       elevationLevel: 0,
       backdropBlur: 'none'
-    } as EmotionalPresetTokens
+    } as unknown as EmotionalPresetTokens
   } as Record<EmotionalPreset, EmotionalPresetTokens>,
 
   /**

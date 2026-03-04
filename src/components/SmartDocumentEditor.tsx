@@ -114,6 +114,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
      * Robustly handles focus loss by using savedRange.
      */
     const insertHtmlAtCursor = useCallback((html: string) => {
+        const sel = window.getSelection();
         if (!sel) return;
 
         let range: Range | null = null;
@@ -227,6 +228,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
 
     const handleDownload = useCallback(async () => {
         if (!editorRef.current) return;
+        let message = 'Errore durante esportazione.';
         try {
             const htmlContent = editorRef.current.innerHTML;
             const blob = await generateHtmlDocxBlob(htmlContent, editorTitle);

@@ -7,7 +7,7 @@
 // All styles now use MD3 design tokens and semantic color/spacing/elevation system where exact matches exist
 // Functional exceptions: width/height percentages (100%, 50%, 20%, 10%), grid minmax(calc(var(--md-sys-spacing-20) * 2.5), var(--md-sys-grid-fr-1)) for responsive layout
 import React, { useRef, useState, useEffect } from 'react';
-import { SettingsProps } from '../types';
+import { SettingsProps, AppThemeState } from '../types';
 import { THEME_CUSTOMIZATIONS, AI_PROFILES, SCHOOL_LEVELS } from '../constants';
 import { generateNextSchoolYear } from '../utils/schoolUtils';
 import {
@@ -32,7 +32,7 @@ const SettingsGroup: React.FC<{
     title: string;
     subtitle?: string;
     icon: string;
-    variant: 'primary' | 'secondary' | 'tertiary' | 'surface';
+    variant: 'primary' | 'secondary' | 'tertiary' | 'surface' | 'filled' | 'tonal' | 'elevated';
     defaultOpen: boolean;
     children: React.ReactNode;
 }> = ({ id, title, subtitle, icon, variant, defaultOpen, children }) => {
@@ -378,7 +378,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     title="Interfaccia & Esperienza Visiva"
                     subtitle="Personalizza l'aspetto e il comportamento dell'app"
                     icon="palette"
-                    variant="primary"
+                    variant="filled"
                     defaultOpen={true}
                 >
                     <div
@@ -436,7 +436,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 ]}
                                 activeTab={localSettings.uiMode || 'classic'}
                                 onTabChange={(id) => handleChange('uiMode', id)}
-                                variant="primary" />
+                                variant="filled" />
                             <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)',
                                 margin: 0}}>
                                 {localSettings.uiMode === 'flow'
@@ -472,7 +472,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 ].map(style => (
                                     <button
                                         key={style.id}
-                                        onClick={() => handleThemeChange('visualStyle', style.id)}
+                                        onClick={() => handleThemeChange({ visualStyle: style.id as AppThemeState['visualStyle'] })}
                                         style={{display: 'flex',
                                             flexDirection: 'column',
                                             alignItems: 'center',
@@ -528,7 +528,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     tabs={[{ id: 'light', label: 'Chiaro', icon: 'light_mode' }, { id: 'dark', label: 'Scuro', icon: 'dark_mode' }, { id: 'system', label: 'Sistema', icon: 'brightness_auto' }]}
                                     activeTab={themeState.mode}
                                     onTabChange={(id) => onSaveTheme({ ...themeState, mode: id as typeof themeState.mode })}
-                                    variant="primary" />
+                                    variant="filled" />
                             </div>
 
                             <div style={{display: 'grid',
@@ -644,7 +644,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <input
                                         type="range" min="0" max="100" step="5"
                                         value={themeState.glassBlur || 30}
-                                        onChange={e => handleThemeChange('glassBlur', parseInt(e.target.value))}
+                                        onChange={e => handleThemeChange({ glassBlur: parseInt(e.target.value) })}
                                         style={{width: 'var(--md-sys-percent-100)'}} />
                                 </div>
                                 <div style={{display: 'flex',
@@ -673,7 +673,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <input
                                         type="range" min="0.8" max="1.4" step="0.1"
                                         value={themeState.fontScale || 1}
-                                        onChange={e => handleThemeChange('fontScale', parseFloat(e.target.value))}
+                                        onChange={e => handleThemeChange({ fontScale: parseFloat(e.target.value) })}
                                         style={{width: 'var(--md-sys-percent-100)'}} />
                                 </div>
                                 <div style={{display: 'flex',
@@ -702,7 +702,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <input
                                         type="range" min="-50" max="50" step="5"
                                         value={themeState.contrastLevel || 0}
-                                        onChange={e => handleThemeChange('contrastLevel', parseInt(e.target.value))}
+                                        onChange={e => handleThemeChange({ contrastLevel: parseInt(e.target.value) })}
                                          style={{width: 'var(--md-sys-percent-100)'}} />
                                 </div>
                                 <div style={{display: 'flex',
@@ -736,7 +736,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                 key={m}
                                                 variant={themeState.radiusMultiplier === m ? 'filled' : 'outlined'}
                                                 size="small"
-                                                onClick={() => handleThemeChange('radiusMultiplier', m)}
+                                                onClick={() => handleThemeChange({ radiusMultiplier: m })}
                                                 style={{
                                                     minWidth: 'var(--md-sys-spacing-4)'
                                                 }}
@@ -913,7 +913,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     title="AI & Didattica"
                     subtitle="Cervello AI e cattedra"
                     icon="psychology"
-                    variant="secondary"
+                    variant="tonal"
                     defaultOpen={false}
                 >
                     {/* SEZIONE 1: MODELLO AI */}
@@ -943,7 +943,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             tabs={(Object.keys(AI_PROFILES) as Array<keyof typeof AI_PROFILES>).map(key => ({ id: key, label: AI_PROFILES[key].label, icon: AI_PROFILES[key].icon }))}
                             activeTab={currentAiProfile}
                             onTabChange={(id) => handleAiProfileChange(id as keyof typeof AI_PROFILES)}
-                            variant="primary" />
+                            variant="filled" />
 
                         <div style={{
                             display: 'flex',
@@ -1290,7 +1290,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                             <span style={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                                                 color: 'var(--md-sys-color-on-surface)'}}>{subj}</span>
                                                             <M3Button
-                                                                onClick={() => handleBulkAssign(subj)}
+                                                                onClick={() => handleBulkAssign(localSettings.classi, [subj])}
                                                                 variant="outlined"
                                                                 size="small"
                                                             >
@@ -1327,7 +1327,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                     justifyContent: 'center',
                                                                     padding: 'var(--md-sys-spacing-3)',
                                                                     borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                                                    backgroundColor: assignment ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surfaceContainer)',
+                                                                    backgroundColor: assignment ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surface-container)',
                                                                     border: `var(--md-sys-border-width-thin) solid ${assignment ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                                                     transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                                                     minHeight: 'var(--md-sys-spacing-4)'
@@ -1344,7 +1344,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                             <input
                                                                                 type="number"
                                                                                 value={assignment.hoursPerWeek}
-                                                                                onChange={e => updateAssignmentHours(assignment.classId, subj, parseInt(e.target.value) || 1)}
+                                                                                onChange={e => updateAssignmentHours(assignment.id ?? `${assignment.classId}-${subj}`, parseInt(e.target.value) || 1)}
                                                                                 style={{width: 'var(--md-sys-spacing-4)',
                                                                                     padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-1)',
                                                                                     border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
@@ -1385,7 +1385,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 title="Come funziona"
                                 description="Questa matrice è il tuo centro di controllo. Clicca su una cella per associare una materia a una classe. Modifica il numero per impostare le ore settimanali."
                                 icon="info"
-                                variant="primary" />
+                                variant="filled" />
                         </div>
                     </div>
                 </SettingsGroup>
@@ -1552,7 +1552,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     title="Backup cloud non aggiornato!"
                                     description="Esegui un backup cloud e verifica il ripristino periodicamente per la sicurezza dei tuoi dati."
                                     icon="warning"
-                                    variant="secondary" />
+                                    variant="tonal" />
                             );
                         }
                         return null;
@@ -1560,7 +1560,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                     <div style={{
                         padding: 'var(--md-sys-spacing-3)',
-                        backgroundColor: driveState.isAuthenticated ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surfaceContainer)',
+                        backgroundColor: driveState.isAuthenticated ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surface-container)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         border: `var(--md-sys-border-width-thin) solid ${driveState.isAuthenticated ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                         display: 'flex',
@@ -1754,7 +1754,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             title="Come usare"
                             description="Premi F12 per aprire la console, digita window.__errorLogger.getRecentErrors(10) per visualizzare gli ultimi 10 errori."
                             icon="info"
-                            variant="secondary" />
+                            variant="tonal" />
                     </div>
                 </SettingsGroup>
 

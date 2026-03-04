@@ -154,7 +154,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                         onChange={e => setNewCorpusName(e.target.value)} 
                                         placeholder="Es. Programmazioni 2024" 
                                     />
-                                    <M3Button onClick={handleCreateCorpus} variant="primary"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)" }}>CREA</M3Button>
+                                    <M3Button onClick={handleCreateCorpus} variant="filled"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)" }}>CREA</M3Button>
                                 </div>
                             )}
                         </section>

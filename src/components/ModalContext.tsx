@@ -21,11 +21,13 @@ interface ModalContextType {
   stack: ModalInstance[];
   pushModal: (id: string, component: React.ReactNode) => void;
   popModal: (id: string) => void;
-  getZIndex: (level: number) => number;
+  getZIndex: (level: number) => string;
   isModalOpen: (id: string) => boolean;
 }
 
 const ModalContext = createContext<ModalContextType | null>(null);
+
+let _modalContainer: HTMLElement | null = null;
 
 /**
  * Hook to use Modal Context
@@ -117,7 +119,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
  */
 interface ModalPortalContainerProps {
   modals: ModalInstance[];
-  getZIndex: (level: number) => number;
+  getZIndex: (level: number) => string;
 }
 
 const ModalPortalContainer: React.FC<ModalPortalContainerProps> = ({ modals, getZIndex }) => {
@@ -150,8 +152,8 @@ const ModalPortalContainer: React.FC<ModalPortalContainerProps> = ({ modals, get
 interface ModalPortalProps {
   id: string;
   level: number;
-  backdropZIndex: number;
-  modalZIndex: number;
+  backdropZIndex: string;
+  modalZIndex: string;
   children: React.ReactNode;
 }
 
@@ -161,11 +163,12 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
   children,
 }) => {
   // Find or create container
-  if (!container) {
-    container = document.createElement('div');
-    container.id = 'modal-root';
-    document.body.appendChild(container);
+  if (!_modalContainer) {
+    _modalContainer = document.createElement('div');
+    _modalContainer.id = 'modal-root';
+    document.body.appendChild(_modalContainer);
   }
+  const container = _modalContainer;
 
   return createPortal(
     <div

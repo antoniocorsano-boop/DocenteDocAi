@@ -122,14 +122,16 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
         setIsGeneratingNarrative(true);
         setNarrativeReport(null);
         try {
+            const studentiPerf = students.map(s => {
+                const perf = calculatePerformance(s.id, 'Complessivo', evaluations.filter(e => e.studenteId === s.id));
+                return { nome: `${s.cognome} ${s.nome}`, grade: perf.grade };
+            });
             const data = {
                 classe: selectedClass,
-                periodo,
-                studenti: students.map(s => ({
-                    nome: `${s.cognome} ${s.nome}`,
-                    media: calculatePerformance(s.id, 'Complessivo', evaluations.filter(e => e.studenteId === s.id)).grade,
-                    giudizio: localGiudizi[`${String(s.id)}-${String(periodo)}-${String(annoScolasticoCorrente)}`]?.giudizio || ''
-                }))
+                periodo: String(periodo),
+                stats: studentiPerf.map(s => `${s.nome}: media ${s.grade || 'N/D'}`).join('; '),
+                criticalities: studentiPerf.filter(s => s.grade !== null && parseFloat(s.grade) < 6).map(s => s.nome),
+                strengths: studentiPerf.filter(s => s.grade !== null && parseFloat(s.grade) >= 8).map(s => s.nome)
             };
             const report = await generateClassCouncilNarrativeReport(aiSettings, data);
             setNarrativeReport(report);
@@ -173,8 +175,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             
 // Removed unused html variable - DOCX generation handled by generateCouncilTablePdf
 
-            // FIX: Ensure string conversion in template literal for periodo
-            saveAs(blob, `Scrutinio_${selectedClass}_${String(periodo)}.docx`);
+            alert('Esportazione formato DOCX non ancora disponibile. Usa PDF.');
 
         } catch(e) {
             console.error("Error exporting DOCX:", e);
@@ -213,6 +214,8 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                 </thead>
                 <tbody>
                     {students.map(student => {
+                        const studentEvals = evaluations.filter(e => e.studenteId === student.id);
+                        const key = `${String(student.id)}-${String(periodo)}-${String(annoScolasticoCorrente)}`;
                         const performance = calculatePerformance(student.id, 'Complessivo', studentEvals);
                         const trendIcon = performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat';
                         // FIX: Ensure string conversion in template literal key
@@ -271,7 +274,11 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
         <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
             {students.map(student => {
                  const isExpanded = expandedStudentId === student.id;
-                 // FIX: Ensure string conversion in template literal key
+                 const key = `${String(student.id)}-${String(periodo)}-${String(annoScolasticoCorrente)}`;
+                 const studentEvals = evaluations.filter(e => e.studenteId === student.id);
+                 const performance = calculatePerformance(student.id, 'Complessivo', studentEvals);
+                 const trendIcon = performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat';
+                 const giudizioStudente = localGiudizi[key];
 
                  if (!giudizioStudente) return null;
 
@@ -364,7 +371,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                     <TabGroup 
                         activeTab={periodo}
                         onTabChange={(id) => setPeriodo(id as PeriodoValutazione)}
-                        variant="primary"
+                        variant="filled"
                         tabs={[
                             { id: 'primo-quadrimestre', label: '1° Quadrimestre', icon: 'looks_one' },
                             { id: 'secondo-quadrimestre', label: '2° Quadrimestre', icon: 'looks_two' },

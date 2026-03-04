@@ -7,7 +7,7 @@ import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, InfoCar
 import { ManualSection, UseCaseCard } from './help';
 import { sanitizeHtml } from '../utils/htmlSanitizer';
 
-type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'faq' | 'specs' | 'normativa';
+type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'faq' | 'specs' | 'normativa' | 'nka';
 
 // --- CONTENUTO DEL MANUALE INTEGRALE (Whitepaper Tecnico-Operativo) ---
 const MANUAL_MARKDOWN_CONTENT = `# DocenteDoc AI: Documento Tecnico e Manuale Integrale
@@ -316,7 +316,7 @@ const DigitalTeacherManual = () => {
                     title="Documentazione Completa"
                     description="Questa sezione raccoglie le informazioni operative, le specifiche di sicurezza (GDPR) e la visione strategica. Clicca sulle sezioni per espandere."
                     icon="info"
-                    variant="primary"
+                    variant="filled"
                 />
             </div>
 
@@ -498,7 +498,7 @@ const VocalAssistantGuideContent = () => (
                 title="Novità: Ricerca Web Sicura"
                 description="Puoi chiedere all'AI di cercare informazioni aggiornate su Google (es. normative recenti). Nota di Sicurezza: Per motivi di privacy, l'AI non userà mai la ricerca web se la tua domanda contiene nomi di studenti."
                 icon="search"
-                variant="secondary"
+                variant="tonal"
             />
         </div>
     </div>
@@ -677,7 +677,7 @@ const NormativaContent: React.FC = () => (
                 title="Interazione AI"
                 description="Quando usi l'AI (es. 'Analizza questa classe'), l'app invia solo i dati anonimizzati strettamente necessari per quella richiesta a Google Gemini. Nessun dato viene trattenuto per l'addestramento dei modelli."
                 icon="psychology"
-                variant="primary"
+                variant="filled"
             />
         </div>
     </div>
@@ -894,6 +894,43 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
     );
 };
 
+const NKAGuide: React.FC = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-4)' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-2)' }}>
+      <span aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-headline-medium-font-size)', color: 'var(--md-sys-color-primary)' }}>auto_awesome</span>
+      <div>
+        <M3Typography variant="headline-small" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-black)' }}>NKA Aura — Mappa Neurale</M3Typography>
+        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-1)' }}>Neural Knowledge Architecture</M3Typography>
+      </div>
+    </div>
+
+    <InfoCard title="Cos'è Aura?" icon="psychology">
+      <M3Typography variant="body-medium">Aura è la tua mappa della conoscenza personale. Connette automaticamente concetti, discipline e risorse che hai esplorato, creando una rete visiva del tuo sapere didattico.</M3Typography>
+    </InfoCard>
+
+    <InfoCard title="Come aprire Aura" icon="touch_app">
+      <M3Typography variant="body-medium" style={{ marginBottom: 'var(--md-sys-spacing-3)' }}>Il pulsante <strong>Aura</strong> (<span aria-hidden="true" style={{ verticalAlign: 'middle' }}>auto_awesome</span>) si trova nell'header in alto a destra.</M3Typography>
+      <ul style={{ paddingLeft: 'var(--md-sys-spacing-5)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
+        <li><M3Typography variant="body-medium"><strong>Tap breve</strong> → apre la mappa neurale interattiva</M3Typography></li>
+        <li><M3Typography variant="body-medium"><strong>Pressione lunga (500ms)</strong> → apre le opzioni avanzate di Aura</M3Typography></li>
+      </ul>
+    </InfoCard>
+
+    <InfoCard title="Nodi e connessioni" icon="hub">
+      <M3Typography variant="body-medium" style={{ marginBottom: 'var(--md-sys-spacing-3)' }}>La mappa è composta da <strong>nodi</strong> (concetti, classi, discipline) e <strong>connessioni</strong> (relazioni semantiche tra di essi).</M3Typography>
+      <M3Typography variant="body-medium">Quando appare il pallino colorato sul pulsante Aura, significa che un <strong>nuovo nodo è disponibile</strong> da esplorare.</M3Typography>
+    </InfoCard>
+
+    <InfoCard title="Suoni e feedback aptico" icon="vibration">
+      <M3Typography variant="body-medium">Aura utilizza micro-suoni e vibrazione (su dispositivi compatibili) per confermare le interazioni. I suoni possono essere disabilitati dalle Impostazioni.</M3Typography>
+    </InfoCard>
+
+    <InfoCard title="Privacy e dati" icon="lock">
+      <M3Typography variant="body-medium">La mappa neurale è elaborata localmente sul tuo dispositivo. Nessun dato della mappa viene inviato a server esterni.</M3Typography>
+    </InfoCard>
+  </div>
+);
+
 const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, setIsLoadingModalOpen, setLoadingModalMessage }) => {
   const [activeTab, setActiveTab] = useState<HelpTab>('improvements');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -950,6 +987,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
       case 'faq': return <FaqContent />;
       case 'specs': return <TechnicalSpecs />;
       case 'normativa': return <NormativaContent />;
+      case 'nka': return <NKAGuide />;
       default: return null;
     }
   }
@@ -963,6 +1001,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
     { id: 'faq', label: 'FAQ', icon: 'quiz' },
     { id: 'specs', label: 'Specs', icon: 'terminal' },
     { id: 'normativa', label: 'Privacy', icon: 'shield' },
+    { id: 'nka', label: 'Aura NKA', icon: 'auto_awesome' },
   ];
 
   return (
@@ -1017,7 +1056,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
               tabs={tabs}
               activeTab={activeTab}
               onTabChange={(id) => setActiveTab(id as HelpTab)}
-              variant="primary"
+              variant="filled"
             />
           </div>
 

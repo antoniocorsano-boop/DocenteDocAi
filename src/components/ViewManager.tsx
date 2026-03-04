@@ -10,7 +10,7 @@ import RegisterImportDialog from './RegisterImportDialog';
 import AuraView from './AuraView';
 import ErrorBoundary from './ErrorBoundary';
 import { ViewLoadingPlaceholder } from './ViewLoadingPlaceholder';
-import { AppState, AppActions, View, Lezione, RegisterEntry, Studente, Competenza, Uda, Report } from '../types';
+import { AppState, AppActions, View, Lezione, RegisterEntry, Studente, Competenza, Uda, Report, LessonScheduleInput, EvaluationInput, UdaCreateInput, OrientamentoActivity, EPortfolioEntry, EventoCalendario } from '../types';
 import type { Modals } from '../types';
 interface ViewManagerProps {
     view: View;
@@ -74,11 +74,12 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
     // Accessibility: Scroll to top and manage focus on view change
     React.useEffect(() => {
         window.scrollTo(0, 0);
-        const mainContent = document.querySelector('.main-content');
+        // Use id selector to match <main id="main-content" tabIndex={-1}> in App.tsx
+        const mainContent = document.getElementById('main-content');
         if (mainContent) {
             mainContent.scrollTop = 0;
-            // Optional: focus the main content for screen readers
-            (mainContent as HTMLElement).focus?.();
+            // Focus the main landmark so screen readers announce the new view
+            mainContent.focus();
         }
     }, [view]);
 
@@ -96,7 +97,6 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                             <AuraView>
                                 <Home
                                     onNavigate={handleNavigate}
-                                    dismissSuggestion={dismissSuggestion}
                                     onOpenRegisterImport={() => setIsRegisterImportOpen?.(true)}
                                 />
                             </AuraView>
@@ -108,7 +108,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         return viewContext ? (
                             <AuraView>
                                 <ClassDashboard
-                                    selectedClass={typeof viewContext === 'string' ? viewContext : null}
+                                    selectedClass={typeof viewContext === 'string' ? viewContext : ''}
                                     onNavigate={handleNavigate}
                                     onViewStudentProfile={setStudentProfileContext}
                                     onStartImpromptuSession={(classe) => {
@@ -127,6 +127,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                         handleNavigate('aula-session', { draftKey });
                                     }}
                                     onStartPlannedLesson={(classe, materia, slotKey, lesson) => {
+                                        const draftKey = `planned-${classe}-${slotKey}-${Date.now()}`;
                                         const newDraft: RegisterEntry = {
                                             id: draftKey,
                                             date: new Date().toISOString(),
@@ -190,6 +191,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                     onOpenLiveAssistant={() => setIsLiveAssistantModalOpen?.(true)}
                                     setStudentProfileContext={setStudentProfileContext}
                                     onNavigate={handleNavigate}
+                                    aiSettings={aiSettings}
                                 />
                             </AuraView>
                         );
@@ -245,7 +247,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         switch (view) {
                             case 'timetable':
                                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                componentProps = { slots, lessons, settings, onEditSlot: handleEditSlot, onShowSlotActions: (slot: Record<string, unknown>, lesson: Record<string, unknown>) => { setActiveSlotKey?.((slot as any).giorno + '-' + (slot as any).ora); setLessonViewContext?.(lesson); }, showGuidanceTips: settings.showGuidanceTips };
+                                componentProps = { slots, lessons, settings, onEditSlot: handleEditSlot, onShowSlotActions: (slot: Record<string, unknown>, lesson: Record<string, unknown>) => { setActiveSlotKey?.((slot as any).giorno + '-' + (slot as any).ora); setLessonViewContext?.(lesson as unknown as Lezione); }, showGuidanceTips: settings.showGuidanceTips };
                                 break;
                             case 'calendario':
                                 return (
@@ -267,7 +269,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                     onSyncToDrive: actions.handleSyncToDrive, onRestoreFromDrive: actions.handleRestoreFromDrive,
                                     onConfigureDrive: actions.handleConfigureDrive, onSelectBackupFolder: actions.pickGoogleDriveFolder,
                                     onCreateAppFolder: actions.createAppFolder, onClose: actions.handleBack, onOpenBackupInfo: actions.handleOpenBackupInfo,
-                                    onReactivateSuggestion: actions.reactivateSuggestion
+                                    onReactivateSuggestion: actions.setActiveSuggestion
                                 };
                                 break;
                             case 'studenti':
@@ -310,7 +312,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                 break;
                             case 'orientamento':
                                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                componentProps = { students, activities: orientamentoActivities, ePortfolioEntries, studentStates: studentOrientamentoStates, userClasses: settings.classi, onSaveActivity: (a: Record<string, unknown>) => setOrientamentoActivities(prev => [...(Array.isArray(prev) ? prev.filter(act => (act as any).id !== (a as any).id) : []), a]), onSaveEPortfolio: (e: Record<string, unknown>) => setEPortfolioEntries(prev => [...(Array.isArray(prev) ? prev.filter(ent => (ent as any).id !== (e as any).id) : []), e]), onUpdateStudentState: (s: Record<string, unknown>) => setStudentOrientamentoStates(prev => ({ ...prev, [(s as any).studenteId]: s })), showToast };
+                                componentProps = { students, activities: orientamentoActivities, ePortfolioEntries, studentStates: studentOrientamentoStates, userClasses: settings.classi, onSaveActivity: (a: Record<string, unknown>) => setOrientamentoActivities(prev => [...(Array.isArray(prev) ? prev.filter(act => (act as any).id !== (a as any).id) : []), a as unknown as OrientamentoActivity]), onSaveEPortfolio: (e: Record<string, unknown>) => setEPortfolioEntries(prev => [...(Array.isArray(prev) ? prev.filter(ent => (ent as any).id !== (e as any).id) : []), e as unknown as EPortfolioEntry]), onUpdateStudentState: (s: Record<string, unknown>) => setStudentOrientamentoStates(prev => ({ ...prev, [(s as any).studenteId]: s })), showToast };
                                 break;
                             case 'lessons':
                                 componentProps = { lessons: Object.values(lessons), uda, knowledgeBase, userClasses: settings.classi, onViewLesson: setLessonViewContext as (lesson: unknown) => void ?? (() => {}), onAddLessons, onUpdateLesson: (lesson: Lezione) => setLessons(prev => ({ ...prev, [lesson.id]: lesson })), aiSettings, setIsLoadingModalOpen, setLoadingModalMessage, slots, onScheduleLesson, curricula, settings, onStartClassroom: () => {} };
@@ -355,7 +357,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                 componentProps = { curricula: curricula || [], onUpdateCurricula: setCurricula, settings, aiSettings, onNavigate: handleNavigate };
                                 break;
                             case 'live-assistant':
-                                componentProps = { students, evaluations, slots, lessons, pianiInclusione, knowledgeBase, onNavigate: handleNavigate, onCreateEvent: (eventWithoutId: Record<string, unknown>) => { const newEvent = { ...eventWithoutId, id: `evt-${Date.now()}-${Math.random()}` }; setEventi((prev: Record<string, unknown>[]) => [...prev, newEvent]); }, onScheduleLesson: (data: Record<string, unknown>) => { onScheduleLesson(data); modals.setIsLiveAssistantModalOpen?.(false); }, onAddEvaluation: (data: Record<string, unknown>) => { handleAddEvaluation(data); modals.setIsLiveAssistantModalOpen?.(false); }, onCreateUda: (data: Record<string, unknown>) => { handleCreateUda(data); modals.setIsLiveAssistantModalOpen?.(false); }, onAddNote: (data: Record<string, unknown>) => { handleAddNote(data); modals.setIsLiveAssistantModalOpen?.(false); }, onMarkAttendance: (data: Record<string, unknown>) => { onMarkAttendance(data); modals.setIsLiveAssistantModalOpen?.(false); }, onLoadDemoData: () => { handleLoadDemoData(); modals.setIsLiveAssistantModalOpen?.(false); }, userContext: user };
+                                componentProps = { students, evaluations, slots, lessons, pianiInclusione, knowledgeBase, onNavigate: handleNavigate, onCreateEvent: (eventWithoutId: Record<string, unknown>) => { const newEvent = { ...eventWithoutId, id: `evt-${Date.now()}-${Math.random()}` }; setEventi(prev => [...prev, newEvent as unknown as EventoCalendario]); }, onScheduleLesson: (data: Record<string, unknown>) => { onScheduleLesson(data as unknown as LessonScheduleInput); modals.setIsLiveAssistantModalOpen?.(false); }, onAddEvaluation: (data: Record<string, unknown>) => { handleAddEvaluation(data as unknown as EvaluationInput); modals.setIsLiveAssistantModalOpen?.(false); }, onCreateUda: (data: Record<string, unknown>) => { handleCreateUda(data as unknown as UdaCreateInput); modals.setIsLiveAssistantModalOpen?.(false); }, onAddNote: (data: Record<string, unknown>) => { handleAddNote(data as unknown as { note: string; studentName?: string }); modals.setIsLiveAssistantModalOpen?.(false); }, onMarkAttendance: (data: Record<string, unknown>) => { onMarkAttendance(data as unknown as { studentName: string; status: 'presente' | 'assente' | 'ritardo' }); modals.setIsLiveAssistantModalOpen?.(false); }, onLoadDemoData: () => { handleLoadDemoData(); modals.setIsLiveAssistantModalOpen?.(false); }, userContext: user };
                                 break;
                             case 'teacher-presentation-view':
                                 componentProps = { onNavigate: handleNavigate };

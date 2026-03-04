@@ -13,9 +13,11 @@ interface Tab {
 interface TabGroupProps {
     tabs: Tab[];
     activeTab: string;
-    onTabChange: (id: string) => void;
-    variant?: 'primary' | 'secondary' | 'tertiary';
+    onTabChange?: (id: string) => void;
+    onChange?: (id: string) => void;
+    variant?: 'primary' | 'secondary' | 'tertiary' | 'filled' | 'tonal';
     className?: string;
+    style?: React.CSSProperties;
     isIconOnly?: boolean;
 }
 
@@ -28,13 +30,20 @@ const TabGroup: React.FC<TabGroupProps> = ({
     tabs,
     activeTab,
     onTabChange,
+    onChange,
     variant = 'primary',
-    isIconOnly = false
+    isIconOnly = false,
+    style
 }) => {
+    const handleTabChange = (id: string) => {
+        if (onTabChange) onTabChange(id);
+        if (onChange) onChange(id);
+    };
     const [hoveredTabs, setHoveredTabs] = useState<Record<string, boolean>>({});
     const [focusedTabs, setFocusedTabs] = useState<Record<string, boolean>>({});
 
     // Define variant colors based on the variant prop - MD3 tokens
+    const effectiveVariant = variant === 'filled' ? 'primary' : variant === 'tonal' ? 'secondary' : variant;
     const variantColors = {
         primary: {
             activeBg: 'var(--md-sys-color-primary)',
@@ -48,7 +57,7 @@ const TabGroup: React.FC<TabGroupProps> = ({
             activeBg: 'var(--md-sys-color-tertiary)',
             activeText: 'var(--md-sys-color-on-tertiary)'
         }
-    }[variant];
+    }[effectiveVariant];
 
     const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
         let newIndex = -1;
@@ -64,7 +73,7 @@ const TabGroup: React.FC<TabGroupProps> = ({
 
         if (newIndex !== -1) {
             e.preventDefault();
-            onTabChange(tabs[newIndex].id);
+            handleTabChange(tabs[newIndex].id);
             // Focus the new tab
             const nextTab = document.getElementById(`tab-${tabs[newIndex].id}`);
             nextTab?.focus();
@@ -91,7 +100,7 @@ const TabGroup: React.FC<TabGroupProps> = ({
                 return (
                     <button
                         key={tab.id}
-                        onClick={() => onTabChange(tab.id)}
+                        onClick={() => handleTabChange(tab.id)}
                         onKeyDown={(e) => handleKeyDown(e, index)}
                         role="tab"
                         aria-selected={isActive}

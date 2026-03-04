@@ -135,7 +135,7 @@ export const usePersistence = (isDataLoaded: boolean) => {
                 console.error("Auto-save Bridge failed:", error);
                 const currentUiActions = useUIStore.getState().actions;
                 if (currentUiActions?.setBackupState) {
-                    currentUiActions.setBackupState({ status: 'error' });
+                    currentUiActions.setBackupState({ status: 'error' } as import('../types').BackupState);
                 }
             } finally {
                 isSavingRef.current = false;

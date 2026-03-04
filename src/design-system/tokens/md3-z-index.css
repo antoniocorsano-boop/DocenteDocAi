@@ -20,6 +20,12 @@
   /* Snackbar layer - notifications, toasts */
   --md-sys-z-snackbar: 900;
 
+  /* Scrim layer - backdrop overlay behind drawers and sheets */
+  --md-sys-z-scrim: 540;
+
+  /* Drawer layer - side drawers, bottom sheets */
+  --md-sys-z-drawer: 550;
+
   /* Modal layer - dialogs, modals */
   --md-sys-z-modal: 600;
 

@@ -2,7 +2,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import M3IconButton from './M3IconButton';
 
-const meta: Meta<typeof M3IconButton> = {
+const meta = {
   component: M3IconButton,
   title: 'UI/Buttons/M3IconButton',
   tags: ['autodocs'],

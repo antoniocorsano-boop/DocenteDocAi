@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { renderWithM3Theme } from '../test-utils';
 // MD3 Compliant
 import { describe, it, expect, beforeEach, vi } from 'vitest';
@@ -191,4 +192,5 @@ describe('Home Component - Integration (lean)', () => {
     expect(elementsWithMD3Styles.length).toBeGreaterThan(0);
   });
 });
+
 

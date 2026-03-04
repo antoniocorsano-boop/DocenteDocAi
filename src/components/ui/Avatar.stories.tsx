@@ -98,7 +98,7 @@ export const MultipleAvatars: Story = {
     size: 'md',
   },
   render: () => (
-    <div style={{ display: 'flex', gap: layers.ref.spacing['4'], alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-4)', alignItems: 'center' }}>
       <Avatar name="Alice Johnson" size="sm" />
       <Avatar name="Bob Smith" size="md" />
       <Avatar name="Carol Williams" size="lg" />
@@ -182,7 +182,7 @@ export const TeamGroup: Story = {
         display: 'grid',
         gridTemplateColumns: 'repeat(3, var(--md-sys-grid-fr-1))',
         gap: 'var(--md-sys-spacing-6)',
-        padding: layers.ref.spacing['4'],
+        padding: 'var(--md-sys-spacing-4)',
       }}
     >
       <Avatar name="Alice Johnson" size="md" />

@@ -78,7 +78,7 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
                             <span  style={{color: "var(--md-sys-color-primary)"}}>verified</span>
                             <span style={{fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-on-surface)", textTransform: "uppercase", letterSpacing: "0.1em"}}>Validazione Curricolo Verticale</span>
                         </div>
-                        <M3Button onClick={handleValidate} variant="secondary" disabled={isValidating} style={{ fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                        <M3Button onClick={handleValidate} variant="tonal" disabled={isValidating} style={{ fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
                             {isValidating ? 'Validazione...' : 'Valida con AI'}
                         </M3Button>
                     </div>
@@ -129,7 +129,7 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
 
             <M3DialogActions>
                 <M3Button onClick={handleClose} variant="text">Chiudi</M3Button>
-                <M3Button onClick={handleEdit} variant="primary">
+                <M3Button onClick={handleEdit} variant="filled">
                     <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>edit</span>
                     Modifica nel Planner
                 </M3Button>

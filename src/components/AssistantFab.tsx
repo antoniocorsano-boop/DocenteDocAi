@@ -22,61 +22,20 @@ const FAB_HEIGHT = parseInt(getComputedStyle(document.documentElement).getProper
 type AssistantMode = 'chat' | 'docs' | 'tools' | 'backup';
 
 const AssistantFab: React.FC<AssistantFabProps> = () => {
-
-  // Helper to suppress logs in test/instrumented runs
-  const safeConsole = React.useCallback((method: 'log' | 'info' | 'warn' | 'error' | 'debug', ...args: unknown[]) => {
-    try {
-      if (typeof window === 'undefined') return;
-      const silent = (window.__TEST_MODE === true) || (window.__SILENCE_ASSISTANT_LOGS === true);
-      if (silent) return;
-       
-      const fn = (console as unknown as Record<'log'|'info'|'warn'|'error'|'debug', (...a: unknown[]) => void>)[method];
-      fn?.(...args);
-    } catch {
-      // swallow
-    }
-  }, []);
-  // Stato globale modale
-
   const isAssistantOpen = useUIStore(s => s.modals.isLiveAssistantModalOpen);
   const [menuOpen, setMenuOpen] = React.useState(false);
-  const [mode, setMode] = React.useState<AssistantMode>('chat');
-  const [isCompactLayout, setIsCompactLayout] = React.useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.innerWidth <= 640;
-  });
+  // mode tracks current assistant tab — read by AssistantModal via toggleModal context
+  const [, setMode] = React.useState<AssistantMode>('chat');
+  const [isCompactLayout, setIsCompactLayout] = React.useState(
+    () => window.matchMedia('(max-width: 640px)').matches
+  );
 
   // Chiudi menu quando il modale assistant si apre o si chiude
   React.useEffect(() => {
     if (isAssistantOpen && menuOpen) setMenuOpen(false);
   }, [isAssistantOpen, menuOpen]);
 
-  // Log ad ogni render per debug profondo, saltato in test-mode
-  safeConsole('info', '[AssistantFab][RENDER]', `menuOpen: ${menuOpen}, mode: ${mode}`);
-
-  // Use store hook for modal toggle and reduce noisy logging during tests
   const toggleModal = useUIStore(state => state.actions.toggleModal);
-
-  // Reduce debug logging and skip during test mode to avoid noisy console output
-  React.useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const isTest = window.__TEST_MODE === true;
-    if (isTest) return; // skip logging in test runs
-
-    const intervalDom = setInterval(() => {
-      const fabs = document.querySelectorAll('.assistant-fab-root');
-      safeConsole('debug', '[AssistantFab][DOM] .assistant-fab-root count:', fabs.length);
-    }, 3000);
-    const intervalMenu = setInterval(() => {
-      const menus = document.querySelectorAll('.assistant-fab-menu');
-      safeConsole('debug', '[AssistantFab][DOM] .assistant-fab-menu count:', menus.length, 'menuOpen:', menuOpen);
-    }, 3000);
-    return () => {
-      clearInterval(intervalDom);
-      clearInterval(intervalMenu);
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [menuOpen]);
 
 // Rileva la direzione di apertura del menu (up/down) in base alla posizione del FAB
   const fabRef = React.useRef<HTMLDivElement>(null);
@@ -105,45 +64,26 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
 
 const handleAction = (action: typeof ACTIONS[number]) => {
     setMode(action.key as AssistantMode);
-    // Open the global Assistant modal when an action is selected
-    try {
-      // Emit a concise runtime warning so Playwright traces capture the user action
-       
-      console.warn('[E2E][AssistantFab] action selected', { key: action.key, label: action.label });
-    } catch {
-      // ignore
-    }
     if (toggleModal) toggleModal('isLiveAssistantModalOpen', true);
-    // Close the FAB menu
     setMenuOpen(false);
   };
 
   React.useEffect(() => {
-    if (window.__TEST_MODE === true) return;
-    if (menuOpen) {
-      safeConsole('info', '[AssistantFab] MENU FAB APERTO', { menuOpen, mode, stack: new Error().stack });
-    } else {
-      safeConsole('info', '[AssistantFab] MENU FAB CHIUSO', { menuOpen, mode, stack: new Error().stack });
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [menuOpen, mode]);
-
-  React.useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const handleResize = () => setIsCompactLayout(window.innerWidth <= 640);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const mq = window.matchMedia('(max-width: 640px)');
+    const onChange = (e: MediaQueryListEvent) => setIsCompactLayout(e.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
   }, []);
 
   return (
     <>
       <div
-        
+        className="assistant-fab-root"
         ref={fabRef}
         style={{ touchAction: 'none' }}
       >
         <button
-          
+          className="mui-fab-expressive assistant-fab"
           aria-label="Assistente AI"
           onClick={handleFabClick}
         >
@@ -227,8 +167,9 @@ const handleAction = (action: typeof ACTIONS[number]) => {
       <style>{`
         .assistant-fab-root {
           position: fixed;
-          right: var(--md-sys-spacing-6);
-          bottom: var(--md-sys-spacing-12);
+          right: var(--md-sys-spacing-4);
+          /* Sopra la bottom nav su mobile, allineato al bottom su desktop */
+          bottom: calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-4) + env(safe-area-inset-bottom, 0px)); /* eslint-disable-line design-system/enforce-token-usage -- env(safe-area-inset-bottom) native CSS API */
           z-index: var(--md-sys-z-tooltip);
           transition: box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
         }

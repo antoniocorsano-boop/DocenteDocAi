@@ -51,8 +51,8 @@ export function validateBackupData(data: unknown): BackupPayload | null {
   };
 
   try {
-    const validated: BackupPayload = {
-      user: isValidUser(backup.user) ? (backup.user as User) : null,
+    const validated = {
+      user: isValidUser(backup.user) ? backup.user : null,
       students: ensureArray<Studente>(backup.students),
       lessons: ensureObject(backup.lessons) as Record<string, Lezione>,
       slots: ensureObject(backup.slots),
@@ -111,7 +111,7 @@ export function validateBackupData(data: unknown): BackupPayload | null {
       installPrompt: isRecord(backup.installPrompt) ? backup.installPrompt : null,
       canShowInstallPrompt: typeof backup.canShowInstallPrompt === 'boolean' ? backup.canShowInstallPrompt : false,
       isGlobalAiLoading: typeof backup.isGlobalAiLoading === 'boolean' ? backup.isGlobalAiLoading : false,
-    };
+    } as unknown as BackupPayload;
 
     console.log('[DataValidator] Backup data validated successfully');
     return validated;

@@ -53,7 +53,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
             setAdvisorStatus(requestType === 'recupero' ? "Elaborazione strategie di recupero..." : "Elaborazione strategie di potenziamento...");
             await new Promise(r => setTimeout(r, 500)); // UX delay
 
-            const result = await getAIPedagogicalAdvice(aiSettings, studentData, requestType, settings.competenze);
+            const result = await getAIPedagogicalAdvice(aiSettings, studentData as { lesson: import('../types').Lezione; students: import('../types').Studente[]; evaluations: import('../types').Valutazione[] }, requestType, settings.competenze);
             setAdvice(result.suggerimenti);
         } catch (err) {
             const errorMsg = err instanceof Error ? err.message : "Si è verificato un errore durante la generazione del consiglio.";
@@ -189,7 +189,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                     display: 'flex',
                     justifyContent: 'center'
                 }}>
-                    <button onClick={handleGenerateAdvice} disabled={!!advisorStatus} style={{
+                    <button onClick={handleGenerateAdvice} disabled={!!advisorStatus} aria-label={advisorStatus ? 'Elaborazione consiglio in corso...' : 'Genera consiglio AI'} style={{
                         padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)',
                         backgroundColor: advisorStatus ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-primary)',
                         color: advisorStatus ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',

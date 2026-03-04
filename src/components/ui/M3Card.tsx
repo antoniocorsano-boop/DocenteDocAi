@@ -12,6 +12,7 @@ interface M3CardProps {
   variant?: 'elevated' | 'outlined' | 'filled';
   padding?: 'none' | 'small' | 'medium' | 'large';
   style?: React.CSSProperties;
+  className?: string;
   ariaLabel?: string;
 }
 
@@ -23,6 +24,7 @@ const M3Card: React.FC<M3CardProps> = ({
   variant = 'elevated',
   padding = 'medium',
   style,
+  className,
   ariaLabel
 }) => {
   const [hovered, setHovered] = useState(false);
@@ -117,6 +119,7 @@ const M3Card: React.FC<M3CardProps> = ({
       role={isClickable ? 'button' : undefined}
       tabIndex={isClickable ? 0 : undefined}
       aria-label={ariaLabel}
+      className={className}
       style={baseStyle}
       onMouseEnter={(e) => {
         setHovered(true);

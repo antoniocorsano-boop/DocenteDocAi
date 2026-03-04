@@ -56,7 +56,7 @@ const AVATAR_PALETTES = [
  * Guarantees accessible contrast (Dark Text on Light Background).
  */
 export const getAvatarColors = (str: string): { bg: string; textColor: string } => {
-    if (!str) return AVATAR_PALETTES[0];
+    if (!str) return { bg: AVATAR_PALETTES[0].bg, textColor: AVATAR_PALETTES[0].text };
     
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
@@ -64,6 +64,6 @@ export const getAvatarColors = (str: string): { bg: string; textColor: string } 
     }
     
     const index = Math.abs(hash % AVATAR_PALETTES.length);
-    return AVATAR_PALETTES[index];
+    return { bg: AVATAR_PALETTES[index].bg, textColor: AVATAR_PALETTES[index].text };
 };
 

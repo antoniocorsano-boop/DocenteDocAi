@@ -77,7 +77,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
             {/* Header with student info */}
             <div
                 style={{backgroundColor: 'var(--md-sys-color-primary)',
-                    color: 'var(--md-sys-color-on)',
+                    color: 'var(--md-sys-color-on-primary)',
                     padding: 'var(--md-sys-spacing-4)'}}
             >
                 <div
@@ -96,7 +96,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         <M3Typography
                             variant="body-medium"
                             style={{margin: 0,
-                                color: 'var(--md-sys-color-on)',
+                                color: 'var(--md-sys-color-on-primary)',
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'nowrap',
@@ -107,7 +107,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         <M3Typography
                             variant="body-small"
                             style={{margin: 0,
-                                color: 'color-mix(in srgb, var(--md-sys-color-on) 80%, transparent)', // MD3 EXCEPTION: Functional opacity for secondary text (no specific token available)
+                                color: 'color-mix(in srgb, var(--md-sys-color-on-primary) 80%, transparent)', // MD3 EXCEPTION: Functional opacity for secondary text (no specific token available)
                                 fontWeight: 'var(--md-sys-typescale-weight-regular)'}}
                         >
                             Classe {student.classe}
@@ -132,7 +132,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         <M3Typography
                             variant="label-small"
                             style={{margin: '0 0 var(--md-sys-spacing-1) 0',
-                                color: 'color-mix(in srgb, var(--md-sys-color-on) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
+                                color: 'color-mix(in srgb, var(--md-sys-color-on-primary) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
                                 textTransform: 'uppercase',
                                 
                                 letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', // MD3 COMPLIANT: Using official label-small tracking token
@@ -167,7 +167,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         <M3Typography
                             variant="label-small"
                             style={{margin: '0 0 var(--md-sys-spacing-1) 0',
-                                color: 'color-mix(in srgb, var(--md-sys-color-on) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
+                                color: 'color-mix(in srgb, var(--md-sys-color-on-primary) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
                                 textTransform: 'uppercase',
                                 
                                 letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', // MD3 COMPLIANT: Using official label-small tracking token
@@ -202,7 +202,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         <M3Typography
                             variant="label-small"
                             style={{margin: '0 0 var(--md-sys-spacing-1) 0',
-                                color: 'color-mix(in srgb, var(--md-sys-color-on) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
+                                color: 'color-mix(in srgb, var(--md-sys-color-on-primary) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
                                 textTransform: 'uppercase',
                                 
                                 letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', // MD3 COMPLIANT: Using official label-small tracking token
@@ -245,7 +245,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         onClose();
                     }}
                     variant="text"
-                    size="md"
+                    size="medium"
                     style={{width: 'var(--md-sys-percent-100)', // MD3 EXCEPTION: Functional layout value for full-width buttons
                         justifyContent: 'flex-start',
                         marginBottom: 'var(--md-sys-spacing-2)',
@@ -266,7 +266,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         onClose();
                     }}
                     variant="text"
-                    size="md"
+                    size="medium"
                     style={{width: 'var(--md-sys-percent-100)', // MD3 EXCEPTION: Functional layout value for full-width buttons
                         justifyContent: 'flex-start',
                         gap: 'var(--md-sys-spacing-3)'}}

@@ -73,12 +73,12 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
             maxWidth="xl"
             level={1}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30, padding: 'var(--md-sys-spacing-4)' }}>
+            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 70%, transparent)', padding: 'var(--md-sys-spacing-4)' }}>
                 <SelectField 
                     label="Classe Destinazione" 
                     value={targetClass} 
                     onChange={e => setTargetClass(e.target.value)}
-                    style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/50 }}
+                    style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
                 >
                     <option value="" disabled>Seleziona...</option>
                     {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
@@ -94,7 +94,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                     rows={6} 
                     placeholder="Es. 'Lezione attiva su Dante usando i social media'..." 
                     autoFocus
-                    style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/50 }}
+                    style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
                 />
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
@@ -107,7 +107,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                     </div>
                     
                     {useKb && knowledgeBase.length > 0 && (
-                        <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)'/50, borderRadius: 'var(--md-sys-shape-corner-large)' , display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", overflowY: "auto"}}>
+                        <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", overflowY: "auto"}}>
                             {knowledgeBase.map(k => (
                                 <label key={k.id} style={{
                                     display: 'flex',
@@ -145,7 +145,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                 )}
             </M3DialogContent>
 
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30 , borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", paddingTop: "0"}}>
+            <M3DialogActions style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 70%, transparent)' , borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", paddingTop: "0"}}>
                 <M3Button onClick={onClose} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)",  fontSize: "var(--md-sys-typescale-label-large-font-size)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Annulla</M3Button>
                 <M3Button 
                     onClick={handleGenerate} 
@@ -153,7 +153,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                     disabled={isLoading || !ideaText.trim()}
                      style={{ fontWeight: "var(--md-sys-typescale-weight-black)",  fontSize: "var(--md-sys-typescale-label-large-font-size)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}
                 >
-                    {isLoading ? <AiThinkingGem size={20} /> : (
+                    {isLoading ? <AiThinkingGem size="small" /> : (
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                             <span  style={{  fontSize: "var(--md-sys-typescale-body-large-font-size)"  }}>auto_awesome</span>
                             <span>Genera Piano</span>
@@ -166,4 +166,5 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
 };
 
 export default IdeaGeneratorModal;
+
 

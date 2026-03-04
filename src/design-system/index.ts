@@ -260,8 +260,7 @@ export const applyTheme = (theme: Theme): void => {
     const tokenName = key as keyof typeof baseDesignSystem.typography;
     const tokenInfo = baseDesignSystem.typography[tokenName];
     for (const prop in tokenInfo.value as Record<string, unknown>) {
-      const propName = prop as keyof typeof tokenInfo.value;
-      root.style.setProperty(`${tokenInfo.cssVar}-${propName.toString()}`, (tokenInfo.value as any)[propName] as string); // Cast to any
+      root.style.setProperty(`${tokenInfo.cssVar}-${String(prop)}`, (tokenInfo.value as Record<string, string>)[prop]); // Cast to any
     }
   }
 

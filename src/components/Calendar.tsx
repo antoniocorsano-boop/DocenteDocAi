@@ -15,6 +15,8 @@ interface CalendarProps {
     eventi: EventoCalendario[];
     setEventi: React.Dispatch<React.SetStateAction<EventoCalendario[]>>;
     aiSettings: AiSettings;
+    activeSuggestion?: unknown;
+    onNavigate?: (view: string, context?: unknown) => void;
 }
 
 type CalendarView = 'month' | 'week' | 'day' | 'agenda';
@@ -197,7 +199,7 @@ const renderHeader = () => {
                         ]}
                         activeTab={viewMode}
                         onTabChange={(id) => setViewMode(id as CalendarView)}
-                        variant="primary"
+                        variant="filled"
                     />
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
@@ -496,7 +498,7 @@ const renderHeader = () => {
             ) : (
                 <div style={{gap: 'var(--md-sys-spacing-6)'}}>
                     {Object.entries(agendaGroups).map(([date, evts]) => (
-                        <div key={date} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/20, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                        <div key={date} style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 20%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                             <div  style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-6)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                                 {new Date(date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })}
                             </div>

@@ -168,7 +168,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               { id: 'settings', label: 'Impostazioni', icon: 'settings' }
             ]}
             activeTab={activeTab}
-            onChange={(id) => setActiveTab(id)}
+            onChange={(id) => setActiveTab(id as 'settings' | 'details' | 'overview')}
           />
 
           {/* Tab Content */}
@@ -426,8 +426,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               >
                 Eventi Recenti
               </M3Typography>
-              <div style={{maxHeight: 'var(--md-sys-spacing-4)',
-                overflowY: 'auto',
+              <div style={{overflowY: 'auto',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 'var(--md-sys-spacing-2)',

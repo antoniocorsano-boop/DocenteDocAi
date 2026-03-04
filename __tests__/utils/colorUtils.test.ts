@@ -25,7 +25,7 @@ describe('colorUtils', () => {
   describe('getAvatarColors', () => {
     it('should return default palette for empty string', () => {
       const colors = getAvatarColors('');
-      expect(colors).toEqual({ bg: '#EADDFF', text: '#21005D' });
+      expect(colors).toEqual({ bg: '#EADDFF', textColor: '#21005D' });
     });
 
     it('should return a consistent palette for a string', () => {
@@ -33,7 +33,7 @@ describe('colorUtils', () => {
       const colors2 = getAvatarColors('Mario Rossi');
       expect(colors1).toEqual(colors2);
       expect(colors1).toHaveProperty('bg');
-      expect(colors1).toHaveProperty('text');
+      expect(colors1).toHaveProperty('textColor');
     });
   });
 });

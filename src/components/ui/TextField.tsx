@@ -6,12 +6,15 @@ import React, { InputHTMLAttributes, useState } from 'react';
 import M3Typography from './M3Typography';
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-    label: string;
+    label?: string;
     variant?: 'filled' | 'outlined';
     error?: boolean;
     errorMessage?: string;
     leadingIcon?: string;
     fullWidth?: boolean;
+    containerClassName?: string;
+    multiline?: boolean;
+    rows?: number;
     'data-testid'?: string;
 }
 
@@ -27,6 +30,9 @@ const TextField: React.FC<TextFieldProps> = ({
     errorMessage,
     leadingIcon,
     fullWidth = false,
+    containerClassName: _containerClassName,
+    multiline: _multiline,
+    rows: _rows,
     'data-testid': dataTestId,
     value,
     ...props

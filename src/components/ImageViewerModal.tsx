@@ -40,7 +40,7 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
             onClose={onClose}
             maxWidth="lg"
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 , display: "flex", justifyContent: "center", alignItems: "center", padding: 'var(--md-sys-spacing-6)'}}>
+            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' , display: "flex", justifyContent: "center", alignItems: "center", padding: 'var(--md-sys-spacing-6)'}}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <img 
                         src={dataUrl} 
@@ -53,7 +53,7 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
                 </div>
             </M3DialogContent>
 
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/80 , padding: 'var(--md-sys-spacing-6)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+            <M3DialogActions style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 80%, transparent)' , padding: 'var(--md-sys-spacing-6)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                 <M3Button 
                     onClick={handleSave} 
                     variant="outlined" 

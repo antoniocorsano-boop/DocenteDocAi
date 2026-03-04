@@ -153,7 +153,7 @@ export const Multiple: Story = {
     onClick: () => console.log('Create Lesson'),
   },
   render: () => (
-    <div style={{ display: 'grid', gridTemplateColumns: `repeat(2, var(--md-sys-grid-fr-1))`, gap: layers.ref.spacing['4'], padding: layers.ref.spacing['4'] }}>
+    <div style={{ display: 'grid', gridTemplateColumns: `repeat(2, var(--md-sys-grid-fr-1))`, gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-4)' }}>
       <ActionTile
         title="Create Lesson"
         subtitle="New Material"
@@ -202,7 +202,7 @@ export const Dashboard: Story = {
         display: 'grid',
         gridTemplateColumns: `repeat(3, var(--md-sys-grid-fr-1))`,
         gap: 'var(--md-sys-spacing-6)',
-        padding: layers.ref.spacing['4'],
+        padding: 'var(--md-sys-spacing-4)',
       }}
     >
       <ActionTile
@@ -262,7 +262,7 @@ export const IconVariations: Story = {
     onClick: () => {},
   },
   render: () => (
-    <div style={{ display: 'flex', gap: layers.ref.spacing['4'], padding: layers.ref.spacing['4'], flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-4)', flexWrap: 'wrap' }}>
       <ActionTile title="Add" icon="add" onClick={() => {}} />
       <ActionTile title="Edit" icon="edit" onClick={() => {}} />
       <ActionTile title="Delete" icon="delete" onClick={() => {}} />

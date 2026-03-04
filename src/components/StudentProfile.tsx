@@ -1,6 +1,6 @@
 // MD3 Compliant - Block J Migration Complete (2 violations eliminated)
 import React, { useState, useMemo } from 'react';
-import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, RegisterEntry, Lezione, Competenza } from '../types';
+import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, RegisterEntry, Lezione, Competenza, AiSettings } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { generateStudentProfilePdf, viewPdfInNewTab, generateCertificazioneCompetenzePdf } from '../utils/documentUtils';
 import { DEFAULT_COMPETENZE } from '../constants';
@@ -154,9 +154,9 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     const renderOverview = () => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
-                <InfoCard title="Media Voti" description={performance.grade || '-'} icon="analytics" variant="primary" />
+                <InfoCard title="Media Voti" description={performance.grade || '-'} icon="analytics" variant="filled" />
                 <InfoCard title="Andamento" description={performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile'} icon={trendIcon} variant="surface" />
-                <InfoCard title="Assenze" description={`${attendanceStats.absences} ore`} icon="event_busy" variant="secondary" />
+                <InfoCard title="Assenze" description={`${attendanceStats.absences} ore`} icon="event_busy" variant="tonal" />
                 <InfoCard title="Ritardi" description={`${attendanceStats.lates} ingressi`} icon="schedule" variant="tertiary" />
             </div>
 
@@ -267,7 +267,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                     trailingElement={
                                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
                                             <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(ev.data).toLocaleDateString()}</span>
-                                            <M3Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="icon">
+                                            <M3Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="text">
                                                 <span className="material-symbols-outlined">delete</span>
                                             </M3Button>
                                         </div>
@@ -357,7 +357,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                         <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-primary)' }}>meeting_room</span>
                                         <span style={{ fontSize: 'var(--md-sys-typescale-label-medium-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-on-primary-container)' }}>Ricevimento</span>
                                     </div>
-                                    <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(lesson.data).toLocaleDateString()}</span>
+                                    <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{lesson.data ? new Date(lesson.data).toLocaleDateString() : ''}</span>
                                 </div>
                                 <p style={{ margin: 0, color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', lineHeight: 1.6 }}>{lesson.contenuto}</p>
                                 {lesson.obiettivi && (
@@ -386,7 +386,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             {/* Profile Header */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                    <M3Button onClick={onBack} variant="icon">
+                    <M3Button onClick={onBack} variant="text">
                         <span className="material-symbols-outlined">arrow_back</span>
                     </M3Button>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
@@ -413,7 +413,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                 </div>
             </div>
 
-            <TabGroup tabs={tabs} activeTab={activeTab} onTabChange={(id) => setActiveTab(id as ProfileTab)} variant="primary" />
+            <TabGroup tabs={tabs} activeTab={activeTab} onTabChange={(id) => setActiveTab(id as ProfileTab)} variant="filled" />
 
             <div style={{ flex: 1, padding: 'var(--md-sys-spacing-4)', overflowY: 'auto' }}>
                 {activeTab === 'overview' && renderOverview()}
@@ -425,11 +425,10 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             {isInterviewModeOpen && (
                 <StudentInterviewModal 
                     student={student}
+                    evaluations={[]}
+                    competencyEvaluations={[]}
+                    settings={settings}
                     onClose={() => setIsInterviewModeOpen(false)}
-                    onSave={() => {
-                        // Logic to save interview note
-                        setIsInterviewModeOpen(false);
-                    }}
                 />
             )}
         </div>

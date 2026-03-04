@@ -171,7 +171,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                  <TabGroup 
                     activeTab={activeTab}
                     onTabChange={(id) => setActiveTab(id as 'feed' | 'homework' | 'materials')}
-                    variant="secondary"
+                    variant="tonal"
                     tabs={[
                         { id: 'feed', label: 'Attività', icon: 'feed' },
                         { id: 'homework', label: 'Compiti', icon: 'assignment', badge: pendingHomework.length || undefined },

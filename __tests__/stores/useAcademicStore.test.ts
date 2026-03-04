@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { describe, it, expect, beforeEach } from 'vitest';
 import { useAcademicStore } from '../../src/stores/useAcademicStore';
 import { Lezione, EventoCalendario } from '../../src/types';

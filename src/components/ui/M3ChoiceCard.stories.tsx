@@ -25,10 +25,6 @@ const meta = {
       action: 'clicked',
       description: 'Callback when card is clicked',
     },
-    className: {
-      control: 'text',
-      description: 'Additional CSS classes',
-    },
   },
 } satisfies Meta<typeof M3ChoiceCard>;
 
@@ -139,7 +135,7 @@ export const Group: Story = {
     ];
 
     return (
-      <div style={{ display: 'flex', gap: layers.ref.spacing['4'], flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-4)', flexWrap: 'wrap' }}>
         {choices.map((choice) => (
           <M3ChoiceCard
             key={choice.id}

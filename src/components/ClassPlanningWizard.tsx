@@ -134,7 +134,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     const handleGenerateMethodology = async () => {
         setIsGeneratingMethodology(true);
         try {
-            setMethodology(text);
+            setMethodology('');
         } catch (e) {
             console.error("Errore generazione metodologia:", e);
             showToast("Errore durante la generazione delle strategie metodologiche. Riprova.", "error");
@@ -235,7 +235,12 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     evaluation: 'Griglia di valutazione disciplinare',
                     tools: 'Libro di testo, LIM',
                     startDate: item.start,
-                    endDate: item.end
+                    endDate: item.end,
+                    startPos: 0,
+                    width: 200,
+                    color: 'var(--md-sys-color-primary)',
+                    borderColor: 'var(--md-sys-color-primary)',
+                    textColor: 'var(--md-sys-color-on-primary)'
                 };
                 onSaveUda(newUda);
 
@@ -285,10 +290,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             const inclStats = `Sono presenti ${besCount} studenti con Piano di Inclusione (BES/DSA).`;
 
             const htmlContent = await generateClassPlanningDocument(aiSettings, {
-                classe: selectedClass,
                 materia: selectedSubject,
-                docente: settings.nomeInsegnante,
-                annoScolastico: settings.annoScolasticoCorrente,
                 studentiStats: stats,
                 inclusioneStats: inclStats,
                 udaList: udaList,
@@ -519,7 +521,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <InfoCard 
                                     title="Organizzazione Moduli"
                                     description="Definisci le Unità di Apprendimento (UDA) in ordine cronologico. L'app calcolerà automaticamente le date sul calendario in base al monte ore di ciascuna UDA."
-                                    variant="secondary"
+                                    variant="tonal"
                                     icon="info"
                                     onClose={() => setShowSequenceHelp(false)}
                                     style={{ marginBottom: 'var(--md-sys-spacing-8)' }}

@@ -11,6 +11,9 @@ interface AssistantModalProps {
   mode?: 'chat' | 'docs' | 'tools' | 'backup';
   aiSettings: AiSettings;
   context?: unknown;
+  onOpenImageAnalysis?: () => void;
+  onOpenVideoAnalysis?: () => void;
+  onOpenCircularAnalysis?: () => void;
 }
 
 const SUGGESTED_PROMPTS = [
@@ -20,7 +23,28 @@ const SUGGESTED_PROMPTS = [
   'Spiegami questa schermata',
 ];
 
-const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = 'chat', aiSettings, context }) => {
+const TABS: { key: 'chat' | 'docs' | 'tools'; label: string; icon: string }[] = [
+  { key: 'chat', label: 'Chat', icon: 'chat' },
+  { key: 'docs', label: 'Documenti', icon: 'import_contacts' },
+  { key: 'tools', label: 'Strumenti AI', icon: 'auto_awesome' },
+];
+
+const AssistantModal: React.FC<AssistantModalProps> = ({
+  open,
+  onClose,
+  mode = 'chat',
+  aiSettings,
+  context,
+  onOpenImageAnalysis,
+  onOpenVideoAnalysis,
+  onOpenCircularAnalysis,
+}) => {
+  const [activeMode, setActiveMode] = React.useState<'chat' | 'docs' | 'tools'>(mode === 'backup' ? 'chat' : (mode as 'chat' | 'docs' | 'tools'));
+
+  // Sync activeMode when mode prop changes (e.g. FAB action selection)
+  useEffect(() => {
+    if (mode !== 'backup') setActiveMode(mode as 'chat' | 'docs' | 'tools');
+  }, [mode]);
   const [input, setInput] = useState('');
   // NotebookLM state
   const [nbFiles, setNbFiles] = useState<NotebookLMFile[]>([]);
@@ -28,32 +52,13 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
   const [nbError, setNbError] = useState<string | null>(null);
   const nbFileInput = useRef<HTMLInputElement>(null);
   
-  useEffect(() => {
-    if (open) {
-      // Log persistente anche a livello di render/modal
-      if (typeof window !== 'undefined') {
-        const logs = JSON.parse(localStorage.getItem('assistant_open_debug') || '[]');
-        logs.push({
-          ts: new Date().toISOString(),
-          stack: new Error().stack,
-          location: window.location.href,
-          source: 'AssistantModal render',
-          mode
-        });
-        localStorage.setItem('assistant_open_debug', JSON.stringify(logs.slice(-30)));
-        console.warn('[DEBUG] [AssistantModal] Modal aperta (render)', logs.at(-1));
-      }
-      console.warn('[DEBUG] AssistantModal opened', { mode, width: window.innerWidth, height: window.innerHeight, stack: new Error().stack });
-    }
-  }, [open, mode]);
-
   // Carica elenco file NotebookLM all'apertura modale docs
   useEffect(() => {
-    if (mode === 'docs' && open) {
+    if (activeMode === 'docs' && open) {
       setNbLoading(true);
       fetchNotebookFiles().then(setNbFiles).catch(() => setNbError('Errore caricamento files')).finally(() => setNbLoading(false));
     }
-  }, [mode, open]);
+  }, [activeMode, open]);
 
   const handleNbUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.length) return;
@@ -195,7 +200,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
     setTranscript('');
     
     try {
-      const aiResponse = await chatWithAi(aiSettings, newMessages, context);
+      const aiResponse = await chatWithAi(aiSettings, newMessages, context as Record<string, unknown> | undefined);
       setMessages((msgs) => [...msgs, aiResponse]);
     } catch {
       setMessages((msgs) => [...msgs, { role: 'model', text: 'Si è verificato un errore nella generazione della risposta.' }]);
@@ -210,6 +215,48 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
   };
 
   if (!open) return null;
+
+  const tabRow = (
+    <div
+      role="tablist"
+      aria-label="Modalità assistente"
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        gap: 'var(--md-sys-spacing-2)',
+        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
+        backgroundColor: 'var(--md-sys-color-surface-container-low)',
+        borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+      }}
+    >
+      {TABS.map(tab => (
+        <button
+          key={tab.key}
+          role="tab"
+          aria-selected={activeMode === tab.key}
+          onClick={() => setActiveMode(tab.key)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--md-sys-spacing-2)',
+            padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-6)',
+            borderRadius: 'var(--md-sys-shape-corner-full)',
+            border: 'none',
+            cursor: 'pointer',
+            fontFamily: 'var(--md-sys-typescale-label-large-font, inherit)',
+            fontSize: 'var(--md-sys-typescale-label-large-size)',
+            fontWeight: activeMode === tab.key ? 'var(--md-sys-typescale-weight-bold)' : 'var(--md-sys-typescale-weight-medium)',
+            backgroundColor: activeMode === tab.key ? 'var(--md-sys-color-secondary-container)' : 'transparent',
+            color: activeMode === tab.key ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface-variant)',
+            transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+          }}
+        >
+          <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-label-large-size)' }}>{tab.icon}</span>
+          {tab.label}
+        </button>
+      ))}
+    </div>
+  );
 
   const headerContent = (
     <div style={{
@@ -260,12 +307,12 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
       maxWidth="md"
       level={2}
       hideBackdrop={false}
-      headerContent={headerContent}
+      headerContent={<>{headerContent}{tabRow}</>}
       wrapperTestId="assistant-modal-overlay"
       // Removed wrapperClassName for MD3 compliance; all overlay styling must be handled via MD3 tokens and Dialog implementation
     >
       <M3DialogContent >
-        {mode === 'chat' && (
+        {activeMode === 'chat' && (
           <>
             <div style={{
               display: 'flex',
@@ -324,7 +371,66 @@ const AssistantModal: React.FC<AssistantModalProps> = ({ open, onClose, mode = '
           </>
         )}
 
-        {mode === 'docs' && (
+        {activeMode === 'tools' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-4)' }}>
+            <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'var(--md-sys-typescale-body-medium-font, inherit)' }}>
+              Lancia uno strumento AI direttamente dalla chat.
+            </p>
+            {[
+              {
+                key: 'image',
+                icon: 'image_search',
+                label: 'Analisi Immagine',
+                description: 'Carica e analizza immagini con AI',
+                onAction: onOpenImageAnalysis,
+              },
+              {
+                key: 'video',
+                icon: 'video_search',
+                label: 'Analisi Video',
+                description: 'Analizza contenuti video con AI',
+                onAction: onOpenVideoAnalysis,
+              },
+              {
+                key: 'circular',
+                icon: 'description',
+                label: 'Analisi Circolare',
+                description: 'Estrai dati da circolari scolastiche',
+                onAction: onOpenCircularAnalysis,
+              },
+            ].map(tool => (
+              <button
+                key={tool.key}
+                onClick={() => { tool.onAction?.(); onClose(); }}
+                disabled={!tool.onAction}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 'var(--md-sys-spacing-6)',
+                  padding: 'var(--md-sys-spacing-5)',
+                  borderRadius: 'var(--md-sys-shape-corner-large)',
+                  border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                  backgroundColor: tool.onAction ? 'var(--md-sys-color-surface-container)' : 'var(--md-sys-color-surface-container-low)',
+                  cursor: tool.onAction ? 'pointer' : 'default',
+                  opacity: tool.onAction ? '1' : '0.5',
+                  textAlign: 'left',
+                  width: 'var(--md-sys-percent-full)',
+                  transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                }}
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-10)', color: 'var(--md-sys-color-primary)' }}>{tool.icon}</span>
+                <div>
+                  <p style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-on-surface)' }}>{tool.label}</p>
+                  <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'var(--md-sys-typescale-body-small-font, inherit)' }}>{tool.description}</p>
+                </div>
+                <span className="material-symbols-outlined" style={{ marginLeft: 'var(--md-sys-margin-auto)', color: 'var(--md-sys-color-on-surface-variant)' }}>chevron_right</span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        {activeMode === 'docs' && (
           <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
             <div style={{
               display: 'flex',

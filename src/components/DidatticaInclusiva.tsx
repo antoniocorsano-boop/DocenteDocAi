@@ -75,13 +75,13 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                 <div key={className} style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
                         <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-outline-variant) 30%, transparent)' ,  flexGrow: "1" }}></div>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/60 ,  fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Classe {className}</span>
+                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Classe {className}</span>
                         <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-outline-variant) 30%, transparent)' ,  flexGrow: "1" }}></div>
                     </div>
                     
                     <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                         {studentsByClass[className].sort((a, b) => a.cognome.localeCompare(b.cognome)).map(student => {
-
+                            const hasPlan = !!pianiInclusione[student.id];
                             return (
                                 <InfoCard 
                                     key={student.id} 
@@ -99,7 +99,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                                         Piano Attivo
                                                     </span>
                                                 ) : (
-                                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)'/40 , fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", borderRadius: 'var(--md-sys-spacing-4)'}}>
+                                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", borderRadius: 'var(--md-sys-spacing-4)'}}>
                                                         Standard
                                                     </span>
                                                 )}
@@ -187,6 +187,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
     const renderSuggested = () => (
         <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
             {suggestedStudents.length > 0 ? suggestedStudents.map(student => {
+                const studentEvals = evaluations.filter(e => e.studenteId === student.id);
                 const { grade } = calculatePerformance(student.id, 'Complessivo', studentEvals);
 
                 return (
@@ -255,8 +256,8 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <TabGroup
                                 activeTab={activeTab}
-                                onTabChange={id => setActiveTab(id)}
-                                variant="primary"
+                                onTabChange={id => setActiveTab(id as 'active' | 'overview' | 'suggested')}
+                                variant="filled"
                                 tabs={[
                                     { id: 'overview', label: 'Panoramica', icon: 'grid_view' },
                                     { id: 'active', label: 'Piani Attivi', icon: 'description', badge: activePlansStudents.length > 0 ? activePlansStudents.length : undefined },
@@ -284,4 +285,5 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
 };
 
 export default DidatticaInclusiva;
+
 

@@ -1004,6 +1004,8 @@ export const useAppEngine = () => {
         setIsYearTransitionOpen: uiActions.toggleModal.bind(null, 'isYearTransitionOpen'),
         isVideoAnalysisOpen: modals.isVideoAnalysisOpen,
         setIsVideoAnalysisOpen: (value?: boolean) => uiActions.setIsVideoAnalysisOpen(typeof value === 'boolean' ? value : false),
+        isNkaMapOpen: modals.isNkaMapOpen,
+        setIsNkaMapOpen: uiActions.toggleModal.bind(null, 'isNkaMapOpen'),
         isRestoring: modals.isRestoring,
         setIsRestoring: uiActions.setIsRestoring,
         setNotifiche: setNotifiche,

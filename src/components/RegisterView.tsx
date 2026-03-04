@@ -53,7 +53,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
                 </div>
             </InfoCard>
 
-            <InfoCard title="Appello" icon="group" variant="secondary">
+            <InfoCard title="Appello" icon="group" variant="tonal">
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <p><strong>Presenti:</strong> {presentStudents.length}/{Object.keys(entry.studentAttendance).length}</p>
                     <p><strong>Assenti:</strong> {absentStudents.length > 0 ? absentStudents.join(', ') : 'Nessuno'}</p>

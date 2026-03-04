@@ -13,16 +13,23 @@ interface SectionHeaderProps {
     title: string;
     subtitle?: string;
     icon?: string;
+    style?: React.CSSProperties;
+    className?: string;
+    variant?: string;
+    actions?: React.ReactNode;
 }
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({
     title,
     subtitle,
-    icon
+    icon,
+    style,
+    className
 }) => {
 
     return (
     <div
+        className={className}
         style={{
             display: 'flex',
             alignItems: 'center',
@@ -30,7 +37,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
             marginBottom: 'var(--md-sys-spacing-4)',
             marginTop: 'var(--md-sys-spacing-4)',
             paddingLeft: 'var(--md-sys-spacing-4)',
-            paddingRight: 'var(--md-sys-spacing-4)'
+            paddingRight: 'var(--md-sys-spacing-4)',
+            ...style
         }}
     >
         {icon && (

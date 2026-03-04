@@ -3,15 +3,16 @@
 // =============================
 
 import React from 'react';
-import { HeaderProps, BeforeInstallPromptEvent, Notifica } from '../types';
+import { HeaderProps, BeforeInstallPromptEvent, Notifica, View } from '../types';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { M3Typography } from './ui/M3Typography';
 import Avatar from './ui/Avatar';
 import Logo from './Logo';
 import NKAHeaderAuraButton from '../nka/NKAHeaderAuraButton';
 import { useNKAStore } from '../nka/useNKAStore';
+import Breadcrumb from './Breadcrumb';
 
-interface ExtendedHeaderProps extends HeaderProps {
+interface ExtendedHeaderProps extends Omit<HeaderProps, 'onOpenImageAnalysis' | 'onOpenVideoAnalysis' | 'onOpenHelp' | 'onOpenCircularAnalysis' | 'setNotifiche' | 'installPrompt' | 'onInstallApp'> {
   onOpenNKA?: () => void;
   onOpenImageAnalysis?: () => void;
   onOpenVideoAnalysis?: () => void;
@@ -20,6 +21,8 @@ interface ExtendedHeaderProps extends HeaderProps {
   setNotifiche?: React.Dispatch<React.SetStateAction<Notifica[]>>;
   installPrompt?: BeforeInstallPromptEvent | null;
   onInstallApp?: () => void;
+  /** View corrente — necessaria per il Breadcrumb */
+  currentView?: View;
 }
 
 export const Header: React.FC<ExtendedHeaderProps> = ({
@@ -32,7 +35,8 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
   isAiProcessing,
   hasSuggestion,
   onOpenOperations,
-  onOpenNKA
+  onOpenNKA,
+  currentView,
 }) => {
   const teacherName = settings?.nomeInsegnante || '';
   const teacherSurname = settings?.cognomeInsegnante || '';
@@ -64,7 +68,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
             aria-label="Indietro"
             onClick={onBack}
             style={{
-              width: 'var(--md-sys-spacing-6)',
+              width: 'var(--md-sys-spacing-11)',
               aspectRatio: '1',
               borderRadius: 'var(--md-sys-shape-corner-large)',
               background: 'none',
@@ -83,7 +87,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
           aria-label="Operazioni rapide"
           onClick={onOpenOperations}
           style={{
-            width: 'var(--md-sys-spacing-6)',
+            width: 'var(--md-sys-spacing-11)',
             aspectRatio: '1',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             background: 'none',
@@ -106,12 +110,16 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
         )}
       </nav>
 
-      {/* Title/Logo — left-aligned per MD3 top app bar spec */}
+      {/* Title/Logo + Breadcrumb — left-aligned per MD3 top app bar spec */}
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', marginLeft: 'var(--md-sys-spacing-3)', minWidth: 0 }}>
         <Logo isAiThinking={isAiProcessing} onHomeNavigate={() => !showBackButton && onNavigate('home')} />
-        <M3Typography variant="title-medium" style={{ color: 'var(--md-sys-color-on-surface)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-          DocenteDoc
-        </M3Typography>
+        {showBackButton && currentView ? (
+          <Breadcrumb currentView={currentView} onNavigate={onNavigate} />
+        ) : (
+          <M3Typography variant="title-medium" style={{ color: 'var(--md-sys-color-on-surface)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            DocenteDoc
+          </M3Typography>
+        )}
       </div>
 
       {/* Trailing: Status, Settings, Avatar */}
@@ -139,7 +147,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
           aria-label="Impostazioni"
           onClick={() => onNavigate('settings')}
           style={{
-            width: 'var(--md-sys-spacing-6)',
+            width: 'var(--md-sys-spacing-11)',
             aspectRatio: '1',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             background: 'none',
@@ -156,7 +164,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
         <button
           aria-label="Menu utente"
           style={{
-            width: 'var(--md-sys-spacing-6)',
+            width: 'var(--md-sys-spacing-11)',
             aspectRatio: '1',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             background: 'none',

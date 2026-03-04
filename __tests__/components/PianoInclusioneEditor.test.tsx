@@ -40,7 +40,7 @@ describe('PianoInclusioneEditor', () => {
         render(
             <PianoInclusioneEditor
                 student={mockStudent}
-                existingPiano={null}
+                existingPiano={undefined}
                 onClose={mockOnClose}
                 onSave={mockOnSave}
                 onDeletePiano={mockOnDelete}
@@ -60,7 +60,7 @@ describe('PianoInclusioneEditor', () => {
         render(
             <PianoInclusioneEditor
                 student={mockStudent}
-                existingPiano={null}
+                existingPiano={undefined}
                 onClose={mockOnClose}
                 onSave={mockOnSave}
                 onDeletePiano={mockOnDelete}
@@ -80,7 +80,7 @@ describe('PianoInclusioneEditor', () => {
         render(
             <PianoInclusioneEditor
                 student={mockStudent}
-                existingPiano={null}
+                existingPiano={undefined}
                 onClose={mockOnClose}
                 onSave={mockOnSave}
                 onDeletePiano={mockOnDelete}
@@ -102,7 +102,7 @@ describe('PianoInclusioneEditor', () => {
         render(
             <PianoInclusioneEditor
                 student={mockStudent}
-                existingPiano={null}
+                existingPiano={undefined}
                 onClose={mockOnClose}
                 onSave={mockOnSave}
                 onDeletePiano={mockOnDelete}

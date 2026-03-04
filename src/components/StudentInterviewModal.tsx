@@ -137,7 +137,8 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                             </h2>
                             <div style={{gap: 'var(--md-sys-spacing-3)'}}>
                                 {recentCompetencies.length > 0 ? (
-                                    recentCompetencies.map((comp: ValutazioneCompetenza, idx) => (
+                                    recentCompetencies.map((comp, idx) => (
+                                        comp && (
                                         <div key={idx} style={{
                                             backgroundColor: 'color-mix(in srgb, var(--md-sys-color-tertiary-container) 10%, transparent)',
                                             borderRadius: 'var(--md-sys-shape-corner-large)',
@@ -153,13 +154,14 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
                                                 }}>{comp.level}</span>
                                             </div>
                                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>{comp.desc}</p>
-                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)'/60 , marginTop: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "0.1em"}}>Rilevato il {new Date(comp.date).toLocaleDateString()}</p>
+                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "0.1em"}}>Rilevato il {new Date(comp.date).toLocaleDateString()}</p>
                                         </div>
-                                    ))
+                                        ))
+                                    )
                                 ) : (
                                     <InfoCard 
                                         type="info" 
-                                        message="Nessuna competenza ancora valutata per questo studente." 
+                                        description="Nessuna competenza ancora valutata per questo studente." 
                                     />
                                 )}
                             </div>

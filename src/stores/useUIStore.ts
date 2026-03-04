@@ -100,6 +100,7 @@ const initialModals: Modals & { toast: { message: string; type: 'success' | 'err
   isLoadingModalOpen: false,
   isVideoAnalysisOpen: false,
   isRestoring: false,
+  isNkaMapOpen: false,
   circularAnalysisModal: null,
   syncConflictModal: null,
   createLessonContext: null,
@@ -126,6 +127,7 @@ const initialModals: Modals & { toast: { message: string; type: 'success' | 'err
   setIsYearTransitionOpen: () => {},
   setIsVideoAnalysisOpen: () => {},
   setIsRestoring: () => {},
+  setIsNkaMapOpen: () => {},
   setNotifiche: () => {},
 };
 

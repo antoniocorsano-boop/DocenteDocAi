@@ -140,7 +140,7 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
                 textTransform: 'uppercase',
                 letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                 marginTop: 'var(--md-sys-spacing-1)', // compact margin
-                color: active ? 'var(--md-sys-color-on)' : 'var(--md-sys-color-on-surface)',
+                color: active ? 'var(--md-sys-color-on-surface)' : 'var(--md-sys-color-on-surface)',
                 transition: `color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
             >
               {item.label}

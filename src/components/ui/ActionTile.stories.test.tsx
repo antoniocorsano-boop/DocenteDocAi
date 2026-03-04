@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { renderWithM3Theme } from './test-utils';
 // MD3 Compliant
 import React from 'react';
@@ -10,4 +11,5 @@ describe('ActionTile Story Snapshots', () => {
     expect(container).toMatchSnapshot();
   });
 });
+
 

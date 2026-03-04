@@ -169,7 +169,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                     borderRadius: 'var(--md-sys-shape-corner-medium)',
                                     cursor: 'pointer',
                                     backgroundColor: notifica.letta
-                                        ? 'var(--md-sys-color-surfaceContainer)'
+                                        ? 'var(--md-sys-color-surface-container)'
                                         : 'var(--md-sys-color-surface-dim)',
                                     border: `var(--md-sys-border-width-thin) solid ${notifica.letta
                                         ? 'var(--md-sys-color-outline-variant)'
@@ -180,11 +180,11 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                 onMouseEnter={(e) => {
                                     e.currentTarget.style.backgroundColor = notifica.letta
                                         ? 'var(--md-sys-color-surfaceContainerHigh)'
-                                        : 'color-mix(in srgb, var(--md-sys-color-surface-dim) 80%, var(--md-sys-color-surfaceContainerHigh))';
+                                        : 'color-mix(in srgb, var(--md-sys-color-surface-dim) 80%, var(--md-sys-color-surface-container-high))';
                                 }}
                                 onMouseLeave={(e) => {
                                     e.currentTarget.style.backgroundColor = notifica.letta
-                                        ? 'var(--md-sys-color-surfaceContainer)'
+                                        ? 'var(--md-sys-color-surface-container)'
                                         : 'var(--md-sys-color-surface-dim)';
                                 }}
                                 onFocus={() => {

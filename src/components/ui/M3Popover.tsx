@@ -322,7 +322,7 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
           maxWidth: typeof maxWidth === 'number' ? `${maxWidth}px` : maxWidth,
           zIndex,
           transformOrigin: position.transformOrigin,
-          backgroundColor: 'var(--md-sys-color-surfaceContainer)',
+          backgroundColor: 'var(--md-sys-color-surface-container)',
           border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
           borderRadius: 'var(--md-sys-shape-corner-large)',
           boxShadow: 'var(--md-sys-elevation-level2)',

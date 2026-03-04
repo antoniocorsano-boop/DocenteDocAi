@@ -71,14 +71,14 @@ export const PlanningViewsRenderer: React.FC<{
         case 'progettazione-hub':
             return (
                 <ProgettazioneHub
-                    onNavigate={props.onNavigate}
-                    uda={props.uda}
+                    onNavigate={props.onNavigate as unknown as import('../../types').ProgettazioneHubProps['onNavigate']}
+                    udas={props.uda}
                     events={props.eventi}
                     settings={props.settings}
                     aiSettings={props.aiSettings}
                     onSaveUda={props.onSaveUda}
                     onAddLessons={props.onAddLessons}
-                    onSaveReport={props.onSaveReport}
+                    onSaveReport={props.onSaveReport as unknown as import('../../types').ProgettazioneHubProps['onSaveReport']}
                     onSaveEvent={props.onSaveEvent}
                     initialAction={props.viewContext?.action}
                     knowledgeBase={props.knowledgeBase}

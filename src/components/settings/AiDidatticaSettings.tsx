@@ -57,7 +57,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
             title="AI & Didattica"
             subtitle="Cervello AI e cattedra"
             icon="psychology"
-            variant="secondary"
+            variant="tonal"
             defaultOpen={false}
         >
             {/* SEZIONE 1: MODELLO AI */}
@@ -91,7 +91,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                     }))}
                     activeTab={currentAiProfile}
                     onTabChange={(id) => onAiProfileChange(id as keyof typeof AI_PROFILES)}
-                    variant="primary" />
+                    variant="filled" />
 
                 <div style={{
                     display: 'flex',
@@ -475,7 +475,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                                             justifyContent: 'center',
                                                             padding: 'var(--md-sys-spacing-3)',
                                                             borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                                            backgroundColor: assignment ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surfaceContainer)',
+                                                            backgroundColor: assignment ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surface-container)',
                                                             border: `var(--md-sys-border-width-thin) solid ${assignment ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                                             transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                                             minHeight: 'var(--md-sys-spacing-4)'
@@ -533,7 +533,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                         title="Come funziona"
                         description="Questa matrice è il tuo centro di controllo. Clicca su una cella per associare una materia a una classe. Modifica il numero per impostare le ore settimanali."
                         icon="info"
-                        variant="primary" />
+                        variant="filled" />
                 </div>
             </div>
         </SettingsGroup>

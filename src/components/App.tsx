@@ -10,6 +10,7 @@ import '../design-system/spacing.css';
 import '../design-system/breakpoints.css';
 import '../design-system/accessibility-focus.css';
 import AssistantFab from './AssistantFab';
+import SkipLink from './SkipLink';
 import { useAppEngine } from '../hooks/useAppEngine';
 import ViewManager from './ViewManager';
 import { ModalManager } from './ModalManager';
@@ -17,6 +18,7 @@ import PassaggioAnnoWizard from './PassaggioAnnoWizard';
 import Snackbar from './Snackbar';
 import ErrorBoundary from './ErrorBoundary';
 import { AppLayout } from './AppLayout.md3';
+import OnboardingWizard from './OnboardingWizard';
 const ImageAnalysisModal = React.lazy(() => import('./ImageAnalysisModal'));
 const VideoAnalysisModal = React.lazy(() => import('./VideoAnalysisModal'));
 const HelpModal = React.lazy(() => import('./HelpModal'));
@@ -24,6 +26,7 @@ const CircolareAnalysisModal = React.lazy(() => import('./CircolareAnalysisModal
 import OperationsCenter from './OperationsCenter';
 import NKABottomSheet from '../nka/NKABottomSheet';
 import { useNKAStore } from '../nka/useNKAStore';
+import { ViewLoadingPlaceholder } from './ViewLoadingPlaceholder';
 
 const handleImportEvents = () => {};
 const handleSaveToKb = () => {};
@@ -46,37 +49,15 @@ const App: React.FC = () => {
     const user = appState.user;
     const notifiche = appState.notifiche;
 
-    // Modal state
-    const [openModal, setOpenModal] = React.useState<string | null>(null);
-    const [circularAnalysisPayload, setCircularAnalysisPayload] = React.useState<{ url: string; title: string } | null>(null);
-
-    // Modal handlers
-    const handleOpenImageAnalysis = () => setOpenModal('image-analysis-modal');
-    const handleOpenVideoAnalysis = () => setOpenModal('video-analysis-modal');
-    const handleOpenHelp = () => setOpenModal('help-modal');
+    // assistantMode locale — argomento condiviso per AssistantModal
     const handleOpenCircularAnalysis = (url: string, title: string) => {
-        setCircularAnalysisPayload({ url, title });
-        setOpenModal('circular-analysis-modal');
+        modals.setCircularAnalysisModal?.({ isOpen: true, url, title });
     };
-    const handleOpenNKA = () => setOpenModal('nka-map-modal');
-    const handleCloseModal = () => setOpenModal(null);
 
     return (
         <>
-            {/* Skip links for accessibility */}
-            <a
-                href="#main-content"
-                style={{
-                    position: 'absolute',
-                    top: 'var(--md-sys-spacing-80)',
-                    left: 'var(--md-sys-spacing-80)',
-                    width: 'var(--md-sys-spacing-0)',
-                    height: 'var(--md-sys-spacing-0)',
-                    overflow: 'hidden'
-                }}
-            >
-                Vai al contenuto principale
-            </a>
+            {/* Skip link per accessibilità — WCAG 2.4.1 */}
+            <SkipLink href="#main-content" label="Vai al contenuto principale" />
             <AppLayout
             view={view}
             onNavigate={actions.handleNavigate}
@@ -85,19 +66,19 @@ const App: React.FC = () => {
             notifiche={notifiche}
             setNotifiche={actions.setNotifiche}
             onBack={actions.handleBack}
-            onOpenImageAnalysis={handleOpenImageAnalysis}
-            onOpenVideoAnalysis={handleOpenVideoAnalysis}
-            onOpenHelp={handleOpenHelp}
+            onOpenImageAnalysis={() => modals.setIsImageAnalysisOpen?.(true)}
+            onOpenVideoAnalysis={() => modals.setIsVideoAnalysisOpen?.(true)}
+            onOpenHelp={() => modals.setIsHelpOpen?.(true)}
             onOpenCircularAnalysis={handleOpenCircularAnalysis}
             isAiProcessing={isGlobalAiLoading}
             installPrompt={installPrompt}
             onInstallApp={actions.handleInstallApp}
-            onOpenOperations={() => setOpenModal('operations-center')}
+            onOpenOperations={() => modals.setIsOperationsCenterOpen?.(true)}
             hasSuggestion={!!activeSuggestion}
-            onOpenNKA={handleOpenNKA}
+            onOpenNKA={() => modals.setIsNkaMapOpen?.(true)}
         >
             <ErrorBoundary>
-                <main id="main-content" role="main" aria-label="Contenuto principale">
+                <main id="main-content" role="main" aria-label="Contenuto principale" tabIndex={-1} style={{ outline: 'none' }}>
                     <ViewManager
                         view={view}
                         viewContext={viewContext}
@@ -107,95 +88,110 @@ const App: React.FC = () => {
                     />
                 </main>
                 <ModalManager appState={appState} actions={actions} modals={modals} />
-                {/* Modal rendering */}
-                {openModal === 'image-analysis-modal' && (
-                        <React.Suspense fallback={<div>Loading...</div>}>
-                            <ImageAnalysisModal onClose={handleCloseModal} />
-                        </React.Suspense>
-                    )}
-                {openModal === 'video-analysis-modal' && (
-                        <React.Suspense fallback={<div>Loading...</div>}>
-                            <VideoAnalysisModal onClose={handleCloseModal} />
-                        </React.Suspense>
-                    )}
-                {openModal === 'help-modal' && (
-                        <React.Suspense fallback={<div>Loading...</div>}>
-                            <HelpModal onClose={handleCloseModal} onNavigate={actions.handleNavigate} aiSettings={aiSettings} setIsLoadingModalOpen={modals.setIsLoadingModalOpen} setLoadingModalMessage={modals.setLoadingModalMessage} />
-                        </React.Suspense>
-                    )}
-                {openModal === 'circular-analysis-modal' && circularAnalysisPayload && (
-                        <React.Suspense fallback={<div>Loading...</div>}>
-                            <CircolareAnalysisModal
-                                url={circularAnalysisPayload.url}
-                                title={circularAnalysisPayload.title}
-                                onClose={handleCloseModal}
-                                aiSettings={aiSettings}
-                                onImportEvents={handleImportEvents}
-                                onSaveToKb={handleSaveToKb}
-                            />
-                        </React.Suspense>
-                    )}
-                {openModal === 'operations-center' && (
-                        <OperationsCenter
-                            onClose={handleCloseModal}
-                            onNavigate={actions.handleNavigate}
-                            onAction={(action) => {
-                                if (action === 'year-transition-modal') {
-                                    setOpenModal('year-transition-wizard');
-                                } else if (action === 'load-demo') {
-                                    actions.handleLoadDemoData();
-                                    handleCloseModal();
-                                } else if (action === 'live-assistant') {
-                                    setOpenModal('assistant-modal');
-                                } else if (action === 'video-analysis') {
-                                    setOpenModal('video-analysis-modal');
-                                } else if (action === 'nka-map') {
-                                    setOpenModal('nka-map-modal');
-                                }
-                            }}
-                            activeSuggestion={appState.activeSuggestion?.id}
-                            students={appState.students}
-                            settings={appState.settings}
-                            evaluations={appState.evaluations}
-                            competencyEvaluations={appState.competencyEvals}
-                            register={appState.finalizedRegister}
-                            onPromoteStudents={actions.handlePromoteStudents}
-                            onResetData={actions.handleResetYearData}
-                            onBackupData={actions.handleExportData}
+                {/* Modali globali — stato gestito da useUIStore (source of truth unico) */}
+                {modals.isImageAnalysisOpen && (
+                    <React.Suspense fallback={<ViewLoadingPlaceholder message="Caricamento analisi immagine..." />}>
+                        <ImageAnalysisModal onClose={() => modals.setIsImageAnalysisOpen?.(false)} />
+                    </React.Suspense>
+                )}
+                {modals.isVideoAnalysisOpen && (
+                    <React.Suspense fallback={<ViewLoadingPlaceholder message="Caricamento analisi video..." />}>
+                        <VideoAnalysisModal onClose={() => modals.setIsVideoAnalysisOpen?.(false)} />
+                    </React.Suspense>
+                )}
+                {modals.isHelpOpen && (
+                    <React.Suspense fallback={<ViewLoadingPlaceholder message="Caricamento guida..." />}>
+                        <HelpModal onClose={() => modals.setIsHelpOpen?.(false)} onNavigate={actions.handleNavigate} aiSettings={aiSettings} setIsLoadingModalOpen={modals.setIsLoadingModalOpen} setLoadingModalMessage={modals.setLoadingModalMessage} />
+                    </React.Suspense>
+                )}
+                {modals.circularAnalysisModal?.isOpen && (
+                    <React.Suspense fallback={<ViewLoadingPlaceholder message="Caricamento analisi circolare..." />}>
+                        <CircolareAnalysisModal
+                            url={modals.circularAnalysisModal.url}
+                            title={modals.circularAnalysisModal.title}
+                            onClose={() => modals.setCircularAnalysisModal?.(null)}
+                            aiSettings={aiSettings}
+                            onImportEvents={handleImportEvents}
+                            onSaveToKb={handleSaveToKb}
                         />
-                    )}
-                {openModal === 'year-transition-wizard' && (
-                        <PassaggioAnnoWizard
-                            onClose={handleCloseModal}
-                            students={appState.students}
-                            settings={appState.settings}
-                            evaluations={appState.evaluations}
-                            competencyEvaluations={appState.competencyEvals}
-                            register={appState.finalizedRegister}
-                            onPromoteStudents={actions.handlePromoteStudents}
-                            onBackupData={actions.handleExportData}
-                            onResetData={actions.handleResetYearData}
-                        />
-                    )}
-                {openModal === 'assistant-modal' && (
-                        <AssistantModal open={true} onClose={handleCloseModal} mode={assistantMode} aiSettings={aiSettings} context={{ view, viewContext }} />
-                    )}
-                {openModal === 'nka-map-modal' && (
-                        <NKABottomSheet open={true} nodes={nkaStore.nodes} onClose={handleCloseModal} onNodeSelect={() => {}} />
-                    )}
+                    </React.Suspense>
+                )}
+                {modals.isOperationsCenterOpen && (
+                    <OperationsCenter
+                        onClose={() => modals.setIsOperationsCenterOpen?.(false)}
+                        onNavigate={actions.handleNavigate}
+                        onAction={(action) => {
+                            if (action === 'year-transition-modal') {
+                                modals.setIsYearTransitionOpen?.(true);
+                            } else if (action === 'load-demo') {
+                                actions.handleLoadDemoData();
+                                modals.setIsOperationsCenterOpen?.(false);
+                            } else if (action === 'live-assistant') {
+                                modals.setIsLiveAssistantModalOpen(true);
+                            } else if (action === 'video-analysis') {
+                                modals.setIsVideoAnalysisOpen?.(true);
+                            } else if (action === 'nka-map') {
+                                modals.setIsNkaMapOpen?.(true);
+                            }
+                        }}
+                        activeSuggestion={appState.activeSuggestion?.id}
+                        students={appState.students}
+                        settings={appState.settings}
+                        evaluations={appState.evaluations}
+                        competencyEvaluations={appState.competencyEvals}
+                        register={appState.finalizedRegister}
+                        onPromoteStudents={actions.handlePromoteStudents}
+                        onResetData={actions.handleResetYearData}
+                        onBackupData={actions.handleExportData}
+                    />
+                )}
+                {modals.isYearTransitionOpen && (
+                    <PassaggioAnnoWizard
+                        onClose={() => modals.setIsYearTransitionOpen?.(false)}
+                        students={appState.students}
+                        settings={appState.settings}
+                        evaluations={appState.evaluations}
+                        competencyEvaluations={appState.competencyEvals}
+                        register={appState.finalizedRegister}
+                        onPromoteStudents={actions.handlePromoteStudents}
+                        onBackupData={actions.handleExportData}
+                        onResetData={actions.handleResetYearData}
+                    />
+                )}
+                {modals.isNkaMapOpen && (
+                    <NKABottomSheet open={true} nodes={nkaStore.nodes} onClose={() => modals.setIsNkaMapOpen?.(false)} onNodeSelect={() => {}} />
+                )}
                 <AssistantFab />
                 {modals.isLiveAssistantModalOpen && (
-                        <AssistantModal
-                            open={true}
-                            onClose={() => modals.setIsLiveAssistantModalOpen?.(false)}
-                            mode={assistantMode}
-                            aiSettings={aiSettings}
-                            context={{ view, viewContext }}
-                        />
-                    )}
+                    <AssistantModal
+                        open={true}
+                        onClose={() => modals.setIsLiveAssistantModalOpen(false)}
+                        mode={assistantMode}
+                        aiSettings={aiSettings}
+                        context={{ view, viewContext }}
+                        onOpenImageAnalysis={() => {
+                            modals.setIsLiveAssistantModalOpen(false);
+                            modals.setIsImageAnalysisOpen?.(true);
+                        }}
+                        onOpenVideoAnalysis={() => {
+                            modals.setIsLiveAssistantModalOpen(false);
+                            modals.setIsVideoAnalysisOpen?.(true);
+                        }}
+                        onOpenCircularAnalysis={() => {
+                            modals.setIsLiveAssistantModalOpen(false);
+                            modals.setCircularAnalysisModal?.({ isOpen: true, url: '', title: 'Analisi Circolare' });
+                        }}
+                    />
+                )}
                 <Snackbar />
             </ErrorBoundary>
         </AppLayout>
+        {!appState.settings.onboarded && (
+            <OnboardingWizard
+                settings={appState.settings}
+                onComplete={updates => actions.setSettings(s => ({ ...s, ...updates }))}
+            />
+        )}
         </>
     );
 };

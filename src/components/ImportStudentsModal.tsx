@@ -76,7 +76,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                 throw new Error(errors[0]);
             }
 
-            processRawData(headers, data, file.name);
+            processRawData(headers, data as Record<string, string>[], file.name);
 
         } catch (err: unknown) {
             let message = 'Errore durante l\'analisi del file.';
@@ -292,7 +292,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                             title="Mappa le colonne"
                             description={`File: ${fileName} | Destinazione: ${targetClass === 'AUTO' ? 'Rilevamento Automatico' : targetClass}`}
                             icon="auto_awesome"
-                            variant="primary"
+                            variant="filled"
                             
                         />
 
@@ -363,7 +363,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                             title="Conferma Importazione"
                             description={`Stai per importare ${studentsToImport.length} studenti. Gli studenti già presenti saranno ignorati.`}
                             icon="check_circle"
-                            variant="secondary"
+                            variant="tonal"
                             
                         />
 
@@ -411,7 +411,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
             maxWidth="lg"
             level={1}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 }}>
+            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' }}>
                 {renderContent()}
             </M3DialogContent>
             <M3DialogActions>

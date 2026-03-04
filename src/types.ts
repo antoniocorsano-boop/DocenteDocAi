@@ -192,6 +192,8 @@ export interface Modals {
     setIsVideoAnalysisOpen?: ((value?: boolean) => void) | null;
     isRestoring?: boolean | null;
     setIsRestoring?: ((value: boolean) => void) | null;
+    isNkaMapOpen?: boolean | null;
+    setIsNkaMapOpen?: ((value?: boolean) => void) | null;
     setNotifiche?: ((notifiche: Notifica[]) => void) | null;
 }
 // --- NAVIGATION PARAMS ---
@@ -373,17 +375,17 @@ export interface LogoProps {
 }
 
 export interface HeaderProps {
-    title: string;
+    title?: string;
     showBackButton?: boolean;
     onBack?: () => void;
-    onOpenImageAnalysis: () => void;
-    onOpenVideoAnalysis: () => void;
-    onOpenHelp: () => void;
+    onOpenImageAnalysis?: () => void;
+    onOpenVideoAnalysis?: () => void;
+    onOpenHelp?: () => void;
     user: UserProfile | null;
     settings: TimetableSettings;
     notifiche: Notifica[];
     setNotifiche: (input: Notifica[] | ((prev: Notifica[]) => Notifica[])) => void;
-    onOpenCircularAnalysis: (url: string, title: string) => void;
+    onOpenCircularAnalysis?: (url: string, title: string) => void;
     onNavigate: (view: View, context?: NavigationParams) => void;
     isAiProcessing: boolean;
     installPrompt: BeforeInstallPromptEvent | null;
@@ -410,6 +412,20 @@ export interface SettingsProps {
     onClose: () => void;
     dismissedSuggestions: Set<string>;
     onReactivateSuggestion: (id: string) => void;
+    // Optional extra props passed by callers
+    onDownloadDemoData?: () => void;
+    backupState?: unknown;
+    onRestoreFromBackup?: () => void;
+    installPrompt?: unknown;
+    onInstallApp?: () => void;
+    onEnterStudentMode?: () => void;
+    onDisconnectDrive?: () => void;
+    onRestoreFromDrive?: () => void;
+    onConfigureDrive?: () => void;
+    onSelectBackupFolder?: (apiKey: string) => Promise<{ id: string; name: string } | null>;
+    onCreateAppFolder?: () => Promise<{ id: string; name: string }>;
+    onOpenBackupInfo?: () => void;
+    [key: string]: unknown;
 }
 
 export interface MaterialeDidattico {
@@ -428,6 +444,7 @@ export interface Lezione {
     materia: string;
     contenuto: string;
     svolta: boolean;
+    data?: string;
     tipoLezione?: 'Teoria' | 'Disegno' | 'Laboratorio' | 'Test' | 'Verifica' | 'Disposizione' | 'Ricevimento';
     unitaDiApprendimento?: string;
     nota?: string;
@@ -469,6 +486,9 @@ export interface Studente {
     isArchived?: boolean;
     archiveYear?: string;
     history?: StudentHistoryRecord[];
+    hasBES?: boolean;
+    hasDSA?: boolean;
+    has104?: boolean;
 }
 
 export interface Uda {
@@ -672,6 +692,8 @@ export interface TimetableSettings {
     autoSyncEnabled: boolean;
     autoSyncInterval: number;
     securityPin: string;
+    /** Flag persistito: true dopo che l'utente ha completato o saltato l'onboarding */
+    onboarded?: boolean;
 }
 
 export type HomeworkStatus = 'completed' | 'partial' | 'missing' | 'default';
@@ -705,7 +727,7 @@ export interface EventoCalendario {
     titolo: string;
     data: string;
     dataFine?: string;
-    tipo: 'impegno' | 'scadenza' | 'consiglio' | 'formazione';
+    tipo: 'impegno' | 'scadenza' | 'consiglio' | 'formazione' | 'urgente' | 'riunione';
     oraInizio?: string;
     oraFine?: string;
     descrizione?: string;
@@ -858,9 +880,11 @@ export interface EmotionalPresetTokens {
     letterSpacing?: string;
     // Elevation & shadow overrides
     elevationLevel?: number;
+    // Contrast level override
+    contrastLevel?: number;
     // Additional visual properties
     backdropBlur?: string;
-    opacity?: number;
+    opacity?: string | number;
 }
 
 export interface AppThemeState {
@@ -970,6 +994,7 @@ export interface AppActions {
     saveStudent: (student: Studente) => void;
     deleteStudent: (id: string) => void;
     importStudents: (newStudents: Studente[]) => void;
+    importEvaluations: (newEvaluations: Valutazione[]) => void;
     savePianoInclusione: (piano: PianoInclusione) => void;
     deletePianoInclusione: (id: string) => void;
     saveRubrica: (rubrica: Rubrica) => void;
@@ -1048,6 +1073,8 @@ export interface SyncConflictData {
     remoteContent: string;
     lastModifiedLocal: string;
     lastModifiedRemote: string;
+    remoteTime?: string;
+    localTime?: string;
 }
 
 export interface CircularAnalysisResult {
@@ -1342,7 +1369,7 @@ export interface BackupInfoModalProps {
     onClose: () => void;
 }
 
-export type TipoEvento = 'impegno' | 'scadenza' | 'consiglio' | 'formazione';
+export type TipoEvento = 'impegno' | 'scadenza' | 'consiglio' | 'formazione' | 'urgente' | 'riunione';
 
 export interface VocalAssistantGuide {
     title: string;

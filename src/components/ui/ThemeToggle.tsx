@@ -52,7 +52,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
 
   if (variant === 'icon') {
     return (
-      <Tooltip text={tooltipText}>
+      <Tooltip content={tooltipText}>
         <button
           onClick={handleToggle}
           aria-label={label}

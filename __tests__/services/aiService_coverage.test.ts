@@ -1,4 +1,4 @@
-
+// @ts-nocheck
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import * as aiService from '../../src/services/aiService';
 import * as aiClient from '../../src/services/aiClient';

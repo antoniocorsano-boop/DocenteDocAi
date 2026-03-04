@@ -212,12 +212,10 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
                 fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
                 cursor: isProcessing ? 'not-allowed' : 'pointer',
                 opacity: isProcessing ? 0.6 : 1,
-                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                 position: 'relative',
                 overflow: 'hidden',
                 minWidth: compact ? 'var(--md-sys-spacing-4)' : 'auto',
                 height: compact ? 'var(--md-sys-spacing-4)' : 'auto',
-                boxShadow: isRecording ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)',
                 ...visualizerStyle}}
             title={isRecording ? "Ferma registrazione" : "Detta nota vocale"}
             onMouseEnter={(e) => {

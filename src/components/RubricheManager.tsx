@@ -44,7 +44,7 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                 title="Griglie Personalizzate"
                 description="Crea rubriche di valutazione riutilizzabili basate sulle tue competenze. Usale durante le interrogazioni o le prove pratiche per una valutazione oggettiva."
                 icon="schema"
-                variant="secondary"
+                variant="tonal"
                 
             />
 

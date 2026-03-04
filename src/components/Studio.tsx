@@ -141,7 +141,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                 return;
 
             } else if (task === 'quiz') {
-                const quiz = await generateQuiz(aiSettings, contextContent, extraConfig);
+                const quiz = await generateQuiz(aiSettings, contextContent, extraConfig as { topic: string; numQuestions: number; difficulty: 'facile' | 'medio' | 'difficile'; type: 'scelta-multipla' | 'vero-falso' | 'domande-aperte' });
                 setGeneratedQuiz(quiz);
                 setIsLoading(false);
                 if (onAiProcessing) onAiProcessing(false);
@@ -366,7 +366,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
             {isTestGeneratorOpen && (
                 <TestGeneratorModal
                     onClose={() => setIsTestGeneratorOpen(false)}
-                    onGenerate={(config) => runTask('quiz', config)}
+                    onGenerate={(config) => runTask('quiz', undefined, config)}
                 />
             )}
 

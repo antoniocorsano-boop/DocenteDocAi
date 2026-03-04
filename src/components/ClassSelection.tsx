@@ -1,7 +1,7 @@
 // MD3 Compliant
 
 import React, { useState, useMemo } from 'react';
-import { View, Valutazione } from '../types';
+import { View, Valutazione, Studente, ValutazioneCompetenza, TimetableSettings, PeriodoValutazione } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { generateCouncilDataPdf } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
@@ -252,10 +252,11 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
 const PrintCenterModal: React.FC<{ 
     userClasses: string[]; 
     onClose: () => void;
+    students: Studente[];
     evaluations: Valutazione[];
     competencyEvaluations: ValutazioneCompetenza[];
     settings: TimetableSettings;
-}> = ({ userClasses, onClose, evaluations, competencyEvaluations, settings }) => {
+}> = ({ userClasses, onClose, students, evaluations, competencyEvaluations, settings }) => {
     const [selectedClasses, setSelectedClasses] = useState<string[]>([]);
     const [periodo, setPeriodo] = useState<PeriodoValutazione>('primo-quadrimestre');
     const [isProcessing, setIsProcessing] = useState(false);
@@ -269,6 +270,7 @@ const PrintCenterModal: React.FC<{
         setIsProcessing(true);
         try {
             for (const className of selectedClasses) {
+                const classStudents = students.filter(s => s.classe === className);
                 const blob = await generateCouncilDataPdf(
                     className,
                     periodo,

@@ -60,7 +60,7 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                         onTabChange={(id: string) => {
                             if (id === 'text' || id === 'json') setActiveTab(id);
                         }}
-                        variant="primary"
+                        variant="filled"
                         style={{ width: "var(--md-sys-percent-100)" }}
                     />
                 </div>

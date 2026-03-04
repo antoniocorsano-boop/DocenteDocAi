@@ -28,7 +28,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 		// For now, we'll just log it and show a user-friendly message
 	}
 
-	render(): React.ReactElement {
+	render(): ReactNode {
 		if (this.state.hasError) {
 			return <ErrorFallback error={this.state.error} />;
 		}

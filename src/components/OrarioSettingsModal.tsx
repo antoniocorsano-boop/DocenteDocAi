@@ -33,7 +33,7 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
       maxWidth="md"
       level={2}
     >
-      <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/30 , gap: 'var(--md-sys-spacing-6)'}}>
+      <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)', gap: 'var(--md-sys-spacing-6)'}}>
         <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <p  style={{marginBottom: 'var(--md-sys-spacing-6)', opacity: "var(--md-sys-state-opacity-supporting)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Tipologia Attività</p>
@@ -41,7 +41,7 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
               tabs={tabs}
               activeTab={tipo}
               onChange={(id) => onChange('tipo', id as string)}
-              variant="primary"
+              variant="filled"
             />
           </div>
 
@@ -50,14 +50,14 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
               label="Classe"
               value={classe}
               options={userClasses.map(c => ({ value: c, label: c }))}
-              onChange={val => onChange('classe', val)}
+              onChange={e => onChange('classe', (e as React.ChangeEvent<HTMLSelectElement>).target.value)}
               fullWidth
             />
             <SelectField
               label="Materia"
               value={materia}
               options={disciplines.map(m => ({ value: m, label: m }))}
-              onChange={val => onChange('materia', val)}
+              onChange={e => onChange('materia', (e as React.ChangeEvent<HTMLSelectElement>).target.value)}
               fullWidth
             />
           </div>

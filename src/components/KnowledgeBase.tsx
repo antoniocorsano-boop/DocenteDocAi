@@ -175,7 +175,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                 title="Sincronia NotebookLM"
                 description="Puoi caricare qui le analisi o i progetti prodotti con NotebookLM. L'app li userà come base di conoscenza prioritaria per generare le tue lezioni e UDA."
                 icon="bolt"
-                variant="primary"
+                variant="filled"
                 style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent)' , marginBottom: 'var(--md-sys-spacing-8)'}}
             />
 

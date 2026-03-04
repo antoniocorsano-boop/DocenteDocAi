@@ -1,5 +1,5 @@
-
-// MD3 GOLD COMPLIANT – Audit 2026-01-25
+﻿
+// MD3 GOLD COMPLIANT â€“ Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
@@ -69,7 +69,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <div style={{display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)'}}>
-                        <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/50, borderRadius: ref.shape[4] , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                        <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)', borderRadius: 'var(--md-sys-shape-corner-extra-large)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                             <Logo />
                         </div>
                         <div style={{gap: 'var(--md-sys-spacing-2)'}}>
@@ -89,7 +89,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                 "{quote.text}"
                             </p>
                             <footer  style={{fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", color: "var(--md-sys-color-primary)"}}>
-                                — {quote.author}
+                                â€” {quote.author}
                             </footer>
                         </blockquote>
                     </div>
@@ -103,7 +103,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                 <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-tertiary) 10%, transparent)' ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
 
                 <div  style={{ width: "var(--md-sys-percent-100)" }}>
-                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30, padding: 'var(--md-sys-spacing-4)', borderRadius: ref.shape[5] , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                    <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 70%, transparent)', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-extra-large)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                         <div  style={{display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 'var(--md-sys-spacing-6)'}}>
                             <div  style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                                 <Logo />
@@ -168,7 +168,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                     required 
                                     placeholder="Es. Rossi" 
                                     autoComplete="family-name"
-                                    style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/50 }}
+                                    style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
                                 />
                                 <TextField 
                                     id="student-name"
@@ -179,7 +179,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                     required 
                                     placeholder="Es. Mario" 
                                     autoComplete="given-name"
-                                    style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/50 }}
+                                    style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
                                 />
                             </div>
                             <TextField 
@@ -191,7 +191,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                 onChange={e => setBirthDate(e.target.value)} 
                                 required 
                                 autoComplete="bday"
-                                style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)'/50 }}
+                                style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
                             />
 
                             {error && (
@@ -223,4 +223,5 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
 };
 
 export default StudentLoginScreen;
+
 

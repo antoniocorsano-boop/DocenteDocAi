@@ -73,3 +73,72 @@ export const VIEW_CONFIGS: Partial<Record<View, ViewConfig>> = {
     'orientamento': { id: 'orientamento', component: OrientamentoDashboard, auraWrapper: true, fullWidth: true },
 };
 
+// ---------------------------------------------------------------------------
+// VIEW_LABELS — label leggibile per ogni view (usato da Breadcrumb e <title>)
+// ---------------------------------------------------------------------------
+export const VIEW_LABELS: Record<View, string> = {
+    'home':                         'Home',
+    'timetable':                    'Orario',
+    'calendario':                   'Agenda',
+    'settings':                     'Impostazioni',
+    'aula':                         'Classi',
+    'studenti':                     'Studenti',
+    'progettazione-hub':            'Progettazione',
+    'reportistica':                 'Reportistica',
+    'knowledge-base':               'Knowledge Base',
+    'studio':                       'Studio AI',
+    'lessons':                      'Lezioni',
+    'uda':                          'UDA',
+    'rubriche':                     'Rubriche',
+    'didattica-inclusiva':          'Didattica Inclusiva',
+    'feed-manager':                 'Feed',
+    'evaluations':                  'Valutazioni',
+    'register':                     'Registro',
+    'improvement-guide':            'Piano di Miglioramento',
+    'consiglio-di-classe':          'Consiglio di Classe',
+    'class-competency-dashboard':   'Dashboard Competenze',
+    'analytics':                    'Analisi Classe',
+    'student-dashboard':            'Area Studenti',
+    'student-workspace':            'Spazio Studente',
+    'aula-session':                 'Sessione in Aula',
+    'competency-levels':            'Livelli di Competenza',
+    'live-assistant':               'Assistente Live',
+    'welcome':                      'Benvenuto',
+    'orientamento':                 'Orientamento',
+    'curriculum-manager':           'Curriculum',
+    'teacher-inbox':                'Inbox Docente',
+    'video-analysis':               'Analisi Video',
+    'teacher-presentation-view':    'Presentazione',
+};
+
+// ---------------------------------------------------------------------------
+// VIEW_PARENT — mappa ogni sub-view alla voce primaria di navigazione genitore
+// ---------------------------------------------------------------------------
+export const VIEW_PARENT: Partial<Record<View, View>> = {
+    // Sotto Progettazione
+    'knowledge-base':           'progettazione-hub',
+    'studio':                   'progettazione-hub',
+    'lessons':                  'progettazione-hub',
+    'uda':                      'progettazione-hub',
+    'rubriche':                 'progettazione-hub',
+    'reportistica':             'progettazione-hub',
+    'didattica-inclusiva':      'progettazione-hub',
+    'curriculum-manager':       'progettazione-hub',
+    'feed-manager':             'progettazione-hub',
+    'competency-levels':        'progettazione-hub',
+    // Sotto Classi
+    'evaluations':              'aula',
+    'register':                 'aula',
+    'studenti':                 'aula',
+    'improvement-guide':        'aula',
+    'consiglio-di-classe':      'aula',
+    'class-competency-dashboard': 'aula',
+    'analytics':                'aula',
+    'teacher-inbox':            'aula',
+    'aula-session':             'aula',
+    'live-assistant':           'aula',
+    'teacher-presentation-view': 'aula',
+    'student-dashboard':        'aula',
+    'student-workspace':        'aula',
+};
+

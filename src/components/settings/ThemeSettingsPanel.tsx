@@ -21,7 +21,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
   };
 
   const resetToDefaults = () => {
-    setTempOverrides({});
+    console.log('Reset to defaults - MD3 design tokens are fixed');
   };
 
   return (

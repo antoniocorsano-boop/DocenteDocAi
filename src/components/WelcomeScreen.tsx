@@ -77,7 +77,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 title="Wizard Guidato"
                 subtitle="Passo dopo passo"
                 icon="auto_fix_high"
-                variant="primary"
+                variant="filled"
                 onClick={() => setMode('wizard')}
  style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
               />

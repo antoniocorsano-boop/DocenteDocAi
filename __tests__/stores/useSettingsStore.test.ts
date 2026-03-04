@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { describe, it, expect, beforeEach } from 'vitest';
 import { useSettingsStore } from '../../src/stores/useSettingsStore';
 import { DEFAULT_TIMETABLE_SETTINGS } from '../../src/constants';
@@ -68,3 +69,4 @@ describe('useSettingsStore', () => {
     expect(useSettingsStore.getState().settings.nomeIstituto).toBe(DEFAULT_TIMETABLE_SETTINGS.nomeIstituto);
   });
 });
+

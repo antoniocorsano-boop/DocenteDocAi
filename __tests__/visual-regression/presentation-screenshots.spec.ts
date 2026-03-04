@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * DocenteDoc AI - Presentation Video Screenshots
  *

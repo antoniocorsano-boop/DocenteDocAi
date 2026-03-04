@@ -61,7 +61,7 @@ export const Multiple: Story = {
     label: 'Course Context',
   },
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['4'], padding: layers.ref.spacing['4'] }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-4)' }}>
       <AiMemoryChip label="Course Context" />
       <AiMemoryChip label="Student Profile" />
       <AiMemoryChip label="Lesson History" />
@@ -89,9 +89,9 @@ export const InContext: Story = {
     label: 'Student Level',
   },
   render: () => (
-    <div style={{ padding: layers.ref.spacing['4'], background: 'var(--md-sys-color-surfaceContainer)', borderRadius: 'var(--md-sys-spacing-2)' }}>
-      <h3 style={{ marginBottom: layers.ref.spacing['4'] }}>AI Response Generated With Context:</h3>
-      <div style={{ marginBottom: layers.ref.spacing['4'] }}>
+    <div style={{ padding: 'var(--md-sys-spacing-4)', background: 'var(--md-sys-color-surfaceContainer)', borderRadius: 'var(--md-sys-spacing-2)' }}>
+      <h3 style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>AI Response Generated With Context:</h3>
+      <div style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>
         <p>
           Here&apos;s a personalized lesson summary based on your previous progress and
           current learning objectives...
@@ -147,10 +147,10 @@ export const Interactive: Story = {
   render: () => (
     <div
       style={{
-        padding: layers.ref.spacing['4'],
+        padding: 'var(--md-sys-spacing-4)',
         display: 'flex',
         flexDirection: 'column',
-        gap: layers.ref.spacing['4'],
+        gap: 'var(--md-sys-spacing-4)',
         cursor: 'help',
       }}
     >

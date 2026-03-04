@@ -42,7 +42,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
             title="Interfaccia & Esperienza Visiva"
             subtitle="Personalizza l'aspetto e il comportamento dell'app"
             icon="palette"
-            variant="primary"
+            variant="filled"
             defaultOpen={true}
         >
             <div
@@ -101,7 +101,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                         ]}
                         activeTab={localSettings.uiMode || 'classic'}
                         onTabChange={(id) => onSettingChange('uiMode', id)}
-                        variant="primary" />
+                        variant="filled" />
                     <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)',
                         margin: 0}}>
                         {localSettings.uiMode === 'flow'
@@ -193,7 +193,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             tabs={[{ id: 'light', label: 'Chiaro', icon: 'light_mode' }, { id: 'dark', label: 'Scuro', icon: 'dark_mode' }, { id: 'system', label: 'Sistema', icon: 'brightness_auto' }]}
                             activeTab={themeState.mode}
                             onTabChange={(id) => onSaveTheme({ ...themeState, mode: id as typeof themeState.mode })}
-                            variant="primary" />
+                            variant="filled" />
                     </div>
 
                     <div style={{display: 'grid',

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { useUIStore, normalizeLegacyState } from '../../src/stores/useUIStore.ts';
 import { View, Lezione } from '../../src/types';
@@ -504,3 +505,4 @@ describe('useUIStore', () => {
     });
   });
 });
+

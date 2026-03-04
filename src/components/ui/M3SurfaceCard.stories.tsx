@@ -4,7 +4,7 @@ import React from 'react';
 import M3SurfaceCard from './M3SurfaceCard';
 import M3Typography from './M3Typography';
 
-const meta: Meta<typeof M3SurfaceCard> = {
+const meta = {
   component: M3SurfaceCard,
   title: 'UI/Cards/M3SurfaceCard',
   tags: ['autodocs'],
@@ -39,21 +39,14 @@ const meta: Meta<typeof M3SurfaceCard> = {
       control: 'boolean',
       description: 'Enable hover interactions',
       table: {
-        defaultValue: { summary: false },
-      },
-    },
-    glass: {
-      control: 'boolean',
-      description: 'Apply glass effect styling',
-      table: {
-        defaultValue: { summary: false },
+        defaultValue: { summary: 'false' },
       },
     },
     expressive: {
       control: 'boolean',
       description: 'Apply expressive styling effects',
       table: {
-        defaultValue: { summary: false },
+        defaultValue: { summary: 'false' },
       },
     },
     children: {

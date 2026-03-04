@@ -57,6 +57,22 @@ if (typeof window !== 'undefined') {
   if (typeof (window.HTMLElement as unknown as { prototype: { scrollTo?: unknown } }).prototype.scrollTo !== 'function') {
     (window.HTMLElement as unknown as { prototype: Record<string, unknown> }).prototype.scrollTo = function () {};
   }
+  // window.matchMedia (required by NavigationRail, AppLayout, AssistantFab)
+  if (typeof window.matchMedia !== 'function') {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: (query: string) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      }),
+    });
+  }
 }
 
 // Mock Google APIs

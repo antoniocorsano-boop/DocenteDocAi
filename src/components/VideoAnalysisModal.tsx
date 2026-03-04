@@ -3,6 +3,16 @@
 import React, { useState, useEffect } from 'react';
 // Load Google GenAI dynamically to avoid bundling it in the main chunk
 import { M3Dialog, TextArea, M3Button } from './ui';
+
+declare global {
+  interface Window {
+    aistudio?: {
+      hasSelectedApiKey: () => Promise<boolean>;
+      openSelectKey?: () => void | Promise<void>;
+      generateContent?: (params: unknown) => Promise<unknown>;
+    };
+  }
+}
 interface VideoAnalysisModalProps {
     onClose: () => void;
 }
@@ -46,7 +56,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
     }, [isLoading]);
 
     const handleSelectKey = async () => {
-        if (window.aistudio) {
+        if (window.aistudio?.openSelectKey) {
             await window.aistudio.openSelectKey();
             // GUIDELINE: MUST assume key selection was successful after triggering openSelectKey()
             setHasApiKey(true);
@@ -116,6 +126,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
 
         } catch (err: unknown) {
             console.error("Error during video generation:", err);
+            const errorMessage = err instanceof Error ? err.message : String(err);
             setError(`Errore durante la generazione: ${errorMessage}`);
         } finally {
             setIsLoading(false);
@@ -151,7 +162,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                         </a>
                     </p>
                     {window.aistudio && (
-                        <M3Button onClick={handleSelectKey} variant="primary" icon="key">Seleziona API Key</M3Button>
+                        <M3Button onClick={handleSelectKey} variant="filled" icon="key">Seleziona API Key</M3Button>
                     )}
                 </div>
             );
@@ -231,7 +242,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                                             a.download = 'generated-video.mp4';
                                             a.click();
                                         }}
-                                        variant="secondary"
+                                        variant="tonal"
                                         icon="download"
                                         
                                     >
@@ -269,7 +280,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                         <M3Button 
                             onClick={handleSubmit} 
                             disabled={isLoading || !prompt} 
-                            variant="primary"
+                            variant="filled"
                             icon={isLoading ? undefined : "auto_videocam"}
                         >
                             {isLoading ? 'Generazione...' : 'Genera Video'}

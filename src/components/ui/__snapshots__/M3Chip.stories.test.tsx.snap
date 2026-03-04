@@ -6,7 +6,7 @@ exports[`M3Chip Story Snapshots > renders default story correctly 1`] = `
     style="font-family: var(--font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-tracking); border-radius: var(--md-sys-shape-corner-full); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); outline: none; border: var(--md-sys-border-width-normal) solid var(--md-sys-color-secondary-container); background-color: var(--md-sys-color-secondary-container); cursor: pointer; color: var(--md-sys-color-on-secondary-container);"
   >
     <span
-      style="display: inline-flex; align-items: center; gap: var(--md-sys-spacing-2); border-radius: var(--md-sys-shape-corner-full); padding: var(--md-sys-spacing-1) var(--md-sys-spacing-4); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); opacity: 1; cursor: default; pointer-events: auto;"
+      style="display: inline-flex; align-items: center; gap: var(--md-sys-spacing-2); border-radius: var(--md-sys-shape-corner-full); padding: var(--md-sys-spacing-1) var(--md-sys-spacing-4); min-height: var(--md-sys-spacing-8); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); opacity: 1; cursor: default; pointer-events: auto;"
     >
       Test Chip
     </span>

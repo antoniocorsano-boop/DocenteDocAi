@@ -63,6 +63,9 @@ export interface M3DialogProps {
 
   /** If true, hide the default close button in the header */
   hideCloseButton?: boolean;
+
+  /** Stacking level hint for ModalContext (cosmetic, not used by component itself) */
+  level?: number;
   
   /** Optional test id applied to the dialog shell (defaults to m3-dialog) */
   wrapperTestId?: string;
@@ -371,6 +374,7 @@ export const M3ConfirmDialog: React.FC<{
   danger = false,
 }) => {
   // MD3 CSS Variables - Direct token usage (no useTheme dependency)
+  const spacing4 = 'var(--md-sys-spacing-4)';
   const primaryColor = 'var(--md-sys-color-primary)';
   const errorColor = 'var(--md-sys-color-error)';
   const onPrimaryColor = 'var(--md-sys-color-on-primary)';

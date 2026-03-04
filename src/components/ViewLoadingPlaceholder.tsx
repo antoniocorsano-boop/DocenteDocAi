@@ -76,7 +76,7 @@ export function useViewPreload(viewName: string): void {
       // Trigger prefetch via dynamic import
       import('./viewRegistry/lazyViewLoader').then(mod => {
         if (mod.preloadView) {
-          mod.preloadView(viewName);
+          mod.preloadView(viewName as import('../types').View);
         }
       }).catch(err => {
         console.warn('[view-preload] Failed to import lazy loader:', err);

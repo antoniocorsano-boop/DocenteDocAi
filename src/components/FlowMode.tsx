@@ -113,6 +113,7 @@ const FlowMode: React.FC<FlowModeProps> = ({ actions, onOpenOperations, onOpenLi
         // 2. Events (Today)
         eventi.filter(e => e.data === todayDateStr).forEach(evt => {
             const time = evt.oraInizio || '00:00';
+            const [h, m] = time.split(':').map(Number);
             const evtMinutes = h * 60 + m;
             
             let status: TimelineItem['status'] = 'future';
@@ -148,7 +149,7 @@ return (
                     <h1 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "var(--md-sys-typescale-body-medium-tracking)" }}>Flow</h1>
                     <p  style={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "var(--md-sys-state-opacity-supporting)"}}>{todayName}, {now.toLocaleDateString('it-IT', { day: '2-digit', month: 'long' })}</p>
                 </div>
-                <button onClick={onOpenOperations} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-on-primary-container)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                <button aria-label="Apri centro operativo" onClick={onOpenOperations} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-on-primary-container)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                     {}
                     <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>bolt</span>
                     {}
@@ -159,7 +160,7 @@ return (
             <div  style={{flexGrow: "1", overflowY: "auto", gap: 'var(--md-sys-spacing-8)'}}>
                 {timelineItems.length === 0 && (
                     <div 
-                        style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/50 , textAlign: "center", opacity: "var(--md-sys-state-opacity-placeholder)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}
+                        style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)' , textAlign: "center", opacity: "var(--md-sys-state-opacity-placeholder)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}
                     >
                         <span style={{ color: 'var(--md-sys-color-primary)', opacity: 'var(--md-sys-state-opacity-empty)', marginBottom: 'var(--md-sys-spacing-8)'}}>event_busy</span>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Nessun evento o lezione oggi.</p>
@@ -187,7 +188,7 @@ return (
                                     ADESSO • {item.time}
                                 </div>
                                 <div 
-                                     style={{backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on)", padding: 'var(--md-sys-spacing-6)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}
+                                     style={{backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", padding: 'var(--md-sys-spacing-6)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}
                                 >
                                     <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 'var(--md-sys-spacing-6)'}}>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
@@ -253,7 +254,7 @@ return (
             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-6)', display: 'flex', justifyContent: 'center' }}>
                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 'var(--md-sys-state-opacity-caption)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)' }}>
                     
-                    <button onClick={() => actions.handleNavigate('settings')} style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}>
+                    <button aria-label="Impostazioni" onClick={() => actions.handleNavigate('settings')} style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}>
                         {}
                         <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>settings</span>
                         {}
@@ -265,7 +266,7 @@ return (
 
                     <VoiceNoteRecorder onTranscription={(text) => handleAddNote({ note: text })} compact />
                     
-                    <button onClick={() => actions.handleNavigate('progettazione-hub')}  style={{width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', display: "flex", alignItems: "center", justifyContent: "center"}}>
+                    <button aria-label="Progettazione" onClick={() => actions.handleNavigate('progettazione-hub')}  style={{width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', display: "flex", alignItems: "center", justifyContent: "center"}}>
                         {}
                         <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>add</span>
                         {}

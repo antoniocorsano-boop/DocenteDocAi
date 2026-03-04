@@ -31,8 +31,9 @@ const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlCo
 
     const handleSave = () => {
         if (!onSaveToKb) return;
+        const tempDiv = document.createElement('div');
         tempDiv.innerHTML = safeHtml;
-
+        const textContent = tempDiv.textContent || tempDiv.innerText || '';
         onSaveToKb(true, {
             title: title,
             content: textContent,

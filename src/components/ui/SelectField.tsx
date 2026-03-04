@@ -10,6 +10,8 @@ interface SelectFieldProps extends SelectHTMLAttributes<HTMLSelectElement> {
     error?: boolean;
     errorMessage?: string;
     fullWidth?: boolean;
+    options?: { value: string; label: string }[];
+    containerClassName?: string;
 }
 
 /**
@@ -23,6 +25,8 @@ const SelectField: React.FC<SelectFieldProps> = ({
     errorMessage,
     fullWidth = false,
     children,
+    options,
+    containerClassName: _containerClassName,
     ...props
 }) => {
     // Removed: const { layers } = useTheme();
@@ -76,7 +80,9 @@ const SelectField: React.FC<SelectFieldProps> = ({
                     aria-invalid={error ? 'true' : undefined}
                     aria-describedby={describedBy}
                 >
-                    {children}
+                    {options ? options.map(o => (
+                        <option key={o.value} value={o.value}>{o.label}</option>
+                    )) : children}
                 </select>
                 <span
                     className="material-symbols-outlined"

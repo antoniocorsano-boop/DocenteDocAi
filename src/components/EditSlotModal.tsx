@@ -163,7 +163,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
 
                     {activityType === 'disposizione' && (
                         <div  style={{gap: 'var(--md-sys-spacing-4)'}}>
-                            <InfoCard title="Ora di Disposizione" description="Registra la tua presenza per sostituzioni o attività di plesso." icon="pending_actions" variant="secondary" />
+                            <InfoCard title="Ora di Disposizione" description="Registra la tua presenza per sostituzioni o attività di plesso." icon="pending_actions" variant="tonal" />
                             <TextArea
                                 id="slot-disp-nota"
                                 label="Note Disposizione"

@@ -9,6 +9,7 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     error?: boolean;
     errorMessage?: string;
     fullWidth?: boolean;
+    containerClassName?: string;
 }
 
 const TextArea: React.FC<TextAreaProps> = ({
@@ -16,6 +17,7 @@ const TextArea: React.FC<TextAreaProps> = ({
     error,
     errorMessage,
     fullWidth = false,
+    containerClassName: _containerClassName,
     ...props
 }) => {
     // Removed: const { layers } = useTheme();

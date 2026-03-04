@@ -36,7 +36,7 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
     const globalStats = useMemo(() => {
         const totalStudents = students.length;
         const studentsWithInsufficient = students.filter(s => {
-            const { grade } = calculatePerformance(s.id, 'Complessivo', sEvals);
+            const { grade } = calculatePerformance(s.id, 'Complessivo', evaluations.filter(e => e.studenteId === s.id));
             return grade && parseFloat(grade) < 6;
         }).length;
 

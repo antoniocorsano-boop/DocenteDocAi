@@ -10,6 +10,8 @@ interface M3ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
   fullWidth?: boolean;
+  icon?: string;
+  loading?: boolean;
 }
 
 const M3Button: React.FC<M3ButtonProps> = ({
@@ -23,6 +25,8 @@ const M3Button: React.FC<M3ButtonProps> = ({
   type = 'button',
   fullWidth = false,
   title,
+  icon: _icon,
+  loading: _loading,
   ...props
 }) => {
   // Extract aria-label from props to handle it properly
@@ -231,5 +235,6 @@ const M3Button: React.FC<M3ButtonProps> = ({
   );
 };
 
+export { M3Button };
 export default M3Button;
 

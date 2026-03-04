@@ -18,9 +18,11 @@ interface ActionTileProps {
     subtitle?: string;
     icon: string;
     onClick: () => void;
-    variant?: 'primary' | 'secondary' | 'tertiary' | 'surface';
+    variant?: 'primary' | 'secondary' | 'tertiary' | 'surface' | 'filled' | 'tonal' | 'elevated';
     tooltip?: string;
     ariaLabel?: string;
+    style?: React.CSSProperties;
+    className?: string;
 }
 
 const ActionTile: React.FC<ActionTileProps> = ({
@@ -30,7 +32,9 @@ const ActionTile: React.FC<ActionTileProps> = ({
     onClick,
     variant = 'surface',
     tooltip,
-    ariaLabel
+    ariaLabel,
+    style,
+    className: _className
 }) => {
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
@@ -92,7 +96,8 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 width: 'var(--md-sys-percent-100)',
                 outline: focused ? `var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)` : 'none',
                 outlineOffset: focused ? 'var(--md-sys-spacing-2)' : '0',
-                transition: `box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
+                transition: `box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+                ...style
             }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}

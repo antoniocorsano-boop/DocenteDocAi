@@ -198,7 +198,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 0, borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', backgroundColor: 'var(--md-sys-color-surface-container-low)', overflow: 'hidden' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
-                            <M3Button onClick={() => onNavigate('home')} variant="icon">
+                            <M3Button onClick={() => onNavigate('home')} variant="text">
                                 <span className="material-symbols-outlined">arrow_back</span>
                             </M3Button>
                             <h1 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Curricoli</h1>
@@ -288,7 +288,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                          onTabChange={(id: string) => {
                                              if (id === 'editor' || id === 'coverage') setActiveTab(id);
                                          }}
-                                         variant="secondary"
+                                         variant="tonal"
                                          tabs={[
                                              { id: 'editor', label: 'Editor', icon: 'edit' },
                                              { id: 'coverage', label: 'Analisi', icon: 'analytics' }

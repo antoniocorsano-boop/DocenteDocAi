@@ -73,7 +73,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
           {student.isArchived ? (
               <M3Button 
                   onClick={() => onRestore(student)} 
-                  variant="icon" 
+                  variant="text" 
                    
                   title="Ripristina Studente come attivo"
                   aria-label={`Ripristina ${student.cognome} ${student.nome} come studente attivo`}
@@ -85,7 +85,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
               <>
                   <M3Button 
                       onClick={() => onTransfer(student)} 
-                      variant="icon" 
+                      variant="text" 
                        
                       title="Cambia classe o trasferisci studente"
                       aria-label={`Cambia classe per ${student.cognome} ${student.nome}`}
@@ -95,7 +95,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
                   </M3Button>
                   <M3Button 
                       onClick={() => onEdit(student)} 
-                      variant="icon" 
+                      variant="text" 
                        
                       title="Modifica dati studente"
                       aria-label={`Modifica dati per ${student.cognome} ${student.nome}`}
@@ -107,7 +107,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
           )}
           <M3Button 
               onClick={() => { if (confirm(`Eliminare definitivamente ${student.cognome} ${student.nome}?`)) onDelete(student.id); }} 
-              variant="icon" 
+              variant="text" 
                
               title="Elimina studente definitivamente"
               aria-label={`Elimina ${student.cognome} ${student.nome} dal sistema`}

@@ -30,7 +30,12 @@ export const generateAiSuggestions = async (appState: AppState): Promise<AiSugge
         }
 
         // Generate suggestions using centralized AI service
-        const prioritizedSuggestions = await getProactiveSuggestions(appState.aiSettings, appState);
+        const prioritizedSuggestions = await getProactiveSuggestions(appState.aiSettings, {
+            students: appState.students,
+            evaluations: appState.evaluations,
+            competencyEvaluations: appState.competencyEvals,
+            udas: appState.uda
+        });
 
         // Cache the results
         setCachedSuggestions(prioritizedSuggestions, appState.user?.id);

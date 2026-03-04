@@ -94,7 +94,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                     justifyContent: 'space-between',
                     padding: 'var(--md-sys-spacing-6)',
                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    borderRadius: 'var(--md-sys-shape-corner-extra)',
+                    borderRadius: 'var(--md-sys-shape-corner-extra-large)',
                     border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                     backdropFilter: 'blur(var(--md-sys-blur-20))',
                     boxShadow: 'var(--md-sys-elevation-level2)',
@@ -113,7 +113,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                             alignItems: 'center',
                             justifyContent: 'center'}}>
                             <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-spacing-6)',
-                                color: 'var(--md-sys-color-on)'}}>calendar_view_week</span>
+                                color: 'var(--md-sys-color-on-primary)'}}>calendar_view_week</span>
                         </div>
                         <div style={{ minWidth: 0, flex: 1 }}>
                             <M3Typography variant="headline-small" style={{color: 'var(--md-sys-color-on-surface)',
@@ -141,7 +141,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                             ]}
                             activeTab={viewMode}
                             onTabChange={(id: string) => setViewMode(id as 'week' | 'day')}
-                            variant="primary"
+                            variant="filled"
                         />
                         
                         {viewMode === 'day' && (
@@ -175,7 +175,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <M3Button 
                             onClick={() => window.print()} 
-                            variant="secondary"
+                            variant="tonal"
                             icon="print"
                         >
                             Stampa
@@ -191,7 +191,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 
                 {/* MATRIX CONTAINER */}
                 <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    borderRadius: 'var(--md-sys-shape-corner-extra)',
+                    borderRadius: 'var(--md-sys-shape-corner-extra-large)',
                     border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                     padding: 'var(--md-sys-spacing-6)',
                     backdropFilter: 'blur(var(--md-sys-blur-20))',
@@ -206,7 +206,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                             display: 'grid',
                             gridTemplateColumns: viewMode === 'day' ? 'var(--md-sys-layout-120) 1fr' : `var(--md-sys-layout-120) repeat(${visibleDays.length}, 1fr)`,
                             gap: 'var(--md-sys-spacing-1)',
-                            backgroundColor: 'var(--md-sys-color-surfaceContainerHigh)',
+                            backgroundColor: 'var(--md-sys-color-surface-container-high)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             padding: 'var(--md-sys-spacing-4)',
                             border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
@@ -238,7 +238,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                         border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                                         borderLeft: idx === 0 ? 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)' : 'none'}}>
                                     <M3Typography variant="label-large" style={{color: day === DAYS_OF_WEEK[(new Date().getDay()+6)%7] 
-                                            ? 'var(--md-sys-color-on)' 
+                                            ? 'var(--md-sys-color-on-primary)' 
                                             : 'var(--md-sys-color-on-surface)',
                                         fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                         textTransform: 'uppercase',

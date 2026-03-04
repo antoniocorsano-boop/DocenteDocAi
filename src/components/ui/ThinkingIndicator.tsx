@@ -41,8 +41,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
         borderRadius: 'var(--md-sys-shape-corner-medium)',
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
         opacity: 'var(--md-sys-state-opacity-placeholder)',
-        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-on-primary)',
-        borderOpacity: 0.3
+        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-on-primary)'
       }}
     >
       {/* Animated dots */}

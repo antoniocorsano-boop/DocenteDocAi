@@ -107,7 +107,7 @@ export const Full: Story = {
  */
 export const FormExample: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', maxWidth: layers.ref.spacing['4'] }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', maxWidth: 'var(--md-sys-spacing-4)' }}>
       <M3DatePicker
         label="Start Date"
         helperText="Project starts on this date"
@@ -129,7 +129,7 @@ export const FormExample: Story = {
  */
 export const States: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: layers.ref.spacing['4'] }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
       <div>
         <h3 style={{ margin: 'var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-4) var(--md-sys-spacing-0)', fontSize: 'var(--md-sys-typescale-body-small-font-size)', opacity: 0.6 }}>DEFAULT</h3>
         <M3DatePicker label="Normal" />

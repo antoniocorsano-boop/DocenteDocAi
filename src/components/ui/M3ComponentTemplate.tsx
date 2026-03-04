@@ -61,7 +61,7 @@ const MD3_TOKENS = {
  * <M3ComponentTemplate
  *   title="Example Component"
  *   description="This is an example of the MD3 component template"
- *   variant="primary"
+ *   variant="filled"
  *   onAction={() => console.log('Action triggered')}
  * />
  * ```

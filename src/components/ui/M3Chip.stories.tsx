@@ -101,7 +101,7 @@ export const Disabled: Story = {
  */
 export const Group: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap', maxWidth: layers.ref.spacing['4'] }}>
+    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap', maxWidth: 'var(--md-sys-spacing-4)' }}>
       {['Mathematics', 'Italian', 'English', 'History'].map((label, i) => (
         <M3Chip key={i} label={label} variant={i % 2 === 0 ? 'filled' : 'outlined'} />
       ))}
@@ -202,7 +202,7 @@ export const ContextTags: Story = {
     const [contexts, setContexts] = useState(['Class 1A', 'Mathematics', 'Chapter 3']);
 
     return (
-      <div style={{ maxWidth: layers.ref.spacing['4'] }}>
+      <div style={{ maxWidth: 'var(--md-sys-spacing-4)' }}>
         <h4 style={{ margin: 'var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-4) var(--md-sys-spacing-0)' }}>Document Context Tags</h4>
         <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap' }}>
           {contexts.map((ctx, i) => (
@@ -235,7 +235,7 @@ export const InputChips: Story = {
     };
 
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)', maxWidth: layers.ref.spacing['4'] }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)', maxWidth: 'var(--md-sys-spacing-4)' }}>
         <div>
           <label style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-2)', fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)' }}>
             Add Recipients (type and press Enter)

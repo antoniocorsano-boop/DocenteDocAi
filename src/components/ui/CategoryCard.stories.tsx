@@ -164,7 +164,7 @@ export const Interactive: Story = {
           display: 'grid',
           gridTemplateColumns: `repeat(2, var(--md-sys-grid-fr-1))`,
           gap: 'var(--md-sys-spacing-6)',
-          padding: layers.ref.spacing['4'],
+          padding: 'var(--md-sys-spacing-4)',
         }}
       >
         {categories.map((cat) => (
@@ -219,8 +219,8 @@ export const AllCategories: Story = {
         style={{
           display: 'grid',
           gridTemplateColumns: `repeat(4, var(--md-sys-grid-fr-1))`,
-          gap: layers.ref.spacing['4'],
-          padding: layers.ref.spacing['4'],
+          gap: 'var(--md-sys-spacing-4)',
+          padding: 'var(--md-sys-spacing-4)',
         }}
       >
         {categories.map((cat) => (
@@ -263,7 +263,7 @@ export const Grid: Story = {
         display: 'grid',
         gridTemplateColumns: `repeat(3, var(--md-sys-grid-fr-1))`,
         gap: 'var(--md-sys-spacing-6)',
-        padding: layers.ref.spacing['4'],
+        padding: 'var(--md-sys-spacing-4)',
       }}
     >
       <CategoryCard
@@ -311,8 +311,8 @@ export const CompactSelection: Story = {
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(6, var(--md-sys-grid-fr-1))`,
-        gap: layers.ref.spacing['4'],
-        padding: layers.ref.spacing['4'],
+        gap: 'var(--md-sys-spacing-4)',
+        padding: 'var(--md-sys-spacing-4)',
       }}
     >
       {Array.from({ length: 12 }, (_, i) => (
@@ -377,7 +377,7 @@ export const CustomColors: Story = {
           display: 'grid',
           gridTemplateColumns: `repeat(3, var(--md-sys-grid-fr-1))`,
           gap: 'var(--md-sys-spacing-6)',
-          padding: layers.ref.spacing['4'],
+          padding: 'var(--md-sys-spacing-4)',
         }}
       >
         {colors.map((color, i) => (

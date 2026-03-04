@@ -79,7 +79,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                  <TabGroup 
                     activeTab={activeTab}
                     onTabChange={(id: string) => setActiveTab(id as 'dashboard' | 'frameworks')}
-                    variant="primary"
+                    variant="filled"
                     tabs={[
                         { id: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
                         { id: 'frameworks', label: 'Frameworks & Competenze', icon: 'model_training' },

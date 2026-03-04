@@ -200,6 +200,13 @@
   /* Viewport units */
   --md-sys-viewport-height-full: 100vh;
   --md-sys-viewport-height-dvh: 100dvh;   /* Dynamic viewport height (iOS Safari) */
+  --md-sys-viewport-height-80: 80vh;      /* Large panels */
+  --md-sys-viewport-height-60: 60vh;      /* Medium panels / drawers */
+  --md-sys-viewport-height-50: 50vh;      /* Modal content area */
+  --md-sys-viewport-height-40: 40vh;      /* Compact modal content */
+  --md-sys-viewport-height-30: 30vh;      /* Chip/list containers inside modals */
+  --md-sys-size-sheet-max-height: 70dvh;   /* Max height for bottom sheets */
+  --md-sys-bottom-nav-offset: calc(var(--md-sys-spacing-16) + env(safe-area-inset-bottom, 0px)); /* Bottom nav + safe area */
   --md-sys-viewport-width-full: 100vw;
   --md-sys-viewport-60vh: 60vh;            /* 60% viewport height for modals/sheets */
 
@@ -348,6 +355,7 @@
   --md-sys-layout-button-min-width: 64px;
   --md-sys-layout-popup-min-width: 120px;
   --md-sys-layout-panel-max-width: 800px;
+  --md-sys-layout-dialog-compact-max-width: 480px; /* Narrow dialog / wizard card */
   --md-sys-layout-dropzone-height: 192px;
   --md-sys-layout-timetable-cell-min-height: var(--md-sys-spacing-15);
   --md-sys-layout-workflow-card-min-width: var(--md-sys-spacing-12);

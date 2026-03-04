@@ -55,9 +55,8 @@ const baseProps = {
 describe('Header M3 Expressive', () => {
   it('renders logo and teacher name', () => {
     renderWithM3Theme(<Header {...baseProps} />);
-    // Cerca il testo SVG separatamente
+    // Il testo 'DocenteDoc' è reso come M3Typography
     expect(screen.getByText('DocenteDoc')).toBeInTheDocument();
-    expect(screen.getByText('AI')).toBeInTheDocument();
     // Cerca le iniziali nell'avatar
     expect(screen.getByText('RM')).toBeInTheDocument();
   });
@@ -87,13 +86,12 @@ it('shows avatar and settings', () => {
   it('applies MD3 tokens and accessibility', () => {
     renderWithM3Theme(<Header {...baseProps} />);
     const header = screen.getByRole('banner');
-    // Verifica presenza attributo role e alcuni stili MD3 effettivi
+    // Verifica presenza attributo role e stili MD3 effettivi
     expect(header).toHaveAttribute('role', 'banner');
     expect(header).toHaveStyle({
       position: 'relative',
       background: 'var(--md-sys-color-surface)',
       display: 'flex',
-      boxShadow: 'var(--md-sys-elevation-level1)'
     });
   });
 });

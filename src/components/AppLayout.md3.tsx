@@ -4,8 +4,10 @@
 import React from 'react';
 import NavigationRail from './NavigationRail';
 import BottomNav from './BottomNav';
+import SecondaryNavDrawer from './SecondaryNavDrawer';
 import { Header } from './Header';
 import { View, UserProfile, TimetableSettings, Notifica, BeforeInstallPromptEvent, NavigationParams } from '../types';
+import { VIEW_LABELS } from './viewRegistry';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -57,13 +59,29 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   hasSuggestion,
   onOpenNKA
 }) => {
-  const [isDesktop, setIsDesktop] = React.useState(() => window.innerWidth >= 1024);
+  // Usa matchMedia per reagire al breakpoint senza polling resize
+  const [isDesktop, setIsDesktop] = React.useState(
+    () => window.matchMedia('(min-width: 1024px)').matches
+  );
+  const [secondaryNavOpen, setSecondaryNavOpen] = React.useState(false);
 
   React.useEffect(() => {
-    const onResize = () => setIsDesktop(window.innerWidth >= 1024);
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const onChange = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
   }, []);
+
+  // Chiudi il drawer secondario al cambio di vista
+  React.useEffect(() => {
+    setSecondaryNavOpen(false);
+  }, [view]);
+
+  // Aggiorna document.title al cambio di view (accessibilità + SEO)
+  React.useEffect(() => {
+    const label = VIEW_LABELS[view] ?? view;
+    document.title = view === 'home' ? 'DocenteDoc AI' : `${label} — DocenteDoc AI`;
+  }, [view]);
 
   return (
     // Outer shell: full viewport height, no overflow — contains everything
@@ -93,6 +111,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         onOpenOperations={onOpenOperations}
         hasSuggestion={hasSuggestion}
         onOpenNKA={onOpenNKA}
+        currentView={view}
       />
 
       {/* Body row: nav sidebar + scrollable content */}
@@ -121,6 +140,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
               items={NAV_ITEMS}
               activeView={view}
               onNavigate={(v, c) => onNavigate(v, c as NavigationParams)}
+              onOpenMore={() => setSecondaryNavOpen(p => !p)}
+              moreOpen={secondaryNavOpen}
             />
           </aside>
         )}
@@ -140,7 +161,21 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       </div>
 
       {/* BottomNav: position:fixed, auto-hidden on desktop via its own CSS */}
-      <BottomNav activeView={view} onNavigate={(v) => onNavigate(v)} />
+      <BottomNav
+        activeView={view}
+        onNavigate={(v) => onNavigate(v)}
+        onOpenMore={() => setSecondaryNavOpen(p => !p)}
+        moreOpen={secondaryNavOpen}
+      />
+
+      {/* Drawer secondario — tutte le sezioni non esposte nel nav principale */}
+      <SecondaryNavDrawer
+        open={secondaryNavOpen}
+        onClose={() => setSecondaryNavOpen(false)}
+        onNavigate={(v) => onNavigate(v)}
+        activeView={view}
+        isDesktop={isDesktop}
+      />
     </div>
   );
 };
