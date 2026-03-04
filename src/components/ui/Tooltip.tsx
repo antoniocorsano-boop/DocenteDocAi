@@ -37,25 +37,25 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
   const positionStyles = {
     top: {
-      bottom: '100%',
+      bottom: 'var(--md-sys-percent-100)',
       left: '50%',
       transform: 'translateX(-50%) translateY(calc(-1 * var(--md-sys-spacing-2)))',
       marginBottom: 'var(--md-sys-spacing-2)'
     },
     bottom: {
-      top: '100%',
+      top: 'var(--md-sys-percent-100)',
       left: '50%',
       transform: 'translateX(-50%) translateY(var(--md-sys-spacing-2))',
       marginTop: 'var(--md-sys-spacing-2)'
     },
     left: {
-      right: '100%',
+      right: 'var(--md-sys-percent-100)',
       top: '50%',
       transform: 'translateY(-50%) translateX(calc(-1 * var(--md-sys-spacing-2)))',
       marginRight: 'var(--md-sys-spacing-2)'
     },
     right: {
-      left: '100%',
+      left: 'var(--md-sys-percent-100)',
       top: '50%',
       transform: 'translateY(-50%) translateX(var(--md-sys-spacing-2))',
       marginLeft: 'var(--md-sys-spacing-2)'
@@ -103,7 +103,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
             boxShadow: 'var(--md-sys-elevation-level2)',
             maxWidth: 'var(--md-sys-spacing-16)',
             whiteSpace: 'normal',
-            fontSize: 'var(--md-sys-typescale-body-small-size)',
+            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
             fontWeight: 'var(--md-sys-typescale-weight-medium)',
             lineHeight: '1.4',
             pointerEvents: 'none',

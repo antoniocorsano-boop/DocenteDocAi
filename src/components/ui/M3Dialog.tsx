@@ -99,11 +99,11 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   const spacing6 = 'var(--md-sys-spacing-6)';
   const cornerLarge = 'var(--md-sys-shape-corner-large)';
   const headlineLargeFontSize = 'var(--md-sys-typescale-title-large-font-size)';
-  const headlineLargeFontWeight = 'var(--md-sys-typescale-title-large-weight)';
+  const headlineLargeFontWeight = 'var(--md-sys-typescale-title-large-font-weight)';
   const headlineLargeLineHeight = 'var(--md-sys-typescale-title-large-line-height)';
   const headlineLargeLetterSpacing = 'var(--md-sys-typescale-headline-large-letter-spacing)';
   const bodyLargeFontSize = 'var(--md-sys-typescale-body-large-font-size)';
-  const bodyLargeFontWeight = 'var(--md-sys-typescale-body-large-weight)';
+  const bodyLargeFontWeight = 'var(--md-sys-typescale-body-large-font-weight)';
   const bodyLargeLineHeight = 'var(--md-sys-typescale-body-large-line-height)';
 
   // MD3 z-index tokens — modal layer
@@ -377,9 +377,9 @@ export const M3ConfirmDialog: React.FC<{
   const onSurfaceColor = 'var(--md-sys-color-on-surface)';
   const cornerLargeValue = 'var(--md-sys-shape-corner-large)';
   const labelLargeFontSizeValue = 'var(--md-sys-typescale-label-large-font-size)';
-  const labelLargeFontWeightValue = 'var(--md-sys-typescale-label-large-weight)';
+  const labelLargeFontWeightValue = 'var(--md-sys-typescale-label-large-font-weight)';
   const bodyLargeFontSizeValue = 'var(--md-sys-typescale-body-large-font-size)';
-  const bodyLargeFontWeightValue = 'var(--md-sys-typescale-body-large-weight)';
+  const bodyLargeFontWeightValue = 'var(--md-sys-typescale-body-large-font-weight)';
   const bodyLargeLineHeightValue = 'var(--md-sys-typescale-body-large-line-height)';
 
   return (

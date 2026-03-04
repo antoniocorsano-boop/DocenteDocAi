@@ -355,8 +355,8 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                               padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-4)',
                               marginTop: 'var(--md-sys-spacing-4)',
                               borderRadius: 'var(--md-sys-shape-corner-full)',
-                              fontSize: 'var(--md-sys-typescale-label-small-size)',
-                              fontWeight: 'var(--md-sys-typescale-label-small-weight)',
+                              fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                              fontWeight: 'var(--md-sys-typescale-label-small-font-weight)',
                               lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
                               backgroundColor: doc.format === 'pdf' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)',
                               color: doc.format === 'pdf' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)'

@@ -110,7 +110,7 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
               width: 'var(--md-sys-percent-100)',
               padding: 'var(--md-sys-spacing-3)',
               paddingRight: isSuccess || hasError ? 'var(--md-sys-spacing-9)' : 'var(--md-sys-spacing-3)',
-              fontSize: 'var(--md-sys-typescale-body-large-size)',
+              fontSize: 'var(--md-sys-typescale-body-large-font-size)',
               color: 'var(--md-sys-color-on-surface)',
               backgroundColor: disabled 
                 ? 'var(--md-sys-color-surface-variant)' 

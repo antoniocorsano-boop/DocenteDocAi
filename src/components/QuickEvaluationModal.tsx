@@ -163,7 +163,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                             }}>
                                 <input type="radio" name="level" value={level.id} checked={selectedLevelId === level.id} onChange={e => setSelectedLevelId(e.target.value)}  required />
                                 <span style={{
-                                    fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                                    fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                     color: selectedLevelId === level.id ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
                                     fontWeight: selectedLevelId === level.id ? 700 : 'normal'
                                 }}>{level.descrizione}</span>

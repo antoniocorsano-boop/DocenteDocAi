@@ -159,7 +159,7 @@ describe('MD3 Visual Regression Snapshots', () => {
       <>
         <Skeleton variant="text" />
         <Skeleton variant="circular" width="var(--md-sys-spacing-10)" height="var(--md-sys-spacing-10)" />
-        <Skeleton variant="rectangular" width="100%" height="var(--md-sys-spacing-25, 100px)" />
+        <Skeleton variant="rectangular" width="var(--md-sys-percent-100)" height="var(--md-sys-spacing-25, 100px)" />
         <SkeletonList count={2} />
       </>
     );

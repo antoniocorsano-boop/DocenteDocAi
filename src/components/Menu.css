@@ -80,8 +80,8 @@
 }
 
 .m3-label-small {
-  font-size: var(--md-sys-typescale-label-small-size);
-  font-family: var(--font-variable);
+  font-size: var(--md-sys-typescale-label-small-font-size);
+  font-family: var(--font-family);
   font-variation-settings: var(--font-variation-settings);
   letter-spacing: 0.12em;
   margin-top: var(--md-sys-spacing-1);

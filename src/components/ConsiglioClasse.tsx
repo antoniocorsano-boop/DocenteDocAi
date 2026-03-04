@@ -196,8 +196,8 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                     <tr>
                         <th >Studente</th>
                         {expandedColumns.rendimento && <>
-                            <th style={{ color: sys.colors.center }}>Media</th>
-                            <th style={{ color: sys.colors.center }}>Trend</th>
+                            <th style={{ color: 'inherit' }}>Media</th>
+                            <th style={{ color: 'inherit' }}>Trend</th>
                         </>}
                         {expandedColumns.valutazione && <>
                             <th>Voto Disciplina</th>
@@ -231,8 +231,8 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     </M3Button>
                                 </td>
                                 {expandedColumns.rendimento && <>
-                                    <td style={{ color: sys.colors.center }}>{performance.grade || 'N/D'}</td>
-                                    <td style={{ color: sys.colors.center }}>
+                                    <td style={{ color: 'inherit' }}>{performance.grade || 'N/D'}</td>
+                                    <td style={{ color: 'inherit' }}>
                                         {performance.trend && <span title={performance.trend || ''} className="material-symbols-outlined" style={{ color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>{trendIcon}</span>}
                                     </td>
                                 </>}
@@ -401,10 +401,10 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             </InfoCard>
 
             {narrativeReport && (
-                <InfoCard variant="elevated" style={{ backgroundColor: sys.colors.primaryContainer/5 , padding: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
+                <InfoCard variant="elevated" style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 5%, transparent)' , padding: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                     <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-6)'}}>
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
-                            <div style={{ backgroundColor: sys.colors.primary/10 , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-primary)"}}>
+                            <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)' , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-primary)"}}>
                                 <span style={{
 }}>description</span>
                             </div>

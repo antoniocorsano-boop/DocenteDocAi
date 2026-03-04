@@ -371,7 +371,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                                             style={{
                                                                 width: config.fullWidth ? 'var(--md-sys-percent-100)' : 'var(--md-sys-percent-100)',
                                                                 maxWidth: config.fullWidth ? 'none' : 'calc(var(--md-sys-spacing-20) * 22.4)', // MD3 spacing token equivalent
-                                                                margin: config.fullWidth ? undefined : '0 var(auto)',
+                                                                margin: config.fullWidth ? undefined : '0 auto',
                                                                 paddingLeft: config.fullWidth ? undefined : 'var(--md-sys-spacing-4)',
                                                                 paddingRight: config.fullWidth ? undefined : 'var(--md-sys-spacing-4)',
                                                             }}

@@ -44,8 +44,8 @@
   background-color: color-mix(in srgb, var(--md-sys-color-primary) var(--md-sys-percent-10), transparent);
   color: var(--md-sys-color-primary);
   border-radius: var(--md-sys-shape-corner-full);
-  font-size: var(--md-sys-typescale-label-small-size);
-  font-weight: var(--md-sys-typescale-body-medium-weight);
+  font-size: var(--md-sys-typescale-label-small-font-size);
+  font-weight: var(--md-sys-typescale-body-medium-font-weight);
   text-transform: uppercase;
   letter-spacing: 0.3em;
   border: var(--md-sys-spacing-0) solid color-mix(in srgb, var(--md-sys-color-primary) var(--md-sys-percent-20), transparent);
@@ -69,7 +69,7 @@
 
 /* Home component specific styles */
 .home-hero-icon {
-  font-size: var(--md-sys-typescale-display-large-size);
+  font-size: var(--md-sys-typescale-display-large-font-size);
   color: var(--md-sys-color-primary);
 }
 
@@ -121,7 +121,7 @@
 }
 
 .home-card-icon-font {
-  font-size: var(--md-sys-typescale-title-medium-size);
+  font-size: var(--md-sys-typescale-title-medium-font-size);
 }
 
 .home-relative-z10 {
@@ -319,7 +319,7 @@
 
 .home-hero-title {
   font-family: var(--font-family, 'Roboto', sans-serif);
-  font-size: var(--md-sys-typescale-headline-large-size);
+  font-size: var(--md-sys-typescale-headline-large-font-size);
   color: var(--md-sys-color-on-surface);
   font-weight: var(--md-sys-typescale-weight-regular);
   max-width: calc(var(--md-sys-spacing-20) * 8);
@@ -329,7 +329,7 @@
 
 .home-hero-subtitle {
   font-family: var(--font-family, 'Roboto', sans-serif);
-  font-size: var(--md-sys-typescale-title-medium-size);
+  font-size: var(--md-sys-typescale-title-medium-font-size);
   color: var(--md-sys-color-on-surface-variant);
   max-width: calc(var(--md-sys-spacing-20) * 7.2);
   margin-left: auto;
@@ -848,13 +848,13 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .uda-editor-title {
-  font-size: var(--md-sys-typescale-headline-medium-size);
+  font-size: var(--md-sys-typescale-headline-medium-font-size);
   font-weight: var(--md-sys-typescale-weight-black);
   letter-spacing: -0.025em;
 }
 
 .uda-editor-subtitle {
-  font-size: var(--md-sys-typescale-body-small-size);
+  font-size: var(--md-sys-typescale-body-small-font-size);
   color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-60), transparent);
   font-weight: var(--md-sys-typescale-weight-black);
   text-transform: uppercase;
@@ -903,7 +903,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .uda-editor-link-icon {
-  font-size: var(--md-sys-typescale-body-small-size);
+  font-size: var(--md-sys-typescale-body-small-font-size);
   color: var(--md-sys-color-secondary);
   animation: pulse var(--md-sys-motion-duration-extra-long) infinite;
 }
@@ -982,7 +982,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .uda-competency-placeholder-text {
-  font-size: var(--md-sys-typescale-body-small-size);
+  font-size: var(--md-sys-typescale-body-small-font-size);
   font-weight: var(--md-sys-typescale-weight-black);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -1061,7 +1061,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .uda-picker-code {
   font-weight: var(--md-sys-typescale-weight-black);
-  font-size: var(--md-sys-typescale-body-small-size);
+  font-size: var(--md-sys-typescale-body-small-font-size);
   line-height: 1;
   margin-bottom: var(--md-sys-spacing-1);
   overflow: hidden;
@@ -1177,14 +1177,14 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .uda-planner-title {
-  font-size: var(--md-sys-typescale-headline-medium-size);
+  font-size: var(--md-sys-typescale-headline-medium-font-size);
   font-weight: var(--md-sys-typescale-weight-black);
   color: var(--md-sys-color-on-surface);
   letter-spacing: -0.025em;
 }
 
 .uda-planner-subtitle {
-  font-size: var(--md-sys-typescale-body-small-size);
+  font-size: var(--md-sys-typescale-body-small-font-size);
   color: color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-60), transparent);
   font-weight: var(--md-sys-typescale-weight-black);
   text-transform: uppercase;
@@ -1226,7 +1226,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .uda-planner-table-header th {
   text-align: left;
   padding: var(--md-sys-spacing-6);
-  font-size: var(--md-sys-typescale-label-large-size);
+  font-size: var(--md-sys-typescale-label-large-font-size);
   text-transform: uppercase;
   letter-spacing: 0.2em;
   opacity: 0.6;
@@ -1297,7 +1297,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .uda-ai-bridge-icon {
-  font-size: var(--md-sys-typescale-title-medium-size);
+  font-size: var(--md-sys-typescale-title-medium-font-size);
 }
 
 .uda-table-cell-actions {

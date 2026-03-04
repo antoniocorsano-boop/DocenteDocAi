@@ -93,8 +93,8 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    width: '100%',
-    height: '100%',
+    width: 'var(--md-sys-percent-100)',
+    height: 'var(--md-sys-percent-100)',
     backgroundColor: 'var(--md-sys-color-surface)',
     borderTop: 'none',
     transition: 'background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
@@ -163,20 +163,13 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
             borderRadius: 'var(--md-sys-shape-corner-extra-large)', // Rounded corners
 
             // State colors - default
-            color: 'var(--md-sys-color-on-surface-variant)',
+            color: isActive ? 'var(--md-sys-color-on-surface)' : 'var(--md-sys-color-on-surface-variant)',
 
             // Transition
-            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+            transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
 
             // Remove tap highlight on mobile
             WebkitTapHighlightColor: 'transparent',
-
-            // Active state
-            ...(isActive && {
-              backgroundColor: 'var(--md-sys-color-primary-container)',
-              color: 'var(--md-sys-color-on-primary-container)',
-              boxShadow: 'var(--md-sys-elevation-level1)',
-            })
           };
 
           return (
@@ -199,22 +192,39 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
               aria-label={item.label}
               aria-current={isActive ? 'page' : undefined}
             >
-              {/* Icon Container */}
+              {/* Icon Container with MD3 active pill indicator */}
               <div
                 style={{position: 'relative',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: 'var(--md-sys-spacing-8)', // Icon container width
-                  height: 'var(--md-sys-spacing-8)', // Icon container height
-                  borderRadius: 'var(--md-sys-shape-corner-full)', // Circular
+                  width: 'var(--md-sys-spacing-14)', // 56px pill width
+                  height: 'var(--md-sys-spacing-8)', // 32px pill height
+                  borderRadius: 'var(--md-sys-shape-corner-full)',
                   transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
               >
+                {/* Active indicator pill */}
                 <span
+                  aria-hidden="true"
                   style={{
+                    position: 'absolute',
+                    inset: 0,
+                    borderRadius: 'var(--md-sys-shape-corner-full)',
+                    backgroundColor: 'var(--md-sys-color-secondary-container)',
+                    transform: isActive ? 'scaleX(1) scaleY(1)' : 'scaleX(0) scaleY(0)',
+                    opacity: isActive ? 1 : 0,
+                    transition: `transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard), opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+                    transformOrigin: 'center',
+                  }}
+                />
+                <span
+                  className="material-symbols-outlined"
+                  style={{
+                    position: 'relative',
+                    zIndex: 'var(--md-sys-z-content)',
                     fontSize: 'var(--md-sys-spacing-6)', // Icon size
                     lineHeight: 1,
-                    color: 'inherit',
+                    color: isActive ? 'var(--md-sys-color-on-secondary-container)' : 'inherit',
                     fontVariationSettings: isActive ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24",
                     transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
                   aria-hidden="true"

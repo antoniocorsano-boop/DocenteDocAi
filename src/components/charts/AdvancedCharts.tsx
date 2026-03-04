@@ -184,7 +184,7 @@ export const RadarChart: React.FC<RadarChartProps> = ({ data, color, size = 300 
                                 dominantBaseline="middle"
                                 fontSize="var(--md-sys-typescale-label-large-font-size)"
                                 fill='var(--md-sys-color-on-surface)'
-                                style={{ fontWeight: "var(--md-sys-typescale-label-large-weight)" }}
+                                style={{ fontWeight: "var(--md-sys-typescale-label-large-font-weight)" }}
                             >
                                 {d.axis}
                             </text>

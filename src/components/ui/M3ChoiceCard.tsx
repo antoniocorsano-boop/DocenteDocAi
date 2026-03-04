@@ -96,7 +96,7 @@ const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
     const labelStyle: React.CSSProperties = {
         fontSize: 'var(--md-sys-typescale-body-large-font-size)',
         fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
-        fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+        fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
         letterSpacing: '0.2em',
         textTransform: 'uppercase'
     };

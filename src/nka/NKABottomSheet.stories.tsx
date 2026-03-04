@@ -78,7 +78,7 @@ export const Interactive: Story = {
             border: 'none',
             borderRadius: 'var(--md-sys-spacing-6)',
             cursor: 'pointer',
-            fontSize: 'var(--md-sys-typescale-body-large-size)',
+            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
             fontWeight: 'var(--md-sys-typescale-weight-semibold)',
           }}
         >

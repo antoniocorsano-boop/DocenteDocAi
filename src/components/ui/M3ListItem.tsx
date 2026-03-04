@@ -37,16 +37,16 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
     const durationShort2 = 'var(--md-sys-motion-duration-short2)';
     const easingStandard = 'var(--md-sys-motion-easing-standard)';
     const bodyMediumFontSize = 'var(--md-sys-typescale-body-large-font-size)';
-    const bodyMediumFontWeight = 'var(--md-sys-typescale-body-large-weight)';
+    const bodyMediumFontWeight = 'var(--md-sys-typescale-body-large-font-weight)';
     const bodyMediumLineHeight = 'var(--md-sys-typescale-body-large-line-height)';
     const titleMediumFontSize = 'var(--md-sys-typescale-title-large-font-size)';
-    const titleMediumFontWeight = 'var(--md-sys-typescale-title-large-weight)';
+    const titleMediumFontWeight = 'var(--md-sys-typescale-title-large-font-weight)';
     const titleMediumLineHeight = 'var(--md-sys-typescale-title-large-line-height)';
     const bodyLargeFontSize = 'var(--md-sys-typescale-body-large-font-size)';
-    const bodyLargeFontWeight = 'var(--md-sys-typescale-body-large-weight)';
+    const bodyLargeFontWeight = 'var(--md-sys-typescale-body-large-font-weight)';
     const bodyLargeLineHeight = 'var(--md-sys-typescale-body-large-line-height)';
     const bodySmallFontSize = 'var(--md-sys-typescale-body-small-font-size)';
-    const bodySmallFontWeight = 'var(--md-sys-typescale-body-small-weight)';
+    const bodySmallFontWeight = 'var(--md-sys-typescale-body-small-font-weight)';
     const bodySmallLineHeight = 'var(--md-sys-typescale-body-small-line-height)';
     
     return (

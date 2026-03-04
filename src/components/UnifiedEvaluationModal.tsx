@@ -151,7 +151,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                                               fontWeight: 'var(--md-sys-typescale-weight-black)',
                                                               display: 'block',
                                                             }}>{level.nome}</span>
-                                                            <p style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-large-weight)'}}>{level.descrizione}</p>
+                                                            <p style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-large-font-weight)'}}>{level.descrizione}</p>
                                                         </div>
                                                     </label>
                                                 );

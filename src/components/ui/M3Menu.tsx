@@ -189,7 +189,7 @@ export const M3Menu: React.FC<M3MenuProps> = ({
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                    fontFamily: 'var(--md-sys-typescale-body-medium-font)',
+                    fontFamily: 'var(--font-family)',
                     lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
                     flexShrink: 0}}
                 >
@@ -199,7 +199,7 @@ export const M3Menu: React.FC<M3MenuProps> = ({
               <span
                 style={{flexGrow: 1,
                   fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                  fontFamily: 'var(--md-sys-typescale-body-medium-font)'}}
+                  fontFamily: 'var(--font-family)'}}
               >
                 {item.label}
               </span>

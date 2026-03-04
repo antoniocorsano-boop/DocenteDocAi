@@ -91,7 +91,7 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
           gap: 'var(--md-sys-spacing-4)',
         }}
       >
-        <div style={{ width: '100%', marginBottom: 'var(--md-sys-spacing-4)' }}>
+        <div style={{ width: 'var(--md-sys-percent-100)', marginBottom: 'var(--md-sys-spacing-4)' }}>
           <NKAForceMap nodes={nodes} onNodeSelect={handleNodeSelect} />
           {/* List fallback for accessibility and actions */}
           {nodes.map((node: NKANode) => (

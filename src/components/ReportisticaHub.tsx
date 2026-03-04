@@ -415,7 +415,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                 style={{
                     boxShadow: 'var(--md-sys-elevation-level1)',
                     padding: 'var(--md-sys-spacing-8)',
-                    margin: 'var(--md-sys-spacing-8) var(auto) 0 var(auto)',
+                    margin: 'var(--md-sys-spacing-8) auto 0 auto',
                     maxWidth: 'var(--md-sys-layout-max-width, var(--md-sys-viewport-width-full))',
                     width: 'var(--md-sys-percent-100)'
                 }}

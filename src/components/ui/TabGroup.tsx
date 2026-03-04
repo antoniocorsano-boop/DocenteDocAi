@@ -101,6 +101,7 @@ const TabGroup: React.FC<TabGroupProps> = ({
                         tabIndex={isActive ? 0 : -1}
                         style={{
                             position: 'relative',
+                            flex: 1,
                             padding: `var(--md-sys-spacing-2) var(--md-sys-spacing-4)`,
                             borderRadius: 'var(--md-sys-shape-corner-full)',
                             border: 'none',
@@ -111,7 +112,7 @@ const TabGroup: React.FC<TabGroupProps> = ({
                                 ? variantColors.activeText
                                 : 'var(--md-sys-color-on-surface-variant)',
                             fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                            fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+                            fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
                             textTransform: 'uppercase',
                             letterSpacing: 'var(--md-sys-typescale-label-small-letter-spacing)',
                             cursor: 'pointer',
@@ -119,9 +120,10 @@ const TabGroup: React.FC<TabGroupProps> = ({
                             boxShadow: isActive ? 'var(--md-sys-elevation-level1)' : 'none',
                             display: 'flex',
                             alignItems: 'center',
+                            justifyContent: 'center',
                             gap: 'var(--md-sys-spacing-2)',
-                            outline: isFocused ? `var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)` : 'none',
-                            outlineOffset: isFocused ? 'var(--md-sys-spacing-2)' : '0'
+                            outline: isFocused ? `var(--md-sys-border-width-medium) solid var(--md-sys-color-primary)` : 'none',
+                            outlineOffset: isFocused ? 'var(--md-sys-spacing-1)' : '0'
                         }}
                         onMouseEnter={() => setHoveredTabs(prev => ({ ...prev, [tab.id]: true }))}
                         onMouseLeave={() => setHoveredTabs(prev => ({ ...prev, [tab.id]: false }))}
@@ -163,7 +165,7 @@ const TabGroup: React.FC<TabGroupProps> = ({
                                     backgroundColor: 'var(--md-sys-color-error)',
                                     color: 'var(--md-sys-color-on-error)',
                                     fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                                    fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+                                    fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
                                     lineHeight: 1
                                 }}
                                 aria-label={`${tab.badge} elementi`}

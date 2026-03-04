@@ -109,7 +109,7 @@ export const UserActivity: Story = {
           </M3Typography>
         </div>
         <div style={{ display: "flex", gap: "var(--md-sys-spacing-2)" }}>
-          <button style={{ color: layers.sys.color.primary ,  border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", borderRadius: layers.ref.spacing['4'], fontSize: "var(--md-sys-typescale-body-medium-size)" }}>
+          <button style={{ color: layers.sys.color.primary ,  border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", borderRadius: layers.ref.spacing['4'], fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>
             View Profile
           </button>
         </div>

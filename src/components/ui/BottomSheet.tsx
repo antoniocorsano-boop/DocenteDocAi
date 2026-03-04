@@ -220,7 +220,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
         
         @keyframes sheet-slide-up {
           from {
-            transform: translateY(var(--md-sys-percent-100));
+            transform: translateY(100%);
           }
           to {
             transform: translateY(var(--md-sys-spacing-0));

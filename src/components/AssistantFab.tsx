@@ -349,7 +349,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
           gap: var(--md-sys-spacing-2);
         }
         .assistant-fab-sheet-action {
-          width: var(--md-sys-percent-100);
+          width: 100%;
           border: none;
           border-radius: var(--md-sys-shape-corner-medium);
           padding: var(--md-sys-spacing-4) var(--md-sys-spacing-4);

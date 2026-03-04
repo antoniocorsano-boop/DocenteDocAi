@@ -82,7 +82,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
     };
 
     const titleStyle: React.CSSProperties = {
-        fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+        fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
         color: titleColor,
         fontFamily: 'var(--md-sys-typescale-font-family)',
         fontSize: 'var(--md-sys-typescale-body-large-font-size)',
@@ -98,7 +98,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
         fontFamily: 'var(--md-sys-typescale-font-family)',
         fontSize: 'var(--md-sys-typescale-body-large-font-size)',
         lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-        fontWeight: 'var(--md-sys-typescale-body-large-weight)'
+        fontWeight: 'var(--md-sys-typescale-body-large-font-weight)'
     };
 
     const contentStyle: React.CSSProperties = {

@@ -53,14 +53,14 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                 <h1 style={{ 
                     color: 'var(--md-sys-color-on-surface)',
                     fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                    fontSize: 'var(--md-sys-typescale-headline-large-size)',
+                    fontSize: 'var(--md-sys-typescale-headline-large-font-size)',
                     marginBottom: 'var(--md-sys-spacing-2)'
                 }}>
                     Le Mie Classi
                 </h1>
                 <p style={{ 
                     color: 'var(--md-sys-color-on-surface)',
-                    fontSize: 'var(--md-sys-typescale-body-large-size)',
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                     lineHeight: '1.5'
                 }}>
                     Gestione studenti e analisi.
@@ -72,7 +72,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                 <section style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
                     <h2 style={{ 
                         color: 'var(--md-sys-color-on-surface)',
-                        fontSize: 'var(--md-sys-typescale-title-medium-size)',
+                        fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
                         fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                         textTransform: 'uppercase',
                         letterSpacing: 'var(--md-sys-typescale-title-medium-tracking)',
@@ -101,7 +101,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                 <div style={{ flex: 1 }}>
                                     <span style={{
                                         color: 'var(--md-sys-color-tertiary)',
-                                        fontSize: 'var(--md-sys-typescale-label-small-size)',
+                                        fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                                         fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                         textTransform: 'uppercase',
                                         letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
@@ -110,7 +110,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                     </span>
                                     <h4 style={{
                                         color: 'var(--md-sys-color-on-surface)',
-                                        fontSize: 'var(--md-sys-typescale-title-medium-size)',
+                                        fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
                                         fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                         marginTop: 'var(--md-sys-spacing-1)',
                                         marginBottom: 'var(--md-sys-spacing-1)'
@@ -119,7 +119,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                     </h4>
                                     <p style={{
                                         color: 'var(--md-sys-color-on-surface-variant)',
-                                        fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                         overflow: 'hidden',
                                         textOverflow: 'ellipsis',
                                         whiteSpace: 'nowrap'
@@ -132,7 +132,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                     borderRadius: 'var(--md-sys-spacing-2)',
                                     background: 'var(--md-sys-color-primary-container)',
                                     color: 'var(--md-sys-color-on-primary-container)',
-                                    fontSize: 'var(--md-sys-typescale-label-medium-size)',
+                                    fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
                                     fontWeight: 'var(--md-sys-typescale-weight-semibold)'
                                 }}>
                                     {test.className}
@@ -300,7 +300,7 @@ const PrintCenterModal: React.FC<{
                     <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
                     
                     <div style={{gap: 'var(--md-sys-spacing-2)'}}>
-                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "var(--md-sys-typescale-weight-medium)" }}>Periodo</label>
+                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-medium)" }}>Periodo</label>
                         <TabGroup
                             tabs={[
                                 { id: 'primo-quadrimestre', label: '1Q' },
@@ -312,7 +312,7 @@ const PrintCenterModal: React.FC<{
                     </div>
 
                     <div style={{gap: 'var(--md-sys-spacing-2)'}}>
-                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "var(--md-sys-typescale-weight-medium)" }}>Classi</label>
+                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-medium)" }}>Classi</label>
                         <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                             {userClasses.map(c => (
                                 <div 
@@ -348,7 +348,7 @@ const PrintCenterModal: React.FC<{
                                         }
                                     }}
                                 >
-                                    {selectedClasses.includes(c) && <span  style={{ fontSize: "var(--md-sys-typescale-headline-small-size)" }}>check</span>}
+                                    {selectedClasses.includes(c) && <span  style={{ fontSize: "var(--md-sys-typescale-headline-small-font-size)" }}>check</span>}
                                     Classe {c}
                                 </div>
                             ))}

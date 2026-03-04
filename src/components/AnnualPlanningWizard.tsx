@@ -344,7 +344,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                         >
                             {idx + 1}
                         </div>
-                        <span style={{ fontSize: 'var(--md-sys-typescale-body-small-size)', textAlign: 'center', color: 'var(--md-sys-color-on-surface)' }}>
+                        <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', textAlign: 'center', color: 'var(--md-sys-color-on-surface)' }}>
                             {label} {isDone ? '(Completato)' : isActive ? '(Corrente)' : ''}
                         </span>
                         {idx < 5 && (
@@ -433,7 +433,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             color: situationTags.includes(tag) ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
                                             cursor: 'pointer',
                                             // transition rimossa per compliance MD3
-                                            fontSize: 'var(--md-sys-typescale-body-small-size)'
+                                            fontSize: 'var(--md-sys-typescale-body-small-font-size)'
                                         }}
                                         title={`Aggiungi tag: ${tag}`}
                                     >

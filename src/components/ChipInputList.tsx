@@ -89,8 +89,8 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                                   variant === 'subject' ? 'var(--md-sys-color-on-tertiary-container)' :
                                   'var(--md-sys-color-on-primary-container)',
                             borderRadius: 'var(--md-sys-shape-corner-large)',
-                            fontSize: 'var(--md-sys-typescale-body-small-size)',
-                            fontWeight: 'var(--md-sys-typescale-body-small-weight)',
+                            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                            fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
                             lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
                             animation: 'zoom-in-95 var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)-out',
                             cursor: 'pointer',

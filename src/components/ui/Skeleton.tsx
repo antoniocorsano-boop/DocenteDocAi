@@ -13,7 +13,7 @@ interface SkeletonProps {
 }
 
 export const Skeleton: React.FC<SkeletonProps> = ({
-  width = '100%',
+  width = 'var(--md-sys-percent-100)',
   height = 'var(--md-sys-spacing-4)',
   variant = 'rectangular',
   animation = 'pulse',

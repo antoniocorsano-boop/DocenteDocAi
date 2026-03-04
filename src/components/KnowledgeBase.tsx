@@ -157,7 +157,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     }
 
     return (
-        <div  style={{maxWidth: 'var(--md-sys-percent-100)', marginLeft: 'var(auto)', marginRight: 'var(auto)', width: 'var(--md-sys-percent-100)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
+        <div  style={{maxWidth: 'var(--md-sys-percent-100)', marginLeft: 'auto', marginRight: 'auto', width: 'var(--md-sys-percent-100)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
             <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <SectionHeader 
                     title="Knowledge Base" 
@@ -176,7 +176,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                 description="Puoi caricare qui le analisi o i progetti prodotti con NotebookLM. L'app li userà come base di conoscenza prioritaria per generare le tue lezioni e UDA."
                 icon="bolt"
                 variant="primary"
-                style={{ backgroundColor: sys.colors.primaryContainer/20 , marginBottom: 'var(--md-sys-spacing-8)'}}
+                style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent)' , marginBottom: 'var(--md-sys-spacing-8)'}}
             />
 
             <main >

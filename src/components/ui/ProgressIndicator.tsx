@@ -41,7 +41,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({
       >
         <div
           style={{
-            height: '100%',
+            height: 'var(--md-sys-percent-100)',
             width: '30%',
             backgroundColor: colorMap[color],
             animation: 'progress-indeterminate 2s var(--md-sys-motion-easing-standard) infinite',

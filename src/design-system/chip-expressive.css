@@ -32,6 +32,8 @@
 		transition: background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
 		            box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard),
 		            transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-emphasized);
+}
+
 .chip-expressive:hover {
 	background: var(--chip-bg-hover);
 }

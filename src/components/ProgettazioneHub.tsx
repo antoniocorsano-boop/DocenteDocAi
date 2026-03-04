@@ -64,12 +64,12 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
     };
 
     return (
-        <div  style={{marginLeft: 'var(auto)', marginRight: 'var(auto)', width: 'var(--md-sys-percent-100)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
+        <div style={{marginLeft: 'auto', marginRight: 'auto', width: 'var(--md-sys-percent-100)', maxWidth: 'var(--md-sys-layout-content-max-width, 1200px)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-8)', boxSizing: 'border-box'}}>
             
             {/* Header */}
-            <div  style={{ textAlign: "center" }}>
-                <h1 style={{fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>Progettazione</h1>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  marginLeft: 'var(auto)', marginRight: 'var(auto)', fontWeight: "var(--md-sys-typescale-weight-medium)" }}>
+            <div style={{ textAlign: "center", marginBottom: 'var(--md-sys-spacing-6)' }}>
+                <h1 style={{fontFamily: 'var(--font-family)', fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: 'var(--md-sys-typescale-headline-large-font-size)', color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-4)'}}>Progettazione</h1>
+                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', maxWidth: 'var(--md-sys-spacing-80)', marginLeft: 'auto', marginRight: 'auto', fontWeight: "var(--md-sys-typescale-weight-regular)" }}>
                     Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
                 </p>
             </div>
@@ -145,7 +145,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             icon="transform"
                             title="Importa & Ristruttura"
                             description="Converti vecchi file in documenti standard."
-                            color="colors.surfaceContainer"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => {
                                 console.log('Audit: Opened Smart Import Modal');
                                 setIsSmartImportOpen(true);
@@ -158,7 +158,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             icon="cloud_download"
                             title="Importa da NotebookLM"
                             description="Sfoglia e importa materiali dal tuo spazio Google NotebookLM."
-                            color="colors.surfaceContainer"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => {
                                 console.log('Audit: Opened NotebookLM Import Modal');
                                 setIsNotebookLMImportOpen(true);
@@ -170,7 +170,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             icon="folder_open"
                             title="Knowledge Base"
                             description="Archivio documenti."
-                            color="colors.surfaceContainer"
+                            color="var(--md-sys-color-surface-container)"
                             onClick={() => {
                                 console.log('Audit: Navigated to Knowledge Base');
                                 onNavigate('knowledge-base');

@@ -32,9 +32,9 @@ const GameMode: React.FC<GameModeProps> = ({ nodes = [] as readonly NKANode[] })
     >
       <h3
         style={{
-          fontFamily: 'var(--md-sys-typescale-headline-small-font)',
-          fontSize: 'var(--md-sys-typescale-headline-small-size)',
-          fontWeight: 'var(--md-sys-typescale-headline-small-weight)',
+          fontFamily: 'var(--font-family)',
+          fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+          fontWeight: 'var(--md-sys-typescale-headline-small-font-weight)',
           lineHeight: 'var(--md-sys-typescale-headline-small-line-height)',
           letterSpacing: 'var(--md-sys-typescale-headline-small-tracking)',
           color: 'var(--md-sys-color-on-surface)',

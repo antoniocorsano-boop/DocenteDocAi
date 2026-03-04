@@ -129,54 +129,21 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
             // onFocus={() => setFocused(true)}
             // onBlur={() => setFocused(false)}
         >
-            {/* Enhanced decorative background with gradient */}
-            <div
-                style={{
-                    position: 'absolute',
-                    top: `-${MD3_TOKENS.spacing16}`,
-                    right: `-${MD3_TOKENS.spacing16}`,
-                    width: MD3_TOKENS.spacing32,
-                    height: MD3_TOKENS.spacing32,
-                    filter: `blur(${MD3_TOKENS.blur48})`,
-                    pointerEvents: 'none',
-                    opacity: 'var(--md-sys-state-opacity-tint-subtle)',
-                    borderRadius: MD3_TOKENS.spacing32,
-                    background: `radial-gradient(circle, ${palette.accent}20 ${MD3_TOKENS.percent0}, transparent ${MD3_TOKENS.percent70})`
-                }}
-            ></div>
-
-            {/* Subtle accent bar */}
-            <div
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: MD3_TOKENS.spacing1,
-                    opacity: 'var(--md-sys-state-opacity-secondary)',
-                    backgroundColor: palette.accent,
-                    borderTopLeftRadius: MD3_TOKENS.cornerLarge,
-                    borderTopRightRadius: MD3_TOKENS.cornerLarge
-                }}
-            ></div>
-
-            <div style={{position: 'relative', zIndex: 'var(--md-sys-z-modal)', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: MD3_TOKENS.spacing4}}>
-                {/* MD3 z-index token */}
+            {/* Icon and arrow row */}
+            <div style={{position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: MD3_TOKENS.spacing4}}>
                 <div style={{
-                    width: MD3_TOKENS.spacing14,
-                    height: MD3_TOKENS.spacing14,
+                    width: 'var(--md-sys-spacing-10)',
+                    height: 'var(--md-sys-spacing-10)',
                     borderRadius: MD3_TOKENS.cornerLarge,
                     background: 'var(--md-sys-color-surface-container-high)',
-                    boxShadow: 'var(--md-sys-elevation-level2)',
-                    border: `${MD3_TOKENS.borderWidthNormal} solid var(--md-sys-color-outline-variant)`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0
                 }}>
                     <span className="material-symbols-outlined" style={{
-                        fontSize: 'var(--md-sys-typescale-display-large-font-size)',
-                        opacity: 'var(--md-sys-state-opacity-hover-overlay)',
+                        fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                        color: palette.accent,
                         userSelect: 'none',
                         fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"
                     }}>{icon}</span>
@@ -190,23 +157,22 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                 )}
             </div>
 
-            <div style={{position: 'relative', zIndex: 'var(--md-sys-z-modal)', flexGrow: 1, display: 'flex', flexDirection: 'column', gap: MD3_TOKENS.spacing4}}>
-                {/* MD3 z-index token */}
+            <div style={{flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)'}}>
                 <h3 style={{
-                    fontSize: 'var(--md-sys-typescale-title-large-font-size)',
-                    fontFamily: 'var(--md-sys-typescale-headline-small-font-family)',
-                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                    letterSpacing: '-0.005em',
-                    lineHeight: '1.25'
+                    fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
+                    fontFamily: 'var(--md-sys-typescale-title-medium-font-family)',
+                    fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)',
+                    letterSpacing: 'var(--md-sys-typescale-title-medium-letter-spacing)',
+                    lineHeight: 'var(--md-sys-typescale-title-medium-line-height)',
+                    color: 'var(--md-sys-color-on-surface)'
                 }}>{title}</h3>
                 <p style={{
-                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                    fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
-                    opacity: 'var(--md-sys-state-opacity-caption)',
-                    lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-                    fontWeight: 'var(--md-sys-typescale-weight-medium)',
+                    fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                    fontFamily: 'var(--md-sys-typescale-body-medium-font-family)',
+                    color: 'var(--md-sys-color-on-surface-variant)',
+                    lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
                     display: '-webkit-box',
-                    WebkitLineClamp: 3,
+                    WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical',
                     overflow: 'hidden'
                 }}>{description}</p>

@@ -18,7 +18,7 @@ const inputStyle: React.CSSProperties = {
   boxSizing: 'border-box',
   backgroundColor: 'var(--md-sys-color-surface-container-highest)',
   color: 'var(--md-sys-color-on-surface)',
-  fontFamily: 'var(--md-sys-typescale-body-large-font)',
+  fontFamily: 'var(--font-family)',
   fontSize: 'var(--md-sys-typescale-body-large-font-size)',
 };
 
@@ -37,7 +37,7 @@ const inputErrorStyle: React.CSSProperties = {
 const helperStyle: React.CSSProperties = {
   marginTop: 'var(--md-sys-spacing-1)',
   fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-  fontFamily: 'var(--md-sys-typescale-body-small-font)',
+  fontFamily: 'var(--font-family)',
   color: 'var(--md-sys-color-on-surface-variant)',
 };
 
@@ -74,8 +74,8 @@ function M3DatePicker({
           style={{display: 'block',
             marginBottom: 'var(--md-sys-spacing-2)', 
             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-            fontFamily: 'var(--md-sys-typescale-body-large-font)',
-            fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+            fontFamily: 'var(--font-family)',
+            fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
             color: 'var(--md-sys-color-on-surface)'}}
         >
           {label}

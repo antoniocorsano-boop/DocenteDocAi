@@ -146,7 +146,7 @@ const APPROVED_EXCEPTIONS = [
   { file: 'src\\components\\ui\\Skeleton.tsx', line: 32, type: 'inlineStyleTemporal', pattern: 'width,' },
   { file: 'src\\components\\ui\\Skeleton.tsx', line: 48, type: 'inlineStyleTemporal', pattern: "position: 'absolute'" },
   { file: 'src\\components\\ui\\ProgressIndicator.tsx', line: 48, type: 'hardcodedDuration', pattern: 'transformOrigin' },
-  { file: 'src\\components\\ui\\ProgressIndicator.tsx', line: 44, type: 'inlineStyleTemporal', pattern: "height: '100%'" },
+  { file: 'src\\components\\ui\\ProgressIndicator.tsx', line: 44, type: 'inlineStyleTemporal', pattern: "height: 'var(--md-sys-percent-100)'" },
   // TouchButton: multi-line scan false positive (spinner 0.8s is deep in file)
   { file: 'src\\components\\ui\\TouchButton.tsx', line: 126, type: 'hardcodedDuration', pattern: 'transform: isPressed' },
   { file: 'src\\components\\ui\\TouchButton.tsx', line: 126, type: 'hardcodedEasing', pattern: 'transform: isPressed' },

@@ -75,7 +75,7 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
         
         padding: 'var(--md-sys-spacing-4)',
         borderRadius: 'var(--md-sys-shape-corner-large)',
-        fontSize: 'var(--md-sys-typescale-body-small-size)',
+        fontSize: 'var(--md-sys-typescale-body-small-font-size)',
         lineHeight: 1.5,
         boxShadow: 'var(--md-sys-elevation-level1)',
         backgroundColor: isUser ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',

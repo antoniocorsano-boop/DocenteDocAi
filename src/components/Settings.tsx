@@ -1777,7 +1777,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             gap: 'var(--md-sys-spacing-4)',
                             marginBottom: 'var(--md-sys-spacing-4)'}}>
                             <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-primary)',
-                                fontSize: 'var(--md-sys-typescale-label-large-size)'}}>key</span>
+                                fontSize: 'var(--md-sys-typescale-label-large-font-size)'}}>key</span>
                             <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-primary)',
                                 fontWeight: 'var(--md-sys-typescale-weight-black)',
                                 textTransform: 'uppercase',
@@ -1800,7 +1800,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             gap: 'var(--md-sys-spacing-4)',
                             marginBottom: 'var(--md-sys-spacing-4)'}}>
                             <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-error)',
-                                fontSize: 'var(--md-sys-typescale-label-large-size)'}}>warning</span>
+                                fontSize: 'var(--md-sys-typescale-label-large-font-size)'}}>warning</span>
                             <M3Typography variant="label-small" style={{color: 'var(--md-sys-color-error)',
                                 fontWeight: 'var(--md-sys-typescale-weight-black)',
                                 textTransform: 'uppercase',
@@ -1812,7 +1812,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                              style={{width: 'var(--md-sys-percent-100)'}}
                         >
                             <span className="material-symbols-outlined" style={{marginRight: 'var(--md-sys-spacing-4)',
-                                fontSize: 'var(--md-sys-typescale-label-large-size)'}}>delete_forever</span>
+                                fontSize: 'var(--md-sys-typescale-label-large-font-size)'}}>delete_forever</span>
                             Reset Totale Dati
                         </M3Button>
                     </div>
@@ -1836,10 +1836,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         onClick={onLogout}
                         variant="text"
                         style={{marginTop: 'var(--md-sys-spacing-4)',
-                            marginLeft: 'var(auto)',
-                            marginRight: 'var(auto)',
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
                             height: 'var(--md-sys-spacing-4)',
-                            fontSize: 'var(--md-sys-typescale-label-small-size)',
+                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                             fontWeight: 'var(--md-sys-typescale-weight-black)',
                             textTransform: 'uppercase',
                             letterSpacing: 'var(--md-sys-typescale-label-small-tracking)',
@@ -1848,7 +1848,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             alignItems: 'center',
                             justifyContent: 'center'}}
                     >
-                        <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-label-large-size)',
+                        <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)',
                             marginRight: 'var(--md-sys-spacing-4)'}}>logout</span>
                         Esci dall'account
                     </M3Button>

@@ -52,8 +52,8 @@ const DashboardHeader: React.FC = () => {
       <div>
         <h1
           style={{
-            fontSize: 'var(--md-sys-typescale-headline-large-size)',
-            fontWeight: 'var(--md-sys-typescale-headline-large-weight)',
+            fontSize: 'var(--md-sys-typescale-headline-large-font-size)',
+            fontWeight: 'var(--md-sys-typescale-headline-large-font-weight)',
             lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)',
             marginBottom: 'var(--md-sys-spacing-2)',
             color: 'var(--md-sys-color-on-surface)'
@@ -63,8 +63,8 @@ const DashboardHeader: React.FC = () => {
         </h1>
         <p
           style={{
-            fontSize: 'var(--md-sys-typescale-body-large-size)',
-            fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+            fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
             lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
             color: 'var(--md-sys-color-on-surface-variant)'
           }}
@@ -90,8 +90,8 @@ const DashboardHeader: React.FC = () => {
         >
           <label
             style={{
-              fontSize: 'var(--md-sys-typescale-body-medium-size)',
-              fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
+              fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+              fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
               lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
               color: 'var(--md-sys-color-on-surface-variant)',
               cursor: 'pointer'
@@ -138,8 +138,8 @@ const DashboardHeader: React.FC = () => {
             gap: 'var(--md-sys-spacing-2)',
             padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
             borderRadius: 'var(--md-sys-shape-corner-medium)',
-            fontSize: 'var(--md-sys-typescale-label-large-size)',
-            fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+            fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+            fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
             lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
             transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
             backgroundColor: isLoading ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-primary)',
@@ -180,8 +180,8 @@ const DashboardHeader: React.FC = () => {
         {/* Last Update */}
         <div
           style={{
-            fontSize: 'var(--md-sys-typescale-body-small-size)',
-            fontWeight: 'var(--md-sys-typescale-body-small-weight)',
+            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+            fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
             lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
             color: 'var(--md-sys-color-on-surface-variant)'
           }}
@@ -361,7 +361,7 @@ const AlertsSection: React.FC = () => {
                 <span
                   style={{
                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                    fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+                    fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
                     color: 'var(--md-sys-color-on-surface)',
                   }}
                 >
@@ -456,7 +456,7 @@ export const Dashboard: React.FC = () => {
         <div
           style={{
             maxWidth: 'calc(var(--md-sys-layout-panel-max-width) * 1.6)', // 1280px using MD3 tokens
-            margin: '0 var(auto)',
+            margin: '0 auto',
             borderRadius: 'var(--md-sys-radius-3)',
             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-error)',
             backgroundColor: 'var(--md-sys-color-error-container)',
@@ -549,7 +549,7 @@ export const Dashboard: React.FC = () => {
               border: 'var(--md-sys-border-width-normal) solid transparent',
               borderTopColor: 'var(--md-sys-color-primary)',
               animation: 'spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite',
-              margin: '0 var(auto) var(--md-sys-spacing-4)',
+              margin: '0 auto var(--md-sys-spacing-4)',
             }}
           />
           <p
@@ -575,7 +575,7 @@ export const Dashboard: React.FC = () => {
         <div
           style={{
             maxWidth: 'calc(var(--md-sys-layout-panel-max-width) * 1.6)', // 1280px using MD3 tokens
-            margin: '0 var(auto)',
+            margin: '0 auto',
             textAlign: 'center',
           }}
         >
@@ -601,7 +601,7 @@ export const Dashboard: React.FC = () => {
       <div
         style={{
           maxWidth: 'calc(var(--md-sys-layout-panel-max-width) * 1.6)', // 1280px using MD3 tokens
-          margin: '0 var(auto)',
+          margin: '0 auto',
           display: 'flex',
           flexDirection: 'column',
           gap: 'var(--md-sys-spacing-8)',
@@ -799,7 +799,7 @@ export const Dashboard: React.FC = () => {
                 <div
                   style={{
                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                    fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+                    fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
                     marginBottom: 'var(--md-sys-spacing-1)',
                     color: 'var(--md-sys-color-on-surface-variant)',
                   }}
@@ -824,7 +824,7 @@ export const Dashboard: React.FC = () => {
                 <div
                   style={{
                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                    fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+                    fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
                     marginBottom: 'var(--md-sys-spacing-1)',
                     color: 'var(--md-sys-color-on-surface-variant)',
                   }}
@@ -849,7 +849,7 @@ export const Dashboard: React.FC = () => {
                 <div
                   style={{
                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                    fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+                    fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
                     marginBottom: 'var(--md-sys-spacing-1)',
                     color: 'var(--md-sys-color-on-surface-variant)',
                   }}
@@ -859,7 +859,7 @@ export const Dashboard: React.FC = () => {
                 <div
                   style={{
                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                    fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+                    fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
                     padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)',
                     borderRadius: 'var(--md-sys-radius-3)',
                     display: 'inline-block',

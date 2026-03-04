@@ -66,7 +66,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                         right: 0,
                         bottom: 0,
                         borderRadius: 'var(--md-sys-shape-corner-full)',
-                        background: `conic-gradient(from 0deg, transparent var(--md-sys-percent-0), var(--md-sys-color-primary) var(50%), var(--md-sys-color-tertiary) var(--md-sys-percent-100))`,
+                        background: `conic-gradient(from 0deg, transparent var(--md-sys-percent-0), var(--md-sys-color-primary) var(50%), var(--md-sys-color-tertiary) 100%)`,
                         maskImage: 'radial-gradient(closest-side, transparent var(--md-sys-percent-78), black var(--md-sys-percent-82))',
                         WebkitMaskImage: 'radial-gradient(closest-side, transparent var(--md-sys-percent-78), black var(--md-sys-percent-82))',
                         animation: `spin var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`
@@ -101,7 +101,7 @@ const AiThinkingGem: React.FC<AiThinkingGemProps> = ({ size = 'medium', text, in
                     style={{
                         fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
                         fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                        fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+                        fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
                         lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
                         color: 'var(--md-sys-color-primary)',
                         letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',

@@ -155,7 +155,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
         <button
           onClick={handleClearLogs}
-          style={{ backgroundColor: sys.colors.error, color: sys.colors.on-error , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", fontWeight: "var(--md-sys-typescale-weight-medium)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
+          style={{ backgroundColor: 'var(--md-sys-color-error)', color: 'var(--md-sys-color-on-error)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", fontWeight: "var(--md-sys-typescale-weight-medium)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
         >
           <span >delete</span>
           Clear All
@@ -183,7 +183,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                       {new Date(log.timestamp).toLocaleTimeString()}
                     </td>
                     <td style={{padding: 'var(--md-sys-spacing-5)'}}>
-                      <span style={{ backgroundColor: sys.colors.primary/10 , display: "inline-flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-medium)"}}>
+                      <span style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)' , display: "inline-flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-medium)"}}>
                         <span >
                           {getTypeIcon(log.type)}
                         </span>
@@ -204,7 +204,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
                         {log.severity}
                       </span>
                     </td>
-                    <td style={{ color: sys.colors.ellipsis , padding: 'var(--md-sys-spacing-6)'}}>
+                    <td style={{ color: 'inherit' , padding: 'var(--md-sys-spacing-6)'}}>
                       <span title={log.message}>{log.message}</span>
                     </td>
                     <td style={{padding: 'var(--md-sys-spacing-5)'}}>
@@ -233,7 +233,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
       {/* Most Recent Error */}
       {stats.mostRecent && (
-        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.error/10 , marginTop: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-error) 10%, transparent)' , marginTop: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
           <div  style={{color: "var(--md-sys-color-error)", marginBottom: 'var(--md-sys-spacing-8)'}}>Most Recent Error</div>
           <div >
             <div>

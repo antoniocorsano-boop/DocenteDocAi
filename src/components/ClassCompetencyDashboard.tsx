@@ -113,13 +113,13 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', display: "flex", borderRadius: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-1)' }}>
                     <button 
                         onClick={() => setSortBy('competency')} 
-                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-large-weight-medium)', color: 'var(--md-sys-color-on-primary)'}}
+                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-large-font-weight-medium)', color: 'var(--md-sys-color-on-primary)'}}
                     >
                         Alfabetico
                     </button>
                     <button 
                         onClick={() => setSortBy('performance')} 
-                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-large-weight-medium)', color: 'var(--md-sys-color-on-primary)'}}
+                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-large-font-weight-medium)', color: 'var(--md-sys-color-on-primary)'}}
                     >
                         Rendimento
                     </button>
@@ -180,7 +180,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                             style={{padding: 'var(--md-sys-spacing-8)'}}
                                         >
                                             <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                                                <div style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 'var(--md-sys-typescale-body-large-weight-bold)'}}>
+                                                <div style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 'var(--md-sys-typescale-body-large-font-weight-bold)'}}>
                                                     {lc.level.nome.charAt(0)}
                                                 </div>
                                                 <div style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-display-large-font-size)', fontWeight: 'var(--md-sys-typescale-display-large-font-size-weight)' }}>{lc.count}</div>
@@ -227,7 +227,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                                     <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{student.cognome} {student.nome}</p>
                                                     <div  style={{ display: "flex", alignItems: "center" }}>
                                                         <span style={{borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: viewingStudents.levelColor, width: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-spacing-6)'}}></span>
-                                                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-size)" }}>Livello raggiunto</span>
+                                                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>Livello raggiunto</span>
                                                     </div>
                                                 </div>
                                             </div>

@@ -108,7 +108,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
   paddingBottom: 'var(--md-sys-spacing-4)'}}>
         {!isAuthenticated ? (
           <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
-            <div style={{ backgroundColor: sys.colors.primary/10 , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
+            <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
               <span style={{ color: 'var(--md-sys-color-primary)' }}>cloud_off</span>
             </div>
             <h3 style={{fontSize: "var(--md-sys-typescale-title-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Connessione Google Richiesta</h3>

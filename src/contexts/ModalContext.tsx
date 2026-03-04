@@ -151,8 +151,8 @@ const [stack, setStack] = useState<ModalInstance[]>([]);
       container.style.top = '0';
       container.style.left = '0';
       // MD3 Exception: overlay/modal root must fill viewport, no MD3 token available
-      container.style.width = '100%'; // Exception documented
-      container.style.height = '100%'; // Exception documented
+      container.style.width = 'var(--md-sys-percent-100)'; // Exception documented
+      container.style.height = 'var(--md-sys-percent-100)'; // Exception documented
       container.style.pointerEvents = 'auto'; // Allow interactions when modals are present
       container.style.zIndex = 'var(--md-sys-z-modal)'; // Use semantic z-index
       document.body.appendChild(container);

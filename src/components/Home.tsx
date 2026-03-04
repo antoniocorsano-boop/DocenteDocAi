@@ -151,7 +151,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-4) calc(var(--md-sys-spacing-20) + env(safe-area-inset-bottom, 0px))',
           maxWidth: 'var(--md-sys-layout-content-max-width)',
           margin: '0 auto',
-          width: '100%',
+          width: 'var(--md-sys-percent-100)',
           boxSizing: 'border-box',
         }}
       >
@@ -207,46 +207,44 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             as="div"
             role="button"
             tabIndex={0}
-            stateColor="var(--md-sys-color-on-primary-container)"
+            stateColor="var(--md-sys-color-on-surface)"
             onClick={() => onNavigate('aula')}
             onKeyDown={e => e.key === 'Enter' && onNavigate('aula')}
             aria-label={`${students?.length ?? 0} studenti — vai a Classi`}
             style={{
               borderRadius: 'var(--md-sys-shape-corner-large)',
-              background: 'var(--md-sys-color-primary-container)',
-              padding: 'var(--md-sys-spacing-5)',
+              background: 'var(--md-sys-color-surface-container-low)',
+              padding: 'var(--md-sys-spacing-4)',
               cursor: 'pointer',
-              aspectRatio: '1 / 1',
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'space-between',
+              gap: 'var(--md-sys-spacing-3)',
             }}
           >
             <span
               className="material-symbols-outlined"
               aria-hidden="true"
               style={{
-                fontSize: 'var(--md-sys-spacing-8)',
-                color: 'var(--md-sys-color-on-primary-container)',
-                fontVariationSettings: '"FILL" 1',
+                fontSize: 'var(--md-sys-spacing-6)',
+                color: 'var(--md-sys-color-primary)',
+                fontVariationSettings: '"FILL" 0',
               }}
             >group</span>
             <div>
               <div style={{
-                fontFamily: 'var(--md-sys-typescale-display-small-font)',
-                fontSize: 'var(--md-sys-typescale-display-small-size)',
-                fontWeight: 'var(--md-sys-typescale-display-small-weight)',
-                lineHeight: 1,
-                color: 'var(--md-sys-color-on-primary-container)',
+                fontFamily: 'var(--font-family)',
+                fontSize: 'var(--md-sys-typescale-headline-medium-font-size)',
+                fontWeight: 'var(--md-sys-typescale-headline-medium-font-weight)',
+                lineHeight: 'var(--md-sys-typescale-headline-medium-line-height)',
+                color: 'var(--md-sys-color-on-surface)',
               }}>
                 {students?.length ?? 0}
               </div>
               <div style={{
-                marginTop: 'var(--md-sys-spacing-1)',
-                fontFamily: 'var(--md-sys-typescale-label-medium-font)',
-                fontSize: 'var(--md-sys-typescale-label-medium-size)',
-                fontWeight: 'var(--md-sys-typescale-label-medium-weight)',
-                color: 'color-mix(in srgb, var(--md-sys-color-on-primary-container) 75%, transparent)',
+                fontFamily: 'var(--font-family)',
+                fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
+                fontWeight: 'var(--md-sys-typescale-label-medium-font-weight)',
+                color: 'var(--md-sys-color-on-surface-variant)',
               }}>Studenti</div>
             </div>
           </M3StateLayer>
@@ -256,46 +254,44 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             as="div"
             role="button"
             tabIndex={0}
-            stateColor="var(--md-sys-color-on-tertiary-container)"
+            stateColor="var(--md-sys-color-on-surface)"
             onClick={() => onNavigate('evaluations' as View)}
             onKeyDown={e => e.key === 'Enter' && onNavigate('evaluations' as View)}
             aria-label={`${evaluations?.length ?? 0} valutazioni`}
             style={{
               borderRadius: 'var(--md-sys-shape-corner-large)',
-              background: 'var(--md-sys-color-tertiary-container)',
-              padding: 'var(--md-sys-spacing-5)',
+              background: 'var(--md-sys-color-surface-container-low)',
+              padding: 'var(--md-sys-spacing-4)',
               cursor: 'pointer',
-              aspectRatio: '1 / 1',
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'space-between',
+              gap: 'var(--md-sys-spacing-3)',
             }}
           >
             <span
               className="material-symbols-outlined"
               aria-hidden="true"
               style={{
-                fontSize: 'var(--md-sys-spacing-8)',
-                color: 'var(--md-sys-color-on-tertiary-container)',
-                fontVariationSettings: '"FILL" 1',
+                fontSize: 'var(--md-sys-spacing-6)',
+                color: 'var(--md-sys-color-tertiary)',
+                fontVariationSettings: '"FILL" 0',
               }}
             >grading</span>
             <div>
               <div style={{
-                fontFamily: 'var(--md-sys-typescale-display-small-font)',
-                fontSize: 'var(--md-sys-typescale-display-small-size)',
-                fontWeight: 'var(--md-sys-typescale-display-small-weight)',
-                lineHeight: 1,
-                color: 'var(--md-sys-color-on-tertiary-container)',
+                fontFamily: 'var(--font-family)',
+                fontSize: 'var(--md-sys-typescale-headline-medium-font-size)',
+                fontWeight: 'var(--md-sys-typescale-headline-medium-font-weight)',
+                lineHeight: 'var(--md-sys-typescale-headline-medium-line-height)',
+                color: 'var(--md-sys-color-on-surface)',
               }}>
                 {evaluations?.length ?? 0}
               </div>
               <div style={{
-                marginTop: 'var(--md-sys-spacing-1)',
-                fontFamily: 'var(--md-sys-typescale-label-medium-font)',
-                fontSize: 'var(--md-sys-typescale-label-medium-size)',
-                fontWeight: 'var(--md-sys-typescale-label-medium-weight)',
-                color: 'color-mix(in srgb, var(--md-sys-color-on-tertiary-container) 75%, transparent)',
+                fontFamily: 'var(--font-family)',
+                fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
+                fontWeight: 'var(--md-sys-typescale-label-medium-font-weight)',
+                color: 'var(--md-sys-color-on-surface-variant)',
               }}>Valutazioni</div>
             </div>
           </M3StateLayer>

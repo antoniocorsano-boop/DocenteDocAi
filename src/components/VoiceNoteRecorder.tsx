@@ -209,7 +209,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
                     ? 'var(--md-sys-color-on-error-container)' 
                     : 'var(--md-sys-color-on-secondary-container)',
                 fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+                fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
                 cursor: isProcessing ? 'not-allowed' : 'pointer',
                 opacity: isProcessing ? 0.6 : 1,
                 transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',

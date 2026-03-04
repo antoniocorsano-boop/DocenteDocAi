@@ -349,7 +349,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                         >
                             {idx + 1}
                         </div>
-                        <span style={{ fontSize: 'var(--md-sys-typescale-body-small-size)', textAlign: 'center', color: 'var(--md-sys-color-on-surface)' }}>
+                        <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', textAlign: 'center', color: 'var(--md-sys-color-on-surface)' }}>
                             {label} {isDone ? '(Completato)' : isActive ? '(Corrente)' : ''}
                         </span>
                         {idx < 5 && (
@@ -451,7 +451,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                 color: situationTags.includes(tag) ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
                                                 cursor: 'pointer',
                                                 transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-                                                fontSize: 'var(--md-sys-typescale-body-small-size)'
+                                                fontSize: 'var(--md-sys-typescale-body-small-font-size)'
                                             }}
                                             title={`Aggiungi tag: ${tag}`}
                                         >
@@ -618,7 +618,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </p>
                                             <h4 style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>{item.uda.title}</h4>
                                             <div style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: 'var(--md-sys-color-on-surface-variant)' }}>
-                                                <span className="material-symbols-outlined" style={{  fontSize: "var(--md-sys-typescale-body-small-size)"  }}>schedule</span>
+                                                <span className="material-symbols-outlined" style={{  fontSize: "var(--md-sys-typescale-body-small-font-size)"  }}>schedule</span>
                                                 <span>{item.uda.hours} ore stimate</span>
                                             </div>
                                         </div>

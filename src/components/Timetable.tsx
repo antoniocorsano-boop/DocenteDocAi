@@ -85,8 +85,8 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 flexDirection: 'column',
                 gap: 'var(--md-sys-spacing-6)',
                 maxWidth: 'var(--md-sys-spacing-80)',
-                marginLeft: 'var(auto)',
-                marginRight: 'var(auto)'}}>
+                marginLeft: 'auto',
+                marginRight: 'auto'}}>
                 {/* HEADER: MD3 Command Island */}
                 <div style={{display: 'flex',
                     alignItems: 'center',

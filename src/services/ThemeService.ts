@@ -43,7 +43,7 @@ export const ThemeService = {
       motionEasing: 'var(--md-sys-motion-easing-emphasized)',
       cornerRadius: 'var(--md-sys-shape-corner-extra-large)',
       spacingScale: 1.3,
-      fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
+      fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
       elevationLevel: 2
     } as EmotionalPresetTokens,
     focused: {
@@ -87,7 +87,7 @@ export const ThemeService = {
       motionEasing: 'var(--md-sys-motion-easing-emphasized-accelerate)',
       cornerRadius: 'var(--md-sys-shape-corner-large)',
       spacingScale: 1.1,
-      fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
+      fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
       elevationLevel: 4
     } as EmotionalPresetTokens,
     minimal: {

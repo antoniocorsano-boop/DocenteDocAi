@@ -47,7 +47,7 @@ export const Basic: Story = {
             <p style={{ margin: `0 0 var(--md-sys-spacing-3) 0`, color: 'var(--md-sys-color-onSurface)' }}>
               This is a basic popover with some content.
             </p>
-            <p style={{ margin: '0', color: 'var(--md-sys-color-onSurface-variant)', fontSize: 'var(--md-sys-typescale-body-small-size)' }}>
+            <p style={{ margin: '0', color: 'var(--md-sys-color-onSurface-variant)', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>
               Click outside to close.
             </p>
           </div>
@@ -94,7 +94,7 @@ export const WithActions: Story = {
                 cursor: 'pointer',
                 textAlign: 'left',
                 color: 'var(--md-sys-color-onSurface)',
-                fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                 transition: 'background-color var(var(--md-sys-motion-duration-short)4) var(var(--md-sys-motion-easing-standard))',
               }}
               onMouseEnter={() => {
@@ -118,7 +118,7 @@ export const WithActions: Story = {
                 cursor: 'pointer',
                 textAlign: 'left',
                 color: 'var(--md-sys-color-error)',
-                fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                 transition: 'background-color var(var(--md-sys-motion-duration-short)4) var(var(--md-sys-motion-easing-standard))',
               }}
               onMouseEnter={() => {
@@ -211,7 +211,7 @@ export const ScrollableContent: Story = {
                   cursor: 'pointer',
                   textAlign: 'left',
                   color: 'var(--md-sys-color-onSurface)',
-                  fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                  fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                   transition: 'background-color var(var(--md-sys-motion-duration-short)4) var(var(--md-sys-motion-easing-standard))',
                   borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                 }}
@@ -270,7 +270,7 @@ export const NoBackdrop: Story = {
                   cursor: 'pointer',
                   textAlign: 'left',
                   color: 'var(--md-sys-color-onSurface)',
-                  fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                  fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                   transition: 'background-color var(var(--md-sys-motion-duration-short)4) var(var(--md-sys-motion-easing-standard))',
                 }}
                 onMouseEnter={() => {

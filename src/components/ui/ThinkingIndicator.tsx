@@ -17,12 +17,12 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
     small: {
       fontSize: 'var(--md-sys-typescale-body-large-font-size)',
       lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-      fontWeight: 'var(--md-sys-typescale-body-large-weight)'
+      fontWeight: 'var(--md-sys-typescale-body-large-font-weight)'
     },
     medium: {
       fontSize: 'var(--md-sys-typescale-body-large-font-size)',
       lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-      fontWeight: 'var(--md-sys-typescale-body-large-weight)'
+      fontWeight: 'var(--md-sys-typescale-body-large-font-weight)'
     },
     large: {
       fontSize: 'var(--md-sys-typescale-title-large-font-size)',
@@ -108,7 +108,7 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
           style={{
             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
             color: 'var(--md-sys-color-primary)',
-            fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+            fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
             lineHeight: 'var(--md-sys-typescale-body-large-line-height)'
           }}
         >

@@ -267,7 +267,7 @@ const renderHeader = () => {
                                 justifyContent: 'center',
                                 width: 'var(--md-sys-spacing-7)',
                                 height: 'var(--md-sys-spacing-7)',
-                                fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                 fontWeight: isToday ? 700 : 500,
                                 color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
                                 background: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
@@ -281,7 +281,7 @@ const renderHeader = () => {
                                         key={ev.id || idx} 
                                         style={{
                                             padding: 'var(--md-sys-spacing-0_5) var(--md-sys-spacing-2)',
-                                            fontSize: 'var(--md-sys-typescale-body-small-size)',
+                                            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                                             fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                             borderRadius: 'var(--md-sys-shape-corner-extra-small)',
                                             whiteSpace: 'nowrap',
@@ -329,7 +329,7 @@ const renderHeader = () => {
                             borderRight: i < 6 ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' : 'none'
                         }}>
                             <div style={{
-                                fontSize: 'var(--md-sys-typescale-label-small-size)',
+                                fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                                 fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                 color: 'var(--md-sys-color-on-surface-variant)',
                                 textTransform: 'uppercase',
@@ -339,7 +339,7 @@ const renderHeader = () => {
                                 {DAYS_SHORT[i]}
                             </div>
                             <div style={{
-                                fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                 fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                 color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
                                 background: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
@@ -378,7 +378,7 @@ const renderHeader = () => {
                                                 key={ev.id || idx} 
                                                 style={{
                                                     padding: 'var(--md-sys-spacing-0_5) var(--md-sys-spacing-2)',
-                                                    fontSize: 'var(--md-sys-typescale-body-small-size)',
+                                                    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                                                     fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                                     borderRadius: 'var(--md-sys-shape-corner-extra-small)',
                                                     whiteSpace: 'nowrap',

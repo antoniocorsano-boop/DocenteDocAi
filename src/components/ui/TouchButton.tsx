@@ -115,7 +115,7 @@ export const TouchButton: React.FC<TouchButtonProps> = ({
         alignItems: 'center',
         justifyContent: 'center',
         gap: 'var(--md-sys-spacing-2)',
-        width: fullWidth ? '100%' : 'auto',
+        width: fullWidth ? 'var(--md-sys-percent-100)' : 'auto',
         minHeight: sizeMap.minHeight,
         padding: sizeMap.padding,
         fontSize: sizeMap.fontSize,

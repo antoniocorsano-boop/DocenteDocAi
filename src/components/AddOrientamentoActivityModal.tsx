@@ -95,7 +95,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                 }}>
                     <label style={{
                       fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                      fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+                      fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
                       lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
                       color: 'var(--md-sys-color-on-surface-variant)'
                     }}>Classi Coinvolte</label>

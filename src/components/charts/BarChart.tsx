@@ -38,7 +38,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
   };
   
   const renderVertical = () => (
-    <svg width="100%" height={chartHeight} viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="xMidYMid meet">
+    <svg width="var(--md-sys-percent-100)" height={chartHeight} viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="xMidYMid meet">
       {data.map((d, i) => {
         const barHeight = (d.value / maxValue) * chartHeight;
         return (
@@ -74,7 +74,7 @@ const BarChart: React.FC<BarChartProps> = ({ data, color, horizontal = false }) 
     const rowHeight = (chartHeight / data.length);
     const barHeight = rowHeight * 0.7;
     return (
-        <svg width="100%" height={chartHeight} viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="xMidYMid meet">
+        <svg width="var(--md-sys-percent-100)" height={chartHeight} viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="xMidYMid meet">
             {data.map((d, i) => {
                 const yPos = i * rowHeight;
                 const barLength = (d.value / maxValue) * (chartWidth - LABEL_SPACE); // LABEL_SPACE for labels

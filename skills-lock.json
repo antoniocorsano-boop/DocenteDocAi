@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "skills": {
+    "material-3-expressive": {
+      "source": "albermonte/android-skills",
+      "sourceType": "github",
+      "computedHash": "126f15d8ef1eaf8fc846881ce5bb5018110f19b5d0aff456e0df3b9a63ac95a7"
+    },
+    "material-design-3": {
+      "source": "7spade/black-tortoise",
+      "sourceType": "manual",
+      "note": "Installed manually - original repo unavailable"
+    },
+    "ui-ux-designer": {
+      "source": "lotosbin/claude-skills",
+      "sourceType": "github",
+      "computedHash": "dd0a1b69d9e3abbdc4ccc8ebdde663ab7e01df70f433b8695c06b9cd7d089df6"
+    },
+    "ui-ux-pro-max": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "computedHash": "4cfe5e95a230616c17d92b44e3cd37bae543ce087a7756a446a62f77d7c58a37"
+    }
+  }
+}

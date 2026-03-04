@@ -176,7 +176,7 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
     >
       {/* Backdrop with M3 blur effect */}
       <div
-        style={{ backgroundColor: sys.colors.black/40 }}
+        style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-scrim) 40%, transparent)' }}
         aria-hidden="true"
       />
 

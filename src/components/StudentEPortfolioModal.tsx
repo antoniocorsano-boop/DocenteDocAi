@@ -111,7 +111,7 @@ const StudentEPortfolioModal: React.FC<StudentEPortfolioModalProps> = ({
                                 <div key={entry.id} style={{ backgroundColor: 'var(--md-sys-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", justifyContent: "space-between", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                                     <div>
                                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                                            <span  style={{color: "var(--md-sys-color-primary)", fontSize: "var(--md-sys-typescale-body-medium-size)"}}>
+                                            <span  style={{color: "var(--md-sys-color-primary)", fontSize: "var(--md-sys-typescale-body-medium-font-size)"}}>
                                                 {entry.category === 'capolavoro' ? 'auto_awesome' : 'description'}
                                             </span>
                                             <span style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{entry.title}</span>

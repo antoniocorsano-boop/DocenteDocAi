@@ -102,7 +102,7 @@ const APPROVED_EXCEPTIONS = [
   { file: 'src\\components\\ui\\ResponsiveContainer.tsx', line: 30, type: 'inlineStyleLayout', pattern: 'style={{' },
   { file: 'src\\components\\ui\\SelectField.tsx', line: 83, type: 'inlineStyleLayout', pattern: 'style={{' },
   { file: 'src\\components\\ui\\SelectField.tsx', line: 99, type: 'inlineStyleLayout', pattern: 'style={{' },
-  { file: 'src\\components\\ui\\TabGroup.tsx', line: 176, type: 'inlineStyleLayout', pattern: 'style={{' },
+  { file: 'src\\components\\ui\\TabGroup.tsx', line: 178, type: 'inlineStyleLayout', pattern: 'style={{' },
   { file: 'src\\components\\ui\\Tooltip.tsx', line: 118, type: 'inlineStyleLayout', pattern: 'style={{' },
 
   // ── InlineStyleMotion: spinner / loader semantic animations ─────────────

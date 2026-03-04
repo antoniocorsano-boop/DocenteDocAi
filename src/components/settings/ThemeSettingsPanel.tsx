@@ -33,14 +33,14 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       boxShadow: 'var(--md-sys-elevation-level2)',
       maxWidth: 'var(--md-sys-layout-panel-max-width)',
       marginTop: 0,
-      marginLeft: 'var(auto)',
+      marginLeft: 'auto',
       marginBottom: 0,
-      marginRight: 'var(auto)'
+      marginRight: 'auto'
     }}>
       <h2 style={{
-        fontFamily: 'var(--md-sys-typescale-headline-small-font)',
-        fontSize: 'var(--md-sys-typescale-headline-small-size)',
-        fontWeight: 'var(--md-sys-typescale-headline-small-weight)',
+        fontFamily: 'var(--font-family)',
+        fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+        fontWeight: 'var(--md-sys-typescale-headline-small-font-weight)',
         lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)',
         marginBottom: 'var(--md-sys-spacing-4)'
       }}>Theme Settings</h2>
@@ -48,9 +48,9 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       {/* Dark Mode Toggle */}
       <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
         <label style={{
-          fontFamily: 'var(--md-sys-typescale-body-large-font)',
-          fontSize: 'var(--md-sys-typescale-body-large-size)',
-          fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+          fontFamily: 'var(--font-family)',
+          fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+          fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
           lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
           display: 'flex',
           alignItems: 'center',
@@ -69,9 +69,9 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       {/* Color Overrides */}
       <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
         <h3 style={{
-          fontFamily: 'var(--md-sys-typescale-title-large-font)',
-          fontSize: 'var(--md-sys-typescale-title-large-size)',
-          fontWeight: 'var(--md-sys-typescale-title-large-weight)',
+          fontFamily: 'var(--font-family)',
+          fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+          fontWeight: 'var(--md-sys-typescale-title-large-font-weight)',
           lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)'
         }}>Color Overrides (MD3 System Colors)</h3>
         <div style={{
@@ -94,9 +94,9 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
               borderRadius: 'var(--md-sys-shape-corner-medium)'
             }}>
               <label style={{
-                fontFamily: 'var(--md-sys-typescale-label-large-font)',
-                fontSize: 'var(--md-sys-typescale-label-large-size)',
-                fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+                fontFamily: 'var(--font-family)',
+                fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
                 lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
                 display: 'block',
                 marginBottom: 'var(--md-sys-spacing-1)'
@@ -112,8 +112,8 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
                 justifyContent: 'center'
               }}>
                 <span style={{
-                  fontFamily: 'var(--md-sys-typescale-label-medium-font)',
-                  fontSize: 'var(--md-sys-typescale-label-medium-size)',
+                  fontFamily: 'var(--font-family)',
+                  fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
                   color: 'var(--md-sys-color-on-surface)'
                 }}>{value}</span>
               </div>
@@ -125,9 +125,9 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       {/* Typography Overrides */}
       <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
         <h3 style={{
-          fontFamily: 'var(--md-sys-typescale-title-large-font)',
-          fontSize: 'var(--md-sys-typescale-title-large-size)',
-          fontWeight: 'var(--md-sys-typescale-title-large-weight)',
+          fontFamily: 'var(--font-family)',
+          fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+          fontWeight: 'var(--md-sys-typescale-title-large-font-weight)',
           lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)'
         }}>Typography Scale (MD3 System)</h3>
         <div style={{
@@ -137,10 +137,10 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
           marginTop: 'var(--md-sys-spacing-2)'
         }}>
           {[
-            { key: 'display', label: 'Display', fontSize: 'var(--md-sys-typescale-display-large-size)', fontFamily: 'var(--md-sys-typescale-display-large-font)' },
-            { key: 'headline', label: 'Headline', fontSize: 'var(--md-sys-typescale-headline-large-size)', fontFamily: 'var(--md-sys-typescale-headline-large-font)' },
-            { key: 'title', label: 'Title', fontSize: 'var(--md-sys-typescale-title-large-size)', fontFamily: 'var(--md-sys-typescale-title-large-font)' },
-            { key: 'body', label: 'Body', fontSize: 'var(--md-sys-typescale-body-large-size)', fontFamily: 'var(--md-sys-typescale-body-large-font)' }
+            { key: 'display', label: 'Display', fontSize: 'var(--md-sys-typescale-display-large-font-size)', fontFamily: 'var(--font-family)' },
+            { key: 'headline', label: 'Headline', fontSize: 'var(--md-sys-typescale-headline-large-font-size)', fontFamily: 'var(--font-family)' },
+            { key: 'title', label: 'Title', fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontFamily: 'var(--font-family)' },
+            { key: 'body', label: 'Body', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontFamily: 'var(--font-family)' }
           ].map(({ key, label, fontSize, fontFamily }) => (
             <div key={key} style={{
               padding: 'var(--md-sys-spacing-2)',
@@ -148,9 +148,9 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
               borderRadius: 'var(--md-sys-shape-corner-medium)'
             }}>
               <label style={{
-                fontFamily: 'var(--md-sys-typescale-label-large-font)',
-                fontSize: 'var(--md-sys-typescale-label-large-size)',
-                fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+                fontFamily: 'var(--font-family)',
+                fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
                 lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
                 display: 'block',
                 marginBottom: 'var(--md-sys-spacing-1)'
@@ -177,9 +177,9 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       {/* Spacing Overrides */}
       <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
         <h3 style={{
-          fontFamily: 'var(--md-sys-typescale-title-large-font)',
-          fontSize: 'var(--md-sys-typescale-title-large-size)',
-          fontWeight: 'var(--md-sys-typescale-title-large-weight)',
+          fontFamily: 'var(--font-family)',
+          fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+          fontWeight: 'var(--md-sys-typescale-title-large-font-weight)',
           lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)'
         }}>Spacing Scale (MD3 System)</h3>
         <div style={{
@@ -202,9 +202,9 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
               borderRadius: 'var(--md-sys-shape-corner-medium)'
             }}>
               <label style={{
-                fontFamily: 'var(--md-sys-typescale-label-large-font)',
-                fontSize: 'var(--md-sys-typescale-label-large-size)',
-                fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+                fontFamily: 'var(--font-family)',
+                fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
                 lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
                 display: 'block',
                 marginBottom: 'var(--md-sys-spacing-1)'
@@ -224,9 +224,9 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       {/* Motion Overrides */}
       <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
         <h3 style={{
-          fontFamily: 'var(--md-sys-typescale-title-large-font)',
-          fontSize: 'var(--md-sys-typescale-title-large-size)',
-          fontWeight: 'var(--md-sys-typescale-title-large-weight)',
+          fontFamily: 'var(--font-family)',
+          fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+          fontWeight: 'var(--md-sys-typescale-title-large-font-weight)',
           lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)'
         }}>Motion & Easing (MD3 System)</h3>
         <div style={{
@@ -247,16 +247,16 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
               borderRadius: 'var(--md-sys-shape-corner-medium)'
             }}>
               <label style={{
-                fontFamily: 'var(--md-sys-typescale-label-large-font)',
-                fontSize: 'var(--md-sys-typescale-label-large-size)',
-                fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+                fontFamily: 'var(--font-family)',
+                fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
                 lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
                 display: 'block',
                 marginBottom: 'var(--md-sys-spacing-1)'
               }}>{label}</label>
               <div style={{
-                fontFamily: 'var(--md-sys-typescale-body-medium-font)',
-                fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                fontFamily: 'var(--font-family)',
+                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                 color: 'var(--md-sys-color-on-surface)',
                 padding: 'var(--md-sys-spacing-1)',
                 backgroundColor: 'var(--md-sys-color-surface)',

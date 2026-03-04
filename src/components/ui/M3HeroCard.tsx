@@ -100,9 +100,9 @@ const M3HeroCard: React.FC<M3HeroCardProps> = ({
         {/* Headline */}
         <div
           style={{
-            fontFamily: 'var(--md-sys-typescale-headline-large-font)',
-            fontSize: 'var(--md-sys-typescale-headline-large-size)',
-            fontWeight: 'var(--md-sys-typescale-headline-large-weight)',
+            fontFamily: 'var(--font-family)',
+            fontSize: 'var(--md-sys-typescale-headline-large-font-size)',
+            fontWeight: 'var(--md-sys-typescale-headline-large-font-weight)',
             lineHeight: 'var(--md-sys-typescale-headline-large-line-height)',
             letterSpacing: 'var(--md-sys-typescale-headline-large-tracking)',
             color: tokens.fg,
@@ -116,9 +116,9 @@ const M3HeroCard: React.FC<M3HeroCardProps> = ({
           <div
             style={{
               marginTop: 'var(--md-sys-spacing-2)',
-              fontFamily: 'var(--md-sys-typescale-body-large-font)',
-              fontSize: 'var(--md-sys-typescale-body-large-size)',
-              fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+              fontFamily: 'var(--font-family)',
+              fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+              fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
               lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
               color: tokens.fgSub,
             }}

@@ -57,7 +57,7 @@ const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
     return (
         <div style={cardStyle}>
             <div >
-                <span  style={{ fontSize: "var(--md-sys-typescale-headline-medium-size)" }}>
+                <span  style={{ fontSize: "var(--md-sys-typescale-headline-medium-font-size)" }}>
                     {cardClass === 'level-avanzato' ? 'workspace_premium' : 
                      cardClass === 'level-intermedio' ? 'star' :
                      cardClass === 'level-base' ? 'verified' :

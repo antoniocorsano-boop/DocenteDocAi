@@ -177,15 +177,15 @@ export const Filters: Story = {
                 border: 'none',
                 borderRadius: 'var(--md-sys-shape-corner-full)',
                 cursor: 'pointer',
-                fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
+                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
               }}
             >
               {filter}
             </button>
           ))}
         </div>
-        <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', color: 'var(--md-sys-color-onSurface-variant)' }}>
+        <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-onSurface-variant)' }}>
           Selected: {selected.join(', ')}
         </p>
       </div>
@@ -236,7 +236,7 @@ export const InputChips: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)', maxWidth: layers.ref.spacing['4'] }}>
         <div>
-          <label style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-2)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)' }}>
+          <label style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-2)', fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)' }}>
             Add Recipients (type and press Enter)
           </label>
           <input

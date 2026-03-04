@@ -62,10 +62,10 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
     return (
         <div  style={{display: "flex", flexDirection: "column", backgroundColor: "var(--md-sys-color-surface)"}}>
             {/* Left Side: Hero & Branding (Visible on Desktop) */}
-            <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: sys.colors.secondary-container/20 ,  display: "none", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-secondary-container) 20%, transparent)' ,  display: "none", alignItems: "center", justifyContent: "center" }}>
                 {/* Aura Ornaments */}
-                <div style={{ backgroundColor: sys.colors.secondary/10 ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
-                <div style={{ backgroundColor: sys.colors.tertiary/10 ,  borderRadius: 'var(--md-sys-spacing-4)', animationDelay: 'var(--md-sys-motion-duration-long)' }} />
+                <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-secondary) 10%, transparent)' ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
+                <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-tertiary) 10%, transparent)' ,  borderRadius: 'var(--md-sys-spacing-4)', animationDelay: 'var(--md-sys-motion-duration-long)' }} />
                 
                 <div >
                     <div style={{display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)'}}>
@@ -73,11 +73,11 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                             <Logo />
                         </div>
                         <div style={{gap: 'var(--md-sys-spacing-2)'}}>
-                            <span  style={{fontSize: "var(--md-sys-typescale-body-small-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", color: "var(--md-sys-color-secondary)", opacity: "var(--md-sys-state-opacity-supporting)"}}>Portale Studenti</span>
+                            <span  style={{fontSize: "var(--md-sys-typescale-body-small-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", color: "var(--md-sys-color-secondary)", opacity: "var(--md-sys-state-opacity-supporting)"}}>Portale Studenti</span>
                             <h1 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", lineHeight: "1" }}>
                                 Accesso<br /><span style={{color: 'var(--md-sys-color-primary)'}}>Diario</span>
                             </h1>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-headline-small-size)", fontWeight: "var(--md-sys-typescale-weight-medium)", opacity: "var(--md-sys-state-opacity-supporting)" }}>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-headline-small-font-size)", fontWeight: "var(--md-sys-typescale-weight-medium)", opacity: "var(--md-sys-state-opacity-supporting)" }}>
                                 {welcomeMessage}
                             </p>
                         </div>
@@ -85,10 +85,10 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
 
                     <div  style={{borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                         <blockquote style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-headline-medium-size)", lineHeight: "1.625" }}>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-headline-medium-font-size)", lineHeight: "1.625" }}>
                                 "{quote.text}"
                             </p>
-                            <footer  style={{fontSize: "var(--md-sys-typescale-body-large-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", color: "var(--md-sys-color-primary)"}}>
+                            <footer  style={{fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", color: "var(--md-sys-color-primary)"}}>
                                 — {quote.author}
                             </footer>
                         </blockquote>
@@ -99,8 +99,8 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
             {/* Right Side: Login Form */}
             <div  style={{flex: "1", display: "flex", alignItems: "center", justifyContent: "center", padding: 'var(--md-sys-spacing-6)', overflowY: "auto"}}>
                 {/* Mobile Aura Ornaments (Hidden on Desktop) */}
-                <div style={{ backgroundColor: sys.colors.primary/10 ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
-                <div style={{ backgroundColor: sys.colors.tertiary/10 ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
+                <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)' ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
+                <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-tertiary) 10%, transparent)' ,  borderRadius: 'var(--md-sys-spacing-4)' }} />
 
                 <div  style={{ width: "var(--md-sys-percent-100)" }}>
                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)'/30, padding: 'var(--md-sys-spacing-4)', borderRadius: ref.shape[5] , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
@@ -116,12 +116,12 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
 
                         <div  style={{ display: "none" }}>
                             <h2 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)" }}>Identificati</h2>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-size)", opacity: "var(--md-sys-state-opacity-supporting)" }}>Seleziona la tua classe per iniziare</p>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-font-size)", opacity: "var(--md-sys-state-opacity-supporting)" }}>Seleziona la tua classe per iniziare</p>
                         </div>
 
                         {step === 'class' && (
                             <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center", opacity: "var(--md-sys-state-opacity-secondary)" }}>Seleziona la tua classe</p>
+                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center", opacity: "var(--md-sys-state-opacity-secondary)" }}>Seleziona la tua classe</p>
                                 <div style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                                     {uniqueClasses.map(cls => (
                                         <M3Button 
@@ -135,12 +135,12 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                     ))}
                                 </div>
                                 {uniqueClasses.length === 0 && (
-                                    <div style={{ backgroundColor: sys.colors.error/10, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textAlign: "center"}}>
-                                        <p style={{color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-size)"}}>Nessuna classe disponibile.</p>
+                                    <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-error) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textAlign: "center"}}>
+                                        <p style={{color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>Nessuna classe disponibile.</p>
                                     </div>
                                 )}
                                 <div >
-                                    <M3Button onClick={handleExitAttempt} variant="text" style={{width: "var(--md-sys-percent-100)", color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-size)"}}>
+                                    <M3Button onClick={handleExitAttempt} variant="text" style={{width: "var(--md-sys-percent-100)", color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>
                                         <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>lock</span>
                                         Menu Docente
                                     </M3Button>
@@ -150,7 +150,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
 
                     {step === 'credentials' && (
                         <form onSubmit={handleLogin} style={{marginTop: 'var(--md-sys-spacing-8)'}}>
-                            <div style={{ backgroundColor: sys.colors.primary/5, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+                            <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 5%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                                  <div style={{gap: 'var(--md-sys-spacing-1)'}}>
                                     <p style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", color: "var(--md-sys-color-primary)", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-supporting)"}}>Classe Selezionata</p>
                                     <strong style={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)"}}>{selectedClass}</strong>
@@ -195,14 +195,14 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                             />
 
                             {error && (
-                                <div style={{ backgroundColor: sys.colors.error/10, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textAlign: "center"}}>
-                                    <p style={{color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-size)"}}>{error}</p>
+                                <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-error) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textAlign: "center"}}>
+                                    <p style={{color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>{error}</p>
                                 </div>
                             )}
 
                             <div  style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
-                                <M3Button type="button" onClick={() => setStep('class')} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-size)" }}>Indietro</M3Button>
-                                <M3Button type="submit" variant="filled"  style={{ flexGrow: "1", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-size)" }}>Accedi al Diario</M3Button>
+                                <M3Button type="button" onClick={() => setStep('class')} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>Indietro</M3Button>
+                                <M3Button type="submit" variant="filled"  style={{ flexGrow: "1", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>Accedi al Diario</M3Button>
                             </div>
                         </form>
                     )}

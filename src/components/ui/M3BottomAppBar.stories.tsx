@@ -69,7 +69,7 @@ export const WithFAB: Story = {
             backgroundColor: 'var(--md-sys-color-primary)',
             color: 'var(--md-sys-color-on-primary)',
             border: 'none',
-            fontSize: 'var(--md-sys-typescale-headline-medium-size)',
+            fontSize: 'var(--md-sys-typescale-headline-medium-font-size)',
             cursor: 'pointer',
             boxShadow: 'var(--md-sys-elevation-1)',
           }}
@@ -110,10 +110,10 @@ export const Navigation: Story = {
               border: 'none',
               cursor: 'pointer',
               padding: 'var(--md-sys-spacing-3)',
-              fontSize: 'var(--md-sys-typescale-body-small-size)',
+              fontSize: 'var(--md-sys-typescale-body-small-font-size)',
             }}
           >
-            <div style={{ fontSize: 'var(--md-sys-typescale-headline-medium-size)' }}>{item.icon}</div>
+            <div style={{ fontSize: 'var(--md-sys-typescale-headline-medium-font-size)' }}>{item.icon}</div>
             {item.label}
           </button>
         ))}
@@ -177,7 +177,7 @@ export const ClassroomToolbar: Story = {
             backgroundColor: 'var(--md-sys-color-primary)',
             color: 'var(--md-sys-color-on-primary)',
             border: 'none',
-            fontSize: 'var(--md-sys-typescale-body-large-size)',
+            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
             cursor: 'pointer',
           }}
           title="New announcement"
@@ -210,7 +210,7 @@ export const ExtendedLabel: Story = {
             border: 'none',
             borderRadius: 'var(--md-sys-spacing-6)',
             cursor: 'pointer',
-            fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
+            fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
           }}
         >
           ➕ Create Document
@@ -258,10 +258,10 @@ export const Accessibility: Story = {
               border: 'none',
               padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
               cursor: 'pointer',
-              fontSize: 'var(--md-sys-typescale-body-small-size)',
+              fontSize: 'var(--md-sys-typescale-body-small-font-size)',
             }}
           >
-            <div style={{ fontSize: 'var(--md-sys-typescale-headline-medium-size)' }}>{item.icon}</div>
+            <div style={{ fontSize: 'var(--md-sys-typescale-headline-medium-font-size)' }}>{item.icon}</div>
             {item.label}
           </button>
         ))}

@@ -28,7 +28,7 @@ export const ResponsiveContainer: React.FC<ResponsiveContainerProps> = ({
   return (
     <div
       style={{
-        width: '100%',
+        width: 'var(--md-sys-percent-100)',
         maxWidth: maxWidthMap[maxWidth],
         margin: centered ? '0 auto' : '0',
         padding: padding ? 'var(--md-sys-spacing-4)' : '0'

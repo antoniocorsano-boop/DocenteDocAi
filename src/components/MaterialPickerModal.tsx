@@ -189,7 +189,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-6)', display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                             <h3 >Selezionati</h3>
-                            <span  style={{borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", fontSize: "var(--md-sys-typescale-body-small-size)", fontWeight: "var(--md-sys-typescale-weight-bold)"}}>
+                            <span  style={{borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", fontSize: "var(--md-sys-typescale-body-small-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)"}}>
                                 {materials.length}
                             </span>
                         </div>

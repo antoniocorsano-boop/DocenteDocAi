@@ -183,7 +183,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
             <main  style={{flexGrow: "1", overflowY: "auto", padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-8)'}}>
                 
                 {activeTab === 'feed' && (
-                    <div  style={{gap: 'var(--md-sys-spacing-6)', marginLeft: "var(auto)", marginRight: "var(auto)"}}>
+                    <div  style={{gap: 'var(--md-sys-spacing-6)', marginLeft: "auto", marginRight: "auto"}}>
                         {feedItems.length > 0 ? feedItems.map((item) => (
                             <M3ExpressiveCard 
                                 key={item.id}
@@ -203,7 +203,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                 {item.homework && (
                                     <div style={{ backgroundColor: 'var(--md-sys-color-tertiary)', opacity: 0.05, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
                                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: "var(--md-sys-color-tertiary)"}}>
-                                            <span  style={{ fontSize: "var(--md-sys-typescale-headline-small-size)" }}>home_work</span>
+                                            <span  style={{ fontSize: "var(--md-sys-typescale-headline-small-font-size)" }}>home_work</span>
                                             <span style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Compito per casa</span>
                                         </div>
                                         <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', lineHeight: "1.625" }}>{item.homework}</M3Typography>
@@ -216,7 +216,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                         variant="text"
                                         style={{ color: 'var(--md-sys-color-on-surface-variant)', width: "var(--md-sys-percent-100)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}
                                      >
-                                         <span  style={{ marginRight: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-large-size)" }}>print</span>
+                                         <span  style={{ marginRight: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>print</span>
                                          {isGeneratingPdf ? 'Generazione PDF...' : 'Scarica Scheda Lezione'}
                                      </M3Button>
                                 )}
@@ -231,7 +231,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 )}
 
                 {activeTab === 'homework' && (
-                    <div  style={{ marginLeft: "var(auto)", marginRight: "var(auto)" }}>
+                    <div  style={{ marginLeft: "auto", marginRight: "auto" }}>
                         
                         <div style={{gap: 'var(--md-sys-spacing-6)'}}>
                             <SectionHeader 
@@ -254,7 +254,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                             </div>
                                             <span style={{ color: 'var(--md-sys-color-primary)', backgroundColor: 'var(--md-sys-color-primary)', opacity: 'var(--md-sys-state-opacity-tint-faint)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", borderRadius: 'var(--md-sys-spacing-4)' }}>Nuovo</span>
                                         </div>
-                                        <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 'var(--md-sys-state-opacity-placeholder)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', fontSize: "var(--md-sys-typescale-body-large-size)", fontWeight: "var(--md-sys-typescale-weight-medium)", lineHeight: "1.625"}}>
+                                        <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 'var(--md-sys-state-opacity-placeholder)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-medium)", lineHeight: "1.625"}}>
                                             {lesson.compiti}
                                         </div>
                                         <UploadButton lessonId={lesson.id} />
@@ -285,7 +285,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                             </div>
                                             <div style={{display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 'var(--md-sys-spacing-8)'}}>
                                                 <span style={{
-                                                    fontSize: 'var(--md-sys-typescale-body-small-size)',
+                                                    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                                                     fontWeight: 'var(--md-sys-typescale-weight-black)',
                                                     textTransform: 'uppercase',
                                                     letterSpacing: '0.1em',
@@ -297,7 +297,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                                 }}>
                                                     {sub.status === 'graded' ? 'Valutato' : 'In attesa'}
                                                 </span>
-                                                {sub.teacherFeedback && <span style={{fontSize: "var(--md-sys-typescale-body-small-size)", fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)"}}>Voto: {sub.teacherFeedback}</span>}
+                                                {sub.teacherFeedback && <span style={{fontSize: "var(--md-sys-typescale-body-small-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)"}}>Voto: {sub.teacherFeedback}</span>}
                                             </div>
                                         </div>
                                     )
@@ -311,7 +311,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 )}
 
                 {activeTab === 'materials' && (
-                     <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)', marginLeft: "var(auto)", marginRight: "var(auto)"}}>
+                     <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)', marginLeft: "auto", marginRight: "auto"}}>
                         {kb.map(entry => (
                             <M3ExpressiveCard 
                                 key={entry.id}

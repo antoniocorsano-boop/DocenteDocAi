@@ -485,7 +485,7 @@ const VocalAssistantGuideContent = () => (
                                 backgroundColor: 'var(--md-sys-color-surface-container-high)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
                                 padding: 'var(--md-sys-spacing-2)',
-                                fontFamily: 'var(--md-sys-typescale-body-medium-font)'
+                                fontFamily: 'var(--font-family)'
                             }}>"{cmd}"</li>
                         ))}
                     </ul>
@@ -716,7 +716,7 @@ const FaqContent = () => (
                     </summary>
                     <div style={{
                         padding: 'var(--md-sys-spacing-3)',
-                        fontFamily: 'var(--md-sys-typescale-body-medium-font)',
+                        fontFamily: 'var(--font-family)',
                         opacity: "var(--md-sys-state-opacity-caption)",
                         lineHeight: "1.625",
                         fontSize: 'var(--md-sys-typescale--font-size)'

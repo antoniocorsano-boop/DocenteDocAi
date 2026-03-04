@@ -106,7 +106,7 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
       }}
     >
       {loading && (
-        <text x={width/2} y={height/2} textAnchor="middle" fontSize="var(--md-sys-typescale-headline-small-size)" fill="var(--md-sys-color-on-surface-variant)">
+        <text x={width/2} y={height/2} textAnchor="middle" fontSize="var(--md-sys-typescale-headline-small-font-size)" fill="var(--md-sys-color-on-surface-variant)">
           Calcolo disposizione AI…
         </text>
       )}
@@ -134,7 +134,7 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
             strokeWidth={node.elevation}
             className={`nka-shape-${node.shape}`}
           />
-          <text x={node.x} y={node.y + 4} textAnchor="middle" fontSize="var(--md-sys-typescale-body-large-size)" fill="var(--md-sys-color-on-primaryContainer)">
+          <text x={node.x} y={node.y + 4} textAnchor="middle" fontSize="var(--md-sys-typescale-body-large-font-size)" fill="var(--md-sys-color-on-primaryContainer)">
             {node.label}
           </text>
         </g>

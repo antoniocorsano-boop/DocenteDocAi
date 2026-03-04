@@ -135,7 +135,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                             <AiThinkingGem size="small" inline text="Generando..." />
                                         ) : (
                                             <>
-                                                <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>auto_awesome</span>
+                                                <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>auto_awesome</span>
                                                 AI
                                             </>
                                         )}
@@ -157,11 +157,11 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                         <InfoCard variant="elevated" >
                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                                 <span  style={{color: "var(--md-sys-color-primary)"}}>subject</span>
-                                <h3 style={{fontSize: "var(--md-sys-typescale-body-medium-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.05em"}}>
+                                <h3 style={{fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.05em"}}>
                                     Obiettivi per Materia (PEI/PDP)
                                 </h3>
                             </div>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "var(--md-sys-typescale-body-small-size)", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "var(--md-sys-typescale-body-small-font-size)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                 Definire gli obiettivi minimi o differenziati per ciascuna disciplina, se previsto dal piano.
                             </p>
                             
@@ -184,7 +184,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                                 {loadingSection === `obj-${materia}` ? (
                                                     <AiThinkingGem size="small" inline />
                                                 ) : (
-                                                    <span style={{ color: 'var(--md-sys-color-primary)' ,  fontSize: "var(--md-sys-typescale-body-medium-size)" }}>auto_awesome</span>
+                                                    <span style={{ color: 'var(--md-sys-color-primary)' ,  fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>auto_awesome</span>
                                                 )}
                                             </M3Button>
                                         </div>

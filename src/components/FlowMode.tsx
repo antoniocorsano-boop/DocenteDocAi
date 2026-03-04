@@ -149,7 +149,7 @@ return (
                 </div>
                 <button onClick={onOpenOperations} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-on-primary-container)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                     {}
-                    <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>bolt</span>
+                    <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>bolt</span>
                     {}
                 </button>
             </div>
@@ -162,7 +162,7 @@ return (
                     >
                         <span style={{ color: 'var(--md-sys-color-primary)', opacity: 'var(--md-sys-state-opacity-empty)', marginBottom: 'var(--md-sys-spacing-8)'}}>event_busy</span>
                         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Nessun evento o lezione oggi.</p>
-                        <button onClick={() => actions.handleNavigate('timetable')} style={{ backgroundColor: sys.colors.primary/10 , marginTop: 'var(--md-sys-spacing-4)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-label-large-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}>
+                        <button onClick={() => actions.handleNavigate('timetable')} style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)' , marginTop: 'var(--md-sys-spacing-4)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-label-large-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}>
                             Configura Orario
                         </button>
                     </div>
@@ -175,7 +175,7 @@ return (
                         // HERO CARD FOR CURRENT EVENT
                         return (
                             <div key={item.id} >
-                                <div style={{ backgroundColor: sys.colors.gradient-to-b ,  width: "var(--md-sys-spacing-1)", borderRadius: 'var(--md-sys-spacing-4)' }}></div>
+                                <div style={{ backgroundColor: 'var(--md-sys-color-outline-variant)' ,  width: "var(--md-sys-spacing-1)", borderRadius: 'var(--md-sys-spacing-4)' }}></div>
                                 <div  style={{width: "var(--md-sys-spacing-6)", height: "var(--md-sys-spacing-6)", borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)"}}></div>
                                 
                                 <div  style={{marginBottom: 'var(--md-sys-spacing-6)', fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)", textTransform: "uppercase", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
@@ -200,8 +200,8 @@ return (
                                         </div>
                                     </div>
                                     {item.actionLabel && (
-                                        <button onClick={item.onAction} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "var(--md-sys-percent-full)", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', backgroundColor: "white", color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-label-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}>
-                                            {item.actionLabel} {}<span  style={{ marginLeft: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-medium-size)" }}>arrow_forward</span>{}
+                                        <button onClick={item.onAction} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: "var(--md-sys-percent-full)", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', backgroundColor: "white", color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-label-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}>
+                                            {item.actionLabel} {}<span  style={{ marginLeft: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>arrow_forward</span>{}
                                         </button>
                                     )}
                                 </div>
@@ -254,11 +254,11 @@ return (
                     
                     <button onClick={() => actions.handleNavigate('settings')} style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}>
                         {}
-                        <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>settings</span>
+                        <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>settings</span>
                         {}
                     </button>
 
-                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 'var(--md-sys-state-opacity-placeholder)', color: 'var(--md-sys-color-on-surface-variant)', flexGrow: "1", borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", fontSize: "var(--md-sys-typescale-label-medium-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}} onClick={onOpenLiveAssistant}>
+                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 'var(--md-sys-state-opacity-placeholder)', color: 'var(--md-sys-color-on-surface-variant)', flexGrow: "1", borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", fontSize: "var(--md-sys-typescale-label-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}} onClick={onOpenLiveAssistant}>
                         Chiedi all'assistente...
                     </div>
 
@@ -266,7 +266,7 @@ return (
                     
                     <button onClick={() => actions.handleNavigate('progettazione-hub')}  style={{width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', display: "flex", alignItems: "center", justifyContent: "center"}}>
                         {}
-                        <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-size)" }}>add</span>
+                        <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>add</span>
                         {}
                     </button>
                 </div>

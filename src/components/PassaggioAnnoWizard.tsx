@@ -179,13 +179,13 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
         >
             <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
                     {step === "intro" && (
-                        <div  style={{gap: 'var(--md-sys-spacing-8)', marginLeft: 'var(auto)', marginRight: 'var(auto)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
+                        <div  style={{gap: 'var(--md-sys-spacing-8)', marginLeft: 'auto', marginRight: 'auto', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
                             <InfoCard 
                                 title={`Chiusura Anno ${settings.annoScolasticoCorrente}`}
                                 description="Procedura guidata per archiviare i dati, calcolare lo storico e preparare le classi per il nuovo anno."
                                 icon="school"
                                 variant="primary"
-                                style={{ backgroundColor: sys.colors.primaryContainer/20 }}
+                                style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent)' }}
                             />
                             
                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
@@ -249,7 +249,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                                             onChange={(e) => handleOutcomeChange(s.id, e.target.value as OutcomeType)}
                                                             style={{
                                                                 width: 'var(--md-sys-percent-100)',
-                                                                fontSize: 'var(--md-sys-typescale-body-small-size)',
+                                                                fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                                                                 fontWeight: 'var(--md-sys-typescale-weight-black)',
                                                                 textTransform: 'uppercase',
                                                                 letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
@@ -285,8 +285,8 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                     )}
 
                     {step === "confirm" && (
-                        <div style={{ textAlign: "center", marginLeft: 'var(auto)', marginRight: 'var(auto)' }}>
-                            <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', color: 'var(--md-sys-color-on-error-container)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: 'var(auto)', marginRight: 'var(auto)', marginBottom: 'var(--md-sys-spacing-8)' }}>
+                        <div style={{ textAlign: "center", marginLeft: 'auto', marginRight: 'auto' }}>
+                            <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', color: 'var(--md-sys-color-on-error-container)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: 'auto', marginRight: 'auto', marginBottom: 'var(--md-sys-spacing-8)' }}>
                                 <span style={{ color: 'var(--md-sys-color-on-error-container)' }}>warning</span>
                             </div>
                             <h3 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", marginBottom: 'var(--md-sys-spacing-8)' }}>Confermi l'operazione?</h3>
@@ -319,20 +319,20 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
             <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-6)' }}>
                     {step === "intro" && (
                         <>
-                            <M3Button onClick={onClose} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Annulla</M3Button>
-                            <M3Button onClick={() => setStep("decisions")} variant="filled"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Inizia Scrutinio</M3Button>
+                            <M3Button onClick={onClose} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Annulla</M3Button>
+                            <M3Button onClick={() => setStep("decisions")} variant="filled"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Inizia Scrutinio</M3Button>
                         </>
                     )}
                     {step === "decisions" && (
                         <>
-                            <M3Button onClick={() => setStep("intro")} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Indietro</M3Button>
-                            <M3Button onClick={() => setStep("confirm")} variant="filled"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Conferma Esiti</M3Button>
+                            <M3Button onClick={() => setStep("intro")} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Indietro</M3Button>
+                            <M3Button onClick={() => setStep("confirm")} variant="filled"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Conferma Esiti</M3Button>
                         </>
                     )}
                     {step === "confirm" && (
                         <>
-                            <M3Button onClick={() => setStep("decisions")} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }} disabled={isProcessing}>Indietro</M3Button>
-                            <M3Button onClick={handleConfirm} variant="filled" style={{ backgroundColor: sys.colors.error, color: sys.colors.on-error, fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }} disabled={isProcessing}>
+                            <M3Button onClick={() => setStep("decisions")} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }} disabled={isProcessing}>Indietro</M3Button>
+                            <M3Button onClick={handleConfirm} variant="filled" style={{ backgroundColor: 'var(--md-sys-color-error)', color: 'var(--md-sys-color-on-error)', fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }} disabled={isProcessing}>
                                 {isProcessing ? "Elaborazione..." : "Esegui Passaggio Anno"}
                             </M3Button>
                         </>

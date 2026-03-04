@@ -4,13 +4,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 const SpacingDocumentation = () => (
   <div style={{ padding: 'var(--md-sys-spacing-6)', fontFamily: 'var(--md-sys-typescale-body-large-font-family)' }}>
-    <h1 style={{ fontSize: 'var(--md-sys-typescale-headline-small-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginBottom: 'var(--md-sys-spacing-4)' }}>Spacing System</h1>
-    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-typescale-body-medium-line-height)', marginBottom: 'var(--md-sys-spacing-8)', color: 'var(--md-sys-color-on-surface-variant)' }}>
+    <h1 style={{ fontSize: 'var(--md-sys-typescale-headline-small-font-size)', fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)', marginBottom: 'var(--md-sys-spacing-4)' }}>Spacing System</h1>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', lineHeight: 'var(--md-sys-typescale-body-medium-line-height)', marginBottom: 'var(--md-sys-spacing-8)', color: 'var(--md-sys-color-on-surface-variant)' }}>
       Consistent spacing scale for margins, padding, and gaps to create rhythm and visual balance.
     </p>
 
-    <h2 style={{ fontSize: 'var(--md-sys-typescale-title-large-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>Spacing Scale</h2>
-    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-typescale-body-medium-line-height)', marginBottom: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-on-surface-variant)' }}>
+    <h2 style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)', marginTop: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>Spacing Scale</h2>
+    <p style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', lineHeight: 'var(--md-sys-typescale-body-medium-line-height)', marginBottom: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-on-surface-variant)' }}>
       The spacing system uses an var(--md-sys-spacing-2) base unit, enabling flexible and predictable layouts.
     </p>
 
@@ -33,8 +33,8 @@ const SpacingDocumentation = () => (
       ))}
     </div>
 
-    <h2 style={{ fontSize: 'var(--md-sys-typescale-title-large-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>Common Spacing Combinations</h2>
-    <table style={{ width: 'var(--md-sys-percent-100)', borderCollapse: 'collapse', fontSize: 'var(--md-sys-typescale-body-medium-size)', marginBottom: 'var(--md-sys-spacing-8)' }}>
+    <h2 style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)', marginTop: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>Common Spacing Combinations</h2>
+    <table style={{ width: 'var(--md-sys-percent-100)', borderCollapse: 'collapse', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', marginBottom: 'var(--md-sys-spacing-8)' }}>
       <thead>
         <tr style={{ backgroundColor: 'var(--md-sys-color-surfaceContainer)', textAlign: 'left' }}>
           <th style={{ padding: 'var(--md-sys-spacing-3)', borderBottom: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-outline-variant)' }}>Use Case</th>
@@ -60,21 +60,21 @@ const SpacingDocumentation = () => (
       </tbody>
     </table>
 
-    <h2 style={{ fontSize: 'var(--md-sys-typescale-title-large-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>Padding Patterns</h2>
+    <h2 style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)', marginTop: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>Padding Patterns</h2>
 
-    <h3 style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-3)' }}>Cards & Containers</h3>
+    <h3 style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)', marginTop: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-3)' }}>Cards & Containers</h3>
     <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surfaceContainer)', borderRadius: 'var(--md-sys-spacing-2)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', marginBottom: 'var(--md-sys-spacing-4)' }}>
-      <div style={{ fontSize: 'var(--md-sys-typescale-body-small-size)', color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-2)' }}>
+      <div style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-2)' }}>
         <strong>Card Padding: var(--md-sys-spacing-4)</strong>
       </div>
-      <div style={{ padding: 'var(--md-sys-spacing-3)', backgroundColor: 'var(--md-sys-color-surfaceContainerLow)', borderRadius: 'var(--md-sys-spacing-1)', fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>
+      <div style={{ padding: 'var(--md-sys-spacing-3)', backgroundColor: 'var(--md-sys-color-surfaceContainerLow)', borderRadius: 'var(--md-sys-spacing-1)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>
         Content inside card with consistent padding
       </div>
     </div>
 
-    <h3 style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-3)' }}>Form Fields</h3>
+    <h3 style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)', marginTop: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-3)' }}>Form Fields</h3>
     <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
-      <label style={{ display: 'block', fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginBottom: 'var(--md-sys-spacing-1)' }}>
+      <label style={{ display: 'block', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)', marginBottom: 'var(--md-sys-spacing-1)' }}>
         Input Label
       </label>
       <input
@@ -85,30 +85,30 @@ const SpacingDocumentation = () => (
           padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
           border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
           borderRadius: 'var(--md-sys-spacing-1)',
-          fontSize: 'var(--md-sys-typescale-body-medium-size)',
+          fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
           fontFamily: 'inherit',
         }}
       />
-      <div style={{ fontSize: 'var(--md-sys-typescale-body-small-size)', color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-1)' }}>
+      <div style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-1)' }}>
         Padding: var(--md-sys-spacing-3) vertical, var(--md-sys-spacing-4) horizontal
       </div>
     </div>
 
-    <h3 style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-3)' }}>Buttons</h3>
+    <h3 style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)', marginTop: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-3)' }}>Buttons</h3>
     <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-6)', flexWrap: 'wrap' }}>
-      <button style={{ padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', border: 'none', borderRadius: 'var(--md-sys-spacing-6)', fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', cursor: 'pointer' }}>
+      <button style={{ padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', border: 'none', borderRadius: 'var(--md-sys-spacing-6)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)', cursor: 'pointer' }}>
         Small Button
       </button>
-      <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', border: 'none', borderRadius: 'var(--md-sys-spacing-6)', fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', cursor: 'pointer' }}>
+      <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', border: 'none', borderRadius: 'var(--md-sys-spacing-6)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)', cursor: 'pointer' }}>
         Medium Button
       </button>
-      <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', border: 'none', borderRadius: 'var(--md-sys-spacing-6)', fontSize: 'var(--md-sys-typescale-body-medium-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', cursor: 'pointer' }}>
+      <button style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', border: 'none', borderRadius: 'var(--md-sys-spacing-6)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)', cursor: 'pointer' }}>
         Large Button
       </button>
     </div>
 
-    <h2 style={{ fontSize: 'var(--md-sys-typescale-title-large-size)', fontWeight: 'var(--md-sys-typescale-body-medium-weight)', marginTop: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>Best Practices</h2>
-    <ol style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)', lineHeight: 'var(--md-sys-typescale-body-medium-line-height)', color: 'var(--md-sys-color-on-surface)', paddingLeft: 'var(--md-sys-spacing-6)' }}>
+    <h2 style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)', marginTop: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>Best Practices</h2>
+    <ol style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', lineHeight: 'var(--md-sys-typescale-body-medium-line-height)', color: 'var(--md-sys-color-on-surface)', paddingLeft: 'var(--md-sys-spacing-6)' }}>
       <li>Use multiples of var(--md-sys-spacing-1) or var(--md-sys-spacing-2) for consistency</li>
       <li>Maintain rhythm with the spacing scale</li>
       <li>Group related elements with smaller spacing (var(--md-sys-spacing-2) - var(--md-sys-spacing-3))</li>
@@ -139,8 +139,8 @@ const SpacingSwatch: React.FC<SpacingSwatchProps> = ({ value, description }) => 
         }}
       />
       <div>
-        <strong style={{ fontSize: 'var(--md-sys-typescale-body-medium-size)' }}>{value}</strong>
-        <p style={{ margin: 'var(--md-sys-spacing-1) 0 0 0', fontSize: 'var(--md-sys-typescale-body-small-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>
+        <strong style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>{value}</strong>
+        <p style={{ margin: 'var(--md-sys-spacing-1) 0 0 0', fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>
           {description}
         </p>
       </div>

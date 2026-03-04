@@ -76,29 +76,21 @@ const LogoComponent: React.FC<LogoProps> = ({ isAiThinking = false, onHomeNaviga
       )}
 
       <div 
-        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'box-shadow var(--md-sys-motion-duration-medium)', boxShadow: isAiThinking ? '0 0 0 var(--md-sys-spacing-1) var(--md-sys-color-primary)' : undefined }} data-chaos-stage={chaosStage} data-ai-thinking={isAiThinking} 
+        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'box-shadow var(--md-sys-motion-duration-medium)', boxShadow: isAiThinking ? '0 0 0 var(--md-sys-spacing-1) var(--md-sys-color-primary)' : undefined, borderRadius: 'var(--md-sys-shape-corner-full)' }} data-chaos-stage={chaosStage} data-ai-thinking={isAiThinking} 
         onClick={handleLogoClick}
       >
-        <svg width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg" >
+        <svg width="32" height="32" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" >
           {/* Simbolo D Geometrica */}
           <g transform="translate(2, 2)" >
-            <path d="M12 4 H 24 C 36 4, 42 12, 42 20 C 42 28, 36 36, 24 36 H 12 V 4 Z"  />
-            <path d="M14 8 H 22 C 28 8, 31 12, 31 20 C 31 28, 28 32, 22 32 H 14 V 8 Z"  />
-            <rect x="4" y="6" width="7" height="28" rx="2"  />
+            <path d="M12 4 H 24 C 36 4, 42 12, 42 20 C 42 28, 36 36, 24 36 H 12 V 4 Z" fill="var(--md-sys-color-primary)" />
+            <path d="M14 8 H 22 C 28 8, 31 12, 31 20 C 31 28, 28 32, 22 32 H 14 V 8 Z" fill="var(--md-sys-color-surface)" />
+            <rect x="4" y="6" width="7" height="28" rx="2" fill="var(--md-sys-color-primary)" />
             
-            {/* Gemma AI - Questa è quella che "vola" via o appare alla fine */}
+            {/* Gemma AI */}
             <g transform="translate(38, 4)" >
-                <path d="M0 -5 L1.5 -1.5 L5 0 L1.5 1.5 L0 5 L-1.5 1.5 L-5 0 L-1.5 -1.5 Z"  />
+                <path d="M0 -5 L1.5 -1.5 L5 0 L1.5 1.5 L0 5 L-1.5 1.5 L-5 0 L-1.5 -1.5 Z" fill="var(--md-sys-color-tertiary)" />
             </g>
           </g>
-          
-          {/* Brand Text */}
-          <text x="54" y="32"  fill="currentColor">
-            DocenteDoc
-          </text>
-          
-          {/* Badge AI */}
-          <text x="188" y="18"  fill="currentColor">AI</text>
         </svg>
       </div>
     </>

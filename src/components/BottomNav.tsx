@@ -142,7 +142,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate }) => {
                 style={{
                   fontFamily: 'var(--md-sys-typescale-label-small-font-family)',
                   fontSize: 'var(--md-sys-typescale-label-small-font-size)',
-                  fontWeight: isActive ? '700' : '400',
+                  fontWeight: isActive ? 'var(--md-sys-typescale-weight-bold)' : 'var(--md-sys-typescale-weight-regular)',
                   letterSpacing: 'var(--md-sys-typescale-label-small-tracking, 0.5px)',
                   color: isActive
                     ? 'var(--md-sys-color-on-surface)'

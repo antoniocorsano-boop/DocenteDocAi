@@ -98,7 +98,7 @@ export const SuggestionList: Story = {
           >
             <div style={{ display: "flex", alignItems: "flex-start", gap: "var(--md-sys-spacing-3)" }}>
               <div style={{ backgroundColor: layers.sys.color.secondary ,  width: "var(--md-sys-spacing-6)", height: "var(--md-sys-spacing-6)", borderRadius: layers.ref.spacing['4'], display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
-                <span style={{ color:  layers.sys.color.onPrimary ,  fontSize: "var(--md-sys-typescale-body-small-size)", fontWeight: "500" }}>
+                <span style={{ color:  layers.sys.color.onPrimary ,  fontSize: "var(--md-sys-typescale-body-small-font-size)", fontWeight: "500" }}>
                   {index + 1}
                 </span>
               </div>

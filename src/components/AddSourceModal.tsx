@@ -159,7 +159,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                         </section>
                     </>
                 )}
-                {error && <div style={{ color: sys.colors.on-error-container , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-6)', backgroundColor: "var(--md-sys-color-error)", borderRadius: 'var(--md-sys-shape-corner-small)'}}>{error}</div>}
+                {error && <div style={{ color: 'var(--md-sys-color-on-error-container)' , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-6)', backgroundColor: "var(--md-sys-color-error)", borderRadius: 'var(--md-sys-shape-corner-small)'}}>{error}</div>}
             </M3DialogContent>
         </M3Dialog>
     );

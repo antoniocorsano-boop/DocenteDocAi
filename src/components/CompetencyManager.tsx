@@ -77,7 +77,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                 padding: 'var(--md-sys-spacing-4)',
                                 borderRadius: 'var(--md-sys-shape-corner-medium)',
                                 transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-                                fontSize: 'var(--md-sys-typescale-body-medium-size)',
+                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                 fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                 display: 'flex',
                                 alignItems: 'center',

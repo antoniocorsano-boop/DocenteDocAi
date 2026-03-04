@@ -66,7 +66,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
                         color: 'var(--md-sys-color-on-surface)',
                         fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                         fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
-                        fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+                        fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
                         lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
                         letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)',
                         outline: 'none',

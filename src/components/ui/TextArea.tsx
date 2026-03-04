@@ -34,7 +34,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                 style={{color: 'var(--md-sys-color-on-surface-variant)',
                     fontSize: 'var(--md-sys-typescale-label-large-font-size)',
                     fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
-                    fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+                    fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
                     lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
                     letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
                     marginBottom: 'var(--md-sys-spacing-2)'}}
@@ -62,7 +62,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                         color: 'var(--md-sys-color-on-surface)',
                         fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                         fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
-                        fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+                        fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
                         lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
                         letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)',
                         outline: 'none',
@@ -111,7 +111,7 @@ const TextArea: React.FC<TextAreaProps> = ({
                         style={{color: 'var(--md-sys-color-error)',
                             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
-                            fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+                            fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
                             lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
                             letterSpacing: 'var(--md-sys-typescale-body-small-letter-spacing)'}}
                     >

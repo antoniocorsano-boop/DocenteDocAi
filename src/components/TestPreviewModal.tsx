@@ -33,7 +33,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
             }
 
             if (showAnswers) {
-                html += `<p style="color: green; font-size: var(--md-sys-typescale-body-small-size);"><em>Risposta corretta: ${q.correctAnswer}</em></p>`;
+                html += `<p style="color: green; font-size: var(--md-sys-typescale-body-small-font-size);"><em>Risposta corretta: ${q.correctAnswer}</em></p>`;
             }
             html += `<br/>`;
         });
@@ -150,7 +150,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                     <div style={{ backgroundColor: 'var(--md-sys-color-secondary)', borderRadius: 'var(--md-sys-shape-corner-medium)', opacity: 0.05, animationDelay: 'var(--md-sys-motion-duration-long)' }} />
                 </div>
 
-                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', marginTop: 0, marginLeft: 'var(auto)', marginBottom: 0, marginRight: 'var(auto)', backgroundColor: 'var(--md-sys-color-surface)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', maxWidth: 'var(--md-sys-layout-workflow-card-min-width)' }}>
+                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', marginTop: 0, marginLeft: 'auto', marginBottom: 0, marginRight: 'auto', backgroundColor: 'var(--md-sys-color-surface)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', maxWidth: 'var(--md-sys-layout-workflow-card-min-width)' }}>
                     {/* Watermark for preview */}
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-bold)', whiteSpace: 'nowrap' }}>DOCENTEDOC AI</span>

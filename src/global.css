@@ -76,9 +76,9 @@
   --md-sys-typescale-heading2-font-size: var(--md-sys-typescale-headline-medium-font-size);
   --md-sys-typescale-heading2-line-height: var(--md-sys-typescale-headline-medium-line-height);
   --md-sys-typescale-heading2-font-weight: var(--md-sys-typescale-headline-medium-font-weight, 400);
-  --md-sys-typescale-caption-font-size: var(--md-sys-typescale-label-small-font-size);
+  --md-sys-typescale-caption-font-font-size: var(--md-sys-typescale-label-small-font-size);
   --md-sys-typescale-caption-line-height: var(--md-sys-typescale-label-small-line-height);
-  --md-sys-typescale-caption-font-weight: var(--md-sys-typescale-label-small-font-weight, 500);
+  --md-sys-typescale-caption-font-font-weight: var(--md-sys-typescale-label-small-font-weight, 500);
 
   /* MD3 Typography Scale - Complete Set */
   --md-sys-typescale-font-family: 'Roboto', sans-serif;
@@ -1027,13 +1027,13 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .md3-help-manual-icon {
   font-family: 'Material Symbols Outlined';
-  font-size: var(--md-sys-typescale-title-medium-size);
+  font-size: var(--md-sys-typescale-title-medium-font-size);
   color: var(--md-sys-color-primary);
 }
 
 .md3-help-manual-expand-icon {
   font-family: 'Material Symbols Outlined';
-  font-size: var(--md-sys-typescale-title-medium-size);
+  font-size: var(--md-sys-typescale-title-medium-font-size);
   transform: rotate(0deg);
   transition: transform var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);
 }
@@ -1073,7 +1073,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .md3-help-usecase-step-icon {
   font-family: 'Material Symbols Outlined';
-  font-size: var(--md-sys-typescale-body-small-size);
+  font-size: var(--md-sys-typescale-body-small-font-size);
   color: var(--md-sys-color-primary);
   flex-shrink: 0;
 }
@@ -1090,7 +1090,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .md3-help-usecase-tip-icon {
   font-family: 'Material Symbols Outlined';
-  font-size: var(--md-sys-typescale-body-medium-size);
+  font-size: var(--md-sys-typescale-body-medium-font-size);
   color: var(--md-sys-color-secondary);
 }
 
@@ -1107,8 +1107,8 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .md3-help-setup-title {
-  font-size: var(--md-sys-typescale-title-medium-size);
-  font-family: var(--md-sys-typescale-title-medium-font);
+  font-size: var(--md-sys-typescale-title-medium-font-size);
+  font-family: var(--font-family);
   color: var(--md-sys-color-primary);
   font-weight: var(--md-sys-typescale-weight-bold);
   margin-bottom: var(--md-sys-spacing-4);
@@ -1183,7 +1183,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 
 .md3-help-manual-list-icon {
   font-family: 'Material Symbols Outlined';
-  font-size: var(--md-sys-typescale-body-medium-size);
+  font-size: var(--md-sys-typescale-body-medium-font-size);
   color: var(--md-sys-color-primary);
   flex-shrink: 0;
 }
@@ -1234,7 +1234,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 .md3-help-stakeholder-title {
-  font-size: var(--md-sys-typescale-label-large-size);
+  font-size: var(--md-sys-typescale-label-large-font-size);
   display: flex;
   align-items: center;
   gap: var(--md-sys-spacing-2);

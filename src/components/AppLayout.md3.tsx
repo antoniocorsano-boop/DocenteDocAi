@@ -130,7 +130,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           flex: 1,
           overflowY: 'auto',
           overflowX: 'hidden',
-          background: 'var(--md-sys-color-surface-container)',
+          background: 'var(--md-sys-color-surface)',
           // Bottom padding for mobile bottom nav (64px + safe area)
           paddingBottom: isDesktop ? undefined : 'calc(var(--md-sys-spacing-16) + env(safe-area-inset-bottom, 0px))',
           minWidth: 0, // allow flex child to shrink

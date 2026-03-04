@@ -104,7 +104,7 @@ export const SettingsGroup: React.FC<SettingsGroupProps> = ({
                         <span
                             className="material-symbols-outlined"
                             style={{
-                                fontSize: 'var(--md-sys-typescale-body-large-size)',
+                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 fontVariationSettings: '"FILL" 1, "wght" 600'
                             }}
                         >

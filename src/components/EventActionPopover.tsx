@@ -58,7 +58,7 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
                     
                 >
                     <span style={{
-  fontSize: 'var(--md-sys-typescale-body-medium-size)'
+  fontSize: 'var(--md-sys-typescale-body-medium-font-size)'
 }}>
                         edit
                     </span>
@@ -70,7 +70,7 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
                     
                 >
                     <span style={{
-  fontSize: 'var(--md-sys-typescale-body-medium-size)'
+  fontSize: 'var(--md-sys-typescale-body-medium-font-size)'
 }}>
                         delete
                     </span>

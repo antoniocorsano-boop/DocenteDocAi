@@ -47,8 +47,8 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
                         alt={prompt} 
                         style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , maxWidth: "var(--md-sys-percent-100)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}} 
                     />
-                    <div style={{ backgroundColor: sys.colors.black/40, borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', opacity: "0", transition: "opacity var(--md-sys-motion-duration-medium)"}}>
-                        <p style={{ color: sys.colors.white ,  fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-medium)" }}>"{prompt}"</p>
+                    <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-scrim) 40%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', opacity: "0", transition: "opacity var(--md-sys-motion-duration-medium)"}}>
+                        <p style={{ color: 'var(--md-sys-color-surface)' ,  fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-medium)" }}>"{prompt}"</p>
                     </div>
                 </div>
             </M3DialogContent>

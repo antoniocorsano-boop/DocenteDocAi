@@ -52,7 +52,7 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                 }}>
                     <p style={{
                       fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                      fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+                      fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
                       lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
                       color: 'var(--md-sys-color-on-surface-variant)'
                     }}>
@@ -98,7 +98,7 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                     <div>
                         <label style={{
                           fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                          fontWeight: 'var(--md-sys-typescale-body-large-weight)',
+                          fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
                           lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
                           color: 'var(--md-sys-color-on-surface)',
                           marginBottom: 'var(--md-sys-spacing-3)'

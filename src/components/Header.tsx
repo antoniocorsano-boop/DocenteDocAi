@@ -50,11 +50,11 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
         position: 'relative',
         zIndex: 'var(--md-sys-z-app-bar)',
         background: 'var(--md-sys-color-surface)',
-        boxShadow: 'var(--md-sys-elevation-level1)',
-        minHeight: 'var(--md-sys-spacing-12)',
+        borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-surface-container)',
+        minHeight: 'var(--md-sys-spacing-16)',
         display: 'flex',
         alignItems: 'center',
-        paddingInline: 'var(--md-sys-spacing-6)',
+        paddingInline: 'var(--md-sys-spacing-4)',
       }}
     >
       {/* Leading: Back + Aura */}
@@ -106,11 +106,11 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
         )}
       </nav>
 
-      {/* Title/Logo */}
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+      {/* Title/Logo — left-aligned per MD3 top app bar spec */}
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', marginLeft: 'var(--md-sys-spacing-3)', minWidth: 0 }}>
         <Logo isAiThinking={isAiProcessing} onHomeNavigate={() => !showBackButton && onNavigate('home')} />
-        <M3Typography variant="title-large" style={{ color: 'var(--md-sys-color-on-surface)' }}>
-          {teacherName} {teacherSurname}
+        <M3Typography variant="title-medium" style={{ color: 'var(--md-sys-color-on-surface)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          DocenteDoc
         </M3Typography>
       </div>
 

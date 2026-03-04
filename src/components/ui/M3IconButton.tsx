@@ -89,7 +89,7 @@ const M3IconButton: React.FC<M3IconButtonProps> = ({
     opacity: disabled ? 0.38 : (hovered && (variant === 'filled' || variant === 'tonal') ? 0.8 : 1),
     pointerEvents: disabled ? 'none' : 'auto',
     fontFamily: 'var(--md-sys-typescale-font-family)',
-    fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+    fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
     lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
     letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
     ...getSizeStyles(),

@@ -96,8 +96,8 @@ return (
                                                 <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Voto: {level.voto}</span>
                                             </div>
                                                                                         <p style={{
-                                                                                            fontSize: 'var(--md-sys-typescale-body-medium-size)',
-                                                                                            fontWeight: 'var(--md-sys-typescale-body-medium-weight)',
+                                                                                            fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                                                                                            fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
                                                                                             marginTop: 'var(--md-sys-spacing-8)',
                                                                                             color: selectedLevelId === level.id ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)'
                                                                                         }}>{level.descrizione}</p>

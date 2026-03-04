@@ -25,7 +25,6 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
   const onSecondaryContainer = 'var(--md-sys-color-on-secondary-container)';
 
   // Shape tokens
-  const small = 'var(--md-sys-shape-corner-small)';
   const full = 'var(--md-sys-shape-corner-full)';
 
   // Elevation tokens
@@ -38,9 +37,9 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
 
   // Typography tokens
   const labelLarge = {
-    fontFamily: 'var(--md-sys-typescale-label-large-font)',
+    fontFamily: 'var(--font-family)',
     fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-    fontWeight: 'var(--md-sys-typescale-label-large-weight)',
+    fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
     lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
     letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'
   };
@@ -56,7 +55,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
       case 'outlined':
         baseStyles.backgroundColor = surface;
         baseStyles.color = onSurfaceVariant;
-        baseStyles.border = `var(--md-sys-border-width-thick) solid ${outline}`;
+        baseStyles.border = `var(--md-sys-border-width-thin) solid ${outline}`;
         if (isHovered || isFocused) {
           baseStyles.borderColor = onSurfaceVariant;
         }
@@ -85,8 +84,8 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
     display: 'inline-flex',
     alignItems: 'center',
     gap: 'var(--md-sys-spacing-2)',
-    borderRadius: small,
-    padding: `var(--md-sys-spacing-2) var(--md-sys-spacing-3)`,
+    borderRadius: full,
+    padding: `var(--md-sys-spacing-1) var(--md-sys-spacing-4)`,
     transition: `all ${short2} ${standard}`,
     opacity: disabled ? 0.38 : (variant === 'filled' && (isHovered || isFocused) ? 0.8 : 1),
     cursor: disabled ? 'not-allowed' : 'default',
@@ -100,7 +99,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
     fontWeight: labelLarge.fontWeight,
     lineHeight: labelLarge.lineHeight,
     letterSpacing: labelLarge.letterSpacing,
-    borderRadius: small,
+    borderRadius: full,
     transition: `all ${short2} ${standard}`,
     outline: 'none',
     border: 'none',

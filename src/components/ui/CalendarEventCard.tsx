@@ -90,7 +90,7 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
           borderRadius: 'var(--md-sys-spacing-1)',
           border: `var(--md-sys-border-width-thick) solid transparent`,
           borderLeft: `var(--md-sys-border-width-thick) solid ${config.borderColor}`,
-          fontSize: 'var(--md-sys-typescale-label-small-size)',
+          fontSize: 'var(--md-sys-typescale-label-small-font-size)',
           fontWeight: 'var(--md-sys-typescale-weight-semibold)',
           cursor: 'pointer',
           transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,

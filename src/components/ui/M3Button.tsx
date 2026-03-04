@@ -51,12 +51,12 @@ const M3Button: React.FC<M3ButtonProps> = ({
 
   // Typography tokens
   const labelMediumFontSize = 'var(--md-sys-typescale-label-large-font-size)';
-  const labelMediumFontWeight = 'var(--md-sys-typescale-label-large-weight)';
+  const labelMediumFontWeight = 'var(--md-sys-typescale-label-large-font-weight)';
   const labelMediumLineHeight = 'var(--md-sys-typescale-label-large-line-height)';
   const labelMediumLetterSpacing = 'var(--md-sys-typescale-label-medium-letter-spacing)';
 
   const labelLargeFontSize = 'var(--md-sys-typescale-label-large-font-size)';
-  const labelLargeFontWeight = 'var(--md-sys-typescale-label-large-weight)';
+  const labelLargeFontWeight = 'var(--md-sys-typescale-label-large-font-weight)';
   const labelLargeLineHeight = 'var(--md-sys-typescale-label-large-line-height)';
   const labelLargeLetterSpacing = 'var(--md-sys-typescale-label-large-letter-spacing)';
 

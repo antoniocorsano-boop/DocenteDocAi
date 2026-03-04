@@ -42,9 +42,9 @@ function M3ProgressBar({
 
   // Typography tokens
   const bodySmall = {
-    fontFamily: 'var(--md-sys-typescale-body-small-font)',
-    fontSize: 'var(--md-sys-typescale-body-small-size)',
-    fontWeight: 'var(--md-sys-typescale-body-small-weight)',
+    fontFamily: 'var(--font-family)',
+    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+    fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
     lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
     letterSpacing: 'var(--md-sys-typescale-body-small-tracking)'
   };

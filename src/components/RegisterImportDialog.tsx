@@ -128,9 +128,9 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 <option value="sidi">SIDI (Anagrafe Studenti)</option>
                             </SelectField>
                             
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.secondary-container/30 , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", gap: 'var(--md-sys-spacing-6)'}}>
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-secondary-container) 30%, transparent)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", gap: 'var(--md-sys-spacing-6)'}}>
                                 <span  style={{color: "var(--md-sys-color-secondary)"}}>info</span>
-                                <p style={{ color: sys.colors.on-secondary-container }}>
+                                <p style={{ color: 'var(--md-sys-color-on-secondary-container)' }}>
                                     {RegisterService.getExportGuidance(provider)}
                                 </p>
                             </div>
@@ -184,7 +184,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         </div>
 
                         {error && (
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: sys.colors.on-error-container , padding: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-error)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-error-container)' , padding: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-error)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                 <span style={{
 }}>error</span>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{error}</p>
@@ -322,7 +322,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             <InfoCard title="Classi rilevate" icon="class" variant="secondary">
                                 <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                                     {Array.from(new Set(result.students.map(s => s.classe))).map(c => (
-                                        <span key={c} style={{ color: sys.colors.on-secondary-container , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-spacing-1)", backgroundColor: "var(--md-sys-color-secondary)", fontWeight: "var(--md-sys-typescale-weight-bold)"}}>
+                                        <span key={c} style={{ color: 'var(--md-sys-color-on-secondary-container)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-spacing-1)", backgroundColor: "var(--md-sys-color-secondary)", fontWeight: "var(--md-sys-typescale-weight-bold)"}}>
                                             {c}
                                         </span>
                                     ))}
@@ -340,7 +340,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         </M3Button>
 
                         {result.errors.length > 0 && (
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: sys.colors.warning-container, color: sys.colors.on-warning-container , padding: 'var(--md-sys-spacing-8)'}}>
+                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-warning-container, var(--md-sys-color-error-container))', color: 'var(--md-sys-color-on-warning-container, var(--md-sys-color-on-error-container))' , padding: 'var(--md-sys-spacing-8)'}}>
                                 <p  style={{fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Avvisi durante l&apos;analisi:</p>
                                 <ul  style={{ opacity: "var(--md-sys-state-opacity-caption)" }}>
                                     {result.errors.slice(0, 3).map((err, i) => (
