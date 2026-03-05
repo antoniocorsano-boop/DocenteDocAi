@@ -1,6 +1,6 @@
 // @ts-nocheck
 // MD3 Compliant
-import type { Meta, StoryObj } from '@storybook/react';
+import type { StoryObj } from '@storybook/react';
 import M3AnimatedIcon from './M3AnimatedIcon';
 
 const meta = {

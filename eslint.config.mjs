@@ -85,7 +85,12 @@ export default defineConfig([
       '@typescript-eslint/no-unused-expressions': 'warn',
       '@typescript-eslint/ban-ts-comment': 'warn',
       '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-unused-vars': ['error', {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_',
+        ignoreRestSiblings: true,
+      }],
       '@typescript-eslint/no-unsafe-function-type': 'warn',
       '@typescript-eslint/no-empty-object-type': 'warn',
       '@typescript-eslint/explicit-module-boundary-types': 'warn',

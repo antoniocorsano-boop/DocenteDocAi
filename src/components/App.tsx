@@ -2,7 +2,6 @@
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 
-import AssistantModal from './AssistantModal';
 import '../font-setup';
 import * as React from 'react';
 import '../design-system/typography.css';
@@ -14,19 +13,22 @@ import SkipLink from './SkipLink';
 import { useAppEngine } from '../hooks/useAppEngine';
 import ViewManager from './ViewManager';
 import { ModalManager } from './ModalManager';
-import PassaggioAnnoWizard from './PassaggioAnnoWizard';
 import Snackbar from './Snackbar';
 import ErrorBoundary from './ErrorBoundary';
 import { AppLayout } from './AppLayout.md3';
-import OnboardingWizard from './OnboardingWizard';
-const ImageAnalysisModal = React.lazy(() => import('./ImageAnalysisModal'));
-const VideoAnalysisModal = React.lazy(() => import('./VideoAnalysisModal'));
-const HelpModal = React.lazy(() => import('./HelpModal'));
-const CircolareAnalysisModal = React.lazy(() => import('./CircolareAnalysisModal'));
-import OperationsCenter from './OperationsCenter';
-import NKABottomSheet from '../nka/NKABottomSheet';
 import { useNKAStore } from '../nka/useNKAStore';
 import { ViewLoadingPlaceholder } from './ViewLoadingPlaceholder';
+
+// Lazy-loaded: componenti condizionali non necessari al first render
+const AssistantModal       = React.lazy(() => import('./AssistantModal'));
+const PassaggioAnnoWizard  = React.lazy(() => import('./PassaggioAnnoWizard'));
+const OnboardingWizard     = React.lazy(() => import('./OnboardingWizard'));
+const OperationsCenter     = React.lazy(() => import('./OperationsCenter'));
+const NKABottomSheet       = React.lazy(() => import('../nka/NKABottomSheet'));
+const ImageAnalysisModal   = React.lazy(() => import('./ImageAnalysisModal'));
+const VideoAnalysisModal   = React.lazy(() => import('./VideoAnalysisModal'));
+const HelpModal            = React.lazy(() => import('./HelpModal'));
+const CircolareAnalysisModal = React.lazy(() => import('./CircolareAnalysisModal'));
 
 const handleImportEvents = () => {};
 const handleSaveToKb = () => {};
@@ -117,6 +119,7 @@ const App: React.FC = () => {
                     </React.Suspense>
                 )}
                 {modals.isOperationsCenterOpen && (
+                    <React.Suspense fallback={<ViewLoadingPlaceholder message="Caricamento operazioni..." />}>
                     <OperationsCenter
                         onClose={() => modals.setIsOperationsCenterOpen?.(false)}
                         onNavigate={actions.handleNavigate}
@@ -144,8 +147,10 @@ const App: React.FC = () => {
                         onResetData={actions.handleResetYearData}
                         onBackupData={actions.handleExportData}
                     />
+                    </React.Suspense>
                 )}
                 {modals.isYearTransitionOpen && (
+                    <React.Suspense fallback={<ViewLoadingPlaceholder message="Caricamento wizard..." />}>
                     <PassaggioAnnoWizard
                         onClose={() => modals.setIsYearTransitionOpen?.(false)}
                         students={appState.students}
@@ -157,12 +162,16 @@ const App: React.FC = () => {
                         onBackupData={actions.handleExportData}
                         onResetData={actions.handleResetYearData}
                     />
+                    </React.Suspense>
                 )}
                 {modals.isNkaMapOpen && (
+                    <React.Suspense fallback={null}>
                     <NKABottomSheet open={true} nodes={nkaStore.nodes} onClose={() => modals.setIsNkaMapOpen?.(false)} onNodeSelect={() => {}} />
+                    </React.Suspense>
                 )}
                 <AssistantFab />
                 {modals.isLiveAssistantModalOpen && (
+                    <React.Suspense fallback={<ViewLoadingPlaceholder message="Caricamento assistente..." />}>
                     <AssistantModal
                         open={true}
                         onClose={() => modals.setIsLiveAssistantModalOpen(false)}
@@ -182,15 +191,18 @@ const App: React.FC = () => {
                             modals.setCircularAnalysisModal?.({ isOpen: true, url: '', title: 'Analisi Circolare' });
                         }}
                     />
+                    </React.Suspense>
                 )}
                 <Snackbar />
             </ErrorBoundary>
         </AppLayout>
         {!appState.settings.onboarded && (
+            <React.Suspense fallback={null}>
             <OnboardingWizard
                 settings={appState.settings}
                 onComplete={updates => actions.setSettings(s => ({ ...s, ...updates }))}
             />
+            </React.Suspense>
         )}
         </>
     );

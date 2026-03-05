@@ -5,6 +5,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import { createHtmlPlugin } from 'vite-plugin-html';
+import { compression } from 'vite-plugin-compression2';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
   resolve: {
@@ -20,8 +22,6 @@ export default defineConfig({
       'react',
       'react-dom',
       'scheduler',
-      'lodash',
-      'underscore',
       './src/services/demoData.ts'
     ],
     esbuildOptions: {
@@ -78,6 +78,24 @@ export default defineConfig({
     createHtmlPlugin({
       minify: true,
     }),
+    compression({ algorithm: 'brotliCompress', exclude: [/\.(png|jpe?g|gif|webp|avif|svg)$/i] }),
+    compression({ algorithm: 'gzip',           exclude: [/\.(png|jpe?g|gif|webp|avif|svg)$/i] }),
+    visualizer({ open: false, filename: 'audit/bundle-stats.html', gzipSize: true, brotliSize: true, template: 'list' }),
+    // Make Vite-generated CSS non-blocking to eliminate render-blocking penalty
+    {
+      name: 'non-blocking-css',
+      transformIndexHtml: {
+        order: 'post' as const,
+        handler(html: string) {
+          return html.replace(
+            /<link rel="stylesheet" crossorigin href="(\/assets\/[^"]+\.css)">/g,
+            (_: string, href: string) =>
+              `<link rel="preload" as="style" href="${href}" onload="this.onload=null;this.rel='stylesheet'">` +
+              `<noscript><link rel="stylesheet" href="${href}"></noscript>`
+          );
+        },
+      },
+    },
   ],
   base: '/',
   build: {
@@ -86,10 +104,50 @@ export default defineConfig({
     sourcemap: process.env.NODE_ENV === 'development' ? true : false,
     chunkSizeWarningLimit: 1000, // Aumentato per gestire le librerie pesanti
     assetsInlineLimit: 0,
-    cssMinify: false,
+    cssMinify: true,
+    // Exclude heavy lazy chunks from initial modulepreload to avoid loading them at startup
+    modulePreload: {
+      resolveDependencies: (_filename: string, deps: string[]) =>
+        deps.filter(dep =>
+          !dep.includes('pdf-vendor') &&
+          !dep.includes('ai-vendor') &&
+          !dep.includes('dnd-vendor') &&
+          !dep.includes('chart-vendor') &&
+          !dep.includes('xlsx-vendor')
+        ),
+    },
     rollupOptions: {
       output: {
-        manualChunks: undefined // Lasciamo che Vite gestisca il chunking ottimale
+        manualChunks(id) {
+          // React ecosystem
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/scheduler')) {
+            return 'react-vendor';
+          }
+          // AI / heavy libs
+          if (id.includes('@google/genai') || id.includes('node_modules/lighthouse') || id.includes('node_modules/chrome-launcher')) {
+            return 'ai-vendor';
+          }
+          // PDF libs (dynamic-import only — excluded from modulepreload)
+          if (id.includes('jspdf') || id.includes('pdf-lib') || id.includes('mammoth') || id.includes('docx')) {
+            return 'pdf-vendor';
+          }
+          // xlsx — loaded on demand for Excel file import
+          if (id.includes('node_modules/xlsx')) {
+            return 'xlsx-vendor';
+          }
+          // DnD — not needed on initial render
+          if (id.includes('@dnd-kit')) {
+            return 'dnd-vendor';
+          }
+          // Chart / analytics libs
+          if (id.includes('chart') || id.includes('recharts') || id.includes('d3')) {
+            return 'chart-vendor';
+          }
+          // Other large node_modules
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        },
       },
     }
   },

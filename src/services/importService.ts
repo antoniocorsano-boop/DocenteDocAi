@@ -1,6 +1,8 @@
-import * as XLSX from 'xlsx';
 import Papa from 'papaparse';
 import { Studente, Valutazione } from '../types';
+
+// xlsx is loaded on-demand (user uploads a .xlsx file) to keep the initial bundle lean
+const loadXLSX = () => import('xlsx');
 
 export interface ImportResult {
     students: Studente[];
@@ -54,6 +56,7 @@ export const ImportService = {
             });
         } else if (extension === 'xlsx' || extension === 'xls') {
             try {
+                const XLSX = await loadXLSX();
                 const data = await file.arrayBuffer();
                 const workbook = XLSX.read(data);
                 const firstSheetName = workbook.SheetNames[0];
@@ -141,6 +144,7 @@ export const ImportService = {
      */
     async parseExcel(file: File): Promise<ImportResult> {
         try {
+            const XLSX = await loadXLSX();
             const data = await file.arrayBuffer();
             const workbook = XLSX.read(data);
             const firstSheetName = workbook.SheetNames[0];

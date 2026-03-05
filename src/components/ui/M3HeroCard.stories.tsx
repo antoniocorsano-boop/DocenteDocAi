@@ -1,7 +1,7 @@
 // @ts-nocheck
 // MD3 Compliant
 
-import type { Meta, StoryObj } from '@storybook/react';
+import type { StoryObj } from '@storybook/react';
 import React from 'react';
 import M3HeroCard from './M3HeroCard';
 import M3Typography from './M3Typography';

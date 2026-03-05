@@ -98,11 +98,11 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
       if (lesson.unitaDiApprendimento) html += `<p><strong>UDA:</strong> ${lesson.unitaDiApprendimento}</p>`;
       
       html += `<h2>Obiettivi</h2><p>${safeObjectives || 'Nessun obiettivo specificato.'}</p>`;
-      html += `<h2>Contenuti e AttivitÃ </h2><p>${safeContext || ''}</p>`;
+      html += `<h2>Contenuti e Attività</h2><p>${safeContext || ''}</p>`;
       html += `<h2>Compiti</h2><p>${safeHomework || 'Nessun compito assegnato.'}</p>`;
       
       if (lesson.adattamenti) {
-          html += `<h2>Adattamenti (InclusivitÃ )</h2><p>${safeAdaptations}</p>`;
+          html += `<h2>Adattamenti (Inclusività)</h2><p>${safeAdaptations}</p>`;
       }
 
       const blob = await generateHtmlDocxBlob(html, lesson.contenuto);
@@ -248,7 +248,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                     </div>
                                     <div style={{ flex: 1 }}>
                                         <p style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', color: 'var(--md-sys-color-on-secondary-container)' }}>Assistente Pedagogico</p>
-                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-secondary-container)', opacity: 0.8 }}>Analizza inclusivitÃ  e coinvolgimento</p>
+                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-secondary-container)', opacity: 0.8 }}>Analizza inclusività e coinvolgimento</p>
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>

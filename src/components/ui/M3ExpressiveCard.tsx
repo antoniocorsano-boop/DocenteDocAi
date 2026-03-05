@@ -115,7 +115,7 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
 
     return (
         <div
-            style={cardStyle}
+            style={{ ...cardStyle, ...style }}
             onClick={onClick}
             onKeyDown={(e) => {
                 if (onClick && (e.key === 'Enter' || e.key === ' ')) {

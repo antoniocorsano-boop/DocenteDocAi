@@ -90,7 +90,8 @@ const TabGroup: React.FC<TabGroupProps> = ({
                 padding: 'var(--md-sys-spacing-1)',
                 borderRadius: 'var(--md-sys-shape-corner-full)',
                 border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)`,
-                gap: 'var(--md-sys-spacing-1)'
+                gap: 'var(--md-sys-spacing-1)',
+                ...style
             }}
         >
             {tabs.map((tab, index) => {

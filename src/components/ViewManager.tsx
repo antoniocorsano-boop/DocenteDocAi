@@ -4,14 +4,15 @@
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // M3Expressive refactor: COMPLETED - Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
-import React, { useMemo, Suspense } from 'react';
+import React, { useMemo, Suspense, lazy } from 'react';
 import { VIEW_CONFIGS, Home, ClassDashboard, ClassSelection, ClassroomView, StudentClassroomView } from './viewRegistry';
-import RegisterImportDialog from './RegisterImportDialog';
 import AuraView from './AuraView';
 import ErrorBoundary from './ErrorBoundary';
 import { ViewLoadingPlaceholder } from './ViewLoadingPlaceholder';
 import { AppState, AppActions, View, Lezione, RegisterEntry, Studente, Competenza, Uda, Report, LessonScheduleInput, EvaluationInput, UdaCreateInput, OrientamentoActivity, EPortfolioEntry, EventoCalendario } from '../types';
 import type { Modals } from '../types';
+
+const RegisterImportDialog = lazy(() => import('./RegisterImportDialog'));
 interface ViewManagerProps {
     view: View;
     viewContext: unknown;
@@ -47,7 +48,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
     const {
         setLessons, setEvaluations, setCompetencyEvals, setUda,
         setEventi, setKnowledgeBase, setCorpora,
-        setReportistica, setDraftRegister, setFinalizedRegister, setCurricula, setSubmissions, dismissSuggestion,
+        setReportistica, setDraftRegister, setFinalizedRegister, setCurricula, setSubmissions, dismissSuggestion: _dismissSuggestion,
         setStudentProfileContext, showToast,
         handleNavigate, handleBack, handleLoadDemoData,
         handleEditSlot,
@@ -404,6 +405,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
         <>
             {renderView}
             {modals.isRegisterImportOpen && (
+                <Suspense fallback={null}>
                 <RegisterImportDialog 
                     onClose={() => setIsRegisterImportOpen?.(false)}
                     onImport={(result) => {
@@ -416,6 +418,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                         showToast('Dati importati con successo!', 'success');
                     }}
                 />
+                </Suspense>
             )}
         </>
     );

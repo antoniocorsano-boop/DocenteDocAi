@@ -112,8 +112,6 @@ describe('EventModal', () => {
   });
 
   it('dovrebbe mostrare errore se titolo è vuoto', async () => {
-    const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {});
-    
     render(
       <EventModal
         onClose={mockOnClose}
@@ -126,8 +124,8 @@ describe('EventModal', () => {
     const submitBtn = screen.getByText(/salva/i);
     if (submitBtn) fireEvent.click(submitBtn);
 
-    expect(alertSpy).toHaveBeenCalled();
-    alertSpy.mockRestore();
+    // Component shows inline validation error instead of window.alert
+    expect(screen.getByText(/obbligatori/i)).toBeTruthy();
   });
 
   it('dovrebbe salvare un evento con dati validi', () => {

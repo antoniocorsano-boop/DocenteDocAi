@@ -1,7 +1,9 @@
 
 import { DEFAULT_TIMETABLE_SETTINGS } from '../constants';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const google: any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const gapi: any;
 
 interface TokenClient {

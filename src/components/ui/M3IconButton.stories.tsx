@@ -1,5 +1,5 @@
 // MD3 Compliant
-import type { Meta, StoryObj } from '@storybook/react';
+import type { StoryObj } from '@storybook/react';
 import M3IconButton from './M3IconButton';
 
 const meta = {

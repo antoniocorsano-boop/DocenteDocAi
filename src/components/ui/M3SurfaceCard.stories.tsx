@@ -1,5 +1,5 @@
 // MD3 Compliant - Block G Migration (14 violations eliminated)
-import type { Meta, StoryObj } from '@storybook/react';
+import type { StoryObj } from '@storybook/react';
 import React from 'react';
 import M3SurfaceCard from './M3SurfaceCard';
 import M3Typography from './M3Typography';

@@ -3,7 +3,7 @@
  * Verifica che i dati caricati siano validi e li normalizza
  */
 
-import { BackupPayload, User, Studente, Valutazione, Lezione } from '../types';
+import { BackupPayload, Studente, Valutazione, Lezione } from '../types';
 
 /**
  * Type guards for validation
