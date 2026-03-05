@@ -1,4 +1,4 @@
-// MD3 Expressive — Navigation Rail
+// MD3 Gold Compliant
 import React from 'react';
 import { View } from '../types';
 import { M3Typography } from './ui';
@@ -158,7 +158,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
             border: 'none',
             cursor: 'pointer',
             outline: focusedId === item.id ? 'var(--md-sys-border-width-medium) solid var(--md-sys-color-primary)' : 'none',
-            outlineOffset: focusedId === item.id ? 'var(--md-sys-spacing-0-5)' : '0',
+            outlineOffset: focusedId === item.id ? 'var(--md-sys-spacing-0-5)' : 'var(--md-sys-spacing-0)',
 
             // Layout
             display: 'flex',
@@ -236,7 +236,6 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                     position: 'relative',
                     zIndex: 'var(--md-sys-z-content)',
                     fontSize: 'var(--md-sys-spacing-6)', // Icon size
-                    lineHeight: 1,
                     color: isActive ? 'var(--md-sys-color-on-secondary-container)' : 'inherit',
                     fontVariationSettings: isActive ? "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24" : "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24",
                     transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
@@ -258,9 +257,9 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                       backgroundColor: 'var(--md-sys-color-error)',
                       color: 'var(--md-sys-color-on-error)',
                       borderRadius: 'var(--md-sys-shape-corner-small)', // Badge corner radius
-                      fontSize: 'var(--md-sys-spacing-4)',
+                      fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                       fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                      lineHeight: 'var(--md-sys-spacing-4)', // Badge line height
+                      lineHeight: 'var(--md-sys-typescale-label-small-line-height)',
                       textAlign: 'center',
                       zIndex: 'var(--md-sys-z-raised)',
                       animation: 'badge-appear var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}
@@ -274,7 +273,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
               {/* Label */}
               <M3Typography
                 variant="label-medium"
-                style={{fontSize: 'var(--md-sys-spacing-3)', // Label font size
+                style={{
                   fontWeight: 'var(--md-sys-typescale-weight-medium)',
                   textAlign: 'center',
                   color: 'inherit',
@@ -350,7 +349,6 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                   position: 'relative',
                   zIndex: 'var(--md-sys-z-content)',
                   fontSize: 'var(--md-sys-spacing-6)',
-                  lineHeight: 1,
                   color: moreOpen ? 'var(--md-sys-color-on-secondary-container)' : 'inherit',
                   fontVariationSettings: moreOpen ? "'FILL' 1, 'wght' 400" : "'FILL' 0, 'wght' 400",
                   transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
@@ -363,7 +361,6 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
             <M3Typography
               variant="label-medium"
               style={{
-                fontSize: 'var(--md-sys-spacing-3)',
                 fontWeight: 'var(--md-sys-typescale-weight-medium)',
                 textAlign: 'center',
                 color: 'inherit',

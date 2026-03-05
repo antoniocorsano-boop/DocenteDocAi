@@ -16,6 +16,7 @@
 import React, { createContext, useContext, useCallback, useState, ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { getModalZIndex } from '../design-system/zIndex';
+import M3Surface from '../components/ui/M3Surface';
 
 // ============================================================================
 // TYPES & INTERFACES
@@ -38,7 +39,7 @@ interface ModalInstance {
  */
 interface ModalContextType {
   // Stack management
-stack: ModalInstance[];
+  stack: ModalInstance[];
   
   // Modal operations
   pushModal: (options: PushModalOptions) => void;
@@ -124,11 +125,11 @@ interface ModalProviderProps {
  * <ModalProvider>
  *   <App />
  * </ModalProvider>
- * ```
+ * 
  */
 export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
-const [stack, setStack] = useState<ModalInstance[]>([]);
-    const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
+  const [stack, setStack] = useState<ModalInstance[]>([]);
+  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
 
   // Initialize portal container ONLY when needed
   useEffect(() => {
@@ -151,10 +152,10 @@ const [stack, setStack] = useState<ModalInstance[]>([]);
       container.style.top = '0';
       container.style.left = '0';
       // MD3 Exception: overlay/modal root must fill viewport, no MD3 token available
-      container.style.width = 'var(--md-sys-percent-100)'; // Exception documented
-      container.style.height = 'var(--md-sys-percent-100)'; // Exception documented
+      container.style.width = '100%'; // Exception documented
+      container.style.height = '100%'; // Exception documented
       container.style.pointerEvents = 'auto'; // Allow interactions when modals are present
-      container.style.zIndex = 'var(--md-sys-z-modal)'; // Use semantic z-index
+      container.style.zIndex = getModalZIndex(0); // Use semantic z-index
       document.body.appendChild(container);
     }
 
@@ -166,7 +167,7 @@ const [stack, setStack] = useState<ModalInstance[]>([]);
         document.body.removeChild(container);
       }
     };
-}, [stack.length, portalContainer]);
+  }, [stack.length, portalContainer]);
 
   // Push modal to stack
   const pushModal = useCallback(
@@ -231,8 +232,9 @@ const [stack, setStack] = useState<ModalInstance[]>([]);
 
   // Get top modal
   const getTopModal = useCallback((): ModalInstance | undefined => {
-      return stack[stack.length - 1];
-    }, [stack]);
+    return stack[stack.length - 1];
+  }, [stack]);
+
   const value: ModalContextType = {
     stack,
     pushModal,
@@ -320,12 +322,43 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
   modalZIndex,
   backdropClickable = true,
   backdropOpacity = 'medium',
-  onBackdropClick,
+  onBackdropClick: _onBackdropClick,
   children,
 }) => {
+  const { popModal } = useModal();
+
+  const handleBackdropClick = useCallback(() => {
+    if (backdropClickable) {
+      popModal(id);
+    }
+  }, [backdropClickable, id, popModal]);
+
+  const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
+    if (event.key === 'Escape' && backdropClickable) {
+      popModal(id);
+    }
+  }, [backdropClickable, id, popModal]);
+
+  useEffect(() => {
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && backdropClickable) {
+        popModal(id);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscapeKey);
+    return () => document.removeEventListener('keydown', handleEscapeKey);
+  }, [backdropClickable, id, popModal]);
+
   return (
-    <div
-      key={`modal-portal-${id}`}
+    <M3Surface
+      elevation="level5"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={`modal-title-${id}`}
+      aria-describedby={`modal-content-${id}`}
+      tabIndex={-1}
+      onKeyDown={handleKeyDown}
       style={{
         position: 'fixed',
         inset: 0,
@@ -333,53 +366,50 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 'var(--md-sys-spacing-4)',
-        pointerEvents: 'auto',
-        zIndex: modalZIndex
+        zIndex: modalZIndex as number,
       }}
       data-modal-id={id}
       data-modal-level={level}
     >
       {/* Backdrop - M3 Expressive with blur */}
-      <div
+      <M3Surface
+        elevation="none"
+        onClick={handleBackdropClick}
+        aria-hidden="true"
+        role="presentation"
         style={{
           position: 'absolute',
           inset: 0,
-          // MD3 Exception: backdrop blur, no token available
-          backdropFilter: 'blur(var(--md-sys-spacing-1))', // Exception documented
-          animation: `modal-fade-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-decelerated)`, // MD3 motion tokens for duration and easing
-          zIndex: 'var(--md-sys-z-tooltip)', // MD3 z-index token
+          backdropFilter: 'blur(4px)',
+          animation: `modal-fade-in var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard-decelerate)`,
           backgroundColor: backdropOpacity === 'light'
-            ? 'color-mix(in srgb, var(--md-sys-color-scrim) var(--md-sys-backdrop-light), transparent)'
+            ? 'color-mix(in srgb, var(--md-sys-color-scrim) 20%, transparent)'
             : backdropOpacity === 'medium'
-            ? 'color-mix(in srgb, var(--md-sys-color-scrim) var(--md-sys-backdrop-medium), transparent)'
-            : 'color-mix(in srgb, var(--md-sys-color-scrim) var(--md-sys-backdrop-dark), transparent)',
-          cursor: backdropClickable ? 'pointer' : 'default'
+            ? 'color-mix(in srgb, var(--md-sys-color-scrim) 40%, transparent)'
+            : 'color-mix(in srgb, var(--md-sys-color-scrim) 60%, transparent)',
+          cursor: backdropClickable ? 'pointer' : 'default',
         }}
-        onClick={backdropClickable ? onBackdropClick : undefined}
-        aria-hidden="true"
-        role="presentation"
       />
 
       {/* Modal Content Wrapper */}
-      <div
+      <M3Surface
+        elevation="level3"
+        role="document"
         style={{
           position: 'relative',
-          zIndex: 'var(--md-sys-z-modal)', // MD3 z-index token
-          // MD3 Exception: modal content wrapper must fill container, no token available
-          width: 'var(--md-sys-percent-100)', // MD3 percent token
-          height: 'var(--md-sys-percent-100)', // MD3 percent token
+          width: '100%',
+          height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          animation: `modal-zoom-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-decelerated)` // MD3 motion tokens for duration and easing
+          animation: `modal-zoom-in var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard-decelerate)`,
         }}
-        role="dialog"
-        aria-modal="true"
         data-modal-portal-content
+        id={`modal-content-${id}`}
       >
         {children}
-      </div>
-    </div>
+      </M3Surface>
+    </M3Surface>
   );
 };
 
@@ -388,4 +418,3 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
 // ============================================================================
 
 export { ModalContext, type ModalContextType, type ModalInstance, type PushModalOptions };
-

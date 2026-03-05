@@ -244,7 +244,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                             >
                                 <div style={{ flex: 1, minWidth: 0 }}>
                                     <p style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{curr.subject}</p>
-                                    <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)', opacity: 0.85 }}>{curr.gradeLevel}</p>
+                                    <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)', opacity: 'var(--md-sys-state-opacity-caption)' }}>{curr.gradeLevel}</p>
                                 </div>
                                 <M3Button
                                     onClick={(e) => { e.stopPropagation(); handleDelete(curr.id); }}
@@ -317,7 +317,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                     <M3DialogContent>
                         <div {...getRootProps()} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-large)', border: 'var(--md-sys-border-width-thick) dashed var(--md-sys-color-outline)', backgroundColor: 'var(--md-sys-color-surface-container)', cursor: 'pointer', textAlign: 'center' }}>
                             <input {...getInputProps()} />
-                            <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-12)', color: 'var(--md-sys-color-primary)' }}>upload_file</span>
+                            <span className="material-symbols-outlined" style={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-primary)' }}>upload_file</span>
                             <p style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Carica PDF Programmazione</p>
                             <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>o trascina il file qui</p>
                         </div>

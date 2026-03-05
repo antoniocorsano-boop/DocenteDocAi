@@ -1,5 +1,6 @@
-// Aura button for header (M3 icon button + glow + coachmark primo accesso)
 import * as React from 'react';
+import M3Surface from '../components/ui/M3Surface';
+import { M3Typography } from '../components/ui/M3Typography';
 import { playNkaSound } from './sound';
 
 const NKA_COACHMARK_KEY = 'nka_coachmark_seen_v1';
@@ -10,11 +11,11 @@ interface NKAHeaderAuraButtonProps {
   onLongPress: () => void;
 }
 
-const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, onClick, onLongPress }: NKAHeaderAuraButtonProps) => {
+const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, onClick, onLongPress }) => {
   const timerRef = React.useRef<NodeJS.Timeout | null>(null);
   const [showCoachmark, setShowCoachmark] = React.useState(false);
+  const [isPressed, setIsPressed] = React.useState(false);
 
-  // Mostra coachmark solo al primo accesso, chiude automaticamente dopo 6s
   React.useEffect(() => {
     if (!localStorage.getItem(NKA_COACHMARK_KEY)) {
       const show = setTimeout(() => setShowCoachmark(true), 1200);
@@ -30,78 +31,94 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
   }, [showCoachmark]);
 
   const handlePointerDown = () => {
+    setIsPressed(true);
     timerRef.current = setTimeout(() => {
       playNkaSound('badge');
       onLongPress();
       if (window.navigator.vibrate) window.navigator.vibrate(30);
     }, 500);
   };
+
   const handlePointerUp = () => {
+    setIsPressed(false);
     if (timerRef.current) {
       clearTimeout(timerRef.current);
       timerRef.current = null;
     }
   };
+
   const handleClick = () => {
     playNkaSound('action');
     setShowCoachmark(false);
     onClick();
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      handleClick();
+      e.preventDefault();
+    }
+    if (e.key === 'ArrowRight') {
+      (e.currentTarget.nextElementSibling as HTMLElement)?.focus();
+    }
+    if (e.key === 'ArrowLeft') {
+      (e.currentTarget.previousElementSibling as HTMLElement)?.focus();
+    }
+  };
+
   return (
-    <div style={{ position: 'relative', display: 'inline-flex' }}>
+    <M3Surface
+      level={0}
+      style={{
+        position: 'relative',
+        display: 'inline-flex',
+      }}
+    >
       <button
         aria-label="Apri mappa neurale Aura — tieni premuto per opzioni avanzate"
-        title="Mappa Neurale Aura"
+        aria-haspopup="dialog"
+        aria-expanded="false"
         tabIndex={0}
         onClick={handleClick}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
         onPointerLeave={handlePointerUp}
-        onKeyDown={e => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            handleClick();
-            e.preventDefault();
-          }
-          if (e.key === 'ArrowRight') {
-            (e.currentTarget.nextElementSibling as HTMLElement)?.focus();
-          }
-          if (e.key === 'ArrowLeft') {
-            (e.currentTarget.previousElementSibling as HTMLElement)?.focus();
-          }
-        }}
-        aria-haspopup="dialog"
-        aria-expanded="false"
+        onKeyDown={handleKeyDown}
         style={{
-          background: 'var(--md-sys-color-primary)',
+          backgroundColor: 'var(--md-sys-color-primary)',
           color: 'var(--md-sys-color-on-primary)',
-          border: 'none',
           borderRadius: 'var(--md-sys-shape-corner-full)',
-          boxShadow: '0 0 0 var(--md-sys-spacing-1) var(--md-sys-color-primary-container)',
           width: 'var(--md-sys-spacing-12)',
           height: 'var(--md-sys-spacing-12)',
           minWidth: 'var(--md-sys-spacing-11)',
           minHeight: 'var(--md-sys-spacing-11)',
-          display: 'flex',
+          boxShadow: isPressed
+            ? '0 0 0 var(--md-sys-spacing-2) var(--md-sys-color-primary-container)'
+            : '0 0 0 var(--md-sys-spacing-1) var(--md-sys-color-primary-container)',
+          transition: 'box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',
+          position: 'relative',
+          cursor: 'pointer',
+          border: 'none',
+          display: 'inline-flex',
           alignItems: 'center',
           justifyContent: 'center',
-          position: 'relative',
-          outline: 'none',
-          cursor: 'pointer',
-          transition: 'box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
         }}
       >
         <span
           aria-hidden="true"
           style={{
             fontSize: 'calc(var(--md-sys-spacing-7))',
-            color: 'var(--md-sys-color-on-primary)',
+            fontFamily: 'Material Symbols Outlined',
             filter: 'drop-shadow(0 0 var(--md-sys-spacing-2) var(--md-sys-color-primary))',
             userSelect: 'none',
           }}
-        >auto_awesome</span>
+        >
+          auto_awesome
+        </span>
+        
         {hasNewNode && (
-          <span
+          <M3Surface
+            level={1}
             role="status"
             aria-label="Nuovo nodo disponibile"
             style={{
@@ -111,44 +128,54 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
               width: 'var(--md-sys-spacing-3)',
               height: 'var(--md-sys-spacing-3)',
               borderRadius: 'var(--md-sys-percent-50)',
-              background: 'var(--md-sys-color-tertiary)',
-              boxShadow: '0 0 0 var(--md-sys-border-width-thick) var(--md-sys-color-surface)',
+              backgroundColor: 'var(--md-sys-color-tertiary)',
               border: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-surface)',
-              display: 'inline-block',
             }}
           />
         )}
       </button>
 
-      {/* Coachmark — primo accesso */}
       {showCoachmark && (
-        <div
+        <M3Surface
+          level={3}
           role="tooltip"
-          aria-live="polite"
           style={{
             position: 'absolute',
             top: 'calc(var(--md-sys-spacing-12) + var(--md-sys-spacing-3))',
             right: 0,
-            zIndex: 'var(--md-sys-z-tooltip)' as React.CSSProperties['zIndex'],
+            zIndex: 'var(--md-sys-z-tooltip)',
             backgroundColor: 'var(--md-sys-color-inverse-surface)',
-            color: 'var(--md-sys-color-inverse-on-surface)',
             borderRadius: 'var(--md-sys-shape-corner-medium)',
             padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-            fontWeight: 'var(--md-sys-typescale-weight-medium)',
             whiteSpace: 'nowrap',
             pointerEvents: 'none',
-            boxShadow: 'var(--md-sys-elevation-level2)',
-            animation: 'none',
           }}
         >
-          <span aria-hidden="true" style={{ marginRight: 'var(--md-sys-spacing-2)', verticalAlign: 'middle', fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>auto_awesome</span>
-          Mappa Neurale: esplora la tua conoscenza
-        </div>
+          <M3Typography
+            variant="body-small"
+            style={{
+              color: 'var(--md-sys-color-inverse-on-surface)',
+              fontWeight: 'var(--md-sys-typescale-weight-medium)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 'var(--md-sys-spacing-2)',
+            }}
+          >
+            <span
+              aria-hidden="true"
+              style={{
+                fontFamily: 'Material Symbols Outlined',
+                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+              }}
+            >
+              auto_awesome
+            </span>
+            Mappa Neurale: esplora la tua conoscenza
+          </M3Typography>
+        </M3Surface>
       )}
-    </div>
+    </M3Surface>
   );
 };
 
 export default NKAHeaderAuraButton;
-

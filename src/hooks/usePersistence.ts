@@ -53,15 +53,15 @@ export const usePersistence = (isDataLoaded: boolean) => {
                 return;
             }
             // Dirty-check and rate limit
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+             
             const { actions: _studentActions, ...studentStateRaw } = useStudentStore.getState();
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+             
             const { actions: _academicActions, ...academicStateRaw } = useAcademicStore.getState();
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+             
             const { actions: _systemActions, ...systemStateRaw } = useSystemStore.getState();
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+             
             const { actions: _settingsActions, ...settingsStateRaw } = useSettingsStore.getState();
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+             
             const { actions: uiActions, ...uiStateRaw } = useUIStore.getState();
 
             // Create clean, serializable versions of states

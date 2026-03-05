@@ -21,6 +21,8 @@ import './global.css';
 // Theme imports
 import { M3ThemeProvider } from './theme/theme';
 import { NKAProvider } from './nka/NKAProvider';
+import M3Surface from './components/ui/M3Surface';
+import { M3Typography } from './components/ui/M3Typography';
 
 /**
  * STORAGE RECOVERY:
@@ -141,9 +143,73 @@ if (!rootElement) throw new Error("Root element missing");
 
 const root = createRoot(rootElement);
 
+// Loading fallback component
+function LoadingFallback() {
+  return (
+    <M3Surface 
+      role="main" 
+      aria-label="Caricamento applicazione in corso"
+      style={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        minHeight: '100vh',
+        gap: 'var(--md-sys-spacing-4)',
+        padding: 'var(--md-sys-spacing-5)'
+      }}
+    >
+      <M3Typography variant="body-large">
+        Caricamento in corso...
+      </M3Typography>
+    </M3Surface>
+  );
+}
+
+// Error fallback component
+function ErrorFallback({ error: _error }: { error: Error }) {
+  return (
+    <M3Surface
+      role="main"
+      aria-label="Errore di inizializzazione applicazione"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        gap: 'var(--md-sys-spacing-4)',
+        padding: 'var(--md-sys-spacing-5)',
+        textAlign: 'center'
+      }}
+    >
+      <M3Typography variant="headline-medium">
+        Errore di Inizializzazione
+      </M3Typography>
+      <M3Typography variant="body-large">
+        Si è verificato un errore durante l'avvio dell'applicazione.
+      </M3Typography>
+      <M3Typography variant="body-medium">
+        Aprire la console per maggiori dettagli.
+      </M3Typography>
+    </M3Surface>
+  );
+}
+
 // Ensure Zustand stores are preloaded before importing the App
 async function bootstrapApp() {
   try {
+    // Show loading state
+    root.render(
+      <ErrorBoundary>
+        <React.StrictMode>
+          <M3ThemeProvider>
+            <LoadingFallback />
+          </M3ThemeProvider>
+        </React.StrictMode>
+      </ErrorBoundary>
+    );
+
     const lazy = await import('./stores/lazyStores');
     await lazy.preloadAllStores();
 
@@ -170,14 +236,11 @@ async function bootstrapApp() {
     try {
       root.render(
         <ErrorBoundary>
-          <div style={{
-            padding: 'var(--md-sys-spacing-5)',
-            fontFamily: 'var(--md-sys-typescale-body-large-font, sans-serif)',
-            color: 'var(--md-sys-color-on-surface, #1c1b1f)',
-            background: 'var(--md-sys-color-surface, #fffbfe)',
-          }}>
-            Errore di inizializzazione dell&apos;applicazione. Aprire la console per dettagli.
-          </div>
+          <React.StrictMode>
+            <M3ThemeProvider>
+              <ErrorFallback error={e as Error} />
+            </M3ThemeProvider>
+          </React.StrictMode>
         </ErrorBoundary>
       );
     } catch (renderErr) {
@@ -187,4 +250,3 @@ async function bootstrapApp() {
 }
 
 bootstrapApp();
-

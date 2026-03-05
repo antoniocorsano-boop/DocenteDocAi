@@ -1,33 +1,25 @@
-// MD3 Gold Compliant
-// Theme Context per gestione Light/Dark/High Contrast modes
-// Audit: febbraio 2026
-
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import M3Surface from '../components/ui/M3Surface';
+import { M3Typography } from '../components/ui/M3Typography';
 
 export type ThemeMode = 'light' | 'dark' | 'auto';
 export type ContrastMode = 'normal' | 'high';
 
 interface ThemeContextValue {
-  // Theme mode
   mode: ThemeMode;
   setMode: (mode: ThemeMode) => void;
-  
-  // Contrast mode
   contrast: ContrastMode;
   setContrast: (contrast: ContrastMode) => void;
-  
-  // Reduced motion
   reducedMotion: boolean;
   setReducedMotion: (value: boolean) => void;
-  
-  // Computed values
   effectiveTheme: 'light' | 'dark';
   isSystemTheme: boolean;
+  isLoading: boolean;
+  error: string | null;
 }
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
-// Storage keys
 const STORAGE_KEY_MODE = 'docentedoc-theme-mode';
 const STORAGE_KEY_CONTRAST = 'docentedoc-theme-contrast';
 const STORAGE_KEY_MOTION = 'docentedoc-reduced-motion';
@@ -37,57 +29,71 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  // Theme mode state
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const [mode, setModeState] = useState<ThemeMode>(() => {
-    const stored = localStorage.getItem(STORAGE_KEY_MODE);
-    return (stored as ThemeMode) || 'auto';
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY_MODE);
+      return (stored as ThemeMode) || 'auto';
+    } catch (_err) {
+      setError('Failed to load theme preferences');
+      return 'auto';
+    }
   });
 
-  // Contrast mode state
   const [contrast, setContrastState] = useState<ContrastMode>(() => {
-    const stored = localStorage.getItem(STORAGE_KEY_CONTRAST);
-    return (stored as ContrastMode) || 'normal';
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY_CONTRAST);
+      return (stored as ContrastMode) || 'normal';
+    } catch (_err) {
+      return 'normal';
+    }
   });
 
-  // Reduced motion state
   const [reducedMotion, setReducedMotionState] = useState<boolean>(() => {
-    const stored = localStorage.getItem(STORAGE_KEY_MOTION);
-    if (stored !== null) return stored === 'true';
-    
-    // Default to system preference
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY_MOTION);
+      if (stored !== null) return stored === 'true';
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch (_err) {
+      return false;
+    }
   });
 
-  // System theme detection
   const [systemTheme, setSystemTheme] = useState<'light' | 'dark'>(() => {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    try {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    } catch (_err) {
+      return 'light';
+    }
   });
 
-  // Computed effective theme
   const effectiveTheme = mode === 'auto' ? systemTheme : mode;
   const isSystemTheme = mode === 'auto';
 
-  // Listen to system theme changes
+  useEffect(() => {
+    const initializeTheme = async () => {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 100));
+        setIsLoading(false);
+      } catch (_err) {
+        setError('Failed to initialize theme');
+        setIsLoading(false);
+      }
+    };
+    
+    initializeTheme();
+  }, []);
+
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     
     const handleChange = (e: MediaQueryListEvent) => {
-      setSystemTheme(e.matches ? 'dark' : 'light');
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
-
-  // Listen to system reduced motion changes
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    
-    const handleChange = (e: MediaQueryListEvent) => {
-      // Only auto-update if user hasn't explicitly set preference
-      const stored = localStorage.getItem(STORAGE_KEY_MOTION);
-      if (stored === null) {
-        setReducedMotionState(e.matches);
+      try {
+        setSystemTheme(e.matches ? 'dark' : 'light');
+      } catch (_err) {
+        setError('Failed to detect system theme');
       }
     };
 
@@ -95,47 +101,76 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  // Apply theme to document
   useEffect(() => {
-    const root = document.documentElement;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     
-    // Set theme class
-    root.classList.remove('theme-light', 'theme-dark');
-    root.classList.add(`theme-${effectiveTheme}`);
-    
-    // Set contrast class
-    root.classList.remove('contrast-normal', 'contrast-high');
-    root.classList.add(`contrast-${contrast}`);
-    
-    // Set reduced motion class
-    if (reducedMotion) {
-      root.classList.add('reduced-motion');
-    } else {
-      root.classList.remove('reduced-motion');
-    }
+    const handleChange = (e: MediaQueryListEvent) => {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY_MOTION);
+        if (stored === null) {
+          setReducedMotionState(e.matches);
+        }
+      } catch (_err) {
+        setError('Failed to detect motion preferences');
+      }
+    };
 
-    // Set data attributes for CSS
-    root.setAttribute('data-theme', effectiveTheme);
-    root.setAttribute('data-contrast', contrast);
-    root.setAttribute('data-reduced-motion', reducedMotion.toString());
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  useEffect(() => {
+    try {
+      const root = document.documentElement;
+      
+      root.classList.remove('theme-light', 'theme-dark');
+      root.classList.add(`theme-${effectiveTheme}`);
+      
+      root.classList.remove('contrast-normal', 'contrast-high');
+      root.classList.add(`contrast-${contrast}`);
+      
+      if (reducedMotion) {
+        root.classList.add('reduced-motion');
+      } else {
+        root.classList.remove('reduced-motion');
+      }
+
+      root.setAttribute('data-theme', effectiveTheme);
+      root.setAttribute('data-contrast', contrast);
+      root.setAttribute('data-reduced-motion', reducedMotion.toString());
+    } catch (_err) {
+      setError('Failed to apply theme');
+    }
   }, [effectiveTheme, contrast, reducedMotion]);
 
-  // Persist mode
   const setMode = (newMode: ThemeMode) => {
-    setModeState(newMode);
-    localStorage.setItem(STORAGE_KEY_MODE, newMode);
+    try {
+      setModeState(newMode);
+      localStorage.setItem(STORAGE_KEY_MODE, newMode);
+      setError(null);
+    } catch (_err) {
+      setError('Failed to save theme preference');
+    }
   };
 
-  // Persist contrast
   const setContrast = (newContrast: ContrastMode) => {
-    setContrastState(newContrast);
-    localStorage.setItem(STORAGE_KEY_CONTRAST, newContrast);
+    try {
+      setContrastState(newContrast);
+      localStorage.setItem(STORAGE_KEY_CONTRAST, newContrast);
+      setError(null);
+    } catch (_err) {
+      setError('Failed to save contrast preference');
+    }
   };
 
-  // Persist reduced motion
   const setReducedMotion = (value: boolean) => {
-    setReducedMotionState(value);
-    localStorage.setItem(STORAGE_KEY_MOTION, value.toString());
+    try {
+      setReducedMotionState(value);
+      localStorage.setItem(STORAGE_KEY_MOTION, value.toString());
+      setError(null);
+    } catch (_err) {
+      setError('Failed to save motion preference');
+    }
   };
 
   const value: ThemeContextValue = {
@@ -146,17 +181,81 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     reducedMotion,
     setReducedMotion,
     effectiveTheme,
-    isSystemTheme
+    isSystemTheme,
+    isLoading,
+    error
   };
+
+  if (isLoading) {
+    return (
+      <M3Surface
+        role="status"
+        aria-label="Loading theme preferences"
+        style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          minHeight: '100vh',
+          padding: 'var(--md-sys-spacing-6)'
+        }}
+      >
+        <M3Typography variant="body-large">
+          Caricamento preferenze tema...
+        </M3Typography>
+      </M3Surface>
+    );
+  }
+
+  if (error) {
+    return (
+      <M3Surface
+        role="alert"
+        aria-label="Theme error"
+        style={{ 
+          display: 'flex', 
+          flexDirection: 'column',
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          minHeight: '100vh',
+          padding: 'var(--md-sys-spacing-6)',
+          gap: 'var(--md-sys-spacing-4)'
+        }}
+      >
+        <M3Typography 
+          variant="body-large"
+          id="theme-error-message"
+        >
+          {error}
+        </M3Typography>
+        <M3Typography 
+          variant="body-medium"
+          style={{ 
+            textAlign: 'center',
+            color: 'var(--md-sys-color-on-surface-variant)'
+          }}
+        >
+          Using default theme settings. Please refresh to retry.
+        </M3Typography>
+      </M3Surface>
+    );
+  }
 
   return (
     <ThemeContext.Provider value={value}>
-      {children}
+      <M3Surface
+        role="application"
+        aria-label="DocenteDoc AI application"
+        style={{ 
+          minHeight: '100vh',
+          backgroundColor: 'var(--md-sys-color-background)'
+        }}
+      >
+        {children}
+      </M3Surface>
     </ThemeContext.Provider>
   );
 };
 
-// Hook to use theme context
 export const useTheme = (): ThemeContextValue => {
   const context = useContext(ThemeContext);
   if (!context) {

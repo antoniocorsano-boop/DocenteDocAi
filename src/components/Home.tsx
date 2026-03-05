@@ -242,7 +242,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               className="material-symbols-outlined"
               aria-hidden="true"
               style={{
-                fontSize: 'var(--md-sys-spacing-6)',
+                fontSize: 'var(--icon-size-medium)',
                 color: 'var(--md-sys-color-primary)',
                 fontVariationSettings: '"FILL" 0',
               }}
@@ -289,7 +289,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               className="material-symbols-outlined"
               aria-hidden="true"
               style={{
-                fontSize: 'var(--md-sys-spacing-6)',
+                fontSize: 'var(--icon-size-medium)',
                 color: 'var(--md-sys-color-tertiary)',
                 fontVariationSettings: '"FILL" 0',
               }}
@@ -340,7 +340,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 className="material-symbols-outlined"
                 aria-hidden="true"
                 style={{
-                  fontSize: 'var(--md-sys-spacing-10)',
+                  fontSize: 'var(--icon-size-xl)',
                   color: 'var(--md-sys-color-on-surface-variant)',
                   fontVariationSettings: '"FILL" 0, "wght" 300',
                 }}

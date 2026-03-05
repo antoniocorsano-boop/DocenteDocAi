@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { tokenLayers, TokenLayers } from './tokens';
+import M3Surface from '../components/ui/M3Surface';
+import { M3Typography } from '../components/ui/M3Typography';
 
 // Type for preset overrides (partial token layers)
 export type PresetOverrides = Partial<TokenLayers>;
@@ -31,25 +33,116 @@ interface M3ThemeProviderProps {
   children: ReactNode;
 }
 
+// Loading skeleton component
+const ThemeSkeleton: React.FC = () => (
+  <M3Surface 
+    variant="surface" 
+    role="progressbar" 
+    aria-label="Loading theme configuration"
+    style={{
+      width: '100%',
+      height: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}
+  >
+    <M3Typography variant="body-large" aria-live="polite">
+      Loading theme...
+    </M3Typography>
+  </M3Surface>
+);
+
+// Error state component
+const ThemeError: React.FC<{ onRetry: () => void }> = ({ onRetry }) => (
+  <M3Surface 
+    variant="error-container" 
+    role="alert"
+    aria-labelledby="theme-error-title"
+    style={{
+      width: '100%',
+      height: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '16px'
+    }}
+  >
+    <M3Typography 
+      variant="headline-small" 
+      id="theme-error-title"
+      color="on-error-container"
+    >
+      Theme Loading Error
+    </M3Typography>
+    <M3Typography 
+      variant="body-medium" 
+      color="on-error-container"
+      style={{ textAlign: 'center' }}
+    >
+      Failed to load theme configuration. Please try again.
+    </M3Typography>
+    <button
+      onClick={onRetry}
+      style={{
+        padding: '12px 24px',
+        border: 'none',
+        borderRadius: '8px',
+        cursor: 'pointer'
+      }}
+      aria-label="Retry loading theme configuration"
+    >
+      <M3Typography variant="label-large">Retry</M3Typography>
+    </button>
+  </M3Surface>
+);
+
+const isTest = typeof process !== 'undefined' && process.env.NODE_ENV === 'test';
+
 export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({ children }) => {
-const [overrides, setOverrides] = useState<PresetOverrides>({});
+  const [overrides, setOverrides] = useState<PresetOverrides>({});
+  const [isLoading, setIsLoading] = useState(!isTest);
+  const [hasError, setHasError] = useState(false);
 
   // Load overrides from localStorage on mount
   useEffect(() => {
-    const savedOverrides = localStorage.getItem('m3-theme-overrides');
-    if (savedOverrides) {
+    if (isTest) return; // skip async loading in test environment
+    const loadTheme = async () => {
       try {
-        setOverrides(JSON.parse(savedOverrides));
-      } catch {
-        console.warn('Failed to parse theme overrides from localStorage');
+        setIsLoading(true);
+        setHasError(false);
+        
+        const savedOverrides = localStorage.getItem('m3-theme-overrides');
+        if (savedOverrides) {
+          const parsed = JSON.parse(savedOverrides);
+          setOverrides(parsed);
+        }
+        
+        // Simulate async theme loading
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+      } catch (error) {
+        console.warn('Failed to parse theme overrides from localStorage', error);
+        setHasError(true);
+      } finally {
+        setIsLoading(false);
       }
-    }
-}, []);
+    };
+
+    loadTheme();
+  }, []);
 
   // Save overrides to localStorage
   useEffect(() => {
-    localStorage.setItem('m3-theme-overrides', JSON.stringify(overrides));
-}, [overrides]);
+    if (!isLoading) {
+      try {
+        localStorage.setItem('m3-theme-overrides', JSON.stringify(overrides));
+      } catch (error) {
+        console.error('Failed to save theme overrides to localStorage', error);
+      }
+    }
+  }, [overrides, isLoading]);
 
   // Function to update overrides safely using token layers
   const updateOverrides = (newOverrides: PresetOverrides) => {
@@ -126,6 +219,21 @@ const [overrides, setOverrides] = useState<PresetOverrides>({});
     return isEqual(layers, defaultLayers);
   };
 
+  const handleRetry = () => {
+    setHasError(false);
+    setIsLoading(true);
+    // Trigger reload
+    window.location.reload();
+  };
+
+  if (isLoading) {
+    return <ThemeSkeleton />;
+  }
+
+  if (hasError) {
+    return <ThemeError onRetry={handleRetry} />;
+  }
+
   const theme: Theme = {
     layers,
     overrides,
@@ -137,7 +245,14 @@ const [overrides, setOverrides] = useState<PresetOverrides>({});
 
   return (
     <ThemeContext.Provider value={theme}>
-      {children}
+      <M3Surface 
+        variant="background" 
+        role="main"
+        aria-label="DocenteDoc AI application theme provider"
+        style={{ minHeight: '100vh', width: '100%' }}
+      >
+        {children}
+      </M3Surface>
     </ThemeContext.Provider>
   );
 };

@@ -3,28 +3,34 @@
 exports[`CategoryCard Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    aria-pressed="false"
-    role="button"
-    style="display: flex; flex-direction: column; align-items: center; gap: var(--md-sys-spacing-4); padding: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-large); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant); background-color: var(--md-sys-color-surface-container); box-shadow: var(--md-sys-elevation-level1); cursor: pointer; transition: opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard); transform: scale(1); outline: none; outline-offset: 0;"
-    tabindex="0"
+    aria-label="DocenteDoc AI Application"
+    role="application"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
   >
     <div
-      style="width: var(--md-sys-spacing-8); height: var(--md-sys-spacing-8); border-radius: var(--md-sys-shape-corner-medium); display: flex; align-items: center; justify-content: center; color: blue; transition: opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard); transform: rotate(0deg) scale(1);"
+      aria-pressed="false"
+      role="button"
+      style="display: flex; flex-direction: column; align-items: center; gap: var(--md-sys-spacing-4); padding: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-large); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant); background-color: var(--md-sys-color-surface-container); box-shadow: var(--md-sys-elevation-level1); cursor: pointer; transition: opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard); transform: scale(1); outline: none;"
+      tabindex="0"
     >
-      <span
-        style="font-size: var(--md-sys-spacing-6);"
+      <div
+        style="width: var(--md-sys-spacing-8); height: var(--md-sys-spacing-8); border-radius: var(--md-sys-shape-corner-medium); display: flex; align-items: center; justify-content: center; color: blue; transition: opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard); transform: rotate(0deg) scale(1);"
       >
-        test
-      </span>
-    </div>
-    <div
-      style="display: flex; flex-direction: column; align-items: center; gap: var(--md-sys-spacing-4);"
-    >
-      <span
-        style="font-family: var(--font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-weight-black); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: -0.025em; color: var(--md-sys-color-on-surface); margin: 0px; text-align: center;"
+        <span
+          style="font-size: var(--md-sys-spacing-6);"
+        >
+          test
+        </span>
+      </div>
+      <div
+        style="display: flex; flex-direction: column; align-items: center; gap: var(--md-sys-spacing-4);"
       >
-        Test
-      </span>
+        <span
+          style="font-family: var(--font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-weight-black); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: -0.025em; color: var(--md-sys-color-on-surface); margin: 0px; text-align: center;"
+        >
+          Test
+        </span>
+      </div>
     </div>
   </div>
 </div>

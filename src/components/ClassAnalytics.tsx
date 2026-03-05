@@ -44,7 +44,7 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
             { label: 'Sufficienti', value: totalStudents - studentsWithInsufficient, color: 'var(--md-sys-color-primary)' },
             { label: 'Insufficienti', value: studentsWithInsufficient, color: 'var(--md-sys-color-error)' }
         ];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
     }, [students, evaluations]);
 
     return (

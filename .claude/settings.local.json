@@ -1,0 +1,5 @@
+{
+  "permissions": {
+    "allow": ["Bash(node ./scripts/md3/md3-component-contract-audit.cjs)"]
+  }
+}

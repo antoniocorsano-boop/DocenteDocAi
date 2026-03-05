@@ -71,8 +71,14 @@ const ALLOWED_CLASSNAMES = [
 const APPROVED_EXCEPTIONS = [
   // ── BottomNav: BEM class names trigger the m- false positive ────────────
   { file: 'src\\components\\BottomNav.tsx', line: 46, type: 'classNameUtilities', pattern: 'bottom-nav-container' },
+  { file: 'src\\components\\BottomNav.tsx', line: 52, type: 'classNameUtilities', pattern: 'bottom-nav-container' },
   { file: 'src\\components\\BottomNav.tsx', line: 68, type: 'classNameUtilities', pattern: 'bottom-nav-item' },
+  { file: 'src\\components\\BottomNav.tsx', line: 74, type: 'classNameUtilities', pattern: 'bottom-nav-item' },
   { file: 'src\\components\\BottomNav.tsx', line: 89, type: 'classNameUtilities', pattern: 'bottom-nav-pill' },
+  { file: 'src\\components\\BottomNav.tsx', line: 96, type: 'classNameUtilities', pattern: 'bottom-nav-pill' },
+
+  // ── SkipLink: semantic skip-link CSS class ───────────────────────────────
+  { file: 'src\\components\\SkipLink.tsx', line: 54, type: 'classNameUtilities', pattern: 'skip-link' },
 
   // ── BarChart: SVG width="100%" is semantic (responsive SVG) ─────────────
   { file: 'src\\components\\charts\\BarChart.tsx', line: 41, type: 'hardcodedSizeProps', pattern: 'preserveAspectRatio' },
@@ -87,6 +93,8 @@ const APPROVED_EXCEPTIONS = [
 
   // ── M3Menu / M3Popover: internal popover anchor prop ────────────────────
   { file: 'src\\components\\ui\\M3Menu.tsx', line: 152, type: 'forbiddenProps', pattern: 'M3Popover' },
+  { file: 'src\\components\\ui\\M3Menu.tsx', line: 153, type: 'forbiddenProps', pattern: 'M3Popover' },
+  { file: 'src\\components\\ui\\M3Menu.tsx', line: 174, type: 'inlineStyleLayout', pattern: 'style={{' },
 
   // ── containerClassName shadow-inner: utility inside named prop ───────────
   { file: 'src\\components\\CopyForRegisterModal.tsx', line: 96, type: 'classNameUtilities', pattern: 'bg-[var(' },

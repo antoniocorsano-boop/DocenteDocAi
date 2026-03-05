@@ -3,14 +3,20 @@
 exports[`InfoCard Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    style="padding: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-large); transition: transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-spring-expressive-default-spatial), box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); transform: scale(1); cursor: default; outline: none; outline-offset: var(--md-sys-spacing-0); background-color: var(--md-sys-color-surface-container-low); box-shadow: var(--md-sys-elevation-level1); border: medium; position: relative;"
+    aria-label="DocenteDoc AI Application"
+    role="application"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
   >
     <div
-      style="display: flex; flex-direction: column; gap: var(--md-sys-spacing-4);"
+      style="padding: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-large); transition: transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-spring-expressive-default-spatial), box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); transform: scale(1); cursor: default; outline: none; outline-offset: var(--md-sys-spacing-0); background-color: var(--md-sys-color-surface-container-low); box-shadow: var(--md-sys-elevation-level1); border: medium; position: relative;"
     >
       <div
-        style="display: flex; flex-direction: column; gap: var(--md-sys-spacing-3);"
-      />
+        style="display: flex; flex-direction: column; gap: var(--md-sys-spacing-4);"
+      >
+        <div
+          style="display: flex; flex-direction: column; gap: var(--md-sys-spacing-3);"
+        />
+      </div>
     </div>
   </div>
 </div>

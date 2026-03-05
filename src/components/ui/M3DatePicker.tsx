@@ -1,6 +1,4 @@
-// MD3 Compliant M3DatePicker Component
-// Fully compliant with MD3 tokens: uses var(--md-sys-*) CSS variables for theming, spacing, typography, shape, and colors
-// No useTheme() dependency - all styling uses direct MD3 CSS variables
+// MD3 Gold Compliant
 
 import React, { useId, useState } from 'react';
 
@@ -18,7 +16,7 @@ const inputStyle: React.CSSProperties = {
   boxSizing: 'border-box',
   backgroundColor: 'var(--md-sys-color-surface-container-highest)',
   color: 'var(--md-sys-color-on-surface)',
-  fontFamily: 'var(--font-family)',
+  fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
   fontSize: 'var(--md-sys-typescale-body-large-font-size)',
 };
 
@@ -37,7 +35,7 @@ const inputErrorStyle: React.CSSProperties = {
 const helperStyle: React.CSSProperties = {
   marginTop: 'var(--md-sys-spacing-1)',
   fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-  fontFamily: 'var(--font-family)',
+  fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
   color: 'var(--md-sys-color-on-surface-variant)',
 };
 
@@ -74,7 +72,7 @@ function M3DatePicker({
           style={{display: 'block',
             marginBottom: 'var(--md-sys-spacing-2)', 
             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-            fontFamily: 'var(--font-family)',
+            fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
             fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
             color: 'var(--md-sys-color-on-surface)'}}
         >

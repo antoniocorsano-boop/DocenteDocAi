@@ -1,9 +1,10 @@
-/* eslint-disable design-system/no-classname -- Material Symbols outline icons require className */
-// MD3 Expressive — Bottom Navigation Bar
+/* eslint-disable design-system/no-classname -- Material Symbols icon classes + bottom-nav-* classes required for @media breakpoint and :focus-visible descendant selector (CSS custom properties cannot be used in @media queries — documented exception per MD3 contract §9) */
+// MD3 Gold Compliant
 // Active indicator: animated pill (scale + opacity) using spring expressive tokens.
 // MD3 spec: pill 64×32dp, corner-full, secondary-container color.
 import React from 'react';
 import { View } from '../types';
+import { M3Typography } from './ui/M3Typography';
 
 interface BottomNavProps {
   activeView: View;
@@ -26,12 +27,12 @@ const navItems: { id: View | '__more__'; label: string; icon: string; activeIcon
 
 // Spring tokens for pill expansion — fast spatial for snappy feel
 const SPRING_SPATIAL =
-  'var(--md-sys-motion-spring-expressive-fast-spatial-duration, 350ms) ' +
-  'var(--md-sys-motion-spring-expressive-fast-spatial, cubic-bezier(0.42, 1.67, 0.21, 0.90))';
+  'var(--md-sys-motion-spring-expressive-fast-spatial-duration) ' +
+  'var(--md-sys-motion-spring-expressive-fast-spatial)';
 
 const SPRING_EFFECTS =
-  'var(--md-sys-motion-spring-expressive-fast-effects-duration, 150ms) ' +
-  'var(--md-sys-motion-spring-expressive-fast-effects, cubic-bezier(0.31, 0.94, 0.34, 1.00))';
+  'var(--md-sys-motion-spring-expressive-fast-effects-duration) ' +
+  'var(--md-sys-motion-spring-expressive-fast-effects)';
 
 const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate, onOpenMore, moreOpen = false }) => {
   return (
@@ -145,12 +146,11 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate, onOpenMor
               </span>
 
               {/* Label */}
-              <span
+              <M3Typography
+                variant="label-small"
+                as="span"
                 style={{
-                  fontFamily: 'var(--md-sys-typescale-label-small-font-family)',
-                  fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                   fontWeight: isActive ? 'var(--md-sys-typescale-weight-bold)' : 'var(--md-sys-typescale-weight-regular)',
-                  letterSpacing: 'var(--md-sys-typescale-label-small-tracking, 0.5px)',
                   color: isActive
                     ? 'var(--md-sys-color-on-surface)'
                     : 'var(--md-sys-color-on-surface-variant)',
@@ -158,7 +158,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate, onOpenMor
                 }}
               >
                 {item.label}
-              </span>
+              </M3Typography>
             </button>
           );
         })}

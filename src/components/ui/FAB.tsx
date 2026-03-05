@@ -82,7 +82,7 @@ export const FAB: React.FC<FABProps> = ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: extended ? 'var(--md-sys-spacing-2)' : '0',
+        gap: extended ? 'var(--md-sys-spacing-2)' : undefined,
         width: extended ? 'auto' : sizeMap.width,
         height: sizeMap.height,
         padding: extended ? '0 var(--md-sys-spacing-4)' : '0',
@@ -109,7 +109,7 @@ export const FAB: React.FC<FABProps> = ({
         transform: isPressed && !disabled 
           ? `${positionStyles.transform || ''} scale(0.92)` 
           : `${positionStyles.transform || ''} scale(1)`,
-        opacity: disabled ? 'var(--md-sys-state-opacity-placeholder)' : 1,
+        opacity: disabled ? 'var(--md-sys-state-opacity-placeholder)' : undefined,
         zIndex: 'var(--md-sys-z-modal)',
         userSelect: 'none',
         WebkitTapHighlightColor: 'transparent',

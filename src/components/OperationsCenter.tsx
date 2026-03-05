@@ -1,5 +1,4 @@
-// MD3 Compliant
-// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// MD3 Gold Compliant (icon exceptions: GAP/position use raw px from getBoundingClientRect)
 import React, { useState, useMemo } from 'react';
 import { View, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, RegisterEntry } from '../types';
 import { ActionTile, SectionHeader, M3Dialog, M3DialogContent, M3Button } from './ui';
@@ -202,7 +201,6 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                               selectedProcess.variant === 'secondary' ? 'var(--md-sys-color-on-secondary-container)' :
                               selectedProcess.variant === 'tertiary' ? 'var(--md-sys-color-on-tertiary-container)' :
                               'var(--md-sys-color-on-surface)',
-                        fontSize: 'var(--md-sys-spacing-10)',
                         marginTop: 0,
                         marginLeft: 'var(--md-sys-margin-auto)',
                         marginBottom: 'var(--md-sys-spacing-4)',
@@ -210,7 +208,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                         boxShadow: 'var(--md-sys-elevation-level2)',
                         transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'
                     }}>
-                        <span>{selectedProcess.icon}</span>
+                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-xl)' }}>{selectedProcess.icon}</span>
                     </div>
                     <h2 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{selectedProcess.title}</h2>
                     <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{selectedProcess.description}</p>
@@ -253,7 +251,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                                     </div>
                                     <div style={{ flex: 1 }}>
                                         <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', color: 'var(--md-sys-color-on-tertiary-container)' }}>Suggerimento AI</h3>
-                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-tertiary-container)', opacity: 0.85 }}>{suggestedProcess.description}</p>
+                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-tertiary-container)', opacity: 'var(--md-sys-state-opacity-caption)' }}>{suggestedProcess.description}</p>
                                     </div>
                                     <M3Button onClick={() => setSelectedProcess(suggestedProcess)} variant="filled">
                                         AVVIA <span className="material-symbols-outlined">arrow_forward</span>

@@ -354,6 +354,8 @@
   --md-sys-layout-fab-size: 56px;
   --md-sys-layout-button-min-width: 64px;
   --md-sys-layout-popup-min-width: 120px;
+  --md-sys-layout-menu-min-width: 200px;
+  --md-sys-layout-menu-max-width: var(--md-sys-spacing-80); /* 320px */
   --md-sys-layout-panel-max-width: 800px;
   --md-sys-layout-dialog-compact-max-width: 480px; /* Narrow dialog / wizard card */
   --md-sys-layout-dropzone-height: 192px;
@@ -777,9 +779,10 @@
   
   /* Icon Size Tokens */
   --icon-size-small: var(--md-sys-spacing-5);        /* Extra small icons (compact UI) */
-  --icon-size-medium: var(--md-sys-spacing-6);       /* Medium icons (M3 default) */
-  --icon-size-large: var(--md-sys-spacing-8);        /* Large icons (prominent) */
-  --icon-size-xl: var(--md-sys-spacing-12);           /* Extra large (hero displays) */
+  --icon-size-medium: var(--md-sys-spacing-6);       /* Medium icons (M3 default, 24px) */
+  --icon-size-large: var(--md-sys-spacing-8);        /* Large icons (prominent, 32px) */
+  --icon-size-xl: var(--md-sys-spacing-10);          /* Extra large icons (hero/empty-state, 40px) */
+  --icon-size-hero: var(--md-sys-spacing-12);        /* Hero icons (display prominence, 48px) */
   
   /* Icon Tailwind Classes (for convenience) */
   --icon-small: text-sm;          /* var(--md-sys-typescale-body-medium-font-size) base */

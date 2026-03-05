@@ -66,7 +66,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
             transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
             transform: isSelected ? 'scale(1.02)' : (hovered && !isSelected ? 'scale(1.01)' : 'scale(1)'),
             outline: focused ? 'var(--md-sys-border-width-normal) solid var(--md-sys-color-primary)' : 'none',
-            outlineOffset: focused ? 'var(--md-sys-spacing-2)' : '0'
+            outlineOffset: focused ? 'var(--md-sys-spacing-2)' : undefined
         }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}

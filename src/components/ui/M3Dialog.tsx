@@ -13,6 +13,7 @@
 
 import React, { useCallback, useState } from 'react';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
+import { M3Typography } from './M3Typography';
 
 // ============================================================================
 // TYPES
@@ -101,13 +102,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   const spacing4 = 'var(--md-sys-spacing-4)';
   const spacing6 = 'var(--md-sys-spacing-6)';
   const cornerLarge = 'var(--md-sys-shape-corner-large)';
-  const headlineLargeFontSize = 'var(--md-sys-typescale-title-large-font-size)';
-  const headlineLargeFontWeight = 'var(--md-sys-typescale-title-large-font-weight)';
-  const headlineLargeLineHeight = 'var(--md-sys-typescale-title-large-line-height)';
-  const headlineLargeLetterSpacing = 'var(--md-sys-typescale-headline-large-letter-spacing)';
   const bodyLargeFontSize = 'var(--md-sys-typescale-body-large-font-size)';
-  const bodyLargeFontWeight = 'var(--md-sys-typescale-body-large-font-weight)';
-  const bodyLargeLineHeight = 'var(--md-sys-typescale-body-large-line-height)';
 
   // MD3 z-index tokens — modal layer
   const backdropZIndex = 'var(--md-sys-z-modal)';
@@ -221,28 +216,22 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
           >
             {/* Title & Subtitle */}
             <div>
-              <h2
+              <M3Typography
+                variant="title-large"
+                as="h2"
                 id="dialog-title"
-                style={{
-                  fontSize: headlineLargeFontSize,
-                  fontWeight: headlineLargeFontWeight,
-                  lineHeight: headlineLargeLineHeight,
-                  letterSpacing: headlineLargeLetterSpacing,
-                  color: onSurface,
-                  margin: 0
-                }}
+                style={{ color: onSurface, margin: 0 }}
               >
                 {title}
-              </h2>
+              </M3Typography>
               {headline && (
-                <p
+                <M3Typography
+                  variant="body-large"
+                  as="p"
                   style={{
-                    fontSize: bodyLargeFontSize,
-                    fontWeight: bodyLargeFontWeight,
-                    lineHeight: bodyLargeLineHeight,
                     color: onSurfaceVariant,
                     opacity: 'var(--md-sys-state-opacity-caption)',
-                    margin: `${spacing4} 0 0 0`,
+                    marginTop: spacing4,
                     display: '-webkit-box',
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical',
@@ -250,7 +239,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
                   }}
                 >
                   {headline}
-                </p>
+                </M3Typography>
               )}
             </div>
 

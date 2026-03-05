@@ -112,7 +112,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center'}}>
-                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-spacing-6)',
+                            <span className="material-symbols-outlined" style={{fontSize: 'var(--icon-size-medium)',
                                 color: 'var(--md-sys-color-on-primary)'}}>calendar_view_week</span>
                         </div>
                         <div style={{ minWidth: 0, flex: 1 }}>
@@ -185,7 +185,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
 
                 <div style={{marginBottom: 'var(--md-sys-spacing-4)'}}>
                     <Guidance id="timetable-pro-tips-aura" icon="auto_awesome" title="Consiglio Rapido" isGloballyEnabled={showGuidanceTips}>
-                        <p>Clicca su una cella vuota per pianificare. Usa la vista "Giorno" da smartphone per una gestione più focalizzata.</p>
+                        <M3Typography variant="body-medium">Clicca su una cella vuota per pianificare. Usa la vista "Giorno" da smartphone per una gestione più focalizzata.</M3Typography>
                     </Guidance>
                 </div>
                 

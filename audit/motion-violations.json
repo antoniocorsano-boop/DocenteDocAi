@@ -1,111 +1,24 @@
 {
-  "timestamp": "2026-03-04T16:07:40.256Z",
-  "totalViolations": 12,
-  "totalFiles": 3,
-  "scannedFiles": 439,
+  "timestamp": "2026-03-05T17:05:16.341Z",
+  "totalViolations": 1,
+  "totalFiles": 1,
+  "scannedFiles": 446,
   "typeBreakdown": {
-    "hardcodedDuration": 4,
-    "inlineStyleTemporal": 4,
-    "hardcodedEasing": 4
+    "hardcodedDuration": 1
   },
   "topViolators": [
     {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "count": 7
-    },
-    {
-      "file": "src\\components\\ui\\TouchButton.tsx",
-      "count": 3
-    },
-    {
-      "file": "src\\components\\ui\\ProgressIndicator.tsx",
-      "count": 2
+      "file": "src\\nka\\NKAHeaderAuraButton.tsx",
+      "count": 1
     }
   ],
   "violations": [
     {
-      "file": "src\\components\\ui\\ProgressIndicator.tsx",
-      "line": 49,
+      "file": "src\\nka\\NKAHeaderAuraButton.tsx",
+      "line": 99,
       "type": "hardcodedDuration",
-      "match": "animation: 'progress-indeterminate 2s",
-      "context": "transformOrigin: 'left center'"
-    },
-    {
-      "file": "src\\components\\ui\\ProgressIndicator.tsx",
-      "line": 45,
-      "type": "inlineStyleTemporal",
-      "match": "style={{\r\n            height: 'var(--md-sys-percent-100)',\r\n            width: 'var(--md-sys-percent",
-      "context": "height: 'var(--md-sys-percent-100)',"
-    },
-    {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "line": 38,
-      "type": "hardcodedDuration",
-      "match": "animation: animation === 'pulse' \r\n            ? 'skeleton-pulse 1.5s",
-      "context": "? 'skeleton-pulse 1.5s ease-in-out infinite'"
-    },
-    {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "line": 47,
-      "type": "hardcodedDuration",
-      "match": "animation === 'wave' && (\r\n          <div\r\n            style={{\r\n              position: 'absolute',",
-      "context": "<div"
-    },
-    {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "line": 38,
-      "type": "hardcodedEasing",
-      "match": "animation: animation === 'pulse' \r\n            ? 'skeleton-pulse 1.5s ease-in-out",
-      "context": "? 'skeleton-pulse 1.5s ease-in-out infinite'"
-    },
-    {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "line": 47,
-      "type": "hardcodedEasing",
-      "match": "animation === 'wave' && (\r\n          <div\r\n            style={{\r\n              position: 'absolute',",
-      "context": "<div"
-    },
-    {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "line": 56,
-      "type": "hardcodedEasing",
-      "match": "animation: 'skeleton-wave-move 1.5s linear",
-      "context": "}}"
-    },
-    {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "line": 33,
-      "type": "inlineStyleTemporal",
-      "match": "style={{\r\n          width,\r\n          height,\r\n          borderRadius,\r\n          background: 'var(-",
-      "context": "width,"
-    },
-    {
-      "file": "src\\components\\ui\\Skeleton.tsx",
-      "line": 49,
-      "type": "inlineStyleTemporal",
-      "match": "style={{\r\n              position: 'absolute',\r\n              top: 0,\r\n              left: 0,\r\n      ",
-      "context": "position: 'absolute',"
-    },
-    {
-      "file": "src\\components\\ui\\TouchButton.tsx",
-      "line": 127,
-      "type": "hardcodedDuration",
-      "match": "transition: 'all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',\r\n      ",
-      "context": "transform: isPressed && !disabled && !loading ? 'scale(0.98)' : 'scale(1)',"
-    },
-    {
-      "file": "src\\components\\ui\\TouchButton.tsx",
-      "line": 127,
-      "type": "hardcodedEasing",
-      "match": "transition: 'all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',\r\n      ",
-      "context": "transform: isPressed && !disabled && !loading ? 'scale(0.98)' : 'scale(1)',"
-    },
-    {
-      "file": "src\\components\\ui\\TouchButton.tsx",
-      "line": 139,
-      "type": "inlineStyleTemporal",
-      "match": "style={{\r\n            width: 'var(--md-sys-spacing-5)',\r\n            height: 'var(--md-sys-spacing-5",
-      "context": "width: 'var(--md-sys-spacing-5)',"
+      "match": "transition: 'box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',\r",
+      "context": "position: 'relative',"
     }
   ]
 }

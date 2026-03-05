@@ -69,7 +69,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
             className="material-symbols-outlined"
             aria-hidden="true"
             style={{
-              fontSize: 'var(--md-sys-spacing-6)',
+              fontSize: 'var(--icon-size-medium)',
               color: colorMap[color],
               marginBottom: 'var(--md-sys-spacing-1)'
             }}

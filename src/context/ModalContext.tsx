@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { createPortal } from 'react-dom';
+import M3Surface from '../components/ui/M3Surface';
 
 interface ModalEntry {
   id: string;
@@ -33,9 +35,26 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   return (
     <ModalContext.Provider value={{ stack, pushModal, popModal }}>
       {children}
-      {stack.map((entry) => (
-        <React.Fragment key={entry.id}>{entry.component}</React.Fragment>
-      ))}
+      {stack.length > 0 && createPortal(
+        <M3Surface
+          role="dialog"
+          aria-modal="true"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 'var(--md-sys-z-modal)' as React.CSSProperties['zIndex'],
+            pointerEvents: 'auto'
+          }}
+        >
+          {stack.map((entry) => (
+            <React.Fragment key={entry.id}>{entry.component}</React.Fragment>
+          ))}
+        </M3Surface>,
+        document.body
+      )}
     </ModalContext.Provider>
   );
 };

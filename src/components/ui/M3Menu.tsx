@@ -1,4 +1,4 @@
-// MD3 Compliant - Updated for layered theme access
+// MD3 Gold Compliant
 /**
  * M3Menu - Material Design 3 Menu Component
  * 
@@ -14,6 +14,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import M3Popover from './M3Popover';
+import M3Typography from './M3Typography';
 
 // ============================================================================
 // TYPES
@@ -81,9 +82,9 @@ export const M3Menu: React.FC<M3MenuProps> = ({
   onClose,
   items,
   title,
-  minWidth = 200,
-  maxWidth = 320,
-  className,
+  minWidth = 'var(--md-sys-layout-menu-min-width)',
+  maxWidth = 'var(--md-sys-layout-menu-max-width)',
+  className: _className,
   zIndex,
 }) => {
   const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -160,8 +161,6 @@ export const M3Menu: React.FC<M3MenuProps> = ({
       zIndex={zIndex} // eslint-disable-line design-system/no-invalid-component-props
     >
       <div role="menu"
-        // eslint-disable-next-line design-system/no-classname
-        className={`m3-menu ${className || ''}`.trim()}
         style={{ outline: 'none' }}>
         {items.map((item, index) => (
           <React.Fragment key={item.key}>
@@ -172,8 +171,6 @@ export const M3Menu: React.FC<M3MenuProps> = ({
               role="menuitem"
               onClick={handleItemClick.bind(null, index)}
               disabled={item.disabled}
-              // eslint-disable-next-line design-system/no-classname
-              className={item.variant === 'error' ? 'm3-menu-item--error' : undefined}
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -184,10 +181,7 @@ export const M3Menu: React.FC<M3MenuProps> = ({
                 border: 'none',
                 borderRadius: 'var(--md-sys-shape-corner-none)',
                 textAlign: 'left',
-                fontFamily: 'var(--font-family)',
-                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-                opacity: item.disabled ? 'var(--md-sys-state-opacity-disabled)' : '1',
+                opacity: item.disabled ? 'var(--md-sys-state-opacity-disabled)' : undefined,
                 cursor: item.disabled ? 'not-allowed' : 'pointer',
                 backgroundColor: focusedIndex === index ? 'var(--md-sys-color-surface-container-high)' : 'transparent',
                 color: item.variant === 'error' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface)'
@@ -201,28 +195,19 @@ export const M3Menu: React.FC<M3MenuProps> = ({
                   style={{display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                    fontFamily: 'var(--font-family)',
-                    lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
                     flexShrink: 0}}
                 >
                   {item.icon}
                 </span>
               )}
-              <span
-                style={{flexGrow: 1,
-                  fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                  fontFamily: 'var(--font-family)'}}
-              >
+              <M3Typography variant="body-large" as="span" style={{ flexGrow: 1 }}>
                 {item.label}
-              </span>
+              </M3Typography>
             </button>
             
             {item.divider && (
               <div
                 role="separator"
-                // eslint-disable-next-line design-system/no-classname
-                className="m3-menu__divider"
                 style={{
                   height: 'var(--md-sys-spacing-1)',
                   backgroundColor: 'var(--md-sys-color-outline-variant)',

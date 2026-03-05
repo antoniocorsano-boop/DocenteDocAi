@@ -248,7 +248,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                     </div>
                                     <div style={{ flex: 1 }}>
                                         <p style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', color: 'var(--md-sys-color-on-secondary-container)' }}>Assistente Pedagogico</p>
-                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-secondary-container)', opacity: 0.8 }}>Analizza inclusività e coinvolgimento</p>
+                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-secondary-container)', opacity: 'var(--md-sys-state-opacity-caption)' }}>Analizza inclusività e coinvolgimento</p>
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
@@ -363,7 +363,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                     ))
                                 ) : (
                                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-6)', color: 'var(--md-sys-color-on-surface-variant)' }}>
-                                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-10)' }}>folder_off</span>
+                                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--icon-size-xl)' }}>folder_off</span>
                                         <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>Nessun materiale</p>
                                     </div>
                                 )}

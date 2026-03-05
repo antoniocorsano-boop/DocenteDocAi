@@ -47,7 +47,10 @@ describe('M3ExpressiveCard', () => {
 
   it('applies correct color styles', () => {
     const { container } = render(<M3ExpressiveCard {...mockProps} color="secondary" />);
-    const card = container.firstChild as HTMLElement;
+    // container.firstChild is the global M3ThemeProvider application wrapper;
+    // the actual card is its first child
+    const appWrapper = container.firstChild as HTMLElement;
+    const card = appWrapper?.firstChild as HTMLElement;
     
     // Check that the card has the expected inline styles for secondary color
     expect(card.style.backgroundColor).toBe('var(--md-sys-color-secondary-container)');

@@ -84,7 +84,7 @@ const M3Button: React.FC<M3ButtonProps> = ({
     outline: 'none',
     borderRadius: shapeMedium,
     cursor: disabled ? 'not-allowed' : 'pointer',
-    opacity: disabled ? 'var(--md-sys-state-opacity-disabled)' : 1,
+    opacity: disabled ? 'var(--md-sys-state-opacity-disabled)' : undefined,
     pointerEvents: disabled ? 'none' : 'auto',
     border: 'none',
     textDecoration: 'none',

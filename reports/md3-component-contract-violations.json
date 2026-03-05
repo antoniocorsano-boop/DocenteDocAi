@@ -1,11 +1,12 @@
 {
-  "timestamp": "2026-03-04T22:21:55.719Z",
-  "totalViolations": 5,
+  "timestamp": "2026-03-05T17:09:51.950Z",
+  "totalViolations": 6,
   "totalFiles": 3,
-  "scannedFiles": 251,
+  "scannedFiles": 255,
   "typeBreakdown": {
     "classNameUtilities": 4,
-    "inlineStyleLayout": 1
+    "inlineStyleLayout": 1,
+    "forbiddenProps": 1
   },
   "topViolators": [
     {
@@ -13,18 +14,18 @@
       "count": 3
     },
     {
-      "file": "src\\components\\SkipLink.tsx",
-      "count": 1
+      "file": "src\\components\\ui\\M3Menu.tsx",
+      "count": 2
     },
     {
-      "file": "src\\components\\ui\\M3Menu.tsx",
+      "file": "src\\components\\SkipLink.tsx",
       "count": 1
     }
   ],
   "violations": [
     {
       "file": "src\\components\\BottomNav.tsx",
-      "line": 51,
+      "line": 52,
       "type": "classNameUtilities",
       "match": "className=\"bottom-",
       "context": "className=\"bottom-nav-container\"",
@@ -32,7 +33,7 @@
     },
     {
       "file": "src\\components\\BottomNav.tsx",
-      "line": 73,
+      "line": 74,
       "type": "classNameUtilities",
       "match": "className=\"bottom-",
       "context": "className=\"bottom-nav-item\"",
@@ -40,7 +41,7 @@
     },
     {
       "file": "src\\components\\BottomNav.tsx",
-      "line": 95,
+      "line": 96,
       "type": "classNameUtilities",
       "match": "className=\"bottom-",
       "context": "className=\"bottom-nav-pill\"",
@@ -56,11 +57,19 @@
     },
     {
       "file": "src\\components\\ui\\M3Menu.tsx",
-      "line": 177,
+      "line": 174,
       "type": "inlineStyleLayout",
       "match": "style={{\r\n                display: 'flex',\r\n                alignItems: 'center',\r\n                g",
       "context": "style={{",
       "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
+    },
+    {
+      "file": "src\\components\\ui\\M3Menu.tsx",
+      "line": 153,
+      "type": "forbiddenProps",
+      "match": "<M3Popover\r\n      open={open}\r\n      anchorEl={anchorEl}\r\n      onClose={onClose}\r\n      title={titl",
+      "context": "<M3Popover",
+      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
     }
   ]
 }

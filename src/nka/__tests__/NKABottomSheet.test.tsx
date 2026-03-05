@@ -17,7 +17,7 @@ describe('NKABottomSheet', () => {
     );
     expect(screen.getAllByText('Nodo 1').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Nodo 2').length).toBeGreaterThan(0);
-    const node2Card = screen.getByLabelText('Nodo 2', { selector: '[aria-describedby*="nka-node-depth-"]' });
+    const node2Card = screen.getByLabelText(/Nodo 2/, { selector: '[aria-describedby*="nka-node-details-"]' });
     expect(node2Card).toBeDefined();
     fireEvent.click(node2Card); // Click second node card
     expect(onNodeSelect).toHaveBeenCalled();

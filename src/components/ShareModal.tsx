@@ -1,7 +1,7 @@
-// MD3 Compliant - Block G Migration (13 violations eliminated)
+// MD3 Gold Compliant
 
 import React, { useState } from 'react';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
+import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, M3Typography } from './ui';
 
 interface ShareModalProps {
     title: string;
@@ -85,11 +85,11 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             color: 'var(--md-sys-color-on-secondary-container)',
                             backgroundColor: 'var(--md-sys-color-secondary-container)'
                         }}>
-                            <span style={{ fontSize: 'var(--md-sys-spacing-6)' }}>share</span>
+                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)' }}>share</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <p style={{ fontSize: 'var(--md-sys-spacing-5)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Condividi via...</p>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>WhatsApp, Email, Drive</p>
+                            <M3Typography variant="title-small">Condividi via...</M3Typography>
+                            <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>WhatsApp, Email, Drive</M3Typography>
                         </div>
                     </button>
 
@@ -118,11 +118,11 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             color: 'var(--md-sys-color-on-tertiary-container)',
                             backgroundColor: 'var(--md-sys-color-tertiary-container)'
                         }}>
-                            <span style={{ fontSize: 'var(--md-sys-spacing-6)' }}>{copyStatus === 'copied' ? 'check' : 'content_paste'}</span>
+                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)' }}>{copyStatus === 'copied' ? 'check' : 'content_paste'}</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <p style={{ fontSize: 'var(--md-sys-spacing-5)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{copyStatus === 'copied' ? 'Copiato!' : 'Copia Formattato'}</p>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Per registro elettronico o Padlet</p>
+                            <M3Typography variant="title-small">{copyStatus === 'copied' ? 'Copiato!' : 'Copia Formattato'}</M3Typography>
+                            <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Per registro elettronico o Padlet</M3Typography>
                         </div>
                     </button>
                 </div>

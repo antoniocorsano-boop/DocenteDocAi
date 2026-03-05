@@ -1,20 +1,107 @@
-// Card for a single NKA node (M3 Card, shape override)
-
 import React from 'react';
 import { NKANode } from './types';
 import { M3Typography } from '../components/ui/M3Typography';
+import { M3Surface } from '../components/ui/M3Surface';
+import { M3Button } from '../components/ui/M3Button';
+import { M3Skeleton } from '../components/ui/M3Skeleton';
 
 interface NKANodeCardProps {
-  node: NKANode;
+  node?: NKANode;
   onSelect: () => void;
+  loading?: boolean;
+  error?: string;
 }
 
-function NKANodeCard({ node, onSelect }: NKANodeCardProps): React.JSX.Element {
+function NKANodeCard({ node, onSelect, loading = false, error }: NKANodeCardProps): React.JSX.Element {
+  if (loading) {
+    return (
+      <M3Surface
+        variant="container"
+        elevation={1}
+        style={{
+          borderRadius: 'var(--md-sys-shape-corner-large)',
+          padding: 'var(--md-sys-spacing-4)',
+          marginBottom: 'var(--md-sys-spacing-4)',
+          minWidth: 220,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'var(--md-sys-spacing-2)',
+        }}
+        role="status"
+        aria-label="Caricamento nodo NKA in corso"
+      >
+        <M3Skeleton variant="text" width="80%" height="24px" />
+        <M3Skeleton variant="text" width="60%" height="16px" />
+        <M3Surface style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-2)' }}>
+          <M3Skeleton variant="rectangular" width="80px" height="32px" />
+          <M3Skeleton variant="rectangular" width="80px" height="32px" />
+        </M3Surface>
+      </M3Surface>
+    );
+  }
+
+  if (error) {
+    return (
+      <M3Surface
+        variant="container"
+        elevation={1}
+        style={{
+          borderRadius: 'var(--md-sys-shape-corner-large)',
+          padding: 'var(--md-sys-spacing-4)',
+          marginBottom: 'var(--md-sys-spacing-4)',
+          minWidth: 220,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'var(--md-sys-spacing-2)',
+          alignItems: 'center',
+        }}
+        role="alert"
+        aria-label={`Errore nel caricamento del nodo: ${error}`}
+      >
+        <M3Typography variant="title-medium" color="error">
+          Errore
+        </M3Typography>
+        <M3Typography variant="body-small" color="error" style={{ textAlign: 'center' }}>
+          {error}
+        </M3Typography>
+      </M3Surface>
+    );
+  }
+
+  if (!node) {
+    return (
+      <M3Surface
+        variant="container"
+        elevation={1}
+        style={{
+          borderRadius: 'var(--md-sys-shape-corner-large)',
+          padding: 'var(--md-sys-spacing-6)',
+          marginBottom: 'var(--md-sys-spacing-4)',
+          minWidth: 220,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'var(--md-sys-spacing-2)',
+          alignItems: 'center',
+        }}
+        role="status"
+        aria-label="Nessun nodo NKA disponibile"
+      >
+        <M3Typography variant="title-medium" color="on-surface-variant">
+          Nessun nodo disponibile
+        </M3Typography>
+        <M3Typography variant="body-small" color="on-surface-variant" style={{ textAlign: 'center' }}>
+          Non ci sono nodi NKA da visualizzare
+        </M3Typography>
+      </M3Surface>
+    );
+  }
+
   return (
-    <div
+    <M3Surface
+      variant="container"
+      elevation={1}
+      interactive
       style={{
-        background: 'var(--md-sys-color-surface-container)',
-        boxShadow: 'var(--md-sys-elevation1)',
         borderRadius: 'var(--md-sys-shape-corner-large)',
         padding: 'var(--md-sys-spacing-4)',
         marginBottom: 'var(--md-sys-spacing-4)',
@@ -24,12 +111,11 @@ function NKANodeCard({ node, onSelect }: NKANodeCardProps): React.JSX.Element {
         display: 'flex',
         flexDirection: 'column',
         gap: 'var(--md-sys-spacing-2)',
-        transition: 'box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
       }}
       tabIndex={0}
       role="button"
-      aria-label={node.label}
-      aria-describedby={`nka-node-depth-${node.id}`}
+      aria-label={`Nodo NKA: ${node.label}, profondità ${Math.round(node.depth * 100)}%`}
+      aria-describedby={`nka-node-details-${node.id}`}
       onClick={onSelect}
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -38,35 +124,47 @@ function NKANodeCard({ node, onSelect }: NKANodeCardProps): React.JSX.Element {
         }
       }}
     >
-      <M3Typography variant="title-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>{node.label}</M3Typography>
-      <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }} id={`nka-node-depth-${node.id}`}>
+      <M3Typography variant="title-medium" color="on-surface">
+        {node.label}
+      </M3Typography>
+      
+      <M3Typography 
+        variant="body-small" 
+        color="on-surface-variant" 
+        id={`nka-node-details-${node.id}`}
+      >
         Profondità {Math.round(node.depth * 100)}%
       </M3Typography>
-      <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-2)' }}>
-        {node.actions.map((action: string) => (
-          <button
-            key={action}
-            tabIndex={0}
-            aria-label={action}
-            style={{
-              background: 'var(--md-sys-color-primary)',
-              color: 'var(--md-sys-color-on-primary)',
-              border: 'none',
-              borderRadius: 'var(--md-sys-shape-corner-small)',
-              padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
-              font: 'inherit',
-              cursor: 'pointer',
-              boxShadow: 'var(--md-sys-elevation0)',
-              transition: 'background var(--md-sys-motion-duration-medium)',
-            }}
-          >
-            <M3Typography variant="label-large">{action}</M3Typography>
-          </button>
-        ))}
-      </div>
-    </div>
+
+      {node.actions && node.actions.length > 0 && (
+        <M3Surface 
+          style={{ 
+            display: 'flex', 
+            gap: 'var(--md-sys-spacing-2)', 
+            marginTop: 'var(--md-sys-spacing-2)',
+            flexWrap: 'wrap'
+          }}
+          role="group"
+          aria-label="Azioni disponibili per il nodo"
+        >
+          {node.actions.map((action: string, index: number) => (
+            <M3Button
+              key={action}
+              variant="filled"
+              size="small"
+              tabIndex={0}
+              aria-label={`Azione: ${action}`}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              {action}
+            </M3Button>
+          ))}
+        </M3Surface>
+      )}
+    </M3Surface>
   );
 }
 
 export default NKANodeCard;
-

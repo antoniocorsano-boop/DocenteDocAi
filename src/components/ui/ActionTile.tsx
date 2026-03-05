@@ -1,6 +1,6 @@
-// MD3 Compliant - Updated for layered theme access
+// MD3 Gold Compliant
 /**
- * ActionTile Component - MD3 Compliant
+ * ActionTile Component - MD3 Gold Compliant
  *
  * Interactive tile component for action buttons with Material Design 3 styling.
  * Supports multiple variants (primary, secondary, tertiary, surface) with proper
@@ -95,7 +95,7 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 minHeight: 'var(--md-sys-spacing-12)',
                 width: 'var(--md-sys-percent-100)',
                 outline: focused ? `var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)` : 'none',
-                outlineOffset: focused ? 'var(--md-sys-spacing-2)' : '0',
+                outlineOffset: focused ? 'var(--md-sys-spacing-2)' : undefined,
                 transition: `box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
                 ...style
             }}
@@ -113,7 +113,7 @@ const ActionTile: React.FC<ActionTileProps> = ({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: 'var(--md-sys-spacing-6)',
+                    fontSize: 'var(--icon-size-medium)',
                     backgroundColor: variantColors.iconBg,
                     color: variantColors.iconColor,
                     flexShrink: 0,
@@ -123,8 +123,9 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 }}
             >
                 <span
+                    className="material-symbols-outlined"
                     style={{
-                        fontSize: 'var(--md-sys-spacing-6)'
+                        fontSize: 'var(--icon-size-medium)'
                     }}
                 >
                     {icon}
@@ -162,7 +163,7 @@ const ActionTile: React.FC<ActionTileProps> = ({
                             whiteSpace: 'nowrap',
                             margin: 0,
                             textTransform: 'uppercase',
-                            letterSpacing: '0.08em'}}
+                            letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'}}
                     >
                         {subtitle}
                     </M3Typography>
@@ -185,8 +186,9 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 }}
             >
                 <span
+                    className="material-symbols-outlined"
                     style={{
-                        fontSize: 'var(--md-sys-spacing-6)',
+                        fontSize: 'var(--icon-size-medium)',
                         transition: `transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
                     }}
                 >

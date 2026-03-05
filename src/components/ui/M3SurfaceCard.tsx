@@ -1,4 +1,4 @@
-﻿// MD3 Compliant
+﻿// MD3 Gold Compliant
 import React, { useState } from 'react';
 
 interface M3SurfaceCardProps {
@@ -61,7 +61,7 @@ const M3SurfaceCard: React.FC<M3SurfaceCardProps> = ({
     backgroundColor: hovered
       ? 'var(--md-sys-color-surface-container-low)'
       : (glass ? 'var(--md-sys-color-surface)' : palette.bg),
-    opacity: glass && hovered ? 0.1 : undefined,
+    opacity: glass && hovered ? 'var(--md-sys-state-opacity-tint-faint)' : undefined,
   } : {};
 
   return (

@@ -1,5 +1,6 @@
-// ✅ MD3 Native Compliant - Migrated from useTheme to direct MD3 tokens
+// MD3 Gold Compliant
 import React, { useState } from 'react';
+import M3Typography from './M3Typography';
 
 // MD3 Token Constants - Direct CSS Variables
 const MD3_TOKENS = {
@@ -154,30 +155,19 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
                     <span className="material-symbols-outlined" style={{
                         fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                         transition: `opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
-                        opacity: hovered ? 0.7 : 0.5
+                        opacity: hovered ? 'var(--md-sys-state-opacity-supporting)' : 'var(--md-sys-state-opacity-placeholder)'
                     }}>arrow_forward</span>
                 )}
             </div>
 
             <div style={{flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)'}}>
-                <h3 style={{
-                    fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-                    fontFamily: 'var(--md-sys-typescale-title-medium-font-family)',
-                    fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)',
-                    letterSpacing: 'var(--md-sys-typescale-title-medium-letter-spacing)',
-                    lineHeight: 'var(--md-sys-typescale-title-medium-line-height)',
-                    color: 'var(--md-sys-color-on-surface)'
-                }}>{title}</h3>
-                <p style={{
-                    fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                    fontFamily: 'var(--md-sys-typescale-body-medium-font-family)',
-                    color: 'var(--md-sys-color-on-surface-variant)',
-                    lineHeight: 'var(--md-sys-typescale-body-medium-line-height)',
+                <M3Typography variant="title-medium" as="h3">{title}</M3Typography>
+                <M3Typography variant="body-medium" as="p" style={{
                     display: '-webkit-box',
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical',
                     overflow: 'hidden'
-                }}>{description}</p>
+                }}>{description}</M3Typography>
                 {children && <div style={{
                     paddingTop: MD3_TOKENS.spacing4,
                     marginTop: MD3_TOKENS.spacing4,

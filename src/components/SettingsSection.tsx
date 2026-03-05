@@ -73,7 +73,7 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
     };
 
     const iconStyle: React.CSSProperties = {
-        fontSize: 'var(--md-sys-spacing-6)'
+        fontSize: 'var(--icon-size-medium)'
     };
 
     const textContainerStyle: React.CSSProperties = {

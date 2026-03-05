@@ -6,6 +6,8 @@ import { NKANode } from './types';
 import { useNKAStore } from './useNKAStore';
 import { getAINeuralLayout } from './aiLayout';
 import { getLLMNeuralLayout } from './aiLayoutLLM';
+import M3Surface from '../components/ui/M3Surface';
+import { M3Typography } from '../components/ui/M3Typography';
 
 interface NKAForceMapProps {
   nodes: readonly NKANode[];
@@ -49,16 +51,19 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
     separatePositions(getAINeuralLayout(nodes, width, height), nodeRadius * 2 + 8)
   );
   const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
   const sound = useNKAStore((s) => s.settings.sound);
 
   React.useEffect(() => {
     let cancelled = false;
     setLoading(true);
+    setError(null);
     
     // Set a timeout to prevent infinite loading
     const timeout = setTimeout(() => {
       if (!cancelled) {
         console.warn('[NKA] LLM layout timeout, using fallback');
+        setError('Timeout nel calcolo della disposizione AI');
         setLoading(false);
       }
     }, 5000);
@@ -77,6 +82,7 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
         if (!cancelled) {
           clearTimeout(timeout);
           console.warn('[NKA] LLM layout error:', err);
+          setError('Errore nel calcolo della disposizione AI');
           setLoading(false);
         }
       });
@@ -85,63 +91,116 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
       cancelled = true;
       clearTimeout(timeout);
     };
-     
   }, [nodes, width, height]);
 
-  // Respect reducedMotion: skip animation if true (placeholder)
+  const isEmpty = nodes.length === 0;
 
   return (
-    <svg
-      ref={svgRef}
-      width={width}
-      height={height}
-      aria-label="Mappa neurale"
-      style={{
-        background: 'var(--md-sys-color-surface)',
+    <M3Surface 
+      style={{ 
+        width, 
+        height, 
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        overflow: 'hidden',
         borderRadius: 'var(--md-sys-shape-corner-large)',
-        boxShadow: 'var(--md-sys-elevation1)',
-        display: 'block',
-        margin: '0 auto',
-        outline: 'none',
+        margin: '0 auto'
       }}
     >
-      {loading && (
-        <text x={width/2} y={height/2} textAnchor="middle" fontSize="var(--md-sys-typescale-headline-small-font-size)" fill="var(--md-sys-color-on-surface-variant)">
-          Calcolo disposizione AI…
-        </text>
+      {isEmpty && (
+        <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-6)' }}>
+          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-on-surface-variant)', display: 'block', marginBottom: 'var(--md-sys-spacing-2)' }}>hub</span>
+          <M3Typography variant="body-large" color="var(--md-sys-color-on-surface-variant)">
+            Nessun nodo disponibile
+          </M3Typography>
+          <M3Typography variant="body-medium" color="var(--md-sys-color-on-surface-variant)" style={{ marginTop: 'var(--md-sys-spacing-2)' }}>
+            Aggiungi dei nodi per visualizzare la mappa neurale
+          </M3Typography>
+        </div>
       )}
-      {/* Render links/arcs (placeholder: none) */}
-      {/* Render nodes */}
-      {positions.map((node) => (
-        <g
-          key={node.id}
-          tabIndex={0}
-          role="button"
-          aria-label={node.label}
-          onClick={() => {
-            if (sound) {
-              // Optionally play a sound here for node focus/hover
-            }
-            onNodeSelect(node);
+
+      {error && (
+        <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-6)' }}>
+          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-error)', display: 'block', marginBottom: 'var(--md-sys-spacing-2)' }}>error</span>
+          <M3Typography variant="body-large" color="var(--md-sys-color-error)">
+            Errore di caricamento
+          </M3Typography>
+          <M3Typography variant="body-medium" color="var(--md-sys-color-on-surface-variant)" style={{ marginTop: 'var(--md-sys-spacing-2)' }}>
+            {error}
+          </M3Typography>
+        </div>
+      )}
+
+      {loading && !error && (
+        <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-6)' }}>
+          <M3Typography variant="body-large" color="var(--md-sys-color-on-surface-variant)">
+            Calcolo disposizione AI…
+          </M3Typography>
+        </div>
+      )}
+
+      {!loading && !error && !isEmpty && (
+        <svg
+          ref={svgRef}
+          width={width}
+          height={height}
+          role="img"
+          aria-label="Mappa neurale interattiva con nodi collegati"
+          style={{
+            display: 'block',
+            outline: 'none',
           }}
         >
-          <circle
-            cx={node.x}
-            cy={node.y}
-            r={32}
-            fill={`var(--md-sys-color-primary${node.color})`}
-            stroke="var(--md-sys-color-primary30)"
-            strokeWidth={node.elevation}
-            className={`nka-shape-${node.shape}`}
-          />
-          <text x={node.x} y={node.y + 4} textAnchor="middle" fontSize="var(--md-sys-typescale-body-large-font-size)" fill="var(--md-sys-color-on-primaryContainer)">
-            {node.label}
-          </text>
-        </g>
-      ))}
-    </svg>
+          {/* Render nodes */}
+          {positions.map((node, index) => (
+            <g
+              key={node.id}
+              tabIndex={0}
+              role="button"
+              aria-label={`Nodo ${node.label}, posizione ${index + 1} di ${positions.length}`}
+              onClick={() => {
+                if (sound) {
+                  // Optionally play a sound here for node focus/hover
+                }
+                onNodeSelect(node);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onNodeSelect(node);
+                }
+              }}
+              style={{ cursor: 'pointer' }}
+            >
+              <circle
+                cx={node.x}
+                cy={node.y}
+                r={nodeRadius}
+                fill={`var(--md-sys-color-primary${node.color})`}
+                stroke="var(--md-sys-color-outline)"
+                strokeWidth={2}
+                className={`nka-shape-${node.shape}`}
+              />
+              <text 
+                x={node.x} 
+                y={node.y + 4} 
+                textAnchor="middle" 
+                fontSize="var(--md-sys-typescale-body-small-font-size)"
+                fontFamily="var(--md-sys-typescale-body-small-font-family-name)"
+                fontWeight="var(--md-sys-typescale-body-small-font-weight)"
+                fill="var(--md-sys-color-on-primary-container)"
+                aria-hidden="true"
+              >
+                {node.label}
+              </text>
+            </g>
+          ))}
+        </svg>
+      )}
+    </M3Surface>
   );
 };
 
 export default NKAForceMap;
-

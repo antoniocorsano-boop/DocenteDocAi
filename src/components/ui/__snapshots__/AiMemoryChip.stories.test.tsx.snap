@@ -3,21 +3,27 @@
 exports[`AiMemoryChip Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    aria-label="Contesto AI: Test Context"
-    role="note"
-    style="display: flex; align-items: center; gap: var(--md-sys-spacing-4); padding: var(--md-sys-spacing-2) var(--md-sys-spacing-2); min-height: var(--md-sys-spacing-8); opacity: 0.6; transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); user-select: none; cursor: help; background-color: var(--md-sys-color-tertiary-container); border-radius: var(--md-sys-shape-corner-full); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-tertiary);"
-    title="Contesto utilizzato dall'AI"
+    aria-label="DocenteDoc AI Application"
+    role="application"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
   >
-    <span
-      style="font-size: var(--md-sys-typescale-body-large-font-size); color: var(--md-sys-color-tertiary); font-weight: var(--md-sys-typescale-weight-bold); animation: pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;"
+    <div
+      aria-label="Contesto AI: Test Context"
+      role="note"
+      style="display: flex; align-items: center; gap: var(--md-sys-spacing-4); padding: var(--md-sys-spacing-2) var(--md-sys-spacing-2); min-height: var(--md-sys-spacing-8); opacity: 0.6; transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); user-select: none; cursor: help; background-color: var(--md-sys-color-tertiary-container); border-radius: var(--md-sys-shape-corner-full); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-tertiary);"
+      title="Contesto utilizzato dall'AI"
     >
-      psychology
-    </span>
-    <span
-      style="font-size: var(--md-sys-typescale-body-large-font-size); font-weight: var(--md-sys-typescale-weight-extrabold); color: var(--md-sys-color-tertiary); text-transform: uppercase; letter-spacing: 0.15em;"
-    >
-      Test Context
-    </span>
+      <span
+        style="font-size: var(--md-sys-typescale-body-large-font-size); color: var(--md-sys-color-tertiary); font-weight: var(--md-sys-typescale-weight-bold); animation: pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite;"
+      >
+        psychology
+      </span>
+      <span
+        style="font-size: var(--md-sys-typescale-body-large-font-size); font-weight: var(--md-sys-typescale-weight-extrabold); color: var(--md-sys-color-tertiary); text-transform: uppercase; letter-spacing: 0.15em;"
+      >
+        Test Context
+      </span>
+    </div>
   </div>
 </div>
 `;

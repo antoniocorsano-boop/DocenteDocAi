@@ -1,76 +1,85 @@
 # Copilot Instructions — DocenteDoc AI
 
-## MD3 GOVERNANCE & COMPLIANCE CONTRACT — VINCOLANTE
+## Contesto del Progetto
 
-Copilot must follow MD3_GOLD_MANIFESTO.md.
-Any hardcoded visual value is forbidden.
+Questa è un'app React con Material Design 3 (MD3). Ogni modifica UI deve rispettare integralmente il contratto MD3 Governance & Compliance riportato di seguito.
 
-**È obbligatorio rispettare integralmente il documento “MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md” presente nella root del repository.**
+## Regole di Comportamento per Copilot/Claude
 
-- Ogni output, refactor, suggerimento o generazione di codice deve essere conforme a TUTTE le regole vincolanti del contratto.
-- Ogni violazione, anche parziale, è da considerarsi bug bloccante.
-- In caso di dubbio, il contratto ha priorità su ogni altra istruzione o policy.
+- Prima di ogni modifica UI, verifica la conformità MD3 del file target.
+- Ogni fix deve essere atomico: una violazione alla volta, un file alla volta.
+- Non introdurre mai dipendenze di stile non tracciate a token MD3.
+- Dopo ogni modifica, elenca esplicitamente le violazioni corrette e quelle ancora aperte.
+- Aggiorna `MD3_AUDIT.md` dopo ogni sessione di lavoro.
+- Se una correzione richiede un'eccezione al contratto, segnalala esplicitamente e non procedere senza approvazione.
 
 ---
 
-Questo repository segue **Material Design 3 (MD3)** come **unico design system** e il contratto di governance MD3 come fonte normativa.
+## MD3 Governance & Compliance Contract
 
-## STRICT RULES (DO NOT VIOLATE)
+### 1. Scope e Autorità
 
-- È vietato ogni comportamento, output o refactor che violi anche una sola regola del contratto MD3.
-- Non usare mai `className` in produzione (eccetto icone MD3 documentate).
-- Non usare mai valori hardcoded (`px`, `rem`, `%`, `hex`, `rgba`).
-- Usare solo token MD3 (`var(--md-sys-*)`).
-- Non introdurre mai utility CSS custom.
+- Material Design 3 (MD3) è l'unica fonte normativa per la progettazione visiva, semantica e accessibile dell'app DocenteDoc AI.
+- Il presente documento è vincolante per ogni sviluppo, revisione, refactor e automazione.
+- Ogni violazione è da considerarsi bug bloccante e deve essere corretta senza eccezioni.
 
-## EXPRESSIVE STYLE
+### 2. Principi Non Negoziabili
 
-- Expressive is **opt-in only**
-- Use expressive variants only on approved components
-- Never apply expressive styles to:
-  - navigation
-  - critical forms
-  - admin workflows
+- È obbligatoria la separazione tra logica applicativa e semantica visiva.
+- L'uso di token MD3 non costituisce conformità se la struttura o il significato non sono MD3.
+- È vietato ogni layout basato su `<div>` generici per scopi visivi o semantici.
+- È vietato ogni override locale di stile non documentato e non tracciato.
 
-## COMPONENT USAGE
+### 3. Regole sui Container Visivi
 
-- Usare solo componenti MD3 o wrapper MD3 approvati dal contratto.
-- Modificare solo a livello di design-system, mai localmente.
-- In caso di dubbio, consultare e rispettare il contratto MD3.
+- È obbligatorio l'uso esclusivo di `M3Surface`, `AppLayout` o wrapper MD3 per ogni container visivo.
+- È vietato l'uso di `<div>` per shell, card, banner, layout, surface o contenitori di stato.
+- Padding, background ed elevation devono essere gestiti solo tramite componenti MD3 e relativi token.
+- Ogni eccezione (es. FAB, overlay) deve essere esplicitamente documentata e approvata.
 
-## GOVERNANCE
+### 4. Tipografia e Gerarchia
 
-- Ogni modifica di layout è una modifica di design system e deve rispettare il contratto MD3.
-- Se un token non esiste, proporre l’aggiunta secondo le regole del contratto.
-- Ogni eccezione deve essere documentata e approvata come da contratto.
+- È obbligatorio l'uso di `M3Typography` per ogni testo significativo.
+- È vietato l'uso di `fontSize`, `fontWeight` o proprietà tipografiche inline su testo semantico.
+- La gerarchia tipografica deve riflettere i livelli MD3 senza eccezioni.
 
-Il contratto “MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md” è la fonte normativa unica e vincolante.
+### 5. Spacing, Layout e Responsive
 
-Per ogni audit critico di conformità MD3, utilizzare il prompt ufficiale in .github/prompt-audit-critico-md3.md.
+- È obbligatorio l'uso esclusivo di token MD3 per ogni spacing, margin, padding, gap.
+- È vietato ogni spacing arbitrario, hardcoded o non tracciato a token MD3.
+- La gestione responsive è consentita solo tramite layout MD3 o utilità centralizzate approvate.
+- È vietato l'uso di breakpoint, media query o logica responsive "ad hoc".
 
-## MD3 REMEDIATION WORKFLOW (OBBLIGATORIO)
+### 6. Elevation, Z-Index e Surface
 
-Quando Copilot lavora su DocenteDoc AI:
+- L'elevation è consentita solo se semanticamente necessaria secondo MD3.
+- È vietato l'uso di `box-shadow` manuali o custom elevation.
+- Z-Index ed elevation devono essere centralizzati e gestiti tramite provider MD3.
 
-### STEP 1 – HARD VIOLATIONS
+### 7. Componenti Interattivi e Accessibilità
 
-Copilot DEVE:
+- Button, IconButton, FAB e ogni componente interattivo devono essere MD3 o wrapper MD3.
+- Ogni elemento interattivo deve avere `aria-label` esplicito e univoco.
+- L'ordine di focus, tab order e navigazione da tastiera devono essere garantiti.
+- Le icone decorative devono essere `aria-hidden`; le icone interattive devono essere accessibili.
 
-- eliminare qualsiasi valore hardcoded (px, rem, %, hex, rgba)
-- sostituirli esclusivamente con token MD3 (`--md-sys-*`)
-- NON modificare il layout visivo
-- verificare la piena conformità a ogni regola del contratto MD3
+### 8. Errori, Loader e Stati Transitori
 
-Copilot NON DEVE:
+- È obbligatorio l'uso di componenti MD3 dedicati per errori, loader, warning, info e stati transitori.
+- È vietato ogni fallback visivo basato su `<div>` stilizzati o container generici.
 
-- introdurre nuovi token senza dichiararlo e senza approvazione
-- cambiare spacing o dimensioni percepite
-- violare anche una sola regola del contratto MD3
+### 9. Eccezioni Consentite
 
-### STEP 2 – STRUCTURAL CLEANUP
+- Sono consentite solo le eccezioni esplicitamente elencate e documentate in questo documento.
+- Ogni eccezione deve essere motivata, tracciata e approvata dal Design System Architect.
 
-(solo se richiesto esplicitamente e sempre nel rispetto del contratto)
+### 10. Processo di Verifica
 
-### STEP 3 – EXPRESSIVE / MOTION
+- Ogni modifica deve essere verificata tramite checklist di conformità MD3.
+- Ogni violazione comporta il rifiuto automatico in code review.
+- L'assenza di violazioni automatiche non implica conformità se la semantica MD3 non è rispettata.
 
-(solo se richiesto esplicitamente e sempre nel rispetto del contratto)
+### 11. Dichiarazione Finale di Compliance
+
+- "MD3 Gold Compliant" significa aderenza totale, strutturale e semantica a tutte le regole di questo documento.
+- La responsabilità della compliance è condivisa da tutto il team di sviluppo, revisione e governance.

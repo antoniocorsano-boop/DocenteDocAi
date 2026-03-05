@@ -1,5 +1,6 @@
 // ✅ MD3 Native Compliant - Migrated from useTheme to direct MD3 tokens
 import React, { useState } from 'react';
+import { M3Typography } from './M3Typography';
 
 interface M3ListItemProps {
     headline: React.ReactNode;
@@ -36,18 +37,6 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
     const cornerMedium = 'var(--md-sys-shape-corner-medium)';
     const durationShort2 = 'var(--md-sys-motion-duration-short2)';
     const easingStandard = 'var(--md-sys-motion-easing-standard)';
-    const bodyMediumFontSize = 'var(--md-sys-typescale-body-large-font-size)';
-    const bodyMediumFontWeight = 'var(--md-sys-typescale-body-large-font-weight)';
-    const bodyMediumLineHeight = 'var(--md-sys-typescale-body-large-line-height)';
-    const titleMediumFontSize = 'var(--md-sys-typescale-title-large-font-size)';
-    const titleMediumFontWeight = 'var(--md-sys-typescale-title-large-font-weight)';
-    const titleMediumLineHeight = 'var(--md-sys-typescale-title-large-line-height)';
-    const bodyLargeFontSize = 'var(--md-sys-typescale-body-large-font-size)';
-    const bodyLargeFontWeight = 'var(--md-sys-typescale-body-large-font-weight)';
-    const bodyLargeLineHeight = 'var(--md-sys-typescale-body-large-line-height)';
-    const bodySmallFontSize = 'var(--md-sys-typescale-body-small-font-size)';
-    const bodySmallFontWeight = 'var(--md-sys-typescale-body-small-font-weight)';
-    const bodySmallLineHeight = 'var(--md-sys-typescale-body-small-line-height)';
     
     return (
         <div
@@ -91,37 +80,26 @@ const M3ListItem: React.FC<M3ListItemProps> = ({
         >
             {leadingElement && <div style={{flexShrink: 0, marginTop: spacing1}}>{leadingElement}</div>}
             <div style={{flexGrow: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: spacing1}}>
-                <div style={{
-                    color: onSurface,
-                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    ...(headlineSize === 'small' && {
-                        fontSize: bodyMediumFontSize,
-                        fontWeight: bodyMediumFontWeight,
-                        lineHeight: bodyMediumLineHeight
-                    }),
-                    ...(headlineSize === 'large' && {
-                        fontSize: titleMediumFontSize,
-                        fontWeight: titleMediumFontWeight,
-                        lineHeight: titleMediumLineHeight
-                    }),
-                    ...(headlineSize === 'medium' && {
-                        fontSize: bodyLargeFontSize,
-                        fontWeight: bodyLargeFontWeight,
-                        lineHeight: bodyLargeLineHeight
-                    })
-                }}>
+                <M3Typography
+                    variant={headlineSize === 'large' ? 'title-large' : 'body-large'}
+                    as="div"
+                    style={{
+                        color: onSurface,
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                    }}
+                >
                     {headline}
-                </div>
+                </M3Typography>
                 {supportingText && (
-                    <div style={{fontSize: bodySmallFontSize,
-                        fontWeight: bodySmallFontWeight,
-                        lineHeight: bodySmallLineHeight,
-                        color: onSurfaceVariant}}>
+                    <M3Typography
+                        variant="body-small"
+                        as="div"
+                        style={{color: onSurfaceVariant}}
+                    >
                         {supportingText}
-                    </div>
+                    </M3Typography>
                 )}
                 {children}
             </div>

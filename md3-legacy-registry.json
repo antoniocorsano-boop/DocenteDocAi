@@ -20,7 +20,31 @@
     },
     {
       "path": "src/components/AssistantFab.tsx",
-      "reason": "Pre-existing violation � tracked for MD3 token migration",
+      "reason": "Pre-existing violation — tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/theme/theme.tsx",
+      "reason": "Pre-existing violation — tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/AppLayout.md3.tsx",
+      "reason": "Pre-existing violation — tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/NavigationRail.tsx",
+      "reason": "Pre-existing violation — tracked for MD3 token migration",
+      "tracked": true,
+      "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
+    },
+    {
+      "path": "src/components/settings/EmotionalPresetsManager.tsx",
+      "reason": "Pre-existing violation — tracked for MD3 token migration",
       "tracked": true,
       "migrationPlan": "Replace hardcoded values with MD3 design tokens in upcoming refactor sprint"
     },

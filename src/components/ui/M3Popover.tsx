@@ -1,4 +1,4 @@
-// MD3 Compliant - Updated for layered theme access
+// MD3 Gold Compliant
 /**
  * M3Popover - Material Design 3 Popover Component
  * 
@@ -117,8 +117,9 @@ function calculatePosition(
   const anchorRect = anchorEl.getBoundingClientRect();
   const popoverRect = popoverEl.getBoundingClientRect();
   
-  const GAP = 8; // Space between anchor and popover
-  const VIEWPORT_MARGIN = 16;
+  // exception: getBoundingClientRect returns raw px — CSS tokens cannot be used in JS arithmetic
+  const GAP = 8; // functionally required: space between anchor and popover (8px = spacing-2 equivalent)
+  const VIEWPORT_MARGIN = 16; // functionally required: viewport edge margin (16px = spacing-4 equivalent)
   
   // Calculate horizontal position
   let left = anchorRect.left;

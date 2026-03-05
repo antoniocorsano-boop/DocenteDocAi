@@ -3,18 +3,24 @@
 exports[`TextArea Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    style="display: flex; flex-direction: column; gap: var(--md-sys-spacing-2); width: auto; margin-bottom: var(--md-sys-spacing-4);"
+    aria-label="DocenteDoc AI Application"
+    role="application"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
   >
-    <label
-      style="color: var(--md-sys-color-on-surface-variant); font-size: var(--md-sys-typescale-label-large-font-size); font-family: var(--md-sys-typescale-label-large-font-family); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-letter-spacing); margin-bottom: var(--md-sys-spacing-2);"
-    />
     <div
-      style="position: relative; display: flex; align-items: flex-start; background-color: var(--md-sys-color-surface-container-highest); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline); border-radius: var(--md-sys-shape-corner-large); padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); min-height: var(--md-sys-spacing-12);"
+      style="display: flex; flex-direction: column; gap: var(--md-sys-spacing-2); width: auto; margin-bottom: var(--md-sys-spacing-4);"
     >
-      <textarea
-        rows="3"
-        style="flex: 1 1 0%; border: medium; background-color: transparent; color: var(--md-sys-color-on-surface); font-size: var(--md-sys-typescale-body-large-font-size); font-family: var(--md-sys-typescale-body-large-font-family); font-weight: var(--md-sys-typescale-body-large-font-weight); line-height: var(--md-sys-typescale-body-large-line-height); letter-spacing: var(--md-sys-typescale-body-large-letter-spacing); outline: none; resize: none; width: var(--md-sys-percent-100); min-height: var(--md-sys-spacing-12);"
+      <label
+        style="font-family: var(--font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-tracking); color: var(--md-sys-color-on-surface-variant); margin-top: 0px; margin-right: 0px; margin-bottom: var(--md-sys-spacing-2); margin-left: 0px;"
       />
+      <div
+        style="position: relative; display: flex; align-items: flex-start; background-color: var(--md-sys-color-surface-container-highest); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline); border-radius: var(--md-sys-shape-corner-large); padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); min-height: var(--md-sys-spacing-12);"
+      >
+        <textarea
+          rows="3"
+          style="flex: 1 1 0%; border: medium; background-color: transparent; color: var(--md-sys-color-on-surface); font-size: var(--md-sys-typescale-body-large-font-size); font-family: var(--md-sys-typescale-body-large-font-family); font-weight: var(--md-sys-typescale-body-large-font-weight); line-height: var(--md-sys-typescale-body-large-line-height); letter-spacing: var(--md-sys-typescale-body-large-letter-spacing); outline: none; resize: none; width: var(--md-sys-percent-100); min-height: var(--md-sys-spacing-12);"
+        />
+      </div>
     </div>
   </div>
 </div>

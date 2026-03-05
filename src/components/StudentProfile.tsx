@@ -171,7 +171,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                         </div>
                         <div style={{ flex: 1 }}>
                             <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-tertiary-container)' }}>Piano di Inclusione (BES/DSA)</h3>
-                            <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-tertiary-container)', opacity: 0.8 }}>Gestisci misure compensative e dispensative.</p>
+                            <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-tertiary-container)', opacity: 'var(--md-sys-state-opacity-caption)' }}>Gestisci misure compensative e dispensative.</p>
                         </div>
                     </div>
                     <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-tertiary-container)' }}>arrow_forward</span>

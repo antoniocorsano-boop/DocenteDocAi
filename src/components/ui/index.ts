@@ -40,6 +40,8 @@ export { default as M3EmptyStateCard } from './M3EmptyStateCard';
 export { default as M3Typography } from './M3Typography';
 export { default as M3Chip } from './M3Chip';
 export { default as M3ProgressBar } from './M3ProgressBar';
+export { default as M3CircularProgress } from './M3CircularProgress';
+export type { M3CircularProgressProps } from './M3CircularProgress';
 export { default as M3ChipGroup } from './M3ChipGroup';
 export { default as M3ButtonGroup } from './M3ButtonGroup';
 export { default as M3FlexContainer } from './M3FlexContainer';

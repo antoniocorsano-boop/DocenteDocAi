@@ -3,6 +3,7 @@
 // @migrated
 
 import React, { TextareaHTMLAttributes } from 'react';
+import { M3Typography } from './M3Typography';
 
 interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     label: string;
@@ -31,18 +32,17 @@ const TextArea: React.FC<TextAreaProps> = ({
                 width: fullWidth ? 'var(--md-sys-percent-100)' : 'auto',
                 marginBottom: 'var(--md-sys-spacing-4)'}}
         >
-            <label
+            <M3Typography
+                variant="label-large"
+                as="label"
                 htmlFor={props.id}
-                style={{color: 'var(--md-sys-color-on-surface-variant)',
-                    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                    fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
-                    fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
-                    lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
-                    letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
-                    marginBottom: 'var(--md-sys-spacing-2)'}}
+                style={{
+                    color: 'var(--md-sys-color-on-surface-variant)',
+                    marginBottom: 'var(--md-sys-spacing-2)'
+                }}
             >
                 {label}
-            </label>
+            </M3Typography>
             <div
                 style={{
                     position: 'relative',
@@ -109,16 +109,13 @@ const TextArea: React.FC<TextAreaProps> = ({
                     >
                         error
                     </span>
-                    <span
-                        style={{color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                            fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
-                            fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-                            lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-                            letterSpacing: 'var(--md-sys-typescale-body-small-letter-spacing)'}}
+                    <M3Typography
+                        variant="body-small"
+                        as="span"
+                        style={{color: 'var(--md-sys-color-error)'}}
                     >
                         {errorMessage}
-                    </span>
+                    </M3Typography>
                 </div>
             )}
         </div>

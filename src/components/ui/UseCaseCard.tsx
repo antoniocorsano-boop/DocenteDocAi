@@ -1,7 +1,8 @@
-// MD3 Compliant - Block G Migration (13 violations eliminated)
+// MD3 Gold Compliant
 
 import React from 'react';
 import { sanitizeHtml } from '../../utils/htmlSanitizer';
+import M3Typography from './M3Typography';
 
 interface UseCaseCardProps {
     scenario: string;
@@ -35,14 +36,13 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                 }}>
                     <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>lightbulb</span>
                 </div>
-                <p style={{
+                <M3Typography variant="label-large" as="p" style={{
                     color: 'var(--md-sys-color-primary)',
                     textTransform: "uppercase",
-                    fontWeight: "var(--md-sys-typescale-weight-black)",
                     opacity: "var(--md-sys-state-opacity-supporting)"
-                }}>Scenario</p>
+                }}>Scenario</M3Typography>
             </div>
-            <p style={{ lineHeight: "1.25" }}>"{scenario}"</p>
+            <M3Typography variant="body-large" as="p">"{scenario}"</M3Typography>
             <ol style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
                 {steps.map((step, i) => (
                     <li key={i} style={{
@@ -63,11 +63,10 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                             flexShrink: "0",
                             transition: `color var(--md-sys-motion-duration-medium)`
                         }}>{i + 1}</span>
-                        <p style={{
+                        <M3Typography variant="body-medium" as="p" style={{
                             color: 'var(--md-sys-color-outline)',
-                            fontWeight: "var(--md-sys-typescale-weight-bold)",
                             lineHeight: 'var(--md-sys-typescale-body-large-line-height)'
-                        }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(step) }}></p>
+                        }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(step) }}></M3Typography>
                     </li>
                 ))}
             </ol>
@@ -81,15 +80,13 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                     border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
                 }}>
-                    <span style={{
-                        color: 'var(--md-sys-color-primary)',
-                        fontWeight: "var(--md-sys-typescale-weight-black)"
+                    <span className="material-symbols-outlined" style={{
+                        color: 'var(--md-sys-color-primary)'
                     }}>tips_and_updates</span>
-                    <span style={{
+                    <M3Typography variant="body-medium" as="span" style={{
                         color: 'var(--md-sys-color-outline)',
-                        fontWeight: "var(--md-sys-typescale-weight-bold)",
                         opacity: "var(--md-sys-state-opacity-caption)"
-                    }}>{tip}</span>
+                    }}>{tip}</M3Typography>
                 </div>
             )}
         </div>

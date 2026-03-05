@@ -1,3 +1,11 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Snackbar Story Snapshots > renders default story correctly 1`] = `<div />`;
+exports[`Snackbar Story Snapshots > renders default story correctly 1`] = `
+<div>
+  <div
+    aria-label="DocenteDoc AI Application"
+    role="application"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+  />
+</div>
+`;

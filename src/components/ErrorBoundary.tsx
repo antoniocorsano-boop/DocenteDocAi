@@ -1,6 +1,6 @@
-// MD3 Compliant
-// M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
+// MD3 Gold Compliant
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { M3Typography } from './ui';
 import { useUIStore } from '../stores/useUIStore';
 
 interface ErrorBoundaryProps {
@@ -59,21 +59,21 @@ const ErrorFallback: React.FC<{ error?: Error }> = ({ error }) => {
 		<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
 			<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
 				<div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-					<span>error</span>
+					<span className="material-symbols-outlined">error</span>
 				</div>
 
-				<h2>
+				<M3Typography variant="headline-small" as="h2">
 					Oops! Qualcosa è andato storto
-				</h2>
+				</M3Typography>
 
-				<p>
+				<M3Typography variant="body-medium" as="p">
 					Si è verificato un errore imprevisto nell'applicazione.
 					La pagina verrà ricaricata automaticamente tra pochi secondi.
-				</p>
+				</M3Typography>
 
 				<div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-					<span>refresh</span>
-					<span>Ricaricamento in corso...</span>
+					<span className="material-symbols-outlined">refresh</span>
+					<M3Typography variant="body-medium" as="span">Ricaricamento in corso...</M3Typography>
 				</div>
 
 				{process.env.NODE_ENV === 'development' && error && (

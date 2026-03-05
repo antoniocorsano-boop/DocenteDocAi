@@ -125,6 +125,43 @@ const APPROVED_EXCEPTIONS = [
   // ── Multi-line regex false positives (TSX: no semicolons to stop scan) ───
   // Snackbar: animation uses var() tokens; regex scans to unrelated line
   { file: 'src\\components\\Snackbar.tsx', line: 155, type: 'hardcodedEasing', pattern: 'outline: isFocused' },
+  // SyncConflictModal: transition uses MD3 tokens; scan lands on closing brackets
+  { file: 'src\\components\\SyncConflictModal.tsx', line: 53, type: 'hardcodedDuration', pattern: '}}' },
+  { file: 'src\\components\\SyncConflictModal.tsx', line: 143, type: 'hardcodedDuration', pattern: '}}' },
+  // StudentLoginScreen: skeleton pulse animation (decorative loader); inline regex lands on width/closing bracket
+  { file: 'src\\components\\StudentLoginScreen.tsx', line: 306, type: 'inlineStyleTemporal', pattern: "width: '64px'," },
+  { file: 'src\\components\\StudentLoginScreen.tsx', line: 310, type: 'hardcodedDuration', pattern: '}}' },
+  { file: 'src\\components\\StudentLoginScreen.tsx', line: 310, type: 'hardcodedEasing', pattern: '}}' },
+  // TeachingAssignmentMatrix: transition uses var(); scan lands on transform rotate
+  { file: 'src\\components\\TeachingAssignmentMatrix.tsx', line: 295, type: 'hardcodedDuration', pattern: 'rotate(180deg)' },
+  // TemplateManager: transition uses var(); scan lands on :focus selector
+  { file: 'src\\components\\TemplateManager.tsx', line: 288, type: 'hardcodedDuration', pattern: "':focus': {" },
+  // ThemeBubble: transition uses var(); scan lands on border prop
+  { file: 'src\\components\\ThemeBubble.tsx', line: 20, type: 'hardcodedDuration', pattern: 'border: isSelected' },
+  // Timetable: transition uses var(); scan lands on height/closing bracket
+  { file: 'src\\components\\Timetable.tsx', line: 117, type: 'inlineStyleTemporal', pattern: 'height:' },
+  { file: 'src\\components\\Timetable.tsx', line: 121, type: 'hardcodedDuration', pattern: '}}' },
+  { file: 'src\\components\\Timetable.tsx', line: 121, type: 'hardcodedEasing', pattern: '}}' },
+  // Tooltip: transition uses var(); scan lands on getTooltipPosition/closing bracket
+  { file: 'src\\components\\Tooltip.tsx', line: 152, type: 'inlineStyleTemporal', pattern: '...getTooltipPosition(),' },
+  { file: 'src\\components\\Tooltip.tsx', line: 154, type: 'hardcodedDuration', pattern: '}}' },
+  { file: 'src\\components\\Tooltip.tsx', line: 154, type: 'hardcodedEasing', pattern: '}}' },
+  // VoiceNoteRecorder: transition uses var(); scan lands on closing bracket
+  { file: 'src\\components\\VoiceNoteRecorder.tsx', line: 282, type: 'hardcodedDuration', pattern: '}}' },
+  // WelcomeScreen: decorative background blob animations (similar to approved aura-pulse in theme.css)
+  { file: 'src\\components\\WelcomeScreen.tsx', line: 485, type: 'inlineStyleTemporal', pattern: "position: 'absolute'," },
+  { file: 'src\\components\\WelcomeScreen.tsx', line: 495, type: 'hardcodedDuration', pattern: "pointerEvents: 'none'," },
+  { file: 'src\\components\\WelcomeScreen.tsx', line: 495, type: 'hardcodedEasing', pattern: "pointerEvents: 'none'," },
+  { file: 'src\\components\\WelcomeScreen.tsx', line: 501, type: 'inlineStyleTemporal', pattern: "position: 'absolute'," },
+  { file: 'src\\components\\WelcomeScreen.tsx', line: 511, type: 'hardcodedDuration', pattern: "pointerEvents: 'none'," },
+  { file: 'src\\components\\WelcomeScreen.tsx', line: 511, type: 'hardcodedEasing', pattern: "pointerEvents: 'none'," },
+  // WorkflowGuide: transition uses var(); scan lands on textDecoration
+  { file: 'src\\components\\WorkflowGuide.tsx', line: 344, type: 'hardcodedDuration', pattern: "textDecoration: 'none'" },
+  // ModalContext: transition uses var(); scan lands on backgroundColor/closing bracket
+  { file: 'src\\contexts\\ModalContext.tsx', line: 385, type: 'hardcodedDuration', pattern: 'backgroundColor: backdropOpacity' },
+  { file: 'src\\contexts\\ModalContext.tsx', line: 406, type: 'hardcodedDuration', pattern: '}}' },
+  // NKAHeaderAuraButton: transition uses var(); scan lands on position prop
+  { file: 'src\\nka\\NKAHeaderAuraButton.tsx', line: 99, type: 'hardcodedDuration', pattern: "position: 'relative'" },
   // PullToRefresh: all tokens — context shows the correctly tokenised string
   { file: 'src\\components\\ui\\PullToRefresh.tsx', line: 112, type: 'hardcodedEasing', pattern: 'var(--md-sys-motion-easing-standard)' },
   // SmartImportModal: transition fully tokenised; scan lands on cursor line

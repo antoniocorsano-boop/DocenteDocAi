@@ -193,7 +193,7 @@ const SecondaryNavDrawer: React.FC<SecondaryNavDrawerProps> = ({
           inset: 0,
           zIndex: 'var(--md-sys-z-scrim)',
           background: 'var(--md-sys-color-scrim)',
-          opacity: 0.32,
+          opacity: 'var(--md-sys-state-opacity-scrim)',
         }}
       />
 
@@ -218,7 +218,7 @@ const SecondaryNavDrawer: React.FC<SecondaryNavDrawerProps> = ({
               height: 'var(--md-sys-spacing-1)',
               borderRadius: 'var(--md-sys-shape-corner-full)',
               background: 'var(--md-sys-color-on-surface-variant)',
-              opacity: 0.4,
+              opacity: 'var(--md-sys-state-opacity-empty)',
               display: 'block',
             }} />
           </div>

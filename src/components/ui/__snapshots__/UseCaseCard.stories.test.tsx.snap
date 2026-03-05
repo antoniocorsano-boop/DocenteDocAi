@@ -3,51 +3,57 @@
 exports[`UseCaseCard Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    style="background-color: var(--md-sys-color-surface); border-radius: var(--md-sys-shape-corner-medium); padding: var(--md-sys-spacing-6); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline);"
+    aria-label="DocenteDoc AI Application"
+    role="application"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
   >
     <div
-      style="display: flex; align-items: center; gap: var(--md-sys-spacing-6); margin-bottom: var(--md-sys-spacing-8);"
+      style="background-color: var(--md-sys-color-surface); border-radius: var(--md-sys-shape-corner-medium); padding: var(--md-sys-spacing-6); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline);"
     >
       <div
-        style="border-radius: var(--md-sys-shape-corner-medium); background-color: var(--md-sys-color-primary); width: var(--md-sys-spacing-32); height: var(--md-sys-spacing-32); display: flex; align-items: center; justify-content: center; color: var(--md-sys-color-on-primary);"
+        style="display: flex; align-items: center; gap: var(--md-sys-spacing-6); margin-bottom: var(--md-sys-spacing-8);"
       >
-        <span
-          style="font-size: var(--md-sys-typescale-title-large-font-size);"
+        <div
+          style="border-radius: var(--md-sys-shape-corner-medium); background-color: var(--md-sys-color-primary); width: var(--md-sys-spacing-32); height: var(--md-sys-spacing-32); display: flex; align-items: center; justify-content: center; color: var(--md-sys-color-on-primary);"
         >
-          lightbulb
-        </span>
+          <span
+            style="font-size: var(--md-sys-typescale-title-large-font-size);"
+          >
+            lightbulb
+          </span>
+        </div>
+        <p
+          style="font-family: var(--font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-tracking); color: var(--md-sys-color-primary); margin: 0px; text-transform: uppercase; opacity: var(--md-sys-state-opacity-supporting);"
+        >
+          Scenario
+        </p>
       </div>
       <p
-        style="color: var(--md-sys-color-primary); text-transform: uppercase; font-weight: var(--md-sys-typescale-weight-black); opacity: var(--md-sys-state-opacity-supporting);"
+        style="font-family: var(--font-family); font-size: var(--md-sys-typescale-body-large-font-size); font-weight: var(--md-sys-typescale-body-large-font-weight); line-height: var(--md-sys-typescale-body-large-line-height); letter-spacing: var(--md-sys-typescale-body-large-tracking); color: inherit; margin: 0px;"
       >
-        Scenario
+        "
+        Test
+        "
       </p>
-    </div>
-    <p
-      style="line-height: 1.25;"
-    >
-      "
-      Test
-      "
-    </p>
-    <ol
-      style="margin-top: var(--md-sys-spacing-4);"
-    >
-      <li
-        style="display: flex; gap: var(--md-sys-spacing-8); align-items: flex-start;"
+      <ol
+        style="margin-top: var(--md-sys-spacing-4);"
       >
-        <span
-          style="background-color: var(--md-sys-color-surface); color: var(--md-sys-color-primary); width: var(--md-sys-spacing-6); height: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-full); display: flex; align-items: center; justify-content: center; font-weight: var(--md-sys-typescale-weight-black); flex-shrink: 0; transition: color var(--md-sys-motion-duration-medium);"
+        <li
+          style="display: flex; gap: var(--md-sys-spacing-8); align-items: flex-start;"
         >
-          1
-        </span>
-        <p
-          style="color: var(--md-sys-color-outline); font-weight: var(--md-sys-typescale-weight-bold); line-height: var(--md-sys-typescale-body-large-line-height);"
-        >
-          Step 1
-        </p>
-      </li>
-    </ol>
+          <span
+            style="background-color: var(--md-sys-color-surface); color: var(--md-sys-color-primary); width: var(--md-sys-spacing-6); height: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-full); display: flex; align-items: center; justify-content: center; font-weight: var(--md-sys-typescale-weight-black); flex-shrink: 0; transition: color var(--md-sys-motion-duration-medium);"
+          >
+            1
+          </span>
+          <p
+            style="font-family: var(--font-family); font-size: var(--md-sys-typescale-body-medium-font-size); font-weight: var(--md-sys-typescale-body-medium-font-weight); line-height: var(--md-sys-typescale-body-large-line-height); letter-spacing: var(--md-sys-typescale-body-medium-tracking); color: var(--md-sys-color-outline); margin: 0px;"
+          >
+            Step 1
+          </p>
+        </li>
+      </ol>
+    </div>
   </div>
 </div>
 `;

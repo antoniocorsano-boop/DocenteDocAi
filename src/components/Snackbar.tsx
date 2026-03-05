@@ -141,7 +141,7 @@ const Snackbar: React.FC = () => {
         bottom: 'var(--md-sys-spacing-8)',
         transform: 'translateX(-50%)',
         minWidth: 'var(--md-sys-spacing-14)',
-        maxWidth: 'calc(0.9 * var(--md-sys-viewport-width-full))',
+        maxWidth: 'max(var(--md-sys-layout-menu-max-width), var(--md-sys-percent-90))',
         padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-5) var(--md-sys-spacing-3) var(--md-sys-spacing-4)` ,
         borderRadius: 'var(--md-sys-shape-corner-medium)',
         boxShadow: 'var(--md-sys-elevation-level3)',
@@ -153,7 +153,7 @@ const Snackbar: React.FC = () => {
         zIndex: 'var(--md-sys-z-snackbar)',
         animation: 'snackbar-in var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-expressive) both',
         outline: isFocused ? `var(--md-sys-border-width-normal) solid ${primary}` : 'none',
-        outlineOffset: isFocused ? 'var(--md-sys-spacing-2)' : '0'}}
+        outlineOffset: isFocused ? 'var(--md-sys-spacing-2)' : 'var(--md-sys-spacing-0)'}}
       role="status"
       aria-live="polite"
       tabIndex={0}
@@ -199,7 +199,7 @@ const Snackbar: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'center',
           transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
-          transform: isCloseHovered ? 'scale(1.1)' : 'scale(1)',
+          transform: isCloseHovered ? 'scale(1.1)' : undefined,
           flexShrink: 0
         }}
         aria-label="Chiudi notifica"
@@ -232,7 +232,7 @@ const Snackbar: React.FC = () => {
         <div
           style={{
             height: 'var(--md-sys-percent-100)',
-            width: `${progress}%`,
+            width: `${progress}%`, // exception: dynamic progress width (functional value)
             backgroundColor: 'color-mix(in srgb, var(--md-sys-color-inverse-on-surface) 50%, transparent)',
             transition: 'width var(--md-sys-motion-duration-instant) var(--md-sys-motion-easing-standard)'
           }}

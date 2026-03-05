@@ -3,6 +3,7 @@
 // No useTheme() dependency - all styling uses direct MD3 CSS variables
 
 import React from 'react';
+import { M3Typography } from './M3Typography';
 
 export type M3ChipProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   label: string;
@@ -34,18 +35,6 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
   // Motion tokens
   const short2 = 'var(--md-sys-motion-duration-short2)';
   const standard = 'var(--md-sys-motion-easing-standard)';
-
-  // Typography tokens
-  const labelLarge = {
-    fontFamily: 'var(--font-family)',
-    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-    fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
-    lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
-    letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'
-  };
-  const bodySmall = {
-    fontSize: 'var(--md-sys-typescale-body-small-font-size)'
-  };
 
   // Variant styles using MD3 design tokens
   const getVariantStyles = (): React.CSSProperties => {
@@ -95,11 +84,6 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
 
   // Button styles
   const buttonStyle: React.CSSProperties = {
-    fontFamily: labelLarge.fontFamily,
-    fontSize: labelLarge.fontSize,
-    fontWeight: labelLarge.fontWeight,
-    lineHeight: labelLarge.lineHeight,
-    letterSpacing: labelLarge.letterSpacing,
     borderRadius: full,
     transition: `all ${short2} ${standard}`,
     outline: 'none',
@@ -128,7 +112,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
 
   // Icon styles
   const iconStyle: React.CSSProperties = {
-    fontSize: bodySmall.fontSize,
+    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
     fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24",
     userSelect: 'none'
   };
@@ -149,7 +133,7 @@ function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps 
       {...buttonProps}
     >
       <span style={containerStyle}>
-        {label}
+        <M3Typography variant="label-large" as="span">{label}</M3Typography>
         {onDelete && (
           <button
             type="button"

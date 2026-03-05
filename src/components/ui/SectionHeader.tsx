@@ -57,7 +57,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                 <span
                     className="material-symbols-outlined"
                     style={{
-                        fontSize: 'var(--md-sys-spacing-6)'
+                        fontSize: 'var(--icon-size-medium)'
                     }}
                 >
                     {icon}

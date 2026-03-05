@@ -6,6 +6,7 @@ import {
     M3DialogContent,
     M3DialogActions,
     M3Button,
+    M3Typography,
     InfoCard,
     AiThinkingGem
 } from './ui';
@@ -377,7 +378,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     {step === 'context' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                <h3 style={{ marginBottom: 'var(--md-sys-spacing-8)' }}>1. Definisci il Contesto</h3>
+                                <M3Typography variant="title-large" as="h3" style={{ marginBottom: 'var(--md-sys-spacing-8)' }}>1. Definisci il Contesto</M3Typography>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <label htmlFor="wizard-select-class">Classe Target</label>
@@ -395,10 +396,10 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             </div>
 
                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)` }}>
-                                <h4 style={{ marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)' }}>
+                                <M3Typography variant="title-medium" as="h4" style={{ marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)' }}>
                                     <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-secondary)' }}>folder_open</span>
                                     Documenti di Riferimento (KB)
-                                </h4>
+                                </M3Typography>
                                 <div style={{ maxHeight: 'var(--md-sys-layout-popup-min-width)', overflowY: 'auto' }}>
                                     {recommendedFiles.length > 0 ? recommendedFiles.map(kb => (
                                         <div key={kb.id} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: 'var(--md-sys-spacing-2)' }}>
@@ -410,7 +411,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </label>
                                         </div>
                                     )) : (
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</p>
+                                        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</M3Typography>
                                     )}
                                 </div>
                             </div>
@@ -419,7 +420,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
                     {step === 'situation' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <h3>2. Analisi della Classe</h3>
+                            <M3Typography variant="title-large" as="h3">2. Analisi della Classe</M3Typography>
                             <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-2)' }}>
                                 {SITUATION_TAGS.map(tag => (
                                     <button
@@ -459,7 +460,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
                     {step === 'methodology' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <h3>3. Obiettivi e Metodologie</h3>
+                            <M3Typography variant="title-large" as="h3">3. Obiettivi e Metodologie</M3Typography>
                             <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)` }}>
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                                     <label htmlFor="wizard-methodology-text">Strategie Didattiche</label>
@@ -476,7 +477,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                         <div style={{ gap: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }}>
-                                    <h3>4. Piano Annuale UDA</h3>
+                                    <M3Typography variant="title-large" as="h3">4. Piano Annuale UDA</M3Typography>
                                     <button
                                         onClick={() => setShowSequenceHelp(!showSequenceHelp)}
                                         style={{ color: "var(--md-sys-color-secondary)", background: 'none', border: 'none', cursor: 'pointer' }}
@@ -529,9 +530,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                     <span style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)' }}>
                                                         UDA {idx + 1}
                                                     </span>
-                                                    <p style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{uda.title}</p>
+                                                    <M3Typography variant="title-small" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>{uda.title}</M3Typography>
                                                 </div>
-                                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "var(--md-sys-state-opacity-caption)" }}>{uda.topic || uda.title}</p>
+                                                <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "var(--md-sys-state-opacity-caption)" }}>{uda.topic || uda.title}</M3Typography>
                                             </div>
 
                                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-surface-container-low)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
@@ -553,7 +554,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         </div>
                                     ))}
                                     {plannedUdas.length === 0 && (
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</p>
+                                        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</M3Typography>
                                     )}
                                 </div>
                             )}
@@ -562,7 +563,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
                     {step === 'preview' && (
                         <div style={{ gap: 'var(--md-sys-spacing-4)' }}>
-                            <h3>5. Anteprima Temporale</h3>
+                            <M3Typography variant="title-large" as="h3">5. Anteprima Temporale</M3Typography>
                             <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-6)' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                                     <label htmlFor="wizard-term1-end">Fine 1° Periodo</label>
@@ -577,9 +578,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 {schedulePreview.map((item, idx) => (
                                     <div key={idx} style={{ position: "relative", paddingLeft: 'var(--md-sys-spacing-6)' }}>
                                         <div style={{ position: 'absolute', left: 'calc(var(--md-sys-spacing-2) * -1)', top: 'var(--md-sys-spacing-1)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-percent-full)', borderWidth: 'var(--md-sys-border-width-thin)', borderColor: 'var(--md-sys-color-outline-variant)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}></div>
-                                        <p style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", color: "var(--md-sys-color-primary)" }}>{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</p>
-                                        <h4 style={{ fontWeight: "var(--md-sys-typescale-weight-medium)", color: 'var(--md-sys-color-on-surface)' }}>{item.uda.title}</h4>
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{item.uda.hours} ore</p>
+                                        <M3Typography variant="label-small" style={{ textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", color: "var(--md-sys-color-primary)" }}>{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</M3Typography>
+                                        <M3Typography variant="title-medium" as="h4" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>{item.uda.title}</M3Typography>
+                                        <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0 }}>{item.uda.hours} ore</M3Typography>
                                     </div>
                                 ))}
                             </div>
@@ -591,7 +592,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <div style={{ color: 'var(--md-sys-color-on-secondary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-secondary)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                                 <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-secondary-container)' }}>check_circle</span>
                             </div>
-                            <h3 style={{ color: 'var(--md-sys-color-on-surface)' }}>Pianificazione Completata!</h3>
+                            <M3Typography variant="title-large" as="h3" style={{ color: 'var(--md-sys-color-on-surface)' }}>Pianificazione Completata!</M3Typography>
                             <M3Button variant="filled" onClick={handleGenerateDoc} disabled={!!processingStatus} style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Scarica il documento finale">
                                 {processingStatus ? <AiThinkingGem size="small" inline text={processingStatus} /> : 'Genera Documento Programmazione'}
                             </M3Button>

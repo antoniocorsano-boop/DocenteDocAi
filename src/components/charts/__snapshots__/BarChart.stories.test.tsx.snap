@@ -3,34 +3,40 @@
 exports[`BarChart Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
-    style="position: relative;"
+    aria-label="DocenteDoc AI Application"
+    role="application"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
   >
-    <svg
-      height="250"
-      preserveAspectRatio="xMidYMid meet"
-      viewBox="0 0 500 250"
-      width="var(--md-sys-percent-100)"
+    <div
+      style="position: relative;"
     >
-      <g>
-        <rect
-          fill="var(--md-sys-color-primary)"
-          height="250"
-          rx="4"
-          width="495"
-          x="0"
-          y="0"
-        />
-        <text
-          fill="var(--md-sys-color-onSurface-variant)"
-          font-size="var(--md-sys-typescale-body-large-font-size)"
-          text-anchor="middle"
-          x="247.5"
-          y="245"
-        >
-          Test
-        </text>
-      </g>
-    </svg>
+      <svg
+        height="250"
+        preserveAspectRatio="xMidYMid meet"
+        viewBox="0 0 500 250"
+        width="var(--md-sys-percent-100)"
+      >
+        <g>
+          <rect
+            fill="var(--md-sys-color-primary)"
+            height="250"
+            rx="4"
+            width="495"
+            x="0"
+            y="0"
+          />
+          <text
+            fill="var(--md-sys-color-onSurface-variant)"
+            font-size="var(--md-sys-typescale-body-large-font-size)"
+            text-anchor="middle"
+            x="247.5"
+            y="245"
+          >
+            Test
+          </text>
+        </g>
+      </svg>
+    </div>
   </div>
 </div>
 `;

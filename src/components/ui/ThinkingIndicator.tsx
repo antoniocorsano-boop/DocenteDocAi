@@ -1,5 +1,4 @@
-// MD3 Compliant - Updated for layered theme access
-// @md3-compliant
+// MD3 Gold Compliant
 
 import React from 'react';
 
@@ -26,8 +25,8 @@ const ThinkingIndicator: React.FC<ThinkingIndicatorProps> = ({
     },
     large: {
       fontSize: 'var(--md-sys-typescale-title-large-font-size)',
-      lineHeight: 'var(--md-sys-typescale-title-large-font-size-line-height)',
-      fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)'
+      lineHeight: 'var(--md-sys-typescale-title-large-line-height)',
+      fontWeight: 'var(--md-sys-typescale-title-large-font-weight)'
     }
   };
 

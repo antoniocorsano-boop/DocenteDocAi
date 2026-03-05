@@ -46,7 +46,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({
         padding: 'var(--md-sys-spacing-4)',
         cursor: disabled ? 'not-allowed' : 'pointer',
         transition: 'all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',
-        opacity: disabled ? 0.5 : 1,
+        opacity: disabled ? 'var(--md-sys-state-opacity-placeholder)' : undefined,
         border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`,
         display: 'flex',
         flexDirection: 'column',

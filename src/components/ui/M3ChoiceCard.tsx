@@ -1,5 +1,6 @@
-// ✅ MD3 Native Compliant - Migrated from useTheme to direct MD3 tokens
+// MD3 Gold Compliant
 import React, { useState } from 'react';
+import M3Typography from './M3Typography';
 
 // MD3 Token Constants - Direct CSS Variables
 const MD3_TOKENS = {
@@ -61,8 +62,8 @@ const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
         justifyContent: 'center',
         padding: MD3_TOKENS.spacing8,
         borderRadius: MD3_TOKENS.cornerExtraLarge,
-        border: `var(--md-sys-border-width-thick) solid ${selected ? MD3_TOKENS.primary : hovered ? MD3_TOKENS.outline : `${MD3_TOKENS.outlineVariant}30`}`,
-        backgroundColor: selected ? MD3_TOKENS.primaryContainer : hovered ? MD3_TOKENS.surfaceContainerHigh : `${MD3_TOKENS.surfaceContainer}80`,
+        border: `var(--md-sys-border-width-thick) solid ${selected ? MD3_TOKENS.primary : hovered ? MD3_TOKENS.outline : 'color-mix(in srgb, var(--md-sys-color-outline-variant) 19%, transparent)'}`,
+        backgroundColor: selected ? MD3_TOKENS.primaryContainer : hovered ? MD3_TOKENS.surfaceContainerHigh : 'color-mix(in srgb, var(--md-sys-color-surface-container) 50%, transparent)',
         color: selected ? MD3_TOKENS.onPrimaryContainer : MD3_TOKENS.onSurface,
         boxShadow: selected ? 'var(--md-sys-elevation-level4)' : 'none',
         transform: selected ? 'scale(1.05)' : 'none',
@@ -88,7 +89,7 @@ const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
     };
 
     const iconStyle: React.CSSProperties = {
-        fontSize: 'var(--md-sys-spacing-6)',
+        fontSize: 'var(--icon-size-medium)',
         userSelect: 'none',
         fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"
     };
@@ -97,7 +98,7 @@ const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
         fontSize: 'var(--md-sys-typescale-body-large-font-size)',
         fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
         fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-        letterSpacing: '0.2em',
+        letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
         textTransform: 'uppercase'
     };
 
@@ -111,9 +112,9 @@ const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
             onMouseLeave={() => setHovered(false)}
         >
             <div style={iconContainerStyle}>
-                <span style={iconStyle}>{icon}</span>
+                <span className="material-symbols-outlined" style={iconStyle}>{icon}</span>
             </div>
-            <span style={labelStyle}>{label}</span>
+            <M3Typography variant="body-large" as="span" style={labelStyle}>{label}</M3Typography>
         </button>
     );
 };

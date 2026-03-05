@@ -44,7 +44,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
           className="material-symbols-outlined"
           aria-hidden="true"
           style={{
-            fontSize: 'var(--md-sys-spacing-12)',
+            fontSize: 'var(--icon-size-hero)',
             color: 'var(--md-sys-color-primary)',
             opacity: 'var(--md-sys-state-opacity-secondary)'
           }}
@@ -69,8 +69,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         variant="body-large"
         style={{
           color: 'var(--md-sys-color-on-surface-variant)',
-          maxWidth: 'var(--md-sys-spacing-16)',
-          lineHeight: '1.5'
+          maxWidth: 'var(--md-sys-spacing-16)'
         }}
       >
         {description}

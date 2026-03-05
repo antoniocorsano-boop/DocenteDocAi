@@ -15,7 +15,8 @@ import {
     SectionHeader, 
     M3Button,
     M3Card,
-    Avatar 
+    Avatar,
+    M3Typography,
 } from './ui';
 import { useStudentStore } from '../stores/useStudentStore';
 import { useAcademicStore } from '../stores/useAcademicStore';
@@ -56,29 +57,15 @@ const StudentDashboardItem = React.memo(({ student, evaluations, onClick }: Stud
         >
             <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
             <div style={{ flexGrow: 1, minWidth: 0 }}>
-                <p style={{
-                    fontFamily: 'var(--font-family)',
-                    fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                    fontWeight: 'var(--md-sys-typescale-weight-medium)',
-                    color: 'var(--md-sys-color-on-surface)',
-                    margin: 0,
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                }}>{student.cognome} {student.nome}</p>
+                <M3Typography variant="body-medium" style={{ fontWeight: 'var(--md-sys-typescale-weight-medium)', color: 'var(--md-sys-color-on-surface)', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{student.cognome} {student.nome}</M3Typography>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)', marginTop: 'var(--md-sys-spacing-0-5)' }}>
                     <span className="material-symbols-outlined" aria-hidden="true" style={{
                         fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
                         color: trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)'
                     }}>{trendIcon}</span>
-                    <span style={{
-                        fontFamily: 'var(--font-family)',
-                        fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-                        fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
-                        color: trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)'
-                    }}>
+                    <M3Typography variant="body-small" as="span" style={{ color: trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)' }}>
                         {trend === 'up' ? 'In crescita' : trend === 'down' ? 'In calo' : 'Stabile'}
-                    </span>
+                    </M3Typography>
                 </div>
             </div>
             <span className="material-symbols-outlined" aria-hidden="true" style={{
@@ -166,31 +153,12 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             justifyContent: 'center',
                                             flexShrink: 0,
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-6)' }}>school</span>
+                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)' }}>school</span>
                                         </div>
                                         <div style={{ flexGrow: 1, minWidth: 0 }}>
-                                            <p style={{
-                                                fontFamily: 'var(--font-family)',
-                                                fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
-                                                fontWeight: 'var(--md-sys-typescale-label-medium-font-weight)',
-                                                color: 'var(--md-sys-color-on-primary-container)',
-                                                marginBottom: 'var(--md-sys-spacing-1)',
-                                            }}>Prossima Lezione • {todaysLesson.slot.ora}</p>
-                                            <h2 style={{
-                                                fontFamily: 'var(--font-family)',
-                                                fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
-                                                fontWeight: 'var(--md-sys-typescale-headline-small-font-weight)',
-                                                lineHeight: 'var(--md-sys-typescale-headline-small-line-height)',
-                                                color: 'var(--md-sys-color-on-primary-container)',
-                                                margin: 0,
-                                            }}>{todaysLesson.lesson.materia}</h2>
-                                            <p style={{
-                                                fontFamily: 'var(--font-family)',
-                                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                                                color: 'var(--md-sys-color-on-primary-container)',
-                                                marginTop: 'var(--md-sys-spacing-1)',
-                                                opacity: 0.8,
-                                            }}>{todaysLesson.lesson.contenuto}</p>
+                                            <M3Typography variant="label-medium" as="p" style={{ color: 'var(--md-sys-color-on-primary-container)', marginBottom: 'var(--md-sys-spacing-1)' }}>Prossima Lezione • {todaysLesson.slot.ora}</M3Typography>
+                                            <M3Typography variant="headline-small" as="h2" style={{ color: 'var(--md-sys-color-on-primary-container)', margin: 0 }}>{todaysLesson.lesson.materia}</M3Typography>
+                                            <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-primary-container)', marginTop: 'var(--md-sys-spacing-1)', opacity: 'var(--md-sys-state-opacity-caption)' }}>{todaysLesson.lesson.contenuto}</M3Typography>
                                         </div>
                                     </div>
                                     <M3Button
@@ -210,18 +178,11 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                             }}>
                                 <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-4)'}}>
                                     <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)', color: 'var(--md-sys-color-on-surface-variant)', width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-6)' }}>event_busy</span>
+                                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)' }}>event_busy</span>
                                     </div>
                                     <div style={{ minWidth: 0 }}>
-                                        <h2 style={{
-                                            color: 'var(--md-sys-color-on-surface)',
-                                            fontFamily: 'var(--font-family)',
-                                            fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
-                                            fontWeight: 'var(--md-sys-typescale-headline-small-font-weight)',
-                                            lineHeight: 'var(--md-sys-typescale-headline-small-line-height)',
-                                            margin: 0,
-                                        }}>Nessuna lezione programmata</h2>
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', marginTop: 'var(--md-sys-spacing-1)' }}>Puoi avviare una lezione libera o un'attività improvvisata.</p>
+                                        <M3Typography variant="headline-small" as="h2" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Nessuna lezione programmata</M3Typography>
+                                        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-1)' }}>Puoi avviare una lezione libera o un'attività improvvisata.</M3Typography>
                                     </div>
                                 </div>
                                 <M3Button onClick={() => onStartImpromptuSession(selectedClass)} variant="tonal" style={{ width: 'var(--md-sys-percent-100)' }}>
@@ -257,7 +218,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             justifyContent: 'center',
                                             flexShrink: 0,
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-6)', color: 'var(--md-sys-color-on-tertiary)' }}>mail</span>
+                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-on-tertiary)' }}>mail</span>
                                             <span style={{
                                                 position: 'absolute',
                                                 top: 'calc(-1 * var(--md-sys-spacing-1))',
@@ -278,24 +239,11 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             </span>
                                         </div>
                                         <div style={{ minWidth: 0 }}>
-                                            <h3 style={{
-                                                color: 'var(--md-sys-color-on-tertiary-container)',
-                                                fontFamily: 'var(--font-family)',
-                                                fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-                                                fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)',
-                                                lineHeight: 'var(--md-sys-typescale-title-medium-line-height)',
-                                                margin: 0,
-                                            }}>Inbox Compiti</h3>
-                                            <p style={{
-                                                color: 'var(--md-sys-color-on-tertiary-container)',
-                                                fontFamily: 'var(--font-family)',
-                                                fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-                                                marginTop: 'var(--md-sys-spacing-1)',
-                                                margin: 0,
-                                            }}>{inboxCount} elaborati consegnati da valutare.</p>
+                                            <M3Typography variant="title-medium" as="h3" style={{ color: 'var(--md-sys-color-on-tertiary-container)', margin: 0 }}>Inbox Compiti</M3Typography>
+                                            <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-tertiary-container)', margin: 0 }}>{inboxCount} elaborati consegnati da valutare.</M3Typography>
                                         </div>
                                     </div>
-                                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-6)', color: 'var(--md-sys-color-on-tertiary-container)' }}>arrow_forward</span>
+                                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-on-tertiary-container)' }}>arrow_forward</span>
                                 </div>
                             </M3Card>
                         </section>
@@ -306,14 +254,8 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 1. SEZIONE REGISTRO & DIDATTICA */}
                         <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)' }}>
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-6)', color: 'var(--md-sys-color-primary)' }}>auto_stories</span>
-                                <h3 style={{
-                                    fontFamily: 'var(--font-family)',
-                                    fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-                                    fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)',
-                                    color: 'var(--md-sys-color-on-surface)',
-                                    margin: 0,
-                                }}>Registro & Didattica</h3>
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-primary)' }}>auto_stories</span>
+                                <M3Typography variant="title-medium" as="h3" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Registro & Didattica</M3Typography>
                             </div>
                             <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
                                 <M3Card
@@ -331,11 +273,11 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             justifyContent: 'center',
                                             flexShrink: 0,
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-primary-container)', fontSize: 'var(--md-sys-spacing-6)' }}>book</span>
+                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-primary-container)', fontSize: 'var(--icon-size-medium)' }}>book</span>
                                         </div>
                                         <div style={{ minWidth: 0 }}>
-                                            <h4 style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', fontWeight: 'var(--md-sys-typescale-title-small-font-weight)', color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Diario di Bordo</h4>
-                                            <p style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>Lezioni, assenze, note</p>
+                                            <M3Typography variant="title-small" as="h4" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Diario di Bordo</M3Typography>
+                                            <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>Lezioni, assenze, note</M3Typography>
                                         </div>
                                     </div>
                                 </M3Card>
@@ -354,11 +296,11 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             justifyContent: 'center',
                                             flexShrink: 0,
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--md-sys-spacing-6)' }}>accessibility_new</span>
+                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--icon-size-medium)' }}>accessibility_new</span>
                                         </div>
                                         <div style={{ minWidth: 0 }}>
-                                            <h4 style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', fontWeight: 'var(--md-sys-typescale-title-small-font-weight)', color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Inclusione</h4>
-                                            <p style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>PDP, PEI e strategie</p>
+                                            <M3Typography variant="title-small" as="h4" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Inclusione</M3Typography>
+                                            <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>PDP, PEI e strategie</M3Typography>
                                         </div>
                                     </div>
                                 </M3Card>
@@ -368,14 +310,8 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 2. SEZIONE VALUTAZIONE & COMPETENZE */}
                         <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)' }}>
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-6)', color: 'var(--md-sys-color-secondary)' }}>grading</span>
-                                <h3 style={{
-                                    fontFamily: 'var(--font-family)',
-                                    fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-                                    fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)',
-                                    color: 'var(--md-sys-color-on-surface)',
-                                    margin: 0,
-                                }}>Valutazione & Competenze</h3>
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-secondary)' }}>grading</span>
+                                <M3Typography variant="title-medium" as="h3" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Valutazione & Competenze</M3Typography>
                             </div>
                             <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
                                 <M3Card
@@ -393,11 +329,11 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             justifyContent: 'center',
                                             flexShrink: 0,
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--md-sys-spacing-6)' }}>ballot</span>
+                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--icon-size-medium)' }}>ballot</span>
                                         </div>
                                         <div style={{ minWidth: 0 }}>
-                                            <h4 style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', fontWeight: 'var(--md-sys-typescale-title-small-font-weight)', color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Voti</h4>
-                                            <p style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>Registro valutazioni</p>
+                                            <M3Typography variant="title-small" as="h4" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Voti</M3Typography>
+                                            <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>Registro valutazioni</M3Typography>
                                         </div>
                                     </div>
                                 </M3Card>
@@ -416,11 +352,11 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             justifyContent: 'center',
                                             flexShrink: 0,
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-tertiary-container)', fontSize: 'var(--md-sys-spacing-6)' }}>psychology</span>
+                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-tertiary-container)', fontSize: 'var(--icon-size-medium)' }}>psychology</span>
                                         </div>
                                         <div style={{ minWidth: 0 }}>
-                                            <h4 style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', fontWeight: 'var(--md-sys-typescale-title-small-font-weight)', color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Competenze</h4>
-                                            <p style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>Livelli e matrici</p>
+                                            <M3Typography variant="title-small" as="h4" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Competenze</M3Typography>
+                                            <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>Livelli e matrici</M3Typography>
                                         </div>
                                     </div>
                                 </M3Card>
@@ -430,14 +366,8 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 3. SEZIONE ANALISI & REPORT */}
                         <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)' }}>
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-spacing-6)', color: 'var(--md-sys-color-on-surface-variant)' }}>analytics</span>
-                                <h3 style={{
-                                    fontFamily: 'var(--font-family)',
-                                    fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-                                    fontWeight: 'var(--md-sys-typescale-title-medium-font-weight)',
-                                    color: 'var(--md-sys-color-on-surface)',
-                                    margin: 0,
-                                }}>Analisi & Report</h3>
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-on-surface-variant)' }}>analytics</span>
+                                <M3Typography variant="title-medium" as="h3" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Analisi & Report</M3Typography>
                             </div>
                             <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
                                 <M3Card
@@ -454,11 +384,11 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-spacing-6)' }}>query_stats</span>
+                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--icon-size-medium)' }}>query_stats</span>
                                         </div>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                            <h4 style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', fontWeight: 'var(--md-sys-typescale-title-small-font-weight)', color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Analisi AI</h4>
-                                            <p style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>Report pedagogico</p>
+                                            <M3Typography variant="title-small" as="h4" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Analisi AI</M3Typography>
+                                            <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>Report pedagogico</M3Typography>
                                         </div>
                                     </div>
                                 </M3Card>
@@ -476,11 +406,11 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-secondary)', fontSize: 'var(--md-sys-spacing-6)' }}>gavel</span>
+                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-secondary)', fontSize: 'var(--icon-size-medium)' }}>gavel</span>
                                         </div>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                            <h4 style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', fontWeight: 'var(--md-sys-typescale-title-small-font-weight)', color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Consiglio</h4>
-                                            <p style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>Scrutini e tabelloni</p>
+                                            <M3Typography variant="title-small" as="h4" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Consiglio</M3Typography>
+                                            <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>Scrutini e tabelloni</M3Typography>
                                         </div>
                                     </div>
                                 </M3Card>
@@ -498,11 +428,11 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-tertiary)', fontSize: 'var(--md-sys-spacing-6)' }}>groups</span>
+                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-tertiary)', fontSize: 'var(--icon-size-medium)' }}>groups</span>
                                         </div>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                            <h4 style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', fontWeight: 'var(--md-sys-typescale-title-small-font-weight)', color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Anagrafica</h4>
-                                            <p style={{ fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>Elenco studenti</p>
+                                            <M3Typography variant="title-small" as="h4" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Anagrafica</M3Typography>
+                                            <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0, marginTop: 'var(--md-sys-spacing-0-5)' }}>Elenco studenti</M3Typography>
                                         </div>
                                     </div>
                                 </M3Card>
@@ -519,24 +449,10 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                     }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--md-sys-spacing-2)' }}>
-                                <h2 style={{
-                                    fontFamily: 'var(--font-family)',
-                                    fontSize: 'var(--md-sys-typescale-title-large-font-size)',
-                                    fontWeight: 'var(--md-sys-typescale-title-large-font-weight)',
-                                    color: 'var(--md-sys-color-on-surface)',
-                                    margin: 0,
-                                }}>Studenti</h2>
-                                <span style={{
-                                    fontFamily: 'var(--font-family)',
-                                    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                                    color: 'var(--md-sys-color-primary)',
-                                    backgroundColor: 'var(--md-sys-color-primary-container)',
-                                    borderRadius: 'var(--md-sys-shape-corner-full)',
-                                    padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-3)',
-                                }}>
+                                <M3Typography variant="title-large" as="h2" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Studenti</M3Typography>
+                                <M3Typography variant="label-large" as="span" style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-primary)', backgroundColor: 'var(--md-sys-color-primary-container)', borderRadius: 'var(--md-sys-shape-corner-full)', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-3)' }}>
                                     {filteredStudents.length}
-                                </span>
+                                </M3Typography>
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)' }}>
@@ -556,18 +472,14 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         padding: 'var(--md-sys-spacing-6)',
                                     }}>
                                         <span className="material-symbols-outlined" aria-hidden="true" style={{
-                                            fontSize: 'var(--md-sys-spacing-10)',
+                                            fontSize: 'var(--icon-size-xl)',
                                             color: 'var(--md-sys-color-on-surface-variant)',
                                             fontVariationSettings: '"FILL" 0, "wght" 300',
                                         }}>person_off</span>
-                                        <p style={{
-                                            fontFamily: 'var(--font-family)',
-                                            fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                                            fontWeight: 'var(--md-sys-typescale-body-medium-font-weight)',
-                                            lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+                                        <M3Typography variant="body-medium" style={{
                                             color: 'var(--md-sys-color-on-surface-variant)',
                                             margin: 0,
-                                        }}>Nessuno studente in elenco.</p>
+                                        }}>Nessuno studente in elenco.</M3Typography>
                                     </div>
                                 )}
                             </div>

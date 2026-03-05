@@ -102,7 +102,7 @@ describe('M3Menu', () => {
       />
     );
     
-    const dividers = container.querySelectorAll('.m3-menu__divider');
+    const dividers = container.querySelectorAll('[role="separator"]');
     expect(dividers).toHaveLength(1);
   });
 
@@ -301,7 +301,7 @@ describe('M3Menu', () => {
     );
     
     const button = container.querySelector('button[role="menuitem"]') as HTMLElement;
-    expect(button).toHaveClass('m3-menu-item--error');
+    expect(button.getAttribute('style')).toContain('var(--md-sys-color-error)');
   });
 
   it('applies custom minWidth', () => {
@@ -344,7 +344,7 @@ describe('M3Menu', () => {
       />
     );
     
-    const menu = container.querySelector('.m3-menu');
+    const menu = container.querySelector('[role="menu"]');
     expect(menu).toBeInTheDocument();
   });
 
@@ -373,7 +373,7 @@ describe('M3Menu', () => {
       />
     );
     
-    const menu = container.querySelector('.m3-menu');
+    const menu = container.querySelector('[role="menu"]');
     expect(menu).toBeInTheDocument();
     expect(menu!.querySelectorAll('button[role="menuitem"]')).toHaveLength(0);
   });

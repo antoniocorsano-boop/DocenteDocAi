@@ -1,14 +1,19 @@
-// Bottom sheet modal for NKA map
 import * as React from 'react';
 import './nka-responsive.css';
 import { NKANode } from './types';
 import NKANodeCard from './NKANodeCard';
 import NKAForceMap from './NKAForceMap';
 import { playNkaSound } from './sound';
-// import { generateWizardForNode } from './wizardAI';
 import { generateWizardForNodeLLM } from './wizardAI.llm';
 import { NKAWizardStep } from './wizardAI';
 import GameMode from './GameMode';
+import { M3Surface } from '../components/ui/M3Surface';
+import { M3Typography } from '../components/ui/M3Typography';
+import M3IconButton from '../components/ui/M3IconButton';
+import { M3Button } from '../components/ui/M3Button';
+import { M3Skeleton } from '../components/ui/M3Skeleton';
+import { M3EmptyState } from '../components/ui/M3EmptyState';
+import { M3ErrorState } from '../components/ui/M3ErrorState';
 
 interface NKABottomSheetProps {
   open: boolean;
@@ -18,12 +23,13 @@ interface NKABottomSheetProps {
 }
 
 const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, onNodeSelect }) => {
-  // Advanced: sound feedback, force map, wizard, game mode
   const [selectedNode, setSelectedNode] = React.useState<NKANode | null>(null);
   const [showWizard, setShowWizard] = React.useState<boolean>(false);
   const [wizardSteps, setWizardSteps] = React.useState<NKAWizardStep[]>([]);
   const [wizardLoading, setWizardLoading] = React.useState<boolean>(false);
+  const [wizardError, setWizardError] = React.useState<string | null>(null);
   const [showGame, setShowGame] = React.useState<boolean>(false);
+
   const handleNodeSelect = React.useCallback((node: NKANode) => {
     try {
       playNkaSound('node');
@@ -32,18 +38,17 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
     }
     setSelectedNode(node);
     setShowWizard(true);
-    // Call onNodeSelect synchronously so callers don't depend on async LLM generation
+    setWizardError(null);
     onNodeSelect(node);
     setWizardLoading(true);
 
-    // Fire-and-forget: generate wizard steps asynchronously and update state when ready
     (async () => {
       try {
         const steps = await generateWizardForNodeLLM(node, {});
         setWizardSteps(steps);
       } catch (err) {
         console.warn('[NKA] Wizard generation error:', err);
-        // swallow LLM errors; UI will show fallback if needed
+        setWizardError('Errore nella generazione del wizard');
       } finally {
         setWizardLoading(false);
       }
@@ -51,10 +56,11 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
   }, [onNodeSelect]);
 
   if (!open) return null;
+
   return (
     <>
-      {/* Backdrop to close modal */}
-      <div
+      <M3Surface
+        variant="scrim"
         onClick={onClose}
         role="presentation"
         aria-hidden="true"
@@ -62,143 +68,236 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
           position: 'fixed',
           top: 0,
           left: 0,
-          width: 'var(--md-sys-viewport-width-full)',
-          height: 'var(--md-sys-viewport-height-full)',
-          background: 'var(--md-sys-color-scrim)',
-          opacity: 'var(--md-sys-state-opacity-scrim)',
-          zIndex: 'var(--md-sys-z-modal)', // --md-sys-z-modal
+          width: '100vw',
+          height: '100vh',
+          zIndex: 'var(--md-sys-z-modal)',
         }}
       />
-      <div
+      <M3Surface
+        variant="container"
+        elevation={3}
         role="dialog"
         aria-modal="true"
-        aria-label="Mappa neurale"
+        aria-label="Mappa neurale della conoscenza"
         style={{
           position: 'fixed',
           left: '50%',
           bottom: 0,
           transform: 'translateX(-50%)',
-          width: 'min(100vw, calc(var(--md-sys-spacing-20) * 7.5))',
-          background: 'var(--md-sys-color-surface)',
+          width: 'min(100vw, 600px)',
           borderTopLeftRadius: 'var(--md-sys-shape-corner-large)',
           borderTopRightRadius: 'var(--md-sys-shape-corner-large)',
-          boxShadow: 'var(--md-sys-elevation3)',
-          zIndex: 'var(--md-sys-z-modal)', // --md-sys-z-modal + 1
-          padding: 'var(--md-sys-spacing-6) var(--md-sys-spacing-4) var(--md-sys-spacing-4) var(--md-sys-spacing-4)',
-          minHeight: 320,
+          zIndex: 'calc(var(--md-sys-z-modal) + 1)',
+          padding: 'var(--md-sys-spacing-6) var(--md-sys-spacing-4)',
+          minHeight: '320px',
+          maxHeight: '80vh',
           display: 'flex',
           flexDirection: 'column',
           gap: 'var(--md-sys-spacing-4)',
+          overflow: 'hidden',
         }}
       >
-        <div style={{ width: 'var(--md-sys-percent-100)', marginBottom: 'var(--md-sys-spacing-4)' }}>
-          <NKAForceMap nodes={nodes} onNodeSelect={handleNodeSelect} />
-          {/* List fallback for accessibility and actions */}
-          {nodes.map((node: NKANode) => (
-            <NKANodeCard key={node.id} node={node} onSelect={() => handleNodeSelect(node)} />
-          ))}
-        </div>
-        <button
+        <M3Surface
+          variant="surface"
+          style={{
+            width: '100%',
+            flex: 1,
+            overflow: 'auto',
+            marginBottom: 'var(--md-sys-spacing-4)',
+          }}
+        >
+          {nodes.length === 0 ? (
+            <M3EmptyState
+              title="Nessun nodo disponibile"
+              description="Non ci sono nodi nella mappa neurale"
+              icon="psychology"
+            />
+          ) : (
+            <>
+              <NKAForceMap 
+                nodes={nodes} 
+                onNodeSelect={handleNodeSelect}
+                aria-label="Visualizzazione interattiva della mappa neurale"
+              />
+              <M3Surface
+                variant="surface"
+                role="list"
+                aria-label="Elenco nodi della mappa neurale"
+                style={{ marginTop: 'var(--md-sys-spacing-4)' }}
+              >
+                {nodes.map((node: NKANode) => (
+                  <NKANodeCard 
+                    key={node.id} 
+                    node={node} 
+                    onSelect={() => handleNodeSelect(node)}
+                    role="listitem"
+                  />
+                ))}
+              </M3Surface>
+            </>
+          )}
+        </M3Surface>
+
+        <M3IconButton
+          icon="close"
           onClick={onClose}
           aria-label="Chiudi mappa neurale"
+          variant="standard"
           style={{
             position: 'absolute',
-            top: 12,
-            right: 16,
-            background: 'none',
-            border: 'none',
-            color: 'var(--md-sys-color-on-surface-variant)',
-            fontSize: 28,
-            cursor: 'pointer',
-            borderRadius: 'var(--md-sys-shape-corner-full)',
-            width: 40,
-            height: 40,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: `background var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard)`,
+            top: 'var(--md-sys-spacing-3)',
+            right: 'var(--md-sys-spacing-4)',
           }}
-        >×</button>
-      {/* Wizard AI generativo */}
+        />
+
+        <M3Button
+          variant={showGame ? 'tonal' : 'filled'}
+          onClick={() => setShowGame(prev => !prev)}
+          aria-label={showGame ? 'Nascondi modalità gioco' : 'Mostra modalità gioco'}
+          aria-expanded={showGame}
+        >
+          {showGame ? 'Nascondi' : 'Mostra'} Modalità Gioco
+        </M3Button>
+      </M3Surface>
+
       {showWizard && selectedNode && (
-        <div
+        <M3Surface
+          variant="container-high"
+          elevation={2}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="wizard-title"
+          aria-describedby="wizard-description"
           style={{
             position: 'fixed',
             left: '50%',
             top: '10vh',
             transform: 'translateX(-50%)',
-            background: 'var(--md-sys-color-surface-container)',
             borderRadius: 'var(--md-sys-shape-corner-large)',
-            boxShadow: 'var(--md-sys-elevation2)',
             padding: 'var(--md-sys-spacing-6)',
-            zIndex: 'var(--md-sys-z-tooltip)', // --md-sys-z-tooltip
-            minWidth: 320,
-            maxWidth: 480,
+            zIndex: 'calc(var(--md-sys-z-modal) + 2)',
+            minWidth: '320px',
+            maxWidth: '480px',
+            width: '90vw',
           }}
         >
-          <h4 style={{ margin: 0, color: 'var(--md-sys-color-on-surface)' }}>Wizard: {selectedNode.label}</h4>
+          <M3Typography 
+            variant="headline-small" 
+            id="wizard-title"
+            style={{ marginBottom: 'var(--md-sys-spacing-4)' }}
+          >
+            Wizard: {selectedNode.label}
+          </M3Typography>
+          
           {wizardLoading ? (
-            <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Generazione wizard AI…</div>
+            <M3Surface variant="surface" style={{ padding: 'var(--md-sys-spacing-4)' }}>
+              <M3Skeleton height="24px" style={{ marginBottom: 'var(--md-sys-spacing-3)' }} />
+              <M3Skeleton height="16px" style={{ marginBottom: 'var(--md-sys-spacing-2)' }} />
+              <M3Skeleton height="16px" width="80%" />
+            </M3Surface>
+          ) : wizardError ? (
+            <M3ErrorState
+              title="Errore nel wizard"
+              description={wizardError}
+              onRetry={() => handleNodeSelect(selectedNode)}
+              showRetry
+            />
+          ) : wizardSteps.length === 0 ? (
+            <M3EmptyState
+              title="Wizard non disponibile"
+              description="Non è stato possibile generare passi per questo nodo"
+              icon="auto_fix_high"
+            />
           ) : (
-            <ul style={{ padding: 0, margin: 'var(--md-sys-spacing-4) 0', listStyle: 'none' }}>
+            <M3Surface 
+              variant="surface"
+              role="list"
+              aria-label="Passi del wizard"
+            >
               {wizardSteps.map((step: NKAWizardStep) => (
-                <li key={step.id} style={{ marginBottom: 'var(--md-sys-spacing-3)' }}>
-                  <strong style={{ color: 'var(--md-sys-color-primary)' }}>{step.title}</strong>
-                  <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{step.description}</div>
-                  {step.actions.map((a: string) => (
-                    <button
-                      key={a}
+                <M3Surface
+                  key={step.id}
+                  variant="surface-variant"
+                  role="listitem"
+                  style={{
+                    marginBottom: 'var(--md-sys-spacing-4)',
+                    padding: 'var(--md-sys-spacing-3)',
+                    borderRadius: 'var(--md-sys-shape-corner-medium)',
+                  }}
+                >
+                  <M3Typography 
+                    variant="title-medium" 
+                    style={{ marginBottom: 'var(--md-sys-spacing-2)' }}
+                  >
+                    {step.title}
+                  </M3Typography>
+                  <M3Typography 
+                    variant="body-medium" 
+                    style={{ 
+                      marginBottom: 'var(--md-sys-spacing-3)',
+                      color: 'var(--md-sys-color-on-surface-variant)'
+                    }}
+                  >
+                    {step.description}
+                  </M3Typography>
+                  {step.actions.length > 0 && (
+                    <M3Surface 
+                      variant="surface"
                       style={{
-                        background: 'var(--md-sys-color-primary)',
-                        color: 'var(--md-sys-color-on-primary)',
-                        border: 'none',
-                        borderRadius: 'var(--md-sys-shape-corner-small)',
-                        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
-                        font: 'inherit',
-                        cursor: 'pointer',
-                        marginRight: 'var(--md-sys-spacing-2)',
-                        marginTop: 'var(--md-sys-spacing-2)',
+                        display: 'flex',
+                        gap: 'var(--md-sys-spacing-2)',
+                        flexWrap: 'wrap',
                       }}
-                    >{a}</button>
-                  ))}
-                </li>
+                    >
+                      {step.actions.map((action: string, index: number) => (
+                        <M3Button
+                          key={`${step.id}-action-${index}`}
+                          variant="filled"
+                          size="small"
+                          aria-label={`Esegui azione: ${action}`}
+                        >
+                          {action}
+                        </M3Button>
+                      ))}
+                    </M3Surface>
+                  )}
+                </M3Surface>
               ))}
-            </ul>
+            </M3Surface>
           )}
-          <button
+          
+          <M3Button
+            variant="text"
             onClick={() => setShowWizard(false)}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'var(--md-sys-color-primary)',
-              fontSize: 18,
-              cursor: 'pointer',
-              marginTop: 'var(--md-sys-spacing-4)',
-            }}
-          >Chiudi wizard</button>
-        </div>
+            aria-label="Chiudi wizard"
+            style={{ marginTop: 'var(--md-sys-spacing-4)' }}
+          >
+            Chiudi wizard
+          </M3Button>
+        </M3Surface>
       )}
-      {/* Modalità gioco */}
+
       {showGame && (
-        <GameMode nodes={nodes} />
+        <M3Surface
+          variant="container"
+          role="region"
+          aria-label="Modalità gioco"
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 'calc(var(--md-sys-z-modal) + 1)',
+            maxWidth: '90vw',
+            maxHeight: '90vh',
+            overflow: 'auto',
+          }}
+        >
+          <GameMode nodes={nodes} />
+        </M3Surface>
       )}
-      <button
-        onClick={() => setShowGame((g: boolean) => !g)}
-        style={{
-          background: 'var(--md-sys-color-secondary)',
-          color: 'var(--md-sys-color-on-secondary)',
-          border: 'none',
-          borderRadius: 'var(--md-sys-shape-corner-medium)',
-          padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
-          font: 'inherit',
-          cursor: 'pointer',
-          marginTop: 'var(--md-sys-spacing-4)',
-        }}
-      >{showGame ? 'Nascondi' : 'Mostra'} Modalità Gioco</button>
-      </div>
     </>
   );
 };
 
 export default NKABottomSheet;
-
