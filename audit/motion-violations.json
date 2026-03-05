@@ -1,24 +1,607 @@
 {
-  "timestamp": "2026-03-05T17:05:16.341Z",
-  "totalViolations": 1,
-  "totalFiles": 1,
-  "scannedFiles": 446,
+  "timestamp": "2026-03-05T21:04:56.100Z",
+  "totalViolations": 76,
+  "totalFiles": 15,
+  "scannedFiles": 451,
   "typeBreakdown": {
-    "hardcodedDuration": 1
+    "hardcodedDuration": 45,
+    "hardcodedEasing": 22,
+    "inlineStyleTemporal": 9
   },
   "topViolators": [
     {
-      "file": "src\\nka\\NKAHeaderAuraButton.tsx",
+      "file": "src\\design-system\\motion.css",
+      "count": 13
+    },
+    {
+      "file": "src\\components\\ui\\M3SpeedDial.tsx",
+      "count": 10
+    },
+    {
+      "file": "src\\components\\ui\\M3BannerHero.tsx",
+      "count": 8
+    },
+    {
+      "file": "src\\components\\ui\\M3HeroCard.tsx",
+      "count": 8
+    },
+    {
+      "file": "src\\components\\ui\\M3MotionCard.tsx",
+      "count": 6
+    },
+    {
+      "file": "src\\components\\AuraView.tsx",
+      "count": 5
+    },
+    {
+      "file": "src\\components\\ui\\M3SegmentedButton.tsx",
+      "count": 5
+    },
+    {
+      "file": "src\\components\\NavigationRail.tsx",
+      "count": 4
+    },
+    {
+      "file": "src\\components\\ui\\M3Switch.tsx",
+      "count": 4
+    },
+    {
+      "file": "src\\components\\ui\\PageTransition.tsx",
+      "count": 4
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "count": 3
+    },
+    {
+      "file": "src\\components\\ui\\FAB.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\ui\\M3ExpressiveCard.tsx",
+      "count": 2
+    },
+    {
+      "file": "src\\components\\ui\\M3AnimatedIcon.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\ui\\M3Card.tsx",
       "count": 1
     }
   ],
   "violations": [
     {
-      "file": "src\\nka\\NKAHeaderAuraButton.tsx",
-      "line": 99,
+      "file": "src\\components\\AuraView.tsx",
+      "line": 16,
       "type": "hardcodedDuration",
-      "match": "transition: 'box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',\r",
+      "match": "animation-duration: 0.01ms",
+      "context": "}"
+    },
+    {
+      "file": "src\\components\\AuraView.tsx",
+      "line": 50,
+      "type": "hardcodedDuration",
+      "match": "animation class for MD3 spring entrance keyframe (MD3 §9 exception)\r\n                  className=\"_m",
+      "context": "className=\"_m3av-inner\""
+    },
+    {
+      "file": "src\\components\\AuraView.tsx",
+      "line": 56,
+      "type": "hardcodedDuration",
+      "match": "animation: `_m3av-enter var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms",
+      "context": "}}"
+    },
+    {
+      "file": "src\\components\\AuraView.tsx",
+      "line": 50,
+      "type": "hardcodedEasing",
+      "match": "animation class for MD3 spring entrance keyframe (MD3 §9 exception)\r\n                  className=\"_m",
+      "context": "className=\"_m3av-inner\""
+    },
+    {
+      "file": "src\\components\\AuraView.tsx",
+      "line": 53,
+      "type": "inlineStyleTemporal",
+      "match": "style={{\r\n                      width: 'var(--md-sys-percent-100)',\r\n                      // eslint",
+      "context": "width: 'var(--md-sys-percent-100)',"
+    },
+    {
+      "file": "src\\components\\NavigationRail.tsx",
+      "line": 147,
+      "type": "hardcodedDuration",
+      "match": "animation-duration: 0.01ms",
+      "context": "}"
+    },
+    {
+      "file": "src\\components\\NavigationRail.tsx",
+      "line": 215,
+      "type": "hardcodedDuration",
+      "match": "transition: `background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standa",
+      "context": "backgroundColor: !isActive && hoveredId === item.id"
+    },
+    {
+      "file": "src\\components\\NavigationRail.tsx",
+      "line": 215,
+      "type": "hardcodedEasing",
+      "match": "transition: `background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standa",
+      "context": "backgroundColor: !isActive && hoveredId === item.id"
+    },
+    {
+      "file": "src\\components\\NavigationRail.tsx",
+      "line": 226,
+      "type": "inlineStyleTemporal",
+      "match": "style={{\r\n                    position: 'absolute',\r\n                    inset: 0,\r\n                ",
+      "context": "position: 'absolute',"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 82,
+      "type": "hardcodedDuration",
+      "match": "transition: `box-shadow var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard)`,",
+      "context": "}}"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 515,
+      "type": "hardcodedDuration",
+      "match": "transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,\r\n      ",
+      "context": "textAlign: 'center',"
+    },
+    {
+      "file": "src\\components\\Settings.tsx",
+      "line": 1840,
+      "type": "hardcodedDuration",
+      "match": "transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-moti",
+      "context": "display: 'flex',"
+    },
+    {
+      "file": "src\\components\\ui\\FAB.tsx",
+      "line": 112,
+      "type": "hardcodedDuration",
+      "match": "transition: [\r\n          `transform var(--md-sys-motion-spring-expressive-default-spatial-duration, ",
+      "context": "`transform var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier("
+    },
+    {
+      "file": "src\\components\\ui\\FAB.tsx",
+      "line": 112,
+      "type": "hardcodedEasing",
+      "match": "transition: [\r\n          `transform var(--md-sys-motion-spring-expressive-default-spatial-duration, ",
+      "context": "`transform var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier("
+    },
+    {
+      "file": "src\\components\\ui\\M3AnimatedIcon.tsx",
+      "line": 36,
+      "type": "hardcodedDuration",
+      "match": "animation-duration: 0.01ms",
+      "context": "}"
+    },
+    {
+      "file": "src\\components\\ui\\M3BannerHero.tsx",
+      "line": 21,
+      "type": "hardcodedDuration",
+      "match": "animation-duration: 0.01ms",
+      "context": "._m3bh-icon-anim  { animation: none !important; }"
+    },
+    {
+      "file": "src\\components\\ui\\M3BannerHero.tsx",
+      "line": 119,
+      "type": "hardcodedDuration",
+      "match": "animation target class for CSS @keyframes\r\n        style={{\r\n          position: 'relative',\r\n      ",
+      "context": "style={{"
+    },
+    {
+      "file": "src\\components\\ui\\M3BannerHero.tsx",
+      "line": 135,
+      "type": "hardcodedDuration",
+      "match": "animation: `_m3bh-enter var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms",
+      "context": "willChange: 'opacity, transform',"
+    },
+    {
+      "file": "src\\components\\ui\\M3BannerHero.tsx",
+      "line": 161,
+      "type": "hardcodedDuration",
+      "match": "animation: isCompact\r\n                ? 'none'\r\n                : `_m3bh-icon-float 6000ms",
+      "context": "? 'none'"
+    },
+    {
+      "file": "src\\components\\ui\\M3BannerHero.tsx",
+      "line": 119,
+      "type": "hardcodedEasing",
+      "match": "animation target class for CSS @keyframes\r\n        style={{\r\n          position: 'relative',\r\n      ",
+      "context": "style={{"
+    },
+    {
+      "file": "src\\components\\ui\\M3BannerHero.tsx",
+      "line": 135,
+      "type": "hardcodedEasing",
+      "match": "animation: `_m3bh-enter var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(-",
+      "context": "willChange: 'opacity, transform',"
+    },
+    {
+      "file": "src\\components\\ui\\M3BannerHero.tsx",
+      "line": 161,
+      "type": "hardcodedEasing",
+      "match": "animation: isCompact\r\n                ? 'none'\r\n                : `_m3bh-icon-float 6000ms var(--md-",
+      "context": "? 'none'"
+    },
+    {
+      "file": "src\\components\\ui\\M3BannerHero.tsx",
+      "line": 145,
+      "type": "inlineStyleTemporal",
+      "match": "style={{\r\n              position: 'absolute',\r\n              right: isCompact\r\n                ? 'ca",
+      "context": "position: 'absolute',"
+    },
+    {
+      "file": "src\\components\\ui\\M3Card.tsx",
+      "line": 97,
+      "type": "hardcodedDuration",
+      "match": "transition: [\r\n      `transform var(--md-sys-motion-spring-expressive-default-spatial-duration, 500m",
+      "context": "`transform var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) ${springDefaultSpatial}`,"
+    },
+    {
+      "file": "src\\components\\ui\\M3ExpressiveCard.tsx",
+      "line": 112,
+      "type": "hardcodedDuration",
+      "match": "transition: scale + elevation on hover\r\n        transition: [\r\n          `transform var(--md-sys-mot",
+      "context": "transition: ["
+    },
+    {
+      "file": "src\\components\\ui\\M3ExpressiveCard.tsx",
+      "line": 112,
+      "type": "hardcodedEasing",
+      "match": "transition: scale + elevation on hover\r\n        transition: [\r\n          `transform var(--md-sys-mot",
+      "context": "transition: ["
+    },
+    {
+      "file": "src\\components\\ui\\M3HeroCard.tsx",
+      "line": 17,
+      "type": "hardcodedDuration",
+      "match": "animation-duration: 0.01ms",
+      "context": "}"
+    },
+    {
+      "file": "src\\components\\ui\\M3HeroCard.tsx",
+      "line": 92,
+      "type": "hardcodedDuration",
+      "match": "animation class defined in injected HERO_KEYFRAMES (MD3 §9 exception)\r\n        className=\"_m3hc-ente",
+      "context": "className=\"_m3hc-enter\""
+    },
+    {
+      "file": "src\\components\\ui\\M3HeroCard.tsx",
+      "line": 105,
+      "type": "hardcodedDuration",
+      "match": "animation: `_m3hc-hero-enter var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms",
+      "context": "willChange: 'opacity, transform',"
+    },
+    {
+      "file": "src\\components\\ui\\M3HeroCard.tsx",
+      "line": 127,
+      "type": "hardcodedDuration",
+      "match": "transition: `transform var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms",
+      "context": "}}"
+    },
+    {
+      "file": "src\\components\\ui\\M3HeroCard.tsx",
+      "line": 92,
+      "type": "hardcodedEasing",
+      "match": "animation class defined in injected HERO_KEYFRAMES (MD3 §9 exception)\r\n        className=\"_m3hc-ente",
+      "context": "className=\"_m3hc-enter\""
+    },
+    {
+      "file": "src\\components\\ui\\M3HeroCard.tsx",
+      "line": 127,
+      "type": "hardcodedEasing",
+      "match": "transition: `transform var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--",
+      "context": "}}"
+    },
+    {
+      "file": "src\\components\\ui\\M3HeroCard.tsx",
+      "line": 96,
+      "type": "inlineStyleTemporal",
+      "match": "style={{\r\n          position: 'relative',\r\n          overflow: 'hidden',\r\n          borderRadius: fu",
       "context": "position: 'relative',"
+    },
+    {
+      "file": "src\\components\\ui\\M3HeroCard.tsx",
+      "line": 115,
+      "type": "inlineStyleTemporal",
+      "match": "style={{\r\n              position: 'absolute',\r\n              right: 'calc(var(--md-sys-spacing-4) * ",
+      "context": "position: 'absolute',"
+    },
+    {
+      "file": "src\\components\\ui\\M3MotionCard.tsx",
+      "line": 18,
+      "type": "hardcodedDuration",
+      "match": "transition-duration: 0.01ms",
+      "context": "._m3mc-backdrop { animation-duration: 0.01ms !important; }"
+    },
+    {
+      "file": "src\\components\\ui\\M3MotionCard.tsx",
+      "line": 19,
+      "type": "hardcodedDuration",
+      "match": "animation-duration: 0.01ms",
+      "context": "}"
+    },
+    {
+      "file": "src\\components\\ui\\M3MotionCard.tsx",
+      "line": 118,
+      "type": "hardcodedDuration",
+      "match": "transition: `box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,\r",
+      "context": "...style,"
+    },
+    {
+      "file": "src\\components\\ui\\M3MotionCard.tsx",
+      "line": 161,
+      "type": "hardcodedDuration",
+      "match": "animation target class for CSS @keyframes\r\n            style={{\r\n              position: 'absolute',",
+      "context": "style={{"
+    },
+    {
+      "file": "src\\components\\ui\\M3MotionCard.tsx",
+      "line": 118,
+      "type": "hardcodedEasing",
+      "match": "transition: `box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,\r",
+      "context": "...style,"
+    },
+    {
+      "file": "src\\components\\ui\\M3MotionCard.tsx",
+      "line": 144,
+      "type": "inlineStyleTemporal",
+      "match": "style={{\r\n              position: 'absolute',\r\n              inset: 0,\r\n              backgroundColo",
+      "context": "position: 'absolute',"
+    },
+    {
+      "file": "src\\components\\ui\\M3SegmentedButton.tsx",
+      "line": 17,
+      "type": "hardcodedDuration",
+      "match": "animation-duration: 0.01ms",
+      "context": "}"
+    },
+    {
+      "file": "src\\components\\ui\\M3SegmentedButton.tsx",
+      "line": 135,
+      "type": "hardcodedDuration",
+      "match": "transition: [\r\n                  `color var(--md-sys-motion-duration-short2) var(--md-sys-motion-eas",
+      "context": "`color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,"
+    },
+    {
+      "file": "src\\components\\ui\\M3SegmentedButton.tsx",
+      "line": 145,
+      "type": "hardcodedDuration",
+      "match": "animation target class for spring keyframe, not a style class\r\n                style={{\r\n           ",
+      "context": "style={{"
+    },
+    {
+      "file": "src\\components\\ui\\M3SegmentedButton.tsx",
+      "line": 135,
+      "type": "hardcodedEasing",
+      "match": "transition: [\r\n                  `color var(--md-sys-motion-duration-short2) var(--md-sys-motion-eas",
+      "context": "`color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,"
+    },
+    {
+      "file": "src\\components\\ui\\M3SegmentedButton.tsx",
+      "line": 146,
+      "type": "inlineStyleTemporal",
+      "match": "style={{\r\n                  position: 'absolute',\r\n                  inset: 0,\r\n                  ba",
+      "context": "position: 'absolute',"
+    },
+    {
+      "file": "src\\components\\ui\\M3SpeedDial.tsx",
+      "line": 28,
+      "type": "hardcodedDuration",
+      "match": "animation-duration: 0.01ms",
+      "context": "}"
+    },
+    {
+      "file": "src\\components\\ui\\M3SpeedDial.tsx",
+      "line": 158,
+      "type": "hardcodedDuration",
+      "match": "animation target class for CSS @keyframes\r\n                  style={{\r\n                    fontFamil",
+      "context": "style={{"
+    },
+    {
+      "file": "src\\components\\ui\\M3SpeedDial.tsx",
+      "line": 197,
+      "type": "hardcodedDuration",
+      "match": "animation: wasOpen\r\n                      ? open\r\n                        ? `_m3s",
+      "context": "? open"
+    },
+    {
+      "file": "src\\components\\ui\\M3SpeedDial.tsx",
+      "line": 243,
+      "type": "hardcodedDuration",
+      "match": "transition: [\r\n              `border-radius var(--md-sys-motion-spring-expressive-default-spatial-du",
+      "context": "`border-radius var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bez"
+    },
+    {
+      "file": "src\\components\\ui\\M3SpeedDial.tsx",
+      "line": 257,
+      "type": "hardcodedDuration",
+      "match": "animation: wasOpen\r\n                ? open\r\n                  ? `_m3s",
+      "context": "? open"
+    },
+    {
+      "file": "src\\components\\ui\\M3SpeedDial.tsx",
+      "line": 158,
+      "type": "hardcodedEasing",
+      "match": "animation target class for CSS @keyframes\r\n                  style={{\r\n                    fontFamil",
+      "context": "style={{"
+    },
+    {
+      "file": "src\\components\\ui\\M3SpeedDial.tsx",
+      "line": 197,
+      "type": "hardcodedEasing",
+      "match": "animation: wasOpen\r\n                      ? open\r\n                        ? `_m3sd-item-in var(--md-",
+      "context": "? open"
+    },
+    {
+      "file": "src\\components\\ui\\M3SpeedDial.tsx",
+      "line": 243,
+      "type": "hardcodedEasing",
+      "match": "transition: [\r\n              `border-radius var(--md-sys-motion-spring-expressive-default-spatial-du",
+      "context": "`border-radius var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bez"
+    },
+    {
+      "file": "src\\components\\ui\\M3SpeedDial.tsx",
+      "line": 228,
+      "type": "inlineStyleTemporal",
+      "match": "style={{\r\n            display: 'flex',\r\n            alignItems: 'center',\r\n            justifyConten",
+      "context": "display: 'flex',"
+    },
+    {
+      "file": "src\\components\\ui\\M3SpeedDial.tsx",
+      "line": 254,
+      "type": "inlineStyleTemporal",
+      "match": "style={{\r\n              fontSize: 'var(--md-sys-typescale-title-medium-font-size)',\r\n              f",
+      "context": "fontSize: 'var(--md-sys-typescale-title-medium-font-size)',"
+    },
+    {
+      "file": "src\\components\\ui\\M3Switch.tsx",
+      "line": 22,
+      "type": "hardcodedDuration",
+      "match": "animation-duration: 0.01ms",
+      "context": "}"
+    },
+    {
+      "file": "src\\components\\ui\\M3Switch.tsx",
+      "line": 119,
+      "type": "hardcodedDuration",
+      "match": "transition: [\r\n              `background-color var(--md-sys-motion-duration-short2) var(--md-sys-mot",
+      "context": "`background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,"
+    },
+    {
+      "file": "src\\components\\ui\\M3Switch.tsx",
+      "line": 143,
+      "type": "hardcodedDuration",
+      "match": "animation target class for CSS @keyframes, not a style class\r\n            style={{\r\n              po",
+      "context": "style={{"
+    },
+    {
+      "file": "src\\components\\ui\\M3Switch.tsx",
+      "line": 119,
+      "type": "hardcodedEasing",
+      "match": "transition: [\r\n              `background-color var(--md-sys-motion-duration-short2) var(--md-sys-mot",
+      "context": "`background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,"
+    },
+    {
+      "file": "src\\components\\ui\\PageTransition.tsx",
+      "line": 43,
+      "type": "hardcodedDuration",
+      "match": "animation-duration: 0.01ms",
+      "context": "}"
+    },
+    {
+      "file": "src\\components\\ui\\PageTransition.tsx",
+      "line": 106,
+      "type": "hardcodedDuration",
+      "match": "transition\r\n  if (variant === 'bounce-in') {\r\n    const bounceStyle: React.CSSProperties = visible &",
+      "context": "if (variant === 'bounce-in') {"
+    },
+    {
+      "file": "src\\components\\ui\\PageTransition.tsx",
+      "line": 111,
+      "type": "hardcodedDuration",
+      "match": "animation: `_pt-bounce-in var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms",
+      "context": "willChange: 'opacity, transform',"
+    },
+    {
+      "file": "src\\components\\ui\\PageTransition.tsx",
+      "line": 106,
+      "type": "hardcodedEasing",
+      "match": "transition\r\n  if (variant === 'bounce-in') {\r\n    const bounceStyle: React.CSSProperties = visible &",
+      "context": "if (variant === 'bounce-in') {"
+    },
+    {
+      "file": "src\\design-system\\motion.css",
+      "line": 154,
+      "type": "hardcodedDuration",
+      "match": "transition-duration: 0.01ms",
+      "context": "animation-duration: 0.01ms !important;"
+    },
+    {
+      "file": "src\\design-system\\motion.css",
+      "line": 155,
+      "type": "hardcodedDuration",
+      "match": "animation-duration: 0.01ms",
+      "context": "animation-delay: 0.01ms !important;"
+    },
+    {
+      "file": "src\\design-system\\motion.css",
+      "line": 202,
+      "type": "hardcodedDuration",
+      "match": "transition-duration: var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms",
+      "context": "transition-timing-function: var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00));"
+    },
+    {
+      "file": "src\\design-system\\motion.css",
+      "line": 213,
+      "type": "hardcodedDuration",
+      "match": "transition-duration: var(--md-sys-motion-spring-expressive-default-effects-duration, 200ms",
+      "context": "transition-timing-function: var(--md-sys-motion-spring-expressive-default-effects, cubic-bezier(0.34, 0.80, 0.34, 1.00));"
+    },
+    {
+      "file": "src\\design-system\\motion.css",
+      "line": 345,
+      "type": "hardcodedDuration",
+      "match": "animation classes */\r\n.m3-animate-bounce-in {\r\n  animation: m3-bounce-in var(--md-sys-motion-duratio",
+      "context": ".m3-animate-bounce-in {"
+    },
+    {
+      "file": "src\\design-system\\motion.css",
+      "line": 353,
+      "type": "hardcodedDuration",
+      "match": "animation: m3-hero-enter var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms",
+      "context": "var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00))"
+    },
+    {
+      "file": "src\\design-system\\motion.css",
+      "line": 397,
+      "type": "hardcodedDuration",
+      "match": "ANIMATION:\r\n<button className=\"m3-transition-fab\">FAB</button>\r\n*/\r\n\r\n/* ===========================",
+      "context": "<button className=\"m3-transition-fab\">FAB</button>"
+    },
+    {
+      "file": "src\\design-system\\motion.css",
+      "line": 77,
+      "type": "hardcodedEasing",
+      "match": "transition-timing-function: var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38",
+      "context": "}"
+    },
+    {
+      "file": "src\\design-system\\motion.css",
+      "line": 203,
+      "type": "hardcodedEasing",
+      "match": "transition-timing-function: var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38",
+      "context": "}"
+    },
+    {
+      "file": "src\\design-system\\motion.css",
+      "line": 214,
+      "type": "hardcodedEasing",
+      "match": "transition-timing-function: var(--md-sys-motion-spring-expressive-default-effects, cubic-bezier(0.34",
+      "context": "}"
+    },
+    {
+      "file": "src\\design-system\\motion.css",
+      "line": 225,
+      "type": "hardcodedEasing",
+      "match": "transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1)",
+      "context": "}"
+    },
+    {
+      "file": "src\\design-system\\motion.css",
+      "line": 345,
+      "type": "hardcodedEasing",
+      "match": "animation classes */\r\n.m3-animate-bounce-in {\r\n  animation: m3-bounce-in var(--md-sys-motion-duratio",
+      "context": ".m3-animate-bounce-in {"
+    },
+    {
+      "file": "src\\design-system\\motion.css",
+      "line": 353,
+      "type": "hardcodedEasing",
+      "match": "animation: m3-hero-enter var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms)\r\n   ",
+      "context": "var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00))"
     }
   ]
 }

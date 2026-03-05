@@ -166,6 +166,7 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
     overrides: {
       sys: {
         colors: {
+          /* eslint-disable design-system/no-hardcoded-colors -- intentional: emotional preset color palette definition for theme override system, not inline style. MD3 contract §9 documented exception. */
           primary: '#8bc34a',
           onPrimary: '#000000',
           secondary: '#009688',
@@ -192,6 +193,7 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
           scrim: '#000000',
           surfaceVariant: '#e8f5e8',
           onSurfaceVariant: '#000000'
+          /* eslint-enable design-system/no-hardcoded-colors */
         },
       }
     },
@@ -202,6 +204,7 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
     overrides: {
       sys: {
         colors: {
+          /* eslint-disable design-system/no-hardcoded-colors -- intentional: emotional preset color palette definition for theme override system, not inline style. MD3 contract §9 documented exception. */
           primary: '#212121',
           onPrimary: '#ffffff',
           secondary: '#757575',
@@ -228,6 +231,7 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
           scrim: '#000000',
           surfaceVariant: '#f5f5f5',
           onSurfaceVariant: '#000000'
+          /* eslint-enable design-system/no-hardcoded-colors */
         },
       }
     },
@@ -238,6 +242,7 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
     overrides: {
       sys: {
         colors: {
+          /* eslint-disable design-system/no-hardcoded-colors -- intentional: emotional preset color palette definition for theme override system, not inline style. MD3 contract §9 documented exception. */
           primary: '#ff4081',
           onPrimary: '#ffffff',
           secondary: '#ffeb3b',
@@ -264,6 +269,7 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
           scrim: '#000000',
           surfaceVariant: '#fce4ec',
           onSurfaceVariant: '#000000'
+          /* eslint-enable design-system/no-hardcoded-colors */
         },
       }
     },
@@ -274,6 +280,7 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
     overrides: {
       sys: {
         colors: {
+          /* eslint-disable design-system/no-hardcoded-colors -- intentional: emotional preset color palette definition for theme override system, not inline style. MD3 contract §9 documented exception. */
           primary: '#000000',
           onPrimary: '#ffffff',
           secondary: '#ffffff',
@@ -300,6 +307,7 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
           scrim: '#000000',
           surfaceVariant: '#f5f5f5',
           onSurfaceVariant: '#000000'
+          /* eslint-enable design-system/no-hardcoded-colors */
         },
       }
     },

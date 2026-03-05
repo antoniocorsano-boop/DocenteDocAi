@@ -30,6 +30,7 @@ export const M3Skeleton: React.FC<M3SkeletonProps> = ({
   return (
     <div
       aria-hidden="true"
+      // eslint-disable-next-line design-system/no-classname -- className prop-passthrough API for consumer integration (tests, storybook)
       className={className}
       style={{
         width,

@@ -40,8 +40,8 @@ const ThemeSkeleton: React.FC = () => (
     role="progressbar" 
     aria-label="Loading theme configuration"
     style={{
-      width: '100%',
-      height: '100vh',
+      width: 'var(--md-sys-percent-100)',
+      height: 'var(--md-sys-viewport-height-full)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'
@@ -60,13 +60,13 @@ const ThemeError: React.FC<{ onRetry: () => void }> = ({ onRetry }) => (
     role="alert"
     aria-labelledby="theme-error-title"
     style={{
-      width: '100%',
-      height: '100vh',
+      width: 'var(--md-sys-percent-100)',
+      height: 'var(--md-sys-viewport-height-full)',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: '16px'
+      gap: 'var(--md-sys-spacing-4)'
     }}
   >
     <M3Typography 
@@ -86,9 +86,9 @@ const ThemeError: React.FC<{ onRetry: () => void }> = ({ onRetry }) => (
     <button
       onClick={onRetry}
       style={{
-        padding: '12px 24px',
+        padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)',
         border: 'none',
-        borderRadius: '8px',
+        borderRadius: 'var(--md-sys-shape-corner-small)',
         cursor: 'pointer'
       }}
       aria-label="Retry loading theme configuration"
@@ -249,7 +249,7 @@ export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({ children }) =>
         variant="background" 
         role="main"
         aria-label="DocenteDoc AI application theme provider"
-        style={{ minHeight: '100vh', width: '100%' }}
+        style={{ minHeight: 'var(--md-sys-viewport-height-full)', width: 'var(--md-sys-percent-100)' }}
       >
         {children}
       </M3Surface>

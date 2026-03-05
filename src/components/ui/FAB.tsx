@@ -24,6 +24,7 @@ export const FAB: React.FC<FABProps> = ({
   disabled = false
 }) => {
   const [isPressed, setIsPressed] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Size mapping
   const sizeMap = {
@@ -74,7 +75,8 @@ export const FAB: React.FC<FABProps> = ({
       onTouchEnd={() => setIsPressed(false)}
       onMouseDown={() => setIsPressed(true)}
       onMouseUp={() => setIsPressed(false)}
-      onMouseLeave={() => setIsPressed(false)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => { setIsPressed(false); setIsHovered(false); }}
       disabled={disabled}
       aria-label={label || 'Azione principale'}
       style={{
@@ -94,21 +96,29 @@ export const FAB: React.FC<FABProps> = ({
           ? 'var(--md-sys-color-on-surface-variant)' 
           : 'var(--md-sys-color-on-primary-container)',
         border: 'none',
-        borderRadius: extended ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
-        boxShadow: disabled 
-          ? 'none' 
-          : isPressed 
-            ? 'var(--md-sys-elevation-level2)' 
-            : 'var(--md-sys-elevation-level3)',
+        // Expressive shape morph: circle (closed) ↔ pill (extended) with spring
+        borderRadius: extended
+          ? 'var(--md-sys-shape-corner-extra-large)'
+          : 'var(--md-sys-shape-corner-full)',
+        boxShadow: disabled
+          ? 'none'
+          : isPressed
+            ? 'var(--md-sys-elevation-level2)'
+            : isHovered
+              ? 'var(--md-sys-elevation-level4, var(--md-sys-elevation-level3))'
+              : 'var(--md-sys-elevation-level3)',
         cursor: disabled ? 'not-allowed' : 'pointer',
         transition: [
-          `transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-spring-expressive-fast-spatial)`,
-          `box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)`,
-          `background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`
+          `transform var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00))`,
+          `border-radius var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00))`,
+          `box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+          `background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
         ].join(', '),
-        transform: isPressed && !disabled 
-          ? `${positionStyles.transform || ''} scale(0.92)` 
-          : `${positionStyles.transform || ''} scale(1)`,
+        transform: isPressed && !disabled
+          ? `${positionStyles.transform || ''} scale(0.92)`.trim()
+          : isHovered && !disabled
+            ? `${positionStyles.transform || ''} scale(1.06)`.trim()
+            : `${positionStyles.transform || ''} scale(1)`.trim(),
         opacity: disabled ? 'var(--md-sys-state-opacity-placeholder)' : undefined,
         zIndex: 'var(--md-sys-z-modal)',
         userSelect: 'none',

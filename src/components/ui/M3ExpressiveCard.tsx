@@ -108,10 +108,17 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
         flexDirection: 'column',
         backdropFilter: `blur(${MD3_TOKENS.blurLarge})`,
         WebkitBackdropFilter: `blur(${MD3_TOKENS.blurLarge})`,
-        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+        // Spring expressive transition: scale + elevation on hover
+        transition: [
+          `transform var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00))`,
+          `box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+          `background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+        ].join(', '),
+        transform: hovered ? 'scale(1.04)' : 'scale(1)',
         cursor: isClickable ? 'pointer' : 'default',
         boxShadow: hovered ? 'var(--md-sys-elevation-level3)' : 'var(--md-sys-elevation-level1)',
         outline: 'none',
+        willChange: 'transform, box-shadow',
     };
 
     return (

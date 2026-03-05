@@ -5,7 +5,7 @@ import StudentProfile from './StudentProfile';
 import ExportModal from './ExportModal';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import UnifiedEvaluationModal from './UnifiedEvaluationModal';
-import { M3Typography, EmptyState, Avatar } from './ui';
+import { M3Typography, EmptyState, Avatar, M3Button, SelectField } from './ui';
 import './EvaluationModule.css';
 
 type PendingProva = Omit<Valutazione, 'id' | 'studenteId' | 'voto'>;
@@ -396,18 +396,22 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                             </M3Typography>
 
                             <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-3)' }}>
-                                <button
+                                <M3Button
+                                    variant="filled"
                                     onClick={(e) => { e.stopPropagation(); onOpenInclusionPlanEditor(student); }}
-                                    style={{ flex: 1, padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-error)', color: 'var(--md-sys-color-on-error)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', border: 'none', cursor: 'pointer', transition: 'background-color var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-standard)' }}
+                                    icon="psychology"
+                                    style={{ flex: 1 }}
                                 >
                                     Piano Inclusione
-                                </button>
-                                <button
+                                </M3Button>
+                                <M3Button
+                                    variant="tonal"
                                     onClick={(e) => { e.stopPropagation(); setViewingStudent(student); }}
-                                    style={{ flex: 1, padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-surface-container-highest)', color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', border: 'none', cursor: 'pointer', transition: 'background-color var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-standard)' }}
+                                    icon="analytics"
+                                    style={{ flex: 1 }}
                                 >
                                     Analizza
-                                </button>
+                                </M3Button>
                             </div>
                         </div>
                     </div>
@@ -439,43 +443,23 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                 <div
                     style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-3)', backgroundColor: 'var(--md-sys-color-surface-container-low)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}
                 >
-                    <div
-                        style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}
+                    <SelectField
+                        label="Classe"
+                        value={selectedClass}
+                        onChange={e => setSelectedClass(e.target.value)}
                     >
-                        <span style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>class</span>
-                        <select
-                            id="class-select"
-                            value={selectedClass}
-                            onChange={e => setSelectedClass(e.target.value)}
-                            style={{ color: 'var(--md-sys-color-on-surface)', backgroundColor: 'transparent', fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', border: 'none', cursor: 'pointer' }}
-                        >
-                            {userClasses.map(c => (
-                                <option
-                                    key={c}
-                                    value={c}
-                                    style={{ color: 'var(--md-sys-color-on-surface)', backgroundColor: 'var(--md-sys-color-surface)' }}
-                                >
-                                    {c}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                        {userClasses.map(c => (
+                            <option key={c} value={c}>{c}</option>
+                        ))}
+                    </SelectField>
 
                     <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
-                        <button
-                            onClick={() => setIsAddProvaModalOpen(true)}
-                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', border: 'none', cursor: 'pointer' }}
-                        >
-                            <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>add</span>
+                        <M3Button variant="filled" onClick={() => setIsAddProvaModalOpen(true)} icon="add">
                             Nuova Prova
-                        </button>
-                        <button
-                            onClick={() => setIsExportModalOpen(true)}
-                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-highest)', color: 'var(--md-sys-color-on-surface)', borderRadius: 'var(--md-sys-shape-corner-large)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', border: 'none', cursor: 'pointer' }}
-                        >
-                            <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>download</span>
+                        </M3Button>
+                        <M3Button variant="tonal" onClick={() => setIsExportModalOpen(true)} icon="download">
                             Esporta
-                        </button>
+                        </M3Button>
                     </div>
                 </div>
             </div>
@@ -503,13 +487,15 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                 { id: 'summary', label: 'Riepilogo', icon: 'analytics' },
                                 { id: 'risk', label: 'Criticità', icon: 'warning', badge: atRiskStudents.length > 0 ? atRiskStudents.length : undefined }
                             ].map(tab => (
-                                <button
-                                    key={tab.id}
-                                    onClick={() => setActiveTab(tab.id as ViewTab)}
-                                    style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', backgroundColor: activeTab === tab.id ? 'var(--md-sys-color-primary)' : 'transparent', color: activeTab === tab.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)', border: 'none', cursor: 'pointer', position: 'relative' }}
-                                >
-                                    <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>{tab.icon}</span>
-                                    {tab.label}
+                                <div key={tab.id} style={{ position: 'relative' }}>
+                                    <M3Button
+                                        onClick={() => setActiveTab(tab.id as ViewTab)}
+                                        variant={activeTab === tab.id ? 'filled' : 'text'}
+                                        icon={tab.icon}
+                                        aria-pressed={activeTab === tab.id}
+                                    >
+                                        {tab.label}
+                                    </M3Button>
                                     {tab.badge && (
                                         <div
                                             style={{
@@ -517,21 +503,19 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                                 color: 'var(--md-sys-color-on-error)',
                                                 width: 'var(--md-sys-spacing-5)',
                                                 height: 'var(--md-sys-spacing-5)',
-                                                borderRadius: 'var(--md-sys-shape-corner-small)',
+                                                borderRadius: 'var(--md-sys-shape-corner-full)',
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
-                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                                fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                                 position: 'absolute',
-                                                top: 'calc(-1 * var(--md-sys-spacing-2))',
-                                                right: 'calc(-1 * var(--md-sys-spacing-2))'
+                                                top: 'calc(-1 * var(--md-sys-spacing-1))',
+                                                right: 'calc(-1 * var(--md-sys-spacing-1))'
                                             }}
                                         >
-                                            {tab.badge}
+                                            <M3Typography variant="label-small" style={{ color: 'var(--md-sys-color-on-error)' }}>{tab.badge}</M3Typography>
                                         </div>
                                     )}
-                                </button>
+                                </div>
                             ))}
                         </div>
                     </div>

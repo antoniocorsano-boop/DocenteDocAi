@@ -12,7 +12,7 @@ import { ProgettazioneHubProps, Uda, Competenza } from '../types';
 import AnnualPlanningWizard from './AnnualPlanningWizard';
 import SmartImportModal from './SmartImportModal';
 import CompetencyManager from './CompetencyManager';
-import { TabGroup, M3ExpressiveCard } from './ui';
+import { TabGroup, M3ExpressiveCard, M3Typography } from './ui';
 import TimelineView from './TimelineView';
 import UdaDetailModal from './UdaDetailModal';
 
@@ -68,10 +68,10 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
             
             {/* Header */}
             <div style={{ textAlign: "center", marginBottom: 'var(--md-sys-spacing-6)' }}>
-                <h1 style={{fontFamily: 'var(--font-family)', fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: 'var(--md-sys-typescale-headline-large-font-size)', color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-4)'}}>Progettazione</h1>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'var(--font-family)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', maxWidth: 'var(--md-sys-spacing-80)', marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)', fontWeight: "var(--md-sys-typescale-weight-regular)" }}>
+                <M3Typography variant="headline-large" style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-4)'}}>Progettazione</M3Typography>
+                <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)', maxWidth: 'var(--md-sys-spacing-80)', marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)' }}>
                     Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
-                </p>
+                </M3Typography>
             </div>
             
             {/* Tab Navigation */}

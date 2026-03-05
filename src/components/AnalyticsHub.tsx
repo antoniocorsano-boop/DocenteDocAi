@@ -18,7 +18,8 @@ import {
     M3Button,
     InfoCard,
     SectionHeader,
-    AiThinkingGem
+    AiThinkingGem,
+    M3Typography
 } from './ui';
 
 interface AnalyticsHubProps {
@@ -149,14 +150,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                             gap: 'var(--md-sys-spacing-2)'
                         }}
                     >
-                        <label
-                            style={{
-                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-                                lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-                                color: 'var(--md-sys-color-on-surface-variant)'
-                            }}
-                        >Modalità Vista</label>
+                        <M3Typography variant="label-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Modalità Vista</M3Typography>
                         <div
                             style={{
                                 display: 'flex',
@@ -215,28 +209,14 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                     marginBottom: 'var(--md-sys-spacing-6)'
                 }}
             >
-                <div
-                    style={{
-                        color: 'var(--md-sys-color-on-surface-variant)',
-                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                        fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                        textTransform: 'uppercase',
-                        letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.1em)'
-                    }}
+                <M3Typography
+                    variant="title-large"
+                    style={{ color: 'var(--md-sys-color-on-surface-variant)' }}
                 >
-                    <h2
-                        style={{
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                            fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                            textTransform: 'uppercase',
-                            letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.1em)'
-                        }}
-                    >
-                        {chartType === 'trend' && 'Andamento Temporale'}
-                        {chartType === 'radar' && 'Radar Competenze'}
-                        {chartType === 'dist' && 'Distribuzione Voti'}
-                    </h2>
+                    {chartType === 'trend' && 'Andamento Temporale'}
+                    {chartType === 'radar' && 'Radar Competenze'}
+                    {chartType === 'dist' && 'Distribuzione Voti'}
+                </M3Typography>
                     <M3Button 
                         onClick={handleAskAi} 
                         disabled={isAiLoading} 
@@ -255,17 +235,16 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         >auto_awesome</span>}
                         ANALISI AI
                     </M3Button>
-                </div>
 
-                <div
-                    style={{
-                        flexGrow: 1,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: 'var(--md-sys-percent-100)'
-                    }}
-                >
+                    <div
+                        style={{
+                            flexGrow: 1,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: 'var(--md-sys-percent-100)'
+                        }}
+                    >
                     {chartType === 'trend' && (
                         <Suspense fallback={<div>Loading chart...</div>}>
                             <LineChart data={trendData} color="var(--md-sys-color-primary)" />
@@ -290,7 +269,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             padding: 'var(--md-sys-spacing-6)',
                             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
-                            width: 'var(--md-sys-percent-full)'
+                            width: 'var(--md-sys-percent-100)'
                         }}
                     >
                         {isAiLoading ? (
@@ -326,13 +305,10 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                             }}
                                         >lightbulb</span>
                                     </div>
-                                    <p
-                                        style={{
-                                            color: 'var(--md-sys-color-on-surface)',
-                                            fontWeight: 'var(--md-sys-typescale-weight-medium)',
-                                            lineHeight: '1.625'
-                                        }}
-                                    >{aiInsight}</p>
+                                    <M3Typography
+                                        variant="body-large"
+                                        style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}
+                                    >{aiInsight}</M3Typography>
                                 </div>
                                 <div
                                     style={{

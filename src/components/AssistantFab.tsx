@@ -1,9 +1,37 @@
 // MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
-// Audit: gennaio 2026
+// Audit: gennaio 2026 — drag floating: marzo 2026
 
 import React from 'react';
 import { useUIStore } from '../stores/useUIStore';
+
+// Legge un token CSS numerico (px) dal root — usato per il calcolo dei boundary durante il drag
+function readToken(token: string, fallback: number): number {
+  const raw = getComputedStyle(document.documentElement).getPropertyValue(token).trim();
+  const n = parseFloat(raw);
+  return isNaN(n) ? fallback : n;
+}
+
+const STORAGE_KEY = 'assistant-fab-position';
+
+interface FabPosition { x: number; y: number }
+
+function clampPosition(x: number, y: number, fabSize: number, margin: number): FabPosition {
+  return {
+    x: Math.max(margin, Math.min(x, window.innerWidth  - fabSize - margin)),
+    y: Math.max(margin, Math.min(y, window.innerHeight - fabSize - margin)),
+  };
+}
+
+function loadSavedPosition(): FabPosition | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const p = JSON.parse(raw) as FabPosition;
+    if (typeof p.x === 'number' && typeof p.y === 'number') return p;
+  } catch { /* ignore */ }
+  return null;
+}
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface AssistantFabProps {}
@@ -30,6 +58,54 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
     () => window.matchMedia('(max-width: 640px)').matches
   );
 
+  // ── Drag floating state ──────────────────────────────────────────
+  const [position, setPosition] = React.useState<FabPosition | null>(() => loadSavedPosition());
+  const fabRef = React.useRef<HTMLDivElement>(null);
+  const dragStartPointer = React.useRef<{ px: number; py: number } | null>(null);
+  const dragStartFab    = React.useRef<FabPosition | null>(null);
+  const isDraggingRef   = React.useRef(false);
+
+  const handlePointerDown = React.useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    // Only drag from the FAB button itself (ignore menu items)
+    if ((e.target as HTMLElement).closest('.assistant-fab-sheet, .assistant-fab-menu-popup')) return;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    isDraggingRef.current = false;
+    const rect = fabRef.current!.getBoundingClientRect();
+    dragStartPointer.current = { px: e.clientX, py: e.clientY };
+    dragStartFab.current = position ?? { x: rect.left, y: rect.top };
+  }, [position]);
+
+  const handlePointerMove = React.useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragStartPointer.current || !dragStartFab.current) return;
+    const dx = e.clientX - dragStartPointer.current.px;
+    const dy = e.clientY - dragStartPointer.current.py;
+    if (!isDraggingRef.current && (Math.abs(dx) > 5 || Math.abs(dy) > 5)) {
+      isDraggingRef.current = true;
+      if (menuOpen) setMenuOpen(false);
+    }
+    if (!isDraggingRef.current) return;
+    const fabSize = readToken('--md-sys-spacing-10', 40);
+    const margin  = readToken('--md-sys-spacing-4', 16);
+    setPosition(clampPosition(dragStartFab.current.x + dx, dragStartFab.current.y + dy, fabSize, margin));
+  }, [menuOpen]);
+
+  const handlePointerUp = React.useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    e.currentTarget.releasePointerCapture(e.pointerId);
+    if (isDraggingRef.current && position) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(position)); } catch { /* ignore */ }
+    }
+    dragStartPointer.current = null;
+    dragStartFab.current = null;
+    // isDraggingRef is reset after the click event fires (next tick)
+    setTimeout(() => { isDraggingRef.current = false; }, 0);
+  }, [position]);
+
+  // Dynamic style: absolute position when dragged, else CSS default (fixed bottom-right)
+  const rootStyle: React.CSSProperties = position
+    ? { position: 'fixed', left: position.x, top: position.y, bottom: 'auto', right: 'auto', touchAction: 'none' }
+    : { touchAction: 'none' };
+  // ────────────────────────────────────────────────────────────────
+
   // Chiudi menu quando il modale assistant si apre o si chiude
   React.useEffect(() => {
     if (isAssistantOpen && menuOpen) setMenuOpen(false);
@@ -38,10 +114,10 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
   const toggleModal = useUIStore(state => state.actions.toggleModal);
 
 // Rileva la direzione di apertura del menu (up/down) in base alla posizione del FAB
-  const fabRef = React.useRef<HTMLDivElement>(null);
   const [menuDirection, setMenuDirection] = React.useState<'up' | 'down'>('up');
 
   const handleFabClick = () => {
+    if (isDraggingRef.current) return; // swallow click after drag
     if (menuOpen) {
       setMenuOpen(false);
       return;
@@ -75,12 +151,16 @@ const handleAction = (action: typeof ACTIONS[number]) => {
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
+  /* eslint-disable design-system/no-classname -- AssistantFab uses CSS classes paired with injected <style> block (not imported stylesheets). All classes are defined inline. MD3 §9 exception for FAB overlay. */
   return (
     <>
       <div
         className="assistant-fab-root"
         ref={fabRef}
-        style={{ touchAction: 'none' }}
+        style={rootStyle}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
       >
         <button
           className="mui-fab-expressive assistant-fab"
@@ -172,6 +252,8 @@ const handleAction = (action: typeof ACTIONS[number]) => {
           bottom: calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-4) + env(safe-area-inset-bottom, 0px)); /* eslint-disable-line design-system/enforce-token-usage -- env(safe-area-inset-bottom) native CSS API */
           z-index: var(--md-sys-z-tooltip);
           transition: box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+          user-select: none;
+          -webkit-user-select: none;
         }
         .mui-fab-expressive.assistant-fab {
           background: var(--md-sys-color-primary);
@@ -185,8 +267,11 @@ const handleAction = (action: typeof ACTIONS[number]) => {
           display: flex;
           align-items: center;
           justify-content: center;
-          cursor: pointer;
+          cursor: grab;
           transition: box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), background var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
+        }
+        .mui-fab-expressive.assistant-fab:active {
+          cursor: grabbing;
         }
         .mui-fab-expressive.assistant-fab:hover {
           background: var(--md-sys-color-primary-container);
@@ -323,6 +408,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
       `}</style>
     </>
   );
+  /* eslint-enable design-system/no-classname */
 }
 
 export default AssistantFab;

@@ -189,7 +189,7 @@ export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          minHeight: '100vh',
+          minHeight: 'var(--md-sys-viewport-height-full)',
           padding: 'var(--md-sys-spacing-6)',
         }}
       >
@@ -211,7 +211,7 @@ export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          minHeight: '100vh',
+          minHeight: 'var(--md-sys-viewport-height-full)',
           padding: 'var(--md-sys-spacing-6)',
           gap: 'var(--md-sys-spacing-4)',
           backgroundColor: 'var(--md-sys-color-error-container)',
@@ -234,7 +234,7 @@ export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({
         role="application"
         aria-label="DocenteDoc AI Application"
         style={{
-          minHeight: '100vh',
+          minHeight: 'var(--md-sys-viewport-height-full)',
           backgroundColor: 'var(--md-sys-color-background)',
           color: 'var(--md-sys-color-on-background)',
         }}

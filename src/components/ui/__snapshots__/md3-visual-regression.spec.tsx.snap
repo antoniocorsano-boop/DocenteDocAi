@@ -5,7 +5,7 @@ exports[`MD3 Visual Regression Snapshots > M3IconButton renders correctly for al
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <button
       aria-label="favorite"
@@ -87,7 +87,7 @@ exports[`MD3 Visual Regression Snapshots > M3ListItem renders correctly 1`] = `
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <div
       style="display: flex; align-items: flex-start; gap: var(--md-sys-spacing-4); padding: var(--md-sys-spacing-4); border-radius: var(--md-sys-shape-corner-medium); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); min-height: var(--md-sys-spacing-12); cursor: default; background-color: transparent; outline: none; outline-offset: var(--md-sys-spacing-0); border: medium; text-align: left; width: var(--md-sys-percent-100);"
@@ -130,7 +130,7 @@ exports[`MD3 Visual Regression Snapshots > M3ProgressBar renders correctly 1`] =
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <div
       style="display: flex; flex-direction: column; gap: var(--md-sys-spacing-1); width: var(--md-sys-percent-100);"
@@ -180,7 +180,7 @@ exports[`MD3 Visual Regression Snapshots > M3SuggestionCard renders correctly 1`
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <div
       style="background-color: color-mix(in srgb, var(--md-sys-color-surface-variant) var(--md-sys-percent-80), transparent); padding: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-extra-large); border-left: var(--md-sys-spacing-1) solid var(--md-sys-color-primary);"
@@ -201,7 +201,7 @@ exports[`MD3 Visual Regression Snapshots > M3SuggestionItem renders correctly 1`
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <div
       style="background-color: var(--md-sys-color-surface-variant); opacity: 0.8; padding: var(--md-sys-spacing-4); border-radius: var(--md-sys-shape-corner-large); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant); transition: border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard); cursor: pointer;"
@@ -222,7 +222,7 @@ exports[`MD3 Visual Regression Snapshots > M3Surface renders correctly at differ
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <div
       style="background-color: var(--md-sys-color-surface); color: var(--md-sys-color-on-surface);"
@@ -263,7 +263,7 @@ exports[`MD3 Visual Regression Snapshots > M3SurfaceCard renders correctly 1`] =
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <div
       style="border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-large); background-color: var(--md-sys-color-surface-container-high); color: var(--md-sys-color-on-surface);"
@@ -289,7 +289,7 @@ exports[`MD3 Visual Regression Snapshots > M3Typography renders correctly for al
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <div>
       <h1
@@ -377,7 +377,7 @@ exports[`MD3 Visual Regression Snapshots > ManualSection renders correctly 1`] =
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <details
       style="border: medium; background-color: var(--md-sys-color-surface-container-low); opacity: var(--md-sys-state-opacity-placeholder); border-radius: var(--md-sys-shape-corner-large); margin-bottom: var(--md-sys-spacing-4); overflow: hidden; transition: all var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard);"
@@ -473,7 +473,7 @@ exports[`MD3 Visual Regression Snapshots > MetricCard renders correctly 1`] = `
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <div
       style="padding: var(--md-sys-spacing-4); border-radius: var(--md-sys-shape-corner-large); transition: transform var(--md-sys-motion-duration-short4), box-shadow var(--md-sys-motion-duration-short4); transform: scale(1); cursor: default; outline: none; outline-offset: var(--md-sys-spacing-0); background-color: var(--md-sys-color-surface-container-low); box-shadow: var(--md-sys-elevation-level1); border: var(--md-sys-border-width-thin) solid var(--md-sys-color-primary-container); flex: 1 1 0%; min-width: var(--md-sys-spacing-14);"
@@ -525,7 +525,7 @@ exports[`MD3 Visual Regression Snapshots > PageTransition renders correctly 1`] 
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <div
       style="opacity: 0; transform: scale(0.92); transition: opacity var(--md-sys-motion-spring-expressive-default-effects-duration, 200ms) var(--md-sys-motion-spring-expressive-default-effects, cubic-bezier(0.34, 0.80, 0.34, 1.00)), transform var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00)); will-change: opacity, transform;"
@@ -543,7 +543,7 @@ exports[`MD3 Visual Regression Snapshots > ProgressIndicator renders correctly 1
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <div
       aria-label="Caricamento in corso"
@@ -583,7 +583,7 @@ exports[`MD3 Visual Regression Snapshots > SelectField renders correctly 1`] = `
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <div
       style="display: flex; flex-direction: column; gap: var(--md-sys-spacing-2); width: auto; margin-bottom: var(--md-sys-spacing-4);"
@@ -676,7 +676,7 @@ exports[`MD3 Visual Regression Snapshots > Skeleton renders correctly 1`] = `
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <div
       aria-hidden="true"
@@ -851,7 +851,7 @@ exports[`MD3 Visual Regression Snapshots > TabGroup renders correctly 1`] = `
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <div
       aria-label="Sezioni di navigazione"

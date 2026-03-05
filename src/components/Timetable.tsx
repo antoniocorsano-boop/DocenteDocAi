@@ -222,7 +222,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                 <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-surface)',
                                     fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                     textTransform: 'uppercase',
-                                    letterSpacing: '0.1em'}}>ORA</M3Typography>
+                                    letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'}}>ORA</M3Typography>
                             </div>
                             {visibleDays.map((day, idx) => (
                                 <div 
@@ -242,7 +242,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                             : 'var(--md-sys-color-on-surface)',
                                         fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                         textTransform: 'uppercase',
-                                        letterSpacing: '0.1em'}}>{day.substring(0, 3)}</M3Typography>
+                                        letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'}}>{day.substring(0, 3)}</M3Typography>
                                 </div>
                             ))}
 

@@ -5,7 +5,7 @@ exports[`M3ListItem Story Snapshots > renders default story correctly 1`] = `
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <div
       style="display: flex; align-items: flex-start; gap: var(--md-sys-spacing-4); padding: var(--md-sys-spacing-4); border-radius: var(--md-sys-shape-corner-medium); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); min-height: var(--md-sys-spacing-12); cursor: default; background-color: transparent; outline: none; outline-offset: var(--md-sys-spacing-0); border: medium; text-align: left; width: var(--md-sys-percent-100);"

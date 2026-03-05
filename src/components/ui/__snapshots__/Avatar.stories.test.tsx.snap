@@ -5,7 +5,7 @@ exports[`Avatar Story Snapshots > renders default story correctly 1`] = `
   <div
     aria-label="DocenteDoc AI Application"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: 100vh;"
+    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
   >
     <div
       style="position: relative; flex-shrink: 0; border-radius: var(--md-sys-shape-corner-extra-large); overflow: hidden; background-color: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); display: flex; align-items: center; justify-content: center; font-weight: var(--md-sys-typescale-weight-black); width: var(--md-sys-spacing-10); height: var(--md-sys-spacing-10); font-size: var(--md-sys-typescale-body-large-font-size);"

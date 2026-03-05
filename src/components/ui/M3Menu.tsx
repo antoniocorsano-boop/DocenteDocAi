@@ -175,7 +175,7 @@ export const M3Menu: React.FC<M3MenuProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 gap: 'var(--md-sys-spacing-3)',
-                width: '100%',
+                width: 'var(--md-sys-percent-100)',
                 minHeight: 'var(--md-sys-spacing-12)',  // 48dp — MD3 list item spec
                 padding: 'var(--md-sys-spacing-0) var(--md-sys-spacing-4)',
                 border: 'none',

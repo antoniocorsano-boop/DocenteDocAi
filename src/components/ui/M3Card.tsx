@@ -74,7 +74,9 @@ const M3Card: React.FC<M3CardProps> = ({
         };
       case 'filled':
         return {
-          backgroundColor: surfaceContainerLow,
+          backgroundColor: isClickable && hovered
+            ? 'var(--md-sys-color-surface-container)'
+            : surfaceContainerLow,
           boxShadow: 'none',
           border: 'none'
         };
@@ -92,15 +94,17 @@ const M3Card: React.FC<M3CardProps> = ({
     padding: getPaddingStyles(),
     borderRadius: large,
     transition: [
-      `transform var(--md-sys-motion-duration-short4) ${springDefaultSpatial}`,
-      `box-shadow ${short2} ${standard}`
+      `transform var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) ${springDefaultSpatial}`,
+      `box-shadow ${short2} ${standard}`,
+      `background-color ${short2} ${standard}`,
     ].join(', '),
     transform: isClickable
-      ? pressed ? 'scale(0.98)' : hovered ? 'scale(1.02)' : 'scale(1)'
+      ? pressed ? 'scale(0.98)' : hovered ? 'scale(1.03)' : 'scale(1)'
       : 'scale(1)',
     cursor: isClickable ? 'pointer' : undefined,
     outline: focused && isClickable ? `var(--md-sys-border-width-thick) solid ${primary}` : 'none',
     outlineOffset: focused ? 'var(--md-sys-spacing-2)' : 'var(--md-sys-spacing-0)',
+    willChange: isClickable ? 'transform' : undefined,
     ...getVariantStyles(),
     ...style
   };

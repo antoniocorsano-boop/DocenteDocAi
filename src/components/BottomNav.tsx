@@ -2,7 +2,7 @@
 // MD3 Gold Compliant
 // Active indicator: animated pill (scale + opacity) using spring expressive tokens.
 // MD3 spec: pill 64×32dp, corner-full, secondary-container color.
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from '../types';
 import { M3Typography } from './ui/M3Typography';
 
@@ -35,6 +35,7 @@ const SPRING_EFFECTS =
   'var(--md-sys-motion-spring-expressive-fast-effects)';
 
 const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate, onOpenMore, moreOpen = false }) => {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   return (
     <>
       <style>{`
@@ -76,6 +77,8 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate, onOpenMor
               aria-current={isActive ? 'page' : undefined}
               aria-expanded={item.id === '__more__' ? moreOpen : undefined}
               onClick={() => item.id === '__more__' ? onOpenMore?.() : onNavigate(item.id as View)}
+              onMouseEnter={() => setHoveredId(item.id)}
+              onMouseLeave={() => setHoveredId(null)}
               style={{
                 background: 'transparent',
                 border: 'none',
@@ -99,9 +102,13 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate, onOpenMor
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  // MD3 spec pill area: 64×32dp
-                  width: 'var(--md-sys-spacing-16)',  // 64px
-                  height: 'var(--md-sys-spacing-8)',  // 32px
+                  width: 'var(--md-sys-spacing-16)',
+                  height: 'var(--md-sys-spacing-8)',
+                  borderRadius: 'var(--md-sys-shape-corner-full)',
+                  backgroundColor: !isActive && hoveredId === item.id
+                    ? 'var(--md-sys-color-surface-container-high)'
+                    : 'transparent',
+                  transition: `background-color ${SPRING_EFFECTS}`,
                 }}
               >
                 {/* Animated pill indicator */}

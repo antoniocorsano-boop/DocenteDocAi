@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment -- story file requires @ts-nocheck for incomplete mock types
 // @ts-nocheck
 // MD3 Compliant
 import type { StoryObj } from '@storybook/react';

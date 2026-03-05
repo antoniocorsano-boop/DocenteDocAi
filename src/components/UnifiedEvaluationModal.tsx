@@ -116,7 +116,6 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                                                 <button
                                                     type="button"
                                                     onClick={() => setSelectedLevels(prev => {
-                                                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
                                                         const { [competenza.id]: _removed, ...rest } = prev;
                                                         return rest;
                                                     })}

@@ -6,6 +6,7 @@ import React from 'react';
 import { HeaderProps, BeforeInstallPromptEvent, Notifica, View } from '../types';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { M3Typography } from './ui/M3Typography';
+import M3IconButton from './ui/M3IconButton';
 import Avatar from './ui/Avatar';
 import Logo from './Logo';
 import NKAHeaderAuraButton from '../nka/NKAHeaderAuraButton';
@@ -45,6 +46,16 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
   const { nodes } = useNKAStore();
   const hasNewNode = nodes.some(n => n.isNew);
 
+  // Scroll elevation: tint header when main content is scrolled
+  const [scrolled, setScrolled] = React.useState(false);
+  React.useEffect(() => {
+    const main = document.querySelector('main, [data-scroll-content]');
+    if (!main) return;
+    const onScroll = () => setScrolled((main as HTMLElement).scrollTop > 4);
+    main.addEventListener('scroll', onScroll, { passive: true });
+    return () => main.removeEventListener('scroll', onScroll);
+  }, []);
+
   // NOTE: className="material-symbols-outlined" is permitted for MD3 icon font usage only (see copilot-instructions.md)
   return (
     <header
@@ -53,54 +64,36 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
         flexShrink: 0,
         position: 'relative',
         zIndex: 'var(--md-sys-z-app-bar)',
-        background: 'var(--md-sys-color-surface)',
+        background: scrolled
+          ? 'var(--md-sys-color-surface-container)'
+          : 'var(--md-sys-color-surface)',
         borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-surface-container)',
+        boxShadow: scrolled ? 'var(--md-sys-elevation-level2)' : 'none',
         minHeight: 'var(--md-sys-spacing-16)',
         display: 'flex',
         alignItems: 'center',
         paddingInline: 'var(--md-sys-spacing-4)',
+        transition: [
+          `background var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+          `box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+        ].join(', '),
       }}
     >
       {/* Leading: Back + Aura */}
       <nav style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }} aria-label="Azioni principali">
         {showBackButton && (
-          <button
-            aria-label="Indietro"
+          <M3IconButton
+            icon="arrow_back"
+            ariaLabel="Indietro"
             onClick={onBack}
-            style={{
-              width: 'var(--md-sys-spacing-11)',
-              aspectRatio: '1',
-              borderRadius: 'var(--md-sys-shape-corner-large)',
-              background: 'none',
-              border: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--md-sys-color-on-surface-variant)'
-            }}
-          >
-            {/* MD3 icon font usage allowed */}
-            <span className="material-symbols-outlined" aria-hidden="true">arrow_back</span>
-          </button>
+          />
         )}
-        <button
-          aria-label="Operazioni rapide"
+        <M3IconButton
+          icon="bolt"
+          ariaLabel="Operazioni rapide"
           onClick={onOpenOperations}
-          style={{
-            width: 'var(--md-sys-spacing-11)',
-            aspectRatio: '1',
-            borderRadius: 'var(--md-sys-shape-corner-large)',
-            background: 'none',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: hasSuggestion ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)'
-          }}
-        >
-          {/* MD3 icon font usage allowed */}
-          <span className="material-symbols-outlined" aria-hidden="true">bolt</span>
-        </button>
+          variant={hasSuggestion ? 'tonal' : 'standard'}
+        />
         {onOpenNKA && (
           <NKAHeaderAuraButton
             hasNewNode={hasNewNode}
@@ -126,7 +119,8 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
         {!isOnline && (
           <div
-            title="Modalità Offline"
+            role="status"
+            aria-label="Modalità Offline"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -138,41 +132,30 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
               color: 'var(--md-sys-color-on-error-container)'
             }}
           >
-            {/* MD3 icon font usage allowed */}
             <span className="material-symbols-outlined" aria-hidden="true">cloud_off</span>
-            <M3Typography variant="label-small" style={{ fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Offline</M3Typography>
+            <M3Typography variant="label-small">Offline</M3Typography>
           </div>
         )}
+        <M3IconButton
+          icon="settings"
+          ariaLabel="Impostazioni"
+          onClick={() => onNavigate('settings')}
+        />
         <button
-          aria-label="Impostazioni"
+          aria-label="Menu utente"
           onClick={() => onNavigate('settings')}
           style={{
             width: 'var(--md-sys-spacing-11)',
             aspectRatio: '1',
-            borderRadius: 'var(--md-sys-shape-corner-large)',
+            borderRadius: 'var(--md-sys-shape-corner-full)',
             background: 'none',
             border: 'none',
+            cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: 'var(--md-sys-color-on-surface-variant)'
-          }}
-        >
-          {/* MD3 icon font usage allowed */}
-          <span className="material-symbols-outlined" aria-hidden="true">settings</span>
-        </button>
-        <button
-          aria-label="Menu utente"
-          style={{
-            width: 'var(--md-sys-spacing-11)',
-            aspectRatio: '1',
-            borderRadius: 'var(--md-sys-shape-corner-large)',
-            background: 'none',
-            border: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            position: 'relative'
+            position: 'relative',
+            padding: 0,
           }}
         >
           <Avatar
@@ -182,31 +165,25 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
           />
           {unreadCount > 0 && (
             <span
+              aria-label={`${unreadCount} notifiche non lette`}
               style={{
                 position: 'absolute',
                 top: 0,
                 right: 0,
-                width: 'var(--md-sys-spacing-3)',
-                aspectRatio: '1',
-                borderRadius: 'var(--md-sys-shape-corner-large)',
+                minWidth: 'var(--md-sys-spacing-4)',
+                height: 'var(--md-sys-spacing-4)',
+                borderRadius: 'var(--md-sys-shape-corner-full)',
                 background: 'var(--md-sys-color-error)',
                 border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-surface)',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                padding: '0 var(--md-sys-spacing-1)',
               }}
-              aria-label={`${unreadCount} notifiche non lette`}
             >
-              <span
-                style={{
-                  fontSize: 'var(--md-sys-spacing-3)',
-                  fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                  color: 'var(--md-sys-color-on-error)',
-                  lineHeight: 1
-                }}
-              >
+              <M3Typography variant="label-small" style={{ color: 'var(--md-sys-color-on-error)', lineHeight: 1 }}>
                 {unreadCount > 99 ? '99+' : unreadCount}
-              </span>
+              </M3Typography>
             </span>
           )}
         </button>

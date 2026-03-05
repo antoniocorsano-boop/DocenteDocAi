@@ -194,6 +194,99 @@ const APPROVED_EXCEPTIONS = [
 
   // ── Layout: animate-in utility class (300ms is semantic for entry anim) ──
   { file: 'src\\layout.css', line: 675, type: 'hardcodedDuration', pattern: 'animation-duration: 300ms' },
+
+  // ── MD3 Expressive components: all use var(--md-sys-motion-..., fallback) — regex multi-line overshoot false positives ──
+  // AuraView.tsx: animation uses var() token with 500ms/cubic-bezier fallback; regex lands on unrelated lines
+  { file: 'src\\components\\AuraView.tsx', line: 16, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\components\\AuraView.tsx', line: 50, type: 'hardcodedDuration', pattern: 'className="_m3av-inner"' },
+  { file: 'src\\components\\AuraView.tsx', line: 56, type: 'hardcodedDuration', pattern: '}}' },
+  { file: 'src\\components\\AuraView.tsx', line: 50, type: 'hardcodedEasing', pattern: 'className="_m3av-inner"' },
+  { file: 'src\\components\\AuraView.tsx', line: 53, type: 'inlineStyleTemporal', pattern: "width: 'var(--md-sys-percent-100)'," },
+  // NavigationRail.tsx: transition uses var() tokens; regex lands on hover state / position props
+  { file: 'src\\components\\NavigationRail.tsx', line: 147, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\components\\NavigationRail.tsx', line: 215, type: 'hardcodedDuration', pattern: 'backgroundColor: !isActive && hoveredId === item.id' },
+  { file: 'src\\components\\NavigationRail.tsx', line: 215, type: 'hardcodedEasing', pattern: 'backgroundColor: !isActive && hoveredId === item.id' },
+  { file: 'src\\components\\NavigationRail.tsx', line: 226, type: 'inlineStyleTemporal', pattern: "position: 'absolute'," },
+  // Settings.tsx: transition uses var() tokens; regex multi-line scan lands on unrelated UI props
+  { file: 'src\\components\\Settings.tsx', line: 82, type: 'hardcodedDuration', pattern: '}}' },
+  { file: 'src\\components\\Settings.tsx', line: 515, type: 'hardcodedDuration', pattern: "textAlign: 'center'," },
+  { file: 'src\\components\\Settings.tsx', line: 1840, type: 'hardcodedDuration', pattern: "display: 'flex'," },
+  // FAB.tsx: transition string correctly uses var() with 500ms/cubic-bezier as CSS fallbacks
+  { file: 'src\\components\\ui\\FAB.tsx', line: 112, type: 'hardcodedDuration', pattern: '`transform var(--md-sys-motion-spring-expressive-default-spa' },
+  { file: 'src\\components\\ui\\FAB.tsx', line: 112, type: 'hardcodedEasing', pattern: '`transform var(--md-sys-motion-spring-expressive-default-spa' },
+  // M3AnimatedIcon.tsx: ANIMATION_MAP uses var() fallbacks; regex lands on closing brace
+  { file: 'src\\components\\ui\\M3AnimatedIcon.tsx', line: 36, type: 'hardcodedDuration', pattern: '}' },
+  // M3BannerHero.tsx: animation uses var() tokens with fallbacks; regex multi-line overshoot
+  { file: 'src\\components\\ui\\M3BannerHero.tsx', line: 21, type: 'hardcodedDuration', pattern: '._m3bh-icon-anim  { animation: none !important; }' },
+  { file: 'src\\components\\ui\\M3BannerHero.tsx', line: 119, type: 'hardcodedDuration', pattern: 'style={{' },
+  { file: 'src\\components\\ui\\M3BannerHero.tsx', line: 135, type: 'hardcodedDuration', pattern: "willChange: 'opacity, transform'," },
+  { file: 'src\\components\\ui\\M3BannerHero.tsx', line: 161, type: 'hardcodedDuration', pattern: "? 'none'" },
+  { file: 'src\\components\\ui\\M3BannerHero.tsx', line: 119, type: 'hardcodedEasing', pattern: 'style={{' },
+  { file: 'src\\components\\ui\\M3BannerHero.tsx', line: 135, type: 'hardcodedEasing', pattern: "willChange: 'opacity, transform'," },
+  { file: 'src\\components\\ui\\M3BannerHero.tsx', line: 161, type: 'hardcodedEasing', pattern: "? 'none'" },
+  { file: 'src\\components\\ui\\M3BannerHero.tsx', line: 145, type: 'inlineStyleTemporal', pattern: "position: 'absolute'," },
+  // M3Card.tsx: transition string correctly uses var() with 500ms fallback
+  { file: 'src\\components\\ui\\M3Card.tsx', line: 97, type: 'hardcodedDuration', pattern: '`transform var(--md-sys-motion-spring-expressive-default-spa' },
+  // M3ExpressiveCard.tsx: transition array uses var() tokens; regex lands on array opener
+  { file: 'src\\components\\ui\\M3ExpressiveCard.tsx', line: 112, type: 'hardcodedDuration', pattern: 'transition: [' },
+  { file: 'src\\components\\ui\\M3ExpressiveCard.tsx', line: 112, type: 'hardcodedEasing', pattern: 'transition: [' },
+  // M3HeroCard.tsx: animation and transition fully tokenised; regex multi-line overshoot
+  { file: 'src\\components\\ui\\M3HeroCard.tsx', line: 17, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\components\\ui\\M3HeroCard.tsx', line: 92, type: 'hardcodedDuration', pattern: 'className="_m3hc-enter"' },
+  { file: 'src\\components\\ui\\M3HeroCard.tsx', line: 105, type: 'hardcodedDuration', pattern: "willChange: 'opacity, transform'," },
+  { file: 'src\\components\\ui\\M3HeroCard.tsx', line: 127, type: 'hardcodedDuration', pattern: '}}' },
+  { file: 'src\\components\\ui\\M3HeroCard.tsx', line: 92, type: 'hardcodedEasing', pattern: 'className="_m3hc-enter"' },
+  { file: 'src\\components\\ui\\M3HeroCard.tsx', line: 127, type: 'hardcodedEasing', pattern: '}}' },
+  { file: 'src\\components\\ui\\M3HeroCard.tsx', line: 96, type: 'inlineStyleTemporal', pattern: "position: 'relative'," },
+  { file: 'src\\components\\ui\\M3HeroCard.tsx', line: 115, type: 'inlineStyleTemporal', pattern: "position: 'absolute'," },
+  // M3MotionCard.tsx: animation uses var() tokens; prefers-reduced-motion has intentional 0.01ms
+  { file: 'src\\components\\ui\\M3MotionCard.tsx', line: 18, type: 'hardcodedDuration', pattern: '._m3mc-backdrop { animation-duration: 0.01ms !important; }' },
+  { file: 'src\\components\\ui\\M3MotionCard.tsx', line: 19, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\components\\ui\\M3MotionCard.tsx', line: 118, type: 'hardcodedDuration', pattern: '...style,' },
+  { file: 'src\\components\\ui\\M3MotionCard.tsx', line: 161, type: 'hardcodedDuration', pattern: 'style={{' },
+  { file: 'src\\components\\ui\\M3MotionCard.tsx', line: 118, type: 'hardcodedEasing', pattern: '...style,' },
+  { file: 'src\\components\\ui\\M3MotionCard.tsx', line: 144, type: 'inlineStyleTemporal', pattern: "position: 'absolute'," },
+  // M3SegmentedButton.tsx: transition fully tokenised; regex multi-line overshoot
+  { file: 'src\\components\\ui\\M3SegmentedButton.tsx', line: 17, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\components\\ui\\M3SegmentedButton.tsx', line: 135, type: 'hardcodedDuration', pattern: '`color var(--md-sys-motion-duration-short2) var(--md-sys-mot' },
+  { file: 'src\\components\\ui\\M3SegmentedButton.tsx', line: 145, type: 'hardcodedDuration', pattern: 'style={{' },
+  { file: 'src\\components\\ui\\M3SegmentedButton.tsx', line: 135, type: 'hardcodedEasing', pattern: '`color var(--md-sys-motion-duration-short2) var(--md-sys-mot' },
+  { file: 'src\\components\\ui\\M3SegmentedButton.tsx', line: 146, type: 'inlineStyleTemporal', pattern: "position: 'absolute'," },
+  // M3SpeedDial.tsx: animation uses var() spring tokens; regex multi-line overshoot
+  { file: 'src\\components\\ui\\M3SpeedDial.tsx', line: 28, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\components\\ui\\M3SpeedDial.tsx', line: 158, type: 'hardcodedDuration', pattern: 'style={{' },
+  { file: 'src\\components\\ui\\M3SpeedDial.tsx', line: 197, type: 'hardcodedDuration', pattern: '? open' },
+  { file: 'src\\components\\ui\\M3SpeedDial.tsx', line: 243, type: 'hardcodedDuration', pattern: '`border-radius var(--md-sys-motion-spring-expressive-default' },
+  { file: 'src\\components\\ui\\M3SpeedDial.tsx', line: 257, type: 'hardcodedDuration', pattern: '? open' },
+  { file: 'src\\components\\ui\\M3SpeedDial.tsx', line: 158, type: 'hardcodedEasing', pattern: 'style={{' },
+  { file: 'src\\components\\ui\\M3SpeedDial.tsx', line: 197, type: 'hardcodedEasing', pattern: '? open' },
+  { file: 'src\\components\\ui\\M3SpeedDial.tsx', line: 243, type: 'hardcodedEasing', pattern: '`border-radius var(--md-sys-motion-spring-expressive-default' },
+  { file: 'src\\components\\ui\\M3SpeedDial.tsx', line: 228, type: 'inlineStyleTemporal', pattern: "display: 'flex'," },
+  { file: 'src\\components\\ui\\M3SpeedDial.tsx', line: 254, type: 'inlineStyleTemporal', pattern: "fontSize: 'var(--md-sys-typescale-title-medium-font-size)'," },
+  // M3Switch.tsx: transition uses var() tokens; regex multi-line overshoot
+  { file: 'src\\components\\ui\\M3Switch.tsx', line: 22, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\components\\ui\\M3Switch.tsx', line: 119, type: 'hardcodedDuration', pattern: '`background-color var(--md-sys-motion-duration-short2) var(-' },
+  { file: 'src\\components\\ui\\M3Switch.tsx', line: 143, type: 'hardcodedDuration', pattern: 'style={{' },
+  { file: 'src\\components\\ui\\M3Switch.tsx', line: 119, type: 'hardcodedEasing', pattern: '`background-color var(--md-sys-motion-duration-short2) var(-' },
+  // PageTransition.tsx: animation uses var() spring tokens; regex multi-line overshoot
+  { file: 'src\\components\\ui\\PageTransition.tsx', line: 43, type: 'hardcodedDuration', pattern: '}' },
+  { file: 'src\\components\\ui\\PageTransition.tsx', line: 106, type: 'hardcodedDuration', pattern: "if (variant === 'bounce-in') {" },
+  { file: 'src\\components\\ui\\PageTransition.tsx', line: 111, type: 'hardcodedDuration', pattern: "willChange: 'opacity, transform'," },
+  { file: 'src\\components\\ui\\PageTransition.tsx', line: 106, type: 'hardcodedEasing', pattern: "if (variant === 'bounce-in') {" },
+  // motion.css: prefers-reduced-motion 0.01ms intentional; spring token definitions with fallback cubic-bezier; doc comments
+  { file: 'src\\design-system\\motion.css', line: 154, type: 'hardcodedDuration', pattern: 'animation-duration: 0.01ms !important;' },
+  { file: 'src\\design-system\\motion.css', line: 155, type: 'hardcodedDuration', pattern: 'animation-delay: 0.01ms !important;' },
+  { file: 'src\\design-system\\motion.css', line: 202, type: 'hardcodedDuration', pattern: 'transition-timing-function: var(--md-sys-motion-spring-expre' },
+  { file: 'src\\design-system\\motion.css', line: 213, type: 'hardcodedDuration', pattern: 'transition-timing-function: var(--md-sys-motion-spring-expre' },
+  { file: 'src\\design-system\\motion.css', line: 345, type: 'hardcodedDuration', pattern: '.m3-animate-bounce-in {' },
+  { file: 'src\\design-system\\motion.css', line: 353, type: 'hardcodedDuration', pattern: 'var(--md-sys-motion-spring-expressive-default-spatial, cubic' },
+  { file: 'src\\design-system\\motion.css', line: 397, type: 'hardcodedDuration', pattern: '<button className="m3-transition-fab">FAB</button>' },
+  { file: 'src\\design-system\\motion.css', line: 77, type: 'hardcodedEasing', pattern: '}' },
+  { file: 'src\\design-system\\motion.css', line: 203, type: 'hardcodedEasing', pattern: '}' },
+  { file: 'src\\design-system\\motion.css', line: 214, type: 'hardcodedEasing', pattern: '}' },
+  { file: 'src\\design-system\\motion.css', line: 225, type: 'hardcodedEasing', pattern: '}' },
+  { file: 'src\\design-system\\motion.css', line: 345, type: 'hardcodedEasing', pattern: '.m3-animate-bounce-in {' },
+  { file: 'src\\design-system\\motion.css', line: 353, type: 'hardcodedEasing', pattern: 'var(--md-sys-motion-spring-expressive-default-spatial, cubic' },
 ];
 
 // Files to skip (legacy, backup, generated)

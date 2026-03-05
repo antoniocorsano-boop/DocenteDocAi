@@ -154,7 +154,7 @@ function LoadingFallback() {
         flexDirection: 'column', 
         alignItems: 'center', 
         justifyContent: 'center', 
-        minHeight: '100vh',
+        minHeight: 'var(--md-sys-viewport-height-full)',
         gap: 'var(--md-sys-spacing-4)',
         padding: 'var(--md-sys-spacing-5)'
       }}
@@ -177,7 +177,7 @@ function ErrorFallback({ error: _error }: { error: Error }) {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '100vh',
+        minHeight: 'var(--md-sys-viewport-height-full)',
         gap: 'var(--md-sys-spacing-4)',
         padding: 'var(--md-sys-spacing-5)',
         textAlign: 'center'

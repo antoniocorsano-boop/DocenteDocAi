@@ -29,6 +29,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
 
     return (
     <div
+        // eslint-disable-next-line design-system/no-classname -- className prop-passthrough API for consumer integration
         className={className}
         style={{
             display: 'flex',

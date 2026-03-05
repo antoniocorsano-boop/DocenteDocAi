@@ -195,7 +195,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
           display: 'flex', 
           justifyContent: 'center', 
           alignItems: 'center', 
-          minHeight: '100vh',
+          minHeight: 'var(--md-sys-viewport-height-full)',
           padding: 'var(--md-sys-spacing-6)'
         }}
       >
@@ -216,7 +216,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
           flexDirection: 'column',
           justifyContent: 'center', 
           alignItems: 'center', 
-          minHeight: '100vh',
+          minHeight: 'var(--md-sys-viewport-height-full)',
           padding: 'var(--md-sys-spacing-6)',
           gap: 'var(--md-sys-spacing-4)'
         }}
@@ -246,7 +246,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
         role="application"
         aria-label="DocenteDoc AI application"
         style={{ 
-          minHeight: '100vh',
+          minHeight: 'var(--md-sys-viewport-height-full)',
           backgroundColor: 'var(--md-sys-color-background)'
         }}
       >

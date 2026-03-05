@@ -19,61 +19,61 @@
 /**
  * .m3-transition-fast
  * Use for: Quick feedback (hover states, button presses, ripples)
- * Duration: 100ms (--motion-duration-short1)
+ * Duration: short1 (~100ms)
  * Examples: Button hover, chip selection, menu item highlight
  */
 .m3-transition-fast {
   transition-property: opacity, transform, background-color;
-transition-duration: var(--md-sys-motion-duration-long);
-transition-timing-function: var(--md-sys-motion-easing-standard);
+  transition-duration: var(--md-sys-motion-duration-short1);
+  transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 /**
  * .m3-transition-standard
  * Use for: Most UI interactions (default choice)
- * Duration: 200ms (--motion-duration-short2)
+ * Duration: short2 (~200ms)
  * Examples: Card hover, dialog open, tooltip fade
  */
 .m3-transition-standard {
   transition-property: opacity, transform, background-color;
-transition-duration: var(--md-sys-motion-duration-long);
-transition-timing-function: var(--md-sys-motion-easing-standard);
+  transition-duration: var(--md-sys-motion-duration-short2);
+  transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 /**
  * .m3-transition-medium
  * Use for: Larger elements, complex animations
- * Duration: 300ms (--motion-duration-short3)
+ * Duration: medium (~300ms)
  * Examples: Drawer slide, bottom sheet, FAB expand
  */
 .m3-transition-medium {
   transition-property: opacity, transform, background-color;
-transition-duration: var(--md-sys-motion-duration-long);
-transition-timing-function: var(--md-sys-motion-easing-standard);
+  transition-duration: var(--md-sys-motion-duration-medium);
+  transition-timing-function: var(--md-sys-motion-easing-standard);
 }
 
 /**
  * .m3-transition-slow
  * Use for: Emphasized motion, decorative animations
- * Duration: 400ms (--motion-duration-short4)
+ * Duration: long (~400ms)
  * Examples: Page transitions, hero animations, parallax
  */
 .m3-transition-slow {
   transition-property: opacity, transform, background-color;
-transition-duration: var(--md-sys-motion-duration-short);
-transition-timing-function: var(--md-sys-motion-easing-standard);
+  transition-duration: var(--md-sys-motion-duration-long);
+  transition-timing-function: var(--md-sys-motion-easing-emphasized);
 }
 
 /**
- * .m3-transition-expressive
- * Use for: Playful, attention-grabbing interactions
- * Duration: 400ms with expressive easing (bounce)
- * Examples: Success animations, celebration effects, floating elements
+ * .m3-transition-expressive  [BUG FIX: now uses actual spring-expressive easing]
+ * Use for: Playful, attention-grabbing interactions — MD3 Expressive Transformative
+ * Duration: long + spring overshoot cubic-bezier
+ * Examples: Success animations, celebration effects, floating hero elements, navigation pill
  */
 .m3-transition-expressive {
   transition-property: opacity, transform, background-color;
-transition-duration: var(--md-sys-motion-duration-short);
-transition-timing-function: var(--md-sys-motion-easing-standard);
+  transition-duration: var(--md-sys-motion-duration-long);
+  transition-timing-function: var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00));
 }
 
 /* =============================================================================
@@ -141,9 +141,18 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   .m3-transition-transform,
   .m3-transition-opacity,
   .m3-transition-elevation,
-  .m3-transition-interactive {
+  .m3-transition-interactive,
+  .m3-spring-spatial,
+  .m3-spring-effects,
+  .m3-spring-overshoot,
+  .m3-transition-modal-enter,
+  .m3-transition-drawer,
+  .m3-transition-snackbar,
+  .m3-transition-fab,
+  .m3-transition-page {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+    animation-delay: 0.01ms !important;
   }
 }
 
@@ -176,6 +185,178 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
   transition: transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard),
               opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
 }
+
+/* =============================================================================
+   MD3 EXPRESSIVE SPRING PRESETS (Transformative Level)
+   ============================================================================= */
+
+/**
+ * .m3-spring-spatial
+ * High energy spring for spatial transforms (scale, translate).
+ * Produces Google-app style overshoot bounce.
+ * cubic-bezier(0.38, 1.21, 0.22, 1.00) — overshoot past 1.0 then settle
+ */
+.m3-spring-spatial {
+  transition-property: transform;
+  transition-duration: var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms);
+  transition-timing-function: var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00));
+}
+
+/**
+ * .m3-spring-effects
+ * Soft spring for opacity/color effects (no overshoot).
+ * cubic-bezier(0.34, 0.80, 0.34, 1.00) — smooth deceleration
+ */
+.m3-spring-effects {
+  transition-property: opacity, background-color, color;
+  transition-duration: var(--md-sys-motion-spring-expressive-default-effects-duration, 200ms);
+  transition-timing-function: var(--md-sys-motion-spring-expressive-default-effects, cubic-bezier(0.34, 0.80, 0.34, 1.00));
+}
+
+/**
+ * .m3-spring-overshoot
+ * Aggressive spring for card/hero emphasis. Max expressiveness.
+ * cubic-bezier(0.34, 1.56, 0.64, 1) — strong overshoot
+ */
+.m3-spring-overshoot {
+  transition-property: transform;
+  transition-duration: var(--md-sys-motion-duration-long);
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* =============================================================================
+   MD3 EXPRESSIVE KEYFRAMES (Transformative Level)
+   ============================================================================= */
+
+/**
+ * @keyframes m3-bounce-in
+ * Hero entrance: scale from 0.85 → 1.05 → 1 + fade (MD3 Container Transform feel)
+ * Use: page hero sections, modal entrances, celebration states
+ */
+@keyframes m3-bounce-in {
+  0%   { opacity: 0; transform: scale(0.85); }
+  55%  { opacity: 1; transform: scale(1.04); }
+  75%  { transform: scale(0.98); }
+  90%  { transform: scale(1.01); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/**
+ * @keyframes m3-hero-enter
+ * Smooth slide-up + fade-through for hero sections.
+ * Use: M3BannerHero, M3HeroCard mount, section headers
+ */
+@keyframes m3-hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--md-sys-spacing-5, 20px)) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/**
+ * @keyframes m3-scale-exit
+ * Expressive exit animation: scale-down + fade.
+ * Use: cards being removed, view exits
+ */
+@keyframes m3-scale-exit {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.9); }
+}
+
+/**
+ * @keyframes m3-item-enter
+ * Staggered item entrance (used by M3StaggeredList).
+ * Slide up + fade with spring feel.
+ */
+@keyframes m3-item-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--md-sys-spacing-4, 16px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/**
+ * @keyframes m3-pulse-icon
+ * Subtle scale pulse for animated icons.
+ */
+@keyframes m3-pulse-icon {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.25); }
+  60%  { transform: scale(0.92); }
+  80%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/**
+ * @keyframes m3-bounce-icon
+ * Vertical-drop bounce for icons.
+ */
+@keyframes m3-bounce-icon {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(-30%); }
+  55%  { transform: translateY(8%); }
+  75%  { transform: translateY(-10%); }
+  90%  { transform: translateY(3%); }
+  100% { transform: translateY(0); }
+}
+
+/**
+ * @keyframes m3-shake-icon
+ * Quick lateral shake for error / alert icons.
+ */
+@keyframes m3-shake-icon {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+/**
+ * @keyframes m3-fill-morph
+ * Material Symbol FILL 0→1 visual via font-variation-settings + scale.
+ */
+@keyframes m3-fill-morph {
+  0%   { font-variation-settings: "'FILL' 0, 'wght' 300"; transform: scale(1); }
+  50%  { font-variation-settings: "'FILL' 1, 'wght' 500"; transform: scale(1.2); }
+  100% { font-variation-settings: "'FILL' 1, 'wght' 400"; transform: scale(1); }
+}
+
+/**
+ * @keyframes m3-nav-pill-in
+ * Active navigation pill entrance: expand from center with spring.
+ */
+@keyframes m3-nav-pill-in {
+  from { transform: scaleX(0.3) scaleY(0.3); opacity: 0; }
+  60%  { transform: scaleX(1.08) scaleY(1.06); opacity: 1; }
+  80%  { transform: scaleX(0.97) scaleY(0.98); }
+  100% { transform: scaleX(1) scaleY(1); opacity: 1; }
+}
+
+/* Helper animation classes */
+.m3-animate-bounce-in {
+  animation: m3-bounce-in var(--md-sys-motion-duration-long, 400ms)
+    var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00))
+    both;
+}
+
+.m3-animate-hero-enter {
+  animation: m3-hero-enter var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms)
+    var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00))
+    both;
+}
+
+/* =============================================================================
+   SPECIALIZED PRESETS (continued)
+   ============================================================================= */
 
 /**
  * FAB Expand/Collapse

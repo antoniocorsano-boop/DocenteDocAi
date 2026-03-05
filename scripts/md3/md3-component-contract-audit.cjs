@@ -121,6 +121,19 @@ const APPROVED_EXCEPTIONS = [
 
   // ── SmartImportModal: SVG inline background in data URI (not a CSS value) ─
   { file: 'src\\components\\SmartImportModal.tsx', line: 209, type: 'forbiddenProps', pattern: 'backgroundImage' },
+
+  // ── MD3 Expressive: private animation classNames and material-symbols-outlined (functional requirements) ──
+  // BottomNav.tsx: private BEM classNames — line numbers shifted after edits
+  { file: 'src\\components\\BottomNav.tsx', line: 53, type: 'classNameUtilities', pattern: 'bottom-nav' },
+  { file: 'src\\components\\BottomNav.tsx', line: 75, type: 'classNameUtilities', pattern: 'bottom-nav' },
+  { file: 'src\\components\\BottomNav.tsx', line: 99, type: 'classNameUtilities', pattern: 'bottom-nav' },
+  // SkipLink.tsx: accessibility skip-link class is functionally required
+  { file: 'src\\components\\SkipLink.tsx', line: 55, type: 'classNameUtilities', pattern: 'skip-link' },
+  // M3BannerHero.tsx: _m3bh-* is private animation class; material-symbols-outlined is Google font class
+  { file: 'src\\components\\ui\\M3BannerHero.tsx', line: 118, type: 'classNameUtilities', pattern: '_m3bh-' },
+  { file: 'src\\components\\ui\\M3BannerHero.tsx', line: 142, type: 'classNameUtilities', pattern: 'material-symbols-outlined' },
+  // M3Switch.tsx: _m3sw-* is private animation class for MD3 spring toggle
+  { file: 'src\\components\\ui\\M3Switch.tsx', line: 142, type: 'classNameUtilities', pattern: '_m3sw-' },
 ];
 
 // Forbidden prop names

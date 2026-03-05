@@ -1,12 +1,10 @@
 {
-  "timestamp": "2026-03-05T17:09:51.950Z",
-  "totalViolations": 6,
-  "totalFiles": 3,
-  "scannedFiles": 255,
+  "timestamp": "2026-03-05T21:10:02.423Z",
+  "totalViolations": 7,
+  "totalFiles": 4,
+  "scannedFiles": 260,
   "typeBreakdown": {
-    "classNameUtilities": 4,
-    "inlineStyleLayout": 1,
-    "forbiddenProps": 1
+    "classNameUtilities": 7
   },
   "topViolators": [
     {
@@ -14,18 +12,22 @@
       "count": 3
     },
     {
-      "file": "src\\components\\ui\\M3Menu.tsx",
+      "file": "src\\components\\ui\\M3BannerHero.tsx",
       "count": 2
     },
     {
       "file": "src\\components\\SkipLink.tsx",
+      "count": 1
+    },
+    {
+      "file": "src\\components\\ui\\M3Switch.tsx",
       "count": 1
     }
   ],
   "violations": [
     {
       "file": "src\\components\\BottomNav.tsx",
-      "line": 52,
+      "line": 53,
       "type": "classNameUtilities",
       "match": "className=\"bottom-",
       "context": "className=\"bottom-nav-container\"",
@@ -33,7 +35,7 @@
     },
     {
       "file": "src\\components\\BottomNav.tsx",
-      "line": 74,
+      "line": 75,
       "type": "classNameUtilities",
       "match": "className=\"bottom-",
       "context": "className=\"bottom-nav-item\"",
@@ -41,7 +43,7 @@
     },
     {
       "file": "src\\components\\BottomNav.tsx",
-      "line": 96,
+      "line": 99,
       "type": "classNameUtilities",
       "match": "className=\"bottom-",
       "context": "className=\"bottom-nav-pill\"",
@@ -49,27 +51,35 @@
     },
     {
       "file": "src\\components\\SkipLink.tsx",
-      "line": 54,
+      "line": 55,
       "type": "classNameUtilities",
       "match": "className=\"skip-",
       "context": "className=\"skip-link\"",
       "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
     },
     {
-      "file": "src\\components\\ui\\M3Menu.tsx",
-      "line": 174,
-      "type": "inlineStyleLayout",
-      "match": "style={{\r\n                display: 'flex',\r\n                alignItems: 'center',\r\n                g",
-      "context": "style={{",
-      "suggestion": "Use MD3 spacing tokens: var(--md-sys-spacing-*) or layout components"
+      "file": "src\\components\\ui\\M3BannerHero.tsx",
+      "line": 118,
+      "type": "classNameUtilities",
+      "match": "className=\"_m3bh-",
+      "context": "className=\"_m3bh-enter-anim\" // eslint-disable-line design-system/no-classname -- animation target class for CSS @keyframes",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
     },
     {
-      "file": "src\\components\\ui\\M3Menu.tsx",
-      "line": 153,
-      "type": "forbiddenProps",
-      "match": "<M3Popover\r\n      open={open}\r\n      anchorEl={anchorEl}\r\n      onClose={onClose}\r\n      title={titl",
-      "context": "<M3Popover",
-      "suggestion": "Remove forbidden prop. Use MD3 component variants or wrapper components"
+      "file": "src\\components\\ui\\M3BannerHero.tsx",
+      "line": 142,
+      "type": "classNameUtilities",
+      "match": "className=\"material-symbols-outlined _m3bh-",
+      "context": "className=\"material-symbols-outlined _m3bh-icon-anim\"",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
+    },
+    {
+      "file": "src\\components\\ui\\M3Switch.tsx",
+      "line": 142,
+      "type": "classNameUtilities",
+      "match": "className=\"_m3sw-",
+      "context": "className=\"_m3sw-thumb\" // eslint-disable-line design-system/no-classname -- animation target class for CSS @keyframes, not a style class",
+      "suggestion": "Replace utility classes with MD3 component classes or inline MD3 tokens"
     }
   ]
 }

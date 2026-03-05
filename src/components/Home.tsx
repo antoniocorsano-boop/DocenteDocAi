@@ -56,7 +56,8 @@ Follow these guidelines strictly to refactor Home.tsx:
 import React, { useMemo, useRef, useEffect } from 'react';
 import { View, NavigationParams } from '../types';
 import { M3Surface, M3Typography, M3Chip, M3StateLayer } from './ui';
-import M3HeroCard from './ui/M3HeroCard';
+import M3BannerHero from './ui/M3BannerHero';
+import M3StaggeredList from './ui/M3StaggeredList';
 import M3Fab from './M3Fab';
 import { useAcademicStore } from '../stores/useAcademicStore';
 import { useStudentStore } from '../stores/useStudentStore';
@@ -173,9 +174,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         }}
       >
         {/* ── HERO BANNER ─────────────────────────────────────────── */}
-        <M3HeroCard
-          headline={greeting}
-          supportingText={
+        <M3BannerHero
+          variant="full"
+          title={greeting}
+          subtitle={
             nextLesson
               ? `${lessonTagline} — ${lessonDetails.slice(0, 60)}${lessonDetails.length > 60 ? '…' : ''}`
               : lessonDetails
@@ -248,21 +250,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               }}
             >group</span>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-              <div style={{
-                fontFamily: 'var(--font-family)',
-                fontSize: 'var(--md-sys-typescale-headline-medium-font-size)',
-                fontWeight: 'var(--md-sys-typescale-headline-medium-font-weight)',
-                lineHeight: 'var(--md-sys-typescale-headline-medium-line-height)',
-                color: 'var(--md-sys-color-on-surface)',
-              }}>
+              <M3Typography variant="display-small" style={{ color: 'var(--md-sys-color-primary)', lineHeight: 1 }}>
                 {students?.length ?? 0}
-              </div>
-              <div style={{
-                fontFamily: 'var(--font-family)',
-                fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
-                fontWeight: 'var(--md-sys-typescale-label-medium-font-weight)',
-                color: 'var(--md-sys-color-on-surface-variant)',
-              }}>Studenti</div>
+              </M3Typography>
+              <M3Typography variant="label-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Studenti</M3Typography>
             </div>
           </M3StateLayer>
 
@@ -295,21 +286,10 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               }}
             >grading</span>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-              <div style={{
-                fontFamily: 'var(--font-family)',
-                fontSize: 'var(--md-sys-typescale-headline-medium-font-size)',
-                fontWeight: 'var(--md-sys-typescale-headline-medium-font-weight)',
-                lineHeight: 'var(--md-sys-typescale-headline-medium-line-height)',
-                color: 'var(--md-sys-color-on-surface)',
-              }}>
+              <M3Typography variant="display-small" style={{ color: 'var(--md-sys-color-tertiary)', lineHeight: 1 }}>
                 {evaluations?.length ?? 0}
-              </div>
-              <div style={{
-                fontFamily: 'var(--font-family)',
-                fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
-                fontWeight: 'var(--md-sys-typescale-label-medium-font-weight)',
-                color: 'var(--md-sys-color-on-surface-variant)',
-              }}>Valutazioni</div>
+              </M3Typography>
+              <M3Typography variant="label-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Valutazioni</M3Typography>
             </div>
           </M3StateLayer>
         </div>
@@ -351,7 +331,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               </M3Typography>
             </M3Surface>
           ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)' }}>
+            <M3StaggeredList staggerMs={60} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)' }}>
               {activities.map((activity, index) => (
                 <M3StateLayer
                   key={activity.id}
@@ -397,7 +377,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                   )}
                 </M3StateLayer>
               ))}
-            </div>
+            </M3StaggeredList>
           )}
         </section>
       </M3Surface>
@@ -412,7 +392,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         style={{
           position: 'fixed',
           bottom: 'calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-4) + env(safe-area-inset-bottom, 0px))', // eslint-disable-line design-system/enforce-token-usage -- env(safe-area-inset-bottom) is a native iOS/Android CSS API
-          /* Offset a sinistra dell'AssistantFab: spacing-4 (AssistantFab right) + spacing-10 (FAB size) + spacing-4 (gap) = 72px */
+          /* Offset a sinistra dell'AssistantFab: spacing-4 (AssistantFab right) + spacing-10 (FAB size) + spacing-4 (gap) = 72px.
+             Su desktop aggiunge la larghezza della NavigationRail (spacing-20 = 80px) per evitare sovrapposizione. */
           right: 'calc(var(--md-sys-spacing-4) + var(--md-sys-spacing-10) + var(--md-sys-spacing-4))',
           zIndex: 'var(--md-sys-z-modal)',
         }}

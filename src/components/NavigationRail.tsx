@@ -87,6 +87,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
   // Check if we're on mobile - hide navigation rail on mobile (bottom nav used instead)
   const [isMobile, setIsMobile] = React.useState(false);
   const [focusedId, setFocusedId] = React.useState<View | null>(null);
+  const [hoveredId, setHoveredId] = React.useState<View | null>(null);
 
   React.useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)');
@@ -132,14 +133,17 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
       <style>
         {`
           @keyframes badge-appear {
-            from {
-              transform: scale(0);
-              opacity: 0;
-            }
-            to {
-              transform: scale(1);
-              opacity: 1;
-            }
+            from { transform: scale(0); opacity: 0; }
+            to   { transform: scale(1); opacity: 1; }
+          }
+          @keyframes m3-nav-pill-in {
+            from { transform: scaleX(0.25) scaleY(0.25); opacity: 0; }
+            60%  { transform: scaleX(1.08) scaleY(1.08); opacity: 1; }
+            80%  { transform: scaleX(0.96) scaleY(0.97); }
+            100% { transform: scaleX(1) scaleY(1); opacity: 1; }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .m3-nav-pill-active { animation-duration: 0.01ms !important; }
           }
         `}
       </style>
@@ -190,16 +194,8 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
               key={item.id}
               onClick={() => onNavigate(item.id, null)}
               style={itemStyle}
-              onMouseEnter={() => {
-                if (!isActive) {
-                  // removed runtime mutation
-                }
-              }}
-              onMouseLeave={() => {
-                if (!isActive) {
-                  // removed runtime mutation
-                }
-              }}
+              onMouseEnter={() => setHoveredId(item.id)}
+              onMouseLeave={() => setHoveredId(null)}
               onFocus={() => setFocusedId(item.id)}
               onBlur={() => setFocusedId(null)}
               aria-label={item.label}
@@ -207,26 +203,39 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
             >
               {/* Icon Container with MD3 active pill indicator */}
               <div
-                style={{position: 'relative',
+                style={{
+                  position: 'relative',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   width: 'var(--md-sys-spacing-14)', // 56px pill width
                   height: 'var(--md-sys-spacing-8)', // 32px pill height
                   borderRadius: 'var(--md-sys-shape-corner-full)',
-                  transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
+                  transition: `background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+                  backgroundColor: !isActive && hoveredId === item.id
+                    ? 'var(--md-sys-color-surface-container-high)'
+                    : 'transparent',
+                }}
               >
-                {/* Active indicator pill */}
+                {/* Active indicator pill — spring animation */}
                 <span
                   aria-hidden="true"
+                  // eslint-disable-next-line design-system/no-classname -- m3-nav-pill-active is a CSS animation class defined in injected style block (MD3 §9 exception)
+                  className={isActive ? 'm3-nav-pill-active' : undefined}
                   style={{
                     position: 'absolute',
                     inset: 0,
                     borderRadius: 'var(--md-sys-shape-corner-full)',
                     backgroundColor: 'var(--md-sys-color-secondary-container)',
+                    boxShadow: isActive ? 'var(--md-sys-elevation-level2)' : 'none',
                     transform: isActive ? 'scaleX(1) scaleY(1)' : 'scaleX(0) scaleY(0)',
                     opacity: isActive ? 1 : 0,
-                    transition: `transform var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard), opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+                    animation: isActive
+                      ? `m3-nav-pill-in var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00)) both`
+                      : 'none',
+                    transition: isActive
+                      ? 'none' // keyframe handles entrance
+                      : `transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard), opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
                     transformOrigin: 'center',
                   }}
                 />
@@ -274,13 +283,15 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
               <M3Typography
                 variant="label-medium"
                 style={{
-                  fontWeight: 'var(--md-sys-typescale-weight-medium)',
+                  fontWeight: isActive
+                    ? 'var(--md-sys-typescale-weight-bold)'
+                    : 'var(--md-sys-typescale-weight-medium)',
                   textAlign: 'center',
                   color: 'inherit',
                   overflowWrap: 'break-word',
                   wordBreak: 'break-word',
                   maxWidth: 'var(--md-sys-percent-100)',
-                  transition: `color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
+                  transition: `font-weight var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard), color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
               >
                 {item.label}
               </M3Typography>
@@ -292,7 +303,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
       {/* Bottone "Più" — accesso a tutte le sezioni secondarie */}
       {onOpenMore && (
         <div style={{
-          marginTop: 'auto',
+          marginTop: 'var(--md-sys-margin-auto)',
           paddingBottom: 'var(--md-sys-spacing-4)',
           display: 'flex',
           justifyContent: 'center',

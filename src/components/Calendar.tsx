@@ -8,7 +8,8 @@ import EventActionPopover from './EventActionPopover';
 import { 
 
     M3Button, 
-    TabGroup 
+    TabGroup,
+    M3Typography
 } from './ui';
 
 interface CalendarProps {
@@ -186,7 +187,7 @@ const renderHeader = () => {
 }} aria-hidden="true">chevron_right</span>
                         </M3Button>
                     </div>
-                    <h2>{title}</h2>
+                    <M3Typography variant="headline-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>{title}</M3Typography>
                 </div>
 
                 <div  style={{gap: 'var(--md-sys-spacing-8)'}}>
@@ -270,7 +271,7 @@ const renderHeader = () => {
                                 width: 'var(--md-sys-spacing-7)',
                                 height: 'var(--md-sys-spacing-7)',
                                 fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                                fontWeight: isToday ? 700 : 500,
+                                fontWeight: isToday ? 'var(--md-sys-typescale-weight-bold)' : 'var(--md-sys-typescale-weight-medium)',
                                 color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
                                 background: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
                                 borderRadius: 'var(--md-sys-shape-corner-full)'
@@ -416,9 +417,9 @@ const renderHeader = () => {
     const renderDayView = () => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <div  style={{padding: 'var(--md-sys-spacing-8)'}}>
-                <h3  style={{color: 'var(--md-sys-color-primary)'}}>
+                <M3Typography variant="headline-small" style={{color: 'var(--md-sys-color-primary)'}}>
                     {currentDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
-                </h3>
+                </M3Typography>
             </div>
             <div  ref={scrollContainerRef}>
                 {dayEvents.length === 0 ? (
@@ -440,9 +441,9 @@ const renderHeader = () => {
                         >
                             event_busy
                         </span>
-                        <p style={{ color: 'var(--md-sys-color-on-surface)' }}>
+                        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>
                             Nessun evento per questo giorno
-                        </p>
+                        </M3Typography>
                         <M3Button variant="text" onClick={() => setEditingEvent({})} style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                             Aggiungi Evento
                         </M3Button>
@@ -493,7 +494,7 @@ const renderHeader = () => {
             {Object.keys(agendaGroups).length === 0 ? (
                 <div style={{ padding: 'var(--md-sys-spacing-8)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", opacity: "var(--md-sys-state-opacity-secondary)" }}>
                     <span style={{ color: "var(--md-sys-color-on-surface-variant)", marginBottom: 'var(--md-sys-spacing-8)' }} aria-hidden="true">event_busy</span>
-                    <p style={{ color: "var(--md-sys-color-on-surface-variant)" }}>Nessun evento questo mese</p>
+                    <M3Typography variant="body-medium" style={{ color: "var(--md-sys-color-on-surface-variant)" }}>Nessun evento questo mese</M3Typography>
                 </div>
             ) : (
                 <div style={{gap: 'var(--md-sys-spacing-6)'}}>

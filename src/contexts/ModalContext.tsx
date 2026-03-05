@@ -397,8 +397,8 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
         role="document"
         style={{
           position: 'relative',
-          width: '100%',
-          height: '100%',
+          width: 'var(--md-sys-percent-100)',
+          height: 'var(--md-sys-percent-100)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

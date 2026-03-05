@@ -21,7 +21,7 @@ const ErrorFallback: React.FC<{ error: Error; resetErrorBoundary: () => void }> 
   return (
     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', minHeight: "var(--md-sys-viewport-height-full)", display: "flex", alignItems: "center", justifyContent: "center", padding: 'var(--md-sys-spacing-6)'}}>
       <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--md-sys-percent-100)", backgroundColor: "var(--md-sys-color-surface)", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textAlign: "center"}}>
-        <div style={{ width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', backgroundColor: "var(--md-sys-color-error-container)", borderRadius: 'var(--md-sys-shape-corner-full)', display: "flex", alignItems: "center", justifyContent: "center", marginInline: 'auto', marginBottom: 'var(--md-sys-spacing-6)'}}>
+        <div style={{ width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', backgroundColor: "var(--md-sys-color-error-container)", borderRadius: 'var(--md-sys-shape-corner-full)', display: "flex", alignItems: "center", justifyContent: "center", marginInline: 'var(--md-sys-margin-auto)', marginBottom: 'var(--md-sys-spacing-6)'}}>
           <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-error-container)', fontSize: 'var(--md-sys-typescale-headline-medium-font-size)' }}>error</span>
         </div>
         <h1 style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-black)", marginBottom: 'var(--md-sys-spacing-2)'}}>Qualcosa è andato storto</h1>
