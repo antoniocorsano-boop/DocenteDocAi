@@ -88,7 +88,6 @@ const M3HeroCard: React.FC<M3HeroCardProps> = ({
     <>
       <style>{HERO_KEYFRAMES}</style>
       <div
-        // eslint-disable-next-line design-system/no-classname -- _m3hc-enter is a CSS animation class defined in injected HERO_KEYFRAMES (MD3 §9 exception)
         className="_m3hc-enter"
         onMouseEnter={() => setIconHovered(true)}
         onMouseLeave={() => setIconHovered(false)}
@@ -100,7 +99,6 @@ const M3HeroCard: React.FC<M3HeroCardProps> = ({
           padding: fullBleed
             ? 'var(--md-sys-spacing-6) var(--md-sys-spacing-5) var(--md-sys-spacing-5)'
             : 'var(--md-sys-spacing-6) var(--md-sys-spacing-6) var(--md-sys-spacing-5)',
-          // eslint-disable-next-line design-system/no-hardcoded-motion-values -- 500ms is a CSS var() fallback value, not a standalone hardcoded duration
           animation: `_m3hc-hero-enter var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00)) both`,
           willChange: 'opacity, transform',
           ...style,
@@ -122,7 +120,6 @@ const M3HeroCard: React.FC<M3HeroCardProps> = ({
               pointerEvents: 'none',
               fontVariationSettings: '"FILL" 1, "wght" 300, "opsz" 48',
               transform: iconHovered ? 'scale(1.1)' : 'scale(1)',
-              // eslint-disable-next-line design-system/no-hardcoded-motion-values -- 500ms is a CSS var() fallback value
               transition: `transform var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00))`,
             }}
           >

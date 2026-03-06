@@ -262,7 +262,6 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                                     <SectionHeader title="Processi Comuni" icon="play_circle" />
-                                    {/* eslint-disable-next-line design-system/no-hardcoded-layout-values -- repeat/minmax cannot be expressed with grid-fr tokens */}
                                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'var(--md-sys-spacing-3)' }}>
                                         {PROCESS_DEFINITIONS.filter(p => p.category === 'daily').map(p => (
                                             <ActionTile
@@ -279,7 +278,6 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
 
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                                     <SectionHeader title="Pianificazione e Sviluppo" icon="design_services" />
-                                    {/* eslint-disable-next-line design-system/no-hardcoded-layout-values -- repeat/minmax cannot be expressed with grid-fr tokens */}
                                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'var(--md-sys-spacing-3)' }}>
                                         {PROCESS_DEFINITIONS.filter(p => p.category === 'planning').map(p => (
                                             <ActionTile
@@ -296,7 +294,6 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
 
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                                     <SectionHeader title="Manutenzione del Sistema" icon="build" />
-                                    {/* eslint-disable-next-line design-system/no-hardcoded-layout-values -- repeat/minmax cannot be expressed with grid-fr tokens */}
                                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'var(--md-sys-spacing-3)' }}>
                                         {PROCESS_DEFINITIONS.filter(p => p.category === 'system').map(p => (
                                             <ActionTile

@@ -51,7 +51,6 @@ const SkipLink: React.FC<SkipLinkProps> = ({
       href={href}
       onClick={handleClick}
       aria-label={label}
-      // eslint-disable-next-line design-system/no-classname -- skip-link is a functional accessibility class with CSS defined in global stylesheet
       className="skip-link"
       onKeyDown={(e: React.KeyboardEvent<HTMLAnchorElement>) => {
         if (e.key === 'Enter' || e.key === ' ') {

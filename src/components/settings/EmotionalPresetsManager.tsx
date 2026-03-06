@@ -4,7 +4,7 @@
 // Still uses legacy useTheme system - requires full migration to inline MD3 tokens
 // Functional exception: grid minmax(calc(var(--md-sys-spacing-20) * 3.125), 1fr) for responsive card layout
 import React, { useState, useEffect } from 'react';
-import { useTheme, PresetOverrides } from '../../theme/theme';
+import { useM3Theme, PresetOverrides } from '../../theme/theme';
 import M3Typography from '../ui/M3Typography';
 import M3Card from '../ui/M3Card';
 import { M3Button } from '../M3Button';
@@ -166,7 +166,6 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
     overrides: {
       sys: {
         colors: {
-          /* eslint-disable design-system/no-hardcoded-colors -- intentional: emotional preset color palette definition for theme override system, not inline style. MD3 contract §9 documented exception. */
           primary: '#8bc34a',
           onPrimary: '#000000',
           secondary: '#009688',
@@ -193,7 +192,6 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
           scrim: '#000000',
           surfaceVariant: '#e8f5e8',
           onSurfaceVariant: '#000000'
-          /* eslint-enable design-system/no-hardcoded-colors */
         },
       }
     },
@@ -204,7 +202,6 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
     overrides: {
       sys: {
         colors: {
-          /* eslint-disable design-system/no-hardcoded-colors -- intentional: emotional preset color palette definition for theme override system, not inline style. MD3 contract §9 documented exception. */
           primary: '#212121',
           onPrimary: '#ffffff',
           secondary: '#757575',
@@ -231,7 +228,6 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
           scrim: '#000000',
           surfaceVariant: '#f5f5f5',
           onSurfaceVariant: '#000000'
-          /* eslint-enable design-system/no-hardcoded-colors */
         },
       }
     },
@@ -242,7 +238,6 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
     overrides: {
       sys: {
         colors: {
-          /* eslint-disable design-system/no-hardcoded-colors -- intentional: emotional preset color palette definition for theme override system, not inline style. MD3 contract §9 documented exception. */
           primary: '#ff4081',
           onPrimary: '#ffffff',
           secondary: '#ffeb3b',
@@ -269,7 +264,6 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
           scrim: '#000000',
           surfaceVariant: '#fce4ec',
           onSurfaceVariant: '#000000'
-          /* eslint-enable design-system/no-hardcoded-colors */
         },
       }
     },
@@ -280,7 +274,6 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
     overrides: {
       sys: {
         colors: {
-          /* eslint-disable design-system/no-hardcoded-colors -- intentional: emotional preset color palette definition for theme override system, not inline style. MD3 contract §9 documented exception. */
           primary: '#000000',
           onPrimary: '#ffffff',
           secondary: '#ffffff',
@@ -307,7 +300,6 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
           scrim: '#000000',
           surfaceVariant: '#f5f5f5',
           onSurfaceVariant: '#000000'
-          /* eslint-enable design-system/no-hardcoded-colors */
         },
       }
     },
@@ -315,7 +307,7 @@ const presets: Record<EmotionalPreset, { name: string; description: string; over
 };
 
 const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({ selectedPreset, onPresetChange }) => {
-  const { updateOverrides, resetOverrides } = useTheme();
+  const { updateOverrides, resetOverrides } = useM3Theme();
   const [hoveredPreset, setHoveredPreset] = useState<EmotionalPreset | null>(null);
 
   useEffect(() => {

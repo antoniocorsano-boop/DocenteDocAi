@@ -36,14 +36,12 @@ const ICON_KEYFRAMES = `
   }
 `;
 
-/* eslint-disable design-system/no-hardcoded-motion-values -- 500ms/300ms are CSS var() fallback values, not standalone hardcoded durations */
 const ANIMATION_MAP: Record<string, string> = {
   pulse:      `_m3ai-pulse     var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00)) both`,
   bounce:     `_m3ai-bounce    var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00)) both`,
   shake:      `_m3ai-shake     var(--md-sys-motion-duration-medium, 300ms) var(--md-sys-motion-easing-standard, ease) both`,
   'fill-morph': `_m3ai-fill-morph var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00)) both`,
 };
-/* eslint-enable design-system/no-hardcoded-motion-values */
 
 export type M3AnimatedIconAnimation = 'none' | 'pulse' | 'bounce' | 'shake' | 'fill-morph';
 
@@ -107,7 +105,6 @@ const M3AnimatedIcon: React.FC<M3AnimatedIconProps> = ({
             {hasAnimation && <style>{ICON_KEYFRAMES}</style>}
             <span
                 key={animKey}
-                // eslint-disable-next-line design-system/no-classname -- material-symbols-outlined is the Google icon font class (functional requirement, not UI style). _m3ai-animated is a CSS animation helper class.
                 className={hasAnimation ? '_m3ai-animated material-symbols-outlined' : 'material-symbols-outlined'}
                 aria-hidden={ariaHidden}
                 aria-label={ariaLabel}

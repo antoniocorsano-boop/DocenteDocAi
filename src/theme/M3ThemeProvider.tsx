@@ -120,10 +120,10 @@ const defaultTheme: MD3Theme = {
 const ThemeContext = createContext<MD3Theme | undefined>(undefined);
 
 // Hook per usare il tema
-export const useTheme = (): MD3Theme => {
+export const useM3Theme = (): MD3Theme => {
   const context = useContext(ThemeContext);
   if (!context) {
-    throw new Error('useTheme must be used within a M3ThemeProvider');
+    throw new Error('useM3Theme must be used within a M3ThemeProvider');
   }
   return context;
 };

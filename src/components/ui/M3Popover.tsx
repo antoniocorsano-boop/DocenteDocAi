@@ -294,7 +294,6 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
       {/* Backdrop */}
       {showBackdrop && (
         <div
-          // eslint-disable-next-line design-system/no-classname
           className="m3-popover__backdrop"
           style={{position: 'fixed',
             top: 0,
@@ -313,7 +312,6 @@ export const M3Popover: React.FC<M3PopoverProps> = ({
       {/* Popover */}
       <div
         ref={popoverRef}
-        // eslint-disable-next-line design-system/no-classname
         className={`m3-popover ${className || ''}`.trim()}
         style={{
           position: 'fixed',

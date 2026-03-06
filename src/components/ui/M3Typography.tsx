@@ -90,7 +90,6 @@ const M3Typography: React.FC<M3TypographyProps> = ({
       htmlFor={htmlFor as string | undefined}
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
       onClick={onClick}
-      // eslint-disable-next-line design-system/no-classname -- className prop-passthrough API for consumer integration (tests, storybook)
       className={className}
     >
       {dangerouslySetInnerHTML ? undefined : children}

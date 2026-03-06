@@ -1,4 +1,3 @@
-/* eslint-disable design-system/no-invalid-component-props, design-system/no-hardcoded-motion-values -- Skeleton keyframe animation requires literal duration/easing values */
 // MD3 Gold Compliant
 // Skeleton loaders per feedback durante caricamento
 // Audit: febbraio 2026

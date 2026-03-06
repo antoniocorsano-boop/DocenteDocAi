@@ -20,6 +20,9 @@ import './global.css';
 
 // Theme imports
 import { M3ThemeProvider } from './theme/theme';
+import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import muiTheme from './theme/muiTheme';
 import { NKAProvider } from './nka/NKAProvider';
 import M3Surface from './components/ui/M3Surface';
 import { M3Typography } from './components/ui/M3Typography';
@@ -203,9 +206,12 @@ async function bootstrapApp() {
     root.render(
       <ErrorBoundary>
         <React.StrictMode>
-          <M3ThemeProvider>
-            <LoadingFallback />
-          </M3ThemeProvider>
+          <MuiThemeProvider theme={muiTheme}>
+            <CssBaseline enableColorScheme />
+            <M3ThemeProvider>
+              <LoadingFallback />
+            </M3ThemeProvider>
+          </MuiThemeProvider>
         </React.StrictMode>
       </ErrorBoundary>
     );
@@ -220,13 +226,16 @@ async function bootstrapApp() {
     root.render(
       <ErrorBoundary>
         <React.StrictMode>
-          <M3ThemeProvider>
-            <NKAProvider>
-              <ModalProvider>
-                <App />
-              </ModalProvider>
-            </NKAProvider>
-          </M3ThemeProvider>
+          <MuiThemeProvider theme={muiTheme}>
+            <CssBaseline enableColorScheme />
+            <M3ThemeProvider>
+              <NKAProvider>
+                <ModalProvider>
+                  <App />
+                </ModalProvider>
+              </NKAProvider>
+            </M3ThemeProvider>
+          </MuiThemeProvider>
         </React.StrictMode>
       </ErrorBoundary>
     );
@@ -237,9 +246,12 @@ async function bootstrapApp() {
       root.render(
         <ErrorBoundary>
           <React.StrictMode>
-            <M3ThemeProvider>
-              <ErrorFallback error={e as Error} />
-            </M3ThemeProvider>
+            <MuiThemeProvider theme={muiTheme}>
+              <CssBaseline enableColorScheme />
+              <M3ThemeProvider>
+                <ErrorFallback error={e as Error} />
+              </M3ThemeProvider>
+            </MuiThemeProvider>
           </React.StrictMode>
         </ErrorBoundary>
       );

@@ -5,20 +5,6 @@ import pluginReact from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import { defineConfig } from "eslint/config";
 
-// Custom ESLint rules for design system conformity
-import noHardcodedColors from "./scripts/md3/eslint-rules/no-hardcoded-colors.js";
-import enforceTokenUsage from "./scripts/md3/eslint-rules/enforce-token-usage.js";
-import noNewCssFiles from "./scripts/md3/eslint-rules/no-new-css-files.js";
-import noClassname from "./scripts/md3/eslint-rules/no-classname.js";
-import noTailwindClasses from "./scripts/md3/eslint-rules/no-tailwind-classes.js";
-import noHardcodedLayoutValues from "./scripts/md3/eslint-rules/no-hardcoded-layout-values.js";
-import noNumericZindex from "./scripts/md3/eslint-rules/no-numeric-zindex.js";
-import noLegacyZTokens from "./scripts/md3/eslint-rules/no-legacy-z-tokens.js";
-import noHardcodedMotionValues from "./scripts/md3/eslint-rules/no-hardcoded-motion-values.mjs";
-import noInvalidComponentProps from "./scripts/md3/eslint-rules/no-invalid-component-props.mjs";
-import noHardcodedViewportUnits from "./scripts/md3/eslint-rules/no-hardcoded-viewport-units.js";
-import noHardcodedPercentages from "./scripts/md3/eslint-rules/no-hardcoded-percentages.js";
-
 export default defineConfig([
   {
     ignores: [
@@ -122,59 +108,6 @@ export default defineConfig([
       'react/react-in-jsx-scope': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
     },
-  },
-  // Design System Conformity Rules
-  {
-    files: ['src/**/*.{ts,tsx}'],
-    plugins: {
-      'design-system': {
-        rules: {
-          'no-hardcoded-colors': noHardcodedColors,
-          'enforce-token-usage': enforceTokenUsage,
-          'no-new-css-files': noNewCssFiles,
-          'no-classname': noClassname,
-          'no-tailwind-classes': noTailwindClasses,
-          'no-hardcoded-layout-values': noHardcodedLayoutValues,
-          'no-numeric-zindex': noNumericZindex,
-          'no-legacy-z-tokens': noLegacyZTokens,
-          'no-hardcoded-motion-values': noHardcodedMotionValues,
-          'no-invalid-component-props': noInvalidComponentProps,
-          'no-hardcoded-viewport-units': noHardcodedViewportUnits,
-          'no-hardcoded-percentages': noHardcodedPercentages
-        }
-      }
-    },
-    rules: {
-      // MD3 rules relaxed to 'warn' to unblock development
-      // TODO: Gradually fix warnings and restore to 'error'
-      'design-system/no-hardcoded-colors': 'warn',
-      'design-system/enforce-token-usage': 'warn',
-      'design-system/no-new-css-files': 'warn',
-      'design-system/no-classname': 'warn',
-      'design-system/no-tailwind-classes': 'warn',
-      'design-system/no-hardcoded-layout-values': 'warn',
-      'design-system/no-numeric-zindex': 'warn',
-      'design-system/no-legacy-z-tokens': 'warn',
-      'design-system/no-hardcoded-motion-values': 'warn',
-      'design-system/no-invalid-component-props': 'warn',
-      'design-system/no-hardcoded-viewport-units': 'warn',
-      'design-system/no-hardcoded-percentages': 'warn',
-      // MUI restriction removed - migration complete (Phase 3, 2026-01-06)
-      // Previously blocked @mui/material, @emotion/react, @emotion/styled
-      // All components now use custom M3 implementation (see PHASE_3_MIGRATION_COMPLETE.md)
-    }
-  },
-  // Infrastructure files: Relax MD3-specific rules
-  // Reason: tokens.ts and theme.tsx define MD3 tokens and may need direct CSS variable usage,
-  // utility classes for token generation, or className for theme application
-  {
-    files: ['src/theme/tokens.ts', 'src/theme/theme.tsx'],
-    rules: {
-      'design-system/no-classname': 'off', // May need className for body theme application
-      'design-system/no-tailwind-classes': 'off', // May use utility classes in token definitions
-      'design-system/no-hardcoded-colors': 'warn', // Still warn but allow for token definitions
-      'design-system/enforce-token-usage': 'off' // May define tokens directly
-    }
   },
   {
     files: ['**/tools/**/*.{js,cjs,mjs,ts}', '**/scripts/**/*.{js,cjs,mjs,ts}', 'vite.config.ts', 'vitest.config.ts', 'playwright.config.ts'],

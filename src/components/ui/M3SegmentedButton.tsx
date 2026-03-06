@@ -141,7 +141,7 @@ function M3SegmentedButton<T extends string = string>({
               {/* Animated selection background pill */}
               <span
                 aria-hidden="true"
-                className={isSelected ? '_m3sb-pill' : undefined} // eslint-disable-line design-system/no-classname -- animation target class for spring keyframe, not a style class
+                className={isSelected ? '_m3sb-pill' : undefined}
                 style={{
                   position: 'absolute',
                   inset: 0,

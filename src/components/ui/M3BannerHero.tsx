@@ -115,7 +115,7 @@ const M3BannerHero: React.FC<M3BannerHeroProps> = ({
     <>
       <style>{BANNER_KEYFRAMES}</style>
       <div
-        className="_m3bh-enter-anim" // eslint-disable-line design-system/no-classname -- animation target class for CSS @keyframes
+        className="_m3bh-enter-anim"
         style={{
           position: 'relative',
           overflow: 'hidden',
@@ -130,7 +130,6 @@ const M3BannerHero: React.FC<M3BannerHeroProps> = ({
           padding: isCompact
             ? 'var(--md-sys-spacing-4) var(--md-sys-spacing-5)'
             : 'var(--md-sys-spacing-8) var(--md-sys-spacing-6) var(--md-sys-spacing-7)',
-          // eslint-disable-next-line design-system/no-hardcoded-motion-values -- 500ms is a CSS fallback inside var(), not a standalone hardcoded value
           animation: `_m3bh-enter var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00)) both`,
           willChange: 'opacity, transform',
           ...style,

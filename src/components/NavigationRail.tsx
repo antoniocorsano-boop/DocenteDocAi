@@ -220,7 +220,6 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                 {/* Active indicator pill — spring animation */}
                 <span
                   aria-hidden="true"
-                  // eslint-disable-next-line design-system/no-classname -- m3-nav-pill-active is a CSS animation class defined in injected style block (MD3 §9 exception)
                   className={isActive ? 'm3-nav-pill-active' : undefined}
                   style={{
                     position: 'absolute',

@@ -1,4 +1,3 @@
-/* eslint-disable design-system/no-invalid-component-props -- Indeterminate progress animation requires literal duration/easing values */
 // MD3 Gold Compliant
 // Progress indicator lineare globale
 // Audit: febbraio 2026

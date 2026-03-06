@@ -20,10 +20,10 @@ export interface Theme {
 const ThemeContext = createContext<Theme | undefined>(undefined);
 
 // Hook to use the theme
-export const useTheme = (): Theme => {
+export const useM3Theme = (): Theme => {
   const context = useContext(ThemeContext);
   if (!context) {
-    throw new Error('useTheme must be used within a M3ThemeProvider');
+    throw new Error('useM3Theme must be used within a M3ThemeProvider');
   }
   return context;
 };

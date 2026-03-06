@@ -117,7 +117,7 @@ const M3MotionCard: React.FC<M3MotionCardProps> = ({
           transition: `box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
           ...style,
         }}
-        className={className} // eslint-disable-line design-system/no-classname -- forwarded from consumer, allows animation target classes
+        className={className}
       >
         {children}
       </div>
@@ -138,7 +138,7 @@ const M3MotionCard: React.FC<M3MotionCardProps> = ({
           {/* Scrim */}
           <div
             aria-hidden="true"
-            className="_m3mc-backdrop" // eslint-disable-line design-system/no-classname -- animation target class for CSS @keyframes
+            className="_m3mc-backdrop"
             onClick={collapse}
             style={{
               position: 'absolute',
@@ -157,7 +157,7 @@ const M3MotionCard: React.FC<M3MotionCardProps> = ({
             role="dialog"
             aria-modal="true"
             aria-label={ariaLabel}
-            className="_m3mc-expanded-panel" // eslint-disable-line design-system/no-classname -- animation target class for CSS @keyframes
+            className="_m3mc-expanded-panel"
             style={{
               position: 'absolute',
               // Animate from card rect → full viewport

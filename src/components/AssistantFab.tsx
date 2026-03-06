@@ -151,7 +151,6 @@ const handleAction = (action: typeof ACTIONS[number]) => {
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
-  /* eslint-disable design-system/no-classname -- AssistantFab uses CSS classes paired with injected <style> block (not imported stylesheets). All classes are defined inline. MD3 §9 exception for FAB overlay. */
   return (
     <>
       <div
@@ -249,7 +248,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
           position: fixed;
           right: var(--md-sys-spacing-4);
           /* Sopra la bottom nav su mobile, allineato al bottom su desktop */
-          bottom: calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-4) + env(safe-area-inset-bottom, 0px)); /* eslint-disable-line design-system/enforce-token-usage -- env(safe-area-inset-bottom) native CSS API */
+          bottom: calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-4) + env(safe-area-inset-bottom, 0px));
           z-index: var(--md-sys-z-tooltip);
           transition: box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
           user-select: none;
@@ -408,7 +407,6 @@ const handleAction = (action: typeof ACTIONS[number]) => {
       `}</style>
     </>
   );
-  /* eslint-enable design-system/no-classname */
 }
 
 export default AssistantFab;

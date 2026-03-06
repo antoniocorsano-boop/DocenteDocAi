@@ -50,7 +50,6 @@ const InfoCard: React.FC<InfoCardProps> = ({
         <M3Card
             variant={getCardVariant()}
             onClick={onClick}
-            // eslint-disable-next-line design-system/no-classname -- className prop-passthrough API for consumer integration (tests, storybook)
             className={className}
             style={{
                 position: 'relative',

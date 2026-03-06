@@ -3,7 +3,7 @@
 // Audit: febbraio 2026
 
 import React, { useState } from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
+import { useAppTheme } from '../../contexts/ThemeContext';
 import { Tooltip } from './index';
 
 interface ThemeToggleProps {
@@ -15,7 +15,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
   variant = 'icon',
   showLabel = false
 }) => {
-  const { mode, setMode, effectiveTheme, isSystemTheme } = useTheme();
+  const { mode, setMode, effectiveTheme, isSystemTheme } = useAppTheme();
   const [isAnimating, setIsAnimating] = useState(false);
 
   const handleToggle = () => {

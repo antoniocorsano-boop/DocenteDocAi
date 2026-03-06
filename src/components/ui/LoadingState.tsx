@@ -39,7 +39,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
           border: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary-container)',
           borderTopColor: 'var(--md-sys-color-primary)',
           borderRadius: 'var(--md-sys-shape-corner-full)',
-          animation: 'spin 1s linear infinite' // eslint-disable-line design-system/no-hardcoded-motion-values, design-system/no-invalid-component-props
+          animation: 'spin 1s linear infinite'
         }}
         role="status"
         aria-label="Caricamento in corso"

@@ -1,6 +1,5 @@
 // Removed unused ColorTokens import
 
-/* eslint-disable design-system/no-hardcoded-colors */
 
 /**
  * DESIGN SYSTEM EXCEPTION: Avatar Color Palettes

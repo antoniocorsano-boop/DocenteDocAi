@@ -1,2 +1,0 @@
-src/components/App.tsx
-src/components/AuraView.tsx

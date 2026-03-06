@@ -106,7 +106,6 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
   if (variant === 'bounce-in') {
     const bounceStyle: React.CSSProperties = visible && !isLoading
       ? {
-          // eslint-disable-next-line design-system/no-hardcoded-motion-values -- 500ms is a CSS var() fallback value, not a standalone hardcoded duration
           animation: `_pt-bounce-in var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00)) both`,
           willChange: 'opacity, transform',
         }
@@ -117,7 +116,6 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
         <style>{BOUNCE_IN_KEYFRAMES}</style>
         <div
           key={animKey}
-          // eslint-disable-next-line design-system/no-classname -- private CSS animation class for MD3 spring bounce-in keyframe (MD3 §9 exception)
           className="_pt-bounce-in-anim"
           style={bounceStyle}
         >

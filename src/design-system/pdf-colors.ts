@@ -1,4 +1,3 @@
-/* eslint-disable design-system/no-hardcoded-colors */
 
 /**
  * PDF REPORT COLOR UTILITIES

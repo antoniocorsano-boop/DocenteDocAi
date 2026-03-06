@@ -1,16 +1,16 @@
 import { renderHook } from '@testing-library/react';
 import { test, expect } from 'vitest';
-import { useTheme } from '../src/theme/M3ThemeProvider';
+import { useM3Theme } from '../src/theme/M3ThemeProvider';
 import { M3ThemeProvider } from '../src/theme/M3ThemeProvider';
 
-// Test per verificare che useTheme() restituisca la struttura completa MD3
-test('useTheme fornisce layers.sys e layers.ref', () => {
-  // Wrapper obbligatorio per componenti che usano useTheme()
+// Test per verificare che useM3Theme() restituisca la struttura completa MD3
+test('useM3Theme fornisce layers.sys e layers.ref', () => {
+  // Wrapper obbligatorio per componenti che usano useM3Theme()
   const wrapper = ({ children }: { children: React.ReactNode }) => (
     <M3ThemeProvider>{children}</M3ThemeProvider>
   );
 
-  const { result } = renderHook(() => useTheme(), { wrapper });
+  const { result } = renderHook(() => useM3Theme(), { wrapper });
 
   // Verifica struttura obbligatoria MD3
   expect(result.current).toBeDefined();
@@ -28,7 +28,7 @@ test('token MD3 sono accessibili', () => {
     <M3ThemeProvider>{children}</M3ThemeProvider>
   );
 
-  const { result } = renderHook(() => useTheme(), { wrapper });
+  const { result } = renderHook(() => useM3Theme(), { wrapper });
 
   // Esempio: verifica token critici
   const primaryColor = result.current.layers.sys.color.primary;

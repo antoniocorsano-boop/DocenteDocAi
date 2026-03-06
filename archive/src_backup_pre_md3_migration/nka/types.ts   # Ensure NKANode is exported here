@@ -1,5 +1,0 @@
-export interface NKANode {
-    id: string;
-    name: string;
-    value: number;
-}

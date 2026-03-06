@@ -158,7 +158,7 @@ export const M3Menu: React.FC<M3MenuProps> = ({
       minWidth={minWidth}
       maxWidth={maxWidth}
       showBackdrop={false}
-      zIndex={zIndex} // eslint-disable-line design-system/no-invalid-component-props
+      zIndex={zIndex}
     >
       <div role="menu"
         style={{ outline: 'none' }}>

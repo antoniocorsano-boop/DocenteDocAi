@@ -46,12 +46,10 @@ const AuraView: React.FC<AuraViewProps> = ({ children, fullWidth = false }) => {
               }}
           >
               <div
-                  // eslint-disable-next-line design-system/no-classname -- _m3av-inner is a private CSS animation class for MD3 spring entrance keyframe (MD3 §9 exception)
                   className="_m3av-inner"
                   data-instance={instanceId}
                   style={{
                       width: 'var(--md-sys-percent-100)',
-                      // eslint-disable-next-line design-system/no-hardcoded-motion-values -- 500ms is a CSS var() fallback value, not a standalone hardcoded duration
                       animation: `_m3av-enter var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00)) both`,
                   }}
               >

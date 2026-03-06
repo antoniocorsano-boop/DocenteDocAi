@@ -247,7 +247,6 @@ export const RichContent: Story = {
 export const SmallDialog: Story = {
   args: {
     title: 'Quick Confirmation',
-    // eslint-disable-next-line design-system/no-hardcoded-layout-values -- maxWidth is a component prop (not inline CSS), 'sm' is an M3Dialog size token
     maxWidth: 'sm',
     children: 'This is a small dialog with constrained width.',
     onClose: () => console.log('Dialog closed'),

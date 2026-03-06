@@ -139,7 +139,7 @@ const M3Switch: React.FC<M3SwitchProps> = ({
           {/* Thumb */}
           <span
             aria-hidden="true"
-            className="_m3sw-thumb" // eslint-disable-line design-system/no-classname -- animation target class for CSS @keyframes, not a style class
+            className="_m3sw-thumb"
             style={{
               position: 'absolute',
               left: 'var(--md-sys-spacing-1)',

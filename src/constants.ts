@@ -198,7 +198,6 @@ export const DEFAULT_TIMETABLE_SETTINGS: TimetableSettings = {
     securityPin: '0000',
 };
 
-/* eslint-disable design-system/no-hardcoded-colors */
 
 /**
  * DESIGN SYSTEM EXCEPTION: Theme Customization Palettes
@@ -231,7 +230,6 @@ export const THEME_CUSTOMIZATIONS: ThemeCustomization[] = [
     { name: 'Workspace', colors: { primary: '#EA4335', secondary: '#4285F4', tertiary: '#34A853' } },
 ];
 
-/* eslint-enable design-system/no-hardcoded-colors */
 
 export const WELCOME_MESSAGES = [
     "Bentornato nel tuo spazio didattico.",

@@ -154,7 +154,7 @@ const M3SpeedDial: React.FC<M3SpeedDialProps> = ({
                 {/* Tooltip label */}
                 <span
                   aria-hidden="true"
-                  className="_m3sd-item" // eslint-disable-line design-system/no-classname -- animation target class for CSS @keyframes
+                  className="_m3sd-item"
                   style={{
                     fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
                     fontSize: 'var(--md-sys-typescale-label-large-font-size)',
@@ -178,7 +178,7 @@ const M3SpeedDial: React.FC<M3SpeedDialProps> = ({
                 {/* Mini FAB */}
                 <button
                   aria-label={action['aria-label'] ?? action.label}
-                  className="_m3sd-item" // eslint-disable-line design-system/no-classname -- animation target class, not a style class
+                  className="_m3sd-item"
                   onClick={() => { action.onClick(); setOpen(false); }}
                   style={{
                     display: 'flex',

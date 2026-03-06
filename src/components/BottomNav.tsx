@@ -1,4 +1,3 @@
-/* eslint-disable design-system/no-classname -- Material Symbols icon classes + bottom-nav-* classes required for @media breakpoint and :focus-visible descendant selector (CSS custom properties cannot be used in @media queries — documented exception per MD3 contract §9) */
 // MD3 Gold Compliant
 // Active indicator: animated pill (scale + opacity) using spring expressive tokens.
 // MD3 spec: pill 64×32dp, corner-full, secondary-container color.

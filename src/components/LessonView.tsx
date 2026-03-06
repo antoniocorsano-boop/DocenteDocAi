@@ -1,4 +1,3 @@
-﻿/* eslint-disable design-system/no-classname -- Material Symbols icons require className */
 // MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
@@ -63,7 +62,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         viewPdfInNewTab(pdfBlob);
     } catch (error) {
         console.error("Failed to generate lesson PDF:", error);
-        alert("Si Ã¨ verificato un errore durante la generazione del PDF.");
+        alert("Si è verificato un errore durante la generazione del PDF.");
     } finally {
         setIsExporting(false);
     }
@@ -80,7 +79,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         viewPdfInNewTab(pdfBlob);
     } catch (error) {
         console.error("Failed to generate homework PDF:", error);
-        alert("Si Ã¨ verificato un errore durante la generazione della scheda compiti.");
+        alert("Si è verificato un errore durante la generazione della scheda compiti.");
     } finally {
         setIsExporting(false);
     }
@@ -98,11 +97,11 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
       if (lesson.unitaDiApprendimento) html += `<p><strong>UDA:</strong> ${lesson.unitaDiApprendimento}</p>`;
       
       html += `<h2>Obiettivi</h2><p>${safeObjectives || 'Nessun obiettivo specificato.'}</p>`;
-      html += `<h2>Contenuti e Attività</h2><p>${safeContext || ''}</p>`;
+      html += `<h2>Contenuti e Attivit�</h2><p>${safeContext || ''}</p>`;
       html += `<h2>Compiti</h2><p>${safeHomework || 'Nessun compito assegnato.'}</p>`;
       
       if (lesson.adattamenti) {
-          html += `<h2>Adattamenti (Inclusività)</h2><p>${safeAdaptations}</p>`;
+          html += `<h2>Adattamenti (Inclusivit�)</h2><p>${safeAdaptations}</p>`;
       }
 
       const blob = await generateHtmlDocxBlob(html, lesson.contenuto);
@@ -234,8 +233,6 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                         ))}
                     </div>
                 </div>
-
-                {/* eslint-disable-next-line design-system/no-hardcoded-layout-values -- mixed fr/px grid requires literal values */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 'var(--md-sys-spacing-6)', alignItems: 'start' }}>
                     {/* LEFT COLUMN */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)' }}>
@@ -248,7 +245,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                     </div>
                                     <div style={{ flex: 1 }}>
                                         <p style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', color: 'var(--md-sys-color-on-secondary-container)' }}>Assistente Pedagogico</p>
-                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-secondary-container)', opacity: 'var(--md-sys-state-opacity-caption)' }}>Analizza inclusività e coinvolgimento</p>
+                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-secondary-container)', opacity: 'var(--md-sys-state-opacity-caption)' }}>Analizza inclusivit� e coinvolgimento</p>
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
@@ -256,7 +253,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                         onClick={handleEnrichLesson}
                                         disabled={isEnriching}
                                         variant="tonal"
-                                        title="Arricchisci con curiositÃ  e spunti AI"
+                                        title="Arricchisci con curiosità e spunti AI"
                                     >
                                         {isEnriching ? <AiThinkingGem size="small" inline text="" /> : (
                                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
@@ -372,7 +369,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
 
                         {/* Inclusion */}
                         <InfoCard 
-                            title="InclusivitÃ  (BES/DSA)" 
+                            title="Inclusività (BES/DSA)" 
                             icon="diversity_3" 
                             variant={lesson.adattamenti ? 'tertiary' : 'surface'}
                         >
@@ -438,7 +435,6 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
           <M3DialogContent>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-medium-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{previewingMaterial.fileName}</h3>
-                    {/* eslint-disable-next-line design-system/enforce-token-usage, design-system/no-hardcoded-layout-values, design-system/no-hardcoded-viewport-units */}
                     <div style={{ borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-surface-container)', padding: 'var(--md-sys-spacing-4)', maxHeight: 'var(--md-sys-viewport-60vh)', overflowY: 'auto' }}>
                         <pre style={{ margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-word', fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface)', fontFamily: 'monospace' }}>{sanitizeHTML(previewingMaterial.content)}</pre>
                     </div>
@@ -464,7 +460,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
             result={analysisResult} 
             onClose={() => setAnalysisResult(null)} 
             title={lesson.contenuto}
-            contextLabel={`Analisi ${lesson.materia} ${lesson.classe} â€¢ ${settings?.schoolType || ''}`}
+            contextLabel={`Analisi ${lesson.materia} ${lesson.classe} • ${settings?.schoolType || ''}`}
           />
       )}
     </>

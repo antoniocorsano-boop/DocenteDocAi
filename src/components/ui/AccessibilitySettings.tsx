@@ -3,11 +3,11 @@
 // Audit: febbraio 2026
 
 import React from 'react';
-import { useTheme } from '../../contexts/ThemeContext';
+import { useAppTheme } from '../../contexts/ThemeContext';
 import { M3Typography, M3Surface } from './index';
 
 export const AccessibilitySettings: React.FC = () => {
-  const { contrast, setContrast, reducedMotion, setReducedMotion } = useTheme();
+  const { contrast, setContrast, reducedMotion, setReducedMotion } = useAppTheme();
 
   return (
     <M3Surface

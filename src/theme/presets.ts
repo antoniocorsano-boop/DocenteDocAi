@@ -1,8 +1,0 @@
-﻿// MD3 Expressive Emotional Presets
-// All presets use only existing sys.colors and ref tokens
-// No invented tokens or layers
-
-// Note: Preset definitions have been moved to EmotionalPresetsManager.tsx
-// This file is kept for future reference or if presets need to be shared
-
-export {};

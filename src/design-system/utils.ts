@@ -1,6 +1,5 @@
 import { Theme, ColorTokens } from '../types'; // FIX: Updated import path to types
 
-/* eslint-disable design-system/no-hardcoded-colors */
 
 /**
  * DESIGN SYSTEM EXCEPTION: Base Color Token Definitions
