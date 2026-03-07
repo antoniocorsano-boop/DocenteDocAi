@@ -3,7 +3,7 @@
 // Audit: febbraio 2026
 
 import React from 'react';
-import { M3Card, M3Typography } from './index';
+import { Card, Typography } from '@mui/material';
 
 interface ActionCardProps {
   icon: string;
@@ -40,9 +40,10 @@ export const ActionCard: React.FC<ActionCardProps> = ({
   const config = variantConfig[variant];
 
   return (
-    <M3Card
+    <Card
       onClick={disabled ? undefined : onClick}
-      style={{
+      elevation={1}
+      sx={{
         padding: 'var(--md-sys-spacing-4)',
         cursor: disabled ? 'not-allowed' : 'pointer',
         transition: 'all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)',
@@ -51,7 +52,9 @@ export const ActionCard: React.FC<ActionCardProps> = ({
         display: 'flex',
         flexDirection: 'column',
         gap: 'var(--md-sys-spacing-3)',
-        minHeight: 'var(--md-sys-spacing-14)'
+        minHeight: 'var(--md-sys-spacing-14)',
+        bgcolor: 'var(--md-sys-color-surface-container-low)',
+        borderRadius: 'var(--md-sys-shape-corner-large)',
       }}
       onMouseEnter={(e) => {
         if (!disabled) {
@@ -95,25 +98,25 @@ export const ActionCard: React.FC<ActionCardProps> = ({
 
       {/* Testo */}
       <div style={{ flex: 1 }}>
-        <M3Typography
-          variant="title-medium"
-          style={{
+        <Typography
+          variant="subtitle2"
+          sx={{
             color: 'var(--md-sys-color-on-surface)',
             fontWeight: 'var(--md-sys-typescale-weight-semibold)',
             marginBottom: 'var(--md-sys-spacing-1)'
           }}
         >
           {title}
-        </M3Typography>
-        <M3Typography
-          variant="body-small"
-          style={{
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{
             color: 'var(--md-sys-color-on-surface-variant)',
             lineHeight: '1.4'
           }}
         >
           {description}
-        </M3Typography>
+        </Typography>
       </div>
 
       {/* Indicatore freccia */}
@@ -130,7 +133,7 @@ export const ActionCard: React.FC<ActionCardProps> = ({
           arrow_forward
         </span>
       </div>
-    </M3Card>
+    </Card>
   );
 };
 

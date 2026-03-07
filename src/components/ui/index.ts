@@ -17,7 +17,6 @@ export { default as CategoryCard } from './CategoryCard';
 export { default as EmptyState } from './EmptyState';
 export { default as ManualSection } from './ManualSection';
 export { default as UseCaseCard } from './UseCaseCard';
-export { default as M3Card } from './M3Card';
 export { default as M3Dialog, M3DialogContent, M3DialogActions, M3ConfirmDialog } from './M3Dialog';
 export { default as M3BadgedIcon } from './M3BadgedIcon';
 export { default as M3Popover } from './M3Popover';
@@ -35,7 +34,6 @@ export { default as M3SuggestionItem } from './M3SuggestionItem';
 export { default as M3ActivityItem } from './M3ActivityItem';
 export { default as M3EmptyStateCard } from './M3EmptyStateCard';
 export { default as M3Typography } from './M3Typography';
-export { default as M3Chip } from './M3Chip';
 
 export { default as M3FlexContainer } from './M3FlexContainer';
 export { default as M3Aside } from './M3Aside';

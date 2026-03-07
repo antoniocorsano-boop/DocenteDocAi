@@ -3,7 +3,7 @@
 // Audit: febbraio 2026
 
 import React from 'react';
-import { M3Card, M3Surface, M3Typography } from './index';
+import { Card, Box, Typography } from '@mui/material';
 
 interface MetricCardProps {
   value: number | string;
@@ -43,19 +43,22 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   };
 
   return (
-    <M3Card
+    <Card
       onClick={onClick}
-      style={{
+      elevation={1}
+      sx={{
         padding: 'var(--md-sys-spacing-4)',
         flex: '1',
         minWidth: 'var(--md-sys-spacing-14)',
         cursor: onClick ? 'pointer' : 'default',
         transition: 'transform var(--md-sys-motion-duration-short4), box-shadow var(--md-sys-motion-duration-short4)',
-        border: `var(--md-sys-border-width-thin) solid ${containerColorMap[color]}`
+        border: `var(--md-sys-border-width-thin) solid ${containerColorMap[color]}`,
+        bgcolor: 'var(--md-sys-color-surface-container-low)',
+        borderRadius: 'var(--md-sys-shape-corner-large)',
       }}
     >
-      <M3Surface
-        style={{
+      <Box
+        sx={{
           display: 'flex',
           flexDirection: 'column',
           gap: 'var(--md-sys-spacing-2)',
@@ -79,9 +82,9 @@ export const MetricCard: React.FC<MetricCardProps> = ({
         )}
         
         {/* Valore principale */}
-        <M3Typography
-          variant="display-small"
-          style={{
+        <Typography
+          variant="h3"
+          sx={{
             color: colorMap[color],
             fontWeight: 'var(--md-sys-typescale-weight-bold)',
             fontSize: 'var(--md-sys-typescale-display-medium-font-size)',
@@ -89,12 +92,12 @@ export const MetricCard: React.FC<MetricCardProps> = ({
           }}
         >
           {value}
-        </M3Typography>
+        </Typography>
         
         {/* Label */}
-        <M3Typography
-          variant="label-large"
-          style={{
+        <Typography
+          variant="button"
+          sx={{
             color: 'var(--md-sys-color-on-surface)',
             textTransform: 'uppercase',
             letterSpacing: 'var(--md-sys-typescale-metric-label-tracking)',
@@ -102,12 +105,12 @@ export const MetricCard: React.FC<MetricCardProps> = ({
           }}
         >
           {label}
-        </M3Typography>
+        </Typography>
         
         {/* Trend opzionale */}
         {trend && trendValue && (
-          <M3Surface
-            style={{
+          <Box
+            sx={{
               display: 'flex',
               alignItems: 'center',
               gap: 'var(--md-sys-spacing-1)',
@@ -131,19 +134,19 @@ export const MetricCard: React.FC<MetricCardProps> = ({
             >
               {trend === 'up' ? 'trending_up' : trend === 'down' ? 'trending_down' : 'remove'}
             </span>
-            <M3Typography
-              variant="label-small"
-              style={{
+            <Typography
+              variant="caption"
+              sx={{
                 color: trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'inherit',
                 fontWeight: 'var(--md-sys-typescale-weight-semibold)'
               }}
             >
               {trendValue}
-            </M3Typography>
-          </M3Surface>
+            </Typography>
+          </Box>
         )}
-      </M3Surface>
-    </M3Card>
+      </Box>
+    </Card>
   );
 };
 
