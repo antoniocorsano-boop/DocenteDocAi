@@ -2,9 +2,64 @@ import React, { useState, useMemo } from 'react';
 import { Studente, Lezione, KnowledgeBaseEntry, HomeworkSubmission, RegisterEntry, TimetableSettings } from '../types';
 import { blobToBase64Parts, generateHomeworkPdf, viewPdfInNewTab } from '../utils/documentUtils';
 import { useFileDrop } from '../hooks/useFileDrop';
-import { TabGroup, SectionHeader, Avatar, M3ExpressiveCard as Card } from './ui';
-import { Button, Typography } from '@mui/material';
+import { TabGroup, SectionHeader, Avatar } from './ui';
+import { Button, Typography, Card as MuiCard, CardContent, Box } from '@mui/material';
 import PinPadModal from './PinPadModal';
+
+// Local Card component (MUI-native replacement for M3ExpressiveCard)
+const _cardTokens: Record<string, readonly [string, string]> = {
+    primary:        ['var(--md-sys-color-primary-container)',      'var(--md-sys-color-primary)'],
+    secondary:      ['var(--md-sys-color-secondary-container)',    'var(--md-sys-color-secondary)'],
+    tertiary:       ['var(--md-sys-color-tertiary-container)',     'var(--md-sys-color-tertiary)'],
+    surface:        ['var(--md-sys-color-surface-container-high)', 'var(--md-sys-color-primary)'],
+    surfaceVariant: ['var(--md-sys-color-surface-container-low)',  'var(--md-sys-color-secondary)'],
+};
+interface CardProps {
+    icon: string; title: string; description: string;
+    color?: string; onClick?: () => void;
+    children?: React.ReactNode; ariaLabel?: string; style?: React.CSSProperties;
+}
+const Card: React.FC<CardProps> = ({ icon, title, description, color = 'surface', onClick, children, ariaLabel, style }) => {
+    const tokens = _cardTokens[color];
+    const bg = tokens ? tokens[0] : color;
+    const accent = tokens ? tokens[1] : 'var(--md-sys-color-primary)';
+    const clickable = Boolean(onClick);
+    return (
+        <MuiCard
+            onClick={onClick}
+            role={clickable ? 'button' : undefined}
+            tabIndex={clickable ? 0 : undefined}
+            aria-label={ariaLabel ?? (clickable ? `${title}: ${description}` : undefined)}
+            onKeyDown={(e) => { if (clickable && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onClick?.(); } }}
+            style={style}
+            sx={{
+                backgroundColor: bg,
+                borderRadius: 'var(--md-sys-shape-corner-large)',
+                border: '1px solid var(--md-sys-color-outline-variant)',
+                cursor: clickable ? 'pointer' : 'default',
+                boxShadow: 'var(--md-sys-elevation-level1)',
+                transition: 'transform 500ms cubic-bezier(0.38,1.21,0.22,1.00), box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+                '&:hover': clickable ? { transform: 'scale(1.04)', boxShadow: 'var(--md-sys-elevation-level3)' } : {},
+            }}
+        >
+            <CardContent sx={{ p: 'var(--md-sys-spacing-8)', '&:last-child': { pb: 'var(--md-sys-spacing-8)' } }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+                    <Box sx={{ width: 40, height: 40, borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: accent, userSelect: 'none' }}>{icon}</span>
+                    </Box>
+                    {clickable && <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>arrow_forward</span>}
+                </Box>
+                <Typography variant="subtitle2">{title}</Typography>
+                <Typography variant="body2" sx={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{description}</Typography>
+                {children && (
+                    <Box sx={{ pt: 1, mt: 1, borderTop: '1px solid var(--md-sys-color-outline-variant)' }}>
+                        {children}
+                    </Box>
+                )}
+            </CardContent>
+        </MuiCard>
+    );
+};
 
 interface StudentClassroomViewProps {
     student: Studente;
