@@ -1,9 +1,6 @@
 import React from 'react';
 import { NKANode } from './types';
-import { M3Typography } from '../components/ui/M3Typography';
-import { M3Surface } from '../components/ui/M3Surface';
-import { M3Button } from '../components/ui/M3Button';
-import { M3Skeleton } from '../components/ui/M3Skeleton';
+import { Paper, Typography, Button, Skeleton, Box } from '@mui/material';
 
 interface NKANodeCardProps {
   node?: NKANode;
@@ -16,10 +13,13 @@ interface NKANodeCardProps {
 function NKANodeCard({ node, onSelect, loading = false, error }: NKANodeCardProps): React.JSX.Element {
   if (loading) {
     return (
-      <M3Surface
-        variant="container"
-        elevation={1}
-        style={{
+      <Paper
+        elevation={0}
+        role="status"
+        aria-label="Caricamento nodo NKA in corso"
+        sx={{
+          bgcolor: 'var(--md-sys-color-surface)',
+          color: 'var(--md-sys-color-on-surface)',
           borderRadius: 'var(--md-sys-shape-corner-large)',
           padding: 'var(--md-sys-spacing-4)',
           marginBottom: 'var(--md-sys-spacing-4)',
@@ -28,25 +28,26 @@ function NKANodeCard({ node, onSelect, loading = false, error }: NKANodeCardProp
           flexDirection: 'column',
           gap: 'var(--md-sys-spacing-2)',
         }}
-        role="status"
-        aria-label="Caricamento nodo NKA in corso"
       >
-        <M3Skeleton variant="text" width="80%" height="24px" />
-        <M3Skeleton variant="text" width="60%" height="16px" />
-        <M3Surface style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-2)' }}>
-          <M3Skeleton variant="rectangular" width="80px" height="32px" />
-          <M3Skeleton variant="rectangular" width="80px" height="32px" />
-        </M3Surface>
-      </M3Surface>
+        <Skeleton variant="text" width="80%" height="24px" />
+        <Skeleton variant="text" width="60%" height="16px" />
+        <Box sx={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-2)' }}>
+          <Skeleton variant="rectangular" width="80px" height="32px" />
+          <Skeleton variant="rectangular" width="80px" height="32px" />
+        </Box>
+      </Paper>
     );
   }
 
   if (error) {
     return (
-      <M3Surface
-        variant="container"
-        elevation={1}
-        style={{
+      <Paper
+        elevation={0}
+        role="alert"
+        aria-label={`Errore nel caricamento del nodo: ${error}`}
+        sx={{
+          bgcolor: 'var(--md-sys-color-surface)',
+          color: 'var(--md-sys-color-on-surface)',
           borderRadius: 'var(--md-sys-shape-corner-large)',
           padding: 'var(--md-sys-spacing-4)',
           marginBottom: 'var(--md-sys-spacing-4)',
@@ -56,25 +57,26 @@ function NKANodeCard({ node, onSelect, loading = false, error }: NKANodeCardProp
           gap: 'var(--md-sys-spacing-2)',
           alignItems: 'center',
         }}
-        role="alert"
-        aria-label={`Errore nel caricamento del nodo: ${error}`}
       >
-        <M3Typography variant="title-medium" color="error">
+        <Typography variant="subtitle2" sx={{ color: 'error.main' }}>
           Errore
-        </M3Typography>
-        <M3Typography variant="body-small" color="error" style={{ textAlign: 'center' }}>
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'error.main', textAlign: 'center' }}>
           {error}
-        </M3Typography>
-      </M3Surface>
+        </Typography>
+      </Paper>
     );
   }
 
   if (!node) {
     return (
-      <M3Surface
-        variant="container"
-        elevation={1}
-        style={{
+      <Paper
+        elevation={0}
+        role="status"
+        aria-label="Nessun nodo NKA disponibile"
+        sx={{
+          bgcolor: 'var(--md-sys-color-surface)',
+          color: 'var(--md-sys-color-on-surface)',
           borderRadius: 'var(--md-sys-shape-corner-large)',
           padding: 'var(--md-sys-spacing-6)',
           marginBottom: 'var(--md-sys-spacing-4)',
@@ -84,35 +86,20 @@ function NKANodeCard({ node, onSelect, loading = false, error }: NKANodeCardProp
           gap: 'var(--md-sys-spacing-2)',
           alignItems: 'center',
         }}
-        role="status"
-        aria-label="Nessun nodo NKA disponibile"
       >
-        <M3Typography variant="title-medium" color="on-surface-variant">
+        <Typography variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
           Nessun nodo disponibile
-        </M3Typography>
-        <M3Typography variant="body-small" color="on-surface-variant" style={{ textAlign: 'center' }}>
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: 'center' }}>
           Non ci sono nodi NKA da visualizzare
-        </M3Typography>
-      </M3Surface>
+        </Typography>
+      </Paper>
     );
   }
 
   return (
-    <M3Surface
-      variant="container"
-      elevation={1}
-      interactive
-      style={{
-        borderRadius: 'var(--md-sys-shape-corner-large)',
-        padding: 'var(--md-sys-spacing-4)',
-        marginBottom: 'var(--md-sys-spacing-4)',
-        minWidth: 220,
-        outline: 'none',
-        cursor: 'pointer',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 'var(--md-sys-spacing-2)',
-      }}
+    <Paper
+      elevation={0}
       tabIndex={0}
       role="button"
       aria-label={`Nodo NKA: ${node.label}, profondità ${Math.round(node.depth * 100)}%`}
@@ -124,34 +111,47 @@ function NKANodeCard({ node, onSelect, loading = false, error }: NKANodeCardProp
           e.preventDefault();
         }
       }}
+      sx={{
+        bgcolor: 'var(--md-sys-color-surface)',
+        color: 'var(--md-sys-color-on-surface)',
+        borderRadius: 'var(--md-sys-shape-corner-large)',
+        padding: 'var(--md-sys-spacing-4)',
+        marginBottom: 'var(--md-sys-spacing-4)',
+        minWidth: 220,
+        outline: 'none',
+        cursor: 'pointer',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 'var(--md-sys-spacing-2)',
+      }}
     >
-      <M3Typography variant="title-medium" color="on-surface">
+      <Typography variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-surface)' }}>
         {node.label}
-      </M3Typography>
-      
-      <M3Typography 
-        variant="body-small" 
-        color="on-surface-variant" 
+      </Typography>
+
+      <Typography
+        variant="body2"
         id={`nka-node-details-${node.id}`}
+        sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
       >
         Profondità {Math.round(node.depth * 100)}%
-      </M3Typography>
+      </Typography>
 
       {node.actions && node.actions.length > 0 && (
-        <M3Surface 
-          style={{ 
-            display: 'flex', 
-            gap: 'var(--md-sys-spacing-2)', 
-            marginTop: 'var(--md-sys-spacing-2)',
-            flexWrap: 'wrap'
-          }}
+        <Box
           role="group"
           aria-label="Azioni disponibili per il nodo"
+          sx={{
+            display: 'flex',
+            gap: 'var(--md-sys-spacing-2)',
+            marginTop: 'var(--md-sys-spacing-2)',
+            flexWrap: 'wrap',
+          }}
         >
-          {node.actions.map((action: string, index: number) => (
-            <M3Button
+          {node.actions.map((action: string) => (
+            <Button
               key={action}
-              variant="filled"
+              variant="contained"
               size="small"
               tabIndex={0}
               aria-label={`Azione: ${action}`}
@@ -160,11 +160,11 @@ function NKANodeCard({ node, onSelect, loading = false, error }: NKANodeCardProp
               }}
             >
               {action}
-            </M3Button>
+            </Button>
           ))}
-        </M3Surface>
+        </Box>
       )}
-    </M3Surface>
+    </Paper>
   );
 }
 

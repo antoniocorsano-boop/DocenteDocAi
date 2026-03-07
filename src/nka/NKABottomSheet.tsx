@@ -14,8 +14,6 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Skeleton from '@mui/material/Skeleton';
 import Icon from '@mui/material/Icon';
-import { M3EmptyState } from '../components/ui/M3EmptyState';
-import { M3ErrorState } from '../components/ui/M3ErrorState';
 
 interface NKABottomSheetProps {
   open: boolean;
@@ -107,11 +105,20 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
           }}
         >
           {nodes.length === 0 ? (
-            <M3EmptyState
-              title="Nessun nodo disponibile"
-              description="Non ci sono nodi nella mappa neurale"
-              icon="psychology"
-            />
+            <Box
+              role="status"
+              aria-label="Nessun nodo disponibile"
+              sx={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center',
+                justifyContent: 'center', gap: 'var(--md-sys-spacing-4)',
+                padding: 'var(--md-sys-spacing-8)', textAlign: 'center',
+                color: 'var(--md-sys-color-on-surface-variant)',
+              }}
+            >
+              <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-outline)' }}>psychology</span>
+              <Typography variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-surface)', m: 0 }}>Nessun nodo disponibile</Typography>
+              <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', m: 0 }}>Non ci sono nodi nella mappa neurale</Typography>
+            </Box>
           ) : (
             <>
               <NKAForceMap 
@@ -195,18 +202,41 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
               <Skeleton sx={{ height: '16px', width: '80%' }} />
             </Box>
           ) : wizardError ? (
-            <M3ErrorState
-              title="Errore nel wizard"
-              description={wizardError}
-              onRetry={() => handleNodeSelect(selectedNode)}
-              showRetry
-            />
+            <Box
+              role="alert"
+              aria-label="Errore nel wizard"
+              sx={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center',
+                justifyContent: 'center', gap: 'var(--md-sys-spacing-4)',
+                padding: 'var(--md-sys-spacing-8)', textAlign: 'center',
+                bgcolor: 'var(--md-sys-color-error-container)',
+                color: 'var(--md-sys-color-on-error-container)',
+                borderRadius: 'var(--md-sys-shape-corner-large)',
+              }}
+            >
+              <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-xl)', color: 'var(--md-sys-color-error)' }}>error</span>
+              <Typography variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-error-container)', m: 0 }}>Errore nel wizard</Typography>
+              <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-error-container)', m: 0 }}>{wizardError}</Typography>
+              <Button variant="contained" color="secondary" onClick={() => handleNodeSelect(selectedNode)}>
+                <span className="material-symbols-outlined" aria-hidden="true">refresh</span>
+                Riprova
+              </Button>
+            </Box>
           ) : wizardSteps.length === 0 ? (
-            <M3EmptyState
-              title="Wizard non disponibile"
-              description="Non è stato possibile generare passi per questo nodo"
-              icon="auto_fix_high"
-            />
+            <Box
+              role="status"
+              aria-label="Wizard non disponibile"
+              sx={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center',
+                justifyContent: 'center', gap: 'var(--md-sys-spacing-4)',
+                padding: 'var(--md-sys-spacing-8)', textAlign: 'center',
+                color: 'var(--md-sys-color-on-surface-variant)',
+              }}
+            >
+              <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-outline)' }}>auto_fix_high</span>
+              <Typography variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-surface)', m: 0 }}>Wizard non disponibile</Typography>
+              <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', m: 0 }}>Non è stato possibile generare passi per questo nodo</Typography>
+            </Box>
           ) : (
             <Box 
               role="list"

@@ -19,8 +19,6 @@ export { default as ManualSection } from './ManualSection';
 export { default as UseCaseCard } from './UseCaseCard';
 export { default as M3Card } from './M3Card';
 export { default as M3Dialog, M3DialogContent, M3DialogActions, M3ConfirmDialog } from './M3Dialog';
-export { default as M3ListItem } from './M3ListItem';
-
 export { default as M3BadgedIcon } from './M3BadgedIcon';
 export { default as M3Popover } from './M3Popover';
 // M3Menu rimosso dal barrel export — @deprecated, 0 consumer di produzione (Fase 5: eliminazione)
