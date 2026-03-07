@@ -4,7 +4,7 @@ exports[`UseCaseCard Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
     aria-label="DocenteDoc AI Application"
-    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-g3p503-MuiPaper-root"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-1p2xf3b-MuiPaper-root"
     role="application"
     style="--Paper-shadow: none;"
   >
@@ -24,13 +24,13 @@ exports[`UseCaseCard Story Snapshots > renders default story correctly 1`] = `
           </span>
         </div>
         <p
-          class="MuiTypography-root MuiTypography-button css-zend0d-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-button css-16bnig1-MuiTypography-root"
         >
           Scenario
         </p>
       </div>
       <p
-        class="MuiTypography-root MuiTypography-body1 css-5r0xii-MuiTypography-root"
+        class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
       >
         "
         Test
@@ -48,7 +48,7 @@ exports[`UseCaseCard Story Snapshots > renders default story correctly 1`] = `
             1
           </span>
           <p
-            class="MuiTypography-root MuiTypography-body2 css-1c38htl-MuiTypography-root"
+            class="MuiTypography-root MuiTypography-body2 css-1wfgid7-MuiTypography-root"
           >
             Step 1
           </p>

@@ -4,7 +4,7 @@ exports[`ThinkingIndicator Story Snapshots > renders default story correctly 1`]
 <div>
   <div
     aria-label="DocenteDoc AI Application"
-    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-g3p503-MuiPaper-root"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-1p2xf3b-MuiPaper-root"
     role="application"
     style="--Paper-shadow: none;"
   >

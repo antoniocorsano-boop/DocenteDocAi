@@ -4,7 +4,7 @@ exports[`ActionTile Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
     aria-label="DocenteDoc AI Application"
-    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-g3p503-MuiPaper-root"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-1p2xf3b-MuiPaper-root"
     role="application"
     style="--Paper-shadow: none;"
   >
@@ -24,13 +24,13 @@ exports[`ActionTile Story Snapshots > renders default story correctly 1`] = `
       <div
         style="flex-grow: 1; min-width: 0; overflow: hidden; display: flex; flex-direction: column; gap: var(--md-sys-spacing-2);"
       >
-        <h5
-          class="MuiTypography-root MuiTypography-subtitle2 css-1mremrm-MuiTypography-root"
+        <h6
+          class="MuiTypography-root MuiTypography-subtitle2 css-12g7ski-MuiTypography-root"
         >
           Test Action
-        </h5>
+        </h6>
         <span
-          class="MuiTypography-root MuiTypography-caption css-1tr49zh-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-caption css-8sgvla-MuiTypography-root"
         >
           Test subtitle
         </span>
