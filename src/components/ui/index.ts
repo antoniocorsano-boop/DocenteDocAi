@@ -1,5 +1,4 @@
 // MD3 Expressive UI component library
-export { default as M3SurfaceCard } from './M3SurfaceCard';
 export { default as M3Surface } from './M3Surface';
 export { default as M3ExpressiveCard } from './M3ExpressiveCard';
 export { default as TextField } from './TextField';
@@ -17,7 +16,6 @@ export { default as EmptyState } from './EmptyState';
 export { default as ManualSection } from './ManualSection';
 export { default as UseCaseCard } from './UseCaseCard';
 export { default as M3Dialog, M3DialogContent, M3DialogActions, M3ConfirmDialog } from './M3Dialog';
-export { default as M3BadgedIcon } from './M3BadgedIcon';
 export { default as M3Popover } from './M3Popover';
 // M3Menu rimosso dal barrel export — @deprecated, 0 consumer di produzione (Fase 5: eliminazione)
 export { default as DocumentSkeleton } from './DocumentSkeleton';
@@ -27,15 +25,8 @@ export { default as QuizSkeleton } from './QuizSkeleton';
 export { default as Avatar } from './Avatar';
 export { default as AiThinkingGem } from './AiThinkingGem';
 export { default as ThinkingIndicator } from './ThinkingIndicator';
-export { default as M3HeroCard } from './M3HeroCard';
-export { default as M3SuggestionCard } from './M3SuggestionCard';
-export { default as M3SuggestionItem } from './M3SuggestionItem';
-export { default as M3ActivityItem } from './M3ActivityItem';
-export { default as M3EmptyStateCard } from './M3EmptyStateCard';
 export { default as M3Typography } from './M3Typography';
 
-export { default as M3FlexContainer } from './M3FlexContainer';
-export { default as M3Aside } from './M3Aside';
 export { LoadingState } from './LoadingState';
 export { Skeleton, SkeletonList } from './Skeleton';
 export { MetricCard } from './MetricCard';
@@ -44,7 +35,6 @@ export { ActionCard } from './ActionCard';
 export { Tooltip } from './Tooltip';
 export { PageTransition } from './PageTransition';
 export type { PageTransitionVariant } from './PageTransition';
-export { M3StateLayer } from './M3StateLayer';
 export { ValidatedInput } from './ValidatedInput';
 export { ProgressIndicator } from './ProgressIndicator';
 export { AnimatedCheckbox } from './AnimatedCheckbox';
@@ -57,11 +47,4 @@ export { FAB, FABSpeedDial } from './FAB';
 export { ThemeToggle } from './ThemeToggle';
 export { AccessibilitySettings } from './AccessibilitySettings';
 
-export { default as M3BannerHero } from './M3BannerHero';
-export type { M3BannerHeroProps } from './M3BannerHero';
-export { default as M3Switch } from './M3Switch';
-export type { M3SwitchProps } from './M3Switch';
-export { default as M3MotionCard } from './M3MotionCard';
-export type { M3MotionCardProps } from './M3MotionCard';
-export { default as M3SpeedDial } from './M3SpeedDial';
-export type { M3SpeedDialProps, M3SpeedDialAction } from './M3SpeedDial';
+
