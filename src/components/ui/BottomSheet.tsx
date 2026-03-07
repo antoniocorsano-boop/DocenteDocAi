@@ -3,7 +3,7 @@
 // Audit: febbraio 2026
 
 import React, { useEffect, useState, useRef } from 'react';
-import { M3Typography } from './index';
+import { Typography } from '@mui/material';
 
 interface BottomSheetProps {
   isOpen: boolean;
@@ -186,16 +186,16 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
               borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
             }}
           >
-            <M3Typography
+            <Typography
               id="bottom-sheet-title"
-              variant="title-large"
-              style={{
+              variant="subtitle1"
+              sx={{
                 color: 'var(--md-sys-color-on-surface)',
                 fontWeight: 'var(--md-sys-typescale-weight-semibold)'
               }}
             >
               {title}
-            </M3Typography>
+            </Typography>
           </div>
         )}
 

@@ -3,7 +3,7 @@
 // Audit: febbraio 2026
 
 import React, { useState } from 'react';
-import { M3Typography } from './index';
+import { Typography } from '@mui/material';
 
 interface ValidatedInputProps {
   label: string;
@@ -78,9 +78,9 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
     <div style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>
       {/* Label */}
       <label>
-        <M3Typography
-          variant="label-medium"
-          style={{
+        <Typography
+          variant="caption"
+          sx={{
             color: hasError
               ? 'var(--md-sys-color-error)'
               : isFocused
@@ -94,7 +94,7 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
         >
           {label}
           {required && <span style={{ color: 'var(--md-sys-color-error)' }}> *</span>}
-        </M3Typography>
+        </Typography>
 
         {/* Input container */}
         <div style={{ position: 'relative' }}>
@@ -163,9 +163,9 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
           alignItems: 'center'
         }}
       >
-        <M3Typography
-          variant="body-small"
-          style={{
+        <Typography
+          variant="body2"
+          sx={{
             color: hasError 
               ? 'var(--md-sys-color-error)' 
               : 'var(--md-sys-color-on-surface-variant)',
@@ -186,12 +186,12 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
             </span>
           )}
           {hasError ? error : helperText}
-        </M3Typography>
+        </Typography>
 
         {showCharCount && maxLength && (
-          <M3Typography
-            variant="body-small"
-            style={{
+          <Typography
+            variant="body2"
+            sx={{
               color: value.length >= maxLength 
                 ? 'var(--md-sys-color-error)' 
                 : 'var(--md-sys-color-on-surface-variant)',
@@ -199,7 +199,7 @@ export const ValidatedInput: React.FC<ValidatedInputProps> = ({
             }}
           >
             {value.length}/{maxLength}
-          </M3Typography>
+          </Typography>
         )}
       </div>
     </div>

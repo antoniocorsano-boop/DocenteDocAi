@@ -3,7 +3,7 @@
 // Audit: febbraio 2026
 
 import React, { useState } from 'react';
-import { M3Surface, M3Typography } from './index';
+import { Paper, Typography } from '@mui/material';
 
 interface CalendarEventCardProps {
   title: string;
@@ -117,15 +117,16 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
   }
 
   return (
-    <M3Surface
+    <Paper
+      elevation={0}
       onClick={onClick}
       onKeyDown={handleKeyDown}
       role="button"
       tabIndex={0}
       aria-label={ariaLabel}
-      style={{
+      sx={{
         padding: 'var(--md-sys-spacing-3)',
-        background: config.bg,
+        bgcolor: config.bg,
         borderRadius: 'var(--md-sys-spacing-2)',
         borderLeft: `var(--md-sys-border-width-thick) solid ${config.borderColor}`,
         cursor: 'pointer',
@@ -143,7 +144,7 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
         e.currentTarget.style.transform = 'translateY(0)';
         e.currentTarget.style.boxShadow = 'none';
       }}
-      onFocus={() => setIsFocused(true)} // M3Surface potrebbe non esporre onFocus direttamente nell'interfaccia, ma lo passa al div
+      onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
     >
       {/* Icona tipo */}
@@ -162,9 +163,9 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
       {/* Contenuto */}
       <div style={{ flex: 1, minWidth: 0 }}>
         {time && (
-          <M3Typography
-            variant="label-small"
-            style={{
+          <Typography
+            variant="caption"
+            sx={{
               color: config.color,
               fontWeight: 'var(--md-sys-typescale-weight-semibold)',
               textTransform: 'uppercase',
@@ -173,11 +174,11 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
             }}
           >
             {time}
-          </M3Typography>
+          </Typography>
         )}
-        <M3Typography
-          variant="body-medium"
-          style={{
+        <Typography
+          variant="body2"
+          sx={{
             color: config.color,
             fontWeight: 'var(--md-sys-typescale-weight-semibold)',
             overflow: 'hidden',
@@ -186,7 +187,7 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
           }}
         >
           {title}
-        </M3Typography>
+        </Typography>
       </div>
 
       {/* Freccia indicatore */}
@@ -201,7 +202,7 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
       >
         arrow_forward_ios
       </span>
-    </M3Surface>
+    </Paper>
   );
 };
 

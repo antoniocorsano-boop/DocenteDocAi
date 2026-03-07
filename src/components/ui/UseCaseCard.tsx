@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { sanitizeHtml } from '../../utils/htmlSanitizer';
-import M3Typography from './M3Typography';
+import { Typography } from '@mui/material';
 
 interface UseCaseCardProps {
     scenario: string;
@@ -36,13 +36,13 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                 }}>
                     <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>lightbulb</span>
                 </div>
-                <M3Typography variant="label-large" as="p" style={{
+                <Typography variant="button" component="p" sx={{
                     color: 'var(--md-sys-color-primary)',
                     textTransform: "uppercase",
                     opacity: "var(--md-sys-state-opacity-supporting)"
-                }}>Scenario</M3Typography>
+                }}>Scenario</Typography>
             </div>
-            <M3Typography variant="body-large" as="p">"{scenario}"</M3Typography>
+            <Typography variant="body1" component="p">"{scenario}"</Typography>
             <ol style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
                 {steps.map((step, i) => (
                     <li key={i} style={{
@@ -63,10 +63,10 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                             flexShrink: "0",
                             transition: `color var(--md-sys-motion-duration-medium)`
                         }}>{i + 1}</span>
-                        <M3Typography variant="body-medium" as="p" style={{
+                        <Typography variant="body2" component="p" sx={{
                             color: 'var(--md-sys-color-outline)',
                             lineHeight: 'var(--md-sys-typescale-body-large-line-height)'
-                        }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(step) }}></M3Typography>
+                        }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(step) }}></Typography>
                     </li>
                 ))}
             </ol>
@@ -83,10 +83,10 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                     <span className="material-symbols-outlined" style={{
                         color: 'var(--md-sys-color-primary)'
                     }}>tips_and_updates</span>
-                    <M3Typography variant="body-medium" as="span" style={{
+                    <Typography variant="body2" component="span" sx={{
                         color: 'var(--md-sys-color-outline)',
                         opacity: "var(--md-sys-state-opacity-caption)"
-                    }}>{tip}</M3Typography>
+                    }}>{tip}</Typography>
                 </div>
             )}
         </div>
