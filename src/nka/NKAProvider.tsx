@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { createContext, useContext, useMemo } from 'react';
 import { useNKAStore } from './useNKAStore';
-import M3Surface from '../components/ui/M3Surface';
-import { M3Typography } from '../components/ui/M3Typography';
 
 export interface NKAProviderProps {
   children: React.ReactNode;

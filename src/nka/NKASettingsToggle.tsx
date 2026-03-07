@@ -1,7 +1,6 @@
 import React from 'react';
+import { Paper, Typography } from '@mui/material';
 import { useNKAStore } from './useNKAStore';
-import { M3Typography } from '../components/ui/M3Typography';
-import M3Surface from '../components/ui/M3Surface';
 
 const NKASettingsToggle: React.FC = () => {
   const enabled = useNKAStore((s) => s.enabled);
@@ -10,9 +9,9 @@ const NKASettingsToggle: React.FC = () => {
   const setSettings = useNKAStore((s) => s.setSettings);
 
   return (
-    <M3Surface
-      level={1}
-      style={{
+    <Paper
+      elevation={0}
+      sx={{
         padding: 'var(--md-sys-spacing-4)',
         maxWidth: 420,
         borderRadius: 'var(--md-sys-shape-corner-medium)',
@@ -27,13 +26,13 @@ const NKASettingsToggle: React.FC = () => {
           gap: 'var(--md-sys-spacing-4)',
         }}
       >
-        <M3Typography
+        <Typography
           id="nka-settings-title"
-          variant="title-medium"
-          style={{ marginBottom: 'var(--md-sys-spacing-2)' }}
+          variant="subtitle2"
+          sx={{ marginBottom: 'var(--md-sys-spacing-2)' }}
         >
           Impostazioni Neural Knowledge Aura
-        </M3Typography>
+        </Typography>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
           <label style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-3)', cursor: 'pointer' }}>
@@ -45,17 +44,16 @@ const NKASettingsToggle: React.FC = () => {
               aria-describedby="nka-toggle-desc"
             />
             <div>
-              <M3Typography variant="body-large">
+              <Typography variant="body1">
                 Neural Knowledge Aura
-              </M3Typography>
-              <M3Typography
+              </Typography>
+              <Typography
                 id="nka-toggle-desc"
-                variant="body-small"
-                color="var(--md-sys-color-on-surface-variant)"
-                style={{ display: 'block', marginTop: 'var(--md-sys-spacing-1)' }}
+                variant="body2"
+                sx={{ color: 'var(--md-sys-color-on-surface-variant)', display: 'block', marginTop: 'var(--md-sys-spacing-1)' }}
               >
                 Attiva l'aura neurale nell'header
-              </M3Typography>
+              </Typography>
             </div>
           </label>
 
@@ -68,17 +66,16 @@ const NKASettingsToggle: React.FC = () => {
               aria-describedby="nka-sound-desc"
             />
             <div>
-              <M3Typography variant="body-large">
+              <Typography variant="body1">
                 Suoni NKA
-              </M3Typography>
-              <M3Typography
+              </Typography>
+              <Typography
                 id="nka-sound-desc"
-                variant="body-small"
-                color="var(--md-sys-color-on-surface-variant)"
-                style={{ display: 'block', marginTop: 'var(--md-sys-spacing-1)' }}
+                variant="body2"
+                sx={{ color: 'var(--md-sys-color-on-surface-variant)', display: 'block', marginTop: 'var(--md-sys-spacing-1)' }}
               >
                 Abilita feedback sonori
-              </M3Typography>
+              </Typography>
             </div>
           </label>
 
@@ -91,22 +88,21 @@ const NKASettingsToggle: React.FC = () => {
               aria-describedby="nka-motion-desc"
             />
             <div>
-              <M3Typography variant="body-large">
+              <Typography variant="body1">
                 Motion ridotto
-              </M3Typography>
-              <M3Typography
+              </Typography>
+              <Typography
                 id="nka-motion-desc"
-                variant="body-small"
-                color="var(--md-sys-color-on-surface-variant)"
-                style={{ display: 'block', marginTop: 'var(--md-sys-spacing-1)' }}
+                variant="body2"
+                sx={{ color: 'var(--md-sys-color-on-surface-variant)', display: 'block', marginTop: 'var(--md-sys-spacing-1)' }}
               >
                 Riduci animazioni per accessibilità
-              </M3Typography>
+              </Typography>
             </div>
           </label>
         </div>
       </div>
-    </M3Surface>
+    </Paper>
   );
 };
 
