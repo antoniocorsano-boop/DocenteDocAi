@@ -1,6 +1,6 @@
 // MD3 Gold Compliant
 import React, { useState } from 'react';
-import M3Typography from './M3Typography';
+import { Typography } from '@mui/material';
 
 // MD3 Token Constants - Direct CSS Variables
 const MD3_TOKENS = {
@@ -168,13 +168,13 @@ const M3ExpressiveCard: React.FC<M3ExpressiveCardProps> = ({
             </div>
 
             <div style={{flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)'}}>
-                <M3Typography variant="title-medium" as="h3">{title}</M3Typography>
-                <M3Typography variant="body-medium" as="p" style={{
+                <Typography variant="subtitle2" component="h3">{title}</Typography>
+                <Typography variant="body2" component="p" sx={{
                     display: '-webkit-box',
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical',
                     overflow: 'hidden'
-                }}>{description}</M3Typography>
+                }}>{description}</Typography>
                 {children && <div style={{
                     paddingTop: MD3_TOKENS.spacing4,
                     marginTop: MD3_TOKENS.spacing4,

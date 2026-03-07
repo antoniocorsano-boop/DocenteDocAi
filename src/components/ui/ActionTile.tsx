@@ -11,7 +11,7 @@
  */
 
 import React, { useState } from 'react';
-import M3Typography from './M3Typography';
+import { Typography } from '@mui/material';
 
 interface ActionTileProps {
     title: string;
@@ -141,9 +141,9 @@ const ActionTile: React.FC<ActionTileProps> = ({
                 flexDirection: 'column',
                 gap: 'var(--md-sys-spacing-2)'
             }}>
-                <M3Typography
-                    variant="title-medium"
-                    style={{
+                <Typography
+                    variant="subtitle2"
+                    sx={{
                         color: 'var(--md-sys-color-on-surface)',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
@@ -152,21 +152,22 @@ const ActionTile: React.FC<ActionTileProps> = ({
                     }}
                 >
                     {title}
-                </M3Typography>
+                </Typography>
                 {subtitle && (
-                    <M3Typography
-                        variant="label-medium"
-                        style={{
+                    <Typography
+                        variant="caption"
+                        sx={{
                             color: 'var(--md-sys-color-on-surface-variant)',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
                             margin: 0,
                             textTransform: 'uppercase',
-                            letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'}}
+                            letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'
+                        }}
                     >
                         {subtitle}
-                    </M3Typography>
+                    </Typography>
                 )}
             </div>
 

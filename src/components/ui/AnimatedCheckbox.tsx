@@ -3,7 +3,7 @@
 // Audit: febbraio 2026
 
 import React, { useState } from 'react';
-import { M3Typography } from './index';
+import { Typography } from '@mui/material';
 
 interface AnimatedCheckboxProps {
   label: string;
@@ -107,26 +107,26 @@ export const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
 
       {/* Label & Helper */}
       <div style={{ flex: 1 }}>
-        <M3Typography
-          variant="body-medium"
-          style={{
+        <Typography
+          variant="body2"
+          sx={{
             color: 'var(--md-sys-color-on-surface)',
             fontWeight: 'var(--md-sys-typescale-weight-medium)',
             marginBottom: helperText ? 'var(--md-sys-spacing-1)' : 0
           }}
         >
           {label}
-        </M3Typography>
+        </Typography>
         
         {helperText && (
-          <M3Typography
-            variant="body-small"
-            style={{
+          <Typography
+            variant="body2"
+            sx={{
               color: 'var(--md-sys-color-on-surface-variant)'
             }}
           >
             {helperText}
-          </M3Typography>
+          </Typography>
         )}
       </div>
 

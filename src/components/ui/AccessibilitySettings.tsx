@@ -4,41 +4,44 @@
 
 import React from 'react';
 import { useAppTheme } from '../../contexts/ThemeContext';
-import { M3Typography, M3Surface } from './index';
+import { Typography, Paper } from '@mui/material';
 
 export const AccessibilitySettings: React.FC = () => {
   const { contrast, setContrast, reducedMotion, setReducedMotion } = useAppTheme();
 
   return (
-    <M3Surface
-      style={{
+    <Paper
+      elevation={0}
+      sx={{
         padding: 'var(--md-sys-spacing-4)',
         borderRadius: 'var(--md-sys-spacing-3)',
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--md-sys-spacing-4)'
+        gap: 'var(--md-sys-spacing-4)',
+        bgcolor: 'var(--md-sys-color-surface)',
+        color: 'var(--md-sys-color-on-surface)',
       }}
     >
       {/* Header */}
       <div>
-        <M3Typography
-          variant="title-medium"
-          style={{
+        <Typography
+          variant="subtitle2"
+          sx={{
             color: 'var(--md-sys-color-on-surface)',
             fontWeight: 'var(--md-sys-typescale-weight-semibold)',
             marginBottom: 'var(--md-sys-spacing-1)'
           }}
         >
           Accessibilità
-        </M3Typography>
-        <M3Typography
-          variant="body-small"
-          style={{
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{
             color: 'var(--md-sys-color-on-surface-variant)'
           }}
         >
           Personalizza l'esperienza per le tue esigenze
-        </M3Typography>
+        </Typography>
       </div>
 
       {/* High Contrast Toggle */}
@@ -71,25 +74,25 @@ export const AccessibilitySettings: React.FC = () => {
             >
               contrast
             </span>
-            <M3Typography
-              variant="body-medium"
-              style={{
+            <Typography
+              variant="body2"
+              sx={{
                 color: 'var(--md-sys-color-on-surface)',
                 fontWeight: 'var(--md-sys-typescale-weight-medium)'
               }}
             >
               Contrasto elevato
-            </M3Typography>
+            </Typography>
           </div>
-          <M3Typography
-            variant="body-small"
-            style={{
+          <Typography
+            variant="body2"
+            sx={{
               color: 'var(--md-sys-color-on-surface-variant)',
               paddingLeft: 'var(--md-sys-spacing-7)'
             }}
           >
             Aumenta il contrasto per una migliore leggibilità
-          </M3Typography>
+          </Typography>
         </div>
 
         {/* Toggle Switch */}
@@ -160,25 +163,25 @@ export const AccessibilitySettings: React.FC = () => {
             >
               motion_mode
             </span>
-            <M3Typography
-              variant="body-medium"
-              style={{
+            <Typography
+              variant="body2"
+              sx={{
                 color: 'var(--md-sys-color-on-surface)',
                 fontWeight: 'var(--md-sys-typescale-weight-medium)'
               }}
             >
               Riduci movimento
-            </M3Typography>
+            </Typography>
           </div>
-          <M3Typography
-            variant="body-small"
-            style={{
+          <Typography
+            variant="body2"
+            sx={{
               color: 'var(--md-sys-color-on-surface-variant)',
               paddingLeft: 'var(--md-sys-spacing-7)'
             }}
           >
             Minimizza animazioni e transizioni
-          </M3Typography>
+          </Typography>
         </div>
 
         {/* Toggle Switch */}
@@ -246,18 +249,18 @@ export const AccessibilitySettings: React.FC = () => {
           >
             info
           </span>
-          <M3Typography
-            variant="body-small"
-            style={{
+          <Typography
+            variant="body2"
+            sx={{
               color: 'var(--md-sys-color-on-primary-container)',
               lineHeight: '1.5'
             }}
           >
             Le impostazioni di accessibilità vengono salvate automaticamente e sincronizzate su tutti i dispositivi.
-          </M3Typography>
+          </Typography>
         </div>
       </div>
-    </M3Surface>
+    </Paper>
   );
 };
 
