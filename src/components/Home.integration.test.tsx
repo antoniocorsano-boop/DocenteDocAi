@@ -19,102 +19,10 @@ vi.mock('../stores/useStudentStore');
 
 // Mock UI components (coerenti con i unit tests)
 vi.mock('./ui', () => ({
-    M3Surface: ({ children, ...props }: any) => (
-      <div data-testid="m3-surface" {...props}>{children}</div>
-    ),
   ActionTile: ({ title, subtitle, onClick }: any) => (
     <button onClick={onClick} aria-label={`${title} - ${subtitle}`} style={{padding: 'var(--md-sys-spacing-4)'}}>
       {title}
     </button>
-  ),
-  M3ExpressiveCard: ({ title, description, children }: any) => (
-    <div style={{backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)'}}>
-      <div>{title}</div>
-      <div>{description}</div>
-      {children}
-    </div>
-  ),
-  M3Button: ({ children, onClick, variant, 'aria-label': ariaLabel, ...props }: any) => (
-    <button onClick={onClick} data-variant={variant} aria-label={ariaLabel} {...props} style={{color: 'var(--md-sys-color-primary)'}}>
-      {children}
-    </button>
-  ),
-  M3Typography: ({ children, variant, as, style }: any) => {
-    const Component = as || 'span';
-    return React.createElement(Component, { 'data-testid': 'm3-typography', style: { ...style, fontSize: 'var(--md-sys-typescale-body-large-font-size)' } }, children);
-  },
-  M3HeroCard: ({ children, onClick }: any) => (
-    <div data-testid="m3-hero-card" onClick={onClick} style={{borderRadius: 'var(--md-sys-shape-corner-large)'}}>
-      {children}
-    </div>
-  ),
-  M3SuggestionCard: ({ children, onClick }: any) => (
-    <div data-testid="m3-suggestion-card" onClick={onClick}>
-      {children}
-    </div>
-  ),
-  M3SuggestionItem: ({ children }: any) => (
-    <div data-testid="m3-suggestion-item">
-      {children}
-    </div>
-  ),
-  M3ActivityItem: ({ children }: any) => (
-    <div data-testid="m3-activity-item">
-      {children}
-    </div>
-  ),
-  M3EmptyStateCard: ({ children }: any) => (
-    <div data-testid="m3-empty-state-card">
-      {children}
-    </div>
-  ),
-  M3Card: ({ children, className, onClick, ariaLabel, ...props }: any) => (
-    <div className={className} data-testid="m3-card" tabIndex={0} role="button" aria-label={ariaLabel} onClick={onClick} {...props}>
-      {React.Children.map(children, child =>
-        React.isValidElement(child) && child.props['data-testid'] === 'm3-surface'
-          ? React.cloneElement(child, { onClick })
-          : child
-      )}
-    </div>
-  ),
-  M3FlexContainer: ({ children, flex, minHeight, style, ...props }: any) => (
-    <div
-      data-testid="m3-flex-container"
-      style={{
-        display: 'flex',
-        flex,
-        minHeight,
-        ...style,
-      }}
-      {...props}
-    >
-      {children}
-    </div>
-  ),
-  M3Aside: ({ children, flex, flexBasis, background, borderRight, zIndex, style, ...props }: any) => (
-    <aside
-      data-testid="m3-aside"
-      style={{
-        flex,
-        flexBasis,
-        background,
-        borderRight,
-        zIndex,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'stretch',
-        ...style,
-      }}
-      {...props}
-    >
-      {children}
-    </aside>
-  ),
-  M3Chip: ({ children, label, onClick, ...props }: any) => (
-    <button data-testid="m3-chip" onClick={onClick} {...props}>{label || children}</button>
-  ),
-  M3StateLayer: ({ children, ...props }: any) => (
-    <div data-testid="m3-state-layer" {...props}>{children}</div>
   ),
 }));
 
