@@ -245,67 +245,67 @@ Migra questo file da componenti MD3 custom a MUI v7 seguendo le istruzioni in
 
 > Ordine: priorità d'uso del docente e impatto visivo.
 
-| #    | File                                          | Priorità                       | Stato |
-| ---- | --------------------------------------------- | ------------------------------ | ----- |
-| 4.1  | `src/components/Home.tsx`                     | 🔴 Alta (già parzialmente MUI) | ☐     |
-| 4.2  | `src/components/ClassDashboard.tsx`           | 🔴 Alta                        | ☐     |
-| 4.3  | `src/components/EvaluationModule.tsx`         | 🔴 Alta                        | ☐     |
-| 4.4  | `src/components/LessonsPage.tsx`              | 🔴 Alta                        | ☐     |
-| 4.5  | `src/components/LessonView.tsx`               | 🔴 Alta                        | ☐     |
-| 4.6  | `src/components/RegisterView.tsx`             | 🔴 Alta                        | ☐     |
-| 4.7  | `src/components/Calendar.tsx`                 | 🟠 Media                       | ☐     |
-| 4.8  | `src/components/Timetable.tsx`                | 🟠 Media                       | ☐     |
-| 4.9  | `src/components/KnowledgeBase.tsx`            | 🟠 Media                       | ☐     |
-| 4.10 | `src/components/AnalyticsDashboard.tsx`       | 🟠 Media                       | ☐     |
-| 4.11 | `src/components/AnalyticsHub.tsx`             | 🟠 Media                       | ☐     |
-| 4.12 | `src/components/Settings.tsx`                 | 🟠 Media                       | ☐     |
-| 4.13 | `src/components/AnnualPlanningWizard.tsx`     | 🟠 Media                       | ☐     |
-| 4.14 | `src/components/ClassPlanningWizard.tsx`      | 🟠 Media                       | ☐     |
-| 4.15 | `src/components/UdaPlanner.tsx`               | 🟠 Media                       | ☐     |
-| 4.16 | `src/components/UdaDetailModal.tsx`           | 🟠 Media                       | ☐     |
-| 4.17 | `src/components/StudentManager.tsx`           | 🟠 Media                       | ☐     |
-| 4.18 | `src/components/StudentProfile.tsx`           | 🟠 Media                       | ☐     |
-| 4.19 | `src/components/ProgettazioneHub.tsx`         | 🟠 Media                       | ☐     |
-| 4.20 | `src/components/ReportisticaHub.tsx`          | 🟠 Media                       | ☐     |
-| 4.21 | `src/components/OperationsCenter.tsx`         | 🟡 Bassa                       | ☐     |
-| 4.22 | `src/components/ClassroomView.tsx`            | 🟡 Bassa                       | ☐     |
-| 4.23 | `src/components/ClassSelection.tsx`           | 🟡 Bassa                       | ☐     |
-| 4.24 | `src/components/ConsiglioClasse.tsx`          | 🟡 Bassa                       | ☐     |
-| 4.25 | `src/components/ConsiglioClasseWizard.tsx`    | 🟡 Bassa                       | ☐     |
-| 4.26 | `src/components/CurriculumManager.tsx`        | 🟡 Bassa                       | ☐     |
-| 4.27 | `src/components/RubricEditor.tsx`             | 🟡 Bassa                       | ☐     |
-| 4.28 | `src/components/RubricheManager.tsx`          | 🟡 Bassa                       | ☐     |
-| 4.29 | `src/components/TemplateManager.tsx`          | 🟡 Bassa                       | ☐     |
-| 4.30 | `src/components/Studio.tsx`                   | 🟡 Bassa                       | ☐     |
-| 4.31 | `src/components/FeedManager.tsx`              | 🟡 Bassa                       | ☐     |
-| 4.32 | `src/components/DidatticaInclusiva.tsx`       | 🟡 Bassa                       | ☐     |
-| 4.33 | `src/components/OrientamentoDashboard.tsx`    | 🟡 Bassa                       | ☐     |
-| 4.34 | `src/components/ClassAnalytics.tsx`           | 🟡 Bassa                       | ☐     |
-| 4.35 | `src/components/ClassCompetencyDashboard.tsx` | 🟡 Bassa                       | ☐     |
-| 4.36 | `src/components/AssistantDevTools.tsx`        | 🟡 Bassa                       | ☐     |
-| 4.37 | `src/components/CorpusChat.tsx`               | 🟡 Bassa                       | ☐     |
-| 4.38 | `src/components/WorkflowGuide.tsx`            | 🟡 Bassa                       | ☐     |
-| 4.39 | `src/components/ImprovementGuide.tsx`         | 🟡 Bassa                       | ☐     |
-| 4.40 | `src/components/WelcomeScreen.tsx`            | 🟡 Bassa                       | ☐     |
+| #    | File                                          | Priorità                       | Stato         |
+| ---- | --------------------------------------------- | ------------------------------ | ------------- |
+| 4.1  | `src/components/Home.tsx`                     | 🔴 Alta (già parzialmente MUI) | ✅ 2026-03-06 |
+| 4.2  | `src/components/ClassDashboard.tsx`           | 🔴 Alta                        | ✅ 2026-03-06 |
+| 4.3  | `src/components/EvaluationModule.tsx`         | 🔴 Alta                        | ✅ 2026-03-06 |
+| 4.4  | `src/components/LessonsPage.tsx`              | 🔴 Alta                        | ✅ 2026-03-06 |
+| 4.5  | `src/components/LessonView.tsx`               | 🔴 Alta                        | ✅ 2026-03-06 |
+| 4.6  | `src/components/RegisterView.tsx`             | 🔴 Alta                        | ✅ 2026-03-06 |
+| 4.7  | `src/components/Calendar.tsx`                 | 🟠 Media                       | ✅ 2026-03-06 |
+| 4.8  | `src/components/Timetable.tsx`                | 🟠 Media                       | ✅ 2026-03-06 |
+| 4.9  | `src/components/KnowledgeBase.tsx`            | 🟠 Media                       | ✅ 2026-03-06 |
+| 4.10 | `src/components/AnalyticsDashboard.tsx`       | 🟠 Media                       | ✅ 2026-03-06 |
+| 4.11 | `src/components/AnalyticsHub.tsx`             | 🟠 Media                       | ✅ 2026-03-06 |
+| 4.12 | `src/components/Settings.tsx`                 | 🟠 Media                       | ✅ 2026-03-06 |
+| 4.13 | `src/components/AnnualPlanningWizard.tsx`     | 🟠 Media                       | ✅ 2026-03-07 |
+| 4.14 | `src/components/ClassPlanningWizard.tsx`      | 🟠 Media                       | ✅ 2026-03-06 |
+| 4.15 | `src/components/UdaPlanner.tsx`               | 🟠 Media                       | ✅ 2026-03-06 |
+| 4.16 | `src/components/UdaDetailModal.tsx`           | 🟠 Media                       | ✅ 2026-03-06 |
+| 4.17 | `src/components/StudentManager.tsx`           | 🟠 Media                       | ✅ 2026-03-06 |
+| 4.18 | `src/components/StudentProfile.tsx`           | 🟠 Media                       | ✅ 2026-03-06 |
+| 4.19 | `src/components/ProgettazioneHub.tsx`         | 🟠 Media                       | ✅ 2026-03-06 |
+| 4.20 | `src/components/ReportisticaHub.tsx`          | 🟠 Media                       | ✅ 2026-03-06 |
+| 4.21 | `src/components/OperationsCenter.tsx`         | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.22 | `src/components/ClassroomView.tsx`            | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.23 | `src/components/ClassSelection.tsx`           | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.24 | `src/components/ConsiglioClasse.tsx`          | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.25 | `src/components/ConsiglioClasseWizard.tsx`    | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.26 | `src/components/CurriculumManager.tsx`        | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.27 | `src/components/RubricEditor.tsx`             | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.28 | `src/components/RubricheManager.tsx`          | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.29 | `src/components/TemplateManager.tsx`          | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.30 | `src/components/Studio.tsx`                   | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.31 | `src/components/FeedManager.tsx`              | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.32 | `src/components/DidatticaInclusiva.tsx`       | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.33 | `src/components/OrientamentoDashboard.tsx`    | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.34 | `src/components/ClassAnalytics.tsx`           | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.35 | `src/components/ClassCompetencyDashboard.tsx` | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.36 | `src/components/AssistantDevTools.tsx`        | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.37 | `src/components/CorpusChat.tsx`               | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.38 | `src/components/WorkflowGuide.tsx`            | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.39 | `src/components/ImprovementGuide.tsx`         | 🟡 Bassa                       | ✅ 2026-03-06 |
+| 4.40 | `src/components/WelcomeScreen.tsx`            | 🟡 Bassa                       | ✅ 2026-03-06 |
 
 ### Screens autenticazione
 
-| #    | File                                        | Stato |
-| ---- | ------------------------------------------- | ----- |
-| 4.S1 | `src/components/SignInScreen.tsx`           | ☐     |
-| 4.S2 | `src/components/LoginScreen.tsx`            | ☐     |
-| 4.S3 | `src/components/ProfileSelectionScreen.tsx` | ☐     |
-| 4.S4 | `src/components/StudentLoginScreen.tsx`     | ☐     |
+| #    | File                                        | Stato         |
+| ---- | ------------------------------------------- | ------------- |
+| 4.S1 | `src/components/SignInScreen.tsx`           | ✅ 2026-03-06 |
+| 4.S2 | `src/components/LoginScreen.tsx`            | ✅ 2026-03-06 |
+| 4.S3 | `src/components/ProfileSelectionScreen.tsx` | ✅ 2026-03-06 |
+| 4.S4 | `src/components/StudentLoginScreen.tsx`     | ✅ 2026-03-06 |
 
 ### Settings
 
-| #    | File                                                  | Stato |
-| ---- | ----------------------------------------------------- | ----- |
-| 4.T1 | `src/components/settings/AiDidatticaSettings.tsx`     | ☐     |
-| 4.T2 | `src/components/settings/EmotionalPresetsManager.tsx` | ☐     |
-| 4.T3 | `src/components/settings/InterfaceSettings.tsx`       | ☐     |
-| 4.T4 | `src/components/settings/SettingsGroup.tsx`           | ☐     |
-| 4.T5 | `src/components/settings/ThemeSettingsPanel.tsx`      | ☐     |
+| #    | File                                                  | Stato         |
+| ---- | ----------------------------------------------------- | ------------- |
+| 4.T1 | `src/components/settings/AiDidatticaSettings.tsx`     | ☐ prossimo    |
+| 4.T2 | `src/components/settings/EmotionalPresetsManager.tsx` | ✅ 2026-03-06 |
+| 4.T3 | `src/components/settings/InterfaceSettings.tsx`       | ☐ prossimo    |
+| 4.T4 | `src/components/settings/SettingsGroup.tsx`           | ✅ 2026-03-06 |
+| 4.T5 | `src/components/settings/ThemeSettingsPanel.tsx`      | ✅ 2026-03-06 |
 
 **Completamento Fase 4:** ✅ 2026-03-06 — 0 TypeScript errors. All views, modals, settings, and authentication screens migrated to MUI v7. Key fixes: M3Dialog prop compatibility via ./ui M3Dialog wrapper, M3ExpressiveCard/M3ChoiceCard for card components, Button/IconButton prop normalization, Paper/Typography variant fixes.
 
@@ -382,14 +382,15 @@ Remove-Item src/components/ui/M3Button.tsx
 
 ## Metriche di Completamento Totale
 
-| Metrica                                  | Attuale              | Target    |
-| ---------------------------------------- | -------------------- | --------- |
-| File con import `M3*` o custom legacy    | **~121**             | **0**     |
-| Componenti custom attivi in `ui/`        | ~35                  | **0**     |
-| File con `style={{}}` su testo semantico | molti                | **0**     |
-| Warning ESLint                           | **0**                | **0** ✅  |
-| File già su MUI v7                       | +7 (questa sessione) | **tutti** |
-| Score Lighthouse Accessibility           | da misurare          | ≥ 95      |
+| Metrica                                           | Attuale      | Target   |
+| ------------------------------------------------- | ------------ | -------- |
+| File consumatori con import `M3*` o custom legacy | **~108**     | **0**    |
+| File totali con pattern legacy (incl. wrapper)    | **154**      | **0**    |
+| Componenti custom attivi in `ui/`                 | ~35          | **0**    |
+| File con `style={{}}` su testo semantico          | molti        | **0**    |
+| Warning ESLint                                    | **0**        | **0** ✅ |
+| File NKA migrati (Fase 5)                         | **5 / 5** ✅ | **5**    |
+| Score Lighthouse Accessibility                    | da misurare  | ≥ 95     |
 
 ---
 
