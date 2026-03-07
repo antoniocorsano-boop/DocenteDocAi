@@ -1,6 +1,5 @@
 import React, { createContext, useContext, ReactNode } from 'react';
-import { M3Surface } from '../components/ui/M3Surface';
-import { M3Typography } from '../components/ui/M3Typography';
+import { Paper, Typography } from '@mui/material';
 
 // Definizione del tipo per il tema MD3
 interface MD3Theme {
@@ -184,10 +183,11 @@ export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({
   // Loading state
   if (status === 'loading') {
     return (
-      <M3Surface
+      <Paper
+        elevation={0}
         role="main"
         aria-label="Loading theme"
-        style={{
+        sx={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -195,20 +195,21 @@ export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({
           padding: 'var(--md-sys-spacing-6)',
         }}
       >
-        <M3Typography variant="body-large" role="status" aria-live="polite">
+        <Typography variant="body1" role="status" aria-live="polite">
           Loading theme...
-        </M3Typography>
-      </M3Surface>
+        </Typography>
+      </Paper>
     );
   }
 
   // Error state
   if (status === 'error') {
     return (
-      <M3Surface
+      <Paper
+        elevation={0}
         role="alert"
         aria-label="Theme loading error"
-        style={{
+        sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -220,29 +221,30 @@ export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({
           color: 'var(--md-sys-color-on-error-container)',
         }}
       >
-        <M3Typography variant="headline-medium" role="heading" aria-level={1}>
+        <Typography variant="h5" role="heading" aria-level={1}>
           Theme Loading Error
-        </M3Typography>
-        <M3Typography variant="body-large" role="status">
+        </Typography>
+        <Typography variant="body1" role="status">
           {error || 'Failed to load application theme'}
-        </M3Typography>
-      </M3Surface>
+        </Typography>
+      </Paper>
     );
   }
 
   return (
     <ThemeContext.Provider value={mergedTheme}>
-      <M3Surface
+      <Paper
+        elevation={0}
         role="application"
         aria-label="DocenteDoc AI Application"
-        style={{
+        sx={{
           minHeight: 'var(--md-sys-viewport-height-full)',
           backgroundColor: 'var(--md-sys-color-background)',
           color: 'var(--md-sys-color-on-background)',
         }}
       >
         {children}
-      </M3Surface>
+      </Paper>
     </ThemeContext.Provider>
   );
 };
