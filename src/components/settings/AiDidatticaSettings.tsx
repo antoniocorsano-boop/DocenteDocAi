@@ -1,7 +1,8 @@
 // Settings - AI & Didattica Section
 import React from 'react';
 import { SettingsGroup } from './SettingsGroup';
-import { M3Typography, TabGroup, M3Button, InfoCard, SelectField, TextField } from '../ui';
+import { TabGroup, InfoCard, SelectField, TextField } from '../ui';
+import { Typography, Button } from '@mui/material';
 import ChipInputList from '../ChipInputList';
 import { TimetableSettings } from '../../types';
 import { AI_PROFILES, SCHOOL_LEVELS } from '../../constants';
@@ -57,7 +58,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
             title="AI & Didattica"
             subtitle="Cervello AI e cattedra"
             icon="psychology"
-            variant="tonal"
+            variant="outlined"
             defaultOpen={false}
         >
             {/* SEZIONE 1: MODELLO AI */}
@@ -72,15 +73,15 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                     marginBottom: 'var(--md-sys-spacing-4)'}}>
                     <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                         color: 'var(--md-sys-color-secondary)'}}>smart_toy</span>
-                    <M3Typography
-                        variant="label-small"
+                    <Typography
+                        variant="caption"
                         style={{color: 'var(--md-sys-color-secondary)',
                             fontWeight: 'var(--md-sys-typescale-weight-black)',
                             letterSpacing: '0.1em',
                             textTransform: 'uppercase'}}
                     >
                         Modello Intelligenza
-                    </M3Typography>
+                    </Typography>
                 </div>
 
                 <TabGroup
@@ -91,7 +92,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                     }))}
                     activeTab={currentAiProfile}
                     onTabChange={(id) => onAiProfileChange(id as keyof typeof AI_PROFILES)}
-                    variant="filled" />
+                    variant="contained" />
 
                 <div style={{
                     display: 'flex',
@@ -111,8 +112,8 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             ? 'var(--md-sys-color-on-secondary-container)'
                             : 'var(--md-sys-color-on-primary-container)',
                         marginTop: 'var(--md-sys-spacing-4)'}}>info</span>
-                    <M3Typography
-                        variant="body-medium"
+                    <Typography
+                        variant="body2"
                         style={{color: currentAiProfile === 'esperto'
                                 ? 'var(--md-sys-color-on-secondary-container)'
                                 : 'var(--md-sys-color-on-primary-container)',
@@ -120,7 +121,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             margin: 0}}
                     >
                         {AI_PROFILES[currentAiProfile as keyof typeof AI_PROFILES]?.description}
-                    </M3Typography>
+                    </Typography>
                 </div>
             </div>
 
@@ -141,24 +142,24 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             gap: 'var(--md-sys-spacing-4)'}}>
                             <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 color: 'var(--md-sys-color-primary)'}}>calendar_month</span>
-                            <M3Typography
-                                variant="label-large"
+                            <Typography
+                                variant="overline"
                                 style={{color: 'var(--md-sys-color-on-surface)',
                                     fontWeight: 'var(--md-sys-typescale-weight-black)',
                                     letterSpacing: '0.025em',
                                     textTransform: 'uppercase'}}
                             >
                                 Anno Scolastico
-                            </M3Typography>
+                            </Typography>
                         </div>
-                        <M3Button
+                        <Button
                             onClick={onAddNextYear}
-                            variant="tonal"
+                            variant="outlined"
                         >
                             <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 marginRight: 'var(--md-sys-spacing-4)'}}>add_circle</span>
                             Aggiungi
-                        </M3Button>
+                        </Button>
                     </div>
 
                     <div style={{display: 'grid',
@@ -201,17 +202,17 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             gap: 'var(--md-sys-spacing-4)'}}>
                             <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 color: 'var(--md-sys-color-secondary)'}}>school</span>
-                            <M3Typography
-                                variant="label-large"
+                            <Typography
+                                variant="overline"
                                 style={{color: 'var(--md-sys-color-on-surface)',
                                     fontWeight: 'var(--md-sys-typescale-weight-black)',
                                     letterSpacing: '0.025em',
                                     textTransform: 'uppercase'}}
                             >
                                 Gestione Cattedra
-                            </M3Typography>
+                            </Typography>
                         </div>
-                        <M3Button
+                        <Button
                             onClick={() => {
                                 if (confirm("Sei sicuro di voler svuotare tutta la cattedra?")) {
                                     onSettingChange('teachingAssignments', []);
@@ -220,7 +221,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             variant="outlined"
                         >
                             Svuota Tutto
-                        </M3Button>
+                        </Button>
                     </div>
 
                     {/* FORMAZIONE CLASSI STRUTTURATA */}
@@ -235,15 +236,15 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             marginBottom: 'var(--md-sys-spacing-4)'}}>
                             <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 color: 'var(--md-sys-color-primary)'}}>account_tree</span>
-                            <M3Typography
-                                variant="label-small"
+                            <Typography
+                                variant="caption"
                                 style={{color: 'var(--md-sys-color-primary)',
                                     fontWeight: 'var(--md-sys-typescale-weight-black)',
                                     letterSpacing: '0.1em',
                                     textTransform: 'uppercase'}}
                             >
                                 Formazione Classi Strutturata
-                            </M3Typography>
+                            </Typography>
                         </div>
 
                         <div style={{display: 'grid',
@@ -271,20 +272,20 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             <div style={{display: 'flex',
                                 flexDirection: 'column',
                                 gap: 'var(--md-sys-spacing-4)'}}>
-                                <M3Typography
-                                    variant="body-medium"
+                                <Typography
+                                    variant="body2"
                                     style={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                 >
                                     Livelli / Anni
-                                </M3Typography>
+                                </Typography>
                                 <div style={{display: 'flex',
                                     flexWrap: 'wrap',
                                     gap: 'var(--md-sys-spacing-4)'}}>
                                     {['1', '2', '3', '4', '5'].map(y => (
-                                        <M3Button
+                                        <Button
                                             key={y}
-                                            variant={selYears.includes(y) ? 'filled' : 'outlined'}
+                                            variant={selYears.includes(y) ? 'contained' : 'outlined'}
                                             size="small"
                                             onClick={() => setSelYears((prev: string[]) => prev.includes(y) ? prev.filter(i => i !== y) : [...prev, y])}
                                             style={{
@@ -292,27 +293,27 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                             }}
                                         >
                                             {y}° Anno
-                                        </M3Button>
+                                        </Button>
                                     ))}
                                 </div>
                             </div>
                             <div style={{display: 'flex',
                                 flexDirection: 'column',
                                 gap: 'var(--md-sys-spacing-4)'}}>
-                                <M3Typography
-                                    variant="body-medium"
+                                <Typography
+                                    variant="body2"
                                     style={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                 >
                                     Sezioni
-                                </M3Typography>
+                                </Typography>
                                 <div style={{display: 'flex',
                                     flexWrap: 'wrap',
                                     gap: 'var(--md-sys-spacing-4)'}}>
                                     {['A', 'B', 'C', 'D', 'E', 'F'].map(s => (
-                                        <M3Button
+                                        <Button
                                             key={s}
-                                            variant={selSections.includes(s) ? 'filled' : 'outlined'}
+                                            variant={selSections.includes(s) ? 'contained' : 'outlined'}
                                             size="small"
                                             onClick={() => setSelSections((prev: string[]) => prev.includes(s) ? prev.filter(i => i !== s) : [...prev, s])}
                                             style={{
@@ -320,21 +321,21 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                             }}
                                         >
                                             {s}
-                                        </M3Button>
+                                        </Button>
                                     ))}
                                 </div>
                             </div>
                         </div>
 
-                        <M3Button
+                        <Button
                             onClick={onGenerateClasses}
-                            variant="filled"
+                            variant="contained"
                             disabled={selYears.length === 0 || selSections.length === 0}
                         >
                             <span className="material-symbols-outlined" style={{marginRight: 'var(--md-sys-spacing-4)',
                                 fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>auto_awesome</span>
                             Genera Combinazioni Classi
-                        </M3Button>
+                        </Button>
                     </div>
 
                     {/* INPUT RAPIDI PER AGGIUNGERE MATERIE */}
@@ -358,14 +359,14 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                     style={{width: 'var(--md-sys-percent-100)'}}
                                 />
                             </div>
-                            <M3Button
+                            <Button
                                 onClick={onAddSubject}
-                                variant="filled"
+                                variant="contained"
                             >
                                 <span style={{
                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)'
                                 }}>add</span>
-                            </M3Button>
+                            </Button>
                         </div>
                     </div>
 
@@ -437,13 +438,13 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                                     flex: 1}}>
                                                     <span style={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                                         color: 'var(--md-sys-color-on-surface)'}}>{subj}</span>
-                                                    <M3Button
+                                                    <Button
                                                         onClick={() => handleBulkAssign(subj)}
                                                         variant="outlined"
                                                         size="small"
                                                     >
                                                         Associa a tutte
-                                                    </M3Button>
+                                                    </Button>
                                                 </div>
                                                 <button
                                                     onClick={() => onSettingChange('disciplines', localSettings.disciplines.filter(s => s !== subj))}
@@ -533,7 +534,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                         title="Come funziona"
                         description="Questa matrice è il tuo centro di controllo. Clicca su una cella per associare una materia a una classe. Modifica il numero per impostare le ore settimanali."
                         icon="info"
-                        variant="filled" />
+                        variant="contained" />
                 </div>
             </div>
         </SettingsGroup>

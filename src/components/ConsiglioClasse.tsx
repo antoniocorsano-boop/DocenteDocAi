@@ -3,12 +3,8 @@
 // Nessun valore hardcoded (px, rem, %, hex, rgba) presente. Nessun uso di className custom. Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md.
 // Audit e refactor completati: 2026-01-25.
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { 
-    M3Button, 
-    TabGroup, 
-    InfoCard, 
-    SectionHeader 
-} from './ui';
+import { TabGroup, InfoCard, SectionHeader } from './ui';
+import { Button } from '@mui/material';
 import { Studente, Valutazione, GiudizioPeriodico, PeriodoValutazione, TimetableSettings, AiSettings, ValutazioneCompetenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { getPeriodicJudgmentSuggestion, generateClassCouncilNarrativeReport } from '../services/aiService';
@@ -229,9 +225,9 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                         return (
                             <tr key={student.id}>
                                 <td>
-                                    <M3Button variant="text" onClick={() => onViewStudentProfile(student)} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  fontWeight: "var(--md-sys-typescale-weight-medium)" }} type="button">
+                                    <Button variant="text" onClick={() => onViewStudentProfile(student)} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  fontWeight: "var(--md-sys-typescale-weight-medium)" }} type="button">
                                         {student.cognome} {student.nome}
-                                    </M3Button>
+                                    </Button>
                                 </td>
                                 {expandedColumns.rendimento && <>
                                     <td style={{ color: 'inherit' }}>{performance.grade || 'N/D'}</td>
@@ -253,9 +249,9 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 <td style={{ minWidth: 'var(--md-sys-spacing-12)', ...getCellStyle('giudizio') }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <textarea value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ flexGrow: "1" }} rows={2} placeholder="Giudizio sintetico..."></textarea>
-                                        <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
+                                        <Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
                                             <span style={{ color: "var(--md-sys-color-on-surface-variant)" }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
-                                        </M3Button>
+                                        </Button>
                                     </div>
                                 </td>}
                                 {showFinalGrades && expandedColumns.valutazione && <>
@@ -328,9 +324,9 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-4)'}}>
                                         <label htmlFor={`giudizio-${student.id}`} >Note/Giudizio</label>
-                                        <M3Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
+                                        <Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
                                             <span style={{ color: 'var(--md-sys-color-primary)' }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
-                                        </M3Button>
+                                        </Button>
                                     </div>
                                     <textarea id={`giudizio-${student.id}`} value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ width: "var(--md-sys-percent-100)" }} rows={4} placeholder="Giudizio sintetico..."></textarea>
                                 </div>
@@ -366,12 +362,12 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             />
 
             {/* Controls */}
-            <InfoCard variant="tonal" style={{padding: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)'}}>
+            <InfoCard variant="outlined" style={{padding: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                     <TabGroup 
                         activeTab={periodo}
                         onTabChange={(id) => setPeriodo(id as PeriodoValutazione)}
-                        variant="filled"
+                        variant="contained"
                         tabs={[
                             { id: 'primo-quadrimestre', label: '1° Quadrimestre', icon: 'looks_one' },
                             { id: 'secondo-quadrimestre', label: '2° Quadrimestre', icon: 'looks_two' },
@@ -379,36 +375,36 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                     />
 
                     <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
-                        <M3Button 
+                        <Button 
                             onClick={handleExportPdf} 
                             disabled={isExporting}
-                            variant="tonal"
+                            variant="outlined"
                         >
                             <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>picture_as_pdf</span>
                             Esporta PDF
-                        </M3Button>
-                        <M3Button 
+                        </Button>
+                        <Button 
                             onClick={handleExportDocx} 
                             disabled={isExporting}
-                            variant="tonal"
+                            variant="outlined"
                         >
                             <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>description</span>
                             Esporta Word
-                        </M3Button>
-                        <M3Button 
+                        </Button>
+                        <Button 
                             onClick={handleGenerateNarrativeReport} 
                             disabled={isGeneratingNarrative}
-                            variant="filled"
+                            variant="contained"
                         >
                             <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>auto_awesome</span>
                             {isGeneratingNarrative ? 'Generazione...' : 'Report Narrativo AI'}
-                        </M3Button>
+                        </Button>
                     </div>
                 </div>
             </InfoCard>
 
             {narrativeReport && (
-                <InfoCard variant="elevated" style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 5%, transparent)' , padding: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
+                <InfoCard elevation={1} style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 5%, transparent)' , padding: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                     <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-6)'}}>
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                             <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)' , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-primary)"}}>
@@ -418,14 +414,14 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>Report Narrativo Suggerito</h3>
                         </div>
                         <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
-                            <M3Button variant="text" onClick={() => setNarrativeReport(null)}>Chiudi</M3Button>
-                            <M3Button variant="tonal" onClick={() => {
+                            <Button variant="text" onClick={() => setNarrativeReport(null)}>Chiudi</Button>
+                            <Button variant="outlined" onClick={() => {
                                 navigator.clipboard.writeText(narrativeReport);
                                 alert("Report copiato!");
                             }}>
                                 <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>content_copy</span>
                                 Copia
-                            </M3Button>
+                            </Button>
                         </div>
                     </div>
                     <div style={{ color: 'var(--md-sys-color-on-primary)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', lineHeight: "1.625", whiteSpace: "pre-wrap", padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
@@ -434,20 +430,20 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                 </InfoCard>
             )}
 
-            <InfoCard variant="elevated" style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
+            <InfoCard elevation={1} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
                  <div  style={{padding: 'var(--md-sys-spacing-8)', display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-8)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                     <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                         {Object.keys(expandedColumns).map(key => (
-                            <M3Button
+                            <Button
                                 key={key}
-                                variant={expandedColumns[key as keyof typeof expandedColumns] ? 'tonal' : 'text'}
+                                variant={expandedColumns[key as keyof typeof expandedColumns] ? 'contained' : 'text'}
                                 onClick={() => setExpandedColumns(p => ({...p, [key]: !p[key as keyof typeof p]}))}
                                 size="small"
                                 
                             >
                                 {expandedColumns[key as keyof typeof expandedColumns] && <span  style={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>check</span>}
                                 {key.charAt(0).toUpperCase() + key.slice(1)}
-                            </M3Button>
+                            </Button>
                         ))}
                     </div>
                  </div>

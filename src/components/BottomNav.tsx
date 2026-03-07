@@ -3,7 +3,7 @@
 // MD3 spec: pill 64×32dp, corner-full, secondary-container color.
 import React, { useState } from 'react';
 import { View } from '../types';
-import { M3Typography } from './ui/M3Typography';
+import { Typography, Box, ButtonBase } from '@mui/material';
 
 interface BottomNavProps {
   activeView: View;
@@ -48,10 +48,11 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate, onOpenMor
           outline-offset: var(--md-sys-spacing-0-5);
         }
       `}</style>
-      <nav
+      <Box
+        component="nav"
         className="bottom-nav-container"
         aria-label="Navigazione principale"
-        style={{
+        sx={{
           position: 'fixed',
           left: 0,
           right: 0,
@@ -69,7 +70,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate, onOpenMor
         {navItems.map(item => {
           const isActive = item.id === '__more__' ? moreOpen : activeView === item.id;
           return (
-            <button
+            <ButtonBase
               key={item.id}
               className="bottom-nav-item"
               aria-label={item.label}
@@ -78,19 +79,15 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate, onOpenMor
               onClick={() => item.id === '__more__' ? onOpenMore?.() : onNavigate(item.id as View)}
               onMouseEnter={() => setHoveredId(item.id)}
               onMouseLeave={() => setHoveredId(null)}
-              style={{
-                background: 'transparent',
-                border: 'none',
+              sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 gap: 'var(--md-sys-spacing-1)',
                 flex: 1,
-                minHeight: 'var(--md-sys-spacing-16)', // 64px touch target
+                minHeight: 'var(--md-sys-spacing-16)',
                 padding: 'var(--md-sys-spacing-2) 0',
-                cursor: 'pointer',
                 WebkitTapHighlightColor: 'transparent',
-                outline: 'none',
               }}
             >
               {/* Icon wrapper — pill lives here */}
@@ -152,10 +149,10 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate, onOpenMor
               </span>
 
               {/* Label */}
-              <M3Typography
-                variant="label-small"
-                as="span"
-                style={{
+              <Typography
+                variant="caption"
+                component="span"
+                sx={{
                   fontWeight: isActive ? 'var(--md-sys-typescale-weight-bold)' : 'var(--md-sys-typescale-weight-regular)',
                   color: isActive
                     ? 'var(--md-sys-color-on-surface)'
@@ -164,11 +161,11 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate, onOpenMor
                 }}
               >
                 {item.label}
-              </M3Typography>
-            </button>
+              </Typography>
+            </ButtonBase>
           );
         })}
-      </nav>
+      </Box>
     </>
   );
 };

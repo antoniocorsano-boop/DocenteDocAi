@@ -1,4 +1,4 @@
-// MD3 GOLD COMPLIANT â€“ Audit 2026-01-25
+// MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
@@ -11,7 +11,10 @@ import React, { useState, Suspense, lazy } from 'react';
 import { Uda, Competenza, UdaPlannerProps } from '../types';
 const UdaExportModal = lazy(() => import('./UdaExportModal'));
 import Guidance from './Guidance';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, TextArea, EmptyState } from './ui';
+import { M3Dialog, TextField, TextArea, EmptyState } from './ui';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 const createNewUda = (): Uda => ({
     id: `uda-${Date.now()}`,
     title: '',
@@ -101,9 +104,9 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                             <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{currentUda.title || 'Senza titolo'}</p>
                         </div>
                     </div>
-                    <M3Button onClick={handleClose} variant="text">
+                    <Button onClick={handleClose} variant="text">
                         <span className="material-symbols-outlined">close</span>
-                    </M3Button>
+                    </Button>
                 </div>
                 
                 <div style={{ flex: 1, overflowY: 'auto', padding: 'var(--md-sys-spacing-6)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)' }}>
@@ -185,20 +188,20 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
 
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 'var(--md-sys-spacing-3)', paddingTop: 'var(--md-sys-spacing-4)', borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
                         {udaProp !== 'new' && (
-                            <M3Button
+                            <Button
                                 onClick={handleDelete}
                                 variant="text"
                             >
                                 <span className="material-symbols-outlined">delete</span>
                                 Elimina
-                            </M3Button>
+                            </Button>
                         )}
                         <div style={{ flex: 1 }} />
-                        <M3Button onClick={handleClose} variant="text">Annulla</M3Button>
-                        <M3Button onClick={handleSave} variant="filled">
+                        <Button onClick={handleClose} variant="text">Annulla</Button>
+                        <Button onClick={handleSave} variant="contained">
                             <span className="material-symbols-outlined">save</span>
                             Salva Progetto
-                        </M3Button>
+                        </Button>
                     </div>
                 </div>
 
@@ -206,10 +209,9 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                     <M3Dialog
                         onClose={handlePickerClose}
                         title="Seleziona Competenze"
-                        maxWidth="2xl"
-                        level={2}
+                        maxWidth="xl"
                     >
-                        <M3DialogContent>
+                        <DialogContent>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
                                 {competenze.map(comp => {
                                     const isSelected = currentUda.competencyIds.includes(comp.id);
@@ -227,7 +229,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                                                                             border: isSelected ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
                                                                                             fontWeight: isSelected ? 700 : 400,
                                                                                             cursor: 'pointer',
-                                                                                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+                                                                                            transition: 'opacity, transform, background-color, color, border-color-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                                                                                         }}
                                                                                 >
                                                                                         <div
@@ -254,10 +256,10 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                     );
                                 })}
                             </div>
-                        </M3DialogContent>
-                        <M3DialogActions >
-                            <M3Button onClick={handlePickerClose} variant="filled" style={{ width: "var(--md-sys-percent-100)" }}>Conferma Selezione</M3Button>
-                        </M3DialogActions>
+                        </DialogContent>
+                        <DialogActions >
+                            <Button onClick={handlePickerClose} variant="contained" sx={{ width: "var(--md-sys-percent-100)" }}>Conferma Selezione</Button>
+                        </DialogActions>
                     </M3Dialog>
                 )}
             </div>
@@ -323,18 +325,18 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                             <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Organizza le tue UDA</p>
                         </div>
                     </div>
-                    <M3Button
+                    <Button
                         onClick={handleNewUda}
-                        variant="filled"
+                        variant="contained"
                     >
                         <span className="material-symbols-outlined">add</span>
                         Nuovo Progetto
-                    </M3Button>
+                    </Button>
                 </div>
 
                 <div style={{ padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-6)' }}>
                     <Guidance id="uda-planner-intro" icon="auto_awesome" title="Organizza i tuoi Progetti" isGloballyEnabled={showGuidanceTips}>
-                        <p>Crea le tue Unitï¿½ di Apprendimento. Puoi collegare link esterni (es. NotebookLM) per accedere velocemente alle tue analisi AI.</p>
+                        <p>Crea le tue Unit? di Apprendimento. Puoi collegare link esterni (es. NotebookLM) per accedere velocemente alle tue analisi AI.</p>
                     </Guidance>
                 </div>
                 
@@ -392,18 +394,18 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                                                     </td>
                                                     <td style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }} onClick={e => e.stopPropagation()}>
                                                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
-                                                            <M3Button
+                                                            <Button
                                                                 onClick={() => handleExportUda(uda)}
                                                                 variant="text"
                                                             >
                                                                 <span className="material-symbols-outlined">ios_share</span>
-                                                            </M3Button>
-                                                            <M3Button
+                                                            </Button>
+                                                            <Button
                                                                 onClick={() => handleEditUda(uda)}
                                                                 variant="text"
                                                             >
                                                                 <span className="material-symbols-outlined">edit</span>
-                                                            </M3Button>
+                                                            </Button>
                                                         </div>
                                                     </td>
                                                 </tr>

@@ -1,10 +1,11 @@
-// MD3 GOLD COMPLIANT â€“ Audit 2026-01-25
+// MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 import React, { useState } from 'react';
 import { Rubrica, Criterio, Indicatore, Competenza } from '../types';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard, TextField, TextArea, EmptyState, SectionHeader } from './ui';
+import { M3Dialog, InfoCard, TextField, TextArea, EmptyState, SectionHeader } from './ui';
+import {DialogContent, DialogActions, Button } from '@mui/material';
 interface RubricEditorProps {
     rubricToEdit?: Rubrica;
     allCompetenze: Competenza[];
@@ -72,11 +73,11 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
         <M3Dialog
             title={rubricToEdit ? 'Modifica Rubrica' : 'Crea Nuova Rubrica'}
             onClose={onClose}
-            maxWidth="2xl"
+            maxWidth="xl"
             mode="fullscreen"
         >
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", height: "var(--md-sys-percent-100)" }}>
-                <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 30%, transparent)' }}>
+                <DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 30%, transparent)' }}>
                     <div style={{padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-8)'}}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <TextField 
@@ -92,7 +93,7 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                         <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                             {/* Sezione Selezione */}
                             <div  style={{gap: 'var(--md-sys-spacing-4)'}}>
-                                <SectionHeader title="Criteri di Competenza" icon="checklist" variant="filled" />
+                                <SectionHeader title="Criteri di Competenza" icon="checklist" variant="contained" />
                                  <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-8)'}}>
                                     {allCompetenze.map(comp => (
                                          <div key={comp.id}  style={{width: "var(--md-sys-percent-100)", marginBottom: 'var(--md-sys-spacing-4)'}}>
@@ -125,12 +126,12 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
 
                             {/* Sezione Descrittori */}
                             <div  style={{gap: 'var(--md-sys-spacing-6)'}}>
-                                 <SectionHeader title="Definizione Descrittori" icon="edit_note" variant="tonal" />
+                                 <SectionHeader title="Definizione Descrittori" icon="edit_note" variant="outlined" />
                                  {rubrica.criteri.length > 0 ? rubrica.criteri.map(criterio => {
                                     const competenza = allCompetenze.find(c => c.id === criterio.competenzaId);
                                     if (!competenza) return null;
                                     return (
-                                        <InfoCard key={competenza.id} variant="elevated" style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)' , padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                                        <InfoCard key={competenza.id} elevation={1} style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)' , padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                                                 <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-secondary) 10%, transparent)' , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-medium-font-size)"}}>{competenza.codice.charAt(0)}</div>
                                                 <h4 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>{competenza.nome}</h4>
@@ -161,11 +162,11 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                             </div>
                         </div>
                     </div>
-                </M3DialogContent>
-                <M3DialogActions>
-                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</M3Button>
-                    <M3Button onClick={handleSubmit} variant="filled"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Salva Rubrica</M3Button>
-                </M3DialogActions>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={onClose} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</Button>
+                    <Button onClick={handleSubmit} variant="contained"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Salva Rubrica</Button>
+                </DialogActions>
             </form>
         </M3Dialog>
     );

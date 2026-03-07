@@ -4,7 +4,7 @@
 import React from 'react';
 import { View, NavigationParams } from '../types';
 import { VIEW_LABELS, VIEW_PARENT } from './viewRegistry';
-import { M3Typography } from './ui/M3Typography';
+import { Typography } from '@mui/material';
 
 interface BreadcrumbProps {
   /** View corrente */
@@ -63,10 +63,11 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentView, onNavigate }) => {
           <React.Fragment key={item.view}>
             {isLast ? (
               // Elemento corrente: non cliccabile, evidenziato
-              <M3Typography
-                variant="label-medium"
+              <Typography
+                variant="caption"
+                component="span"
                 aria-current="page"
-                style={{
+                sx={{
                   color: 'var(--md-sys-color-on-surface)',
                   fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                   whiteSpace: 'nowrap',
@@ -76,7 +77,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentView, onNavigate }) => {
                 }}
               >
                 {item.label}
-              </M3Typography>
+              </Typography>
             ) : (
               // Elemento precedente: cliccabile
               <button
@@ -92,15 +93,16 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentView, onNavigate }) => {
                   whiteSpace: 'nowrap',
                 }}
               >
-                <M3Typography
-                  variant="label-medium"
-                  style={{
+                <Typography
+                  variant="caption"
+                  component="span"
+                  sx={{
                     color: 'inherit',
                     fontWeight: 'var(--md-sys-typescale-weight-medium)',
                   }}
                 >
                   {item.label}
-                </M3Typography>
+                </Typography>
               </button>
             )}
             {/* Separatore MD3 */}

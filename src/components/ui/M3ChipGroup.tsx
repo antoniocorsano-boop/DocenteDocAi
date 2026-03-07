@@ -1,51 +1,40 @@
-// MD3 Compliant M3ChipGroup Component
-// Fully compliant with MD3 tokens: uses var(--md-sys-*) CSS variables for theming, spacing, typography, shape, motion, and elevation
-// No useTheme() dependency - all styling uses direct MD3 CSS variables
-
+// Thin MUI wrapper — preserves M3ChipGroup props API for backward compatibility
+// @mui-migrated Fase 2
 import React from 'react';
+import { Stack } from '@mui/material';
 
 export type M3ChipGroupProps = {
   children: React.ReactNode;
   direction?: 'horizontal' | 'vertical';
   spacing?: 'tight' | 'normal' | 'loose';
   wrap?: boolean;
+  role?: string;
+  'aria-label'?: string;
+};
+
+const SPACING_MAP: Record<NonNullable<M3ChipGroupProps['spacing']>, number> = {
+  tight: 0.5, normal: 1, loose: 2,
 };
 
 function M3ChipGroup({
   children,
   direction = 'horizontal',
   spacing = 'normal',
-  wrap = true
+  wrap = true,
+  role,
+  'aria-label': ariaLabel,
 }: M3ChipGroupProps): React.ReactElement {
-  // MD3 Token mapping - no useTheme() dependency
-  // Spacing tokens
-  const spacing1 = 'var(--md-sys-spacing-1)';
-  const spacing2 = 'var(--md-sys-spacing-2)';
-  const spacing3 = 'var(--md-sys-spacing-3)';
-
-  const getSpacing = () => {
-    switch (spacing) {
-      case 'tight': return spacing1;
-      case 'loose': return spacing3;
-      default: return spacing2;
-    }
-  };
-
-  const flexDirection = direction === 'vertical' ? 'column' : 'row';
-  const flexWrap = wrap ? 'wrap' : 'nowrap';
-
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection,
-        flexWrap,
-        gap: getSpacing(),
-        alignItems: direction === 'vertical' ? 'flex-start' : 'center'
-      }}
+    <Stack
+      role={role}
+      aria-label={ariaLabel}
+      direction={direction === 'vertical' ? 'column' : 'row'}
+      spacing={SPACING_MAP[spacing]}
+      flexWrap={wrap ? 'wrap' : 'nowrap'}
+      useFlexGap
     >
       {children}
-    </div>
+    </Stack>
   );
 }
 

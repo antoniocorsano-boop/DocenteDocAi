@@ -1,18 +1,10 @@
-// MD3 Compliant — Consiglio Classe Wizard
+﻿// MD3 Compliant — Consiglio Classe Wizard
 
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, TimetableSettings, AiSettings, Report, ValutazioneCompetenza, PeriodoValutazione } from '../types';
 import { generateCouncilDataPdf, viewPdfInNewTab } from '../utils/documentUtils';
-import { 
-
-    M3Dialog, 
-    M3DialogContent, 
-    M3DialogActions, 
-    M3Button, 
-    TabGroup, 
-    SelectField, 
-    InfoCard 
-} from './ui';
+import { M3Dialog, TabGroup, SelectField, InfoCard } from './ui';
+import {DialogContent, DialogActions, Button } from '@mui/material';
 
 interface ConsiglioClasseWizardProps {
     onClose: () => void;
@@ -61,7 +53,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
 
     const renderStep1 = () => (
         <>
-            <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
+            <DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
                 <InfoCard 
                     title="Seleziona il contesto" 
                     description="Scegli la classe e il periodo di riferimento per il quale desideri generare il report." 
@@ -88,34 +80,34 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                         ]}
                         activeTab={periodo}
                         onTabChange={(id) => setPeriodo(id as PeriodoValutazione)}
-                        variant="filled"
+                        variant="contained"
                         style={{ width: 'var(--md-sys-percent-100)' }}
                     />
                 </div>
-            </M3DialogContent>
-            <M3DialogActions>
-                <M3Button variant="text" onClick={props.onClose}>Annulla</M3Button>
-                <M3Button 
-                    variant="filled" 
+            </DialogContent>
+            <DialogActions>
+                <Button variant="text" onClick={props.onClose}>Annulla</Button>
+                <Button 
+                    variant="contained" 
                     onClick={() => setStep(2)} 
                     disabled={!selectedClass}
                     endIcon={<span className="material-symbols-outlined">arrow_forward</span>}
                 >
                     Continua
-                </M3Button>
-            </M3DialogActions>
+                </Button>
+            </DialogActions>
         </>
     );
 
     const renderStep2 = () => (
         <>
-            <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
+            <DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
                 <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-5)', border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)`, display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <p style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-primary)"}}>Context Active</p>
                         <h3 style={{ color: 'var(--md-sys-color-on-primary-container)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</h3>
                     </div>
-                    <M3Button variant="tonal" onClick={() => setStep(1)}  style={{ fontSize: "var(--md-sys-typescale-body-small-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase" }}>Cambia</M3Button>
+                    <Button variant="outlined" onClick={() => setStep(1)}  style={{ fontSize: "var(--md-sys-typescale-body-small-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase" }}>Cambia</Button>
                 </div>
 
                 <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
@@ -131,10 +123,10 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , textAlign: "center", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
                     Il report verrà generato e aperto in una nuova scheda del browser.
                 </p>
-            </M3DialogContent>
-            <M3DialogActions>
-                <M3Button variant="text" onClick={() => setStep(1)}>Indietro</M3Button>
-            </M3DialogActions>
+            </DialogContent>
+            <DialogActions>
+                <Button variant="text" onClick={() => setStep(1)}>Indietro</Button>
+            </DialogActions>
         </>
     );
     
@@ -145,10 +137,10 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                  title=""
                  maxWidth="sm"
              >
-                <M3DialogContent  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
+                <DialogContent  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
                     <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: `var(--md-sys-border-width-thick) solid var(--md-sys-color-outline)`, borderColor: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-6)'}}></div>
                     <p  style={{fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)"}}>{loadingMessage}</p>
-                </M3DialogContent>
+                </DialogContent>
             </M3Dialog>
         )
     }

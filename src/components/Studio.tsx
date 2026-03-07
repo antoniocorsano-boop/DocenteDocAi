@@ -1,4 +1,4 @@
-// MD3 GOLD COMPLIANT – Audit 2026-01-25
+﻿// MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // M3Expressive refactor: Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
@@ -17,7 +17,8 @@ import ImageGeneratorModal from './ImageGeneratorModal';
 import TestGeneratorModal from './TestGeneratorModal';
 import TestPreviewModal from './TestPreviewModal';
 import Guidance from './Guidance';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SelectField, AiThinkingGem } from './ui';
+import { M3Dialog, SelectField, AiThinkingGem } from './ui';
+import {DialogContent, DialogActions, Button } from '@mui/material';
 type StudioTask = 'summary' | 'key_points' | 'qa' | 'flashcards' | 'presentation' | 'document' | 'image' | 'quiz';
 
 interface StudioAction {
@@ -248,9 +249,8 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     title="API Key Richiesta"
                     onClose={() => setIsKeySelectionOpen(false)}
                     maxWidth="sm"
-                    level={2}
                 >
-                    <M3DialogContent >
+                    <DialogContent >
                         <p>
                             Per utilizzare la generazione di immagini e video (modelli Imagen/Veo), è necessaria una API Key abilitata al billing.
                         </p>
@@ -258,13 +258,13 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                             <span>info</span>
                             Scopri di più sul billing
                         </a>
-                    </M3DialogContent>
-                    <M3DialogActions>
-                        <M3Button onClick={() => setIsKeySelectionOpen(false)} variant="text">Annulla</M3Button>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setIsKeySelectionOpen(false)} variant="text">Annulla</Button>
                         {typeof (window as any).aistudio !== 'undefined' && (
-                            <M3Button onClick={handleSelectKey} variant="filled">Seleziona API Key (Demo)</M3Button>
+                            <Button onClick={handleSelectKey} variant="contained">Seleziona API Key (Demo)</Button>
                         )}
-                    </M3DialogActions>
+                    </DialogActions>
                 </M3Dialog>
             )}
 

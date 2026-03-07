@@ -5,7 +5,8 @@ import { calculatePerformance } from '../utils/evaluationUtils';
 import { generateStudentProfilePdf, viewPdfInNewTab, generateCertificazioneCompetenzePdf } from '../utils/documentUtils';
 import { DEFAULT_COMPETENZE } from '../constants';
 import StudentInterviewModal from './StudentInterviewModal';
-import { M3Button, TabGroup, EmptyState, InfoCard, Avatar, M3ListItem } from './ui';
+import { TabGroup, EmptyState, InfoCard, Avatar } from './ui';
+import Button from '@mui/material/Button';
 import { getPeriodicJudgmentSuggestion } from '../services/aiService';
 
 interface StudentProfileProps {
@@ -154,9 +155,9 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     const renderOverview = () => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
-                <InfoCard title="Media Voti" description={performance.grade || '-'} icon="analytics" variant="filled" />
+                <InfoCard title="Media Voti" description={performance.grade || '-'} icon="analytics" variant="contained" />
                 <InfoCard title="Andamento" description={performance.trend === 'up' ? 'In crescita' : performance.trend === 'down' ? 'In calo' : 'Stabile'} icon={trendIcon} variant="surface" />
-                <InfoCard title="Assenze" description={`${attendanceStats.absences} ore`} icon="event_busy" variant="tonal" />
+                <InfoCard title="Assenze" description={`${attendanceStats.absences} ore`} icon="event_busy" variant="outlined" />
                 <InfoCard title="Ritardi" description={`${attendanceStats.lates} ingressi`} icon="schedule" variant="tertiary" />
             </div>
 
@@ -190,9 +191,9 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                             <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Genera una bozza di giudizio basata sui dati.</p>
                         </div>
                     </div>
-                    <M3Button onClick={handleGenerateAiJudgment} variant="filled" disabled={isLoadingAi}>
+                    <Button onClick={handleGenerateAiJudgment} variant="contained" disabled={isLoadingAi}>
                         {isLoadingAi ? '⏳' : 'Genera Bozza'}
-                    </M3Button>
+                    </Button>
                 </div>
 
                 {aiJudgment && (
@@ -205,10 +206,10 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                             &ldquo;{aiJudgment}&rdquo;
                         </p>
                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <M3Button onClick={() => { navigator.clipboard.writeText(aiJudgment); alert('Giudizio copiato negli appunti!'); }} variant="text">
+                            <Button onClick={() => { navigator.clipboard.writeText(aiJudgment); alert('Giudizio copiato negli appunti!'); }} variant="text">
                                 <span className="material-symbols-outlined">content_copy</span>
                                 Copia Testo
-                            </M3Button>
+                            </Button>
                         </div>
                     </div>
                 )}
@@ -225,7 +226,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                             <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Fine ciclo studi</p>
                         </div>
                     </div>
-                    <M3Button onClick={handleGenerateCertification} variant="tonal" disabled={isExporting}>Genera PDF</M3Button>
+                    <Button onClick={handleGenerateCertification} variant="outlined" disabled={isExporting}>Genera PDF</Button>
                 </div>
             )}
         </div>
@@ -255,24 +256,21 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
                             {evals.map(ev => (
-                                <M3ListItem
-                                    key={ev.id}
-                                    leadingElement={
-                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)', color: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)', fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>
-                                            {ev.voto}
-                                        </div>
-                                    }
-                                    headline={ev.argomento || 'Verifica'}
-                                    supportingText={`${ev.tipo} ${ev.note ? `• ${ev.note}` : ''}`}
-                                    trailingElement={
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
-                                            <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(ev.data).toLocaleDateString()}</span>
-                                            <M3Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="text">
-                                                <span className="material-symbols-outlined">delete</span>
-                                            </M3Button>
-                                        </div>
-                                    }
-                                />
+                                <div key={ev.id} style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-2) 0', borderBottom: '1px solid var(--md-sys-color-outline-variant)' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-primary-container)', color: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-primary-container)', fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', flexShrink: 0 }}>
+                                        {ev.voto}
+                                    </div>
+                                    <div style={{ flex: 1, minWidth: 0 }}>
+                                        <div style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{ev.argomento || 'Verifica'}</div>
+                                        <div style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{`${ev.tipo}${ev.note ? ` • ${ev.note}` : ''}`}</div>
+                                    </div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                                        <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(ev.data).toLocaleDateString()}</span>
+                                        <Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="text">
+                                            <span className="material-symbols-outlined">delete</span>
+                                        </Button>
+                                    </div>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -386,9 +384,9 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             {/* Profile Header */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                    <M3Button onClick={onBack} variant="text">
+                    <Button onClick={onBack} variant="text">
                         <span className="material-symbols-outlined">arrow_back</span>
-                    </M3Button>
+                    </Button>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                         <Avatar name={`${student.nome} ${student.cognome}`} size="xl" />
                         <div style={{ flex: 1, minWidth: 0 }}>
@@ -402,18 +400,18 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                     </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
-                    <M3Button onClick={() => setIsInterviewModeOpen(true)} variant="tonal">
+                    <Button onClick={() => setIsInterviewModeOpen(true)} variant="outlined">
                         <span className="material-symbols-outlined">record_voice_over</span>
                         Colloquio
-                    </M3Button>
-                    <M3Button onClick={handleExportPdf} variant="filled" disabled={isExporting}>
+                    </Button>
+                    <Button onClick={handleExportPdf} variant="contained" disabled={isExporting}>
                         <span className="material-symbols-outlined">download</span>
                         Esporta PDF
-                    </M3Button>
+                    </Button>
                 </div>
             </div>
 
-            <TabGroup tabs={tabs} activeTab={activeTab} onTabChange={(id) => setActiveTab(id as ProfileTab)} variant="filled" />
+            <TabGroup tabs={tabs} activeTab={activeTab} onTabChange={(id) => setActiveTab(id as ProfileTab)} variant="contained" />
 
             <div style={{ flex: 1, padding: 'var(--md-sys-spacing-4)', overflowY: 'auto' }}>
                 {activeTab === 'overview' && renderOverview()}

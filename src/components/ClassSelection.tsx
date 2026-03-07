@@ -1,11 +1,12 @@
-// MD3 Compliant
+﻿// MD3 Compliant
 
 import React, { useState, useMemo } from 'react';
 import { View, Valutazione, Studente, ValutazioneCompetenza, TimetableSettings, PeriodoValutazione } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { generateCouncilDataPdf } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SectionHeader, TabGroup, M3ExpressiveCard, EmptyState } from './ui';
+import { M3Dialog, SectionHeader, TabGroup, EmptyState, M3ExpressiveCard as Card } from './ui';
+import {DialogContent, DialogActions, Button } from '@mui/material';
 import { useStudentStore } from '../stores/useStudentStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
 interface ClassSelectionProps {
@@ -165,7 +166,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                 ? (studentAverages.reduce((a, b) => a + b, 0) / studentAverages.length).toFixed(1)
                                 : '-';
                             return (
-                                <M3ExpressiveCard
+                                <Card
                                     key={className}
                                     icon="groups"
                                     title={className}
@@ -298,7 +299,7 @@ const PrintCenterModal: React.FC<{
             onClose={onClose}
             maxWidth="md"
         >
-            <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
+            <DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
                     <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
                     
                     <div style={{gap: 'var(--md-sys-spacing-2)'}}>
@@ -356,13 +357,13 @@ const PrintCenterModal: React.FC<{
                             ))}
                         </div>
                     </div>
-            </M3DialogContent>
-            <M3DialogActions>
-                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
-                <M3Button onClick={handlePrintAll} disabled={selectedClasses.length === 0 || isProcessing} variant="filled">
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={onClose} variant="text">Annulla</Button>
+                <Button onClick={handlePrintAll} disabled={selectedClasses.length === 0 || isProcessing} variant="contained">
                     {isProcessing ? 'Elaborazione...' : `Genera ${selectedClasses.length} PDF`}
-                </M3Button>
-            </M3DialogActions>
+                </Button>
+            </DialogActions>
         </M3Dialog>
     )
 }

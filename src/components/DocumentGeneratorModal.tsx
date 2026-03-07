@@ -1,8 +1,9 @@
-// MD3 Gold Compliant
+﻿// MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 import React, { useState } from 'react';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextArea } from './ui';
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog, TextArea } from './ui';
 interface DocumentGeneratorModalProps {
     onClose: () => void;
     onGenerate: (prompt: string) => void;
@@ -24,10 +25,17 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
             title="Crea Documento Formattato"
             onClose={onClose}
             maxWidth="sm"
-            level={1}
+            buttons={
+                <>
+                    <Button type="button" onClick={onClose} variant="text">Annulla</Button>
+                    <Button type="button" onClick={handleSubmit} variant="contained">
+                        <Typography component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>auto_awesome</Typography>
+                        Genera Documento
+                    </Button>
+                </>
+            }
         >
-            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} style={{gap: 'var(--md-sys-spacing-6)'}}>
-                <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
+            <Box component="form" id="doc-generator-form" onSubmit={(e: React.FormEvent) => { e.preventDefault(); handleSubmit(); }} sx={{ gap: 'var(--md-sys-spacing-6)', display: 'flex', flexDirection: 'column' }}>
                     <TextArea
                         id="doc-generator-prompt"
                         label="Descrivi il documento che vuoi creare"
@@ -37,16 +45,7 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
                         placeholder="Es. 'Scrivi una relazione dettagliata sul Rinascimento italiano, organizzata in sezioni per arte, scienza e politica.'..."
                         autoFocus
                     />
-                </M3DialogContent>
-
-                <M3DialogActions style={{gap: 'var(--md-sys-spacing-6)'}}>
-                    <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
-                    <M3Button type="button" onClick={handleSubmit} variant="filled">
-                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>auto_awesome</span>
-                        Genera Documento
-                    </M3Button>
-                </M3DialogActions>
-            </form>
+            </Box>
         </M3Dialog>
     );
 };

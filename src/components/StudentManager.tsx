@@ -5,7 +5,12 @@ import { Studente, KnowledgeBaseEntry } from '../types';
 import AddStudentModal from './AddStudentModal';
 import ImportStudentsModal from './ImportStudentsModal';
 import StudentTransferModal from './StudentTransferModal';
-import { EmptyState, M3Button, SectionHeader, Avatar, TextField, SelectField } from './ui';
+import { EmptyState, SectionHeader, Avatar, TextField } from './ui';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
 
 interface StudentManagerProps {
     students: Studente[];
@@ -71,7 +76,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
           {student.isArchived ? (
-              <M3Button 
+              <Button 
                   onClick={() => onRestore(student)} 
                   variant="text" 
                    
@@ -80,10 +85,10 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
               >
                   <span style={{
 }} aria-hidden="true">restore_from_trash</span>
-              </M3Button>
+              </Button>
           ) : (
               <>
-                  <M3Button 
+                  <Button 
                       onClick={() => onTransfer(student)} 
                       variant="text" 
                        
@@ -92,8 +97,8 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
                   >
                       <span style={{
 }} aria-hidden="true">transfer_within_a_station</span>
-                  </M3Button>
-                  <M3Button 
+                  </Button>
+                  <Button 
                       onClick={() => onEdit(student)} 
                       variant="text" 
                        
@@ -102,10 +107,10 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
                   >
                       <span style={{
 }} aria-hidden="true">edit</span>
-                  </M3Button>
+                  </Button>
               </>
           )}
-          <M3Button 
+          <Button 
               onClick={() => { if (confirm(`Eliminare definitivamente ${student.cognome} ${student.nome}?`)) onDelete(student.id); }} 
               variant="text" 
                
@@ -114,7 +119,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
           >
               <span style={{
 }} aria-hidden="true">delete</span>
-          </M3Button>
+          </Button>
       </div>
     </div>
   );
@@ -199,14 +204,14 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                 subtitle="Archivia, importa e aggiorna anagrafica e stato classe."
                 actions={
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                        <M3Button onClick={() => setIsImportModalOpen(true)} variant="tonal" >
+                        <Button onClick={() => setIsImportModalOpen(true)} variant="outlined" >
                             <span>upload_file</span>
                             Importa
-                        </M3Button>
-                        <M3Button onClick={() => setEditingStudent('new')} variant="filled" >
+                        </Button>
+                        <Button onClick={() => setEditingStudent('new')} variant="contained" >
                             <span>add</span>
                             Nuovo
-                        </M3Button>
+                        </Button>
                     </div>
                 }
             />
@@ -225,21 +230,24 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                         />
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <SelectField
-                            id="class-filter"
-                            label="Seleziona classe"
-                            value={filterClass}
-                            onChange={e => setFilterClass(e.target.value)}
-                            options={[
-                                { value: 'all', label: 'Tutte le classi' },
-                                ...userClasses.map(c => ({ value: c, label: `Classe ${c}` }))
-                            ]}
-                            aria-label="Filtra studenti per classe"
-                        />
+                        <FormControl size="small" fullWidth>
+                            <InputLabel id="class-filter-label">Seleziona classe</InputLabel>
+                            <Select
+                                labelId="class-filter-label"
+                                id="class-filter"
+                                label="Seleziona classe"
+                                value={filterClass}
+                                onChange={e => setFilterClass(e.target.value as string)}
+                                inputProps={{ 'aria-label': 'Filtra studenti per classe' }}
+                            >
+                                <MenuItem value="all">Tutte le classi</MenuItem>
+                                {userClasses.map(c => <MenuItem key={c} value={c}>Classe {c}</MenuItem>)}
+                            </Select>
+                        </FormControl>
                     </div>
-                    <M3Button
+                    <Button
                         onClick={() => setShowArchived(!showArchived)}
-                        variant={showArchived ? "tonal" : "text"}
+                        variant={showArchived ? "contained" : "text"}
                         style={{
                             // student-manager-archive-toggle styles
                             marginLeft: 'var(--md-sys-spacing-2)'
@@ -250,7 +258,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                     >
                         <span  aria-hidden="true">{showArchived ? 'archive' : 'unarchive'}</span>
                         {showArchived ? 'Archivio ON' : 'Archivio OFF'}
-                    </M3Button>
+                    </Button>
                 </div>
 
                 <div  

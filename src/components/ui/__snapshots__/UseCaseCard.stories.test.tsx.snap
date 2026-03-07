@@ -4,8 +4,9 @@ exports[`UseCaseCard Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
     aria-label="DocenteDoc AI Application"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-g3p503-MuiPaper-root"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
+    style="--Paper-shadow: none;"
   >
     <div
       style="background-color: var(--md-sys-color-surface); border-radius: var(--md-sys-shape-corner-medium); padding: var(--md-sys-spacing-6); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline);"
@@ -23,13 +24,13 @@ exports[`UseCaseCard Story Snapshots > renders default story correctly 1`] = `
           </span>
         </div>
         <p
-          style="font-family: var(--font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-tracking); color: var(--md-sys-color-primary); margin: 0px; text-transform: uppercase; opacity: var(--md-sys-state-opacity-supporting);"
+          class="MuiTypography-root MuiTypography-button css-zend0d-MuiTypography-root"
         >
           Scenario
         </p>
       </div>
       <p
-        style="font-family: var(--font-family); font-size: var(--md-sys-typescale-body-large-font-size); font-weight: var(--md-sys-typescale-body-large-font-weight); line-height: var(--md-sys-typescale-body-large-line-height); letter-spacing: var(--md-sys-typescale-body-large-tracking); color: inherit; margin: 0px;"
+        class="MuiTypography-root MuiTypography-body1 css-5r0xii-MuiTypography-root"
       >
         "
         Test
@@ -47,7 +48,7 @@ exports[`UseCaseCard Story Snapshots > renders default story correctly 1`] = `
             1
           </span>
           <p
-            style="font-family: var(--font-family); font-size: var(--md-sys-typescale-body-medium-font-size); font-weight: var(--md-sys-typescale-body-medium-font-weight); line-height: var(--md-sys-typescale-body-large-line-height); letter-spacing: var(--md-sys-typescale-body-medium-tracking); color: var(--md-sys-color-outline); margin: 0px;"
+            class="MuiTypography-root MuiTypography-body2 css-1c38htl-MuiTypography-root"
           >
             Step 1
           </p>

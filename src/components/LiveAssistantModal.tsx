@@ -1,11 +1,12 @@
-// MD3 Gold Compliant
+﻿// MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 
 import React from 'react';
+import {} from '@mui/material';
 import { LiveAssistant } from './LiveAssistant'; // Corrected named import
 import { LiveAssistantModalProps } from '../types';
-import { M3Dialog, M3DialogContent } from './ui';
+import { M3Dialog } from './ui';
 
 const LiveAssistantModal: React.FC<LiveAssistantModalProps> = ({ 
     onClose, 
@@ -30,14 +31,9 @@ const LiveAssistantModal: React.FC<LiveAssistantModalProps> = ({
         <M3Dialog
             title="Assistente Vocale Live"
             onClose={onClose}
-            maxWidth="2xl"
+            maxWidth="xl"
         >
-            <M3DialogContent style={{
-                backgroundColor: 'var(--md-sys-color-surface-container-high)',
-                display: "flex",
-                flexDirection: "column"
-            }}>
-                <LiveAssistant 
+            <LiveAssistant 
                     lessonContext={lessonContext} 
                     isModalMode={true} 
                     onNavigate={(v, c) => { onNavigate?.(v, c); onClose(); }}
@@ -60,7 +56,6 @@ const LiveAssistantModal: React.FC<LiveAssistantModalProps> = ({
                     knowledgeBase={knowledgeBase}
                     userContext={userContext} // Pass to LiveAssistant
                 />
-            </M3DialogContent>
         </M3Dialog>
     );
 };

@@ -1,7 +1,8 @@
-// MD3 Gold Compliant
+﻿// MD3 Gold Compliant
 
 import React, { useState } from 'react';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, M3Typography } from './ui';
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog } from './ui';
 
 interface ShareModalProps {
     title: string;
@@ -17,8 +18,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
             try {
                 await navigator.share({
                     title: title,
-                    text: text,
-                });
+                    text: text });
                 onClose();
             } catch (error) {
                 console.error('Error sharing:', error);
@@ -54,9 +54,9 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
             onClose={onClose}
             title="Condividi"
             maxWidth="sm"
-            level={1}
+            buttons={<Button onClick={onClose} variant="text">Chiudi</Button>}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 'var(--md-sys-state-opacity-tint-moderate)', gap: 'var(--md-sys-spacing-4)' }}>
+            <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 'var(--md-sys-state-opacity-tint-moderate)', gap: 'var(--md-sys-spacing-4)' }}>
                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>Scegli come condividere il contenuto</p>
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
@@ -88,8 +88,8 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)' }}>share</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <M3Typography variant="title-small">Condividi via...</M3Typography>
-                            <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>WhatsApp, Email, Drive</M3Typography>
+                            <Typography variant="subtitle2">Condividi via...</Typography>
+                            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>WhatsApp, Email, Drive</Typography>
                         </div>
                     </button>
 
@@ -121,15 +121,12 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)' }}>{copyStatus === 'copied' ? 'check' : 'content_paste'}</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <M3Typography variant="title-small">{copyStatus === 'copied' ? 'Copiato!' : 'Copia Formattato'}</M3Typography>
-                            <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Per registro elettronico o Padlet</M3Typography>
+                            <Typography variant="subtitle2">{copyStatus === 'copied' ? 'Copiato!' : 'Copia Formattato'}</Typography>
+                            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Per registro elettronico o Padlet</Typography>
                         </div>
                     </button>
                 </div>
-            </M3DialogContent>
-            <M3DialogActions>
-                <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
-            </M3DialogActions>
+            </Box>
         </M3Dialog>
     );
 };

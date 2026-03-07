@@ -4,11 +4,13 @@ exports[`M3Card Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
     aria-label="DocenteDoc AI Application"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-g3p503-MuiPaper-root"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
+    style="--Paper-shadow: none;"
   >
     <div
-      style="padding: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-large); transition: transform var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial), box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard), background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); transform: scale(1); outline: none; outline-offset: var(--md-sys-spacing-0); background-color: var(--md-sys-color-surface-container-low); box-shadow: var(--md-sys-elevation-level1); border: medium;"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-1kj3yz6-MuiPaper-root-MuiCard-root"
+      style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
     >
       Test content
     </div>

@@ -1,11 +1,12 @@
-
+﻿
 // MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 
 import React, { useState, useMemo } from 'react';
 import { KnowledgeBaseEntry, MaterialeDidattico } from '../types';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, TabGroup } from './ui';
+import { Button, Box  } from '@mui/material';
+import { M3Dialog, TextField, TabGroup } from './ui';
 interface MaterialPickerModalProps {
     knowledgeBase: KnowledgeBaseEntry[];
     currentMaterials: MaterialeDidattico[];
@@ -39,8 +40,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                 type: 'kb',
                 id: `mat-kb-${kbEntry.id}`,
                 kbId: kbEntry.id,
-                fileName: kbEntry.fileName,
-            };
+                fileName: kbEntry.fileName };
             setMaterials(prev => [...prev, newMaterial]);
         }
     };
@@ -57,8 +57,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
             type: 'link',
             id: `mat-link-${Date.now()}`,
             label: linkLabel,
-            url: correctedUrl,
-        };
+            url: correctedUrl };
         setMaterials(prev => [...prev, newLink]);
         setLinkLabel('');
         setLinkUrl('');
@@ -98,10 +97,13 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
         <M3Dialog
             title="Allega Materiali"
             onClose={onClose}
-            maxWidth="2xl"
-            level={2}
+            maxWidth="xl"
+            buttons={<>
+                <Button onClick={onClose} variant="text">Annulla</Button>
+                <Button onClick={() => onSave(materials)} variant="contained">Salva</Button>
+            </>}
         >
-            <M3DialogContent style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' }}>
+            <Box sx={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' }}>
                 <div  style={{ display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)" }}>
                     {/* Left: Source */}
                     <div  style={{padding: 'var(--md-sys-spacing-6)', borderRight: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
@@ -109,18 +111,18 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                             tabs={tabs}
                             activeTab={activeTab}
                             onChange={(id) => setActiveTab(id as 'kb' | 'file' | 'link')}
-                            variant="tonal"
+                            variant="outlined"
                         />
 
                         {activeTab === 'kb' && (
-                            <div  style={{flexGrow: "1", display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
+                            <div  style={{flexGrow: 1, display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
                                 <TextField 
                                     label="Cerca nella KB..." 
                                     value={searchTerm} 
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     fullWidth
                                 />
-                                <div  style={{flexGrow: "1", overflowY: "auto", gap: 'var(--md-sys-spacing-2)'}}>
+                                <div  style={{flexGrow: 1, overflowY: "auto", gap: 'var(--md-sys-spacing-2)'}}>
                                     {filteredKb.map(entry => {
                                         const isSelected = materials.some(m => m.type === 'kb' && m.kbId === entry.id);
                                         return (
@@ -129,8 +131,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                                 onClick={() => handleToggleKb(entry)}
                                                 style={{padding: 'var(--md-sys-spacing-6)'}}
                                             >
-                                                <span style={{
-}}>
+                                                <span style={{}}>
                                                     {isSelected ? 'check_circle' : 'description'}
                                                 </span>
                                                 <span style={{ color: 'var(--md-sys-color-on-surface)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: "1" }}>{entry.fileName}</span>
@@ -184,10 +185,10 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                     onChange={e => setLinkLabel(e.target.value)} 
                                     fullWidth 
                                 />
-                                <M3Button onClick={handleAddLink} variant="filled"  style={{ width: "var(--md-sys-percent-100)" }}>
+                                <Button onClick={handleAddLink} variant="contained" sx={{ width: "var(--md-sys-percent-100)" }}>
                                     <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span>
                                     Aggiungi Link
-                                </M3Button>
+                                </Button>
                             </div>
                         )}
                     </div>
@@ -200,21 +201,20 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                 {materials.length}
                             </span>
                         </div>
-                        <div  style={{flexGrow: "1", overflowY: "auto", gap: 'var(--md-sys-spacing-2)'}}>
+                        <div  style={{flexGrow: 1, overflowY: "auto", gap: 'var(--md-sys-spacing-2)'}}>
                             {materials.map(material => (
                                 <div key={material.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , display: "flex", alignItems: "center", justifyContent: "space-between", padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>
                                         <span  style={{color: "var(--md-sys-color-primary)"}}>{getMaterialIcon(material)}</span>
                                         <span style={{ color: 'var(--md-sys-color-on-surface)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{getMaterialLabel(material)}</span>
                                     </div>
-                                    <M3Button 
+                                    <Button 
                                         onClick={() => handleRemoveMaterial(material.id)} 
                                         variant="text" 
-                                         style={{color: "var(--md-sys-color-error)", opacity: "0", transition: "opacity var(--md-sys-motion-duration-medium)"}}
+                                        sx={{color: "var(--md-sys-color-error)", opacity: "0", transition: "opacity var(--md-sys-motion-duration-medium)"}}
                                     >
-                                        <span style={{
-}}>close</span>
-                                    </M3Button>
+                                        <span style={{}}>close</span>
+                                    </Button>
                                 </div>
                             ))}
                             {materials.length === 0 && (
@@ -226,11 +226,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                         </div>
                     </div>
                 </div>
-            </M3DialogContent>
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}>
-                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
-                <M3Button onClick={() => onSave(materials)} variant="filled">Salva</M3Button>
-            </M3DialogActions>
+            </Box>
         </M3Dialog>
     );
 };

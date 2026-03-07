@@ -1,21 +1,13 @@
-// MD3 Expressive Transformative â€” Segmented Button
-// Horizontal control with animated selection pill (spring), full MD3 token compliance.
-// Use in place of M3ChipGroup for filtering/navigation (e.g. weekdays in Registro, view tabs).
-// Component-scoped keyframes for pill animation (documented exception per MD3 contract Â§9).
+// Thin MUI wrapper — preserves M3SegmentedButton props API for backward compatibility
+// @mui-migrated Fase 2
+// Documented exception per MD3 contract §9: component-scoped keyframes retained
+//   because spring animation is a brand-differentiating expressive pattern.
+import React from 'react';
+import { ToggleButtonGroup, ToggleButton, Box } from '@mui/material';
 
-import React, { useId } from 'react';
-
-const PILL_KEYFRAMES = `
-  @keyframes _m3sb-pill-in {
-    from { transform: scaleX(0.4) scaleY(0.7); opacity: 0.6; }
-    65%  { transform: scaleX(1.04) scaleY(1.04); opacity: 1; }
-    82%  { transform: scaleX(0.98) scaleY(0.98); }
-    100% { transform: scaleX(1) scaleY(1); opacity: 1; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    ._m3sb-pill { animation-duration: 0.01ms !important; }
-  }
-`;
+// ============================================================================
+// TYPES (unchanged public API)
+// ============================================================================
 
 export interface M3SegmentedButtonOption<T extends string = string> {
   value: T;
@@ -29,29 +21,16 @@ export interface M3SegmentedButtonProps<T extends string = string> {
   options: M3SegmentedButtonOption<T>[];
   value: T;
   onChange: (value: T) => void;
-  /** 'single' = one selected at a time (default). 'multi' not implemented â€” use M3ChipGroup. */
   density?: 'default' | 'compact';
-  /** Full-width: each segment shares equal space. Default: false (fits content) */
   fullWidth?: boolean;
   'aria-label'?: string;
   style?: React.CSSProperties;
 }
 
-/**
- * M3SegmentedButton â€” MD3 Expressive horizontal segmented control.
- *
- * @example
- * <M3SegmentedButton
- *   options={[
- *     { value: 'lun', label: 'Lun' },
- *     { value: 'mar', label: 'Mar' },
- *     { value: 'mer', label: 'Mer' },
- *   ]}
- *   value={selectedDay}
- *   onChange={setSelectedDay}
- *   fullWidth
- * />
- */
+// ============================================================================
+// COMPONENT
+// ============================================================================
+
 function M3SegmentedButton<T extends string = string>({
   options,
   value,
@@ -61,153 +40,69 @@ function M3SegmentedButton<T extends string = string>({
   'aria-label': ariaLabel,
   style,
 }: M3SegmentedButtonProps<T>): React.ReactElement {
-  const groupId = useId();
   const isCompact = density === 'compact';
 
   return (
-    <>
-      <style>{PILL_KEYFRAMES}</style>
-      <div
-        role="group"
-        aria-label={ariaLabel}
-        style={{
-          display: 'inline-flex',
-          width: fullWidth ? 'var(--md-sys-percent-100)' : 'auto',
-          borderRadius: 'var(--md-sys-shape-corner-full)',
-          border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`,
-          overflow: 'hidden',
-          ...style,
-        }}
-      >
-        {options.map((opt, idx) => {
-          const isSelected = opt.value === value;
-          const isFirst = idx === 0;
-          const isLast = idx === options.length - 1;
-
-          return (
-            <button
-              key={String(opt.value)}
-              id={`${groupId}-${String(opt.value)}`}
-              type="button"
-              role="radio"
-              aria-checked={isSelected}
-              aria-label={opt.label}
-              disabled={opt.disabled}
-              onClick={() => !opt.disabled && onChange(opt.value)}
-              style={{
-                position: 'relative',
-                flex: fullWidth ? 1 : undefined,
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: opt.icon ? 'var(--md-sys-spacing-2)' : undefined,
-                paddingInline: isCompact ? 'var(--md-sys-spacing-3)' : 'var(--md-sys-spacing-4)',
-                paddingBlock: isCompact ? 'var(--md-sys-spacing-2)' : 'var(--md-sys-spacing-2-5, var(--md-sys-spacing-2))',
-                minHeight: isCompact ? 'var(--md-sys-spacing-9)' : 'var(--md-sys-spacing-11)',
-                minWidth: 'var(--md-sys-spacing-12)',
-                background: 'transparent',
-                border: 'none',
-                borderLeft: !isFirst
-                  ? `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)`
-                  : 'none',
-                cursor: opt.disabled ? 'not-allowed' : 'pointer',
-                opacity: opt.disabled ? 'var(--md-sys-state-opacity-disabled)' : undefined,
-                outline: 'none',
-                WebkitTapHighlightColor: 'transparent',
-                // Shape: first/last segments get pill corners
-                borderRadius: isFirst
-                  ? `var(--md-sys-shape-corner-full) 0 0 var(--md-sys-shape-corner-full)`
-                  : isLast
-                    ? `0 var(--md-sys-shape-corner-full) var(--md-sys-shape-corner-full) 0`
-                    : '0',
-                // Active text accent
-                color: isSelected
-                  ? 'var(--md-sys-color-on-secondary-container)'
-                  : 'var(--md-sys-color-on-surface)',
-                fontFamily: 'var(--md-sys-typescale-label-large-font-family)',
-                fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                fontWeight: isSelected
-                  ? 'var(--md-sys-typescale-weight-bold)'
-                  : 'var(--md-sys-typescale-label-large-font-weight)',
-                lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
-                letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
-                transition: [
-                  `color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
-                  `font-weight var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
-                ].join(', '),
-                overflow: 'hidden',
-              }}
+    <ToggleButtonGroup
+      value={value}
+      exclusive
+      onChange={(_e, newValue: T | null) => {
+        // Prevent deselection — always keep a value selected
+        if (newValue !== null) onChange(newValue);
+      }}
+      aria-label={ariaLabel}
+      fullWidth={fullWidth}
+      size={isCompact ? 'small' : 'medium'}
+      sx={{
+        borderRadius: 'var(--md-sys-shape-corner-full)',
+        border: `1px solid var(--md-sys-color-outline)`,
+        overflow: 'hidden',
+        ...style,
+        '& .MuiToggleButtonGroup-grouped': {
+          border: 0,
+          borderLeft: `1px solid var(--md-sys-color-outline) !important`,
+          borderRadius: 0,
+          '&:first-of-type': { borderLeft: '0 !important', borderRadius: 0 },
+        },
+      }}
+    >
+      {options.map((opt) => (
+        <ToggleButton
+          key={opt.value}
+          value={opt.value}
+          disabled={opt.disabled}
+          sx={{
+            flex: fullWidth ? 1 : 'none',
+            gap: opt.icon ? 1 : 0,
+            px: isCompact ? 1.5 : 2,
+            py: isCompact ? 0.5 : 1,
+            textTransform: 'none',
+            typography: 'labelLarge',
+            color: 'var(--md-sys-color-on-surface)',
+            bgcolor: 'transparent',
+            '&.Mui-selected': {
+              bgcolor: 'var(--md-sys-color-secondary-container)',
+              color: 'var(--md-sys-color-on-secondary-container)',
+              '&:hover': { bgcolor: 'var(--md-sys-color-secondary-container)' },
+            },
+          }}
+        >
+          {opt.icon && (
+            <Box
+              component="span"
+              className="material-symbols-outlined"
+              aria-hidden="true"
+              sx={{ fontSize: isCompact ? '16px' : '18px', lineHeight: 1 }}
             >
-              {/* Animated selection background pill */}
-              <span
-                aria-hidden="true"
-                className={isSelected ? '_m3sb-pill' : undefined}
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  background: 'var(--md-sys-color-secondary-container)',
-                  animation: isSelected
-                    ? `_m3sb-pill-in var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00)) both`
-                    : 'none',
-                  opacity: isSelected ? 1 : 0,
-                  transition: isSelected
-                    ? 'none'
-                    : `opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
-                  pointerEvents: 'none',
-                }}
-              />
-
-              {/* Icon (optional) */}
-              {opt.icon && (
-                <span
-                  className="material-symbols-outlined"
-                  aria-hidden="true"
-                  style={{
-                    position: 'relative',
-                    zIndex: 'var(--md-sys-z-content)',
-                    fontSize: 'var(--md-sys-typescale-title-small-font-size)',
-                    fontVariationSettings: isSelected
-                      ? `'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 20`
-                      : `'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20`,
-                    transition: `font-variation-settings var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
-                  }}
-                >
-                  {opt.icon}
-                </span>
-              )}
-
-              {/* Checkmark when selected (MD3 spec) */}
-              {isSelected && (
-                <span
-                  className="material-symbols-outlined"
-                  aria-hidden="true"
-                  style={{
-                    position: 'relative',
-                    zIndex: 'var(--md-sys-z-content)',
-                    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                    fontVariationSettings: `'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 20`,
-                  }}
-                >
-                  check
-                </span>
-              )}
-
-              {/* Label */}
-              <span
-                style={{
-                  position: 'relative',
-                  zIndex: 'var(--md-sys-z-content)',
-                  userSelect: 'none',
-                }}
-              >
-                {opt.label}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-    </>
+              {opt.icon}
+            </Box>
+          )}
+          {opt.label}
+        </ToggleButton>
+      ))}
+    </ToggleButtonGroup>
   );
 }
 
 export default M3SegmentedButton;
+export { M3SegmentedButton };

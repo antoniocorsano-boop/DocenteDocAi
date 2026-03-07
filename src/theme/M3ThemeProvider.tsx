@@ -119,6 +119,8 @@ const defaultTheme: MD3Theme = {
 // Crea il contesto
 const ThemeContext = createContext<MD3Theme | undefined>(undefined);
 
+type ThemeStatus = 'loading' | 'loaded' | 'error';
+
 // Hook per usare il tema
 export const useM3Theme = (): MD3Theme => {
   const context = useContext(ThemeContext);

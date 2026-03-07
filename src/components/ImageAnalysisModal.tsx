@@ -1,10 +1,11 @@
-// MD3 Gold Compliant
+﻿// MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 
 import React, { useState, useCallback } from 'react';
 import { useFileDrop } from '../hooks/useFileDrop';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard } from './ui';
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog, InfoCard } from './ui';
 interface ImageAnalysisModalProps {
   onClose: () => void;
 }
@@ -46,8 +47,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
   const { getRootProps, getInputProps, isDragActive } = useFileDrop({
     onDrop,
     accept: 'image/*',
-    multiple: false,
-  });
+    multiple: false });
   
   const handleSubmit = async () => {
     if (!imageFile || !prompt) {
@@ -73,14 +73,15 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
     <M3Dialog
       title="Analisi Immagine con AI"
       onClose={onClose}
-      maxWidth="2xl"
+      maxWidth="xl"
       hideBackdrop={true}
+      buttons={<Button onClick={onClose} variant="text">Chiudi</Button>}
     >
-      <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)" }}>
+      <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)' }}>
         {/* Left Panel: Upload and Prompt */}
-        <div style={{ padding: 'var(--md-sys-spacing-4)', borderRight: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column" }}>
+        <Box sx={{ p: 'var(--md-sys-spacing-4)', borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', display: 'flex', flexDirection: 'column' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-            <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-6)' }}>1. Carica un'immagine</h3>
+            <Typography sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', mb: 'var(--md-sys-spacing-6)' }}>1. Carica un'immagine</Typography>
             <div 
               {...getRootProps()}
               style={{
@@ -113,8 +114,8 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
             </div>
           </div>
           
-          <div style={{ flexGrow: "1", display: "flex", flexDirection: "column" }}>
-            <label htmlFor="prompt-textarea" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)' }}>2. Chiedi qualcosa</label>
+          <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+            <Typography component="label" htmlFor="prompt-textarea" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', mb: 'var(--md-sys-spacing-8)' }}>2. Chiedi qualcosa</Typography>
             <textarea
               id="prompt-textarea"
               value={prompt}
@@ -123,49 +124,46 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
                 if (error) setError('');
               }}
               placeholder="Es. 'Descrivi cosa vedi in questa immagine'..."
-              style={{ padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--md-sys-percent-100)", flexGrow: "1", backgroundColor: 'var(--md-sys-color-surface)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}
+              style={{ padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', width: 'var(--md-sys-percent-100)', flexGrow: 1, backgroundColor: 'var(--md-sys-color-surface)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}
               rows={4}
               disabled={!imageFile}
             />
-          </div>
-          <M3Button 
+          </Box>
+          <Button 
             onClick={handleSubmit} 
             disabled={isLoading || !imageFile || !prompt} 
-            variant="filled"
-             style={{ width: "var(--md-sys-percent-100)" }}
+            variant="contained"
+            sx={{ width: 'var(--md-sys-percent-100)' }}
           >
             {isLoading ? <span>progress_activity</span> : 'Analizza Immagine'}
-          </M3Button>
-          {error && <p style={{color: "var(--md-sys-color-error)", fontSize: 'var(--md-sys-typescale-body-large-font-size)', marginTop: 'var(--md-sys-spacing-4)', textAlign: "center", fontWeight: "var(--md-sys-typescale-weight-bold)"}}>{error}</p>}
-        </div>
+          </Button>
+          {error && <Typography component="p" sx={{ color: 'var(--md-sys-color-error)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', mt: 'var(--md-sys-spacing-4)', textAlign: 'center', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{error}</Typography>}
+        </Box>
 
         {/* Right Panel: Analysis Result */}
-        <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', overflowY: "auto", display: "flex", flexDirection: "column" }}>
-          <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)' }}>Risultato Analisi</h3>
+        <Box sx={{ p: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', overflowY: 'auto', display: 'flex', flexDirection: 'column' }}>
+          <Typography sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', mb: 'var(--md-sys-spacing-8)' }}>Risultato Analisi</Typography>
           <InfoCard variant="elevated">
             {isLoading && (
-              <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)" }}>
-                <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderColor: 'var(--md-sys-color-primary)'}}></div>
-                <p  style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", color: 'var(--md-sys-color-primary)'}}>L'AI sta analizzando...</p>
-              </div>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: 'var(--md-sys-percent-100)' }}>
+                <Box sx={{ borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderColor: 'var(--md-sys-color-primary)' }} />
+                <Typography component="p" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-primary)' }}>L'AI sta analizzando...</Typography>
+              </Box>
             )}
             {analysisResult && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <p style={{ color: 'var(--md-sys-color-on-primary)', whiteSpace: "pre-wrap", lineHeight: "1.625" }}>{analysisResult}</p>
-                </div>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Typography component="p" sx={{ color: 'var(--md-sys-color-on-primary)', whiteSpace: 'pre-wrap', lineHeight: 1.625 }}>{analysisResult}</Typography>
+                </Box>
             )}
             {!analysisResult && !isLoading && (
-                <div style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)", textAlign: "center", opacity: "var(--md-sys-state-opacity-placeholder)" }}>
+                <Box sx={{ color: 'var(--md-sys-color-on-surface-variant)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: 'var(--md-sys-percent-100)', textAlign: 'center', opacity: 'var(--md-sys-state-opacity-placeholder)' }}>
                     <span style={{ color: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>visibility</span>
-                    <p style={{ fontWeight: "var(--md-sys-typescale-weight-medium)" }}>Il risultato dell'analisi apparirà qui.</p>
-                </div>
+                    <Typography component="p" sx={{ fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Il risultato dell'analisi apparirà qui.</Typography>
+                </Box>
             )}
           </InfoCard>
-        </div>
-      </M3DialogContent>
-      <M3DialogActions  style={{ paddingTop: "0" }}>
-        <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
-      </M3DialogActions>
+        </Box>
+      </Box>
     </M3Dialog>
   );
 };

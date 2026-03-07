@@ -1,4 +1,4 @@
-
+﻿
 // MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
@@ -8,7 +8,8 @@ import React, { useState } from 'react';
 import { Uda, Competenza, TimetableSettings, Report, AiSettings } from '../types';
 import { generateUdaPdf, blobToBase64Parts, generateHtmlDocxBlob, viewPdfInNewTab, saveAs } from '../utils/documentUtils';
 import { generateMarkdownReport } from '../services/aiService';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, SelectField } from './ui';
+import { Button, Box  } from '@mui/material';
+import { M3Dialog, SelectField } from './ui';
 interface UdaExportModalProps {
     uda: Uda;
     competenze: Competenza[];
@@ -39,17 +40,14 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                 contesto: {
                     tipo: 'uda',
                     id: uda.id,
-                    titolo: uda.title,
-                },
+                    titolo: uda.title },
                 modelloUsato: {
                     nome: docType === 'docente' ? 'PDF Docente (Standard)' : 'PDF Studente (Standard)',
-                    tipo: 'pdf',
-                },
+                    tipo: 'pdf' },
                 file: {
                     name: fileName,
                     content: base64Content,
-                    mimeType: mimeType,
-                }
+                    mimeType: mimeType }
             };
             onSaveReport(newReport);
 
@@ -130,9 +128,9 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             onClose={onClose}
             title="Esporta UDA"
             maxWidth="sm"
-            level={1}
+            buttons={<Button onClick={onClose} variant="text">Chiudi</Button>}
         >
-            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' }}>
+            <Box sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' }}>
                 <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
                     <div style={{ backgroundColor: 'var(--md-sys-color-primary-container)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
                         <p style={{ color: 'var(--md-sys-color-on-primary)' }}>
@@ -211,10 +209,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                         </div>
                     )}
                 </div>
-            </M3DialogContent>
-            <M3DialogActions>
-                <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
-            </M3DialogActions>
+            </Box>
         </M3Dialog>
     );
 };

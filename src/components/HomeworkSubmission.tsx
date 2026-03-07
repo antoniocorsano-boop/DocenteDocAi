@@ -3,7 +3,8 @@
 // Audit: gennaio 2026
 import React, { useState } from 'react';
 import { HomeworkSubmission, Lezione, Studente } from '../types';
-import { TextField, SelectField, M3Button, Avatar } from './ui';
+import { TextField, SelectField, Avatar } from './ui';
+import { Button } from '@mui/material';
 import { saveAs } from '../utils/documentUtils';
 import { RATING_OPTIONS } from '../constants';
 
@@ -60,10 +61,10 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
                         <p>{submission.file?.mimeType}</p>
                     </div>
                 </div>
-                <M3Button onClick={handleDownload} variant="tonal"  style={{ fontSize: "var(--md-sys-typescale-label-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)" }}>
+                <Button onClick={handleDownload} variant="contained" color="secondary" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-black)' }}>
                     <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>download</span> 
                     Scarica
-                </M3Button>
+                </Button>
             </div>
 
             {submission.status === 'pending' && onGrade && (
@@ -87,15 +88,14 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
                             leadingIcon="chat"
                         />
                     </div>
-                    <M3Button 
+                    <Button 
                         onClick={handleGradeSubmit} 
                         disabled={!grade} 
-                        variant="filled"
-                        
+                        variant="contained"
                     >
                         <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>task_alt</span>
                         Registra Valutazione & Archivia
-                    </M3Button>
+                    </Button>
                 </div>
             )}
 

@@ -1,6 +1,6 @@
 // MD3 Compliant
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { M3Button } from './ui';
+import { Button } from '@mui/material';
 
 interface Props {
   children?: ReactNode;
@@ -32,12 +32,12 @@ const ErrorFallback: React.FC<{ error: Error; resetErrorBoundary: () => void }> 
           <p style={{ margin: 'var(--md-sys-spacing-4)' , color: "var(--md-sys-color-error)"}}>{error.toString()}</p>
         </div>
         <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-3)'}}>
-          <M3Button variant="filled" onClick={resetErrorBoundary} style={{ width: "var(--md-sys-percent-100)", justifyContent: "center" }}>
+          <Button variant="contained" onClick={resetErrorBoundary} style={{ width: "var(--md-sys-percent-100)", justifyContent: "center" }}>
             <span className="material-symbols-outlined" aria-hidden="true" style={{ marginRight: 'var(--md-sys-spacing-2)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>refresh</span> Ricarica App
-          </M3Button>
-          <M3Button variant="outlined" onClick={handleHardReset} style={{ width: "var(--md-sys-percent-100)", justifyContent: "center" }}>
+          </Button>
+          <Button variant="outlined" onClick={handleHardReset} style={{ width: "var(--md-sys-percent-100)", justifyContent: "center" }}>
             Reset Totale (Emergenza)
-          </M3Button>
+          </Button>
         </div>
       </div>
     </div>

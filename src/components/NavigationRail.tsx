@@ -1,7 +1,7 @@
 // MD3 Gold Compliant
 import React from 'react';
 import { View } from '../types';
-import { M3Typography } from './ui';
+import { Typography, Box, ButtonBase } from '@mui/material';
 /**
  * NavigationRail - MD3 Pure Navigation Component
  * ✅ MIGRATED TO MD3 PURE - Complete migration from legacy CSS classes to pure MD3 tokens and M3Typography
@@ -102,34 +102,9 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
     return null;
   }
 
-  const containerStyle: React.CSSProperties = {
-    // In-flow vertical nav (no position:fixed — parent aside handles sizing)
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    width: 'var(--md-sys-percent-100)',
-    height: 'var(--md-sys-percent-100)',
-    backgroundColor: 'var(--md-sys-color-surface)',
-    borderTop: 'none',
-    transition: 'background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
-  };
-
-  const itemsContainerStyle: React.CSSProperties = {
-    // Desktop navigation rail items (vertical layout)
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: 'var(--md-sys-percent-100)',
-    gap: 'var(--md-sys-spacing-2)',
-    paddingTop: 'var(--md-sys-spacing-4)',
-    paddingBottom: 'var(--md-sys-spacing-4)',
-    paddingLeft: 0,
-    paddingRight: 0,
-  };
-
   return (
     <>
+      {/* E1 — Spring @keyframes: animazione pillola attiva (eccezione §9 MD3 — non esprimibile in sx) */}
       <style>
         {`
           @keyframes badge-appear {
@@ -147,69 +122,73 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
           }
         `}
       </style>
-      <nav
-        style={containerStyle}
+      <Box
+        component="nav"
         role="navigation"
         aria-label="Navigazione principale"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          width: 'var(--md-sys-percent-100)',
+          height: 'var(--md-sys-percent-100)',
+          backgroundColor: 'var(--md-sys-color-surface)',
+          borderTop: 'none',
+          transition: 'background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+        }}
       >
-      <div style={itemsContainerStyle}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          width: 'var(--md-sys-percent-100)',
+          gap: 'var(--md-sys-spacing-2)',
+          pt: 'var(--md-sys-spacing-4)',
+          pb: 'var(--md-sys-spacing-4)',
+          px: 0,
+        }}
+      >
         {items.map((item) => {
           const isActive = isItemActive(item, activeView);
 
-          const itemStyle: React.CSSProperties = {
-            // Reset button styles
-            backgroundColor: 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-            outline: focusedId === item.id ? 'var(--md-sys-border-width-medium) solid var(--md-sys-color-primary)' : 'none',
-            outlineOffset: focusedId === item.id ? 'var(--md-sys-spacing-0-5)' : 'var(--md-sys-spacing-0)',
-
-            // Layout
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 'var(--md-sys-spacing-1)', // Icon-label gap
-
-            // Size
-            width: 'var(--md-sys-spacing-14)', // Touch target width
-            minHeight: 'var(--md-sys-spacing-14)', // Touch target height
-            padding: 'var(--md-sys-spacing-2) 0', // Vertical padding
-
-            // Shape
-            borderRadius: 'var(--md-sys-shape-corner-extra-large)', // Rounded corners
-
-            // State colors - default
-            color: isActive ? 'var(--md-sys-color-on-surface)' : 'var(--md-sys-color-on-surface-variant)',
-
-            // Transition
-            transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
-
-            // Remove tap highlight on mobile
-            WebkitTapHighlightColor: 'transparent',
-          };
-
           return (
-            <button
+            <ButtonBase
               key={item.id}
               onClick={() => onNavigate(item.id, null)}
-              style={itemStyle}
               onMouseEnter={() => setHoveredId(item.id)}
               onMouseLeave={() => setHoveredId(null)}
               onFocus={() => setFocusedId(item.id)}
               onBlur={() => setFocusedId(null)}
               aria-label={item.label}
               aria-current={isActive ? 'page' : undefined}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 'var(--md-sys-spacing-1)',
+                width: 'var(--md-sys-spacing-14)',
+                minHeight: 'var(--md-sys-spacing-14)',
+                padding: 'var(--md-sys-spacing-2) 0',
+                borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+                color: isActive ? 'var(--md-sys-color-on-surface)' : 'var(--md-sys-color-on-surface-variant)',
+                transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+                WebkitTapHighlightColor: 'transparent',
+                outline: focusedId === item.id ? 'var(--md-sys-border-width-medium) solid var(--md-sys-color-primary)' : 'none',
+                outlineOffset: focusedId === item.id ? 'var(--md-sys-spacing-0-5)' : 'var(--md-sys-spacing-0)',
+              }}
             >
-              {/* Icon Container with MD3 active pill indicator */}
-              <div
-                style={{
+              {/* Icon Container con MD3 active pill indicator */}
+              <Box
+                sx={{
                   position: 'relative',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: 'var(--md-sys-spacing-14)', // 56px pill width
-                  height: 'var(--md-sys-spacing-8)', // 32px pill height
+                  width: 'var(--md-sys-spacing-14)',
+                  height: 'var(--md-sys-spacing-8)',
                   borderRadius: 'var(--md-sys-shape-corner-full)',
                   transition: `background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
                   backgroundColor: !isActive && hoveredId === item.id
@@ -217,7 +196,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                     : 'transparent',
                 }}
               >
-                {/* Active indicator pill — spring animation */}
+                {/* Active indicator pill — spring animation (E1 eccezione §9: stringa spring non separabile in transitionDuration/transitionTimingFunction) */}
                 <span
                   aria-hidden="true"
                   className={isActive ? 'm3-nav-pill-active' : undefined}
@@ -233,7 +212,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                       ? `m3-nav-pill-in var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00)) both`
                       : 'none',
                     transition: isActive
-                      ? 'none' // keyframe handles entrance
+                      ? 'none'
                       : `transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard), opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
                     transformOrigin: 'center',
                   }}
@@ -276,12 +255,13 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                     {item.badge > 99 ? '99+' : item.badge}
                   </span>
                 )}
-              </div>
+              </Box>
 
               {/* Label */}
-              <M3Typography
-                variant="label-medium"
-                style={{
+              <Typography
+                variant="caption"
+                component="span"
+                sx={{
                   fontWeight: isActive
                     ? 'var(--md-sys-typescale-weight-bold)'
                     : 'var(--md-sys-typescale-weight-medium)',
@@ -293,29 +273,25 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
                   transition: `font-weight var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard), color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
               >
                 {item.label}
-              </M3Typography>
-            </button>
+              </Typography>
+            </ButtonBase>
           );
         })}
-      </div>
+      </Box>
 
       {/* Bottone "Più" — accesso a tutte le sezioni secondarie */}
       {onOpenMore && (
-        <div style={{
+        <Box sx={{
           marginTop: 'var(--md-sys-margin-auto)',
           paddingBottom: 'var(--md-sys-spacing-4)',
           display: 'flex',
           justifyContent: 'center',
         }}>
-          <button
+          <ButtonBase
             onClick={onOpenMore}
             aria-label="Tutte le sezioni"
             aria-expanded={moreOpen}
-            style={{
-              backgroundColor: 'transparent',
-              border: 'none',
-              cursor: 'pointer',
-              outline: 'none',
+            sx={{
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -331,7 +307,7 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
               WebkitTapHighlightColor: 'transparent',
             }}
           >
-            <div style={{
+            <Box sx={{
               position: 'relative',
               display: 'flex',
               alignItems: 'center',
@@ -367,10 +343,11 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
               >
                 {moreOpen ? 'menu_open' : 'menu'}
               </span>
-            </div>
-            <M3Typography
-              variant="label-medium"
-              style={{
+            </Box>
+            <Typography
+              variant="caption"
+              component="span"
+              sx={{
                 fontWeight: 'var(--md-sys-typescale-weight-medium)',
                 textAlign: 'center',
                 color: 'inherit',
@@ -380,11 +357,11 @@ const NavigationRail: React.FC<NavigationRailProps> = ({
               }}
             >
               Altro
-            </M3Typography>
-          </button>
-        </div>
+            </Typography>
+          </ButtonBase>
+        </Box>
       )}
-    </nav>
+    </Box>
     </>
   );
 };

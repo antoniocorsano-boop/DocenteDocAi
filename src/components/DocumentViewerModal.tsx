@@ -1,7 +1,8 @@
-// MD3 Compliant
+﻿// MD3 Compliant
 import React, { useState } from 'react';
 import { sanitizeHTML } from '../utils/securityUtils';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
+import { Button, Box  } from '@mui/material';
+import { M3Dialog } from './ui';
 interface DocumentViewerModalProps {
     title: string;
     htmlContent: string;
@@ -53,39 +54,37 @@ const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlCo
             title={`Anteprima: ${title}`}
             onClose={onClose}
             maxWidth="xl"
-            level={2}
+            buttons={
+                <>
+                    {onSaveToKb && (
+                        <Button onClick={handleSave} variant="outlined">
+                            <Box component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>save</Box>
+                            Salva in KB
+                        </Button>
+                    )}
+                    <Button onClick={onClose} variant="text">Chiudi</Button>
+                    <Button onClick={handleCopyToClipboard} variant="contained" color="secondary">
+                        <Box component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>{copyStatus === 'copied' ? 'check' : 'content_copy'}</Box>
+                        {copyStatus === 'copied' ? 'Copiato!' : 'Copia Testo'}
+                    </Button>
+                    {onOpenCreateLesson && (
+                        <Button onClick={handleCreateLesson} variant="contained">
+                            <Box component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>add_task</Box>
+                            Crea Lezione
+                        </Button>
+                    )}
+                </>
+            }
         >
-            <M3DialogContent >
-                {!safeHtml ? (
-                     <div  style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderColor: "var(--md-sys-color-primary)"}}></div>
-                    </div>
-                ) : (
-                    <div
-                        
-                        dangerouslySetInnerHTML={{ __html: safeHtml }}
-                    />
-                )}
-            </M3DialogContent>
-            <M3DialogActions  style={{ paddingTop: "0" }}>
-                 {onSaveToKb && (
-                    <M3Button onClick={handleSave} variant="outlined" >
-                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>save</span>
-                        Salva in KB
-                    </M3Button>
-                )}
-                <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
-                <M3Button onClick={handleCopyToClipboard} variant="tonal">
-                     <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>{copyStatus === 'copied' ? 'check' : 'content_copy'}</span>
-                    {copyStatus === 'copied' ? 'Copiato!' : 'Copia Testo'}
-                </M3Button>
-                {onOpenCreateLesson && (
-                    <M3Button onClick={handleCreateLesson} variant="filled">
-                         <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_task</span>
-                        Crea Lezione
-                    </M3Button>
-                )}
-            </M3DialogActions>
+            {!safeHtml ? (
+                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <Box sx={{ borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderColor: 'var(--md-sys-color-primary)' }} />
+                </Box>
+            ) : (
+                <div
+                    dangerouslySetInnerHTML={{ __html: safeHtml }}
+                />
+            )}
         </M3Dialog>
     );
 };

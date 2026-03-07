@@ -4,7 +4,8 @@ import React, { useState, useMemo } from 'react';
 import { DocumentTemplate } from '../types';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard, SectionHeader, M3Typography } from './ui';
+import { M3Dialog, InfoCard, SectionHeader } from './ui';
+import {DialogContent, DialogActions, Button, Typography } from '@mui/material';
 
 interface TemplateManagerProps {
   onClose: () => void;
@@ -97,9 +98,9 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
     <M3Dialog
       title={editingTemplate ? (isCreating ? 'Crea Template' : 'Modifica Template') : 'Gestione Template'}
       onClose={onClose}
-      maxWidth="2xl"
+      maxWidth="xl"
     >
-      <M3DialogContent style={{ padding: 0 }}>
+      <DialogContent style={{ padding: 0 }}>
         <div style={{display: "flex", flexDirection: "column", padding: 'var(--md-sys-spacing-16)'}}>
               {/* Barra di ricerca e controlli */}
                 <div style={{display: "flex", gap: 'var(--md-sys-spacing-16)'}}>
@@ -115,14 +116,14 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                       />
                     </div>
                   </div>
-                  <M3Button
+                  <Button
                     onClick={handleCreateTemplate}
-                    variant="filled"
+                    variant="contained"
                     style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
                   >
                     <span  style={{ marginRight: 'var(--md-sys-spacing-2)' }}>add</span>
                     Nuovo Template
-                  </M3Button>
+                  </Button>
                 </div>
 
                 {/* Lista template raggruppati */}
@@ -130,23 +131,23 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                   {filteredTemplates.length === 0 ? (
                     <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 'var(--md-sys-spacing-32)'}}>
                       <span style={{fontSize: 'var(--md-sys-typography-display-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)'}}>description</span>
-                      <M3Typography variant="title-medium">
+                      <Typography variant="subtitle1">
                         {searchTerm ? 'Nessun template trovato' : 'Nessun template creato'}
-                      </M3Typography>
-                      <M3Typography variant="body-medium">
+                      </Typography>
+                      <Typography variant="body2">
                         {searchTerm
                           ? 'Prova a modificare i termini di ricerca'
                           : 'Crea il tuo primo template per personalizzare i documenti'
                         }
-                      </M3Typography>
+                      </Typography>
                       {!searchTerm && (
-                        <M3Button
+                        <Button
                           onClick={handleCreateTemplate}
-                          variant="filled"
+                          variant="contained"
                           
                         >
                           Crea il primo template
-                        </M3Button>
+                        </Button>
                       )}
                     </div>
                   ) : (
@@ -161,41 +162,41 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                           {groupTemplates.map(template => (
                             <InfoCard
                               key={template.id}
-                              variant="elevated"
+                              elevation={1}
                               style={{ cursor: "pointer", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}
                             >
                               <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 'var(--md-sys-spacing-12)'}}>
                                 <div style={{flex: 1, display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
-                                  <M3Typography variant="title-small">
+                                  <Typography variant="subtitle2">
                                     {template.name}
-                                  </M3Typography>
+                                  </Typography>
                                   <span style={{backgroundColor: template.type === 'student_profile' ? 'var(--md-sys-color-primary-container)' : template.type === 'lesson_plan' ? 'var(--md-sys-color-secondary-container)' : 'var(--md-sys-color-tertiary-container)', color: template.type === 'student_profile' ? 'var(--md-sys-color-on-primary-container)' : template.type === 'lesson_plan' ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-tertiary-container)', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontSize: 'var(--md-sys-typography-label-small-font-size)'}}>
                                     {getTypeLabel(template.type)}
                                   </span>
                                 </div>
                                 <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
-                                  <M3Button
+                                  <Button
                                     variant="text"
                                     onClick={() => setEditingTemplate(template)}
                                     title={`Modifica template ${template.name}`}
                                   >
                                     <span>edit</span>
-                                  </M3Button>
-                                  <M3Button
+                                  </Button>
+                                  <Button
                                     onClick={() => handleDeleteTemplate(template.id, template.name)}
                                     variant="text"
                                     
                                     title={`Elimina template ${template.name}`}
                                   >
                                     <span>delete</span>
-                                  </M3Button>
+                                  </Button>
                                 </div>
                               </div>
 
                               {template.description && (
-                                <M3Typography variant="body-small" style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
+                                <Typography variant="caption" style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                                   {template.description}
-                                </M3Typography>
+                                </Typography>
                               )}
 
                               <div style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-4)'}}>
@@ -203,13 +204,13 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                               </div>
 
                               {onApplyTemplate && (
-                                <M3Button
+                                <Button
                                   onClick={() => handleApplyTemplate(template)}
-                                  variant="tonal"
+                                  variant="outlined"
                                   
                                 >
                                   Applica Template
-                                </M3Button>
+                                </Button>
                               )}
                             </InfoCard>
                           ))}
@@ -219,11 +220,11 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                   )}
                 </div>
         </div>
-      </M3DialogContent>
+      </DialogContent>
       {!editingTemplate && (
-        <M3DialogActions>
-          <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
-        </M3DialogActions>
+        <DialogActions>
+          <Button onClick={onClose} variant="text">Chiudi</Button>
+        </DialogActions>
       )}
     </M3Dialog>
   );

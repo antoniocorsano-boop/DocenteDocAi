@@ -1,10 +1,9 @@
-// MD3 Compliant M3Card Component
-// Fully compliant with MD3 tokens: uses var(--md-sys-*) CSS variables for theming, spacing, typography, shape, motion, and elevation
-// No useTheme() dependency - all styling uses direct MD3 CSS variables
-
+// Thin MUI wrapper — preserves M3Card props API for backward compatibility
+// @mui-migrated Fase 2
 import React, { useState } from 'react';
+import { Card } from '@mui/material';
 
-interface M3CardProps {
+export interface M3CardProps {
   children: React.ReactNode;
   onClick?: () => void;
   onMouseEnter?: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -13,7 +12,12 @@ interface M3CardProps {
   padding?: 'none' | 'small' | 'medium' | 'large';
   style?: React.CSSProperties;
   ariaLabel?: string;
+  className?: string;
 }
+
+const PADDING_MAP: Record<NonNullable<M3CardProps['padding']>, number> = {
+  none: 0, small: 2, medium: 3, large: 4,
+};
 
 const M3Card: React.FC<M3CardProps> = ({
   children,
@@ -23,123 +27,68 @@ const M3Card: React.FC<M3CardProps> = ({
   variant = 'elevated',
   padding = 'medium',
   style,
-  ariaLabel
+  ariaLabel,
+  className,
 }) => {
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [pressed, setPressed] = useState(false);
   const isClickable = Boolean(onClick);
 
-  // MD3 Token mapping - no useTheme() dependency
-  // Color tokens
-  const surface = 'var(--md-sys-color-surface)';
-  const outlineVariant = 'var(--md-sys-color-outline-variant)';
-  const surfaceContainerLow = 'var(--md-sys-color-surface-container-low)';
-  const primary = 'var(--md-sys-color-primary)';
-
-  // Shape token
-  const large = 'var(--md-sys-shape-corner-large)';
-
-  // Elevation tokens
-  const level1 = 'var(--md-sys-elevation-level1)';
-  const level2 = 'var(--md-sys-elevation-level2)';
-
-  // Motion tokens
-  const short2 = 'var(--md-sys-motion-duration-short2)';
-  const standard = 'var(--md-sys-motion-easing-standard)';
-  const springDefaultSpatial = 'var(--md-sys-motion-spring-expressive-default-spatial)';
-
-  // Padding styles using MD3 spacing tokens
-  const getPaddingStyles = (): string => {
-    switch (padding) {
-      case 'none':
-        return 'var(--md-sys-spacing-0)';
-      case 'small':
-        return 'var(--md-sys-spacing-4)';
-      case 'large':
-        return 'var(--md-sys-spacing-8)';
-      default: // medium
-        return 'var(--md-sys-spacing-6)';
-    }
-  };
-
-  // Variant styles using MD3 tokens
-  const getVariantStyles = (): React.CSSProperties => {
+  const getBgcolor = () => {
     switch (variant) {
-      case 'outlined':
-        return {
-          backgroundColor: surface,
-          boxShadow: 'none',
-          border: `var(--md-sys-border-width-normal) solid ${outlineVariant}`
-        };
-      case 'filled':
-        return {
-          backgroundColor: isClickable && hovered
-            ? 'var(--md-sys-color-surface-container)'
-            : surfaceContainerLow,
-          boxShadow: 'none',
-          border: 'none'
-        };
-      default: // elevated
-        return {
-          backgroundColor: surfaceContainerLow,
-          boxShadow: isClickable && hovered ? level2 : level1,
-          border: 'none'
-        };
+      case 'outlined': return 'var(--md-sys-color-surface)';
+      case 'filled':   return isClickable && hovered
+        ? 'var(--md-sys-color-surface-container)'
+        : 'var(--md-sys-color-surface-container-low)';
+      default:         return 'var(--md-sys-color-surface-container-low)';
     }
-  };
-
-  // Base styles
-  const baseStyle: React.CSSProperties = {
-    padding: getPaddingStyles(),
-    borderRadius: large,
-    transition: [
-      `transform var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) ${springDefaultSpatial}`,
-      `box-shadow ${short2} ${standard}`,
-      `background-color ${short2} ${standard}`,
-    ].join(', '),
-    transform: isClickable
-      ? pressed ? 'scale(0.98)' : hovered ? 'scale(1.03)' : 'scale(1)'
-      : 'scale(1)',
-    cursor: isClickable ? 'pointer' : undefined,
-    outline: focused && isClickable ? `var(--md-sys-border-width-thick) solid ${primary}` : 'none',
-    outlineOffset: focused ? 'var(--md-sys-spacing-2)' : 'var(--md-sys-spacing-0)',
-    willChange: isClickable ? 'transform' : undefined,
-    ...getVariantStyles(),
-    ...style
   };
 
   return (
-    <div
-      onClick={onClick}
-      onKeyDown={(e) => {
-        if (onClick && (e.key === 'Enter' || e.key === ' ')) {
-          e.preventDefault();
-          onClick();
-        }
-      }}
+    <Card
+      variant={variant === 'outlined' ? 'outlined' : 'elevation'}
+      elevation={variant === 'elevated' ? (hovered && isClickable ? 2 : 1) : 0}
       role={isClickable ? 'button' : undefined}
       tabIndex={isClickable ? 0 : undefined}
       aria-label={ariaLabel}
-      style={baseStyle}
-      onMouseEnter={(e) => {
-        setHovered(true);
-        onMouseEnter?.(e);
+      className={className}
+      onClick={onClick}
+      onKeyDown={(e) => {
+        if (isClickable && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          onClick!();
+        }
       }}
-      onMouseLeave={(e) => {
-        setHovered(false);
-        setPressed(false);
-        onMouseLeave?.(e);
-      }}
+      onMouseEnter={(e) => { setHovered(true); onMouseEnter?.(e as React.MouseEvent<HTMLDivElement>); }}
+      onMouseLeave={(e) => { setHovered(false); setPressed(false); onMouseLeave?.(e as React.MouseEvent<HTMLDivElement>); }}
       onMouseDown={() => isClickable && setPressed(true)}
       onMouseUp={() => setPressed(false)}
       onTouchStart={() => isClickable && setPressed(true)}
       onTouchEnd={() => setPressed(false)}
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
+      sx={{
+        bgcolor: getBgcolor(),
+        borderRadius: 'var(--md-sys-shape-corner-large)',
+        p: PADDING_MAP[padding],
+        transform: isClickable
+          ? pressed ? 'scale(0.98)' : hovered ? 'scale(1.03)' : 'scale(1)'
+          : 'scale(1)',
+        transition: [
+          'transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+          'box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+          'background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+        ].join(', '),
+        cursor: isClickable ? 'pointer' : 'default',
+        outline: focused && isClickable ? '2px solid var(--md-sys-color-primary)' : 'none',
+        outlineOffset: '2px',
+        willChange: isClickable ? 'transform' : undefined,
+        ...style,
+      }}
     >
       {children}
-    </div>
+    </Card>
   );
 };
 

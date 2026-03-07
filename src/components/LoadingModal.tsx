@@ -3,7 +3,7 @@
 // Audit: gennaio 2026
 // M3Expressive: LoadingModal - Loading indicator modal with M3 tokens
 import React from 'react';
-import { M3Dialog, M3DialogContent } from './ui';
+import { M3Dialog } from './ui';
 
 interface LoadingModalProps {
   message: string;
@@ -15,17 +15,14 @@ const LoadingModal: React.FC<LoadingModalProps> = ({ message }) => {
       onClose={() => {}}
       title=""
       maxWidth="sm"
-      level={5}
       hideCloseButton
       hideBackdrop={true}
     >
-      <M3DialogContent >
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
           <div></div>
           <div></div>
         </div>
-        <p>{message}</p>
-      </M3DialogContent>
+      <p>{message}</p>
     </M3Dialog>
   );
 };

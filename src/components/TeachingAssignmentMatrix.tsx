@@ -6,9 +6,9 @@
 
 // M3Expressive: TeachingAssignmentMatrix - Teaching assignment configuration matrix with M3 tokens
 import React, { useEffect, useMemo, useState } from 'react';
+import { Typography } from '@mui/material';
 import { TeachingAssignment } from '../types';
 import { generateHueFromString } from '../utils/colorUtils';
-import { M3Typography } from './ui';
 
 interface TeachingAssignmentMatrixProps {
     classes: string[];
@@ -55,10 +55,10 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                     <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-primary)' }}>bolt</span>
                 </div>
-                <M3Typography variant="title-large" as="h3">Configura la Cattedra</M3Typography>
-                <M3Typography variant="body-medium" as="p">
+                <Typography variant="h6" component="h3">Configura la Cattedra</Typography>
+                <Typography variant="body2" component="p">
                     Usa lo strumento di <strong>Configurazione Rapida</strong> sopra per associare le tue materie alle classi in un colpo solo.
-                </M3Typography>
+                </Typography>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         Scorri verso l'alto ↑
@@ -201,10 +201,10 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
 
             {/* INFO SECTION */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                <M3Typography variant="body-medium" as="p" style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                <Typography variant="body2" component="p" style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
                     <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-on-surface-variant)' }}>info</span>
                     Tocca le materie per assegnarle alle classi.
-                </M3Typography>
+                </Typography>
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
-// MD3 Compliant
-
-import React, { useState } from 'react';
-import M3Typography from './M3Typography';
+// Thin MUI wrapper — preserves TabGroup props API for backward compatibility
+// @mui-migrated Fase 2
+import React, { SyntheticEvent } from 'react';
+import { Tabs, Tab, Badge, Box } from '@mui/material';
 
 interface Tab {
     id: string;
@@ -15,17 +15,12 @@ interface TabGroupProps {
     activeTab: string;
     onTabChange?: (id: string) => void;
     onChange?: (id: string) => void;
-    variant?: 'primary' | 'secondary' | 'tertiary' | 'filled' | 'tonal';
+    variant?: 'primary' | 'secondary' | 'tertiary' | 'filled' | 'tonal' | 'contained' | 'outlined';
     className?: string;
     style?: React.CSSProperties;
     isIconOnly?: boolean;
 }
 
-/**
- * MD3-compliant TabGroup component
- * Migrated from legacy CSS classes to pure MD3 tokens and M3Typography
- * Features: proper ARIA tab pattern, keyboard navigation, variants, icons, badges
- */
 const TabGroup: React.FC<TabGroupProps> = ({
     tabs,
     activeTab,
@@ -33,175 +28,71 @@ const TabGroup: React.FC<TabGroupProps> = ({
     onChange,
     variant = 'primary',
     isIconOnly = false,
-    style
+    style,
 }) => {
-    const handleTabChange = (id: string) => {
-        if (onTabChange) onTabChange(id);
-        if (onChange) onChange(id);
+    const handleChange = (_: SyntheticEvent, newValue: string) => {
+        onTabChange?.(newValue);
+        onChange?.(newValue);
     };
-    const [hoveredTabs, setHoveredTabs] = useState<Record<string, boolean>>({});
-    const [focusedTabs, setFocusedTabs] = useState<Record<string, boolean>>({});
 
-    // Define variant colors based on the variant prop - MD3 tokens
-    const effectiveVariant = variant === 'filled' ? 'primary' : variant === 'tonal' ? 'secondary' : variant;
-    const variantColors = {
-        primary: {
-            activeBg: 'var(--md-sys-color-primary)',
-            activeText: 'var(--md-sys-color-on-primary)'
-        },
-        secondary: {
-            activeBg: 'var(--md-sys-color-secondary)',
-            activeText: 'var(--md-sys-color-on-secondary)'
-        },
-        tertiary: {
-            activeBg: 'var(--md-sys-color-tertiary)',
-            activeText: 'var(--md-sys-color-on-tertiary)'
-        }
-    }[effectiveVariant];
-
-    const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
-        let newIndex = -1;
-        if (e.key === 'ArrowRight') {
-            newIndex = (index + 1) % tabs.length;
-        } else if (e.key === 'ArrowLeft') {
-            newIndex = (index - 1 + tabs.length) % tabs.length;
-        } else if (e.key === 'Home') {
-            newIndex = 0;
-        } else if (e.key === 'End') {
-            newIndex = tabs.length - 1;
-        }
-
-        if (newIndex !== -1) {
-            e.preventDefault();
-            handleTabChange(tabs[newIndex].id);
-            // Focus the new tab
-            const nextTab = document.getElementById(`tab-${tabs[newIndex].id}`);
-            nextTab?.focus();
-        }
-    };
+    const effectiveVariant = variant === 'filled' || variant === 'tonal' ? 'secondary' : variant;
+    const indicatorColor = effectiveVariant === 'secondary' ? 'secondary' : effectiveVariant === 'tertiary' ? undefined : 'primary';
+    const tertiarySx = effectiveVariant === 'tertiary'
+        ? { '& .MuiTabs-indicator': { bgcolor: 'var(--md-sys-color-tertiary)' }, '& .Mui-selected': { color: 'var(--md-sys-color-tertiary) !important' } }
+        : {};
 
     return (
-        <div
-            role="tablist"
+        <Tabs
+            value={activeTab}
+            onChange={handleChange}
+            indicatorColor={indicatorColor as 'primary' | 'secondary'}
+            textColor={indicatorColor as 'primary' | 'secondary'}
             aria-label="Sezioni di navigazione"
-            style={{
-                display: 'flex',
-                backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                padding: 'var(--md-sys-spacing-1)',
+            sx={{
+                bgcolor: 'var(--md-sys-color-surface-container-low)',
                 borderRadius: 'var(--md-sys-shape-corner-full)',
-                border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)`,
-                gap: 'var(--md-sys-spacing-1)',
-                ...style
+                border: '1px solid var(--md-sys-color-outline-variant)',
+                minHeight: 'auto',
+                p: 0.5,
+                ...tertiarySx,
+                ...style,
             }}
         >
-            {tabs.map((tab, index) => {
-                const isActive = activeTab === tab.id;
-                const isHovered = hoveredTabs[tab.id] || false;
-                const isFocused = focusedTabs[tab.id] || false;
-                return (
-                    <button
-                        key={tab.id}
-                        onClick={() => handleTabChange(tab.id)}
-                        onKeyDown={(e) => handleKeyDown(e, index)}
-                        role="tab"
-                        aria-selected={isActive}
-                        aria-controls={`panel-${tab.id}`}
-                        id={`tab-${tab.id}`}
-                        data-testid={`tab-${tab.id}`}
-                        tabIndex={isActive ? 0 : -1}
-                        style={{
-                            position: 'relative',
-                            flex: 1,
-                            padding: `var(--md-sys-spacing-2) var(--md-sys-spacing-4)`,
-                            borderRadius: 'var(--md-sys-shape-corner-full)',
-                            border: 'none',
-                            backgroundColor: isActive
-                                ? variantColors.activeBg
-                                : (isHovered && !isActive ? 'var(--md-sys-color-surface-container-high)' : 'transparent'),
-                            color: isActive
-                                ? variantColors.activeText
-                                : 'var(--md-sys-color-on-surface-variant)',
-                            fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                            fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
-                            textTransform: 'uppercase',
-                            letterSpacing: 'var(--md-sys-typescale-label-small-letter-spacing)',
-                            cursor: 'pointer',
-                            transition: `all var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard)`,
-                            boxShadow: isActive ? 'var(--md-sys-elevation-level1)' : 'none',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: 'var(--md-sys-spacing-2)',
-                            outline: isFocused ? `var(--md-sys-border-width-medium) solid var(--md-sys-color-primary)` : 'none',
-                            outlineOffset: isFocused ? 'var(--md-sys-spacing-1)' : undefined
-                        }}
-                        onMouseEnter={() => setHoveredTabs(prev => ({ ...prev, [tab.id]: true }))}
-                        onMouseLeave={() => setHoveredTabs(prev => ({ ...prev, [tab.id]: false }))}
-                        onFocus={() => setFocusedTabs(prev => ({ ...prev, [tab.id]: true }))}
-                        onBlur={() => setFocusedTabs(prev => ({ ...prev, [tab.id]: false }))}
-                    >
-                        {tab.icon && (
-                            <span
-                                className="material-symbols-outlined"
-                                style={{
-                                    fontSize: 'var(--md-sys-typescale-label-large-font-size)'
-                                }}
-                                aria-hidden="true"
-                            >
-                                {tab.icon}
-                            </span>
-                        )}
-                        {!isIconOnly && (
-                            <M3Typography
-                                variant="label-small"
-                                style={{
-                                    textTransform: 'uppercase',
-                                    letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
-                                }}
-                            >
-                                {tab.label}
-                            </M3Typography>
-                        )}
-                        {tab.badge !== undefined && (
-                            <span
-                                style={{
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    minWidth: 'var(--md-sys-spacing-4)',
-                                    height: 'var(--md-sys-spacing-4)',
-                                    padding: `0 ${'var(--md-sys-spacing-1)'}`,
-                                    borderRadius: 'var(--md-sys-shape-corner-full)',
-                                    backgroundColor: 'var(--md-sys-color-error)',
-                                    color: 'var(--md-sys-color-on-error)',
-                                    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                                    fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
-                                    lineHeight: 'var(--md-sys-typescale-label-small-line-height)'
-                                }}
-                                aria-label={`${tab.badge} elementi`}
-                            >
-                                {tab.badge}
-                            </span>
-                        )}
-                        {isActive && (
-                            <div
-                                style={{
-                                    position: 'absolute',
-                                    bottom: 'calc(var(--md-sys-spacing-1) * -1)',
-                                    left: 'var(--md-sys-percent-50)',
-                                    transform: 'translateX(-50%)',
-                                    width: 'var(--md-sys-percent-60)',
-                                    height: 'var(--md-sys-spacing-2)',
-                                    backgroundColor: variantColors.activeBg,
-                                    borderRadius: 'var(--md-sys-spacing-2)'
-                                }}
-                                aria-hidden="true"
-                            />
-                        )}
-                    </button>
-                );
-            })}
-        </div>
+            {tabs.map((tab) => (
+                <Tab
+                    key={tab.id}
+                    value={tab.id}
+                    id={`tab-${tab.id}`}
+                    aria-controls={`panel-${tab.id}`}
+                    data-testid={`tab-${tab.id}`}
+                    label={
+                        <Badge badgeContent={tab.badge} color="error">
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                {tab.icon && (
+                                    <Box
+                                        component="span"
+                                        className="material-symbols-outlined"
+                                        aria-hidden="true"
+                                        sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}
+                                    >
+                                        {tab.icon}
+                                    </Box>
+                                )}
+                                {!isIconOnly && tab.label}
+                            </Box>
+                        </Badge>
+                    }
+                    sx={{
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                        minHeight: 'auto',
+                        py: 1,
+                        px: 2,
+                        textTransform: 'uppercase',
+                        fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                    }}
+                />
+            ))}
+        </Tabs>
     );
 };
 

@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import M3Surface from '../components/ui/M3Surface';
-import { M3Typography } from '../components/ui/M3Typography';
+import { Paper, Typography } from '@mui/material';
 
 export type ThemeMode = 'light' | 'dark' | 'auto';
 export type ContrastMode = 'normal' | 'high';
@@ -188,70 +187,67 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   if (isLoading) {
     return (
-      <M3Surface
+      <Paper
         role="status"
         aria-label="Loading theme preferences"
-        style={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           minHeight: 'var(--md-sys-viewport-height-full)',
-          padding: 'var(--md-sys-spacing-6)'
+          p: 6,
         }}
       >
-        <M3Typography variant="body-large">
+        <Typography variant="body1">
           Caricamento preferenze tema...
-        </M3Typography>
-      </M3Surface>
+        </Typography>
+      </Paper>
     );
   }
 
   if (error) {
     return (
-      <M3Surface
+      <Paper
         role="alert"
         aria-label="Theme error"
-        style={{ 
-          display: 'flex', 
+        sx={{
+          display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center', 
-          alignItems: 'center', 
+          justifyContent: 'center',
+          alignItems: 'center',
           minHeight: 'var(--md-sys-viewport-height-full)',
-          padding: 'var(--md-sys-spacing-6)',
-          gap: 'var(--md-sys-spacing-4)'
+          p: 6,
+          gap: 4,
         }}
       >
-        <M3Typography 
-          variant="body-large"
+        <Typography
+          variant="body1"
           id="theme-error-message"
         >
           {error}
-        </M3Typography>
-        <M3Typography 
-          variant="body-medium"
-          style={{ 
-            textAlign: 'center',
-            color: 'var(--md-sys-color-on-surface-variant)'
-          }}
+        </Typography>
+        <Typography
+          variant="body2"
+          sx={{ textAlign: 'center', color: 'text.secondary' }}
         >
           Using default theme settings. Please refresh to retry.
-        </M3Typography>
-      </M3Surface>
+        </Typography>
+      </Paper>
     );
   }
 
   return (
     <ThemeContext.Provider value={value}>
-      <M3Surface
+      <Paper
         role="application"
         aria-label="DocenteDoc AI application"
-        style={{ 
+        sx={{
           minHeight: 'var(--md-sys-viewport-height-full)',
-          backgroundColor: 'var(--md-sys-color-background)'
+          bgcolor: 'background.default',
         }}
       >
         {children}
-      </M3Surface>
+      </Paper>
     </ThemeContext.Provider>
   );
 };

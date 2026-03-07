@@ -4,7 +4,8 @@
 import React, { useMemo } from 'react';
 import { Studente, Valutazione, ParticipationEntry } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
-import { Avatar, M3Popover, M3Typography, M3Button } from './ui';
+import { Avatar, M3Popover } from './ui';
+import { Typography, Button } from '@mui/material';
 interface StudentActionMenuProps {
     student: Studente;
     anchorEl: HTMLElement | null;
@@ -93,8 +94,8 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                             flex: 1
                         }}
                     >
-                        <M3Typography
-                            variant="body-medium"
+                        <Typography
+                            variant="body2"
                             style={{margin: 0,
                                 color: 'var(--md-sys-color-on-primary)',
                                 overflow: 'hidden',
@@ -103,15 +104,15 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                                 fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                         >
                             {student.cognome} {student.nome}
-                        </M3Typography>
-                        <M3Typography
-                            variant="body-small"
+                        </Typography>
+                        <Typography
+                            variant="caption"
                             style={{margin: 0,
                                 color: 'color-mix(in srgb, var(--md-sys-color-on-primary) 80%, transparent)', // MD3 EXCEPTION: Functional opacity for secondary text (no specific token available)
                                 fontWeight: 'var(--md-sys-typescale-weight-regular)'}}
                         >
                             Classe {student.classe}
-                        </M3Typography>
+                        </Typography>
                     </div>
                 </div>
                 {/* Stats Row */}
@@ -129,8 +130,8 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                             flex: 1
                         }}
                     >
-                        <M3Typography
-                            variant="label-small"
+                        <Typography
+                            variant="caption"
                             style={{margin: '0 0 var(--md-sys-spacing-1) 0',
                                 color: 'color-mix(in srgb, var(--md-sys-color-on-primary) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
                                 textTransform: 'uppercase',
@@ -140,16 +141,16 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                                 fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                         >
                             Media
-                        </M3Typography>
-                        <M3Typography
-                            variant="body-medium"
+                        </Typography>
+                        <Typography
+                            variant="body2"
                             style={{
                                 margin: 0,
                                 fontWeight: 'var(--md-sys-typescale-weight-medium)'
                             }}
                         >
                             {grade || '-'}
-                        </M3Typography>
+                        </Typography>
                     </div>
                     <div
                         style={{width: 'var(--md-sys-spacing-4)',
@@ -164,8 +165,8 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                             flex: 1
                         }}
                     >
-                        <M3Typography
-                            variant="label-small"
+                        <Typography
+                            variant="caption"
                             style={{margin: '0 0 var(--md-sys-spacing-1) 0',
                                 color: 'color-mix(in srgb, var(--md-sys-color-on-primary) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
                                 textTransform: 'uppercase',
@@ -175,7 +176,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                                 fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                         >
                             Trend
-                        </M3Typography>
+                        </Typography>
                         <span
                             style={{
                                 fontSize: 'var(--md-sys-typescale-body-large-font-size)',
@@ -199,8 +200,8 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                             flex: 1
                         }}
                     >
-                        <M3Typography
-                            variant="label-small"
+                        <Typography
+                            variant="caption"
                             style={{margin: '0 0 var(--md-sys-spacing-1) 0',
                                 color: 'color-mix(in srgb, var(--md-sys-color-on-primary) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
                                 textTransform: 'uppercase',
@@ -210,16 +211,16 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                                 fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                         >
                             Badge
-                        </M3Typography>
-                        <M3Typography
-                            variant="body-medium"
+                        </Typography>
+                        <Typography
+                            variant="body2"
                             style={{
                                 margin: 0,
                                 fontWeight: 'var(--md-sys-typescale-weight-medium)'
                             }}
                         >
                             {participationToday}
-                        </M3Typography>
+                        </Typography>
                     </div>
                 </div>
             </div>
@@ -227,8 +228,8 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
             <div
                 style={{padding: 'var(--md-sys-spacing-2)'}}
             >
-                <M3Typography
-                    variant="body-small"
+                <Typography
+                    variant="caption"
                     style={{margin: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
                         textTransform: 'uppercase',
                         color: 'var(--md-sys-color-on-surface)',
@@ -238,8 +239,8 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                 >
                     Azioni Rapide
-                </M3Typography>
-                <M3Button
+                </Typography>
+                <Button
                     onClick={() => {
                         onAddEvaluation();
                         onClose();
@@ -259,8 +260,8 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         add_circle
                     </span>
                     <span>Nuova Valutazione</span>
-                </M3Button>
-                <M3Button
+                </Button>
+                <Button
                     onClick={() => {
                         onViewProfile();
                         onClose();
@@ -279,7 +280,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         person_search
                     </span>
                     <span>Profilo Completo</span>
-                </M3Button>
+                </Button>
             </div>
         </M3Popover>
     );

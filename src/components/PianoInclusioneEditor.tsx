@@ -1,13 +1,9 @@
 // MD3 Compliant - Piano Inclusione Editor
 import React, { useState } from 'react';
+import {DialogContent, DialogActions, Button } from '@mui/material';
 import { PianoInclusione, PianoInclusioneEditorProps } from '../types';
 import { getPIPSuggestion } from '../services/aiService';
-import { 
-
-    M3Dialog, 
-    M3DialogContent, 
-    M3DialogActions, 
-    M3Button, 
+import { M3Dialog, 
     TextArea, 
     InfoCard,
     SectionHeader,
@@ -72,7 +68,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
             } else {
                 console.error(`Error generating text for ${section}`, String(error));
             }
-            showToast("Si √® verificato un errore durante la generazione del testo.", "error");
+            showToast("Si Ë verificato un errore durante la generazione del testo.", "error");
         } finally {
             setLoadingSection(null);
         }
@@ -91,10 +87,10 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
     }
 
     const sections: { key: SectionKey; label: string; placeholder: string; }[] = [
-        { key: 'puntiDiForza', label: 'Punti di Forza', placeholder: "Descrivere le abilit√† e le aree in cui lo studente eccelle..." },
-        { key: 'areeDiIntervento', label: 'Aree di Intervento e Fragilit√†', placeholder: "Descrivere le difficolt√†, le aree di potenziamento e gli obiettivi specifici..." },
-        { key: 'misureCompensative', label: 'Misure Compensative', placeholder: "Elencare gli strumenti e le strategie per compensare le difficolt√† (es. mappe concettuali, calcolatrice)..." },
-        { key: 'misureDispensative', label: 'Misure Dispensative', placeholder: "Elencare le attivit√† da cui lo studente √® dispensato (es. lettura ad alta voce, tempo ridotto)..." },
+        { key: 'puntiDiForza', label: 'Punti di Forza', placeholder: "Descrivere le abilit‡ e le aree in cui lo studente eccelle..." },
+        { key: 'areeDiIntervento', label: 'Aree di Intervento e Fragilit‡', placeholder: "Descrivere le difficolt‡, le aree di potenziamento e gli obiettivi specifici..." },
+        { key: 'misureCompensative', label: 'Misure Compensative', placeholder: "Elencare gli strumenti e le strategie per compensare le difficolt‡ (es. mappe concettuali, calcolatrice)..." },
+        { key: 'misureDispensative', label: 'Misure Dispensative', placeholder: "Elencare le attivit‡ da cui lo studente Ë dispensato (es. lettura ad alta voce, tempo ridotto)..." },
         { key: 'criteriValutazionePersonalizzati', label: 'Criteri di Valutazione Personalizzati', placeholder: "Descrivere come verranno adattate le verifiche e le valutazioni..." }
     ];
 
@@ -105,12 +101,12 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
             maxWidth="lg"
         >
             <form onSubmit={handleSubmit} >
-                <M3DialogContent >
+                <DialogContent >
                     {/* Subtitle */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <SectionHeader 
                             title={`${student.cognome} ${student.nome}`}
-                            subtitle={`Classe ${student.classe} ‚Ä¢ Redazione Piano di Inclusione Personalizzato`}
+                            subtitle={`Classe ${student.classe} ï Redazione Piano di Inclusione Personalizzato`}
                             variant="small"
                         />
                     </div>
@@ -123,11 +119,11 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                     <h3>
                                         {section.label}
                                     </h3>
-                                    <M3Button
+                                    <Button
                                         type="button"
                                         onClick={() => handleGenerateText(section.key)}
                                         disabled={loadingSection === section.key}
-                                        variant="tonal"
+                                        variant="outlined"
                                         size="small"
                                         
                                     >
@@ -139,7 +135,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                                 AI
                                             </>
                                         )}
-                                    </M3Button>
+                                    </Button>
                                 </div>
                                 <TextArea
                                     id={section.key}
@@ -173,7 +169,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                                 <span style={{ color: "var(--md-sys-color-primary)" }}>book</span>
                                                 {materia}
                                             </label>
-                                            <M3Button
+                                            <Button
                                                 type="button"
                                                 onClick={() => handleGenerateText(`obj-${materia}`)}
                                                 disabled={loadingSection === `obj-${materia}`}
@@ -186,7 +182,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                                 ) : (
                                                     <span style={{ color: 'var(--md-sys-color-primary)' ,  fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>auto_awesome</span>
                                                 )}
-                                            </M3Button>
+                                            </Button>
                                         </div>
                                         <TextArea
                                             id={`obj-${materia}`}
@@ -202,12 +198,12 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                             </div>
                         </InfoCard>
                     </div>
-                </M3DialogContent>
+                </DialogContent>
 
                 {/* Actions */}
-                <M3DialogActions >
+                <DialogActions >
                     {existingPiano && (
-                        <M3Button
+                        <Button
                             type="button"
                             onClick={handleDelete}
                             variant="outlined"
@@ -215,23 +211,23 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                         >
                             <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>delete</span>
                             Elimina
-                        </M3Button>
+                        </Button>
                     )}
-                    <M3Button
+                    <Button
                         type="button"
                         onClick={onClose}
                         variant="text"
                     >
                         Annulla
-                    </M3Button>
-                    <M3Button
+                    </Button>
+                    <Button
                         type="submit"
-                        variant="filled"
+                        variant="contained"
                         
                     >
                         Salva Piano
-                    </M3Button>
-                </M3DialogActions>
+                    </Button>
+                </DialogActions>
             </form>
         </M3Dialog>
     );

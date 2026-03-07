@@ -1,130 +1,95 @@
-// MD3 Compliant - Migrated to direct CSS custom properties
-import React, { useState } from 'react';
+// Thin MUI wrapper — preserves M3IconButton props API for backward compatibility
+// @mui-migrated Fase 2
+import React from 'react';
+import { IconButton, Box } from '@mui/material';
 
-interface M3IconButtonProps {
+export interface M3IconButtonProps {
   icon: string;
   onClick?: () => void;
-  ariaLabel: string;
+  ariaLabel?: string;
+  'aria-label'?: string;
   disabled?: boolean;
   title?: string;
   type?: 'button' | 'submit' | 'reset';
   variant?: 'standard' | 'filled' | 'tonal' | 'outlined';
   size?: 'small' | 'medium' | 'large';
+  style?: React.CSSProperties;
 }
 
 const M3IconButton: React.FC<M3IconButtonProps> = ({
   icon,
   onClick,
   ariaLabel,
+  'aria-label': ariaLabelKebab,
   disabled = false,
   title,
   type = 'button',
   variant = 'standard',
-  size = 'medium'
+  size = 'medium',
+  style,
 }) => {
-  const [hovered, setHovered] = useState(false);
-  const [focused, setFocused] = useState(false);
-  // Size styles using MD3 spacing tokens
-  const getSizeStyles = (): React.CSSProperties => {
+  const resolvedAriaLabel = ariaLabel ?? ariaLabelKebab ?? '';
+  const getSizeSx = () => {
     switch (size) {
-      case 'small':
-        return {
-          width: 'var(--md-sys-spacing-8)',
-          height: 'var(--md-sys-spacing-8)',
-          fontSize: 'var(--md-sys-typescale-label-large-font-size)'
-        };
-      case 'large':
-        return {
-          width: 'var(--md-sys-spacing-12)',
-          height: 'var(--md-sys-spacing-12)',
-          fontSize: 'var(--md-sys-typescale-title-large-font-size)'
-        };
-      default: // medium
-        return {
-          width: 'var(--md-sys-spacing-10)',
-          height: 'var(--md-sys-spacing-10)',
-          fontSize: 'var(--md-sys-typescale-label-large-font-size)'
-        };
+      case 'small': return { width: 'var(--md-sys-spacing-8)',  height: 'var(--md-sys-spacing-8)',  fontSize: 'var(--md-sys-typescale-label-large-font-size)' };
+      case 'large': return { width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', fontSize: 'var(--md-sys-typescale-title-large-font-size)' };
+      default:      return { width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', fontSize: 'var(--md-sys-typescale-label-large-font-size)' };
     }
   };
 
-  // Variant styles using MD3 design tokens
-  const getVariantStyles = (): React.CSSProperties => {
+  const getVariantSx = () => {
     switch (variant) {
       case 'filled':
         return {
-          backgroundColor: 'var(--md-sys-color-primary-container)',
-          color: 'var(--md-sys-color-on-primary-container)'
+          bgcolor: 'var(--md-sys-color-primary-container)',
+          color: 'var(--md-sys-color-on-primary-container)',
+          '&:hover': { bgcolor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 88%, var(--md-sys-color-on-primary-container))' },
         };
       case 'tonal':
         return {
-          backgroundColor: 'var(--md-sys-color-secondary-container)',
-          color: 'var(--md-sys-color-on-secondary-container)'
+          bgcolor: 'var(--md-sys-color-secondary-container)',
+          color: 'var(--md-sys-color-on-secondary-container)',
+          '&:hover': { bgcolor: 'color-mix(in srgb, var(--md-sys-color-secondary-container) 88%, var(--md-sys-color-on-secondary-container))' },
         };
       case 'outlined':
         return {
-          backgroundColor: hovered ? 'var(--md-sys-color-surface-variant)' : 'transparent',
+          border: '1px solid var(--md-sys-color-outline)',
           color: 'var(--md-sys-color-on-surface)',
-          border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`
+          '&:hover': { bgcolor: 'var(--md-sys-color-surface-variant)' },
         };
-      default: // standard
+      default:
         return {
-          backgroundColor: hovered ? 'var(--md-sys-color-surface-variant)' : 'transparent',
-          color: 'var(--md-sys-color-on-surface-variant)'
+          color: 'var(--md-sys-color-on-surface-variant)',
+          '&:hover': { bgcolor: 'var(--md-sys-color-surface-variant)' },
         };
     }
   };
 
-  // Base styles
-  const baseStyle: React.CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 'var(--md-sys-shape-corner-full)',
-    transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
-    outline: focused ? `var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)` : 'none',
-    outlineOffset: focused ? 'var(--md-sys-spacing-2)' : 'var(--md-sys-spacing-0)',
-    border: 'none',
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    opacity: disabled ? 'var(--md-sys-state-opacity-disabled)' : (hovered && (variant === 'filled' || variant === 'tonal') ? 'var(--md-sys-state-opacity-caption)' : undefined),
-    pointerEvents: disabled ? 'none' : 'auto',
-    fontFamily: 'var(--md-sys-typescale-font-family)',
-    fontWeight: 'var(--md-sys-typescale-label-large-font-weight)',
-    lineHeight: 'var(--md-sys-typescale-label-large-line-height)',
-    letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
-    ...getSizeStyles(),
-    ...getVariantStyles()
-  };
-
-  // Icon styles
-  const iconStyle: React.CSSProperties = {
-    userSelect: 'none',
-    fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"
-  };
-
   return (
-    <button
-      type={type}
+    <IconButton
       onClick={onClick}
       disabled={disabled}
-      aria-label={ariaLabel}
-      title={title || ariaLabel}
-      style={baseStyle}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onFocus={() => setFocused(true)}
-      onBlur={() => setFocused(false)}
+      aria-label={resolvedAriaLabel}
+      title={title || resolvedAriaLabel}
+      type={type}
+      style={style}
+      sx={{
+        borderRadius: 'var(--md-sys-shape-corner-full)',
+        transition: 'all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+        ...getSizeSx(),
+        ...getVariantSx(),
+      }}
     >
-      <span
+      <Box
+        component="span"
         className="material-symbols-outlined"
-        style={iconStyle}
         aria-hidden="true"
+        sx={{ userSelect: 'none', fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24", fontSize: 'inherit' }}
       >
         {icon}
-      </span>
-    </button>
+      </Box>
+    </IconButton>
   );
 };
 
 export default M3IconButton;
-

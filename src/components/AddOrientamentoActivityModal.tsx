@@ -1,8 +1,9 @@
-// MD3 Compliant - Block G Migration (13 violations eliminated)
+﻿// MD3 Compliant - Block G Migration (13 violations eliminated)
 
 import React, { useState } from 'react';
 import { OrientamentoActivity } from '../types';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, SelectField, TextArea } from './ui';
+import { Button, Box  } from '@mui/material';
+import { M3Dialog, TextField, SelectField, TextArea } from './ui';
 import { UI_TEXT } from '../constants/ui-text';
 interface AddOrientamentoActivityModalProps {
     isOpen: boolean;
@@ -33,18 +34,18 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
         
         onSave({
             ...activity,
-            id: `orient-act-${Date.now()}`,
-        } as OrientamentoActivity);
+            id: `orient-act-${Date.now()}` } as OrientamentoActivity);
         onClose();
     };
 
     return (
-        <M3Dialog isOpen={isOpen} onClose={onClose} title="Nuova Attività di Orientamento">
-            <M3DialogContent style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'var(--md-sys-spacing-6)'
-            }}>
+        <M3Dialog isOpen={isOpen} onClose={onClose} title="Nuova Attività di Orientamento"
+            buttons={<>
+                <Button onClick={onClose} variant="text">{UI_TEXT.CANCEL}</Button>
+                <Button onClick={handleSave} variant="contained" disabled={!activity.title}>Salva Attività</Button>
+            </>}
+        >
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
                 <TextField
                     label="Titolo Attività"
                     value={activity.title}
@@ -136,11 +137,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                         ))}
                     </div>
                 </div>
-            </M3DialogContent>
-            <M3DialogActions>
-                <M3Button onClick={onClose} variant="text">{UI_TEXT.CANCEL}</M3Button>
-                <M3Button onClick={handleSave} variant="filled" disabled={!activity.title}>Salva Attività</M3Button>
-            </M3DialogActions>
+            </Box>
         </M3Dialog>
     );
 };

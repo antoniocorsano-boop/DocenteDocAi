@@ -1,10 +1,11 @@
-// MD3 Compliant - Block N Migration Complete (5 violations eliminated)
+﻿// MD3 Compliant - Block N Migration Complete (5 violations eliminated)
 // Note: Typography font sizes and functional border widths retained with eslint-disable comments
 import React, { useState, useEffect } from 'react';
 import { AiSettings, KnowledgeBaseEntry } from '../types';
 import VoiceNoteRecorder from './VoiceNoteRecorder';
 import { generateLessonFromIdea } from '../services/aiService';
-import { SelectField, TextArea, M3Dialog, M3DialogContent, M3DialogActions, M3Button, AiThinkingGem } from './ui';
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog, SelectField, TextArea, AiThinkingGem } from './ui';
 interface IdeaGeneratorModalProps {
     onClose: () => void;
     onGenerate: (content: { title: string; htmlContent: string }) => void;
@@ -71,9 +72,26 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
             }
             onClose={onClose}
             maxWidth="xl"
-            level={1}
+            buttons={
+                <>
+                    <Button onClick={onClose} variant="text" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)' }}>Annulla</Button>
+                    <Button 
+                        onClick={handleGenerate} 
+                        variant="contained" 
+                        disabled={isLoading || !ideaText.trim()}
+                        sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)' }}
+                    >
+                        {isLoading ? <AiThinkingGem size="small" /> : (
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }}>
+                                <Typography component="span" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>auto_awesome</Typography>
+                                <span>Genera Piano</span>
+                            </Box>
+                        )}
+                    </Button>
+                </>
+            }
         >
-            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 70%, transparent)', padding: 'var(--md-sys-spacing-4)' }}>
+            <Box sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 70%, transparent)', p: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <SelectField 
                     label="Classe Destinazione" 
                     value={targetClass} 
@@ -138,29 +156,11 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
 
                 {error && (
                     <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-error) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: "var(--md-sys-color-error)"}}>
-                        <span style={{
-}}>error</span>
+                        <span style={{}}>error</span>
                         <p style={{  fontSize: "var(--md-sys-typescale-label-large-font-size)" , fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{error}</p>
                     </div>
                 )}
-            </M3DialogContent>
-
-            <M3DialogActions style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 70%, transparent)' , borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", paddingTop: "0"}}>
-                <M3Button onClick={onClose} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)",  fontSize: "var(--md-sys-typescale-label-large-font-size)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Annulla</M3Button>
-                <M3Button 
-                    onClick={handleGenerate} 
-                    variant="filled" 
-                    disabled={isLoading || !ideaText.trim()}
-                     style={{ fontWeight: "var(--md-sys-typescale-weight-black)",  fontSize: "var(--md-sys-typescale-label-large-font-size)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}
-                >
-                    {isLoading ? <AiThinkingGem size="small" /> : (
-                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                            <span  style={{  fontSize: "var(--md-sys-typescale-body-large-font-size)"  }}>auto_awesome</span>
-                            <span>Genera Piano</span>
-                        </div>
-                    )}
-                </M3Button>
-            </M3DialogActions>
+            </Box>
         </M3Dialog>
     );
 };

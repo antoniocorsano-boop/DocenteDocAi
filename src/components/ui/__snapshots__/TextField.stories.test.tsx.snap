@@ -4,30 +4,43 @@ exports[`TextField Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
     aria-label="DocenteDoc AI Application"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-g3p503-MuiPaper-root"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
+    style="--Paper-shadow: none;"
   >
     <div
-      style="display: flex; flex-direction: column; gap: var(--md-sys-spacing-2); width: auto; margin-bottom: var(--md-sys-spacing-4);"
+      class="MuiFormControl-root MuiTextField-root css-gniqge-MuiFormControl-root-MuiTextField-root"
     >
-      <div
-        style="position: relative; display: flex; align-items: center; gap: var(--md-sys-spacing-2); background-color: transparent; border-radius: var(--md-sys-shape-corner-large); padding: var(--md-sys-spacing-3) var(--md-sys-spacing-4); transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard); box-shadow: none; border-color: var(--md-sys-color-outline);"
+      <label
+        class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root"
+        data-shrink="false"
+        for=":r0:"
+        id=":r0:-label"
       >
-        <div
-          style="flex: 1 1 0%; position: relative;"
+        Test
+      </label>
+      <div
+        class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
+      >
+        <input
+          aria-invalid="false"
+          class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
+          id=":r0:"
+          type="text"
+          value=""
+        />
+        <fieldset
+          aria-hidden="true"
+          class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
         >
-          <span
-            style="font-family: var(--font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-tracking); color: var(--md-sys-color-on-surface-variant); margin: 0px; position: absolute; top: 50%; left: 0px; transform: translateY(-50%); transform-origin: top left; transition: all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard); pointer-events: none; z-index: var(--md-sys-z-tooltip);"
+          <legend
+            class="css-1n64csd-MuiNotchedOutlined-root"
           >
-            Test
-          </span>
-          <input
-            aria-label="Test"
-            placeholder=""
-            style="width: var(--md-sys-percent-100); border: medium; background-color: transparent; color: var(--md-sys-color-on-surface); font-size: var(--md-sys-typescale-body-large-font-size); font-family: var(--md-sys-typescale-body-large-font-family); font-weight: var(--md-sys-typescale-body-large-font-weight); line-height: var(--md-sys-typescale-body-large-line-height); letter-spacing: var(--md-sys-typescale-body-large-letter-spacing); outline: none; padding-top: 0px; transition: padding-top var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);"
-            value=""
-          />
-        </div>
+            <span>
+              Test
+            </span>
+          </legend>
+        </fieldset>
       </div>
     </div>
   </div>

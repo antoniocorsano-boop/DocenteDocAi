@@ -5,9 +5,7 @@
 // Functional exception: grid minmax(calc(var(--md-sys-spacing-20) * 3.125), 1fr) for responsive card layout
 import React, { useState, useEffect } from 'react';
 import { useM3Theme, PresetOverrides } from '../../theme/theme';
-import M3Typography from '../ui/M3Typography';
-import M3Card from '../ui/M3Card';
-import { M3Button } from '../M3Button';
+import { Card, Typography, Button } from '@mui/material';
 import { EmotionalPreset } from '../../types';
 
 interface EmotionalPresetsManagerProps {
@@ -339,7 +337,7 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({ selec
         const isSelected = selectedPreset === presetKey;
         const isHovered = hoveredPreset === presetKey;
         return (
-          <M3Card
+          <Card
             key={presetKey}
             style={{
               padding: 'var(--md-sys-spacing-4)',
@@ -354,22 +352,22 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({ selec
             onClick={() => handleSelect(presetKey)}
             aria-selected={isSelected}
           >
-            <M3Typography variant="title-medium" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
+            <Typography variant="subtitle1" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
               {preset.name}
-            </M3Typography>
-            <M3Typography variant="body-medium" style={{ marginBottom: 'var(--md-sys-spacing-3)', color: 'var(--md-sys-color-on-surface)' }}>
+            </Typography>
+            <Typography variant="body2" style={{ marginBottom: 'var(--md-sys-spacing-3)', color: 'var(--md-sys-color-on-surface)' }}>
               {preset.description}
-            </M3Typography>
+            </Typography>
             {isSelected ? (
-              <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-primary)' }}>
+              <Typography variant="body1" style={{ color: 'var(--md-sys-color-primary)' }}>
                 Selected
-              </M3Typography>
+              </Typography>
             ) : (
-              <M3Button variant="outlined" style={{ color: 'var(--md-sys-color-primary)' }}>
+              <Button variant="outlined" style={{ color: 'var(--md-sys-color-primary)' }}>
                 Select
-              </M3Button>
+              </Button>
             )}
-          </M3Card>
+          </Card>
         );
       })}
     </div>

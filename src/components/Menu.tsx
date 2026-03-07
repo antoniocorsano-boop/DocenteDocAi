@@ -1,7 +1,7 @@
 // MD3 Compliant - Block Q Migration Complete (0 violations - comments only)
 import React from 'react';
 import { View } from '../types';
-import { M3Typography } from './ui';
+import { Typography } from '@mui/material';
 interface MenuProps {
   currentView: View;
   onNavigate: (view: View, context?: unknown) => void;
@@ -134,9 +134,10 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
                 {active ? item.activeIcon : item.icon}
               </span>
             </div>
-            <M3Typography
-              variant="label-small"
-              style={{fontWeight: 'var(--md-sys-typescale-weight-black)', // font-black equivalent
+            <Typography
+              variant="caption"
+              component="span"
+              sx={{fontWeight: 'var(--md-sys-typescale-weight-black)', // font-black equivalent
                 textTransform: 'uppercase',
                 letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                 marginTop: 'var(--md-sys-spacing-1)', // compact margin
@@ -144,7 +145,7 @@ const Menu: React.FC<MenuProps> = ({ currentView, onNavigate }) => {
                 transition: `color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`}}
             >
               {item.label}
-            </M3Typography>
+            </Typography>
           </button>
         )
       })}

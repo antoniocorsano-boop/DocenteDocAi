@@ -1,4 +1,4 @@
-// MD3 Compliant - Block J Migration Complete (4 violations eliminated)
+﻿// MD3 Compliant - Block J Migration Complete (4 violations eliminated)
 import React, { useState, useMemo } from 'react';
 import { Studente, Lezione, Uda, TimetableSettings, AiSettings, Valutazione, ValutazioneCompetenza, DocumentTemplate } from '../types';
 import { generateStudentProfilePdf, generateLessonPdf, generateHtmlDocxBlob } from '../utils/documentUtils';
@@ -7,7 +7,8 @@ import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';
 import TemplateManager from './TemplateManager';
 import JSZip from 'jszip';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
+import { Button  } from '@mui/material';
+import { M3Dialog } from './ui';
 // Type guards migliorati
 const isStudent = (data: unknown): data is Studente => {
   return (
@@ -265,10 +266,19 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
     <M3Dialog
       title="Export Multiplo Documenti"
       onClose={props.onClose}
-      maxWidth="2xl"
-      level={1}
+      maxWidth="xl"
+      buttons={<>
+          <Button onClick={props.onClose} variant="text" disabled={isGenerating}>Annulla</Button>
+          <Button
+            onClick={generateBatch}
+            variant="contained"
+            disabled={isGenerating || selectedDocuments.length === 0}
+          >
+            {isGenerating ? `Generazione... (${progress?.current || 0}/${progress?.total || 0})` : `Genera ${selectedDocuments.length} Documenti`}
+          </Button>
+      </>}
     >
-      <M3DialogContent>
+      <>
           {/* Progress Bar durante generazione */}
           {progress && (
             <div style={{ backgroundColor: 'var(--md-sys-color-on-primary)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)'}}>
@@ -292,13 +302,13 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                 Selezionati: {selectedDocuments.length} di {availableDocuments.length}
               </span>
               <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
-                <M3Button onClick={selectAll} variant="text"  disabled={isGenerating}>
+                <Button onClick={selectAll} variant="text"  disabled={isGenerating}>
                   Seleziona Tutto
-                </M3Button>
-                <M3Button onClick={selectNone} variant="text"  disabled={isGenerating}>
+                </Button>
+                <Button onClick={selectNone} variant="text"  disabled={isGenerating}>
                   Deseleziona Tutto
-                </M3Button>
-                <M3Button
+                </Button>
+                <Button
                   onClick={() => {
                     setShowTemplateManager(true);
                     trackAnalyticsEvent('feature_usage', 'template_manager');
@@ -309,7 +319,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                 >
                   <span>description</span>
                   Template
-                </M3Button>
+                </Button>
               </div>
             </div>
           </div>
@@ -372,20 +382,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
               </div>
             ))}
           </div>
-      </M3DialogContent>
-
-      <M3DialogActions>
-          <M3Button onClick={props.onClose} variant="text" disabled={isGenerating}>
-            Annulla
-          </M3Button>
-          <M3Button
-            onClick={generateBatch}
-            variant="filled"
-            disabled={isGenerating || selectedDocuments.length === 0}
-          >
-            {isGenerating ? `Generazione... (${progress?.current || 0}/${progress?.total || 0})` : `Genera ${selectedDocuments.length} Documenti`}
-          </M3Button>
-      </M3DialogActions>
+      </>
 
       {/* Template Manager */}
       {showTemplateManager && (

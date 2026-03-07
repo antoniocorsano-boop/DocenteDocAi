@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import M3Surface from '../components/ui/M3Surface';
+import { Paper } from '@mui/material';
 
 interface ModalEntry {
   id: string;
@@ -36,23 +36,25 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     <ModalContext.Provider value={{ stack, pushModal, popModal }}>
       {children}
       {stack.length > 0 && createPortal(
-        <M3Surface
+        <Paper
           role="dialog"
           aria-modal="true"
-          style={{
+          sx={{
             position: 'fixed',
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
-            zIndex: 'var(--md-sys-z-modal)' as React.CSSProperties['zIndex'],
-            pointerEvents: 'auto'
+            zIndex: 'var(--md-sys-z-modal)',
+            pointerEvents: 'auto',
+            bgcolor: 'transparent',
+            borderRadius: 0,
           }}
         >
           {stack.map((entry) => (
             <React.Fragment key={entry.id}>{entry.component}</React.Fragment>
           ))}
-        </M3Surface>,
+        </Paper>,
         document.body
       )}
     </ModalContext.Provider>

@@ -1,7 +1,10 @@
 // MD3 Gold Compliant
 /**
  * M3Menu - Material Design 3 Menu Component
- * 
+ *
+ * @deprecated — 0 consumer di produzione. Sarà eliminato in Fase 5 della migrazione MUI v7.
+ * Usare `Menu` di `@mui/material` direttamente.
+ *
  * Lightweight, M3-native menu replacement for MUI Menu.
  * A specialized version of M3Popover optimized for menu items.
  * Supports:

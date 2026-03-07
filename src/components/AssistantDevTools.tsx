@@ -1,6 +1,6 @@
 // MD3 Compliant
 import React, { useState } from 'react';
-import { M3Button } from './ui';
+import { Button } from '@mui/material';
 import { SystemSuggestion } from '../types';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for assistant development tools interface
@@ -40,12 +40,12 @@ const AssistantDevTools: React.FC<Props> = ({ actions }) => {
   return (
     <div  aria-hidden={false}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-        <M3Button variant="outlined" onClick={toggleSuggestion}>
+        <Button variant="outlined" onClick={toggleSuggestion}>
           {suggestionOn ? 'Rimuovi suggerimento' : 'Simula suggerimento'}
-        </M3Button>
-        <M3Button variant={listening ? 'filled' : 'outlined'} onClick={toggleListening}>
+        </Button>
+        <Button variant={listening ? 'contained' : 'outlined'} onClick={toggleListening}>
           {listening ? 'Stop Listen (dev)' : 'Start Listen (dev)'}
-        </M3Button>
+        </Button>
       </div>
     </div>
   );

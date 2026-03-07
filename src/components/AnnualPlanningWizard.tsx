@@ -1,15 +1,11 @@
 // MD3 Compliant - Block J Migration Complete (5 violations eliminated)
 
 import React, { useState, useMemo } from 'react';
-import {
-    M3Dialog,
-    M3DialogContent,
-    M3DialogActions,
-    M3Button,
-    M3Typography,
-    InfoCard,
-    AiThinkingGem
-} from './ui';
+import { M3Dialog, InfoCard, AiThinkingGem } from './ui';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { Studente, Uda, TimetableSettings, AiSettings, Report, EventoCalendario, Lezione, KnowledgeBaseEntry, PianoInclusione } from '../types';
 import { generateClassPlanningDocument, generateSituazionePartenza, suggestAnnualPlan } from '../services/aiService';
 import { generateHtmlDocxBlob, saveAs } from '../utils/documentUtils';
@@ -95,7 +91,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     const SITUATION_TAGS = [
         "Numerosa", "Poca partecipazione", "Vivace", "Livello Eterogeneo", 
         "Buona preparazione base", "Lacune diffuse", "Presenza BES/DSA", 
-        "Studenti Stranieri (NAI)", "Collaborativa", "DifficoltÃ  relazionali"
+        "Studenti Stranieri (NAI)", "Collaborativa", "Difficoltà relazionali"
     ];
 
     // --- LOGIC ---
@@ -218,7 +214,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     title: item.uda.title,
                     classe: selectedClass,
                     materia: selectedSubject,
-                    introduction: `UnitÃ  di apprendimento su: ${item.uda.topic}`,
+                    introduction: `Unità di apprendimento su: ${item.uda.topic}`,
                     finalProduct: 'Verifica sommativa o elaborato',
                     competencyIds: [],
                     phases: [
@@ -230,7 +226,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     tools: 'Libro di testo, LIM',
                     startDate: item.start,
                     endDate: item.end,
-                    // ProprietÃ  aggiuntive richieste da Uda
+                    // Proprietà aggiuntive richieste da Uda
                     startPos: 0,
                     width: 1,
                     color: '',
@@ -255,7 +251,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                 onAddLessons(newLessons);
             }
 
-            onSaveEvent({ id: `evt-term1-${Date.now()}`, titolo: 'Fine 1Â° Periodo', data: term1End, tipo: 'scadenza', descrizione: 'Termine inserimento voti.' });
+            onSaveEvent({ id: `evt-term1-${Date.now()}`, titolo: 'Fine 1° Periodo', data: term1End, tipo: 'scadenza', descrizione: 'Termine inserimento voti.' });
             onSaveEvent({ id: `evt-term2-${Date.now()}`, titolo: 'Termine Lezioni', data: term2End, tipo: 'scadenza', descrizione: 'Ultimo giorno di scuola.' });
 
             setStep('document');
@@ -271,7 +267,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
         setProcessingStatus("Organizzazione contenuti...");
         try {
             const udaList = schedulePreview.map(s => 
-                `â€¢ ${s.uda.title} (${s.uda.hours}h): dal ${new Date(s.start).toLocaleDateString()} al ${new Date(s.end).toLocaleDateString()}`
+                `• ${s.uda.title} (${s.uda.hours}h): dal ${new Date(s.start).toLocaleDateString()} al ${new Date(s.end).toLocaleDateString()}`
             ).join('\n');
 
             const kbContext = knowledgeBase
@@ -372,13 +368,13 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             title="Progettazione Annuale Guidata"
             mode="fullscreen"
         >
-            <M3DialogContent>
+            <DialogContent>
                     {renderStepIndicator()}
 
                     {step === 'context' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                <M3Typography variant="title-large" as="h3" style={{ marginBottom: 'var(--md-sys-spacing-8)' }}>1. Definisci il Contesto</M3Typography>
+                                <Typography variant="h6" component="h3" sx={{ marginBottom: 'var(--md-sys-spacing-8)' }}>1. Definisci il Contesto</Typography>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <label htmlFor="wizard-select-class">Classe Target</label>
@@ -396,10 +392,10 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             </div>
 
                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)` }}>
-                                <M3Typography variant="title-medium" as="h4" style={{ marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)' }}>
+                                <Typography variant="subtitle1" component="h4" sx={{ marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)' }}>
                                     <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-secondary)' }}>folder_open</span>
                                     Documenti di Riferimento (KB)
-                                </M3Typography>
+                                </Typography>
                                 <div style={{ maxHeight: 'var(--md-sys-layout-popup-min-width)', overflowY: 'auto' }}>
                                     {recommendedFiles.length > 0 ? recommendedFiles.map(kb => (
                                         <div key={kb.id} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: 'var(--md-sys-spacing-2)' }}>
@@ -411,7 +407,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </label>
                                         </div>
                                     )) : (
-                                        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</M3Typography>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</Typography>
                                     )}
                                 </div>
                             </div>
@@ -420,7 +416,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
                     {step === 'situation' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <M3Typography variant="title-large" as="h3">2. Analisi della Classe</M3Typography>
+                            <Typography variant="h6" component="h3">2. Analisi della Classe</Typography>
                             <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-2)' }}>
                                 {SITUATION_TAGS.map(tag => (
                                     <button
@@ -446,9 +442,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <label htmlFor="wizard-situation-notes">Note Aggiuntive</label>
                                 <textarea id="wizard-situation-notes" name="wizard-situation-notes" style={{ width: 'var(--md-sys-percent-full)' }} rows={2} value={situationNotes} onChange={e => setSituationNotes(e.target.value)} placeholder="Dettagli specifici sulla classe..." />
                             </div>
-                            <M3Button variant="tonal" fullWidth onClick={handleGenerateSituation} disabled={!!situationStatus} title="Usa l'AI per scrivere l'analisi">
+                            <Button variant="outlined" fullWidth onClick={handleGenerateSituation} disabled={!!situationStatus} title="Usa l'AI per scrivere l'analisi">
                                 {situationStatus ? <AiThinkingGem size="small" inline text={situationStatus} /> : 'Genera Analisi con AI'}
-                            </M3Button>
+                            </Button>
                             {situazioneText && (
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
                                     <label htmlFor="wizard-situation-text">Testo Analisi (Modificabile)</label>
@@ -460,13 +456,13 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
                     {step === 'methodology' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <M3Typography variant="title-large" as="h3">3. Obiettivi e Metodologie</M3Typography>
+                            <Typography variant="h6" component="h3">3. Obiettivi e Metodologie</Typography>
                             <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)` }}>
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                                     <label htmlFor="wizard-methodology-text">Strategie Didattiche</label>
-                                    <M3Button variant="text" onClick={handleGenerateMethodology} disabled={!!methodologyStatus} style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Suggerisci metodologie adatte al contesto">
+                                    <Button variant="text" onClick={handleGenerateMethodology} disabled={!!methodologyStatus} sx={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Suggerisci metodologie adatte al contesto">
                                         {methodologyStatus ? <AiThinkingGem size="small" inline text="Thinking..." /> : <><span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-primary)' }}>lightbulb</span> Suggerisci</>}
-                                    </M3Button>
+                                    </Button>
                                 </div>
                                 <textarea id="wizard-methodology-text" name="wizard-methodology-text" style={{ width: 'var(--md-sys-percent-full)' }} rows={6} value={methodology} onChange={e => setMethodology(e.target.value)} />
                             </div>
@@ -477,7 +473,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                         <div style={{ gap: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }}>
-                                    <M3Typography variant="title-large" as="h3">4. Piano Annuale UDA</M3Typography>
+                                    <Typography variant="h6" component="h3">4. Piano Annuale UDA</Typography>
                                     <button
                                         onClick={() => setShowSequenceHelp(!showSequenceHelp)}
                                         style={{ color: "var(--md-sys-color-secondary)", background: 'none', border: 'none', cursor: 'pointer' }}
@@ -492,17 +488,17 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         <label htmlFor="wizard-hours-per-week">Ore/Sett:</label>
                                         <input id="wizard-hours-per-week" name="wizard-hours-per-week" type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} style={{ width: "var(--md-sys-spacing-10)", backgroundColor: "transparent", textAlign: "center", fontWeight: "var(--md-sys-typescale-weight-bold)", borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }} title="Ore settimanali di lezione" />
                                     </div>
-                                    <M3Button variant="tonal" onClick={handleGeneratePlanFromKb} disabled={!!planGenerationStatus || selectedKbFiles.length === 0} style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Genera lista UDA dai documenti KB">
+                                    <Button variant="outlined" onClick={handleGeneratePlanFromKb} disabled={!!planGenerationStatus || selectedKbFiles.length === 0} sx={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Genera lista UDA dai documenti KB">
                                         {planGenerationStatus ? <AiThinkingGem size="small" inline text={planGenerationStatus} /> : 'Genera da KB'}
-                                    </M3Button>
+                                    </Button>
                                 </div>
                             </div>
 
                             {showSequenceHelp && (
                                 <InfoCard
                                     title="Organizzazione Moduli"
-                                    description="Definisci le UnitÃ  di Apprendimento (UDA) in ordine cronologico. L'app calcolerÃ  automaticamente le date sul calendario in base al monte ore di ciascuna UDA."
-                                    variant="tonal"
+                                    description="Definisci le Unità di Apprendimento (UDA) in ordine cronologico. L'app calcolerà automaticamente le date sul calendario in base al monte ore di ciascuna UDA."
+                                    variant="outlined"
                                     icon="info"
                                     onClose={() => setShowSequenceHelp(false)}
                                 />
@@ -517,7 +513,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     <label htmlFor="wizard-new-uda-hours">Ore</label>
                                     <input id="wizard-new-uda-hours" name="wizard-new-uda-hours" type="number" value={newUdaHours} onChange={e => setNewUdaHours(parseInt(e.target.value))} style={{ width: 'var(--md-sys-percent-full)' }} />
                                 </div>
-                                <M3Button variant="filled" onClick={addUdaToPlan} style={{ marginBottom: 'var(--md-sys-spacing-4)' }} title="Aggiungi alla lista">Aggiungi</M3Button>
+                                <Button variant="contained" onClick={addUdaToPlan} sx={{ marginBottom: 'var(--md-sys-spacing-4)' }} title="Aggiungi alla lista">Aggiungi</Button>
                             </div>
                             {planGenerationStatus ? <div style={{ padding: 'var(--md-sys-spacing-8)', display: "flex", justifyContent: "center" }}><AiThinkingGem size="medium" text={planGenerationStatus} /></div> : (
                                 <div style={{ gap: 'var(--md-sys-spacing-3)', overflowY: "auto", maxHeight: 'var(--md-sys-spacing-24)' }}>
@@ -530,9 +526,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                     <span style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)' }}>
                                                         UDA {idx + 1}
                                                     </span>
-                                                    <M3Typography variant="title-small" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>{uda.title}</M3Typography>
+                                                    <Typography variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>{uda.title}</Typography>
                                                 </div>
-                                                <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "var(--md-sys-state-opacity-caption)" }}>{uda.topic || uda.title}</M3Typography>
+                                                <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "var(--md-sys-state-opacity-caption)" }}>{uda.topic || uda.title}</Typography>
                                             </div>
 
                                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-surface-container-low)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
@@ -548,13 +544,13 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                 <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>ore</span>
                                             </div>
 
-                                            <M3Button variant="text" color="error" onClick={() => removeUdaFromPlan(idx)} title="Rimuovi UDA">
+                                            <Button variant="text" color="error" onClick={() => removeUdaFromPlan(idx)} title="Rimuovi UDA">
                                                 <span className="material-symbols-outlined">delete</span>
-                                            </M3Button>
+                                            </Button>
                                         </div>
                                     ))}
                                     {plannedUdas.length === 0 && (
-                                        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</M3Typography>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</Typography>
                                     )}
                                 </div>
                             )}
@@ -563,10 +559,10 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
                     {step === 'preview' && (
                         <div style={{ gap: 'var(--md-sys-spacing-4)' }}>
-                            <M3Typography variant="title-large" as="h3">5. Anteprima Temporale</M3Typography>
+                            <Typography variant="h6" component="h3">5. Anteprima Temporale</Typography>
                             <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-6)' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                                    <label htmlFor="wizard-term1-end">Fine 1Â° Periodo</label>
+                                    <label htmlFor="wizard-term1-end">Fine 1° Periodo</label>
                                     <input id="wizard-term1-end" name="wizard-term1-end" type="date" value={term1End} onChange={e => setTerm1End(e.target.value)} style={{ width: 'var(--md-sys-percent-full)' }} />
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
@@ -578,9 +574,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 {schedulePreview.map((item, idx) => (
                                     <div key={idx} style={{ position: "relative", paddingLeft: 'var(--md-sys-spacing-6)' }}>
                                         <div style={{ position: 'absolute', left: 'calc(var(--md-sys-spacing-2) * -1)', top: 'var(--md-sys-spacing-1)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-percent-full)', borderWidth: 'var(--md-sys-border-width-thin)', borderColor: 'var(--md-sys-color-outline-variant)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}></div>
-                                        <M3Typography variant="label-small" style={{ textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", color: "var(--md-sys-color-primary)" }}>{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</M3Typography>
-                                        <M3Typography variant="title-medium" as="h4" style={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>{item.uda.title}</M3Typography>
-                                        <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0 }}>{item.uda.hours} ore</M3Typography>
+                                        <Typography variant="caption" sx={{ textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", color: "var(--md-sys-color-primary)" }}>{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</Typography>
+                                        <Typography variant="subtitle1" component="h4" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>{item.uda.title}</Typography>
+                                        <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0 }}>{item.uda.hours} ore</Typography>
                                     </div>
                                 ))}
                             </div>
@@ -592,28 +588,28 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <div style={{ color: 'var(--md-sys-color-on-secondary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-secondary)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                                 <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-secondary-container)' }}>check_circle</span>
                             </div>
-                            <M3Typography variant="title-large" as="h3" style={{ color: 'var(--md-sys-color-on-surface)' }}>Pianificazione Completata!</M3Typography>
-                            <M3Button variant="filled" onClick={handleGenerateDoc} disabled={!!processingStatus} style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Scarica il documento finale">
+                            <Typography variant="h6" component="h3" sx={{ color: 'var(--md-sys-color-on-surface)' }}>Pianificazione Completata!</Typography>
+                            <Button variant="contained" onClick={handleGenerateDoc} disabled={!!processingStatus} sx={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Scarica il documento finale">
                                 {processingStatus ? <AiThinkingGem size="small" inline text={processingStatus} /> : 'Genera Documento Programmazione'}
-                            </M3Button>
+                            </Button>
                         </div>
                     )}
-            </M3DialogContent>
+            </DialogContent>
 
-            <M3DialogActions>
+            <DialogActions>
                     {step !== 'document' && (
                         <>
-                            {step !== 'context' && <M3Button variant="text" onClick={() => setStep(p => p === 'situation' ? 'context' : p === 'methodology' ? 'situation' : p === 'sequence' ? 'methodology' : 'sequence')} title="Torna indietro">Indietro</M3Button>}
+                            {step !== 'context' && <Button variant="text" onClick={() => setStep(p => p === 'situation' ? 'context' : p === 'methodology' ? 'situation' : p === 'sequence' ? 'methodology' : 'sequence')} title="Torna indietro">Indietro</Button>}
                             <div style={{ flexGrow: "1" }}></div>
-                            {step === 'context' && <M3Button variant="filled" onClick={() => setStep('situation')} title="Vai all'analisi">Avanti</M3Button>}
-                            {step === 'situation' && <M3Button variant="filled" onClick={() => setStep('methodology')} title="Vai alla metodologia">Avanti</M3Button>}
-                            {step === 'methodology' && <M3Button variant="filled" onClick={() => setStep('sequence')} title="Vai al piano">Avanti</M3Button>}
-                            {step === 'sequence' && <M3Button variant="filled" onClick={() => { calculateSchedule(); setStep('preview'); }} disabled={plannedUdas.length === 0} title="Calcola date">Calcola</M3Button>}
-                            {step === 'preview' && <M3Button variant="filled" onClick={handleFinalize} disabled={!!processingStatus} style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}} title="Salva tutto nel database">{processingStatus ? <AiThinkingGem size="small" inline /> : 'Conferma'}</M3Button>}
+                            {step === 'context' && <Button variant="contained" onClick={() => setStep('situation')} title="Vai all'analisi">Avanti</Button>}
+                            {step === 'situation' && <Button variant="contained" onClick={() => setStep('methodology')} title="Vai alla metodologia">Avanti</Button>}
+                            {step === 'methodology' && <Button variant="contained" onClick={() => setStep('sequence')} title="Vai al piano">Avanti</Button>}
+                            {step === 'sequence' && <Button variant="contained" onClick={() => { calculateSchedule(); setStep('preview'); }} disabled={plannedUdas.length === 0} title="Calcola date">Calcola</Button>}
+                            {step === 'preview' && <Button variant="contained" onClick={handleFinalize} disabled={!!processingStatus} sx={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}} title="Salva tutto nel database">{processingStatus ? <AiThinkingGem size="small" inline /> : 'Conferma'}</Button>}
                         </>
                     )}
-                    {step === 'document' && <M3Button variant="text" onClick={onClose} title="Chiudi wizard">Chiudi</M3Button>}
-            </M3DialogActions>
+                    {step === 'document' && <Button variant="text" onClick={onClose} title="Chiudi wizard">Chiudi</Button>}
+            </DialogActions>
         </M3Dialog>
     );
 };

@@ -1,17 +1,12 @@
-import React, { useState, useCallback } from 'react';
+﻿import React, { useState, useCallback } from 'react';
 import { useFileDrop } from '../hooks/useFileDrop';
 import { extractTextFromFile, generateHtmlDocxBlob } from '../utils/documentUtils';
 import { refactorProgrammazione } from '../services/aiService';
 import { AiSettings } from '../types';
 import { saveAs } from '../utils/documentUtils';
 import { sanitizeHTML } from '../utils/securityUtils';
-import { 
-    M3Dialog, 
-    M3DialogContent, 
-    M3DialogActions, 
-    M3Button,
-    M3Typography
-} from './ui';
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog } from './ui';
 
 interface SmartImportModalProps {
     onClose: () => void;
@@ -71,8 +66,21 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
             title="Smart Import & Refactor"
             headline="Trasforma vecchi documenti in file standardizzati"
             mode="fullscreen"
+            buttons={
+                step === 'result' ? (
+                    <>
+                        <Button variant="text" onClick={() => setStep('upload')}>Ricomincia</Button>
+                        <Button variant="contained" onClick={handleDownloadDocx}>
+                            <Box component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>download</Box>
+                            Scarica DOCX
+                        </Button>
+                    </>
+                ) : (
+                    <Button variant="text" onClick={onClose}>Annulla</Button>
+                )
+            }
         >
-            <M3DialogContent style={{height: 'var(--md-sys-percent-100)', display: "flex", flexDirection: "column", padding: 'var(--md-sys-spacing-8)'}}>
+            <Box sx={{ height: 'var(--md-sys-percent-100)', display: 'flex', flexDirection: 'column', p: 'var(--md-sys-spacing-8)' }}>
                 {step === 'upload' && (
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: 'var(--md-sys-percent-100)' }}>
                         <div
@@ -109,7 +117,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                             }}>
                                 <span className="material-symbols-outlined">transform</span>
                             </div>
-                            <M3Typography variant="headline-medium" style={{ textAlign: 'center' }}>Carica la vecchia Programmazione</M3Typography>
+                            <Typography variant="h5" sx={{ textAlign: 'center' }}>Carica la vecchia Programmazione</Typography>
                             <div style={{marginTop: 'var(--md-sys-spacing-4)', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'var(--md-sys-spacing-8)'}}>
                                 <span style={{
                                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
@@ -136,14 +144,14 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                                     padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-2)'
                                 }}>.TXT</span>
                             </div>
-                            <M3Typography variant="body-medium" style={{
-                                marginTop: 'var(--md-sys-spacing-6)',
+                            <Typography variant="body2" sx={{
+                                mt: 'var(--md-sys-spacing-6)',
                                 textAlign: 'center',
                                 opacity: 'var(--md-sys-state-opacity-caption)',
                                 color: 'var(--md-sys-color-on-surface-variant)'
                             }}>
                                 Trascina qui il file o clicca per selezionare.
-                            </M3Typography>
+                            </Typography>
                         </div>
                     </div>
                 )}
@@ -157,8 +165,8 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                             </div>
                         </div>
                         <div style={{textAlign: 'center', gap: 'var(--md-sys-spacing-2)'}}>
-                            <M3Typography variant="body-large" style={{color: 'var(--md-sys-color-primary)'}}>{processingStatus}</M3Typography>
-                            <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)'}}>L'Intelligenza Artificiale sta riorganizzando il contenuto...</M3Typography>
+                        <Typography variant="body1" sx={{ color: 'var(--md-sys-color-primary)' }}>{processingStatus}</Typography>
+                            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>L'Intelligenza Artificiale sta riorganizzando il contenuto...</Typography>
                         </div>
                     </div>
                 )}
@@ -183,7 +191,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                                 gap: 'var(--md-sys-spacing-8)'
                             }}>
                                 <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>description</span>
-                                <M3Typography variant="title-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Testo Originale (Estratto)</M3Typography>
+                                <Typography variant="h6" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Testo Originale (Estratto)</Typography>
                             </div>
                             <div style={{
                                 color: 'var(--md-sys-color-on-surface-variant)',
@@ -219,7 +227,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                             }}>
                                 <span style={{
 }}>auto_awesome</span>
-                                <h3  style={{ fontWeight: "var(--md-sys-typescale-weight-black)" }}>Risultato Ristrutturato</h3>
+                                <Typography variant="h6" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)' }}>Risultato Ristrutturato</Typography>
                             </div>
                             <div  style={{flexGrow: "1", padding: 'var(--md-sys-spacing-8)', overflowY: "auto"}}>
                                 <div dangerouslySetInnerHTML={{ __html: refactoredHtml }} />
@@ -227,28 +235,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                         </div>
                     </div>
                 )}
-            </M3DialogContent>
-            <M3DialogActions>
-                {step === 'result' ? (
-                    <>
-                        <M3Button variant="text" onClick={() => setStep('upload')}>
-                            Ricomincia
-                        </M3Button>
-                        <M3Button 
-                            variant="filled" 
-                            onClick={handleDownloadDocx}
-                            startIcon={<span style={{
-}}>download</span>}
-                        >
-                            Scarica DOCX
-                        </M3Button>
-                    </>
-                ) : (
-                    <M3Button variant="text" onClick={onClose}>
-                        Annulla
-                    </M3Button>
-                )}
-            </M3DialogActions>
+            </Box>
         </M3Dialog>
     );
 };

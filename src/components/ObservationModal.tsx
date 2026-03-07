@@ -1,7 +1,8 @@
-// MD3 Compliant
+﻿// MD3 Compliant
 import React, { useState } from 'react';
 import { Studente, ObservationEntry } from '../types';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextArea } from './ui';
+import { Button, Box, Typography, ButtonBase  } from '@mui/material';
+import { M3Dialog, TextArea } from './ui';
 
 interface ObservationModalProps {
     student: Studente;
@@ -17,38 +18,39 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
     const [note, setNote] = useState(initialData?.note || '');
 
     const RatingStars = ({ label, value, onChange }: { label: string, value: number, onChange: (v: number) => void }) => (
-        <div style={{
-            backgroundColor: 'var(--md-sys-color-surface-container-low)',
-            borderRadius: 'var(--md-sys-shape-corner-large)',
-            padding: 'var(--md-sys-spacing-5)',
-            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)'
-        }}>
-            <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: 'var(--md-sys-spacing-8)',
-                paddingLeft: 'var(--md-sys-spacing-4)',
-                paddingRight: 'var(--md-sys-spacing-4)'
-            }}>
-                <span style={{
-                    color: 'var(--md-sys-color-primary)',
-                    fontWeight: 'var(--md-sys-typescale-weight-black)',
-                    textTransform: 'uppercase'
-                }}>{label}</span>
-                <span style={{
-                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                    fontWeight: 'var(--md-sys-typescale-weight-black)',
-                    color: 'var(--md-sys-color-primary)'
-                }}>{value}/4</span>
-            </div>
-            <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                gap: 'var(--md-sys-spacing-8)'
-            }}>
+        <Box
+            sx={{
+                backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                borderRadius: 'var(--md-sys-shape-corner-large)',
+                padding: 'var(--md-sys-spacing-5)',
+                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: 'var(--md-sys-spacing-8)',
+                    px: 'var(--md-sys-spacing-4)' }}
+            >
+                <Typography
+                    component="span"
+                    sx={{
+                        color: 'var(--md-sys-color-primary)',
+                        fontWeight: 'var(--md-sys-typescale-weight-black)',
+                        textTransform: 'uppercase' }}
+                >{label}</Typography>
+                <Typography
+                    component="span"
+                    sx={{
+                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                        fontWeight: 'var(--md-sys-typescale-weight-black)',
+                        color: 'var(--md-sys-color-primary)' }}
+                >{value}/4</Typography>
+            </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-8)' }}>
                 {[1, 2, 3, 4].map((i) => (
-                    <button key={i} type="button" onClick={() => onChange(i)} style={{
+                    <ButtonBase key={i} onClick={() => onChange(i)} sx={{
                         flex: 1,
                         height: 'var(--md-sys-spacing-14)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
@@ -60,13 +62,12 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
                         color: i <= value ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
                         border: i <= value ? 'none' : 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                         boxShadow: i <= value ? 'var(--md-sys-elevation-level1)' : 'none',
-                        transform: i <= value ? 'scale(1.05)' : 'scale(1)'
-                    }}>
-                        <span  style={{ fontSize: "var(--md-sys-spacing-6)" }}>{i <= value ? 'star' : 'star_outline'}</span>
-                    </button>
+                        transform: i <= value ? 'scale(1.05)' : 'scale(1)' }}>
+                        <Box component="span" sx={{ fontSize: 'var(--md-sys-spacing-6)' }}>{i <= value ? 'star' : 'star_outline'}</Box>
+                    </ButtonBase>
                 ))}
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 
     const handleSave = () => {
@@ -79,31 +80,24 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
             title="Osservazione Formativa"
             onClose={onClose}
             maxWidth="md"
-            level={1}
+            buttons={<>
+                <Button onClick={onClose} variant="text">Annulla</Button>
+                <Button onClick={handleSave} variant="contained">Registra Nota</Button>
+            </>}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
-                <div style={{
-                    marginBottom: 'var(--md-sys-spacing-6)',
-                    paddingLeft: 'var(--md-sys-spacing-4)',
-                    paddingRight: 'var(--md-sys-spacing-4)'
-                }}>
-                    <h3 style={{
-                        color: 'var(--md-sys-color-on-primary)',
-                        fontSize: 'var(--md-sys-spacing-5)',
-                        fontWeight: 'var(--md-sys-typescale-weight-bold)'
-                    }}>{student.cognome} {student.nome}</h3>
-                </div>
-                <div style={{ gap: 'var(--md-sys-spacing-6)' }}>
+            <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                <Box sx={{ mb: 'var(--md-sys-spacing-6)', px: 'var(--md-sys-spacing-4)' }}>
+                    <Typography variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
+                        {student.cognome} {student.nome}
+                    </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
                     <RatingStars label="Autonomia" value={autonomy} onChange={setAutonomy} />
                     <RatingStars label="Collaborazione" value={collaboration} onChange={setCollaboration} />
                     <RatingStars label="Responsabilità" value={responsibility} onChange={setResponsibility} />
                     <TextArea label="Aneddoti / Note Osservative" value={note} onChange={e => setNote(e.target.value)} rows={4} placeholder="Es. Ha dimostrato iniziativa nel lavoro di gruppo..." />
-                </div>
-            </M3DialogContent>
-            <M3DialogActions>
-                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
-                <M3Button onClick={handleSave} variant="filled" >Registra Nota</M3Button>
-            </M3DialogActions>
+                </Box>
+            </Box>
         </M3Dialog>
     );
 };

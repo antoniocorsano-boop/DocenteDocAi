@@ -1,9 +1,10 @@
-// MD3 Compliant - Migration completed
+﻿// MD3 Compliant - Migration completed
 // SyncConflictModal.tsx - All styling uses MD3 tokens via style props
 
 import React from 'react';
 import { SyncConflictData } from '../types';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard } from './ui';
+import { Button, Box  } from '@mui/material';
+import { M3Dialog, InfoCard } from './ui';
 interface SyncConflictModalProps {
     data: SyncConflictData;
     onRestore: () => void;
@@ -21,9 +22,15 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
             onClose={onIgnore}
             title="Conflitto Sincronizzazione"
             maxWidth="sm"
-            level={2}
+            buttons={<>
+                <Button onClick={onIgnore} variant="text">Mantieni Dati Locali</Button>
+                <Button onClick={onRestore} variant="contained">
+                    <span style={{ marginRight: 'var(--md-sys-spacing-2)' }}>download</span>
+                    Sincronizza dal Cloud
+                </Button>
+            </>}
         >
-            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) var(--md-sys-percent-30), transparent)' }}>
+            <Box sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) var(--md-sys-percent-30), transparent)' }}>
                 <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
                     <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
                         {/* LOCAL CARD */}
@@ -39,8 +46,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                         boxShadow: !isRemoteNewer ? 'var(--md-sys-elevation-level1)' : undefined,
                                                         opacity: !isRemoteNewer ? 1 : 0.7,
                                                         transform: !isRemoteNewer ? 'scale(1.02)' : undefined,
-                                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
-                                                    }}
+                                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
                                                 >
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <p style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
@@ -74,8 +80,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                         boxShadow: isRemoteNewer ? 'var(--md-sys-elevation-level2)' : undefined,
                                                         opacity: isRemoteNewer ? 0.8 : 1,
                                                         transform: isRemoteNewer ? 'scale(1.02)' : undefined,
-                                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
-                                                    }}
+                                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
                                                 >
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <p style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
@@ -95,14 +100,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                         message="Se scegli di sincronizzare dal Cloud, i dati locali verranno sovrascritti definitivamente." 
                     />
                 </div>
-            </M3DialogContent>
-            <M3DialogActions>
-                <M3Button onClick={onIgnore} variant="text">Mantieni Dati Locali</M3Button>
-                <M3Button onClick={onRestore} variant="filled">
-                    <span style={{ marginRight: 'var(--md-sys-spacing-2)' }}>download</span>
-                    Sincronizza dal Cloud
-                </M3Button>
-            </M3DialogActions>
+            </Box>
         </M3Dialog>
     );
 };

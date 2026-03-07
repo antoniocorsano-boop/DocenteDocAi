@@ -1,6 +1,7 @@
 // MD3 Compliant - Block I Migration (8 violations eliminated)
 
-import { M3Button, M3Dialog, M3DialogContent, M3DialogActions } from './ui';
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog } from './ui';
 import React, { useState } from 'react';
 import { AiSettings, EventoCalendario } from '../types';
 import { extractEventFromText } from '../services/aiService';
@@ -26,7 +27,7 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
             const parsedData = await extractEventFromText(aiSettings, text);
             onEventParsed(parsedData);
         } catch (e) {
-            const errorMsg = e instanceof Error ? e.message : "Si √® verificato un errore durante l'analisi.";
+            const errorMsg = e instanceof Error ? e.message : "Si Ë verificato un errore durante l'analisi.";
             setError(errorMsg);
         } finally {
             setIsLoading(false);
@@ -38,14 +39,31 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
             title="Crea Evento da Testo con AI"
             onClose={onClose}
             maxWidth="lg"
-            level={1}
+            buttons={
+                <>
+                    <Button variant="text" onClick={onClose} type="button" disabled={isLoading}>Annulla</Button>
+                    <Button variant="contained" onClick={handleParse} type="button" disabled={isLoading || !text.trim()}>
+                        {isLoading ? (
+                            <>
+                                <Box sx={{ borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-layout-avatar-size)', width: 'var(--md-sys-layout-avatar-size)', mr: 'var(--md-sys-spacing-2)' }} />
+                                Analisi in corso...
+                            </>
+                        ) : (
+                            <>
+                                <Typography component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>auto_awesome</Typography>
+                                Analizza Testo
+                            </>
+                        )}
+                    </Button>
+                </>
+            }
         >
-            <M3DialogContent style={{ gap: 'var(--md-sys-spacing-8)' }}>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-                    Copia il testo di una circolare o di una email e incollalo qui sotto. L'AI estrarr√† automaticamente date, orari e dettagli per creare l'evento nel calendario.
-                </p>
+            <Box sx={{ gap: 'var(--md-sys-spacing-8)', display: 'flex', flexDirection: 'column' }}>
+                <Typography component="p" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                    Copia il testo di una circolare o di una email e incollalo qui sotto. L'AI estrarr‡ automaticamente date, orari e dettagli per creare l'evento nel calendario.
+                </Typography>
 
-                <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
+                <Box sx={{ mt: 'var(--md-sys-spacing-4)' }}>
                     <label htmlFor="event-text" >Testo della comunicazione</label>
                     <textarea
                         id="event-text"
@@ -53,29 +71,13 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
                         onChange={(e) => setText(e.target.value)}
                         style={{ width: 'var(--md-sys-percent-100)' }}
                         rows={10}
-                        placeholder="Es. 'Si comunica che il consiglio della classe 3A √® convocato per il giorno 15/10/2024 alle ore 15:30...'"
+                        placeholder="Es. 'Si comunica che il consiglio della classe 3A Ë convocato per il giorno 15/10/2024 alle ore 15:30...'"
                         disabled={isLoading}
                         autoFocus
                     />
-                </div>
-                {error && <p style={{ color: 'var(--md-sys-color-error)', textAlign: 'center', marginTop: 'var(--md-sys-spacing-4)' }}>{error}</p>}
-            </M3DialogContent>
-            <M3DialogActions style={{ paddingTop: 0 }}>
-                <M3Button variant="text" onClick={onClose} type="button" disabled={isLoading}>Annulla</M3Button>
-                <M3Button variant="filled" onClick={handleParse} type="button" disabled={isLoading || !text.trim()}>
-                    {isLoading ? (
-                        <>
-                            <div style={{ borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-layout-avatar-size)', width: 'var(--md-sys-layout-avatar-size)', marginRight: 'var(--md-sys-spacing-2)' }}></div>
-                            Analisi in corso...
-                        </>
-                    ) : (
-                        <>
-                            <span style={{ marginRight: 'var(--md-sys-spacing-2)' }}>auto_awesome</span>
-                            Analizza Testo
-                        </>
-                    )}
-                </M3Button>
-            </M3DialogActions>
+                </Box>
+                {error && <Typography component="p" sx={{ color: 'var(--md-sys-color-error)', textAlign: 'center', mt: 'var(--md-sys-spacing-4)' }}>{error}</Typography>}
+            </Box>
         </M3Dialog>
     );
 };

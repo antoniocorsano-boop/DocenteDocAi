@@ -1,7 +1,8 @@
 // MD3 Compliant - Migration completed
 
 import React, { useState } from 'react';
-import { TextField, M3Button, M3Typography } from './ui';
+import { TextField } from './ui';
+import { Button, Typography } from '@mui/material';
 import { UserProfile } from '../types';
 
 interface SignInScreenProps {
@@ -52,12 +53,12 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
         }}
         aria-label="Login docente"
       >
-        <M3Typography variant="headline-small" style={{ textAlign: 'center', color: 'var(--md-sys-color-on-surface)' }}>
+        <Typography variant="h6" style={{ textAlign: 'center', color: 'var(--md-sys-color-on-surface)' }}>
           Accedi a DocenteDoc AI
-        </M3Typography>
-        <M3Typography variant="body-medium" style={{ textAlign: 'center', color: 'var(--md-sys-color-on-surface-variant)' }}>
+        </Typography>
+        <Typography variant="body2" style={{ textAlign: 'center', color: 'var(--md-sys-color-on-surface-variant)' }}>
           Inserisci le tue credenziali per continuare
-        </M3Typography>
+        </Typography>
         <TextField
           label="Email"
           type="email"
@@ -77,23 +78,23 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
           fullWidth
         />
         {error && (
-          <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-error)', width: 'var(--md-sys-percent-100)', textAlign: 'center' }}>{error}</M3Typography>
+          <Typography variant="body2" style={{ color: 'var(--md-sys-color-error)', width: 'var(--md-sys-percent-100)', textAlign: 'center' }}>{error}</Typography>
         )}
-        <M3Button
+        <Button
           type="submit"
-          variant="filled"
+          variant="contained"
           style={{ width: 'var(--md-sys-percent-100)' }}
         >
           Accedi
-        </M3Button>
-        <M3Button
+        </Button>
+        <Button
           type="button"
           variant="text"
           style={{ width: 'var(--md-sys-percent-100)' }}
           onClick={() => setError('Funzione di recupero password non ancora disponibile. Contatta il tuo amministratore.')}
         >
           Recupera password
-        </M3Button>
+        </Button>
       </form>
     </div>
   );

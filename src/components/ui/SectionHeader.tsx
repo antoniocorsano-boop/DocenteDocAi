@@ -1,6 +1,6 @@
 // MD3 Compliant — Section Header
 import React from 'react';
-import M3Typography from './M3Typography';
+import Typography from '@mui/material/Typography';
 
 /**
  * SectionHeader Component
@@ -65,26 +65,19 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
             </div>
         )}
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <M3Typography
-                variant="label-large"
-                style={{
-                    textTransform: 'uppercase',
-                    letterSpacing: 'var(--md-sys-typescale-label-large-letter-spacing)',
-                    color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-40), transparent)`
-                }}
+            <Typography
+                variant="overline"
+                sx={{ color: 'text.secondary', letterSpacing: '0.1em' }}
             >
                 {title}
-            </M3Typography>
+            </Typography>
             {subtitle && (
-                <M3Typography
-                    variant="body-small"
-                    style={{
-                        marginTop: 'var(--md-sys-spacing-2)',
-                        color: `color-mix(in srgb, var(--md-sys-color-on-surface-variant) var(--md-sys-percent-60), transparent)`
-                    }}
+                <Typography
+                    variant="caption"
+                    sx={{ mt: 0.5, color: 'text.secondary' }}
                 >
                     {subtitle}
-                </M3Typography>
+                </Typography>
             )}
         </div>
     </div>

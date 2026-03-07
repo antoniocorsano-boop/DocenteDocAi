@@ -1,4 +1,4 @@
-// MD3 Gold Compliant
+﻿// MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 
@@ -7,7 +7,8 @@ import { useFileDrop } from '../hooks/useFileDrop';
 import { Studente, KnowledgeBaseEntry } from '../types';
 import { ImportService } from '../services/importService';
 import { sanitizeHtml } from '../utils/htmlSanitizer';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, SelectField, InfoCard } from './ui';
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog, TabGroup, SelectField, InfoCard } from './ui';
 interface ImportStudentsModalProps {
     onClose: () => void;
     onImport: (newStudents: Studente[]) => void;
@@ -133,8 +134,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                 return {
                     cognome: row[columnMap.cognome] || '',
                     nome: row[columnMap.nome] || '',
-                    classe: normalizedClass,
-                }
+                    classe: normalizedClass }
             })
             .filter(s => s.cognome.trim() && s.nome.trim() && s.classe);
     }, [csvData, columnMap, targetClass]);
@@ -152,8 +152,8 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
         switch (step) {
             case 'upload':
                 return (
-                    <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <SelectField
                                 id="import-target-class"
                                 label="Destinazione"
@@ -165,8 +165,8 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                 <option disabled>──────────</option>
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                             </SelectField>
-                            {targetClass === 'AUTO' && <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>Il file CSV deve contenere una colonna con il nome della classe (es. "1A", "2B").</p>}
-                        </div>
+                            {targetClass === 'AUTO' && <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 'var(--md-sys-spacing-4)', pl: 'var(--md-sys-spacing-4)', pr: 'var(--md-sys-spacing-4)' }}>Il file CSV deve contenere una colonna con il nome della classe (es. "1A", "2B").</Typography>}
+                        </Box>
 
                         <TabGroup
                             tabs={[{ id: 'file', label: 'Carica File' }, { id: 'kb', label: 'Da Knowledge Base' }]}
@@ -176,7 +176,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         />
 
                         {importSource === 'file' ? (
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <InfoCard
                                     title="Formato Richiesto"
                                     description={`Il file deve essere un .CSV con una riga di intestazione (Cognome, Nome${targetClass === 'AUTO' ? ', Classe' : ''}).`}
@@ -184,123 +184,110 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                         <a
                                             href={`data:text/csv;charset=utf-8,Cognome,Nome${targetClass === 'AUTO' ? ',Classe' : ''}%0ARossi,Mario${targetClass === 'AUTO' ? ',1A' : ''}%0ABianchi,Giulia${targetClass === 'AUTO' ? ',2B' : ''}`}
                                             download="modello_studenti.csv"
-                                            
                                         >
-                                            <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-font-size)", marginRight: "var(--md-sys-spacing-2)" }}>download</span>
+                                            <Typography component="span" sx={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', mr: 'var(--md-sys-spacing-2)' }}>download</Typography>
                                             Scarica Modello
                                         </a>
                                     }
                                     icon="description"
                                     variant="surface"
-                                     style={{marginBottom: 'var(--md-sys-spacing-8)'}}
+                                    style={{ marginBottom: 'var(--md-sys-spacing-8)' }}
                                 />
 
-                                <div
+                                <Box
                                     {...getRootProps()}
-                                    style={{
+                                    sx={{
                                         position: 'relative',
                                         display: 'flex',
                                         flexDirection: 'column',
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         padding: 'var(--md-sys-spacing-8)',
-                                        height: 'var(--md-sys-layout-dropzone-height)', // Dropzone height
+                                        height: 'var(--md-sys-layout-dropzone-height)',
                                         borderRadius: 'var(--md-sys-shape-corner-large)',
                                         border: `var(--md-sys-border-width-thin) dashed ${isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                         transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-medium)',
                                         cursor: 'pointer',
                                         opacity: isLoading ? 0.5 : 1,
                                         pointerEvents: isLoading ? 'none' : 'auto',
-                                        backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'transparent'
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        if (!isDragActive && !isLoading) {
-                                            e.currentTarget.style.borderColor = 'var(--md-sys-color-primary)';
-                                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
-                                        }
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        if (!isDragActive && !isLoading) {
-                                            e.currentTarget.style.borderColor = 'var(--md-sys-color-outline-variant)';
-                                            e.currentTarget.style.backgroundColor = 'transparent';
-                                        }
+                                        backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'transparent',
+                                        '&:hover': !isDragActive && !isLoading ? {
+                                            borderColor: 'var(--md-sys-color-primary)',
+                                            backgroundColor: 'var(--md-sys-color-surface-container-high)' } : {}
                                     }}
                                 >
                                     <input {...getInputProps()} />
                                     {isLoading ? (
-                                        <div  style={{borderRadius: 'var(--md-sys-shape-corner-full)', height: "var(--md-sys-spacing-10)", width: "var(--md-sys-spacing-10)", borderColor: "var(--md-sys-color-primary)"}}></div>
+                                        <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-full)', height: 'var(--md-sys-spacing-10)', width: 'var(--md-sys-spacing-10)', borderColor: 'var(--md-sys-color-primary)' }} />
                                     ) : (
                                         <>
-                                            <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>{isDragActive ? 'download' : 'upload_file'}</span>
-                                            <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)", textAlign: "center" }}>Trascina il file .csv o .xlsx qui</h3>
-                                            <p  style={{opacity: "var(--md-sys-state-opacity-secondary)", marginTop: 'var(--md-sys-spacing-4)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>o clicca per selezionare</p>
+                                            <Typography component="span" sx={{ color: 'var(--md-sys-color-primary)', mb: 'var(--md-sys-spacing-8)' }}>{isDragActive ? 'download' : 'upload_file'}</Typography>
+                                            <Typography variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', textAlign: 'center' }}>Trascina il file .csv o .xlsx qui</Typography>
+                                            <Typography variant="body2" sx={{ opacity: 'var(--md-sys-state-opacity-secondary)', mt: 'var(--md-sys-spacing-4)', fontWeight: 'var(--md-sys-typescale-weight-bold)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)' }}>o clicca per selezionare</Typography>
                                         </>
                                     )}
-                                </div>
-                            </div>
+                                </Box>
+                            </Box>
                         ) : (
-                            <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
-                                <p  style={{textTransform: "uppercase", color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-bold)"}}>Seleziona un file CSV dalla KB</p>
-                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , overflowY: "auto", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-4)'}}>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
+                                <Typography variant="body2" sx={{ textTransform: 'uppercase', color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Seleziona un file CSV dalla KB</Typography>
+                                <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', overflowY: 'auto', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     {knowledgeBase.length > 0 ? (
                                         knowledgeBase.map(entry => (
-                                            <div
+                                            <Box
                                                 key={entry.id}
                                                 onClick={() => handleKbFileSelect(entry)}
-                                                style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: "pointer"}}
+                                                sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: 'pointer' }}
                                             >
-                                                <span style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 30%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , color: "var(--md-sys-color-primary)", padding: 'var(--md-sys-spacing-8)', transition: "color var(--md-sys-motion-duration-medium)"}}>description</span>
-                                                <span style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: "1" }}>{entry.fileName}</span>
-                                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  opacity: "var(--md-sys-state-opacity-placeholder)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}>chevron_right</span>
-                                            </div>
+                                                <Typography component="span" sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 30%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-primary)', padding: 'var(--md-sys-spacing-8)', transition: 'color var(--md-sys-motion-duration-medium)' }}>description</Typography>
+                                                <Typography component="span" sx={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flexGrow: 1 }}>{entry.fileName}</Typography>
+                                                <Typography component="span" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 'var(--md-sys-state-opacity-placeholder)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}>chevron_right</Typography>
+                                            </Box>
                                         ))
                                     ) : (
-                                        <div style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 'var(--md-sys-spacing-8)', opacity: "var(--md-sys-state-opacity-secondary)"}}>
-                                            <span style={{ color: "var(--md-sys-color-primary)" }}>folder_off</span>
-                                            <p style={{ fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>Nessun file nella Knowledge Base.</p>
-                                        </div>
+                                        <Box sx={{ padding: 'var(--md-sys-spacing-8)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-8)', opacity: 'var(--md-sys-state-opacity-secondary)' }}>
+                                            <Typography component="span" sx={{ color: 'var(--md-sys-color-primary)' }}>folder_off</Typography>
+                                            <Typography variant="body2">Nessun file nella Knowledge Base.</Typography>
+                                        </Box>
                                     )}
-                                </div>
-                            </div>
+                                </Box>
+                            </Box>
                         )}
 
                         {error && (
-                            <div style={{ color: 'var(--md-sys-color-on-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-error)"}}>
-                                <span style={{
-}}>error</span>
-                                <p style={{ fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-medium)" }}>{error}</p>
-                            </div>
+                            <Box sx={{ color: 'var(--md-sys-color-on-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-error)' }}>
+                                <Typography component="span">error</Typography>
+                                <Typography variant="body2" sx={{ fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>{error}</Typography>
+                            </Box>
                         )}
 
                         {infoMessage && (
-                            <div style={{ color: 'var(--md-sys-color-on-tertiary-container)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-5)', backgroundColor: "var(--md-sys-color-tertiary)"}}>
-                                <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
-                                    <span style={{
-}}>lightbulb</span>
-                                    <h3  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Suggerimento AI: XLSX to CSV</h3>
-                                </div>
-                                <div style={{ color: 'var(--md-sys-color-on-tertiary-container)' ,  opacity: "var(--md-sys-state-opacity-hover-overlay)" }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(infoMessage.replace(/\n/g, '<br />')) }} />
-                            </div>
+                            <Box sx={{ color: 'var(--md-sys-color-on-tertiary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-5)', backgroundColor: 'var(--md-sys-color-tertiary)' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)', mb: 'var(--md-sys-spacing-8)' }}>
+                                    <Typography component="span">lightbulb</Typography>
+                                    <Typography variant="h6" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Suggerimento AI: XLSX to CSV</Typography>
+                                </Box>
+                                <Box sx={{ color: 'var(--md-sys-color-on-tertiary-container)', opacity: 'var(--md-sys-state-opacity-hover-overlay)' }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(infoMessage.replace(/\n/g, '<br />')) }} />
+                            </Box>
                         )}
-                    </div>
+                    </Box>
                 );
 
             case 'mapping':
                 return (
-                    <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
                         <InfoCard
                             title="Mappa le colonne"
                             description={`File: ${fileName} | Destinazione: ${targetClass === 'AUTO' ? 'Rilevamento Automatico' : targetClass}`}
                             icon="auto_awesome"
-                            variant="filled"
-                            
+                            variant="contained"
                         />
 
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>
+                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', pl: 'var(--md-sys-spacing-4)', pr: 'var(--md-sys-spacing-4)' }}>
                             Il sistema ha tentato di associare automaticamente le colonne. Verifica o correggi le associazioni.
-                        </p>
+                        </Typography>
 
-                        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
+                        <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)' }}>
                             <SelectField
                                 id="map-cognome"
                                 label="Colonna COGNOME"
@@ -320,7 +307,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                 {csvHeaders.map(h => <option key={h} value={h}>{h}</option>)}
                             </SelectField>
                             {targetClass === 'AUTO' && (
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <SelectField
                                         id="map-classe"
                                         label="Colonna CLASSE"
@@ -330,74 +317,75 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                         <option value="">Seleziona...</option>
                                         {csvHeaders.map(h => <option key={h} value={h}>{h}</option>)}
                                     </SelectField>
-                                </div>
+                                </Box>
                             )}
-                        </div>
+                        </Box>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <h4  style={{textTransform: "uppercase", color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-6)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Anteprima Dati (Prime 3 righe)</h4>
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , overflowX: "auto", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
-                                <table style={{ width: "var(--md-sys-percent-100)", fontSize: "var(--md-sys-typescale-body-medium-font-size)", textAlign: "left" }}>
-                                    <thead style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' ,  fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                            <Typography variant="subtitle2" sx={{ textTransform: 'uppercase', color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', mb: 'var(--md-sys-spacing-6)', pl: 'var(--md-sys-spacing-4)', pr: 'var(--md-sys-spacing-4)' }}>Anteprima Dati (Prime 3 righe)</Typography>
+                            <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', overflowX: 'auto', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}>
+                                <table style={{ width: '100%', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', textAlign: 'left' }}>
+                                    <thead style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)', fontSize: 'var(--md-sys-typescale-body-small-font-size)', textTransform: 'uppercase', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
                                         <tr>
-                                            {csvHeaders.map(h => <th key={h}  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', whiteSpace: "nowrap"}}>{h}</th>)}
+                                            {csvHeaders.map(h => <th key={h} style={{ paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', whiteSpace: 'nowrap' }}>{h}</th>)}
                                         </tr>
                                     </thead>
-                                    <tbody >
+                                    <tbody>
                                         {csvData.slice(0, 3).map((row, index) => (
-                                            <tr key={index}  style={{backgroundColor: "var(--md-sys-color-surface)", transition: "color var(--md-sys-motion-duration-medium)"}}>
-                                                {csvHeaders.map(h => <td key={h} style={{ color: 'var(--md-sys-color-on-primary)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', whiteSpace: "nowrap", fontWeight: "var(--md-sys-typescale-weight-medium)"}}>{row[h]}</td>)}
+                                            <tr key={index} style={{ backgroundColor: 'var(--md-sys-color-surface)', transition: 'color var(--md-sys-motion-duration-medium)' }}>
+                                                {csvHeaders.map(h => <td key={h} style={{ color: 'var(--md-sys-color-on-primary)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', whiteSpace: 'nowrap', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>{row[h]}</td>)}
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-                    </div>
+                            </Box>
+                        </Box>
+                    </Box>
                 );
 
             case 'confirm':
                 return (
-                    <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
                         <InfoCard
                             title="Conferma Importazione"
                             description={`Stai per importare ${studentsToImport.length} studenti. Gli studenti già presenti saranno ignorati.`}
                             icon="check_circle"
-                            variant="tonal"
-                            
+                            variant="outlined"
                         />
 
                         {targetClass === 'AUTO' && (
-                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", fontSize: "var(--md-sys-typescale-body-medium-font-size)", display: "flex", gap: 'var(--md-sys-spacing-6)', alignItems: "flex-start"}}>
-                                <span  style={{color: "var(--md-sys-color-primary)", fontSize: "var(--md-sys-typescale-title-small-font-size)"}}>info</span>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                    <p style={{ color: 'var(--md-sys-color-on-primary)' , fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-4)'}}>Nota Importante</p>
-                                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Gli studenti verranno assegnati alle classi indicate nel file. Se una classe nel file non esiste nelle tue Impostazioni, lo studente verrà comunque importato ma la classe sarà creata implicitamente.</p>
-                                </div>
-                            </div>
+                            <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', display: 'flex', gap: 'var(--md-sys-spacing-6)', alignItems: 'flex-start' }}>
+                                <Typography component="span" sx={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-title-small-font-size)' }}>info</Typography>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                    <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', mb: 'var(--md-sys-spacing-4)' }}>Nota Importante</Typography>
+                                    <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Gli studenti verranno assegnati alle classi indicate nel file. Se una classe nel file non esiste nelle tue Impostazioni, lo studente verrà comunque importato ma la classe sarà creata implicitamente.</Typography>
+                                </Box>
+                            </Box>
                         )}
 
-                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , overflowY: "auto", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
-                            <table style={{ width: "var(--md-sys-percent-100)", fontSize: "var(--md-sys-typescale-body-medium-font-size)", textAlign: "left" }}>
-                                <thead style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' ,  fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
+                        <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', overflowY: 'auto', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}>
+                            <table style={{ width: '100%', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', textAlign: 'left' }}>
+                                <thead style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)', fontSize: 'var(--md-sys-typescale-body-small-font-size)', textTransform: 'uppercase', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
                                     <tr>
-                                        <th  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Cognome</th>
-                                        <th  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Nome</th>
-                                        <th  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Classe</th>
+                                        <th style={{ paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>Cognome</th>
+                                        <th style={{ paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>Nome</th>
+                                        <th style={{ paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>Classe</th>
                                     </tr>
                                 </thead>
-                                <tbody >
+                                <tbody>
                                     {studentsToImport.map((student, index) => (
-                                        <tr key={index}  style={{backgroundColor: "var(--md-sys-color-surface)", transition: "color var(--md-sys-motion-duration-medium)"}}>
-                                            <td style={{ color: 'var(--md-sys-color-on-primary)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', fontWeight: "var(--md-sys-typescale-weight-bold)"}}>{student.cognome}</td>
-                                            <td style={{ color: 'var(--md-sys-color-on-primary)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>{student.nome}</td>
-                                            <td  style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}><span style={{ color: 'var(--md-sys-color-on-primary-container)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>{student.classe}</span></td>
+                                        <tr key={index} style={{ backgroundColor: 'var(--md-sys-color-surface)', transition: 'color var(--md-sys-motion-duration-medium)' }}>
+                                            <td style={{ color: 'var(--md-sys-color-on-primary)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{student.cognome}</td>
+                                            <td style={{ color: 'var(--md-sys-color-on-primary)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>{student.nome}</td>
+                                            <td style={{ paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>
+                                                <Typography component="span" sx={{ color: 'var(--md-sys-color-on-primary-container)', pl: 'var(--md-sys-spacing-4)', pr: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>{student.classe}</Typography>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
+                        </Box>
+                    </Box>
                 );
             default:
                 return null;
@@ -409,28 +397,27 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
             onClose={onClose}
             title={step === 'upload' ? 'Importa Studenti' : step === 'mapping' ? 'Mappatura Colonne' : 'Conferma Importazione'}
             maxWidth="lg"
-            level={1}
+            buttons={
+                <>
+                    {step === 'upload' && (
+                        <Button onClick={onClose} variant="text">Annulla</Button>
+                    )}
+                    {step === 'mapping' && (
+                        <>
+                            <Button type="button" onClick={() => { setStep('upload'); setInfoMessage(''); setError(''); }} variant="text">Indietro</Button>
+                            <Button type="button" onClick={() => setStep('confirm')} disabled={!columnMap.cognome || !columnMap.nome || (targetClass === 'AUTO' && !columnMap.classe)} variant="contained">Avanti</Button>
+                        </>
+                    )}
+                    {step === 'confirm' && (
+                        <>
+                            <Button type="button" onClick={() => setStep('mapping')} variant="text">Indietro</Button>
+                            <Button type="button" onClick={handleImport} variant="contained">Importa Studenti</Button>
+                        </>
+                    )}
+                </>
+            }
         >
-            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' }}>
-                {renderContent()}
-            </M3DialogContent>
-            <M3DialogActions>
-                {step === 'upload' && (
-                    <M3Button onClick={onClose} variant="text">Annulla</M3Button>
-                )}
-                {step === 'mapping' && (
-                    <>
-                        <M3Button type="button" onClick={() => { setStep('upload'); setInfoMessage(''); setError(''); }} variant="text">Indietro</M3Button>
-                        <M3Button type="button" onClick={() => setStep('confirm')} disabled={!columnMap.cognome || !columnMap.nome || (targetClass === 'AUTO' && !columnMap.classe)} variant="filled">Avanti</M3Button>
-                    </>
-                )}
-                {step === 'confirm' && (
-                    <>
-                        <M3Button type="button" onClick={() => setStep('mapping')} variant="text">Indietro</M3Button>
-                        <M3Button type="button" onClick={handleImport} variant="filled">Importa Studenti</M3Button>
-                    </>
-                )}
-            </M3DialogActions>
+            {renderContent()}
         </M3Dialog>
     );
 };

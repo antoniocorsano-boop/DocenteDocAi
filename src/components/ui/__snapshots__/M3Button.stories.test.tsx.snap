@@ -4,19 +4,17 @@ exports[`M3Button Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
     aria-label="DocenteDoc AI Application"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-g3p503-MuiPaper-root"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
+    style="--Paper-shadow: none;"
   >
     <button
       aria-label="Click me"
-      style="display: inline-flex; align-items: center; justify-content: center; transition: transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-spring-expressive-fast-effects), box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard), background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard), color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); transform: scale(1); outline: none; border-radius: var(--md-sys-shape-corner-medium); cursor: pointer; pointer-events: auto; border: medium; text-decoration: none; width: auto; gap: var(--md-sys-spacing-4); background-color: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); box-shadow: var(--md-sys-elevation-level1); height: var(--md-sys-spacing-10); padding: 0 var(--md-sys-spacing-4); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-letter-spacing);"
+      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-rxlgl6-MuiButtonBase-root-MuiButton-root"
+      tabindex="0"
       type="button"
     >
-      <span
-        style="flex: var(--md-sys-flex-1-1-auto); text-align: center; font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-letter-spacing); color: var(--md-sys-color-on-primary);"
-      >
-        Click me
-      </span>
+      Click me
     </button>
   </div>
 </div>

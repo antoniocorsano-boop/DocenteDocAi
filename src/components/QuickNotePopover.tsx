@@ -2,7 +2,8 @@
 
 // M3Expressive: QuickNotePopover - Quick note input popover with voice recording
 import React, { useState } from 'react';
-import { M3Popover, TextField, M3Button } from './ui';
+import { Button } from '@mui/material';
+import { M3Popover, TextField } from './ui';
 import VoiceNoteRecorder from './VoiceNoteRecorder';
 
 interface QuickNotePopoverProps {
@@ -64,14 +65,13 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
                 />
 
                 {/* Save Button */}
-                <M3Button
-                    variant="filled"
+                <Button
+                    variant="contained"
                     fullWidth
                     onClick={handleSave}
-                    
                 >
                     Salva Nota
-                </M3Button>
+                </Button>
             </div>
         </M3Popover>
     );

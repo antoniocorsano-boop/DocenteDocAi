@@ -4,7 +4,7 @@ import { generateLessonSequenceForClass } from '../services/aiService';
 // import LessonView from './LessonView';
 const IdeaGeneratorModal = lazy(() => import('./IdeaGeneratorModal'));
 const CreateLessonFromAiModal = lazy(() => import('./CreateLessonFromAiModal').then(m => ({ default: m.CreateLessonFromAiModal })));
-import { M3Typography } from './ui';
+import Typography from '@mui/material/Typography';
 
 // MD3 Compliant - Migration completed
 // LessonsPage.tsx: Migrated from 15 inline style violations to 0 violations
@@ -141,8 +141,8 @@ return (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <M3Typography variant="headline-large">Progetta Lezioni</M3Typography>
-                    <M3Typography variant="body-large">Genera e orchestra sequenze di lezioni partendo da UDA e classi.</M3Typography>
+                    <Typography variant="h5">Progetta Lezioni</Typography>
+                    <Typography variant="body1">Genera e orchestra sequenze di lezioni partendo da UDA e classi.</Typography>
                 </div>
             </div>
 
@@ -177,10 +177,10 @@ return (
                         }}>lightbulb</span>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <M3Typography variant="headline-medium">Hai un'idea per una lezione?</M3Typography>
-                        <M3Typography variant="body-medium">
+                        <Typography variant="h5">Hai un'idea per una lezione?</Typography>
+                        <Typography variant="body2">
                             Tocca qui per trasformarla subito in un piano strutturato con l'AI. Dettala o scrivila.
-                        </M3Typography>
+                        </Typography>
                     </div>
                 </div>
             </div>
@@ -224,9 +224,9 @@ return (
                     padding: 'var(--md-sys-spacing-4)',
                     borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
                 }}>
-                    <M3Typography variant="body-medium">
+                    <Typography variant="body2">
                         Seleziona le Unità di Apprendimento (UDA) e le classi. L'AI genererà una sequenza di lezioni strutturata per ogni classe, basandosi sui documenti KB selezionati.
-                    </M3Typography>
+                    </Typography>
                     <div style={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -238,7 +238,7 @@ return (
                             borderRadius: 'var(--md-sys-shape-corner-medium)',
                             padding: 'var(--md-sys-spacing-4)'
                         }}>
-                            <M3Typography variant="title-large">1. Seleziona UDA</M3Typography>
+                            <Typography variant="h6">1. Seleziona UDA</Typography>
                             {/* Centralized Selection Container */}
                             <div style={{
                                 marginTop: 'var(--md-sys-spacing-3)',
@@ -263,7 +263,7 @@ return (
                                             marginRight: 'var(--md-sys-spacing-2)'
                                         }}>check</span>}{uda.title}</label>
                                     </div>
-                                )) : <M3Typography variant="body-medium">Nessuna UDA trovata. Creane una nel Planner.</M3Typography>}
+                                )) : <Typography variant="body2">Nessuna UDA trovata. Creane una nel Planner.</Typography>}
                             </div>
                         </div>
                         {/* Class Selection */}
@@ -272,7 +272,7 @@ return (
                             borderRadius: 'var(--md-sys-shape-corner-medium)',
                             padding: 'var(--md-sys-spacing-4)'
                         }}>
-                            <M3Typography variant="title-large" style={{marginBottom: 'var(--md-sys-spacing-3)'}}>2. Seleziona Classi</M3Typography>
+                            <Typography variant="h6" sx={{marginBottom: 'var(--md-sys-spacing-3)'}}>2. Seleziona Classi</Typography>
                             {/* Centralized Selection Container */}
                             <div style={{
                                 padding: 'var(--md-sys-spacing-2)',
@@ -315,7 +315,7 @@ return (
                                 alignItems: 'center',
                                 marginBottom: 'var(--md-sys-spacing-3)'
                             }}>
-                                <M3Typography variant="title-large">3. Contesto KB</M3Typography>
+                                <Typography variant="h6">3. Contesto KB</Typography>
                                 <span style={{
                                     color: 'var(--md-sys-color-on-surface-variant)',
                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)'
@@ -360,9 +360,9 @@ return (
                                         </label>
                                     </div>
                                 ))}
-                                {knowledgeBase.length === 0 && <M3Typography variant="body-medium" style={{
+                                {knowledgeBase.length === 0 && <Typography variant="body2" sx={{
                                     color: 'var(--md-sys-color-on-surface-variant)'
-                                }}>KB vuota.</M3Typography>}
+                                }}>KB vuota.</Typography>}
                             </div>
                         </div>
                     </div>
@@ -393,14 +393,14 @@ return (
                             }}>auto_awesome</span>
                             Genera Sequenze di Lezioni
                         </button>
-                        {error && <M3Typography variant="body-medium" style={{
+                        {error && <Typography variant="body2" sx={{
                             color: 'var(--md-sys-color-error)',
                             textAlign: 'center',
                             backgroundColor: 'var(--md-sys-color-error-container)',
                             padding: 'var(--md-sys-spacing-3)',
                             borderRadius: 'var(--md-sys-shape-corner-medium)',
                             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-error)'
-                        }}>{error}</M3Typography>}
+                        }}>{error}</Typography>}
                     </div>
                 </div>
             </details>
@@ -422,7 +422,7 @@ return (
                     borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                     paddingBottom: 'var(--md-sys-spacing-4)'
                 }}>
-                    <M3Typography variant="headline-medium">Archivio Lezioni ({lessons.length})</M3Typography>
+                    <Typography variant="h5">Archivio Lezioni ({lessons.length})</Typography>
 
                     {/* Filtri */}
                     <div style={{
@@ -436,7 +436,7 @@ return (
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-3)'
                         }}>
-                            <M3Typography variant="body-medium" style={{minWidth: 'fit-content'}}>Classe:</M3Typography>
+                            <Typography variant="body2" sx={{minWidth: 'fit-content'}}>Classe:</Typography>
                             <select value={filterClass} onChange={e => setFilterClass(e.target.value)} style={{
                                 backgroundColor: 'var(--md-sys-color-surface-container-highest)',
                                 color: 'var(--md-sys-color-on-surface)',
@@ -455,7 +455,7 @@ return (
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-3)'
                         }}>
-                            <M3Typography variant="body-medium" style={{minWidth: 'fit-content'}}>UDA:</M3Typography>
+                            <Typography variant="body2" sx={{minWidth: 'fit-content'}}>UDA:</Typography>
                             <select value={filterUda} onChange={e => setFilterUda(e.target.value)} style={{
                                 backgroundColor: 'var(--md-sys-color-surface-container-highest)',
                                 color: 'var(--md-sys-color-on-surface)',
@@ -572,13 +572,13 @@ return (
                                                             alignItems: 'center',
                                                             justifyContent: 'space-between'
                                                         }}>
-                                                            <M3Typography variant="body-medium" style={{
+                                                            <Typography variant="body2" sx={{
                                                                 color: 'var(--md-sys-color-on-surface)',
                                                                 flex: 1
-                                                            }}>{lesson.contenuto}</M3Typography>
-                                                            <M3Typography variant="body-small" style={{
+                                                            }}>{lesson.contenuto}</Typography>
+                                                            <Typography variant="caption" sx={{
                                                                 color: 'var(--md-sys-color-on-surface-variant)'
-                                                            }}>{lesson.materia} • {lesson.tipoLezione || 'Lezione'}</M3Typography>
+                                                            }}>{lesson.materia} • {lesson.tipoLezione || 'Lezione'}</Typography>
                                                         </div>
                                                         <button onClick={() => onStartClassroom(lesson.classe, lesson.materia, `archive-${Date.now()}`, lesson)} style={{
                                                             backgroundColor: 'var(--md-sys-color-primary)',
@@ -622,13 +622,13 @@ return (
                                 display: 'block',
                                 marginBottom: 'var(--md-sys-spacing-4)'
                             }}>history_edu</span>
-                            <M3Typography variant="body-large" style={{
+                            <Typography variant="body1" sx={{
                                 color: 'var(--md-sys-color-on-surface-variant)',
                                 marginBottom: 'var(--md-sys-spacing-2)'
-                            }}>Nessuna lezione trovata</M3Typography>
-                            <M3Typography variant="body-medium" style={{
+                            }}>Nessuna lezione trovata</Typography>
+                            <Typography variant="body2" sx={{
                                 color: 'var(--md-sys-color-on-surface-variant)'
-                            }}>Modifica i filtri o crea una nuova lezione.</M3Typography>
+                            }}>Modifica i filtri o crea una nuova lezione.</Typography>
                         </div>
                     )}
                 </div>

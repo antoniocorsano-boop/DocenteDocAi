@@ -1,8 +1,9 @@
-// ✅ MD3 Native Compliant - Migrated to direct MD3 tokens
+﻿// ✅ MD3 Native Compliant - Migrated to direct MD3 tokens
 
 import React, { useState, useEffect } from 'react';
 // Load Google GenAI dynamically to avoid bundling it in the main chunk
-import { M3Dialog, TextArea, M3Button } from './ui';
+import { Button  } from '@mui/material';
+import { M3Dialog, TextArea } from './ui';
 
 declare global {
   interface Window {
@@ -162,7 +163,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                         </a>
                     </p>
                     {window.aistudio && (
-                        <M3Button onClick={handleSelectKey} variant="filled" icon="key">Seleziona API Key</M3Button>
+                        <Button onClick={handleSelectKey} variant="contained">Seleziona API Key</Button>
                     )}
                 </div>
             );
@@ -173,8 +174,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                 <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-8)' }}>
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary)', width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
-                            <span style={{
-}}>edit_note</span>
+                            <span style={{}}>edit_note</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <h3  style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-4)'}}>1. Prompt Descrittivo</h3>
@@ -208,8 +208,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                 <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-8)' }}>
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-secondary)', width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
-                            <span style={{
-}}>movie</span>
+                            <span style={{}}>movie</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <h3  style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-secondary)", marginBottom: 'var(--md-sys-spacing-4)'}}>2. Risultato</h3>
@@ -235,19 +234,18 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                                     <video src={generatedVideoUrl} controls autoPlay loop  style={{ width: "var(--md-sys-percent-100)", height: "var(--md-sys-percent-100)" }}></video>
                                 </div>
                                 <div style={{marginTop: 'var(--md-sys-spacing-6)', display: "flex", justifyContent: "center"}}>
-                                    <M3Button 
+                                    <Button 
                                         onClick={() => {
                                             const a = document.createElement('a');
                                             a.href = generatedVideoUrl;
                                             a.download = 'generated-video.mp4';
                                             a.click();
                                         }}
-                                        variant="tonal"
-                                        icon="download"
-                                        
+                                        variant="contained"
+                                        color="secondary"
                                     >
                                         Scarica Video
-                                    </M3Button>
+                                    </Button>
                                 </div>
                             </div>
                         ) : (
@@ -275,16 +273,15 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
             headline="Crea brevi clip video partendo da una descrizione testuale"
             buttons={
                 <div style={{display: "flex", gap: 'var(--md-sys-spacing-6)'}}>
-                    <M3Button onClick={onClose} variant="text" disabled={isLoading}>Chiudi</M3Button>
+                    <Button onClick={onClose} variant="text" disabled={isLoading}>Chiudi</Button>
                     {hasApiKey && (
-                        <M3Button 
+                        <Button 
                             onClick={handleSubmit} 
                             disabled={isLoading || !prompt} 
-                            variant="filled"
-                            icon={isLoading ? undefined : "auto_videocam"}
+                            variant="contained"
                         >
                             {isLoading ? 'Generazione...' : 'Genera Video'}
-                        </M3Button>
+                        </Button>
                     )}
                 </div>
             }

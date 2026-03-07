@@ -18,7 +18,7 @@ interface ActionTileProps {
     subtitle?: string;
     icon: string;
     onClick: () => void;
-    variant?: 'primary' | 'secondary' | 'tertiary' | 'surface' | 'filled' | 'tonal' | 'elevated';
+    variant?: 'primary' | 'secondary' | 'tertiary' | 'surface' | 'filled' | 'tonal' | 'elevated' | 'outlined' | 'contained';
     tooltip?: string;
     ariaLabel?: string;
     style?: React.CSSProperties;

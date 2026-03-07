@@ -1,44 +1,7 @@
-// MD3 Gold Compliant
-import React, { useState } from 'react';
-import M3Typography from './M3Typography';
-
-// MD3 Token Constants - Direct CSS Variables
-const MD3_TOKENS = {
-  // Colors
-  primary: 'var(--md-sys-color-primary)',
-  onPrimary: 'var(--md-sys-color-on-primary)',
-  primaryContainer: 'var(--md-sys-color-primary-container)',
-  onPrimaryContainer: 'var(--md-sys-color-on-primary-container)',
-  outline: 'var(--md-sys-color-outline)',
-  outlineVariant: 'var(--md-sys-color-outline-variant)',
-  surfaceContainer: 'var(--md-sys-color-surface-container)',
-  surfaceContainerHigh: 'var(--md-sys-color-surface-container-high)',
-  surface: 'var(--md-sys-color-surface)',
-  onSurface: 'var(--md-sys-color-on-surface)',
-
-  // Shape
-  cornerExtraLarge: 'var(--md-sys-shape-corner-extra-large)',
-  cornerMedium: 'var(--md-sys-shape-corner-medium)',
-
-  // Spacing
-  spacing4: 'var(--md-sys-spacing-4)',
-  spacing6: 'var(--md-sys-spacing-6)',
-  spacing8: 'var(--md-sys-spacing-8)',
-  spacing12: 'var(--md-sys-spacing-12)',
-  spacing16: 'var(--md-sys-spacing-16)',
-
-  // Motion
-  durationShort2: 'var(--md-sys-motion-duration-short2)',
-  easingStandard: 'var(--md-sys-motion-easing-standard)',
-
-  // Elevation
-  elevation2: 'var(--md-sys-elevation-level2)',
-  elevation4: 'var(--md-sys-elevation-level4)',
-
-  // Typography
-  bodySmallFontSize: 'var(--md-sys-typescale-body-large-font-size)',
-  bodySmallFontFamily: 'var(--md-sys-typescale-body-small-font-family)',
-} as const;
+// Thin MUI wrapper — preserves M3ChoiceCard props API for backward compatibility
+// @mui-migrated Fase 2
+import React from 'react';
+import { Card, Box } from '@mui/material';
 
 interface M3ChoiceCardProps {
     icon: string;
@@ -47,77 +10,69 @@ interface M3ChoiceCardProps {
     selected: boolean;
 }
 
-const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({
-    icon,
-    label,
-    onClick,
-    selected
-}) => {
-    const [hovered, setHovered] = useState(false);
-
-    const buttonStyle: React.CSSProperties = {
+const M3ChoiceCard: React.FC<M3ChoiceCardProps> = ({ icon, label, onClick, selected }) => (
+  <Card
+    component="button"
+    type="button"
+    onClick={onClick}
+    aria-pressed={selected}
+    sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      p: 4,
+      borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+      border: `2px solid ${selected ? 'var(--md-sys-color-primary)' : 'color-mix(in srgb, var(--md-sys-color-outline-variant) 19%, transparent)'}`,
+      bgcolor: selected
+        ? 'var(--md-sys-color-primary-container)'
+        : 'color-mix(in srgb, var(--md-sys-color-surface-container) 50%, transparent)',
+      color: selected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
+      boxShadow: selected ? 'var(--md-sys-elevation-level4)' : 'none',
+      transform: selected ? 'scale(1.05)' : 'scale(1)',
+      transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+      gap: 2,
+      minWidth: 'var(--md-sys-spacing-16)',
+      cursor: 'pointer',
+      '&:hover': {
+        border: `2px solid var(--md-sys-color-outline)`,
+        bgcolor: selected
+          ? 'var(--md-sys-color-primary-container)'
+          : 'var(--md-sys-color-surface-container-high)',
+      },
+    }}
+  >
+    <Box
+      sx={{
+        width: 'var(--md-sys-spacing-12)',
+        height: 'var(--md-sys-spacing-12)',
+        borderRadius: 'var(--md-sys-shape-corner-medium)',
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: MD3_TOKENS.spacing8,
-        borderRadius: MD3_TOKENS.cornerExtraLarge,
-        border: `var(--md-sys-border-width-thick) solid ${selected ? MD3_TOKENS.primary : hovered ? MD3_TOKENS.outline : 'color-mix(in srgb, var(--md-sys-color-outline-variant) 19%, transparent)'}`,
-        backgroundColor: selected ? MD3_TOKENS.primaryContainer : hovered ? MD3_TOKENS.surfaceContainerHigh : 'color-mix(in srgb, var(--md-sys-color-surface-container) 50%, transparent)',
-        color: selected ? MD3_TOKENS.onPrimaryContainer : MD3_TOKENS.onSurface,
-        boxShadow: selected ? 'var(--md-sys-elevation-level4)' : 'none',
-        transform: selected ? 'scale(1.05)' : 'none',
-        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
-        gap: MD3_TOKENS.spacing4,
-        minWidth: MD3_TOKENS.spacing16,
-        cursor: 'pointer',
-        outline: 'none'
-    };
-
-    const iconContainerStyle: React.CSSProperties = {
-        width: MD3_TOKENS.spacing12,
-        height: MD3_TOKENS.spacing12,
-        borderRadius: MD3_TOKENS.cornerMedium,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
-        backgroundColor: selected ? MD3_TOKENS.primary : MD3_TOKENS.surface,
-        color: selected ? MD3_TOKENS.onPrimary : MD3_TOKENS.primary,
+        bgcolor: selected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
+        color: selected ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-primary)',
         boxShadow: selected ? 'var(--md-sys-elevation-level2)' : 'none',
-        transform: hovered && !selected ? 'scale(1.1)' : 'none'
-    };
-
-    const iconStyle: React.CSSProperties = {
-        fontSize: 'var(--icon-size-medium)',
-        userSelect: 'none',
-        fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"
-    };
-
-    const labelStyle: React.CSSProperties = {
-        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-        fontFamily: 'var(--md-sys-typescale-body-small-font-family)',
-        fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-        letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-        textTransform: 'uppercase'
-    };
-
-    return (
-        <button
-            type="button"
-            onClick={onClick}
-            aria-pressed={selected}
-            style={buttonStyle}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-        >
-            <div style={iconContainerStyle}>
-                <span className="material-symbols-outlined" style={iconStyle}>{icon}</span>
-            </div>
-            <M3Typography variant="body-large" as="span" style={labelStyle}>{label}</M3Typography>
-        </button>
-    );
-};
+        transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+      }}
+    >
+      <Box
+        component="span"
+        className="material-symbols-outlined"
+        aria-hidden="true"
+        sx={{ fontSize: 'var(--icon-size-medium)', userSelect: 'none', fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24" }}
+      >
+        {icon}
+      </Box>
+    </Box>
+    <Box
+      component="span"
+      sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontFamily: 'var(--md-sys-typescale-body-small-font-family)' }}
+    >
+      {label}
+    </Box>
+  </Card>
+);
 
 export default M3ChoiceCard;
 

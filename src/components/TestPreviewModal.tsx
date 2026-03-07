@@ -1,11 +1,12 @@
-// MD3 Compliant - Block J Migration Complete (2 violations eliminated)
+﻿// MD3 Compliant - Block J Migration Complete (2 violations eliminated)
 
 import React, { useState } from 'react';
 import type { jsPDF as JsPDFType } from 'jspdf';
 import { GeneratedQuiz } from '../types';
 import { generateHtmlDocxBlob, viewPdfInNewTab } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
-import { M3Dialog, M3Button, M3Typography } from './ui';
+import { Button, Typography  } from '@mui/material';
+import { M3Dialog } from './ui';
 interface TestPreviewModalProps {
     quiz: GeneratedQuiz;
     onClose: () => void;
@@ -124,21 +125,20 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                         </label>
                     </div>
                     <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-4)' }}>
-                        <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
-                        <M3Button
+                        <Button onClick={onClose} variant="text">Chiudi</Button>
+                        <Button
                             onClick={handleExportDocx}
-                            variant="tonal"
-                            icon="description"
+                            variant="contained"
+                            color="secondary"
                         >
                             Word
-                        </M3Button>
-                        <M3Button
+                        </Button>
+                        <Button
                             onClick={handleExportPDF}
-                            variant="filled"
-                            icon="picture_as_pdf"
+                            variant="contained"
                         >
                             PDF
-                        </M3Button>
+                        </Button>
                     </div>
                 </div>
             }
@@ -175,9 +175,9 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-4)' }}>
                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-bold)', minWidth: 'var(--md-sys-spacing-8)' }}>{index + 1}.</span>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-percent-100)' }}>
-                                        <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>
+                                        <Typography variant="body1" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>
                                             {question.text}
-                                        </M3Typography>
+                                        </Typography>
                                         {question.type === 'multiple-choice' && (
                                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)', marginLeft: 'var(--md-sys-spacing-8)' }}>
                                                 {question.options?.map((option, optionIndex) => (
@@ -185,9 +185,9 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)', minWidth: 'var(--md-sys-spacing-6)' }}>
                                                             {String.fromCharCode(65 + optionIndex)}.
                                                         </span>
-                                                        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>
+                                                        <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface)' }}>
                                                             {option}
-                                                        </M3Typography>
+                                                        </Typography>
                                                     </div>
                                                 ))}
                                             </div>
@@ -196,20 +196,20 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)', marginLeft: 'var(--md-sys-spacing-8)' }}>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)', minWidth: 'var(--md-sys-spacing-6)' }}>A.</span>
-                                                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>Vero</M3Typography>
+                                                    <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface)' }}>Vero</Typography>
                                                 </div>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)', minWidth: 'var(--md-sys-spacing-6)' }}>B.</span>
-                                                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>Falso</M3Typography>
+                                                    <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface)' }}>Falso</Typography>
                                                 </div>
                                             </div>
                                         )}
                                         {question.type === 'open-ended' && (
                                             <div style={{ marginLeft: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)' }}>
                                                 <div style={{ border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', borderRadius: 'var(--md-sys-shape-corner-small)', padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', minHeight: 'var(--md-sys-spacing-16)' }}>
-                                                    <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                                                    <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                                                         Risposta aperta...
-                                                    </M3Typography>
+                                                    </Typography>
                                                 </div>
                                             </div>
                                         )}
@@ -220,9 +220,9 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                     </div>
 
                     <div style={{ borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', textAlign: 'center', paddingTop: 'var(--md-sys-spacing-4)', marginTop: 'var(--md-sys-spacing-12)' }}>
-                        <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                        <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                             Generato con DocenteDoc AI - Il tuo assistente didattico intelligente
-                        </M3Typography>
+                        </Typography>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 // App Shell: height-constrained flex column for proper scroll containment
 // Audit: marzo 2026
 import React from 'react';
+import { Box } from '@mui/material';
 import NavigationRail from './NavigationRail';
 import BottomNav from './BottomNav';
 import SecondaryNavDrawer from './SecondaryNavDrawer';
@@ -85,12 +86,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
 
   return (
     // Outer shell: full viewport height, no overflow — contains everything
-    <div style={{
+    <Box sx={{
       display: 'flex',
       flexDirection: 'column',
       height: 'var(--md-sys-viewport-height-dvh)',
       overflow: 'hidden',
-      background: 'var(--md-sys-color-surface)',
+      bgcolor: 'background.paper',
     }}>
       {/* Header: static in flow, never overlaps content */}
       <Header
@@ -115,26 +116,28 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       />
 
       {/* Body row: nav sidebar + scrollable content */}
-      <div style={{
+      <Box sx={{
         display: 'flex',
         flex: 1,
-        overflow: 'hidden', // contain children
-        minHeight: 0,       // allow flex child to shrink below content size
+        overflow: 'hidden',
+        minHeight: 0,
       }}>
         {/* Navigation Rail: in-flow sidebar, hidden on mobile */}
         {isDesktop && (
-          <aside
-            style={{
+          <Box
+            component="aside"
+            aria-label="Navigazione laterale"
+            sx={{
               width: 'var(--md-sys-spacing-20)',
               flexShrink: 0,
               display: 'flex',
               flexDirection: 'column',
-              background: 'var(--md-sys-color-surface)',
-              borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+              bgcolor: 'background.paper',
+              borderRight: 'var(--md-sys-border-width-thin) solid',
+              borderColor: 'divider',
               overflowY: 'auto',
               overflowX: 'hidden',
             }}
-            aria-label="Navigazione laterale"
           >
             <NavigationRail
               items={NAV_ITEMS}
@@ -143,22 +146,24 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
               onOpenMore={() => setSecondaryNavOpen(p => !p)}
               moreOpen={secondaryNavOpen}
             />
-          </aside>
+          </Box>
         )}
 
         {/* Main content: fills remaining width, scrolls independently */}
-        <main style={{
-          flex: 1,
-          overflowY: 'auto',
-          overflowX: 'hidden',
-          background: 'var(--md-sys-color-surface)',
-          // Bottom padding for mobile bottom nav (64px + safe area)
-          paddingBottom: isDesktop ? undefined : 'calc(var(--md-sys-spacing-16) + env(safe-area-inset-bottom, 0px))',
-          minWidth: 0, // allow flex child to shrink
-        }}>
+        <Box
+          component="main"
+          sx={{
+            flex: 1,
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            bgcolor: 'background.paper',
+            pb: isDesktop ? undefined : 'calc(var(--md-sys-spacing-16) + env(safe-area-inset-bottom, 0px))',
+            minWidth: 0,
+          }}
+        >
           {children}
-        </main>
-      </div>
+        </Box>
+      </Box>
 
       {/* BottomNav: position:fixed, auto-hidden on desktop via its own CSS */}
       <BottomNav
@@ -176,6 +181,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         activeView={view}
         isDesktop={isDesktop}
       />
-    </div>
+    </Box>
   );
 };

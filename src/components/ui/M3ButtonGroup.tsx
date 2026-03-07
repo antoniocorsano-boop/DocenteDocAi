@@ -1,8 +1,7 @@
-// MD3 Compliant M3ButtonGroup Component
-// Fully compliant with MD3 tokens: uses var(--md-sys-*) CSS variables for theming, spacing, typography, shape, motion, and elevation
-// No useTheme() dependency - all styling uses direct MD3 CSS variables
-
+// Thin MUI wrapper — preserves M3ButtonGroup props API for backward compatibility
+// @mui-migrated Fase 2
 import React from 'react';
+import { Stack, Box } from '@mui/material';
 
 export type M3ButtonGroupProps = {
   children: React.ReactNode;
@@ -10,6 +9,12 @@ export type M3ButtonGroupProps = {
   spacing?: 'tight' | 'normal' | 'loose';
   variant?: 'default' | 'outlined' | 'elevated';
   fullWidth?: boolean;
+  role?: string;
+  'aria-label'?: string;
+};
+
+const SPACING_MAP: Record<NonNullable<M3ButtonGroupProps['spacing']>, number> = {
+  tight: 0, normal: 0.5, loose: 1,
 };
 
 function M3ButtonGroup({
@@ -17,73 +22,33 @@ function M3ButtonGroup({
   direction = 'horizontal',
   spacing = 'normal',
   variant = 'default',
-  fullWidth = false
+  fullWidth = false,
+  role,
+  'aria-label': ariaLabel,
 }: M3ButtonGroupProps): React.ReactElement {
-  // MD3 Token mapping - no useTheme() dependency
-  // Spacing tokens
-  const spacing0 = 'var(--md-sys-spacing-0)';
-  const spacing1 = 'var(--md-sys-spacing-1)';
-  const spacing2 = 'var(--md-sys-spacing-2)';
-
-  // Shape tokens
-  const small = 'var(--md-sys-shape-corner-small)';
-
-  // Color tokens
-  const surface = 'var(--md-sys-color-surface)';
-  const outline = 'var(--md-sys-color-outline)';
-  const surfaceContainerHigh = 'var(--md-sys-color-surface-container-high)';
-
-  // Elevation tokens
-  const level1 = 'var(--md-sys-elevation-level1)';
-
-  const getSpacing = () => {
-    switch (spacing) {
-      case 'tight': return spacing0;
-      case 'loose': return spacing2;
-      default: return spacing1;
-    }
-  };
-
-  const getVariantStyles = () => {
+  const getVariantSx = () => {
     switch (variant) {
       case 'outlined':
-        return {
-          border: `var(--md-sys-border-width-normal) solid ${outline}`,
-          borderRadius: small
-        };
+        return { border: '1px solid var(--md-sys-color-outline)', borderRadius: 'var(--md-sys-shape-corner-small)' };
       case 'elevated':
-        return {
-          backgroundColor: surfaceContainerHigh,
-          borderRadius: small,
-          boxShadow: level1
-        };
+        return { bgcolor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-small)', boxShadow: 'var(--md-sys-elevation-level1)' };
       default:
-        return {
-          backgroundColor: surface,
-          borderRadius: small
-        };
+        return { bgcolor: 'var(--md-sys-color-surface)', borderRadius: 'var(--md-sys-shape-corner-small)' };
     }
   };
 
-  const flexDirection = direction === 'vertical' ? 'column' : 'row';
-  const width = fullWidth ? 'var(--md-sys-percent-100)' : 'auto';
-
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection,
-        gap: getSpacing(),
-        width,
-        ...getVariantStyles()
-      }}
+    <Stack
+      role={role}
+      aria-label={ariaLabel}
+      direction={direction === 'vertical' ? 'column' : 'row'}
+      spacing={SPACING_MAP[spacing]}
+      sx={{ width: fullWidth ? '100%' : 'auto', ...getVariantSx() }}
     >
       {React.Children.map(children, (child) => (
-        <div style={{ flex: fullWidth ? 1 : 'none' }}>
-          {child}
-        </div>
+        <Box sx={{ flex: fullWidth ? 1 : 'none' }}>{child}</Box>
       ))}
-    </div>
+    </Stack>
   );
 }
 

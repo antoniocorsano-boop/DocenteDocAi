@@ -1,11 +1,12 @@
-// MD3 Compliant - Migration completed
+﻿// MD3 Compliant - Migration completed
 // StudentInterviewModal.tsx - All styling uses MD3 tokens via style props
 
 import React, { useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import BarChart from './charts/BarChart';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard } from './ui';
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog, InfoCard } from './ui';
 interface StudentInterviewModalProps {
     student: Studente;
     evaluations: Valutazione[];
@@ -51,160 +52,143 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
             title={`Modalità Colloquio - Classe ${student.classe}`}
             headline={`${student.cognome} ${student.nome}`}
             maxWidth="lg"
-            level={1}
             mode="fullscreen"
+            buttons={
+                <Button onClick={onClose} variant="text">Chiudi Vista</Button>
+            }
         >
-            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' }}>
-                <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)', height: "var(--md-sys-percent-100)"}}>
-                    {/* Left Column: Performance */}
-                    <div style={{gap: 'var(--md-sys-spacing-6)'}}>
-                        <div data-testid="m3-card" style={{
-                            backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            padding: 'var(--md-sys-spacing-6)',
-                            border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"
-                        }}>
-                            <h2  style={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                                <span  style={{color: "var(--md-sys-color-primary)"}}>monitoring</span>
-                                Andamento Didattico
-                            </h2>
-                            <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-6)'}}>
-                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', flex: "1", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  display: "block", fontSize: "var(--md-sys-typescale-body-large-font-size)", textTransform: "uppercase", letterSpacing: "0.05em", fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Media Generale</span>
-                                    <span style={{
+            <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-percent-100)' }}>
+                {/* Left Column: Performance */}
+                <Box sx={{ gap: 'var(--md-sys-spacing-6)' }}>
+                    <Box data-testid="m3-card" sx={{
+                        backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        padding: 'var(--md-sys-spacing-6)',
+                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
+                    }}>
+                        <Typography variant="h5" sx={{ mb: 'var(--md-sys-spacing-8)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }}>
+                            <Typography component="span" sx={{ color: 'var(--md-sys-color-primary)' }}>monitoring</Typography>
+                            Andamento Didattico
+                        </Typography>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-6)', mb: 'var(--md-sys-spacing-6)' }}>
+                            <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', flex: 1, border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)' }}>
+                                <Typography component="span" sx={{ color: 'var(--md-sys-color-on-surface-variant)', display: 'block', fontSize: 'var(--md-sys-typescale-body-large-font-size)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Media Generale</Typography>
+                                <Typography component="span" sx={{
+                                    fontSize: 'var(--md-sys-typescale-display-small-font-size)',
+                                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
+                                    color: parseFloat(performance.grade || '0') < 6 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)'
+                                }}>
+                                    {performance.grade || '-'}
+                                </Typography>
+                            </Box>
+                            <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', flex: 1, border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)' }}>
+                                <Typography component="span" sx={{ color: 'var(--md-sys-color-on-surface-variant)', display: 'block', fontSize: 'var(--md-sys-typescale-body-large-font-size)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Trend</Typography>
+                                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 'var(--md-sys-spacing-4)', mt: 'var(--md-sys-spacing-4)' }}>
+                                    <Typography component="span" sx={{
                                         fontSize: 'var(--md-sys-typescale-display-small-font-size)',
-                                        fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                                        color: parseFloat(performance.grade || '0') < 6 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)'
+                                        color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline-variant)'
                                     }}>
-                                        {performance.grade || '-'}
-                                    </span>
-                                </div>
-                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', flex: "1", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  display: "block", fontSize: "var(--md-sys-typescale-body-large-font-size)", textTransform: "uppercase", letterSpacing: "0.05em", fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Trend</span>
-                                    <div style={{display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 'var(--md-sys-spacing-4)', marginTop: 'var(--md-sys-spacing-4)'}}>
-                                        <span style={{
-                                            fontSize: 'var(--md-sys-typescale-display-small-font-size)',
-                                            color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline-variant)'
-                                        }}>
-                                            {performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat'}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                                        {performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat'}
+                                    </Typography>
+                                </Box>
+                            </Box>
+                        </Box>
 
-                            <h3  style={{marginBottom: 'var(--md-sys-spacing-8)', fontWeight: "var(--md-sys-typescale-weight-bold)"}}>Media per Materia</h3>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                <BarChart data={subjectAverages} color="var(--md-sys-color-primary)" horizontal />
-                            </div>
-                        </div>
+                        <Typography variant="h6" sx={{ mb: 'var(--md-sys-spacing-8)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Media per Materia</Typography>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                            <BarChart data={subjectAverages} color="var(--md-sys-color-primary)" horizontal />
+                        </Box>
+                    </Box>
 
-                        <div data-testid="m3-card" style={{
-                            backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            padding: 'var(--md-sys-spacing-6)',
-                            border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"
-                        }}>
-                            <h2  style={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                                <span  style={{color: "var(--md-sys-color-secondary)"}}>history</span>
-                                Ultime Valutazioni
-                            </h2>
-                            <div style={{gap: 'var(--md-sys-spacing-2)'}}>
-                                {evaluations.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()).slice(0, 5).map(ev => (
-                                    <div key={ev.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", justifyContent: "space-between", alignItems: "center", padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: "color var(--md-sys-motion-duration-medium)" }}>
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                            <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{ev.materia}</p>
-                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>{new Date(ev.data).toLocaleDateString()}</p>
-                                        </div>
-                                        <span style={{
-                                            fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
-                                            fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                                            color: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)'
-                                        }}>
-                                            {ev.voto}
-                                        </span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
+                    <Box data-testid="m3-card" sx={{
+                        backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)',
+                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                        padding: 'var(--md-sys-spacing-6)',
+                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
+                    }}>
+                        <Typography variant="h5" sx={{ mb: 'var(--md-sys-spacing-8)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }}>
+                            <Typography component="span" sx={{ color: 'var(--md-sys-color-secondary)' }}>history</Typography>
+                            Ultime Valutazioni
+                        </Typography>
+                        <Box sx={{ gap: 'var(--md-sys-spacing-2)' }}>
+                            {evaluations.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime()).slice(0, 5).map(ev => (
+                                <Box key={ev.id} sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 'var(--md-sys-spacing-6)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', transition: 'color var(--md-sys-motion-duration-medium)' }}>
+                                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{ev.materia}</Typography>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>{new Date(ev.data).toLocaleDateString()}</Typography>
+                                    </Box>
+                                    <Typography component="span" sx={{
+                                        fontSize: 'var(--md-sys-typescale-headline-small-font-size)',
+                                        fontWeight: 'var(--md-sys-typescale-weight-bold)',
+                                        color: parseFloat(ev.voto) < 6 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)'
+                                    }}>
+                                        {ev.voto}
+                                    </Typography>
+                                </Box>
+                            ))}
+                        </Box>
+                    </Box>
+                </Box>
 
-                    {/* Right Column: Competencies & Notes */}
-                    <div style={{gap: 'var(--md-sys-spacing-6)'}}>
-                        <div data-testid="m3-card" style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
-                            <h2  style={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                                <span  style={{color: "var(--md-sys-color-tertiary)"}}>verified</span>
-                                Competenze Trasversali
-                            </h2>
-                            <div style={{gap: 'var(--md-sys-spacing-3)'}}>
-                                {recentCompetencies.length > 0 ? (
-                                    recentCompetencies.map((comp, idx) => (
-                                        comp && (
-                                        <div key={idx} style={{
-                                            backgroundColor: 'color-mix(in srgb, var(--md-sys-color-tertiary-container) 10%, transparent)',
-                                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                                            padding: 'var(--md-sys-spacing-8)',
-                                            border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"
-                                        }}>
-                                            <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 'var(--md-sys-spacing-4)'}}>
-                                                <h4 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{comp.name}</h4>
-                                                <span style={{
-                                                    color: 'var(--md-sys-color-on-tertiary-container)',
-                                                    backgroundColor: "var(--md-sys-color-tertiary)",
-                                                    border: "none"
-                                                }}>{comp.level}</span>
-                                            </div>
-                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>{comp.desc}</p>
-                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "0.1em"}}>Rilevato il {new Date(comp.date).toLocaleDateString()}</p>
-                                        </div>
-                                        ))
-                                    )
-                                ) : (
-                                    <InfoCard 
-                                        type="info" 
-                                        description="Nessuna competenza ancora valutata per questo studente." 
-                                    />
-                                )}
-                            </div>
-                        </div>
+                {/* Right Column: Competencies & Notes */}
+                <Box sx={{ gap: 'var(--md-sys-spacing-6)' }}>
+                    <Box data-testid="m3-card" sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)' }}>
+                        <Typography variant="h5" sx={{ mb: 'var(--md-sys-spacing-8)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }}>
+                            <Typography component="span" sx={{ color: 'var(--md-sys-color-tertiary)' }}>verified</Typography>
+                            Competenze Trasversali
+                        </Typography>
+                        <Box sx={{ gap: 'var(--md-sys-spacing-3)' }}>
+                            {recentCompetencies.length > 0 ? (
+                                recentCompetencies.map((comp, idx) => (
+                                    comp && (
+                                    <Box key={idx} sx={{
+                                        backgroundColor: 'color-mix(in srgb, var(--md-sys-color-tertiary-container) 10%, transparent)',
+                                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                                        padding: 'var(--md-sys-spacing-8)',
+                                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
+                                    }}>
+                                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 'var(--md-sys-spacing-4)' }}>
+                                            <Typography variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{comp.name}</Typography>
+                                            <Typography component="span" sx={{ color: 'var(--md-sys-color-on-tertiary-container)', backgroundColor: 'var(--md-sys-color-tertiary)', border: 'none' }}>{comp.level}</Typography>
+                                        </Box>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{comp.desc}</Typography>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 'var(--md-sys-spacing-4)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Rilevato il {new Date(comp.date).toLocaleDateString()}</Typography>
+                                    </Box>
+                                    )))
+                            ) : (
+                                <InfoCard
+                                    type="info"
+                                    description="Nessuna competenza ancora valutata per questo studente."
+                                />
+                            )}
+                        </Box>
+                    </Box>
 
-                        <div data-testid="m3-card" style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
-                            <h2  style={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                                <span  style={{color: "var(--md-sys-color-primary)"}}>info</span>
-                                Informazioni Studente
-                            </h2>
-                            <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
-                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)'}}>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Classe</span>
-                                    <p style={{ fontSize: "var(--md-sys-typescale-headline-small-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{student.classe}</p>
-                                </div>
-                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)'}}>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Bisogni</span>
-                                    <div style={{display: "flex", gap: 'var(--md-sys-spacing-4)', marginTop: 'var(--md-sys-spacing-4)'}}>
-                                        {student.hasBES && <span style={{
-                                            backgroundColor: 'var(--md-sys-color-tertiary)',
-                                            width: "var(--md-sys-spacing-3)",
-                                            height: "var(--md-sys-spacing-3)",
-                                            borderRadius: 'var(--md-sys-spacing-4)'
-                                        }} title="BES"></span>}
-                                        {student.hasDSA && <span style={{
-                                            backgroundColor: 'var(--md-sys-color-error)',
-                                            width: "var(--md-sys-spacing-3)",
-                                            height: "var(--md-sys-spacing-3)",
-                                            borderRadius: 'var(--md-sys-spacing-4)'
-                                        }} title="DSA"></span>}
-                                        {student.has104 && <span style={{width: "var(--md-sys-spacing-3)", height: "var(--md-sys-spacing-3)", borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)"}} title="L.104"></span>}
-                                        {!student.hasBES && !student.hasDSA && !student.has104 && <span style={{ fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>-</span>}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </M3DialogContent>
-            <M3DialogActions>
-                <M3Button onClick={onClose} variant="text">Chiudi Vista</M3Button>
-            </M3DialogActions>
+                    <Box data-testid="m3-card" sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)' }}>
+                        <Typography variant="h5" sx={{ mb: 'var(--md-sys-spacing-8)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }}>
+                            <Typography component="span" sx={{ color: 'var(--md-sys-color-primary)' }}>info</Typography>
+                            Informazioni Studente
+                        </Typography>
+                        <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)' }}>
+                            <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)' }}>
+                                <Typography component="span" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-small-font-size)', textTransform: 'uppercase', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Classe</Typography>
+                                <Typography variant="body2" sx={{ fontSize: 'var(--md-sys-typescale-headline-small-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{student.classe}</Typography>
+                            </Box>
+                            <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)' }}>
+                                <Typography component="span" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-small-font-size)', textTransform: 'uppercase', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Bisogni</Typography>
+                                <Box sx={{ display: 'flex', gap: 'var(--md-sys-spacing-4)', mt: 'var(--md-sys-spacing-4)' }}>
+                                    {student.hasBES && <Box component="span" sx={{ backgroundColor: 'var(--md-sys-color-tertiary)', width: 'var(--md-sys-spacing-3)', height: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-spacing-4)' }} title="BES" />}
+                                    {student.hasDSA && <Box component="span" sx={{ backgroundColor: 'var(--md-sys-color-error)', width: 'var(--md-sys-spacing-3)', height: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-spacing-4)' }} title="DSA" />}
+                                    {student.has104 && <Box component="span" sx={{ width: 'var(--md-sys-spacing-3)', height: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-primary)' }} title="L.104" />}
+                                    {!student.hasBES && !student.hasDSA && !student.has104 && <Typography component="span" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>-</Typography>}
+                                </Box>
+                            </Box>
+                        </Box>
+                    </Box>
+                </Box>
+            </Box>
         </M3Dialog>
+
     );
 };
 

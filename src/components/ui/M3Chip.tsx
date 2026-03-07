@@ -1,9 +1,7 @@
-// MD3 Compliant M3Chip Component
-// Fully compliant with MD3 tokens: uses var(--md-sys-*) CSS variables for theming, spacing, typography, shape, motion, and elevation
-// No useTheme() dependency - all styling uses direct MD3 CSS variables
-
+// Thin MUI wrapper — preserves M3Chip props API for backward compatibility
+// @mui-migrated Fase 2
 import React from 'react';
-import { M3Typography } from './M3Typography';
+import { Chip } from '@mui/material';
 
 export type M3ChipProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   label: string;
@@ -12,146 +10,42 @@ export type M3ChipProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   onDelete?: () => void;
 };
 
-function M3Chip({ label, variant = 'filled', disabled, onDelete, ...buttonProps }: M3ChipProps): React.ReactElement {
-  const [isHovered, setIsHovered] = React.useState(false);
-  const [isFocused, setIsFocused] = React.useState(false);
+function M3Chip({ label, variant = 'filled', disabled, onDelete, onClick }: M3ChipProps): React.ReactElement {
+  const getMuiVariant = (): 'filled' | 'outlined' =>
+    variant === 'outlined' ? 'outlined' : 'filled';
 
-  // MD3 Token mapping — direct --md-sys-* tokens only
-  // Color tokens
-  const surface = 'var(--md-sys-color-surface)';
-  const onSurfaceVariant = 'var(--md-sys-color-on-surface-variant)';
-  const outline = 'var(--md-sys-color-outline)';
-  const surfaceVariant = 'var(--md-sys-color-surface-variant)';
-  const secondaryContainer = 'var(--md-sys-color-secondary-container)';
-  const onSecondaryContainer = 'var(--md-sys-color-on-secondary-container)';
-
-  // Shape tokens
-  const full = 'var(--md-sys-shape-corner-full)';
-
-  // Elevation tokens
-  const level1 = 'var(--md-sys-elevation-level1)';
-  const level2 = 'var(--md-sys-elevation-level2)';
-
-  // Motion tokens
-  const short2 = 'var(--md-sys-motion-duration-short2)';
-  const standard = 'var(--md-sys-motion-easing-standard)';
-
-  // Variant styles using MD3 design tokens
-  const getVariantStyles = (): React.CSSProperties => {
-    const baseStyles: React.CSSProperties = {};
-
+  const getExtraSx = () => {
     switch (variant) {
-      case 'outlined':
-        baseStyles.backgroundColor = surface;
-        baseStyles.color = onSurfaceVariant;
-        baseStyles.border = `var(--md-sys-border-width-thin) solid ${outline}`;
-        if (isHovered || isFocused) {
-          baseStyles.borderColor = onSurfaceVariant;
-        }
-        break;
       case 'elevated':
-        baseStyles.backgroundColor = surface;
-        baseStyles.color = onSurfaceVariant;
-        baseStyles.border = `var(--md-sys-border-width-normal) solid ${surfaceVariant}`;
-        baseStyles.boxShadow = level1;
-        if (isHovered || isFocused) {
-          baseStyles.boxShadow = level2;
-        }
-        break;
-      default: // filled
-        baseStyles.backgroundColor = secondaryContainer;
-        baseStyles.color = onSecondaryContainer;
-        baseStyles.border = `var(--md-sys-border-width-normal) solid ${secondaryContainer}`;
-        break;
+        return {
+          boxShadow: 'var(--md-sys-elevation-level1)',
+          bgcolor: 'var(--md-sys-color-surface)',
+          color: 'var(--md-sys-color-on-surface-variant)',
+          '&:hover': { boxShadow: 'var(--md-sys-elevation-level2)' },
+        };
+      case 'filled':
+        return {
+          bgcolor: 'var(--md-sys-color-secondary-container)',
+          color: 'var(--md-sys-color-on-secondary-container)',
+        };
+      default:
+        return {};
     }
-
-    return baseStyles;
   };
-
-  // Container styles — MD3 chip spec: 32dp min height (--md-sys-spacing-8)
-  const containerStyle: React.CSSProperties = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: 'var(--md-sys-spacing-2)',
-    borderRadius: full,
-    padding: `var(--md-sys-spacing-1) var(--md-sys-spacing-4)`,
-    minHeight: 'var(--md-sys-spacing-8)', // 32dp — MD3 chip height spec
-    transition: `all ${short2} ${standard}`,
-    opacity: disabled ? 0.38 : (variant === 'filled' && (isHovered || isFocused) ? 0.8 : 1),
-    cursor: disabled ? 'not-allowed' : 'default',
-    pointerEvents: disabled ? 'none' : 'auto'
-  };
-
-  // Button styles
-  const buttonStyle: React.CSSProperties = {
-    borderRadius: full,
-    transition: `all ${short2} ${standard}`,
-    outline: 'none',
-    border: 'none',
-    backgroundColor: 'transparent',
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    ...getVariantStyles()
-  };
-
-  // Delete button styles — MD3 min touch: spacing-6 (24px), icon visual: spacing-4 (16px)
-  const deleteButtonStyle: React.CSSProperties = {
-    width: 'var(--md-sys-spacing-6)',   // 24px min touch target
-    height: 'var(--md-sys-spacing-6)',  // 24px min touch target
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: full,
-    color: onSurfaceVariant,
-    transition: `all ${short2} ${standard}`,
-    outline: 'none',
-    border: 'none',
-    backgroundColor: 'transparent',
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    opacity: isHovered || isFocused ? 0.8 : 1
-  };
-
-  // Icon styles
-  const iconStyle: React.CSSProperties = {
-    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-    fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24",
-    userSelect: 'none'
-  };
-
-  const handleMouseEnter = () => setIsHovered(true);
-  const handleMouseLeave = () => setIsHovered(false);
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = () => setIsFocused(false);
 
   return (
-    <button
-      style={buttonStyle}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
+    <Chip
+      label={label}
+      variant={getMuiVariant()}
       disabled={disabled}
-      {...buttonProps}
-    >
-      <span style={containerStyle}>
-        <M3Typography variant="label-large" as="span">{label}</M3Typography>
-        {onDelete && (
-          <button
-            type="button"
-            style={deleteButtonStyle}
-            onClick={(e) => {
-              e.stopPropagation();
-              onDelete();
-            }}
-            disabled={disabled}
-            aria-label="Remove"
-          >
-            <span className="material-symbols-outlined" style={iconStyle}>close</span>
-          </button>
-        )}
-      </span>
-    </button>
+      onDelete={onDelete}
+      onClick={onClick as unknown as React.MouseEventHandler<HTMLDivElement>}
+      sx={{ borderRadius: 'var(--md-sys-shape-corner-full)', ...getExtraSx() }}
+    />
   );
 }
 
 export default M3Chip;
+
+
 

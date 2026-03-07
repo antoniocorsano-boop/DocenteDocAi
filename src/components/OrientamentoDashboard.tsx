@@ -7,14 +7,8 @@ import {
     EPortfolioEntry, 
     StudentOrientamentoState 
 } from '../types';
-import { 
-    M3Button, 
-    SectionHeader, 
-    Avatar, 
-    EmptyState, 
-    InfoCard, 
-    SelectField
-} from './ui';
+import { SectionHeader, Avatar, EmptyState, InfoCard, SelectField } from './ui';
+import { Button } from '@mui/material';
 import AddOrientamentoActivityModal from './AddOrientamentoActivityModal';
 import StudentEPortfolioModal from './StudentEPortfolioModal';
 interface OrientamentoDashboardProps {
@@ -61,10 +55,10 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
         <div style={{gap: 'var(--md-sys-spacing-6)'}}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>Attivit� di Orientamento</h3>
-                <M3Button onClick={() => setIsAddActivityModalOpen(true)} variant="filled">
+                <Button onClick={() => setIsAddActivityModalOpen(true)} variant="contained">
                     <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span>
                     Nuova Attivit�
-                </M3Button>
+                </Button>
             </div>
 
             <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
@@ -147,9 +141,9 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                                         </span>
                                     </td>
                                     <td style={{padding: 'var(--md-sys-spacing-8)', textAlign: "right"}}>
-                                        <M3Button onClick={() => setViewingStudent(student)} variant="text">
+                                        <Button onClick={() => setViewingStudent(student)} variant="text">
                                             Dettagli
-                                        </M3Button>
+                                        </Button>
                                     </td>
                                 </tr>
                             );
@@ -186,7 +180,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     title="Ore Medie Classe" 
                     description="Target Ministeriale: 30h"
                     icon="schedule"
-                    variant="filled"
+                    variant="contained"
                 >
                     <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                         <span style={{fontWeight: "var(--md-sys-typescale-weight-black)", color: 'var(--md-sys-color-primary)'}}>{totalHours}h</span>
@@ -213,7 +207,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                     title="Autovalutazioni" 
                     description="Riflessioni caricate"
                     icon="psychology"
-                    variant="tonal"
+                    variant="outlined"
                 >
                     <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                         <span style={{fontWeight: "var(--md-sys-typescale-weight-black)", color: 'var(--md-sys-color-secondary)'}}>

@@ -1,4 +1,4 @@
-// MD3 Compliant - Block J Migration Complete (6 violations eliminated)
+﻿// MD3 Compliant - Block J Migration Complete (6 violations eliminated)
 // Note: Drop zone height uses var(--md-sys-spacing-48) for functional UX (closest MD3 token available)
 
 import React, { useState, useCallback } from 'react';
@@ -6,7 +6,8 @@ import { useFileDrop } from '../hooks/useFileDrop';
 import { KnowledgeBaseEntry, Corpus } from '../types';
 import { extractTextFromFile, blobToBase64Parts } from '../utils/documentUtils';
 import { KB_CATEGORIES } from '../constants';
-import { CategoryCard, SelectField, TextField, M3Dialog, M3DialogContent, M3Button } from './ui';
+import { Button  } from '@mui/material';
+import { M3Dialog, CategoryCard, SelectField, TextField } from './ui';
 interface AddSourceModalProps {
     corpora: Corpus[];
     setCorpora: React.Dispatch<React.SetStateAction<Corpus[]>>;
@@ -61,9 +62,8 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
             title="Aggiungi Documenti"
             onClose={onClose}
             maxWidth="sm"
-            level={1}
         >
-            <M3DialogContent style={{marginTop: 'var(--md-sys-spacing-8)'}}>
+            <section style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                 {isLoading ? (
                     <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                         <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-spacing-1) solid var(--md-sys-color-outline)', borderColor: "var(--md-sys-color-primary)"}}></div>
@@ -129,21 +129,20 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                 Raccolta (Opzionale)
                             </h3>
                             <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end"}}>
-                                <div style={{ flexGrow: "1" }}>
+                                <div style={{ flexGrow: 1 }}>
                                     <SelectField id="corpus-select" label="Raccolta Target" value={selectedCorpusId} onChange={e => setSelectedCorpusId(e.target.value)}>
                                         <option value="">-- Nessuna Raccolta --</option>
                                         {corpora.map(c => <option key={c.id} value={c.id}>{c.displayName}</option>)}
                                     </SelectField>
                                 </div>
-                                <M3Button 
+                                <Button 
                                     onClick={() => setIsCreating(p => !p)} 
-                                    variant="tonal"
-                                     
+                                    variant="contained"
+                                    color="secondary"
                                     title={isCreating ? "Annulla creazione" : "Crea nuova raccolta"}
                                 >
-                                    <span style={{
-}}>{isCreating ? 'remove' : 'add'}</span>
-                                </M3Button>
+                                    <span style={{}}>{isCreating ? 'remove' : 'add'}</span>
+                                </Button>
                             </div>
                             {isCreating && (
                                  <div  style={{marginTop: 'var(--md-sys-spacing-6)', display: "flex", gap: 'var(--md-sys-spacing-6)'}}>
@@ -154,14 +153,14 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                         onChange={e => setNewCorpusName(e.target.value)} 
                                         placeholder="Es. Programmazioni 2024" 
                                     />
-                                    <M3Button onClick={handleCreateCorpus} variant="filled"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)" }}>CREA</M3Button>
+                                    <Button onClick={handleCreateCorpus} variant="contained" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)' }}>CREA</Button>
                                 </div>
                             )}
                         </section>
                     </>
                 )}
                 {error && <div style={{ color: 'var(--md-sys-color-on-error-container)' , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-6)', backgroundColor: "var(--md-sys-color-error)", borderRadius: 'var(--md-sys-shape-corner-small)'}}>{error}</div>}
-            </M3DialogContent>
+            </section>
         </M3Dialog>
     );
 };

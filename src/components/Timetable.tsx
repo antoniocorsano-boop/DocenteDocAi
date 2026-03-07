@@ -4,7 +4,10 @@ import { Lezione, Slot, TimetableSettings } from '../types';
 import TimetableCell from './TimetableCell';
 import { DAYS_OF_WEEK } from '../constants';
 import Guidance from './Guidance';
-import { TabGroup, M3IconButton, M3Button, M3Typography } from './ui';
+import { TabGroup } from './ui';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 // MD3 Pure: Migrated to inline styles using MD3 tokens for colors, spacing, typography, and motion
 // All timetable-* classes removed in favor of token-based styling
 // Migration Status: ✅ MD3 Compliant (uses CSS custom properties)
@@ -116,12 +119,12 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                 color: 'var(--md-sys-color-on-primary)'}}>calendar_view_week</span>
                         </div>
                         <div style={{ minWidth: 0, flex: 1 }}>
-                            <M3Typography variant="headline-small" style={{color: 'var(--md-sys-color-on-surface)',
+                            <Typography variant="h6" sx={{color: 'var(--md-sys-color-on-surface)',
                                 fontWeight: 'var(--md-sys-typescale-weight-black)',
-                                margin: 0}}>Il Mio Orario</M3Typography>
-                            <M3Typography variant="body-small" style={{color: 'var(--md-sys-color-on-surface)',
+                                margin: 0}}>Il Mio Orario</Typography>
+                            <Typography variant="caption" sx={{color: 'var(--md-sys-color-on-surface)',
                                 margin: 0,
-                                opacity: 'var(--md-sys-state-opacity-caption)'}}>Planning Settimanale</M3Typography>
+                                opacity: 'var(--md-sys-state-opacity-caption)'}}>Planning Settimanale</Typography>
                         </div>
                     </div>
                     
@@ -141,7 +144,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                             ]}
                             activeTab={viewMode}
                             onTabChange={(id: string) => setViewMode(id as 'week' | 'day')}
-                            variant="filled"
+                            variant="contained"
                         />
                         
                         {viewMode === 'day' && (
@@ -152,40 +155,38 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                 margin: `0 var(--md-sys-spacing-2)`,
                                 borderLeft: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                                 borderRight: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'}}>
-                                <M3IconButton 
-                                    icon="chevron_left" 
+                                <IconButton 
                                     onClick={() => handleDayNav(-1)} 
-                                    ariaLabel="Giorno precedente"
-                                />
-                                <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-surface)',
+                                    aria-label="Giorno precedente"
+                                ><span className="material-symbols-outlined" aria-hidden="true">chevron_left</span></IconButton>
+                                <Typography variant="overline" sx={{color: 'var(--md-sys-color-on-surface)',
                                     fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                     minWidth: 'var(--md-sys-spacing-16)',
                                     textAlign: 'center'}}>
                                     {visibleDays[0]}
-                                </M3Typography>
-                                <M3IconButton 
-                                    icon="chevron_right" 
+                                </Typography>
+                                <IconButton 
                                     onClick={() => handleDayNav(1)} 
-                                    ariaLabel="Giorno successivo"
-                                />
+                                    aria-label="Giorno successivo"
+                                ><span className="material-symbols-outlined" aria-hidden="true">chevron_right</span></IconButton>
                             </div>
                         )}
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <M3Button 
+                        <Button 
                             onClick={() => window.print()} 
-                            variant="tonal"
-                            icon="print"
+                            variant="outlined"
+                            startIcon={<span className="material-symbols-outlined" aria-hidden="true">print</span>}
                         >
                             Stampa
-                        </M3Button>
+                        </Button>
                     </div>
                 </div>
 
                 <div style={{marginBottom: 'var(--md-sys-spacing-4)'}}>
                     <Guidance id="timetable-pro-tips-aura" icon="auto_awesome" title="Consiglio Rapido" isGloballyEnabled={showGuidanceTips}>
-                        <M3Typography variant="body-medium">Clicca su una cella vuota per pianificare. Usa la vista "Giorno" da smartphone per una gestione più focalizzata.</M3Typography>
+                        <Typography variant="body2">Clicca su una cella vuota per pianificare. Usa la vista "Giorno" da smartphone per una gestione più focalizzata.</Typography>
                     </Guidance>
                 </div>
                 
@@ -219,10 +220,10 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'}}>
-                                <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-surface)',
+                                <Typography variant="overline" sx={{color: 'var(--md-sys-color-on-surface)',
                                     fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                     textTransform: 'uppercase',
-                                    letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'}}>ORA</M3Typography>
+                                    letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'}}>ORA</Typography>
                             </div>
                             {visibleDays.map((day, idx) => (
                                 <div 
@@ -237,12 +238,12 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                         justifyContent: 'center',
                                         border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                                         borderLeft: idx === 0 ? 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)' : 'none'}}>
-                                    <M3Typography variant="label-large" style={{color: day === DAYS_OF_WEEK[(new Date().getDay()+6)%7] 
+                                    <Typography variant="overline" sx={{color: day === DAYS_OF_WEEK[(new Date().getDay()+6)%7] 
                                             ? 'var(--md-sys-color-on-primary)' 
                                             : 'var(--md-sys-color-on-surface)',
                                         fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                         textTransform: 'uppercase',
-                                        letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'}}>{day.substring(0, 3)}</M3Typography>
+                                        letterSpacing: 'var(--md-sys-typescale-label-large-tracking)'}}>{day.substring(0, 3)}</Typography>
                                 </div>
                             ))}
 
@@ -256,8 +257,8 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                                         justifyContent: 'center',
                                         border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                                         borderTop: 'none'}}>
-                                        <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface)',
-                                            fontWeight: 'var(--md-sys-typescale-weight-medium)'}}>{time}</M3Typography>
+                                        <Typography variant="body2" sx={{color: 'var(--md-sys-color-on-surface)',
+                                            fontWeight: 'var(--md-sys-typescale-weight-medium)'}}>{time}</Typography>
                                     </div>
                                     {visibleDays.map((day, dayIdx) => {
                                         const slotKey = `${day}-${time}`;

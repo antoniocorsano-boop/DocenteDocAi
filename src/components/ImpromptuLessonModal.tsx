@@ -1,13 +1,9 @@
-// MD3 Gold Compliant
+﻿// MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 import React, { useState, useEffect } from 'react';
-import { 
-
-    M3Dialog, 
-    M3DialogContent, 
-    M3DialogActions, 
-    M3Button, 
+import { Button, Box  } from '@mui/material';
+import { M3Dialog, 
     SelectField, 
     TextArea,
     SectionHeader
@@ -48,52 +44,50 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
             title="Lezione Rapida"
             onClose={onClose}
             maxWidth="md"
-        >
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", height: "var(--md-sys-percent-100)" }}>
-                <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' , padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)'}}>
-                    <SectionHeader 
-                        title="Avvio Sessione"
-                        subtitle={`Classe ${classe} • Configura i dettagli della lezione`}
-                        variant="small"
-                    />
-
-                    <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                        <SelectField 
-                            label="Materia" 
-                            value={materia} 
-                            onChange={e => setMateria(e.target.value)} 
-                            required
-                        >
-                            <option value="" disabled>Seleziona materia...</option>
-                            {disciplines.map(d => <option key={d} value={d}>{d}</option>)}
-                        </SelectField>
-
-                        <TextArea 
-                            label="Argomento della lezione" 
-                            value={contenuto} 
-                            onChange={e => setContenuto(e.target.value)} 
-                            rows={4} 
-                            placeholder="Es. 'Esercitazione su equazioni di secondo grado'..." 
-                            required
-                            autoFocus
-                        />
-                    </div>
-                </M3DialogContent>
-
-                <M3DialogActions style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 80%, transparent)' , padding: 'var(--md-sys-spacing-6)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
-                    <M3Button type="button" onClick={onClose} variant="text">
+            buttons={
+                <>
+                    <Button type="button" onClick={onClose} variant="text">
                         Annulla
-                    </M3Button>
-                    <M3Button 
-                        type="submit" 
-                        variant="filled"
-                        disabled={!materia || !contenuto.trim()}
+                    </Button>
+                    <Button
+                        type="submit"
+                        form="impromptu-form"
+                        variant="contained"
+                        disabled={!materia || !contenuto.trim()}>
+                        Avvia Lezione
+                    </Button>
+                </>
+            }
+        >
+            <Box id="impromptu-form" component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', height: 'var(--md-sys-percent-100)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)', padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)' }}>
+                <SectionHeader
+                    title="Avvio Sessione"
+                    subtitle={`Classe ${classe} • Configura i dettagli della lezione`}
+                    variant="small"
+                />
+
+                <Box sx={{ mt: 'var(--md-sys-spacing-4)' }}>
+                    <SelectField
+                        label="Materia"
+                        value={materia}
+                        onChange={e => setMateria(e.target.value)}
+                        required
                     >
-                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>door_open</span>
-                        Avvia Aula
-                    </M3Button>
-                </M3DialogActions>
-            </form>
+                        <option value="" disabled>Seleziona materia...</option>
+                        {disciplines.map(d => <option key={d} value={d}>{d}</option>)}
+                    </SelectField>
+
+                    <TextArea
+                        label="Argomento della lezione"
+                        value={contenuto}
+                        onChange={e => setContenuto(e.target.value)}
+                        rows={4}
+                        placeholder="Es. 'Esercitazione su equazioni di secondo grado'..."
+                        required
+                        autoFocus
+                    />
+                </Box>
+            </Box>
         </M3Dialog>
     );
 };

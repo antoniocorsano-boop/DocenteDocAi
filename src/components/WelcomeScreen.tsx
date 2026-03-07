@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Logo from './Logo';
 import { SCHOOL_TYPES_DISCIPLINES } from '../constants';
-import { ActionTile, InfoCard, TextField, SelectField, M3Button, M3IconButton, M3Typography } from './ui';
+import { ActionTile, InfoCard, TextField, SelectField } from './ui';
+import { Button, IconButton, Typography } from '@mui/material';
 
 interface WelcomeScreenProps {
   onSetupComplete: (data: { name: string; schoolType?: string; firstClass?: string; isGuided: boolean }) => void;
@@ -60,10 +61,10 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                     >
             <Logo />
           </div>
-          <M3Typography variant="headline-large" style={{marginBottom: 'var(--md-sys-spacing-8)'}}>Benvenuto, Docente</M3Typography>
-          <M3Typography variant="body-large" style={{textTransform: "uppercase"}}>
+          <Typography variant="h4" style={{marginBottom: 'var(--md-sys-spacing-8)'}}>Benvenuto, Docente</Typography>
+          <Typography variant="body1" style={{textTransform: "uppercase"}}>
               Configuriamo il tuo spazio di lavoro
-          </M3Typography>
+          </Typography>
 
                     <div
                         style={{
@@ -77,7 +78,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                 title="Wizard Guidato"
                 subtitle="Passo dopo passo"
                 icon="auto_fix_high"
-                variant="filled"
+                variant="contained"
                 onClick={() => setMode('wizard')}
  style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
               />
@@ -114,8 +115,8 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
         >
         <div style={{ width: 'var(--md-sys-percent-100)' }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => { if(step > 1) setStep(s => s-1); else setMode('selection'); }} />
-                <M3Typography variant="label-large" style={{ color: 'var(--md-sys-color-primary)', textTransform: 'uppercase' }}>Passo {step} di 3</M3Typography>
+                <IconButton aria-label="Indietro" onClick={() => { if(step > 1) setStep(s => s-1); else setMode('selection'); }}><span className="material-symbols-outlined" aria-hidden="true">arrow_back</span></IconButton>
+                <Typography variant="overline" style={{ color: 'var(--md-sys-color-primary)', textTransform: 'uppercase' }}>Passo {step} di 3</Typography>
                 <div style={{ width: 'var(--md-sys-spacing-4)' }}></div>
             </div>
             
@@ -145,8 +146,8 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                             <option key={t} value={t}>{t}</option>
                         ))}
                     </SelectField>
-                                        <M3Typography
-                                            variant="body-small"
+                                        <Typography
+                                            variant="caption"
                                             style={{
                                                 marginTop: 'var(--md-sys-spacing-4)',
                                                 paddingLeft: 'var(--md-sys-spacing-4)',
@@ -156,7 +157,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                                             }}
                                         >
                                             Servirà per suggerire le materie corrette.
-                                        </M3Typography>
+                                        </Typography>
                 </div>
             )}
 
@@ -177,9 +178,9 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
 
         <div style={{ width: 'var(--md-sys-percent-100)' }}>
             {step < 3 ? (
-                                <M3Button
+                                <Button
                                     type="button"
-                                    variant="filled"
+                                    variant="contained"
                                     style={{ width: 'var(--md-sys-percent-100)', textTransform: 'uppercase' }}
                                     onClick={() => setStep(s => s + 1)}
                                     disabled={(step === 1 && !name) || (step === 3 && !className)}
@@ -187,18 +188,18 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                                 >
                                     Continua
                                     <span style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>arrow_forward</span>
-                                </M3Button>
+                                </Button>
             ) : (
-                                <M3Button
+                                <Button
                                     type="submit"
-                                    variant="filled"
+                                    variant="contained"
                                     style={{ width: 'var(--md-sys-percent-100)', textTransform: 'uppercase' }}
                                     disabled={!className}
                                     aria-label="Inizia Ora"
                                 >
                                     Inizia Ora
                                     <span style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>check</span>
-                                </M3Button>
+                                </Button>
             )}
         </div>
     </form>
@@ -219,7 +220,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                     textAlign: 'center',
                 }}
             >
-            <M3IconButton icon="arrow_back" ariaLabel="Indietro" onClick={() => setMode('selection')} />
+            <IconButton aria-label="Indietro" onClick={() => setMode('selection')}><span className="material-symbols-outlined" aria-hidden="true">arrow_back</span></IconButton>
           
                     <div
                         style={{
@@ -232,8 +233,8 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
             <Logo />
           </div>
           
-          <M3Typography variant="headline-large" style={{marginBottom: 'var(--md-sys-spacing-8)'}}>Accesso Rapido</M3Typography>
-          <M3Typography variant="body-large" style={{textTransform: "uppercase"}}>Configurazione manuale</M3Typography>
+          <Typography variant="h4" style={{marginBottom: 'var(--md-sys-spacing-8)'}}>Accesso Rapido</Typography>
+          <Typography variant="body1" style={{textTransform: "uppercase"}}>Configurazione manuale</Typography>
           
           <div style={{ width: "var(--md-sys-percent-100)" }}>
             <TextField 
@@ -248,15 +249,15 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
             />
           </div>
 
-                        <M3Button
+                        <Button
                             type="submit"
-                            variant="filled"
+                            variant="contained"
                             style={{ width: 'var(--md-sys-percent-100)', textTransform: 'uppercase' }}
                             aria-label="Entra nella Dashboard"
                         >
                             Entra nella Dashboard
                             <span style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>login</span>
-                        </M3Button>
+                        </Button>
       </form>
   );
 

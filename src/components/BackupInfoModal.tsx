@@ -1,20 +1,20 @@
-// MD3 GOLD COMPLIANT – Audit 2026-01-25
+﻿// MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 import * as React from 'react';
 import { BackupInfoModalProps } from '../types';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
+import { Button  } from '@mui/material';
+import { M3Dialog } from './ui';
 const BackupInfoModal: React.FC<BackupInfoModalProps> = ({ onClose }) => {
   return (
         <M3Dialog
             title="Informazioni sul Backup"
             onClose={onClose}
             maxWidth="md"
-            level={1}
             hideBackdrop={true}
+            buttons={<Button onClick={onClose} variant="contained">Ho capito</Button>}
         >
-            <M3DialogContent style={{ overflowY: 'auto' }}>
-                <h3 style={{ color: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>Architettura "Local-First" e Privacy</h3>
+            <h3 style={{ color: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>Architettura "Local-First" e Privacy</h3>
                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>
                     OrarioDoc AI è un'applicazione <b>Local-First</b>. Ciò significa che tutti i tuoi dati sensibili (studenti, voti, note, PEI/PDP) vengono salvati <b>esclusivamente</b> sul tuo dispositivo, nel browser che stai utilizzando (IndexedDB e LocalStorage).
                 </p>
@@ -50,11 +50,6 @@ const BackupInfoModal: React.FC<BackupInfoModalProps> = ({ onClose }) => {
                         <b>Risoluzione Conflitti:</b> In caso di un backup più recente su Drive rispetto al tuo dispositivo, l'app ti avviserà prima di sovrascrivere i dati, permettendoti di scegliere cosa fare.
                     </li>
                 </ul>
-            </M3DialogContent>
-
-            <M3DialogActions style={{ paddingTop: '0' }}>
-                <M3Button onClick={onClose} variant="filled">Ho capito</M3Button>
-            </M3DialogActions>
         </M3Dialog>
     );
 };

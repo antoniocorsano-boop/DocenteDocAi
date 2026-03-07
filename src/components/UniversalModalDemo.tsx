@@ -3,19 +3,19 @@
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 import React, { useState } from 'react';
+import { Button } from '@mui/material';
 import UniversalModal from './UniversalModal';
-import { M3Button } from './ui';
 const UniversalModalDemo: React.FC = () => {
   const [open, setOpen] = useState(false);
 
   return (
     <div style={{padding: 'var(--md-sys-spacing-6)'}}>
-      <M3Button
-        variant="filled"
+      <Button
+        variant="contained"
         onClick={() => setOpen(true)}
       >
         Apri Modale Demo
-      </M3Button>
+      </Button>
       <UniversalModal
         open={open}
         title="Esempio di Modale Universale"
@@ -26,21 +26,21 @@ const UniversalModalDemo: React.FC = () => {
           Premi <b>ESC</b> o clicca fuori dal modale per chiudere.
         </p>
         <div  style={{display: "flex", justifyContent: "flex-end", gap: 'var(--md-sys-spacing-3)'}}>
-          <M3Button
+          <Button
             onClick={() => setOpen(false)}
-            variant="tonal"
+            variant="outlined"
           >
             Annulla
-          </M3Button>
-          <M3Button
+          </Button>
+          <Button
             onClick={() => {
               alert('Azione confermata!');
               setOpen(false);
             }}
-            variant="filled"
+            variant="contained"
           >
             Conferma
-          </M3Button>
+          </Button>
         </div>
       </UniversalModal>
     </div>

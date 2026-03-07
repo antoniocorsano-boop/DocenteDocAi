@@ -16,7 +16,7 @@
 import React, { createContext, useContext, useCallback, useState, ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { getModalZIndex } from '../design-system/zIndex';
-import M3Surface from '../components/ui/M3Surface';
+import { Paper } from '@mui/material';
 
 // ============================================================================
 // TYPES & INTERFACES
@@ -351,33 +351,34 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
   }, [backdropClickable, id, popModal]);
 
   return (
-    <M3Surface
-      elevation="level5"
+    <Paper
+      elevation={8}
       role="dialog"
       aria-modal="true"
       aria-labelledby={`modal-title-${id}`}
       aria-describedby={`modal-content-${id}`}
       tabIndex={-1}
       onKeyDown={handleKeyDown}
-      style={{
+      sx={{
         position: 'fixed',
         inset: 0,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 'var(--md-sys-spacing-4)',
+        p: 4,
         zIndex: modalZIndex as number,
+        bgcolor: 'transparent',
       }}
       data-modal-id={id}
       data-modal-level={level}
     >
       {/* Backdrop - M3 Expressive with blur */}
-      <M3Surface
-        elevation="none"
+      <Paper
+        elevation={0}
         onClick={handleBackdropClick}
         aria-hidden="true"
         role="presentation"
-        style={{
+        sx={{
           position: 'absolute',
           inset: 0,
           backdropFilter: 'blur(4px)',
@@ -388,28 +389,30 @@ const ModalPortal: React.FC<ModalPortalProps> = ({
             ? 'color-mix(in srgb, var(--md-sys-color-scrim) 40%, transparent)'
             : 'color-mix(in srgb, var(--md-sys-color-scrim) 60%, transparent)',
           cursor: backdropClickable ? 'pointer' : 'default',
+          borderRadius: 0,
         }}
       />
 
       {/* Modal Content Wrapper */}
-      <M3Surface
-        elevation="level3"
+      <Paper
+        elevation={0}
         role="document"
-        style={{
+        sx={{
           position: 'relative',
-          width: 'var(--md-sys-percent-100)',
-          height: 'var(--md-sys-percent-100)',
+          width: '100%',
+          height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           animation: `modal-zoom-in var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard-decelerate)`,
+          bgcolor: 'transparent',
         }}
         data-modal-portal-content
         id={`modal-content-${id}`}
       >
         {children}
-      </M3Surface>
-    </M3Surface>
+      </Paper>
+    </Paper>
   );
 };
 

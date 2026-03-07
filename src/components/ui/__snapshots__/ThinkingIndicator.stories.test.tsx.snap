@@ -4,8 +4,9 @@ exports[`ThinkingIndicator Story Snapshots > renders default story correctly 1`]
 <div>
   <div
     aria-label="DocenteDoc AI Application"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-g3p503-MuiPaper-root"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
+    style="--Paper-shadow: none;"
   >
     <div
       style="display: flex; align-items: center; gap: var(--md-sys-spacing-3); padding: var(--md-sys-spacing-4); border-radius: var(--md-sys-shape-corner-medium); background-color: var(--md-sys-color-surface-container-low); opacity: var(--md-sys-state-opacity-placeholder); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-on-primary);"

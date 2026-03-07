@@ -1,10 +1,10 @@
 // MD3 Compliant - Block J Migration Complete (1 violation eliminated)
 
 import React, { useState } from 'react';
+import { IconButton } from '@mui/material';
 import { Report } from '../types';
 import { saveAs } from '../utils/documentUtils';
 
-import { M3IconButton } from './ui';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for report archive layout, search functionality, and table styling
 interface ArchivioReportProps {
@@ -89,9 +89,9 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                                         </span>
                                     </td>
                                     <td>
-                                            <M3IconButton onClick={() => onSaveReportToKb(report)} title="Salva in Knowledge Base" ariaLabel="Salva report in Knowledge Base" icon="inventory_2" />
-                                            <M3IconButton onClick={() => handleDownload(report)} title="Scarica" ariaLabel="Scarica report" icon="download" />
-                                            <M3IconButton onClick={() => onDeleteReport(report.id)} title="Elimina" ariaLabel="Elimina report" icon="delete" />
+                                            <IconButton onClick={() => onSaveReportToKb(report)} title="Salva in Knowledge Base" aria-label="Salva report in Knowledge Base"><span className="material-symbols-outlined" aria-hidden="true">inventory_2</span></IconButton>
+                                            <IconButton onClick={() => handleDownload(report)} title="Scarica" aria-label="Scarica report"><span className="material-symbols-outlined" aria-hidden="true">download</span></IconButton>
+                                            <IconButton onClick={() => onDeleteReport(report.id)} title="Elimina" aria-label="Elimina report"><span className="material-symbols-outlined" aria-hidden="true">delete</span></IconButton>
                                     </td>
                                 </tr>
                             ))}

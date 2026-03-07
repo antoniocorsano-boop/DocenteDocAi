@@ -1,11 +1,12 @@
-// MD3 Gold Compliant
+﻿// MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 
 // M3Expressive: LessonAnalysisModal - AI-powered lesson analysis results with M3 tokens
 import React from 'react';
 import { LessonAnalysisResult } from '../types';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, AiMemoryChip } from './ui';
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog, AiMemoryChip } from './ui';
 
 interface LessonAnalysisModalProps {
     result: LessonAnalysisResult;
@@ -20,59 +21,52 @@ const LessonAnalysisModal: React.FC<LessonAnalysisModalProps> = ({ result, onClo
             title="Analisi Pedagogica AI"
             onClose={onClose}
             maxWidth="xl"
-            level={1}
+            buttons={<Button onClick={onClose} variant="contained">Ho capito</Button>}
         >
-            <M3DialogContent >
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    {contextLabel && <AiMemoryChip label={contextLabel} />}
-                    
-                    {/* Section 1: Engagement */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                                <span>rocket_launch</span>
-                             </div>
-                             <h3>Strategie di Coinvolgimento</h3>
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            {result.engagementSuggestions.map((item, index) => (
-                                <div key={index} >
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                        <h4>{item.title}</h4>
-                                        <span>{item.activityType}</span>
-                                    </div>
-                                    <p>{item.description}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                {contextLabel && <AiMemoryChip label={contextLabel} />}
 
-                    {/* Section 2: Inclusivity */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                                <span>diversity_3</span>
-                             </div>
-                             <h3>Adattamenti per l'Inclusività (UDL)</h3>
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            {result.inclusivityAdaptations.map((item, index) => (
-                                <div key={index} >
-                                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                                         <span>
-                                             {item.targetGroup}
-                                         </span>
-                                     </div>
-                                     <p>{item.suggestion}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </M3DialogContent>
-            <M3DialogActions>
-                <M3Button onClick={onClose} variant="filled">Ho capito</M3Button>
-            </M3DialogActions>
+                {/* Section 1: Engagement */}
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                            <Typography component="span">rocket_launch</Typography>
+                        </Box>
+                        <Typography variant="h6" component="h3">Strategie di Coinvolgimento</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        {result.engagementSuggestions.map((item, index) => (
+                            <Box key={index}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                    <Typography variant="subtitle2" component="h4">{item.title}</Typography>
+                                    <Typography component="span">{item.activityType}</Typography>
+                                </Box>
+                                <Typography variant="body2" component="p">{item.description}</Typography>
+                            </Box>
+                        ))}
+                    </Box>
+                </Box>
+
+                {/* Section 2: Inclusivity */}
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                            <Typography component="span">diversity_3</Typography>
+                        </Box>
+                        <Typography variant="h6" component="h3">Adattamenti per l'Inclusività (UDL)</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        {result.inclusivityAdaptations.map((item, index) => (
+                            <Box key={index}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                                    <Typography component="span">{item.targetGroup}</Typography>
+                                </Box>
+                                <Typography variant="body2" component="p">{item.suggestion}</Typography>
+                            </Box>
+                        ))}
+                    </Box>
+                </Box>
+            </Box>
         </M3Dialog>
     );
 };

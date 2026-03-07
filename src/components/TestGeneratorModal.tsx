@@ -1,12 +1,9 @@
-// MD3 Compliant - Block J Migration Complete (2 violations eliminated)
+﻿// MD3 Compliant - Block J Migration Complete (2 violations eliminated)
 
 import React, { useState } from 'react';
 import { QuestionType } from '../types';
-import {
-    M3Dialog,
-    M3DialogContent,
-    M3DialogActions,
-    M3Button,
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog,
     TabGroup,
     TextField
 } from './ui';
@@ -53,32 +50,43 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
             onClose={onClose}
             title="Generatore Verifiche"
             headline="Crea una verifica personalizzata con AI"
+            buttons={
+                <>
+                    <Button variant="text" onClick={onClose}>Annulla</Button>
+                    <Button 
+                        variant="contained" 
+                        onClick={handleSubmit}
+                    >
+                        <Typography component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>auto_awesome</Typography>
+                        Genera
+                    </Button>
+                </>
+            }
         >
-            <M3DialogContent >
-                <TextField
-                    id="test-topic-input"
-                    label="Argomento Specifico"
-                    value={topic}
-                    onChange={e => setTopic(e.target.value)}
-                    placeholder="Es. Rivoluzione Francese"
-                />
+            <TextField
+                id="test-topic-input"
+                label="Argomento Specifico"
+                value={topic}
+                onChange={e => setTopic(e.target.value)}
+                placeholder="Es. Rivoluzione Francese"
+            />
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <label>Difficoltà</label>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Typography component="label">Difficoltà</Typography>
                     <TabGroup
                         tabs={[{ id: 'easy', label: 'Base' }, { id: 'medium', label: 'Intermedio' }, { id: 'hard', label: 'Avanzato' }]}
                         activeTab={difficulty}
                         onTabChange={(id) => setDifficulty(id as 'easy' | 'medium' | 'hard')}
-                        variant="filled"
+                        variant="contained"
                         
                     />
-                </div>
+                </Box>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <label htmlFor="test-qcount-slider" >Numero Quesiti</label>
-                        <span>{questionCount}</span>
-                    </div>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        <Typography component="label" htmlFor="test-qcount-slider">Numero Quesiti</Typography>
+                        <Typography component="span">{questionCount}</Typography>
+                    </Box>
                     <input
                         id="test-qcount-slider"
                         name="test-qcount-slider"
@@ -89,11 +97,11 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                         onChange={e => setQuestionCount(parseInt(e.target.value))}
                         
                     />
-                </div>
+                </Box>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <label>Tipi di Domande</label>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Typography component="label">Tipi di Domande</Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <label style={{
                             // test-generator-modal-question-type-chip styles
                             display: 'inline-flex',
@@ -137,20 +145,8 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                             {questionTypes.includes('true_false') && <span>check</span>}
                             <span>Vero/Falso</span>
                         </label>
-                    </div>
-                </div>
-            </M3DialogContent>
-            <M3DialogActions >
-                <M3Button variant="text" onClick={onClose}>Annulla</M3Button>
-                <M3Button 
-                    variant="filled" 
-                    onClick={handleSubmit}
-                    startIcon={<span style={{
-}}>auto_awesome</span>}
-                >
-                    Genera
-                </M3Button>
-            </M3DialogActions>
+                    </Box>
+                </Box>
         </M3Dialog>
     );
 };

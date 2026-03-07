@@ -119,7 +119,6 @@ export const CalendarEventCard: React.FC<CalendarEventCardProps> = ({
   return (
     <M3Surface
       onClick={onClick}
-      // @ts-expect-error - M3Surface supports div props via spread
       onKeyDown={handleKeyDown}
       role="button"
       tabIndex={0}

@@ -1,10 +1,11 @@
-// MD3 Compliant - Block M Migration (2 violations eliminated)
+﻿// MD3 Compliant - Block M Migration (2 violations eliminated)
 
 // M3Expressive: QuickEvaluationModal - Quick student evaluation modal with M3 tokens
 import React, { useState } from 'react';
 import { Studente, Lezione, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, M3ChoiceCard, TextField, TextArea, SelectField } from './ui';
+import { Button, Box, Typography } from '@mui/material';
+import { M3Dialog, TabGroup, TextField, TextArea, SelectField, M3ChoiceCard as Card } from './ui';
 
 interface QuickEvaluationModalProps {
     student: Studente;
@@ -77,24 +78,23 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
     const selectedCompetenza = settings.competenze.find(c => c.id === selectedCompetenzaId);
 
     const renderVotoTab = () => (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                <label>Tipo Prova</label>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <Typography variant="caption" component="span">Tipo Prova</Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     {EVALUATION_TYPES.map(t => (
-                        <M3ChoiceCard
+                        <Card
                             key={t}
                             icon={getTestTypeIcon(t)}
                             label={t}
                             onClick={() => setTipo(t)}
                             selected={tipo === t}
-                            
                         />
                     ))}
-                </div>
-            </div>
+                </Box>
+            </Box>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <SelectField
                     id="voto"
                     label="Voto / Giudizio"
@@ -120,12 +120,12 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                     onChange={e => setNoteVoto(e.target.value)}
                     rows={2}
                 />
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
     
     const renderCompetenzaTab = () => (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <SelectField
                 id="competenza"
                 label="Competenza"
@@ -136,41 +136,40 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
             </SelectField>
 
             {selectedCompetenza && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <label>Livello Raggiunto</label>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Typography variant="caption" component="span">Livello Raggiunto</Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         {selectedCompetenza.livelli.map(level => (
-                            <label key={level.id} style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                padding: 'var(--md-sys-spacing-6)',
-                                borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
-                                cursor: 'pointer',
-                                border: 'var(--md-sys-border-width-thin) solid transparent',
-                                backgroundColor: selectedLevelId === level.id ? 'var(--md-sys-color-primary-container)' : 'transparent',
-                                borderColor: selectedLevelId === level.id ? 'var(--md-sys-color-primary)' : 'transparent'
-                            }}
-                            onMouseEnter={(e) => {
-                                if (selectedLevelId !== level.id) {
-                                    e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
-                                }
-                            }}
-                            onMouseLeave={(e) => {
-                                if (selectedLevelId !== level.id) {
-                                    e.currentTarget.style.backgroundColor = 'transparent';
-                                }
-                            }}>
-                                <input type="radio" name="level" value={level.id} checked={selectedLevelId === level.id} onChange={e => setSelectedLevelId(e.target.value)}  required />
-                                <span style={{
-                                    fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                                    color: selectedLevelId === level.id ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
-                                    fontWeight: selectedLevelId === level.id ? 700 : 'normal'
-                                }}>{level.descrizione}</span>
-                            </label>
+                            <Box
+                                key={level.id}
+                                component="label"
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    padding: 'var(--md-sys-spacing-6)',
+                                    borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                    transition: 'background-color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
+                                    cursor: 'pointer',
+                                    border: 'var(--md-sys-border-width-thin) solid transparent',
+                                    backgroundColor: selectedLevelId === level.id ? 'var(--md-sys-color-primary-container)' : 'transparent',
+                                    borderColor: selectedLevelId === level.id ? 'var(--md-sys-color-primary)' : 'transparent',
+                                    '&:hover': {
+                                        backgroundColor: selectedLevelId === level.id
+                                            ? 'var(--md-sys-color-primary-container)'
+                                            : 'var(--md-sys-color-surface-container-high)' } }}
+                            >
+                                <input type="radio" name="level" value={level.id} checked={selectedLevelId === level.id} onChange={e => setSelectedLevelId(e.target.value)} required />
+                                <Typography
+                                    component="span"
+                                    sx={{
+                                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
+                                        color: selectedLevelId === level.id ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
+                                        fontWeight: selectedLevelId === level.id ? 700 : 'normal' }}
+                                >{level.descrizione}</Typography>
+                            </Box>
                         ))}
-                    </div>
-                </div>
+                    </Box>
+                </Box>
             )}
 
             <TextArea
@@ -180,7 +179,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                 onChange={e => setNoteCompetenza(e.target.value)}
                 rows={2}
             />
-        </div>
+        </Box>
     );
 
     return (
@@ -188,36 +187,31 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
             title="Valutazione Rapida"
             onClose={onClose}
             maxWidth="md"
-            level={1}
-        >
-            <M3DialogContent >
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <h3>{student.cognome} {student.nome}</h3>
-                    <p>{lesson.materia} - {new Date().toLocaleDateString('it-IT')}</p>
-                </div>
-
-                <TabGroup
-                    tabs={[
-                        { id: 'voto', label: 'Voto Disciplinare' },
-                        { id: 'competenza', label: 'Competenza' }
-                    ]}
-                    activeTab={activeTab}
-                    onTabChange={(id) => setActiveTab(id as 'voto' | 'competenza')}
-                    
-                />
-
-                {activeTab === 'voto' ? renderVotoTab() : renderCompetenzaTab()}
-            </M3DialogContent>
-            <M3DialogActions>
-                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
-                <M3Button
+            buttons={<>
+                <Button onClick={onClose} variant="text">Annulla</Button>
+                <Button
                     onClick={activeTab === 'voto' ? handleSaveVoto : handleSaveCompetenza}
-                    variant="filled"
-                    
+                    variant="contained"
                 >
                     Registra {activeTab === 'voto' ? 'Voto' : 'Competenza'}
-                </M3Button>
-            </M3DialogActions>
+                </Button>
+            </>}
+        >
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <Typography variant="h6">{student.cognome} {student.nome}</Typography>
+                <Typography variant="body2">{lesson.materia} - {new Date().toLocaleDateString('it-IT')}</Typography>
+            </Box>
+
+            <TabGroup
+                tabs={[
+                    { id: 'voto', label: 'Voto Disciplinare' },
+                    { id: 'competenza', label: 'Competenza' }
+                ]}
+                activeTab={activeTab}
+                onTabChange={(id) => setActiveTab(id as 'voto' | 'competenza')}
+            />
+
+            {activeTab === 'voto' ? renderVotoTab() : renderCompetenzaTab()}
         </M3Dialog>
     );
 };

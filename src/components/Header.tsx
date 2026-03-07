@@ -1,12 +1,12 @@
 // =============================
 // MD3 GOLD COMPLIANT HEADER
+// @mui-migrated Fase 2C
 // =============================
 
 import React from 'react';
+import { AppBar, Toolbar, IconButton, Typography, Box } from '@mui/material';
 import { HeaderProps, BeforeInstallPromptEvent, Notifica, View } from '../types';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
-import { M3Typography } from './ui/M3Typography';
-import M3IconButton from './ui/M3IconButton';
 import Avatar from './ui/Avatar';
 import Logo from './Logo';
 import NKAHeaderAuraButton from '../nka/NKAHeaderAuraButton';
@@ -58,137 +58,150 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
 
   // NOTE: className="material-symbols-outlined" is permitted for MD3 icon font usage only (see copilot-instructions.md)
   return (
-    <header
+    <AppBar
+      component="header"
       role="banner"
-      style={{
-        flexShrink: 0,
-        position: 'relative',
+      position="static"
+      elevation={scrolled ? 2 : 0}
+      sx={{
         zIndex: 'var(--md-sys-z-app-bar)',
-        background: scrolled
+        bgcolor: scrolled
           ? 'var(--md-sys-color-surface-container)'
           : 'var(--md-sys-color-surface)',
         borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-surface-container)',
-        boxShadow: scrolled ? 'var(--md-sys-elevation-level2)' : 'none',
-        minHeight: 'var(--md-sys-spacing-16)',
-        display: 'flex',
-        alignItems: 'center',
-        paddingInline: 'var(--md-sys-spacing-4)',
+        color: 'var(--md-sys-color-on-surface)',
         transition: [
-          `background var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
-          `box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+          'background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+          'box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
         ].join(', '),
       }}
     >
-      {/* Leading: Back + Aura */}
-      <nav style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }} aria-label="Azioni principali">
-        {showBackButton && (
-          <M3IconButton
-            icon="arrow_back"
-            ariaLabel="Indietro"
-            onClick={onBack}
-          />
-        )}
-        <M3IconButton
-          icon="bolt"
-          ariaLabel="Operazioni rapide"
-          onClick={onOpenOperations}
-          variant={hasSuggestion ? 'tonal' : 'standard'}
-        />
-        {onOpenNKA && (
-          <NKAHeaderAuraButton
-            hasNewNode={hasNewNode}
-            onClick={onOpenNKA}
-            onLongPress={() => onNavigate('settings')}
-          />
-        )}
-      </nav>
-
-      {/* Title/Logo + Breadcrumb — left-aligned per MD3 top app bar spec */}
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', marginLeft: 'var(--md-sys-spacing-3)', minWidth: 0 }}>
-        <Logo isAiThinking={isAiProcessing} onHomeNavigate={() => !showBackButton && onNavigate('home')} />
-        {showBackButton && currentView ? (
-          <Breadcrumb currentView={currentView} onNavigate={onNavigate} />
-        ) : (
-          <M3Typography variant="title-medium" style={{ color: 'var(--md-sys-color-on-surface)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            DocenteDoc
-          </M3Typography>
-        )}
-      </div>
-
-      {/* Trailing: Status, Settings, Avatar */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-        {!isOnline && (
-          <div
-            role="status"
-            aria-label="Modalità Offline"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 'var(--md-sys-spacing-1)',
-              paddingInline: 'var(--md-sys-spacing-2)',
-              paddingBlock: 'var(--md-sys-spacing-1)',
-              borderRadius: 'var(--md-sys-shape-corner-large)',
-              background: 'var(--md-sys-color-error-container)',
-              color: 'var(--md-sys-color-on-error-container)'
-            }}
+      <Toolbar
+        sx={{
+          minHeight: 'var(--md-sys-spacing-16) !important',
+          px: 'var(--md-sys-spacing-4) !important',
+          gap: 'var(--md-sys-spacing-1)',
+        }}
+      >
+        {/* Leading: Back + Aura */}
+        <Box component="nav" aria-label="Azioni principali" sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
+          {showBackButton && (
+            <IconButton
+              aria-label="Indietro"
+              onClick={onBack}
+              sx={{ color: 'var(--md-sys-color-on-surface)' }}
+            >
+              <span className="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            </IconButton>
+          )}
+          <IconButton
+            aria-label="Operazioni rapide"
+            onClick={onOpenOperations}
+            sx={hasSuggestion ? {
+              bgcolor: 'var(--md-sys-color-secondary-container)',
+              color: 'var(--md-sys-color-on-secondary-container)',
+              '&:hover': { bgcolor: 'color-mix(in srgb, var(--md-sys-color-secondary-container) 88%, var(--md-sys-color-on-secondary-container))' },
+            } : { color: 'var(--md-sys-color-on-surface)' }}
           >
-            <span className="material-symbols-outlined" aria-hidden="true">cloud_off</span>
-            <M3Typography variant="label-small">Offline</M3Typography>
-          </div>
-        )}
-        <M3IconButton
-          icon="settings"
-          ariaLabel="Impostazioni"
-          onClick={() => onNavigate('settings')}
-        />
-        <button
-          aria-label="Menu utente"
-          onClick={() => onNavigate('settings')}
-          style={{
-            width: 'var(--md-sys-spacing-11)',
-            aspectRatio: '1',
-            borderRadius: 'var(--md-sys-shape-corner-full)',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            position: 'relative',
-            padding: 0,
-          }}
-        >
-          <Avatar
-            name={`${teacherSurname || ''} ${teacherName || 'Docente'}`.trim()}
-            src={user?.photoURL}
-            size="sm"
-          />
-          {unreadCount > 0 && (
-            <span
-              aria-label={`${unreadCount} notifiche non lette`}
-              style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                minWidth: 'var(--md-sys-spacing-4)',
-                height: 'var(--md-sys-spacing-4)',
-                borderRadius: 'var(--md-sys-shape-corner-full)',
-                background: 'var(--md-sys-color-error)',
-                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-surface)',
+            <span className="material-symbols-outlined" aria-hidden="true">bolt</span>
+          </IconButton>
+          {onOpenNKA && (
+            <NKAHeaderAuraButton
+              hasNewNode={hasNewNode}
+              onClick={onOpenNKA}
+              onLongPress={() => onNavigate('settings')}
+            />
+          )}
+        </Box>
+
+        {/* Title/Logo + Breadcrumb — left-aligned per MD3 top app bar spec */}
+        <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', ml: 'var(--md-sys-spacing-2)', minWidth: 0 }}>
+          <Logo isAiThinking={isAiProcessing} onHomeNavigate={() => !showBackButton && onNavigate('home')} />
+          {showBackButton && currentView ? (
+            <Breadcrumb currentView={currentView} onNavigate={onNavigate} />
+          ) : (
+            <Typography
+              variant="subtitle2"
+              component="span"
+              sx={{ color: 'var(--md-sys-color-on-surface)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+            >
+              DocenteDoc
+            </Typography>
+          )}
+        </Box>
+
+        {/* Trailing: Status, Settings, Avatar */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
+          {!isOnline && (
+            <Box
+              role="status"
+              aria-label="Modalità Offline"
+              sx={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                padding: '0 var(--md-sys-spacing-1)',
+                gap: 'var(--md-sys-spacing-1)',
+                px: 'var(--md-sys-spacing-2)',
+                py: 'var(--md-sys-spacing-1)',
+                borderRadius: 'var(--md-sys-shape-corner-large)',
+                bgcolor: 'var(--md-sys-color-error-container)',
+                color: 'var(--md-sys-color-on-error-container)',
               }}
             >
-              <M3Typography variant="label-small" style={{ color: 'var(--md-sys-color-on-error)', lineHeight: 1 }}>
-                {unreadCount > 99 ? '99+' : unreadCount}
-              </M3Typography>
-            </span>
+              <span className="material-symbols-outlined" aria-hidden="true">cloud_off</span>
+              <Typography variant="caption" component="span">Offline</Typography>
+            </Box>
           )}
-        </button>
-      </div>
-    </header>
+          <IconButton
+            aria-label="Impostazioni"
+            onClick={() => onNavigate('settings')}
+            sx={{ color: 'var(--md-sys-color-on-surface)' }}
+          >
+            <span className="material-symbols-outlined" aria-hidden="true">settings</span>
+          </IconButton>
+          <IconButton
+            aria-label="Menu utente"
+            onClick={() => onNavigate('settings')}
+            sx={{
+              width: 'var(--md-sys-spacing-11)',
+              aspectRatio: '1',
+              borderRadius: 'var(--md-sys-shape-corner-full)',
+              p: 0,
+              position: 'relative',
+            }}
+          >
+            <Avatar
+              name={`${teacherSurname || ''} ${teacherName || 'Docente'}`.trim()}
+              src={user?.photoURL}
+              size="sm"
+            />
+            {unreadCount > 0 && (
+              <Box
+                component="span"
+                aria-label={`${unreadCount} notifiche non lette`}
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  minWidth: 'var(--md-sys-spacing-4)',
+                  height: 'var(--md-sys-spacing-4)',
+                  borderRadius: 'var(--md-sys-shape-corner-full)',
+                  bgcolor: 'var(--md-sys-color-error)',
+                  border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-surface)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  px: 'var(--md-sys-spacing-1)',
+                }}
+              >
+                <Typography variant="caption" component="span" sx={{ color: 'var(--md-sys-color-on-error)', lineHeight: 1, fontSize: '0.6rem' }}>
+                  {unreadCount > 99 ? '99+' : unreadCount}
+                </Typography>
+              </Box>
+            )}
+          </IconButton>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 };
 

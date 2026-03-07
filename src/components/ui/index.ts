@@ -24,7 +24,7 @@ export { default as M3IconButton } from './M3IconButton';
 export { default as M3AnimatedIcon } from './M3AnimatedIcon';
 export { default as M3BadgedIcon } from './M3BadgedIcon';
 export { default as M3Popover } from './M3Popover';
-export { default as M3Menu } from './M3Menu';
+// M3Menu rimosso dal barrel export — @deprecated, 0 consumer di produzione (Fase 5: eliminazione)
 export { default as DocumentSkeleton } from './DocumentSkeleton';
 export { default as TableSkeleton } from './TableSkeleton';
 export { default as ImageSkeleton } from './ImageSkeleton';

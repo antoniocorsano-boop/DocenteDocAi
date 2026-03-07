@@ -1,9 +1,7 @@
-// MD3 Compliant - Fully migrated to MD3 tokens
-// @md3-compliant
-// @migrated
-
-import React, { InputHTMLAttributes, useState } from 'react';
-import M3Typography from './M3Typography';
+// Thin MUI wrapper — preserves TextField props API for backward compatibility
+// @mui-migrated Fase 2
+import React, { InputHTMLAttributes } from 'react';
+import { TextField as MuiTextField, InputAdornment } from '@mui/material';
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
@@ -18,11 +16,6 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
     'data-testid'?: string;
 }
 
-/**
- * MD3-compliant TextField component
- * Migrated from legacy CSS classes to pure MD3 tokens and M3Typography
- * Features: outlined/filled variants, error states, leading icons, accessibility
- */
 const TextField: React.FC<TextFieldProps> = ({
     label,
     variant = 'outlined',
@@ -31,165 +24,51 @@ const TextField: React.FC<TextFieldProps> = ({
     leadingIcon,
     fullWidth = false,
     containerClassName: _containerClassName,
-    multiline: _multiline,
-    rows: _rows,
+    multiline,
+    rows,
     'data-testid': dataTestId,
+    id,
     value,
-    ...props
-}) => {
-    // Removed: const { layers } = useTheme();
-    const [isFocused, setIsFocused] = useState(false);
-    const describedBy = error && errorMessage ? `${props.id}-error` : undefined;
-    const hasValue = value !== undefined && value !== '';
-    const isLabelFloating = variant === 'filled' && (isFocused || hasValue);
-
-    return (
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-2)',
-                width: fullWidth ? 'var(--md-sys-percent-100)' : 'auto',
-                marginBottom: 'var(--md-sys-spacing-4)'
-            }}
-        >
-            <div
-                style={{
-                    position: 'relative',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 'var(--md-sys-spacing-2)',
-                    backgroundColor: variant === 'filled'
-                        ? 'var(--md-sys-color-surface-container-high)'
-                        : 'transparent',
-                    border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`,
-                    borderRadius: 'var(--md-sys-shape-corner-large)',
-                    padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
-                    transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
-                    boxShadow: error
-                        ? `0 0 0 var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-error) var(--md-sys-percent-12), transparent)`
-                        : isFocused
-                        ? `0 0 0 var(--md-sys-spacing-2) color-mix(in srgb, var(--md-sys-color-primary) var(--md-sys-percent-12), transparent)`
-                        : 'none',
-                    borderColor: error
-                        ? 'var(--md-sys-color-error)'
-                        : isFocused
-                        ? 'var(--md-sys-color-primary)'
-                        : 'var(--md-sys-color-outline)'
-                }}
-            >
-                {leadingIcon && (
-                    <span
-                        className="material-symbols-outlined"
-                        style={{
-                            color: isFocused
-                                ? 'var(--md-sys-color-primary)'
-                                : `color-mix(in srgb, var(--md-sys-color-on-surface-variant), var(--md-sys-state-opacity-disabled))`,
-                            transition: `color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
-                            fontSize: 'var(--md-sys-spacing-4)'
-                        }}
-                        aria-hidden="true"
-                    >
-                        {leadingIcon}
-                    </span>
-                )}
-                <div style={{ flex: 1, position: 'relative' }}>
-                    <M3Typography
-                        variant="label-large"
-                        as="span"
-                        // htmlFor removed: not valid for span
-                        style={{
-                            position: 'absolute',
-                            top: isLabelFloating ? 'var(--md-sys-spacing-1)' : '50%',
-                            left: 0,
-                            transform: isLabelFloating
-                                ? 'translateY(0) scale(0.75)'
-                                : 'translateY(-50%)',
-                            transformOrigin: 'top left',
-                            transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
-                            color: isFocused
-                                ? 'var(--md-sys-color-primary)'
-                                : 'var(--md-sys-color-on-surface-variant)',
-                            pointerEvents: 'none',
-                            zIndex: 'var(--md-sys-z-tooltip)'
-                        }}
-                    >
-                        {label}
-                    </M3Typography>
-                    <input
-                        {...props}
-                        value={value}
-                        data-testid={dataTestId}
-                        style={{
-                            width: 'var(--md-sys-percent-100)',
-                            border: 'none',
-                            backgroundColor: 'transparent',
-                            color: 'var(--md-sys-color-on-surface)',
-                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                            fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
-                            fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-                            lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-                            letterSpacing: 'var(--md-sys-typescale-body-large-letter-spacing)',
-                            outline: 'none',
-                            paddingTop: isLabelFloating ? 'var(--md-sys-spacing-2)' : 0,
-                            transition: `padding-top var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`
-                        }}
-                        placeholder=""
-                        aria-label={label}
-                        aria-invalid={error ? 'true' : undefined}
-                        aria-describedby={describedBy}
-                        onFocus={(e) => {
-                            setIsFocused(true);
-                            props.onFocus?.(e);
-                        }}
-                        onBlur={(e) => {
-                            setIsFocused(false);
-                            props.onBlur?.(e);
-                        }}
-                    />
-                </div>
-                {error && (
-                    <span
-                        className="material-symbols-outlined"
-                        style={{
-                            color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--md-sys-spacing-4)'
-                        }}
-                        aria-hidden="true"
-                    >
-                        error
-                    </span>
-                )}
-            </div>
-            {error && errorMessage && (
-                <div
-                    id={describedBy}
-                    style={{display: 'flex',
-                        alignItems: 'center',
-                        gap: 'var(--md-sys-spacing-1)',
-                        marginTop: 'var(--md-sys-spacing-1)'}}
-                >
-                    <span
-                        className="material-symbols-outlined"
-                        style={{
-                            color: 'var(--md-sys-color-error)',
-                            fontSize: 'var(--md-sys-typescale-body-large-font-size)'
-                        }}
-                        aria-hidden="true"
-                    >
-                        error
-                    </span>
-                    <M3Typography
-                        variant="body-small"
-                        style={{color: 'var(--md-sys-color-error)'}}
-                    >
-                        {errorMessage}
-                    </M3Typography>
-                </div>
-            )}
-        </div>
-    );
-};
+    onChange,
+    onFocus,
+    onBlur,
+    disabled,
+    placeholder,
+    type,
+    name,
+    autoComplete,
+    readOnly,
+    ...restProps
+}) => (
+    <MuiTextField
+        label={label}
+        variant={variant}
+        error={error}
+        helperText={error ? errorMessage : undefined}
+        fullWidth={fullWidth}
+        multiline={multiline}
+        rows={rows}
+        id={id}
+        value={value}
+        onChange={onChange as React.ChangeEventHandler<HTMLInputElement>}
+        onFocus={onFocus as React.FocusEventHandler<HTMLInputElement>}
+        onBlur={onBlur as React.FocusEventHandler<HTMLInputElement>}
+        disabled={disabled}
+        placeholder={placeholder}
+        type={type}
+        name={name}
+        autoComplete={autoComplete}
+        inputProps={{ 'data-testid': dataTestId, readOnly, ...restProps }}
+        FormHelperTextProps={error && errorMessage ? { id: `${id}-error` } : undefined}
+        InputProps={leadingIcon ? {
+            startAdornment: (
+                <InputAdornment position="start">
+                    <span className="material-symbols-outlined" aria-hidden="true">{leadingIcon}</span>
+                </InputAdornment>
+            ),
+        } : undefined}
+        sx={{ mb: 2 }}
+    />
+);
 
 export default TextField;
-

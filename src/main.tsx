@@ -24,8 +24,7 @@ import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import muiTheme from './theme/muiTheme';
 import { NKAProvider } from './nka/NKAProvider';
-import M3Surface from './components/ui/M3Surface';
-import { M3Typography } from './components/ui/M3Typography';
+import { Paper, Typography } from '@mui/material';
 
 /**
  * STORAGE RECOVERY:
@@ -149,53 +148,53 @@ const root = createRoot(rootElement);
 // Loading fallback component
 function LoadingFallback() {
   return (
-    <M3Surface 
-      role="main" 
+    <Paper
+      role="main"
       aria-label="Caricamento applicazione in corso"
-      style={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'center', 
-        justifyContent: 'center', 
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
         minHeight: 'var(--md-sys-viewport-height-full)',
-        gap: 'var(--md-sys-spacing-4)',
-        padding: 'var(--md-sys-spacing-5)'
+        gap: 4,
+        p: 5,
       }}
     >
-      <M3Typography variant="body-large">
+      <Typography variant="body1">
         Caricamento in corso...
-      </M3Typography>
-    </M3Surface>
+      </Typography>
+    </Paper>
   );
 }
 
 // Error fallback component
 function ErrorFallback({ error: _error }: { error: Error }) {
   return (
-    <M3Surface
+    <Paper
       role="main"
       aria-label="Errore di inizializzazione applicazione"
-      style={{
+      sx={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: 'var(--md-sys-viewport-height-full)',
-        gap: 'var(--md-sys-spacing-4)',
-        padding: 'var(--md-sys-spacing-5)',
-        textAlign: 'center'
+        gap: 4,
+        p: 5,
+        textAlign: 'center',
       }}
     >
-      <M3Typography variant="headline-medium">
+      <Typography variant="h5">
         Errore di Inizializzazione
-      </M3Typography>
-      <M3Typography variant="body-large">
+      </Typography>
+      <Typography variant="body1">
         Si è verificato un errore durante l'avvio dell'applicazione.
-      </M3Typography>
-      <M3Typography variant="body-medium">
+      </Typography>
+      <Typography variant="body2">
         Aprire la console per maggiori dettagli.
-      </M3Typography>
-    </M3Surface>
+      </Typography>
+    </Paper>
   );
 }
 

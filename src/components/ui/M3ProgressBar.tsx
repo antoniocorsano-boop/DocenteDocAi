@@ -1,8 +1,7 @@
-// MD3 Compliant M3ProgressBar Component
-// Fully compliant with MD3 tokens: uses var(--md-sys-*) CSS variables for theming, spacing, typography, shape, motion, and elevation
-// No useTheme() dependency - all styling uses direct MD3 CSS variables
-
+// Thin MUI wrapper — preserves M3ProgressBar props API for backward compatibility
+// @mui-migrated Fase 2
 import React from 'react';
+import { LinearProgress, CircularProgress, Box } from '@mui/material';
 
 export type M3ProgressBarProps = {
   value: number; // 0-1
@@ -13,148 +12,72 @@ export type M3ProgressBarProps = {
   color?: 'primary' | 'secondary' | 'tertiary';
 };
 
+const CIRCULAR_SIZE = { small: 24, medium: 36, large: 48 } as const;
+const LINEAR_HEIGHT = { small: 2, medium: 4, large: 8 } as const;
+
 function M3ProgressBar({
   value,
   label,
   showValue = false,
   variant = 'linear',
   size = 'medium',
-  color = 'primary'
+  color = 'primary',
 }: M3ProgressBarProps): React.ReactElement {
-  const clampedValue = Math.max(0, Math.min(1, value));
-  const percentage = clampedValue * 100;
-
-  // MD3 Token mapping - no useTheme() dependency
-  // Color tokens
-  const primary = 'var(--md-sys-color-primary)';
-  const secondary = 'var(--md-sys-color-secondary)';
-  const tertiary = 'var(--md-sys-color-tertiary)';
-  const surfaceVariant = 'var(--md-sys-color-surface-variant)';
-  const onSurfaceVariant = 'var(--md-sys-color-on-surface-variant)';
-
-  // Shape tokens
-  const full = 'var(--md-sys-shape-corner-full)';
-
-  // Spacing tokens
-  const spacing1 = 'var(--md-sys-spacing-1)';
-  const spacing2 = 'var(--md-sys-spacing-2)';
-  const spacing4 = 'var(--md-sys-spacing-4)';
-
-  // Typography tokens
-  const bodySmall = {
-    fontFamily: 'var(--font-family)',
-    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-    fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
-    lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-    letterSpacing: 'var(--md-sys-typescale-body-small-tracking)'
-  };
-
-  const getColor = () => {
-    switch (color) {
-      case 'secondary': return secondary;
-      case 'tertiary': return tertiary;
-      default: return primary;
-    }
-  };
-
-  const getSize = () => {
-    switch (size) {
-      case 'small': return { height: spacing1, borderRadius: full };
-      case 'large': return { height: spacing4, borderRadius: full };
-      default: return { height: spacing2, borderRadius: full };
-    }
-  };
+  const percentage = Math.round(Math.max(0, Math.min(1, value)) * 100);
+  const muiColor = color === 'tertiary' ? undefined : (color as 'primary' | 'secondary');
+  const tertiarySx = color === 'tertiary' ? { color: 'var(--md-sys-color-tertiary)' } : {};
 
   if (variant === 'circular') {
-    // Circular progress - MD3 token-based sizes
-    // small=24px=spacing-6, medium=36px=spacing-9, large=48px=spacing-12
-    const sizeToken = size === 'small'
-      ? 'var(--md-sys-spacing-6)'
-      : size === 'large'
-      ? 'var(--md-sys-spacing-12)'
-      : 'var(--md-sys-spacing-9)';
-    const borderToken = `calc(${sizeToken} / 8)`;
     return (
-      <div
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: spacing2,
-          ...bodySmall
-        }}
+      <Box
         role="progressbar"
         aria-valuenow={percentage}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-label={label}
+        sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}
       >
-        <div
-          style={{
-            width: sizeToken,
-            height: sizeToken,
-            borderRadius: full,
-            border: `${borderToken} solid ${surfaceVariant}`,
-            borderTopColor: getColor(),
-            animation: `spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite` // MD3 motion tokens for duration and easing
-          }}
+        <CircularProgress
+          variant="determinate"
+          value={percentage}
+          size={CIRCULAR_SIZE[size]}
+          color={muiColor}
+          sx={tertiarySx}
         />
-        {showValue && <span>{Math.round(percentage)}%</span>}
-      </div>
+        {showValue && <span>{percentage}%</span>}
+      </Box>
     );
   }
 
-  // Linear progress bar
-  const barSize = getSize();
-
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: spacing1,
-        width: 'var(--md-sys-percent-100)'
-      }}
-    >
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, width: '100%' }}>
       {(label || showValue) && (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            ...bodySmall,
-            color: onSurfaceVariant
-          }}
-        >
-          {label && <span>{label}</span>}
-          {showValue && <span>{Math.round(percentage)}%</span>}
-        </div>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          {label && (
+            <Box component="span" sx={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>
+              {label}
+            </Box>
+          )}
+          {showValue && (
+            <Box component="span" sx={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>
+              {percentage}%
+            </Box>
+          )}
+        </Box>
       )}
-      <div
-        style={{
-          width: 'var(--md-sys-percent-100)',
-          height: barSize.height,
-          backgroundColor: surfaceVariant,
-          borderRadius: barSize.borderRadius,
-          overflow: 'hidden'
-        }}
-        role="progressbar"
-        aria-valuenow={percentage}
-        aria-valuemin={0}
-        aria-valuemax={100}
+      <LinearProgress
+        variant="determinate"
+        value={percentage}
+        color={muiColor}
         aria-label={label}
-      >
-        <div
-          style={{
-            width: `${percentage}%`,
-            height: 'var(--md-sys-percent-100)',
-            backgroundColor: getColor(),
-            transition: `width var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)` // MD3 motion tokens for duration and easing
-          }}
-        />
-      </div>
-    </div>
+        sx={{
+          height: LINEAR_HEIGHT[size],
+          borderRadius: 'var(--md-sys-shape-corner-full)',
+          ...tertiarySx,
+        }}
+      />
+    </Box>
   );
 }
 
 export default M3ProgressBar;
-

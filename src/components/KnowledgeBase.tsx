@@ -7,17 +7,20 @@
  */
 
 import React, { useState, useMemo, Suspense, lazy } from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import SearchOffIcon from '@mui/icons-material/SearchOff';
 import { KnowledgeBaseEntry, Corpus, AiSettings, TimetableSettings } from '../types';
 const AddSourceModal = lazy(() => import('./AddSourceModal'));
 const DocumentViewerModal = lazy(() => import('./DocumentViewerModal')); 
 const ImageViewerModal = lazy(() => import('./ImageViewerModal'));
 import { KB_CATEGORIES } from '../constants';
-import {
-    InfoCard,
-    CategoryCard,
-    SectionHeader,
-    M3Button
-} from './ui';
+import { InfoCard, CategoryCard, SectionHeader } from './ui';
 
 interface KnowledgeBaseProps {
     knowledgeBase: KnowledgeBaseEntry[];
@@ -78,7 +81,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     };
 
     const renderFolderDashboard = () => (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
              {KB_CATEGORIES.map(cat => (
                  <CategoryCard 
                     key={cat.id} 
@@ -91,97 +94,90 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                     description={`${categoryCounts[cat.id] || 0} file salvati`}
                 />
              ))}
-        </div>
+        </Box>
     );
 
     const renderFileList = () => {
         const categoryInfo = currentView.type === 'category' ? KB_CATEGORIES.find(c => c.id === currentView.id) : null;
         return (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                        <M3Button onClick={() => setCurrentView({ type: 'root', id: '' })} variant="text" >
-                            <span style={{
-}}>arrow_back</span>
-                        </M3Button>
-                        <h2>{categoryInfo?.label || 'File'}</h2>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                        <span>search</span>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <Box component="header" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 3, py: 2, bgcolor: 'background.paper', borderBottom: '1px solid', borderColor: 'divider' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                        <IconButton onClick={() => setCurrentView({ type: 'root', id: '' })} aria-label="Torna alle cartelle">
+                            <ArrowBackIcon />
+                        </IconButton>
+                        <Typography variant="h6">{categoryInfo?.label || 'File'}</Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
                         <input 
                             type="text" 
                             placeholder="Cerca in questa cartella..." 
-                             
                             value={searchTerm} 
                             onChange={(e) => setSearchTerm(e.target.value)} 
                         />
-                    </div>
-                </header>
+                    </Box>
+                </Box>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     {filteredFiles.map(entry => (
-                        <div 
+                        <Box 
                             key={entry.id} 
-                            
                             onClick={() => handleFileClick(entry)}
+                            sx={{ display: 'flex', alignItems: 'center', gap: 1.5, p: 2, cursor: 'pointer', bgcolor: 'background.paper', borderRadius: 'var(--md-sys-shape-corner-medium)', '&:hover': { bgcolor: 'action.hover' } }}
                         >
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                                <span>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 24 }}>
                                     {entry.category === 'ai_deliverable' ? 'auto_awesome' : (entry.fileContent?.mimeType === 'application/pdf' ? 'picture_as_pdf' : 'description')}
                                 </span>
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                <p>{entry.fileName}</p>
-                                <p>
+                            </Box>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
+                                <Typography variant="subtitle2" noWrap>{entry.fileName}</Typography>
+                                <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                                     {entry.isGenerated ? 'Generato con AI' : 'Documento locale'}
-                                </p>
-                            </div>
-                            <M3Button 
+                                </Typography>
+                            </Box>
+                            <IconButton 
                                 onClick={(e) => { e.stopPropagation(); handleDeleteFile(entry.id); }} 
-                                variant="text" 
-                                
+                                aria-label={`Elimina ${entry.fileName}`}
+                                size="small"
                             >
-                                <span>delete</span>
-                            </M3Button>
-                        </div>
+                                <DeleteIcon fontSize="small" />
+                            </IconButton>
+                        </Box>
                     ))}
                     {filteredFiles.length === 0 && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                            <span>search_off</span>
-                            <p>Nessun file trovato in questa cartella.</p>
-                        </div>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, p: 3 }}>
+                            <SearchOffIcon sx={{ color: 'text.secondary' }} />
+                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>Nessun file trovato in questa cartella.</Typography>
+                        </Box>
                     )}
-                </div>
-            </div>
+                </Box>
+            </Box>
         );
     }
 
     return (
-        <div  style={{maxWidth: 'var(--md-sys-percent-100)', marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)', width: 'var(--md-sys-percent-100)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
-            <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
+        <Box sx={{ maxWidth: '100%', mx: 'auto', width: '100%', px: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 4, mb: 4 }}>
                 <SectionHeader 
                     title="Knowledge Base" 
                     subtitle="Archivio fonti, documenti e deliverable generati dall'AI."
                     icon="database"
                 />
-                <M3Button onClick={() => setIsAddSourceModalOpen(true)} variant="filled" style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                    <span style={{
-}}>add_circle</span>
+                <Button variant="contained" onClick={() => setIsAddSourceModalOpen(true)} startIcon={<AddCircleIcon />}>
                     Carica Documenti
-                </M3Button>
-            </div>
+                </Button>
+            </Box>
 
             <InfoCard 
                 title="Sincronia NotebookLM"
                 description="Puoi caricare qui le analisi o i progetti prodotti con NotebookLM. L'app li userà come base di conoscenza prioritaria per generare le tue lezioni e UDA."
                 icon="bolt"
-                variant="filled"
-                style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent)' , marginBottom: 'var(--md-sys-spacing-8)'}}
             />
 
-            <main style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <Box component="main" sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 4 }}>
                 {currentView.type === 'root' ? renderFolderDashboard() : renderFileList()}
-            </main>
+            </Box>
 
             {isAddSourceModalOpen && (
                 <Suspense fallback={<div>Loading...</div>}>
@@ -213,7 +209,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                     />
                 </Suspense>
             )}
-        </div>
+        </Box>
     );
 };
 

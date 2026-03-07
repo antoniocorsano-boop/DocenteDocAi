@@ -1,4 +1,4 @@
-/**
+﻿/**
  * // MD3 GOLD COMPLIANT
 // Audit date: 2026-01-25
 // Conformance: MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
@@ -20,7 +20,8 @@ import { calculatePerformance } from '../utils/evaluationUtils';
 import { RATING_TO_VALUE } from '../constants';
 import { viewPdfInNewTab, saveAs } from '../utils/documentUtils';
 import { PDF_COLORS, getTrendColor, getCompetencyLevelColors } from '../design-system/pdf-colors';
-import { TabGroup, M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, SectionHeader } from './ui';
+import { Button  } from '@mui/material';
+import { M3Dialog, TabGroup, TextField, SectionHeader } from './ui';
 
 type Prova = {
     id: string;
@@ -45,8 +46,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
     const [exportOptions, setExportOptions] = useState({
         format: 'pdf',
         schoolYear: `${new Date().getFullYear()}/${new Date().getFullYear() + 1}`,
-        exportDate: new Date().toISOString().split('T')[0],
-    }); // Tutti i valori di layout e colore sono gestiti tramite token MD3
+        exportDate: new Date().toISOString().split('T')[0] }); // Tutti i valori di layout e colore sono gestiti tramite token MD3
     const [subjectScope, setSubjectScope] = useState<'teacher' | 'all'>('teacher');
     const [isExporting, setIsExporting] = useState(false);
     // Tutti gli stili inline devono usare solo var(--md-sys-*)
@@ -305,10 +305,15 @@ return (
             onClose={onClose}
             title="Esporta Report Classe"
             maxWidth="lg"
-            level={1}
+            buttons={<>
+                <Button type="button" onClick={onClose} variant="text" disabled={isExporting}>Annulla</Button>
+                <Button type="button" onClick={handleExport} variant="contained" disabled={isExporting}>
+                    <span>{isExporting ? 'sync' : 'download'}</span>
+                    {isExporting ? 'Esportazione...' : `Esporta ${exportOptions.format.toUpperCase()}`}
+                </Button>
+            </>}
         >
-            <M3DialogContent>
-                <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <SectionHeader title="1. Intestazione Documento" icon="edit" />
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                         <TextField
@@ -362,15 +367,7 @@ return (
                             : 'Genera un file CSV con i dati riepilogativi, utile per analisi in fogli di calcolo.'}
                     </p>
                 </section>
-            </M3DialogContent>
-            <M3DialogActions>
-                <M3Button type="button" onClick={onClose} variant="text" disabled={isExporting}>Annulla</M3Button>
-                <M3Button type="button" onClick={handleExport} variant="filled" disabled={isExporting}>
-                    <span>{isExporting ? 'sync' : 'download'}</span>
-                    {isExporting ? 'Esportazione...' : `Esporta ${exportOptions.format.toUpperCase()}`}
-                </M3Button>
-            </M3DialogActions>
-        </M3Dialog>
+            </M3Dialog>
     );
 };
 

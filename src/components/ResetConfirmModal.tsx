@@ -1,11 +1,12 @@
-
+﻿
 // MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 
 import React, { useState } from 'react';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField } from './ui';
+import { Button, Box  } from '@mui/material';
+import { M3Dialog, TextField } from './ui';
 interface ResetConfirmModalProps {
     onClose: () => void;
     onConfirm: () => void;
@@ -20,9 +21,18 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
             title="Attenzione"
             onClose={onClose}
             maxWidth="sm"
-            level={3}
+            buttons={<>
+                <Button onClick={onClose} variant="text">Annulla</Button>
+                <Button 
+                    onClick={onConfirm} 
+                    disabled={!isValid}
+                    variant="contained"
+                >
+                    Reset Totale
+                </Button>
+            </>}
         >
-            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' , gap: 'var(--md-sys-spacing-6)'}}>
+            <Box sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)', gap: 'var(--md-sys-spacing-6)' }}>
                 <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', color: "var(--md-sys-color-error)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                     <span style={{ color: 'var(--md-sys-color-error)' }}>warning</span>
                     <span style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Azione Irreversibile</span>
@@ -40,19 +50,7 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
                     autoFocus
                     error={confirmText.length > 0 && !isValid && confirmText.length >= 8}
                 />
-            </M3DialogContent>
-
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
-                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
-                <M3Button 
-                    onClick={onConfirm} 
-                    disabled={!isValid}
-                    variant="filled"
-                    
-                >
-                    Reset Totale
-                </M3Button>
-            </M3DialogActions>
+            </Box>
         </M3Dialog>
     );
 };

@@ -4,8 +4,9 @@ exports[`CategoryCard Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
     aria-label="DocenteDoc AI Application"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-g3p503-MuiPaper-root"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
+    style="--Paper-shadow: none;"
   >
     <div
       aria-pressed="false"
@@ -25,11 +26,11 @@ exports[`CategoryCard Story Snapshots > renders default story correctly 1`] = `
       <div
         style="display: flex; flex-direction: column; align-items: center; gap: var(--md-sys-spacing-4);"
       >
-        <span
-          style="font-family: var(--font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-weight-black); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: -0.025em; color: var(--md-sys-color-on-surface); margin: 0px; text-align: center;"
+        <h6
+          class="MuiTypography-root MuiTypography-subtitle2 css-5qmbmc-MuiTypography-root"
         >
           Test
-        </span>
+        </h6>
       </div>
     </div>
   </div>

@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { tokenLayers, TokenLayers } from './tokens';
-import M3Surface from '../components/ui/M3Surface';
-import { M3Typography } from '../components/ui/M3Typography';
+import { Paper, Typography } from '@mui/material';
 
 // Type for preset overrides (partial token layers)
 export type PresetOverrides = Partial<TokenLayers>;
@@ -35,67 +34,65 @@ interface M3ThemeProviderProps {
 
 // Loading skeleton component
 const ThemeSkeleton: React.FC = () => (
-  <M3Surface 
-    variant="surface" 
-    role="progressbar" 
+  <Paper
+    role="progressbar"
     aria-label="Loading theme configuration"
-    style={{
-      width: 'var(--md-sys-percent-100)',
+    sx={{
+      width: '100%',
       height: 'var(--md-sys-viewport-height-full)',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
     }}
   >
-    <M3Typography variant="body-large" aria-live="polite">
+    <Typography variant="body1" aria-live="polite">
       Loading theme...
-    </M3Typography>
-  </M3Surface>
+    </Typography>
+  </Paper>
 );
 
 // Error state component
 const ThemeError: React.FC<{ onRetry: () => void }> = ({ onRetry }) => (
-  <M3Surface 
-    variant="error-container" 
+  <Paper
     role="alert"
     aria-labelledby="theme-error-title"
-    style={{
-      width: 'var(--md-sys-percent-100)',
+    sx={{
+      width: '100%',
       height: 'var(--md-sys-viewport-height-full)',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: 'var(--md-sys-spacing-4)'
+      gap: 4,
     }}
   >
-    <M3Typography 
-      variant="headline-small" 
+    <Typography
+      variant="h6"
       id="theme-error-title"
-      color="on-error-container"
+      color="error"
     >
       Theme Loading Error
-    </M3Typography>
-    <M3Typography 
-      variant="body-medium" 
-      color="on-error-container"
-      style={{ textAlign: 'center' }}
+    </Typography>
+    <Typography
+      variant="body2"
+      color="error"
+      sx={{ textAlign: 'center' }}
     >
       Failed to load theme configuration. Please try again.
-    </M3Typography>
+    </Typography>
     <button
       onClick={onRetry}
       style={{
         padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)',
         border: 'none',
         borderRadius: 'var(--md-sys-shape-corner-small)',
-        cursor: 'pointer'
+        cursor: 'pointer',
       }}
       aria-label="Retry loading theme configuration"
     >
-      <M3Typography variant="label-large">Retry</M3Typography>
+      <Typography variant="button">Retry</Typography>
     </button>
-  </M3Surface>
+  </Paper>
 );
 
 const isTest = typeof process !== 'undefined' && process.env.NODE_ENV === 'test';
@@ -245,14 +242,13 @@ export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({ children }) =>
 
   return (
     <ThemeContext.Provider value={theme}>
-      <M3Surface 
-        variant="background" 
+      <Paper
         role="main"
         aria-label="DocenteDoc AI application theme provider"
-        style={{ minHeight: 'var(--md-sys-viewport-height-full)', width: 'var(--md-sys-percent-100)' }}
+        sx={{ minHeight: 'var(--md-sys-viewport-height-full)', width: '100%' }}
       >
         {children}
-      </M3Surface>
+      </Paper>
     </ThemeContext.Provider>
   );
 };

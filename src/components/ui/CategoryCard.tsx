@@ -13,7 +13,7 @@
  */
 
 import React, { useState } from 'react';
-import M3Typography from './M3Typography';
+import Typography from '@mui/material/Typography';
 
 interface CategoryCardProps {
     id: string;
@@ -101,35 +101,29 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
             alignItems: 'center',
             gap: 'var(--md-sys-spacing-4)'
         }}>
-            <M3Typography
-                variant="label-large"
-                style={{
-                    textAlign: 'center',
-                    fontWeight: 'var(--md-sys-typescale-weight-black)',
-                    letterSpacing: '-0.025em',
-                    color: 'var(--md-sys-color-on-surface)',
-                    margin: 0
-                }}
+            <Typography
+                variant="subtitle2"
+                sx={{ textAlign: 'center', fontWeight: 900, letterSpacing: '-0.025em', color: 'text.primary', m: 0 }}
             >
                 {label}
-            </M3Typography>
+            </Typography>
             {description && (
-                <M3Typography
-                    variant="body-small"
-                    style={{
+                <Typography
+                    variant="caption"
+                    sx={{
                         textAlign: 'center',
-                        color: 'var(--md-sys-color-on-surface-variant)',
-                        opacity: 'var(--md-sys-state-opacity-supporting)',
+                        color: 'text.secondary',
                         lineHeight: 1.3,
-                        padding: '0 var(--md-sys-spacing-4)',
+                        px: 2,
                         display: '-webkit-box',
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: 'vertical',
                         overflow: 'hidden',
-                        margin: 0}}
+                        m: 0,
+                    }}
                 >
                     {description}
-                </M3Typography>
+                </Typography>
             )}
         </div>
     </div>

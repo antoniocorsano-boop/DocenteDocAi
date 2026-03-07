@@ -1,8 +1,9 @@
-// MD3 Compliant - Migrated from legacy className usage
+﻿// MD3 Compliant - Migrated from legacy className usage
 
 import React, { useMemo, useState } from 'react';
 import { Studente, ValutazioneCompetenza, TimetableSettings, Competenza, Livello } from '../types';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, Avatar } from './ui';
+import { M3Dialog, Avatar } from './ui';
+import {DialogContent, DialogActions, Button } from '@mui/material';
 interface ClassCompetencyDashboardProps {
     selectedClass: string;
     students: Studente[];
@@ -213,7 +214,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                     onClose={() => setViewingStudents(null)}
                     maxWidth="md"
                 >
-                    <M3DialogContent style={{gap: 'var(--md-sys-spacing-2)'}}>
+                    <DialogContent style={{gap: 'var(--md-sys-spacing-2)'}}>
                                 {viewingStudents.students.map(student => {
                                      return (
                                         <div 
@@ -235,10 +236,10 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                         </div>
                                     )
                                 })}
-                    </M3DialogContent>
-                    <M3DialogActions>
-                        <M3Button onClick={() => setViewingStudents(null)} variant="text">Chiudi</M3Button>
-                    </M3DialogActions>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setViewingStudents(null)} variant="text">Chiudi</Button>
+                    </DialogActions>
                 </M3Dialog>
             )}
         </div>

@@ -3,7 +3,7 @@
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 import React from 'react';
-import { M3Typography } from './ui';
+import { Typography } from '@mui/material';
 import { View } from '../types';
 import { sanitizeHtml } from '../utils/htmlSanitizer';
 interface Workflow {
@@ -80,7 +80,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
         <section style={{padding: 'var(--md-sys-spacing-6)',
             maxWidth: 'var(--md-sys-spacing-4)',
             margin: 'var(--md-sys-margin-auto)'}}>
-            <M3Typography variant="headline-small" style={{display: 'flex',
+            <Typography variant="h6" style={{display: 'flex',
                 alignItems: 'center',
                 gap: 'var(--md-sys-spacing-3)',
                 marginBottom: 'var(--md-sys-spacing-6)',
@@ -90,7 +90,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
  fontSize: 'var(--md-sys-spacing-4)',
                     color: 'var(--md-sys-color-secondary)'}}>alt_route</span>
                 Percorsi Veloci
-            </M3Typography>
+            </Typography>
             <div style={{display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-workflow-card-min-width), var(--md-sys-grid-fr-1)))',
                 gap: 'var(--md-sys-spacing-6)'}}>
@@ -134,12 +134,12 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                     flex: 1,
                                     minWidth: 0
                                 }}>
-                                    <M3Typography variant="title-large" style={{color: 'var(--md-sys-color-on-surface)',
+                                    <Typography variant="h6" style={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                         margin: 0,
-                                        marginBottom: 'var(--md-sys-spacing-1)'}}>{workflow.title}</M3Typography>
-                                    <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface)',
-                                        margin: 0}}>{workflow.description}</M3Typography>
+                                        marginBottom: 'var(--md-sys-spacing-1)'}}>{workflow.title}</Typography>
+                                    <Typography variant="body2" style={{color: 'var(--md-sys-color-on-surface)',
+                                        margin: 0}}>{workflow.description}</Typography>
                                 </div>
                                 <span style={{color: 'var(--md-sys-color-on-surface)',
                                     fontSize: 'var(--md-sys-spacing-4)',
@@ -177,7 +177,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                             }}>
                                                 {stepIndex + 1}
                                             </div>
-                                            <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface)',
+                                            <Typography variant="body2" style={{color: 'var(--md-sys-color-on-surface)',
                                                 margin: 0,
                                                 lineHeight: 1.5}} dangerouslySetInnerHTML={{ __html: sanitizeHtml(step) }} />
                                         </li>

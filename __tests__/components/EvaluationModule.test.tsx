@@ -294,9 +294,11 @@ describe('EvaluationModule', () => {
     expect(screen.getByText('Rossi Mario')).toBeInTheDocument();
     expect(screen.queryByText('Verdi Luca')).not.toBeInTheDocument();
 
-    // Cambia classe a 3B
-    const select = screen.getByRole('combobox') || screen.getByDisplayValue('3A');
-    fireEvent.change(select, { target: { value: '3B' } });
+    // Cambia classe a 3B — MUI Select requires mouseDown to open + click on option
+    const combobox = screen.getByRole('combobox');
+    fireEvent.mouseDown(combobox);
+    const option3B = screen.getByRole('option', { name: '3B' });
+    fireEvent.click(option3B);
 
     // Ora solo Verdi Luca deve essere visibile
     expect(screen.getByText('Verdi Luca')).toBeInTheDocument();

@@ -1,8 +1,9 @@
-// MD3 Compliant - Block J Migration Complete (4 violations eliminated)
+﻿// MD3 Compliant - Block J Migration Complete (4 violations eliminated)
 
 import React, { useState } from 'react';
 import { Studente, StudentHistoryRecord } from '../types';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TabGroup, TextField, SelectField } from './ui';
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog, TabGroup, TextField, SelectField } from './ui';
 interface StudentTransferModalProps {
     student: Studente;
     userClasses: string[];
@@ -69,15 +70,24 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
             onClose={onClose}
             title="Mobilità Studente"
             maxWidth="sm"
-            level={1}
+            buttons={<>
+                <Button onClick={onClose} variant="text">Annulla</Button>
+                <Button
+                    onClick={handleSave}
+                    variant="contained"
+                    color={mode === 'transfer_out' ? 'error' : 'primary'}
+                >
+                    {mode === 'change_class' ? 'Sposta Studente' : 'Archivia Studente'}
+                </Button>
+            </>}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 'var(--md-sys-state-opacity-tint-moderate)' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)' }}>
-                    <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', opacity: 'var(--md-sys-state-opacity-tint-faint)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)' }}>
-                        <p style={{ color: 'var(--md-sys-color-on-primary)' }}>
+            <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 'var(--md-sys-state-opacity-tint-moderate)' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', pt: 'var(--md-sys-spacing-4)', pb: 'var(--md-sys-spacing-4)' }}>
+                    <Box sx={{ backgroundColor: 'var(--md-sys-color-secondary-container)', opacity: 'var(--md-sys-state-opacity-tint-faint)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)' }}>
+                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-primary)' }}>
                             Gestisci lo spostamento di <strong>{student.cognome} {student.nome}</strong>
-                        </p>
-                    </div>
+                        </Typography>
+                    </Box>
 
                     <TabGroup
                         tabs={[
@@ -86,16 +96,16 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                         ]}
                         activeTab={mode}
                         onTabChange={(id) => setMode(id as 'change_class' | 'transfer_out')}
-                        variant="tonal"
+                        variant="outlined"
                         style={{ width: 'var(--md-sys-percent-100)' }}
                     />
 
                     {mode === 'change_class' ? (
-                        <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
-                            <h3 style={{ color: 'var(--md-sys-color-primary)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>Nuova Destinazione</h3>
+                        <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
+                            <Typography variant="h6" sx={{ color: 'var(--md-sys-color-primary)', px: 'var(--md-sys-spacing-4)' }}>Nuova Destinazione</Typography>
 
                             {!isCustomClass ? (
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
                                     <SelectField
                                         label="Seleziona Classe Esistente"
                                         value={newClass}
@@ -103,15 +113,15 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                                         options={userClasses.map(c => ({ value: c, label: c }))}
                                         fullWidth
                                     />
-                                    <M3Button 
-                                        variant="text" 
+                                    <Button
+                                        variant="text"
                                         onClick={() => setIsCustomClass(true)}
                                     >
                                         + Crea Nuova Classe
-                                    </M3Button>
-                                </div>
+                                    </Button>
+                                </Box>
                             ) : (
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
                                     <TextField
                                         label="Nome Nuova Classe"
                                         value={customClass}
@@ -119,18 +129,18 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                                         placeholder="es. 1A"
                                         fullWidth
                                     />
-                                    <M3Button 
-                                        variant="text" 
+                                    <Button
+                                        variant="text"
                                         onClick={() => setIsCustomClass(false)}
                                     >
                                         Torna a lista esistente
-                                    </M3Button>
-                                </div>
+                                    </Button>
+                                </Box>
                             )}
-                        </div>
+                        </Box>
                     ) : (
-                        <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', opacity: 'var(--md-sys-state-opacity-tint-faint)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
-                            <h3 style={{ color: 'var(--md-sys-color-error)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>Motivazione Uscita</h3>
+                        <Box sx={{ backgroundColor: 'var(--md-sys-color-error-container)', opacity: 'var(--md-sys-state-opacity-tint-faint)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
+                            <Typography variant="h6" sx={{ color: 'var(--md-sys-color-error)', px: 'var(--md-sys-spacing-4)' }}>Motivazione Uscita</Typography>
                             <SelectField
                                 label="Esito"
                                 value={outcome}
@@ -141,23 +151,13 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                                 ]}
                                 fullWidth
                             />
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>
+                            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', px: 'var(--md-sys-spacing-4)' }}>
                                 Lo studente verrà rimosso dall'elenco attivo e spostato nell'archivio storico.
-                            </p>
-                        </div>
+                            </Typography>
+                        </Box>
                     )}
-                </div>
-            </M3DialogContent>
-            <M3DialogActions>
-                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
-                <M3Button 
-                    onClick={handleSave} 
-                    variant="filled"
-                    color={mode === 'transfer_out' ? 'error' : 'primary'}
-                >
-                    {mode === 'change_class' ? 'Sposta Studente' : 'Archivia Studente'}
-                </M3Button>
-            </M3DialogActions>
+                </Box>
+            </Box>
         </M3Dialog>
     );
 };

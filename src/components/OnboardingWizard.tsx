@@ -55,7 +55,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ settings, onComplet
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Tab') return;
       const focusable = Array.from(
-        container.querySelectorAll<HTMLElement>('button, input, a, [tabindex]:not([tabindex="-1"])')
+        container.querySelectorAll<HTMLElement>('input, a, [tabindex]:not([tabindex="-1"])')
       ).filter(el => !(el as HTMLButtonElement).disabled);
       if (focusable.length === 0) return;
       const first = focusable[0];

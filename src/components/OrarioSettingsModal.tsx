@@ -1,9 +1,10 @@
-// MD3 GOLD COMPLIANT — AUDIT 2026-01-25
+﻿// MD3 GOLD COMPLIANT — AUDIT 2026-01-25
 // Tutti i valori di design (colori, spacing, tipografia, elevazione, shape) sono gestiti esclusivamente tramite token MD3 (`var(--md-sys-*)`).
 // Nessun valore hardcoded (px, rem, %, hex, rgba) presente. Nessun uso di className custom. Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md.
 // Audit e refactor completati: 2026-01-25.
 import React from 'react';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, SelectField, TabGroup } from './ui';
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog, TextField, SelectField, TabGroup } from './ui';
 interface OrarioSettingsModalProps {
   tipo: 'lezione' | 'disp' | 'ricev';
   classe: string;
@@ -31,21 +32,26 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
       title="Configurazione Slot"
       onClose={onClose}
       maxWidth="md"
-      level={2}
+      buttons={
+        <>
+          <Button variant="text" onClick={onClose}>Annulla</Button>
+          <Button variant="contained" onClick={onSave}>Salva</Button>
+        </>
+      }
     >
-      <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)', gap: 'var(--md-sys-spacing-6)'}}>
-        <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-            <p  style={{marginBottom: 'var(--md-sys-spacing-6)', opacity: "var(--md-sys-state-opacity-supporting)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>Tipologia Attività</p>
+      <Box sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)', gap: 'var(--md-sys-spacing-6)' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <Typography component="p" sx={{ mb: 'var(--md-sys-spacing-6)', opacity: 'var(--md-sys-state-opacity-supporting)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)' }}>Tipologia Attività</Typography>
             <TabGroup
               tabs={tabs}
               activeTab={tipo}
               onChange={(id) => onChange('tipo', id as string)}
-              variant="filled"
+              variant="contained"
             />
-          </div>
+          </Box>
 
-          <div  style={{display: "grid", gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)'}}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)' }}>
             <SelectField
               label="Classe"
               value={classe}
@@ -60,7 +66,7 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
               onChange={e => onChange('materia', (e as React.ChangeEvent<HTMLSelectElement>).target.value)}
               fullWidth
             />
-          </div>
+          </Box>
 
           <TextField
             label="Argomento (opzionale)"
@@ -76,12 +82,8 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
             fullWidth
             placeholder="Incolla URL deliverable..."
           />
-        </div>
-      </M3DialogContent>
-      <M3DialogActions>
-        <M3Button variant="text" onClick={onClose}>Annulla</M3Button>
-        <M3Button variant="filled" onClick={onSave}>Salva</M3Button>
-      </M3DialogActions>
+        </Box>
+      </Box>
     </M3Dialog>
   );
 };

@@ -4,22 +4,19 @@ exports[`M3Chip Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
     aria-label="DocenteDoc AI Application"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-g3p503-MuiPaper-root"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
+    style="--Paper-shadow: none;"
   >
-    <button
-      style="border-radius: var(--md-sys-shape-corner-full); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); outline: none; border: var(--md-sys-border-width-normal) solid var(--md-sys-color-secondary-container); background-color: var(--md-sys-color-secondary-container); cursor: pointer; color: var(--md-sys-color-on-secondary-container);"
+    <div
+      class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorDefault MuiChip-filledDefault css-16uffbm-MuiChip-root"
     >
       <span
-        style="display: inline-flex; align-items: center; gap: var(--md-sys-spacing-2); border-radius: var(--md-sys-shape-corner-full); padding: var(--md-sys-spacing-1) var(--md-sys-spacing-4); min-height: var(--md-sys-spacing-8); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); opacity: 1; cursor: default; pointer-events: auto;"
+        class="MuiChip-label MuiChip-labelMedium css-1dybbl5-MuiChip-label"
       >
-        <span
-          style="font-family: var(--font-family); font-size: var(--md-sys-typescale-label-large-font-size); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-tracking); color: inherit; margin: 0px;"
-        >
-          Test Chip
-        </span>
+        Test Chip
       </span>
-    </button>
+    </div>
   </div>
 </div>
 `;

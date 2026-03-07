@@ -1,17 +1,12 @@
-// MD3 GOLD COMPLIANT â€” AUDIT 2026-01-25
+// MD3 GOLD COMPLIANT — AUDIT 2026-01-25
 // Tutti i valori di design (colori, spacing, tipografia, elevazione, shape) sono gestiti esclusivamente tramite token MD3 (`var(--md-sys-*)`).
 // Nessun valore hardcoded (px, rem, %, hex, rgba) presente. Nessun uso di className custom. Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md.
 // Audit e refactor completati: 2026-01-25.
 import React, { useEffect, useState } from 'react';
 import { fetchNotebookFiles, NotebookLMFile } from '../services/notebooklmService';
 import { KnowledgeBaseEntry } from '../types';
-import { 
-
-    M3Dialog, 
-    M3DialogContent, 
-    M3DialogActions, 
-    M3Button 
-} from './ui';
+import { Button, Box  } from '@mui/material';
+import { M3Dialog } from './ui';
 
 interface NotebookLMImportModalProps {
   open: boolean;
@@ -104,8 +99,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
       onClose={onClose}
       maxWidth="xl"
     >
-      <M3DialogContent style={{paddingTop: 'var(--md-sys-spacing-4)',
-  paddingBottom: 'var(--md-sys-spacing-4)'}}>
+      <Box sx={{ pt: 'var(--md-sys-spacing-4)', pb: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
         {!isAuthenticated ? (
           <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
             <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
@@ -115,9 +109,9 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>
               Per importare i tuoi materiali da NotebookLM, devi prima connettere il tuo account Google.
             </p>
-            <M3Button variant="filled" onClick={onConnect} >
+            <Button variant="contained" onClick={onConnect}>
               Connetti Account Google
-            </M3Button>
+            </Button>
           </div>
         ) : (
           <>
@@ -167,29 +161,29 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
             <div style={{fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Importazione completata!</div>
           </div>
         )}
-      </M3DialogContent>
+      </Box>
 
       {step !== 'done' && (
-        <M3DialogActions style={{gap: 'var(--md-sys-spacing-6)'}}>
+        <Box sx={{ display: 'flex', gap: 'var(--md-sys-spacing-6)', justifyContent: 'flex-end', p: 'var(--md-sys-spacing-4)' }}>
           {step === 'select' && (
             <>
-              <M3Button variant="text" onClick={onClose}>Annulla</M3Button>
-              <M3Button variant="filled" disabled={selected.size === 0} onClick={handleImport}>Importa selezionati</M3Button>
+              <Button variant="text" onClick={onClose}>Annulla</Button>
+              <Button variant="contained" disabled={selected.size === 0} onClick={handleImport}>Importa selezionati</Button>
             </>
           )}
           {step === 'catalog' && (
             <>
-              <M3Button variant="text" onClick={onClose}>Annulla</M3Button>
-              <M3Button variant="filled" onClick={handleCatalogConfirm}>Conferma e importa</M3Button>
+              <Button variant="text" onClick={onClose}>Annulla</Button>
+              <Button variant="contained" onClick={handleCatalogConfirm}>Conferma e importa</Button>
             </>
           )}
-        </M3DialogActions>
+        </Box>
       )}
 
       {step === 'done' && (
-        <M3DialogActions>
-          <M3Button variant="filled" fullWidth onClick={onClose}>Chiudi</M3Button>
-        </M3DialogActions>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 'var(--md-sys-spacing-4)' }}>
+          <Button variant="contained" fullWidth onClick={onClose}>Chiudi</Button>
+        </Box>
       )}
     </M3Dialog>
   );

@@ -1,7 +1,8 @@
-// MD3 Compliant - Block P Migration Complete (4 violations eliminated)
+﻿// MD3 Compliant - Block P Migration Complete (4 violations eliminated)
 // Note: Button typography and icon sizing retained with eslint-disable comments
 import React, { useState } from 'react';
-import { TextArea, M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog, TextArea } from './ui';
 
 interface ImageGeneratorModalProps {
     onClose: () => void;
@@ -28,10 +29,23 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
             }
             onClose={onClose}
             maxWidth="sm"
-            level={1}
+            buttons={
+                <>
+                    <Button onClick={onClose} variant="text" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)' }}>Annulla</Button>
+                    <Button 
+                        onClick={handleSubmit} 
+                        variant="contained" 
+                        disabled={!prompt.trim()}
+                        sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)' }}
+                    >
+                        <Typography component="span" sx={{ mr: 'var(--md-sys-spacing-2)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>auto_awesome</Typography>
+                        Genera Immagine
+                    </Button>
+                </>
+            }
         >
-            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} style={{ display: "flex", flexDirection: "column", height: "var(--md-sys-percent-100)" }}>
-                <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-4)' }}>
+            <Box component="form" onSubmit={(e: React.FormEvent) => { e.preventDefault(); handleSubmit(); }} sx={{ display: 'flex', flexDirection: 'column', height: 'var(--md-sys-percent-100)' }}>
+                <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', p: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <TextArea
                         id="image-generator-prompt"
                         label="Descrizione Immagine"
@@ -42,28 +56,11 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
                         autoFocus
                         style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}
                     />
-                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "var(--md-sys-state-opacity-secondary)" }}>
+                    <Typography component="p" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', opacity: 'var(--md-sys-state-opacity-secondary)' }}>
                         L'AI genererà un'immagine basata sulla tua descrizione. Sii specifico per risultati migliori.
-                    </p>
-                </M3DialogContent>
-
-                <M3DialogActions style={{
-                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                    borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
-                    paddingTop: '0'
-                }}>
-                    <M3Button onClick={onClose} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)",  fontSize: "var(--md-sys-typescale-label-large-font-size)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Annulla</M3Button>
-                    <M3Button 
-                        onClick={handleSubmit} 
-                        variant="filled" 
-                        disabled={!prompt.trim()}
-                        style={{ fontWeight: "var(--md-sys-typescale-weight-black)",  fontSize: "var(--md-sys-typescale-label-large-font-size)" , textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}
-                    >
-                        <span  style={{  marginRight: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-large-font-size)"  }}>auto_awesome</span>
-                        Genera Immagine
-                    </M3Button>
-                </M3DialogActions>
-            </form>
+                    </Typography>
+                </Box>
+            </Box>
         </M3Dialog>
     );
 };

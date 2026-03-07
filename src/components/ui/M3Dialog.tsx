@@ -1,76 +1,39 @@
-// ✅ MD3 Native Compliant - Migrated from useTheme to direct MD3 tokens
-/**
- * M3Dialog - Material Design 3 Expressive Dialog Component
- *
- * Componente di dialogo completo con:
- * - Supporto per React Portals via ModalContext
- * - M3 Expressive styling (Aura palette)
- * - Transizioni smooth (fade + scale)
- * - Responsive design (mobile, tablet, desktop)
- * - Full accessibility (ARIA, keyboard navigation)
- * - Supporto per fullscreen e varianti
- */
-
-import React, { useCallback, useState } from 'react';
+// Thin MUI wrapper � preserves M3Dialog props API for backward compatibility
+// @mui-migrated Fase 2
+import React, { useCallback } from 'react';
+import {
+  Dialog, DialogTitle, DialogContent, DialogActions,
+  IconButton, Typography, Button, Box,
+} from '@mui/material';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
-import { M3Typography } from './M3Typography';
 
 // ============================================================================
 // TYPES
 // ============================================================================
 
 export interface M3DialogProps {
-  /** Modal ID (required for ModalContext) */
   id?: string;
-  
-  /** Dialog title - displayed in header */
   title: React.ReactNode;
-  
-  /** Optional subtitle/headline */
   headline?: string;
-  
-  /** Dialog content */
   children: React.ReactNode;
-  
-  /** Footer action buttons */
   buttons?: React.ReactNode;
-  
-  /** Dialog mode */
   mode?: 'modal' | 'fullscreen';
-  
-  /** Called when modal should close */
   onClose: () => void;
-  
-  /** Allow closing via backdrop click */
   backdropClickable?: boolean;
-  
-  /** Max width constraint (modal mode) */
   maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-  
-  /** Custom header content (overrides default) */
   headerContent?: React.ReactNode;
-  
-  /** Custom footer content (overrides default) */
   footerContent?: React.ReactNode;
-
-  /** Inline styles */
   style?: React.CSSProperties;
-
-  /** Backward compatibility: if false, don't render */
   isOpen?: boolean;
-
-  /** If true, don't render the internal backdrop (useful when managed by ModalContext) */
   hideBackdrop?: boolean;
-
-  /** If true, hide the default close button in the header */
   hideCloseButton?: boolean;
-
-  /** Stacking level hint for ModalContext (cosmetic, not used by component itself) */
   level?: number;
-  
-  /** Optional test id applied to the dialog shell (defaults to m3-dialog) */
   wrapperTestId?: string;
 }
+
+const MAX_WIDTH_MAP: Record<NonNullable<M3DialogProps['maxWidth']>, 'xs' | 'sm' | 'md' | 'lg' | 'xl'> = {
+  sm: 'xs', md: 'sm', lg: 'md', xl: 'lg', '2xl': 'xl',
+};
 
 // ============================================================================
 // M3DIALOG COMPONENT
@@ -93,258 +56,91 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   hideCloseButton = false,
   wrapperTestId,
 }) => {
-  // MD3 CSS Variables - Direct token usage (no useTheme dependency)
-  const scrim = 'var(--md-sys-color-scrim)';
-  const surfaceContainerHigh = 'var(--md-sys-color-surface-container-high)';
-  const onSurface = 'var(--md-sys-color-on-surface)';
-  const onSurfaceVariant = 'var(--md-sys-color-on-surface-variant)';
-  const outlineVariant = 'var(--md-sys-color-outline-variant)';
-  const spacing4 = 'var(--md-sys-spacing-4)';
-  const spacing6 = 'var(--md-sys-spacing-6)';
-  const cornerLarge = 'var(--md-sys-shape-corner-large)';
-  const bodyLargeFontSize = 'var(--md-sys-typescale-body-large-font-size)';
+  // Keep keyboard navigation hook for accessibility
+  const dialogRef = useKeyboardNavigation(isOpen, onClose, { focusOnOpen: true, restoreFocus: true });
 
-  // MD3 z-index tokens — modal layer
-  const backdropZIndex = 'var(--md-sys-z-modal)';
-  const contentZIndex = 'var(--md-sys-z-modal)';
-  const [closeButtonHovered, setCloseButtonHovered] = useState(false);
-
-  // Use centralized keyboard navigation hook
-  const dialogRef = useKeyboardNavigation(isOpen, onClose, {
-    focusOnOpen: true,
-    restoreFocus: true
-  });
-
-  // Handle backdrop click with proper event delegation
   const handleBackdropClick = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (backdropClickable && e.target === e.currentTarget) {
-        onClose();
-      }
+    (_: React.MouseEvent<HTMLDivElement>) => {
+      if (backdropClickable) onClose();
     },
     [backdropClickable, onClose]
   );
 
-  if (!isOpen) return null;
-
-  // Max width mapping - MD3 compliant (using spacing tokens)
-  const maxWidthMap = {
-    sm: 'var(--md-sys-spacing-24)', // dialog max-w-sm
-    md: 'var(--md-sys-spacing-28)', // dialog max-w-md
-    lg: 'var(--md-sys-spacing-32)', // dialog max-w-lg
-    xl: 'var(--md-sys-spacing-42)', // dialog max-w-2xl
-    '2xl': 'var(--md-sys-spacing-56)', // dialog max-w-4xl
-  };
-
-  // Full dialog wrapper with backdrop
   return (
-    <div
-      ref={dialogRef}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: backdropZIndex,
-        ...style
+    <Dialog
+      open={isOpen}
+      onClose={backdropClickable ? onClose : undefined}
+      maxWidth={MAX_WIDTH_MAP[maxWidth]}
+      fullWidth
+      fullScreen={mode === 'fullscreen'}
+      hideBackdrop={hideBackdrop}
+      slotProps={{
+        backdrop: { onClick: handleBackdropClick },
+        paper: {
+          ref: dialogRef,
+          'data-testid': wrapperTestId || 'm3-dialog',
+          'data-fullscreen': mode === 'fullscreen' ? 'true' : 'false',
+          style,
+          sx: {
+            bgcolor: 'var(--md-sys-color-surface-container-high)',
+            borderRadius: 'var(--md-sys-shape-corner-large)',
+          },
+        } as Record<string, unknown>,
       }}
-      onClick={handleBackdropClick}
-      role="presentation"
-      data-testid={wrapperTestId || 'm3-dialog'}
-      data-fullscreen={mode === 'fullscreen' ? 'true' : 'false'}
+      aria-labelledby="dialog-title"
     >
-      {/* Backdrop - M3 Expressive blur effect */}
-      {!hideBackdrop && (
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: scrim,
-            opacity: 'var(--md-sys-state-opacity-scrim)', // MD3 scrim opacity (0.32)
-            backdropFilter: `blur(var(--md-sys-blur-2xl))`, // MD3 glass blur
-            animation: `fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-decelerated)`
-          }}
-          aria-hidden="true"
-        />
+      {headerContent || (
+        <DialogTitle
+          id="dialog-title"
+          sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', pb: headline ? 1 : 2 }}
+        >
+          <Box>
+            <Typography variant="h6" component="h2" id="dialog-title">
+              {title}
+            </Typography>
+            {headline && (
+              <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+                {headline}
+              </Typography>
+            )}
+          </Box>
+          {!hideCloseButton && (
+            <IconButton
+              edge="end"
+              aria-label="Chiudi"
+              onClick={onClose}
+              size="small"
+              sx={{ ml: 1, mt: -0.5 }}
+            >
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true">close</Box>
+            </IconButton>
+          )}
+        </DialogTitle>
       )}
 
-      {/* Dialog Panel - M3 Expressive */}
-      <div
-        style={{
-          width: 'var(--md-sys-percent-100)',
-          ...(mode === 'fullscreen'
-            ? {
-                height: 'var(--md-sys-percent-100)',
-                maxHeight: 'var(--md-sys-percent-90)',
-                maxWidth: 'var(--md-sys-spacing-80)', // Using MD3 spacing equivalent
-              }
-            : {
-                maxWidth: maxWidthMap[maxWidth],
-                maxHeight: 'var(--md-sys-percent-90)'
-              }
-          ),
-          margin: 'var(--md-sys-margin-auto)',
-          backgroundColor: surfaceContainerHigh,
-          borderRadius: cornerLarge,
-          boxShadow: 'var(--md-sys-elevation-level3)',
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative',
-          zIndex: contentZIndex,
-          animation: `md3-dialog-enter var(--md-sys-motion-duration-medium) var(--md-sys-motion-spring-expressive-default-spatial) forwards`
-        }}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="dialog-title"
-      >
-        {/* Header Section */}
-        {headerContent ? (
-          headerContent
-        ) : (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              padding: spacing6,
-              borderBottom: `var(--md-sys-border-width-normal) solid ${outlineVariant}`
-            }}
-          >
-            {/* Title & Subtitle */}
-            <div>
-              <M3Typography
-                variant="title-large"
-                as="h2"
-                id="dialog-title"
-                style={{ color: onSurface, margin: 0 }}
-              >
-                {title}
-              </M3Typography>
-              {headline && (
-                <M3Typography
-                  variant="body-large"
-                  as="p"
-                  style={{
-                    color: onSurfaceVariant,
-                    opacity: 'var(--md-sys-state-opacity-caption)',
-                    marginTop: spacing4,
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden'
-                  }}
-                >
-                  {headline}
-                </M3Typography>
-              )}
-            </div>
+      <DialogContent>{children}</DialogContent>
 
-            {/* Close Button */}
-            {!hideCloseButton && (
-              <button
-                onClick={onClose}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: spacing4,
-                  borderRadius: cornerLarge,
-                  backgroundColor: closeButtonHovered ? surfaceContainerHigh : 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
-                  transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
-                onMouseEnter={() => setCloseButtonHovered(true)}
-                onMouseLeave={() => setCloseButtonHovered(false)}
-                data-focus-priority="-1"
-                aria-label="Chiudi"
-              >
-                <span
-                  className="material-symbols-outlined"
-                  style={{
-                    fontSize: bodyLargeFontSize,
-                    color: onSurfaceVariant}}
-                >
-                  close
-                </span>
-              </button>
-            )}
-          </div>
-        )}
-
-        {/* Content Section */}
-        <div
-          style={{flex: 1,
-            padding: spacing6,
-            overflowY: 'auto'}}
-        >
-          {children}
-        </div>
-
-        {/* Footer Section */}
-        {(buttons || footerContent) && (
-          <div
-            style={{padding: spacing6,
-              borderTop: `var(--md-sys-border-width-normal) solid ${outlineVariant}`,
-              display: 'flex',
-              justifyContent: 'flex-end',
-              gap: 'var(--md-sys-spacing-3)'}}  
-          >
-            {footerContent || buttons}
-          </div>
-        )}
-      </div>
-    </div>
+      {footerContent || (buttons && (
+        <DialogActions>{buttons}</DialogActions>
+      ))}
+    </Dialog>
   );
 };
 
-/**
- * M3DialogContent - Content wrapper component
- */
+export default M3Dialog;
+
+// ============================================================================
+// SUBCOMPONENTS
+// ============================================================================
+
 export const M3DialogContent: React.FC<{ children: React.ReactNode; style?: React.CSSProperties }> = ({
-  children,
-  style = {},
-}) => {
-  // MD3 Token mapping - no useTheme() dependency
-  return (
-    <div
-      style={{flex: 1,
-        padding: 'var(--md-sys-spacing-6)',
-        overflowY: 'auto',
-        ...style}}
-    >
-      {children}
-    </div>
-  );
-};
+  children, style,
+}) => <DialogContent sx={style}>{children}</DialogContent>;
 
-/**
- * M3DialogActions - Actions/footer wrapper component
- */
 export const M3DialogActions: React.FC<{ children: React.ReactNode; style?: React.CSSProperties }> = ({
-  children,
-  style = {},
-}) => {
-  return (
-    <div
-      style={{padding: 'var(--md-sys-spacing-6)',
-        borderTop: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)`,
-        display: 'flex',
-        justifyContent: 'flex-end',
-        gap: 'var(--md-sys-spacing-3)',
-        ...style}}
-    >
-      {children}
-    </div>
-  );
-};
+  children, style,
+}) => <DialogActions sx={{ justifyContent: 'flex-end', gap: 1, ...style }}>{children}</DialogActions>;
 
-/**
- * M3ConfirmDialog - Simple yes/no confirmation
- */
 export const M3ConfirmDialog: React.FC<{
   title: string;
   message: string;
@@ -354,79 +150,26 @@ export const M3ConfirmDialog: React.FC<{
   cancelText?: string;
   danger?: boolean;
 }> = ({
-  title,
-  message,
-  onConfirm,
-  onCancel,
-  confirmText = 'Conferma',
-  cancelText = 'Annulla',
-  danger = false,
-}) => {
-  // MD3 CSS Variables - Direct token usage (no useTheme dependency)
-  const spacing4 = 'var(--md-sys-spacing-4)';
-  const primaryColor = 'var(--md-sys-color-primary)';
-  const errorColor = 'var(--md-sys-color-error)';
-  const onPrimaryColor = 'var(--md-sys-color-on-primary)';
-  const onSurfaceColor = 'var(--md-sys-color-on-surface)';
-  const cornerLargeValue = 'var(--md-sys-shape-corner-large)';
-  const labelLargeFontSizeValue = 'var(--md-sys-typescale-label-large-font-size)';
-  const labelLargeFontWeightValue = 'var(--md-sys-typescale-label-large-font-weight)';
-  const bodyLargeFontSizeValue = 'var(--md-sys-typescale-body-large-font-size)';
-  const bodyLargeFontWeightValue = 'var(--md-sys-typescale-body-large-font-weight)';
-  const bodyLargeLineHeightValue = 'var(--md-sys-typescale-body-large-line-height)';
-
-  return (
-    <M3Dialog
-      title={title}
-      onClose={onCancel}
-      maxWidth="sm"
-      buttons={
-        <>
-          <button
-            onClick={onCancel}
-            style={{
-              padding: `var(--md-sys-spacing-3) ${spacing4}`,
-              border: 'none',
-              backgroundColor: 'transparent',
-              color: primaryColor,
-              borderRadius: cornerLargeValue,
-              fontSize: labelLargeFontSizeValue,
-              fontWeight: labelLargeFontWeightValue,
-              cursor: 'pointer'
-            }}
-          >
-            {cancelText}
-          </button>
-          <button
-            onClick={onConfirm}
-              style={{padding: `var(--md-sys-spacing-3) ${spacing4}`,
-              border: 'none',
-              backgroundColor: danger ? errorColor : primaryColor,
-              color: onPrimaryColor,
-              borderRadius: cornerLargeValue,
-              fontSize: labelLargeFontSizeValue,
-              fontWeight: labelLargeFontWeightValue,
-              cursor: 'pointer'}}
-          >
-            {confirmText}
-          </button>
-        </>
-      }
-    >
-      <p
-        style={{
-          fontSize: bodyLargeFontSizeValue,
-          fontWeight: bodyLargeFontWeightValue,
-          lineHeight: bodyLargeLineHeightValue,
-          color: onSurfaceColor,
-          padding: `${spacing4} 0`,
-          margin: 0}}
-      >
-        {message}
-      </p>
-    </M3Dialog>
-  );
-};
-
-export default M3Dialog;
-
+  title, message, onConfirm, onCancel,
+  confirmText = 'Conferma', cancelText = 'Annulla', danger = false,
+}) => (
+  <M3Dialog
+    title={title}
+    onClose={onCancel}
+    maxWidth="sm"
+    buttons={
+      <>
+        <Button onClick={onCancel} variant="text">{cancelText}</Button>
+        <Button
+          onClick={onConfirm}
+          variant="contained"
+          color={danger ? 'error' : 'primary'}
+        >
+          {confirmText}
+        </Button>
+      </>
+    }
+  >
+    <Typography variant="body1">{message}</Typography>
+  </M3Dialog>
+);

@@ -9,7 +9,8 @@
 import React, { useState } from 'react';
 import { Competenza, Rubrica, View } from '../types';
 import RubricEditor from './RubricEditor';
-import { M3Button, InfoCard, EmptyState, SectionHeader, ActionTile } from './ui';
+import { InfoCard, EmptyState, SectionHeader, ActionTile } from './ui';
+import { Button } from '@mui/material';
 
 interface RubricheManagerProps {
     competenze: Competenza[];
@@ -34,17 +35,17 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                 <div>Rubriche di Valutazione</div>
                 <p>Crea e gestisci le griglie di competenza.</p>
             </div>
-                <M3Button onClick={() => setEditingRubric('new')} variant="filled" >
+                <Button onClick={() => setEditingRubric('new')} variant="contained" >
                     <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span>
                     Crea Nuova
-                </M3Button>
+                </Button>
             </div>
 
             <InfoCard 
                 title="Griglie Personalizzate"
                 description="Crea rubriche di valutazione riutilizzabili basate sulle tue competenze. Usale durante le interrogazioni o le prove pratiche per una valutazione oggettiva."
                 icon="schema"
-                variant="tonal"
+                variant="outlined"
                 
             />
 

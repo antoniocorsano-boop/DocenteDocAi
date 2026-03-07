@@ -1,14 +1,14 @@
-// MD3 GOLD COMPLIANT — AUDIT 2026-01-25
+﻿// MD3 GOLD COMPLIANT — AUDIT 2026-01-25
 // Tutti i valori di design (colori, spacing, tipografia, elevazione, shape) sono gestiti esclusivamente tramite token MD3 (`var(--md-sys-*)`).
 // Nessun valore hardcoded (px, rem, %, hex, rgba) presente. Nessun uso di className custom. Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md.
 // Audit e refactor completati: 2026-01-25.
 import React, { useState, useCallback } from 'react';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard, SectionHeader } from './ui';
+import { Button  } from '@mui/material';
+import { M3Dialog, InfoCard, SectionHeader, SelectField } from './ui';
 import { ImportService, ImportResult } from '../services/importService';
 import { RegisterService, RegisterProvider } from '../services/registerService';
 import { useFileDrop } from '../hooks/useFileDrop';
 import { useUIStore } from '../stores/useUIStore';
-import { SelectField } from './ui';
 interface RegisterImportDialogProps {
     onClose: () => void;
     onImport: (result: ImportResult) => void;
@@ -111,8 +111,17 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
             title="Sincronizza Registro Elettronico"
             onClose={onClose}
             maxWidth={step === 'mapping' ? 'lg' : 'md'}
+            buttons={<>
+                <Button variant="text" onClick={onClose}>Annulla</Button>
+                {step === 'mapping' && (
+                    <Button variant="contained" onClick={handleApplyMapping}>Applica Mappatura</Button>
+                )}
+                {step === 'preview' && result && (
+                    <Button variant="contained" onClick={handleConfirm}>Conferma Importazione</Button>
+                )}
+            </>}
         >
-            <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
+            <>
                 {step === 'upload' && (
                     <>
                         <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
@@ -185,8 +194,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
 
                         {error && (
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-error-container)' , padding: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-error)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
-                                <span style={{
-}}>error</span>
+                                <span style={{}}>error</span>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{error}</p>
                             </div>
                         )}
@@ -239,7 +247,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 </div>
                             </InfoCard>
 
-                            <InfoCard title="Dati Valutazioni (Opzionale)" icon="grade" variant="tonal">
+                            <InfoCard title="Dati Valutazioni (Opzionale)" icon="grade" variant="outlined">
                                 <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-4)'}}>Voto</label>
@@ -319,7 +327,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 </ul>
                             </InfoCard>
 
-                            <InfoCard title="Classi rilevate" icon="class" variant="tonal">
+                            <InfoCard title="Classi rilevate" icon="class" variant="outlined">
                                 <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                                     {Array.from(new Set(result.students.map(s => s.classe))).map(c => (
                                         <span key={c} style={{ color: 'var(--md-sys-color-on-secondary-container)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-spacing-1)", backgroundColor: "var(--md-sys-color-secondary)", fontWeight: "var(--md-sys-typescale-weight-bold)"}}>
@@ -330,14 +338,14 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             </InfoCard>
                         </div>
 
-                        <M3Button 
+                        <Button 
                             variant="text" 
                             onClick={() => setStep('mapping')}
-                             style={{ width: 'var(--md-sys-percent-100)', fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}
+                            sx={{ width: 'var(--md-sys-percent-100)', fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}
                         >
                             <span  style={{ marginRight: "var(--md-sys-spacing-2)", fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>settings_backup_restore</span>
                             Modifica Mappatura Manuale
-                        </M3Button>
+                        </Button>
 
                         {result.errors.length > 0 && (
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-warning-container, var(--md-sys-color-error-container))', color: 'var(--md-sys-color-on-warning-container, var(--md-sys-color-on-error-container))' , padding: 'var(--md-sys-spacing-8)'}}>
@@ -351,16 +359,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         )}
                     </div>
                 )}
-            </M3DialogContent>
-            <M3DialogActions>
-                <M3Button variant="text" onClick={onClose}>Annulla</M3Button>
-                {step === 'mapping' && (
-                    <M3Button variant="filled" onClick={handleApplyMapping}>Applica Mappatura</M3Button>
-                )}
-                {step === 'preview' && result && (
-                    <M3Button variant="filled" onClick={handleConfirm}>Conferma Importazione</M3Button>
-                )}
-            </M3DialogActions>
+            </>
         </M3Dialog>
     );
 };

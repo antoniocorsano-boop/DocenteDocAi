@@ -1,18 +1,18 @@
-// MD3 Compliant - Uses M3Dialog components
+﻿// MD3 Compliant - Uses components
 /**
  * UniversalModal - MD3 Compliant Modal Component
  * Migration Status: ✅ FULLY MIGRATED & ACCESSIBLE
  */
 
 import React from 'react';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
+import {DialogContent, DialogActions, Button } from '@mui/material';
 import type { UniversalModalProps } from '../types';
+import { M3Dialog } from './ui';
 const UniversalModal: React.FC<UniversalModalProps> = ({
   open,
   title,
   onClose,
-  children,
-}) => {
+  children }) => {
   if (!open) return null;
 
   return (
@@ -20,16 +20,15 @@ const UniversalModal: React.FC<UniversalModalProps> = ({
       onClose={onClose}
       title={title}
       maxWidth="sm"
-      level={1}
     >
-      <M3DialogContent style={{backgroundColor: 'var(--md-sys-color-surface-container-high)',
+      <DialogContent style={{backgroundColor: 'var(--md-sys-color-surface-container-high)',
         opacity: 'var(--md-sys-state-opacity-tint-moderate)',
         backdropFilter: 'blur(var(--md-sys-blur-small))'}}>
         {children}
-      </M3DialogContent>
-      <M3DialogActions>
-        <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
-      </M3DialogActions>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose} variant="text">Chiudi</Button>
+      </DialogActions>
     </M3Dialog>
   );
 };

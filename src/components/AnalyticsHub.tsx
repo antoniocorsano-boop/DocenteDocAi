@@ -14,13 +14,16 @@ import { getGoogleAIClient } from '../services/aiClient';
 import {
     EmptyState,
     AiMemoryChip,
-    SelectField,
-    M3Button,
     InfoCard,
     SectionHeader,
     AiThinkingGem,
-    M3Typography
 } from './ui';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
 
 interface AnalyticsHubProps {
     userClasses: string[];
@@ -124,7 +127,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
             />
 
             {/* Responsive Card: Filters */}
-            <InfoCard variant="tonal" >
+            <InfoCard variant="outlined" >
                 <div
                     style={{
                         display: 'grid',
@@ -132,17 +135,26 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         gap: 'var(--md-sys-spacing-4)'
                     }}
                 >
-                    <SelectField label="Classe" value={selectedClass} onChange={e => { setSelectedClass(e.target.value); setSelectedStudentId('all'); }}>
-                        {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
-                    </SelectField>
-                    <SelectField label="Studente" value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value)}>
-                        <option value="all">Tutta la Classe (Media)</option>
-                        {filteredStudents.map(s => <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>)}
-                    </SelectField>
-                    <SelectField label="Materia" value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)}>
-                        <option value="all">Tutte le Materie</option>
-                        {settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
-                    </SelectField>
+                    <FormControl size="small" fullWidth>
+                        <InputLabel>Classe</InputLabel>
+                        <Select label="Classe" value={selectedClass} onChange={e => { setSelectedClass(e.target.value as string); setSelectedStudentId('all'); }}>
+                            {userClasses.map(c => <MenuItem key={c} value={c}>{c}</MenuItem>)}
+                        </Select>
+                    </FormControl>
+                    <FormControl size="small" fullWidth>
+                        <InputLabel>Studente</InputLabel>
+                        <Select label="Studente" value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value as string)}>
+                            <MenuItem value="all">Tutta la Classe (Media)</MenuItem>
+                            {filteredStudents.map(s => <MenuItem key={s.id} value={s.id}>{s.cognome} {s.nome}</MenuItem>)}
+                        </Select>
+                    </FormControl>
+                    <FormControl size="small" fullWidth>
+                        <InputLabel>Materia</InputLabel>
+                        <Select label="Materia" value={selectedSubject} onChange={e => setSelectedSubject(e.target.value as string)}>
+                            <MenuItem value="all">Tutte le Materie</MenuItem>
+                            {settings.disciplines.map(d => <MenuItem key={d} value={d}>{d}</MenuItem>)}
+                        </Select>
+                    </FormControl>
                     <div
                         style={{
                             display: 'flex',
@@ -150,7 +162,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                             gap: 'var(--md-sys-spacing-2)'
                         }}
                     >
-                        <M3Typography variant="label-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Modalità Vista</M3Typography>
+                        <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Modalità Vista</Typography>
                         <div
                             style={{
                                 display: 'flex',
@@ -158,9 +170,9 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                 flexWrap: 'wrap'
                             }}
                         >
-                            <M3Button 
+                            <Button 
                                 onClick={() => setChartType('trend')} 
-                                variant={chartType === 'trend' ? 'filled' : 'text'}
+                                variant={chartType === 'trend' ? 'contained' : 'text'}
                                 
                                 title="Trend Temporale"
                             >
@@ -169,10 +181,10 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                         fontFamily: "'Material Symbols Outlined'"
                                     }}
                                 >show_chart</span>
-                            </M3Button>
-                            <M3Button 
+                            </Button>
+                            <Button 
                                 onClick={() => setChartType('radar')} 
-                                variant={chartType === 'radar' ? 'filled' : 'text'}
+                                variant={chartType === 'radar' ? 'contained' : 'text'}
                                 
                                 title="Radar Competenze"
                             >
@@ -181,10 +193,10 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                         fontFamily: "'Material Symbols Outlined'"
                                     }}
                                 >radar</span>
-                            </M3Button>
-                            <M3Button 
+                            </Button>
+                            <Button 
                                 onClick={() => setChartType('dist')} 
-                                variant={chartType === 'dist' ? 'filled' : 'text'}
+                                variant={chartType === 'dist' ? 'contained' : 'text'}
                                 
                                 title="Distribuzione Voti"
                             >
@@ -193,7 +205,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                         fontFamily: "'Material Symbols Outlined'"
                                     }}
                                 >bar_chart</span>
-                            </M3Button>
+                            </Button>
                         </div>
                     </div>
                 </div>
@@ -201,7 +213,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
 
             {/* Responsive Card: Chart & AI */}
             <InfoCard
-                variant="elevated"
+                elevation={1}
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -209,18 +221,18 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                     marginBottom: 'var(--md-sys-spacing-6)'
                 }}
             >
-                <M3Typography
-                    variant="title-large"
+                <Typography
+                    variant="h6"
                     style={{ color: 'var(--md-sys-color-on-surface-variant)' }}
                 >
                     {chartType === 'trend' && 'Andamento Temporale'}
                     {chartType === 'radar' && 'Radar Competenze'}
                     {chartType === 'dist' && 'Distribuzione Voti'}
-                </M3Typography>
-                    <M3Button 
+                </Typography>
+                    <Button 
                         onClick={handleAskAi} 
                         disabled={isAiLoading} 
-                        variant="tonal"
+                        variant="outlined"
                         style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -234,7 +246,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                             }}
                         >auto_awesome</span>}
                         ANALISI AI
-                    </M3Button>
+                    </Button>
 
                     <div
                         style={{
@@ -305,10 +317,10 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                             }}
                                         >lightbulb</span>
                                     </div>
-                                    <M3Typography
-                                        variant="body-large"
+                                    <Typography
+                                        variant="body1"
                                         style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}
-                                    >{aiInsight}</M3Typography>
+                                    >{aiInsight}</Typography>
                                 </div>
                                 <div
                                     style={{

@@ -12,7 +12,8 @@ import DonutChart from './charts/DonutChart';
 import AiAdvisor from './AiAdvisor';
 import { generateHtmlDocxBlob } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
-import { AiMemoryChip, M3Button, InfoCard, SectionHeader, AiThinkingGem } from './ui';
+import { AiMemoryChip, InfoCard, SectionHeader, AiThinkingGem } from './ui';
+import { Button } from '@mui/material';
 interface ImprovementGuideProps {
     selectedClass: string;
     students: Studente[];
@@ -240,14 +241,14 @@ const handleExportDocx = async () => {
                     <p>Report generato per il consiglio di classe.</p>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                    <M3Button onClick={handleExportDocx} variant="outlined" >
+                    <Button onClick={handleExportDocx} variant="outlined" >
                         <span>description</span>
                         Esporta Word
-                    </M3Button>
-                    <M3Button onClick={() => window.print()} variant="tonal" >
+                    </Button>
+                    <Button onClick={() => window.print()} variant="outlined" >
                         <span>print</span>
                         Stampa
-                    </M3Button>
+                    </Button>
                 </div>
             </div>
 

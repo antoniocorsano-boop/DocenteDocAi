@@ -10,6 +10,7 @@ interface NKANodeCardProps {
   onSelect: () => void;
   loading?: boolean;
   error?: string;
+  role?: string;
 }
 
 function NKANodeCard({ node, onSelect, loading = false, error }: NKANodeCardProps): React.JSX.Element {
@@ -117,7 +118,7 @@ function NKANodeCard({ node, onSelect, loading = false, error }: NKANodeCardProp
       aria-label={`Nodo NKA: ${node.label}, profondità ${Math.round(node.depth * 100)}%`}
       aria-describedby={`nka-node-details-${node.id}`}
       onClick={onSelect}
-      onKeyDown={e => {
+      onKeyDown={(e: React.KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ' ') {
           onSelect();
           e.preventDefault();

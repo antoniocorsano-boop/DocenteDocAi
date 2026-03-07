@@ -12,7 +12,8 @@ import { ProgettazioneHubProps, Uda, Competenza } from '../types';
 import AnnualPlanningWizard from './AnnualPlanningWizard';
 import SmartImportModal from './SmartImportModal';
 import CompetencyManager from './CompetencyManager';
-import { TabGroup, M3ExpressiveCard, M3Typography } from './ui';
+import { TabGroup, M3ExpressiveCard as Card } from './ui';
+import Typography from '@mui/material/Typography';
 import TimelineView from './TimelineView';
 import UdaDetailModal from './UdaDetailModal';
 
@@ -68,10 +69,10 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
             
             {/* Header */}
             <div style={{ textAlign: "center", marginBottom: 'var(--md-sys-spacing-6)' }}>
-                <M3Typography variant="headline-large" style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-4)'}}>Progettazione</M3Typography>
-                <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)', maxWidth: 'var(--md-sys-spacing-80)', marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)' }}>
+                <Typography variant="h5" sx={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-4)'}}>Progettazione</Typography>
+                <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', maxWidth: 'var(--md-sys-spacing-80)', marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)' }}>
                     Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
-                </M3Typography>
+                </Typography>
             </div>
             
             {/* Tab Navigation */}
@@ -79,7 +80,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                  <TabGroup 
                     activeTab={activeTab}
                     onTabChange={(id: string) => setActiveTab(id as 'dashboard' | 'frameworks')}
-                    variant="filled"
+                    variant="contained"
                     tabs={[
                         { id: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
                         { id: 'frameworks', label: 'Frameworks & Competenze', icon: 'model_training' },
@@ -90,7 +91,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
             {activeTab === 'dashboard' ? (
                 <>
                     {/* 1. HERO ACTION: WIZARD */}
-                    <M3ExpressiveCard
+                    <Card
                         icon="calendar_month"
                         title="Wizard Annuale"
                         description="Pianifica l'intero anno scolastico. Definisci UDA, scadenze e monte ore con il supporto dell'AI."
@@ -117,7 +118,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                     {/* 3. BENTO GRID */}
                     <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                         
-                        <M3ExpressiveCard
+                        <Card
                             icon="assignment"
                             title="Planner UDA"
                             description="Gestisci le Unit� di Apprendimento, le fasi di lavoro e le competenze target."
@@ -129,7 +130,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             
                         />
 
-                        <M3ExpressiveCard
+                        <Card
                             icon="auto_fix_high"
                             title="Studio AI"
                             description="Genera quiz, riassunti e materiali dai tuoi documenti."
@@ -141,7 +142,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             
                         />
 
-                        <M3ExpressiveCard
+                        <Card
                             icon="transform"
                             title="Importa & Ristruttura"
                             description="Converti vecchi file in documenti standard."
@@ -154,7 +155,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                         />
 
 {/* Card Import da NotebookLM accanto a Knowledge Base */}
-                        <M3ExpressiveCard
+                        <Card
                             icon="cloud_download"
                             title="Importa da NotebookLM"
                             description="Sfoglia e importa materiali dal tuo spazio Google NotebookLM."
@@ -166,7 +167,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             
                         />
 
-                        <M3ExpressiveCard
+                        <Card
                             icon="folder_open"
                             title="Knowledge Base"
                             description="Archivio documenti."
@@ -178,7 +179,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             
                         />
 
-                        <M3ExpressiveCard
+                        <Card
                             icon="description"
                             title="Template"
                             description="Gestisci i modelli per UDA e verifiche."
@@ -190,7 +191,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             
                         />
 
-                        <M3ExpressiveCard
+                        <Card
                             icon="history_edu"
                             title="Lezioni"
                             description="Piani di lezione."
@@ -202,7 +203,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             
                         />
 
-                        <M3ExpressiveCard
+                        <Card
                             icon="schema"
                             title="Rubriche"
                             description="Griglie valutazione."
@@ -214,7 +215,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             
                         />
 
-                        <M3ExpressiveCard
+                        <Card
                             icon="print"
                             title="Report"
                             description="Stampe & PDF."

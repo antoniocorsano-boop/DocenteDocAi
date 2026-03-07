@@ -1,10 +1,18 @@
-// MD3 GOLD COMPLIANT â€“ Audit 2026-01-25
+// MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // M3Expressive refactor: Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, ActionTile, SectionHeader, InfoCard, TabGroup, SelectField, M3Typography } from './ui';
+import { M3Dialog, ActionTile, SectionHeader, InfoCard, TabGroup } from './ui';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
 import { useUIStore } from '../stores/useUIStore';
 import BatchExportWizard from './BatchExportWizard';
 import type {
@@ -169,7 +177,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             viewPdfInNewTab(blob);
         } catch (e) {
             console.error("Failed to generate student PDF:", e);
-            showToast("Errore durante la generazione del profilo studente. Riprova piÃ¹ tardi.", "error");
+            showToast("Errore durante la generazione del profilo studente. Riprova più tardi.", "error");
         } finally {
             setIsGenerating(false);
             resetWizard();
@@ -180,12 +188,12 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
         if (!lesson) return;
         setIsGenerating(true);
         try {
-            // Qui va generato il blob come in handleGenerateStudentPdf, ma la funzione non Ã¨ definita.
+            // Qui va generato il blob come in handleGenerateStudentPdf, ma la funzione non è definita.
             // Se esiste una funzione generateLessonPdf, usala. Altrimenti, mostra errore.
             showToast("Funzione di generazione PDF lezione non implementata.", "error");
         } catch (e) {
             console.error("Failed to generate lesson PDF:", e);
-            showToast("Errore durante la generazione del piano lezione. Riprova piÃ¹ tardi.", "error");
+            showToast("Errore durante la generazione del piano lezione. Riprova più tardi.", "error");
         } finally {
             setIsGenerating(false);
             resetWizard();
@@ -203,14 +211,14 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     { title: "Inclusione", benefits: ["Piani personalizzati (PDP/PEI)", "Ambienti flessibili"] }
                 ],
                 technicalGuarantees: { title: "Innovazione", content: "Utilizziamo strumenti avanzati come OrarioDoc AI." },
-                roadmap: { title: "Percorso", items: [{ title: "Accoglienza", description: "AttivitÃ  di ingresso" }, { title: "Svolgimento", description: "Lezioni e UDA" }] },
+                roadmap: { title: "Percorso", items: [{ title: "Accoglienza", description: "Attività di ingresso" }, { title: "Svolgimento", description: "Lezioni e UDA" }] },
                 callToAction: "Costruiamo il futuro."
             };
             const blob = await generatePdfBrochure(content);
             viewPdfInNewTab(blob);
         } catch (e) {
             console.error("Errore generazione brochure:", e);
-            showToast("Errore durante la generazione della brochure. Riprova piÃ¹ tardi.", "error");
+            showToast("Errore durante la generazione della brochure. Riprova più tardi.", "error");
         } finally {
             setIsGenerating(false);
         }
@@ -237,7 +245,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             saveAs(blob, `Programma_${selectedClass}_${selectedSubject}.docx`);
         } catch (e) {
             console.error("Errore generazione programma:", e);
-            showToast("Errore durante la generazione del programma svolto. Riprova piÃ¹ tardi.", "error");
+            showToast("Errore durante la generazione del programma svolto. Riprova più tardi.", "error");
         } finally {
             setIsGenerating(false);
             resetWizard();
@@ -277,7 +285,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
         {
             id: 'uda_doc',
             title: 'Documento UDA',
-            subtitle: 'Dettaglio UnitÃ  (PDF/Doc)',
+            subtitle: 'Dettaglio Unità (PDF/Doc)',
             icon: 'assignment',
             phase: 'itinere',
             variant: 'secondary',
@@ -335,76 +343,90 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                 onClose={resetWizard}
                 title="Configura Documento"
                 maxWidth="lg"
-                level={1}
             >
-                <M3DialogContent>
+                <DialogContent>
                     {wizard === 'uda' && (
-                        <SelectField
-                            label="Seleziona Progetto (UDA)"
-                            value={udaForReport?.id || ''}
-                            onChange={e => setUdaForReport(props.uda.find((u: Uda) => u.id === e.target.value) || null)}
-                        >
-                            <option value="">Seleziona...</option>
-                            {props.uda.map((u: Uda) => (
-                                <option key={u.id} value={u.id}>{u.title} ({u.classe})</option>
-                            ))}
-                        </SelectField>
+                        <FormControl fullWidth size="small">
+                            <InputLabel>Seleziona Progetto (UDA)</InputLabel>
+                            <Select
+                                label="Seleziona Progetto (UDA)"
+                                value={udaForReport?.id || ''}
+                                onChange={e => setUdaForReport(props.uda.find((u: Uda) => u.id === e.target.value) || null)}
+                            >
+                                <MenuItem value="">Seleziona...</MenuItem>
+                                {props.uda.map((u: Uda) => (
+                                    <MenuItem key={u.id} value={u.id}>{u.title} ({u.classe})</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                     )}
                     {(wizard === 'student' || wizard === 'lesson' || wizard === 'syllabus') && (
-                        <SelectField
-                            label="1. Seleziona Classe"
-                            value={selectedClass}
-                            onChange={e => { setSelectedClass(e.target.value); setSelectedStudent(null); setSelectedLesson(null); }}
-                        >
-                            <option value="">Seleziona...</option>
-                            {props.userClasses.map(c => (
-                                <option key={c} value={c}>{c}</option>
-                            ))}
-                        </SelectField>
+                        <FormControl fullWidth size="small">
+                            <InputLabel>1. Seleziona Classe</InputLabel>
+                            <Select
+                                label="1. Seleziona Classe"
+                                value={selectedClass}
+                                onChange={e => { setSelectedClass(e.target.value as string); setSelectedStudent(null); setSelectedLesson(null); }}
+                            >
+                                <MenuItem value="">Seleziona...</MenuItem>
+                                {props.userClasses.map(c => (
+                                    <MenuItem key={c} value={c}>{c}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                     )}
                     {selectedClass && wizard === 'student' && (
-                        <SelectField
-                            label="2. Seleziona Studente"
-                            value={selectedStudent?.id || ''}
-                            onChange={e => setSelectedStudent(studentsInClass.find(s => s.id === e.target.value) || null)}
-                        >
-                            <option value="">Seleziona...</option>
-                            {studentsInClass.map(s => (
-                                <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>
-                            ))}
-                        </SelectField>
+                        <FormControl fullWidth size="small">
+                            <InputLabel>2. Seleziona Studente</InputLabel>
+                            <Select
+                                label="2. Seleziona Studente"
+                                value={selectedStudent?.id || ''}
+                                onChange={e => setSelectedStudent(studentsInClass.find(s => s.id === e.target.value) || null)}
+                            >
+                                <MenuItem value="">Seleziona...</MenuItem>
+                                {studentsInClass.map(s => (
+                                    <MenuItem key={s.id} value={s.id}>{s.cognome} {s.nome}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                     )}
                     {selectedClass && wizard === 'lesson' && (
-                        <SelectField
-                            label="2. Seleziona Lezione"
-                            value={selectedLesson?.id || ''}
-                            onChange={e => setSelectedLesson(lessonsInClass.find((l: Lezione) => l.id === e.target.value) || null)}
-                        >
-                            <option value="">Seleziona...</option>
-                            {lessonsInClass.map((l: Lezione) => (
-                                <option key={l.id} value={l.id}>{l.contenuto}</option>
-                            ))}
-                        </SelectField>
+                        <FormControl fullWidth size="small">
+                            <InputLabel>2. Seleziona Lezione</InputLabel>
+                            <Select
+                                label="2. Seleziona Lezione"
+                                value={selectedLesson?.id || ''}
+                                onChange={e => setSelectedLesson(lessonsInClass.find((l: Lezione) => l.id === e.target.value) || null)}
+                            >
+                                <MenuItem value="">Seleziona...</MenuItem>
+                                {lessonsInClass.map((l: Lezione) => (
+                                    <MenuItem key={l.id} value={l.id}>{l.contenuto}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                     )}
                     {selectedClass && wizard === 'syllabus' && (
-                        <SelectField
-                            label="2. Seleziona Materia"
-                            value={selectedSubject}
-                            onChange={e => setSelectedSubject(e.target.value)}
-                        >
-                            <option value="">Seleziona...</option>
-                            {props.settings.disciplines.map(d => (
-                                <option key={d} value={d}>{d}</option>
-                            ))}
-                        </SelectField>
+                        <FormControl fullWidth size="small">
+                            <InputLabel>2. Seleziona Materia</InputLabel>
+                            <Select
+                                label="2. Seleziona Materia"
+                                value={selectedSubject}
+                                onChange={e => setSelectedSubject(e.target.value as string)}
+                            >
+                                <MenuItem value="">Seleziona...</MenuItem>
+                                {props.settings.disciplines.map(d => (
+                                    <MenuItem key={d} value={d}>{d}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                     )}
-                </M3DialogContent>
-                <M3DialogActions>
-                    <M3Button onClick={resetWizard} variant="text" disabled={isGenerating}>Annulla</M3Button>
-                    {(wizard === 'student' && selectedStudent) && <M3Button onClick={() => handleGenerateStudentPdf(selectedStudent)} variant="filled" disabled={isGenerating}>{isGenerating ? "Generazione..." : "Genera PDF"}</M3Button>}
-                    {(wizard === 'lesson' && selectedLesson) && <M3Button onClick={() => handleGenerateLessonPdf(selectedLesson)} variant="filled" disabled={isGenerating}>{isGenerating ? "Generazione..." : "Genera PDF"}</M3Button>}
-                    {(wizard === 'syllabus' && selectedClass && selectedSubject) && <M3Button onClick={handleGenerateSyllabus} variant="filled" disabled={isGenerating}>{isGenerating ? "Generazione..." : "Scarica DOC"}</M3Button>}
-                </M3DialogActions>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={resetWizard} variant="text" disabled={isGenerating}>Annulla</Button>
+                    {(wizard === 'student' && selectedStudent) && <Button onClick={() => handleGenerateStudentPdf(selectedStudent)} variant="contained" disabled={isGenerating}>{isGenerating ? "Generazione..." : "Genera PDF"}</Button>}
+                    {(wizard === 'lesson' && selectedLesson) && <Button onClick={() => handleGenerateLessonPdf(selectedLesson)} variant="contained" disabled={isGenerating}>{isGenerating ? "Generazione..." : "Genera PDF"}</Button>}
+                    {(wizard === 'syllabus' && selectedClass && selectedSubject) && <Button onClick={handleGenerateSyllabus} variant="contained" disabled={isGenerating}>{isGenerating ? "Generazione..." : "Scarica DOC"}</Button>}
+                </DialogActions>
             </M3Dialog>
         );
     };
@@ -423,19 +445,19 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                 {/* HEADER */}
                 <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--md-sys-spacing-6)' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <M3Typography variant="headline-medium">Reportistica & Documenti</M3Typography>
-                        <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                        <Typography variant="h5">Reportistica & Documenti</Typography>
+                        <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                             Genera documentazione didattica, verbali e reportistica avanzata.
-                        </M3Typography>
+                        </Typography>
                     </div>
-                    <M3Button
-                        variant="tonal"
+                    <Button
+                        variant="outlined"
                         aria-label="Export Massivo"
                         startIcon={<span className="material-symbols-outlined">folder_zip</span>}
                         onClick={() => setIsBatchExportOpen(true)}
                     >
                         Export Massivo
-                    </M3Button>
+                    </Button>
                 </header>
 
                 {/* QUICK ACTIONS / RECENT */}
@@ -481,16 +503,16 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                                 onClick={() => setViewingDoc(doc)}
                             >
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'var(--md-sys-spacing-4)' }}>
-                                    <M3Typography variant="body-small" style={{ opacity: 'var(--md-sys-state-opacity-supporting)' }}>
+                                    <Typography variant="caption" sx={{ opacity: 'var(--md-sys-state-opacity-supporting)' }}>
                                         Generato il {new Date(parseInt(doc.id.split('-')[2] || Date.now().toString())).toLocaleDateString()}
-                                    </M3Typography>
-                                    <M3Button variant="text" size="small" aria-label="Modifica documento" onClick={e => { e.stopPropagation(); openEditorForDoc(doc); }}>Modifica</M3Button>
+                                    </Typography>
+                                    <Button variant="text" size="small" aria-label="Modifica documento" onClick={e => { e.stopPropagation(); openEditorForDoc(doc); }}>Modifica</Button>
                                 </div>
                             </InfoCard>
                         )) : (
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: 'center', opacity: 'var(--md-sys-state-opacity-placeholder)' }}>
                                 <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>drafts</span>
-                                <M3Typography variant="body-medium">Nessun documento generato di recente.</M3Typography>
+                                <Typography variant="body2">Nessun documento generato di recente.</Typography>
                             </div>
                         )}
                     </div>

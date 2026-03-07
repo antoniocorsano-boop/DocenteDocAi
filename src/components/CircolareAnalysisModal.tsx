@@ -1,10 +1,11 @@
-/* eslint-disable react-hooks/exhaustive-deps -- handleAnalyze/handleImport are intentionally excluded from useMemo deps */
+﻿/* eslint-disable react-hooks/exhaustive-deps -- handleAnalyze/handleImport are intentionally excluded from useMemo deps */
 // MD3 Compliant
 
 import React, { useState, useMemo } from 'react';
 import { AiSettings, CircularAnalysisResult, EventoCalendario } from '../types';
 import { analyzeCircularDocument } from '../services/aiService';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextArea } from './ui';
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog, TextArea } from './ui';
 interface CircolareAnalysisModalProps {
     url: string; // URL is passed for reference (to open in new tab), not for fetching
     title: string;
@@ -54,8 +55,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
             allEvents.push({
                 titolo: d.title,
                 data: d.date,
-                tipo: 'scadenza',
-            });
+                tipo: 'scadenza' });
         });
 
         if (allEvents.length > 0) {
@@ -72,30 +72,30 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
         if (!result) {
             return (
                 <>
-                    <M3Button variant="text" onClick={onClose} disabled={isLoading}>Annulla</M3Button>
-                    <M3Button variant="filled" onClick={handleAnalyze} disabled={isLoading || !manualText.trim()}>
+                    <Button variant="text" onClick={onClose} disabled={isLoading}>Annulla</Button>
+                    <Button variant="contained" onClick={handleAnalyze} disabled={isLoading || !manualText.trim()}>
                         {isLoading ? (
                             <>
-                                <span  style={{ marginRight: 'var(--md-sys-spacing-2)' }}>progress_activity</span>
+                                <Typography component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>progress_activity</Typography>
                                 Analisi...
                             </>
                         ) : (
                             <>
-                                <span  style={{ marginRight: 'var(--md-sys-spacing-2)' }}>auto_awesome</span>
+                                <Typography component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>auto_awesome</Typography>
                                 Analizza Testo
                             </>
                         )}
-                    </M3Button>
+                    </Button>
                 </>
             );
         } else {
             return (
                 <>
-                    <M3Button variant="text" onClick={() => setResult(null)}>Indietro</M3Button>
-                    <M3Button variant="filled" onClick={handleImport}>
-                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>save</span>
+                    <Button variant="text" onClick={() => setResult(null)}>Indietro</Button>
+                    <Button variant="contained" onClick={handleImport}>
+                        <Typography component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>save</Typography>
                         Salva Eventi e Note
-                    </M3Button>
+                    </Button>
                 </>
             );
         }
@@ -105,11 +105,10 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
         <M3Dialog
             onClose={onClose}
             title="Analisi Circolare"
-            level={1}
             hideBackdrop={true}
+            buttons={dialogButtons}
         >
-            <M3DialogContent >
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     {!result ? (
                         /* INPUT STATE */
                         <>
@@ -153,8 +152,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-secondary-container)', color: 'var(--md-sys-color-on-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                                 <h3  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", display: "flex", alignItems: "center" }}>
-                                    <span style={{
-}}>summarize</span>
+                                    <span style={{}}>summarize</span>
                                     Riepilogo AI
                                 </h3>
                                 <p style={{ color: 'var(--md-sys-color-on-secondary-container)', opacity: "var(--md-sys-state-opacity-hover-overlay)", lineHeight: "1.625" }}>{result.summary}</p>
@@ -195,11 +193,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                             )}
                         </div>
                     )}
-                </div>
-            </M3DialogContent>
-            <M3DialogActions  style={{ paddingTop: "0" }}>
-                {dialogButtons}
-            </M3DialogActions>
+                </Box>
         </M3Dialog>
     );
 };

@@ -1,9 +1,10 @@
-// MD3 Compliant - Block G Migration (13 violations eliminated)
+﻿// MD3 Compliant - Block G Migration (13 violations eliminated)
 
 import React, { useState } from 'react';
 import { Valutazione } from '../types';
 import { EVALUATION_TYPES } from '../constants';
-import { M3ChoiceCard, M3Dialog, M3DialogContent, M3DialogActions, M3Button, TextField, SelectField } from './ui';
+import { Button, Box, Typography } from '@mui/material';
+import { M3Dialog, M3ChoiceCard as Card, TextField, SelectField } from './ui';
 interface AddProvaModalProps {
     disciplines: string[];
     onClose: () => void;
@@ -39,93 +40,87 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
     };
 
     return (
-        <M3Dialog 
-            onClose={onClose} 
-            title="Aggiungi Prova di Valutazione" 
-            level={1}
+        <M3Dialog
+            onClose={onClose}
+            title="Aggiungi Prova di Valutazione"
+            buttons={
+                <>
+                    <Button type="button" onClick={onClose} variant="text">Annulla</Button>
+                    <Button type="submit" form="add-prova-form" variant="contained">Crea Prova</Button>
+                </>
+            }
         >
-            <form id="add-prova-form" onSubmit={handleSubmit}>
-                <M3DialogContent style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 'var(--md-sys-spacing-6)'
+            <Box id="add-prova-form" component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
+                <Typography variant="body2" component="p" sx={{
+                    fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                    fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
+                    lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+                    color: 'var(--md-sys-color-on-surface-variant)'
                 }}>
-                    <p style={{
-                      fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                      fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-                      lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-                      color: 'var(--md-sys-color-on-surface-variant)'
-                    }}>
-                        Stai creando una nuova colonna nella griglia di valutazione per la classe selezionata.
-                    </p>
+                    Stai creando una nuova colonna nella griglia di valutazione per la classe selezionata.
+                </Typography>
 
+                <TextField
+                    id="prova-argomento"
+                    name="argomento"
+                    label="Titolo / Argomento"
+                    value={argomento}
+                    onChange={e => setArgomento(e.target.value)}
+                    placeholder="Es. 'Verifica sul Barocco'"
+                    required
+                />
+
+                <Box sx={{
+                    display: 'grid',
+                    gridTemplateColumns: 'var(--md-sys-grid-fr-1)',
+                    gap: 'var(--md-sys-spacing-4)'
+                }}>
                     <TextField
-                        id="prova-argomento"
-                        name="argomento"
-                        label="Titolo / Argomento"
-                        value={argomento}
-                        onChange={e => setArgomento(e.target.value)}
-                        placeholder="Es. 'Verifica sul Barocco'"
+                        id="prova-data"
+                        name="data"
+                        label="Data"
+                        type="date"
+                        value={data}
+                        onChange={e => setData(e.target.value)}
                         required
                     />
+                    <SelectField
+                        id="prova-materia"
+                        name="materia"
+                        label="Materia"
+                        value={materia}
+                        onChange={e => setMateria(e.target.value)}
+                        required
+                    >
+                        {(disciplines || []).map(d => <option key={d} value={d}>{d}</option>)}
+                    </SelectField>
+                </Box>
 
-                    <div style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'var(--md-sys-grid-fr-1)', // MD3 grid fr token
-                      gap: 'var(--md-sys-spacing-4)'
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Typography component="label" sx={{
+                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                        fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
+                        lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
+                        color: 'var(--md-sys-color-on-surface)',
+                        mb: 'var(--md-sys-spacing-3)'
+                    }}>Tipo Prova</Typography>
+                    <Box sx={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: 'var(--md-sys-spacing-4)'
                     }}>
-                        <TextField
-                            id="prova-data"
-                            name="data"
-                            label="Data"
-                            type="date"
-                            value={data}
-                            onChange={e => setData(e.target.value)}
-                            required
-                        />
-                        <SelectField
-                            id="prova-materia"
-                            name="materia"
-                            label="Materia"
-                            value={materia}
-                            onChange={e => setMateria(e.target.value)}
-                            required
-                        >
-                            {(disciplines || []).map(d => <option key={d} value={d}>{d}</option>)}
-                        </SelectField>
-                    </div>
-
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <label style={{
-                          fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                          fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-                          lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-                          color: 'var(--md-sys-color-on-surface)',
-                          marginBottom: 'var(--md-sys-spacing-3)'
-                        }}>Tipo Prova</label>
-                        <div style={{
-                          display: 'flex',
-                          flexWrap: 'wrap',
-                          gap: 'var(--md-sys-spacing-4)'
-                        }}>
-                            {EVALUATION_TYPES.map(t => (
-                                <M3ChoiceCard
-                                    key={t}
-                                    icon={getTestTypeIcon(t)}
-                                    label={t}
-                                    onClick={() => setTipo(t)}
-                                    selected={tipo === t}
-                                    
-                                />
-                            ))}
-                        </div>
-                    </div>
-                </M3DialogContent>
-                <M3DialogActions>
-                    <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
-                    <M3Button type="submit" variant="filled">Crea Prova</M3Button>
-                </M3DialogActions>
-            </form>
+                        {EVALUATION_TYPES.map(t => (
+                            <Card
+                                key={t}
+                                icon={getTestTypeIcon(t)}
+                                label={t}
+                                onClick={() => setTipo(t)}
+                                selected={tipo === t}
+                            />
+                        ))}
+                    </Box>
+                </Box>
+            </Box>
         </M3Dialog>
     );
 };

@@ -1,8 +1,9 @@
-// MD3 Compliant - Block O Migration Complete (5 violations eliminated)
+﻿// MD3 Compliant - Block O Migration Complete (5 violations eliminated)
 // Note: Circular indicators use functional borderRadius with eslint-disable comments
 
 import React, { useState, useEffect } from 'react';
-import { M3Dialog, M3DialogContent, PinPad, M3Button } from './ui';
+import { Button, Box  } from '@mui/material';
+import { M3Dialog, PinPad } from './ui';
 interface PinPadModalProps {
     title: string;
     correctPin: string;
@@ -45,9 +46,8 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
             title={title}
             onClose={onCancel}
             maxWidth="sm"
-            level={3}
         >
-            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' ,  display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "var(--md-sys-percent-100)" }}>
+            <Box sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-percent-100)' }}>
                 <div style={{textAlign: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
                     <div style={{ color: 'var(--md-sys-color-on-primary-container)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                         <span style={{ color: 'var(--md-sys-color-primary)' }}>lock</span>
@@ -83,10 +83,10 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
 
                 <PinPad onInput={handleInput} onDelete={handleDelete} />
 
-                <M3Button onClick={onCancel} variant="text"  style={{ width: "var(--md-sys-percent-100)" }}>
+                <Button onClick={onCancel} variant="text" sx={{ width: 'var(--md-sys-percent-100)' }}>
                     Annulla
-                </M3Button>
-            </M3DialogContent>
+                </Button>
+            </Box>
         </M3Dialog>
     );
 };

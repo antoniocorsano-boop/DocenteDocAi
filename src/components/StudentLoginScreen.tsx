@@ -1,5 +1,5 @@
-﻿
-// MD3 GOLD COMPLIANT â€“ Audit 2026-01-25
+
+// MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
@@ -8,7 +8,8 @@ import React, { useState, useMemo } from 'react';
 import { Studente } from '../types';
 import Logo from './Logo';
 import PinPadModal from './PinPadModal';
-import { TextField, M3Button } from './ui';
+import { TextField } from './ui';
+import { Button } from '@mui/material';
 import { WELCOME_MESSAGES, EDUCATIONAL_QUOTES } from '../constants';
 interface StudentLoginScreenProps {
     students: Studente[];
@@ -89,7 +90,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                 "{quote.text}"
                             </p>
                             <footer  style={{fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", color: "var(--md-sys-color-primary)"}}>
-                                â€” {quote.author}
+                                — {quote.author}
                             </footer>
                         </blockquote>
                     </div>
@@ -124,14 +125,14 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center", opacity: "var(--md-sys-state-opacity-secondary)" }}>Seleziona la tua classe</p>
                                 <div style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                                     {uniqueClasses.map(cls => (
-                                        <M3Button 
+                                        <Button 
                                             key={cls} 
                                             onClick={() => handleClassSelect(cls)}
-                                            variant="tonal"
+                                            variant="outlined"
                                              style={{ fontWeight: "var(--md-sys-typescale-weight-black)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
                                         >
                                             {cls}
-                                        </M3Button>
+                                        </Button>
                                     ))}
                                 </div>
                                 {uniqueClasses.length === 0 && (
@@ -140,10 +141,10 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                     </div>
                                 )}
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                                    <M3Button onClick={handleExitAttempt} variant="text" style={{width: "var(--md-sys-percent-100)", color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>
+                                    <Button onClick={handleExitAttempt} variant="text" style={{width: "var(--md-sys-percent-100)", color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>
                                         <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>lock</span>
                                         Menu Docente
-                                    </M3Button>
+                                    </Button>
                                 </div>
                             </div>
                         )}
@@ -155,7 +156,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                     <p style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", color: "var(--md-sys-color-primary)", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-supporting)"}}>Classe Selezionata</p>
                                     <strong style={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)"}}>{selectedClass}</strong>
                                  </div>
-                                 <M3Button type="button" onClick={() => setStep('class')} variant="tonal" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Cambia</M3Button>
+                                 <Button type="button" onClick={() => setStep('class')} variant="outlined" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Cambia</Button>
                             </div>
 
                             <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
@@ -201,8 +202,8 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                             )}
 
                             <div  style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
-                                <M3Button type="button" onClick={() => setStep('class')} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>Indietro</M3Button>
-                                <M3Button type="submit" variant="filled"  style={{ flexGrow: "1", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>Accedi al Diario</M3Button>
+                                <Button type="button" onClick={() => setStep('class')} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>Indietro</Button>
+                                <Button type="submit" variant="contained"  style={{ flexGrow: "1", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>Accedi al Diario</Button>
                             </div>
                         </form>
                     )}

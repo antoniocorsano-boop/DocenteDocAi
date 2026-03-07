@@ -18,15 +18,10 @@ import {
     suggestAnnualPlan
 } from '../services/aiService';
 import { generateHtmlDocxBlob, saveAs } from '../utils/documentUtils';
-import { 
-    M3Dialog, 
-    M3DialogContent, 
-    M3DialogActions, 
-    M3Button, 
-    InfoCard, 
-    SectionHeader,
-    AiThinkingGem 
-} from './ui';
+import { M3Dialog, InfoCard, SectionHeader, AiThinkingGem } from './ui';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 import '../design-system/md3-utilities.css';
 import { useUIStore } from '../stores/useUIStore';
 interface AnnualPlanningWizardProps {
@@ -109,7 +104,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     const SITUATION_TAGS = [
         "Numerosa", "Poca partecipazione", "Vivace", "Livello Eterogeneo", 
         "Buona preparazione base", "Lacune diffuse", "Presenza BES/DSA", 
-        "Studenti Stranieri (NAI)", "Collaborativa", "DifficoltÃ  relazionali"
+        "Studenti Stranieri (NAI)", "Collaborativa", "Difficoltà relazionali"
     ];
 
     // --- LOGIC ---
@@ -224,7 +219,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     title: item.uda.title,
                     classe: selectedClass,
                     materia: selectedSubject,
-                    introduction: `UnitÃ  di apprendimento su: ${item.uda.topic}`,
+                    introduction: `Unità di apprendimento su: ${item.uda.topic}`,
                     finalProduct: 'Verifica sommativa o elaborato',
                     competencyIds: [], 
                     phases: [
@@ -260,7 +255,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                 onAddLessons(newLessons);
             }
 
-            onSaveEvent({ id: `evt-term1-${Date.now()}`, titolo: 'Fine 1Â° Periodo', data: term1End, tipo: 'scadenza', descrizione: 'Termine inserimento voti.' });
+            onSaveEvent({ id: `evt-term1-${Date.now()}`, titolo: 'Fine 1° Periodo', data: term1End, tipo: 'scadenza', descrizione: 'Termine inserimento voti.' });
             onSaveEvent({ id: `evt-term2-${Date.now()}`, titolo: 'Termine Lezioni', data: term2End, tipo: 'scadenza', descrizione: 'Ultimo giorno di scuola.' });
 
             setStep('document');
@@ -276,7 +271,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
         setIsProcessing(true);
         try {
             const udaList = schedulePreview.map(s => 
-                `â€¢ ${s.uda.title} (${s.uda.hours}h): dal ${new Date(s.start).toLocaleDateString()} al ${new Date(s.end).toLocaleDateString()}`
+                `• ${s.uda.title} (${s.uda.hours}h): dal ${new Date(s.start).toLocaleDateString()} al ${new Date(s.end).toLocaleDateString()}`
             ).join('\n');
 
             const kbContext = knowledgeBase
@@ -345,7 +340,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 color: isDone ? 'var(--md-sys-color-on-primary)' : isActive ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
                                 border: `var(--md-sys-border-width-thin) solid ${isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                 fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
+                                transition: 'opacity, transform, background-color, color, border-color-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                             }}
                             aria-hidden="true"
                         >
@@ -377,9 +372,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             onClose={onClose}
             title="Progettazione Annuale Guidata"
             mode="fullscreen"
-            level={1}
         >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-4)' }}>
+            <DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-4)' }}>
                 <div style={{ display: "flex", justifyContent: "center", maxWidth: "var(--md-sys-layout-container-max-width)" }}>
                     {renderStepIndicator()}
 
@@ -452,7 +446,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                 backgroundColor: situationTags.includes(tag) ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
                                                 color: situationTags.includes(tag) ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
                                                 cursor: 'pointer',
-                                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                                transition: 'opacity, transform, background-color, color, border-color-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                                 fontSize: 'var(--md-sys-typescale-body-small-font-size)'
                                             }}
                                             title={`Aggiungi tag: ${tag}`}
@@ -465,9 +459,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     <label>Note Aggiuntive</label>
                                     <textarea style={{ width: "var(--md-sys-percent-full)" }} rows={2} value={situationNotes} onChange={e => setSituationNotes(e.target.value)} placeholder="Dettagli specifici sulla classe..." />
                                 </div>
-                                <M3Button onClick={handleGenerateSituation} disabled={isGeneratingSituation} variant="tonal" style={{ width: "var(--md-sys-percent-full)", display: "flex", alignItems: "center", justifyContent: "center", gap: 'var(--md-sys-spacing-4)' }} title="Usa l'AI per scrivere l'analisi">
+                                <Button onClick={handleGenerateSituation} disabled={isGeneratingSituation} variant="outlined" sx={{ width: "var(--md-sys-percent-full)", display: "flex", alignItems: "center", justifyContent: "center", gap: 'var(--md-sys-spacing-4)' }} title="Usa l'AI per scrivere l'analisi">
                                     {isGeneratingSituation ? <AiThinkingGem size="small" inline text="Analisi..." /> : 'Genera Analisi con AI'}
-                                </M3Button>
+                                </Button>
                             </InfoCard>
 
                             {situationText && (
@@ -489,9 +483,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <InfoCard style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                                     <label>Strategie Didattiche</label>
-                                    <M3Button onClick={handleGenerateMethodology} disabled={isGeneratingMethodology} variant="text" style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Suggerisci metodologie adatte al contesto">
+                                    <Button onClick={handleGenerateMethodology} disabled={isGeneratingMethodology} variant="text" sx={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Suggerisci metodologie adatte al contesto">
                                         {isGeneratingMethodology ? <AiThinkingGem size="small" inline /> : <><span style={{ color: 'var(--md-sys-color-primary)' }}>lightbulb</span> Suggerisci</>}
-                                    </M3Button>
+                                    </Button>
                                 </div>
                                 <textarea style={{ width: "var(--md-sys-percent-full)" }} rows={8} value={methodology} onChange={e => setMethodology(e.target.value)} />
                             </InfoCard>
@@ -503,7 +497,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                 <SectionHeader 
                                     title="4. Piano Annuale UDA" 
-                                    subtitle="Organizza le unitÃ  di apprendimento in sequenza temporale."
+                                    subtitle="Organizza le unità di apprendimento in sequenza temporale."
                                     icon="view_timeline"
                                 />
                                 <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)' }}>
@@ -511,17 +505,17 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         <span>Ore/Sett:</span>
                                         <input type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} style={{ width: "var(--md-sys-spacing-10)", backgroundColor: "transparent", textAlign: "center", fontWeight: "var(--md-sys-typescale-weight-bold)", borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }} title="Ore settimanali di lezione" />
                                     </div>
-                                    <M3Button onClick={handleGeneratePlanFromKb} disabled={isGeneratingPlan || selectedKbFiles.length === 0} variant="tonal" style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Genera lista UDA dai documenti KB">
+                                    <Button onClick={handleGeneratePlanFromKb} disabled={isGeneratingPlan || selectedKbFiles.length === 0} variant="outlined" sx={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Genera lista UDA dai documenti KB">
                                         {isGeneratingPlan ? <AiThinkingGem size="small" inline text="Leggo..." /> : 'Genera da KB'}
-                                    </M3Button>
+                                    </Button>
                                 </div>
                             </div>
 
                             {showSequenceHelp && (
                                 <InfoCard 
                                     title="Organizzazione Moduli"
-                                    description="Definisci le UnitÃ  di Apprendimento (UDA) in ordine cronologico. L'app calcolerÃ  automaticamente le date sul calendario in base al monte ore di ciascuna UDA."
-                                    variant="tonal"
+                                    description="Definisci le Unità di Apprendimento (UDA) in ordine cronologico. L'app calcolerà automaticamente le date sul calendario in base al monte ore di ciascuna UDA."
+                                    variant="outlined"
                                     icon="info"
                                     onClose={() => setShowSequenceHelp(false)}
                                     style={{ marginBottom: 'var(--md-sys-spacing-8)' }}
@@ -538,7 +532,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         <label>Ore</label>
                                         <input type="number" value={newUdaHours} onChange={e => setNewUdaHours(parseInt(e.target.value))} style={{ width: "var(--md-sys-percent-full)" }} />
                                     </div>
-                                    <M3Button onClick={addUdaToPlan} variant="filled" style={{ marginBottom: 'var(--md-sys-spacing-4)' }} title="Aggiungi alla lista">Aggiungi</M3Button>
+                                    <Button onClick={addUdaToPlan} variant="contained" sx={{ marginBottom: 'var(--md-sys-spacing-4)' }} title="Aggiungi alla lista">Aggiungi</Button>
                                 </div>
                             </InfoCard>
 
@@ -600,7 +594,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <InfoCard style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                        <label>Fine 1Â° Periodo</label>
+                                        <label>Fine 1° Periodo</label>
                                         <input type="date" value={term1End} onChange={e => setTerm1End(e.target.value)} style={{ width: "var(--md-sys-percent-full)" }} />
                                     </div>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
@@ -641,33 +635,33 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     Tutte le UDA e le lezioni sono state salvate. Ora puoi generare il documento di programmazione annuale completo.
                                 </p>
                             </div>
-                            <M3Button onClick={handleGenerateDoc} disabled={isProcessing} variant="filled" style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }} title="Scarica il documento finale">
+                            <Button onClick={handleGenerateDoc} disabled={isProcessing} variant="contained" sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }} title="Scarica il documento finale">
                                 {isProcessing ? <AiThinkingGem size="small" inline text="Generazione..." /> : (
                                     <>
                                         <span className="material-symbols-outlined">description</span>
                                         Genera Documento Word
                                     </>
                                 )}
-                            </M3Button>
+                            </Button>
                         </div>
                     )}
                 </div>
-            </M3DialogContent>
+            </DialogContent>
 
-            <M3DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
+            <DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                     {step !== 'document' && (
                         <>
-                            {step !== 'context' && <M3Button onClick={() => setStep(p => p === 'situation' ? 'context' : p === 'methodology' ? 'situation' : p === 'sequence' ? 'methodology' : 'sequence')} variant="text" title="Torna indietro">Indietro</M3Button>}
+                            {step !== 'context' && <Button onClick={() => setStep(p => p === 'situation' ? 'context' : p === 'methodology' ? 'situation' : p === 'sequence' ? 'methodology' : 'sequence')} variant="text" title="Torna indietro">Indietro</Button>}
                             <div style={{ flexGrow: 1 }}></div>
-                            {step === 'context' && <M3Button onClick={() => setStep('situation')} variant="filled" title="Vai all'analisi">Avanti</M3Button>}
-                            {step === 'situation' && <M3Button onClick={() => setStep('methodology')} variant="filled" title="Vai alla metodologia">Avanti</M3Button>}
-                            {step === 'methodology' && <M3Button onClick={() => setStep('sequence')} variant="filled" title="Vai al piano">Avanti</M3Button>}
-                            {step === 'sequence' && <M3Button onClick={() => { calculateSchedule(); setStep('preview'); }} disabled={plannedUdas.length === 0} variant="filled" title="Calcola date">Calcola</M3Button>}
-                            {step === 'preview' && <M3Button onClick={handleFinalize} disabled={isProcessing} variant="filled" style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Salva tutto nel database">{isProcessing ? <AiThinkingGem size="small" inline /> : 'Conferma e Salva'}</M3Button>}
+                            {step === 'context' && <Button onClick={() => setStep('situation')} variant="contained" title="Vai all'analisi">Avanti</Button>}
+                            {step === 'situation' && <Button onClick={() => setStep('methodology')} variant="contained" title="Vai alla metodologia">Avanti</Button>}
+                            {step === 'methodology' && <Button onClick={() => setStep('sequence')} variant="contained" title="Vai al piano">Avanti</Button>}
+                            {step === 'sequence' && <Button onClick={() => { calculateSchedule(); setStep('preview'); }} disabled={plannedUdas.length === 0} variant="contained" title="Calcola date">Calcola</Button>}
+                            {step === 'preview' && <Button onClick={handleFinalize} disabled={isProcessing} variant="contained" sx={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Salva tutto nel database">{isProcessing ? <AiThinkingGem size="small" inline /> : 'Conferma e Salva'}</Button>}
                         </>
                     )}
-                    {step === 'document' && <M3Button onClick={onClose} variant="text" title="Chiudi wizard">Chiudi</M3Button>}
-            </M3DialogActions>
+                    {step === 'document' && <Button onClick={onClose} variant="text" title="Chiudi wizard">Chiudi</Button>}
+            </DialogActions>
         </M3Dialog>
     );
 };

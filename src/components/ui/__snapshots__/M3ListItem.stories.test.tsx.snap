@@ -4,22 +4,23 @@ exports[`M3ListItem Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
     aria-label="DocenteDoc AI Application"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-g3p503-MuiPaper-root"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
+    style="--Paper-shadow: none;"
   >
-    <div
-      style="display: flex; align-items: flex-start; gap: var(--md-sys-spacing-4); padding: var(--md-sys-spacing-4); border-radius: var(--md-sys-shape-corner-medium); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); min-height: var(--md-sys-spacing-12); cursor: default; background-color: transparent; outline: none; outline-offset: var(--md-sys-spacing-0); border: medium; text-align: left; width: var(--md-sys-percent-100);"
+    <li
+      class="MuiListItem-root MuiListItem-gutters MuiListItem-padding css-xl5i8k-MuiListItem-root"
     >
       <div
-        style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--md-sys-spacing-1);"
+        class="MuiListItemText-root css-1suf81v-MuiListItemText-root"
       >
         <div
-          style="font-family: var(--font-family); font-size: var(--md-sys-typescale-body-large-font-size); font-weight: var(--md-sys-typescale-body-large-font-weight); line-height: var(--md-sys-typescale-body-large-line-height); letter-spacing: var(--md-sys-typescale-body-large-tracking); color: var(--md-sys-color-on-surface); margin: 0px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+          class="MuiTypography-root MuiTypography-body1 css-1q8cnwh-MuiTypography-root"
         >
           Test
         </div>
       </div>
-    </div>
+    </li>
   </div>
 </div>
 `;

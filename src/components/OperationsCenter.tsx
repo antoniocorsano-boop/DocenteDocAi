@@ -1,7 +1,8 @@
-// MD3 Gold Compliant (icon exceptions: GAP/position use raw px from getBoundingClientRect)
+﻿// MD3 Gold Compliant (icon exceptions: GAP/position use raw px from getBoundingClientRect)
 import React, { useState, useMemo } from 'react';
+import {DialogContent, Button } from '@mui/material';
 import { View, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, RegisterEntry } from '../types';
-import { ActionTile, SectionHeader, M3Dialog, M3DialogContent, M3Button } from './ui';
+import { M3Dialog, ActionTile, SectionHeader } from './ui';
 
 interface OperationsCenterProps {
     onClose: () => void;
@@ -226,8 +227,8 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                     </div>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 'var(--md-sys-spacing-3)', paddingTop: 'var(--md-sys-spacing-4)', borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
-                    <M3Button onClick={() => setSelectedProcess(null)} variant="text">Indietro</M3Button>
-                    <M3Button onClick={() => handleProcessStart()} variant="filled">AVVIA ORA</M3Button>
+                    <Button onClick={() => setSelectedProcess(null)} variant="text">Indietro</Button>
+                    <Button onClick={() => handleProcessStart()} variant="contained">AVVIA ORA</Button>
                 </div>
             </div>
         );
@@ -238,10 +239,9 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
             title={selectedProcess ? 'Dettaglio Processo' : 'Centro Operativo'}
             onClose={onClose}
             mode="fullscreen"
-            level={1}
             hideBackdrop={true}
         >
-            <M3DialogContent>
+            <DialogContent>
                     {selectedProcess ? renderProcessDetail() : (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
                             {suggestedProcess && (
@@ -253,9 +253,9 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                                         <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', color: 'var(--md-sys-color-on-tertiary-container)' }}>Suggerimento AI</h3>
                                         <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-tertiary-container)', opacity: 'var(--md-sys-state-opacity-caption)' }}>{suggestedProcess.description}</p>
                                     </div>
-                                    <M3Button onClick={() => setSelectedProcess(suggestedProcess)} variant="filled">
+                                    <Button onClick={() => setSelectedProcess(suggestedProcess)} variant="contained">
                                         AVVIA <span className="material-symbols-outlined">arrow_forward</span>
-                                    </M3Button>
+                                    </Button>
                                 </div>
                             )}
 
@@ -310,7 +310,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                             </div>
                         </div>
                     )}
-            </M3DialogContent>
+            </DialogContent>
         </M3Dialog>
     );
 };

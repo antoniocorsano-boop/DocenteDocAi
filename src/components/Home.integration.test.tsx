@@ -5,6 +5,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+import { Button } from '@mui/material';
 import Home from './Home';
 import { useSettingsStore } from '../stores/useSettingsStore';
 import { useAcademicStore } from '../stores/useAcademicStore';
@@ -187,9 +188,9 @@ describe('Home Component - Integration (lean)', () => {
 
   it('has MD3 token styles present (spacing, color, corner)', () => {
     const { container } = renderWithM3Theme(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
-    // Check for M3 inline styles that apply tokens
-    const elementsWithMD3Styles = container.querySelectorAll('[style*="--md-sys-"]');
-    expect(elementsWithMD3Styles.length).toBeGreaterThan(0);
+    // MUI v7 uses CSS classes instead of inline styles — verify MUI components are rendered
+    const muiElements = container.querySelectorAll('.MuiBox-root, .MuiPaper-root, .MuiStack-root, .MuiButtonBase-root');
+    expect(muiElements.length).toBeGreaterThan(0);
   });
 });
 

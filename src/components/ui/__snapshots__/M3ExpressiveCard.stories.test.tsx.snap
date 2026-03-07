@@ -4,8 +4,9 @@ exports[`M3ExpressiveCard Story Snapshots > renders default story correctly 1`] 
 <div>
   <div
     aria-label="DocenteDoc AI Application"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-g3p503-MuiPaper-root"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
+    style="--Paper-shadow: none;"
   >
     <div
       style="position: relative; background-color: var(--md-sys-color-surface-container-high); color: var(--md-sys-color-on-surface); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant); border-radius: var(--md-sys-shape-corner-large); padding: var(--md-sys-spacing-8); min-height: var(--md-sys-spacing-8); display: flex; flex-direction: column; transition: transform var(--md-sys-motion-spring-expressive-default-spatial-duration, 500ms) var(--md-sys-motion-spring-expressive-default-spatial, cubic-bezier(0.38, 1.21, 0.22, 1.00)), box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard), background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); transform: scale(1); cursor: default; box-shadow: var(--md-sys-elevation-level1); outline: none; will-change: transform, box-shadow;"
@@ -28,12 +29,12 @@ exports[`M3ExpressiveCard Story Snapshots > renders default story correctly 1`] 
         style="flex-grow: 1; display: flex; flex-direction: column; gap: var(--md-sys-spacing-1);"
       >
         <h3
-          style="font-family: var(--font-family); font-size: var(--md-sys-typescale-title-medium-font-size); font-weight: var(--md-sys-typescale-title-medium-font-weight); line-height: var(--md-sys-typescale-title-medium-line-height); letter-spacing: var(--md-sys-typescale-title-medium-tracking); color: inherit; margin: 0px;"
+          class="MuiTypography-root MuiTypography-subtitle2 css-1p9o02s-MuiTypography-root"
         >
           Test Title
         </h3>
         <p
-          style="font-family: var(--font-family); font-size: var(--md-sys-typescale-body-medium-font-size); font-weight: var(--md-sys-typescale-body-medium-font-weight); line-height: var(--md-sys-typescale-body-medium-line-height); letter-spacing: var(--md-sys-typescale-body-medium-tracking); color: inherit; margin: 0px; display: -webkit-box; -webkit-line-clamp: 2; overflow: hidden;"
+          class="MuiTypography-root MuiTypography-body2 css-3m6yds-MuiTypography-root"
         >
           Test description
         </p>

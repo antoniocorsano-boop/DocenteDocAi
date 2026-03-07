@@ -1,11 +1,12 @@
-// MD3 Compliant - Block I Migration Complete (6 violations eliminated)
+﻿// MD3 Compliant - Block I Migration Complete (6 violations eliminated)
 // Note: Icon font sizes (var(--md-sys-spacing-4)) retained with eslint-disable comments for Material Icons
 import React, { useState, useEffect, useMemo } from 'react';
 import { Lezione, AiSettings, Studente, PianoInclusione, Slot, CurriculumSubject } from '../types';
 import { generateInclusivityAdaptations } from '../services/aiService';
 import { DAYS_OF_WEEK } from '../constants';
 import { parseClassString } from '../utils/schoolUtils'; 
-import { TextField, SelectField, TextArea, M3Dialog, M3DialogContent, M3DialogActions, M3Button, AiThinkingGem } from './ui';
+import { Button, Box, Typography, ButtonBase  } from '@mui/material';
+import { M3Dialog, TextField, SelectField, TextArea, AiThinkingGem } from './ui';
 interface CreateLessonFromAiModalProps {
     content: { title: string; htmlContent: string };
     onClose: () => void;
@@ -120,8 +121,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
             materia,
             adattamenti,
             tipoLezione: 'Teoria', // Default type
-            compiti: '',
-        };
+            compiti: '' };
 
         if (selectedSlotKey && onSchedule) {
             const fullLesson: Lezione = {
@@ -183,78 +183,85 @@ return (
                 title="Crea Bozza Lezione"
                 onClose={onClose}
                 maxWidth="lg"
-                level={1}
+                buttons={
+                    <>
+                        <Button type="button" onClick={onClose} variant="text">Annulla</Button>
+                        <Button type="submit" form="create-lesson-ai-form" variant="contained">
+                            <Typography component="span" sx={{ mr: 'var(--md-sys-spacing-2)', fontWeight: 'var(--md-sys-typescale-weight-black)' }}>{selectedSlotKey ? 'event_available' : 'archive'}</Typography>
+                            {selectedSlotKey ? 'Salva e Pianifica' : 'Salva in Archivio'}
+                        </Button>
+                    </>
+                }
             >
-                <form id="create-lesson-ai-form" onSubmit={handleSubmit} style={{ width: "var(--md-sys-percent-100)" }}>
-                    <M3DialogContent >
-                        <TextField 
-                            label="Argomento" 
-                            value={argomento} 
-                            onChange={e => setArgomento(e.target.value)} 
-                            required 
+                <Box id="create-lesson-ai-form" component="form" onSubmit={handleSubmit} sx={{ width: 'var(--md-sys-percent-100)' }}>
+                        <TextField
+                            label="Argomento"
+                            value={argomento}
+                            onChange={e => setArgomento(e.target.value)}
+                            required
                         />
-                        
-                        <div  style={{ display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)" }}>
+
+                        <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)' }}>
                             <SelectField label="Classe" value={classe} onChange={e => setClasse(e.target.value)} required>
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
                             </SelectField>
                             <SelectField label="Materia" value={materia} onChange={e => setMateria(e.target.value)} required>
                                 {disciplines.map(d => <option key={d} value={d}>{d}</option>)}
                             </SelectField>
-                        </div>
+                        </Box>
 
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <div  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <label  style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase"}}>Obiettivi</label>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Typography component="label" sx={{ color: 'var(--md-sys-color-primary)', textTransform: 'uppercase' }}>Obiettivi</Typography>
                                 {matchingCurriculum && (
-                                    <M3Button 
-                                        type="button" 
+                                    <Button
+                                        type="button"
                                         onClick={() => setIsObjectivePickerOpen(true)}
-                                        variant="tonal"
-                                         style={{ textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", borderRadius: 'var(--md-sys-shape-corner-medium)' }}
+                                        variant="outlined"
+                                        sx={{ textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', borderRadius: 'var(--md-sys-shape-corner-medium)' }}
                                         title="Seleziona dal curricolo"
                                     >
-                                        <span  style={{  fontSize: "var(--md-sys-spacing-4)"  }}>library_add</span>
+                                        <Typography component="span" sx={{ fontSize: 'var(--md-sys-spacing-4)' }}>library_add</Typography>
                                         Curricolo
-                                    </M3Button>
+                                    </Button>
                                 )}
-                            </div>
+                            </Box>
                             <TextArea
                                 label="Elenco obiettivi didattici per la lezione..."
                                 value={obiettivi}
                                 onChange={e => setObiettivi(e.target.value)}
                                 rows={5}
                                 placeholder="Elenco obiettivi didattici per la lezione..."
-                                style={{ 
-                                    borderRadius: 'var(--md-sys-shape-corner-medium)', 
-                                    backgroundColor: 'var(--md-sys-color-surface-container-low)', 
+                                style={{
+                                    borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                     padding: 'var(--md-sys-spacing-6)',
                                     border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     transition: 'border-color var(--md-sys-motion-duration-medium4)',
                                     fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-                                    color: 'var(--md-sys-color-on-surface-variant)',
-                                }}
+                                    color: 'var(--md-sys-color-on-surface-variant)' }}
                             />
                             {matchingCurriculum && !obiettivi && (
-                                <p  style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: "var(--md-sys-color-primary)", marginTop: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "var(--md-sys-typescale-weight-bold)", cursor: "pointer"}} onClick={() => setIsObjectivePickerOpen(true)}>
-                                    <span  style={{  fontSize: "var(--md-sys-spacing-4)"  }}>info</span> 
+                                <Typography component="p" onClick={() => setIsObjectivePickerOpen(true)} sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)', mt: 'var(--md-sys-spacing-4)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)', fontWeight: 'var(--md-sys-typescale-weight-bold)', cursor: 'pointer' }}>
+                                    <Typography component="span" sx={{ fontSize: 'var(--md-sys-spacing-4)' }}>info</Typography>
                                     Curricolo disponibile: {matchingCurriculum.gradeLevel} di {matchingCurriculum.subject}
-                                </p>
+                                </Typography>
                             )}
-                        </div>
-                        
+                        </Box>
+
                         {slots && availableSlots.length > 0 && (
-                            <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', padding: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", gap: 'var(--md-sys-spacing-6)' }}>
-                                <label style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase" }}>Pianificazione Rapida (Opzionale)</label>
-                                <div  style={{ display: "flex", flexWrap: "wrap" }}>
+                            <Box sx={{ backgroundColor: 'var(--md-sys-color-secondary-container)', padding: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', gap: 'var(--md-sys-spacing-6)' }}>
+                                <Typography component="label" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase' }}>Pianificazione Rapida (Opzionale)</Typography>
+                                <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
                                     {availableSlots.map(([key, slot]) => (
-                                        <button
+                                        <ButtonBase
                                             key={key}
+                                            component="button"
                                             type="button"
                                             onClick={() => setSelectedSlotKey(prev => prev === key ? '' : key)}
-                                            style={{
+                                            sx={{
                                                 height: 'var(--md-sys-spacing-12)',
                                                 padding: 'var(--md-sys-spacing-0) var(--md-sys-spacing-8)',
                                                 borderRadius: 'var(--md-sys-shape-corner-full)',
@@ -270,62 +277,52 @@ return (
                                                 transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                                             }}
                                         >
-                                            {selectedSlotKey === key && <span  style={{  fontSize: "var(--md-sys-spacing-4)"  }}>check</span>}
-                                            <span  style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{slot.giorno} {slot.ora}</span>
-                                        </button>
+                                            {selectedSlotKey === key && <Typography component="span" sx={{ fontSize: 'var(--md-sys-spacing-4)' }}>check</Typography>}
+                                            <Typography component="span" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{slot.giorno} {slot.ora}</Typography>
+                                        </ButtonBase>
                                     ))}
-                                </div>
-                            </div>
+                                </Box>
+                            </Box>
                         )}
 
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <div  style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <label  style={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase"}}>Adattamenti per l'Inclusività</label>
-                                <M3Button 
-                                    type="button" 
-                                    onClick={handleGenerateAdaptations} 
-                                    disabled={isAdaptationsLoading} 
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Typography component="label" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase' }}>Adattamenti per l'Inclusività</Typography>
+                                <Button
+                                    type="button"
+                                    onClick={handleGenerateAdaptations}
+                                    disabled={isAdaptationsLoading}
                                     variant="text"
-                                    style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", fontSize: 'var(--md-sys-typescale-body-large-font-size)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
+                                    sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', fontSize: 'var(--md-sys-typescale-body-large-font-size)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
                                     title="Usa l'AI per suggerire adattamenti basati sui Piani di Inclusione della classe"
                                 >
                                     {isAdaptationsLoading ? (
                                         <AiThinkingGem size="small" inline text="Suggerisco..." />
                                     ) : (
-                                        <span  style={{  fontSize: "var(--md-sys-spacing-4)"  }}>auto_awesome</span>
+                                        <Typography component="span" sx={{ fontSize: 'var(--md-sys-spacing-4)' }}>auto_awesome</Typography>
                                     )}
                                     {isAdaptationsLoading ? '' : 'Suggerisci con AI'}
-                                </M3Button>
-                            </div>
-                            <TextArea 
+                                </Button>
+                            </Box>
+                            <TextArea
                                 label="Es. Fornire mappe concettuali, consentire l'uso della calcolatrice..."
-                                value={adattamenti} 
-                                onChange={(e) => setAdattamenti(e.target.value)} 
+                                value={adattamenti}
+                                onChange={(e) => setAdattamenti(e.target.value)}
                                 rows={4}
                                 placeholder="Es. Fornire mappe concettuali, consentire l'uso della calcolatrice..."
-                                style={{ 
-                                    borderRadius: 'var(--md-sys-shape-corner-medium)', 
-                                    backgroundColor: 'var(--md-sys-color-surface-container-low)', 
+                                style={{
+                                    borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                    backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                     padding: 'var(--md-sys-spacing-6)',
                                     border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                     transition: 'border-color var(--md-sys-motion-duration-medium4)',
                                     fontFamily: 'var(--md-sys-typescale-body-large-font-family)',
                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-                                    color: 'var(--md-sys-color-on-surface-variant)',
-                                }}
-                            ></TextArea>
-                        </div>
-                    </M3DialogContent>
-
-                    <M3DialogActions  style={{ paddingTop: "0" }}>
-                        <M3Button type="button" onClick={onClose} variant="text">Annulla</M3Button>
-                        <M3Button type="submit" variant="filled" >
-                            <span  style={{ marginRight: "var(--md-sys-spacing-2)", fontWeight: "var(--md-sys-typescale-weight-black)" }}>{selectedSlotKey ? 'event_available' : 'archive'}</span>
-                            {selectedSlotKey ? 'Salva e Pianifica' : 'Salva in Archivio'}
-                        </M3Button>
-                    </M3DialogActions>
-                </form>
+                                    color: 'var(--md-sys-color-on-surface-variant)' }}
+                            />
+                        </Box>
+                </Box>
             </M3Dialog>
 
             {/* NESTED OBJECTIVE PICKER MODAL */}
@@ -333,37 +330,32 @@ return (
                 <M3Dialog
                     title="Seleziona Obiettivi"
                     onClose={() => setIsObjectivePickerOpen(false)}
-                    maxWidth="2xl"
-                    level={2}
+                    maxWidth="xl"
+                    buttons={<Button type="button" onClick={() => setIsObjectivePickerOpen(false)} variant="contained" sx={{ width: 'var(--md-sys-percent-100)', fontWeight: 'var(--md-sys-typescale-weight-black)' }}>CONFERMA SELEZIONE</Button>}
                 >
-                    <M3DialogContent style={{marginTop: 'var(--md-sys-spacing-8)'}}>
-                        <p  style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase"}}>{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</p>
+                        <Typography component="p" sx={{ color: 'var(--md-sys-color-primary)', textTransform: 'uppercase' }}>{matchingCurriculum.subject} - {matchingCurriculum.gradeLevel}</Typography>
                         {matchingCurriculum.nuclei.map(nucleo => (
-                            <details key={nucleo.id}  open>
+                            <details key={nucleo.id} open>
                                 <summary>
-                                    <span style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)" }}>{nucleo.title}</span>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)',  fontSize: "var(--md-sys-spacing-4)"  }}>expand_more</span>
+                                    <Typography component="span" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: 'var(--md-sys-typescale-weight-black)' }}>{nucleo.title}</Typography>
+                                    <Typography component="span" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-spacing-4)' }}>expand_more</Typography>
                                 </summary>
-                                <div style={{padding: 'var(--md-sys-spacing-8)', gap: 'var(--md-sys-spacing-3)', backgroundColor: "var(--md-sys-color-surface)"}}>
+                                <Box sx={{ padding: 'var(--md-sys-spacing-8)', gap: 'var(--md-sys-spacing-3)', backgroundColor: 'var(--md-sys-color-surface)' }}>
                                     {nucleo.objectives.map(obj => (
-                                        <button 
+                                        <ButtonBase
                                             key={obj.id}
+                                            component="button"
                                             type="button"
                                             onClick={() => handleAddObjective(obj.text)}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--md-sys-percent-100)", textAlign: "left", padding: 'var(--md-sys-spacing-6)', transition: "color var(--md-sys-motion-duration-medium)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-6)' }}
+                                            sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: 'var(--md-sys-percent-100)', textAlign: 'left', padding: 'var(--md-sys-spacing-6)', transition: 'color var(--md-sys-motion-duration-medium)', display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-6)' }}
                                         >
-                                            <span  style={{color: "var(--md-sys-color-primary)",  fontSize: "var(--md-sys-spacing-4)" , transition: "transform var(--md-sys-motion-duration-medium)"}}>add_circle</span>
-                                            <span style={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-medium)" }}>{obj.text}</span>
-                                        </button>
+                                            <Typography component="span" sx={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-spacing-4)', transition: 'transform var(--md-sys-motion-duration-medium)' }}>add_circle</Typography>
+                                            <Typography component="span" sx={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>{obj.text}</Typography>
+                                        </ButtonBase>
                                     ))}
-                                </div>
+                                </Box>
                             </details>
                         ))}
-                    </M3DialogContent>
-
-                    <M3DialogActions>
-                        <M3Button type="button" onClick={() => setIsObjectivePickerOpen(false)} variant="filled"  style={{ width: "var(--md-sys-percent-100)", fontWeight: "var(--md-sys-typescale-weight-black)" }}>CONFERMA SELEZIONE</M3Button>
-                    </M3DialogActions>
                 </M3Dialog>
             )}
         </>

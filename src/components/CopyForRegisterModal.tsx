@@ -1,7 +1,8 @@
-// MD3 Compliant
+﻿// MD3 Compliant
 import React, { useState, useMemo } from 'react';
 import { Lezione, RegisterEntry, Studente, Valutazione } from '../types';
-import { TabGroup, TextArea, M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
+import { Button  } from '@mui/material';
+import { M3Dialog, TabGroup, TextArea } from './ui';
 
 interface CopyForRegisterModalProps {
     lesson: Lezione;
@@ -50,9 +51,13 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
             title="Esporta per Registro"
             onClose={onClose}
             maxWidth="md"
-            level={1}
+            buttons={<>
+                <Button onClick={onClose} variant="text">Chiudi</Button>
+                <Button onClick={() => handleCopy(activeTab === 'text' ? generatedText : generatedJson)} variant="contained">
+                    <span style={{ marginRight: 'var(--md-sys-spacing-2)' }}>content_copy</span> COPIA
+                </Button>
+            </>}
         >
-            <M3DialogContent >
                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
                     <TabGroup 
                         tabs={[{ id: 'text', label: 'Manuale', icon: 'content_paste' }, { id: 'json', label: 'Bridge AI', icon: 'extension' }]}
@@ -60,7 +65,7 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                         onTabChange={(id: string) => {
                             if (id === 'text' || id === 'json') setActiveTab(id);
                         }}
-                        variant="filled"
+                        variant="contained"
                         style={{ width: "var(--md-sys-percent-100)" }}
                     />
                 </div>
@@ -96,14 +101,7 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                         style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', fontFamily: 'monospace', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}
                     />
                 </div>
-            </M3DialogContent>
-            <M3DialogActions  style={{ paddingTop: "0" }}>
-                <M3Button onClick={onClose} variant="text">Chiudi</M3Button>
-                <M3Button onClick={() => handleCopy(activeTab === 'text' ? generatedText : generatedJson)} variant="filled" >
-                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>content_copy</span> COPIA
-                </M3Button>
-            </M3DialogActions>
-        </M3Dialog>
+            </M3Dialog>
     );
 };
 

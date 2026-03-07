@@ -6,11 +6,10 @@ const EventModal = lazy(() => import('./EventModal'));
 const AiEventParserModal = lazy(() => import('./AiEventParserModal'));
 import EventActionPopover from './EventActionPopover';
 import { 
-
-    M3Button, 
     TabGroup,
-    M3Typography
 } from './ui';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 interface CalendarProps {
     eventi: EventoCalendario[];
@@ -177,17 +176,17 @@ const renderHeader = () => {
                         borderRadius: 'var(--md-sys-shape-corner-full)',
                         border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`
                     }}>
-                        <M3Button variant="text" onClick={() => handleNavigate('prev')} title="Mese precedente" aria-label="Vai al mese precedente" >
+                        <Button variant="text" onClick={() => handleNavigate('prev')} title="Mese precedente" aria-label="Vai al mese precedente" >
                             <span style={{
 }} aria-hidden="true">chevron_left</span>
-                        </M3Button>
-                        <M3Button variant="tonal" onClick={() => handleNavigate('today')}  title="Torna a oggi">Oggi</M3Button>
-                        <M3Button variant="text" onClick={() => handleNavigate('next')} title="Mese successivo" aria-label="Vai al mese successivo" >
+                        </Button>
+                        <Button variant="outlined" onClick={() => handleNavigate('today')}  title="Torna a oggi">Oggi</Button>
+                        <Button variant="text" onClick={() => handleNavigate('next')} title="Mese successivo" aria-label="Vai al mese successivo" >
                             <span style={{
 }} aria-hidden="true">chevron_right</span>
-                        </M3Button>
+                        </Button>
                     </div>
-                    <M3Typography variant="headline-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>{title}</M3Typography>
+                    <Typography variant="h5" sx={{ color: 'var(--md-sys-color-on-surface)' }}>{title}</Typography>
                 </div>
 
                 <div  style={{gap: 'var(--md-sys-spacing-8)'}}>
@@ -200,18 +199,18 @@ const renderHeader = () => {
                         ]}
                         activeTab={viewMode}
                         onTabChange={(id) => setViewMode(id as CalendarView)}
-                        variant="filled"
+                        variant="contained"
                     />
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                        <M3Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza circolare con AI" aria-label="Apri analizzatore AI per circolari" >
+                        <Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza circolare con AI" aria-label="Apri analizzatore AI per circolari" >
                             <span  style={{color: "var(--md-sys-color-primary)"}} aria-hidden="true">auto_awesome</span>
-                        </M3Button>
-                        <M3Button variant="filled" onClick={() => setEditingEvent({})} title="Crea nuovo evento">
+                        </Button>
+                        <Button variant="contained" onClick={() => setEditingEvent({})} title="Crea nuovo evento">
                             <span style={{
 }} aria-hidden="true">add</span>
                             Nuovo Evento
-                        </M3Button>
+                        </Button>
                     </div>
                 </div>
             </header>
@@ -417,9 +416,9 @@ const renderHeader = () => {
     const renderDayView = () => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <div  style={{padding: 'var(--md-sys-spacing-8)'}}>
-                <M3Typography variant="headline-small" style={{color: 'var(--md-sys-color-primary)'}}>
+                <Typography variant="h6" sx={{color: 'var(--md-sys-color-primary)'}}>
                     {currentDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
-                </M3Typography>
+                </Typography>
             </div>
             <div  ref={scrollContainerRef}>
                 {dayEvents.length === 0 ? (
@@ -441,12 +440,12 @@ const renderHeader = () => {
                         >
                             event_busy
                         </span>
-                        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>
+                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)' }}>
                             Nessun evento per questo giorno
-                        </M3Typography>
-                        <M3Button variant="text" onClick={() => setEditingEvent({})} style={{marginTop: 'var(--md-sys-spacing-4)'}}>
+                        </Typography>
+                        <Button variant="text" onClick={() => setEditingEvent({})} sx={{marginTop: 'var(--md-sys-spacing-4)'}}>
                             Aggiungi Evento
-                        </M3Button>
+                        </Button>
                     </div>
                 ) : (
                     <div  style={{padding: 'var(--md-sys-spacing-8)', gap: 'var(--md-sys-spacing-4)'}}>
@@ -494,7 +493,7 @@ const renderHeader = () => {
             {Object.keys(agendaGroups).length === 0 ? (
                 <div style={{ padding: 'var(--md-sys-spacing-8)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", opacity: "var(--md-sys-state-opacity-secondary)" }}>
                     <span style={{ color: "var(--md-sys-color-on-surface-variant)", marginBottom: 'var(--md-sys-spacing-8)' }} aria-hidden="true">event_busy</span>
-                    <M3Typography variant="body-medium" style={{ color: "var(--md-sys-color-on-surface-variant)" }}>Nessun evento questo mese</M3Typography>
+                    <Typography variant="body2" sx={{ color: "var(--md-sys-color-on-surface-variant)" }}>Nessun evento questo mese</Typography>
                 </div>
             ) : (
                 <div style={{gap: 'var(--md-sys-spacing-6)'}}>

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, RenderOptions } from '@testing-library/react';
 import { M3ThemeProvider } from './theme/M3ThemeProvider';
 import { M3Surface } from './components/ui/M3Surface';
-import { M3Typography } from './components/ui/M3Typography';
+import { M3Typography, type M3TypographyProps } from './components/ui/M3Typography';
 
 // Helper per renderizzare componenti con M3ThemeProvider
 const renderWithM3Theme = (ui: React.ReactElement, options?: Omit<RenderOptions, 'wrapper'>): ReturnType<typeof render> =>
@@ -29,7 +29,7 @@ const renderWithM3Surface = (ui: React.ReactElement, options?: Omit<RenderOption
 const renderWithM3Typography = (text: string, variant: string = 'body-medium'): ReturnType<typeof render> =>
   renderWithM3Theme(
     <M3Typography 
-      variant={variant}
+      variant={variant as M3TypographyProps['variant']}
       role="text"
       aria-label={`Test text: ${text}`}
     >

@@ -143,19 +143,20 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             overflow: 'hidden',
           }}
         >
-          <span
+          <Box
+            component="span"
             className="material-symbols-outlined"
             aria-hidden="true"
-            style={{
+            sx={{
               fontSize: '2.5rem',
               color: 'var(--md-sys-color-primary)',
               fontVariationSettings: '"FILL" 0',
               flexShrink: 0,
-              marginTop: 4,
+              mt: 0.5,
             }}
           >
             {nextLesson ? 'school' : 'auto_awesome'}
-          </span>
+          </Box>
           <Stack spacing={0.5}>
             <Typography
               variant="h5"
@@ -229,13 +230,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 '&:focus-visible': { outline: `3px solid ${card.color}`, outlineOffset: 2 },
               }}
             >
-              <span
+              <Box
+                component="span"
                 className="material-symbols-outlined"
                 aria-hidden="true"
-                style={{ fontSize: '1.75rem', color: card.color, fontVariationSettings: '"FILL" 0' }}
+                sx={{ fontSize: '1.75rem', color: card.color, fontVariationSettings: '"FILL" 0' }}
               >
                 {card.icon}
-              </span>
+              </Box>
               <Stack spacing={0.5}>
                 <Typography variant="h4" sx={{ color: card.color, lineHeight: 1, fontWeight: 400 }}>
                   {card.value}
@@ -267,17 +269,18 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 bgcolor: 'var(--md-sys-color-surface-container-low)',
               }}
             >
-              <span
+              <Box
+                component="span"
                 className="material-symbols-outlined"
                 aria-hidden="true"
-                style={{
+                sx={{
                   fontSize: '2.5rem',
                   color: 'var(--md-sys-color-on-surface-variant)',
                   fontVariationSettings: '"FILL" 0, "wght" 300',
                 }}
               >
                 event_busy
-              </span>
+              </Box>
               <Typography variant="subtitle1">Nessuna attività recente</Typography>
               <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                 Le tue attività appariranno qui
@@ -365,9 +368,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           textTransform: 'none',
         }}
       >
-        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '1.25rem' }}>
+        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: '1.25rem' }}>
           playlist_add_check
-        </span>
+        </Box>
         Inizia Giornata
       </Fab>
     </>

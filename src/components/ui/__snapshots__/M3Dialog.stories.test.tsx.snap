@@ -1,59 +1,14 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`M3Dialog Story Snapshots > renders default story correctly 1`] = `
-<div>
+<div
+  aria-hidden="true"
+>
   <div
     aria-label="DocenteDoc AI Application"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-g3p503-MuiPaper-root"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
-  >
-    <div
-      data-fullscreen="false"
-      data-testid="m3-dialog"
-      role="presentation"
-      style="position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; z-index: var(--md-sys-z-modal);"
-    >
-      <div
-        aria-hidden="true"
-        style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; background-color: var(--md-sys-color-scrim); opacity: var(--md-sys-state-opacity-scrim); animation: fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-decelerated);"
-      />
-      <div
-        aria-labelledby="dialog-title"
-        aria-modal="true"
-        role="dialog"
-        style="width: var(--md-sys-percent-100); max-width: var(--md-sys-spacing-32); max-height: var(--md-sys-percent-90); margin: var(--md-sys-margin-auto); background-color: var(--md-sys-color-surface-container-high); border-radius: var(--md-sys-shape-corner-large); box-shadow: var(--md-sys-elevation-level3); display: flex; flex-direction: column; position: relative; z-index: var(--md-sys-z-modal); animation: md3-dialog-enter var(--md-sys-motion-duration-medium) var(--md-sys-motion-spring-expressive-default-spatial) forwards;"
-      >
-        <div
-          style="display: flex; justify-content: space-between; align-items: flex-start; padding: var(--md-sys-spacing-6); border-bottom: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant);"
-        >
-          <div>
-            <h2
-              id="dialog-title"
-              style="font-family: var(--font-family); font-size: var(--md-sys-typescale-title-large-font-size); font-weight: var(--md-sys-typescale-title-large-font-weight); line-height: var(--md-sys-typescale-title-large-line-height); letter-spacing: var(--md-sys-typescale-title-large-tracking); color: var(--md-sys-color-on-surface); margin: 0px;"
-            >
-              Test Dialog
-            </h2>
-          </div>
-          <button
-            aria-label="Chiudi"
-            data-focus-priority="-1"
-            style="display: flex; align-items: center; justify-content: center; padding: var(--md-sys-spacing-4); border-radius: var(--md-sys-shape-corner-large); background-color: transparent; border: medium; cursor: pointer; transition: background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);"
-          >
-            <span
-              class="material-symbols-outlined"
-              style="font-size: var(--md-sys-typescale-body-large-font-size); color: var(--md-sys-color-on-surface-variant);"
-            >
-              close
-            </span>
-          </button>
-        </div>
-        <div
-          style="flex: 1 1 0%; padding: var(--md-sys-spacing-6); overflow-y: auto;"
-        >
-          Test content
-        </div>
-      </div>
-    </div>
-  </div>
+    style="--Paper-shadow: none;"
+  />
 </div>
 `;

@@ -1,6 +1,6 @@
 // MD3 Gold Compliant
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { M3Typography } from './ui';
+import { Typography } from '@mui/material';
 import { useUIStore } from '../stores/useUIStore';
 
 interface ErrorBoundaryProps {
@@ -62,18 +62,18 @@ const ErrorFallback: React.FC<{ error?: Error }> = ({ error }) => {
 					<span className="material-symbols-outlined">error</span>
 				</div>
 
-				<M3Typography variant="headline-small" as="h2">
+				<Typography variant="h6" component="h2">
 					Oops! Qualcosa è andato storto
-				</M3Typography>
+				</Typography>
 
-				<M3Typography variant="body-medium" as="p">
+				<Typography variant="body2" component="p">
 					Si è verificato un errore imprevisto nell'applicazione.
 					La pagina verrà ricaricata automaticamente tra pochi secondi.
-				</M3Typography>
+				</Typography>
 
 				<div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
 					<span className="material-symbols-outlined">refresh</span>
-					<M3Typography variant="body-medium" as="span">Ricaricamento in corso...</M3Typography>
+					<Typography variant="body2" component="span">Ricaricamento in corso...</Typography>
 				</div>
 
 				{process.env.NODE_ENV === 'development' && error && (

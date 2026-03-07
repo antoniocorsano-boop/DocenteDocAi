@@ -1,15 +1,10 @@
-// MD3 Gold Compliant
+﻿// MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 import React from 'react';
 import { saveAs } from '../utils/documentUtils';
-import { 
-
-    M3Dialog, 
-    M3DialogContent, 
-    M3DialogActions, 
-    M3Button 
-} from './ui';
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog } from './ui';
 
 interface ImageViewerModalProps {
     prompt: string;
@@ -39,43 +34,32 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
             title="Immagine Generata"
             onClose={onClose}
             maxWidth="lg"
+            buttons={
+                <>
+                    <Button onClick={handleSave} variant="outlined">
+                        <Box component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>save</Box>
+                        Salva in Knowledge Base
+                    </Button>
+                    <Button onClick={onClose} variant="text">Chiudi</Button>
+                    <Button onClick={handleDownload} variant="contained">
+                        <Box component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>download</Box>
+                        Scarica
+                    </Button>
+                </>
+            }
         >
-            <M3DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' , display: "flex", justifyContent: "center", alignItems: "center", padding: 'var(--md-sys-spacing-6)'}}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <Box sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)', display: 'flex', justifyContent: 'center', alignItems: 'center', p: 'var(--md-sys-spacing-6)' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <img 
                         src={dataUrl} 
                         alt={prompt} 
-                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , maxWidth: "var(--md-sys-percent-100)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}} 
+                        style={{ borderRadius: 'var(--md-sys-shape-corner-large)', maxWidth: 'var(--md-sys-percent-100)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }} 
                     />
-                    <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-scrim) 40%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', opacity: "0", transition: "opacity var(--md-sys-motion-duration-medium)"}}>
-                        <p style={{ color: 'var(--md-sys-color-surface)' ,  fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-medium)" }}>"{prompt}"</p>
-                    </div>
-                </div>
-            </M3DialogContent>
-
-            <M3DialogActions style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 80%, transparent)' , padding: 'var(--md-sys-spacing-6)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
-                <M3Button 
-                    onClick={handleSave} 
-                    variant="outlined" 
-                    
-                >
-                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>save</span>
-                    Salva in Knowledge Base
-                </M3Button>
-                <M3Button 
-                    onClick={onClose} 
-                    variant="text"
-                >
-                    Chiudi
-                </M3Button>
-                <M3Button 
-                    onClick={handleDownload} 
-                    variant="filled"
-                >
-                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>download</span>
-                    Scarica
-                </M3Button>
-            </M3DialogActions>
+                    <Box sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-scrim) 40%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)', p: 'var(--md-sys-spacing-8)', opacity: 0, transition: 'opacity var(--md-sys-motion-duration-medium)' }}>
+                        <Typography component="p" sx={{ color: 'var(--md-sys-color-surface)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>"{prompt}"</Typography>
+                    </Box>
+                </Box>
+            </Box>
         </M3Dialog>
     );
 };

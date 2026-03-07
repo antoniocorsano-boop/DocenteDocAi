@@ -1,6 +1,6 @@
 // Settings - SettingsGroup component
 import React, { useState } from 'react';
-import { M3Typography } from '../ui';
+import { Typography } from '@mui/material';
 import { storage } from '../../utils/storage';
 
 interface SettingsGroupProps {
@@ -8,7 +8,7 @@ interface SettingsGroupProps {
     title: string;
     subtitle?: string;
     icon: string;
-    variant: 'primary' | 'secondary' | 'tertiary' | 'surface' | 'filled' | 'tonal' | 'elevated';
+    variant: 'primary' | 'secondary' | 'tertiary' | 'surface' | 'filled' | 'tonal' | 'elevated' | 'outlined' | 'contained';
     defaultOpen: boolean;
     children: React.ReactNode;
 }
@@ -61,6 +61,14 @@ export const SettingsGroup: React.FC<SettingsGroupProps> = ({
         elevated: {
             bg: 'var(--md-sys-color-surface-container-low)',
             color: 'var(--md-sys-color-on-surface)'
+        },
+        outlined: {
+            bg: 'var(--md-sys-color-surface-container)',
+            color: 'var(--md-sys-color-on-surface)'
+        },
+        contained: {
+            bg: 'var(--md-sys-color-primary-container)',
+            color: 'var(--md-sys-color-on-primary-container)'
         }
     };
 
@@ -124,25 +132,25 @@ export const SettingsGroup: React.FC<SettingsGroupProps> = ({
                         </span>
                     </div>
                     <div style={{ minWidth: 0, flex: 1 }}>
-                        <M3Typography
-                            variant="title-medium"
+                        <Typography
+                            variant="subtitle1"
                             style={{
                                 color: 'var(--md-sys-color-on-surface)',
                                 fontWeight: 'var(--md-sys-typescale-weight-semibold)'
                             }}
                         >
                             {title}
-                        </M3Typography>
+                        </Typography>
                         {subtitle && (
-                            <M3Typography
-                                variant="body-small"
+                            <Typography
+                                variant="caption"
                                 style={{
                                     color: 'var(--md-sys-color-on-surface-variant)',
                                     marginTop: 'var(--md-sys-spacing-1)'
                                 }}
                             >
                                 {subtitle}
-                            </M3Typography>
+                            </Typography>
                         )}
                     </div>
                 </div>

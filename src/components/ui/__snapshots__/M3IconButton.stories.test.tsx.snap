@@ -4,19 +4,20 @@ exports[`M3IconButton Story Snapshots > renders default story correctly 1`] = `
 <div>
   <div
     aria-label="DocenteDoc AI Application"
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-g3p503-MuiPaper-root"
     role="application"
-    style="background-color: var(--md-sys-color-background); color: var(--md-sys-color-on-background); min-height: var(--md-sys-viewport-height-full);"
+    style="--Paper-shadow: none;"
   >
     <button
       aria-label="Test button"
-      style="display: inline-flex; align-items: center; justify-content: center; border-radius: var(--md-sys-shape-corner-full); transition: all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard); outline: none; outline-offset: var(--md-sys-spacing-0); border: medium; cursor: pointer; pointer-events: auto; font-family: var(--md-sys-typescale-font-family); font-weight: var(--md-sys-typescale-label-large-font-weight); line-height: var(--md-sys-typescale-label-large-line-height); letter-spacing: var(--md-sys-typescale-label-large-letter-spacing); width: var(--md-sys-spacing-10); height: var(--md-sys-spacing-10); font-size: var(--md-sys-typescale-label-large-font-size); background-color: transparent; color: var(--md-sys-color-on-surface-variant);"
+      class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1f6rtmh-MuiButtonBase-root-MuiIconButton-root"
+      tabindex="0"
       title="Test button"
       type="button"
     >
       <span
         aria-hidden="true"
-        class="material-symbols-outlined"
-        style="user-select: none; font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;"
+        class="material-symbols-outlined MuiBox-root css-t4ole3"
       >
         test-icon
       </span>

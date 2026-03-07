@@ -1,9 +1,10 @@
-// MD3 Gold Compliant
+﻿// MD3 Gold Compliant
 // Note: Scrollable areas use viewport height tokens for functional UX
 import React, { useState, useRef, useEffect } from 'react';
 import { fetchNotebookFiles, uploadNotebookFile, deleteNotebookFile, NotebookLMFile } from '../services/notebooklmService';
 import { chatWithAi } from '../services/aiService';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, M3Typography, TextField } from './ui';
+import { Button, Box, Typography  } from '@mui/material';
+import { M3Dialog, TextField } from './ui';
 import { AiSettings, ChatMessage } from '../types';
 interface AssistantModalProps {
   open: boolean;
@@ -37,8 +38,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
   context,
   onOpenImageAnalysis,
   onOpenVideoAnalysis,
-  onOpenCircularAnalysis,
-}) => {
+  onOpenCircularAnalysis }) => {
   const [activeMode, setActiveMode] = React.useState<'chat' | 'docs' | 'tools'>(mode === 'backup' ? 'chat' : (mode as 'chat' | 'docs' | 'tools'));
 
   // Sync activeMode when mode prop changes (e.g. FAB action selection)
@@ -226,8 +226,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
         gap: 'var(--md-sys-spacing-2)',
         padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
         backgroundColor: 'var(--md-sys-color-surface-container-low)',
-        borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-      }}
+        borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}
     >
       {TABS.map(tab => (
         <button
@@ -248,8 +247,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
             fontWeight: activeMode === tab.key ? 'var(--md-sys-typescale-weight-bold)' : 'var(--md-sys-typescale-weight-medium)',
             backgroundColor: activeMode === tab.key ? 'var(--md-sys-color-secondary-container)' : 'transparent',
             color: activeMode === tab.key ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface-variant)',
-            transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-          }}
+            transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}
         >
           <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-label-large-size)' }}>{tab.icon}</span>
           {tab.label}
@@ -272,9 +270,9 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
         flexGrow: 1,
         minWidth: "0"
       }}>
-        <M3Typography variant="headline-small" as="h2">
+      <Typography variant="h6" component="h2">
           Assistente DocenteDoc AI
-        </M3Typography>
+        </Typography>
       </div>
       <button
         onClick={onClose}
@@ -301,13 +299,11 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
       title="Assistente DocenteDoc AI"
       onClose={onClose}
       maxWidth="md"
-      level={2}
       hideBackdrop={false}
       headerContent={<>{headerContent}{tabRow}</>}
       wrapperTestId="assistant-modal-overlay"
       // Removed wrapperClassName for MD3 compliance; all overlay styling must be handled via MD3 tokens and Dialog implementation
     >
-      <M3DialogContent >
         {activeMode === 'chat' && (
           <>
             <div style={{
@@ -351,7 +347,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
               gap: 'var(--md-sys-spacing-2)'
             }}>
               {SUGGESTED_PROMPTS.map((p) => (
-                <M3Button
+                <Button
                   key={p}
                   variant="outlined"
                   onClick={() => handlePrompt(p)}
@@ -361,7 +357,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                   }}
                 >
                   {p}
-                </M3Button>
+                </Button>
               ))}
             </div>
           </>
@@ -369,31 +365,28 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
 
         {activeMode === 'tools' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-4)' }}>
-            <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+            <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
               Lancia uno strumento AI direttamente dalla chat.
-            </M3Typography>
+            </Typography>
             {[
               {
                 key: 'image',
                 icon: 'image_search',
                 label: 'Analisi Immagine',
                 description: 'Carica e analizza immagini con AI',
-                onAction: onOpenImageAnalysis,
-              },
+                onAction: onOpenImageAnalysis },
               {
                 key: 'video',
                 icon: 'video_search',
                 label: 'Analisi Video',
                 description: 'Analizza contenuti video con AI',
-                onAction: onOpenVideoAnalysis,
-              },
+                onAction: onOpenVideoAnalysis },
               {
                 key: 'circular',
                 icon: 'description',
                 label: 'Analisi Circolare',
                 description: 'Estrai dati da circolari scolastiche',
-                onAction: onOpenCircularAnalysis,
-              },
+                onAction: onOpenCircularAnalysis },
             ].map(tool => (
               <button
                 key={tool.key}
@@ -412,13 +405,12 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                   opacity: tool.onAction ? undefined : 'var(--md-sys-state-opacity-placeholder)',
                   textAlign: 'left',
                   width: 'var(--md-sys-percent-full)',
-                  transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-                }}
+                  transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}
               >
                 <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-10)', color: 'var(--md-sys-color-primary)' }}>{tool.icon}</span>
                 <div>
-                  <M3Typography variant="body-large" style={{ color: 'var(--md-sys-color-on-surface)' }}>{tool.label}</M3Typography>
-                  <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{tool.description}</M3Typography>
+                  <Typography variant="body1" style={{ color: 'var(--md-sys-color-on-surface)' }}>{tool.label}</Typography>
+                  <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{tool.description}</Typography>
                 </div>
                 <span className="material-symbols-outlined" style={{ marginLeft: 'var(--md-sys-margin-auto)', color: 'var(--md-sys-color-on-surface-variant)' }}>chevron_right</span>
               </button>
@@ -441,20 +433,20 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                 gap: 'var(--md-sys-spacing-2)'
               }}>
                 <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-secondary)' }}>import_contacts</span>
-                <M3Typography variant="title-medium" as="h3">NotebookLM</M3Typography>
+                <Typography variant="h6" component="h3">NotebookLM</Typography>
               </div>
               <div style={{
                 display: 'flex',
                 flexDirection: 'row',
                 gap: 'var(--md-sys-spacing-2)'
               }}>
-                <M3Button
+                <Button
                   variant="text"
                   onClick={handleNbSync}
                   disabled={nbLoading}
                 >
                   <span className="material-symbols-outlined">sync</span>
-                </M3Button>
+                </Button>
                 <input
                   type="file"
                   ref={nbFileInput}
@@ -463,13 +455,13 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                   accept=".txt,.md,.pdf,.docx"
                   aria-label="Carica file per knowledge base"
                 />
-                <M3Button
+                <Button
                   variant="text"
                   onClick={() => nbFileInput.current?.click()}
                   disabled={nbLoading}
                 >
                   <span className="material-symbols-outlined">upload</span>
-                </M3Button>
+                </Button>
               </div>
             </div>
             {nbError && <div style={{
@@ -503,33 +495,32 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                     flexGrow: 1,
                     minWidth: "0"
                   }}>
-                    <M3Typography variant="body-medium" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.name}</M3Typography>
-                    <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(file.lastModified).toLocaleDateString()}</M3Typography>
+                    <Typography variant="body2" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.name}</Typography>
+                    <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(file.lastModified).toLocaleDateString()}</Typography>
                   </div>
-                  <M3Button
+                  <Button
                     variant="text"
                     color="error"
                     onClick={() => handleNbDelete(file.id)}
                   >
                     <span className="material-symbols-outlined">delete</span>
-                  </M3Button>
+                  </Button>
                 </div>
               ))}
             </div>
           </div>
         )}
-      </M3DialogContent>
 
       {/* Input Footer */}
-        <M3DialogActions style={{
+        <Box sx={{
           display: 'flex',
           flexDirection: 'row',
           gap: 'var(--md-sys-spacing-6)',
           alignItems: 'flex-end',
           width: 'var(--md-sys-percent-full)',
-          padding: 'var(--md-sys-spacing-4)',
+          p: 'var(--md-sys-spacing-4)',
           backgroundColor: 'var(--md-sys-color-surface-container-low)',
-          borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"
+          borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)'
         }}>
         <div style={{ flexGrow: 1 }}>
           <TextField
@@ -542,7 +533,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
             style={isRecording ? { outline: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-error)' } : {}}
           />
         </div>
-        <M3Button
+        <Button
           variant="text"
           style={{
             color: isRecording ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-secondary)',
@@ -555,9 +546,9 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
           <span className="material-symbols-outlined">
             {isRecording ? 'mic' : 'mic_none'}
           </span>
-        </M3Button>
-        <M3Button
-          variant="filled"
+        </Button>
+        <Button
+          variant="contained"
           onClick={handleSend}
           disabled={loading || !input.trim()}
           style={{
@@ -568,13 +559,13 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
           }}
         >
           <span className="material-symbols-outlined">send</span>
-        </M3Button>
-        {voiceError && <M3Typography variant="body-small" style={{
+        </Button>
+        {voiceError && <Typography variant="caption" style={{
           color: 'var(--md-sys-color-error)',
           width: 'var(--md-sys-percent-full)',
           textAlign: 'center'
-        }}>{voiceError}</M3Typography>}
-      </M3DialogActions>
+        }}>{voiceError}</Typography>}
+      </Box>
     </M3Dialog>
   );
 }

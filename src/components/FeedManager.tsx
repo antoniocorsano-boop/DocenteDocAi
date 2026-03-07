@@ -7,7 +7,8 @@
 import React, { useState } from 'react';
 import { FeedSource } from '../types';
 import { discoverAndCreateFeed, fetchAndParseRssFeed } from '../services/aiService';
-import { InfoCard, SectionHeader, M3Button, TextField } from './ui';
+import { InfoCard, SectionHeader, TextField } from './ui';
+import { Button } from '@mui/material';
 
 interface FeedManagerProps {
     sources: FeedSource[];
@@ -101,15 +102,15 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                         containerClassName="flex-grow"
                         leadingIcon="link"
                     />
-                    <M3Button 
+                    <Button 
                         onClick={handleAddSource} 
-                        variant="filled" 
+                        variant="contained" 
                         disabled={true} 
                         
                     >
                         <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_link</span>
                         Aggiungi
-                    </M3Button>
+                    </Button>
                 </div>
             </div>
             
@@ -130,22 +131,22 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                                    <M3Button 
+                                    <Button 
                                         onClick={() => handleDeleteSource(source.id)} 
                                         variant="text" 
                                         
                                     >
                                         <span style={{
 }}>delete</span>
-                                    </M3Button>
-                                    <M3Button 
+                                    </Button>
+                                    <Button 
                                         onClick={() => handleCheckForUpdates(source)} 
                                         disabled={true} 
-                                        variant="tonal"
+                                        variant="outlined"
                                         
                                     >
                                         Aggiorna
-                                    </M3Button>
+                                    </Button>
                                 </div>
                             </div>
                             

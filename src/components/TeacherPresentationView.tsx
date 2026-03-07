@@ -1,9 +1,10 @@
 // MD3 Compliant - Block J Migration Complete (6 violations eliminated)
 // Note: minHeight: "100vh" retained for functional full viewport height (no exact MD3 token available)
 import React from 'react';
+import { Button } from '@mui/material';
 import Logo from './Logo';
 import { View } from '../types';
-import { InfoCard, SectionHeader, ActionTile, M3Button } from './ui';
+import { InfoCard, SectionHeader, ActionTile } from './ui';
 interface TeacherPresentationViewProps {
     onNavigate: (view: View) => void;
 }
@@ -122,16 +123,16 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                             Esplora subito il tuo copilota didattico e trasforma il tuo modo di insegnare.
                         </p>
                     </div>
-                    <M3Button 
+                    <Button 
                         onClick={() => onNavigate('home')} 
-                        variant="filled"
+                        variant="contained"
                          style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard)' }}
                     >
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                             <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Inizia Subito!</span>
                             <span  style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', transition: "transform var(--md-sys-motion-duration-long)" }}>arrow_forward</span>
                         </div>
-                    </M3Button>
+                    </Button>
                 </div>
 
             </div>

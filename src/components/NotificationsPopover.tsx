@@ -2,7 +2,8 @@
 // M3Expressive: NotificationsPopover - Notifications display popover with M3 tokens
 import React from 'react';
 import { Notifica, View } from '../types';
-import { M3Button, M3Popover, M3Typography } from './ui';
+import { Button, Typography } from '@mui/material';
+import { M3Popover } from './ui';
 
 interface NotificationsPopoverProps {
     anchorEl: HTMLElement | null;
@@ -80,22 +81,22 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-4)'}}
             >
-                <M3Typography
-                    variant="body-medium"
+                <Typography
+                    variant="body2"
                     style={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
                         color: 'var(--md-sys-color-on-surface)'}}
                 >
                     Notifiche
-                </M3Typography>
+                </Typography>
                 <div style={{display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)'}}>
                     {unreadCount > 0 && (
-                        <M3Button
+                        <Button
                             onClick={onMarkAllAsRead}
                             variant="outlined"
                             size="small"
                         >
                             Segna lette
-                        </M3Button>
+                        </Button>
                     )}
                     <button
                         onClick={onClose}
@@ -240,8 +241,8 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                                 gap: 'var(--md-sys-spacing-2)',
                                                 marginBottom: 'var(--md-sys-spacing-1)'}}
                                         >
-                                            <M3Typography
-                                                variant="body-small"
+                                            <Typography
+                                                variant="caption"
                                                 style={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                                     overflow: 'hidden',
                                                     textOverflow: 'ellipsis',
@@ -252,7 +253,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                                         : 'var(--md-sys-color-on-surface)'}}
                                             >
                                                 {notifica.titolo}
-                                            </M3Typography>
+                                            </Typography>
                                             {!notifica.letta && (
                                                 <div
                                                     style={{width: 'var(--md-sys-spacing-2)',
@@ -292,7 +293,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                             if (notifica.type === 'circular' && isCircularPayload(notifica.payload)) {
                                                 const { url, title } = notifica.payload;
                                                 return (
-                                                    <M3Button
+                                                    <Button
                                                         onClick={(e) => {
                                                             e.stopPropagation();
                                                             onOpenCircularAnalysis(url, title);
@@ -311,7 +312,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                                             auto_awesome
                                                         </span>
                                                         Analizza Circolare
-                                                    </M3Button>
+                                                    </Button>
                                                 );
                                             }
                                             return null;
@@ -350,13 +351,13 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                 notifications_off
                             </span>
                         </div>
-                        <M3Typography
-                            variant="body-medium"
+                        <Typography
+                            variant="body2"
                             style={{color: 'var(--md-sys-color-on-surface-variant)',
                                 textAlign: 'center'}}
                         >
                             Nessuna notifica
-                        </M3Typography>
+                        </Typography>
                     </div>
                 )}
             </div>

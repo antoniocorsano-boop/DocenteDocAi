@@ -1,7 +1,8 @@
-// MD3 Compliant
+﻿// MD3 Compliant
 import React, { useState } from 'react';
 import { EventoCalendario, TipoEvento } from '../types';
-import { TextField, TextArea, M3ChoiceCard, M3Dialog, M3DialogContent, M3DialogActions, M3Button, M3Typography } from './ui';
+import { Button, Box, Typography } from '@mui/material';
+import { M3Dialog, M3ChoiceCard as Card, TextField, TextArea } from './ui';
 interface EventModalProps {
     eventToEdit?: Partial<EventoCalendario>;
     onClose: () => void;
@@ -47,8 +48,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
             tipo: event.tipo as TipoEvento,
             oraInizio: event.oraInizio,
             oraFine: event.oraFine,
-            descrizione: event.descrizione,
-        };
+            descrizione: event.descrizione };
         onSave(eventToSave);
     };
 
@@ -57,81 +57,80 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
             title={event.id ? 'Modifica Evento' : 'Nuovo Evento'}
             onClose={onClose}
             maxWidth="lg"
-            level={1}
+            buttons={
+                <>
+                    {event.id && (
+                        <Button onClick={() => onDelete(event.id!)} variant="text" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)' }}>
+                            Elimina
+                        </Button>
+                    )}
+                    <Button onClick={onClose} variant="text">Annulla</Button>
+                    <Button onClick={handleSubmit} variant="contained">Salva</Button>
+                </>
+            }
         >
-            <M3DialogContent style={{marginTop: 'var(--md-sys-spacing-8)'}}>
-                <form id="event-modal-form" onSubmit={handleSubmit} style={{marginTop: 'var(--md-sys-spacing-8)'}}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <label style={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-8)', display: "block"}}>Tipo Evento</label>
-                        <div  style={{display: "flex", gap: 'var(--md-sys-spacing-6)', overflowX: "auto"}}>
-                            {eventTypes.map(t => (
-                                <M3ChoiceCard
-                                    key={t.value}
-                                    icon={t.icon}
-                                    label={t.label}
-                                    onClick={() => handleChange('tipo', t.value)}
-                                    selected={event.tipo === t.value}
-                                />
-                            ))}
-                        </div>
-                    </div>
+            <Box component="form" id="event-modal-form" onSubmit={handleSubmit} sx={{ mt: 'var(--md-sys-spacing-8)' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Typography component="label" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', pl: 'var(--md-sys-spacing-4)', pr: 'var(--md-sys-spacing-4)', mb: 'var(--md-sys-spacing-8)', display: 'block' }}>Tipo Evento</Typography>
+                    <Box sx={{ display: 'flex', gap: 'var(--md-sys-spacing-6)', overflowX: 'auto' }}>
+                        {eventTypes.map(t => (
+                            <Card
+                                key={t.value}
+                                icon={t.icon}
+                                label={t.label}
+                                onClick={() => handleChange('tipo', t.value)}
+                                selected={event.tipo === t.value}
+                            />
+                        ))}
+                    </Box>
+                </Box>
 
-                    <TextField 
-                        id="event-titolo-input"
-                        name="event-titolo"
-                        label="Titolo" 
-                        value={event.titolo || ''} 
-                        onChange={e => handleChange('titolo', e.target.value)} 
-                        placeholder="Es. Consiglio di Classe 3A" 
-                        required 
-                        autoFocus
+                <TextField
+                    id="event-titolo-input"
+                    name="event-titolo"
+                    label="Titolo"
+                    value={event.titolo || ''}
+                    onChange={e => handleChange('titolo', e.target.value)}
+                    placeholder="Es. Consiglio di Classe 3A"
+                    required
+                    autoFocus
+                />
+
+                <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)' }}>
+                    <TextField
+                        id="event-data-input"
+                        name="event-data"
+                        label="Data Inizio"
+                        type="date"
+                        value={event.data || ''}
+                        onChange={e => handleChange('data', e.target.value)}
+                        required
                     />
-
-                    <div style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
-                        <TextField 
-                            id="event-data-input"
-                            name="event-data"
-                            label="Data Inizio" 
-                            type="date" 
-                            value={event.data || ''} 
-                            onChange={e => handleChange('data', e.target.value)} 
-                            required 
-                        />
-                        <TextField 
-                            id="event-ora-input"
-                            name="event-ora"
-                            label="Ora Inizio" 
-                            type="time" 
-                            value={event.oraInizio || ''} 
-                            onChange={e => handleChange('oraInizio', e.target.value)} 
-                        />
-                    </div>
-
-                    <TextArea 
-                        id="event-desc-textarea"
-                        name="event-desc"
-                        label="Descrizione / Note" 
-                        value={event.descrizione || ''}
-                        onChange={e => handleChange('descrizione', e.target.value)}
-                        rows={3}
-                        style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}
+                    <TextField
+                        id="event-ora-input"
+                        name="event-ora"
+                        label="Ora Inizio"
+                        type="time"
+                        value={event.oraInizio || ''}
+                        onChange={e => handleChange('oraInizio', e.target.value)}
                     />
+                </Box>
+
+                <TextArea
+                    id="event-desc-textarea"
+                    name="event-desc"
+                    label="Descrizione / Note"
+                    value={event.descrizione || ''}
+                    onChange={e => handleChange('descrizione', e.target.value)}
+                    rows={3}
+                    style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}
+                />
                 {validationError && (
-                    <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-error)', marginTop: 'var(--md-sys-spacing-2)' }}>
+                    <Typography variant="body2" sx={{ color: 'var(--md-sys-color-error)', mt: 'var(--md-sys-spacing-2)' }}>
                         {validationError}
-                    </M3Typography>
+                    </Typography>
                 )}
-                </form>
-            </M3DialogContent>
-            <M3DialogActions>
-                {event.id && (
-                    <M3Button onClick={() => onDelete(event.id!)} variant="text"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)" }}>
-                        Elimina
-                    </M3Button>
-                )}
-                <M3Button onClick={onClose} variant="text">Annulla</M3Button>
-                <M3Button onClick={handleSubmit} variant="filled" >Salva</M3Button>
-            </M3DialogActions>
+            </Box>
         </M3Dialog>
     );
 };

@@ -1,11 +1,12 @@
-// MD3 Compliant
+﻿// MD3 Compliant
 
 import React, { useMemo } from 'react';
 import { Studente, Valutazione } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import BarChart from './charts/BarChart';
 import DonutChart from './charts/DonutChart';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button } from './ui';
+import {DialogContent, DialogActions, Button } from '@mui/material';
+import { M3Dialog } from './ui';
 interface ClassAnalyticsProps {
     userClasses: string[];
     students: Studente[];
@@ -51,9 +52,9 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
         <M3Dialog
             title="Analisi Comparata Classi"
             onClose={onClose}
-            maxWidth="2xl"
+            maxWidth="xl"
         >
-            <M3DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
+            <DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
                 <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                         <h3 style={{ color: 'var(--md-sys-color-on-primary)' , fontSize: 'var(--md-sys-typescale-headline-small-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Media Voti per Classe</h3>
@@ -111,10 +112,10 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
                          </table>
                      </div>
                 </div>
-            </M3DialogContent>
-            <M3DialogActions>
-                <M3Button onClick={onClose} variant="filled">Chiudi</M3Button>
-            </M3DialogActions>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={onClose} variant="contained">Chiudi</Button>
+            </DialogActions>
         </M3Dialog>
     );
 };

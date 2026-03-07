@@ -1,10 +1,15 @@
-// MD3 GOLD COMPLIANT – Audit 2026-01-25
-// Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
-// Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
-// Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 import React, { useState, useEffect } from 'react';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Chip from '@mui/material/Chip';
+import EditIcon from '@mui/icons-material/Edit';
 import { Uda, AiSettings, KnowledgeBaseEntry } from '../types';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard } from './ui';
+import InfoCard from './ui/InfoCard';
 import { validateUdaVerticalCurriculum } from '../services/aiService';
 interface UdaDetailModalProps {
     uda: Uda;
@@ -49,92 +54,73 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
     };
 
     return (
-        <M3Dialog
-            title={uda.title}
-            onClose={handleClose}
-            maxWidth="2xl"
-        >
-            <M3DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)'}}>
+        <Dialog open onClose={handleClose} maxWidth="md" fullWidth>
+            <DialogTitle>{uda.title}</DialogTitle>
+            <DialogContent sx={{ bgcolor: 'background.default', display: 'flex', flexDirection: 'column', gap: 3, pt: 2 }}>
                 {/* Metadata Chips */}
-                <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-6)'}}>
-                    <span style={{ backgroundColor: 'var(--md-sys-color-primary-container)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-primary)", fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-1)'}}>
-                        <span  style={{ fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>school</span>
-                        Classe {uda.classe}
-                    </span>
-                    <span style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-on-secondary-container)", fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-1)'}}>
-                        <span  style={{ fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>menu_book</span>
-                        {uda.materia}
-                    </span>
-                    <span style={{ backgroundColor: 'var(--md-sys-color-tertiary-container)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-on-tertiary-container)", fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-1)'}}>
-                        <span  style={{ fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>event</span>
-                        {new Date(uda.startDate!).toLocaleDateString()} - {new Date(uda.endDate!).toLocaleDateString()}
-                    </span>
-                </div>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                    <Chip icon={<span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16 }}>school</span>} label={`Classe ${uda.classe}`} color="primary" variant="outlined" />
+                    <Chip icon={<span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16 }}>menu_book</span>} label={uda.materia} color="secondary" variant="outlined" />
+                    <Chip icon={<span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16 }}>event</span>} label={`${new Date(uda.startDate!).toLocaleDateString()} - ${new Date(uda.endDate!).toLocaleDateString()}`} variant="outlined" />
+                </Box>
 
                 {/* AI Validation Section */}
-                <div style={{ backgroundColor: 'var(--md-sys-color-primary-container)', borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-4)', gap: 'var(--md-sys-spacing-3)'}}>
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-2)'}}>
-                            <span  style={{color: "var(--md-sys-color-primary)"}}>verified</span>
-                            <span style={{fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-on-surface)", textTransform: "uppercase", letterSpacing: "0.1em"}}>Validazione Curricolo Verticale</span>
-                        </div>
-                        <M3Button onClick={handleValidate} variant="tonal" disabled={isValidating} style={{ fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                <Box sx={{ bgcolor: 'primary.light', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider', p: 2, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'primary.contrastText' }}>
+                            Validazione Curricolo Verticale
+                        </Typography>
+                        <Button variant="contained" onClick={handleValidate} disabled={isValidating} size="small">
                             {isValidating ? 'Validazione...' : 'Valida con AI'}
-                        </M3Button>
-                    </div>
+                        </Button>
+                    </Box>
                     {validationResult && (
-                        <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
-                            <p  style={{fontSize: "var(--md-sys-typescale-body-large-font-size)", color: "var(--md-sys-color-on-surface)", lineHeight: "1.625"}}>
-                                {validationResult}
-                            </p>
-                        </div>
+                        <Box sx={{ bgcolor: 'background.paper', borderRadius: 'var(--md-sys-shape-corner-large)', p: 2, border: '1px solid', borderColor: 'divider' }}>
+                            <Typography variant="body2" sx={{ lineHeight: 1.625 }}>{validationResult}</Typography>
+                        </Box>
                     )}
-                </div>
+                </Box>
 
                 {/* Description */}
-                <InfoCard title="Introduzione" variant="elevated" style={{padding: 'var(--md-sys-spacing-4)'}}>
-                    <p style={{color: "var(--md-sys-color-on-surface)", lineHeight: "1.625"}}>
-                        {uda.introduction}
-                    </p>
+                <InfoCard title="Introduzione">
+                    <Typography variant="body1" sx={{ lineHeight: 1.625 }}>{uda.introduction}</Typography>
                 </InfoCard>
 
                 {/* Phases Timeline */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-2)'}}>Fasi di Lavoro</h3>
-                    <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    <Typography variant="overline" sx={{ color: 'text.secondary', fontWeight: 700, letterSpacing: '0.05em' }}>Fasi di Lavoro</Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                         {uda.phases.map((phase) => (
-                            <div key={phase.id} >
-                                <div  style={{width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)"}}></div>
-                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                                    <h4 style={{fontWeight: "var(--md-sys-typescale-weight-bold)", color: "var(--md-sys-color-primary)"}}>{phase.title}</h4>
-                                    <span style={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", backgroundColor: "var(--md-sys-color-secondary-container)", borderRadius: "var(--md-sys-shape-corner-small)", textTransform: "uppercase"}}>{phase.duration}h</span>
-                                </div>
-                                <p  style={{fontSize: "var(--md-sys-typescale-body-large-font-size)", color: "var(--md-sys-color-on-surface)", fontWeight: "var(--md-sys-typescale-weight-medium)"}}>{phase.description}</p>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)',  fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>{phase.activities}</p>
-                            </div>
+                            <Box key={phase.id} sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, p: 2, bgcolor: 'background.paper', borderRadius: 'var(--md-sys-shape-corner-medium)', borderLeft: '4px solid', borderColor: 'primary.main' }}>
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                                    <Typography variant="subtitle2" sx={{ color: 'primary.main', fontWeight: 700 }}>{phase.title}</Typography>
+                                    <Chip label={`${phase.duration}h`} size="small" color="secondary" />
+                                </Box>
+                                <Typography variant="body2" sx={{ fontWeight: 500 }}>{phase.description}</Typography>
+                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>{phase.activities}</Typography>
+                            </Box>
                         ))}
-                    </div>
-                </div>
+                    </Box>
+                </Box>
 
                 {/* Additional Info Grid */}
-                <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-4)'}}>
-                    <InfoCard title="Prodotto Finale" icon="inventory_2" variant="tonal" style={{padding: 'var(--md-sys-spacing-4)'}}>
-                        <p style={{fontSize: "var(--md-sys-typescale-body-large-font-size)", color: "var(--md-sys-color-on-surface)"}}>{uda.finalProduct}</p>
+                <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
+                    <InfoCard title="Prodotto Finale" icon="inventory_2">
+                        <Typography variant="body2">{uda.finalProduct}</Typography>
                     </InfoCard>
-                    <InfoCard title="Valutazione" icon="fact_check" variant="tonal" style={{padding: 'var(--md-sys-spacing-4)'}}>
-                        <p style={{fontSize: "var(--md-sys-typescale-body-large-font-size)", color: "var(--md-sys-color-on-surface)"}}>{uda.evaluation}</p>
+                    <InfoCard title="Valutazione" icon="fact_check">
+                        <Typography variant="body2">{uda.evaluation}</Typography>
                     </InfoCard>
-                </div>
-            </M3DialogContent>
+                </Box>
+            </DialogContent>
 
-            <M3DialogActions>
-                <M3Button onClick={handleClose} variant="text">Chiudi</M3Button>
-                <M3Button onClick={handleEdit} variant="filled">
-                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>edit</span>
+            <DialogActions>
+                <Button variant="text" onClick={handleClose}>Chiudi</Button>
+                <Button variant="contained" onClick={handleEdit} startIcon={<EditIcon />}>
                     Modifica nel Planner
-                </M3Button>
-            </M3DialogActions>
-        </M3Dialog>
+                </Button>
+            </DialogActions>
+        </Dialog>
     );
 };
 

@@ -4,14 +4,8 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Studente, DidatticaInclusivaProps } from '../types';
 import PianoInclusioneEditor from './PianoInclusioneEditor';
 import { calculatePerformance } from '../utils/evaluationUtils';
-import {
-    InfoCard,
-    EmptyState,
-    TabGroup,
-    SectionHeader,
-    M3Button,
-    Avatar
-} from './ui';
+import { InfoCard, EmptyState, TabGroup, SectionHeader, Avatar } from './ui';
+import { Button } from '@mui/material';
 
 const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
   const { students, pianiInclusione, onSavePiano, studentToEdit, onClearStudentToEdit, evaluations } = props;
@@ -85,7 +79,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                             return (
                                 <InfoCard 
                                     key={student.id} 
-                                    variant="elevated"
+                                    elevation={1}
                                      style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: "pointer" }}
                                     onClick={() => setEditingStudent(student)}
                                 >
@@ -156,7 +150,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                 return (
                     <InfoCard 
                         key={student.id} 
-                        variant="tonal"
+                        variant="outlined"
                          style={{padding: 'var(--md-sys-spacing-8)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: "pointer"}}
                         onClick={() => setEditingStudent(student)}
                     >
@@ -166,9 +160,9 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                 <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{student.cognome} {student.nome}</h3>
                                 <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>Classe {student.classe}</p>
                             </div>
-                            <M3Button variant="text" size="small">
+                            <Button variant="text" size="small">
                                 Modifica
-                            </M3Button>
+                            </Button>
                         </div>
                     </InfoCard>
                 )
@@ -193,7 +187,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                 return (
                     <InfoCard 
                         key={student.id} 
-                        variant="elevated"
+                        elevation={1}
                          style={{ borderLeft: "var(--md-sys-border-width-normal) solid" }}
                     >
                         <div style={{padding: 'var(--md-sys-spacing-4)'}}>
@@ -212,14 +206,14 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "var(--md-sys-typescale-body-medium-font-size)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                 Le performance recenti suggeriscono la necessit� di un piano personalizzato.
                             </p>
-                            <M3Button 
+                            <Button 
                                 onClick={() => setEditingStudent(student)} 
-                                variant="tonal"
+                                variant="outlined"
                                  style={{ width: "var(--md-sys-percent-100)" }}
                             >
                                 <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_circle</span>
                                 Crea Piano
-                            </M3Button>
+                            </Button>
                         </div>
                     </InfoCard>
                 )
@@ -257,7 +251,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                             <TabGroup
                                 activeTab={activeTab}
                                 onTabChange={id => setActiveTab(id as 'active' | 'overview' | 'suggested')}
-                                variant="filled"
+                                variant="contained"
                                 tabs={[
                                     { id: 'overview', label: 'Panoramica', icon: 'grid_view' },
                                     { id: 'active', label: 'Piani Attivi', icon: 'description', badge: activePlansStudents.length > 0 ? activePlansStudents.length : undefined },

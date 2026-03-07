@@ -1,7 +1,6 @@
-// MD3 Gold Compliant
+﻿// MD3 Gold Compliant
 import React from 'react';
-import { M3Button } from '../M3Button';
-import { M3Surface, M3Typography } from '../ui';
+import { Paper, Typography, Button } from '@mui/material';
 
 interface ThemeSettingsPanelProps {
   onClose?: () => void;
@@ -9,23 +8,21 @@ interface ThemeSettingsPanelProps {
 
 export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose }) => {
   return (
-    <M3Surface
-      level={2}
-      shape="corner-large"
+    <Paper
+      elevation={2}
       style={{
         padding: 'var(--md-sys-spacing-4)',
         maxWidth: 'var(--md-sys-layout-panel-max-width)',
         margin: `0 var(--md-sys-margin-auto)`,
       }}
     >
-      <M3Typography variant="headline-small" style={{ marginBottom: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-on-surface)' }}>
+      <Typography variant="h6" style={{ marginBottom: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-on-surface)' }}>
         Theme Settings
-      </M3Typography>
+      </Typography>
 
       {/* Dark Mode note */}
-      <M3Surface
-        level={1}
-        shape="corner-medium"
+      <Paper
+        elevation={1}
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -35,15 +32,15 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         }}
       >
         <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>brightness_auto</span>
-        <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0 }}>
+        <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0 }}>
           Dark Mode — tema gestito dal sistema operativo (MD3 Compliant)
-        </M3Typography>
-      </M3Surface>
+        </Typography>
+      </Paper>
 
       {/* Color Overrides */}
-      <M3Typography variant="title-large" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
+      <Typography variant="h6" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
         Color Overrides (MD3 System Colors)
-      </M3Typography>
+      </Typography>
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min-wide), var(--md-sys-grid-fr-1)))',
@@ -58,8 +55,8 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
           { key: 'surface',    label: 'Surface',    value: 'var(--md-sys-color-surface)' },
           { key: 'background', label: 'Background', value: 'var(--md-sys-color-background)' },
         ].map(({ key, label, value }) => (
-          <M3Surface key={key} level={1} shape="corner-medium" style={{ padding: 'var(--md-sys-spacing-2)' }}>
-            <M3Typography variant="label-large" as="span" style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface)' }}>{label}</M3Typography>
+          <Paper key={key} elevation={1} style={{ padding: 'var(--md-sys-spacing-2)' }}>
+            <Typography variant="overline" component="span" style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface)' }}>{label}</Typography>
             <div style={{
               width: 'var(--md-sys-percent-100)',
               height: 'var(--md-sys-spacing-6)',
@@ -70,16 +67,16 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-              <M3Typography variant="label-medium" style={{ color: 'var(--md-sys-color-on-surface)' }}>{value}</M3Typography>
+              <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface)' }}>{value}</Typography>
             </div>
-          </M3Surface>
+          </Paper>
         ))}
       </div>
 
       {/* Typography Scale */}
-      <M3Typography variant="title-large" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
+      <Typography variant="h6" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
         Typography Scale (MD3 System)
-      </M3Typography>
+      </Typography>
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min-wide), var(--md-sys-grid-fr-1)))',
@@ -87,17 +84,17 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         marginBottom: 'var(--md-sys-spacing-6)',
       }}>
         {(['display-large', 'headline-large', 'title-large', 'body-large'] as const).map(variant => (
-          <M3Surface key={variant} level={1} shape="corner-medium" style={{ padding: 'var(--md-sys-spacing-2)' }}>
-            <M3Typography variant="label-large" as="span" style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>{variant}</M3Typography>
-            <M3Typography variant={variant} style={{ color: 'var(--md-sys-color-on-surface)' }}>Aa</M3Typography>
-          </M3Surface>
+          <Paper key={variant} elevation={1} style={{ padding: 'var(--md-sys-spacing-2)' }}>
+            <Typography variant="overline" component="span" style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>{variant}</Typography>
+            <Typography variant="body1" style={{ color: 'var(--md-sys-color-on-surface)' }}>Aa</Typography>
+          </Paper>
         ))}
       </div>
 
       {/* Spacing Scale */}
-      <M3Typography variant="title-large" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
+      <Typography variant="h6" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
         Spacing Scale (MD3 System)
-      </M3Typography>
+      </Typography>
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min), var(--md-sys-grid-fr-1)))',
@@ -105,8 +102,8 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         marginBottom: 'var(--md-sys-spacing-6)',
       }}>
         {[1, 2, 3, 4, 5, 6].map(n => (
-          <M3Surface key={n} level={1} shape="corner-medium" style={{ padding: 'var(--md-sys-spacing-2)' }}>
-            <M3Typography variant="label-large" as="span" style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>spacing-{n}</M3Typography>
+          <Paper key={n} elevation={1} style={{ padding: 'var(--md-sys-spacing-2)' }}>
+            <Typography variant="overline" component="span" style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>spacing-{n}</Typography>
             <div style={{
               width: 'var(--md-sys-percent-100)',
               height: `var(--md-sys-spacing-${n})`,
@@ -114,14 +111,14 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
               borderRadius: 'var(--md-sys-shape-corner-small)',
               minHeight: 'var(--md-sys-spacing-2)',
             }} />
-          </M3Surface>
+          </Paper>
         ))}
       </div>
 
       {/* Motion Scale */}
-      <M3Typography variant="title-large" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
+      <Typography variant="h6" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
         Motion &amp; Easing (MD3 System)
-      </M3Typography>
+      </Typography>
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-layout-grid-min), var(--md-sys-grid-fr-1)))',
@@ -134,10 +131,10 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
           { label: 'Short Duration',  value: 'var(--md-sys-motion-duration-short2)' },
           { label: 'Medium Duration', value: 'var(--md-sys-motion-duration-medium2)' },
         ].map(({ label, value }) => (
-          <M3Surface key={label} level={1} shape="corner-medium" style={{ padding: 'var(--md-sys-spacing-2)' }}>
-            <M3Typography variant="label-large" as="span" style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>{label}</M3Typography>
-            <M3Typography variant="body-medium" style={{ color: 'var(--md-sys-color-on-surface)', wordBreak: 'break-all' }}>{value}</M3Typography>
-          </M3Surface>
+          <Paper key={label} elevation={1} style={{ padding: 'var(--md-sys-spacing-2)' }}>
+            <Typography variant="overline" component="span" style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>{label}</Typography>
+            <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface)', wordBreak: 'break-all' }}>{value}</Typography>
+          </Paper>
         ))}
       </div>
 
@@ -149,19 +146,19 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         paddingTop: 'var(--md-sys-spacing-4)',
         borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
       }}>
-        <M3Button variant="outlined" disabled>
+        <Button variant="outlined" disabled>
           Reset to MD3 Defaults
-        </M3Button>
-        <M3Button variant="filled" disabled>
+        </Button>
+        <Button variant="contained" disabled>
           Apply Changes
-        </M3Button>
+        </Button>
         {onClose && (
-          <M3Button onClick={onClose} variant="tonal">
+          <Button onClick={onClose} variant="outlined">
             Chiudi
-          </M3Button>
+          </Button>
         )}
       </div>
-    </M3Surface>
+    </Paper>
   );
 };
 

@@ -1,8 +1,13 @@
-// MD3 Compliant
-// M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 import React, { useState, useMemo } from 'react';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { RegisterEntry, RegisterViewProps } from '../types';
-import { M3Dialog, M3DialogContent, M3DialogActions, M3Button, InfoCard } from './ui';
+import InfoCard from './ui/InfoCard';
 
 const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students, isModalMode = false, initialClass }) => {
   const [selectedEntry, setSelectedEntry] = useState<RegisterEntry | null>(null);
@@ -30,62 +35,67 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
         .map(([studentId]) => getStudentName(studentId));
 
     return (
-      <M3Dialog
-        title="Dettaglio Lezione Svolta"
+      <Dialog
+        open
         onClose={() => setSelectedEntry(null)}
         maxWidth="lg"
-        level={1}
+        fullWidth
       >
-        <M3DialogContent >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-            <h2>
-                {new Date(entry.date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
-            </h2>
-            <p>Registro di Classe</p>
-          </div>
+        <DialogTitle>
+          Dettaglio Lezione Svolta
+        </DialogTitle>
+        <DialogContent>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <Typography variant="h6">
+                  {new Date(entry.date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+              </Typography>
+              <Typography variant="body1">Registro di Classe</Typography>
+            </Box>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-            <InfoCard title="Informazioni Lezione" icon="info">
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <p><strong>Classe:</strong> {entry.classe}</p>
-                    <p><strong>Materia:</strong> {entry.materia}</p>
-                    <p><strong>Argomento:</strong> {lesson?.contenuto || 'N/A'}</p>
-                </div>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <InfoCard title="Informazioni Lezione" icon="info">
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                      <Typography variant="body2"><strong>Classe:</strong> {entry.classe}</Typography>
+                      <Typography variant="body2"><strong>Materia:</strong> {entry.materia}</Typography>
+                      <Typography variant="body2"><strong>Argomento:</strong> {lesson?.contenuto || 'N/A'}</Typography>
+                  </Box>
+              </InfoCard>
+
+              <InfoCard title="Appello" icon="group">
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                      <Typography variant="body2"><strong>Presenti:</strong> {presentStudents.length}/{Object.keys(entry.studentAttendance).length}</Typography>
+                      <Typography variant="body2"><strong>Assenti:</strong> {absentStudents.length > 0 ? absentStudents.join(', ') : 'Nessuno'}</Typography>
+                  </Box>
+              </InfoCard>
+            </Box>
+
+            <InfoCard title="Note e Osservazioni" icon="notes">
+              <Typography variant="body2">
+                  {entry.notes || 'Nessuna nota registrata per questa lezione.'}
+              </Typography>
             </InfoCard>
-
-            <InfoCard title="Appello" icon="group" variant="tonal">
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <p><strong>Presenti:</strong> {presentStudents.length}/{Object.keys(entry.studentAttendance).length}</p>
-                    <p><strong>Assenti:</strong> {absentStudents.length > 0 ? absentStudents.join(', ') : 'Nessuno'}</p>
-                </div>
-            </InfoCard>
-          </div>
-
-          <InfoCard title="Note e Osservazioni" icon="notes" variant="tertiary">
-            <p>
-                {entry.notes || 'Nessuna nota registrata per questa lezione.'}
-            </p>
-          </InfoCard>
-        </M3DialogContent>
-        <M3DialogActions>
-          <M3Button variant="text" onClick={() => setSelectedEntry(null)}>Chiudi</M3Button>
-        </M3DialogActions>
-      </M3Dialog>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="text" onClick={() => setSelectedEntry(null)}>Chiudi</Button>
+        </DialogActions>
+      </Dialog>
     );
   };
   
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       {!isModalMode && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-            <h1>Diario di Bordo {initialClass && ` - ${initialClass}`}</h1>
-            <p>Registro sintetico delle lezioni.</p>
-          </div>
-        </div>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Typography variant="h4">Diario di Bordo {initialClass && ` - ${initialClass}`}</Typography>
+            <Typography variant="body1">Registro sintetico delle lezioni.</Typography>
+          </Box>
+        </Box>
       )}
-      <div style={isModalMode ? {} : { /* register-view-card styles */ }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+      <Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <table>
             <thead>
               <tr>
@@ -100,7 +110,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
               {filteredEntries.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(entry => {
                 const lesson = lessons[entry.lessonId];
                 return (
-                  <tr key={entry.id}  onClick={() => setSelectedEntry(entry)}>
+                  <tr key={entry.id} onClick={() => setSelectedEntry(entry)}>
                     <td>{new Date(entry.date).toLocaleDateString('it-IT')}</td>
                     <td>{entry.classe}</td>
                     <td>{entry.materia}</td>
@@ -113,11 +123,11 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
               })}
             </tbody>
           </table>
-        </div>
-        {filteredEntries.length === 0 && <p>Nessuna lezione registrata per questa classe.</p>}
-      </div>
+        </Box>
+        {filteredEntries.length === 0 && <Typography variant="body2">Nessuna lezione registrata per questa classe.</Typography>}
+      </Box>
       {selectedEntry && renderEntryDetails(selectedEntry)}
-    </div>
+    </Box>
   );
 };
 

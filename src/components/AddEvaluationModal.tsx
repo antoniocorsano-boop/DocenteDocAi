@@ -1,10 +1,11 @@
-// MD3 Compliant - Block M Migration (6 violations eliminated)
+﻿// MD3 Compliant - Block M Migration (6 violations eliminated)
 
 import * as React from 'react';
 import { useState } from 'react';
 import { Studente, Valutazione } from '../types';
 import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
-import { M3ChoiceCard, SelectField, TextField, TextArea, M3Button, M3Dialog, M3DialogContent, M3DialogActions, M3Typography } from './ui';
+import { Button, Box, Typography } from '@mui/material';
+import { M3Dialog, M3ChoiceCard as Card, SelectField, TextField, TextArea } from './ui';
 interface AddEvaluationModalProps {
     students: Studente[];
     discipline: string[];
@@ -56,8 +57,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
             tipo,
             voto,
             argomento,
-            note,
-        });
+            note });
         onClose();
     };
 
@@ -66,124 +66,103 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
             title="Aggiungi Valutazione"
             onClose={onClose}
             maxWidth="sm"
-            level={1}
+            buttons={<>
+                <Button variant="text" onClick={onClose} type="button">Annulla</Button>
+                <Button variant="contained" form="add-evaluation-form" type="submit">Salva Valutazione</Button>
+            </>}
         >
-            <form onSubmit={handleSubmit} style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-6)'
-            }}>
-                <M3DialogContent style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 'var(--md-sys-spacing-6)',
-                    overflowY: 'auto',
-                    maxHeight: 'var(--md-sys-viewport-60)' // MD3 viewport token
-                }}>
+            <Box
+                component="form"
+                id="add-evaluation-form"
+                onSubmit={handleSubmit}
+                sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', overflowY: 'auto', maxHeight: 'var(--md-sys-viewport-60)' }}
+            >
+                <SelectField
+                    id="eval-student-select"
+                    label="Studente"
+                    value={selectedStudentId}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStudentId(e.target.value)}
+                    required
+                >
+                    <option value="">Seleziona studente...</option>
+                    {students.map((s: Studente) => <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>)}
+                </SelectField>
+
+                <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)' }}>
                     <SelectField
-                        id="eval-student-select"
-                        label="Studente"
-                        value={selectedStudentId}
-                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStudentId(e.target.value)}
+                        id="eval-materia-select"
+                        label="Materia"
+                        value={selectedMateria}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedMateria(e.target.value)}
                         required
                     >
-                        <option value="">Seleziona studente...</option>
-                        {students.map((s: Studente) => <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>)}
+                        <option value="">Seleziona...</option>
+                        {discipline.map((d: string) => <option key={d} value={d}>{d}</option>)}
                     </SelectField>
+                    <SelectField
+                        id="eval-voto-select"
+                        label="Voto / Giudizio"
+                        value={voto}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setVoto(e.target.value)}
+                        required
+                    >
+                        <option value="">Seleziona...</option>
+                        {RATING_OPTIONS.map((o: string) => <option key={o} value={o}>{o}</option>)}
+                    </SelectField>
+                </Box>
 
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', // MD3 grid fr tokens
-                        gap: 'var(--md-sys-spacing-8)'
-                    }}>
-                        <SelectField
-                            id="eval-materia-select"
-                            label="Materia"
-                            value={selectedMateria}
-                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedMateria(e.target.value)}
-                            required
-                        >
-                            <option value="">Seleziona...</option>
-                            {discipline.map((d: string) => <option key={d} value={d}>{d}</option>)}
-                        </SelectField>
-                        <SelectField
-                            id="eval-voto-select"
-                            label="Voto / Giudizio"
-                            value={voto}
-                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setVoto(e.target.value)}
-                            required
-                        >
-                            <option value="">Seleziona...</option>
-                            {RATING_OPTIONS.map((o: string) => <option key={o} value={o}>{o}</option>)}
-                        </SelectField>
-                    </div>
-
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <M3Typography
-                            variant="label-small"
-                            style={{
-                                color: 'var(--md-sys-color-primary)',
-                                fontWeight: 'var(--md-sys-typescale-weight-black)',
-                                textTransform: 'uppercase',
-                                letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                                paddingLeft: 'var(--md-sys-spacing-4)',
-                                paddingRight: 'var(--md-sys-spacing-4)',
-                                marginBottom: 'var(--md-sys-spacing-6)',
-                                display: 'block'
-                            }}
-                        >
-                            Tipo Prova
-                        </M3Typography>
-                        <div style={{
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Typography
+                        variant="caption"
+                        component="span"
+                        sx={{
+                            color: 'var(--md-sys-color-primary)',
+                            fontWeight: 'var(--md-sys-typescale-weight-black)',
+                            textTransform: 'uppercase',
+                            letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
+                            px: 'var(--md-sys-spacing-4)',
+                            mb: 'var(--md-sys-spacing-6)',
+                            display: 'block' }}
+                    >
+                        Tipo Prova
+                    </Typography>
+                    <Box
+                        sx={{
                             display: 'flex',
                             gap: 'var(--md-sys-spacing-8)',
                             overflowX: 'auto',
-                            paddingBottom: 'var(--md-sys-spacing-2)',
+                            pb: 'var(--md-sys-spacing-2)',
                             scrollbarWidth: 'none',
-                            msOverflowStyle: 'none'
-                        }}
-                        onScroll={(e) => {
-                            // Hide scrollbar for webkit browsers
-                            const target = e.target as HTMLElement;
-                            target.style.setProperty('-webkit-scrollbar', 'none');
-                        }}>
-                            {EVALUATION_TYPES.map(t => (
-                                <M3ChoiceCard
-                                    key={t}
-                                    icon={getTestTypeIcon(t)}
-                                    label={t}
-                                    onClick={() => setTipo(t)}
-                                    selected={tipo === t}
-                                />
-                            ))}
-                        </div>
-                    </div>
+                            msOverflowStyle: 'none' }}
+                    >
+                        {EVALUATION_TYPES.map(t => (
+                            <Card
+                                key={t}
+                                icon={getTestTypeIcon(t)}
+                                label={t}
+                                onClick={() => setTipo(t)}
+                                selected={tipo === t}
+                            />
+                        ))}
+                    </Box>
+                </Box>
 
-                    <TextField
-                        id="eval-argomento-input"
-                        label="Argomento"
-                        value={argomento}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setArgomento(e.target.value)}
-                        placeholder="Es. 'Il Barocco in Italia'"
-                    />
+                <TextField
+                    id="eval-argomento-input"
+                    label="Argomento"
+                    value={argomento}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setArgomento(e.target.value)}
+                    placeholder="Es. 'Il Barocco in Italia'"
+                />
 
-                    <TextArea
-                        id="eval-note-textarea"
-                        label="Note Aggiuntive"
-                        value={note}
-                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setNote(e.target.value)}
-                        rows={2}
-                    />
-                </M3DialogContent>
-
-                <M3DialogActions style={{
-                    gap: 'var(--md-sys-spacing-6)',
-                    flexShrink: 0
-                }}>
-                    <M3Button variant="text" onClick={onClose} type="button">Annulla</M3Button>
-                    <M3Button variant="filled" type="submit">Salva Valutazione</M3Button>
-                </M3DialogActions>
-            </form>
+                <TextArea
+                    id="eval-note-textarea"
+                    label="Note Aggiuntive"
+                    value={note}
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setNote(e.target.value)}
+                    rows={2}
+                />
+            </Box>
         </M3Dialog>
     );
 };

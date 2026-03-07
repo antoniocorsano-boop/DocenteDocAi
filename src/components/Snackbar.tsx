@@ -6,7 +6,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { useUIStore } from '../stores/useUIStore';
-import { M3Typography } from './ui';
+import { Typography } from '@mui/material';
 const SNACKBAR_COLORS = {
   success: {
     bg: 'var(--md-sys-color-primary)',
@@ -172,16 +172,17 @@ const Snackbar: React.FC = () => {
       >
         {icon}
       </span>
-      <M3Typography
-        variant="body-medium"
-        style={{
+      <Typography
+        variant="body2"
+        component="span"
+        sx={{
           fontWeight: 'var(--md-sys-typescale-weight-semibold)',
           color: 'inherit',
           flex: 1
         }}
       >
         {toast.message}
-      </M3Typography>
+      </Typography>
       <button
         onClick={handleClose}
         onMouseEnter={() => setIsCloseHovered(true)}

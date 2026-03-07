@@ -7,7 +7,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AiSettings, Corpus, ChatMessage, KnowledgeBaseEntry } from '../types';
 import { generateAnswerFromCorpus } from '../services/aiService';
-import { M3IconButton, M3Typography } from './ui';
+import { IconButton, Typography } from '@mui/material';
 // MD3 Pure: Migrated to inline styles using MD3 tokens for chat interface, message bubbles, and input controls
 // All corpus-chat-* classes removed in favor of token-based styling
 
@@ -87,11 +87,10 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
     return (
         <div style={{ height: 'var(--md-sys-viewport-height-full)', display: 'flex', flexDirection: 'column' }}>
             <div style={{display: 'flex'}}>
-                <M3IconButton 
-                    icon="arrow_back" 
+                <IconButton 
                     onClick={onClose} 
-                    ariaLabel="Torna alla lista"
-                />
+                    aria-label="Torna alla lista"
+                ><span className="material-symbols-outlined" aria-hidden="true">arrow_back</span></IconButton>
                     <div style={{display: 'flex',
                         alignItems: 'center',
                         gap: 'var(--md-sys-spacing-3)',
@@ -105,11 +104,11 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             <span style={{
  color: 'var(--md-sys-color-on-primary)'}}>chat</span>
                         </div>
-                        <M3Typography variant="title-large" style={{color: 'var(--md-sys-color-on-surface)',
+                        <Typography variant="h6" style={{color: 'var(--md-sys-color-on-surface)',
                             minWidth: 0,
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap'}}>Chat con "{corpus.displayName}"</M3Typography>
+                            whiteSpace: 'nowrap'}}>Chat con "{corpus.displayName}"</Typography>
                     </div>
                 </div>
                 
@@ -132,10 +131,10 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                                 ? 'var(--md-sys-color-primary)'
                                 : 'var(--md-sys-color-surface-container-high)',
                             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                            <M3Typography variant="body-large" style={{color: msg.role === 'user' 
+                            <Typography variant="body1" style={{color: msg.role === 'user' 
                                     ? 'var(--md-sys-color-on-primary)'
                                     : 'var(--md-sys-color-on-surface)',
-                                margin: 0}}>{msg.text}</M3Typography>
+                                margin: 0}}>{msg.text}</Typography>
                         </div>
                     </div>
                 ))}
@@ -152,8 +151,8 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-2)'}}>
                                 <div style={{borderRadius: 'var(--md-sys-shape-corner-full)'}} />
-                                <M3Typography variant="body-medium" style={{color: 'var(--md-sys-color-on-surface-variant)',
-                                    margin: 0}}>Sto pensando...</M3Typography>
+                                <Typography variant="body2" style={{color: 'var(--md-sys-color-on-surface-variant)',
+                                    margin: 0}}>Sto pensando...</Typography>
                             </div>
                         </div>
                     </div>
@@ -175,8 +174,8 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             <span style={{
  color: 'var(--md-sys-color-on-secondary-container)'}}>quiz</span>
                         </div>
-                        <M3Typography variant="body-large" style={{color: 'var(--md-sys-color-on-surface-variant)',
-                            margin: 0}}>Poni una domanda ai documenti in questo set.</M3Typography>
+                        <Typography variant="body1" style={{color: 'var(--md-sys-color-on-surface-variant)',
+                            margin: 0}}>Poni una domanda ai documenti in questo set.</Typography>
                     </div>
                 )}
                 <div ref={messagesEndRef} />
@@ -210,8 +209,8 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                         }}
                     >
                         <span style={{color: 'var(--md-sys-color-on-secondary-container)'}}>summarize</span>
-                        <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-secondary-container)',
-                            margin: 0}}>Riassumi</M3Typography>
+                        <Typography variant="overline" style={{color: 'var(--md-sys-color-on-secondary-container)',
+                            margin: 0}}>Riassumi</Typography>
                     </button>
                     <button 
                         onClick={() => handleShortcut("Genera 5 domande a risposta multipla con 4 opzioni ciascuna (indicando la risposta corretta) basandoti sui documenti.")} 
@@ -233,8 +232,8 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                         }}
                     >
                         <span style={{color: 'var(--md-sys-color-on-tertiary-container)'}}>quiz</span>
-                        <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-tertiary-container)',
-                            margin: 0}}>Crea Quiz</M3Typography>
+                        <Typography variant="overline" style={{color: 'var(--md-sys-color-on-tertiary-container)',
+                            margin: 0}}>Crea Quiz</Typography>
                     </button>
                     <button 
                         onClick={() => handleShortcut("Estrai i 5 concetti chiave da questi documenti e descrivili brevemente.")} 
@@ -258,8 +257,8 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                         }}
                     >
                         <span style={{color: 'var(--md-sys-color-on-primary-container)'}}>key</span>
-                        <M3Typography variant="label-large" style={{color: 'var(--md-sys-color-on-primary-container)',
-                            margin: 0}}>Concetti Chiave</M3Typography>
+                        <Typography variant="overline" style={{color: 'var(--md-sys-color-on-primary-container)',
+                            margin: 0}}>Concetti Chiave</Typography>
                     </button>
                 </div>
             </div>

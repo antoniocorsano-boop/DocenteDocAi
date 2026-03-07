@@ -1,7 +1,6 @@
 // MD3 Compliant
 // EXCLUDED FROM PRODUCTION: This Storybook file is for demo/documentation only and must NOT be included in production builds.
 // Per MD3 governance, this file is not maintained for MD3 Gold compliance. See COPILOT_RULES.md and DESIGN_SYSTEM_POLICY.md.
-/* eslint-disable */
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
