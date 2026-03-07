@@ -1,8 +1,7 @@
 // Settings - Interface & Visual Experience Section
 import React from 'react';
 import { SettingsGroup } from './SettingsGroup';
-import { TabGroup, TextField } from '../ui';
-import { Typography, Button } from '@mui/material';
+import { Typography, Button, Tabs, Tab, TextField as MuiTextField, InputAdornment } from '@mui/material';
 import ThemeBubble from '../ThemeBubble';
 import { ThemeSettingsPanel } from './ThemeSettingsPanel';
 import { TimetableSettings, AppThemeState } from '../../types';
@@ -95,14 +94,15 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             textTransform: 'uppercase',
                             letterSpacing: '0.15em'}}>Modalità Interfaccia</Typography>
                     </div>
-                    <TabGroup
-                        tabs={[
-                            { id: 'classic', label: 'Classica', icon: 'grid_view' },
-                            { id: 'flow', label: 'Dinamica (Flow)', icon: 'account_tree' }
-                        ]}
-                        activeTab={localSettings.uiMode || 'classic'}
-                        onTabChange={(id) => onSettingChange('uiMode', id)}
-                        variant="contained" />
+                    <Tabs
+                        value={localSettings.uiMode || 'classic'}
+                        onChange={(_, id) => onSettingChange('uiMode', id)}
+                        aria-label="Modalità interfaccia"
+                        sx={{ bgcolor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-full)', border: '1px solid var(--md-sys-color-outline-variant)', minHeight: 'auto', p: 0.5 }}
+                    >
+                        <Tab value="classic" label="Classica" sx={{ borderRadius: 'var(--md-sys-shape-corner-full)', minHeight: 'auto', py: 1, px: 2 }} />
+                        <Tab value="flow" label="Dinamica (Flow)" sx={{ borderRadius: 'var(--md-sys-shape-corner-full)', minHeight: 'auto', py: 1, px: 2 }} />
+                    </Tabs>
                     <Typography variant="body2" style={{color: 'var(--md-sys-color-on-surface-variant)',
                         margin: 0}}>
                         {localSettings.uiMode === 'flow'
@@ -190,11 +190,16 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                     </div>
 
                     <div style={{marginBottom: 'var(--md-sys-spacing-4)'}}>
-                        <TabGroup
-                            tabs={[{ id: 'light', label: 'Chiaro', icon: 'light_mode' }, { id: 'dark', label: 'Scuro', icon: 'dark_mode' }, { id: 'system', label: 'Sistema', icon: 'brightness_auto' }]}
-                            activeTab={themeState.mode}
-                            onTabChange={(id) => onSaveTheme({ ...themeState, mode: id as typeof themeState.mode })}
-                            variant="contained" />
+                        <Tabs
+                            value={themeState.mode}
+                            onChange={(_, id) => onSaveTheme({ ...themeState, mode: id as typeof themeState.mode })}
+                            aria-label="Modalità tema"
+                            sx={{ bgcolor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-full)', border: '1px solid var(--md-sys-color-outline-variant)', minHeight: 'auto', p: 0.5 }}
+                        >
+                            <Tab value="light" label="Chiaro" sx={{ borderRadius: 'var(--md-sys-shape-corner-full)', minHeight: 'auto', py: 1, px: 2 }} />
+                            <Tab value="dark" label="Scuro" sx={{ borderRadius: 'var(--md-sys-shape-corner-full)', minHeight: 'auto', py: 1, px: 2 }} />
+                            <Tab value="system" label="Sistema" sx={{ borderRadius: 'var(--md-sys-shape-corner-full)', minHeight: 'auto', py: 1, px: 2 }} />
+                        </Tabs>
                     </div>
 
                     <div style={{display: 'grid',
@@ -232,12 +237,21 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             gap: 'var(--md-sys-spacing-4)',
                             alignItems: 'flex-end'}}>
                             <div style={{ flex: 1 }}>
-                                <TextField
+                                <MuiTextField
                                     label="Descrivi il tuo stile"
                                     value={themePrompt}
                                     onChange={e => setThemePrompt(e.target.value)}
                                     placeholder="Es. 'Colori tramonto'..."
-                                    leadingIcon="palette" />
+                                    variant="outlined"
+                                    fullWidth
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <span className="material-symbols-outlined" aria-hidden="true">palette</span>
+                                            </InputAdornment>
+                                        ),
+                                    }}
+                                    sx={{ mb: 2 }} />
                             </div>
                             <Button
                                 onClick={onGenerateTheme}

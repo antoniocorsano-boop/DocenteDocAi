@@ -301,9 +301,9 @@ Migra questo file da componenti MD3 custom a MUI v7 seguendo le istruzioni in
 
 | #    | File                                                  | Stato         |
 | ---- | ----------------------------------------------------- | ------------- |
-| 4.T1 | `src/components/settings/AiDidatticaSettings.tsx`     | ☐ prossimo    |
+| 4.T1 | `src/components/settings/AiDidatticaSettings.tsx`     | ✅ 2026-03-07 |
 | 4.T2 | `src/components/settings/EmotionalPresetsManager.tsx` | ✅ 2026-03-06 |
-| 4.T3 | `src/components/settings/InterfaceSettings.tsx`       | ☐ prossimo    |
+| 4.T3 | `src/components/settings/InterfaceSettings.tsx`       | ✅ 2026-03-07 |
 | 4.T4 | `src/components/settings/SettingsGroup.tsx`           | ✅ 2026-03-06 |
 | 4.T5 | `src/components/settings/ThemeSettingsPanel.tsx`      | ✅ 2026-03-06 |
 

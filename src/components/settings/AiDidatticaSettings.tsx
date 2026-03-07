@@ -1,8 +1,8 @@
 // Settings - AI & Didattica Section
 import React from 'react';
 import { SettingsGroup } from './SettingsGroup';
-import { TabGroup, InfoCard, SelectField, TextField } from '../ui';
-import { Typography, Button } from '@mui/material';
+import { InfoCard } from '../ui';
+import { Typography, Button, Tabs, Tab, FormControl, InputLabel, NativeSelect, TextField as MuiTextField } from '@mui/material';
 import ChipInputList from '../ChipInputList';
 import { TimetableSettings } from '../../types';
 import { AI_PROFILES, SCHOOL_LEVELS } from '../../constants';
@@ -84,15 +84,21 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                     </Typography>
                 </div>
 
-                <TabGroup
-                    tabs={(Object.keys(AI_PROFILES) as Array<keyof typeof AI_PROFILES>).map(key => ({ 
-                        id: key, 
-                        label: AI_PROFILES[key].label, 
-                        icon: AI_PROFILES[key].icon 
-                    }))}
-                    activeTab={currentAiProfile}
-                    onTabChange={(id) => onAiProfileChange(id as keyof typeof AI_PROFILES)}
-                    variant="contained" />
+                <Tabs
+                    value={currentAiProfile}
+                    onChange={(_, id) => onAiProfileChange(id as keyof typeof AI_PROFILES)}
+                    aria-label="Profilo AI"
+                    sx={{ bgcolor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-full)', border: '1px solid var(--md-sys-color-outline-variant)', minHeight: 'auto', p: 0.5 }}
+                >
+                    {(Object.keys(AI_PROFILES) as Array<keyof typeof AI_PROFILES>).map(key => (
+                        <Tab
+                            key={key}
+                            value={key}
+                            label={AI_PROFILES[key].label}
+                            sx={{ borderRadius: 'var(--md-sys-shape-corner-full)', minHeight: 'auto', py: 1, px: 2, textTransform: 'uppercase', fontSize: 'var(--md-sys-typescale-label-small-font-size)' }}
+                        />
+                    ))}
+                </Tabs>
 
                 <div style={{
                     display: 'flex',
@@ -165,13 +171,12 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                     <div style={{display: 'grid',
                         gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
                         gap: 'var(--md-sys-spacing-4)'}}>
-                        <SelectField
-                            label="Anno Corrente"
-                            value={localSettings.annoScolasticoCorrente}
-                            onChange={e => onSettingChange('annoScolasticoCorrente', e.target.value)}
-                        >
-                            {localSettings.anniScolastici.map(year => <option key={year} value={year}>{year}</option>)}
-                        </SelectField>
+                        <FormControl fullWidth sx={{ mb: 2 }}>
+                            <InputLabel htmlFor="anno-scolastico">Anno Corrente</InputLabel>
+                            <NativeSelect inputProps={{ id: 'anno-scolastico' }} value={localSettings.annoScolasticoCorrente} onChange={e => onSettingChange('annoScolasticoCorrente', e.target.value)}>
+                                {localSettings.anniScolastici.map(year => <option key={year} value={year}>{year}</option>)}
+                            </NativeSelect>
+                        </FormControl>
 
                         <div style={{
                             display: 'flex',
@@ -251,18 +256,20 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
                             gap: 'var(--md-sys-spacing-4)',
                             marginBottom: 'var(--md-sys-spacing-4)'}}>
-                            <SelectField
-                                label="Ordinamento Scolastico"
-                                value={selLevel}
-                                onChange={e => setSelLevel(e.target.value)}
-                            >
-                                {SCHOOL_LEVELS.map(l => <option key={l} value={l}>{l}</option>)}
-                            </SelectField>
-                            <TextField
+                            <FormControl fullWidth sx={{ mb: 2 }}>
+                                <InputLabel htmlFor="ordinamento-scolastico">Ordinamento Scolastico</InputLabel>
+                                <NativeSelect inputProps={{ id: 'ordinamento-scolastico' }} value={selLevel} onChange={e => setSelLevel(e.target.value)}>
+                                    {SCHOOL_LEVELS.map(l => <option key={l} value={l}>{l}</option>)}
+                                </NativeSelect>
+                            </FormControl>
+                            <MuiTextField
                                 label="Indirizzo / Specializzazione"
                                 value={selSpec}
                                 onChange={e => setSelSpec(e.target.value)}
-                                placeholder="Es: Scientifico, CAT, Musicale..." />
+                                placeholder="Es: Scientifico, CAT, Musicale..."
+                                variant="outlined"
+                                fullWidth
+                                sx={{ mb: 2 }} />
                         </div>
 
                         <div style={{display: 'grid',
