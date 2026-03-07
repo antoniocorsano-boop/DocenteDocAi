@@ -2,7 +2,6 @@
 export { default as M3SurfaceCard } from './M3SurfaceCard';
 export { default as M3Surface } from './M3Surface';
 export { default as M3ExpressiveCard } from './M3ExpressiveCard';
-export { default as M3Button } from './M3Button';
 export { default as TextField } from './TextField';
 export { default as SelectField } from './SelectField';
 export { default as TextArea } from './TextArea';

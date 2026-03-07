@@ -3,7 +3,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import M3Popover from './M3Popover';
-import { M3Button } from './M3Button';
+import { Button } from '@mui/material';
 
 const meta: Meta<typeof M3Popover> = {
   component: M3Popover,
@@ -31,12 +31,12 @@ export const Basic: Story = {
     
     return (
       <div style={{ padding: 'var(--md-sys-spacing-8)' }}>
-        <M3Button
-          variant="filled"
+        <Button
+          variant="contained"
           onClick={(e) => setAnchorEl(e.currentTarget)}
         >
           Open Popover
-        </M3Button>
+        </Button>
         
         <M3Popover
           open={Boolean(anchorEl)}
@@ -67,12 +67,12 @@ export const WithActions: Story = {
     
     return (
       <div style={{ padding: 'var(--md-sys-spacing-8)' }}>
-        <M3Button
-          variant="filled"
+        <Button
+          variant="contained"
           onClick={(e) => setAnchorEl(e.currentTarget)}
         >
           Event Actions
-        </M3Button>
+        </Button>
         
         <M3Popover
           open={Boolean(anchorEl)}
@@ -147,12 +147,12 @@ export const PositionedTop: Story = {
     
     return (
       <div style={{ padding: 'var(--md-sys-spacing-16) var(--md-sys-spacing-8) var(--md-sys-spacing-8) var(--md-sys-spacing-8)' }}>
-        <M3Button
-          variant="filled"
+        <Button
+          variant="contained"
           onClick={(e) => setAnchorEl(e.currentTarget)}
         >
           Popover Above
-        </M3Button>
+        </Button>
         
         <M3Popover
           open={Boolean(anchorEl)}
@@ -183,12 +183,12 @@ export const ScrollableContent: Story = {
     
     return (
       <div style={{ padding: 'var(--md-sys-spacing-8)' }}>
-        <M3Button
-          variant="filled"
+        <Button
+          variant="contained"
           onClick={(e) => setAnchorEl(e.currentTarget)}
         >
           Long List
-        </M3Button>
+        </Button>
         
         <M3Popover
           open={Boolean(anchorEl)}
@@ -242,12 +242,12 @@ export const NoBackdrop: Story = {
     
     return (
       <div style={{ padding: 'var(--md-sys-spacing-8)' }}>
-        <M3Button
+        <Button
           variant="outlined"
           onClick={(e) => setAnchorEl(e.currentTarget)}
         >
           Quick Menu
-        </M3Button>
+        </Button>
         
         <M3Popover
           open={Boolean(anchorEl)}

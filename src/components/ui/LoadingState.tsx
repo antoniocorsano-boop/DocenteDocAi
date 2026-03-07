@@ -3,7 +3,7 @@
 // Audit: febbraio 2026
 
 import React from 'react';
-import { M3Surface, M3Typography } from './index';
+import { Paper, Typography } from '@mui/material';
 
 interface LoadingStateProps {
   message?: string;
@@ -21,14 +21,17 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
   }[size];
 
   return (
-    <M3Surface
-      style={{
+    <Paper
+      elevation={0}
+      sx={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         gap: 'var(--md-sys-spacing-4)',
-        padding: 'var(--md-sys-spacing-8)'
+        padding: 'var(--md-sys-spacing-8)',
+        bgcolor: 'var(--md-sys-color-surface)',
+        color: 'var(--md-sys-color-on-surface)',
       }}
     >
       {/* Spinner MD3 compliant */}
@@ -46,24 +49,24 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
       />
       
       {message && (
-        <M3Typography
-          variant="body-medium"
-          style={{ 
+        <Typography
+          variant="body2"
+          sx={{
             color: 'var(--md-sys-color-on-surface-variant)',
             fontWeight: 'var(--md-sys-typescale-weight-medium)'
           }}
         >
           {message}
-        </M3Typography>
+        </Typography>
       )}
-      
+
       <style>{`
         @keyframes spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
       `}</style>
-    </M3Surface>
+    </Paper>
   );
 };
 

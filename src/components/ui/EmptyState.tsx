@@ -3,8 +3,7 @@
 // Audit: febbraio 2026
 
 import React from 'react';
-import { M3Surface, M3Typography } from './index';
-import { M3Button } from '../M3Button';
+import { Paper, Typography, Button } from '@mui/material';
 
 interface EmptyStateProps {
   icon: string;
@@ -24,8 +23,9 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   illustration
 }) => {
   return (
-    <M3Surface
-      style={{
+    <Paper
+      elevation={0}
+      sx={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -35,7 +35,8 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         minHeight: 'var(--md-sys-spacing-14)',
         textAlign: 'center',
         borderRadius: 'var(--md-sys-spacing-3)',
-        background: 'var(--md-sys-color-surface-variant)'
+        bgcolor: 'var(--md-sys-color-surface-variant)',
+        color: 'var(--md-sys-color-on-surface)',
       }}
     >
       {/* Icona grande o illustrazione custom */}
@@ -54,38 +55,39 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
       )}
       
       {/* Titolo principale */}
-      <M3Typography
-        variant="headline-small"
-        style={{
+      <Typography
+        variant="h6"
+        component="h3"
+        sx={{
           color: 'var(--md-sys-color-on-surface)',
           fontWeight: 'var(--md-sys-typescale-weight-semibold)'
         }}
       >
         {title}
-      </M3Typography>
-      
+      </Typography>
+
       {/* Descrizione */}
-      <M3Typography
-        variant="body-large"
-        style={{
+      <Typography
+        variant="body1"
+        sx={{
           color: 'var(--md-sys-color-on-surface-variant)',
           maxWidth: 'var(--md-sys-spacing-16)'
         }}
       >
         {description}
-      </M3Typography>
-      
+      </Typography>
+
       {/* Call to Action */}
       {actionLabel && onAction && (
-        <M3Button
-          variant="filled"
+        <Button
+          variant="contained"
           onClick={onAction}
-          style={{ marginTop: 'var(--md-sys-spacing-2)' }}
+          sx={{ marginTop: 'var(--md-sys-spacing-2)' }}
         >
           {actionLabel}
-        </M3Button>
+        </Button>
       )}
-    </M3Surface>
+    </Paper>
   );
 };
 
