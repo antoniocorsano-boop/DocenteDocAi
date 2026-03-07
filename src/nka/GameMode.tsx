@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { NKANode } from './types';
 import { getInitialGameState, unlockNode, GameState } from './gameLogic';
 import { playNkaSound } from './sound';
-import { M3ProgressBar, M3Chip, M3ChipGroup, M3Button, M3ButtonGroup, M3Typography, M3Surface, M3CircularProgress } from '../components/ui';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress';
+import Chip from '@mui/material/Chip';
+import Button from '@mui/material/Button';
 
 interface GameModeProps {
   nodes?: readonly NKANode[];
@@ -27,69 +33,66 @@ const GameMode: React.FC<GameModeProps> = ({ nodes = [] as readonly NKANode[] })
 
   if (isLoading) {
     return (
-      <M3Surface
-        elevation="level-1"
-        shape="large"
-        padding="4"
+      <Paper
+        elevation={1}
         role="region"
         aria-label="Caricamento modalità gioco"
+        sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)' }}
       >
-        <M3CircularProgress aria-label="Caricamento in corso" />
-        <M3Typography variant="body-medium" color="on-surface">
+        <CircularProgress aria-label="Caricamento in corso" />
+        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)' }}>
           Elaborazione...
-        </M3Typography>
-      </M3Surface>
+        </Typography>
+      </Paper>
     );
   }
 
   if (nodes.length === 0) {
     return (
-      <M3Surface
-        elevation="level-1"
-        shape="large"
-        padding="4"
+      <Paper
+        elevation={1}
         role="region"
         aria-label="Nessun nodo disponibile"
+        sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)' }}
       >
-        <M3Typography variant="headline-small" color="on-surface">
+        <Typography variant="h6" sx={{ color: 'var(--md-sys-color-on-surface)' }}>
           Nessun neurone disponibile
-        </M3Typography>
-        <M3Typography variant="body-medium" color="on-surface-variant">
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
           Carica dei nodi per iniziare la modalità gioco
-        </M3Typography>
-      </M3Surface>
+        </Typography>
+      </Paper>
     );
   }
 
   const availableNodes = nodes.filter(n => !state.unlocked.includes(n.id));
 
   return (
-    <M3Surface
-      elevation="level-1"
-      shape="large"
-      padding="4"
+    <Paper
+      elevation={1}
       role="region"
       aria-label="Modalità gioco NKA"
+      sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)' }}
     >
-      <M3Typography variant="headline-small" color="on-surface" gutterBottom>
+      <Typography variant="h6" sx={{ color: 'var(--md-sys-color-on-surface)' }} gutterBottom>
         Modalità Gioco: Progresso
-      </M3Typography>
+      </Typography>
       
-      <M3ProgressBar
+      <LinearProgress 
+        variant="determinate"
         value={state.progress}
-        showValue={true}
-        label="Progresso sblocco neuroni"
         aria-label={`Progresso: ${Math.round(state.progress)}% completato`}
+        sx={{ mb: 2 }}
       />
       
       {state.unlocked.length > 0 && (
-        <M3Surface role="region" aria-label="Neuroni sbloccati">
-          <M3Typography variant="title-small" color="on-surface" gutterBottom>
+        <Box role="region" aria-label="Neuroni sbloccati">
+          <Typography variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-surface)' }} gutterBottom>
             Neuroni Sbloccati
-          </M3Typography>
-          <M3ChipGroup role="group" aria-label="Lista neuroni sbloccati">
+          </Typography>
+          <Box role="group" aria-label="Lista neuroni sbloccati" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
             {state.unlocked.map((id, index) => (
-              <M3Chip 
+              <Chip 
                 key={id} 
                 label={id} 
                 variant="filled" 
@@ -97,50 +100,50 @@ const GameMode: React.FC<GameModeProps> = ({ nodes = [] as readonly NKANode[] })
                 tabIndex={0}
               />
             ))}
-          </M3ChipGroup>
-        </M3Surface>
+          </Box>
+        </Box>
       )}
       
       {availableNodes.length > 0 && (
-        <M3Surface role="region" aria-label="Neuroni da sbloccare">
-          <M3Typography variant="title-small" color="on-surface" gutterBottom>
+        <Box role="region" aria-label="Neuroni da sbloccare">
+          <Typography variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-surface)' }} gutterBottom>
             Sblocca Neuroni
-          </M3Typography>
-          <M3ButtonGroup role="group" aria-label="Pulsanti per sbloccare neuroni">
+          </Typography>
+          <Box role="group" aria-label="Pulsanti per sbloccare neuroni" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
             {availableNodes.map((n, index) => (
-              <M3Button 
+              <Button 
                 key={n.id} 
                 onClick={() => handleUnlock(n.id)} 
-                variant="filled"
+                variant="contained"
                 aria-label={`Sblocca neurone ${n.label}`}
                 tabIndex={0}
               >
                 Sblocca {n.label}
-              </M3Button>
+              </Button>
             ))}
-          </M3ButtonGroup>
-        </M3Surface>
+          </Box>
+        </Box>
       )}
       
       {state.badges.length > 0 && (
-        <M3Surface role="region" aria-label="Badge ottenuti">
-          <M3Typography variant="title-small" color="on-surface" gutterBottom>
+        <Box role="region" aria-label="Badge ottenuti">
+          <Typography variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-surface)' }} gutterBottom>
             Badge Ottenuti
-          </M3Typography>
-          <M3ChipGroup role="group" aria-label="Lista badge ottenuti">
+          </Typography>
+          <Box role="group" aria-label="Lista badge ottenuti" sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
             {state.badges.map((b, index) => (
-              <M3Chip 
+              <Chip 
                 key={b} 
                 label={b} 
-                variant="elevated"
+                variant="outlined"
                 aria-label={`Badge ottenuto: ${b}`}
                 tabIndex={0}
               />
             ))}
-          </M3ChipGroup>
-        </M3Surface>
+          </Box>
+        </Box>
       )}
-    </M3Surface>
+    </Paper>
   );
 };
 

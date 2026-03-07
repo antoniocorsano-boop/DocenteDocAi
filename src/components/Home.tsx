@@ -41,7 +41,8 @@ interface RecentActivity {
 const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const lessons = useAcademicStore(state => state.lessons);
   const students = useStudentStore(state => state.students);
-  const evaluations = useStudentStore(state => state.evaluations) || [];
+  const evaluationsRaw = useStudentStore(state => state.evaluations);
+  const evaluations = useMemo(() => evaluationsRaw ?? [], [evaluationsRaw]);
 
   const activities: RecentActivity[] = useMemo(() => {
     const acts: RecentActivity[] = [];

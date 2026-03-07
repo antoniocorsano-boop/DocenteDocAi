@@ -7,11 +7,13 @@ import { playNkaSound } from './sound';
 import { generateWizardForNodeLLM } from './wizardAI.llm';
 import { NKAWizardStep } from './wizardAI';
 import GameMode from './GameMode';
-import { M3Surface } from '../components/ui/M3Surface';
-import { M3Typography } from '../components/ui/M3Typography';
-import M3IconButton from '../components/ui/M3IconButton';
-import { M3Button } from '../components/ui/M3Button';
-import { M3Skeleton } from '../components/ui/M3Skeleton';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import Skeleton from '@mui/material/Skeleton';
+import Icon from '@mui/material/Icon';
 import { M3EmptyState } from '../components/ui/M3EmptyState';
 import { M3ErrorState } from '../components/ui/M3ErrorState';
 
@@ -59,27 +61,26 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
 
   return (
     <>
-      <M3Surface
-        variant="scrim"
+      <Box
         onClick={onClose}
         role="presentation"
         aria-hidden="true"
-        style={{
+        sx={{
           position: 'fixed',
           top: 0,
           left: 0,
           width: '100vw',
           height: '100vh',
           zIndex: 'var(--md-sys-z-modal)',
+          bgcolor: 'rgba(0,0,0,0.32)',
         }}
       />
-      <M3Surface
-        variant="container"
+      <Paper
         elevation={3}
         role="dialog"
         aria-modal="true"
         aria-label="Mappa neurale della conoscenza"
-        style={{
+        sx={{
           position: 'fixed',
           left: '50%',
           bottom: 0,
@@ -97,9 +98,8 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
           overflow: 'hidden',
         }}
       >
-        <M3Surface
-          variant="surface"
-          style={{
+        <Box
+          sx={{
             width: '100%',
             flex: 1,
             overflow: 'auto',
@@ -119,11 +119,10 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
                 onNodeSelect={handleNodeSelect}
                 aria-label="Visualizzazione interattiva della mappa neurale"
               />
-              <M3Surface
-                variant="surface"
+              <Box
                 role="list"
                 aria-label="Elenco nodi della mappa neurale"
-                style={{ marginTop: 'var(--md-sys-spacing-4)' }}
+                sx={{ marginTop: 'var(--md-sys-spacing-4)' }}
               >
                 {nodes.map((node: NKANode) => (
                   <NKANodeCard 
@@ -133,42 +132,42 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
                     role="listitem"
                   />
                 ))}
-              </M3Surface>
+              </Box>
             </>
           )}
-        </M3Surface>
+        </Box>
 
-        <M3IconButton
-          icon="close"
+        <IconButton
           onClick={onClose}
           aria-label="Chiudi mappa neurale"
-          variant="standard"
-          style={{
+          sx={{
             position: 'absolute',
             top: 'var(--md-sys-spacing-3)',
             right: 'var(--md-sys-spacing-4)',
           }}
-        />
+        >
+          <Icon>close</Icon>
+        </IconButton>
 
-        <M3Button
-          variant={showGame ? 'tonal' : 'filled'}
+        <Button
+          variant="contained"
+          color={showGame ? 'secondary' : 'primary'}
           onClick={() => setShowGame(prev => !prev)}
           aria-label={showGame ? 'Nascondi modalità gioco' : 'Mostra modalità gioco'}
           aria-expanded={showGame}
         >
           {showGame ? 'Nascondi' : 'Mostra'} Modalità Gioco
-        </M3Button>
-      </M3Surface>
+        </Button>
+      </Paper>
 
       {showWizard && selectedNode && (
-        <M3Surface
-          variant="container-high"
+        <Paper
           elevation={2}
           role="dialog"
           aria-modal="true"
           aria-labelledby="wizard-title"
           aria-describedby="wizard-description"
-          style={{
+          sx={{
             position: 'fixed',
             left: '50%',
             top: '10vh',
@@ -181,20 +180,20 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
             width: '90vw',
           }}
         >
-          <M3Typography 
-            variant="headline-small" 
+          <Typography 
+            variant="h6" 
             id="wizard-title"
-            style={{ marginBottom: 'var(--md-sys-spacing-4)' }}
+            sx={{ marginBottom: 'var(--md-sys-spacing-4)' }}
           >
             Wizard: {selectedNode.label}
-          </M3Typography>
+          </Typography>
           
           {wizardLoading ? (
-            <M3Surface variant="surface" style={{ padding: 'var(--md-sys-spacing-4)' }}>
-              <M3Skeleton height="24px" style={{ marginBottom: 'var(--md-sys-spacing-3)' }} />
-              <M3Skeleton height="16px" style={{ marginBottom: 'var(--md-sys-spacing-2)' }} />
-              <M3Skeleton height="16px" width="80%" />
-            </M3Surface>
+            <Box sx={{ padding: 'var(--md-sys-spacing-4)' }}>
+              <Skeleton sx={{ height: '24px', marginBottom: 'var(--md-sys-spacing-3)' }} />
+              <Skeleton sx={{ height: '16px', marginBottom: 'var(--md-sys-spacing-2)' }} />
+              <Skeleton sx={{ height: '16px', width: '80%' }} />
+            </Box>
           ) : wizardError ? (
             <M3ErrorState
               title="Errore nel wizard"
@@ -209,80 +208,78 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
               icon="auto_fix_high"
             />
           ) : (
-            <M3Surface 
-              variant="surface"
+            <Box 
               role="list"
               aria-label="Passi del wizard"
             >
               {wizardSteps.map((step: NKAWizardStep) => (
-                <M3Surface
+                <Box
                   key={step.id}
-                  variant="surface-variant"
                   role="listitem"
-                  style={{
+                  sx={{
                     marginBottom: 'var(--md-sys-spacing-4)',
                     padding: 'var(--md-sys-spacing-3)',
                     borderRadius: 'var(--md-sys-shape-corner-medium)',
+                    bgcolor: 'var(--md-sys-color-surface-variant)',
                   }}
                 >
-                  <M3Typography 
-                    variant="title-medium" 
-                    style={{ marginBottom: 'var(--md-sys-spacing-2)' }}
+                  <Typography 
+                    variant="subtitle2" 
+                    sx={{ marginBottom: 'var(--md-sys-spacing-2)' }}
                   >
                     {step.title}
-                  </M3Typography>
-                  <M3Typography 
-                    variant="body-medium" 
-                    style={{ 
+                  </Typography>
+                  <Typography 
+                    variant="body2" 
+                    sx={{ 
                       marginBottom: 'var(--md-sys-spacing-3)',
                       color: 'var(--md-sys-color-on-surface-variant)'
                     }}
                   >
                     {step.description}
-                  </M3Typography>
+                  </Typography>
                   {step.actions.length > 0 && (
-                    <M3Surface 
-                      variant="surface"
-                      style={{
+                    <Box 
+                      sx={{
                         display: 'flex',
                         gap: 'var(--md-sys-spacing-2)',
                         flexWrap: 'wrap',
                       }}
                     >
                       {step.actions.map((action: string, index: number) => (
-                        <M3Button
+                        <Button
                           key={`${step.id}-action-${index}`}
-                          variant="filled"
+                          variant="contained"
                           size="small"
                           aria-label={`Esegui azione: ${action}`}
                         >
                           {action}
-                        </M3Button>
+                        </Button>
                       ))}
-                    </M3Surface>
+                    </Box>
                   )}
-                </M3Surface>
+                </Box>
               ))}
-            </M3Surface>
+            </Box>
           )}
           
-          <M3Button
+          <Button
             variant="text"
             onClick={() => setShowWizard(false)}
             aria-label="Chiudi wizard"
-            style={{ marginTop: 'var(--md-sys-spacing-4)' }}
+            sx={{ marginTop: 'var(--md-sys-spacing-4)' }}
           >
             Chiudi wizard
-          </M3Button>
-        </M3Surface>
+          </Button>
+        </Paper>
       )}
 
       {showGame && (
-        <M3Surface
-          variant="container"
+        <Paper
+          elevation={2}
           role="region"
           aria-label="Modalità gioco"
-          style={{
+          sx={{
             position: 'fixed',
             top: '50%',
             left: '50%',
@@ -294,7 +291,7 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
           }}
         >
           <GameMode nodes={nodes} />
-        </M3Surface>
+        </Paper>
       )}
     </>
   );

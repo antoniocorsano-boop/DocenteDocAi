@@ -1,8 +1,7 @@
 import React from 'react';
 import NKAHeaderAuraButton from './NKAHeaderAuraButton';
 import { useNKAStore } from './useNKAStore';
-import M3Surface from '../components/ui/M3Surface';
-import { M3Typography } from '../components/ui/M3Typography';
+import Paper from '@mui/material/Paper';
 
 interface NKAHeaderIntegrationProps {
   onOpenNKA: () => void;
@@ -26,8 +25,8 @@ const NKAHeaderIntegration: React.FC<NKAHeaderIntegrationProps> = ({
   const hasNewNode = nodes.some(node => node.isNew);
 
   return (
-    <M3Surface
-      style={{
+    <Paper
+      sx={{
         borderRadius: 'var(--md-sys-shape-corner-extra-small)',
         overflow: 'hidden'
       }}
@@ -39,7 +38,7 @@ const NKAHeaderIntegration: React.FC<NKAHeaderIntegrationProps> = ({
         onClick={onOpenNKA}
         onLongPress={onLongPressNKA}
       />
-    </M3Surface>
+    </Paper>
   );
 };
 

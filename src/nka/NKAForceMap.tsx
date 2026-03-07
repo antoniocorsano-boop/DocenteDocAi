@@ -6,8 +6,8 @@ import { NKANode } from './types';
 import { useNKAStore } from './useNKAStore';
 import { getAINeuralLayout } from './aiLayout';
 import { getLLMNeuralLayout } from './aiLayoutLLM';
-import M3Surface from '../components/ui/M3Surface';
-import { M3Typography } from '../components/ui/M3Typography';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
 interface NKAForceMapProps {
   nodes: readonly NKANode[];
@@ -96,8 +96,8 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
   const isEmpty = nodes.length === 0;
 
   return (
-    <M3Surface 
-      style={{ 
+    <Paper
+      sx={{ 
         width, 
         height, 
         display: 'flex',
@@ -112,32 +112,32 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
       {isEmpty && (
         <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-6)' }}>
           <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-on-surface-variant)', display: 'block', marginBottom: 'var(--md-sys-spacing-2)' }}>hub</span>
-          <M3Typography variant="body-large" color="var(--md-sys-color-on-surface-variant)">
+          <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
             Nessun nodo disponibile
-          </M3Typography>
-          <M3Typography variant="body-medium" color="var(--md-sys-color-on-surface-variant)" style={{ marginTop: 'var(--md-sys-spacing-2)' }}>
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 'var(--md-sys-spacing-2)' }}>
             Aggiungi dei nodi per visualizzare la mappa neurale
-          </M3Typography>
+          </Typography>
         </div>
       )}
 
       {error && (
         <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-6)' }}>
           <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-error)', display: 'block', marginBottom: 'var(--md-sys-spacing-2)' }}>error</span>
-          <M3Typography variant="body-large" color="var(--md-sys-color-error)">
+          <Typography variant="body1" sx={{ color: 'var(--md-sys-color-error)' }}>
             Errore di caricamento
-          </M3Typography>
-          <M3Typography variant="body-medium" color="var(--md-sys-color-on-surface-variant)" style={{ marginTop: 'var(--md-sys-spacing-2)' }}>
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 'var(--md-sys-spacing-2)' }}>
             {error}
-          </M3Typography>
+          </Typography>
         </div>
       )}
 
       {loading && !error && (
         <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-6)' }}>
-          <M3Typography variant="body-large" color="var(--md-sys-color-on-surface-variant)">
+          <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
             Calcolo disposizione AI…
-          </M3Typography>
+          </Typography>
         </div>
       )}
 
@@ -199,7 +199,7 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
           ))}
         </svg>
       )}
-    </M3Surface>
+    </Paper>
   );
 };
 

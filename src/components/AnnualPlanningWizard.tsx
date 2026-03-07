@@ -1,7 +1,9 @@
 // MD3 Compliant - Block J Migration Complete (5 violations eliminated)
 
 import React, { useState, useMemo } from 'react';
-import { M3Dialog, InfoCard, AiThinkingGem } from './ui';
+import { InfoCard, AiThinkingGem } from './ui';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
@@ -91,7 +93,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     const SITUATION_TAGS = [
         "Numerosa", "Poca partecipazione", "Vivace", "Livello Eterogeneo", 
         "Buona preparazione base", "Lacune diffuse", "Presenza BES/DSA", 
-        "Studenti Stranieri (NAI)", "Collaborativa", "Difficoltà relazionali"
+        "Studenti Stranieri (NAI)", "Collaborativa", "Difficoltï¿½ relazionali"
     ];
 
     // --- LOGIC ---
@@ -214,7 +216,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     title: item.uda.title,
                     classe: selectedClass,
                     materia: selectedSubject,
-                    introduction: `Unità di apprendimento su: ${item.uda.topic}`,
+                    introduction: `Unitï¿½ di apprendimento su: ${item.uda.topic}`,
                     finalProduct: 'Verifica sommativa o elaborato',
                     competencyIds: [],
                     phases: [
@@ -226,7 +228,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     tools: 'Libro di testo, LIM',
                     startDate: item.start,
                     endDate: item.end,
-                    // Proprietà aggiuntive richieste da Uda
+                    // Proprietï¿½ aggiuntive richieste da Uda
                     startPos: 0,
                     width: 1,
                     color: '',
@@ -251,7 +253,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                 onAddLessons(newLessons);
             }
 
-            onSaveEvent({ id: `evt-term1-${Date.now()}`, titolo: 'Fine 1° Periodo', data: term1End, tipo: 'scadenza', descrizione: 'Termine inserimento voti.' });
+            onSaveEvent({ id: `evt-term1-${Date.now()}`, titolo: 'Fine 1ï¿½ Periodo', data: term1End, tipo: 'scadenza', descrizione: 'Termine inserimento voti.' });
             onSaveEvent({ id: `evt-term2-${Date.now()}`, titolo: 'Termine Lezioni', data: term2End, tipo: 'scadenza', descrizione: 'Ultimo giorno di scuola.' });
 
             setStep('document');
@@ -267,7 +269,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
         setProcessingStatus("Organizzazione contenuti...");
         try {
             const udaList = schedulePreview.map(s => 
-                `• ${s.uda.title} (${s.uda.hours}h): dal ${new Date(s.start).toLocaleDateString()} al ${new Date(s.end).toLocaleDateString()}`
+                `ï¿½ ${s.uda.title} (${s.uda.hours}h): dal ${new Date(s.start).toLocaleDateString()} al ${new Date(s.end).toLocaleDateString()}`
             ).join('\n');
 
             const kbContext = knowledgeBase
@@ -363,11 +365,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     );
 
     return (
-        <M3Dialog
-            onClose={onClose}
-            title="Progettazione Annuale Guidata"
-            mode="fullscreen"
-        >
+        <Dialog open onClose={onClose} fullScreen>
+            <DialogTitle>Progettazione Annuale Guidata</DialogTitle>
             <DialogContent>
                     {renderStepIndicator()}
 
@@ -497,7 +496,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             {showSequenceHelp && (
                                 <InfoCard
                                     title="Organizzazione Moduli"
-                                    description="Definisci le Unità di Apprendimento (UDA) in ordine cronologico. L'app calcolerà automaticamente le date sul calendario in base al monte ore di ciascuna UDA."
+                                    description="Definisci le Unitï¿½ di Apprendimento (UDA) in ordine cronologico. L'app calcolerï¿½ automaticamente le date sul calendario in base al monte ore di ciascuna UDA."
                                     variant="outlined"
                                     icon="info"
                                     onClose={() => setShowSequenceHelp(false)}
@@ -562,7 +561,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <Typography variant="h6" component="h3">5. Anteprima Temporale</Typography>
                             <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-6)' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                                    <label htmlFor="wizard-term1-end">Fine 1° Periodo</label>
+                                    <label htmlFor="wizard-term1-end">Fine 1ï¿½ Periodo</label>
                                     <input id="wizard-term1-end" name="wizard-term1-end" type="date" value={term1End} onChange={e => setTerm1End(e.target.value)} style={{ width: 'var(--md-sys-percent-full)' }} />
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
@@ -610,7 +609,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     )}
                     {step === 'document' && <Button variant="text" onClick={onClose} title="Chiudi wizard">Chiudi</Button>}
             </DialogActions>
-        </M3Dialog>
+        </Dialog>
     );
 };
 

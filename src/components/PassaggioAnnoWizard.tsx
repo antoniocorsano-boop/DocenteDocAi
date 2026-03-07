@@ -1,11 +1,11 @@
 // MD3 Compliant - Migration completed
 // PassaggioAnnoWizard.tsx - All styling uses MD3 tokens via style props
 import React, { useState, useMemo, useEffect } from 'react';
-import {DialogContent, DialogActions, Button } from '@mui/material';
+import {DialogContent, DialogActions, Button, Dialog, DialogTitle } from '@mui/material';
 import { Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, RegisterEntry, StudentHistoryRecord } from '../types';
 import { getNextClass } from '../utils/schoolUtils';
 import { calculatePerformance } from '../utils/evaluationUtils';
-import { M3Dialog, InfoCard } from './ui';
+import { InfoCard } from './ui';
 interface PassaggioAnnoWizardProps {
     onClose: () => void;
     students: Studente[];
@@ -171,12 +171,8 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
     };
 
     return (
-        <M3Dialog
-            onClose={onClose}
-            title="Passaggio Anno Scolastico"
-            maxWidth="xl"
-            hideBackdrop={true}
-        >
+        <Dialog open onClose={onClose} maxWidth="xl" fullWidth hideBackdrop>
+            <DialogTitle>Passaggio Anno Scolastico</DialogTitle>
             <DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
                     {step === "intro" && (
                         <div  style={{gap: 'var(--md-sys-spacing-8)', marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
@@ -339,7 +335,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                         </>
                     )}
             </DialogActions>
-        </M3Dialog>
+        </Dialog>
     );
 };
 

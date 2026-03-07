@@ -1,6 +1,6 @@
 import * as React from 'react';
-import M3Surface from '../components/ui/M3Surface';
-import { M3Typography } from '../components/ui/M3Typography';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import { playNkaSound } from './sound';
 
 const NKA_COACHMARK_KEY = 'nka_coachmark_seen_v1';
@@ -67,9 +67,9 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
   };
 
   return (
-    <M3Surface
-      level={0}
-      style={{
+    <Paper
+      elevation={0}
+      sx={{
         position: 'relative',
         display: 'inline-flex',
       }}
@@ -117,18 +117,18 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
         </span>
         
         {hasNewNode && (
-          <M3Surface
-            level={1}
+          <Paper
+            elevation={1}
             role="status"
             aria-label="Nuovo nodo disponibile"
-            style={{
+            sx={{
               position: 'absolute',
               top: 'var(--md-sys-spacing-1)',
               right: 'var(--md-sys-spacing-1)',
               width: 'var(--md-sys-spacing-3)',
               height: 'var(--md-sys-spacing-3)',
               borderRadius: 'var(--md-sys-percent-50)',
-              backgroundColor: 'var(--md-sys-color-tertiary)',
+              bgcolor: 'var(--md-sys-color-tertiary)',
               border: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-surface)',
             }}
           />
@@ -136,24 +136,24 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
       </button>
 
       {showCoachmark && (
-        <M3Surface
-          level={3}
+        <Paper
+          elevation={3}
           role="tooltip"
-          style={{
+          sx={{
             position: 'absolute',
             top: 'calc(var(--md-sys-spacing-12) + var(--md-sys-spacing-3))',
             right: 0,
             zIndex: 'var(--md-sys-z-tooltip)',
-            backgroundColor: 'var(--md-sys-color-inverse-surface)',
+            bgcolor: 'var(--md-sys-color-inverse-surface)',
             borderRadius: 'var(--md-sys-shape-corner-medium)',
-            padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+            p: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
             whiteSpace: 'nowrap',
             pointerEvents: 'none',
           }}
         >
-          <M3Typography
-            variant="body-small"
-            style={{
+          <Typography
+            variant="body2"
+            sx={{
               color: 'var(--md-sys-color-inverse-on-surface)',
               fontWeight: 'var(--md-sys-typescale-weight-medium)',
               display: 'flex',
@@ -171,10 +171,10 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
               auto_awesome
             </span>
             Mappa Neurale: esplora la tua conoscenza
-          </M3Typography>
-        </M3Surface>
+          </Typography>
+        </Paper>
       )}
-    </M3Surface>
+    </Paper>
   );
 };
 

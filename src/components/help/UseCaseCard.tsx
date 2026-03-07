@@ -1,6 +1,6 @@
 // HelpModal - UseCaseCard component
 import React from 'react';
-import { M3Typography } from '../ui';
+import Typography from '@mui/material/Typography';
 import { sanitizeHtml } from '../../utils/htmlSanitizer';
 
 interface UseCaseCardProps {
@@ -16,11 +16,11 @@ export const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }
         padding: 'var(--md-sys-spacing-4)',
         border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
     }}>
-        <M3Typography variant="body-large" style={{
-            fontWeight: 'var(--md-sys-typescale-weight-bold)',
-            color: 'var(--md-sys-color-primary)',
-            marginBottom: 'var(--md-sys-spacing-3)'
-        }}>{scenario}</M3Typography>
+        <Typography variant="body1" sx={{
+            fontWeight: 700,
+            color: 'primary.main',
+            mb: 1.5
+        }}>{scenario}</Typography>
         <ol style={{
             margin: 0,
             paddingLeft: 'var(--md-sys-spacing-5)',
@@ -58,9 +58,9 @@ export const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }
                 <span style={{
                     color: 'var(--md-sys-color-primary)'
                 }}>lightbulb</span>
-                <M3Typography variant="body-small" style={{ color: 'var(--md-sys-color-on-primary-container)' }}>
+                <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-primary-container)' }}>
                     {tip}
-                </M3Typography>
+                </Typography>
             </div>
         )}
     </div>

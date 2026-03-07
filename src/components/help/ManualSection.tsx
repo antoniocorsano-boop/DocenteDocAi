@@ -1,6 +1,6 @@
 // HelpModal - ManualSection component
 import React, { useState } from 'react';
-import { M3Typography } from '../ui';
+import Typography from '@mui/material/Typography';
 
 interface ManualSectionProps {
     title: string;
@@ -43,7 +43,7 @@ export const ManualSection: React.FC<ManualSectionProps> = ({ title, icon, defau
                         color: 'var(--md-sys-color-primary)',
                         fontSize: 'var(--md-sys-typescale--font-size)'
                     }}>{icon}</span>
-                    <M3Typography variant="title-medium">{title}</M3Typography>
+                    <Typography variant="subtitle2">{title}</Typography>
                 </div>
                 <span style={{
                     color: 'var(--md-sys-color-on-surface-variant)',
