@@ -1,6 +1,4 @@
 // MD3 Expressive UI component library
-export { default as M3Surface } from './M3Surface';
-export { default as M3ExpressiveCard } from './M3ExpressiveCard';
 export { default as TextField } from './TextField';
 export { default as SelectField } from './SelectField';
 export { default as TextArea } from './TextArea';
@@ -10,7 +8,6 @@ export { default as InfoCard } from './InfoCard';
 export { default as SectionHeader } from './SectionHeader';
 export { default as TabGroup } from './TabGroup';
 export { default as PinPad } from './PinPad';
-export { default as M3ChoiceCard } from './M3ChoiceCard';
 export { default as CategoryCard } from './CategoryCard';
 export { default as EmptyState } from './EmptyState';
 export { default as ManualSection } from './ManualSection';
@@ -25,7 +22,6 @@ export { default as QuizSkeleton } from './QuizSkeleton';
 export { default as Avatar } from './Avatar';
 export { default as AiThinkingGem } from './AiThinkingGem';
 export { default as ThinkingIndicator } from './ThinkingIndicator';
-export { default as M3Typography } from './M3Typography';
 
 export { LoadingState } from './LoadingState';
 export { Skeleton, SkeletonList } from './Skeleton';
