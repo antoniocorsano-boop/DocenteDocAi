@@ -20,8 +20,7 @@ export { default as UseCaseCard } from './UseCaseCard';
 export { default as M3Card } from './M3Card';
 export { default as M3Dialog, M3DialogContent, M3DialogActions, M3ConfirmDialog } from './M3Dialog';
 export { default as M3ListItem } from './M3ListItem';
-export { default as M3IconButton } from './M3IconButton';
-export { default as M3AnimatedIcon } from './M3AnimatedIcon';
+
 export { default as M3BadgedIcon } from './M3BadgedIcon';
 export { default as M3Popover } from './M3Popover';
 // M3Menu rimosso dal barrel export — @deprecated, 0 consumer di produzione (Fase 5: eliminazione)
@@ -39,11 +38,7 @@ export { default as M3ActivityItem } from './M3ActivityItem';
 export { default as M3EmptyStateCard } from './M3EmptyStateCard';
 export { default as M3Typography } from './M3Typography';
 export { default as M3Chip } from './M3Chip';
-export { default as M3ProgressBar } from './M3ProgressBar';
-export { default as M3CircularProgress } from './M3CircularProgress';
-export type { M3CircularProgressProps } from './M3CircularProgress';
-export { default as M3ChipGroup } from './M3ChipGroup';
-export { default as M3ButtonGroup } from './M3ButtonGroup';
+
 export { default as M3FlexContainer } from './M3FlexContainer';
 export { default as M3Aside } from './M3Aside';
 export { LoadingState } from './LoadingState';
@@ -66,8 +61,7 @@ export { PullToRefresh } from './PullToRefresh';
 export { FAB, FABSpeedDial } from './FAB';
 export { ThemeToggle } from './ThemeToggle';
 export { AccessibilitySettings } from './AccessibilitySettings';
-export { default as M3SegmentedButton } from './M3SegmentedButton';
-export type { M3SegmentedButtonProps, M3SegmentedButtonOption } from './M3SegmentedButton';
+
 export { default as M3BannerHero } from './M3BannerHero';
 export type { M3BannerHeroProps } from './M3BannerHero';
 export { default as M3Switch } from './M3Switch';
