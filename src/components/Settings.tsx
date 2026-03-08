@@ -63,14 +63,13 @@ const SettingsGroup: React.FC<{
             expanded={expanded}
             onChange={() => onToggle()}
             disableGutters
-            elevation={0}
+            elevation={expanded ? 2 : 0}
             sx={{
                 border: '1px solid',
-                borderColor: 'divider',
+                borderColor: expanded ? iconBg : 'divider',
                 borderRadius: '12px !important',
                 '&:before': { display: 'none' },
-                '&.Mui-expanded': { my: 0 },
-                overflow: 'hidden',
+                transition: 'box-shadow 200ms ease, border-color 200ms ease',
             }}
         >
             <AccordionSummary
@@ -78,7 +77,7 @@ const SettingsGroup: React.FC<{
                     <span
                         className="material-symbols-outlined"
                         aria-hidden="true"
-                        style={{ fontSize: 20, color: 'var(--md-sys-color-on-surface-variant)' }}
+                        style={{ fontSize: 24, color: 'var(--md-sys-color-on-surface-variant)' }}
                     >expand_more</span>
                 }
                 id={`settings-group-btn-${id}`}
@@ -86,15 +85,23 @@ const SettingsGroup: React.FC<{
                 sx={{
                     bgcolor: 'var(--md-sys-color-surface-container-high)',
                     px: 2,
-                    minHeight: 64,
-                    '&.Mui-expanded': { minHeight: 64, borderBottom: '1px solid', borderColor: 'divider' },
-                    '& .MuiAccordionSummary-content': { my: 1.5, gap: 1.5, alignItems: 'center' },
+                    py: 1,
+                    minHeight: 72,
+                    '&.Mui-expanded': {
+                        minHeight: 72,
+                        borderBottom: `1px solid var(--md-sys-color-outline-variant)`,
+                    },
+                    '& .MuiAccordionSummary-content': {
+                        my: 0,
+                        gap: 2,
+                        alignItems: 'center',
+                    },
                 }}
             >
                 <Box sx={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 2,
+                    width: 48,
+                    height: 48,
+                    borderRadius: 3,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -102,7 +109,7 @@ const SettingsGroup: React.FC<{
                     bgcolor: iconBg,
                     color: iconColor,
                 }}>
-                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 20 }}>{icon}</span>
+                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 24 }}>{icon}</span>
                 </Box>
                 <Box sx={{ minWidth: 0, flex: 1 }}>
                     <Typography variant="subtitle1" sx={{ fontWeight: 700, color: 'text.primary', lineHeight: 1.3, margin: 0 }}>{title}</Typography>
