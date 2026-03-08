@@ -24,6 +24,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
 import '../design-system/md3-utilities.css';
 import ThemeBubble from './ThemeBubble';
 import { ThemeSettingsPanel } from './settings/ThemeSettingsPanel';
@@ -660,7 +661,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             value={themePrompt}
                                             onChange={e => setThemePrompt(e.target.value)}
                                             placeholder="Es. 'Colori tramonto'..."
-                                            leadingIcon="palette" />
+                                            InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">palette</span></InputAdornment> }} />
                                     </div>
                                     <Button
                                         onClick={handleGenerateThemeFromPrompt}
@@ -1892,8 +1893,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <div style={{display: 'flex',
                             flexDirection: 'column',
                             gap: 'var(--md-sys-spacing-4)'}}>
-                            <TextField label="Client ID (OAuth)" value={localSettings.googleClientId || ''} onChange={e => handleChange('googleClientId', e.target.value)} leadingIcon="badge" />
-                            <TextField label="API Key (Picker)" type="password" value={localSettings.googleApiKey || ''} onChange={e => handleChange('googleApiKey', e.target.value)} leadingIcon="lock" />
+                            <TextField label="Client ID (OAuth)" value={localSettings.googleClientId || ''} onChange={e => handleChange('googleClientId', e.target.value)} InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">badge</span></InputAdornment> }} />
+                            <TextField label="API Key (Picker)" type="password" value={localSettings.googleApiKey || ''} onChange={e => handleChange('googleApiKey', e.target.value)} InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">lock</span></InputAdornment> }} />
                         </div>
                     </div>
                     <div style={{padding: 'var(--md-sys-spacing-4)',

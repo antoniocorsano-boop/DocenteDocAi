@@ -1,5 +1,5 @@
 // MD3 Expressive UI component library
-export { default as TextField } from './TextField';
+export { TextField } from '@mui/material';
 export { default as AiMemoryChip } from './AiMemoryChip';
 export { default as ActionTile } from './ActionTile';
 export { default as InfoCard } from './InfoCard';

@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { HomeworkSubmission, Lezione, Studente } from '../types';
 import { TextField, Avatar } from './ui';
-import { Button , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { Button, FormControl, InputLabel, NativeSelect, InputAdornment } from '@mui/material';
 import { saveAs } from '../utils/documentUtils';
 import { RATING_OPTIONS } from '../constants';
 
@@ -87,8 +87,7 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
                             value={feedback}
                             onChange={(e) => setFeedback(e.target.value)}
                             placeholder="Es. Analisi molto curata, bravo..."
-                            containerClassName="md:col-span-3"
-                            leadingIcon="chat"
+                            InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">chat</span></InputAdornment> }}
                         />
                     </div>
                     <Button 

@@ -320,7 +320,7 @@ return (
                             id="schoolYear"
                             name="schoolYear"
                             label="Anno Scolastico"
-                            data-testid="field-anno scolastico"
+                            inputProps={{ 'data-testid': 'field-anno scolastico' }}
                             value={exportOptions.schoolYear}
                             onChange={e => handleOptionChange('schoolYear', e.target.value)}
                         />
@@ -328,7 +328,7 @@ return (
                             id="exportDate"
                             name="exportDate"
                             label="Data Esportazione"
-                            data-testid="field-data esportazione"
+                            inputProps={{ 'data-testid': 'field-data esportazione' }}
                             type="date"
                             value={exportOptions.exportDate}
                             onChange={e => handleOptionChange('exportDate', e.target.value)}

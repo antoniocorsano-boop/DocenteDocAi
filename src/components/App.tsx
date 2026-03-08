@@ -15,7 +15,7 @@ import ViewManager from './ViewManager';
 import { ModalManager } from './ModalManager';
 import Snackbar from './Snackbar';
 import ErrorBoundary from './ErrorBoundary';
-import { AppLayout } from './AppLayout.md3';
+import { AppLayout } from './AppLayout';
 import { useNKAStore } from '../nka/useNKAStore';
 import { ViewLoadingPlaceholder } from './ViewLoadingPlaceholder';
 

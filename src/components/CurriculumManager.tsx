@@ -103,7 +103,6 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                         newNuclei[nIdx].title = e.target.value;
                                         handleUpdate({...selectedCurriculum, nuclei: newNuclei});
                                     }}
-                                    containerClassName="!mb-0"
                                 />
                             </div>
                             <Button 
@@ -357,7 +356,6 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                             onChange={e => setImportText(e.target.value)} 
                             style={{ flexGrow: "1" }} 
                             rows={12} 
-                            containerClassName="flex-grow" 
                         />
                     </DialogContent>
                     <DialogActions >

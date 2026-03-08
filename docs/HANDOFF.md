@@ -1,9 +1,9 @@
 # DocenteDoc AI — Handoff Document
 
-**Data:** 2026-03-08  
-**Sessione:** MUI v7 Migration — Fase 6 COMPLETATA (TextArea, SelectField, TabGroup smantellati)  
+**Data:** 2026-03-09  
+**Sessione:** CSS Dead Code Cleanup — 19 file orfani rimossi (~13 000 righe)  
 **Branch:** `main`  
-**HEAD:** (post-migrazione Fase 6 thin wrappers)
+**HEAD:** (post CSS dead-code cleanup)
 
 ---
 
@@ -13,8 +13,8 @@
 
 | Metrica         | Valore                                |
 | --------------- | ------------------------------------- |
-| Test Files      | **99 / 99 passing**                   |
-| Tests           | **1214 passed**, 10 skipped, 0 failed |
+| Test Files      | **98 / 98 passing**                   |
+| Tests           | **1213 passed**, 10 skipped, 0 failed |
 | ESLint Errors   | **0**                                 |
 | ESLint Warnings | **0**                                 |
 | Build           | ✅ Successo                           |
@@ -99,6 +99,12 @@ La migrazione al design system MUI v7 è **in corso**. Vedi [REFACTORING_MUI_V7_
 - **Consumatori M3Typography:** `SkipLink`, `ManualSection`, `UseCaseCard` ✅
 - **Fase 6 completa (2026-03-07):** eliminati 30+ wrapper M3\* (Typography, Surface, Card, Chip, Button, IconButton, ChoiceCard, ListItem, Menu + 19 zero-consumer); barrel aggiornato; snapshot sincronizzati ✅
 - **Fase 6 thin wrappers (2026-03-08):** eliminati TextArea (18 consumer), SelectField (22 consumer), TabGroup (23 consumer); 63 file migrati; barrel aggiornato; 99/99 test green ✅
+- **CSS Dead Code Cleanup (2026-03-09):** rimossi 19 file CSS orfani (~13 000 righe); 98/98 test green; build pulito ✅
+  - Group 1 (componenti): `ui-components.css`, `dialog-container.css`, `Menu.css`, `NotificationsPopover.css`, `StudentActionMenu.css`, `navigation-rail.css`, `nka/nka.css`
+  - Group 2 (design-system): `legacyStyles.css`, `m3-interactive.css`, `motion.css`, `reduced-motion.css`, `theme-dark.css`, `theme-high-contrast.css`
+  - Group 3 (styles/): `styles/layout/` (3 file), `styles/m3-interactive.css`
+  - Root: `index.css` (legacy entry point non linkato), `src/layout.css` (6 627 righe, mai importato)
+- **CSS Dead Code Cleanup (2026-03-09):** rimossi 19 file CSS orfani (~13 000 righe, vedi sezione 2.x); 98/98 test green; build pulito ✅
 
 ### In Corso / Da Fare 🔄
 
@@ -108,7 +114,7 @@ La migrazione al design system MUI v7 è **in corso**. Vedi [REFACTORING_MUI_V7_
 
 - `M3Dialog.tsx` — 64 consumer, gestione close/keyboard/backdrop → **KEEP**
 - `M3Popover.tsx` — viewport-aware positioning → **KEEP**
-- `AppLayout.md3.tsx` — orchestrazione Header/Nav/BottomNav → **KEEP**
+- `AppLayout.tsx` (ex `AppLayout.md3.tsx`) — orchestrazione Header/Nav/BottomNav → **KEEP**
 - `TextField.tsx` (custom) — smart wrapper con leadingIcon/InputAdornment → **KEEP**
 
 **Regola operativa:** una sessione = un tipo di wrapper, commit atomico per file.
@@ -126,11 +132,11 @@ Nessun warning ESLint aperto. ✅
 
 ## 5. Warning di Build (Non Bloccanti)
 
-| Tipo                    | Descrizione                                                                           | Azione Consigliata                                                                           |
-| ----------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| Circular chunk          | `vendor → react-vendor → vendor`                                                      | Rivedere `manualChunks` in `vite.config.ts`                                                  |
-| CSS minify warnings     | `color-mix()` e `oklch()` nei token MD3 — esbuild non supporta pienamente CSS Level 4 | Non critico per la produzione; considerare `postcss-nesting` o `lightningcss`                |
-| Overwrite emitted files | Alcuni asset `.gz`/`.br` vengono emessi due volte                                     | Già presente prima di questa sessione; legato alla configurazione del plugin di compressione |
+| Tipo                    | Descrizione                                                                                                                                                                                                              | Azione Consigliata                                                                           |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- |
+| Circular chunk          | ~~`vendor → react-vendor → vendor`~~ → **RISOLTO** aggiungendo `mui-vendor` chunk separato per `@mui/` + `@emotion/` in `vite.config.ts` (2026-03-08)                                                                    | ✅                                                                                           |
+| CSS encoding warnings   | ~~78× `css-syntax-error`~~ → **RISOLTI (2026-03-09):** `src/components.css` era UTF-16 LE senza BOM; `breakpoints.css`, `spacing.css`, `global.css`, `logo.css` avevano UTF-8 BOM. Riconvertiti tutti a UTF-8 senza BOM. | ✅ 0 warnings                                                                                |
+| Overwrite emitted files | Alcuni asset `.gz`/`.br` vengono emessi due volte                                                                                                                                                                        | Già presente prima di questa sessione; legato alla configurazione del plugin di compressione |
 
 ---
 
@@ -188,7 +194,6 @@ df1696c6  feat(fase6): migrate NKASettingsToggle M3Surface+M3Typography
 ## 9. Prossimi Passi Raccomandati
 
 1. **Fase 6 completata** — nessun thin wrapper residuo
-2. **`TextField.tsx` (custom)** — valutare migrazione a MUI `TextField` nativo con `InputAdornment` diretta nei consumer (~20+ consumer usano `leadingIcon`) — bassa priorità, funziona correttamente
-3. **Risolvere circular chunk** — ottimizzare `manualChunks` in `vite.config.ts`
-4. **Aggiornare `docs/ARCHITECTURE.md`** — marcato OBSOLETE, va riscritto per MUI v7
-5. **CSS cleanup** — `ui-components.css` contiene classi utilità residue, valutare se tutte usate
+2. **`TextField.tsx` (custom)** — ~~valutare migrazione~~ → **FATTO** (2026-03-08): eliminato; barrel re-esporta da `@mui/material`; `leadingIcon` → `InputProps.startAdornment` in 6 file; 26 consumer invariati
+3. **Aggiornare `docs/ARCHITECTURE.md`** — ~~marcato OBSOLETE, va riscritto per MUI v7~~ → **FATTO** (2026-03-08): riscritto da zero, riflette stack reale MUI v7
+4. **CSS cleanup** — `ui-components.css` contiene classi utilità residue, valutare se tutte usate

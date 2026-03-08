@@ -12,6 +12,7 @@ import { Uda, Competenza, UdaPlannerProps } from '../types';
 const UdaExportModal = lazy(() => import('./UdaExportModal'));
 import Guidance from './Guidance';
 import { M3Dialog, TextField, EmptyState } from './ui';
+import InputAdornment from '@mui/material/InputAdornment';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
@@ -142,7 +143,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                             value={currentUda.externalLink || ''}
                             onChange={e => handleFieldChange('externalLink', e.target.value)}
                             placeholder="Incolla l'URL dell'analisi di NotebookLM..."
-                            leadingIcon="auto_awesome"
+                            InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span></InputAdornment> }}
                         />
                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                             <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-tertiary)' }}>auto_awesome</span>

@@ -3,7 +3,7 @@
 // Audit: gennaio 2026
 import React, { useState, useMemo } from 'react';
 import { Slot, Lezione, TimetableSettings, AiSettings, Uda, KnowledgeBaseEntry, PianoInclusione, Studente } from '../types';
-import { Button, Box, Typography, Card  , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { Button, Box, Typography, Card, FormControl, InputLabel, NativeSelect, InputAdornment } from '@mui/material';
 import { M3Dialog, InfoCard, SectionHeader, TextField } from './ui';
 interface EditSlotModalProps {
     slot: Slot;
@@ -194,7 +194,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                             value={currentLesson.externalLink || ''}
                             onChange={e => setCurrentLesson({ ...currentLesson, externalLink: e.target.value })}
                             placeholder="Incolla URL deliverable..."
-                            leadingIcon="auto_awesome"
+                            InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span></InputAdornment> }}
                         />
                     </Box>
                 )}

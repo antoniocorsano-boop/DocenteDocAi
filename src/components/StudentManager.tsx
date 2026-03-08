@@ -7,6 +7,7 @@ import ImportStudentsModal from './ImportStudentsModal';
 import StudentTransferModal from './StudentTransferModal';
 import { EmptyState, SectionHeader, Avatar, TextField } from './ui';
 import Button from '@mui/material/Button';
+import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -225,7 +226,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                             placeholder="Digita nome o cognome..."
                             value={searchTerm}
                             onChange={e => setSearchTerm(e.target.value)}
-                            leadingIcon="search"
+                            InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">search</span></InputAdornment> }}
                             aria-label="Ricerca studenti per nome o cognome"
                         />
                     </div>

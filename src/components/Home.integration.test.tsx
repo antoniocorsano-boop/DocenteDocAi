@@ -27,7 +27,7 @@ vi.mock('./ui', () => ({
 }));
 
 // Mock AppLayout
-vi.mock('./AppLayout.md3', () => ({
+vi.mock('./AppLayout', () => ({
   AppLayout: ({ children }: any) => (
     <div data-testid="app-layout">
       {children}

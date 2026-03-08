@@ -1,455 +1,189 @@
-# ⚠️ OBSOLETE – MD3 NON-COMPLIANT – DO NOT USE
+﻿# DocenteDoc AI — Architettura Sistema
 
-<!-- This documentation contains examples of forbidden MD3 patterns and is disabled for compliance reasons.
-
-# DocenteDoc AI - Architettura Sistema
-
-> **Documento Architetturale** - Design patterns, decisioni tecniche e struttura del sistema
-
-## 📋 Panoramica
-
-Questo documento descrive l'architettura del sistema **DocenteDoc AI**, fornendo una visione completa dei componenti, pattern utilizzati e decisioni tecniche che guidano lo sviluppo.
-
-### 🏛️ Principi Architetturali
-
-- **Component-Driven Development**: Tutto costruito attorno a componenti riutilizzabili
-- **Local-First Architecture**: Dati prioritariamente locali con backup cloud opzionale
-- **Progressive Enhancement**: Funzionalità core funzionanti senza JavaScript avanzato
-- **Performance-First**: Ottimizzazioni per caricamento rapido e responsività
+**Aggiornato:** 2026-03-08 (post-migrazione MUI v7 completa)
 
 ---
 
-## 🏗️ Architettura Generale
+## Stack Tecnologico
 
-### Stack Tecnologico
+| Layer         | Tecnologia                                      | Note                                       |
+| ------------- | ----------------------------------------------- | ------------------------------------------ |
+| UI Framework  | React 18 + TypeScript                           | Strict mode attivo                         |
+| Design System | MUI v7 (`@mui/material ^7.3.9`)                 | Tema centralizzato con bridge token MD3    |
+| Tema          | `src/theme/muiTheme.ts` + `M3ThemeProvider.tsx` | CSS custom properties `var(--md-sys-*)`    |
+| State         | Zustand (store separati per dominio)            | Nessun Context-per-stato globale           |
+| Build         | Vite + Rollup                                   | Chunk splitting manuale per vendor pesanti |
+| Testing       | Vitest + React Testing Library + Playwright     | 99 test file, 1214+ test                   |
+| PWA           | vite-plugin-pwa (injectManifest)                | Service worker in `src/sw.ts`              |
+| Deploy        | Vercel                                          | Config in `vercel.json`                    |
+
+---
+
+## Struttura Directory `src/`
 
 ```
-Frontend: React 18 + TypeScript + Vite
-Styling: Material Design 3 + Tailwind CSS (Layout-only)
-State: Zustand (Lightweight, TypeScript-first)
-Storage: LocalStorage + IndexedDB (Local-first)
-Build: Vite (Fast HMR, optimized builds)
-Deployment: Vercel (CDN, Edge functions)
-```
-
-### Pattern Architetturali
-
-#### 1. Component Architecture
-```
-Atomic Design Pattern:
-├── Atoms (Button, Input, Icon)
-├── Molecules (Form Field, Card)
-├── Organisms (Header, Sidebar, Modal)
-└── Templates (Page layouts)
-```
-
-#### 2. State Management
-```typescript
-// Store pattern con Zustand
-interface AppState {
-  user: User | null
-  classes: Class[]
-  students: Student[]
-  // Actions
-  setUser: (user: User) => void
-  addClass: (classData: Class) => void
-}
-```
-
-#### 3. Data Flow
-```
-User Action → Component → Store Action → State Update → Re-render
-                                      ↓
-                               LocalStorage Sync
-                                      ↓
-                             IndexedDB Backup
+src/
+├── components/          # Componenti UI applicativi
+│   ├── ui/              # Componenti UI riutilizzabili (design system layer)
+│   ├── settings/        # Pannelli impostazioni
+│   ├── App.tsx          # Root applicativo, routing a view
+│   └── AppLayout.tsx    # Shell: Header + NavRail/BottomNav + SecondaryDrawer
+├── context/             # React Context (solo ModalContext)
+├── contexts/            # ThemeContext, ModalContext (legacy unificazione in corso)
+├── hooks/               # Custom hooks (useAppEngine, usePersistence, ecc.)
+├── nka/                 # Modulo NKA Knowledge Assessment (gamification)
+├── services/            # Servizi applicativi (AI, backup, storage, register)
+├── stores/              # Zustand stores per dominio
+├── theme/               # Tema MUI + token MD3
+│   ├── muiTheme.ts      # Tema MUI v7 centralizzato
+│   ├── M3ThemeProvider.tsx  # Provider che monta ThemeProvider MUI
+│   ├── tokens.ts        # Token MD3 (CSS custom properties)
+│   └── md3ZIndex.ts     # Z-index centralizzati
+├── types/               # Tipi TypeScript condivisi
+└── utils/               # Utility pure
 ```
 
 ---
 
-## 🔧 Componenti Core
+## Design System
 
-### UI Components System
+### Regola Fondamentale
 
-#### Design Tokens Architecture
-```css
-/* MD3 Design Tokens */
-:root {
-  /* Color System */
-  --md-sys-color-primary: #6750a4;
-  --md-sys-color-on-primary: #ffffff;
+Tutti i componenti UI producono markup MUI v7. Non esistono più wrapper `M3*` attivi eccetto:
 
-  /* Typography Scale */
-  --md-sys-typescale-display-large: 3.5rem;
-  --md-sys-typescale-body-large: 1rem;
+| Componente               | Motivo di mantenimento                                           |
+| ------------------------ | ---------------------------------------------------------------- |
+| `M3Dialog.tsx`           | 64+ consumer; gestisce close/keyboard/backdrop in modo unificato |
+| `M3Popover.tsx`          | Positioning viewport-aware custom                                |
+| `TextField.tsx` (custom) | Smart wrapper con `leadingIcon` / `InputAdornment`               |
 
-  /* Shape System */
-  --md-sys-shape-corner-extra-small: 4px;
-  --md-sys-shape-corner-small: 8px;
-}
+### Tema
+
+`src/theme/muiTheme.ts` mappa i token MD3 (`var(--md-sys-color-*)`, `var(--md-sys-typescale-*)`) sui slot del tema MUI. Il file `src/styles/` contiene CSS globali; `src/components/ui/ui-components.css` contiene classi utility ancora in uso.
+
+### Chunk Vendor (Rollup)
+
+| Chunk          | Contenuto                                     |
+| -------------- | --------------------------------------------- |
+| `react-vendor` | `react`, `react-dom`, `scheduler`, `react-is` |
+| `mui-vendor`   | `@mui/material`, `@emotion/*`                 |
+| `ai-vendor`    | `@google/genai`                               |
+| `pdf-vendor`   | `jspdf`, `pdf-lib`, `mammoth`, `docx` (lazy)  |
+| `xlsx-vendor`  | `xlsx` (lazy)                                 |
+| `dnd-vendor`   | `@dnd-kit/*` (lazy)                           |
+| `chart-vendor` | `recharts`, `d3`, `chart.js`                  |
+| `vendor`       | tutti gli altri `node_modules`                |
+
+---
+
+## State Management
+
+### Zustand Stores (`src/stores/`)
+
+| Store              | Dominio                               |
+| ------------------ | ------------------------------------- |
+| `useAcademicStore` | Classi, UDA, pianificazione annuale   |
+| `useStudentStore`  | Studenti, valutazioni, competenze     |
+| `useSettingsStore` | Impostazioni docente e app            |
+| `useUIStore`       | Stato UI (drawer, sidebar, notifiche) |
+| `useSystemStore`   | Auth, profilo utente, onboarding      |
+| `DashboardStore`   | Dati dashboard analitici              |
+| `lazyStores`       | Entry point lazy per store pesanti    |
+
+### React Context (limitato)
+
+- `ModalContext` — gestione stack modale unico (open/close senza prop drilling)
+- `ThemeContext` — light/dark/auto preference
+
+---
+
+## Architettura Dati
+
+### Local-First
+
+```
+Write path:  UI → Store → LocalStorage (sync) → IndexedDB (async backup)
+Read path:   Store ← LocalStorage (hydrate at mount)
+Cloud path:  LocalStorage ↔ Google Drive (OAuth 2.0, opzionale)
 ```
 
-#### Component Composition
-```typescript
-// Esempio Button component
-interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'outline'
-  size?: 'sm' | 'md' | 'lg'
-  children: React.ReactNode
-  onClick?: () => void
-}
+### Servizi Chiave (`src/services/`)
 
-const Button: React.FC<ButtonProps> = ({
-  variant = 'primary',
-  size = 'md',
-  children,
-  onClick
-}) => {
-  const baseClasses = 'rounded-md font-medium transition-colors'
-  const variantClasses = {
-    primary: 'bg-primary text-on-primary hover:bg-primary-hover',
-    secondary: 'bg-secondary text-on-secondary',
-    outline: 'border border-outline text-on-surface'
-  }
-  const sizeClasses = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2 text-base',
-    lg: 'px-6 py-3 text-lg'
-  }
+| Servizio              | Ruolo                                     |
+| --------------------- | ----------------------------------------- |
+| `aiService.ts`        | Chiamate a Google Gemini API              |
+| `backupService.ts`    | Export/import dati + sync Google Drive    |
+| `indexedDbService.ts` | Persistenza offline per payload grandi    |
+| `registerService.ts`  | Logica registro di classe                 |
+| `errorLogger.ts`      | Logging errori locale con structured data |
 
-  return (
-    <button
-      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]}`}
-      onClick={onClick}
-    >
+---
+
+## App Shell
+
+`AppLayout.tsx` orchestra la shell:
+
+```
+<Box> (full viewport height, overflow:hidden)
+  <Header />                         // AppBar MUI
+  <Box> (flex row, overflow:hidden)
+    [isDesktop] <aside> <NavigationRail /> </aside>
+    <main overflowY:auto>            // scrollable content
       {children}
-    </button>
-  )
-}
+    </main>
+  </Box>
+  <BottomNav />                      // position:fixed, hidden on desktop
+  <SecondaryNavDrawer />             // Drawer MUI per sezioni secondarie
+</Box>
 ```
 
-### State Management Layer
+Routing implementato come state machine in `App.tsx` (`view: View` + `onNavigate`), non con React Router.
 
-#### Store Structure
-```typescript
-// stores/appStore.ts
-interface AppStore {
-  // State
-  isLoading: boolean
-  error: string | null
-  theme: 'light' | 'dark' | 'auto'
+---
 
-  // Actions
-  setLoading: (loading: boolean) => void
-  setError: (error: string | null) => void
-  setTheme: (theme: Theme) => void
-}
+## Modulo NKA (`src/nka/`)
 
-export const useAppStore = create<AppStore>((set) => ({
-  isLoading: false,
-  error: null,
-  theme: 'auto',
+Sistema di Knowledge Assessment gamificato, escluso da ESLint (`eslint.config.mjs`). File principali:
 
-  setLoading: (loading) => set({ isLoading: loading }),
-  setError: (error) => set({ error }),
-  setTheme: (theme) => set({ theme })
-}))
-```
+- `NKAProvider.tsx` — context e stato NKA
+- `NKAHeaderIntegration.tsx` — entry point dal Header
+- `NKAForceMap.tsx` — visualizzazione grafo di competenze
+- `GameMode.tsx` — modalità quiz
 
-#### Data Persistence
-```typescript
-// hooks/useLocalStorage.ts
-function useLocalStorage<T>(key: string, initialValue: T) {
-  const [storedValue, setStoredValue] = useState<T>(() => {
-    try {
-      const item = window.localStorage.getItem(key)
-      return item ? JSON.parse(item) : initialValue
-    } catch (error) {
-      return initialValue
-    }
-  })
+---
 
-  const setValue = (value: T | ((val: T) => T)) => {
-    try {
-      const valueToStore = value instanceof Function ? value(storedValue) : value
-      setStoredValue(valueToStore)
-      window.localStorage.setItem(key, JSON.stringify(valueToStore))
-    } catch (error) {
-      console.error('Error saving to localStorage:', error)
-    }
-  }
+## Testing
 
-  return [storedValue, setValue] as const
-}
+| Layer              | Tool              | Config                        |
+| ------------------ | ----------------- | ----------------------------- |
+| Unit + Integration | Vitest + RTL      | `vitest.config.ts`            |
+| E2E                | Playwright        | `playwright.config.ts`        |
+| Visual regression  | Playwright visual | `playwright.visual.config.ts` |
+
+Helper `src/components/ui/test-utils.tsx` esporta `renderWithM3Theme` per tutti i test UI.
+
+```bash
+npm run test:unit     # vitest run
+npm run lint          # ESLint (0 errors, 0 warnings)
+npm run build         # Vite production build
 ```
 
 ---
 
-## 📊 Data Architecture
+## Sicurezza
 
-### Storage Strategy
-
-#### Local-First Approach
-```
-Priority: LocalStorage → IndexedDB → Cloud Backup
-- Small data (< 5MB): LocalStorage
-- Large data (> 5MB): IndexedDB
-- Backup: Google Drive (OAuth 2.0)
-```
-
-#### Data Models
-```typescript
-// Core data types
-interface User {
-  id: string
-  name: string
-  school: string
-  preferences: UserPreferences
-}
-
-interface Class {
-  id: string
-  name: string
-  subject: string
-  students: Student[]
-  schedule: Schedule[]
-}
-
-interface Student {
-  id: string
-  name: string
-  email?: string
-  grades: Grade[]
-  competencies: Competency[]
-}
-```
-
-### API Architecture
-
-#### Service Layer Pattern
-```typescript
-// services/api.ts
-class ApiService {
-  private baseURL: string
-
-  constructor(baseURL: string) {
-    this.baseURL = baseURL
-  }
-
-  async get<T>(endpoint: string): Promise<T> {
-    const response = await fetch(`${this.baseURL}${endpoint}`)
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-    return response.json()
-  }
-
-  async post<T>(endpoint: string, data: any): Promise<T> {
-    const response = await fetch(`${this.baseURL}${endpoint}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-    return response.json()
-  }
-}
-```
+- Nessun server-side: tutto client-side, zero tracking esterno
+- Google OAuth 2.0 per Google Drive (scope: `drive.appdata`)
+- CSP configurata in `index.html`
+- Input di testo sanitizzato prima di passare a prompt AI
+- Token/chiavi API: solo tramite variabili d'ambiente (`.env`)
 
 ---
 
-## 🚀 Performance Architecture
+## Documenti Correlati
 
-### Bundle Optimization
-
-#### Code Splitting Strategy
-```typescript
-// Lazy loading per route
-const Home = lazy(() => import('./pages/Home'))
-const Classes = lazy(() => import('./pages/Classes'))
-const Students = lazy(() => import('./pages/Students'))
-
-// Component lazy loading
-const HeavyComponent = lazy(() => import('./components/HeavyComponent'))
-```
-
-#### Bundle Analysis
-```javascript
-// vite.config.js
-import { defineConfig } from 'vite'
-import { visualizer } from 'rollup-plugin-visualizer'
-
-export default defineConfig({
-  plugins: [
-    visualizer({
-      filename: 'dist/bundle-analysis.html',
-      open: true,
-      gzipSize: true,
-      brotliSize: true,
-    }),
-  ],
-})
-```
-
-### Caching Strategy
-
-#### Service Worker
-```typescript
-// public/sw.js
-const CACHE_NAME = 'docentedoc-v1'
-const urlsToCache = [
-  '/',
-  '/static/js/bundle.js',
-  '/static/css/main.css',
-  '/manifest.json'
-]
-
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(urlsToCache))
-  )
-})
-
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        if (response) {
-          return response
-        }
-        return fetch(event.request)
-      })
-  )
-})
-```
-
----
-
-## 🔒 Security Architecture
-
-### Authentication & Authorization
-- **OAuth 2.0**: Google Drive integration
-- **Token-based**: JWT per sessioni API
-- **Local-only**: No server-side auth required
-
-### Data Protection
-- **Encryption**: Dati sensibili criptati localmente
-- **No External APIs**: Tutto processato client-side
-- **Privacy-First**: Zero tracking, zero analytics esterni
-
-### Content Security Policy
-```html
-<!-- index.html -->
-<meta http-equiv="Content-Security-Policy" content="
-  default-src 'self';
-  script-src 'self' 'unsafe-inline';
-  style-src 'self' 'unsafe-inline';
-  img-src 'self' data: https:;
-  connect-src 'self' https://*.googleapis.com;
-">
-```
-
----
-
-## 🧪 Testing Architecture
-
-### Testing Pyramid
-```
-Unit Tests (80%): Componenti isolati
-Integration Tests (15%): Interazioni componenti
-E2E Tests (5%): Flussi utente completi
-```
-
-### Test Structure
-```typescript
-// __tests__/Button.test.tsx
-import { render, screen, fireEvent } from '@testing-library/react'
-import { Button } from '../Button'
-
-describe('Button', () => {
-  it('renders with text', () => {
-    render(<Button>Click me</Button>)
-    expect(screen.getByText('Click me')).toBeInTheDocument()
-  })
-
-  it('calls onClick when clicked', () => {
-    const handleClick = jest.fn()
-    render(<Button onClick={handleClick}>Click me</Button>)
-    fireEvent.click(screen.getByText('Click me'))
-    expect(handleClick).toHaveBeenCalledTimes(1)
-  })
-})
-```
-
----
-
-## 📈 Monitoring & Analytics
-
-### Performance Monitoring
-- **Core Web Vitals**: Tracciamento Lighthouse
-- **Bundle Size**: Monitoraggio automated
-- **Memory Usage**: Leak detection
-- **Runtime Performance**: React DevTools
-
-### Error Tracking
-```typescript
-// utils/errorBoundary.tsx
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { hasError: false }
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true }
-  }
-
-  componentDidCatch(error, errorInfo) {
-    // Log to external service or local storage
-    console.error('Error caught by boundary:', error, errorInfo)
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return <ErrorFallback />
-    }
-    return this.props.children
-  }
-}
-```
-
----
-
-## 🔄 Evoluzione Architetturale
-
-### Migration Strategy
-- **Incremental Adoption**: Nuove feature seguono nuovi pattern
-- **Backward Compatibility**: Legacy code supportato durante transizione
-- **Refactoring Windows**: Dedicati periodi per pulizia architetturale
-
-### Technical Debt Management
-- **Debt Tracking**: Documentato in issue dedicate
-- **Regular Cleanup**: Sessioni settimanali di refactoring
-- **Code Quality Gates**: PR bloccate se debt aumenta significativamente
-
----
-
-## 📚 Riferimenti
-
-### Documenti Correlati
-- [**DEVELOPMENT.md**](./DEVELOPMENT.md) - Workflow operativo
-- [**TESTING.md**](./TESTING.md) - Strategia testing
-- [**DEPLOYMENT.md**](./DEPLOYMENT.md) - Deployment procedures
-
-### Risorse Esterne
-- [Material Design 3 Guidelines](https://material.io/design)
-- [React Best Practices](https://react.dev/learn)
-- [Web Performance](https://web.dev/performance)
-
----
-
-*Questa architettura evolve con il progetto. Modifiche significative richiedono review architetturale e documentazione aggiornata.*
-
--->
+- [HANDOFF.md](./HANDOFF.md) — stato corrente, sessioni recenti, metriche
+- [REFACTORING_MUI_V7_ROADMAP.md](./REFACTORING_MUI_V7_ROADMAP.md) — roadmap migrazione MUI v7 (completata)
+- [DEVELOPMENT.md](./DEVELOPMENT.md) — workflow operativo
+- [TESTING.md](./TESTING.md) — strategia testing
+- [DEPLOYMENT.md](./DEPLOYMENT.md) — procedure deploy

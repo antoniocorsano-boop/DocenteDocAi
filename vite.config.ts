@@ -119,9 +119,21 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // React ecosystem
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/scheduler')) {
+          // React core — must be resolved before mui-vendor to avoid circular reference
+          if (
+            id.includes('node_modules/react/') ||
+            id.includes('node_modules/react-dom/') ||
+            id.includes('node_modules/scheduler/') ||
+            id.includes('node_modules/react-is/')
+          ) {
             return 'react-vendor';
+          }
+          // MUI + Emotion — depends on react-vendor, isolated to break vendor↔react-vendor cycle
+          if (
+            id.includes('node_modules/@mui/') ||
+            id.includes('node_modules/@emotion/')
+          ) {
+            return 'mui-vendor';
           }
           // AI / heavy libs
           if (id.includes('@google/genai') || id.includes('node_modules/lighthouse') || id.includes('node_modules/chrome-launcher')) {
