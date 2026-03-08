@@ -14,40 +14,44 @@ const muiTheme = createTheme({
   cssVariables: false,
 
   palette: {
+    // NOTA: i valori hex rispecchiano i token MD3 definiti in theme.css.
+    // Non usare CSS variables qui: MUI chiama alpha()/lighten()/darken() su questi valori
+    // a runtime e non sa parsare i CSS custom property → MUI Error #9.
+    // I componenti usano i token var(--md-sys-color-*) tramite sx prop e styled.
     primary: {
-      main: 'var(--md-sys-color-primary)',
-      contrastText: 'var(--md-sys-color-on-primary)',
-      dark: 'var(--md-sys-color-primary-container)',
-      light: 'var(--md-sys-color-primary-container)',
+      main: '#6750A4',
+      contrastText: '#FFFFFF',
+      dark: '#4F378B',
+      light: '#EADDFF',
     },
     secondary: {
-      main: 'var(--md-sys-color-secondary)',
-      contrastText: 'var(--md-sys-color-on-secondary)',
-      dark: 'var(--md-sys-color-secondary-container)',
-      light: 'var(--md-sys-color-secondary-container)',
+      main: '#625B71',
+      contrastText: '#FFFFFF',
+      dark: '#4A4458',
+      light: '#E8DEF8',
     },
     error: {
-      main: 'var(--md-sys-color-error)',
-      contrastText: 'var(--md-sys-color-on-error)',
-      dark: 'var(--md-sys-color-error-container)',
-      light: 'var(--md-sys-color-error-container)',
+      main: '#B3261E',
+      contrastText: '#FFFFFF',
+      dark: '#8C1D18',
+      light: '#F9DEDC',
     },
     background: {
-      default: 'var(--md-sys-color-background)',
-      paper: 'var(--md-sys-color-surface)',
+      default: '#FDFBFF',
+      paper: '#FDFBFF',
     },
     text: {
-      primary: 'var(--md-sys-color-on-surface)',
-      secondary: 'var(--md-sys-color-on-surface-variant)',
-      disabled: 'var(--md-sys-color-on-surface)',
+      primary: '#1C1B1F',
+      secondary: '#49454F',
+      disabled: '#1C1B1F',
     },
-    divider: 'var(--md-sys-color-outline-variant)',
+    divider: '#C4C7C5',
     action: {
-      active: 'var(--md-sys-color-on-surface)',
-      hover: 'var(--md-sys-color-surface-variant)',
-      selected: 'var(--md-sys-color-secondary-container)',
-      disabled: 'var(--md-sys-color-on-surface)',
-      disabledBackground: 'var(--md-sys-color-surface-variant)',
+      active: '#1C1B1F',
+      hover: '#E7E0EC',
+      selected: '#E8DEF8',
+      disabled: '#1C1B1F',
+      disabledBackground: '#E7E0EC',
     },
   },
 

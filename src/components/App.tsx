@@ -19,10 +19,12 @@ import { AppLayout } from './AppLayout';
 import { useNKAStore } from '../nka/useNKAStore';
 import { ViewLoadingPlaceholder } from './ViewLoadingPlaceholder';
 
+// OnboardingWizard: lazy-loaded (onboarded users skip it entirely)
+const OnboardingWizard = React.lazy(() => import('./OnboardingWizard'));
+
 // Lazy-loaded: componenti condizionali non necessari al first render
 const AssistantModal       = React.lazy(() => import('./AssistantModal'));
 const PassaggioAnnoWizard  = React.lazy(() => import('./PassaggioAnnoWizard'));
-const OnboardingWizard     = React.lazy(() => import('./OnboardingWizard'));
 const OperationsCenter     = React.lazy(() => import('./OperationsCenter'));
 const NKABottomSheet       = React.lazy(() => import('../nka/NKABottomSheet'));
 const ImageAnalysisModal   = React.lazy(() => import('./ImageAnalysisModal'));
@@ -39,7 +41,7 @@ const App: React.FC = () => {
         viewContext,
         appState,
         actions,
-        modals
+        modals,
     } = useAppEngine();
     const aiSettings = appState.aiSettings;
     const isGlobalAiLoading = appState.isGlobalAiLoading;
@@ -198,10 +200,10 @@ const App: React.FC = () => {
         </AppLayout>
         {!appState.settings.onboarded && (
             <React.Suspense fallback={null}>
-            <OnboardingWizard
-                settings={appState.settings}
-                onComplete={updates => actions.setSettings(s => ({ ...s, ...updates }))}
-            />
+                <OnboardingWizard
+                    settings={appState.settings}
+                    onComplete={updates => actions.setSettings(s => ({ ...s, ...updates }))}
+                />
             </React.Suspense>
         )}
         </>

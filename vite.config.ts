@@ -68,6 +68,8 @@ export default defineConfig({
       },
       injectManifest: {
         globPatterns: ['index.html', '**/*.{js,css,woff,woff2,png,svg,webmanifest}'],
+        // Escludi dal precache i chunk lazy pesanti: vengono scaricati on-demand, non al primo avvio
+        globIgnores: ['**/{pdf-vendor,xlsx-vendor,dnd-vendor,chart-vendor,ai-vendor}-*.js'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // Aumentato a 5MB per gestire i chunk pesanti
       },
       devOptions: {
@@ -105,8 +107,10 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000, // Aumentato per gestire le librerie pesanti
     assetsInlineLimit: 0,
     cssMinify: true,
-    // Exclude heavy lazy chunks from initial modulepreload to avoid loading them at startup
+    // Keep modulepreload with dependency filtering to avoid preloading heavy lazy chunks.
+    // Polyfill not needed — modern browsers support modulepreload natively.
     modulePreload: {
+      polyfill: false,
       resolveDependencies: (_filename: string, deps: string[]) =>
         deps.filter(dep =>
           !dep.includes('pdf-vendor') &&
@@ -119,6 +123,11 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
+          // Force the Vite preload helper into vendor so it's in a startup chunk,
+          // preventing pdf-vendor from being statically imported at app boot.
+          if (id.includes('\0vite/preload-helper') || id === '\0vite/preload-helper.js') {
+            return 'vendor';
+          }
           // React core — must be resolved before mui-vendor to avoid circular reference
           if (
             id.includes('node_modules/react/') ||
@@ -140,7 +149,33 @@ export default defineConfig({
             return 'ai-vendor';
           }
           // PDF libs (dynamic-import only — excluded from modulepreload)
-          if (id.includes('jspdf') || id.includes('pdf-lib') || id.includes('mammoth') || id.includes('docx')) {
+          if (
+            id.includes('jspdf') ||
+            id.includes('pdf-lib') ||
+            id.includes('mammoth') ||
+            id.includes('docx') ||
+            id.includes('pdfjs-dist') ||
+            // jspdf heavy runtime deps (transitive, not directly imported)
+            id.includes('html2canvas') ||
+            id.includes('canvg') ||
+            id.includes('jszip') ||
+            id.includes('pako') ||
+            id.includes('fflate') ||
+            id.includes('svg-pathdata') ||
+            id.includes('stackblur-canvas') ||
+            id.includes('rgbcolor') ||
+            id.includes('xmlbuilder') ||
+            id.includes('fast-png') ||
+            id.includes('iobuffer') ||
+            id.includes('base64-js') ||
+            // docx/mammoth transitive deps
+            id.includes('@xmldom') ||
+            id.includes('bluebird') ||
+            id.includes('underscore') ||
+            id.includes('dingbat-to-unicode') ||
+            id.includes('lop') ||
+            id.includes('option')
+          ) {
             return 'pdf-vendor';
           }
           // xlsx — loaded on demand for Excel file import

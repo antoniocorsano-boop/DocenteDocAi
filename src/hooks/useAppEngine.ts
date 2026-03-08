@@ -155,11 +155,7 @@ export const useAppEngine = () => {
                         console.warn('[useAppEngine] KB content load failed, using light data:', kbError);
                     }
                 } else {
-                    console.log('[useAppEngine] No valid backup, loading demo data...');
-                    // AUTO LOAD DEMO DATA IF EMPTY (Only on first run)
-                    setTimeout(() => {
-                        handleLoadDemoData();
-                    }, 500);
+                    console.log('[useAppEngine] No valid backup found, starting with empty state.');
                 }
             } catch (e) {
                 console.error("[useAppEngine] Initial data load failed:", e);
@@ -1016,7 +1012,8 @@ return {
         viewContext,
         appState: appStateObject,
         actions: actionsObject,
-        modals: modalsProxy
+        modals: modalsProxy,
+        isDataLoaded,
     };
 };
 

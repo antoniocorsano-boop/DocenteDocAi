@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+
 
 interface InfoCardProps {
     title?: string;
@@ -77,7 +77,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                                 onClick={(e) => { e.stopPropagation(); onClose(); }}
                                 aria-label="Chiudi"
                             >
-                                <CloseIcon fontSize="small" />
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 18 }}>close</span>
                             </IconButton>
                         )}
                     </Box>
