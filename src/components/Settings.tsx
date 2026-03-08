@@ -6,7 +6,7 @@
 // Settings.tsx: Migrated with functional exceptions for layout percentages and specific dimensions
 // All styles now use MD3 design tokens and semantic color/spacing/elevation system where exact matches exist
 // Functional exceptions: width/height percentages (100%, 50%, 20%, 10%), grid minmax(calc(var(--md-sys-spacing-20) * 2.5), var(--md-sys-grid-fr-1)) for responsive layout
-import { Tabs, Tab, Badge, Box } from '@mui/material';
+import { Tabs, Tab, Badge, Box, Stack, LinearProgress, ButtonBase } from '@mui/material';
 import React, { useRef, useState, useEffect } from 'react';
 import { SettingsProps, AppThemeState } from '../types';
 import { THEME_CUSTOMIZATIONS, AI_PROFILES, SCHOOL_LEVELS } from '../constants';
@@ -29,7 +29,6 @@ import '../design-system/md3-utilities.css';
 import ThemeBubble from './ThemeBubble';
 import { ThemeSettingsPanel } from './settings/ThemeSettingsPanel';
 import ChipInputList from './ChipInputList';
-import ResetConfirmModal from './ResetConfirmModal';
 import { useSettingsLogic } from '../hooks/useSettingsLogic';
 import { errorLogger } from '../services/errorLogger';
 
@@ -78,8 +77,9 @@ const iconBg = variant === 'primary'
     return (
         <Paper
             elevation={isOpen ? 2 : 1}
-            style={{
-                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+            sx={{
+                border: '1px solid',
+                borderColor: 'divider',
                 overflow: 'hidden',
                 transition: `box-shadow var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard)`,
             }}
@@ -87,27 +87,27 @@ const iconBg = variant === 'primary'
             aria-label={subtitle ? `${title}: ${subtitle}` : title}
         >
             {/* Accordion header — MD3 list-item pattern */}
-            <button
+            <ButtonBase
+                component="button"
                 id={`settings-group-btn-${id}`}
                 aria-expanded={isOpen}
                 aria-controls={`settings-group-panel-${id}`}
                 onClick={handleToggle}
-                style={{
-                    width: 'var(--md-sys-percent-100)',
+                sx={{
+                    width: '100%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: 'var(--md-sys-spacing-5)',
+                    p: 'var(--md-sys-spacing-5)',
                     cursor: 'pointer',
-                    background: 'var(--md-sys-color-surface-container-high)',
-                    border: 'none',
+                    bgcolor: 'var(--md-sys-color-surface-container-high)',
                     borderBottom: isOpen ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' : 'none',
                     textAlign: 'left',
                     transition: `background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
                 }}
             >
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', minWidth: 0, flex: 1 }}>
-                    <div style={{
+                <Stack direction="row" alignItems="center" spacing={1} sx={{ minWidth: 0, flex: 1 }}>
+                    <Box sx={{
                         width: 'var(--md-sys-spacing-8)',
                         height: 'var(--md-sys-spacing-8)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
@@ -115,18 +115,18 @@ const iconBg = variant === 'primary'
                         alignItems: 'center',
                         justifyContent: 'center',
                         flexShrink: 0,
-                        backgroundColor: iconBg,
+                        bgcolor: iconBg,
                         color: iconColor,
                     }}>
                         <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{icon}</span>
-                    </div>
-                    <div style={{ minWidth: 0, flex: 1 }}>
-                        <Typography variant="h6" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>{title}</Typography>
+                    </Box>
+                    <Box sx={{ minWidth: 0, flex: 1 }}>
+                        <Typography variant="h6" sx={{ color: 'text.primary', margin: 0 }}>{title}</Typography>
                         {subtitle && (
-                            <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0 }}>{subtitle}</Typography>
+                            <Typography variant="caption" sx={{ color: 'text.secondary', margin: 0 }}>{subtitle}</Typography>
                         )}
-                    </div>
-                </div>
+                    </Box>
+                </Stack>
                 <span
                     className="material-symbols-outlined"
                     aria-hidden="true"
@@ -138,7 +138,7 @@ const iconBg = variant === 'primary'
                         flexShrink: 0,
                     }}
                 >expand_more</span>
-            </button>
+            </ButtonBase>
 
             {/* Accordion panel */}
             <div
@@ -204,9 +204,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
         setThemePrompt,
         isGeneratingTheme,
         handleGenerateThemeFromPrompt,
-        isResetModalOpen,
         setIsResetModalOpen,
-        performReset,
         handleBulkAssign,
         toggleAssociation,
         updateAssignmentHours,
@@ -339,7 +337,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
             handleChange('annoScolasticoCorrente', nextYear);
             showToast(`Anno ${nextYear} aggiunto e selezionato.`, 'success');
         } else {
-            showToast(`Anno ${nextYear} gi� presente.`, 'info');
+            showToast(`Anno ${nextYear} già presente.`, 'info');
         }
     };
 
@@ -347,34 +345,31 @@ const Settings: React.FC<SettingsProps> = (props) => {
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const content = e.target?.result as string;
-                onImportData(content);
-            };
-            reader.readAsText(file);
+            onImportData(file);
         }
         if (fileInputRef.current) fileInputRef.current.value = '';
     };
 
     return (
         <Paper
-            style={{
+            sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                height: 'var(--md-sys-viewport-height-dvh)',
+                height: '100dvh',
                 overflow: 'hidden',
             }}
         >
             {/* Top app bar */}
             <Paper
-                style={{
+                sx={{
                     display: 'flex',
                     alignItems: 'center',
                     flexShrink: 0,
-                    padding: `var(--md-sys-spacing-4) var(--md-sys-spacing-6)`,
-                    borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                    gap: 'var(--md-sys-spacing-3)',
+                    px: 3,
+                    py: 2,
+                    borderBottom: 1,
+                    borderColor: 'divider',
+                    gap: 1.5,
                 }}
             >
                 <IconButton
@@ -387,69 +382,45 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     icon="settings" />
             </Paper>
 
-            <div style={{
-                flex: 1,
-                overflowY: 'auto',
-                padding: 'var(--md-sys-spacing-4)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-4)'
-            }}>
+            <Box
+                component="main"
+                sx={{
+                    flex: 1,
+                    overflowY: 'auto',
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                }}
+            >
 
                 <SettingsGroup
                     id="interface_experience"
                     title="Interfaccia & Esperienza Visiva"
                     subtitle="Personalizza l'aspetto e il comportamento dell'app"
                     icon="palette"
-                    variant="contained"
+                    variant="primary"
                     defaultOpen={true}
                 >
-                    <div
+                    <Stack
                         role="region"
                         aria-label="Interfaccia & Esperienza Visiva"
                         tabIndex={0}
-                        style={{
+                        spacing={2}
+                        sx={{
                             display: 'flex',
                             flexDirection: 'column',
-                            gap: 'var(--md-sys-spacing-4)',
-                            padding: 'var(--md-sys-spacing-4)',
+                            p: 2,
                             borderRadius: 'var(--md-sys-shape-corner-large)',
-                            background: 'var(--md-sys-color-surface-container-low)',
-                            boxShadow: 'var(--md-sys-elevation-level1)'
+                            bgcolor: 'var(--md-sys-color-surface-container-low)',
                         }}
                     >
-                        <Typography variant="overline" sx={{
-                            color: 'var(--md-sys-color-on-surface)',
-                            fontWeight: 'var(--md-sys-typescale-weight-black)',
-                            marginBottom: 'var(--md-sys-spacing-3)'
-                        }}>
-                            Interfaccia & Esperienza Visiva
-                        </Typography>
-                        <Typography variant="caption" sx={{
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            marginBottom: 'var(--md-sys-spacing-4)',
-                            opacity: 'var(--md-sys-state-opacity-caption)'
-                        }}>
-                            Personalizza l'aspetto e il comportamento dell'app
-                        </Typography>
                         {/* SEZIONE 1: MODALITÀ INTERFACCIA */}
-                        <div style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: 'var(--md-sys-spacing-3)'
-                        }}>
-                            <div style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: 'var(--md-sys-spacing-3)'
-                            }}>
-                                <span style={{
-                                    fontSize: 'var(--md-sys-typescale-title-large-font-size)',
-                                    color: 'var(--md-sys-color-primary)'
-                                }}>dashboard_customize</span>
-                                <Typography variant="caption" sx={{color: 'var(--md-sys-color-primary)',
-                                    fontWeight: 'var(--md-sys-typescale-weight-black)'}}>Modalità Interfaccia</Typography>
-                            </div>
+                        <Stack direction="column" spacing={1.5}>
+                            <Stack direction="row" spacing={1} alignItems="center">
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>dashboard_customize</span>
+                                <Typography variant="overline" sx={{ color: 'primary.main', fontWeight: 700, lineHeight: 1.5 }}>Modalità Interfaccia</Typography>
+                            </Stack>
                                                         <Tabs
                               value={localSettings.uiMode || 'classic'}
                               onChange={(_, v: string) => ((id) => handleChange('uiMode', id))(v)}
@@ -499,23 +470,15 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     ? 'Modalità Flow: Interfaccia dinamica basata su flussi di lavoro e suggerimenti contestuali.'
                                     : 'Modalità Classica: Layout standard con navigazione a griglia e accesso diretto ai moduli.'}
                             </Typography>
-                        </div>
+                        </Stack>
 
                         {/* SEZIONE 2: ECOISTEMA VISIVO */}
-                        <div style={{display: 'flex',
-                            flexDirection: 'column',
-                            gap: 'var(--md-sys-spacing-4)'}}>
-                            <div style={{display: 'flex',
-                                alignItems: 'center',
-                                gap: 'var(--md-sys-spacing-4)'}}>
-                                <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                    color: 'var(--md-sys-color-primary)'}}>auto_awesome</span>
-                                <Typography variant="caption" sx={{color: 'var(--md-sys-color-primary)',
-                                    fontWeight: 'var(--md-sys-typescale-weight-black)'}}>Ecosistema Visivo</Typography>
-                            </div>
-                            <div style={{display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-sizing-grid-large), var(--md-sys-grid-fr-1)))',
-                                gap: 'var(--md-sys-spacing-4)'}}>
+                        <Stack direction="column" spacing={2}>
+                            <Stack direction="row" spacing={1} alignItems="center">
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>auto_awesome</span>
+                                <Typography variant="overline" sx={{ color: 'primary.main', fontWeight: 700, lineHeight: 1.5 }}>Ecosistema Visivo</Typography>
+                            </Stack>
+                            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: 2 }}>
                                 {[
                                     { id: 'aura', label: 'Aura', icon: 'blur_on', desc: 'Glassmorphism' },
                                     { id: 'expressive', label: 'Google', icon: 'android', desc: 'Expressive' },
@@ -564,23 +527,17 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         </Paper>
                                     );
                                 })}
-                            </div>
-                        </div>
+                            </Box>
+                        </Stack>
 
                         {/* SEZIONE 3: TEMA E COLORI */}
-                        <div style={{display: 'flex',
-                            flexDirection: 'column',
-                            gap: 'var(--md-sys-spacing-4)'}}>
-                            <div style={{display: 'flex',
-                                alignItems: 'center',
-                                gap: 'var(--md-sys-spacing-4)'}}>
-                                <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                    color: 'var(--md-sys-color-primary)'}}>palette</span>
-                                <Typography variant="caption" sx={{color: 'var(--md-sys-color-primary)',
-                                    fontWeight: 'var(--md-sys-typescale-weight-black)'}}>Tema & Colori</Typography>
-                            </div>
+                        <Stack direction="column" spacing={2}>
+                            <Stack direction="row" spacing={1} alignItems="center">
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>palette</span>
+                                <Typography variant="overline" sx={{ color: 'primary.main', fontWeight: 700, lineHeight: 1.5 }}>Tema & Colori</Typography>
+                            </Stack>
 
-                            <div style={{marginBottom: 'var(--md-sys-spacing-4)'}}>
+                            <Box sx={{ mb: 2 }}>
                                                                 <Tabs
                                   value={themeState.mode}
                                   onChange={(_, v: string) => ((id) => onSaveTheme({ ...themeState, mode: id as typeof themeState.mode }))(v)}
@@ -621,12 +578,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     />
                                   ))}
                                 </Tabs>
-                            </div>
+                            </Box>
 
-                            <div style={{display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-sizing-grid-medium), var(--md-sys-grid-fr-1)))',
-                                gap: 'var(--md-sys-spacing-4)',
-                                marginBottom: 'var(--md-sys-spacing-4)'}}>
+                            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 2, mb: 2 }}>
                                 {THEME_CUSTOMIZATIONS.map(theme => (
                                     <ThemeBubble
                                         key={theme.name}
@@ -639,312 +593,121 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         isSelected={themeState.customizationName === theme.name}
                                         onClick={() => onSaveTheme({ ...themeState, customizationName: theme.name, customColors: theme.colors })} />
                                 ))}
-                            </div>
+                            </Box>
 
-                            <div style={{borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                                paddingTop: 'var(--md-sys-spacing-4)'}}>
-                                <div style={{display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 'var(--md-sys-spacing-4)',
-                                    marginBottom: 'var(--md-sys-spacing-4)'}}>
-                                    <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                        color: 'var(--md-sys-color-primary)'}}>magic_button</span>
-                                    <Typography variant="caption" sx={{color: 'var(--md-sys-color-primary)',
-                                        fontWeight: 'var(--md-sys-typescale-weight-black)'}}>Generatore AI</Typography>
-                                </div>
-                                <div style={{display: 'flex',
-                                    gap: 'var(--md-sys-spacing-4)',
-                                    alignItems: 'flex-end'}}>
-                                    <div style={{ flex: 1 }}>
+                            <Box sx={{ borderTop: '1px solid', borderColor: 'divider', pt: 2 }}>
+                                <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
+                                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>magic_button</span>
+                                    <Typography variant="overline" sx={{ color: 'primary.main', fontWeight: 700, lineHeight: 1.5 }}>Generatore AI</Typography>
+                                </Stack>
+                                <Stack direction="row" spacing={2} alignItems="flex-end">
+                                    <Box sx={{ flex: 1 }}>
                                         <TextField
                                             label="Descrivi il tuo stile"
                                             value={themePrompt}
                                             onChange={e => setThemePrompt(e.target.value)}
                                             placeholder="Es. 'Colori tramonto'..."
                                             InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">palette</span></InputAdornment> }} />
-                                    </div>
-                                    <Button
+                                    </Box>
+                                    <IconButton
                                         onClick={handleGenerateThemeFromPrompt}
                                         disabled={isGeneratingTheme || !themePrompt.trim()}
-                                        variant="contained"
-                                        style={{minWidth: '0',
-                                            width: 'var(--md-sys-spacing-4)',
-                                            height: 'var(--md-sys-spacing-4)',
-                                            padding: '0',
-                                            boxShadow: 'var(--md-sys-elevation-level2)',
-                                            borderRadius: 'var(--md-sys-shape-corner-large)'}}
+                                        aria-label="Genera tema AI"
+                                        sx={{ bgcolor: 'primary.main', color: 'primary.contrastText', borderRadius: 2, '&:hover': { bgcolor: 'primary.dark' }, '&.Mui-disabled': { bgcolor: 'action.disabledBackground' } }}
                                     >
-                                        <span style={{
-}}>{isGeneratingTheme ? 'sync' : 'auto_awesome'}</span>
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
+                                        <span className="material-symbols-outlined" aria-hidden="true">{isGeneratingTheme ? 'sync' : 'auto_awesome'}</span>
+                                    </IconButton>
+                                </Stack>
+                            </Box>
+                        </Stack>
 
                         {/* SEZIONE 4: PARAMETRI AVANZATI */}
-                        <div style={{marginTop: 'var(--md-sys-spacing-4)',
-                            padding: 'var(--md-sys-spacing-4)',
-                            backgroundColor: 'var(--md-sys-color-surface-container)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                            <div style={{display: 'flex',
-                                alignItems: 'center',
-                                gap: 'var(--md-sys-spacing-4)',
-                                marginBottom: 'var(--md-sys-spacing-4)',
-                                paddingBottom: 'var(--md-sys-spacing-4)',
-                                borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                                <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                    color: 'var(--md-sys-color-primary)'}}>tune</span>
-                                <Typography
-                                    variant="caption"
-                                    style={{color: 'var(--md-sys-color-primary)',
-                                        fontWeight: 'var(--md-sys-typescale-weight-black)'}}
-                                >
-                                    Parametri Strutturali
-                                </Typography>
-                            </div>
-                            <div style={{display: 'flex',
-                                flexDirection: 'column',
-                                gap: 'var(--md-sys-spacing-4)'}}>
-                                <div style={{display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: 'var(--md-sys-spacing-4)'}}>
-                                    <div style={{
-                                        display: 'flex',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center'
-                                    }}>
-                                        <Typography
-                                            variant="body2"
-                                            style={{color: 'var(--md-sys-color-on-surface)',
-                                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
-                                        >
-                                            Intensità Blur Vetro
-                                        </Typography>
-                                        <Typography
-                                            variant="caption"
-                                            style={{color: 'var(--md-sys-color-on-surface-variant)',
-                                                fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
-                                        >
-                                            {themeState.glassBlur || 30}px
-                                        </Typography>
-                                    </div>
-                                    <input
-                                        type="range" min="0" max="100" step="5"
-                                        value={themeState.glassBlur || 30}
-                                        onChange={e => handleThemeChange({ glassBlur: parseInt(e.target.value) })}
-                                        style={{width: 'var(--md-sys-percent-100)'}} />
-                                </div>
-                                <div style={{display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: 'var(--md-sys-spacing-4)'}}>
-                                    <div style={{
-                                        display: 'flex',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center'
-                                    }}>
-                                        <Typography
-                                            variant="body2"
-                                            style={{color: 'var(--md-sys-color-on-surface)',
-                                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
-                                        >
-                                            Scala Font
-                                        </Typography>
-                                        <Typography
-                                            variant="caption"
-                                            style={{color: 'var(--md-sys-color-on-surface-variant)',
-                                                fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
-                                        >
-                                            {themeState.fontScale || 1}x
-                                        </Typography>
-                                    </div>
-                                    <input
-                                        type="range" min="0.8" max="1.4" step="0.1"
-                                        value={themeState.fontScale || 1}
-                                        onChange={e => handleThemeChange({ fontScale: parseFloat(e.target.value) })}
-                                        style={{width: 'var(--md-sys-percent-100)'}} />
-                                </div>
-                                <div style={{display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: 'var(--md-sys-spacing-4)'}}>
-                                    <div style={{
-                                        display: 'flex',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center'
-                                    }}>
-                                        <Typography
-                                            variant="body2"
-                                            style={{color: 'var(--md-sys-color-on-surface)',
-                                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
-                                        >
-                                            Livello Contrasto
-                                        </Typography>
-                                        <Typography
-                                            variant="caption"
-                                            style={{color: 'var(--md-sys-color-on-surface-variant)',
-                                                fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
-                                        >
-                                            {themeState.contrastLevel || 0}
-                                        </Typography>
-                                    </div>
-                                    <input
-                                        type="range" min="-50" max="50" step="5"
-                                        value={themeState.contrastLevel || 0}
-                                        onChange={e => handleThemeChange({ contrastLevel: parseInt(e.target.value) })}
-                                         style={{width: 'var(--md-sys-percent-100)'}} />
-                                </div>
-                                <div style={{display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: 'var(--md-sys-spacing-4)'}}>
-                                    <div style={{
-                                        display: 'flex',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center'
-                                    }}>
-                                        <Typography
-                                            variant="body2"
-                                            style={{color: 'var(--md-sys-color-on-surface)',
-                                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
-                                        >
-                                            Arrotondamento Bordi
-                                        </Typography>
-                                        <Typography
-                                            variant="caption"
-                                            style={{color: 'var(--md-sys-color-on-surface-variant)',
-                                                fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
-                                        >
-                                            x{themeState.radiusMultiplier || 1}
-                                        </Typography>
-                                    </div>
-                                    <div style={{display: 'flex',
-                                        gap: 'var(--md-sys-spacing-4)',
-                                        flexWrap: 'wrap'}}>
+                        <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
+                            <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2, pb: 1.5, borderBottom: '1px solid', borderColor: 'divider' }}>
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>tune</span>
+                                <Typography variant="overline" sx={{ color: 'primary.main', fontWeight: 700, lineHeight: 1.5 }}>Parametri Strutturali</Typography>
+                            </Stack>
+                            <Stack spacing={2}>
+                                <Stack spacing={1}>
+                                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                                        <Typography variant="body2" sx={{ color: 'text.primary', fontWeight: 500 }}>Intensità Blur Vetro</Typography>
+                                        <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>{themeState.glassBlur || 30}px</Typography>
+                                    </Stack>
+                                    <input type="range" min="0" max="100" step="5" value={themeState.glassBlur || 30} onChange={e => handleThemeChange({ glassBlur: parseInt(e.target.value) })} style={{ width: '100%' }} />
+                                </Stack>
+                                <Stack spacing={1}>
+                                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                                        <Typography variant="body2" sx={{ color: 'text.primary', fontWeight: 500 }}>Scala Font</Typography>
+                                        <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>{themeState.fontScale || 1}x</Typography>
+                                    </Stack>
+                                    <input type="range" min="0.8" max="1.4" step="0.1" value={themeState.fontScale || 1} onChange={e => handleThemeChange({ fontScale: parseFloat(e.target.value) })} style={{ width: '100%' }} />
+                                </Stack>
+                                <Stack spacing={1}>
+                                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                                        <Typography variant="body2" sx={{ color: 'text.primary', fontWeight: 500 }}>Livello Contrasto</Typography>
+                                        <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>{themeState.contrastLevel || 0}</Typography>
+                                    </Stack>
+                                    <input type="range" min="-50" max="50" step="5" value={themeState.contrastLevel || 0} onChange={e => handleThemeChange({ contrastLevel: parseInt(e.target.value) })} style={{ width: '100%' }} />
+                                </Stack>
+                                <Stack spacing={1}>
+                                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                                        <Typography variant="body2" sx={{ color: 'text.primary', fontWeight: 500 }}>Arrotondamento Bordi</Typography>
+                                        <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>x{themeState.radiusMultiplier || 1}</Typography>
+                                    </Stack>
+                                    <Stack direction="row" spacing={1} flexWrap="wrap">
                                         {[0.5, 1, 1.5, 2].map(m => (
                                             <Button
                                                 key={m}
                                                 variant={themeState.radiusMultiplier === m ? 'contained' : 'outlined'}
                                                 size="small"
                                                 onClick={() => handleThemeChange({ radiusMultiplier: m })}
-                                                style={{
-                                                    minWidth: 'var(--md-sys-spacing-4)'
-                                                }}
                                             >
                                                 {m === 1 ? 'Standard' : `${m}x`}
                                             </Button>
                                         ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                    </Stack>
+                                </Stack>
+                            </Stack>
+                        </Box>
 
                         {/* SEZIONE 6: EXPORT/IMPORT TEMA */}
-                        <div style={{marginTop: 'var(--md-sys-spacing-4)',
-                            padding: 'var(--md-sys-spacing-4)',
-                            backgroundColor: 'var(--md-sys-color-surface-container)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                            <div style={{display: 'flex',
-                                alignItems: 'center',
-                                gap: 'var(--md-sys-spacing-4)',
-                                marginBottom: 'var(--md-sys-spacing-4)'}}>
-                                <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                    color: 'var(--md-sys-color-primary)'}}>import_export</span>
-                                <Typography
-                                    variant="caption"
-                                    style={{color: 'var(--md-sys-color-primary)',
-                                        fontWeight: 'var(--md-sys-typescale-weight-black)'}}
-                                >
-                                    Backup Tema
-                                </Typography>
-                            </div>
-                            <Typography
-                                variant="body2"
-                                style={{color: 'var(--md-sys-color-on-surface-variant)',
-                                    marginBottom: 'var(--md-sys-spacing-4)'}}
-                            >
-                                Salva o carica configurazioni di tema personalizzate per riutilizzarle in futuro.
-                            </Typography>
-                            <div style={{display: 'flex',
-                                gap: 'var(--md-sys-spacing-4)',
-                                alignItems: 'center'}}>
-                                <Button
-                                    onClick={handleExportTheme}
-                                    variant="outlined"
-                                >
-                                    <span className="material-symbols-outlined" style={{marginRight: 'var(--md-sys-spacing-4)',
-                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>download</span>
-                                    ESPORTA TEMA
-                                </Button>
-                                <div style={{
-                                    position: 'relative'
-                                }}>
-                                    <input
-                                        type="file"
-                                        accept=".json"
-                                        onChange={handleImportTheme}
-                                        style={{
-                                            position: 'absolute',
-                                            opacity: 0,
-                                            width: 0,
-                                            height: 0,
-                                            overflow: 'hidden'
-                                        }}
-                                        id="theme-import" />
-                                    <label htmlFor="theme-import" style={{
-                                        cursor: 'pointer'
-                                    }}>
-                                        <Button
-                                            variant="outlined"
-                                        >
-                                            <span className="material-symbols-outlined" style={{marginRight: 'var(--md-sys-spacing-4)',
-                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>upload</span>
-                                            IMPORTA TEMA
-                                        </Button>
+                        <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
+                            <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>import_export</span>
+                                <Typography variant="overline" sx={{ color: 'primary.main', fontWeight: 700, lineHeight: 1.5 }}>Backup Tema</Typography>
+                            </Stack>
+                            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>Salva o carica configurazioni di tema personalizzate per riutilizzarle in futuro.</Typography>
+                            <Stack direction="row" spacing={2} alignItems="center">
+                                <Button onClick={handleExportTheme} variant="outlined" startIcon={<span className="material-symbols-outlined" aria-hidden="true">download</span>}>ESPORTA TEMA</Button>
+                                <Box sx={{ position: 'relative' }}>
+                                    <input type="file" accept=".json" onChange={handleImportTheme} style={{ position: 'absolute', opacity: 0, width: 0, height: 0, overflow: 'hidden' }} id="theme-import" />
+                                    <label htmlFor="theme-import" style={{ cursor: 'pointer' }}>
+                                        <Button variant="outlined" startIcon={<span className="material-symbols-outlined" aria-hidden="true">upload</span>} component="span">IMPORTA TEMA</Button>
                                     </label>
-                                </div>
-                            </div>
-                        </div>
+                                </Box>
+                            </Stack>
+                        </Box>
 
                         {/* SEZIONE 5: MANUTENZIONE BRAND */}
-                        <div style={{display: 'flex',
-                            flexDirection: 'column',
-                            gap: 'var(--md-sys-spacing-4)'}}>
-                            <div style={{display: 'flex',
-                                alignItems: 'center',
-                                gap: 'var(--md-sys-spacing-4)'}}>
-                                <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                    color: 'var(--md-sys-color-primary)'}}>refresh</span>
-                                <Typography variant="caption" sx={{color: 'var(--md-sys-color-primary)',
-                                    fontWeight: 'var(--md-sys-typescale-weight-black)'}}>Manutenzione Brand</Typography>
-                            </div>
-                            <Typography variant="body2" sx={{color: 'var(--md-sys-color-on-surface-variant)',
-                                margin: 0}}>Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</Typography>
-                            <Button
-                                onClick={handleForceRefresh}
-                                variant="outlined"
-                            >
-                                <span className="material-symbols-outlined" style={{marginRight: 'var(--md-sys-spacing-4)'}}>cached</span>
-                                AGGIORNA BRAND E CACHE
-                            </Button>
-                        </div>
+                        <Stack spacing={1}>
+                            <Stack direction="row" spacing={1} alignItems="center">
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>refresh</span>
+                                <Typography variant="overline" sx={{ color: 'primary.main', fontWeight: 700, lineHeight: 1.5 }}>Manutenzione Brand</Typography>
+                            </Stack>
+                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</Typography>
+                            <Button onClick={handleForceRefresh} variant="outlined" startIcon={<span className="material-symbols-outlined" aria-hidden="true">cached</span>}>AGGIORNA BRAND E CACHE</Button>
+                        </Stack>
 
                         {/* SEZIONE 7: M3 THEME SETTINGS PANEL */}
-                        <div style={{display: 'flex',
-                            flexDirection: 'column',
-                            gap: 'var(--md-sys-spacing-4)'}}>
-                            <div style={{display: 'flex',
-                                alignItems: 'center',
-                                gap: 'var(--md-sys-spacing-4)'}}>
-                                <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                    color: 'var(--md-sys-color-primary)'}}>tune</span>
-                                <Typography variant="caption" sx={{color: 'var(--md-sys-color-primary)',
-                                    fontWeight: 'var(--md-sys-typescale-weight-black)'}}>M3 Theme Panel</Typography>
-                            </div>
-                            <Typography variant="body2" sx={{color: 'var(--md-sys-color-on-surface-variant)',
-                                margin: 0}}>Personalizza i token M3 per colori, tipografia, spacing e motion con anteprima live.</Typography>
+                        <Stack spacing={1}>
+                            <Stack direction="row" spacing={1} alignItems="center">
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>tune</span>
+                                <Typography variant="overline" sx={{ color: 'primary.main', fontWeight: 700, lineHeight: 1.5 }}>M3 Theme Panel</Typography>
+                            </Stack>
+                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>Personalizza i token M3 per colori, tipografia, spacing e motion con anteprima live.</Typography>
                             <ThemeSettingsPanel />
-                        </div>
-                    </div>
+                        </Stack>
+                    </Stack>
                 </SettingsGroup>
 
                 <SettingsGroup
@@ -955,38 +718,23 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     variant="surface"
                     defaultOpen={false}
                 >
-                    <div
+                    <Stack
                         role="region"
                         aria-label="Profilo & Identità"
                         tabIndex={0}
-                        style={{display: 'flex',
-                            flexDirection: 'column',
-                            gap: 'var(--md-sys-spacing-4)',
-                            padding: 'var(--md-sys-spacing-4)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            background: 'var(--md-sys-color-surface-container-low)',
-                            boxShadow: 'var(--md-sys-elevation-level1)'}}
+                        spacing={2}
+                        sx={{ p: 2, borderRadius: 'var(--md-sys-shape-corner-large)', bgcolor: 'var(--md-sys-color-surface-container-low)' }}
                     >
-                        <Typography variant="overline" sx={{color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-black)', marginBottom: 'var(--md-sys-spacing-4)'}}>
-                            Profilo & Identità
-                        </Typography>
-                        <Typography variant="caption" sx={{color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-4)', opacity: 'var(--md-sys-state-opacity-caption)'}}>
-                            Dati docente e istituto
-                        </Typography>
-                        <div style={{display: 'grid',
-                            gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
-                            gap: 'var(--md-sys-spacing-4)'}}>
+                        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
                             <TextField label="Nome" value={localSettings.nomeInsegnante} onChange={e => handleChange('nomeInsegnante', e.target.value)} />
                             <TextField label="Cognome" value={localSettings.cognomeInsegnante || ''} onChange={e => handleChange('cognomeInsegnante', e.target.value)} />
-                        </div>
+                        </Box>
                         <TextField label="Email Istituzionale" type="email" value={localSettings.email || ''} onChange={e => handleChange('email', e.target.value)} placeholder="nome.cognome@scuola.edu.it" />
-                        <div style={{display: 'grid',
-                            gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
-                            gap: 'var(--md-sys-spacing-4)'}}>
+                        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
                             <TextField label="Nome Istituto" value={localSettings.nomeIstituto} onChange={e => handleChange('nomeIstituto', e.target.value)} />
                             <TextField label="Città" value={localSettings.cittaIstituto} onChange={e => handleChange('cittaIstituto', e.target.value)} />
-                        </div>
-                    </div>
+                        </Box>
+                    </Stack>
                 </SettingsGroup>
 
                 <SettingsGroup
@@ -994,29 +742,15 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     title="AI & Didattica"
                     subtitle="Cervello AI e cattedra"
                     icon="psychology"
-                    variant="outlined"
+                    variant="secondary"
                     defaultOpen={false}
                 >
                     {/* SEZIONE 1: MODELLO AI */}
-                    <div style={{marginBottom: 'var(--md-sys-spacing-4)',
-                        padding: 'var(--md-sys-spacing-4)',
-                        backgroundColor: 'var(--md-sys-color-surface-container)',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                        <div style={{display: 'flex',
-                            alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-4)',
-                            marginBottom: 'var(--md-sys-spacing-4)'}}>
-                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                color: 'var(--md-sys-color-secondary)'}}>smart_toy</span>
-                            <Typography
-                                variant="caption"
-                                style={{color: 'var(--md-sys-color-secondary)',
-                                    fontWeight: 'var(--md-sys-typescale-weight-black)'}}
-                            >
-                                Modello Intelligenza
-                            </Typography>
-                        </div>
+                    <Box sx={{ mb: 2, p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
+                        <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
+                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>smart_toy</span>
+                            <Typography variant="overline" sx={{ color: 'primary.main', fontWeight: 700, lineHeight: 1.5 }}>Modello Intelligenza</Typography>
+                        </Stack>
 
                                                 <Tabs
                           value={currentAiProfile}
@@ -1059,12 +793,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
                           ))}
                         </Tabs>
 
-                        <div style={{
+                        <Box sx={{
                             display: 'flex',
                             alignItems: 'flex-start',
                             gap: 'var(--md-sys-spacing-3)',
-                            padding: 'var(--md-sys-spacing-6)',
-                            backgroundColor: currentAiProfile === 'esperto'
+                            p: 'var(--md-sys-spacing-6)',
+                            bgcolor: currentAiProfile === 'esperto'
                                 ? 'var(--md-sys-color-secondary-container)'
                                 : 'var(--md-sys-color-primaryContainer)',
                             borderRadius: 'var(--md-sys-shape-corner-medium)',
@@ -1072,61 +806,39 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 ? 'var(--md-sys-color-secondary)'
                                 : 'var(--md-sys-color-primary)'}`
                         }}>
-                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            <span className="material-symbols-outlined" aria-hidden="true" style={{
+                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 color: currentAiProfile === 'esperto'
                                     ? 'var(--md-sys-color-on-secondary-container)'
                                     : 'var(--md-sys-color-on-primary-container)',
-                                marginTop: 'var(--md-sys-spacing-4)'}}>info</span>
+                                marginTop: 'var(--md-sys-spacing-4)'
+                            }}>info</span>
                             <Typography
                                 variant="body2"
-                                style={{color: currentAiProfile === 'esperto'
+                                sx={{ color: currentAiProfile === 'esperto'
                                         ? 'var(--md-sys-color-on-secondary-container)'
                                         : 'var(--md-sys-color-on-primary-container)',
-                                    margin: 0}}
+                                    margin: 0 }}
                             >
                                 {AI_PROFILES[currentAiProfile as keyof typeof AI_PROFILES]?.description}
                             </Typography>
-                        </div>
-                    </div>
+                        </Box>
+                    </Box>
 
-                    <div style={{display: 'flex',
-                        flexDirection: 'column',
-                        gap: 'var(--md-sys-spacing-4)'}}>
-                        {/* SEZIONE 2: ANNO SCOLASTICO */}
-                        <div style={{padding: 'var(--md-sys-spacing-4)',
-                            backgroundColor: 'var(--md-sys-color-surface-container)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                            <div style={{display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                marginBottom: 'var(--md-sys-spacing-4)'}}>
-                                <div style={{display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 'var(--md-sys-spacing-4)'}}>
-                                    <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                        color: 'var(--md-sys-color-primary)'}}>calendar_month</span>
-                                    <Typography
-                                        variant="overline"
-                                        style={{color: 'var(--md-sys-color-on-surface)',
-                                            fontWeight: 'var(--md-sys-typescale-weight-black)'}}
-                                    >
-                                        Anno Scolastico
-                                    </Typography>
-                                </div>
-                                <Button
-                                    onClick={handleAddNextYear}
-                                    variant="outlined"
-                                >
-                                    <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                        marginRight: 'var(--md-sys-spacing-4)'}}>add_circle</span>
+                    <Stack spacing={2}>
+                        <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
+                            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+                                <Stack direction="row" spacing={1} alignItems="center">
+                                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>calendar_month</span>
+                                    <Typography variant="overline" sx={{ color: 'text.primary', fontWeight: 700, lineHeight: 1.5 }}>Anno Scolastico</Typography>
+                                </Stack>
+                                <Button onClick={handleAddNextYear} variant="outlined">
+                                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', marginRight: 'var(--md-sys-spacing-4)' }}>add_circle</span>
                                     Aggiungi
                                 </Button>
-                            </div>
+                            </Stack>
 
-                            <div style={{display: 'grid',
-                                gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
-                                gap: 'var(--md-sys-spacing-4)'}}>
+                            <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
                                 <FormControl size="small" fullWidth>
                                     <InputLabel>Anno Corrente</InputLabel>
                                     <Select
@@ -1138,10 +850,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     </Select>
                                 </FormControl>
 
-                                <div style={{
-                                    display: 'flex',
-                                    flexDirection: 'column'
-                                }}>
+                                <Box>
                                     <ChipInputList
                                         label="Storico Anni"
                                         items={localSettings.anniScolastici}
@@ -1149,32 +858,15 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         onRemove={(idx: number) => handleChange('anniScolastici', localSettings.anniScolastici.filter((_, i: number) => i !== idx))}
                                         placeholder="Es: 2025/2026"
                                         icon="history" />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* SEZIONE 3: GESTIONE CATTEDRA UNIFICATA */}
-                        <div style={{padding: 'var(--md-sys-spacing-4)',
-                            backgroundColor: 'var(--md-sys-color-surface-container)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                            <div style={{display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                marginBottom: 'var(--md-sys-spacing-4)'}}>
-                                <div style={{display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 'var(--md-sys-spacing-4)'}}>
-                                    <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                        color: 'var(--md-sys-color-secondary)'}}>school</span>
-                                    <Typography
-                                        variant="overline"
-                                        style={{color: 'var(--md-sys-color-on-surface)',
-                                            fontWeight: 'var(--md-sys-typescale-weight-black)'}}
-                                    >
-                                        Gestione Cattedra
-                                    </Typography>
-                                </div>
+                                </Box>
+                            </Box>
+                        </Box>
+                        <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
+                            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
+                                <Stack direction="row" spacing={1} alignItems="center">
+                                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-secondary)' }}>school</span>
+                                    <Typography variant="overline" sx={{ color: 'text.primary', fontWeight: 700, lineHeight: 1.5 }}>Gestione Cattedra</Typography>
+                                </Stack>
                                 <Button
                                     onClick={() => {
                                         if (confirm("Sei sicuro di voler svuotare tutta la cattedra?")) {
@@ -1185,33 +877,16 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 >
                                     Svuota Tutto
                                 </Button>
-                            </div>
+                            </Stack>
 
                             {/* FORMAZIONE CLASSI STRUTTURATA (NORMATIVA ITALIANA) */}
-                            <div style={{marginTop: 'var(--md-sys-spacing-4)',
-                                padding: 'var(--md-sys-spacing-4)',
-                                backgroundColor: 'var(--md-sys-color-surface-container)',
-                                borderRadius: 'var(--md-sys-shape-corner-large)',
-                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                                <div style={{display: 'flex',
-                                    alignItems: 'center',
-                                    gap: 'var(--md-sys-spacing-4)',
-                                    marginBottom: 'var(--md-sys-spacing-4)'}}>
-                                    <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                        color: 'var(--md-sys-color-primary)'}}>account_tree</span>
-                                    <Typography
-                                        variant="caption"
-                                        style={{color: 'var(--md-sys-color-primary)',
-                                            fontWeight: 'var(--md-sys-typescale-weight-black)'}}
-                                    >
-                                        Formazione Classi Strutturata
-                                    </Typography>
-                                </div>
+                            <Box sx={{ mt: 2, p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
+                                <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
+                                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>account_tree</span>
+                                    <Typography variant="overline" sx={{ color: 'primary.main', fontWeight: 700, lineHeight: 1.5 }}>Formazione Classi Strutturata</Typography>
+                                </Stack>
 
-                                <div style={{display: 'grid',
-                                    gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
-                                    gap: 'var(--md-sys-spacing-4)',
-                                    marginBottom: 'var(--md-sys-spacing-4)'}}>
+                                <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, mb: 2 }}>
                                     <FormControl size="small" fullWidth>
                                         <InputLabel>Ordinamento Scolastico</InputLabel>
                                         <Select
@@ -1227,91 +902,52 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         value={selSpec}
                                         onChange={e => setSelSpec(e.target.value)}
                                         placeholder="Es: Scientifico, CAT, Musicale..." />
-                                </div>
+                                </Box>
 
-                                <div style={{display: 'grid',
-                                    gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
-                                    gap: 'var(--md-sys-spacing-4)',
-                                    marginBottom: 'var(--md-sys-spacing-4)'}}>
-                                    <div style={{display: 'flex',
-                                        flexDirection: 'column',
-                                        gap: 'var(--md-sys-spacing-4)'}}>
-                                        <Typography
-                                            variant="body2"
-                                            style={{color: 'var(--md-sys-color-on-surface)',
-                                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
-                                        >
-                                            Livelli / Anni
-                                        </Typography>
-                                        <div style={{display: 'flex',
-                                            flexWrap: 'wrap',
-                                            gap: 'var(--md-sys-spacing-4)'}}>
+                                <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, mb: 2 }}>
+                                    <Stack spacing={1}>
+                                        <Typography variant="body2" sx={{ color: 'text.primary', fontWeight: 500 }}>Livelli / Anni</Typography>
+                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                                             {['1', '2', '3', '4', '5'].map(y => (
                                                 <Button
                                                     key={y}
                                                     variant={selYears.includes(y) ? 'contained' : 'outlined'}
                                                     size="small"
                                                     onClick={() => setSelYears(prev => prev.includes(y) ? prev.filter(i => i !== y) : [...prev, y])}
-                                                    style={{
-                                                        minWidth: 'var(--md-sys-spacing-4)'
-                                                    }}
+                                                    sx={{ minWidth: 44 }}
                                                 >
                                                     {y}° Anno
                                                 </Button>
                                             ))}
-                                        </div>
-                                    </div>
-                                    <div style={{display: 'flex',
-                                        flexDirection: 'column',
-                                        gap: 'var(--md-sys-spacing-4)'}}>
-                                        <Typography
-                                            variant="body2"
-                                            style={{color: 'var(--md-sys-color-on-surface)',
-                                                fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
-                                        >
-                                            Sezioni
-                                        </Typography>
-                                        <div style={{display: 'flex',
-                                            flexWrap: 'wrap',
-                                            gap: 'var(--md-sys-spacing-4)'}}>
+                                        </Box>
+                                    </Stack>
+                                    <Stack spacing={1}>
+                                        <Typography variant="body2" sx={{ color: 'text.primary', fontWeight: 500 }}>Sezioni</Typography>
+                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                                             {['A', 'B', 'C', 'D', 'E', 'F'].map(s => (
                                                 <Button
                                                     key={s}
                                                     variant={selSections.includes(s) ? 'contained' : 'outlined'}
                                                     size="small"
                                                     onClick={() => setSelSections(prev => prev.includes(s) ? prev.filter(i => i !== s) : [...prev, s])}
-                                                    style={{
-                                                        minWidth: 'var(--md-sys-spacing-4)'
-                                                    }}
+                                                    sx={{ minWidth: 44 }}
                                                 >
                                                     {s}
                                                 </Button>
                                             ))}
-                                        </div>
-                                    </div>
-                                </div>
+                                        </Box>
+                                    </Stack>
+                                </Box>
 
-                                <Button
-                                    onClick={handleGenerateClasses}
-                                    variant="contained"
-                                    disabled={selYears.length === 0 || selSections.length === 0}
-                                >
-                                    <span className="material-symbols-outlined" style={{marginRight: 'var(--md-sys-spacing-4)',
-                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>auto_awesome</span>
+                                <Button onClick={handleGenerateClasses} variant="contained" disabled={selYears.length === 0 || selSections.length === 0} startIcon={<span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span>}>
                                     Genera Combinazioni Classi
                                 </Button>
-                            </div>
+                            </Box>
 
                             {/* INPUT RAPIDI PER AGGIUNGERE MATERIE */}
-                            <div style={{marginTop: 'var(--md-sys-spacing-4)',
-                                padding: 'var(--md-sys-spacing-4)',
-                                backgroundColor: 'var(--md-sys-color-surface-container)',
-                                borderRadius: 'var(--md-sys-shape-corner-large)',
-                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                                <div style={{display: 'flex',
-                                    gap: 'var(--md-sys-spacing-4)',
-                                    alignItems: 'flex-end'}}>
-                                    <div style={{ flex: 1 }}>
+                            <Box sx={{ mt: 2, p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
+                                <Stack direction="row" spacing={2} alignItems="flex-end">
+                                    <Box sx={{ flex: 1 }}>
                                         <TextField
                                             label="Materia Singola"
                                             placeholder="Es: Italiano"
@@ -1319,24 +955,15 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             onChange={e => setNewSubjectName(e.target.value)}
                                             onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && handleAddSubject()}
                                         />
-                                    </div>
-                                    <Button
-                                        onClick={handleAddSubject}
-                                        variant="contained"
-                                    >
-                                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>add</span>
+                                    </Box>
+                                    <Button onClick={handleAddSubject} variant="contained" startIcon={<span className="material-symbols-outlined" aria-hidden="true">add</span>}>
                                         Aggiungi
                                     </Button>
-                                </div>
-                            </div>
+                                </Stack>
+                            </Box>
 
                             {/* MATRICE INTERATTIVA */}
-                            <div style={{marginTop: 'var(--md-sys-spacing-4)',
-                                padding: 'var(--md-sys-spacing-4)',
-                                backgroundColor: 'var(--md-sys-color-surface-container)',
-                                borderRadius: 'var(--md-sys-shape-corner-large)',
-                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                                overflowX: 'auto'}}>
+                            <Box sx={{ mt: 2, p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider', overflowX: 'auto' }}>
                                 <table  style={{width: 'var(--md-sys-percent-100)'}}>
                                     <thead>
                                         <tr style={{backgroundColor: 'var(--md-sys-color-surface-container-high)'}}>
@@ -1355,10 +982,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                     borderLeft: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                     position: 'relative'}}>
-                                                    <div style={{display: 'flex',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'center',
-                                                        gap: 'var(--md-sys-spacing-4)'}}>
+                                                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                                         <span>{cls}</span>
                                                         <button
                                                             onClick={() => handleChange('classi', localSettings.classi.filter(c => c !== cls))}
@@ -1367,17 +991,16 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                 color: 'var(--md-sys-color-error)',
                                                                 cursor: 'pointer',
                                                                 fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                                                padding: 'var(--md-sys-spacing-4)',
+                                                                padding: 'var(--md-sys-spacing-1)',
                                                                 borderRadius: 'var(--md-sys-shape-corner-small)',
                                                                 display: 'flex',
                                                                 alignItems: 'center',
                                                                 justifyContent: 'center',
-                                                                width: 'var(--md-sys-spacing-4)',
-                                                                height: 'var(--md-sys-spacing-4)'}}
+                                                                lineHeight: 1}}
                                                         >
                                                             ×
                                                         </button>
-                                                    </div>
+                                                    </Box>
                                                 </th>
                                             ))}
                                         </tr>
@@ -1388,16 +1011,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                 <td style={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                                                     backgroundColor: 'var(--md-sys-color-surface-container-high)',
                                                     borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                                                    <div style={{display: 'flex',
-                                                        alignItems: 'center',
-                                                        justifyContent: 'space-between',
-                                                        gap: 'var(--md-sys-spacing-4)'}}>
-                                                        <div style={{display: 'flex',
-                                                            alignItems: 'center',
-                                                            gap: 'var(--md-sys-spacing-4)',
-                                                            flex: 1}}>
-                                                            <span style={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
-                                                                color: 'var(--md-sys-color-on-surface)'}}>{subj}</span>
+                                                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-4)' }}>
+                                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', flex: 1 }}>
+                                                            <Typography component="span" variant="body2" sx={{ fontWeight: 500, color: 'text.primary' }}>{subj}</Typography>
                                                             <Button
                                                                 onClick={() => handleBulkAssign(localSettings.classi, [subj])}
                                                                 variant="outlined"
@@ -1405,7 +1021,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                             >
                                                                 Associa a tutte
                                                             </Button>
-                                                        </div>
+                                                        </Box>
                                                         <button
                                                             onClick={() => handleChange('disciplines', localSettings.disciplines.filter(s => s !== subj))}
                                                             style={{background: 'none',
@@ -1415,11 +1031,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                 padding: 'var(--md-sys-spacing-4)',
                                                                 borderRadius: 'var(--md-sys-shape-corner-small)'}}
                                                         >
-                                                            <span style={{
+                                                            <span className="material-symbols-outlined" style={{
                                                                 fontSize: 'var(--md-sys-typescale-body-large-font-size)'
                                                             }}>delete</span>
                                                         </button>
-                                                    </div>
+                                                    </Box>
                                                 </td>
                                                 {localSettings.classi.map(cls => {
                                                     const assignment = localSettings.teachingAssignments.find(a => a.classId === cls && a.subjectId === subj);
@@ -1428,18 +1044,19 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                             textAlign: 'center',
                                                             borderLeft: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                                             cursor: 'pointer'}}>
-                                                            <div
+                                                            <Box
                                                                 onClick={() => toggleAssociation(cls, subj)}
-                                                                style={{
+                                                                sx={{
                                                                     display: 'flex',
                                                                     alignItems: 'center',
                                                                     justifyContent: 'center',
-                                                                    padding: 'var(--md-sys-spacing-3)',
+                                                                    p: 'var(--md-sys-spacing-3)',
                                                                     borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                                                    backgroundColor: assignment ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surface-container)',
+                                                                    bgcolor: assignment ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surface-container)',
                                                                     border: `var(--md-sys-border-width-thin) solid ${assignment ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                                                     transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-                                                                    minHeight: 'var(--md-sys-spacing-4)'
+                                                                    minHeight: 'var(--md-sys-spacing-4)',
+                                                                    cursor: 'pointer',
                                                                 }}
                                                             >
                                                                 {assignment ? (
@@ -1447,14 +1064,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                         <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-primary)',
                                                                             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                                             marginRight: 'var(--md-sys-spacing-4)'}}>check_circle</span>
-                                                                        <div style={{display: 'flex',
-                                                                            alignItems: 'center',
-                                                                            gap: 'var(--md-sys-spacing-4)'}} onClick={e => e.stopPropagation()}>
+                                                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }} onClick={e => e.stopPropagation()}>
                                                                             <input
                                                                                 type="number"
                                                                                 value={assignment.hoursPerWeek}
                                                                                 onChange={e => updateAssignmentHours(assignment.id ?? `${assignment.classId}-${subj}`, parseInt(e.target.value) || 1)}
-                                                                                style={{width: 'var(--md-sys-spacing-4)',
+                                                                                style={{width: '44px',
                                                                                     padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-1)',
                                                                                     border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                                                                     borderRadius: 'var(--md-sys-shape-corner-small)',
@@ -1464,17 +1079,16 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                                     textAlign: 'center'}} />
                                                                             <span style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                                                 color: 'var(--md-sys-color-on-surface-variant)'}}>h</span>
-                                                                        </div>
+                                                                        </Box>
                                                                     </>
                                                                 ) : (
                                                                     <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-outline-variant)',
                                                                         fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>add</span>
                                                                 )}
-                                                            </div>
+                                                            </Box>
                                                         </td>
                                                     );
-                                                })}
-                                            </tr>
+                                                })}                                            </tr>
                                         ))}
                                         {localSettings.disciplines.length === 0 && (
                                             <tr>
@@ -1488,15 +1102,15 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         )}
                                     </tbody>
                                 </table>
-                            </div>
+                            </Box>
 
                             <InfoCard
                                 title="Come funziona"
                                 description="Questa matrice è il tuo centro di controllo. Clicca su una cella per associare una materia a una classe. Modifica il numero per impostare le ore settimanali."
                                 icon="info"
                                 variant="contained" />
-                        </div>
-                    </div>
+                        </Box>
+                    </Stack>
                 </SettingsGroup>
 
                 <SettingsGroup
@@ -1507,86 +1121,47 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     variant="tertiary"
                     defaultOpen={false}
                 >
-                    <div style={{display: 'flex',
-                        flexDirection: 'column',
-                        gap: 'var(--md-sys-spacing-4)'}}>
-                        <Typography
-                            variant="body2"
-                            style={{color: 'var(--md-sys-color-on-surface-variant)'}}
-                        >
+                    <Stack spacing={2}>
+                        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                             Qui puoi vedere i suggerimenti AI che hai ignorato e riattivarli se desideri.
                         </Typography>
                         {dismissedSuggestions.size === 0 ? (
-                            <Typography
-                                variant="body2"
-                                style={{color: 'var(--md-sys-color-on-surface-variant)',
-                                    fontStyle: 'italic',
-                                    textAlign: 'center',
-                                    padding: 'var(--md-sys-spacing-4)',
-                                    backgroundColor: 'var(--md-sys-color-surface-container)',
-                                    borderRadius: 'var(--md-sys-shape-corner-medium)'}}
-                            >
+                            <Typography variant="body2" sx={{ color: 'text.secondary', fontStyle: 'italic', textAlign: 'center', p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-medium)' }}>
                                 Nessun suggerimento ignorato.
                             </Typography>
                         ) : (
-                            <div style={{display: 'flex',
-                                flexDirection: 'column',
-                                gap: 'var(--md-sys-spacing-4)'}}>
+                            <Stack spacing={2}>
                                 {Array.from(dismissedSuggestions).map((id) => (
-                                    <div key={id} style={{display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between',
-                                        padding: 'var(--md-sys-spacing-4)',
-                                        backgroundColor: 'var(--md-sys-color-surface-container)',
-                                        borderRadius: 'var(--md-sys-shape-corner-large)',
-                                        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                                        <div style={{display: 'flex',
-                                            flexDirection: 'column',
-                                            gap: 'var(--md-sys-spacing-4)'}}>
-                                            <Typography
-                                                variant="body2"
-                                                style={{color: 'var(--md-sys-color-on-surface)',
-                                                    fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
-                                            >
+                                    <Box key={id} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
+                                        <Stack spacing={0.5}>
+                                            <Typography variant="body2" sx={{ color: 'text.primary', fontWeight: 500 }}>
                                                 Suggerimento {id}
                                             </Typography>
-                                            <Typography
-                                                variant="caption"
-                                                style={{color: 'var(--md-sys-color-on-surface-variant)'}}
-                                            >
+                                            <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                                                 Ignorato in precedenza
                                             </Typography>
-                                        </div>
-                                        <Button
-                                            onClick={() => onReactivateSuggestion(id)}
-                                            variant="outlined"
-                                        >
-                                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                                marginRight: 'var(--md-sys-spacing-4)'}}>refresh</span>
+                                        </Stack>
+                                        <Button onClick={() => onReactivateSuggestion(id)} variant="outlined" startIcon={<span className="material-symbols-outlined" aria-hidden="true">refresh</span>}>
                                             Riattiva
                                         </Button>
-                                    </div>
+                                    </Box>
                                 ))}
-                            </div>
+                            </Stack>
                         )}
-                        <div style={{display: 'flex',
-                            justifyContent: 'center',
-                            paddingTop: 'var(--md-sys-spacing-4)',
-                            borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', pt: 2, borderTop: '1px solid', borderColor: 'divider' }}>
                             <Button
                                 onClick={() => {
-                                    // Clear all dismissed suggestions
                                     Array.from(dismissedSuggestions).forEach(id => onReactivateSuggestion(id));
                                     showToast('Tutti i suggerimenti riattivati', 'success');
-                                } }
+                                }}
                                 disabled={dismissedSuggestions.size === 0}
                                 variant="text"
-                                 style={{width: 'var(--md-sys-percent-100)'}}
+                                fullWidth
                             >
                                 Riattiva Tutti i Suggerimenti
                             </Button>
-                        </div>
-                    </div>
+                        </Box>
+                    </Stack>
                 </SettingsGroup>
 
                 <SettingsGroup
@@ -1594,51 +1169,26 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     title="Dati & Cloud"
                     subtitle="Backup e Storage"
                     icon="cloud_sync"
-                    variant="surface"
+                    variant="primary"
                     defaultOpen={false}
                 >
                     {/* Always render all children, do not hide section if storageInfo is missing */}
                     {storageInfo && (
-                        <div style={{marginBottom: 'var(--md-sys-spacing-4)',
-                            padding: 'var(--md-sys-spacing-4)',
-                            backgroundColor: 'var(--md-sys-color-surface-container)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                            <div style={{display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                marginBottom: 'var(--md-sys-spacing-4)'}}>
-                                <Typography
-                                    variant="overline"
-                                    style={{color: 'var(--md-sys-color-on-surface)',
-                                        fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
-                                >
-                                    Storage Dispositivo
-                                </Typography>
-                                <Typography
-                                    variant="body2"
-                                    style={{color: 'var(--md-sys-color-on-surface-variant)',
-                                        fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
-                                >
-                                    {storageInfo.used}MB / {storageInfo.total}MB
-                                </Typography>
-                            </div>
-                            <div  style={{width: 'var(--md-sys-percent-100)'}}>
-                                <div style={{
-                                    width: `${storageInfo.percent}%`,
-                                    height: 'var(--md-sys-percent-100)',
-                                    backgroundColor: storageInfo.percent > 80 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)',
-                                    borderRadius: 'var(--md-sys-spacing-4)',
-                                    transition: 'width var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'
-                                }}></div>
-                            </div>
-                            <Typography
-                                variant="caption"
-                                style={{color: 'var(--md-sys-color-on-surface-variant)'}}
-                            >
+                        <Box sx={{ mb: 2, p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
+                            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1.5 }}>
+                                <Typography variant="overline" sx={{ color: 'text.primary', fontWeight: 700 }}>Storage Dispositivo</Typography>
+                                <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>{storageInfo.used}MB / {storageInfo.total}MB</Typography>
+                            </Stack>
+                            <LinearProgress
+                                variant="determinate"
+                                value={storageInfo.percent}
+                                color={storageInfo.percent > 80 ? 'error' : 'primary'}
+                                sx={{ borderRadius: 1, height: 6, bgcolor: 'action.hover' }}
+                            />
+                            <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                                 Dati salvati in IndexedDB (senza limiti LocalStorage).
                             </Typography>
-                        </div>
+                        </Box>
                     )}
 
                     {/* Reminder banner se backup cloud troppo vecchio */}
@@ -1666,57 +1216,22 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         return null;
                     })()}
 
-                    <div style={{
-                        padding: 'var(--md-sys-spacing-3)',
-                        backgroundColor: driveState.isAuthenticated ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surface-container)',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: `var(--md-sys-border-width-thin) solid ${driveState.isAuthenticated ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: 'var(--md-sys-spacing-1)'
-                    }}>
-                        <div style={{display: 'flex',
-                            alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-1)'}}>
-                            <div style={{width: 'var(--md-sys-spacing-4)',
-                                height: 'var(--md-sys-spacing-4)',
-                                borderRadius: 'var(--md-sys-shape-corner-large)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                backgroundColor: driveState.isAuthenticated ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
-                                color: driveState.isAuthenticated ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)'}}>
-                                <span style={{
-                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)'
-                                }}>{driveState.isAuthenticated ? 'cloud_done' : 'cloud_off'}</span>
-                            </div>
-                            <div style={{display: 'flex',
-                                flexDirection: 'column',
-                                gap: 'var(--md-sys-spacing-4)'}}>
-                                <Typography
-                                    variant="overline"
-                                    style={{color: 'var(--md-sys-color-on-surface)',
-                                        fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
-                                >
+                    <Box sx={{ p: 2, bgcolor: driveState.isAuthenticated ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: driveState.isAuthenticated ? 'primary.main' : 'divider', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
+                        <Stack direction="row" spacing={1} alignItems="center">
+                            <Box sx={{ width: 36, height: 36, borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: driveState.isAuthenticated ? 'primary.main' : 'var(--md-sys-color-surface-container-high)', color: driveState.isAuthenticated ? 'primary.contrastText' : 'text.secondary' }}>
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{driveState.isAuthenticated ? 'cloud_done' : 'cloud_off'}</span>
+                            </Box>
+                            <Stack spacing={0.25}>
+                                <Typography variant="overline" sx={{ color: 'text.primary', fontWeight: 700 }}>
                                     {driveState.isAuthenticated ? 'Google Drive Connesso' : 'Backup Cloud Disattivo'}
                                 </Typography>
-                                <Typography
-                                    variant="caption"
-                                    style={{color: 'var(--md-sys-color-on-surface-variant)'}}
-                                >
+                                <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                                     {driveState.lastSyncTime ? `Ultimo: ${(new Date(driveState.lastSyncTime)).toLocaleString()}` : 'Nessun backup cloud'}
                                 </Typography>
-                            </div>
-                        </div>
+                            </Stack>
+                        </Stack>
                         {driveState.isAuthenticated ? (
-                            <Button
-                                onClick={() => onSyncToDrive()}
-                                disabled={driveState.isSyncing}
-                                variant="contained"
-                            >
-                                <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                    marginRight: 'var(--md-sys-spacing-4)'}}>{driveState.isSyncing ? 'sync' : 'cloud_upload'}</span>
+                            <Button onClick={() => onSyncToDrive()} disabled={driveState.isSyncing} variant="contained" startIcon={<span className="material-symbols-outlined" aria-hidden="true">{driveState.isSyncing ? 'sync' : 'cloud_upload'}</span>}>
                                 {driveState.isSyncing ? '...' : 'Salva'}
                             </Button>
                         ) : (
@@ -1729,19 +1244,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 </Button>
                             )
                         )}
-                    </div>
-                    <div style={{display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(calc(var(--md-sys-spacing-20) * 2.5), var(--md-sys-grid-fr-1)))',
-                        gap: 'var(--md-sys-spacing-4)',
-                        marginTop: 'var(--md-sys-spacing-4)'}}>
-                        <Button onClick={onExportData} variant="outlined">
-                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                marginRight: 'var(--md-sys-spacing-4)'}}>download</span>
+                    </Box>
+                    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 2, mt: 2 }}>
+                        <Button onClick={onExportData} variant="outlined" startIcon={<span className="material-symbols-outlined" aria-hidden="true">download</span>}>
                             Backup Locale
                         </Button>
-                        <Button onClick={() => fileInputRef.current?.click()} variant="outlined">
-                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                marginRight: 'var(--md-sys-spacing-4)'}}>upload</span>
+                        <Button onClick={() => fileInputRef.current?.click()} variant="outlined" startIcon={<span className="material-symbols-outlined" aria-hidden="true">upload</span>}>
                             Ripristina File
                         </Button>
                         <input type="file" ref={fileInputRef} style={{
@@ -1749,7 +1257,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             opacity: 0,
                             pointerEvents: 'none'
                         }} accept=".json,.csv,.xlsx,.xls" onChange={handleFileChange} />
-                    </div>
+                    </Box>
                 </SettingsGroup>
 
                 <SettingsGroup
@@ -1760,66 +1268,28 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     variant="surface"
                     defaultOpen={false}
                 >
-                    <div style={{display: 'flex',
-                        flexDirection: 'column',
-                        gap: 'var(--md-sys-spacing-4)'}}>
-                        <div style={{padding: 'var(--md-sys-spacing-4)',
-                            backgroundColor: 'var(--md-sys-color-surface-container)',
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                            <div style={{display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'flex-start',
-                                marginBottom: 'var(--md-sys-spacing-4)'}}>
-                                <div style={{display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: 'var(--md-sys-spacing-4)'}}>
+                    <Stack spacing={2}>
+                        <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
+                            <Stack direction="row" justifyContent="space-between" alignItems="flex-start" sx={{ mb: 2 }}>
+                                <Stack spacing={0.5}>
                                     <Typography
                                         variant="overline"
-                                        style={{color: 'var(--md-sys-color-on-surface)',
-                                            fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
+                                        sx={{ color: 'text.primary', fontWeight: 700, lineHeight: 1.5 }}
                                     >
                                         Log degli Errori
                                     </Typography>
-                                    <Typography
-                                        variant="body2"
-                                        style={{color: 'var(--md-sys-color-on-surface-variant)'}}
-                                    >
+                                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                                         Visualizza tutti gli errori registrati durante l'utilizzo dell'app
                                     </Typography>
-                                </div>
-                                <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                color: errorLogger.getErrorStats().total > 0 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)'}}>{errorLogger.getErrorStats().total > 0 ? 'error' : 'check_circle'}</span>
-                            </div>
-                            <div style={{display: 'flex',
-                                alignItems: 'center',
-                                gap: 'var(--md-sys-spacing-4)',
-                                padding: 'var(--md-sys-spacing-4)',
-                                backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                                borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                                marginBottom: 'var(--md-sys-spacing-4)'}}>
-                                <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                    color: 'var(--md-sys-color-primary)'}}>info</span>
-                                <Typography
-                                    variant="caption"
-                                    style={{color: 'var(--md-sys-color-on-surface-variant)'}}
-                                >
-                                    {errorLogger.getErrorStats().total} log registrati
-                                </Typography>
-                            </div>
-                            <div style={{display: 'flex',
-                                flexDirection: 'column',
-                                gap: 'var(--md-sys-spacing-4)'}}>
-                                <Button
-                                    onClick={() => {
-                                        showToast('Apri la console del browser (F12) e digita: window.__errorLogger.getRecentErrors()', 'info');
-                                    } }
-                                    variant="outlined"
-                                     style={{width: 'var(--md-sys-percent-100)'}}
-                                >
-                                    <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                        marginRight: 'var(--md-sys-spacing-4)'}}>terminal</span>
+                                </Stack>
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: errorLogger.getErrorStats().total > 0 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}>{errorLogger.getErrorStats().total > 0 ? 'error' : 'check_circle'}</span>
+                            </Stack>
+                            <Stack direction="row" spacing={1} alignItems="center" sx={{ p: 1.5, bgcolor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: '1px solid', borderColor: 'divider', mb: 2 }}>
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>info</span>
+                                <Typography variant="caption" sx={{ color: 'text.secondary' }}>{errorLogger.getErrorStats().total} log registrati</Typography>
+                            </Stack>
+                            <Stack spacing={1}>
+                                <Button onClick={() => { showToast('Apri la console del browser (F12) e digita: window.__errorLogger.getRecentErrors()', 'info'); }} variant="outlined" fullWidth startIcon={<span className="material-symbols-outlined" aria-hidden="true">terminal</span>}>
                                     Console Browser (F12)
                                 </Button>
                                 <Button
@@ -1835,10 +1305,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         showToast('Log esportati in JSON', 'success');
                                     } }
                                     variant="outlined"
-                                     style={{width: 'var(--md-sys-percent-100)'}}
+                                    fullWidth
+                                    startIcon={<span className="material-symbols-outlined" aria-hidden="true">download</span>}
                                 >
-                                    <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                        marginRight: 'var(--md-sys-spacing-4)'}}>download</span>
                                     Esporta JSON
                                 </Button>
                                 <Button
@@ -1849,21 +1318,20 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         }
                                     } }
                                     variant="text"
-                                     style={{width: 'var(--md-sys-percent-100)'}}
+                                fullWidth
+                                    startIcon={<span className="material-symbols-outlined" aria-hidden="true">delete</span>}
                                 >
-                                    <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                        marginRight: 'var(--md-sys-spacing-4)'}}>delete</span>
                                     Elimina Log
                                 </Button>
-                            </div>
-                        </div>
+                            </Stack>
+                        </Box>
 
                         <InfoCard
                             title="Come usare"
                             description="Premi F12 per aprire la console, digita window.__errorLogger.getRecentErrors(10) per visualizzare gli ultimi 10 errori."
                             icon="info"
                             variant="outlined" />
-                    </div>
+                    </Stack>
                 </SettingsGroup>
 
                 <SettingsGroup
@@ -1874,92 +1342,47 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     variant="surface"
                     defaultOpen={false}
                 >
-                    <div style={{padding: 'var(--md-sys-spacing-4)',
-                        backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
-                        border: 'var(--md-sys-border-width-thin) solid color-mix(in srgb, var(--md-sys-color-outline-variant) 20%, transparent)',
-                        marginBottom: 'var(--md-sys-spacing-4)',
-                        boxShadow: 'var(--md-sys-elevation-level1)'}}>
-                        <div style={{display: 'flex',
-                            alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-4)',
-                            marginBottom: 'var(--md-sys-spacing-4)'}}>
-                            <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-primary)',
-                                fontSize: 'var(--md-sys-typescale-label-large-font-size)'}}>key</span>
-                            <Typography variant="caption" sx={{color: 'var(--md-sys-color-primary)',
-                                fontWeight: 'var(--md-sys-typescale-weight-black)',
-                                letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'}}>Google Cloud API</Typography>
-                        </div>
-                        <div style={{display: 'flex',
-                            flexDirection: 'column',
-                            gap: 'var(--md-sys-spacing-4)'}}>
+                    <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider', mb: 2 }}>
+                        <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
+                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>key</span>
+                            <Typography variant="overline" sx={{ color: 'primary.main', fontWeight: 700 }}>Google Cloud API</Typography>
+                        </Stack>
+                        <Stack spacing={2}>
                             <TextField label="Client ID (OAuth)" value={localSettings.googleClientId || ''} onChange={e => handleChange('googleClientId', e.target.value)} InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">badge</span></InputAdornment> }} />
                             <TextField label="API Key (Picker)" type="password" value={localSettings.googleApiKey || ''} onChange={e => handleChange('googleApiKey', e.target.value)} InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">lock</span></InputAdornment> }} />
-                        </div>
-                    </div>
-                    <div style={{padding: 'var(--md-sys-spacing-4)',
-                        backgroundColor: 'color-mix(in srgb, var(--md-sys-color-error)-container 10%, transparent)',
-                        borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-                        border: 'var(--md-sys-border-width-thin) solid color-mix(in srgb, var(--md-sys-color-error) 20%, transparent)',
-                        boxShadow: 'var(--md-sys-elevation-level1)'}}>
-                        <div style={{display: 'flex',
-                            alignItems: 'center',
-                            gap: 'var(--md-sys-spacing-4)',
-                            marginBottom: 'var(--md-sys-spacing-4)'}}>
-                            <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-error)',
-                                fontSize: 'var(--md-sys-typescale-label-large-font-size)'}}>warning</span>
-                            <Typography variant="caption" sx={{color: 'var(--md-sys-color-error)',
-                                fontWeight: 'var(--md-sys-typescale-weight-black)',
-                                letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'}}>Zona Pericolo</Typography>
-                        </div>
-                        <Button
-                            onClick={() => setIsResetModalOpen(true)}
-                            variant="contained"
-                             style={{width: 'var(--md-sys-percent-100)'}}
-                        >
-                            <span className="material-symbols-outlined" style={{marginRight: 'var(--md-sys-spacing-4)',
-                                fontSize: 'var(--md-sys-typescale-label-large-font-size)'}}>delete_forever</span>
+                        </Stack>
+                    </Box>
+                    <Box sx={{ p: 2, bgcolor: 'color-mix(in srgb, var(--md-sys-color-error-container) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-extra-large)', border: '1px solid', borderColor: 'error.light' }}>
+                        <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
+                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-error)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>warning</span>
+                            <Typography variant="overline" sx={{ color: 'error.main', fontWeight: 700 }}>Zona Pericolo</Typography>
+                        </Stack>
+                        <Button onClick={() => setIsResetModalOpen(true)} variant="contained" color="error" fullWidth startIcon={<span className="material-symbols-outlined" aria-hidden="true">delete_forever</span>}>
                             Reset Totale Dati
                         </Button>
-                    </div>
+                    </Box>
                 </SettingsGroup>
 
-                <div style={{textAlign: 'center',
-                    paddingTop: 'var(--md-sys-spacing-4)',
-                    paddingBottom: 'var(--md-sys-spacing-4)'}}>
-                    <Typography variant="caption" sx={{color: 'color-mix(in srgb, var(--md-sys-color-on-surface-variant) 50%, transparent)',
-                        opacity: 'var(--md-sys-state-opacity-placeholder)'}}>
+                <Box sx={{ textAlign: 'center', py: 2 }}>
+                    <Typography variant="caption" component="div" sx={{ color: 'text.disabled' }}>
                         DocenteDoc AI v4.0.8 • Stable
-                        <div style={{paddingTop: 'var(--md-sys-spacing-4)'}}>
-                            <span style={{fontWeight: 'var(--md-sys-typescale-weight-black)',
-                                letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'}}>Owner:</span> Antonio Corsano
-                            <span style={{display: 'block',
-                                marginTop: 'var(--md-sys-spacing-4)'}}>antonio.corsano@gmail.com</span>
-                        </div>
+                        <Box sx={{ pt: 1 }}>
+                            <Typography component="span" variant="caption" sx={{ fontWeight: 900, color: 'text.disabled' }}>Owner:</Typography> Antonio Corsano
+                            <Typography variant="caption" component="div" sx={{ mt: 0.5, color: 'text.disabled' }}>antonio.corsano@gmail.com</Typography>
+                        </Box>
                     </Typography>
                     <Button
                         onClick={onLogout}
                         variant="text"
-                        style={{marginTop: 'var(--md-sys-spacing-4)',
-                            marginLeft: 'var(--md-sys-margin-auto)',
-                            marginRight: 'var(--md-sys-margin-auto)',
-                            height: 'var(--md-sys-spacing-4)',
-                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
-                            fontWeight: 'var(--md-sys-typescale-weight-black)',
-                            letterSpacing: 'var(--md-sys-typescale-label-small-tracking)',
-                            transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-easing-standard) var(--md-sys-motion-duration-short2)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'}}
+                        color="error"
+                        startIcon={<span className="material-symbols-outlined" aria-hidden="true">logout</span>}
+                        sx={{ mt: 1, mx: 'auto', display: 'flex' }}
                     >
-                        <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)',
-                            marginRight: 'var(--md-sys-spacing-4)'}}>logout</span>
                         Esci dall'account
                     </Button>
-                </div>
-            </div>
+                </Box>
+            </Box>
 
-            {isResetModalOpen && <ResetConfirmModal onClose={() => setIsResetModalOpen(false)} onConfirm={performReset} />}
         </Paper>
     );
 };
