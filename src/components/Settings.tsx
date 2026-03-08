@@ -38,17 +38,10 @@ const SettingsGroup: React.FC<{
     subtitle?: string;
     icon: string;
     variant: 'primary' | 'secondary' | 'tertiary' | 'surface' | 'contained' | 'tonal' | 'elevated' | 'outlined';
-    defaultOpen: boolean;
+    expanded: boolean;
+    onToggle: () => void;
     children: React.ReactNode;
-}> = ({ id, title, subtitle, icon, variant, defaultOpen, children }) => {
-    const [isOpen, setIsOpen] = useState(() => {
-        try {
-            const savedState = localStorage.getItem(`settings_group_${id}`);
-            return savedState !== null ? savedState === 'true' : defaultOpen;
-        } catch {
-            return defaultOpen;
-        }
-    });
+}> = ({ id, title, subtitle, icon, variant, expanded, onToggle, children }) => {
 
     const iconBg = variant === 'primary'
         ? 'var(--md-sys-color-primary-container)'
@@ -67,11 +60,8 @@ const SettingsGroup: React.FC<{
 
     return (
         <Accordion
-            expanded={isOpen}
-            onChange={(_, expanded) => {
-                setIsOpen(expanded);
-                try { localStorage.setItem(`settings_group_${id}`, String(expanded)); } catch { /* noop */ }
-            }}
+            expanded={expanded}
+            onChange={() => onToggle()}
             disableGutters
             elevation={0}
             sx={{
@@ -175,6 +165,16 @@ const Settings: React.FC<SettingsProps> = (props) => {
         updateAssignmentHours,
         handleThemeChange,
     } = settingsLogic;
+
+    const [expandedId, setExpandedId] = useState<string | null>(() => {
+        try { return localStorage.getItem('settings_expanded_id') ?? 'interface_experience'; }
+        catch { return 'interface_experience'; }
+    });
+    const handleGroupToggle = (id: string) => {
+        const next = expandedId === id ? null : id;
+        setExpandedId(next);
+        try { localStorage.setItem('settings_expanded_id', next ?? ''); } catch { /* noop */ }
+    };
 
     const [newSubjectName, setNewSubjectName] = useState('');
 
@@ -365,7 +365,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     subtitle="Personalizza l'aspetto e il comportamento dell'app"
                     icon="palette"
                     variant="primary"
-                    defaultOpen={true}
+                    expanded={expandedId === 'interface_experience'}
+                    onToggle={() => handleGroupToggle('interface_experience')}
                 >
                     <Stack spacing={2}>
                         {/* SEZIONE 1: MODALITÀ INTERFACCIA */}
@@ -679,7 +680,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     subtitle="Dati docente e istituto"
                     icon="badge"
                     variant="surface"
-                    defaultOpen={false}
+                    expanded={expandedId === 'profile'}
+                    onToggle={() => handleGroupToggle('profile')}
                 >
                     <Stack spacing={2}>
                         <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
@@ -700,7 +702,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     subtitle="Cervello AI e cattedra"
                     icon="psychology"
                     variant="secondary"
-                    defaultOpen={false}
+                    expanded={expandedId === 'ai_didattica'}
+                    onToggle={() => handleGroupToggle('ai_didattica')}
                 >
                     <Stack spacing={2}>
                     {/* SEZIONE 1: MODELLO AI */}
@@ -1078,7 +1081,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     subtitle="Gestisci suggerimenti ignorati"
                     icon="lightbulb"
                     variant="tertiary"
-                    defaultOpen={false}
+                    expanded={expandedId === 'ai_suggestions'}
+                    onToggle={() => handleGroupToggle('ai_suggestions')}
                 >
                     <Stack spacing={2}>
                         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -1129,7 +1133,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     subtitle="Backup e Storage"
                     icon="cloud_sync"
                     variant="primary"
-                    defaultOpen={false}
+                    expanded={expandedId === 'cloud'}
+                    onToggle={() => handleGroupToggle('cloud')}
                 >
                     <Stack spacing={2}>
                     {/* Always render all children, do not hide section if storageInfo is missing */}
@@ -1227,7 +1232,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     subtitle="Visualizza e gestisci i log degli errori"
                     icon="bug_report"
                     variant="surface"
-                    defaultOpen={false}
+                    expanded={expandedId === 'debug_logging'}
+                    onToggle={() => handleGroupToggle('debug_logging')}
                 >
                     <Stack spacing={2}>
                         <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
@@ -1301,7 +1307,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     subtitle="Configurazione tecnica"
                     icon="build"
                     variant="surface"
-                    defaultOpen={false}
+                    expanded={expandedId === 'advanced'}
+                    onToggle={() => handleGroupToggle('advanced')}
                 >
                     <Stack spacing={2}>
                     <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
