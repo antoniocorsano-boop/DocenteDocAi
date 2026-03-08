@@ -6,7 +6,7 @@
 // Settings.tsx: Migrated with functional exceptions for layout percentages and specific dimensions
 // All styles now use MD3 design tokens and semantic color/spacing/elevation system where exact matches exist
 // Functional exceptions: width/height percentages (100%, 50%, 20%, 10%), grid minmax(calc(var(--md-sys-spacing-20) * 2.5), var(--md-sys-grid-fr-1)) for responsive layout
-import { Tabs, Tab, Badge, Box, Stack, LinearProgress, ButtonBase } from '@mui/material';
+import { Tabs, Tab, Badge, Box, Stack, LinearProgress, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import React, { useRef, useState, useEffect } from 'react';
 import { SettingsProps, AppThemeState } from '../types';
 import { THEME_CUSTOMIZATIONS, AI_PROFILES, SCHOOL_LEVELS } from '../constants';
@@ -50,16 +50,7 @@ const SettingsGroup: React.FC<{
         }
     });
 
-    const handleToggle = (e: React.MouseEvent) => {
-        e.preventDefault();
-        const newState = !isOpen;
-        setIsOpen(newState);
-        try {
-            localStorage.setItem(`settings_group_${id}`, String(newState));
-        } catch (e) { console.error(e); }
-    };
-
-const iconBg = variant === 'primary'
+    const iconBg = variant === 'primary'
         ? 'var(--md-sys-color-primary-container)'
         : variant === 'secondary'
         ? 'var(--md-sys-color-secondary-container)'
@@ -75,89 +66,63 @@ const iconBg = variant === 'primary'
         : 'var(--md-sys-color-on-surface-variant)';
 
     return (
-        <Paper
-            elevation={isOpen ? 2 : 1}
+        <Accordion
+            expanded={isOpen}
+            onChange={(_, expanded) => {
+                setIsOpen(expanded);
+                try { localStorage.setItem(`settings_group_${id}`, String(expanded)); } catch { /* noop */ }
+            }}
+            disableGutters
+            elevation={0}
             sx={{
                 border: '1px solid',
                 borderColor: 'divider',
+                borderRadius: '12px !important',
+                '&:before': { display: 'none' },
+                '&.Mui-expanded': { my: 0 },
                 overflow: 'hidden',
-                transition: `box-shadow var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard)`,
             }}
-            role="region"
-            aria-label={subtitle ? `${title}: ${subtitle}` : title}
         >
-            {/* Accordion header — MD3 list-item pattern */}
-            <ButtonBase
-                component="button"
+            <AccordionSummary
+                expandIcon={
+                    <span
+                        className="material-symbols-outlined"
+                        aria-hidden="true"
+                        style={{ fontSize: 20, color: 'var(--md-sys-color-on-surface-variant)' }}
+                    >expand_more</span>
+                }
                 id={`settings-group-btn-${id}`}
-                aria-expanded={isOpen}
                 aria-controls={`settings-group-panel-${id}`}
-                onClick={handleToggle}
                 sx={{
-                    width: '100%',
+                    bgcolor: 'var(--md-sys-color-surface-container-high)',
+                    px: 2,
+                    minHeight: 64,
+                    '&.Mui-expanded': { minHeight: 64, borderBottom: '1px solid', borderColor: 'divider' },
+                    '& .MuiAccordionSummary-content': { my: 1.5, gap: 1.5, alignItems: 'center' },
+                }}
+            >
+                <Box sx={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 2,
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'space-between',
-                    p: 'var(--md-sys-spacing-5)',
-                    cursor: 'pointer',
-                    bgcolor: 'var(--md-sys-color-surface-container-high)',
-                    borderBottom: isOpen ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' : 'none',
-                    textAlign: 'left',
-                    transition: `background-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
-                }}
-            >
-                <Stack direction="row" alignItems="center" spacing={1} sx={{ minWidth: 0, flex: 1 }}>
-                    <Box sx={{
-                        width: 'var(--md-sys-spacing-8)',
-                        height: 'var(--md-sys-spacing-8)',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexShrink: 0,
-                        bgcolor: iconBg,
-                        color: iconColor,
-                    }}>
-                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{icon}</span>
-                    </Box>
-                    <Box sx={{ minWidth: 0, flex: 1 }}>
-                        <Typography variant="h6" sx={{ color: 'text.primary', margin: 0 }}>{title}</Typography>
-                        {subtitle && (
-                            <Typography variant="caption" sx={{ color: 'text.secondary', margin: 0 }}>{subtitle}</Typography>
-                        )}
-                    </Box>
-                </Stack>
-                <span
-                    className="material-symbols-outlined"
-                    aria-hidden="true"
-                    style={{
-                        color: 'var(--md-sys-color-on-surface-variant)',
-                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                        transition: `transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
-                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                        flexShrink: 0,
-                    }}
-                >expand_more</span>
-            </ButtonBase>
-
-            {/* Accordion panel */}
-            <div
-                id={`settings-group-panel-${id}`}
-                role="region"
-                aria-labelledby={`settings-group-btn-${id}`}
-                style={{
-                    padding: isOpen ? `var(--md-sys-spacing-2) var(--md-sys-spacing-6) var(--md-sys-spacing-6)` : '0 var(--md-sys-spacing-6)',
-                    maxHeight: isOpen ? '9999px' : '0',
-                    overflow: 'hidden',
-                    opacity: isOpen ? 1 : 0,
-                    pointerEvents: isOpen ? 'auto' : 'none',
-                    transition: `max-height var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard), opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard), padding var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
-                }}
-                aria-hidden={!isOpen}
-            >
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    bgcolor: iconBg,
+                    color: iconColor,
+                }}>
+                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 20 }}>{icon}</span>
+                </Box>
+                <Box sx={{ minWidth: 0, flex: 1 }}>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 700, color: 'text.primary', lineHeight: 1.3, margin: 0 }}>{title}</Typography>
+                    {subtitle && <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.4, margin: 0 }}>{subtitle}</Typography>}
+                </Box>
+            </AccordionSummary>
+            <AccordionDetails sx={{ p: 2 }}>
                 {children}
-            </div>
-        </Paper>
+            </AccordionDetails>
+        </Accordion>
     );
 };
 
@@ -402,20 +367,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     variant="primary"
                     defaultOpen={true}
                 >
-                    <Stack
-                        role="region"
-                        aria-label="Interfaccia & Esperienza Visiva"
-                        tabIndex={0}
-                        spacing={2}
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            p: 2,
-                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                            bgcolor: 'var(--md-sys-color-surface-container-low)',
-                        }}
-                    >
+                    <Stack spacing={2}>
                         {/* SEZIONE 1: MODALITÀ INTERFACCIA */}
+                        <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
                         <Stack direction="column" spacing={1.5}>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>dashboard_customize</span>
@@ -471,8 +425,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     : 'Modalità Classica: Layout standard con navigazione a griglia e accesso diretto ai moduli.'}
                             </Typography>
                         </Stack>
+                        </Box>
 
                         {/* SEZIONE 2: ECOISTEMA VISIVO */}
+                        <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
                         <Stack direction="column" spacing={2}>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>auto_awesome</span>
@@ -529,8 +485,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 })}
                             </Box>
                         </Stack>
+                        </Box>
 
                         {/* SEZIONE 3: TEMA E COLORI */}
+                        <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
                         <Stack direction="column" spacing={2}>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>palette</span>
@@ -620,6 +578,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 </Stack>
                             </Box>
                         </Stack>
+                        </Box>
 
                         {/* SEZIONE 4: PARAMETRI AVANZATI */}
                         <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
@@ -689,6 +648,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </Box>
 
                         {/* SEZIONE 5: MANUTENZIONE BRAND */}
+                        <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
                         <Stack spacing={1}>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>refresh</span>
@@ -697,8 +657,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <Typography variant="body2" sx={{ color: 'text.secondary' }}>Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</Typography>
                             <Button onClick={handleForceRefresh} variant="outlined" startIcon={<span className="material-symbols-outlined" aria-hidden="true">cached</span>}>AGGIORNA BRAND E CACHE</Button>
                         </Stack>
+                        </Box>
 
                         {/* SEZIONE 7: M3 THEME SETTINGS PANEL */}
+                        <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
                         <Stack spacing={1}>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>tune</span>
@@ -707,6 +669,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <Typography variant="body2" sx={{ color: 'text.secondary' }}>Personalizza i token M3 per colori, tipografia, spacing e motion con anteprima live.</Typography>
                             <ThemeSettingsPanel />
                         </Stack>
+                        </Box>
                     </Stack>
                 </SettingsGroup>
 
@@ -718,13 +681,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     variant="surface"
                     defaultOpen={false}
                 >
-                    <Stack
-                        role="region"
-                        aria-label="Profilo & Identità"
-                        tabIndex={0}
-                        spacing={2}
-                        sx={{ p: 2, borderRadius: 'var(--md-sys-shape-corner-large)', bgcolor: 'var(--md-sys-color-surface-container-low)' }}
-                    >
+                    <Stack spacing={2}>
                         <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
                             <TextField label="Nome" value={localSettings.nomeInsegnante} onChange={e => handleChange('nomeInsegnante', e.target.value)} />
                             <TextField label="Cognome" value={localSettings.cognomeInsegnante || ''} onChange={e => handleChange('cognomeInsegnante', e.target.value)} />
@@ -745,8 +702,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     variant="secondary"
                     defaultOpen={false}
                 >
+                    <Stack spacing={2}>
                     {/* SEZIONE 1: MODELLO AI */}
-                    <Box sx={{ mb: 2, p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
+                    <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
                             <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>smart_toy</span>
                             <Typography variant="overline" sx={{ color: 'primary.main', fontWeight: 700, lineHeight: 1.5 }}>Modello Intelligenza</Typography>
@@ -1111,6 +1069,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 variant="contained" />
                         </Box>
                     </Stack>
+                    </Stack>
                 </SettingsGroup>
 
                 <SettingsGroup
@@ -1172,9 +1131,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     variant="primary"
                     defaultOpen={false}
                 >
+                    <Stack spacing={2}>
                     {/* Always render all children, do not hide section if storageInfo is missing */}
                     {storageInfo && (
-                        <Box sx={{ mb: 2, p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
+                        <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
                             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1.5 }}>
                                 <Typography variant="overline" sx={{ color: 'text.primary', fontWeight: 700 }}>Storage Dispositivo</Typography>
                                 <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>{storageInfo.used}MB / {storageInfo.total}MB</Typography>
@@ -1245,7 +1205,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             )
                         )}
                     </Box>
-                    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 2, mt: 2 }}>
+                    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 2 }}>
                         <Button onClick={onExportData} variant="outlined" startIcon={<span className="material-symbols-outlined" aria-hidden="true">download</span>}>
                             Backup Locale
                         </Button>
@@ -1258,6 +1218,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             pointerEvents: 'none'
                         }} accept=".json,.csv,.xlsx,.xls" onChange={handleFileChange} />
                     </Box>
+                    </Stack>
                 </SettingsGroup>
 
                 <SettingsGroup
@@ -1342,7 +1303,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     variant="surface"
                     defaultOpen={false}
                 >
-                    <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider', mb: 2 }}>
+                    <Stack spacing={2}>
+                    <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider' }}>
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
                             <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>key</span>
                             <Typography variant="overline" sx={{ color: 'primary.main', fontWeight: 700 }}>Google Cloud API</Typography>
@@ -1361,6 +1323,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             Reset Totale Dati
                         </Button>
                     </Box>
+                    </Stack>
                 </SettingsGroup>
 
                 <Box sx={{ textAlign: 'center', py: 2 }}>
