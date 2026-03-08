@@ -6,8 +6,8 @@ import { useFileDrop } from '../hooks/useFileDrop';
 import { KnowledgeBaseEntry, Corpus } from '../types';
 import { extractTextFromFile, blobToBase64Parts } from '../utils/documentUtils';
 import { KB_CATEGORIES } from '../constants';
-import { Button  } from '@mui/material';
-import { M3Dialog, CategoryCard, SelectField, TextField } from './ui';
+import { Button  , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { M3Dialog, CategoryCard, TextField } from './ui';
 interface AddSourceModalProps {
     corpora: Corpus[];
     setCorpora: React.Dispatch<React.SetStateAction<Corpus[]>>;
@@ -130,10 +130,19 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                             </h3>
                             <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end"}}>
                                 <div style={{ flexGrow: 1 }}>
-                                    <SelectField id="corpus-select" label="Raccolta Target" value={selectedCorpusId} onChange={e => setSelectedCorpusId(e.target.value)}>
+                                                                        <FormControl sx={{ mb: 2 }}>
+                                      <InputLabel htmlFor="corpus-select">Raccolta Target</InputLabel>
+                                      <NativeSelect
+                                        value={selectedCorpusId}
+                                        onChange={e => setSelectedCorpusId(e.target.value)}
+                                        inputProps={{ id: 'corpus-select' }}
+                                      >
+
                                         <option value="">-- Nessuna Raccolta --</option>
                                         {corpora.map(c => <option key={c.id} value={c.id}>{c.displayName}</option>)}
-                                    </SelectField>
+                                    
+                                      </NativeSelect>
+                                    </FormControl>
                                 </div>
                                 <Button 
                                     onClick={() => setIsCreating(p => !p)} 

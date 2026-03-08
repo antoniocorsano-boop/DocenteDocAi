@@ -2,8 +2,8 @@
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 import React, { useState } from 'react';
-import { Button, Box, Typography  } from '@mui/material';
-import { M3Dialog, TextArea } from './ui';
+import { Button, Box, Typography  , TextField } from '@mui/material';
+import { M3Dialog } from './ui';
 interface DocumentGeneratorModalProps {
     onClose: () => void;
     onGenerate: (prompt: string) => void;
@@ -36,7 +36,7 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
             }
         >
             <Box component="form" id="doc-generator-form" onSubmit={(e: React.FormEvent) => { e.preventDefault(); handleSubmit(); }} sx={{ gap: 'var(--md-sys-spacing-6)', display: 'flex', flexDirection: 'column' }}>
-                    <TextArea
+                    <TextField multiline
                         id="doc-generator-prompt"
                         label="Descrivi il documento che vuoi creare"
                         value={prompt}

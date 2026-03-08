@@ -353,44 +353,46 @@ Remove-Item src/components/ui/M3Button.tsx
 
 ### Checklist file da eliminare (in ordine)
 
-| #    | File                                                                     | Prerequisito                          | Stato |
-| ---- | ------------------------------------------------------------------------ | ------------------------------------- | ----- |
-| 6.1  | `src/components/ui/M3Typography.tsx`                                     | Fase 2A.1 + tutti consumatori migrati | ☐     |
-| 6.2  | `src/components/ui/M3Surface.tsx`                                        | Fase 2A.2 + tutti consumatori migrati | ☐     |
-| 6.3  | `src/components/ui/M3Card.tsx`                                           | Fase 2A.3 + tutti consumatori migrati | ☐     |
-| 6.4  | `src/components/ui/M3Chip.tsx` + `M3ChipGroup.tsx`                       | Fase 2A.4-5 + tutti consumatori       | ☐     |
-| 6.5  | `src/components/ui/M3ProgressBar.tsx`                                    | Fase 2A.6 + tutti consumatori         | ☐     |
-| 6.6  | `src/components/ui/M3ButtonGroup.tsx`                                    | Fase 2A.7 + tutti consumatori         | ☐     |
-| 6.7  | `src/components/ui/M3Button.tsx`                                         | Fase 2B.1 + tutti consumatori         | ☐     |
-| 6.8  | `src/components/ui/M3IconButton.tsx`                                     | Fase 2B.2 + tutti consumatori         | ☐     |
-| 6.9  | `src/components/ui/M3Dialog.tsx` + `M3DialogContent` + `M3DialogActions` | Fase 2B.3 + tutti                     | ☐     |
-| 6.10 | `src/components/ui/SelectField.tsx`                                      | Fase 2B.4 + tutti consumatori         | ☐     |
-| 6.11 | `src/components/ui/TextField.tsx` (custom)                               | Fase 2B.5 + tutti consumatori         | ☐     |
-| 6.12 | `src/components/ui/TextArea.tsx`                                         | Fase 2B.6 + tutti consumatori         | ☐     |
-| 6.13 | `src/components/ui/TabGroup.tsx`                                         | Fase 2B.7 + tutti consumatori         | ☐     |
-| 6.14 | `src/components/ui/M3ChoiceCard.tsx`                                     | Fase 2B.8 + tutti consumatori         | ☐     |
-| 6.15 | `src/components/ui/M3ListItem.tsx`                                       | Fase 2B.9 + tutti consumatori         | ☐     |
-| 6.16 | `src/components/ui/M3Menu.tsx`                                           | Fase 2B.10 + tutti consumatori        | ☐     |
-| 6.17 | `src/components/ui/M3Popover.tsx`                                        | Fase 2B.11 + tutti consumatori        | ☐     |
-| 6.18 | `src/components/AppLayout.md3.tsx`                                       | Fase 1.7 completata                   | ☐     |
-| 6.19 | Aggiornare `src/components/ui/index.ts`                                  | Tutti i 6.1-6.18 completati           | ☐     |
-| 6.20 | Rimuovere parti legacy da `src/components/ui/ui-components.css`          | Tutti i custom eliminati              | ☐     |
+| #    | File                                                                     | Prerequisito                                         | Stato         |
+| ---- | ------------------------------------------------------------------------ | ---------------------------------------------------- | ------------- |
+| 6.1  | `src/components/ui/M3Typography.tsx`                                     | Tutti consumatori migrati                            | ✅ 2026-03-07 |
+| 6.2  | `src/components/ui/M3Surface.tsx`                                        | Tutti consumatori migrati                            | ✅ 2026-03-07 |
+| 6.3  | `src/components/ui/M3Card.tsx`                                           | Tutti consumatori migrati                            | ✅ 2026-03-07 |
+| 6.4  | `src/components/ui/M3Chip.tsx` + `M3ChipGroup.tsx`                       | Tutti consumatori migrati                            | ✅ 2026-03-07 |
+| 6.5  | `src/components/ui/M3ProgressBar.tsx`                                    | Tutti consumatori migrati                            | ✅ 2026-03-07 |
+| 6.6  | `src/components/ui/M3ButtonGroup.tsx`                                    | Tutti consumatori migrati                            | ✅ 2026-03-07 |
+| 6.7  | `src/components/ui/M3Button.tsx`                                         | Tutti consumatori migrati                            | ✅ 2026-03-07 |
+| 6.8  | `src/components/ui/M3IconButton.tsx`                                     | Tutti consumatori migrati                            | ✅ 2026-03-07 |
+| 6.9  | `src/components/ui/M3Dialog.tsx` + `M3DialogContent` + `M3DialogActions` | Smart component — mantenuto ⏸                        | ⏸ KEEP        |
+| 6.10 | `src/components/ui/SelectField.tsx`                                      | ~22 consumatori migrati → eliminato                  | ✅ 2026-03-08 |
+| 6.11 | `src/components/ui/TextField.tsx` (custom)                               | Mantenuto — smart wrapper con leadingIcon            | ⏸ KEEP        |
+| 6.12 | `src/components/ui/TextArea.tsx`                                         | ~18 consumatori migrati → eliminata                  | ✅ 2026-03-08 |
+| 6.13 | `src/components/ui/TabGroup.tsx`                                         | ~23 consumatori migrati → eliminato                  | ✅ 2026-03-08 |
+| 6.14 | `src/components/ui/M3ChoiceCard.tsx`                                     | Tutti consumatori migrati                            | ✅ 2026-03-07 |
+| 6.15 | `src/components/ui/M3ListItem.tsx`                                       | Tutti consumatori migrati                            | ✅ 2026-03-07 |
+| 6.16 | `src/components/ui/M3Menu.tsx`                                           | Tutti consumatori migrati                            | ✅ 2026-03-07 |
+| 6.17 | `src/components/ui/M3Popover.tsx`                                        | Smart component — mantenuto ⏸                        | ⏸ KEEP        |
+| 6.18 | `src/components/AppLayout.md3.tsx`                                       | Da verificare consumatori                            | ☐             |
+| 6.19 | Aggiornare `src/components/ui/index.ts`                                  | Aggiornato — TextArea, SelectField, TabGroup rimossi | ✅ 2026-03-08 |
+| 6.20 | Rimuovere parti legacy da `src/components/ui/ui-components.css`          | Tutti i custom eliminati                             | ☐             |
 
-**Completamento Fase 6:** ☐
+> **Extra (2026-03-07):** Eliminati in batch anche 19 componenti zero-consumer non in lista: `M3ActivityItem`, `M3AnimatedIcon`, `M3Aside`, `M3BadgedIcon`, `M3BannerHero`, `M3BottomAppBar`, `M3DatePicker`, `M3EmptyStateCard`, `M3FlexContainer`, `M3HeroCard`, `M3MotionCard`, `M3RatingBar`, `M3SpeedDial`, `M3StaggeredList`, `M3StateLayer`, `M3SuggestionCard`, `M3SuggestionItem`, `M3SurfaceCard`, `M3Switch` — 34 file totali (componenti + stories + tests).
+
+**Completamento Fase 6 (parziale):** ✅ 2026-03-07 — Eliminati 30+ wrapper M3\* (Typography, Surface, Card, Chip, Button, IconButton, ChoiceCard, ListItem, Menu + 19 zero-consumer). Residuano: `SelectField` (~22), `TextArea` (~31), `TabGroup` (~23) da migrare; `M3Dialog` + `M3Popover` mantenuti come smart components permanenti.
 
 ---
 
 ## Metriche di Completamento Totale
 
-| Metrica                                           | Attuale      | Target   |
-| ------------------------------------------------- | ------------ | -------- |
-| File consumatori con import `M3*` o custom legacy | **~108**     | **0**    |
-| File totali con pattern legacy (incl. wrapper)    | **154**      | **0**    |
-| Componenti custom attivi in `ui/`                 | ~35          | **0**    |
-| File con `style={{}}` su testo semantico          | molti        | **0**    |
-| Warning ESLint                                    | **0**        | **0** ✅ |
-| File NKA migrati (Fase 5)                         | **5 / 5** ✅ | **5**    |
-| Score Lighthouse Accessibility                    | da misurare  | ≥ 95     |
+| Metrica                                           | Attuale                                                        | Target   |
+| ------------------------------------------------- | -------------------------------------------------------------- | -------- |
+| File consumatori con import `M3*` o custom legacy | **~76**                                                        | **0**    |
+| File totali con pattern legacy (incl. wrapper)    | **~80**                                                        | **0**    |
+| Componenti custom attivi in `ui/`                 | **5** (M3Dialog⏸, M3Popover⏸, SelectField, TextArea, TabGroup) | **2** ⏸  |
+| File con `style={{}}` su testo semantico          | molti                                                          | **0**    |
+| Warning ESLint                                    | **0**                                                          | **0** ✅ |
+| File NKA migrati (Fase 5)                         | **5 / 5** ✅                                                   | **5**    |
+| Score Lighthouse Accessibility                    | da misurare                                                    | ≥ 95     |
 
 ---
 

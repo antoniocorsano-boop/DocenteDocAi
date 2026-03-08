@@ -1,4 +1,5 @@
 // MD3 Compliant - Block J Migration Complete (5 violations eliminated)
+import { Tabs, Tab, Badge, Box } from '@mui/material';
 import React, { useState, useMemo, useEffect, useRef, Suspense, lazy } from 'react';
 import '../modules.css';
 import { EventoCalendario, AiSettings } from '../types';
@@ -6,8 +7,7 @@ const EventModal = lazy(() => import('./EventModal'));
 const AiEventParserModal = lazy(() => import('./AiEventParserModal'));
 import EventActionPopover from './EventActionPopover';
 import { 
-    TabGroup,
-} from './ui';
+    } from './ui';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
@@ -190,17 +190,51 @@ const renderHeader = () => {
                 </div>
 
                 <div  style={{gap: 'var(--md-sys-spacing-8)'}}>
-                    <TabGroup
-                        tabs={[
+                                        <Tabs
+                      value={viewMode}
+                      onChange={(_, v: string) => ((id) => setViewMode(id as CalendarView))(v)}
+                      indicatorColor="primary"
+                      textColor="primary"
+                      aria-label="Sezioni di navigazione"
+                      sx={{
+                        bgcolor: 'var(--md-sys-color-surface-container-low)',
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        minHeight: 'auto',
+                        p: 0.5,
+                      }}
+                    >
+                      {([
                             { id: 'month', label: 'Mese' },
                             { id: 'week', label: 'Settimana' },
                             { id: 'day', label: 'Giorno' },
                             { id: 'agenda', label: 'Agenda' }
-                        ]}
-                        activeTab={viewMode}
-                        onTabChange={(id) => setViewMode(id as CalendarView)}
-                        variant="contained"
-                    />
+                        ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                        <Tab
+                          key={tab.id}
+                          value={tab.id}
+                          id={`tab-${tab.id}`}
+                          aria-controls={`panel-${tab.id}`}
+                          data-testid={`tab-${tab.id}`}
+                          label={(
+                            <Badge badgeContent={tab.badge} color="error">
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                {tab.label}
+                              </Box>
+                            </Badge>
+                          )}
+                          sx={{
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            minHeight: 'auto',
+                            py: 1,
+                            px: 2,
+                            textTransform: 'uppercase',
+                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                          }}
+                        />
+                      ))}
+                    </Tabs>
 
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                         <Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza circolare con AI" aria-label="Apri analizzatore AI per circolari" >

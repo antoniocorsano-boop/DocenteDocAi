@@ -6,6 +6,7 @@
 // Settings.tsx: Migrated with functional exceptions for layout percentages and specific dimensions
 // All styles now use MD3 design tokens and semantic color/spacing/elevation system where exact matches exist
 // Functional exceptions: width/height percentages (100%, 50%, 20%, 10%), grid minmax(calc(var(--md-sys-spacing-20) * 2.5), var(--md-sys-grid-fr-1)) for responsive layout
+import { Tabs, Tab, Badge, Box } from '@mui/material';
 import React, { useRef, useState, useEffect } from 'react';
 import { SettingsProps, AppThemeState } from '../types';
 import { THEME_CUSTOMIZATIONS, AI_PROFILES, SCHOOL_LEVELS } from '../constants';
@@ -13,7 +14,6 @@ import { generateNextSchoolYear } from '../utils/schoolUtils';
 import {
     TextField,
     SectionHeader,
-    TabGroup,
     InfoCard
 } from './ui';
 import Typography from '@mui/material/Typography';
@@ -449,14 +449,49 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <Typography variant="caption" sx={{color: 'var(--md-sys-color-primary)',
                                     fontWeight: 'var(--md-sys-typescale-weight-black)'}}>Modalità Interfaccia</Typography>
                             </div>
-                            <TabGroup
-                                tabs={[
+                                                        <Tabs
+                              value={localSettings.uiMode || 'classic'}
+                              onChange={(_, v: string) => ((id) => handleChange('uiMode', id))(v)}
+                              indicatorColor="primary"
+                              textColor="primary"
+                              aria-label="Sezioni di navigazione"
+                              sx={{
+                                bgcolor: 'var(--md-sys-color-surface-container-low)',
+                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                                border: '1px solid var(--md-sys-color-outline-variant)',
+                                minHeight: 'auto',
+                                p: 0.5,
+                              }}
+                            >
+                              {([
                                     { id: 'classic', label: 'Classica', icon: 'grid_view' },
                                     { id: 'flow', label: 'Dinamica (Flow)', icon: 'account_tree' }
-                                ]}
-                                activeTab={localSettings.uiMode || 'classic'}
-                                onTabChange={(id) => handleChange('uiMode', id)}
-                                variant="contained" />
+                                ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                                <Tab
+                                  key={tab.id}
+                                  value={tab.id}
+                                  id={`tab-${tab.id}`}
+                                  aria-controls={`panel-${tab.id}`}
+                                  data-testid={`tab-${tab.id}`}
+                                  label={(
+                                    <Badge badgeContent={tab.badge} color="error">
+                                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                        {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                        {tab.label}
+                                      </Box>
+                                    </Badge>
+                                  )}
+                                  sx={{
+                                    borderRadius: 'var(--md-sys-shape-corner-full)',
+                                    minHeight: 'auto',
+                                    py: 1,
+                                    px: 2,
+                                    textTransform: 'uppercase',
+                                    fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                                  }}
+                                />
+                              ))}
+                            </Tabs>
                             <Typography variant="body2" sx={{color: 'var(--md-sys-color-on-surface-variant)',
                                 margin: 0}}>
                                 {localSettings.uiMode === 'flow'
@@ -545,11 +580,46 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             </div>
 
                             <div style={{marginBottom: 'var(--md-sys-spacing-4)'}}>
-                                <TabGroup
-                                    tabs={[{ id: 'light', label: 'Chiaro', icon: 'light_mode' }, { id: 'dark', label: 'Scuro', icon: 'dark_mode' }, { id: 'system', label: 'Sistema', icon: 'brightness_auto' }]}
-                                    activeTab={themeState.mode}
-                                    onTabChange={(id) => onSaveTheme({ ...themeState, mode: id as typeof themeState.mode })}
-                                    variant="contained" />
+                                                                <Tabs
+                                  value={themeState.mode}
+                                  onChange={(_, v: string) => ((id) => onSaveTheme({ ...themeState, mode: id as typeof themeState.mode }))(v)}
+                                  indicatorColor="primary"
+                                  textColor="primary"
+                                  aria-label="Sezioni di navigazione"
+                                  sx={{
+                                    bgcolor: 'var(--md-sys-color-surface-container-low)',
+                                    borderRadius: 'var(--md-sys-shape-corner-full)',
+                                    border: '1px solid var(--md-sys-color-outline-variant)',
+                                    minHeight: 'auto',
+                                    p: 0.5,
+                                  }}
+                                >
+                                  {([{ id: 'light', label: 'Chiaro', icon: 'light_mode' }, { id: 'dark', label: 'Scuro', icon: 'dark_mode' }, { id: 'system', label: 'Sistema', icon: 'brightness_auto' }]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                                    <Tab
+                                      key={tab.id}
+                                      value={tab.id}
+                                      id={`tab-${tab.id}`}
+                                      aria-controls={`panel-${tab.id}`}
+                                      data-testid={`tab-${tab.id}`}
+                                      label={(
+                                        <Badge badgeContent={tab.badge} color="error">
+                                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                            {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                            {tab.label}
+                                          </Box>
+                                        </Badge>
+                                      )}
+                                      sx={{
+                                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                                        minHeight: 'auto',
+                                        py: 1,
+                                        px: 2,
+                                        textTransform: 'uppercase',
+                                        fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                                      }}
+                                    />
+                                  ))}
+                                </Tabs>
                             </div>
 
                             <div style={{display: 'grid',
@@ -947,11 +1017,46 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             </Typography>
                         </div>
 
-                        <TabGroup
-                            tabs={(Object.keys(AI_PROFILES) as Array<keyof typeof AI_PROFILES>).map(key => ({ id: key, label: AI_PROFILES[key].label, icon: AI_PROFILES[key].icon }))}
-                            activeTab={currentAiProfile}
-                            onTabChange={(id) => handleAiProfileChange(id as keyof typeof AI_PROFILES)}
-                            variant="contained" />
+                                                <Tabs
+                          value={currentAiProfile}
+                          onChange={(_, v: string) => ((id) => handleAiProfileChange(id as keyof typeof AI_PROFILES))(v)}
+                          indicatorColor="primary"
+                          textColor="primary"
+                          aria-label="Sezioni di navigazione"
+                          sx={{
+                            bgcolor: 'var(--md-sys-color-surface-container-low)',
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            border: '1px solid var(--md-sys-color-outline-variant)',
+                            minHeight: 'auto',
+                            p: 0.5,
+                          }}
+                        >
+                          {((Object.keys(AI_PROFILES) as Array<keyof typeof AI_PROFILES>).map(key => ({ id: key, label: AI_PROFILES[key].label, icon: AI_PROFILES[key].icon }))).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                            <Tab
+                              key={tab.id}
+                              value={tab.id}
+                              id={`tab-${tab.id}`}
+                              aria-controls={`panel-${tab.id}`}
+                              data-testid={`tab-${tab.id}`}
+                              label={(
+                                <Badge badgeContent={tab.badge} color="error">
+                                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                    {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                    {tab.label}
+                                  </Box>
+                                </Badge>
+                              )}
+                              sx={{
+                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                                minHeight: 'auto',
+                                py: 1,
+                                px: 2,
+                                textTransform: 'uppercase',
+                                fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                              }}
+                            />
+                          ))}
+                        </Tabs>
 
                         <div style={{
                             display: 'flex',

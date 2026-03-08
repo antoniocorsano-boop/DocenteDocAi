@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { EventoCalendario, TipoEvento } from '../types';
 import { Button, Box, Typography, Card } from '@mui/material';
-import { M3Dialog, TextField, TextArea } from './ui';
+import { M3Dialog, TextField } from './ui';
 interface EventModalProps {
     eventToEdit?: Partial<EventoCalendario>;
     onClose: () => void;
@@ -142,7 +142,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
                     />
                 </Box>
 
-                <TextArea
+                <TextField multiline
                     id="event-desc-textarea"
                     name="event-desc"
                     label="Descrizione / Note"

@@ -4,8 +4,8 @@
 import React, { useState, useMemo } from 'react';
 import { AiSettings, CircularAnalysisResult, EventoCalendario } from '../types';
 import { analyzeCircularDocument } from '../services/aiService';
-import { Button, Box, Typography  } from '@mui/material';
-import { M3Dialog, TextArea } from './ui';
+import { Button, Box, Typography  , TextField } from '@mui/material';
+import { M3Dialog } from './ui';
 interface CircolareAnalysisModalProps {
     url: string; // URL is passed for reference (to open in new tab), not for fetching
     title: string;
@@ -129,7 +129,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                                 </div>
                             </div>
 
-                            <TextArea
+                            <TextField multiline
                                 label="Testo della Circolare"
                                 id="circular-text"
                                 value={manualText}

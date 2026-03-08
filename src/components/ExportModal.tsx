@@ -20,8 +20,8 @@ import { calculatePerformance } from '../utils/evaluationUtils';
 import { RATING_TO_VALUE } from '../constants';
 import { viewPdfInNewTab, saveAs } from '../utils/documentUtils';
 import { PDF_COLORS, getTrendColor, getCompetencyLevelColors } from '../design-system/pdf-colors';
-import { Button  } from '@mui/material';
-import { M3Dialog, TabGroup, TextField, SectionHeader } from './ui';
+import { Button  , Tabs, Tab, Badge, Box } from '@mui/material';
+import { M3Dialog, TextField, SectionHeader } from './ui';
 
 type Prova = {
     id: string;
@@ -337,14 +337,49 @@ return (
                 </section>
                 <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <SectionHeader title="2. Discipline da Includere" icon="filter_list" />
-                    <TabGroup
-                        tabs={[
+                                        <Tabs
+                      value={subjectScope}
+                      onChange={(_, v: string) => ((id) => setSubjectScope(id as 'teacher' | 'all'))(v)}
+                      indicatorColor="primary"
+                      textColor="primary"
+                      aria-label="Sezioni di navigazione"
+                      sx={{
+                        bgcolor: 'var(--md-sys-color-surface-container-low)',
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        minHeight: 'auto',
+                        p: 0.5,
+                      }}
+                    >
+                      {([
                             { id: 'teacher', label: 'Solo le mie' },
                             { id: 'all', label: 'Tutte con dati' }
-                        ]}
-                        activeTab={subjectScope}
-                        onTabChange={(id) => setSubjectScope(id as 'teacher' | 'all')}
-                    />
+                        ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                        <Tab
+                          key={tab.id}
+                          value={tab.id}
+                          id={`tab-${tab.id}`}
+                          aria-controls={`panel-${tab.id}`}
+                          data-testid={`tab-${tab.id}`}
+                          label={(
+                            <Badge badgeContent={tab.badge} color="error">
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                {tab.label}
+                              </Box>
+                            </Badge>
+                          )}
+                          sx={{
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            minHeight: 'auto',
+                            py: 1,
+                            px: 2,
+                            textTransform: 'uppercase',
+                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                          }}
+                        />
+                      ))}
+                    </Tabs>
                     <p>
                         {subjectScope === 'teacher'
                             ? "Il report includerà solo le tue discipline configurate in Impostazioni. La media generale (Σ) sarà calcolata solo su queste materie."
@@ -353,14 +388,49 @@ return (
                 </section>
                 <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <SectionHeader title="3. Formato di Esportazione" icon="output" />
-                    <TabGroup
-                        tabs={[
+                                        <Tabs
+                      value={exportOptions.format}
+                      onChange={(_, v: string) => ((id) => handleOptionChange('format', id))(v)}
+                      indicatorColor="primary"
+                      textColor="primary"
+                      aria-label="Sezioni di navigazione"
+                      sx={{
+                        bgcolor: 'var(--md-sys-color-surface-container-low)',
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        minHeight: 'auto',
+                        p: 0.5,
+                      }}
+                    >
+                      {([
                             { id: 'pdf', label: 'PDF Grafico' },
                             { id: 'csv', label: 'CSV (Dati)' }
-                        ]}
-                        activeTab={exportOptions.format}
-                        onTabChange={(id) => handleOptionChange('format', id)}
-                    />
+                        ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                        <Tab
+                          key={tab.id}
+                          value={tab.id}
+                          id={`tab-${tab.id}`}
+                          aria-controls={`panel-${tab.id}`}
+                          data-testid={`tab-${tab.id}`}
+                          label={(
+                            <Badge badgeContent={tab.badge} color="error">
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                {tab.label}
+                              </Box>
+                            </Badge>
+                          )}
+                          sx={{
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            minHeight: 'auto',
+                            py: 1,
+                            px: 2,
+                            textTransform: 'uppercase',
+                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                          }}
+                        />
+                      ))}
+                    </Tabs>
                     <p>
                         {exportOptions.format === 'pdf'
                             ? 'Genera un report grafico di una pagina, ideale per la stampa e la condivisione.'

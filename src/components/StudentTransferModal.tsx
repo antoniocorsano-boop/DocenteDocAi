@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { Studente, StudentHistoryRecord } from '../types';
-import { Button, Box, Typography  } from '@mui/material';
-import { M3Dialog, TabGroup, TextField, SelectField } from './ui';
+import { Button, Box, Typography  , FormControl, InputLabel, NativeSelect , Tabs, Tab, Badge } from '@mui/material';
+import { M3Dialog, TextField } from './ui';
 interface StudentTransferModalProps {
     student: Studente;
     userClasses: string[];
@@ -89,16 +89,50 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                         </Typography>
                     </Box>
 
-                    <TabGroup
-                        tabs={[
+                                        <Tabs
+                      value={mode}
+                      onChange={(_, v: string) => ((id) => setMode(id as 'change_class' | 'transfer_out'))(v)}
+                      indicatorColor="primary"
+                      textColor="primary"
+                      aria-label="Sezioni di navigazione"
+                      sx={{
+                        bgcolor: 'var(--md-sys-color-surface-container-low)',
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        minHeight: 'auto',
+                        p: 0.5,
+                        ...{ width: 'var(--md-sys-percent-100)' },
+                      }}
+                    >
+                      {([
                             { id: 'change_class', label: 'Cambio Classe' },
                             { id: 'transfer_out', label: 'Trasferimento / Ritiro' }
-                        ]}
-                        activeTab={mode}
-                        onTabChange={(id) => setMode(id as 'change_class' | 'transfer_out')}
-                        variant="outlined"
-                        style={{ width: 'var(--md-sys-percent-100)' }}
-                    />
+                        ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                        <Tab
+                          key={tab.id}
+                          value={tab.id}
+                          id={`tab-${tab.id}`}
+                          aria-controls={`panel-${tab.id}`}
+                          data-testid={`tab-${tab.id}`}
+                          label={(
+                            <Badge badgeContent={tab.badge} color="error">
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                {tab.label}
+                              </Box>
+                            </Badge>
+                          )}
+                          sx={{
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            minHeight: 'auto',
+                            py: 1,
+                            px: 2,
+                            textTransform: 'uppercase',
+                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                          }}
+                        />
+                      ))}
+                    </Tabs>
 
                     {mode === 'change_class' ? (
                         <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
@@ -106,13 +140,17 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
 
                             {!isCustomClass ? (
                                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
-                                    <SelectField
-                                        label="Seleziona Classe Esistente"
+                                                                        <FormControl fullWidth sx={{ mb: 2 }}>
+                                      <InputLabel>Seleziona Classe Esistente</InputLabel>
+                                      <NativeSelect
                                         value={newClass}
                                         onChange={(e) => setNewClass(e.target.value)}
-                                        options={userClasses.map(c => ({ value: c, label: c }))}
-                                        fullWidth
-                                    />
+                                      >
+                                        {(userClasses.map(c => ({ value: c, label: c }))).map((o) => (
+                                          <option key={o.value} value={o.value}>{o.label}</option>
+                                        ))}
+                                      </NativeSelect>
+                                    </FormControl>
                                     <Button
                                         variant="text"
                                         onClick={() => setIsCustomClass(true)}
@@ -141,16 +179,20 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                     ) : (
                         <Box sx={{ backgroundColor: 'var(--md-sys-color-error-container)', opacity: 'var(--md-sys-state-opacity-tint-faint)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
                             <Typography variant="h6" sx={{ color: 'var(--md-sys-color-error)', px: 'var(--md-sys-spacing-4)' }}>Motivazione Uscita</Typography>
-                            <SelectField
-                                label="Esito"
+                                                        <FormControl fullWidth sx={{ mb: 2 }}>
+                              <InputLabel>Esito</InputLabel>
+                              <NativeSelect
                                 value={outcome}
                                 onChange={(e) => setOutcome(e.target.value as 'Ritirato' | 'Trasferito')}
-                                options={[
+                              >
+                                {([
                                     { value: 'Trasferito', label: 'Trasferito ad altra scuola' },
                                     { value: 'Ritirato', label: 'Ritirato dagli studi' }
-                                ]}
-                                fullWidth
-                            />
+                                ]).map((o) => (
+                                  <option key={o.value} value={o.value}>{o.label}</option>
+                                ))}
+                              </NativeSelect>
+                            </FormControl>
                             <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', px: 'var(--md-sys-spacing-4)' }}>
                                 Lo studente verrà rimosso dall'elenco attivo e spostato nell'archivio storico.
                             </Typography>

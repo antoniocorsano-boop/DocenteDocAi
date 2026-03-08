@@ -1,4 +1,4 @@
-// MD3 GOLD COMPLIANT – Audit 2026-01-25
+// MD3 GOLD COMPLIANT ï¿½ Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
@@ -11,7 +11,7 @@ import React, { useState, Suspense, lazy } from 'react';
 import { Uda, Competenza, UdaPlannerProps } from '../types';
 const UdaExportModal = lazy(() => import('./UdaExportModal'));
 import Guidance from './Guidance';
-import { M3Dialog, TextField, TextArea, EmptyState } from './ui';
+import { M3Dialog, TextField, EmptyState } from './ui';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
@@ -150,7 +150,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                         </div>
                     </div>
                     
-                    <TextArea 
+                    <TextField multiline 
                         label="Introduzione / Contesto" 
                         value={currentUda.introduction} 
                         onChange={e => handleFieldChange('introduction', e.target.value)} 

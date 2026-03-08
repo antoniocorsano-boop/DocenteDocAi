@@ -3,8 +3,8 @@
 // Nessun valore hardcoded (px, rem, %, hex, rgba) presente. Nessun uso di className custom. Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md.
 // Audit e refactor completati: 2026-01-25.
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { TabGroup, InfoCard, SectionHeader } from './ui';
-import { Button } from '@mui/material';
+import { InfoCard, SectionHeader } from './ui';
+import { Button , Tabs, Tab, Badge, Box } from '@mui/material';
 import { Studente, Valutazione, GiudizioPeriodico, PeriodoValutazione, TimetableSettings, AiSettings, ValutazioneCompetenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { getPeriodicJudgmentSuggestion, generateClassCouncilNarrativeReport } from '../services/aiService';
@@ -364,15 +364,49 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             {/* Controls */}
             <InfoCard variant="outlined" style={{padding: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
-                    <TabGroup 
-                        activeTab={periodo}
-                        onTabChange={(id) => setPeriodo(id as PeriodoValutazione)}
-                        variant="contained"
-                        tabs={[
+                                        <Tabs
+                      value={periodo}
+                      onChange={(_, v: string) => ((id) => setPeriodo(id as PeriodoValutazione))(v)}
+                      indicatorColor="primary"
+                      textColor="primary"
+                      aria-label="Sezioni di navigazione"
+                      sx={{
+                        bgcolor: 'var(--md-sys-color-surface-container-low)',
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        minHeight: 'auto',
+                        p: 0.5,
+                      }}
+                    >
+                      {([
                             { id: 'primo-quadrimestre', label: '1° Quadrimestre', icon: 'looks_one' },
                             { id: 'secondo-quadrimestre', label: '2° Quadrimestre', icon: 'looks_two' },
-                        ]}
-                    />
+                        ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                        <Tab
+                          key={tab.id}
+                          value={tab.id}
+                          id={`tab-${tab.id}`}
+                          aria-controls={`panel-${tab.id}`}
+                          data-testid={`tab-${tab.id}`}
+                          label={(
+                            <Badge badgeContent={tab.badge} color="error">
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                {tab.label}
+                              </Box>
+                            </Badge>
+                          )}
+                          sx={{
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            minHeight: 'auto',
+                            py: 1,
+                            px: 2,
+                            textTransform: 'uppercase',
+                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                          }}
+                        />
+                      ))}
+                    </Tabs>
 
                     <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
                         <Button 

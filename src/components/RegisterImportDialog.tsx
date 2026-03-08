@@ -3,8 +3,8 @@
 // Nessun valore hardcoded (px, rem, %, hex, rgba) presente. Nessun uso di className custom. Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md.
 // Audit e refactor completati: 2026-01-25.
 import React, { useState, useCallback } from 'react';
-import { Button  } from '@mui/material';
-import { M3Dialog, InfoCard, SectionHeader, SelectField } from './ui';
+import { Button  , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { M3Dialog, InfoCard, SectionHeader } from './ui';
 import { ImportService, ImportResult } from '../services/importService';
 import { RegisterService, RegisterProvider } from '../services/registerService';
 import { useFileDrop } from '../hooks/useFileDrop';
@@ -125,17 +125,21 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                 {step === 'upload' && (
                     <>
                         <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                            <SelectField
-                                label="Seleziona il tuo Registro Elettronico"
+                                                        <FormControl sx={{ mb: 2 }}>
+                              <InputLabel>Seleziona il tuo Registro Elettronico</InputLabel>
+                              <NativeSelect
                                 value={provider}
                                 onChange={(e) => setProvider(e.target.value as RegisterProvider)}
-                            >
+                              >
+
                                 <option value="generic">Altro / Generico</option>
                                 <option value="argo">Argo (DidUP)</option>
                                 <option value="spaggiari">ClasseViva (Spaggiari)</option>
                                 <option value="axios">Axios</option>
                                 <option value="sidi">SIDI (Anagrafe Studenti)</option>
-                            </SelectField>
+                            
+                              </NativeSelect>
+                            </FormControl>
                             
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-secondary-container) 30%, transparent)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", gap: 'var(--md-sys-spacing-6)'}}>
                                 <span  style={{color: "var(--md-sys-color-secondary)"}}>info</span>

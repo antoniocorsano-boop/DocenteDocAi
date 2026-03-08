@@ -7,8 +7,8 @@ import {
     EPortfolioEntry, 
     StudentOrientamentoState 
 } from '../types';
-import { SectionHeader, Avatar, EmptyState, InfoCard, SelectField } from './ui';
-import { Button } from '@mui/material';
+import { SectionHeader, Avatar, EmptyState, InfoCard } from './ui';
+import { Button , FormControl, InputLabel, NativeSelect } from '@mui/material';
 import AddOrientamentoActivityModal from './AddOrientamentoActivityModal';
 import StudentEPortfolioModal from './StudentEPortfolioModal';
 interface OrientamentoDashboardProps {
@@ -163,15 +163,19 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                      style={{ flexGrow: "1" }}
                 />
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <SelectField 
-                        label="Classe"
+                                        <FormControl sx={{ mb: 2 }}>
+                      <InputLabel>Classe</InputLabel>
+                      <NativeSelect
                         value={selectedClass}
                         onChange={e => setSelectedClass(e.target.value)}
-                    >
+                      >
+
                         {userClasses.map(c => (
                             <option key={c} value={c}>Classe {c}</option>
                         ))}
-                    </SelectField>
+                    
+                      </NativeSelect>
+                    </FormControl>
                 </div>
             </div>
 

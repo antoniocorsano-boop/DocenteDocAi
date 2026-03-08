@@ -5,8 +5,8 @@ import { CurriculumSubject, CurriculumNucleo, AiSettings, TimetableSettings, Vie
 import { parseCurriculumFromText } from '../services/aiService';
 import { extractTextFromFile } from '../utils/documentUtils';
 import { useFileDrop } from '../hooks/useFileDrop';
-import { InfoCard, EmptyState, TextField, TextArea, SelectField, TabGroup, AiThinkingGem, M3Dialog } from './ui';
-import { Button, DialogContent, DialogActions } from '@mui/material';
+import { InfoCard, EmptyState, TextField, AiThinkingGem, M3Dialog } from './ui';
+import { Button, DialogContent, DialogActions  , FormControl, InputLabel, NativeSelect , Tabs, Tab, Badge, Box } from '@mui/material';
 
 interface CurriculumManagerProps {
     curricula: CurriculumSubject[];
@@ -193,9 +193,17 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                         </div>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
-                        <SelectField label="Materia" value={newSubject} onChange={e => setNewSubject(e.target.value)}>
+                                                <FormControl sx={{ mb: 2 }}>
+                          <InputLabel>Materia</InputLabel>
+                          <NativeSelect
+                            value={newSubject}
+                            onChange={e => setNewSubject(e.target.value)}
+                          >
+
                             {settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
-                        </SelectField>
+                        
+                          </NativeSelect>
+                        </FormControl>
                         <TextField label="Grado / Livello" value={newGradeLevel} onChange={e => setNewGradeLevel(e.target.value)} placeholder="Es. Classi Prime" />
                         <Button onClick={handleCreate} variant="contained" >
                             Crea Curricolo
@@ -271,17 +279,51 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{selectedCurriculum.gradeLevel}</p>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                                     <TabGroup
-                                         activeTab={activeTab}
-                                         onTabChange={(id: string) => {
+                                                                          <Tabs
+                                       value={activeTab}
+                                       onChange={(_, v: string) => ((id: string) => {
                                              if (id === 'editor' || id === 'coverage') setActiveTab(id);
-                                         }}
-                                         variant="outlined"
-                                         tabs={[
+                                         })(v)}
+                                       indicatorColor="primary"
+                                       textColor="primary"
+                                       aria-label="Sezioni di navigazione"
+                                       sx={{
+                                         bgcolor: 'var(--md-sys-color-surface-container-low)',
+                                         borderRadius: 'var(--md-sys-shape-corner-full)',
+                                         border: '1px solid var(--md-sys-color-outline-variant)',
+                                         minHeight: 'auto',
+                                         p: 0.5,
+                                       }}
+                                     >
+                                       {([
                                              { id: 'editor', label: 'Editor', icon: 'edit' },
                                              { id: 'coverage', label: 'Analisi', icon: 'analytics' }
-                                         ]}
-                                     />
+                                         ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                                         <Tab
+                                           key={tab.id}
+                                           value={tab.id}
+                                           id={`tab-${tab.id}`}
+                                           aria-controls={`panel-${tab.id}`}
+                                           data-testid={`tab-${tab.id}`}
+                                           label={(
+                                             <Badge badgeContent={tab.badge} color="error">
+                                               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                                 {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                                 {tab.label}
+                                               </Box>
+                                             </Badge>
+                                           )}
+                                           sx={{
+                                             borderRadius: 'var(--md-sys-shape-corner-full)',
+                                             minHeight: 'auto',
+                                             py: 1,
+                                             px: 2,
+                                             textTransform: 'uppercase',
+                                             fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                                           }}
+                                         />
+                                       ))}
+                                     </Tabs>
                                     {activeTab === 'editor' && (
                                         <Button onClick={() => setIsImporting(true)} variant="outlined" >
                                             <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>auto_awesome</span> AI Import
@@ -309,7 +351,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                             <p style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Carica PDF Programmazione</p>
                             <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>o trascina il file qui</p>
                         </div>
-                        <TextArea 
+                        <TextField multiline 
                             label="O incolla il testo del programma" 
                             value={importText} 
                             onChange={e => setImportText(e.target.value)} 

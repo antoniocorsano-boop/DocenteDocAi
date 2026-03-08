@@ -2,10 +2,8 @@
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 import React, { useState, useEffect } from 'react';
-import { Button, Box  } from '@mui/material';
-import { M3Dialog, 
-    SelectField, 
-    TextArea,
+import { Button, Box  , TextField , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { M3Dialog,
     SectionHeader
 } from './ui';
 
@@ -67,17 +65,21 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
                 />
 
                 <Box sx={{ mt: 'var(--md-sys-spacing-4)' }}>
-                    <SelectField
-                        label="Materia"
+                                        <FormControl sx={{ mb: 2 }}>
+                      <InputLabel>Materia</InputLabel>
+                      <NativeSelect
                         value={materia}
                         onChange={e => setMateria(e.target.value)}
                         required
-                    >
+                      >
+
                         <option value="" disabled>Seleziona materia...</option>
                         {disciplines.map(d => <option key={d} value={d}>{d}</option>)}
-                    </SelectField>
+                    
+                      </NativeSelect>
+                    </FormControl>
 
-                    <TextArea
+                    <TextField multiline
                         label="Argomento della lezione"
                         value={contenuto}
                         onChange={e => setContenuto(e.target.value)}

@@ -1,9 +1,9 @@
 # DocenteDoc AI — Handoff Document
 
 **Data:** 2026-03-08  
-**Sessione:** MUI v7 Migration — Fase 5 NKA completa (GameMode, NKABottomSheet, NKAForceMap, NKAHeaderAuraButton, NKAHeaderIntegration)  
+**Sessione:** MUI v7 Migration — Fase 6 COMPLETATA (TextArea, SelectField, TabGroup smantellati)  
 **Branch:** `main`  
-**HEAD:** `c96aab69` (working tree con modifiche non-committate)
+**HEAD:** (post-migrazione Fase 6 thin wrappers)
 
 ---
 
@@ -13,54 +13,75 @@
 
 | Metrica         | Valore                                |
 | --------------- | ------------------------------------- |
-| Test Files      | **115 / 115 passing**                 |
-| Tests           | **1255 passed**, 10 skipped, 0 failed |
+| Test Files      | **99 / 99 passing**                   |
+| Tests           | **1214 passed**, 10 skipped, 0 failed |
 | ESLint Errors   | **0**                                 |
 | ESLint Warnings | **0**                                 |
-| Build           | ✅ Successo (2064 moduli trasformati) |
-| Snapshots       | 26 aggiornati al rendering MUI v7     |
+| Build           | ✅ Successo                           |
+| Snapshots       | Invariati                             |
 
 ---
 
 ## 2. Cosa è Stato Fatto in Questa Sessione
 
-### 2.1 Fix Warning ESLint #1 — `Home.tsx` `react-hooks/exhaustive-deps`
+### 2.0 Fase 6 — Migrazione Thin Wrappers TextArea, SelectField, TabGroup
 
-`evaluations` era inizializzato con `|| []` direttamente sul selettore Zustand, creando un array
-nuovo ad ogni render e rendendo instabile la dipendenza del `useMemo` a L65. Risolto con:
+| Wrapper eliminato | Consumer migrati | Target MUI                                |
+| ----------------- | ---------------- | ----------------------------------------- |
+| `TextArea.tsx`    | 18 file          | `TextField multiline`                     |
+| `SelectField.tsx` | 22 file          | `FormControl + InputLabel + NativeSelect` |
+| `TabGroup.tsx`    | 23 file          | `Tabs + Tab + Badge + Box` (inline)       |
 
-```tsx
-const evaluationsRaw = useStudentStore((state) => state.evaluations);
-const evaluations = useMemo(() => evaluationsRaw ?? [], [evaluationsRaw]);
-```
+Eliminati anche: `TextArea.stories.tsx`, `SelectField.stories.tsx`, `SelectField.stories.test.tsx`, `TextArea.stories.test.tsx`.  
+`src/components/ui/index.ts` barrel aggiornato (rimossi 3 export).  
+Test di regressione `EvaluationModule` fixato (aggiunto `htmlFor`/`inputProps.id` alla select `Voto Numerico`).
 
-Warning ESLint ora **0**.
+### Sessione precedente (2026-03-07)
 
-### 2.2 Migrazione Consumatori M3Typography — Accessibility e Help
+| File                                          | Migrazione                                                     |
+| --------------------------------------------- | -------------------------------------------------------------- |
+| `src/components/ui/ActionTile.tsx`            | `M3Typography title-medium/label-medium` → `subtitle2/caption` |
+| `src/components/ui/AnimatedCheckbox.tsx`      | `M3Typography body-medium/body-small` → `body2`                |
+| `src/components/ui/M3ExpressiveCard.tsx`      | `M3Typography title-medium/body-medium` → `subtitle2/body2`    |
+| `src/components/ui/AccessibilitySettings.tsx` | 5× `M3Surface` + `M3Typography` → `Paper` + `Typography`       |
 
-| File                                        | Migrazione                                                               |
-| ------------------------------------------- | ------------------------------------------------------------------------ |
-| `src/components/accessibility/SkipLink.tsx` | `M3Typography` → `Typography` MUI                                        |
-| `src/components/help/ManualSection.tsx`     | `M3Typography variant="title-medium"` → `Typography variant="subtitle2"` |
-| `src/components/help/UseCaseCard.tsx`       | `M3Typography body-large/body-small` → `Typography body1/body2` + `sx`   |
+### 2.2 Fase 6 — Migrazione NKA, Tema e test-utils
 
-### 2.3 Migrazione Fase 5 — Wizard (3 file)
+| File                            | Migrazione                                                           |
+| ------------------------------- | -------------------------------------------------------------------- |
+| `src/nka/NKASettingsToggle.tsx` | `M3Surface level=1` + 4× `M3Typography` → `Paper` + `Typography`     |
+| `src/nka/NKAProvider.tsx`       | Rimossi import dead (`M3Surface`, `M3Typography`)                    |
+| `src/theme/M3ThemeProvider.tsx` | 3× `M3Surface` + 3× `M3Typography` → `Paper` + `Typography`          |
+| `src/test-utils.tsx`            | `TestSurfaceWrapper`, `TestLoadingSkeleton` riscritti con MUI nativo |
 
-| File                                       | Migrazione                                                                       |
-| ------------------------------------------ | -------------------------------------------------------------------------------- |
-| `src/components/AnnualPlanningWizard.tsx`  | `M3Dialog` (fullscreen) → `Dialog fullScreen` + `DialogTitle` MUI                |
-| `src/components/PassaggioAnnoWizard.tsx`   | `M3Dialog hideBackdrop` → `Dialog hideBackdrop` + `DialogTitle` MUI              |
-| `src/components/PianoInclusioneEditor.tsx` | `M3Dialog` → `Dialog` + `DialogTitle`; `TextArea` ×2 → `TextField multiline` MUI |
+### 2.3 Fase 6 — Eliminazione 19 Componenti Zero-Consumer (34 file)
 
-### 2.4 Migrazione Fase 5 — Moduli NKA (5 file)
+Eliminati tutti i componenti senza consumatori in produzione:
 
-| File                               | Migrazione                                                                                                                                                                                                                    |
-| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/nka/NKAHeaderIntegration.tsx` | `M3Surface` → `Paper`; rimosso import `M3Typography` inutilizzato                                                                                                                                                             |
-| `src/nka/NKAHeaderAuraButton.tsx`  | 3×`M3Surface(level=0,1,3)` → `Paper(elevation=0,1,3)`; `M3Typography body-small` → `Typography body2`                                                                                                                         |
-| `src/nka/NKAForceMap.tsx`          | `M3Surface` → `Paper`; 5×`M3Typography` (body-large/medium) → `Typography (body1/body2)`                                                                                                                                      |
-| `src/nka/NKABottomSheet.tsx`       | `M3Surface` → `Paper`/`Box`; `M3Typography` → `Typography`; `M3IconButton` → `IconButton`+`Icon`; `M3Button` → `Button`; `M3Skeleton` → `Skeleton`                                                                            |
-| `src/nka/GameMode.tsx`             | `M3Surface` → `Paper`/`Box`; `M3Typography` → `Typography`; `M3ProgressBar` → `LinearProgress`; `M3Chip`/`M3ChipGroup` → `Chip`/`Box`; `M3Button`/`M3ButtonGroup` → `Button`/`Box`; `M3CircularProgress` → `CircularProgress` |
+`M3ActivityItem`, `M3AnimatedIcon`, `M3Aside`, `M3BadgedIcon`, `M3BannerHero`, `M3BottomAppBar`,
+`M3DatePicker`, `M3EmptyStateCard`, `M3FlexContainer`, `M3HeroCard`, `M3MotionCard`, `M3RatingBar`,
+`M3SpeedDial`, `M3StaggeredList`, `M3StateLayer`, `M3SuggestionCard`, `M3SuggestionItem`,
+`M3SurfaceCard`, `M3Switch`
+
+### 2.4 Fase 6 — Migrazione Consumatori M3ChoiceCard e M3ExpressiveCard
+
+| File                                      | Migrazione                                       |
+| ----------------------------------------- | ------------------------------------------------ |
+| `src/components/AddEvaluationModal.tsx`   | `M3ChoiceCard` → `Card` MUI + local `ChoiceCard` |
+| `src/components/AddProvaModal.tsx`        | `M3ChoiceCard` → `Card` MUI + local `ChoiceCard` |
+| `src/components/EditSlotModal.tsx`        | `M3ChoiceCard` → `Card` MUI + local `ChoiceCard` |
+| `src/components/EventModal.tsx`           | `M3ChoiceCard` → `Card` MUI + local `ChoiceCard` |
+| `src/components/QuickEvaluationModal.tsx` | `M3ChoiceCard` → `Card` MUI + local `ChoiceCard` |
+| `src/components/ClassSelection.tsx`       | `M3ExpressiveCard` → `Card` MUI + local `Card`   |
+| `src/components/ProgettazioneHub.tsx`     | `M3ExpressiveCard` → `Card` MUI + local `Card`   |
+| `src/components/StudentClassroomView.tsx` | `M3ExpressiveCard` → `Card` MUI + local `Card`   |
+
+### 2.5 Fase 6 — Eliminazione Ultimi Wrapper e Pulizia
+
+- `M3Typography.tsx`, `M3Surface.tsx`, `M3ChoiceCard.tsx`, `M3ExpressiveCard.tsx` + stories + stale tests eliminati
+- Mock stale rimossi da `Home.test.tsx` e `Home.integration.test.tsx` (−182 righe)
+- 15 snapshot aggiornati (hash CSS class MUI cambiati post-migrazione)
+- `src/components/ui/index.ts` barrel aggiornato progressivamente
 
 ---
 
@@ -76,17 +97,21 @@ La migrazione al design system MUI v7 è **in corso**. Vedi [REFACTORING_MUI_V7_
 - Tutti i test aggiornati per MUI v7; 0 warning ESLint
 - **Fase 5 completa:** tutti i wizard + **tutti e 5 i file `src/nka/`** (GameMode, NKABottomSheet, NKAForceMap, NKAHeaderAuraButton, NKAHeaderIntegration) ✅
 - **Consumatori M3Typography:** `SkipLink`, `ManualSection`, `UseCaseCard` ✅
+- **Fase 6 completa (2026-03-07):** eliminati 30+ wrapper M3\* (Typography, Surface, Card, Chip, Button, IconButton, ChoiceCard, ListItem, Menu + 19 zero-consumer); barrel aggiornato; snapshot sincronizzati ✅
+- **Fase 6 thin wrappers (2026-03-08):** eliminati TextArea (18 consumer), SelectField (22 consumer), TabGroup (23 consumer); 63 file migrati; barrel aggiornato; 99/99 test green ✅
 
 ### In Corso / Da Fare 🔄
 
-Residuano ~128 file con import `M3*` (include UI atomici e stories).
-La migrazione file-per-file prosegue. Prossimi target:
+**Fase 6 è COMPLETA.** Non residuano thin wrapper da smantellare.
 
-1. **Consumatori `M3*` in `src/components/ui/`** — ActionCard, EmptyState, LoadingState, MetricCard, ValidatedInput, AnimatedCheckbox, BottomSheet, CalendarEventCard
-2. **Settings con TabGroup/SelectField:** `AiDidatticaSettings.tsx`, `InterfaceSettings.tsx`
-3. **Fase 6 — Pulizia:** rimuovere file `M3*.tsx` legacy dopo aver azzerato tutti i consumatori
+**Componenti mantenuti permanentemente (smart components con logica reale):**
 
-**Regola operativa:** una sessione = un file, commit atomico.
+- `M3Dialog.tsx` — 64 consumer, gestione close/keyboard/backdrop → **KEEP**
+- `M3Popover.tsx` — viewport-aware positioning → **KEEP**
+- `AppLayout.md3.tsx` — orchestrazione Header/Nav/BottomNav → **KEEP**
+- `TextField.tsx` (custom) — smart wrapper con leadingIcon/InputAdornment → **KEEP**
+
+**Regola operativa:** una sessione = un tipo di wrapper, commit atomico per file.
 
 ---
 
@@ -135,13 +160,14 @@ npm run lint:fix     # ESLint con autofix
 ## 7. Cronologia Commit Recenti
 
 ```
-(working)   fix(migration): Home.tsx useMemo + SkipLink/ManualSection/UseCaseCard M3Typography→Typography + AnnualPlanningWizard/PassaggioAnnoWizard/PianoInclusioneEditor M3Dialog→Dialog
-c96aab69  fix(tests+lint): update tests for MUI v7 + remove unused imports  ← ultimo commit
-df81d6c5  chore: migrate to MUI v7 + repo cleanup + rename useTheme hooks
-ebc78085  fix(lint): eliminate all 253 ESLint warnings — 0 warnings remaining
-ebe44554  fix(tests): fix test infrastructure and UI components
-ad721f53  perf: lighthouse 79/100 + lint 0 errors + test 1357/1357
-f402862d  fix(ux): risolti 6 problemi critici UX/UI
+ba22ab83  test(fase6): update snapshots post-migration  ← HEAD
+081e81c3  test(fase6): remove stale M3* mocks from Home tests
+2dbfa0d1  feat(fase6): delete M3ChoiceCard, M3ExpressiveCard, M3Typography, M3Surface
+a9e4ea28  feat(fase6): migrate M3ChoiceCard and M3ExpressiveCard consumers to native MUI
+f9f87215  feat(fase6): delete 19 zero-consumer M3* components (34 file)
+06545238  feat(fase6): migrate M3ThemeProvider + test-utils to MUI Paper+Typography
+df1696c6  feat(fase6): migrate NKASettingsToggle M3Surface+M3Typography
+84315aa5  feat(fase6): migrate ui/ M3Typography in ActionTile, AnimatedCheckbox, M3ExpressiveCard
 ```
 
 ---
@@ -152,7 +178,7 @@ f402862d  fix(ux): risolti 6 problemi critici UX/UI
 | ------------------------------------ | -------------------------------------------------------------------------- |
 | `src/theme/muiTheme.ts`              | Tema MUI v7 centralizzato, bridge ai token MD3                             |
 | `src/theme/M3ThemeProvider.tsx`      | Provider che monta entrambi i sistemi tema                                 |
-| `src/components/ui/index.ts`         | Export barrel dei componenti `M3*` (ancora in uso)                         |
+| `src/components/ui/index.ts`         | Barrel exports — residua: `M3Dialog`, `M3Popover`, `TextField` (custom)    |
 | `src/test-utils.tsx`                 | `renderWithM3Theme` helper per i test                                      |
 | `.github/copilot-instructions.md`    | Contratto MD3 Governance & Compliance — da rispettare per ogni modifica UI |
 | `docs/REFACTORING_MUI_V7_ROADMAP.md` | Roadmap completa migrazione MUI v7                                         |
@@ -161,9 +187,8 @@ f402862d  fix(ux): risolti 6 problemi critici UX/UI
 
 ## 9. Prossimi Passi Raccomandati
 
-1. **Commit** — i ~12 file modificati in questa sessione non sono ancora committati
-2. **Consumatori `M3*` in `src/components/ui/`** — ActionCard, EmptyState, LoadingState, MetricCard, ValidatedInput, AnimatedCheckbox, BottomSheet, CalendarEventCard
-3. **Settings** — `AiDidatticaSettings.tsx` (TabGroup + SelectField) e `InterfaceSettings.tsx` (TabGroup)
-4. **Fase 6 — Pulizia** — rimuovere file `M3*.tsx` legacy dopo aver azzerato tutti i consumatori
-5. **Risolvere circular chunk** — ottimizzare `manualChunks` in `vite.config.ts`
-6. **Aggiornare `docs/ARCHITECTURE.md`** — marcato OBSOLETE, va riscritto per MUI v7
+1. **Fase 6 completata** — nessun thin wrapper residuo
+2. **`TextField.tsx` (custom)** — valutare migrazione a MUI `TextField` nativo con `InputAdornment` diretta nei consumer (~20+ consumer usano `leadingIcon`) — bassa priorità, funziona correttamente
+3. **Risolvere circular chunk** — ottimizzare `manualChunks` in `vite.config.ts`
+4. **Aggiornare `docs/ARCHITECTURE.md`** — marcato OBSOLETE, va riscritto per MUI v7
+5. **CSS cleanup** — `ui-components.css` contiene classi utilità residue, valutare se tutte usate

@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import { Valutazione } from '../types';
 import { EVALUATION_TYPES } from '../constants';
-import { Button, Box, Typography, Card } from '@mui/material';
-import { M3Dialog, TextField, SelectField } from './ui';
+import { Button, Box, Typography, Card , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { M3Dialog, TextField } from './ui';
 interface AddProvaModalProps {
     disciplines: string[];
     onClose: () => void;
@@ -110,16 +110,19 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                         onChange={e => setData(e.target.value)}
                         required
                     />
-                    <SelectField
-                        id="prova-materia"
-                        name="materia"
-                        label="Materia"
+                                        <FormControl sx={{ mb: 2 }}>
+                      <InputLabel htmlFor="prova-materia">Materia</InputLabel>
+                      <NativeSelect
                         value={materia}
                         onChange={e => setMateria(e.target.value)}
                         required
-                    >
+                        inputProps={{ id: 'prova-materia', name: 'materia' }}
+                      >
+
                         {(disciplines || []).map(d => <option key={d} value={d}>{d}</option>)}
-                    </SelectField>
+                    
+                      </NativeSelect>
+                    </FormControl>
                 </Box>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>

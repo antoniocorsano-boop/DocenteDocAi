@@ -1,8 +1,8 @@
 ﻿// MD3 Compliant - Block P Migration Complete (4 violations eliminated)
 // Note: Button typography and icon sizing retained with eslint-disable comments
 import React, { useState } from 'react';
-import { Button, Box, Typography  } from '@mui/material';
-import { M3Dialog, TextArea } from './ui';
+import { Button, Box, Typography  , TextField } from '@mui/material';
+import { M3Dialog } from './ui';
 
 interface ImageGeneratorModalProps {
     onClose: () => void;
@@ -46,7 +46,7 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
         >
             <Box component="form" onSubmit={(e: React.FormEvent) => { e.preventDefault(); handleSubmit(); }} sx={{ display: 'flex', flexDirection: 'column', height: 'var(--md-sys-percent-100)' }}>
                 <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', p: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <TextArea
+                    <TextField multiline
                         id="image-generator-prompt"
                         label="Descrizione Immagine"
                         value={prompt}

@@ -2,8 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { Studente, Lezione, KnowledgeBaseEntry, HomeworkSubmission, RegisterEntry, TimetableSettings } from '../types';
 import { blobToBase64Parts, generateHomeworkPdf, viewPdfInNewTab } from '../utils/documentUtils';
 import { useFileDrop } from '../hooks/useFileDrop';
-import { TabGroup, SectionHeader, Avatar } from './ui';
-import { Button, Typography, Card as MuiCard, CardContent, Box } from '@mui/material';
+import { SectionHeader, Avatar } from './ui';
+import { Button, Typography, Card as MuiCard, CardContent, Box , Tabs, Tab, Badge } from '@mui/material';
 import PinPadModal from './PinPadModal';
 
 // Local Card component (MUI-native replacement for M3ExpressiveCard)
@@ -224,16 +224,50 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
             </header>
 
             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 'var(--md-sys-state-opacity-placeholder)', padding: 'var(--md-sys-spacing-8)', borderBottom: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
-                 <TabGroup 
-                    activeTab={activeTab}
-                    onTabChange={(id) => setActiveTab(id as 'feed' | 'homework' | 'materials')}
-                    variant="outlined"
-                    tabs={[
+                                  <Tabs
+                   value={activeTab}
+                   onChange={(_, v: string) => ((id) => setActiveTab(id as 'feed' | 'homework' | 'materials'))(v)}
+                   indicatorColor="primary"
+                   textColor="primary"
+                   aria-label="Sezioni di navigazione"
+                   sx={{
+                     bgcolor: 'var(--md-sys-color-surface-container-low)',
+                     borderRadius: 'var(--md-sys-shape-corner-full)',
+                     border: '1px solid var(--md-sys-color-outline-variant)',
+                     minHeight: 'auto',
+                     p: 0.5,
+                   }}
+                 >
+                   {([
                         { id: 'feed', label: 'Attività', icon: 'feed' },
                         { id: 'homework', label: 'Compiti', icon: 'assignment', badge: pendingHomework.length || undefined },
                         { id: 'materials', label: 'Materiali', icon: 'folder' }
-                    ]}
-                />
+                    ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                     <Tab
+                       key={tab.id}
+                       value={tab.id}
+                       id={`tab-${tab.id}`}
+                       aria-controls={`panel-${tab.id}`}
+                       data-testid={`tab-${tab.id}`}
+                       label={(
+                         <Badge badgeContent={tab.badge} color="error">
+                           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                             {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                             {tab.label}
+                           </Box>
+                         </Badge>
+                       )}
+                       sx={{
+                         borderRadius: 'var(--md-sys-shape-corner-full)',
+                         minHeight: 'auto',
+                         py: 1,
+                         px: 2,
+                         textTransform: 'uppercase',
+                         fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                       }}
+                     />
+                   ))}
+                 </Tabs>
             </div>
 
             <main  style={{flexGrow: "1", overflowY: "auto", padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-8)'}}>

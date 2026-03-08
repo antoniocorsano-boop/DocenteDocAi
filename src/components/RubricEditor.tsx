@@ -1,11 +1,11 @@
-// MD3 GOLD COMPLIANT – Audit 2026-01-25
+// MD3 GOLD COMPLIANT ï¿½ Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 import React, { useState } from 'react';
 import { Rubrica, Criterio, Indicatore, Competenza } from '../types';
-import { M3Dialog, InfoCard, TextField, TextArea, EmptyState, SectionHeader } from './ui';
-import {DialogContent, DialogActions, Button } from '@mui/material';
+import { M3Dialog, InfoCard, TextField, EmptyState, SectionHeader } from './ui';
+import { DialogContent, DialogActions, Button } from '@mui/material';
 interface RubricEditorProps {
     rubricToEdit?: Rubrica;
     allCompetenze: Competenza[];
@@ -142,7 +142,7 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                                     const indicatore = criterio.indicatori.find(ind => ind.livelloId === level.id);
                                                     return (
                                                         <div key={level.id} style={{gap: 'var(--md-sys-spacing-2)'}}>
-                                                            <TextArea 
+                                                            <TextField multiline 
                                                                 label={`Livello: ${level.nome}`} 
                                                                 value={indicatore?.descrizione || ''} 
                                                                 onChange={e => handleIndicatorChange(competenza.id, level.id, 'descrizione', e.target.value)}

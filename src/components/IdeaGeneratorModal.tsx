@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { AiSettings, KnowledgeBaseEntry } from '../types';
 import VoiceNoteRecorder from './VoiceNoteRecorder';
 import { generateLessonFromIdea } from '../services/aiService';
-import { Button, Box, Typography  } from '@mui/material';
-import { M3Dialog, SelectField, TextArea, AiThinkingGem } from './ui';
+import { Button, Box, Typography  , TextField , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { M3Dialog, AiThinkingGem } from './ui';
 interface IdeaGeneratorModalProps {
     onClose: () => void;
     onGenerate: (content: { title: string; htmlContent: string }) => void;
@@ -92,20 +92,23 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
             }
         >
             <Box sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 70%, transparent)', p: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                <SelectField 
-                    label="Classe Destinazione" 
-                    value={targetClass} 
+                                <FormControl sx={{ mb: 2 }}>
+                  <InputLabel>Classe Destinazione</InputLabel>
+                  <NativeSelect
+                    value={targetClass}
                     onChange={e => setTargetClass(e.target.value)}
-                    style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
-                >
+                  >
+
                     <option value="" disabled>Seleziona...</option>
                     {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
-                </SelectField>
+                
+                  </NativeSelect>
+                </FormControl>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <VoiceNoteRecorder onTranscription={handleTranscription} compact />
                 </div>
-                <TextArea 
+                <TextField multiline 
                     label="Descrizione Idea" 
                     value={ideaText} 
                     onChange={e => setIdeaText(e.target.value)} 

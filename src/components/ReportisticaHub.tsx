@@ -1,10 +1,11 @@
-// MD3 GOLD COMPLIANT – Audit 2026-01-25
+// MD3 GOLD COMPLIANT ï¿½ Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // M3Expressive refactor: Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 
+import { Tabs, Tab, Badge, Box } from '@mui/material';
 import React, { useState, useEffect, useMemo } from 'react';
-import { M3Dialog, ActionTile, SectionHeader, InfoCard, TabGroup } from './ui';
+import { M3Dialog, ActionTile, SectionHeader, InfoCard } from './ui';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
@@ -177,7 +178,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             viewPdfInNewTab(blob);
         } catch (e) {
             console.error("Failed to generate student PDF:", e);
-            showToast("Errore durante la generazione del profilo studente. Riprova più tardi.", "error");
+            showToast("Errore durante la generazione del profilo studente. Riprova piï¿½ tardi.", "error");
         } finally {
             setIsGenerating(false);
             resetWizard();
@@ -188,12 +189,12 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
         if (!lesson) return;
         setIsGenerating(true);
         try {
-            // Qui va generato il blob come in handleGenerateStudentPdf, ma la funzione non è definita.
+            // Qui va generato il blob come in handleGenerateStudentPdf, ma la funzione non ï¿½ definita.
             // Se esiste una funzione generateLessonPdf, usala. Altrimenti, mostra errore.
             showToast("Funzione di generazione PDF lezione non implementata.", "error");
         } catch (e) {
             console.error("Failed to generate lesson PDF:", e);
-            showToast("Errore durante la generazione del piano lezione. Riprova più tardi.", "error");
+            showToast("Errore durante la generazione del piano lezione. Riprova piï¿½ tardi.", "error");
         } finally {
             setIsGenerating(false);
             resetWizard();
@@ -211,14 +212,14 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     { title: "Inclusione", benefits: ["Piani personalizzati (PDP/PEI)", "Ambienti flessibili"] }
                 ],
                 technicalGuarantees: { title: "Innovazione", content: "Utilizziamo strumenti avanzati come OrarioDoc AI." },
-                roadmap: { title: "Percorso", items: [{ title: "Accoglienza", description: "Attività di ingresso" }, { title: "Svolgimento", description: "Lezioni e UDA" }] },
+                roadmap: { title: "Percorso", items: [{ title: "Accoglienza", description: "Attivitï¿½ di ingresso" }, { title: "Svolgimento", description: "Lezioni e UDA" }] },
                 callToAction: "Costruiamo il futuro."
             };
             const blob = await generatePdfBrochure(content);
             viewPdfInNewTab(blob);
         } catch (e) {
             console.error("Errore generazione brochure:", e);
-            showToast("Errore durante la generazione della brochure. Riprova più tardi.", "error");
+            showToast("Errore durante la generazione della brochure. Riprova piï¿½ tardi.", "error");
         } finally {
             setIsGenerating(false);
         }
@@ -245,7 +246,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             saveAs(blob, `Programma_${selectedClass}_${selectedSubject}.docx`);
         } catch (e) {
             console.error("Errore generazione programma:", e);
-            showToast("Errore durante la generazione del programma svolto. Riprova più tardi.", "error");
+            showToast("Errore durante la generazione del programma svolto. Riprova piï¿½ tardi.", "error");
         } finally {
             setIsGenerating(false);
             resetWizard();
@@ -285,7 +286,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
         {
             id: 'uda_doc',
             title: 'Documento UDA',
-            subtitle: 'Dettaglio Unità (PDF/Doc)',
+            subtitle: 'Dettaglio Unitï¿½ (PDF/Doc)',
             icon: 'assignment',
             phase: 'itinere',
             variant: 'secondary',
@@ -467,16 +468,51 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                         subtitle="Seleziona la fase dell'anno scolastico"
                         icon="auto_stories"
                     />
-                    <TabGroup
-                        tabs={[
+                                        <Tabs
+                      value={activePhase}
+                      onChange={(_, v: string) => ((id) => setActivePhase(id as DocPhase))(v)}
+                      indicatorColor="primary"
+                      textColor="primary"
+                      aria-label="Sezioni di navigazione"
+                      sx={{
+                        bgcolor: 'var(--md-sys-color-surface-container-low)',
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        minHeight: 'auto',
+                        p: 0.5,
+                      }}
+                    >
+                      {([
                             { id: 'avvio', label: 'Avvio Anno', icon: 'rocket_launch' },
                             { id: 'itinere', label: 'In Itinere', icon: 'trending_up' },
                             { id: 'valutazione', label: 'Valutazione', icon: 'fact_check' },
                             { id: 'chiusura', label: 'Chiusura', icon: 'task_alt' }
-                        ]}
-                        activeTab={activePhase}
-                        onTabChange={(id) => setActivePhase(id as DocPhase)}
-                    />
+                        ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                        <Tab
+                          key={tab.id}
+                          value={tab.id}
+                          id={`tab-${tab.id}`}
+                          aria-controls={`panel-${tab.id}`}
+                          data-testid={`tab-${tab.id}`}
+                          label={(
+                            <Badge badgeContent={tab.badge} color="error">
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                {tab.label}
+                              </Box>
+                            </Badge>
+                          )}
+                          sx={{
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            minHeight: 'auto',
+                            py: 1,
+                            px: 2,
+                            textTransform: 'uppercase',
+                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                          }}
+                        />
+                      ))}
+                    </Tabs>
                     <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)' }}>
                         {activeTemplates.map(template => (
                             <ActionTile

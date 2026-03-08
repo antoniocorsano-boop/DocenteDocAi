@@ -5,8 +5,8 @@
 import React, { useState } from 'react';
 import { Studente, Competenza, ValutazioneCompetenza, TimetableSettings, AiSettings } from '../types';
 import { generateCompetencyNote } from '../services/aiService';
-import { Button, Box, Typography  } from '@mui/material';
-import { M3Dialog, TextArea } from './ui';
+import { Button, Box, Typography  , TextField } from '@mui/material';
+import { M3Dialog } from './ui';
 interface CompetencyEvaluationModalProps {
     student: Studente;
     competenza: Competenza;
@@ -149,7 +149,7 @@ return (
                             </Button>
                         </Box>
                     </Box>
-                    <TextArea id="note" label="Note" value={nota} onChange={e => setNota(e.target.value)} rows={3} placeholder="Es. Dimostra autonomia nell'applicare il concetto..." />
+                    <TextField multiline id="note" label="Note" value={nota} onChange={e => setNota(e.target.value)} rows={3} placeholder="Es. Dimostra autonomia nell'applicare il concetto..." />
                 </Box>
             </Box>
         </M3Dialog>

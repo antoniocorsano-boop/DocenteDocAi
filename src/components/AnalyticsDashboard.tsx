@@ -25,13 +25,14 @@
  * Current: Pure M3Dialog with complete MD3 design tokens + scrolling support
  *
  * Status: ? FULLY MIGRATED & ACCESSIBLE
- * // M3Expressive refactor: Già completamente migrato, confermato conforme M3.
+ * // M3Expressive refactor: Giï¿½ completamente migrato, confermato conforme M3.
  */
 
+import { Tabs, Tab, Badge, Box } from '@mui/material';
 import React, { useState, useMemo } from 'react';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';
-import { M3Dialog, TabGroup } from './ui';
+import { M3Dialog } from './ui';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
@@ -89,7 +90,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
   }, [analyticsEvents, analyticsMetrics, analyticsSettings]);
 
   const handleResetAnalytics = () => {
-    if (confirm('Sei sicuro di voler resettare tutti i dati analytics? Questa azione non può essere annullata.')) {
+    if (confirm('Sei sicuro di voler resettare tutti i dati analytics? Questa azione non puï¿½ essere annullata.')) {
       actions.setAnalyticsEvents([]);
       actions.setAnalyticsMetrics({
         totalDocumentsGenerated: 0,
@@ -168,15 +169,50 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
           </div>
 
           {/* Tabs */}
-          <TabGroup
-            tabs={[
+                    <Tabs
+            value={activeTab}
+            onChange={(_, v: string) => ((id) => setActiveTab(id as 'settings' | 'details' | 'overview'))(v)}
+            indicatorColor="primary"
+            textColor="primary"
+            aria-label="Sezioni di navigazione"
+            sx={{
+              bgcolor: 'var(--md-sys-color-surface-container-low)',
+              borderRadius: 'var(--md-sys-shape-corner-full)',
+              border: '1px solid var(--md-sys-color-outline-variant)',
+              minHeight: 'auto',
+              p: 0.5,
+            }}
+          >
+            {([
               { id: 'overview', label: 'Panoramica', icon: 'dashboard' },
               { id: 'details', label: 'Dettagli', icon: 'analytics' },
               { id: 'settings', label: 'Impostazioni', icon: 'settings' }
-            ]}
-            activeTab={activeTab}
-            onChange={(id) => setActiveTab(id as 'settings' | 'details' | 'overview')}
-          />
+            ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+              <Tab
+                key={tab.id}
+                value={tab.id}
+                id={`tab-${tab.id}`}
+                aria-controls={`panel-${tab.id}`}
+                data-testid={`tab-${tab.id}`}
+                label={(
+                  <Badge badgeContent={tab.badge} color="error">
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                      {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                      {tab.label}
+                    </Box>
+                  </Badge>
+                )}
+                sx={{
+                  borderRadius: 'var(--md-sys-shape-corner-full)',
+                  minHeight: 'auto',
+                  py: 1,
+                  px: 2,
+                  textTransform: 'uppercase',
+                  fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                }}
+              />
+            ))}
+          </Tabs>
 
           {/* Tab Content */}
           {activeTab === 'overview' && (
@@ -286,7 +322,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 </div>
               </div>
 
-              {/* Attività Recente */}
+              {/* Attivitï¿½ Recente */}
               <div style={{display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-19), var(--md-sys-grid-fr-1)))',
                 gap: 'var(--md-sys-spacing-6)'}}>
@@ -303,7 +339,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       marginBottom: 'var(--md-sys-spacing-8)',
                       display: 'block'}}
                   >
-                    Attività 7 Giorni
+                    Attivitï¿½ 7 Giorni
                   </Typography>
                   <div style={{display: 'flex',
                     flexDirection: 'column',
@@ -347,7 +383,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       marginBottom: 'var(--md-sys-spacing-8)',
                       display: 'block'}}
                   >
-                    Funzionalità Top
+                    Funzionalitï¿½ Top
                   </Typography>
                   <div style={{display: 'flex',
                     flexDirection: 'column',
@@ -371,7 +407,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     )) : (
                       <Typography variant="body2" sx={{
                         color: 'var(--md-sys-color-on-surface-variant)',
-                        fontStyle: 'italic'}}>Nessuna attività registrata</Typography>
+                        fontStyle: 'italic'}}>Nessuna attivitï¿½ registrata</Typography>
                     )}
                   </div>
                 </div>
@@ -594,10 +630,10 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'feature-usage-toggle': false }))}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                           <Typography variant="body2" sx={{
-                            color: 'var(--md-sys-color-on-surface)'}}>Utilizzo Funzionalità</Typography>
+                            color: 'var(--md-sys-color-on-surface)'}}>Utilizzo Funzionalitï¿½</Typography>
                           <Typography variant="caption" sx={{
                             color: 'var(--md-sys-color-on-surface-variant)'}}>
-                            Traccia quali funzionalità vengono utilizzate
+                            Traccia quali funzionalitï¿½ vengono utilizzate
                           </Typography>
                         </div>
                         <div style={{

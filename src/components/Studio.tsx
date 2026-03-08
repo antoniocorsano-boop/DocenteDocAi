@@ -17,8 +17,8 @@ import ImageGeneratorModal from './ImageGeneratorModal';
 import TestGeneratorModal from './TestGeneratorModal';
 import TestPreviewModal from './TestPreviewModal';
 import Guidance from './Guidance';
-import { M3Dialog, SelectField, AiThinkingGem } from './ui';
-import {DialogContent, DialogActions, Button } from '@mui/material';
+import { M3Dialog, AiThinkingGem } from './ui';
+import { DialogContent, DialogActions, Button, FormControl, InputLabel, NativeSelect } from '@mui/material';
 type StudioTask = 'summary' | 'key_points' | 'qa' | 'flashcards' | 'presentation' | 'document' | 'image' | 'quiz';
 
 interface StudioAction {
@@ -276,15 +276,16 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                 </h2>
                 <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end", marginBottom: 'var(--md-sys-spacing-8)'}}>
                     <div  style={{ flexGrow: "1" }}>
-                        <SelectField 
-                            label="Filtra per Set di Documenti"
-                            value={selectedCorpusId} 
-                            onChange={e => { setSelectedCorpusId(e.target.value); setSelectedFileIds([]); }} 
-                            options={[
-                                { value: '', label: `Tutti i Documenti (${knowledgeBase.length})` },
-                                ...corpora.map(c => ({ value: c.id, label: c.displayName }))
-                            ]}
-                        />
+                        <FormControl fullWidth sx={{ mb: 2 }}>
+                            <InputLabel>Filtra per Set di Documenti</InputLabel>
+                            <NativeSelect
+                                value={selectedCorpusId}
+                                onChange={e => { setSelectedCorpusId(e.target.value); setSelectedFileIds([]); }}
+                            >
+                                <option value="">{`Tutti i Documenti (${knowledgeBase.length})`}</option>
+                                {corpora.map(c => <option key={c.id} value={c.id}>{c.displayName}</option>)}
+                            </NativeSelect>
+                        </FormControl>
                     </div>
                      <div  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>attachment</span>

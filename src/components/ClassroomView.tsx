@@ -11,8 +11,8 @@ import QuickEvaluationModal from './QuickEvaluationModal';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { generateHomeworkPdf, viewPdfInNewTab } from '../utils/documentUtils';
 import StudentProfile from './StudentProfile';
-import { TabGroup, Avatar, M3Dialog } from './ui';
-import { DialogContent, DialogActions, Button, Typography } from '@mui/material';
+import { Avatar, M3Dialog } from './ui';
+import { DialogContent, DialogActions, Button, Typography , Tabs, Tab, Badge, Box } from '@mui/material';
 
 type AttendanceStatus = 'presente' | 'assente' | 'ritardo';
 type ClassroomTab = 'register' | 'tools' | 'resources' | 'notes';
@@ -240,17 +240,51 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 <Typography variant="body1" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{lesson.contenuto || 'Lezione'}</Typography>
 
                 <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
-                    <TabGroup
-                        activeTab={activeTab}
-                        onTabChange={(id) => setActiveTab(id as ClassroomTab)}
-                        variant="contained"
-                        tabs={[
+                                        <Tabs
+                      value={activeTab}
+                      onChange={(_, v: string) => ((id) => setActiveTab(id as ClassroomTab))(v)}
+                      indicatorColor="primary"
+                      textColor="primary"
+                      aria-label="Sezioni di navigazione"
+                      sx={{
+                        bgcolor: 'var(--md-sys-color-surface-container-low)',
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        minHeight: 'auto',
+                        p: 0.5,
+                      }}
+                    >
+                      {([
                             { id: 'register', label: 'Registro', icon: 'how_to_reg' },
                             { id: 'notes', label: 'Diario', icon: 'edit_note' },
                             { id: 'tools', label: 'Strumenti', icon: 'construction' },
                             { id: 'resources', label: 'Materiali', icon: 'folder', badge: lesson.materialiDidattici?.length || undefined },
-                        ]}
-                    />
+                        ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                        <Tab
+                          key={tab.id}
+                          value={tab.id}
+                          id={`tab-${tab.id}`}
+                          aria-controls={`panel-${tab.id}`}
+                          data-testid={`tab-${tab.id}`}
+                          label={(
+                            <Badge badgeContent={tab.badge} color="error">
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                {tab.label}
+                              </Box>
+                            </Badge>
+                          )}
+                          sx={{
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            minHeight: 'auto',
+                            py: 1,
+                            px: 2,
+                            textTransform: 'uppercase',
+                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                          }}
+                        />
+                      ))}
+                    </Tabs>
                 </div>
             </div>
 
@@ -741,16 +775,50 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <Typography variant="subtitle2" style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', marginBottom: 'var(--md-sys-spacing-2)', paddingLeft: 'var(--md-sys-spacing-2)', paddingRight: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface-variant)' }}>Compiti</Typography>
-                            <TabGroup
-                                tabs={[
+                                                        <Tabs
+                              value={homeworkCheck[selectedStudentForActions.id] || 'default'}
+                              onChange={(_, v: string) => ((id) => { handleHomeworkChange(selectedStudentForActions.id, id as HomeworkStatus); setSelectedStudentForActions(null); })(v)}
+                              indicatorColor="primary"
+                              textColor="primary"
+                              aria-label="Sezioni di navigazione"
+                              sx={{
+                                bgcolor: 'var(--md-sys-color-surface-container-low)',
+                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                                border: '1px solid var(--md-sys-color-outline-variant)',
+                                minHeight: 'auto',
+                                p: 0.5,
+                              }}
+                            >
+                              {([
                                     { id: 'completed', label: 'Svolti' },
                                     { id: 'partial', label: 'Parziali' },
                                     { id: 'missing', label: 'No' }
-                                ]}
-                                activeTab={homeworkCheck[selectedStudentForActions.id] || 'default'}
-                                onTabChange={(id) => { handleHomeworkChange(selectedStudentForActions.id, id as HomeworkStatus); setSelectedStudentForActions(null); }}
-                                // style removed: width should be set on parent container if needed
-                            />
+                                ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                                <Tab
+                                  key={tab.id}
+                                  value={tab.id}
+                                  id={`tab-${tab.id}`}
+                                  aria-controls={`panel-${tab.id}`}
+                                  data-testid={`tab-${tab.id}`}
+                                  label={(
+                                    <Badge badgeContent={tab.badge} color="error">
+                                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                        {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                        {tab.label}
+                                      </Box>
+                                    </Badge>
+                                  )}
+                                  sx={{
+                                    borderRadius: 'var(--md-sys-shape-corner-full)',
+                                    minHeight: 'auto',
+                                    py: 1,
+                                    px: 2,
+                                    textTransform: 'uppercase',
+                                    fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                                  }}
+                                />
+                              ))}
+                            </Tabs>
                         </div>
                     </DialogContent>
                     <DialogActions>

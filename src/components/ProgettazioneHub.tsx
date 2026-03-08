@@ -12,8 +12,8 @@ import { ProgettazioneHubProps, Uda, Competenza } from '../types';
 import AnnualPlanningWizard from './AnnualPlanningWizard';
 import SmartImportModal from './SmartImportModal';
 import CompetencyManager from './CompetencyManager';
-import { TabGroup } from './ui';
-import { Typography, Card as MuiCard, CardContent, Box } from '@mui/material';
+import {} from './ui';
+import { Typography, Card as MuiCard, CardContent, Box , Tabs, Tab, Badge } from '@mui/material';
 import TimelineView from './TimelineView';
 import UdaDetailModal from './UdaDetailModal';
 
@@ -132,15 +132,49 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
             
             {/* Tab Navigation */}
             <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
-                 <TabGroup 
-                    activeTab={activeTab}
-                    onTabChange={(id: string) => setActiveTab(id as 'dashboard' | 'frameworks')}
-                    variant="contained"
-                    tabs={[
+                                  <Tabs
+                   value={activeTab}
+                   onChange={(_, v: string) => ((id: string) => setActiveTab(id as 'dashboard' | 'frameworks'))(v)}
+                   indicatorColor="primary"
+                   textColor="primary"
+                   aria-label="Sezioni di navigazione"
+                   sx={{
+                     bgcolor: 'var(--md-sys-color-surface-container-low)',
+                     borderRadius: 'var(--md-sys-shape-corner-full)',
+                     border: '1px solid var(--md-sys-color-outline-variant)',
+                     minHeight: 'auto',
+                     p: 0.5,
+                   }}
+                 >
+                   {([
                         { id: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
                         { id: 'frameworks', label: 'Frameworks & Competenze', icon: 'model_training' },
-                    ]}
-                />
+                    ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                     <Tab
+                       key={tab.id}
+                       value={tab.id}
+                       id={`tab-${tab.id}`}
+                       aria-controls={`panel-${tab.id}`}
+                       data-testid={`tab-${tab.id}`}
+                       label={(
+                         <Badge badgeContent={tab.badge} color="error">
+                           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                             {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                             {tab.label}
+                           </Box>
+                         </Badge>
+                       )}
+                       sx={{
+                         borderRadius: 'var(--md-sys-shape-corner-full)',
+                         minHeight: 'auto',
+                         py: 1,
+                         px: 2,
+                         textTransform: 'uppercase',
+                         fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                       }}
+                     />
+                   ))}
+                 </Tabs>
             </div>
 
             {activeTab === 'dashboard' ? (

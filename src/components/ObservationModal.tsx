@@ -1,8 +1,8 @@
 ﻿// MD3 Compliant
 import React, { useState } from 'react';
 import { Studente, ObservationEntry } from '../types';
-import { Button, Box, Typography, ButtonBase  } from '@mui/material';
-import { M3Dialog, TextArea } from './ui';
+import { Button, Box, Typography, ButtonBase  , TextField } from '@mui/material';
+import { M3Dialog } from './ui';
 
 interface ObservationModalProps {
     student: Studente;
@@ -95,7 +95,7 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
                     <RatingStars label="Autonomia" value={autonomy} onChange={setAutonomy} />
                     <RatingStars label="Collaborazione" value={collaboration} onChange={setCollaboration} />
                     <RatingStars label="Responsabilità" value={responsibility} onChange={setResponsibility} />
-                    <TextArea label="Aneddoti / Note Osservative" value={note} onChange={e => setNote(e.target.value)} rows={4} placeholder="Es. Ha dimostrato iniziativa nel lavoro di gruppo..." />
+                    <TextField multiline label="Aneddoti / Note Osservative" value={note} onChange={e => setNote(e.target.value)} rows={4} placeholder="Es. Ha dimostrato iniziativa nel lavoro di gruppo..." />
                 </Box>
             </Box>
         </M3Dialog>

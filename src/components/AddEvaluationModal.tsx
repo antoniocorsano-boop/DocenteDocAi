@@ -4,8 +4,8 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Studente, Valutazione } from '../types';
 import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
-import { Button, Box, Typography, Card } from '@mui/material';
-import { M3Dialog, SelectField, TextField, TextArea } from './ui';
+import { Button, Box, Typography, Card  , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { M3Dialog, TextField } from './ui';
 interface AddEvaluationModalProps {
     students: Studente[];
     discipline: string[];
@@ -103,38 +103,50 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                 onSubmit={handleSubmit}
                 sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', overflowY: 'auto', maxHeight: 'var(--md-sys-viewport-60)' }}
             >
-                <SelectField
-                    id="eval-student-select"
-                    label="Studente"
+                                <FormControl sx={{ mb: 2 }}>
+                  <InputLabel htmlFor="eval-student-select">Studente</InputLabel>
+                  <NativeSelect
                     value={selectedStudentId}
                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStudentId(e.target.value)}
                     required
-                >
+                    inputProps={{ id: 'eval-student-select' }}
+                  >
+
                     <option value="">Seleziona studente...</option>
                     {students.map((s: Studente) => <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>)}
-                </SelectField>
+                
+                  </NativeSelect>
+                </FormControl>
 
                 <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)' }}>
-                    <SelectField
-                        id="eval-materia-select"
-                        label="Materia"
+                                        <FormControl sx={{ mb: 2 }}>
+                      <InputLabel htmlFor="eval-materia-select">Materia</InputLabel>
+                      <NativeSelect
                         value={selectedMateria}
                         onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedMateria(e.target.value)}
                         required
-                    >
+                        inputProps={{ id: 'eval-materia-select' }}
+                      >
+
                         <option value="">Seleziona...</option>
                         {discipline.map((d: string) => <option key={d} value={d}>{d}</option>)}
-                    </SelectField>
-                    <SelectField
-                        id="eval-voto-select"
-                        label="Voto / Giudizio"
+                    
+                      </NativeSelect>
+                    </FormControl>
+                                        <FormControl sx={{ mb: 2 }}>
+                      <InputLabel htmlFor="eval-voto-select">Voto / Giudizio</InputLabel>
+                      <NativeSelect
                         value={voto}
                         onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setVoto(e.target.value)}
                         required
-                    >
+                        inputProps={{ id: 'eval-voto-select' }}
+                      >
+
                         <option value="">Seleziona...</option>
                         {RATING_OPTIONS.map((o: string) => <option key={o} value={o}>{o}</option>)}
-                    </SelectField>
+                    
+                      </NativeSelect>
+                    </FormControl>
                 </Box>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
@@ -181,11 +193,11 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                     placeholder="Es. 'Il Barocco in Italia'"
                 />
 
-                <TextArea
+                <TextField multiline
                     id="eval-note-textarea"
                     label="Note Aggiuntive"
                     value={note}
-                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setNote(e.target.value)}
+                    onChange={e => setNote(e.target.value)}
                     rows={2}
                 />
             </Box>

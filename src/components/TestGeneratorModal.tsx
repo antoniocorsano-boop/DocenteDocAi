@@ -2,9 +2,8 @@
 
 import React, { useState } from 'react';
 import { QuestionType } from '../types';
-import { Button, Box, Typography  } from '@mui/material';
+import { Button, Box, Typography  , Tabs, Tab, Badge } from '@mui/material';
 import { M3Dialog,
-    TabGroup,
     TextField
 } from './ui';
 
@@ -73,13 +72,46 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <Typography component="label">Difficoltà</Typography>
-                    <TabGroup
-                        tabs={[{ id: 'easy', label: 'Base' }, { id: 'medium', label: 'Intermedio' }, { id: 'hard', label: 'Avanzato' }]}
-                        activeTab={difficulty}
-                        onTabChange={(id) => setDifficulty(id as 'easy' | 'medium' | 'hard')}
-                        variant="contained"
-                        
-                    />
+                                        <Tabs
+                      value={difficulty}
+                      onChange={(_, v: string) => ((id) => setDifficulty(id as 'easy' | 'medium' | 'hard'))(v)}
+                      indicatorColor="primary"
+                      textColor="primary"
+                      aria-label="Sezioni di navigazione"
+                      sx={{
+                        bgcolor: 'var(--md-sys-color-surface-container-low)',
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        minHeight: 'auto',
+                        p: 0.5,
+                      }}
+                    >
+                      {([{ id: 'easy', label: 'Base' }, { id: 'medium', label: 'Intermedio' }, { id: 'hard', label: 'Avanzato' }]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                        <Tab
+                          key={tab.id}
+                          value={tab.id}
+                          id={`tab-${tab.id}`}
+                          aria-controls={`panel-${tab.id}`}
+                          data-testid={`tab-${tab.id}`}
+                          label={(
+                            <Badge badgeContent={tab.badge} color="error">
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                {tab.label}
+                              </Box>
+                            </Badge>
+                          )}
+                          sx={{
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            minHeight: 'auto',
+                            py: 1,
+                            px: 2,
+                            textTransform: 'uppercase',
+                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                          }}
+                        />
+                      ))}
+                    </Tabs>
                 </Box>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>

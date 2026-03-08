@@ -1,12 +1,9 @@
 // MD3 Expressive UI component library
 export { default as TextField } from './TextField';
-export { default as SelectField } from './SelectField';
-export { default as TextArea } from './TextArea';
 export { default as AiMemoryChip } from './AiMemoryChip';
 export { default as ActionTile } from './ActionTile';
 export { default as InfoCard } from './InfoCard';
 export { default as SectionHeader } from './SectionHeader';
-export { default as TabGroup } from './TabGroup';
 export { default as PinPad } from './PinPad';
 export { default as CategoryCard } from './CategoryCard';
 export { default as EmptyState } from './EmptyState';

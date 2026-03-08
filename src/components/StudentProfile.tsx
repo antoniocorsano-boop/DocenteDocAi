@@ -1,11 +1,12 @@
 // MD3 Compliant - Block J Migration Complete (2 violations eliminated)
+import { Tabs, Tab, Badge, Box } from '@mui/material';
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, RegisterEntry, Lezione, Competenza, AiSettings } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { generateStudentProfilePdf, viewPdfInNewTab, generateCertificazioneCompetenzePdf } from '../utils/documentUtils';
 import { DEFAULT_COMPETENZE } from '../constants';
 import StudentInterviewModal from './StudentInterviewModal';
-import { TabGroup, EmptyState, InfoCard, Avatar } from './ui';
+import { EmptyState, InfoCard, Avatar } from './ui';
 import Button from '@mui/material/Button';
 import { getPeriodicJudgmentSuggestion } from '../services/aiService';
 
@@ -411,7 +412,46 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                 </div>
             </div>
 
-            <TabGroup tabs={tabs} activeTab={activeTab} onTabChange={(id) => setActiveTab(id as ProfileTab)} variant="contained" />
+                        <Tabs
+              value={activeTab}
+              onChange={(_, v: string) => ((id) => setActiveTab(id as ProfileTab))(v)}
+              indicatorColor="primary"
+              textColor="primary"
+              aria-label="Sezioni di navigazione"
+              sx={{
+                bgcolor: 'var(--md-sys-color-surface-container-low)',
+                borderRadius: 'var(--md-sys-shape-corner-full)',
+                border: '1px solid var(--md-sys-color-outline-variant)',
+                minHeight: 'auto',
+                p: 0.5,
+              }}
+            >
+              {(tabs).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                <Tab
+                  key={tab.id}
+                  value={tab.id}
+                  id={`tab-${tab.id}`}
+                  aria-controls={`panel-${tab.id}`}
+                  data-testid={`tab-${tab.id}`}
+                  label={(
+                    <Badge badgeContent={tab.badge} color="error">
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                        {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                        {tab.label}
+                      </Box>
+                    </Badge>
+                  )}
+                  sx={{
+                    borderRadius: 'var(--md-sys-shape-corner-full)',
+                    minHeight: 'auto',
+                    py: 1,
+                    px: 2,
+                    textTransform: 'uppercase',
+                    fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                  }}
+                />
+              ))}
+            </Tabs>
 
             <div style={{ flex: 1, padding: 'var(--md-sys-spacing-4)', overflowY: 'auto' }}>
                 {activeTab === 'overview' && renderOverview()}

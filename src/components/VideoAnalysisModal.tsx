@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 // Load Google GenAI dynamically to avoid bundling it in the main chunk
-import { Button  } from '@mui/material';
-import { M3Dialog, TextArea } from './ui';
+import { Button  , TextField } from '@mui/material';
+import { M3Dialog } from './ui';
 
 declare global {
   interface Window {
@@ -183,7 +183,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                     </div>
                     
                     <div style={{ flexGrow: "1", display: "flex", flexDirection: "column" }}>
-                        <TextArea
+                        <TextField multiline
                             id="prompt-textarea"
                             value={prompt}
                             onChange={(e) => {

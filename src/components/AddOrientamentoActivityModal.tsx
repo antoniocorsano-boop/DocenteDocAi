@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { OrientamentoActivity } from '../types';
-import { Button, Box  } from '@mui/material';
-import { M3Dialog, TextField, SelectField, TextArea } from './ui';
+import { Button, Box   , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { M3Dialog, TextField } from './ui';
 import { UI_TEXT } from '../constants/ui-text';
 interface AddOrientamentoActivityModalProps {
     isOpen: boolean;
@@ -57,16 +57,20 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                   gridTemplateColumns: 'var(--md-sys-grid-fr-1)', // MD3 grid fr token
                   gap: 'var(--md-sys-spacing-4)'
                 }}>
-                    <SelectField
-                        label="Tipo"
+                                        <FormControl sx={{ mb: 2 }}>
+                      <InputLabel>Tipo</InputLabel>
+                      <NativeSelect
                         value={activity.type}
                         onChange={(e) => setActivity({ ...activity, type: e.target.value as OrientamentoActivity['type'] })}
-                    >
+                      >
+
                         <option value="didattica">Didattica</option>
                         <option value="extra-curriculare">Extra-curriculare</option>
                         <option value="PCTO">PCTO</option>
                         <option value="esperienziale">Esperienziale</option>
-                    </SelectField>
+                    
+                      </NativeSelect>
+                    </FormControl>
                     <TextField
                         label="Ore"
                         type="number"
@@ -82,7 +86,7 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                     onChange={(e) => setActivity({ ...activity, date: e.target.value })}
                 />
 
-                <TextArea
+                <TextField multiline
                     label="Descrizione"
                     value={activity.description}
                     onChange={(e) => setActivity({ ...activity, description: e.target.value })}

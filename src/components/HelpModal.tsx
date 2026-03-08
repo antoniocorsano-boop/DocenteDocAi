@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { View, HelpModalProps } from '../types';
 import { generateTechnicalDocumentContent, generateAcademicEssayContent } from '../services/aiService';
 import { generateFullAppGuidePdf, saveAs } from '../utils/documentUtils';
-import { Button, Box, Typography  } from '@mui/material';
-import { M3Dialog, TabGroup, InfoCard } from './ui';
+import { Button, Box, Typography  , Tabs, Tab, Badge } from '@mui/material';
+import { M3Dialog, InfoCard } from './ui';
 import { ManualSection, UseCaseCard } from './help';
 import { sanitizeHtml } from '../utils/htmlSanitizer';
 
@@ -1058,12 +1058,46 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
           </div>
 
           <div style={{ width: 'var(--md-sys-percent-100)' }}>
-            <TabGroup
-              tabs={tabs}
-              activeTab={activeTab}
-              onTabChange={(id) => setActiveTab(id as HelpTab)}
-              variant="contained"
-            />
+                        <Tabs
+              value={activeTab}
+              onChange={(_, v: string) => ((id) => setActiveTab(id as HelpTab))(v)}
+              indicatorColor="primary"
+              textColor="primary"
+              aria-label="Sezioni di navigazione"
+              sx={{
+                bgcolor: 'var(--md-sys-color-surface-container-low)',
+                borderRadius: 'var(--md-sys-shape-corner-full)',
+                border: '1px solid var(--md-sys-color-outline-variant)',
+                minHeight: 'auto',
+                p: 0.5,
+              }}
+            >
+              {(tabs).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                <Tab
+                  key={tab.id}
+                  value={tab.id}
+                  id={`tab-${tab.id}`}
+                  aria-controls={`panel-${tab.id}`}
+                  data-testid={`tab-${tab.id}`}
+                  label={(
+                    <Badge badgeContent={tab.badge} color="error">
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                        {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                        {tab.label}
+                      </Box>
+                    </Badge>
+                  )}
+                  sx={{
+                    borderRadius: 'var(--md-sys-shape-corner-full)',
+                    minHeight: 'auto',
+                    py: 1,
+                    px: 2,
+                    textTransform: 'uppercase',
+                    fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                  }}
+                />
+              ))}
+            </Tabs>
           </div>
 
           <div style={{

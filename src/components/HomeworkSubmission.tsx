@@ -3,8 +3,8 @@
 // Audit: gennaio 2026
 import React, { useState } from 'react';
 import { HomeworkSubmission, Lezione, Studente } from '../types';
-import { TextField, SelectField, Avatar } from './ui';
-import { Button } from '@mui/material';
+import { TextField, Avatar } from './ui';
+import { Button , FormControl, InputLabel, NativeSelect } from '@mui/material';
 import { saveAs } from '../utils/documentUtils';
 import { RATING_OPTIONS } from '../constants';
 
@@ -70,15 +70,18 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
             {submission.status === 'pending' && onGrade && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <SelectField
-                            label="Voto Finale"
+                                                <FormControl sx={{ mb: 2 }}>
+                          <InputLabel>Voto Finale</InputLabel>
+                          <NativeSelect
                             value={grade}
                             onChange={(e) => setGrade(e.target.value)}
-                            containerClassName="md:col-span-1"
-                        >
+                          >
+
                             <option value="">-</option>
                             {RATING_OPTIONS.map((v) => <option key={v} value={v}>{v}</option>)}
-                        </SelectField>
+                        
+                          </NativeSelect>
+                        </FormControl>
                         <TextField
                             label="Feedback Rapido"
                             value={feedback}

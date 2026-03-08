@@ -1,8 +1,8 @@
 ﻿// MD3 Compliant - Block G Migration (5 violations eliminated)
 import React, { useState, useEffect } from 'react';
 import { Studente } from '../types';
-import { Button, Box  } from '@mui/material';
-import { M3Dialog, TextField, SelectField } from './ui';
+import { Button, Box  , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { M3Dialog, TextField } from './ui';
 interface AddStudentModalProps {
     studentToEdit?: Studente;
     userClasses: string[];
@@ -73,16 +73,19 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
                         required
                     />
                 </Box>
-                <SelectField
-                    id="student-classe-select"
-                    name="classe"
-                    label="Classe"
+                                <FormControl sx={{ mb: 2 }}>
+                  <InputLabel htmlFor="student-classe-select">Classe</InputLabel>
+                  <NativeSelect
                     value={formData.classe}
                     onChange={e => setFormData({ ...formData, classe: e.target.value })}
                     required
-                >
+                    inputProps={{ id: 'student-classe-select', name: 'classe' }}
+                  >
+
                     {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
-                </SelectField>
+                
+                  </NativeSelect>
+                </FormControl>
             </Box>
         </M3Dialog>
     );

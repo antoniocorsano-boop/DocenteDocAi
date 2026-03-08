@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Logo from './Logo';
 import { SCHOOL_TYPES_DISCIPLINES } from '../constants';
-import { ActionTile, InfoCard, TextField, SelectField } from './ui';
-import { Button, IconButton, Typography } from '@mui/material';
+import { ActionTile, InfoCard, TextField } from './ui';
+import { Button, IconButton, Typography , FormControl, InputLabel, NativeSelect } from '@mui/material';
 
 interface WelcomeScreenProps {
   onSetupComplete: (data: { name: string; schoolType?: string; firstClass?: string; isGuided: boolean }) => void;
@@ -135,17 +135,20 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
 
             {step === 2 && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <SelectField 
-                        id="wizard-school-type"
-                        label="Tipo di Scuola"
+                                        <FormControl sx={{ mb: 2 }}>
+                      <InputLabel htmlFor="wizard-school-type">Tipo di Scuola</InputLabel>
+                      <NativeSelect
                         value={schoolType}
                         onChange={(e) => setSchoolType(e.target.value)}
+                        inputProps={{ id: 'wizard-school-type' }}
+                      >
 
-                    >
                         {Object.keys(SCHOOL_TYPES_DISCIPLINES).map(t => (
                             <option key={t} value={t}>{t}</option>
                         ))}
-                    </SelectField>
+                    
+                      </NativeSelect>
+                    </FormControl>
                                         <Typography
                                             variant="caption"
                                             style={{

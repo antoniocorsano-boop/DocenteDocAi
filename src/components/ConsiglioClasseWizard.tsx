@@ -3,8 +3,8 @@
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, TimetableSettings, AiSettings, Report, ValutazioneCompetenza, PeriodoValutazione } from '../types';
 import { generateCouncilDataPdf, viewPdfInNewTab } from '../utils/documentUtils';
-import { M3Dialog, TabGroup, SelectField, InfoCard } from './ui';
-import {DialogContent, DialogActions, Button } from '@mui/material';
+import { M3Dialog, InfoCard } from './ui';
+import {DialogContent, DialogActions, Button , FormControl, InputLabel, NativeSelect , Tabs, Tab, Badge, Box } from '@mui/material';
 
 interface ConsiglioClasseWizardProps {
     onClose: () => void;
@@ -62,27 +62,65 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                     
                 />
                 
-                <SelectField 
-                    id="council-class-select"
-                    label="Classe" 
-                    value={selectedClass} 
+                                <FormControl sx={{ mb: 2 }}>
+                  <InputLabel htmlFor="council-class-select">Classe</InputLabel>
+                  <NativeSelect
+                    value={selectedClass}
                     onChange={e => setSelectedClass(e.target.value)}
-                >
+                    inputProps={{ id: 'council-class-select' }}
+                  >
+
                     {props.userClasses.map(c => <option key={c} value={c}>{c}</option>)}
-                </SelectField>
+                
+                  </NativeSelect>
+                </FormControl>
 
                  <div style={{gap: 'var(--md-sys-spacing-2)'}}>
                     <label  style={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Periodo di Valutazione</label>
-                    <TabGroup
-                        tabs={[
+                                        <Tabs
+                      value={periodo}
+                      onChange={(_, v: string) => ((id) => setPeriodo(id as PeriodoValutazione))(v)}
+                      indicatorColor="primary"
+                      textColor="primary"
+                      aria-label="Sezioni di navigazione"
+                      sx={{
+                        bgcolor: 'var(--md-sys-color-surface-container-low)',
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        minHeight: 'auto',
+                        p: 0.5,
+                        ...{ width: 'var(--md-sys-percent-100)' },
+                      }}
+                    >
+                      {([
                             { id: 'primo-quadrimestre', label: 'Primo Quadrimestre (1Q)' },
                             { id: 'secondo-quadrimestre', label: 'Scrutinio Finale (2Q)' }
-                        ]}
-                        activeTab={periodo}
-                        onTabChange={(id) => setPeriodo(id as PeriodoValutazione)}
-                        variant="contained"
-                        style={{ width: 'var(--md-sys-percent-100)' }}
-                    />
+                        ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                        <Tab
+                          key={tab.id}
+                          value={tab.id}
+                          id={`tab-${tab.id}`}
+                          aria-controls={`panel-${tab.id}`}
+                          data-testid={`tab-${tab.id}`}
+                          label={(
+                            <Badge badgeContent={tab.badge} color="error">
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                {tab.label}
+                              </Box>
+                            </Badge>
+                          )}
+                          sx={{
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            minHeight: 'auto',
+                            py: 1,
+                            px: 2,
+                            textTransform: 'uppercase',
+                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                          }}
+                        />
+                      ))}
+                    </Tabs>
                 </div>
             </DialogContent>
             <DialogActions>

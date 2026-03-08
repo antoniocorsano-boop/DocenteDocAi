@@ -1,8 +1,8 @@
 ﻿// MD3 Compliant
 import React, { useState, useMemo } from 'react';
 import { Lezione, RegisterEntry, Studente, Valutazione } from '../types';
-import { Button  } from '@mui/material';
-import { M3Dialog, TabGroup, TextArea } from './ui';
+import { Button  , TextField , Tabs, Tab, Badge, Box } from '@mui/material';
+import { M3Dialog } from './ui';
 
 interface CopyForRegisterModalProps {
     lesson: Lezione;
@@ -59,15 +59,49 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
             </>}
         >
                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
-                    <TabGroup 
-                        tabs={[{ id: 'text', label: 'Manuale', icon: 'content_paste' }, { id: 'json', label: 'Bridge AI', icon: 'extension' }]}
-                        activeTab={activeTab}
-                        onTabChange={(id: string) => {
+                                        <Tabs
+                      value={activeTab}
+                      onChange={(_, v: string) => ((id: string) => {
                             if (id === 'text' || id === 'json') setActiveTab(id);
-                        }}
-                        variant="contained"
-                        style={{ width: "var(--md-sys-percent-100)" }}
-                    />
+                        })(v)}
+                      indicatorColor="primary"
+                      textColor="primary"
+                      aria-label="Sezioni di navigazione"
+                      sx={{
+                        bgcolor: 'var(--md-sys-color-surface-container-low)',
+                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                        border: '1px solid var(--md-sys-color-outline-variant)',
+                        minHeight: 'auto',
+                        p: 0.5,
+                        ...{ width: "var(--md-sys-percent-100)" },
+                      }}
+                    >
+                      {([{ id: 'text', label: 'Manuale', icon: 'content_paste' }, { id: 'json', label: 'Bridge AI', icon: 'extension' }]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                        <Tab
+                          key={tab.id}
+                          value={tab.id}
+                          id={`tab-${tab.id}`}
+                          aria-controls={`panel-${tab.id}`}
+                          data-testid={`tab-${tab.id}`}
+                          label={(
+                            <Badge badgeContent={tab.badge} color="error">
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                {tab.label}
+                              </Box>
+                            </Badge>
+                          )}
+                          sx={{
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            minHeight: 'auto',
+                            py: 1,
+                            px: 2,
+                            textTransform: 'uppercase',
+                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                          }}
+                        />
+                      ))}
+                    </Tabs>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
@@ -93,12 +127,12 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                         </label>
                     </div>
 
-                    <TextArea 
+                    <TextField multiline 
                         label={activeTab === 'text' ? "Testo da incollare" : "Codice Bridge (JSON)"}
                         value={activeTab === 'text' ? generatedText : generatedJson} 
-                        readOnly 
+                        inputProps={{ readOnly: true }}
                         rows={10}
-                        style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', fontFamily: 'monospace', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}
+                        sx={{ mb: 2, backgroundColor: 'var(--md-sys-color-surface-container-high)', fontFamily: 'monospace', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}
                     />
                 </div>
             </M3Dialog>

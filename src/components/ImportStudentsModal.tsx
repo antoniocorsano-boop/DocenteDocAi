@@ -7,8 +7,8 @@ import { useFileDrop } from '../hooks/useFileDrop';
 import { Studente, KnowledgeBaseEntry } from '../types';
 import { ImportService } from '../services/importService';
 import { sanitizeHtml } from '../utils/htmlSanitizer';
-import { Button, Box, Typography  } from '@mui/material';
-import { M3Dialog, TabGroup, SelectField, InfoCard } from './ui';
+import { Button, Box, Typography  , FormControl, InputLabel, NativeSelect , Tabs, Tab, Badge } from '@mui/material';
+import { M3Dialog, InfoCard } from './ui';
 interface ImportStudentsModalProps {
     onClose: () => void;
     onImport: (newStudents: Studente[]) => void;
@@ -154,26 +154,65 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                 return (
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <SelectField
-                                id="import-target-class"
-                                label="Destinazione"
+                                                        <FormControl sx={{ mb: 2 }}>
+                              <InputLabel htmlFor="import-target-class">Destinazione</InputLabel>
+                              <NativeSelect
                                 value={targetClass}
                                 onChange={e => setTargetClass(e.target.value)}
                                 required
-                            >
+                                inputProps={{ id: 'import-target-class' }}
+                              >
+
                                 <option value="AUTO">✨ Rileva automaticamente dal file (Multi-classe)</option>
                                 <option disabled>──────────</option>
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
-                            </SelectField>
+                            
+                              </NativeSelect>
+                            </FormControl>
                             {targetClass === 'AUTO' && <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 'var(--md-sys-spacing-4)', pl: 'var(--md-sys-spacing-4)', pr: 'var(--md-sys-spacing-4)' }}>Il file CSV deve contenere una colonna con il nome della classe (es. "1A", "2B").</Typography>}
                         </Box>
 
-                        <TabGroup
-                            tabs={[{ id: 'file', label: 'Carica File' }, { id: 'kb', label: 'Da Knowledge Base' }]}
-                            activeTab={importSource}
-                            onChange={(id: string) => setImportSource(id as 'file' | 'kb')}
-                            style={{ width: "var(--md-sys-percent-100)" }}
-                        />
+                                                <Tabs
+                          value={importSource}
+                          onChange={(_, v: string) => ((id: string) => setImportSource(id as 'file' | 'kb'))(v)}
+                          indicatorColor="primary"
+                          textColor="primary"
+                          aria-label="Sezioni di navigazione"
+                          sx={{
+                            bgcolor: 'var(--md-sys-color-surface-container-low)',
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            border: '1px solid var(--md-sys-color-outline-variant)',
+                            minHeight: 'auto',
+                            p: 0.5,
+                            ...{ width: "var(--md-sys-percent-100)" },
+                          }}
+                        >
+                          {([{ id: 'file', label: 'Carica File' }, { id: 'kb', label: 'Da Knowledge Base' }]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                            <Tab
+                              key={tab.id}
+                              value={tab.id}
+                              id={`tab-${tab.id}`}
+                              aria-controls={`panel-${tab.id}`}
+                              data-testid={`tab-${tab.id}`}
+                              label={(
+                                <Badge badgeContent={tab.badge} color="error">
+                                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                    {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                    {tab.label}
+                                  </Box>
+                                </Badge>
+                              )}
+                              sx={{
+                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                                minHeight: 'auto',
+                                py: 1,
+                                px: 2,
+                                textTransform: 'uppercase',
+                                fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                              }}
+                            />
+                          ))}
+                        </Tabs>
 
                         {importSource === 'file' ? (
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
@@ -288,35 +327,47 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         </Typography>
 
                         <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)' }}>
-                            <SelectField
-                                id="map-cognome"
-                                label="Colonna COGNOME"
+                                                        <FormControl sx={{ mb: 2 }}>
+                              <InputLabel htmlFor="map-cognome">Colonna COGNOME</InputLabel>
+                              <NativeSelect
                                 value={columnMap.cognome}
                                 onChange={e => setColumnMap(p => ({ ...p, cognome: e.target.value }))}
-                            >
+                                inputProps={{ id: 'map-cognome' }}
+                              >
+
                                 <option value="">Seleziona...</option>
                                 {csvHeaders.map(h => <option key={h} value={h}>{h}</option>)}
-                            </SelectField>
-                            <SelectField
-                                id="map-nome"
-                                label="Colonna NOME"
+                            
+                              </NativeSelect>
+                            </FormControl>
+                                                        <FormControl sx={{ mb: 2 }}>
+                              <InputLabel htmlFor="map-nome">Colonna NOME</InputLabel>
+                              <NativeSelect
                                 value={columnMap.nome}
                                 onChange={e => setColumnMap(p => ({ ...p, nome: e.target.value }))}
-                            >
+                                inputProps={{ id: 'map-nome' }}
+                              >
+
                                 <option value="">Seleziona...</option>
                                 {csvHeaders.map(h => <option key={h} value={h}>{h}</option>)}
-                            </SelectField>
+                            
+                              </NativeSelect>
+                            </FormControl>
                             {targetClass === 'AUTO' && (
                                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                    <SelectField
-                                        id="map-classe"
-                                        label="Colonna CLASSE"
+                                                                        <FormControl sx={{ mb: 2 }}>
+                                      <InputLabel htmlFor="map-classe">Colonna CLASSE</InputLabel>
+                                      <NativeSelect
                                         value={columnMap.classe}
                                         onChange={e => setColumnMap(p => ({ ...p, classe: e.target.value }))}
-                                    >
+                                        inputProps={{ id: 'map-classe' }}
+                                      >
+
                                         <option value="">Seleziona...</option>
                                         {csvHeaders.map(h => <option key={h} value={h}>{h}</option>)}
-                                    </SelectField>
+                                    
+                                      </NativeSelect>
+                                    </FormControl>
                                 </Box>
                             )}
                         </Box>

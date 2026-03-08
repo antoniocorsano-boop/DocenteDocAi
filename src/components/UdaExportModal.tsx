@@ -8,8 +8,8 @@ import React, { useState } from 'react';
 import { Uda, Competenza, TimetableSettings, Report, AiSettings } from '../types';
 import { generateUdaPdf, blobToBase64Parts, generateHtmlDocxBlob, viewPdfInNewTab, saveAs } from '../utils/documentUtils';
 import { generateMarkdownReport } from '../services/aiService';
-import { Button, Box  } from '@mui/material';
-import { M3Dialog, SelectField } from './ui';
+import { Button, Box  , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { M3Dialog } from './ui';
 interface UdaExportModalProps {
     uda: Uda;
     competenze: Competenza[];
@@ -138,16 +138,20 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                         </p>
                     </div>
 
-                    <SelectField
-                        label="Tipo di Documento"
+                                        <FormControl fullWidth sx={{ mb: 2 }}>
+                      <InputLabel>Tipo di Documento</InputLabel>
+                      <NativeSelect
                         value={docType}
                         onChange={(e) => setDocType(e.target.value as 'docente' | 'studente')}
-                        options={[
+                      >
+                        {([
                             { value: 'docente', label: 'Progettazione per Docente (Completa)' },
                             { value: 'studente', label: 'Guida per Studente (Semplificata)' }
-                        ]}
-                        fullWidth
-                    />
+                        ]).map((o) => (
+                          <option key={o.value} value={o.value}>{o.label}</option>
+                        ))}
+                      </NativeSelect>
+                    </FormControl>
 
                     <div style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                         <button 

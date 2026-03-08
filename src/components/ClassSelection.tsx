@@ -5,8 +5,8 @@ import { View, Valutazione, Studente, ValutazioneCompetenza, TimetableSettings, 
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { generateCouncilDataPdf } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
-import { M3Dialog, SectionHeader, TabGroup, EmptyState } from './ui';
-import { DialogContent, DialogActions, Button, Card as MuiCard, CardContent, Box, Typography } from '@mui/material';
+import { M3Dialog, SectionHeader, EmptyState } from './ui';
+import { DialogContent, DialogActions, Button, Card as MuiCard, CardContent, Box, Typography , Tabs, Tab, Badge } from '@mui/material';
 import { useStudentStore } from '../stores/useStudentStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
 
@@ -360,14 +360,49 @@ const PrintCenterModal: React.FC<{
                     
                     <div style={{gap: 'var(--md-sys-spacing-2)'}}>
                         <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-medium)" }}>Periodo</label>
-                        <TabGroup
-                            tabs={[
+                                                <Tabs
+                          value={periodo}
+                          onChange={(_, v: string) => ((id) => setPeriodo(id as PeriodoValutazione))(v)}
+                          indicatorColor="primary"
+                          textColor="primary"
+                          aria-label="Sezioni di navigazione"
+                          sx={{
+                            bgcolor: 'var(--md-sys-color-surface-container-low)',
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            border: '1px solid var(--md-sys-color-outline-variant)',
+                            minHeight: 'auto',
+                            p: 0.5,
+                          }}
+                        >
+                          {([
                                 { id: 'primo-quadrimestre', label: '1Q' },
                                 { id: 'secondo-quadrimestre', label: 'Finale' }
-                            ]}
-                            activeTab={periodo}
-                            onTabChange={(id) => setPeriodo(id as PeriodoValutazione)}
-                        />
+                            ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                            <Tab
+                              key={tab.id}
+                              value={tab.id}
+                              id={`tab-${tab.id}`}
+                              aria-controls={`panel-${tab.id}`}
+                              data-testid={`tab-${tab.id}`}
+                              label={(
+                                <Badge badgeContent={tab.badge} color="error">
+                                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                    {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                    {tab.label}
+                                  </Box>
+                                </Badge>
+                              )}
+                              sx={{
+                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                                minHeight: 'auto',
+                                py: 1,
+                                px: 2,
+                                textTransform: 'uppercase',
+                                fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                              }}
+                            />
+                          ))}
+                        </Tabs>
                     </div>
 
                     <div style={{gap: 'var(--md-sys-spacing-2)'}}>

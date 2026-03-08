@@ -5,8 +5,8 @@
 
 import React, { useState, useMemo } from 'react';
 import { KnowledgeBaseEntry, MaterialeDidattico } from '../types';
-import { Button, Box  } from '@mui/material';
-import { M3Dialog, TextField, TabGroup } from './ui';
+import { Button, Box  , Tabs, Tab, Badge } from '@mui/material';
+import { M3Dialog, TextField } from './ui';
 interface MaterialPickerModalProps {
     knowledgeBase: KnowledgeBaseEntry[];
     currentMaterials: MaterialeDidattico[];
@@ -107,12 +107,46 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                 <div  style={{ display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)" }}>
                     {/* Left: Source */}
                     <div  style={{padding: 'var(--md-sys-spacing-6)', borderRight: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
-                        <TabGroup
-                            tabs={tabs}
-                            activeTab={activeTab}
-                            onChange={(id) => setActiveTab(id as 'kb' | 'file' | 'link')}
-                            variant="outlined"
-                        />
+                                                <Tabs
+                          value={activeTab}
+                          onChange={(_, v: string) => ((id) => setActiveTab(id as 'kb' | 'file' | 'link'))(v)}
+                          indicatorColor="primary"
+                          textColor="primary"
+                          aria-label="Sezioni di navigazione"
+                          sx={{
+                            bgcolor: 'var(--md-sys-color-surface-container-low)',
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            border: '1px solid var(--md-sys-color-outline-variant)',
+                            minHeight: 'auto',
+                            p: 0.5,
+                          }}
+                        >
+                          {(tabs).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                            <Tab
+                              key={tab.id}
+                              value={tab.id}
+                              id={`tab-${tab.id}`}
+                              aria-controls={`panel-${tab.id}`}
+                              data-testid={`tab-${tab.id}`}
+                              label={(
+                                <Badge badgeContent={tab.badge} color="error">
+                                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                    {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                    {tab.label}
+                                  </Box>
+                                </Badge>
+                              )}
+                              sx={{
+                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                                minHeight: 'auto',
+                                py: 1,
+                                px: 2,
+                                textTransform: 'uppercase',
+                                fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                              }}
+                            />
+                          ))}
+                        </Tabs>
 
                         {activeTab === 'kb' && (
                             <div  style={{flexGrow: 1, display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>

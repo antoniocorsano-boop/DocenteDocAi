@@ -5,8 +5,8 @@ import { Lezione, AiSettings, Studente, PianoInclusione, Slot, CurriculumSubject
 import { generateInclusivityAdaptations } from '../services/aiService';
 import { DAYS_OF_WEEK } from '../constants';
 import { parseClassString } from '../utils/schoolUtils'; 
-import { Button, Box, Typography, ButtonBase  } from '@mui/material';
-import { M3Dialog, TextField, SelectField, TextArea, AiThinkingGem } from './ui';
+import { Button, Box, Typography, ButtonBase   , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { M3Dialog, TextField, AiThinkingGem } from './ui';
 interface CreateLessonFromAiModalProps {
     content: { title: string; htmlContent: string };
     onClose: () => void;
@@ -202,12 +202,30 @@ return (
                         />
 
                         <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)' }}>
-                            <SelectField label="Classe" value={classe} onChange={e => setClasse(e.target.value)} required>
+                                                        <FormControl sx={{ mb: 2 }}>
+                              <InputLabel>Classe</InputLabel>
+                              <NativeSelect
+                                value={classe}
+                                onChange={e => setClasse(e.target.value)}
+                                required
+                              >
+
                                 {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
-                            </SelectField>
-                            <SelectField label="Materia" value={materia} onChange={e => setMateria(e.target.value)} required>
+                            
+                              </NativeSelect>
+                            </FormControl>
+                                                        <FormControl sx={{ mb: 2 }}>
+                              <InputLabel>Materia</InputLabel>
+                              <NativeSelect
+                                value={materia}
+                                onChange={e => setMateria(e.target.value)}
+                                required
+                              >
+
                                 {disciplines.map(d => <option key={d} value={d}>{d}</option>)}
-                            </SelectField>
+                            
+                              </NativeSelect>
+                            </FormControl>
                         </Box>
 
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
@@ -226,7 +244,7 @@ return (
                                     </Button>
                                 )}
                             </Box>
-                            <TextArea
+                            <TextField multiline
                                 label="Elenco obiettivi didattici per la lezione..."
                                 value={obiettivi}
                                 onChange={e => setObiettivi(e.target.value)}
@@ -304,7 +322,7 @@ return (
                                     {isAdaptationsLoading ? '' : 'Suggerisci con AI'}
                                 </Button>
                             </Box>
-                            <TextArea
+                            <TextField multiline
                                 label="Es. Fornire mappe concettuali, consentire l'uso della calcolatrice..."
                                 value={adattamenti}
                                 onChange={(e) => setAdattamenti(e.target.value)}

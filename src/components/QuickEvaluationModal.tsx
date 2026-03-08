@@ -4,8 +4,8 @@
 import React, { useState } from 'react';
 import { Studente, Lezione, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
-import { Button, Box, Typography, Card } from '@mui/material';
-import { M3Dialog, TabGroup, TextField, TextArea, SelectField } from './ui';
+import { Button, Box, Typography, Card  , FormControl, InputLabel, NativeSelect , Tabs, Tab, Badge } from '@mui/material';
+import { M3Dialog, TextField } from './ui';
 
 interface QuickEvaluationModalProps {
     student: Studente;
@@ -121,16 +121,20 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
             </Box>
             
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                <SelectField
-                    id="voto"
-                    label="Voto / Giudizio"
+                                <FormControl sx={{ mb: 2 }}>
+                  <InputLabel htmlFor="voto">Voto / Giudizio</InputLabel>
+                  <NativeSelect
                     value={voto}
                     onChange={e => setVoto(e.target.value)}
                     required
-                >
+                    inputProps={{ id: 'voto' }}
+                  >
+
                     <option value="">Seleziona...</option>
                     {RATING_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-                </SelectField>
+                
+                  </NativeSelect>
+                </FormControl>
 
                 <TextField
                     id="argomento"
@@ -139,7 +143,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                     onChange={e => setArgomento(e.target.value)}
                 />
 
-                <TextArea
+                <TextField multiline
                     id="note-voto"
                     label="Note"
                     value={noteVoto}
@@ -152,14 +156,18 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
     
     const renderCompetenzaTab = () => (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-            <SelectField
-                id="competenza"
-                label="Competenza"
+                        <FormControl sx={{ mb: 2 }}>
+              <InputLabel htmlFor="competenza">Competenza</InputLabel>
+              <NativeSelect
                 value={selectedCompetenzaId}
                 onChange={e => {setSelectedCompetenzaId(e.target.value); setSelectedLevelId('');}}
-            >
+                inputProps={{ id: 'competenza' }}
+              >
+
                 {settings.competenze.map(c => <option key={c.id} value={c.id}>{c.nome}</option>)}
-            </SelectField>
+            
+              </NativeSelect>
+            </FormControl>
 
             {selectedCompetenza && (
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
@@ -198,7 +206,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                 </Box>
             )}
 
-            <TextArea
+            <TextField multiline
                 id="note-competenza"
                 label="Note"
                 value={noteCompetenza}
@@ -228,14 +236,49 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                 <Typography variant="body2">{lesson.materia} - {new Date().toLocaleDateString('it-IT')}</Typography>
             </Box>
 
-            <TabGroup
-                tabs={[
+                        <Tabs
+              value={activeTab}
+              onChange={(_, v: string) => ((id) => setActiveTab(id as 'voto' | 'competenza'))(v)}
+              indicatorColor="primary"
+              textColor="primary"
+              aria-label="Sezioni di navigazione"
+              sx={{
+                bgcolor: 'var(--md-sys-color-surface-container-low)',
+                borderRadius: 'var(--md-sys-shape-corner-full)',
+                border: '1px solid var(--md-sys-color-outline-variant)',
+                minHeight: 'auto',
+                p: 0.5,
+              }}
+            >
+              {([
                     { id: 'voto', label: 'Voto Disciplinare' },
                     { id: 'competenza', label: 'Competenza' }
-                ]}
-                activeTab={activeTab}
-                onTabChange={(id) => setActiveTab(id as 'voto' | 'competenza')}
-            />
+                ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                <Tab
+                  key={tab.id}
+                  value={tab.id}
+                  id={`tab-${tab.id}`}
+                  aria-controls={`panel-${tab.id}`}
+                  data-testid={`tab-${tab.id}`}
+                  label={(
+                    <Badge badgeContent={tab.badge} color="error">
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                        {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                        {tab.label}
+                      </Box>
+                    </Badge>
+                  )}
+                  sx={{
+                    borderRadius: 'var(--md-sys-shape-corner-full)',
+                    minHeight: 'auto',
+                    py: 1,
+                    px: 2,
+                    textTransform: 'uppercase',
+                    fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                  }}
+                />
+              ))}
+            </Tabs>
 
             {activeTab === 'voto' ? renderVotoTab() : renderCompetenzaTab()}
         </M3Dialog>

@@ -3,8 +3,8 @@
 // Audit: gennaio 2026
 import React, { useState, useMemo } from 'react';
 import { Slot, Lezione, TimetableSettings, AiSettings, Uda, KnowledgeBaseEntry, PianoInclusione, Studente } from '../types';
-import { Button, Box, Typography, Card } from '@mui/material';
-import { M3Dialog, InfoCard, SectionHeader, TextField, SelectField, TextArea } from './ui';
+import { Button, Box, Typography, Card  , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { M3Dialog, InfoCard, SectionHeader, TextField } from './ui';
 interface EditSlotModalProps {
     slot: Slot;
     lesson?: Lezione;
@@ -145,31 +145,39 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                 {activityType === 'standard' && (
                     <Box sx={{ gap: 'var(--md-sys-spacing-6)' }}>
                         <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)' }}>
-                            <SelectField
-                                id="slot-class-select"
-                                label="Classe"
+                                                        <FormControl sx={{ mb: 2 }}>
+                              <InputLabel htmlFor="slot-class-select">Classe</InputLabel>
+                              <NativeSelect
                                 value={currentSlot.classe || ''}
                                 onChange={e => setCurrentSlot({ ...currentSlot, classe: e.target.value })}
                                 required
-                            >
+                                inputProps={{ id: 'slot-class-select' }}
+                              >
+
                                 <option value="">Seleziona...</option>
                                 {userClasses.map(c => (
                                     <option key={c} value={c}>{c}</option>
                                 ))}
-                            </SelectField>
+                            
+                              </NativeSelect>
+                            </FormControl>
 
-                            <SelectField
-                                id="slot-materia-select"
-                                label="Materia"
+                                                        <FormControl sx={{ mb: 2 }}>
+                              <InputLabel htmlFor="slot-materia-select">Materia</InputLabel>
+                              <NativeSelect
                                 value={currentSlot.materia || ''}
                                 onChange={e => setCurrentSlot({ ...currentSlot, materia: e.target.value })}
                                 required
-                            >
+                                inputProps={{ id: 'slot-materia-select' }}
+                              >
+
                                 <option value="">Seleziona...</option>
                                 {timetableSettings.disciplines.map(d => (
                                     <option key={d} value={d}>{d}</option>
                                 ))}
-                            </SelectField>
+                            
+                              </NativeSelect>
+                            </FormControl>
                         </Box>
 
                         <TextField
@@ -194,7 +202,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                 {activityType === 'disposizione' && (
                     <Box sx={{ gap: 'var(--md-sys-spacing-4)' }}>
                         <InfoCard title="Ora di Disposizione" description="Registra la tua presenza per sostituzioni o attività di plesso." icon="pending_actions" variant="outlined" />
-                        <TextArea
+                        <TextField multiline
                             id="slot-disp-nota"
                             label="Note Disposizione"
                             value={currentLesson.nota || ''}
@@ -208,7 +216,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                 {activityType === 'ricevimento' && (
                     <Box sx={{ gap: 'var(--md-sys-spacing-4)' }}>
                         <InfoCard title="Colloquio Genitori" description="Spazio dedicato al ricevimento delle famiglie." icon="diversity_3" variant="tertiary" />
-                        <TextArea
+                        <TextField multiline
                             id="slot-ricev-nota"
                             label="Note / Orario"
                             value={currentLesson.nota || ''}

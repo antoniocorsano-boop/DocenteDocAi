@@ -1,10 +1,11 @@
 // MD3 Compliant - Uses CSS custom properties for theming
+import { Tabs, Tab, Badge, Box } from '@mui/material';
 import React, { useState, useMemo } from 'react';
 import { Lezione, Slot, TimetableSettings } from '../types';
 import TimetableCell from './TimetableCell';
 import { DAYS_OF_WEEK } from '../constants';
 import Guidance from './Guidance';
-import { TabGroup } from './ui';
+import {} from './ui';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -137,15 +138,49 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                         backdropFilter: 'blur(var(--md-sys-blur-16))'}}>
-                        <TabGroup 
-                            tabs={[
+                                                <Tabs
+                          value={viewMode}
+                          onChange={(_, v: string) => ((id: string) => setViewMode(id as 'week' | 'day'))(v)}
+                          indicatorColor="primary"
+                          textColor="primary"
+                          aria-label="Sezioni di navigazione"
+                          sx={{
+                            bgcolor: 'var(--md-sys-color-surface-container-low)',
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            border: '1px solid var(--md-sys-color-outline-variant)',
+                            minHeight: 'auto',
+                            p: 0.5,
+                          }}
+                        >
+                          {([
                                 {id:'week', label:'Settimana', icon:'view_week'}, 
                                 {id:'day', label:'Giorno', icon:'calendar_view_day'}
-                            ]}
-                            activeTab={viewMode}
-                            onTabChange={(id: string) => setViewMode(id as 'week' | 'day')}
-                            variant="contained"
-                        />
+                            ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
+                            <Tab
+                              key={tab.id}
+                              value={tab.id}
+                              id={`tab-${tab.id}`}
+                              aria-controls={`panel-${tab.id}`}
+                              data-testid={`tab-${tab.id}`}
+                              label={(
+                                <Badge badgeContent={tab.badge} color="error">
+                                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                    {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
+                                    {tab.label}
+                                  </Box>
+                                </Badge>
+                              )}
+                              sx={{
+                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                                minHeight: 'auto',
+                                py: 1,
+                                px: 2,
+                                textTransform: 'uppercase',
+                                fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                              }}
+                            />
+                          ))}
+                        </Tabs>
                         
                         {viewMode === 'day' && (
                             <div style={{display: 'flex',

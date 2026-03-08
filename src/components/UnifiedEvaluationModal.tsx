@@ -3,8 +3,8 @@
 import React, { useState, useMemo } from 'react';
 import type { Studente, Prova, Valutazione, ValutazioneCompetenza, TimetableSettings } from '../types';
 import { RATING_OPTIONS } from '../constants';
-import { Button, Box, Typography, ButtonBase  } from '@mui/material';
-import { M3Dialog, SelectField, InfoCard } from './ui';
+import { Button, Box, Typography, ButtonBase  , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { M3Dialog, InfoCard } from './ui';
 interface UnifiedEvaluationModalProps {
     student: Studente;
     prova: Prova;
@@ -86,16 +86,21 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                         <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: '0.1em', mb: 'var(--md-sys-spacing-8)', opacity: 'var(--md-sys-state-opacity-secondary)' }}>
                             {student.cognome} {student.nome} • {prova.materia}
                         </Typography>
-                        <SelectField
-                            label="Voto Numerico"
+                                                <FormControl fullWidth sx={{ mb: 2 }}>
+                          <InputLabel htmlFor="unified-grade-select">Voto Numerico</InputLabel>
+                          <NativeSelect
                             value={grade}
                             onChange={e => setGrade(e.target.value)}
-                            options={[
+                            inputProps={{ id: 'unified-grade-select' }}
+                          >
+                            {([
                                 { value: '', label: 'Nessun Voto' },
                                 ...RATING_OPTIONS.map(o => ({ value: o, label: o }))
-                            ]}
-                            fullWidth
-                        />
+                            ]).map((o) => (
+                              <option key={o.value} value={o.value}>{o.label}</option>
+                            ))}
+                          </NativeSelect>
+                        </FormControl>
                     </Box>
                 </Box>
 
