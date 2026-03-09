@@ -3,6 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ButtonBase from '@mui/material/ButtonBase';
@@ -171,28 +172,26 @@ const renderHeader = () => {
             : `${MONTHS_LONG[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 
         return (
-            <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <div style={{
-                        backgroundColor: 'var(--md-sys-color-surface)',
-                        padding: 'var(--md-sys-spacing-6)',
+            <Box component="header" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 'var(--md-sys-spacing-4) var(--md-sys-spacing-6)', bgcolor: 'var(--md-sys-color-surface-container-low)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
+                <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
+                    <Box sx={{
+                        bgcolor: 'var(--md-sys-color-surface)',
+                        p: 'var(--md-sys-spacing-6)',
                         borderRadius: 'var(--md-sys-shape-corner-full)',
-                        border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`
+                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
                     }}>
-                        <Button variant="text" onClick={() => handleNavigate('prev')} title="Mese precedente" aria-label="Vai al mese precedente" >
-                            <span style={{
-}} aria-hidden="true">chevron_left</span>
+                        <Button variant="text" onClick={() => handleNavigate('prev')} title="Mese precedente" aria-label="Vai al mese precedente">
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">chevron_left</Box>
                         </Button>
-                        <Button variant="outlined" onClick={() => handleNavigate('today')}  title="Torna a oggi">Oggi</Button>
-                        <Button variant="text" onClick={() => handleNavigate('next')} title="Mese successivo" aria-label="Vai al mese successivo" >
-                            <span style={{
-}} aria-hidden="true">chevron_right</span>
+                        <Button variant="outlined" onClick={() => handleNavigate('today')} title="Torna a oggi">Oggi</Button>
+                        <Button variant="text" onClick={() => handleNavigate('next')} title="Mese successivo" aria-label="Vai al mese successivo">
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">chevron_right</Box>
                         </Button>
-                    </div>
+                    </Box>
                     <Typography variant="h5" sx={{ color: 'var(--md-sys-color-on-surface)' }}>{title}</Typography>
-                </div>
+                </Stack>
 
-                <div  style={{gap: 'var(--md-sys-spacing-8)'}}>
+                <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-8)' }}>
                                         <Tabs
                       value={viewMode}
                       onChange={(_, v: string) => ((id) => setViewMode(id as CalendarView))(v)}
@@ -239,29 +238,27 @@ const renderHeader = () => {
                       ))}
                     </Tabs>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                        <Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza circolare con AI" aria-label="Apri analizzatore AI per circolari" >
-                            <span  style={{color: "var(--md-sys-color-primary)"}} aria-hidden="true">auto_awesome</span>
+                    <Stack direction="row" alignItems="center" sx={{ gap: 'var(--md-sys-spacing-3)' }}>
+                        <Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza circolare con AI" aria-label="Apri analizzatore AI per circolari">
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>auto_awesome</Box>
                         </Button>
-                        <Button variant="contained" onClick={() => setEditingEvent({})} title="Crea nuovo evento">
-                            <span style={{
-}} aria-hidden="true">add</span>
+                        <Button variant="contained" onClick={() => setEditingEvent({})} title="Crea nuovo evento" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add</Box>}>
                             Nuovo Evento
                         </Button>
-                    </div>
-                </div>
-            </header>
+                    </Stack>
+                </Stack>
+            </Box>
         );
     };
 
     const renderMonthView = () => (
-        <div  role="grid" aria-label="Calendario mensile" ref={calendarGridRef} onKeyDown={handleCalendarKeyDown}>
-            <div  role="row">
+        <Box role="grid" aria-label="Calendario mensile" ref={calendarGridRef} onKeyDown={handleCalendarKeyDown}>
+            <Box role="row">
                 {DAYS_SHORT.map(d => (
-                    <div key={d}  role="columnheader" aria-label={d}>{d}</div>
+                    <Box key={d} role="columnheader" aria-label={d}>{d}</Box>
                 ))}
-            </div>
-            <div  role="rowgroup">
+            </Box>
+            <Box role="rowgroup">
                 {monthDates.map((date, i) => {
                     const isCurrentMonth = date.getMonth() === currentDate.getMonth();
                     const isToday = date.toDateString() === new Date().toDateString();
@@ -269,14 +266,14 @@ const renderHeader = () => {
                     const cellEvents = eventi.filter(e => e.data === date.toISOString().split('T')[0]);
 
                     return (
-                        <div 
-                            key={i} 
-                            style={{
+                        <Box
+                            key={i}
+                            sx={{
                                 minHeight: 'var(--md-sys-spacing-25)',
-                                padding: 'var(--md-sys-spacing-2)',
+                                p: 'var(--md-sys-spacing-2)',
                                 borderRight: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                                 borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
-                                background: !isCurrentMonth ? 'var(--md-sys-color-surface-container-lowest)' : 'var(--md-sys-color-surface)',
+                                bgcolor: !isCurrentMonth ? 'var(--md-sys-color-surface-container-lowest)' : 'var(--md-sys-color-surface)',
                                 opacity: !isCurrentMonth ? 0.5 : 1,
                                 cursor: 'pointer',
                                 transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
@@ -301,7 +298,7 @@ const renderHeader = () => {
                                 }
                             }}
                         >
-                            <span style={{
+                            <Box component="span" sx={{
                                 display: 'inline-flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -310,12 +307,12 @@ const renderHeader = () => {
                                 fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                 fontWeight: isToday ? 'var(--md-sys-typescale-weight-bold)' : 'var(--md-sys-typescale-weight-medium)',
                                 color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
-                                background: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
+                                bgcolor: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
                                 borderRadius: 'var(--md-sys-shape-corner-full)'
                             }}>
                                 {date.getDate()}
-                            </span>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                            </Box>
+                            <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
                                 {cellEvents.slice(0, 3).map((ev, idx) => (
                                     <ButtonBase
                                         key={ev.id || idx}
@@ -350,42 +347,42 @@ const renderHeader = () => {
                                     </ButtonBase>
                                 ))}
                                 {cellEvents.length > 3 && (
-                                    <div>+{cellEvents.length - 3} altri</div>
+                                    <Box component="span" sx={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>+{cellEvents.length - 3} altri</Box>
                                 )}
-                            </div>
-                        </div>
+                            </Stack>
+                        </Box>
                     );
                 })}
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 
     const renderWeekView = () => (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+        <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
+            <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
                 {weekDates.map((date, i) => {
                     const isToday = date.toDateString() === new Date().toDateString();
                     return (
-                        <div key={i} style={{
-                            padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-2)',
+                        <Box key={i} sx={{
+                            p: 'var(--md-sys-spacing-3) var(--md-sys-spacing-2)',
                             textAlign: 'center',
                             borderRight: i < 6 ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' : 'none'
                         }}>
-                            <div style={{
+                            <Box sx={{
                                 fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                                 fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                 color: 'var(--md-sys-color-on-surface-variant)',
                                 textTransform: 'uppercase',
                                 letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                                marginBottom: 'var(--md-sys-spacing-1)'
+                                mb: 'var(--md-sys-spacing-1)'
                             }}>
                                 {DAYS_SHORT[i]}
-                            </div>
-                            <div style={{
+                            </Box>
+                            <Box sx={{
                                 fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                 fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                 color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
-                                background: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
+                                bgcolor: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
                                 borderRadius: 'var(--md-sys-shape-corner-full)',
                                 display: 'inline-flex',
                                 alignItems: 'center',
@@ -394,18 +391,18 @@ const renderHeader = () => {
                                 height: 'var(--md-sys-spacing-7)'
                             }}>
                                 {date.getDate()}
-                            </div>
-                        </div>
+                            </Box>
+                        </Box>
                     );
                 })}
-            </div>
-            <div  ref={scrollContainerRef}>
+            </Stack>
+            <Box ref={scrollContainerRef}>
                 {Array.from({ length: 24 }, (_, hour) => (
-                    <div key={hour} >
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Box key={hour}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             {hour.toString().padStart(2, '0')}:00
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        </Box>
+                        <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
                             {weekDates.map((date, dayIndex) => {
                                 const dayEvents = eventi.filter(e => {
                                     const eventDate = new Date(e.data);
@@ -415,7 +412,7 @@ const renderHeader = () => {
                                 });
                                 
                                 return (
-                                    <div key={dayIndex} >
+                                    <Box key={dayIndex}>
                                         {dayEvents.map((ev, idx) => (
                                             <ButtonBase
                                                 key={ev.id || idx}
@@ -446,56 +443,47 @@ const renderHeader = () => {
                                                     '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 },
                                                 }}
                                             >
-                                                <div>{ev.titolo}</div>
-                                                <div>{ev.oraInizio} - {ev.oraFine || 'N/A'}</div>
+                                                <Box>{ev.titolo}</Box>
+                                                <Box>{ev.oraInizio} - {ev.oraFine || 'N/A'}</Box>
                                             </ButtonBase>
                                         ))}
-                                    </div>
+                                    </Box>
                                 );
                             })}
-                        </div>
-                    </div>
+                        </Stack>
+                    </Box>
                 ))}
-            </div>
-        </div>
+            </Box>
+        </Stack>
     );
 
     const renderDayView = () => (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-            <div  style={{padding: 'var(--md-sys-spacing-8)'}}>
-                <Typography variant="h6" sx={{color: 'var(--md-sys-color-primary)'}}>
+        <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
+            <Box sx={{ p: 'var(--md-sys-spacing-8)' }}>
+                <Typography variant="h6" sx={{ color: 'var(--md-sys-color-primary)' }}>
                     {currentDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
                 </Typography>
-            </div>
-            <div  ref={scrollContainerRef}>
+            </Box>
+            <Box ref={scrollContainerRef}>
                 {dayEvents.length === 0 ? (
-                    <div style={{ 
-                        padding: 'var(--md-sys-spacing-12)', 
-                        display: "flex", 
-                        flexDirection: "column", 
-                        alignItems: "center", 
-                        justifyContent: "center", 
-                        textAlign: "center", 
-                        opacity: "var(--md-sys-state-opacity-secondary)" 
+                    <Stack direction="column" alignItems="center" justifyContent="center" sx={{
+                        p: 'var(--md-sys-spacing-12)',
+                        textAlign: 'center',
+                        opacity: 'var(--md-sys-state-opacity-secondary)'
                     }}>
-                        <span 
-                            style={{ 
-                                color: 'var(--md-sys-color-on-surface-variant)',
-                                marginBottom: 'var(--md-sys-spacing-8)'
-                            }} 
-                            aria-hidden="true"
-                        >
-                            event_busy
-                        </span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{
+                            color: 'var(--md-sys-color-on-surface-variant)',
+                            mb: 'var(--md-sys-spacing-8)'
+                        }}>event_busy</Box>
                         <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)' }}>
                             Nessun evento per questo giorno
                         </Typography>
-                        <Button variant="text" onClick={() => setEditingEvent({})} sx={{marginTop: 'var(--md-sys-spacing-4)'}}>
+                        <Button variant="text" onClick={() => setEditingEvent({})} sx={{ mt: 'var(--md-sys-spacing-4)' }}>
                             Aggiungi Evento
                         </Button>
-                    </div>
+                    </Stack>
                 ) : (
-                    <div  style={{padding: 'var(--md-sys-spacing-8)', gap: 'var(--md-sys-spacing-4)'}}>
+                    <Stack direction="column" sx={{ p: 'var(--md-sys-spacing-8)', gap: 'var(--md-sys-spacing-4)' }}>
                         {dayEvents.map(ev => (
                             <ButtonBase
                                 key={ev.id}
@@ -524,37 +512,37 @@ const renderHeader = () => {
                                     '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 },
                                 }}
                             >
-                                <div style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
+                                <Box sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
                                     {ev.oraInizio || 'Tutto il giorno'}
-                                </div>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                    <div style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{ev.titolo}</div>
-                                    {ev.descrizione && <div style={{ opacity: 'var(--md-sys-state-opacity-caption)' }}>{ev.descrizione}</div>}
-                                    {ev.location && <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>📍 {ev.location}</div>}
-                                </div>
+                                </Box>
+                                <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
+                                    <Box sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{ev.titolo}</Box>
+                                    {ev.descrizione && <Box sx={{ opacity: 'var(--md-sys-state-opacity-caption)' }}>{ev.descrizione}</Box>}
+                                    {ev.location && <Box sx={{ mt: 'var(--md-sys-spacing-4)' }}>📍 {ev.location}</Box>}
+                                </Stack>
                             </ButtonBase>
                         ))}
-                    </div>
+                    </Stack>
                 )}
-            </div>
-        </div>
+            </Box>
+        </Stack>
     );
 
     const renderAgendaView = () => (
-        <div  style={{padding: 'var(--md-sys-spacing-8)'}}>
+        <Box sx={{ p: 'var(--md-sys-spacing-8)' }}>
             {Object.keys(agendaGroups).length === 0 ? (
-                <div style={{ padding: 'var(--md-sys-spacing-8)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", opacity: "var(--md-sys-state-opacity-secondary)" }}>
-                    <span style={{ color: "var(--md-sys-color-on-surface-variant)", marginBottom: 'var(--md-sys-spacing-8)' }} aria-hidden="true">event_busy</span>
-                    <Typography variant="body2" sx={{ color: "var(--md-sys-color-on-surface-variant)" }}>Nessun evento questo mese</Typography>
-                </div>
+                <Stack direction="column" alignItems="center" justifyContent="center" sx={{ p: 'var(--md-sys-spacing-8)', textAlign: 'center', opacity: 'var(--md-sys-state-opacity-secondary)' }}>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mb: 'var(--md-sys-spacing-8)' }}>event_busy</Box>
+                    <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessun evento questo mese</Typography>
+                </Stack>
             ) : (
-                <div style={{gap: 'var(--md-sys-spacing-6)'}}>
+                <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-6)' }}>
                     {Object.entries(agendaGroups).map(([date, evts]) => (
-                        <div key={date} style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 20%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
-                            <div  style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-6)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                        <Box key={date} sx={{ bgcolor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 20%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)', p: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}>
+                            <Box sx={{ color: 'var(--md-sys-color-primary)', mb: 'var(--md-sys-spacing-6)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}>
                                 {new Date(date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })}
-                            </div>
-                            <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
+                            </Box>
+                            <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-3)' }}>
                                 {evts.map(ev => (
                                     <ButtonBase
                                         key={ev.id}
@@ -583,37 +571,36 @@ const renderHeader = () => {
                                             '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 },
                                         }}
                                     >
-                                        <div style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
+                                        <Box sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
                                             {ev.oraInizio || 'Tutto il giorno'}
-                                        </div>
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                            <div style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{ev.titolo}</div>
-                                            {ev.descrizione && <div style={{ opacity: 'var(--md-sys-state-opacity-caption)' }}>{ev.descrizione}</div>}
-                                        </div>
+                                        </Box>
+                                        <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
+                                            <Box sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{ev.titolo}</Box>
+                                            {ev.descrizione && <Box sx={{ opacity: 'var(--md-sys-state-opacity-caption)' }}>{ev.descrizione}</Box>}
+                                        </Stack>
                                     </ButtonBase>
                                 ))}
-                            </div>
-                        </div>
+                            </Stack>
+                        </Box>
                     ))}
-                </div>
+                </Stack>
             )}
-        </div>
+        </Box>
     );
 
     return (
-        <div 
-            
+        <Box
             ref={calendarGridRef}
             onKeyDown={handleCalendarKeyDown}
         >
             {renderHeader()}
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+
+            <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
                 {viewMode === 'month' && renderMonthView()}
                 {viewMode === 'week' && renderWeekView()}
                 {viewMode === 'day' && renderDayView()}
                 {viewMode === 'agenda' && renderAgendaView()}
-            </div>
+            </Stack>
 
             {editingEvent && (
                 <Suspense fallback={<Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}><CircularProgress size={20} /></Box>}>
@@ -664,7 +651,7 @@ const renderHeader = () => {
                     }}
                 />
             )}
-        </div>
+        </Box>
     );
 };
 
