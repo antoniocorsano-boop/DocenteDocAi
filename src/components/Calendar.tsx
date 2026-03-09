@@ -1,4 +1,4 @@
-// MD3 Compliant - Block J Migration Complete (5 violations eliminated)
+// MD3 Gold Compliant — MUI v7 full compliance rewrite
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
@@ -6,7 +6,14 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import ButtonBase from '@mui/material/ButtonBase';
+import IconButton from '@mui/material/IconButton';
+import Paper from '@mui/material/Paper';
+import Chip from '@mui/material/Chip';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import Divider from '@mui/material/Divider';
 import CircularProgress from '@mui/material/CircularProgress';
 import React, { useState, useMemo, useEffect, useRef, Suspense, lazy } from 'react';
 import '../modules.css';
@@ -172,80 +179,130 @@ const renderHeader = () => {
             : `${MONTHS_LONG[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
 
         return (
-            <Box component="header" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 'var(--md-sys-spacing-4) var(--md-sys-spacing-6)', bgcolor: 'var(--md-sys-color-surface-container-low)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
-                <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
-                    <Box sx={{
-                        bgcolor: 'var(--md-sys-color-surface)',
-                        p: 'var(--md-sys-spacing-6)',
-                        borderRadius: 'var(--md-sys-shape-corner-full)',
-                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
-                    }}>
-                        <Button variant="text" onClick={() => handleNavigate('prev')} title="Mese precedente" aria-label="Vai al mese precedente">
-                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">chevron_left</Box>
+            <Box
+                component="header"
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    gap: 2,
+                    px: 3,
+                    py: 2,
+                    bgcolor: 'var(--md-sys-color-surface-container-low)',
+                    borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                }}
+            >
+                {/* Left: nav controls + title */}
+                <Stack direction="row" alignItems="center" gap={2}>
+                    <Paper
+                        variant="outlined"
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 0.5,
+                            px: 0.5,
+                            py: 0.5,
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                        }}
+                    >
+                        <IconButton
+                            size="small"
+                            onClick={() => handleNavigate('prev')}
+                            aria-label="Vai al periodo precedente"
+                        >
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20 }}>chevron_left</Box>
+                        </IconButton>
+                        <Button
+                            variant="outlined"
+                            size="small"
+                            onClick={() => handleNavigate('today')}
+                            sx={{ borderRadius: 'var(--md-sys-shape-corner-full)', minWidth: 64 }}
+                        >
+                            Oggi
                         </Button>
-                        <Button variant="outlined" onClick={() => handleNavigate('today')} title="Torna a oggi">Oggi</Button>
-                        <Button variant="text" onClick={() => handleNavigate('next')} title="Mese successivo" aria-label="Vai al mese successivo">
-                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">chevron_right</Box>
-                        </Button>
-                    </Box>
-                    <Typography variant="h5" sx={{ color: 'var(--md-sys-color-on-surface)' }}>{title}</Typography>
+                        <IconButton
+                            size="small"
+                            onClick={() => handleNavigate('next')}
+                            aria-label="Vai al periodo successivo"
+                        >
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20 }}>chevron_right</Box>
+                        </IconButton>
+                    </Paper>
+                    <Typography variant="h5" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 400 }}>
+                        {title}
+                    </Typography>
                 </Stack>
 
-                <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-8)' }}>
-                                        <Tabs
-                      value={viewMode}
-                      onChange={(_, v: string) => ((id) => setViewMode(id as CalendarView))(v)}
-                      indicatorColor="primary"
-                      textColor="primary"
-                      aria-label="Sezioni di navigazione"
-                      sx={{
-                        bgcolor: 'var(--md-sys-color-surface-container-low)',
-                        borderRadius: 'var(--md-sys-shape-corner-full)',
-                        border: '1px solid var(--md-sys-color-outline-variant)',
-                        minHeight: 'auto',
-                        p: 0.5,
-                      }}
+                {/* Right: view tabs + actions */}
+                <Stack direction="row" alignItems="center" gap={1.5}>
+                    <Tabs
+                        value={viewMode}
+                        onChange={(_, v: string) => setViewMode(v as CalendarView)}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        aria-label="Modalità di visualizzazione calendario"
+                        sx={{
+                            bgcolor: 'var(--md-sys-color-surface)',
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            border: '1px solid var(--md-sys-color-outline-variant)',
+                            minHeight: 40,
+                            p: 0.5,
+                            '& .MuiTabs-indicator': { display: 'none' },
+                            '& .Mui-selected': {
+                                bgcolor: 'var(--md-sys-color-secondary-container)',
+                                borderRadius: 'var(--md-sys-shape-corner-full)',
+                                color: 'var(--md-sys-color-on-secondary-container) !important',
+                            },
+                        }}
                     >
-                      {([
+                        {([
                             { id: 'month', label: 'Mese' },
                             { id: 'week', label: 'Settimana' },
                             { id: 'day', label: 'Giorno' },
-                            { id: 'agenda', label: 'Agenda' }
-                        ]).map((tab: { id: string; label: string; icon?: string; badge?: number | string }) => (
-                        <Tab
-                          key={tab.id}
-                          value={tab.id}
-                          id={`tab-${tab.id}`}
-                          aria-controls={`panel-${tab.id}`}
-                          data-testid={`tab-${tab.id}`}
-                          label={(
-                            <Badge badgeContent={tab.badge} color="error">
-                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                                {tab.icon && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>}
-                                {tab.label}
-                              </Box>
-                            </Badge>
-                          )}
-                          sx={{
-                            borderRadius: 'var(--md-sys-shape-corner-full)',
-                            minHeight: 'auto',
-                            py: 1,
-                            px: 2,
-                            textTransform: 'uppercase',
-                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
-                          }}
-                        />
-                      ))}
+                            { id: 'agenda', label: 'Agenda' },
+                        ] as { id: string; label: string; badge?: number }[]).map(tab => (
+                            <Tab
+                                key={tab.id}
+                                value={tab.id}
+                                id={`tab-${tab.id}`}
+                                aria-controls={`panel-${tab.id}`}
+                                data-testid={`tab-${tab.id}`}
+                                label={
+                                    <Badge badgeContent={tab.badge} color="error">
+                                        {tab.label}
+                                    </Badge>
+                                }
+                                sx={{
+                                    borderRadius: 'var(--md-sys-shape-corner-full)',
+                                    minHeight: 32,
+                                    py: 0.5,
+                                    px: 2,
+                                    textTransform: 'uppercase',
+                                    fontSize: '0.75rem',
+                                    fontWeight: 500,
+                                }}
+                            />
+                        ))}
                     </Tabs>
 
-                    <Stack direction="row" alignItems="center" sx={{ gap: 'var(--md-sys-spacing-3)' }}>
-                        <Button variant="text" onClick={() => setIsAiParserOpen(true)} title="Analizza circolare con AI" aria-label="Apri analizzatore AI per circolari">
-                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>auto_awesome</Box>
-                        </Button>
-                        <Button variant="contained" onClick={() => setEditingEvent({})} title="Crea nuovo evento" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add</Box>}>
-                            Nuovo Evento
-                        </Button>
-                    </Stack>
+                    <IconButton
+                        onClick={() => setIsAiParserOpen(true)}
+                        aria-label="Analizza circolare con AI"
+                        color="primary"
+                        size="medium"
+                    >
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true">auto_awesome</Box>
+                    </IconButton>
+
+                    <Button
+                        variant="contained"
+                        onClick={() => setEditingEvent({})}
+                        startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add</Box>}
+                        aria-label="Crea nuovo evento"
+                    >
+                        Nuovo Evento
+                    </Button>
                 </Stack>
             </Box>
         );
@@ -253,12 +310,48 @@ const renderHeader = () => {
 
     const renderMonthView = () => (
         <Box role="grid" aria-label="Calendario mensile" ref={calendarGridRef} onKeyDown={handleCalendarKeyDown}>
-            <Box role="row">
+            {/* Day-of-week header row */}
+            <Box
+                role="row"
+                sx={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(7, 1fr)',
+                    bgcolor: 'var(--md-sys-color-surface-container-low)',
+                    borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                }}
+            >
                 {DAYS_SHORT.map(d => (
-                    <Box key={d} role="columnheader" aria-label={d}>{d}</Box>
+                    <Box
+                        key={d}
+                        role="columnheader"
+                        aria-label={d}
+                        sx={{ py: 1, textAlign: 'center' }}
+                    >
+                        <Typography
+                            variant="caption"
+                            sx={{
+                                fontWeight: 700,
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.08em',
+                                color: 'var(--md-sys-color-on-surface-variant)',
+                            }}
+                        >
+                            {d}
+                        </Typography>
+                    </Box>
                 ))}
             </Box>
-            <Box role="rowgroup">
+
+            {/* Day cells grid */}
+            <Box
+                role="rowgroup"
+                sx={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(7, 1fr)',
+                    borderLeft: '1px solid var(--md-sys-color-outline-variant)',
+                    borderTop: '1px solid var(--md-sys-color-outline-variant)',
+                }}
+            >
                 {monthDates.map((date, i) => {
                     const isCurrentMonth = date.getMonth() === currentDate.getMonth();
                     const isToday = date.toDateString() === new Date().toDateString();
@@ -269,27 +362,31 @@ const renderHeader = () => {
                         <Box
                             key={i}
                             sx={{
-                                minHeight: 'var(--md-sys-spacing-25)',
-                                p: 'var(--md-sys-spacing-2)',
-                                borderRight: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
-                                borderBottom: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
-                                bgcolor: !isCurrentMonth ? 'var(--md-sys-color-surface-container-lowest)' : 'var(--md-sys-color-surface)',
-                                opacity: !isCurrentMonth ? 0.5 : 1,
+                                minHeight: 100,
+                                p: 1,
+                                borderRight: '1px solid var(--md-sys-color-outline-variant)',
+                                borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                                bgcolor: !isCurrentMonth
+                                    ? 'var(--md-sys-color-surface-container-lowest)'
+                                    : 'var(--md-sys-color-surface)',
+                                opacity: !isCurrentMonth ? 0.6 : 1,
                                 cursor: 'pointer',
-                                transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                transition: 'background-color 150ms',
+                                '&:hover': {
+                                    bgcolor: !isCurrentMonth
+                                        ? 'var(--md-sys-color-surface-container-low)'
+                                        : 'var(--md-sys-color-surface-container)',
+                                },
                                 ...(isFocused ? {
-                                    outline: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)',
-                                    outlineOffset: 'var(--md-sys-border-width-thick)'
-                                } : {})
+                                    outline: '2px solid var(--md-sys-color-primary)',
+                                    outlineOffset: '-2px',
+                                } : {}),
                             }}
                             role="gridcell"
                             tabIndex={isFocused ? 0 : -1}
                             aria-label={`${date.toLocaleDateString('it-IT')}${cellEvents.length > 0 ? `, ${cellEvents.length} eventi` : ''}`}
                             onFocus={() => setFocusedDateIndex(i)}
-                            onClick={() => {
-                                setCurrentDate(date);
-                                setViewMode('day');
-                            }}
+                            onClick={() => { setCurrentDate(date); setViewMode('day'); }}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter' || e.key === ' ') {
                                     e.preventDefault();
@@ -298,56 +395,64 @@ const renderHeader = () => {
                                 }
                             }}
                         >
-                            <Box component="span" sx={{
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                width: 'var(--md-sys-spacing-7)',
-                                height: 'var(--md-sys-spacing-7)',
-                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                                fontWeight: isToday ? 'var(--md-sys-typescale-weight-bold)' : 'var(--md-sys-typescale-weight-medium)',
-                                color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
-                                bgcolor: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
-                                borderRadius: 'var(--md-sys-shape-corner-full)'
-                            }}>
+                            {/* Date number badge */}
+                            <Box
+                                component="span"
+                                sx={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    width: 28,
+                                    height: 28,
+                                    mb: 0.5,
+                                    typography: 'body2',
+                                    fontWeight: isToday ? 700 : 400,
+                                    color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
+                                    bgcolor: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
+                                    borderRadius: '50%',
+                                }}
+                            >
                                 {date.getDate()}
                             </Box>
-                            <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
+
+                            {/* Event chips */}
+                            <Stack direction="column" gap={0.5}>
                                 {cellEvents.slice(0, 3).map((ev, idx) => (
-                                    <ButtonBase
+                                    <Chip
                                         key={ev.id || idx}
+                                        label={ev.titolo}
+                                        size="small"
                                         onClick={(e) => { e.stopPropagation(); setEditingEvent(ev); }}
                                         aria-label={ev.titolo}
-                                        focusRipple
                                         sx={{
-                                            display: 'block',
+                                            height: 20,
                                             width: '100%',
-                                            textAlign: 'left',
-                                            padding: 'var(--md-sys-spacing-0_5) var(--md-sys-spacing-2)',
-                                            fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-                                            fontWeight: 'var(--md-sys-typescale-weight-medium)',
-                                            borderRadius: 'var(--md-sys-shape-corner-extra-small)',
-                                            whiteSpace: 'nowrap',
-                                            overflow: 'hidden',
-                                            textOverflow: 'ellipsis',
-                                            position: 'relative',
-                                            background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
-                                                       ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
-                                                       ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
-                                                       'var(--md-sys-color-secondary-container)',
+                                            justifyContent: 'flex-start',
+                                            fontSize: '0.68rem',
+                                            fontWeight: 500,
+                                            borderRadius: '4px',
+                                            bgcolor: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
+                                                     ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
+                                                     ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
+                                                     'var(--md-sys-color-secondary-container)',
                                             color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' :
                                                    ev.tipo === 'scadenza' ? 'var(--md-sys-color-on-tertiary-container)' :
                                                    ev.tipo === 'riunione' ? 'var(--md-sys-color-on-primary-container)' :
                                                    'var(--md-sys-color-on-secondary-container)',
-                                            '&:hover::after': { content: '""', position: 'absolute', inset: 0, borderRadius: 'inherit', backgroundColor: 'var(--md-sys-color-on-surface)', opacity: 0.08, pointerEvents: 'none' },
-                                            '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 },
+                                            '& .MuiChip-label': {
+                                                px: 1,
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                                whiteSpace: 'nowrap',
+                                                display: 'block',
+                                            },
                                         }}
-                                    >
-                                        {ev.titolo}
-                                    </ButtonBase>
+                                    />
                                 ))}
                                 {cellEvents.length > 3 && (
-                                    <Box component="span" sx={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>+{cellEvents.length - 3} altri</Box>
+                                    <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', pl: 0.5 }}>
+                                        +{cellEvents.length - 3} altri
+                                    </Typography>
                                 )}
                             </Stack>
                         </Box>
@@ -358,99 +463,137 @@ const renderHeader = () => {
     );
 
     const renderWeekView = () => (
-        <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
-            <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
+        <Stack direction="column">
+            {/* Day-of-week header row */}
+            <Box
+                sx={{
+                    display: 'grid',
+                    gridTemplateColumns: '56px repeat(7, 1fr)',
+                    bgcolor: 'var(--md-sys-color-surface-container-low)',
+                    borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                    position: 'sticky',
+                    top: 0,
+                    zIndex: 1,
+                }}
+            >
+                <Box /> {/* offset for time column */}
                 {weekDates.map((date, i) => {
                     const isToday = date.toDateString() === new Date().toDateString();
                     return (
-                        <Box key={i} sx={{
-                            p: 'var(--md-sys-spacing-3) var(--md-sys-spacing-2)',
-                            textAlign: 'center',
-                            borderRight: i < 6 ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' : 'none'
-                        }}>
-                            <Box sx={{
-                                fontSize: 'var(--md-sys-typescale-label-small-font-size)',
-                                fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                                color: 'var(--md-sys-color-on-surface-variant)',
-                                textTransform: 'uppercase',
-                                letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
-                                mb: 'var(--md-sys-spacing-1)'
-                            }}>
+                        <Box
+                            key={i}
+                            sx={{ py: 1, textAlign: 'center', borderLeft: '1px solid var(--md-sys-color-outline-variant)' }}
+                        >
+                            <Typography
+                                variant="caption"
+                                sx={{
+                                    display: 'block',
+                                    fontWeight: 700,
+                                    textTransform: 'uppercase',
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                }}
+                            >
                                 {DAYS_SHORT[i]}
-                            </Box>
-                            <Box sx={{
-                                fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                                fontWeight: 'var(--md-sys-typescale-weight-medium)',
-                                color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
-                                bgcolor: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
-                                borderRadius: 'var(--md-sys-shape-corner-full)',
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                width: 'var(--md-sys-spacing-7)',
-                                height: 'var(--md-sys-spacing-7)'
-                            }}>
+                            </Typography>
+                            <Box
+                                sx={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    width: 28,
+                                    height: 28,
+                                    mt: 0.25,
+                                    typography: 'body2',
+                                    fontWeight: isToday ? 700 : 400,
+                                    color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
+                                    bgcolor: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
+                                    borderRadius: '50%',
+                                }}
+                            >
                                 {date.getDate()}
                             </Box>
                         </Box>
                     );
                 })}
-            </Stack>
-            <Box ref={scrollContainerRef}>
+            </Box>
+
+            {/* Time grid */}
+            <Box
+                ref={scrollContainerRef}
+                sx={{ overflowY: 'auto', maxHeight: 'calc(100vh - 200px)' }}
+            >
                 {Array.from({ length: 24 }, (_, hour) => (
-                    <Box key={hour}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            {hour.toString().padStart(2, '0')}:00
+                    <Box
+                        key={hour}
+                        sx={{
+                            display: 'grid',
+                            gridTemplateColumns: '56px repeat(7, 1fr)',
+                            minHeight: 60,
+                            borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                        }}
+                    >
+                        {/* Time label */}
+                        <Box sx={{ px: 1, pt: 0.5 }}>
+                            <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                                {hour.toString().padStart(2, '0')}:00
+                            </Typography>
                         </Box>
-                        <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
-                            {weekDates.map((date, dayIndex) => {
-                                const dayEvents = eventi.filter(e => {
-                                    const eventDate = new Date(e.data);
-                                    return eventDate.toDateString() === date.toDateString() &&
-                                           e.oraInizio &&
-                                           parseInt(e.oraInizio.split(':')[0]) === hour;
-                                });
-                                
+
+                        {/* Day columns */}
+                        {weekDates.map((date, dayIndex) => {
+                            const slotEvents = eventi.filter(e => {
+                                const eventDate = new Date(e.data);
                                 return (
-                                    <Box key={dayIndex}>
-                                        {dayEvents.map((ev, idx) => (
-                                            <ButtonBase
-                                                key={ev.id || idx}
-                                                onClick={() => setEditingEvent(ev)}
-                                                aria-label={ev.titolo}
-                                                focusRipple
-                                                sx={{
-                                                    display: 'block',
-                                                    width: '100%',
-                                                    textAlign: 'left',
-                                                    padding: 'var(--md-sys-spacing-0_5) var(--md-sys-spacing-2)',
-                                                    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
-                                                    fontWeight: 'var(--md-sys-typescale-weight-medium)',
-                                                    borderRadius: 'var(--md-sys-shape-corner-extra-small)',
-                                                    whiteSpace: 'nowrap',
+                                    eventDate.toDateString() === date.toDateString() &&
+                                    e.oraInizio &&
+                                    parseInt(e.oraInizio.split(':')[0]) === hour
+                                );
+                            });
+
+                            return (
+                                <Box
+                                    key={dayIndex}
+                                    sx={{
+                                        borderLeft: '1px solid var(--md-sys-color-outline-variant)',
+                                        p: 0.25,
+                                    }}
+                                >
+                                    {slotEvents.map((ev) => (
+                                        <Chip
+                                            key={ev.id}
+                                            label={`${ev.oraInizio} ${ev.titolo}`}
+                                            size="small"
+                                            onClick={() => setEditingEvent(ev)}
+                                            aria-label={ev.titolo}
+                                            sx={{
+                                                width: '100%',
+                                                height: 'auto',
+                                                justifyContent: 'flex-start',
+                                                fontSize: '0.68rem',
+                                                fontWeight: 500,
+                                                borderRadius: '4px',
+                                                mb: 0.25,
+                                                bgcolor: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
+                                                         ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
+                                                         ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
+                                                         'var(--md-sys-color-secondary-container)',
+                                                color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' :
+                                                       ev.tipo === 'scadenza' ? 'var(--md-sys-color-on-tertiary-container)' :
+                                                       ev.tipo === 'riunione' ? 'var(--md-sys-color-on-primary-container)' :
+                                                       'var(--md-sys-color-on-secondary-container)',
+                                                '& .MuiChip-label': {
+                                                    px: 1,
                                                     overflow: 'hidden',
                                                     textOverflow: 'ellipsis',
-                                                    position: 'relative',
-                                                    background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
-                                                               ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
-                                                               ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
-                                                               'var(--md-sys-color-secondary-container)',
-                                                    color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' :
-                                                           ev.tipo === 'scadenza' ? 'var(--md-sys-color-on-tertiary-container)' :
-                                                           ev.tipo === 'riunione' ? 'var(--md-sys-color-on-primary-container)' :
-                                                           'var(--md-sys-color-on-secondary-container)',
-                                                    '&:hover::after': { content: '""', position: 'absolute', inset: 0, borderRadius: 'inherit', backgroundColor: 'var(--md-sys-color-on-surface)', opacity: 0.08, pointerEvents: 'none' },
-                                                    '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 },
-                                                }}
-                                            >
-                                                <Box>{ev.titolo}</Box>
-                                                <Box>{ev.oraInizio} - {ev.oraFine || 'N/A'}</Box>
-                                            </ButtonBase>
-                                        ))}
-                                    </Box>
-                                );
-                            })}
-                        </Stack>
+                                                    whiteSpace: 'nowrap',
+                                                    display: 'block',
+                                                },
+                                            }}
+                                        />
+                                    ))}
+                                </Box>
+                            );
+                        })}
                     </Box>
                 ))}
             </Box>
@@ -458,130 +601,165 @@ const renderHeader = () => {
     );
 
     const renderDayView = () => (
-        <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
-            <Box sx={{ p: 'var(--md-sys-spacing-8)' }}>
-                <Typography variant="h6" sx={{ color: 'var(--md-sys-color-primary)' }}>
+        <Stack direction="column">
+            <Box sx={{ px: 3, py: 2, borderBottom: '1px solid var(--md-sys-color-outline-variant)' }}>
+                <Typography variant="h6" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 400, textTransform: 'capitalize' }}>
                     {currentDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
                 </Typography>
             </Box>
-            <Box ref={scrollContainerRef}>
+
+            <Box ref={scrollContainerRef} sx={{ overflowY: 'auto', maxHeight: 'calc(100vh - 200px)' }}>
                 {dayEvents.length === 0 ? (
-                    <Stack direction="column" alignItems="center" justifyContent="center" sx={{
-                        p: 'var(--md-sys-spacing-12)',
-                        textAlign: 'center',
-                        opacity: 'var(--md-sys-state-opacity-secondary)'
-                    }}>
-                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{
-                            color: 'var(--md-sys-color-on-surface-variant)',
-                            mb: 'var(--md-sys-spacing-8)'
-                        }}>event_busy</Box>
-                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)' }}>
+                    <Stack alignItems="center" justifyContent="center" sx={{ py: 6, textAlign: 'center' }}>
+                        <Box
+                            component="span"
+                            className="material-symbols-outlined"
+                            aria-hidden="true"
+                            sx={{ fontSize: 48, color: 'var(--md-sys-color-on-surface-variant)', mb: 2 }}
+                        >
+                            event_busy
+                        </Box>
+                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mb: 2 }}>
                             Nessun evento per questo giorno
                         </Typography>
-                        <Button variant="text" onClick={() => setEditingEvent({})} sx={{ mt: 'var(--md-sys-spacing-4)' }}>
+                        <Button variant="text" onClick={() => setEditingEvent({})}>
                             Aggiungi Evento
                         </Button>
                     </Stack>
                 ) : (
-                    <Stack direction="column" sx={{ p: 'var(--md-sys-spacing-8)', gap: 'var(--md-sys-spacing-4)' }}>
+                    <List disablePadding>
                         {dayEvents.map(ev => (
-                            <ButtonBase
-                                key={ev.id}
-                                onClick={() => setEditingEvent(ev)}
-                                aria-label={ev.titolo}
-                                focusRipple
-                                sx={{
-                                    display: 'flex',
-                                    width: '100%',
-                                    textAlign: 'left',
-                                    gap: 'var(--md-sys-spacing-4)',
-                                    padding: 'var(--md-sys-spacing-4)',
-                                    borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                                    cursor: 'pointer',
-                                    position: 'relative',
-                                    overflow: 'hidden',
-                                    background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
-                                               ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
-                                               ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
-                                               'var(--md-sys-color-secondary-container)',
-                                    color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' :
-                                           ev.tipo === 'scadenza' ? 'var(--md-sys-color-on-tertiary-container)' :
-                                           ev.tipo === 'riunione' ? 'var(--md-sys-color-on-primary-container)' :
-                                           'var(--md-sys-color-on-secondary-container)',
-                                    '&:hover::after': { content: '""', position: 'absolute', inset: 0, borderRadius: 'inherit', backgroundColor: 'var(--md-sys-color-on-surface)', opacity: 0.08, pointerEvents: 'none' },
-                                    '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 },
-                                }}
-                            >
-                                <Box sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
-                                    {ev.oraInizio || 'Tutto il giorno'}
-                                </Box>
-                                <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
-                                    <Box sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{ev.titolo}</Box>
-                                    {ev.descrizione && <Box sx={{ opacity: 'var(--md-sys-state-opacity-caption)' }}>{ev.descrizione}</Box>}
-                                    {ev.location && <Box sx={{ mt: 'var(--md-sys-spacing-4)' }}>📍 {ev.location}</Box>}
-                                </Stack>
-                            </ButtonBase>
+                            <React.Fragment key={ev.id}>
+                                <ListItemButton
+                                    onClick={() => setEditingEvent(ev)}
+                                    aria-label={ev.titolo}
+                                    sx={{
+                                        px: 3,
+                                        py: 1.5,
+                                        gap: 2,
+                                        borderLeft: `4px solid`,
+                                        borderLeftColor: ev.tipo === 'urgente' ? 'var(--md-sys-color-error)' :
+                                                         ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary)' :
+                                                         ev.tipo === 'riunione' ? 'var(--md-sys-color-primary)' :
+                                                         'var(--md-sys-color-secondary)',
+                                        bgcolor: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
+                                                 ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
+                                                 ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
+                                                 'var(--md-sys-color-secondary-container)',
+                                        color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' :
+                                               ev.tipo === 'scadenza' ? 'var(--md-sys-color-on-tertiary-container)' :
+                                               ev.tipo === 'riunione' ? 'var(--md-sys-color-on-primary-container)' :
+                                               'var(--md-sys-color-on-secondary-container)',
+                                        '&:hover': { filter: 'brightness(0.95)' },
+                                    }}
+                                >
+                                    <Typography variant="caption" sx={{ fontWeight: 700, minWidth: 48, flexShrink: 0 }}>
+                                        {ev.oraInizio || 'Tutto il giorno'}
+                                    </Typography>
+                                    <ListItemText
+                                        primary={ev.titolo}
+                                        secondary={ev.location ? `📍 ${ev.location}` : ev.descrizione}
+                                        primaryTypographyProps={{ variant: 'body2', fontWeight: 600 }}
+                                        secondaryTypographyProps={{ variant: 'caption', sx: { color: 'inherit', opacity: 0.75 } }}
+                                    />
+                                </ListItemButton>
+                                <Divider />
+                            </React.Fragment>
                         ))}
-                    </Stack>
+                    </List>
                 )}
             </Box>
         </Stack>
     );
 
     const renderAgendaView = () => (
-        <Box sx={{ p: 'var(--md-sys-spacing-8)' }}>
+        <Box sx={{ p: 2 }}>
             {Object.keys(agendaGroups).length === 0 ? (
-                <Stack direction="column" alignItems="center" justifyContent="center" sx={{ p: 'var(--md-sys-spacing-8)', textAlign: 'center', opacity: 'var(--md-sys-state-opacity-secondary)' }}>
-                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mb: 'var(--md-sys-spacing-8)' }}>event_busy</Box>
-                    <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessun evento questo mese</Typography>
+                <Stack alignItems="center" justifyContent="center" sx={{ py: 6, textAlign: 'center' }}>
+                    <Box
+                        component="span"
+                        className="material-symbols-outlined"
+                        aria-hidden="true"
+                        sx={{ fontSize: 48, color: 'var(--md-sys-color-on-surface-variant)', mb: 2 }}
+                    >
+                        event_busy
+                    </Box>
+                    <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                        Nessun evento questo mese
+                    </Typography>
                 </Stack>
             ) : (
-                <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-6)' }}>
+                <Stack direction="column" gap={2}>
                     {Object.entries(agendaGroups).map(([date, evts]) => (
-                        <Box key={date} sx={{ bgcolor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 20%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)', p: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}>
-                            <Box sx={{ color: 'var(--md-sys-color-primary)', mb: 'var(--md-sys-spacing-6)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}>
-                                {new Date(date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })}
-                            </Box>
-                            <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-3)' }}>
-                                {evts.map(ev => (
-                                    <ButtonBase
-                                        key={ev.id}
-                                        onClick={() => setEditingEvent(ev)}
-                                        aria-label={ev.titolo}
-                                        focusRipple
+                        <Paper
+                            key={date}
+                            variant="outlined"
+                            sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', overflow: 'hidden' }}
+                        >
+                            <List
+                                disablePadding
+                                subheader={
+                                    <ListSubheader
                                         sx={{
-                                            display: 'flex',
-                                            width: '100%',
-                                            textAlign: 'left',
-                                            gap: 'var(--md-sys-spacing-4)',
-                                            padding: 'var(--md-sys-spacing-4)',
-                                            borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                                            cursor: 'pointer',
-                                            position: 'relative',
-                                            overflow: 'hidden',
-                                            background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
-                                                       ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
-                                                       ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
-                                                       'var(--md-sys-color-secondary-container)',
-                                            color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' :
-                                                   ev.tipo === 'scadenza' ? 'var(--md-sys-color-on-tertiary-container)' :
-                                                   ev.tipo === 'riunione' ? 'var(--md-sys-color-on-primary-container)' :
-                                                   'var(--md-sys-color-on-secondary-container)',
-                                            '&:hover::after': { content: '""', position: 'absolute', inset: 0, borderRadius: 'inherit', backgroundColor: 'var(--md-sys-color-on-surface)', opacity: 0.08, pointerEvents: 'none' },
-                                            '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 },
+                                            bgcolor: 'var(--md-sys-color-surface-container)',
+                                            color: 'var(--md-sys-color-primary)',
+                                            fontWeight: 600,
+                                            lineHeight: '40px',
+                                            borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+                                            textTransform: 'capitalize',
                                         }}
                                     >
-                                        <Box sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
-                                            {ev.oraInizio || 'Tutto il giorno'}
-                                        </Box>
-                                        <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
-                                            <Box sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{ev.titolo}</Box>
-                                            {ev.descrizione && <Box sx={{ opacity: 'var(--md-sys-state-opacity-caption)' }}>{ev.descrizione}</Box>}
-                                        </Stack>
-                                    </ButtonBase>
+                                        {new Date(date).toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' })}
+                                    </ListSubheader>
+                                }
+                            >
+                                {evts.map((ev, idx) => (
+                                    <React.Fragment key={ev.id}>
+                                        <ListItemButton
+                                            onClick={() => setEditingEvent(ev)}
+                                            aria-label={ev.titolo}
+                                            sx={{
+                                                px: 2,
+                                                py: 1.25,
+                                                gap: 2,
+                                                borderLeft: `4px solid`,
+                                                borderLeftColor: ev.tipo === 'urgente' ? 'var(--md-sys-color-error)' :
+                                                                 ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary)' :
+                                                                 ev.tipo === 'riunione' ? 'var(--md-sys-color-primary)' :
+                                                                 'var(--md-sys-color-secondary)',
+                                                '&:hover': { bgcolor: 'var(--md-sys-color-surface-container-high)' },
+                                            }}
+                                        >
+                                            <Chip
+                                                label={ev.oraInizio || 'Todo il giorno'}
+                                                size="small"
+                                                sx={{
+                                                    height: 24,
+                                                    fontSize: '0.7rem',
+                                                    fontWeight: 600,
+                                                    flexShrink: 0,
+                                                    bgcolor: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
+                                                             ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
+                                                             ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
+                                                             'var(--md-sys-color-secondary-container)',
+                                                    color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' :
+                                                           ev.tipo === 'scadenza' ? 'var(--md-sys-color-on-tertiary-container)' :
+                                                           ev.tipo === 'riunione' ? 'var(--md-sys-color-on-primary-container)' :
+                                                           'var(--md-sys-color-on-secondary-container)',
+                                                }}
+                                            />
+                                            <ListItemText
+                                                primary={ev.titolo}
+                                                secondary={ev.descrizione}
+                                                primaryTypographyProps={{ variant: 'body2', fontWeight: 600 }}
+                                                secondaryTypographyProps={{ variant: 'caption' }}
+                                            />
+                                        </ListItemButton>
+                                        {idx < evts.length - 1 && <Divider component="li" />}
+                                    </React.Fragment>
                                 ))}
-                            </Stack>
-                        </Box>
+                            </List>
+                        </Paper>
                     ))}
                 </Stack>
             )}
