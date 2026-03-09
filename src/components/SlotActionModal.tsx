@@ -23,8 +23,8 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
     <M3Dialog
       title={
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Typography component="span" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Lezione Programmata</Typography>
-          <Typography component="span" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{slot.giorno}, {slot.ora}</Typography>
+          <Typography variant="subtitle2" component="span">Lezione Programmata</Typography>
+          <Typography variant="body2" component="span" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{slot.giorno}, {slot.ora}</Typography>
         </Box>
       }
       onClose={onClose}
@@ -34,72 +34,117 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
             {/* Interactive Hero Card */}
             <ButtonBase
                 component="div"
-                sx={{ color: 'var(--md-sys-color-on-primary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary)', cursor: 'pointer', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', padding: 'var(--md-sys-spacing-6)', width: '100%', textAlign: 'left' }}
+                sx={{
+                  borderRadius: 'var(--md-sys-shape-corner-large)',
+                  backgroundColor: 'var(--md-sys-color-primary-container)',
+                  cursor: 'pointer',
+                  p: 2,
+                  width: '100%',
+                  textAlign: 'left',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1,
+                  '&:hover': { filter: 'brightness(0.97)' },
+                }}
                 onClick={onView}
                 aria-label="Vedi dettagli lezione"
             >
                 {/* Metadata Row */}
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 'var(--md-sys-spacing-6)', opacity: 'var(--md-sys-state-opacity-hover-overlay)' }}>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-8)' }}>
-                        <Typography component="span" sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface) 20%, transparent)', color: 'var(--md-sys-color-on-primary-container)', border: 'none', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 1 }}>
+                        <Typography variant="button" component="span" sx={{ fontWeight: 700, color: 'var(--md-sys-color-on-primary-container)' }}>
                             {slot.classe}
                         </Typography>
-                        <Typography component="span" sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface) 20%, transparent)', color: 'var(--md-sys-color-on-primary-container)', border: 'none' }}>
-                            <Typography component="span">{typeIcon}</Typography>
-                            {lesson.tipoLezione || 'Lezione'}
-                        </Typography>
-                        {attachmentCount > 0 && (
-                            <Typography component="span" sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface) 30%, transparent)', color: 'var(--md-sys-color-on-primary-container)', border: 'none' }} title={`${attachmentCount} allegati`}>
-                                <Typography component="span">attachment</Typography>
-                                {attachmentCount}
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 14, color: 'var(--md-sys-color-on-primary-container)' }}>{typeIcon}</span>
+                            <Typography variant="caption" component="span" sx={{ fontWeight: 500, color: 'var(--md-sys-color-on-primary-container)' }}>
+                                {lesson.tipoLezione || 'Lezione'}
                             </Typography>
+                        </Box>
+                        {attachmentCount > 0 && (
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }} title={`${attachmentCount} allegati`}>
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 14, color: 'var(--md-sys-color-on-primary-container)' }}>attachment</span>
+                                <Typography variant="overline" component="span" sx={{ color: 'var(--md-sys-color-on-primary-container)' }}>{attachmentCount}</Typography>
+                            </Box>
                         )}
                     </Box>
-                    <Typography component="span" sx={{ transition: 'transform var(--md-sys-motion-duration-medium)' }}>chevron_right</Typography>
+                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 18, color: 'var(--md-sys-color-on-primary-container)' }}>chevron_right</span>
                 </Box>
 
                 {/* Main Content */}
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <Typography component="p" sx={{ textTransform: 'uppercase', letterSpacing: '0.05em', opacity: 'var(--md-sys-state-opacity-supporting)', mb: 'var(--md-sys-spacing-4)' }}>{slot.materia}</Typography>
-                    <Typography variant="h6" component="h3" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: '1.25', mb: 'var(--md-sys-spacing-4)' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, width: '100%' }}>
+                    {slot.materia && (
+                        <Typography variant="overline" component="p" sx={{ textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--md-sys-color-on-primary-container)', opacity: 0.7 }}>
+                            {slot.materia}
+                        </Typography>
+                    )}
+                    <Typography variant="subtitle2" component="h3" sx={{ fontWeight: 700, lineHeight: 1.3, color: 'var(--md-sys-color-on-primary-container)' }}>
                         {lesson.contenuto}
                     </Typography>
                     {lesson.nota && (
-                        <Typography component="p" sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)', mt: 'var(--md-sys-spacing-4)', opacity: 'var(--md-sys-state-opacity-caption)', display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)' }}>
-                            <Typography component="span">sticky_note_2</Typography>
-                            {lesson.nota}
-                        </Typography>
+                        <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 0.5, mt: 0.5, opacity: 0.75 }}>
+                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 14, color: 'var(--md-sys-color-on-primary-container)', flexShrink: 0, marginTop: 2 }}>sticky_note_2</span>
+                            <Typography variant="caption" component="p" sx={{ color: 'var(--md-sys-color-on-primary-container)' }}>
+                                {lesson.nota}
+                            </Typography>
+                        </Box>
                     )}
                 </Box>
             </ButtonBase>
 
             {/* Action List */}
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', mt: 'var(--md-sys-spacing-4)' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 1 }}>
                 <ButtonBase
                     component="button"
                     onClick={onStart}
-                    sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-surface)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', textAlign: 'left', width: '100%' }}
+                    sx={{
+                      borderRadius: 'var(--md-sys-shape-corner-large)',
+                      display: 'flex', alignItems: 'center', gap: 1.5,
+                      p: 1.5,
+                      bgcolor: 'var(--md-sys-color-primary)',
+                      color: 'var(--md-sys-color-on-primary)',
+                      textAlign: 'left', width: '100%',
+                      '&:hover': { filter: 'brightness(0.95)' },
+                    }}
                 >
-                    <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-primary-container)', width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', backgroundColor: 'var(--md-sys-color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
-                        <Typography component="span" sx={{ fontSize: 'var(--md-sys-spacing-5)' }}>door_open</Typography>
+                    <Box sx={{
+                      borderRadius: 'var(--md-sys-shape-corner-medium)',
+                      bgcolor: 'color-mix(in srgb, var(--md-sys-color-on-primary) 15%, transparent)',
+                      width: 40, height: 40, flexShrink: 0,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}>
+                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 20 }}>door_open</span>
                     </Box>
                     <Box sx={{ minWidth: 0 }}>
-                        <Typography component="p" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-spacing-3)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{isDraftExisting ? 'Torna in Aula' : 'Avvia Aula'}</Typography>
-                        <Typography component="p" sx={{ opacity: 'var(--md-sys-state-opacity-hover-overlay)' }}>Apri il registro e inizia la lezione.</Typography>
+                        <Typography variant="button" component="p" sx={{ fontWeight: 700, color: 'inherit' }}>{isDraftExisting ? 'Torna in Aula' : 'Avvia Aula'}</Typography>
+                        <Typography variant="caption" component="p" sx={{ color: 'inherit', opacity: 0.8 }}>Apri il registro e inizia la lezione.</Typography>
                     </Box>
                 </ButtonBase>
 
                 <ButtonBase
                     component="button"
                     onClick={onEdit}
-                    sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-secondary-container)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-secondary)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', textAlign: 'left', width: '100%' }}
+                    sx={{
+                      borderRadius: 'var(--md-sys-shape-corner-large)',
+                      display: 'flex', alignItems: 'center', gap: 1.5,
+                      p: 1.5,
+                      bgcolor: 'var(--md-sys-color-secondary-container)',
+                      color: 'var(--md-sys-color-on-secondary-container)',
+                      textAlign: 'left', width: '100%',
+                      '&:hover': { filter: 'brightness(0.97)' },
+                    }}
                 >
-                    <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', color: 'var(--md-sys-color-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
-                        <Typography component="span" sx={{ fontSize: 'var(--md-sys-spacing-5)' }}>edit</Typography>
+                    <Box sx={{
+                      borderRadius: 'var(--md-sys-shape-corner-medium)',
+                      bgcolor: 'color-mix(in srgb, var(--md-sys-color-on-secondary-container) 12%, transparent)',
+                      width: 40, height: 40, flexShrink: 0,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    }}>
+                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 20 }}>edit</span>
                     </Box>
                     <Box sx={{ minWidth: 0 }}>
-                        <Typography component="p" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-spacing-3)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>Modifica</Typography>
-                        <Typography component="p" sx={{ opacity: 'var(--md-sys-state-opacity-caption)' }}>Cambia contenuto o sposta.</Typography>
+                        <Typography variant="button" component="p" sx={{ fontWeight: 700, color: 'inherit' }}>Modifica</Typography>
+                        <Typography variant="caption" component="p" sx={{ color: 'inherit', opacity: 0.8 }}>Cambia contenuto o sposta.</Typography>
                     </Box>
                 </ButtonBase>
             </Box>

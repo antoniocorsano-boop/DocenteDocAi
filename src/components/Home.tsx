@@ -161,7 +161,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           <Stack spacing={0.5}>
             <Typography
               variant="h5"
-              sx={{ fontWeight: 400, color: 'var(--md-sys-color-on-primary-container)' }}
+              sx={{ color: 'var(--md-sys-color-on-primary-container)' }}
             >
               {greeting}
             </Typography>
@@ -240,7 +240,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 {card.icon}
               </Box>
               <Stack spacing={0.5}>
-                <Typography variant="h4" sx={{ color: card.color, lineHeight: 1, fontWeight: 400 }}>
+                <Typography variant="h4" sx={{ color: card.color, lineHeight: 1 }}>
                   {card.value}
                 </Typography>
                 <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>

@@ -124,8 +124,8 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
             
             {/* Header */}
             <div style={{ textAlign: "center", marginBottom: 'var(--md-sys-spacing-6)' }}>
-                <Typography variant="h5" sx={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-4)'}}>Progettazione</Typography>
-                <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', maxWidth: 'var(--md-sys-spacing-80)', marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)' }}>
+                <Typography variant="h5" sx={{color: "var(--md-sys-color-on-surface)", marginBottom: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-4)'}}>Progettazione</Typography>
+                <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', maxWidth: '640px', marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)' }}>
                     Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
                 </Typography>
             </div>
