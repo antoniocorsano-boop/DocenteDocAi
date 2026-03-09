@@ -12,7 +12,14 @@ import { calculatePerformance } from '../utils/evaluationUtils';
 import { generateHomeworkPdf, viewPdfInNewTab } from '../utils/documentUtils';
 import StudentProfile from './StudentProfile';
 import { Avatar, M3Dialog } from './ui';
-import { DialogContent, DialogActions, Button, Typography , Tabs, Tab, Badge, Box } from '@mui/material';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
 
 type AttendanceStatus = 'presente' | 'assente' | 'ritardo';
 type ClassroomTab = 'register' | 'tools' | 'resources' | 'notes';

@@ -3,7 +3,15 @@
 // Nessun valore hardcoded (px, rem, %, hex, rgba) presente. Nessun uso di className custom. Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md.
 // Audit e refactor completati: 2026-01-25.
 import React from 'react';
-import { Button, Box, Typography  , FormControl, InputLabel, NativeSelect , Tabs, Tab, Badge } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
 import { M3Dialog, TextField } from './ui';
 interface OrarioSettingsModalProps {
   tipo: 'lezione' | 'disp' | 'ricev';

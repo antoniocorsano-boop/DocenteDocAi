@@ -2,7 +2,9 @@
 // Note: Circular indicators use functional borderRadius with eslint-disable comments
 
 import React, { useState, useEffect } from 'react';
-import { Button, Box, Typography  } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { M3Dialog, PinPad } from './ui';
 interface PinPadModalProps {
     title: string;

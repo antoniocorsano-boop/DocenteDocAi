@@ -1,7 +1,7 @@
 // MD3 Compliant - Block Q Migration Complete (0 violations - comments only)
 import React from 'react';
 import { View } from '../types';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 interface MenuProps {
   currentView: View;
   onNavigate: (view: View, context?: unknown) => void;

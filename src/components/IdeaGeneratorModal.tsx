@@ -4,7 +4,13 @@ import React, { useState, useEffect } from 'react';
 import { AiSettings, KnowledgeBaseEntry } from '../types';
 import VoiceNoteRecorder from './VoiceNoteRecorder';
 import { generateLessonFromIdea } from '../services/aiService';
-import { Button, Box, Typography  , TextField , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
 import { M3Dialog, AiThinkingGem } from './ui';
 interface IdeaGeneratorModalProps {
     onClose: () => void;

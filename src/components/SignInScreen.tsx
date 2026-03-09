@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { TextField } from './ui';
-import { Button, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { UserProfile } from '../types';
 
 interface SignInScreenProps {

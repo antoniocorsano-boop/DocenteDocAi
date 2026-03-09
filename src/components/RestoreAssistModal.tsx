@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { messages } from '../messages';
-import { Button  } from '@mui/material';
+import Button from '@mui/material/Button';
 import { M3Dialog } from './ui';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation, and animations

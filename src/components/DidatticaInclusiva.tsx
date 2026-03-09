@@ -5,7 +5,12 @@ import { Studente, DidatticaInclusivaProps } from '../types';
 import PianoInclusioneEditor from './PianoInclusioneEditor';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { InfoCard, EmptyState, SectionHeader, Avatar } from './ui';
-import { Button , Tabs, Tab, Badge, Box, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
   const { students, pianiInclusione, onSavePiano, studentToEdit, onClearStudentToEdit, evaluations } = props;

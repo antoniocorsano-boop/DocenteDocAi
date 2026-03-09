@@ -7,7 +7,15 @@ import { useFileDrop } from '../hooks/useFileDrop';
 import { Studente, KnowledgeBaseEntry } from '../types';
 import { ImportService } from '../services/importService';
 import { sanitizeHtml } from '../utils/htmlSanitizer';
-import { Button, Box, Typography  , FormControl, InputLabel, NativeSelect , Tabs, Tab, Badge } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
 import { M3Dialog, InfoCard } from './ui';
 interface ImportStudentsModalProps {
     onClose: () => void;

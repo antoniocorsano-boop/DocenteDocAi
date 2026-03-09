@@ -1,7 +1,7 @@
 // MD3 Compliant — thin MUI Tooltip wrapper
 // @mui-migrated Fase 2C
 import React from 'react';
-import { Tooltip as MuiTooltip } from '@mui/material';
+import MuiTooltip from '@mui/material/Tooltip';
 
 interface TooltipProps {
   label: string;

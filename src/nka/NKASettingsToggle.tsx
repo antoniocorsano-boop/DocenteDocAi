@@ -1,5 +1,6 @@
 import React from 'react';
-import { Paper, Typography } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import { useNKAStore } from './useNKAStore';
 
 const NKASettingsToggle: React.FC = () => {

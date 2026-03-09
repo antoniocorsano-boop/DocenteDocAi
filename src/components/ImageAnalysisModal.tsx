@@ -4,7 +4,9 @@
 
 import React, { useState, useCallback } from 'react';
 import { useFileDrop } from '../hooks/useFileDrop';
-import { Button, Box, Typography  } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { M3Dialog, InfoCard } from './ui';
 interface ImageAnalysisModalProps {
   onClose: () => void;

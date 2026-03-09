@@ -5,7 +5,9 @@
  */
 
 import React from 'react';
-import {DialogContent, DialogActions, Button } from '@mui/material';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 import type { UniversalModalProps } from '../types';
 import { M3Dialog } from './ui';
 const UniversalModal: React.FC<UniversalModalProps> = ({

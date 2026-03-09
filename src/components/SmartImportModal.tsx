@@ -5,7 +5,9 @@ import { refactorProgrammazione } from '../services/aiService';
 import { AiSettings } from '../types';
 import { saveAs } from '../utils/documentUtils';
 import { sanitizeHTML } from '../utils/securityUtils';
-import { Button, Box, Typography  } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
 
 interface SmartImportModalProps {

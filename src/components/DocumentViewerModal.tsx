@@ -1,7 +1,8 @@
 ﻿// MD3 Compliant
 import React, { useState } from 'react';
 import { sanitizeHTML } from '../utils/securityUtils';
-import { Button, Box  } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import { M3Dialog } from './ui';
 interface DocumentViewerModalProps {
     title: string;

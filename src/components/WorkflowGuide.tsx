@@ -3,7 +3,7 @@
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 import React from 'react';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import { View } from '../types';
 import { sanitizeHtml } from '../utils/htmlSanitizer';
 interface Workflow {

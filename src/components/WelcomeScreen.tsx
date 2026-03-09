@@ -2,7 +2,13 @@
 import Logo from './Logo';
 import { SCHOOL_TYPES_DISCIPLINES } from '../constants';
 import { ActionTile, InfoCard, TextField } from './ui';
-import { Button, IconButton, Typography, Box, FormControl, InputLabel, NativeSelect } from '@mui/material';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
 
 interface WelcomeScreenProps {
   onSetupComplete: (data: { name: string; schoolType?: string; firstClass?: string; isGuided: boolean }) => void;

@@ -2,7 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 // Load Google GenAI dynamically to avoid bundling it in the main chunk
-import { Button  , TextField, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
 
 declare global {

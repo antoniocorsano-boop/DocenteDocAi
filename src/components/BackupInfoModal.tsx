@@ -3,7 +3,8 @@
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 import * as React from 'react';
 import { BackupInfoModalProps } from '../types';
-import { Button, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
 const BackupInfoModal: React.FC<BackupInfoModalProps> = ({ onClose }) => {
   return (

@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, RenderOptions } from '@testing-library/react';
-import { Paper, Typography, type TypographyProps } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import type { TypographyProps } from '@mui/material/Typography';
 import { M3ThemeProvider } from './theme/M3ThemeProvider';
 
 function mapM3Variant(variant: string): TypographyProps['variant'] {

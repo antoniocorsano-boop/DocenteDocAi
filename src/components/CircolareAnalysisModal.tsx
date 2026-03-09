@@ -4,7 +4,10 @@
 import React, { useState, useMemo } from 'react';
 import { AiSettings, CircularAnalysisResult, EventoCalendario } from '../types';
 import { analyzeCircularDocument } from '../services/aiService';
-import { Button, Box, Typography  , TextField } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
 import { M3Dialog } from './ui';
 interface CircolareAnalysisModalProps {
     url: string; // URL is passed for reference (to open in new tab), not for fetching

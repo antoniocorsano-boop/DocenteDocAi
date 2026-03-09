@@ -5,7 +5,9 @@
 // M3Expressive: LessonAnalysisModal - AI-powered lesson analysis results with M3 tokens
 import React from 'react';
 import { LessonAnalysisResult } from '../types';
-import { Button, Box, Typography  } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { M3Dialog, AiMemoryChip } from './ui';
 
 interface LessonAnalysisModalProps {

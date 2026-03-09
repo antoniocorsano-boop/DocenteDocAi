@@ -1,7 +1,13 @@
 ﻿// Settings - Interface & Visual Experience Section
 import React from 'react';
 import { SettingsGroup } from './SettingsGroup';
-import { Typography, Button, Tabs, Tab, TextField as MuiTextField, InputAdornment, Box } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import MuiTextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import Box from '@mui/material/Box';
 import ThemeBubble from '../ThemeBubble';
 import { ThemeSettingsPanel } from './ThemeSettingsPanel';
 import { TimetableSettings, AppThemeState } from '../../types';

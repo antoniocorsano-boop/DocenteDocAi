@@ -3,7 +3,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import M3Popover from './M3Popover';
-import { Button } from '@mui/material';
+import Button from '@mui/material/Button';
 
 const meta: Meta<typeof M3Popover> = {
   component: M3Popover,

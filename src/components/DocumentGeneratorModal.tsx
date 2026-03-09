@@ -2,7 +2,10 @@
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 import React, { useState } from 'react';
-import { Button, Box, Typography  , TextField } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
 import { M3Dialog } from './ui';
 interface DocumentGeneratorModalProps {
     onClose: () => void;

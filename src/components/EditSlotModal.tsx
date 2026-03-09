@@ -3,7 +3,14 @@
 // Audit: gennaio 2026
 import React, { useState, useMemo } from 'react';
 import { Slot, Lezione, TimetableSettings, AiSettings, Uda, KnowledgeBaseEntry, PianoInclusione, Studente } from '../types';
-import { Button, Box, Typography, Card, FormControl, InputLabel, NativeSelect, InputAdornment } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
+import InputAdornment from '@mui/material/InputAdornment';
 import { M3Dialog, InfoCard, SectionHeader, TextField } from './ui';
 interface EditSlotModalProps {
     slot: Slot;

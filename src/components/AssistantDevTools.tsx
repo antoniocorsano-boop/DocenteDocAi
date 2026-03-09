@@ -1,6 +1,6 @@
 // MD3 Compliant
 import React, { useState } from 'react';
-import { Button } from '@mui/material';
+import Button from '@mui/material/Button';
 import { SystemSuggestion } from '../types';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for assistant development tools interface

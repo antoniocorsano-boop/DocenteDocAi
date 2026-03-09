@@ -3,7 +3,9 @@
 // MD3 spec: pill 64×32dp, corner-full, secondary-container color.
 import React, { useState } from 'react';
 import { View } from '../types';
-import { Typography, Box, ButtonBase } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import ButtonBase from '@mui/material/ButtonBase';
 
 interface BottomNavProps {
   activeView: View;

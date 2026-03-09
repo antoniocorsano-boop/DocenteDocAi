@@ -28,7 +28,10 @@
  * // M3Expressive refactor: Gi� completamente migrato, confermato conforme M3.
  */
 
-import { Tabs, Tab, Badge, Box } from '@mui/material';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
 import React, { useState, useMemo } from 'react';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';

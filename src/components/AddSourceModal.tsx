@@ -6,7 +6,11 @@ import { useFileDrop } from '../hooks/useFileDrop';
 import { KnowledgeBaseEntry, Corpus } from '../types';
 import { extractTextFromFile, blobToBase64Parts } from '../utils/documentUtils';
 import { KB_CATEGORIES } from '../constants';
-import { Button  , FormControl, InputLabel, NativeSelect, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
+import Typography from '@mui/material/Typography';
 import { M3Dialog, CategoryCard, TextField } from './ui';
 interface AddSourceModalProps {
     corpora: Corpus[];

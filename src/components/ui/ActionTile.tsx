@@ -11,7 +11,7 @@
  */
 
 import React, { useState } from 'react';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 interface ActionTileProps {
     title: string;

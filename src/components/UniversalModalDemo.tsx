@@ -3,7 +3,8 @@
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 import React, { useState } from 'react';
-import { Button, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import UniversalModal from './UniversalModal';
 const UniversalModalDemo: React.FC = () => {
   const [open, setOpen] = useState(false);

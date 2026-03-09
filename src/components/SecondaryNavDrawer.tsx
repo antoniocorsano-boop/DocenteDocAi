@@ -3,7 +3,12 @@
 // MUI Drawer gestisce nativamente: ESC, focus trap, backdrop, animazione slide.
 
 import React from 'react';
-import { Drawer, Box, IconButton, Typography, Divider, ButtonBase } from '@mui/material';
+import Drawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import ButtonBase from '@mui/material/ButtonBase';
 import { View } from '../types';
 import { VIEW_LABELS } from './viewRegistry';
 

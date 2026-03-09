@@ -5,7 +5,8 @@ import React, { useMemo } from 'react';
 import { Studente, Valutazione, ParticipationEntry } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { Avatar, M3Popover } from './ui';
-import { Typography, Button } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 interface StudentActionMenuProps {
     student: Studente;
     anchorEl: HTMLElement | null;

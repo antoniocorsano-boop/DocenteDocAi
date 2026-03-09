@@ -5,7 +5,8 @@ import type { jsPDF as JsPDFType } from 'jspdf';
 import { GeneratedQuiz } from '../types';
 import { generateHtmlDocxBlob, viewPdfInNewTab } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
-import { Button, Typography  } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
 interface TestPreviewModalProps {
     quiz: GeneratedQuiz;

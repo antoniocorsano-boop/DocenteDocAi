@@ -1,7 +1,10 @@
 ﻿// MD3 Compliant
 import React, { useState } from 'react';
 import { EventoCalendario, TipoEvento } from '../types';
-import { Button, Box, Typography, Card } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
 import { M3Dialog, TextField } from './ui';
 interface EventModalProps {
     eventToEdit?: Partial<EventoCalendario>;

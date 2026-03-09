@@ -2,7 +2,15 @@
 import React from 'react';
 import { SettingsGroup } from './SettingsGroup';
 import { InfoCard } from '../ui';
-import { Typography, Button, Tabs, Tab, FormControl, InputLabel, NativeSelect, TextField as MuiTextField, Box } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
+import MuiTextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 import ChipInputList from '../ChipInputList';
 import { TimetableSettings } from '../../types';
 import { AI_PROFILES, SCHOOL_LEVELS } from '../../constants';

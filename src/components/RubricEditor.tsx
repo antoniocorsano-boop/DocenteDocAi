@@ -5,7 +5,10 @@
 import React, { useState } from 'react';
 import { Rubrica, Criterio, Indicatore, Competenza } from '../types';
 import { M3Dialog, InfoCard, TextField, EmptyState, SectionHeader } from './ui';
-import { DialogContent, DialogActions, Button, Typography } from '@mui/material';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 interface RubricEditorProps {
     rubricToEdit?: Rubrica;
     allCompetenze: Competenza[];

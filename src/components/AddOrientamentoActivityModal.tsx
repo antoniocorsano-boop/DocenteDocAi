@@ -2,7 +2,11 @@
 
 import React, { useState } from 'react';
 import { OrientamentoActivity } from '../types';
-import { Button, Box   , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
 import { M3Dialog, TextField } from './ui';
 import { UI_TEXT } from '../constants/ui-text';
 interface AddOrientamentoActivityModalProps {

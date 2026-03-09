@@ -5,7 +5,12 @@
 
 import React, { useState, useMemo } from 'react';
 import { KnowledgeBaseEntry, MaterialeDidattico } from '../types';
-import { Button, Box  , Tabs, Tab, Badge, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
+import Typography from '@mui/material/Typography';
 import { M3Dialog, TextField } from './ui';
 interface MaterialPickerModalProps {
     knowledgeBase: KnowledgeBaseEntry[];

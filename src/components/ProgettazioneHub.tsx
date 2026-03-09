@@ -13,7 +13,13 @@ import AnnualPlanningWizard from './AnnualPlanningWizard';
 import SmartImportModal from './SmartImportModal';
 import CompetencyManager from './CompetencyManager';
 import {} from './ui';
-import { Typography, Card as MuiCard, CardContent, Box , Tabs, Tab, Badge } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import MuiCard from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
 import TimelineView from './TimelineView';
 import UdaDetailModal from './UdaDetailModal';
 

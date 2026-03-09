@@ -7,7 +7,8 @@ import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';
 import TemplateManager from './TemplateManager';
 import JSZip from 'jszip';
-import { Button, Typography  } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
 // Type guards migliorati
 const isStudent = (data: unknown): data is Studente => {

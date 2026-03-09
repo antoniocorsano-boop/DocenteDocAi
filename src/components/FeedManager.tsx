@@ -8,7 +8,9 @@ import React, { useState } from 'react';
 import { FeedSource } from '../types';
 import { discoverAndCreateFeed, fetchAndParseRssFeed } from '../services/aiService';
 import { InfoCard, SectionHeader, TextField } from './ui';
-import { Button, InputAdornment, Box } from '@mui/material';
+import Button from '@mui/material/Button';
+import InputAdornment from '@mui/material/InputAdornment';
+import Box from '@mui/material/Box';
 
 interface FeedManagerProps {
     sources: FeedSource[];

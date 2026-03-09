@@ -6,7 +6,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { useUIStore } from '../stores/useUIStore';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 const SNACKBAR_COLORS = {
   success: {
     bg: 'var(--md-sys-color-primary)',

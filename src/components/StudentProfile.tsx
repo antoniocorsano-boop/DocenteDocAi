@@ -1,5 +1,9 @@
 // MD3 Compliant - Block J Migration Complete (2 violations eliminated)
-import { Tabs, Tab, Badge, Box, Typography } from '@mui/material';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, RegisterEntry, Lezione, Competenza, AiSettings } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';

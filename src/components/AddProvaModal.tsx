@@ -3,7 +3,13 @@
 import React, { useState } from 'react';
 import { Valutazione } from '../types';
 import { EVALUATION_TYPES } from '../constants';
-import { Button, Box, Typography, Card , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Card from '@mui/material/Card';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
 import { M3Dialog, TextField } from './ui';
 interface AddProvaModalProps {
     disciplines: string[];

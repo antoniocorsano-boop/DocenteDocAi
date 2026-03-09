@@ -3,7 +3,8 @@
 // Audit: febbraio 2026
 
 import React from 'react';
-import { Card, Typography } from '@mui/material';
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
 
 interface ActionCardProps {
   icon: string;

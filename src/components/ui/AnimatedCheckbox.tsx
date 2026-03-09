@@ -3,7 +3,7 @@
 // Audit: febbraio 2026
 
 import React, { useState } from 'react';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 interface AnimatedCheckboxProps {
   label: string;

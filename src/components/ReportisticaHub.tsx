@@ -3,7 +3,10 @@
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // M3Expressive refactor: Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 
-import { Tabs, Tab, Badge, Box } from '@mui/material';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
 import React, { useState, useEffect, useMemo } from 'react';
 import { M3Dialog, ActionTile, SectionHeader, InfoCard } from './ui';
 import DialogContent from '@mui/material/DialogContent';

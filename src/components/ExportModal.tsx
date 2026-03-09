@@ -20,7 +20,11 @@ import { calculatePerformance } from '../utils/evaluationUtils';
 import { RATING_TO_VALUE } from '../constants';
 import { viewPdfInNewTab, saveAs } from '../utils/documentUtils';
 import { PDF_COLORS, getTrendColor, getCompetencyLevelColors } from '../design-system/pdf-colors';
-import { Button  , Tabs, Tab, Badge, Box } from '@mui/material';
+import Button from '@mui/material/Button';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
 import { M3Dialog, TextField, SectionHeader } from './ui';
 
 type Prova = {

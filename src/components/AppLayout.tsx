@@ -2,7 +2,7 @@
 // App Shell: height-constrained flex column for proper scroll containment
 // Audit: marzo 2026
 import React from 'react';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import NavigationRail from './NavigationRail';
 import BottomNav from './BottomNav';
 import SecondaryNavDrawer from './SecondaryNavDrawer';

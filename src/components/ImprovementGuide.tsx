@@ -13,7 +13,8 @@ import AiAdvisor from './AiAdvisor';
 import { generateHtmlDocxBlob } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
 import { AiMemoryChip, InfoCard, SectionHeader, AiThinkingGem } from './ui';
-import { Button, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 interface ImprovementGuideProps {
     selectedClass: string;
     students: Studente[];

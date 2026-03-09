@@ -4,7 +4,12 @@
 import React, { useState } from 'react';
 import { HomeworkSubmission, Lezione, Studente } from '../types';
 import { TextField, Avatar } from './ui';
-import { Button, FormControl, InputLabel, NativeSelect, InputAdornment, Box } from '@mui/material';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
+import InputAdornment from '@mui/material/InputAdornment';
+import Box from '@mui/material/Box';
 import { saveAs } from '../utils/documentUtils';
 import { RATING_OPTIONS } from '../constants';
 

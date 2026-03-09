@@ -6,7 +6,17 @@ import { parseCurriculumFromText } from '../services/aiService';
 import { extractTextFromFile } from '../utils/documentUtils';
 import { useFileDrop } from '../hooks/useFileDrop';
 import { InfoCard, EmptyState, TextField, AiThinkingGem, M3Dialog } from './ui';
-import { Button, DialogContent, DialogActions  , FormControl, InputLabel, NativeSelect , Tabs, Tab, Badge, Box, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 interface CurriculumManagerProps {
     curricula: CurriculumSubject[];

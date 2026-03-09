@@ -1,7 +1,11 @@
 ﻿// MD3 Compliant
 import React, { useState } from 'react';
 import { Studente, ObservationEntry } from '../types';
-import { Button, Box, Typography, ButtonBase  , TextField } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import ButtonBase from '@mui/material/ButtonBase';
+import TextField from '@mui/material/TextField';
 import { M3Dialog } from './ui';
 
 interface ObservationModalProps {

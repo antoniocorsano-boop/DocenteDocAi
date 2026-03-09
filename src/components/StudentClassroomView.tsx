@@ -3,7 +3,14 @@ import { Studente, Lezione, KnowledgeBaseEntry, HomeworkSubmission, RegisterEntr
 import { blobToBase64Parts, generateHomeworkPdf, viewPdfInNewTab } from '../utils/documentUtils';
 import { useFileDrop } from '../hooks/useFileDrop';
 import { SectionHeader, Avatar } from './ui';
-import { Button, Typography, Card as MuiCard, CardContent, Box , Tabs, Tab, Badge } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import MuiCard from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
 import PinPadModal from './PinPadModal';
 
 // Local Card component (MUI-native replacement for M3ExpressiveCard)

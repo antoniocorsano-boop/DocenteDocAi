@@ -2,7 +2,12 @@
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 import React, { useState, useEffect } from 'react';
-import { Button, Box  , TextField , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
 import { M3Dialog,
     SectionHeader
 } from './ui';

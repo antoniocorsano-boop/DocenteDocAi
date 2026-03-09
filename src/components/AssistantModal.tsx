@@ -3,7 +3,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { fetchNotebookFiles, uploadNotebookFile, deleteNotebookFile, NotebookLMFile } from '../services/notebooklmService';
 import { chatWithAi } from '../services/aiService';
-import { Button, Box, Typography  } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { M3Dialog, TextField } from './ui';
 import { AiSettings, ChatMessage } from '../types';
 interface AssistantModalProps {

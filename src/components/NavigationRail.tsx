@@ -1,7 +1,9 @@
 // MD3 Gold Compliant
 import React from 'react';
 import { View } from '../types';
-import { Typography, Box, ButtonBase } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import ButtonBase from '@mui/material/ButtonBase';
 /**
  * NavigationRail - MD3 Pure Navigation Component
  * ✅ MIGRATED TO MD3 PURE - Complete migration from legacy CSS classes to pure MD3 tokens and M3Typography

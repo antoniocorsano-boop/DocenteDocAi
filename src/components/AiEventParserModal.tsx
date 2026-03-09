@@ -1,6 +1,8 @@
 // MD3 Compliant - Block I Migration (8 violations eliminated)
 
-import { Button, Box, Typography  } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
 import React, { useState } from 'react';
 import { AiSettings, EventoCalendario } from '../types';
@@ -27,7 +29,7 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
             const parsedData = await extractEventFromText(aiSettings, text);
             onEventParsed(parsedData);
         } catch (e) {
-            const errorMsg = e instanceof Error ? e.message : "Si è verificato un errore durante l'analisi.";
+            const errorMsg = e instanceof Error ? e.message : "Si ï¿½ verificato un errore durante l'analisi.";
             setError(errorMsg);
         } finally {
             setIsLoading(false);
@@ -60,7 +62,7 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
         >
             <Box sx={{ gap: 'var(--md-sys-spacing-8)', display: 'flex', flexDirection: 'column' }}>
                 <Typography component="p" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-                    Copia il testo di una circolare o di una email e incollalo qui sotto. L'AI estrarrà automaticamente date, orari e dettagli per creare l'evento nel calendario.
+                    Copia il testo di una circolare o di una email e incollalo qui sotto. L'AI estrarrï¿½ automaticamente date, orari e dettagli per creare l'evento nel calendario.
                 </Typography>
 
                 <Box sx={{ mt: 'var(--md-sys-spacing-4)' }}>
@@ -71,7 +73,7 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
                         onChange={(e) => setText(e.target.value)}
                         style={{ width: 'var(--md-sys-percent-100)' }}
                         rows={10}
-                        placeholder="Es. 'Si comunica che il consiglio della classe 3A è convocato per il giorno 15/10/2024 alle ore 15:30...'"
+                        placeholder="Es. 'Si comunica che il consiglio della classe 3A ï¿½ convocato per il giorno 15/10/2024 alle ore 15:30...'"
                         disabled={isLoading}
                         autoFocus
                     />

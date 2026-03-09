@@ -5,7 +5,9 @@ import React, { useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import BarChart from './charts/BarChart';
-import { Button, Box, Typography  } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { M3Dialog, InfoCard } from './ui';
 interface StudentInterviewModalProps {
     student: Studente;

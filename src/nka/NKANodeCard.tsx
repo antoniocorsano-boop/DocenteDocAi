@@ -1,6 +1,10 @@
 import React from 'react';
 import { NKANode } from './types';
-import { Paper, Typography, Button, Skeleton, Box } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Skeleton from '@mui/material/Skeleton';
+import Box from '@mui/material/Box';
 
 interface NKANodeCardProps {
   node?: NKANode;

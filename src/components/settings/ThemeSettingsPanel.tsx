@@ -1,6 +1,9 @@
 ﻿// MD3 Gold Compliant
 import React from 'react';
-import { Paper, Typography, Button, Box } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 interface ThemeSettingsPanelProps {
   onClose?: () => void;

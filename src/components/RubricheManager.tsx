@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { Competenza, Rubrica, View } from '../types';
 import RubricEditor from './RubricEditor';
 import { InfoCard, EmptyState, SectionHeader, ActionTile } from './ui';
-import { Button } from '@mui/material';
+import Button from '@mui/material/Button';
 
 interface RubricheManagerProps {
     competenze: Competenza[];

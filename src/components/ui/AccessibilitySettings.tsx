@@ -4,7 +4,8 @@
 
 import React from 'react';
 import { useAppTheme } from '../../contexts/ThemeContext';
-import { Typography, Paper } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
 
 export const AccessibilitySettings: React.FC = () => {
   const { contrast, setContrast, reducedMotion, setReducedMotion } = useAppTheme();

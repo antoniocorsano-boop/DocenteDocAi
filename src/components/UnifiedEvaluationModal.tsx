@@ -3,7 +3,13 @@
 import React, { useState, useMemo } from 'react';
 import type { Studente, Prova, Valutazione, ValutazioneCompetenza, TimetableSettings } from '../types';
 import { RATING_OPTIONS } from '../constants';
-import { Button, Box, Typography, ButtonBase  , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import ButtonBase from '@mui/material/ButtonBase';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
 import { M3Dialog, InfoCard } from './ui';
 interface UnifiedEvaluationModalProps {
     student: Studente;

@@ -6,7 +6,8 @@
 
 // M3Expressive: TeachingAssignmentMatrix - Teaching assignment configuration matrix with M3 tokens
 import React, { useEffect, useMemo, useState } from 'react';
-import { Typography, Box } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import { TeachingAssignment } from '../types';
 import { generateHueFromString } from '../utils/colorUtils';
 

@@ -3,7 +3,10 @@
 import React from 'react';
 import { Slot, Lezione } from '../types';
 import { LESSON_TYPE_ICONS } from '../constants';
-import { Button, Box, Typography, ButtonBase  } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import ButtonBase from '@mui/material/ButtonBase';
 import { M3Dialog } from './ui';
 interface SlotActionModalProps {
   slot: Slot;

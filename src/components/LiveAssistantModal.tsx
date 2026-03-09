@@ -3,7 +3,7 @@
 // Audit: gennaio 2026
 
 import React from 'react';
-import {} from '@mui/material';
+
 import { LiveAssistant } from './LiveAssistant'; // Corrected named import
 import { LiveAssistantModalProps } from '../types';
 import { M3Dialog } from './ui';

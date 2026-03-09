@@ -8,7 +8,12 @@ import React, { useState } from 'react';
 import { Uda, Competenza, TimetableSettings, Report, AiSettings } from '../types';
 import { generateUdaPdf, blobToBase64Parts, generateHtmlDocxBlob, viewPdfInNewTab, saveAs } from '../utils/documentUtils';
 import { generateMarkdownReport } from '../services/aiService';
-import { Button, Box  , FormControl, InputLabel, NativeSelect, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
+import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
 interface UdaExportModalProps {
     uda: Uda;

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { Paper } from '@mui/material';
+import Paper from '@mui/material/Paper';
 
 interface ModalEntry {
   id: string;

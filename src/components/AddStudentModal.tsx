@@ -1,7 +1,11 @@
 ﻿// MD3 Compliant - Block G Migration (5 violations eliminated)
 import React, { useState, useEffect } from 'react';
 import { Studente } from '../types';
-import { Button, Box  , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
 import { M3Dialog, TextField } from './ui';
 interface AddStudentModalProps {
     studentToEdit?: Studente;

@@ -1,7 +1,12 @@
 ﻿// MD3 Compliant
 import React, { useState, useMemo } from 'react';
 import { Lezione, RegisterEntry, Studente, Valutazione } from '../types';
-import { Button  , TextField , Tabs, Tab, Badge, Box } from '@mui/material';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
 import { M3Dialog } from './ui';
 
 interface CopyForRegisterModalProps {

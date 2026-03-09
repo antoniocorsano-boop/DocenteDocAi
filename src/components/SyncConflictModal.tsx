@@ -3,7 +3,9 @@
 
 import React from 'react';
 import { SyncConflictData } from '../types';
-import { Button, Box, Typography  } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { M3Dialog, InfoCard } from './ui';
 interface SyncConflictModalProps {
     data: SyncConflictData;

@@ -4,7 +4,9 @@
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 import React, { useState } from 'react';
 import { Studente, StudentOrientamentoState, EPortfolioEntry } from '../types';
-import { Button, Box, Typography  } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { M3Dialog, TextField } from './ui';
 interface StudentEPortfolioModalProps {
     isOpen: boolean;

@@ -4,7 +4,7 @@
 import React from 'react';
 import { View, NavigationParams } from '../types';
 import { VIEW_LABELS, VIEW_PARENT } from './viewRegistry';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 interface BreadcrumbProps {
   /** View corrente */

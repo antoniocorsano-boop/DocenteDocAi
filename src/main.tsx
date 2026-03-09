@@ -24,7 +24,8 @@ import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import muiTheme from './theme/muiTheme';
 import { NKAProvider } from './nka/NKAProvider';
-import { Paper, Typography } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
 /**
  * STORAGE RECOVERY:

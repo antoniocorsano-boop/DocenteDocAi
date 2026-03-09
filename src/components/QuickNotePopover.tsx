@@ -2,7 +2,8 @@
 
 // M3Expressive: QuickNotePopover - Quick note input popover with voice recording
 import React, { useState } from 'react';
-import { Button, Box } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import { M3Popover, TextField } from './ui';
 import VoiceNoteRecorder from './VoiceNoteRecorder';
 

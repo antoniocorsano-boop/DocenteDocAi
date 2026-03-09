@@ -16,7 +16,7 @@
 import React, { createContext, useContext, useCallback, useState, ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { getModalZIndex } from '../design-system/zIndex';
-import { Paper } from '@mui/material';
+import Paper from '@mui/material/Paper';
 
 // ============================================================================
 // TYPES & INTERFACES

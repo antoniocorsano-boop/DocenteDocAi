@@ -5,7 +5,10 @@ import { Studente, Valutazione } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import BarChart from './charts/BarChart';
 import DonutChart from './charts/DonutChart';
-import {DialogContent, DialogActions, Button, Typography } from '@mui/material';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
 interface ClassAnalyticsProps {
     userClasses: string[];

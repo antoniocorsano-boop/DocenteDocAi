@@ -3,7 +3,7 @@
 // Audit: febbraio 2026
 
 import React, { useEffect, useState, useRef } from 'react';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 interface BottomSheetProps {
   isOpen: boolean;

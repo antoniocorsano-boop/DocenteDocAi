@@ -3,7 +3,9 @@
 // Audit: febbraio 2026
 
 import React from 'react';
-import { Paper, Typography, Button } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 interface EmptyStateProps {
   icon: string;

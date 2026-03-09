@@ -3,7 +3,11 @@
 // Nessun valore hardcoded (px, rem, %, hex, rgba) presente. Nessun uso di className custom. Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md.
 // Audit e refactor completati: 2026-01-25.
 import React, { useState, useCallback } from 'react';
-import { Button  , FormControl, InputLabel, NativeSelect, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
+import Typography from '@mui/material/Typography';
 import { M3Dialog, InfoCard, SectionHeader } from './ui';
 import { ImportService, ImportResult } from '../services/importService';
 import { RegisterService, RegisterProvider } from '../services/registerService';

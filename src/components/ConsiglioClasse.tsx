@@ -4,7 +4,12 @@
 // Audit e refactor completati: 2026-01-25.
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { InfoCard, SectionHeader } from './ui';
-import { Button , Tabs, Tab, Badge, Box, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { Studente, Valutazione, GiudizioPeriodico, PeriodoValutazione, TimetableSettings, AiSettings, ValutazioneCompetenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { getPeriodicJudgmentSuggestion, generateClassCouncilNarrativeReport } from '../services/aiService';

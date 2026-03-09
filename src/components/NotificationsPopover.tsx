@@ -2,7 +2,8 @@
 // M3Expressive: NotificationsPopover - Notifications display popover with M3 tokens
 import React from 'react';
 import { Notifica, View } from '../types';
-import { Button, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import { M3Popover } from './ui';
 

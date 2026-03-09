@@ -5,7 +5,13 @@ import { Lezione, AiSettings, Studente, PianoInclusione, Slot, CurriculumSubject
 import { generateInclusivityAdaptations } from '../services/aiService';
 import { DAYS_OF_WEEK } from '../constants';
 import { parseClassString } from '../utils/schoolUtils'; 
-import { Button, Box, Typography, ButtonBase   , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import ButtonBase from '@mui/material/ButtonBase';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import NativeSelect from '@mui/material/NativeSelect';
 import { M3Dialog, TextField, AiThinkingGem } from './ui';
 interface CreateLessonFromAiModalProps {
     content: { title: string; htmlContent: string };

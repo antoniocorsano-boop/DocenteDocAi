@@ -9,7 +9,8 @@ import { Studente } from '../types';
 import Logo from './Logo';
 import PinPadModal from './PinPadModal';
 import { TextField } from './ui';
-import { Button, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { WELCOME_MESSAGES, EDUCATIONAL_QUOTES } from '../constants';
 interface StudentLoginScreenProps {
     students: Studente[];

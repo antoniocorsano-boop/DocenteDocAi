@@ -1,7 +1,8 @@
 // MD3 Compliant - Block J Migration Complete (1 violation eliminated)
 
 import React, { useState } from 'react';
-import { IconButton, Box } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
 import { Report } from '../types';
 import { saveAs } from '../utils/documentUtils';
 

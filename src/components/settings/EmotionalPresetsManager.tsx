@@ -5,7 +5,9 @@
 // Functional exception: grid minmax(calc(var(--md-sys-spacing-20) * 3.125), 1fr) for responsive card layout
 import React, { useState, useEffect } from 'react';
 import { useM3Theme, PresetOverrides } from '../../theme/theme';
-import { Card, Typography, Button } from '@mui/material';
+import Card from '@mui/material/Card';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import { EmotionalPreset } from '../../types';
 
 interface EmotionalPresetsManagerProps {

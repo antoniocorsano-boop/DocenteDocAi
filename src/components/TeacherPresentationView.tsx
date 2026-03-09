@@ -1,7 +1,8 @@
 // MD3 Compliant - Block J Migration Complete (6 violations eliminated)
 // Note: minHeight: "100vh" retained for functional full viewport height (no exact MD3 token available)
 import React from 'react';
-import { Button, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import Logo from './Logo';
 import { View } from '../types';
 import { InfoCard, SectionHeader, ActionTile } from './ui';

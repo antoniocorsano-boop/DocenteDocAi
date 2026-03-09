@@ -2,7 +2,12 @@
 
 import React, { useState } from 'react';
 import { QuestionType } from '../types';
-import { Button, Box, Typography  , Tabs, Tab, Badge } from '@mui/material';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
 import { M3Dialog,
     TextField
 } from './ui';
