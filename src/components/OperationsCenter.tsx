@@ -1,6 +1,10 @@
 ﻿// MD3 Gold Compliant (icon exceptions: GAP/position use raw px from getBoundingClientRect)
 import React, { useState, useMemo } from 'react';
-import {DialogContent, Button } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import DialogContent from '@mui/material/DialogContent';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import { View, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, RegisterEntry } from '../types';
 import { M3Dialog, ActionTile, SectionHeader } from './ui';
 
@@ -185,52 +189,50 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
     const renderProcessDetail = () => {
         if (!selectedProcess) return null;
         return (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-percent-100)', overflowY: 'auto' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-6)', borderRadius: 'var(--md-sys-shape-corner-extra-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
-                    <div style={{
+            <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-percent-100)', overflowY: 'auto' }}>
+                <Stack direction="column" alignItems="center" sx={{ textAlign: 'center', gap: 'var(--md-sys-spacing-4)', p: 'var(--md-sys-spacing-6)', borderRadius: 'var(--md-sys-shape-corner-extra-large)', bgcolor: 'var(--md-sys-color-surface-container-low)' }}>
+                    <Box sx={{
                         width: 'var(--md-sys-spacing-20)',
                         height: 'var(--md-sys-spacing-20)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        backgroundColor: selectedProcess.variant === 'primary' ? 'var(--md-sys-color-primary-container)' :
-                                       selectedProcess.variant === 'secondary' ? 'var(--md-sys-color-secondary-container)' :
-                                       selectedProcess.variant === 'tertiary' ? 'var(--md-sys-color-tertiary-container)' :
-                                       'var(--md-sys-color-surface-container-high)',
+                        bgcolor: selectedProcess.variant === 'primary' ? 'var(--md-sys-color-primary-container)' :
+                                 selectedProcess.variant === 'secondary' ? 'var(--md-sys-color-secondary-container)' :
+                                 selectedProcess.variant === 'tertiary' ? 'var(--md-sys-color-tertiary-container)' :
+                                 'var(--md-sys-color-surface-container-high)',
                         color: selectedProcess.variant === 'primary' ? 'var(--md-sys-color-on-primary-container)' :
-                              selectedProcess.variant === 'secondary' ? 'var(--md-sys-color-on-secondary-container)' :
-                              selectedProcess.variant === 'tertiary' ? 'var(--md-sys-color-on-tertiary-container)' :
-                              'var(--md-sys-color-on-surface)',
-                        marginTop: 0,
-                        marginLeft: 'var(--md-sys-margin-auto)',
-                        marginBottom: 'var(--md-sys-spacing-4)',
-                        marginRight: 'var(--md-sys-margin-auto)',
+                               selectedProcess.variant === 'secondary' ? 'var(--md-sys-color-on-secondary-container)' :
+                               selectedProcess.variant === 'tertiary' ? 'var(--md-sys-color-on-tertiary-container)' :
+                               'var(--md-sys-color-on-surface)',
+                        mx: 'auto',
+                        mb: 'var(--md-sys-spacing-4)',
                         boxShadow: 'var(--md-sys-elevation-level2)',
                         transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'
                     }}>
                         <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-xl)' }}>{selectedProcess.icon}</span>
-                    </div>
-                    <h2 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{selectedProcess.title}</h2>
-                    <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{selectedProcess.description}</p>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Fasi del Processo</h3>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
+                    </Box>
+                    <Typography component="h2" sx={{ m: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{selectedProcess.title}</Typography>
+                    <Typography sx={{ m: 0, fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{selectedProcess.description}</Typography>
+                </Stack>
+                <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
+                    <Typography component="h3" sx={{ m: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Fasi del Processo</Typography>
+                    <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-3)' }}>
                         {selectedProcess.steps.map((step, idx) => (
-                            <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', borderLeft: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' }}>
-                                <div style={{ width: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-spacing-6)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{idx + 1}</div>
-                                <h4 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{step.title}</h4>
-                                <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{step.desc}</p>
-                            </div>
+                            <Stack key={idx} direction="column" sx={{ gap: 'var(--md-sys-spacing-2)', p: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', bgcolor: 'var(--md-sys-color-surface-container)', borderLeft: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' }}>
+                                <Box sx={{ width: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-spacing-6)', borderRadius: 'var(--md-sys-shape-corner-full)', bgcolor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{idx + 1}</Box>
+                                <Typography component="h4" sx={{ m: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{step.title}</Typography>
+                                <Typography sx={{ m: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{step.desc}</Typography>
+                            </Stack>
                         ))}
-                    </div>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 'var(--md-sys-spacing-3)', paddingTop: 'var(--md-sys-spacing-4)', borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
+                    </Stack>
+                </Stack>
+                <Stack direction="row" justifyContent="flex-end" sx={{ gap: 'var(--md-sys-spacing-3)', pt: 'var(--md-sys-spacing-4)', borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
                     <Button onClick={() => setSelectedProcess(null)} variant="text">Indietro</Button>
                     <Button onClick={() => handleProcessStart()} variant="contained">AVVIA ORA</Button>
-                </div>
-            </div>
+                </Stack>
+            </Stack>
         );
     };
 
@@ -242,74 +244,74 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
             hideBackdrop={true}
         >
             <DialogContent>
-                    {selectedProcess ? renderProcessDetail() : (
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
-                            {suggestedProcess && (
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-tertiary-container)', flexWrap: 'wrap' }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-11)', height: 'var(--md-sys-spacing-11)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-tertiary)', color: 'var(--md-sys-color-on-tertiary)', flexShrink: 0 }}>
-                                        <span className="material-symbols-outlined">lightbulb</span>
-                                    </div>
-                                    <div style={{ flex: 1 }}>
-                                        <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', color: 'var(--md-sys-color-on-tertiary-container)' }}>Suggerimento AI</h3>
-                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-tertiary-container)', opacity: 'var(--md-sys-state-opacity-caption)' }}>{suggestedProcess.description}</p>
-                                    </div>
-                                    <Button onClick={() => setSelectedProcess(suggestedProcess)} variant="contained">
-                                        AVVIA <span className="material-symbols-outlined">arrow_forward</span>
-                                    </Button>
-                                </div>
-                            )}
+                {selectedProcess ? renderProcessDetail() : (
+                    <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-6)' }}>
+                        {suggestedProcess && (
+                            <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap="wrap" sx={{ gap: 'var(--md-sys-spacing-4)', p: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', bgcolor: 'var(--md-sys-color-tertiary-container)' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-11)', height: 'var(--md-sys-spacing-11)', borderRadius: 'var(--md-sys-shape-corner-large)', bgcolor: 'var(--md-sys-color-tertiary)', color: 'var(--md-sys-color-on-tertiary)', flexShrink: 0 }}>
+                                    <span className="material-symbols-outlined" aria-hidden="true">lightbulb</span>
+                                </Box>
+                                <Box sx={{ flex: 1 }}>
+                                    <Typography component="h3" sx={{ m: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', color: 'var(--md-sys-color-on-tertiary-container)' }}>Suggerimento AI</Typography>
+                                    <Typography sx={{ m: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-tertiary-container)', opacity: 'var(--md-sys-state-opacity-caption)' }}>{suggestedProcess.description}</Typography>
+                                </Box>
+                                <Button onClick={() => setSelectedProcess(suggestedProcess)} variant="contained">
+                                    AVVIA <span className="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                                </Button>
+                            </Stack>
+                        )}
 
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
-                                    <SectionHeader title="Processi Comuni" icon="play_circle" />
-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'var(--md-sys-spacing-3)' }}>
-                                        {PROCESS_DEFINITIONS.filter(p => p.category === 'daily').map(p => (
-                                            <ActionTile
-                                                key={p.id}
-                                                title={p.title}
-                                                subtitle={p.subtitle}
-                                                icon={p.icon}
-                                                variant={p.variant}
-                                                onClick={() => setSelectedProcess(p)}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
+                        <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-6)' }}>
+                            <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-3)' }}>
+                                <SectionHeader title="Processi Comuni" icon="play_circle" />
+                                <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'var(--md-sys-spacing-3)' }}>
+                                    {PROCESS_DEFINITIONS.filter(p => p.category === 'daily').map(p => (
+                                        <ActionTile
+                                            key={p.id}
+                                            title={p.title}
+                                            subtitle={p.subtitle}
+                                            icon={p.icon}
+                                            variant={p.variant}
+                                            onClick={() => setSelectedProcess(p)}
+                                        />
+                                    ))}
+                                </Box>
+                            </Stack>
 
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
-                                    <SectionHeader title="Pianificazione e Sviluppo" icon="design_services" />
-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'var(--md-sys-spacing-3)' }}>
-                                        {PROCESS_DEFINITIONS.filter(p => p.category === 'planning').map(p => (
-                                            <ActionTile
-                                                key={p.id}
-                                                title={p.title}
-                                                subtitle={p.subtitle}
-                                                icon={p.icon}
-                                                variant={p.variant}
-                                                onClick={() => setSelectedProcess(p)}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
+                            <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-3)' }}>
+                                <SectionHeader title="Pianificazione e Sviluppo" icon="design_services" />
+                                <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'var(--md-sys-spacing-3)' }}>
+                                    {PROCESS_DEFINITIONS.filter(p => p.category === 'planning').map(p => (
+                                        <ActionTile
+                                            key={p.id}
+                                            title={p.title}
+                                            subtitle={p.subtitle}
+                                            icon={p.icon}
+                                            variant={p.variant}
+                                            onClick={() => setSelectedProcess(p)}
+                                        />
+                                    ))}
+                                </Box>
+                            </Stack>
 
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
-                                    <SectionHeader title="Manutenzione del Sistema" icon="build" />
-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'var(--md-sys-spacing-3)' }}>
-                                        {PROCESS_DEFINITIONS.filter(p => p.category === 'system').map(p => (
-                                            <ActionTile
-                                                key={p.id}
-                                                title={p.title}
-                                                subtitle={p.subtitle}
-                                                icon={p.icon}
-                                                variant={p.variant}
-                                                onClick={() => setSelectedProcess(p)}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )}
+                            <Stack direction="column" sx={{ gap: 'var(--md-sys-spacing-3)' }}>
+                                <SectionHeader title="Manutenzione del Sistema" icon="build" />
+                                <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 'var(--md-sys-spacing-3)' }}>
+                                    {PROCESS_DEFINITIONS.filter(p => p.category === 'system').map(p => (
+                                        <ActionTile
+                                            key={p.id}
+                                            title={p.title}
+                                            subtitle={p.subtitle}
+                                            icon={p.icon}
+                                            variant={p.variant}
+                                            onClick={() => setSelectedProcess(p)}
+                                        />
+                                    ))}
+                                </Box>
+                            </Stack>
+                        </Stack>
+                    </Stack>
+                )}
             </DialogContent>
         </M3Dialog>
     );
