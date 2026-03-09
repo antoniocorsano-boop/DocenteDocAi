@@ -1,15 +1,18 @@
 // MD3 Compliant - Block J Migration Complete (5 violations eliminated)
-import { Tabs, Tab, Badge, Box } from '@mui/material';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import ButtonBase from '@mui/material/ButtonBase';
+import CircularProgress from '@mui/material/CircularProgress';
 import React, { useState, useMemo, useEffect, useRef, Suspense, lazy } from 'react';
 import '../modules.css';
 import { EventoCalendario, AiSettings } from '../types';
 const EventModal = lazy(() => import('./EventModal'));
 const AiEventParserModal = lazy(() => import('./AiEventParserModal'));
 import EventActionPopover from './EventActionPopover';
-import { 
-    } from './ui';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 
 interface CalendarProps {
     eventi: EventoCalendario[];
@@ -263,7 +266,8 @@ const renderHeader = () => {
                     const isCurrentMonth = date.getMonth() === currentDate.getMonth();
                     const isToday = date.toDateString() === new Date().toDateString();
                     const isFocused = i === focusedDateIndex && viewMode === 'month';
-                    
+                    const cellEvents = eventi.filter(e => e.data === date.toISOString().split('T')[0]);
+
                     return (
                         <div 
                             key={i} 
@@ -275,7 +279,7 @@ const renderHeader = () => {
                                 background: !isCurrentMonth ? 'var(--md-sys-color-surface-container-lowest)' : 'var(--md-sys-color-surface)',
                                 opacity: !isCurrentMonth ? 0.5 : 1,
                                 cursor: 'pointer',
-                                transition: 'background-color var(--md-sys-motion-duration-short) var(var(--md-sys-motion-easing-standard))',
+                                transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                 ...(isFocused ? {
                                     outline: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)',
                                     outlineOffset: 'var(--md-sys-border-width-thick)'
@@ -283,7 +287,7 @@ const renderHeader = () => {
                             }}
                             role="gridcell"
                             tabIndex={isFocused ? 0 : -1}
-                            aria-label={`${date.toLocaleDateString('it-IT')}${dayEvents.length > 0 ? `, ${dayEvents.length} eventi` : ''}`}
+                            aria-label={`${date.toLocaleDateString('it-IT')}${cellEvents.length > 0 ? `, ${cellEvents.length} eventi` : ''}`}
                             onFocus={() => setFocusedDateIndex(i)}
                             onClick={() => {
                                 setCurrentDate(date);
@@ -312,10 +316,16 @@ const renderHeader = () => {
                                 {date.getDate()}
                             </span>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                {dayEvents.slice(0, 3).map((ev, idx) => (
-                                    <div 
-                                        key={ev.id || idx} 
-                                        style={{
+                                {cellEvents.slice(0, 3).map((ev, idx) => (
+                                    <ButtonBase
+                                        key={ev.id || idx}
+                                        onClick={(e) => { e.stopPropagation(); setEditingEvent(ev); }}
+                                        aria-label={ev.titolo}
+                                        focusRipple
+                                        sx={{
+                                            display: 'block',
+                                            width: '100%',
+                                            textAlign: 'left',
                                             padding: 'var(--md-sys-spacing-0_5) var(--md-sys-spacing-2)',
                                             fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                                             fontWeight: 'var(--md-sys-typescale-weight-medium)',
@@ -323,27 +333,24 @@ const renderHeader = () => {
                                             whiteSpace: 'nowrap',
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis',
-                                            cursor: 'pointer',
-                                            transition: 'filter var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-                                            background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
+                                            position: 'relative',
+                                            background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
                                                        ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
                                                        ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
                                                        'var(--md-sys-color-secondary-container)',
-                                            color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' : 
+                                            color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' :
                                                    ev.tipo === 'scadenza' ? 'var(--md-sys-color-on-tertiary-container)' :
                                                    ev.tipo === 'riunione' ? 'var(--md-sys-color-on-primary-container)' :
-                                                   'var(--md-sys-color-on-secondary-container)'
-                                        }}
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            setEditingEvent(ev);
+                                                   'var(--md-sys-color-on-secondary-container)',
+                                            '&:hover::after': { content: '""', position: 'absolute', inset: 0, borderRadius: 'inherit', backgroundColor: 'var(--md-sys-color-on-surface)', opacity: 0.08, pointerEvents: 'none' },
+                                            '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 },
                                         }}
                                     >
                                         {ev.titolo}
-                                    </div>
+                                    </ButtonBase>
                                 ))}
-                                {dayEvents.length > 3 && (
-                                    <div>+{dayEvents.length - 3} altri</div>
+                                {cellEvents.length > 3 && (
+                                    <div>+{cellEvents.length - 3} altri</div>
                                 )}
                             </div>
                         </div>
@@ -410,9 +417,15 @@ const renderHeader = () => {
                                 return (
                                     <div key={dayIndex} >
                                         {dayEvents.map((ev, idx) => (
-                                            <div 
-                                                key={ev.id || idx} 
-                                                style={{
+                                            <ButtonBase
+                                                key={ev.id || idx}
+                                                onClick={() => setEditingEvent(ev)}
+                                                aria-label={ev.titolo}
+                                                focusRipple
+                                                sx={{
+                                                    display: 'block',
+                                                    width: '100%',
+                                                    textAlign: 'left',
                                                     padding: 'var(--md-sys-spacing-0_5) var(--md-sys-spacing-2)',
                                                     fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                                                     fontWeight: 'var(--md-sys-typescale-weight-medium)',
@@ -420,22 +433,22 @@ const renderHeader = () => {
                                                     whiteSpace: 'nowrap',
                                                     overflow: 'hidden',
                                                     textOverflow: 'ellipsis',
-                                                    cursor: 'pointer',
-                                                    transition: 'filter var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-                                                    background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
+                                                    position: 'relative',
+                                                    background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
                                                                ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
                                                                ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
                                                                'var(--md-sys-color-secondary-container)',
-                                                    color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' : 
+                                                    color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' :
                                                            ev.tipo === 'scadenza' ? 'var(--md-sys-color-on-tertiary-container)' :
                                                            ev.tipo === 'riunione' ? 'var(--md-sys-color-on-primary-container)' :
-                                                           'var(--md-sys-color-on-secondary-container)'
+                                                           'var(--md-sys-color-on-secondary-container)',
+                                                    '&:hover::after': { content: '""', position: 'absolute', inset: 0, borderRadius: 'inherit', backgroundColor: 'var(--md-sys-color-on-surface)', opacity: 0.08, pointerEvents: 'none' },
+                                                    '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 },
                                                 }}
-                                                onClick={() => setEditingEvent(ev)}
                                             >
                                                 <div>{ev.titolo}</div>
                                                 <div>{ev.oraInizio} - {ev.oraFine || 'N/A'}</div>
-                                            </div>
+                                            </ButtonBase>
                                         ))}
                                     </div>
                                 );
@@ -484,37 +497,42 @@ const renderHeader = () => {
                 ) : (
                     <div  style={{padding: 'var(--md-sys-spacing-8)', gap: 'var(--md-sys-spacing-4)'}}>
                         {dayEvents.map(ev => (
-                            <div 
-                                key={ev.id} 
-                                style={{
+                            <ButtonBase
+                                key={ev.id}
+                                onClick={() => setEditingEvent(ev)}
+                                aria-label={ev.titolo}
+                                focusRipple
+                                sx={{
                                     display: 'flex',
+                                    width: '100%',
+                                    textAlign: 'left',
                                     gap: 'var(--md-sys-spacing-4)',
                                     padding: 'var(--md-sys-spacing-4)',
                                     borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                     cursor: 'pointer',
-                                    transition: 'background-color var(--md-sys-motion-duration-short) var(var(--md-sys-motion-easing-standard)), transform var(--md-sys-motion-duration-short) var(var(--md-sys-motion-easing-standard))',
-                                    background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
+                                    position: 'relative',
+                                    overflow: 'hidden',
+                                    background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
                                                ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
                                                ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
                                                'var(--md-sys-color-secondary-container)',
-                                    color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' : 
+                                    color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' :
                                            ev.tipo === 'scadenza' ? 'var(--md-sys-color-on-tertiary-container)' :
                                            ev.tipo === 'riunione' ? 'var(--md-sys-color-on-primary-container)' :
-                                           'var(--md-sys-color-on-secondary-container)'
+                                           'var(--md-sys-color-on-secondary-container)',
+                                    '&:hover::after': { content: '""', position: 'absolute', inset: 0, borderRadius: 'inherit', backgroundColor: 'var(--md-sys-color-on-surface)', opacity: 0.08, pointerEvents: 'none' },
+                                    '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 },
                                 }}
-                                onClick={() => setEditingEvent(ev)}
-                                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.01)'}
-                                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                             >
-                                <div  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
+                                <div style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
                                     {ev.oraInizio || 'Tutto il giorno'}
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                    <div  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{ev.titolo}</div>
-                                    {ev.descrizione && <div  style={{ opacity: "var(--md-sys-state-opacity-caption)" }}>{ev.descrizione}</div>}
-                                    {ev.location && <div  style={{marginTop: 'var(--md-sys-spacing-4)'}}>📍 {ev.location}</div>}
+                                    <div style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{ev.titolo}</div>
+                                    {ev.descrizione && <div style={{ opacity: 'var(--md-sys-state-opacity-caption)' }}>{ev.descrizione}</div>}
+                                    {ev.location && <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>📍 {ev.location}</div>}
                                 </div>
-                            </div>
+                            </ButtonBase>
                         ))}
                     </div>
                 )}
@@ -538,39 +556,41 @@ const renderHeader = () => {
                             </div>
                             <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
                                 {evts.map(ev => (
-                                    <div 
-                                        key={ev.id} 
-                                        style={{
+                                    <ButtonBase
+                                        key={ev.id}
+                                        onClick={() => setEditingEvent(ev)}
+                                        aria-label={ev.titolo}
+                                        focusRipple
+                                        sx={{
                                             display: 'flex',
+                                            width: '100%',
+                                            textAlign: 'left',
                                             gap: 'var(--md-sys-spacing-4)',
                                             padding: 'var(--md-sys-spacing-4)',
                                             borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                             cursor: 'pointer',
-                                            transition: 'background-color var(--md-sys-motion-duration-short) var(var(--md-sys-motion-easing-standard))',
-                                            background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
+                                            position: 'relative',
+                                            overflow: 'hidden',
+                                            background: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
                                                        ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
                                                        ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
                                                        'var(--md-sys-color-secondary-container)',
-                                            color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' : 
+                                            color: ev.tipo === 'urgente' ? 'var(--md-sys-color-on-error-container)' :
                                                    ev.tipo === 'scadenza' ? 'var(--md-sys-color-on-tertiary-container)' :
                                                    ev.tipo === 'riunione' ? 'var(--md-sys-color-on-primary-container)' :
-                                                   'var(--md-sys-color-on-secondary-container)'
+                                                   'var(--md-sys-color-on-secondary-container)',
+                                            '&:hover::after': { content: '""', position: 'absolute', inset: 0, borderRadius: 'inherit', backgroundColor: 'var(--md-sys-color-on-surface)', opacity: 0.08, pointerEvents: 'none' },
+                                            '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 },
                                         }}
-                                        onClick={() => setEditingEvent(ev)}
-                                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-low)'}
-                                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' : 
-                                                                                                      ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
-                                                                                                      ev.tipo === 'riunione' ? 'var(--md-sys-color-primary-container)' :
-                                                                                                      'var(--md-sys-color-secondary-container)'}
                                     >
-                                        <div  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
+                                        <div style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
                                             {ev.oraInizio || 'Tutto il giorno'}
                                         </div>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                            <div  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{ev.titolo}</div>
-                                            {ev.descrizione && <div  style={{ opacity: "var(--md-sys-state-opacity-caption)" }}>{ev.descrizione}</div>}
+                                            <div style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{ev.titolo}</div>
+                                            {ev.descrizione && <div style={{ opacity: 'var(--md-sys-state-opacity-caption)' }}>{ev.descrizione}</div>}
                                         </div>
-                                    </div>
+                                    </ButtonBase>
                                 ))}
                             </div>
                         </div>
@@ -596,7 +616,7 @@ const renderHeader = () => {
             </div>
 
             {editingEvent && (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}><CircularProgress size={20} /></Box>}>
                     <EventModal
                         eventToEdit={editingEvent}
                         onClose={() => setEditingEvent(null)}
@@ -617,7 +637,7 @@ const renderHeader = () => {
             )}
 
             {isAiParserOpen && (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}><CircularProgress size={20} /></Box>}>
                     <AiEventParserModal
                         aiSettings={aiSettings}
                         onClose={() => setIsAiParserOpen(false)}
