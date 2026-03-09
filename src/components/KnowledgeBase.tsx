@@ -126,9 +126,9 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                             sx={{ display: 'flex', alignItems: 'center', gap: 1.5, p: 2, cursor: 'pointer', bgcolor: 'background.paper', borderRadius: 'var(--md-sys-shape-corner-medium)', '&:hover': { bgcolor: 'action.hover' } }}
                         >
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 24 }}>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 24 }}>
                                     {entry.category === 'ai_deliverable' ? 'auto_awesome' : (entry.fileContent?.mimeType === 'application/pdf' ? 'picture_as_pdf' : 'description')}
-                                </span>
+                                </Box>
                             </Box>
                             <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
                                 <Typography variant="subtitle2" noWrap>{entry.fileName}</Typography>

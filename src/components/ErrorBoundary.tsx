@@ -1,6 +1,6 @@
 // MD3 Gold Compliant
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { useUIStore } from '../stores/useUIStore';
 
 interface ErrorBoundaryProps {
@@ -59,7 +59,7 @@ const ErrorFallback: React.FC<{ error?: Error }> = ({ error }) => {
 		<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
 			<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
 				<div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-					<span className="material-symbols-outlined">error</span>
+					<Box component="span" className="material-symbols-outlined" aria-hidden="true">error</Box>
 				</div>
 
 				<Typography variant="h6" component="h2">
@@ -72,7 +72,7 @@ const ErrorFallback: React.FC<{ error?: Error }> = ({ error }) => {
 				</Typography>
 
 				<div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-					<span className="material-symbols-outlined">refresh</span>
+					<Box component="span" className="material-symbols-outlined" aria-hidden="true">refresh</Box>
 					<Typography variant="body2" component="span">Ricaricamento in corso...</Typography>
 				</div>
 

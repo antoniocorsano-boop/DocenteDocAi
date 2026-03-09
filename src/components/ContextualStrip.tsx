@@ -1,6 +1,7 @@
 // MD3 Compliant — Contextual Strip
 
 import React, { useEffect, useState } from 'react';
+import Box from '@mui/material/Box';
 interface ContextualStripProps {
     message: string;
     actionLabel: string;
@@ -55,7 +56,7 @@ const ContextualStrip: React.FC<ContextualStripProps> = ({ message, actionLabel,
                         flexShrink: 0
                     }}
                 >
-                    <span className="material-symbols-outlined">auto_awesome</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true">auto_awesome</Box>
                 </div>
                 <p>{message}</p>
             </div>
@@ -70,7 +71,7 @@ const ContextualStrip: React.FC<ContextualStripProps> = ({ message, actionLabel,
                     style={{ opacity: 'var(--md-sys-state-opacity-supporting)' }}
                     aria-label="Chiudi suggerimento"
                 >
-                    <span className="material-symbols-outlined">close</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true">close</Box>
                 </button>
             </div>
         </div>

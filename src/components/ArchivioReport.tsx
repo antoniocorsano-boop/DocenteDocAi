@@ -1,7 +1,7 @@
 // MD3 Compliant - Block J Migration Complete (1 violation eliminated)
 
 import React, { useState } from 'react';
-import { IconButton } from '@mui/material';
+import { IconButton, Box } from '@mui/material';
 import { Report } from '../types';
 import { saveAs } from '../utils/documentUtils';
 
@@ -89,9 +89,9 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                                         </span>
                                     </td>
                                     <td>
-                                            <IconButton onClick={() => onSaveReportToKb(report)} title="Salva in Knowledge Base" aria-label="Salva report in Knowledge Base"><span className="material-symbols-outlined" aria-hidden="true">inventory_2</span></IconButton>
-                                            <IconButton onClick={() => handleDownload(report)} title="Scarica" aria-label="Scarica report"><span className="material-symbols-outlined" aria-hidden="true">download</span></IconButton>
-                                            <IconButton onClick={() => onDeleteReport(report.id)} title="Elimina" aria-label="Elimina report"><span className="material-symbols-outlined" aria-hidden="true">delete</span></IconButton>
+                                            <IconButton onClick={() => onSaveReportToKb(report)} title="Salva in Knowledge Base" aria-label="Salva report in Knowledge Base"><Box component="span" className="material-symbols-outlined" aria-hidden="true">inventory_2</Box></IconButton>
+                                            <IconButton onClick={() => handleDownload(report)} title="Scarica" aria-label="Scarica report"><Box component="span" className="material-symbols-outlined" aria-hidden="true">download</Box></IconButton>
+                                            <IconButton onClick={() => onDeleteReport(report.id)} title="Elimina" aria-label="Elimina report"><Box component="span" className="material-symbols-outlined" aria-hidden="true">delete</Box></IconButton>
                                     </td>
                                 </tr>
                             ))}

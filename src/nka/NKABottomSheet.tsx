@@ -115,7 +115,7 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
                 color: 'var(--md-sys-color-on-surface-variant)',
               }}
             >
-              <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-outline)' }}>psychology</span>
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-outline)' }}>psychology</Box>
               <Typography variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-surface)', m: 0 }}>Nessun nodo disponibile</Typography>
               <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', m: 0 }}>Non ci sono nodi nella mappa neurale</Typography>
             </Box>
@@ -214,11 +214,10 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
                 borderRadius: 'var(--md-sys-shape-corner-large)',
               }}
             >
-              <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-xl)', color: 'var(--md-sys-color-error)' }}>error</span>
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-xl)', color: 'var(--md-sys-color-error)' }}>error</Box>
               <Typography variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-error-container)', m: 0 }}>Errore nel wizard</Typography>
               <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-error-container)', m: 0 }}>{wizardError}</Typography>
-              <Button variant="contained" color="secondary" onClick={() => handleNodeSelect(selectedNode)}>
-                <span className="material-symbols-outlined" aria-hidden="true">refresh</span>
+              <Button variant="contained" color="secondary" onClick={() => handleNodeSelect(selectedNode)} startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">refresh</Box>}>
                 Riprova
               </Button>
             </Box>
@@ -233,7 +232,7 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
                 color: 'var(--md-sys-color-on-surface-variant)',
               }}
             >
-              <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-outline)' }}>auto_fix_high</span>
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-outline)' }}>auto_fix_high</Box>
               <Typography variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-surface)', m: 0 }}>Wizard non disponibile</Typography>
               <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', m: 0 }}>Non è stato possibile generare passi per questo nodo</Typography>
             </Box>

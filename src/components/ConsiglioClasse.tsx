@@ -232,7 +232,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 {expandedColumns.rendimento && <>
                                     <td style={{ color: 'inherit' }}>{performance.grade || 'N/D'}</td>
                                     <td style={{ color: 'inherit' }}>
-                                        {performance.trend && <span title={performance.trend || ''} className="material-symbols-outlined" style={{ color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>{trendIcon}</span>}
+                                        {performance.trend && <Box component="span" title={performance.trend || ''} className="material-symbols-outlined" aria-hidden="true" sx={{ color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>{trendIcon}</Box>}
                                     </td>
                                 </>}
                                 {expandedColumns.valutazione && <>
@@ -295,7 +295,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <span className="material-symbols-outlined" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}>expand_more</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}>expand_more</Box>
                         </div>
                         <div style={{
                             display: isExpanded ? 'block' : 'none',

@@ -6,6 +6,7 @@ import { NKANode } from './types';
 import { useNKAStore } from './useNKAStore';
 import { getAINeuralLayout } from './aiLayout';
 import { getLLMNeuralLayout } from './aiLayoutLLM';
+import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
@@ -111,7 +112,7 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
     >
       {isEmpty && (
         <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-6)' }}>
-          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-on-surface-variant)', display: 'block', marginBottom: 'var(--md-sys-spacing-2)' }}>hub</span>
+          <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-on-surface-variant)', display: 'block', marginBottom: 'var(--md-sys-spacing-2)' }}>hub</Box>
           <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
             Nessun nodo disponibile
           </Typography>
@@ -123,7 +124,7 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
 
       {error && (
         <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-6)' }}>
-          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-error)', display: 'block', marginBottom: 'var(--md-sys-spacing-2)' }}>error</span>
+          <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-error)', display: 'block', marginBottom: 'var(--md-sys-spacing-2)' }}>error</Box>
           <Typography variant="body1" sx={{ color: 'var(--md-sys-color-error)' }}>
             Errore di caricamento
           </Typography>

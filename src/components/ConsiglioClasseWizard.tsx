@@ -129,7 +129,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                     variant="contained" 
                     onClick={() => setStep(2)} 
                     disabled={!selectedClass}
-                    endIcon={<span className="material-symbols-outlined">arrow_forward</span>}
+                    endIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">arrow_forward</Box>}
                 >
                     Continua
                 </Button>

@@ -14,6 +14,7 @@ import { calculatePerformance } from '../utils/evaluationUtils';
 import { SectionHeader } from './ui';
 import Avatar from './ui/Avatar';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import { useStudentStore } from '../stores/useStudentStore';
@@ -57,19 +58,19 @@ const StudentDashboardItem = React.memo(({ student, evaluations, onClick }: Stud
             <div style={{ flexGrow: 1, minWidth: 0 }}>
                 <Typography variant="body2" sx={{ fontWeight: 'var(--md-sys-typescale-weight-medium)', color: 'var(--md-sys-color-on-surface)', margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{student.cognome} {student.nome}</Typography>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)', marginTop: 'var(--md-sys-spacing-0-5)' }}>
-                    <span className="material-symbols-outlined" aria-hidden="true" style={{
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{
                         fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
                         color: trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)'
-                    }}>{trendIcon}</span>
+                    }}>{trendIcon}</Box>
                     <Typography variant="caption" component="span" sx={{ color: trend === 'up' ? 'var(--md-sys-color-tertiary)' : trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-outline)' }}>
                         {trend === 'up' ? 'In crescita' : trend === 'down' ? 'In calo' : 'Stabile'}
                     </Typography>
                 </div>
             </div>
-            <span className="material-symbols-outlined" aria-hidden="true" style={{
+            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{
                 fontSize: 'var(--md-sys-spacing-5)',
                 color: 'var(--md-sys-color-on-surface-variant)',
-            }}>chevron_right</span>
+            }}>chevron_right</Box>
         </button>
     );
 });
@@ -151,7 +152,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             justifyContent: 'center',
                                             flexShrink: 0,
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)' }}>school</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)' }}>school</Box>
                                         </div>
                                         <div style={{ flexGrow: 1, minWidth: 0 }}>
                                             <Typography variant="caption" component="p" sx={{ color: 'var(--md-sys-color-on-primary-container)', marginBottom: 'var(--md-sys-spacing-1)' }}>Prossima Lezione • {todaysLesson.slot.ora}</Typography>
@@ -162,8 +163,8 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                     <Button
                                         onClick={() => onStartPlannedLesson(todaysLesson.lesson.classe, todaysLesson.lesson.materia, `${todaysLesson.slot.giorno}-${todaysLesson.slot.ora}`, todaysLesson.lesson)}
                                         variant="contained"
+                                        startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">door_open</Box>}
                                     >
-                                        <span className="material-symbols-outlined" aria-hidden="true">door_open</span>
                                         Avvia Aula Digitale
                                     </Button>
                                 </div>
@@ -176,15 +177,14 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                             }}>
                                 <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-4)'}}>
                                     <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)', color: 'var(--md-sys-color-on-surface-variant)', width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)' }}>event_busy</span>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)' }}>event_busy</Box>
                                     </div>
                                     <div style={{ minWidth: 0 }}>
                                         <Typography variant="h6" component="h2" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Nessuna lezione programmata</Typography>
                                         <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-1)' }}>Puoi avviare una lezione libera o un'attività improvvisata.</Typography>
                                     </div>
                                 </div>
-                                <Button onClick={() => onStartImpromptuSession(selectedClass)} variant="outlined" sx={{ width: 'var(--md-sys-percent-100)' }}>
-                                    <span className="material-symbols-outlined" aria-hidden="true">add_circle</span>
+                                <Button onClick={() => onStartImpromptuSession(selectedClass)} variant="outlined" sx={{ width: 'var(--md-sys-percent-100)' }} startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add_circle</Box>}>
                                     Avvia Lezione Improvvisata
                                 </Button>
                             </Card>
@@ -216,8 +216,8 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             justifyContent: 'center',
                                             flexShrink: 0,
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-on-tertiary)' }}>mail</span>
-                                            <span style={{
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-on-tertiary)' }}>mail</Box>
+                                            <Box component="span" sx={{
                                                 position: 'absolute',
                                                 top: 'calc(-1 * var(--md-sys-spacing-1))',
                                                 right: 'calc(-1 * var(--md-sys-spacing-1))',
@@ -234,14 +234,14 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                                 padding: '0 var(--md-sys-spacing-1)',
                                             }}>
                                                 {inboxCount}
-                                            </span>
+                                            </Box>
                                         </div>
                                         <div style={{ minWidth: 0 }}>
                                             <Typography variant="subtitle1" component="h3" sx={{ color: 'var(--md-sys-color-on-tertiary-container)', margin: 0 }}>Inbox Compiti</Typography>
                                             <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-tertiary-container)', margin: 0 }}>{inboxCount} elaborati consegnati da valutare.</Typography>
                                         </div>
                                     </div>
-                                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-on-tertiary-container)' }}>arrow_forward</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-on-tertiary-container)' }}>arrow_forward</Box>
                                 </div>
                             </Card>
                         </section>
@@ -252,7 +252,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 1. SEZIONE REGISTRO & DIDATTICA */}
                         <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)' }}>
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-primary)' }}>auto_stories</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-primary)' }}>auto_stories</Box>
                                 <Typography variant="subtitle1" component="h3" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Registro & Didattica</Typography>
                             </div>
                             <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
@@ -271,7 +271,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             justifyContent: 'center',
                                             flexShrink: 0,
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-primary-container)', fontSize: 'var(--icon-size-medium)' }}>book</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-primary-container)', fontSize: 'var(--icon-size-medium)' }}>book</Box>
                                         </div>
                                         <div style={{ minWidth: 0 }}>
                                             <Typography variant="subtitle2" component="h4" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Diario di Bordo</Typography>
@@ -294,7 +294,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             justifyContent: 'center',
                                             flexShrink: 0,
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--icon-size-medium)' }}>accessibility_new</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--icon-size-medium)' }}>accessibility_new</Box>
                                         </div>
                                         <div style={{ minWidth: 0 }}>
                                             <Typography variant="subtitle2" component="h4" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Inclusione</Typography>
@@ -308,7 +308,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 2. SEZIONE VALUTAZIONE & COMPETENZE */}
                         <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)' }}>
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-secondary)' }}>grading</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-secondary)' }}>grading</Box>
                                 <Typography variant="subtitle1" component="h3" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Valutazione & Competenze</Typography>
                             </div>
                             <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
@@ -327,7 +327,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             justifyContent: 'center',
                                             flexShrink: 0,
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--icon-size-medium)' }}>ballot</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--icon-size-medium)' }}>ballot</Box>
                                         </div>
                                         <div style={{ minWidth: 0 }}>
                                             <Typography variant="subtitle2" component="h4" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Voti</Typography>
@@ -350,7 +350,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             justifyContent: 'center',
                                             flexShrink: 0,
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-tertiary-container)', fontSize: 'var(--icon-size-medium)' }}>psychology</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-tertiary-container)', fontSize: 'var(--icon-size-medium)' }}>psychology</Box>
                                         </div>
                                         <div style={{ minWidth: 0 }}>
                                             <Typography variant="subtitle2" component="h4" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Competenze</Typography>
@@ -364,7 +364,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                         {/* 3. SEZIONE ANALISI & REPORT */}
                         <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-3)' }}>
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-on-surface-variant)' }}>analytics</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-on-surface-variant)' }}>analytics</Box>
                                 <Typography variant="subtitle1" component="h3" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Analisi & Report</Typography>
                             </div>
                             <div style={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-3)' }}>
@@ -382,7 +382,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--icon-size-medium)' }}>query_stats</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--icon-size-medium)' }}>query_stats</Box>
                                         </div>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                             <Typography variant="subtitle2" component="h4" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Analisi AI</Typography>
@@ -404,7 +404,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-secondary)', fontSize: 'var(--icon-size-medium)' }}>gavel</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-secondary)', fontSize: 'var(--icon-size-medium)' }}>gavel</Box>
                                         </div>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                             <Typography variant="subtitle2" component="h4" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Consiglio</Typography>
@@ -426,7 +426,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                         }}>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-tertiary)', fontSize: 'var(--icon-size-medium)' }}>groups</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-tertiary)', fontSize: 'var(--icon-size-medium)' }}>groups</Box>
                                         </div>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                             <Typography variant="subtitle2" component="h4" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>Anagrafica</Typography>
@@ -469,11 +469,11 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         gap: 'var(--md-sys-spacing-2)',
                                         padding: 'var(--md-sys-spacing-6)',
                                     }}>
-                                        <span className="material-symbols-outlined" aria-hidden="true" style={{
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{
                                             fontSize: 'var(--icon-size-xl)',
                                             color: 'var(--md-sys-color-on-surface-variant)',
                                             fontVariationSettings: '"FILL" 0, "wght" 300',
-                                        }}>person_off</span>
+                                        }}>person_off</Box>
                                         <Typography variant="body2" sx={{
                                             color: 'var(--md-sys-color-on-surface-variant)',
                                             margin: 0,

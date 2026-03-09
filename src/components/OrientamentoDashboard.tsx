@@ -8,7 +8,7 @@ import {
     StudentOrientamentoState 
 } from '../types';
 import { SectionHeader, Avatar, EmptyState, InfoCard } from './ui';
-import { Button , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { Button, Box, FormControl, InputLabel, NativeSelect } from '@mui/material';
 import AddOrientamentoActivityModal from './AddOrientamentoActivityModal';
 import StudentEPortfolioModal from './StudentEPortfolioModal';
 interface OrientamentoDashboardProps {
@@ -131,14 +131,14 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                                         </div>
                                     </td>
                                     <td style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center"}}>
-                                        <span className="material-symbols-outlined" style={state.hasCapolavoro ? {color: 'var(--md-sys-color-tertiary)'} : {}}>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={state.hasCapolavoro ? {color: 'var(--md-sys-color-tertiary)'} : {}}>
                                             {state.hasCapolavoro ? 'check_circle' : 'radio_button_unchecked'}
-                                        </span>
+                                        </Box>
                                     </td>
                                     <td style={{padding: 'var(--md-sys-spacing-8)', textAlign: "center"}}>
-                                        <span className="material-symbols-outlined" style={state.hasAutovalutazione ? {color: 'var(--md-sys-color-tertiary)'} : {}}>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={state.hasAutovalutazione ? {color: 'var(--md-sys-color-tertiary)'} : {}}>
                                             {state.hasAutovalutazione ? 'check_circle' : 'radio_button_unchecked'}
-                                        </span>
+                                        </Box>
                                     </td>
                                     <td style={{padding: 'var(--md-sys-spacing-8)', textAlign: "right"}}>
                                         <Button onClick={() => setViewingStudent(student)} variant="text">

@@ -201,7 +201,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                     title="Torna indietro"
                     aria-label="Chiudi vista lezione e torna alla lista lezioni"
                 >
-                    <span className="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true">arrow_back</Box>
                 </button>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
@@ -479,7 +479,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                         }}
                                                         aria-label={`Azioni per ${student.cognome}`}
                                                     >
-                                                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }} aria-hidden="true">more_vert</span>
+                                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>more_vert</Box>
                                                     </button>
                                                 </div>
                                             </div>
@@ -620,9 +620,9 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                 justifyContent: 'center'
                                             }}
                                         >
-                                            <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>
                                                 {mat.type === 'link' ? 'link' : 'article'}
-                                            </span>
+                                            </Box>
                                         </div>
                                         <div style={{ flexGrow: 1, minWidth: 0 }}>
                                             <Typography variant="body2" style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--md-sys-color-on-surface)' }}>{mat.label || mat.fileName}</Typography>
@@ -664,7 +664,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         boxShadow: 'var(--md-sys-elevation-level3)'
                     }}
                 >
-                    <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>mic</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>mic</Box>
                 </button>
             </div>
 
@@ -700,7 +700,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 }}
                             >
                                 <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
-                                    <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>grading</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>grading</Box>
                                 </div>
                                 <Typography variant="caption" style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--md-sys-color-on-primary-container)' }}>Voto</Typography>
                             </button>
@@ -720,7 +720,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 }}
                             >
                                 <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-secondary)', color: 'var(--md-sys-color-on-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
-                                    <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>visibility</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>visibility</Box>
                                 </div>
                                 <Typography variant="caption" style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)', color: 'var(--md-sys-color-on-secondary-container)' }}>Osserva</Typography>
                             </button>
@@ -740,7 +740,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                 }}
                             >
                                 <div style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-on-surface-variant)', color: 'var(--md-sys-color-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'transform var(--md-sys-motion-duration-medium)' }}>
-                                    <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>person</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>person</Box>
                                 </div>
                                 <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-small-tracking)' }}>Profilo</Typography>
                             </button>

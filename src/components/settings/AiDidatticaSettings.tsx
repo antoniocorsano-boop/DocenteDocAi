@@ -2,7 +2,7 @@
 import React from 'react';
 import { SettingsGroup } from './SettingsGroup';
 import { InfoCard } from '../ui';
-import { Typography, Button, Tabs, Tab, FormControl, InputLabel, NativeSelect, TextField as MuiTextField } from '@mui/material';
+import { Typography, Button, Tabs, Tab, FormControl, InputLabel, NativeSelect, TextField as MuiTextField, Box } from '@mui/material';
 import ChipInputList from '../ChipInputList';
 import { TimetableSettings } from '../../types';
 import { AI_PROFILES, SCHOOL_LEVELS } from '../../constants';
@@ -71,8 +71,8 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-4)',
                     marginBottom: 'var(--md-sys-spacing-4)'}}>
-                    <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                        color: 'var(--md-sys-color-secondary)'}}>smart_toy</span>
+                    <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                        color: 'var(--md-sys-color-secondary)'}}>smart_toy</Box>
                     <Typography
                         variant="caption"
                         style={{color: 'var(--md-sys-color-secondary)',
@@ -113,11 +113,11 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                         ? 'var(--md-sys-color-secondary)'
                         : 'var(--md-sys-color-primary)'}`
                 }}>
-                    <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                    <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                         color: currentAiProfile === 'esperto'
                             ? 'var(--md-sys-color-on-secondary-container)'
                             : 'var(--md-sys-color-on-primary-container)',
-                        marginTop: 'var(--md-sys-spacing-4)'}}>info</span>
+                        marginTop: 'var(--md-sys-spacing-4)'}}>info</Box>
                     <Typography
                         variant="body2"
                         style={{color: currentAiProfile === 'esperto'
@@ -146,8 +146,8 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                         <div style={{display: 'flex',
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-4)'}}>
-                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                color: 'var(--md-sys-color-primary)'}}>calendar_month</span>
+                            <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                color: 'var(--md-sys-color-primary)'}}>calendar_month</Box>
                             <Typography
                                 variant="overline"
                                 style={{color: 'var(--md-sys-color-on-surface)',
@@ -161,9 +161,8 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                         <Button
                             onClick={onAddNextYear}
                             variant="outlined"
+                            startIcon={<Box component="span" className="material-symbols-outlined">add_circle</Box>}
                         >
-                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                marginRight: 'var(--md-sys-spacing-4)'}}>add_circle</span>
                             Aggiungi
                         </Button>
                     </div>
@@ -205,8 +204,8 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                         <div style={{display: 'flex',
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-4)'}}>
-                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                color: 'var(--md-sys-color-secondary)'}}>school</span>
+                            <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                color: 'var(--md-sys-color-secondary)'}}>school</Box>
                             <Typography
                                 variant="overline"
                                 style={{color: 'var(--md-sys-color-on-surface)',
@@ -239,8 +238,8 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-4)',
                             marginBottom: 'var(--md-sys-spacing-4)'}}>
-                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                color: 'var(--md-sys-color-primary)'}}>account_tree</span>
+                            <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                color: 'var(--md-sys-color-primary)'}}>account_tree</Box>
                             <Typography
                                 variant="caption"
                                 style={{color: 'var(--md-sys-color-primary)',
@@ -338,9 +337,8 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             onClick={onGenerateClasses}
                             variant="contained"
                             disabled={selYears.length === 0 || selSections.length === 0}
+                            startIcon={<Box component="span" className="material-symbols-outlined">auto_awesome</Box>}
                         >
-                            <span className="material-symbols-outlined" style={{marginRight: 'var(--md-sys-spacing-4)',
-                                fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>auto_awesome</span>
                             Genera Combinazioni Classi
                         </Button>
                     </div>
@@ -369,10 +367,8 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             <Button
                                 onClick={onAddSubject}
                                 variant="contained"
+                                startIcon={<Box component="span" className="material-symbols-outlined">add</Box>}
                             >
-                                <span style={{
-                                    fontSize: 'var(--md-sys-typescale-body-large-font-size)'
-                                }}>add</span>
                             </Button>
                         </div>
                     </div>
@@ -443,8 +439,8 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                                     alignItems: 'center',
                                                     gap: 'var(--md-sys-spacing-4)',
                                                     flex: 1}}>
-                                                    <span style={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
-                                                        color: 'var(--md-sys-color-on-surface)'}}>{subj}</span>
+                                                    <Box component="span" sx={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
+                                                        color: 'var(--md-sys-color-on-surface)'}}>{subj}</Box>
                                                     <Button
                                                         onClick={() => handleBulkAssign(subj)}
                                                         variant="outlined"
@@ -462,9 +458,9 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                                         padding: 'var(--md-sys-spacing-4)',
                                                         borderRadius: 'var(--md-sys-shape-corner-small)'}}
                                                 >
-                                                    <span style={{
+                                                    <Box component="span" className="material-symbols-outlined" sx={{
                                                         fontSize: 'var(--md-sys-typescale-body-large-font-size)'
-                                                    }}>delete</span>
+                                                    }}>delete</Box>
                                                 </button>
                                             </div>
                                         </td>
@@ -491,9 +487,9 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                                     >
                                                         {assignment ? (
                                                             <>
-                                                                <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-primary)',
+                                                                <Box component="span" className="material-symbols-outlined" sx={{color: 'var(--md-sys-color-primary)',
                                                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                                                    marginRight: 'var(--md-sys-spacing-4)'}}>check_circle</span>
+                                                                    marginRight: 'var(--md-sys-spacing-4)'}}>check_circle</Box>
                                                                 <div style={{display: 'flex',
                                                                     alignItems: 'center',
                                                                     gap: 'var(--md-sys-spacing-4)'}} onClick={e => e.stopPropagation()}>
@@ -509,13 +505,13 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                                                             color: 'var(--md-sys-color-on-surface)',
                                                                             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                                             textAlign: 'center'}} />
-                                                                    <span style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                                                        color: 'var(--md-sys-color-on-surface-variant)'}}>h</span>
+                                                                    <Box component="span" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                                                        color: 'var(--md-sys-color-on-surface-variant)'}}>h</Box>
                                                                 </div>
                                                             </>
                                                         ) : (
-                                                            <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-outline-variant)',
-                                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>add</span>
+                                                            <Box component="span" className="material-symbols-outlined" sx={{color: 'var(--md-sys-color-outline-variant)',
+                                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>add</Box>
                                                         )}
                                                     </div>
                                                 </td>

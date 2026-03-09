@@ -2,7 +2,7 @@
 import Logo from './Logo';
 import { SCHOOL_TYPES_DISCIPLINES } from '../constants';
 import { ActionTile, InfoCard, TextField } from './ui';
-import { Button, IconButton, Typography , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { Button, IconButton, Typography, Box, FormControl, InputLabel, NativeSelect } from '@mui/material';
 
 interface WelcomeScreenProps {
   onSetupComplete: (data: { name: string; schoolType?: string; firstClass?: string; isGuided: boolean }) => void;
@@ -115,7 +115,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
         >
         <div style={{ width: 'var(--md-sys-percent-100)' }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <IconButton aria-label="Indietro" onClick={() => { if(step > 1) setStep(s => s-1); else setMode('selection'); }}><span className="material-symbols-outlined" aria-hidden="true">arrow_back</span></IconButton>
+                <IconButton aria-label="Indietro" onClick={() => { if(step > 1) setStep(s => s-1); else setMode('selection'); }}><Box component="span" className="material-symbols-outlined" aria-hidden="true">arrow_back</Box></IconButton>
                 <Typography variant="overline" style={{ color: 'var(--md-sys-color-primary)', textTransform: 'uppercase' }}>Passo {step} di 3</Typography>
                 <div style={{ width: 'var(--md-sys-spacing-4)' }}></div>
             </div>
@@ -223,7 +223,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                     textAlign: 'center',
                 }}
             >
-            <IconButton aria-label="Indietro" onClick={() => setMode('selection')}><span className="material-symbols-outlined" aria-hidden="true">arrow_back</span></IconButton>
+            <IconButton aria-label="Indietro" onClick={() => setMode('selection')}><Box component="span" className="material-symbols-outlined" aria-hidden="true">arrow_back</Box></IconButton>
           
                     <div
                         style={{

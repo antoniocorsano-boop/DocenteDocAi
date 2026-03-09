@@ -3,6 +3,7 @@
 // Audit: gennaio 2026 — drag floating: marzo 2026
 
 import React from 'react';
+import Box from '@mui/material/Box';
 import { useUIStore } from '../stores/useUIStore';
 
 // Legge un token CSS numerico (px) dal root — usato per il calcolo dei boundary durante il drag
@@ -166,7 +167,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
           aria-label="Assistente AI"
           onClick={handleFabClick}
         >
-          <span className="material-symbols-outlined">auto_mode</span>
+          <Box component="span" className="material-symbols-outlined" aria-hidden="true">auto_mode</Box>
         </button>
         {menuOpen && (
           <>
@@ -184,7 +185,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
                       aria-label="Chiudi menu assistente"
                       onClick={() => setMenuOpen(false)}
                     >
-                                  <span className="material-symbols-outlined">close</span>
+                                  <Box component="span" className="material-symbols-outlined" aria-hidden="true">close</Box>
                     </button>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
@@ -195,7 +196,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
                         onClick={() => handleAction(action)}
                         aria-label={action.label}
                       >
-                                      <span className="material-symbols-outlined">{action.icon}</span>
+                                      <Box component="span" className="material-symbols-outlined" aria-hidden="true">{action.icon}</Box>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                           <p>{action.label}</p>
                           <p>{action.description}</p>
@@ -215,7 +216,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
                   
                   onClick={() => setMenuOpen(false)}
                 >
-                          <span className="material-symbols-outlined">close</span>
+                          <Box component="span" className="material-symbols-outlined" aria-hidden="true">close</Box>
                 </button>
                 {ACTIONS.map((a, i) => {
                   // MD3 Gold: spacing tra azioni con token MD3
@@ -233,7 +234,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
                       onClick={() => handleAction(a)}
                       aria-label={a.label}
                     >
-                                  <span className="material-symbols-outlined">{a.icon}</span>
+                                  <Box component="span" className="material-symbols-outlined" aria-hidden="true">{a.icon}</Box>
                       <span>{a.label}</span>
                     </button>
                   );

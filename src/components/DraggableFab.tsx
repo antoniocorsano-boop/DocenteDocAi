@@ -3,6 +3,7 @@
 // Usare AssistantFab come unico FAB globale.
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 import React, { useState, useRef } from 'react';
+import Box from '@mui/material/Box';
 
 interface DraggableFabProps {
     onClick: () => void;
@@ -119,7 +120,7 @@ export const DraggableFab: React.FC<DraggableFabProps> = ({ onClick, ariaLabel }
             aria-label={ariaLabel}
             title={ariaLabel}
         >
-            <span className="material-symbols-outlined">mic</span>
+            <Box component="span" className="material-symbols-outlined" aria-hidden="true">mic</Box>
         </button>
     );
 };

@@ -169,14 +169,14 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                 >
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-tertiary)', color: 'var(--md-sys-color-on-tertiary)' }}>
-                            <span className="material-symbols-outlined">accessibility_new</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">accessibility_new</Box>
                         </div>
                         <div style={{ flex: 1 }}>
                             <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-tertiary-container)' }}>Piano di Inclusione (BES/DSA)</h3>
                             <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-tertiary-container)', opacity: 'var(--md-sys-state-opacity-caption)' }}>Gestisci misure compensative e dispensative.</p>
                         </div>
                     </div>
-                    <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-tertiary-container)' }}>arrow_forward</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-tertiary-container)' }}>arrow_forward</Box>
                 </button>
             )}
 
@@ -185,7 +185,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-4)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-secondary-container)', color: 'var(--md-sys-color-on-secondary-container)' }}>
-                            <span className="material-symbols-outlined">psychology</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">psychology</Box>
                         </div>
                         <div style={{ flex: 1 }}>
                             <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Consulente AI: Giudizio</h3>
@@ -200,15 +200,14 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                 {aiJudgment && (
                     <div style={{ borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-primary-container)', padding: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
-                            <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-primary)' }}>auto_awesome</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-primary)' }}>auto_awesome</Box>
                             <span style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', color: 'var(--md-sys-color-on-primary-container)' }}>Suggerimento AI</span>
                         </div>
                         <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-primary-container)', fontStyle: 'italic', lineHeight: 1.6 }}>
                             &ldquo;{aiJudgment}&rdquo;
                         </p>
                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <Button onClick={() => { navigator.clipboard.writeText(aiJudgment); alert('Giudizio copiato negli appunti!'); }} variant="text">
-                                <span className="material-symbols-outlined">content_copy</span>
+                            <Button onClick={() => { navigator.clipboard.writeText(aiJudgment); alert('Giudizio copiato negli appunti!'); }} variant="text" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">content_copy</Box>}>
                                 Copia Testo
                             </Button>
                         </div>
@@ -220,7 +219,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-secondary)', color: 'var(--md-sys-color-on-secondary)' }}>
-                            <span className="material-symbols-outlined">workspace_premium</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">workspace_premium</Box>
                         </div>
                         <div style={{ flex: 1 }}>
                             <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Certificazione Competenze</h3>
@@ -268,7 +267,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
                                         <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(ev.data).toLocaleDateString()}</span>
                                         <Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="text">
-                                            <span className="material-symbols-outlined">delete</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">delete</Box>
                                         </Button>
                                     </div>
                                 </div>
@@ -324,14 +323,14 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
-                                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-on-surface-variant)' }}>event</span>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-on-surface-variant)' }}>event</Box>
                                         <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(latest.data).toLocaleDateString()}</span>
                                     </div>
                                     <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{level?.descrizione}</p>
                                 </div>
                                 {latest.nota && (
                                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
-                                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-on-surface-variant)', flexShrink: 0 }}>chat_bubble</span>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-on-surface-variant)', flexShrink: 0 }}>chat_bubble</Box>
                                         <p style={{ margin: 0, fontStyle: 'italic', color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>&ldquo;{latest.nota}&rdquo;</p>
                                     </div>
                                 )}
@@ -353,7 +352,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                             <div style={{ padding: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-primary-container)' }}>
-                                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-primary)' }}>meeting_room</span>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-primary)' }}>meeting_room</Box>
                                         <span style={{ fontSize: 'var(--md-sys-typescale-label-medium-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-on-primary-container)' }}>Ricevimento</span>
                                     </div>
                                     <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{lesson.data ? new Date(lesson.data).toLocaleDateString() : ''}</span>
@@ -386,7 +385,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                     <Button onClick={onBack} variant="text">
-                        <span className="material-symbols-outlined">arrow_back</span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true">arrow_back</Box>
                     </Button>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                         <Avatar name={`${student.nome} ${student.cognome}`} size="xl" />
@@ -401,12 +400,10 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                     </div>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
-                    <Button onClick={() => setIsInterviewModeOpen(true)} variant="outlined">
-                        <span className="material-symbols-outlined">record_voice_over</span>
+                    <Button onClick={() => setIsInterviewModeOpen(true)} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">record_voice_over</Box>}>
                         Colloquio
                     </Button>
-                    <Button onClick={handleExportPdf} variant="contained" disabled={isExporting}>
-                        <span className="material-symbols-outlined">download</span>
+                    <Button onClick={handleExportPdf} variant="contained" disabled={isExporting} startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">download</Box>}>
                         Esporta PDF
                     </Button>
                 </div>

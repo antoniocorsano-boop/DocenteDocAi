@@ -194,7 +194,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                             value={currentLesson.externalLink || ''}
                             onChange={e => setCurrentLesson({ ...currentLesson, externalLink: e.target.value })}
                             placeholder="Incolla URL deliverable..."
-                            slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span></InputAdornment> } }}
+                            slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">auto_awesome</Box></InputAdornment> } }}
                         />
                     </Box>
                 )}

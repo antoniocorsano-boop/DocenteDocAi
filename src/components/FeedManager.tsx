@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import { FeedSource } from '../types';
 import { discoverAndCreateFeed, fetchAndParseRssFeed } from '../services/aiService';
 import { InfoCard, SectionHeader, TextField } from './ui';
-import { Button, InputAdornment } from '@mui/material';
+import { Button, InputAdornment, Box } from '@mui/material';
 
 interface FeedManagerProps {
     sources: FeedSource[];
@@ -99,7 +99,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                         placeholder="www.nomescuola.edu.it/circolari"
                         disabled={true}
                         title="Funzionalità disabilitata"
-                        slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">link</span></InputAdornment> } }}
+                        slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">link</Box></InputAdornment> } }}
                     />
                     <Button 
                         onClick={handleAddSource} 

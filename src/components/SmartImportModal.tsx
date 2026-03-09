@@ -115,7 +115,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                                 backgroundColor: isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
                                 color: isDragActive ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-primary)'
                             }}>
-                                <span className="material-symbols-outlined">transform</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true">transform</Box>
                             </div>
                             <Typography variant="h5" sx={{ textAlign: 'center' }}>Carica la vecchia Programmazione</Typography>
                             <div style={{marginTop: 'var(--md-sys-spacing-4)', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'var(--md-sys-spacing-8)'}}>

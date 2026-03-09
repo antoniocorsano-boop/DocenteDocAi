@@ -85,7 +85,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             color: 'var(--md-sys-color-on-secondary-container)',
                             backgroundColor: 'var(--md-sys-color-secondary-container)'
                         }}>
-                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)' }}>share</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)' }}>share</Box>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <Typography variant="subtitle2">Condividi via...</Typography>
@@ -118,7 +118,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                             color: 'var(--md-sys-color-on-tertiary-container)',
                             backgroundColor: 'var(--md-sys-color-tertiary-container)'
                         }}>
-                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)' }}>{copyStatus === 'copied' ? 'check' : 'content_paste'}</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)' }}>{copyStatus === 'copied' ? 'check' : 'content_paste'}</Box>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <Typography variant="subtitle2">{copyStatus === 'copied' ? 'Copiato!' : 'Copia Formattato'}</Typography>

@@ -12,6 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+import Box from '@mui/material/Box';
 
 interface StudentManagerProps {
     students: Studente[];
@@ -226,7 +227,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                             placeholder="Digita nome o cognome..."
                             value={searchTerm}
                             onChange={e => setSearchTerm(e.target.value)}
-                            slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">search</span></InputAdornment> } }}
+                            slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">search</Box></InputAdornment> } }}
                             aria-label="Ricerca studenti per nome o cognome"
                         />
                     </div>

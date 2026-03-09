@@ -11,6 +11,7 @@
 
 import React from 'react';
 import { AiThinkingGem } from './ui';
+import Box from '@mui/material/Box';
 interface ViewLoadingPlaceholderProps {
   message?: string;
   className?: string;
@@ -46,7 +47,7 @@ export const MinimalViewLoading: React.FC = () => {
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
       <div style={{ gap: 'var(--md-sys-spacing-4)', textAlign: "center" }}>
         <div style={{ width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', marginInline: 'var(--md-sys-margin-auto)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: "var(--md-sys-typescale-title-large-font-size)", color: "var(--md-sys-color-primary)" }}>hourglass_bottom</span>
+          <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: "var(--md-sys-typescale-title-large-font-size)", color: "var(--md-sys-color-primary)" }}>hourglass_bottom</Box>
         </div>
         <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Caricamento...</p>
       </div>

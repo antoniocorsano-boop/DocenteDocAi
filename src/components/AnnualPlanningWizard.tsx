@@ -6,6 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Studente, Uda, TimetableSettings, AiSettings, Report, EventoCalendario, Lezione, KnowledgeBaseEntry, PianoInclusione } from '../types';
@@ -392,7 +393,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)` }}>
                                 <Typography variant="subtitle1" component="h4" sx={{ marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)' }}>
-                                    <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-secondary)' }}>folder_open</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-secondary)' }}>folder_open</Box>
                                     Documenti di Riferimento (KB)
                                 </Typography>
                                 <div style={{ maxHeight: 'var(--md-sys-layout-popup-min-width)', overflowY: 'auto' }}>
@@ -400,8 +401,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         <div key={kb.id} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: 'var(--md-sys-spacing-2)' }}>
                                             <input type="checkbox" id={`kb-annual-${kb.id}`} checked={selectedKbFiles.includes(kb.id)} onChange={() => toggleKbFile(kb.id)} />
                                             <label htmlFor={`kb-annual-${kb.id}`} style={{ display: 'flex', flexDirection: 'row', width: 'var(--md-sys-percent-full)', justifyContent: 'flex-start', cursor: 'pointer' }} title={kb.fileName}>
-                                                {selectedKbFiles.includes(kb.id) && <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>check</span>}
-                                                <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-primary)', marginRight: "var(--md-sys-spacing-2)" }}>description</span>
+                                                {selectedKbFiles.includes(kb.id) && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>check</Box>}
+                                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)', marginRight: "var(--md-sys-spacing-2)" }}>description</Box>
                                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</span>
                                             </label>
                                         </div>
@@ -460,7 +461,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                                     <label htmlFor="wizard-methodology-text">Strategie Didattiche</label>
                                     <Button variant="text" onClick={handleGenerateMethodology} disabled={!!methodologyStatus} sx={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Suggerisci metodologie adatte al contesto">
-                                        {methodologyStatus ? <AiThinkingGem size="small" inline text="Thinking..." /> : <><span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-primary)' }}>lightbulb</span> Suggerisci</>}
+                                        {methodologyStatus ? <AiThinkingGem size="small" inline text="Thinking..." /> : <><Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>lightbulb</Box> Suggerisci</>}
                                     </Button>
                                 </div>
                                 <textarea id="wizard-methodology-text" name="wizard-methodology-text" style={{ width: 'var(--md-sys-percent-full)' }} rows={6} value={methodology} onChange={e => setMethodology(e.target.value)} />
@@ -479,7 +480,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         title="Info sulla sequenza"
                                         aria-label="Mostra informazioni sulla sequenza UDA"
                                     >
-                                        <span className="material-symbols-outlined" aria-hidden="true">help</span>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true">help</Box>
                                     </button>
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--md-sys-spacing-2)' }}>
@@ -518,7 +519,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ gap: 'var(--md-sys-spacing-3)', overflowY: "auto", maxHeight: 'var(--md-sys-spacing-24)' }}>
                                     {plannedUdas.map((uda, idx) => (
                                         <div key={uda.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
-                                            <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)', cursor: 'grab' }} title="Trascina per riordinare (futuro)">drag_indicator</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', cursor: 'grab' }} title="Trascina per riordinare (futuro)">drag_indicator</Box>
 
                                             <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                                                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>
@@ -544,7 +545,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </div>
 
                                             <Button variant="text" color="error" onClick={() => removeUdaFromPlan(idx)} title="Rimuovi UDA">
-                                                <span className="material-symbols-outlined">delete</span>
+                                                <Box component="span" className="material-symbols-outlined" aria-hidden="true">delete</Box>
                                             </Button>
                                         </div>
                                     ))}
@@ -585,7 +586,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     {step === 'document' && (
                         <div style={{ gap: 'var(--md-sys-spacing-6)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-full)", textAlign: "center" }}>
                             <div style={{ color: 'var(--md-sys-color-on-secondary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-secondary)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
-                                <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-secondary-container)' }}>check_circle</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-secondary-container)' }}>check_circle</Box>
                             </div>
                             <Typography variant="h6" component="h3" sx={{ color: 'var(--md-sys-color-on-surface)' }}>Pianificazione Completata!</Typography>
                             <Button variant="contained" onClick={handleGenerateDoc} disabled={!!processingStatus} sx={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Scarica il documento finale">

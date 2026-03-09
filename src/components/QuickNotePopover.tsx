@@ -2,7 +2,7 @@
 
 // M3Expressive: QuickNotePopover - Quick note input popover with voice recording
 import React, { useState } from 'react';
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
 import { M3Popover, TextField } from './ui';
 import VoiceNoteRecorder from './VoiceNoteRecorder';
 
@@ -45,9 +45,9 @@ const QuickNotePopover: React.FC<QuickNotePopoverProps> = ({ anchorEl, initialVa
                         
                         aria-label="Chiudi nota"
                     >
-                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>
                             close
-                        </span>
+                        </Box>
                     </button>
                 </div>
             </div>

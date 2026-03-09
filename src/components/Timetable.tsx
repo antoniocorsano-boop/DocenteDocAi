@@ -92,7 +92,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               flexShrink: 0,
             }}>
-              <span className="material-symbols-outlined" style={{ fontSize: 20, color: 'var(--md-sys-color-on-primary)' }}>calendar_view_week</span>
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20, color: 'var(--md-sys-color-on-primary)' }}>calendar_view_week</Box>
             </Box>
             <Box sx={{ minWidth: 0 }}>
               <Typography variant="h6" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 700, lineHeight: 1.2 }}>
@@ -154,13 +154,13 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
             {viewMode === 'day' && (
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                 <IconButton size="small" onClick={() => handleDayNav(-1)} aria-label="Giorno precedente" disabled={currentDayIndex === 0}>
-                  <span className="material-symbols-outlined" aria-hidden="true">chevron_left</span>
+                  <Box component="span" className="material-symbols-outlined" aria-hidden="true">chevron_left</Box>
                 </IconButton>
                 <Typography variant="overline" sx={{ minWidth: 80, textAlign: 'center', fontWeight: 600 }}>
                   {visibleDays[0]}
                 </Typography>
                 <IconButton size="small" onClick={() => handleDayNav(1)} aria-label="Giorno successivo" disabled={currentDayIndex === 5}>
-                  <span className="material-symbols-outlined" aria-hidden="true">chevron_right</span>
+                  <Box component="span" className="material-symbols-outlined" aria-hidden="true">chevron_right</Box>
                 </IconButton>
               </Box>
             )}
@@ -170,7 +170,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
             onClick={() => window.print()}
             variant="outlined"
             size="small"
-            startIcon={<span className="material-symbols-outlined" aria-hidden="true">print</span>}
+            startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">print</Box>}
           >
             Stampa
           </Button>

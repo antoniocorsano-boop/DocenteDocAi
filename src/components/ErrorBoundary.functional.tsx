@@ -1,6 +1,6 @@
 // MD3 Compliant
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
 
 interface Props {
   children?: ReactNode;
@@ -22,7 +22,7 @@ const ErrorFallback: React.FC<{ error: Error; resetErrorBoundary: () => void }> 
     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', minHeight: "var(--md-sys-viewport-height-full)", display: "flex", alignItems: "center", justifyContent: "center", padding: 'var(--md-sys-spacing-6)'}}>
       <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--md-sys-percent-100)", backgroundColor: "var(--md-sys-color-surface)", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textAlign: "center"}}>
         <div style={{ width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', backgroundColor: "var(--md-sys-color-error-container)", borderRadius: 'var(--md-sys-shape-corner-full)', display: "flex", alignItems: "center", justifyContent: "center", marginInline: 'var(--md-sys-margin-auto)', marginBottom: 'var(--md-sys-spacing-6)'}}>
-          <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-error-container)', fontSize: 'var(--md-sys-typescale-headline-medium-font-size)' }}>error</span>
+          <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-error-container)', fontSize: 'var(--md-sys-typescale-headline-medium-font-size)' }}>error</Box>
         </div>
         <h1 style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-black)", marginBottom: 'var(--md-sys-spacing-2)'}}>Qualcosa è andato storto</h1>
         <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-6)'}}>
@@ -33,7 +33,7 @@ const ErrorFallback: React.FC<{ error: Error; resetErrorBoundary: () => void }> 
         </div>
         <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-3)'}}>
           <Button variant="contained" onClick={resetErrorBoundary} style={{ width: "var(--md-sys-percent-100)", justifyContent: "center" }}>
-            <span className="material-symbols-outlined" aria-hidden="true" style={{ marginRight: 'var(--md-sys-spacing-2)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>refresh</span> Ricarica App
+            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ marginRight: 'var(--md-sys-spacing-2)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>refresh</Box> Ricarica App
           </Button>
           <Button variant="outlined" onClick={handleHardReset} style={{ width: "var(--md-sys-percent-100)", justifyContent: "center" }}>
             Reset Totale (Emergenza)

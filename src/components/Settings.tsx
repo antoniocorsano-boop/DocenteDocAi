@@ -6,7 +6,15 @@
 // Settings.tsx: Migrated with functional exceptions for layout percentages and specific dimensions
 // All styles now use MD3 design tokens and semantic color/spacing/elevation system where exact matches exist
 // Functional exceptions: width/height percentages (100%, 50%, 20%, 10%), grid minmax(calc(var(--md-sys-spacing-20) * 2.5), var(--md-sys-grid-fr-1)) for responsive layout
-import { Tabs, Tab, Badge, Box, Stack, LinearProgress, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import LinearProgress from '@mui/material/LinearProgress';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
 import React, { useRef, useState, useEffect } from 'react';
 import { SettingsProps, AppThemeState } from '../types';
 import { THEME_CUSTOMIZATIONS, AI_PROFILES, SCHOOL_LEVELS } from '../constants';
@@ -74,11 +82,12 @@ const SettingsGroup: React.FC<{
         >
             <AccordionSummary
                 expandIcon={
-                    <span
+                    <Box
+                        component="span"
                         className="material-symbols-outlined"
                         aria-hidden="true"
-                        style={{ fontSize: 24, color: 'var(--md-sys-color-on-surface-variant)' }}
-                    >expand_more</span>
+                        sx={{ fontSize: 24, color: 'var(--md-sys-color-on-surface-variant)' }}
+                    >expand_more</Box>
                 }
                 id={`settings-group-btn-${id}`}
                 aria-controls={`settings-group-panel-${id}`}
@@ -109,7 +118,7 @@ const SettingsGroup: React.FC<{
                     bgcolor: iconBg,
                     color: iconColor,
                 }}>
-                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 24 }}>{icon}</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 24 }}>{icon}</Box>
                 </Box>
                 <Box sx={{ minWidth: 0, flex: 1 }}>
                     <Typography variant="subtitle1" sx={{ fontWeight: 700, color: 'var(--md-sys-color-on-surface)', lineHeight: 1.3, margin: 0 }}>{title}</Typography>
@@ -347,7 +356,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 <IconButton
                     aria-label="Chiudi impostazioni"
                     onClick={onClose}
-                ><span className="material-symbols-outlined" aria-hidden="true">arrow_back</span></IconButton>
+                ><Box component="span" className="material-symbols-outlined" aria-hidden="true">arrow_back</Box></IconButton>
                 <SectionHeader
                     title="Impostazioni"
                     subtitle="Configura il tuo profilo, l'AI e le preferenze dell'app."
@@ -380,7 +389,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                         <Stack direction="column" spacing={1.5}>
                             <Stack direction="row" spacing={1} alignItems="center">
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>dashboard_customize</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>dashboard_customize</Box>
                                 <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Modalità Interfaccia</Typography>
                             </Stack>
                                                         <Tabs
@@ -439,7 +448,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                         <Stack direction="column" spacing={2}>
                             <Stack direction="row" spacing={1} alignItems="center">
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>auto_awesome</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>auto_awesome</Box>
                                 <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Ecosistema Visivo</Typography>
                             </Stack>
                             <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: 2 }}>
@@ -478,14 +487,15 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                 width: 'var(--md-sys-percent-100)',
                                             }}
                                         >
-                                            <span
+                                            <Box
+                                                component="span"
                                                 className="material-symbols-outlined"
                                                 aria-hidden="true"
-                                                style={{
+                                                sx={{
                                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                     color: isSelected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
                                                 }}
-                                            >{vstyle.icon}</span>
+                                            >{vstyle.icon}</Box>
                                             <Typography variant="caption" sx={{ color: isSelected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)', margin: 0 }}>{vstyle.label}</Typography>
                                             <Typography variant="caption" sx={{ color: isSelected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)', margin: 0 }}>{vstyle.desc}</Typography>
                                         </Paper>
@@ -499,7 +509,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                         <Stack direction="column" spacing={2}>
                             <Stack direction="row" spacing={1} alignItems="center">
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>palette</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>palette</Box>
                                 <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Tema & Colori</Typography>
                             </Stack>
 
@@ -563,7 +573,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                             <Box sx={{ borderTop: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)', pt: 2 }}>
                                 <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
-                                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>magic_button</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>magic_button</Box>
                                     <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Generatore AI</Typography>
                                 </Stack>
                                 <Stack direction="row" spacing={2} alignItems="flex-end">
@@ -573,7 +583,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             value={themePrompt}
                                             onChange={e => setThemePrompt(e.target.value)}
                                             placeholder="Es. 'Colori tramonto'..."
-                                            slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">palette</span></InputAdornment> } }} />
+                                            slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">palette</Box></InputAdornment> } }} />
                                     </Box>
                                     <IconButton
                                         onClick={handleGenerateThemeFromPrompt}
@@ -581,7 +591,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         aria-label="Genera tema AI"
                                         sx={{ bgcolor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', borderRadius: 2, '&:hover': { bgcolor: 'color-mix(in srgb, var(--md-sys-color-primary) 85%, black)' }, '&.Mui-disabled': { bgcolor: 'action.disabledBackground' } }}
                                     >
-                                        <span className="material-symbols-outlined" aria-hidden="true">{isGeneratingTheme ? 'sync' : 'auto_awesome'}</span>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true">{isGeneratingTheme ? 'sync' : 'auto_awesome'}</Box>
                                     </IconButton>
                                 </Stack>
                             </Box>
@@ -591,7 +601,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         {/* SEZIONE 4: PARAMETRI AVANZATI */}
                         <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                             <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2, pb: 1.5, borderBottom: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>tune</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>tune</Box>
                                 <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Parametri Strutturali</Typography>
                             </Stack>
                             <Stack spacing={2}>
@@ -640,16 +650,16 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         {/* SEZIONE 6: EXPORT/IMPORT TEMA */}
                         <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                             <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>import_export</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>import_export</Box>
                                 <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Backup Tema</Typography>
                             </Stack>
                             <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mb: 2 }}>Salva o carica configurazioni di tema personalizzate per riutilizzarle in futuro.</Typography>
                             <Stack direction="row" spacing={2} alignItems="center">
-                                <Button onClick={handleExportTheme} variant="outlined" startIcon={<span className="material-symbols-outlined" aria-hidden="true">download</span>}>ESPORTA TEMA</Button>
+                                <Button onClick={handleExportTheme} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">download</Box>}>ESPORTA TEMA</Button>
                                 <Box sx={{ position: 'relative' }}>
                                     <input type="file" accept=".json" onChange={handleImportTheme} style={{ position: 'absolute', opacity: 0, width: 0, height: 0, overflow: 'hidden' }} id="theme-import" />
                                     <label htmlFor="theme-import" style={{ cursor: 'pointer' }}>
-                                        <Button variant="outlined" startIcon={<span className="material-symbols-outlined" aria-hidden="true">upload</span>} component="span">IMPORTA TEMA</Button>
+                                        <Button variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">upload</Box>} component="span">IMPORTA TEMA</Button>
                                     </label>
                                 </Box>
                             </Stack>
@@ -659,11 +669,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                         <Stack spacing={1}>
                             <Stack direction="row" spacing={1} alignItems="center">
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>refresh</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>refresh</Box>
                                 <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Manutenzione Brand</Typography>
                             </Stack>
                             <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</Typography>
-                            <Button onClick={handleForceRefresh} variant="outlined" startIcon={<span className="material-symbols-outlined" aria-hidden="true">cached</span>}>AGGIORNA BRAND E CACHE</Button>
+                            <Button onClick={handleForceRefresh} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">cached</Box>}>AGGIORNA BRAND E CACHE</Button>
                         </Stack>
                         </Box>
 
@@ -671,7 +681,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                         <Stack spacing={1}>
                             <Stack direction="row" spacing={1} alignItems="center">
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>tune</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>tune</Box>
                                 <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>M3 Theme Panel</Typography>
                             </Stack>
                             <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Personalizza i token M3 per colori, tipografia, spacing e motion con anteprima live.</Typography>
@@ -716,7 +726,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     {/* SEZIONE 1: MODELLO AI */}
                     <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
-                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>smart_toy</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>smart_toy</Box>
                             <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Modello Intelligenza</Typography>
                         </Stack>
 
@@ -774,13 +784,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 ? 'var(--md-sys-color-secondary)'
                                 : 'var(--md-sys-color-primary)'}`
                         }}>
-                            <span className="material-symbols-outlined" aria-hidden="true" style={{
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{
                                 fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 color: currentAiProfile === 'esperto'
                                     ? 'var(--md-sys-color-on-secondary-container)'
                                     : 'var(--md-sys-color-on-primary-container)',
                                 marginTop: 'var(--md-sys-spacing-4)'
-                            }}>info</span>
+                            }}>info</Box>
                             <Typography
                                 variant="body2"
                                 sx={{ color: currentAiProfile === 'esperto'
@@ -797,11 +807,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
                                 <Stack direction="row" spacing={1} alignItems="center">
-                                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>calendar_month</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>calendar_month</Box>
                                     <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 700, lineHeight: 1.5 }}>Anno Scolastico</Typography>
                                 </Stack>
-                                <Button onClick={handleAddNextYear} variant="outlined">
-                                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', marginRight: 'var(--md-sys-spacing-4)' }}>add_circle</span>
+                                <Button onClick={handleAddNextYear} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add_circle</Box>}>
                                     Aggiungi
                                 </Button>
                             </Stack>
@@ -832,7 +841,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
                                 <Stack direction="row" spacing={1} alignItems="center">
-                                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-secondary)' }}>school</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-secondary)' }}>school</Box>
                                     <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 700, lineHeight: 1.5 }}>Gestione Cattedra</Typography>
                                 </Stack>
                                 <Button
@@ -850,7 +859,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             {/* FORMAZIONE CLASSI STRUTTURATA (NORMATIVA ITALIANA) */}
                             <Box sx={{ mt: 2, p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                                 <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
-                                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>account_tree</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>account_tree</Box>
                                     <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Formazione Classi Strutturata</Typography>
                                 </Stack>
 
@@ -907,7 +916,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     </Stack>
                                 </Box>
 
-                                <Button onClick={handleGenerateClasses} variant="contained" disabled={selYears.length === 0 || selSections.length === 0} startIcon={<span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span>}>
+                                <Button onClick={handleGenerateClasses} variant="contained" disabled={selYears.length === 0 || selSections.length === 0} startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">auto_awesome</Box>}>
                                     Genera Combinazioni Classi
                                 </Button>
                             </Box>
@@ -924,7 +933,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && handleAddSubject()}
                                         />
                                     </Box>
-                                    <Button onClick={handleAddSubject} variant="contained" startIcon={<span className="material-symbols-outlined" aria-hidden="true">add</span>}>
+                                    <Button onClick={handleAddSubject} variant="contained" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add</Box>}>
                                         Aggiungi
                                     </Button>
                                 </Stack>
@@ -999,9 +1008,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                 padding: 'var(--md-sys-spacing-4)',
                                                                 borderRadius: 'var(--md-sys-shape-corner-small)'}}
                                                         >
-                                                            <span className="material-symbols-outlined" style={{
+                                                            <Box component="span" className="material-symbols-outlined" sx={{
                                                                 fontSize: 'var(--md-sys-typescale-body-large-font-size)'
-                                                            }}>delete</span>
+                                                            }}>delete</Box>
                                                         </button>
                                                     </Box>
                                                 </td>
@@ -1029,9 +1038,9 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                             >
                                                                 {assignment ? (
                                                                     <>
-                                                                        <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-primary)',
+                                                                        <Box component="span" className="material-symbols-outlined" sx={{color: 'var(--md-sys-color-primary)',
                                                                             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                                                            marginRight: 'var(--md-sys-spacing-4)'}}>check_circle</span>
+                                                                            marginRight: 'var(--md-sys-spacing-4)'}}>check_circle</Box>
                                                                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }} onClick={e => e.stopPropagation()}>
                                                                             <input
                                                                                 type="number"
@@ -1045,13 +1054,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                                     color: 'var(--md-sys-color-on-surface)',
                                                                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                                                     textAlign: 'center'}} />
-                                                                            <span style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                                                                color: 'var(--md-sys-color-on-surface-variant)'}}>h</span>
+                                                                            <Box component="span" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                                                                color: 'var(--md-sys-color-on-surface-variant)'}}>h</Box>
                                                                         </Box>
                                                                     </>
                                                                 ) : (
-                                                                    <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-outline-variant)',
-                                                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>add</span>
+                                                                    <Box component="span" className="material-symbols-outlined" sx={{color: 'var(--md-sys-color-outline-variant)',
+                                                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>add</Box>
                                                                 )}
                                                             </Box>
                                                         </td>
@@ -1111,7 +1120,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                 Ignorato in precedenza
                                             </Typography>
                                         </Stack>
-                                        <Button onClick={() => onReactivateSuggestion(id)} variant="outlined" startIcon={<span className="material-symbols-outlined" aria-hidden="true">refresh</span>}>
+                                        <Button onClick={() => onReactivateSuggestion(id)} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">refresh</Box>}>
                                             Riattiva
                                         </Button>
                                     </Box>
@@ -1191,7 +1200,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     <Box sx={{ p: 2, bgcolor: driveState.isAuthenticated ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: driveState.isAuthenticated ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
                         <Stack direction="row" spacing={1} alignItems="center">
                             <Box sx={{ width: 36, height: 36, borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: driveState.isAuthenticated ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)', color: driveState.isAuthenticated ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)' }}>
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{driveState.isAuthenticated ? 'cloud_done' : 'cloud_off'}</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{driveState.isAuthenticated ? 'cloud_done' : 'cloud_off'}</Box>
                             </Box>
                             <Stack spacing={0.25}>
                                 <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 700 }}>
@@ -1203,7 +1212,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             </Stack>
                         </Stack>
                         {driveState.isAuthenticated ? (
-                            <Button onClick={() => onSyncToDrive()} disabled={driveState.isSyncing} variant="contained" startIcon={<span className="material-symbols-outlined" aria-hidden="true">{driveState.isSyncing ? 'sync' : 'cloud_upload'}</span>}>
+                            <Button onClick={() => onSyncToDrive()} disabled={driveState.isSyncing} variant="contained" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">{driveState.isSyncing ? 'sync' : 'cloud_upload'}</Box>}>
                                 {driveState.isSyncing ? '...' : 'Salva'}
                             </Button>
                         ) : (
@@ -1218,10 +1227,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         )}
                     </Box>
                     <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 2 }}>
-                        <Button onClick={onExportData} variant="outlined" startIcon={<span className="material-symbols-outlined" aria-hidden="true">download</span>}>
+                        <Button onClick={onExportData} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">download</Box>}>
                             Backup Locale
                         </Button>
-                        <Button onClick={() => fileInputRef.current?.click()} variant="outlined" startIcon={<span className="material-symbols-outlined" aria-hidden="true">upload</span>}>
+                        <Button onClick={() => fileInputRef.current?.click()} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">upload</Box>}>
                             Ripristina File
                         </Button>
                         <input type="file" ref={fileInputRef} style={{
@@ -1256,14 +1265,14 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         Visualizza tutti gli errori registrati durante l'utilizzo dell'app
                                     </Typography>
                                 </Stack>
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: errorLogger.getErrorStats().total > 0 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}>{errorLogger.getErrorStats().total > 0 ? 'error' : 'check_circle'}</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: errorLogger.getErrorStats().total > 0 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}>{errorLogger.getErrorStats().total > 0 ? 'error' : 'check_circle'}</Box>
                             </Stack>
                             <Stack direction="row" spacing={1} alignItems="center" sx={{ p: 1.5, bgcolor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)', mb: 2 }}>
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>info</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>info</Box>
                                 <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{errorLogger.getErrorStats().total} log registrati</Typography>
                             </Stack>
                             <Stack spacing={1}>
-                                <Button onClick={() => { showToast('Apri la console del browser (F12) e digita: window.__errorLogger.getRecentErrors()', 'info'); }} variant="outlined" fullWidth startIcon={<span className="material-symbols-outlined" aria-hidden="true">terminal</span>}>
+                                <Button onClick={() => { showToast('Apri la console del browser (F12) e digita: window.__errorLogger.getRecentErrors()', 'info'); }} variant="outlined" fullWidth startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">terminal</Box>}>
                                     Console Browser (F12)
                                 </Button>
                                 <Button
@@ -1280,7 +1289,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     } }
                                     variant="outlined"
                                     fullWidth
-                                    startIcon={<span className="material-symbols-outlined" aria-hidden="true">download</span>}
+                                    startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">download</Box>}
                                 >
                                     Esporta JSON
                                 </Button>
@@ -1293,7 +1302,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     } }
                                     variant="text"
                                 fullWidth
-                                    startIcon={<span className="material-symbols-outlined" aria-hidden="true">delete</span>}
+                                    startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">delete</Box>}
                                 >
                                     Elimina Log
                                 </Button>
@@ -1320,20 +1329,20 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     <Stack spacing={2}>
                     <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
-                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>key</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>key</Box>
                             <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700 }}>Google Cloud API</Typography>
                         </Stack>
                         <Stack spacing={2}>
-                            <TextField label="Client ID (OAuth)" value={localSettings.googleClientId || ''} onChange={e => handleChange('googleClientId', e.target.value)} slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">badge</span></InputAdornment> } }} />
-                            <TextField label="API Key (Picker)" type="password" value={localSettings.googleApiKey || ''} onChange={e => handleChange('googleApiKey', e.target.value)} slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">lock</span></InputAdornment> } }} />
+                            <TextField label="Client ID (OAuth)" value={localSettings.googleClientId || ''} onChange={e => handleChange('googleClientId', e.target.value)} slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">badge</Box></InputAdornment> } }} />
+                            <TextField label="API Key (Picker)" type="password" value={localSettings.googleApiKey || ''} onChange={e => handleChange('googleApiKey', e.target.value)} slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">lock</Box></InputAdornment> } }} />
                         </Stack>
                     </Box>
                     <Box sx={{ p: 2, bgcolor: 'color-mix(in srgb, var(--md-sys-color-error-container) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-extra-large)', border: '1px solid', borderColor: 'error.light' }}>
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
-                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-error)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>warning</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-error)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>warning</Box>
                             <Typography variant="overline" sx={{ color: 'error.main', fontWeight: 700 }}>Zona Pericolo</Typography>
                         </Stack>
-                        <Button onClick={() => setIsResetModalOpen(true)} variant="contained" color="error" fullWidth startIcon={<span className="material-symbols-outlined" aria-hidden="true">delete_forever</span>}>
+                        <Button onClick={() => setIsResetModalOpen(true)} variant="contained" color="error" fullWidth startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">delete_forever</Box>}>
                             Reset Totale Dati
                         </Button>
                     </Box>
@@ -1352,7 +1361,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         onClick={onLogout}
                         variant="text"
                         color="error"
-                        startIcon={<span className="material-symbols-outlined" aria-hidden="true">logout</span>}
+                        startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">logout</Box>}
                         sx={{ mt: 1, mx: 'auto', display: 'flex' }}
                     >
                         Esci dall'account

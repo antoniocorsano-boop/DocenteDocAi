@@ -1,6 +1,6 @@
 ﻿// MD3 Gold Compliant
 import React from 'react';
-import { Paper, Typography, Button } from '@mui/material';
+import { Paper, Typography, Button, Box } from '@mui/material';
 
 interface ThemeSettingsPanelProps {
   onClose?: () => void;
@@ -31,7 +31,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
           marginBottom: 'var(--md-sys-spacing-6)',
         }}
       >
-        <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>brightness_auto</span>
+        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>brightness_auto</Box>
         <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0 }}>
           Dark Mode — tema gestito dal sistema operativo (MD3 Compliant)
         </Typography>

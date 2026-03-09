@@ -186,7 +186,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
                             <Button onClick={() => onNavigate('home')} variant="text">
-                                <span className="material-symbols-outlined">arrow_back</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true">arrow_back</Box>
                             </Button>
                             <h1 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Curricoli</h1>
                         </div>
@@ -346,7 +346,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                     <DialogContent>
                         <div {...getRootProps()} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-large)', border: 'var(--md-sys-border-width-thick) dashed var(--md-sys-color-outline)', backgroundColor: 'var(--md-sys-color-surface-container)', cursor: 'pointer', textAlign: 'center' }}>
                             <input {...getInputProps()} />
-                            <span className="material-symbols-outlined" style={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-primary)' }}>upload_file</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-primary)' }}>upload_file</Box>
                             <p style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Carica PDF Programmazione</p>
                             <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>o trascina il file qui</p>
                         </div>

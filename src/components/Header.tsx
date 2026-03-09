@@ -91,7 +91,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
               onClick={onBack}
               sx={{ color: 'var(--md-sys-color-on-surface)' }}
             >
-              <span className="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true">arrow_back</Box>
             </IconButton>
           )}
           <IconButton
@@ -103,7 +103,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
               '&:hover': { bgcolor: 'color-mix(in srgb, var(--md-sys-color-secondary-container) 88%, var(--md-sys-color-on-secondary-container))' },
             } : { color: 'var(--md-sys-color-on-surface)' }}
           >
-            <span className="material-symbols-outlined" aria-hidden="true">bolt</span>
+            <Box component="span" className="material-symbols-outlined" aria-hidden="true">bolt</Box>
           </IconButton>
           {onOpenNKA && (
             <NKAHeaderAuraButton
@@ -147,7 +147,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
                 color: 'var(--md-sys-color-on-error-container)',
               }}
             >
-              <span className="material-symbols-outlined" aria-hidden="true">cloud_off</span>
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true">cloud_off</Box>
               <Typography variant="caption" component="span">Offline</Typography>
             </Box>
           )}
@@ -156,7 +156,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
             onClick={() => onNavigate('settings')}
             sx={{ color: 'var(--md-sys-color-on-surface)' }}
           >
-            <span className="material-symbols-outlined" aria-hidden="true">settings</span>
+            <Box component="span" className="material-symbols-outlined" aria-hidden="true">settings</Box>
           </IconButton>
           <IconButton
             aria-label="Menu utente"

@@ -156,7 +156,7 @@ const SecondaryNavDrawer: React.FC<SecondaryNavDrawerProps> = ({
             size="small"
             sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
           >
-            <span className="material-symbols-outlined" aria-hidden="true">close</span>
+            <Box component="span" className="material-symbols-outlined" aria-hidden="true">close</Box>
           </IconButton>
         </Box>
       )}

@@ -77,7 +77,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                                 onClick={(e) => { e.stopPropagation(); onClose(); }}
                                 aria-label="Chiudi"
                             >
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 18 }}>close</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 18 }}>close</Box>
                             </IconButton>
                         )}
                     </Box>

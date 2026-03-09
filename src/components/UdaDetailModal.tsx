@@ -59,9 +59,9 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
             <DialogContent sx={{ bgcolor: 'background.default', display: 'flex', flexDirection: 'column', gap: 3, pt: 2 }}>
                 {/* Metadata Chips */}
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                    <Chip icon={<span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16 }}>school</span>} label={`Classe ${uda.classe}`} color="primary" variant="outlined" />
-                    <Chip icon={<span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16 }}>menu_book</span>} label={uda.materia} color="secondary" variant="outlined" />
-                    <Chip icon={<span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 16 }}>event</span>} label={`${new Date(uda.startDate!).toLocaleDateString()} - ${new Date(uda.endDate!).toLocaleDateString()}`} variant="outlined" />
+                    <Chip icon={<Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 16 }}>school</Box>} label={`Classe ${uda.classe}`} color="primary" variant="outlined" />
+                    <Chip icon={<Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 16 }}>menu_book</Box>} label={uda.materia} color="secondary" variant="outlined" />
+                    <Chip icon={<Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 16 }}>event</Box>} label={`${new Date(uda.startDate!).toLocaleDateString()} - ${new Date(uda.endDate!).toLocaleDateString()}`} variant="outlined" />
                 </Box>
 
                 {/* AI Validation Section */}

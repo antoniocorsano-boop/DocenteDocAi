@@ -8,6 +8,7 @@ import UnifiedEvaluationModal from './UnifiedEvaluationModal';
 import { EmptyState, Avatar } from './ui';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -405,7 +406,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                 <Button
                                     variant="contained"
                                     onClick={(e) => { e.stopPropagation(); onOpenInclusionPlanEditor(student); }}
-                                    startIcon={<span className="material-symbols-outlined" aria-hidden="true">psychology</span>}
+                                    startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">psychology</Box>}
                                     style={{ flex: 1 }}
                                 >
                                     Piano Inclusione
@@ -413,7 +414,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                 <Button
                                     variant="outlined"
                                     onClick={(e) => { e.stopPropagation(); setViewingStudent(student); }}
-                                    startIcon={<span className="material-symbols-outlined" aria-hidden="true">analytics</span>}
+                                    startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">analytics</Box>}
                                     style={{ flex: 1 }}
                                 >
                                     Analizza
@@ -500,7 +501,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                     <Button
                                         onClick={() => setActiveTab(tab.id as ViewTab)}
                                         variant={activeTab === tab.id ? 'contained' : 'text'}
-                                        startIcon={<span className="material-symbols-outlined" aria-hidden="true">{tab.icon}</span>}
+                                        startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">{tab.icon}</Box>}
                                         aria-pressed={activeTab === tab.id}
                                     >
                                         {tab.label}

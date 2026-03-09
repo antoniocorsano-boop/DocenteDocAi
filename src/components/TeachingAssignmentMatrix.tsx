@@ -6,7 +6,7 @@
 
 // M3Expressive: TeachingAssignmentMatrix - Teaching assignment configuration matrix with M3 tokens
 import React, { useEffect, useMemo, useState } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { TeachingAssignment } from '../types';
 import { generateHueFromString } from '../utils/colorUtils';
 
@@ -53,7 +53,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
         return (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-primary)' }}>bolt</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-primary)' }}>bolt</Box>
                 </div>
                 <Typography variant="h6" component="h3">Configura la Cattedra</Typography>
                 <Typography variant="body2" component="p">
@@ -111,9 +111,9 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                                                     title={isActive ? `Rimuovi ${subj} da ${cls}` : `Assegna ${subj} a ${cls}`}
                                                     aria-label={`${subj} in ${cls}: ${isActive ? 'Assegnato' : 'Non assegnato'}`}
                                                 >
-                                                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontWeight: 'var(--md-sys-typescale-weight-regular)', fontStyle: 'normal', fontSize: 'var(--icon-size-medium)', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle', color: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)' }}>
+                                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontWeight: 'var(--md-sys-typescale-weight-regular)', fontStyle: 'normal', fontSize: 'var(--icon-size-medium)', letterSpacing: 'normal', textTransform: 'none', display: 'inline-block', verticalAlign: 'middle', color: isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)' }}>
                                                         {isActive ? 'check_circle' : 'add_circle'}
-                                                    </span>
+                                                    </Box>
                                                 </button>
                                             </td>
                                         );
@@ -202,7 +202,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
             {/* INFO SECTION */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <Typography variant="body2" component="p" style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
-                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-on-surface-variant)' }}>info</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-on-surface-variant)' }}>info</Box>
                     Tocca le materie per assegnarle alle classi.
                 </Typography>
             </div>

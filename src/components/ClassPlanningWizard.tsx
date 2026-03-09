@@ -21,6 +21,7 @@ import { generateHtmlDocxBlob, saveAs } from '../utils/documentUtils';
 import { M3Dialog, InfoCard, SectionHeader, AiThinkingGem } from './ui';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import '../design-system/md3-utilities.css';
 import { useUIStore } from '../stores/useUIStore';
@@ -104,7 +105,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     const SITUATION_TAGS = [
         "Numerosa", "Poca partecipazione", "Vivace", "Livello Eterogeneo", 
         "Buona preparazione base", "Lacune diffuse", "Presenza BES/DSA", 
-        "Studenti Stranieri (NAI)", "Collaborativa", "Difficoltà relazionali"
+        "Studenti Stranieri (NAI)", "Collaborativa", "Difficoltï¿½ relazionali"
     ];
 
     // --- LOGIC ---
@@ -219,7 +220,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     title: item.uda.title,
                     classe: selectedClass,
                     materia: selectedSubject,
-                    introduction: `Unità di apprendimento su: ${item.uda.topic}`,
+                    introduction: `Unitï¿½ di apprendimento su: ${item.uda.topic}`,
                     finalProduct: 'Verifica sommativa o elaborato',
                     competencyIds: [], 
                     phases: [
@@ -255,7 +256,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                 onAddLessons(newLessons);
             }
 
-            onSaveEvent({ id: `evt-term1-${Date.now()}`, titolo: 'Fine 1° Periodo', data: term1End, tipo: 'scadenza', descrizione: 'Termine inserimento voti.' });
+            onSaveEvent({ id: `evt-term1-${Date.now()}`, titolo: 'Fine 1ï¿½ Periodo', data: term1End, tipo: 'scadenza', descrizione: 'Termine inserimento voti.' });
             onSaveEvent({ id: `evt-term2-${Date.now()}`, titolo: 'Termine Lezioni', data: term2End, tipo: 'scadenza', descrizione: 'Ultimo giorno di scuola.' });
 
             setStep('document');
@@ -271,7 +272,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
         setIsProcessing(true);
         try {
             const udaList = schedulePreview.map(s => 
-                `• ${s.uda.title} (${s.uda.hours}h): dal ${new Date(s.start).toLocaleDateString()} al ${new Date(s.end).toLocaleDateString()}`
+                `ï¿½ ${s.uda.title} (${s.uda.hours}h): dal ${new Date(s.start).toLocaleDateString()} al ${new Date(s.end).toLocaleDateString()}`
             ).join('\n');
 
             const kbContext = knowledgeBase
@@ -412,7 +413,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         <div key={kb.id} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: 'var(--md-sys-spacing-2)' }}>
                                             <input type="checkbox" id={`kb-annual-${kb.id}`} checked={selectedKbFiles.includes(kb.id)} onChange={() => toggleKbFile(kb.id)} />
                                             <label htmlFor={`kb-annual-${kb.id}`} style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-2)" }} title={kb.fileName}>
-                                                {selectedKbFiles.includes(kb.id) && <span className="material-symbols-outlined" style={{  fontSize: 'var(--md-sys-spacing-4)'  }}>check</span>}
+                                                {selectedKbFiles.includes(kb.id) && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-4)' }}>check</Box>}
                                                 <span style={{ color: 'var(--md-sys-color-primary)', marginRight: "var(--md-sys-spacing-2)" }}>description</span>
                                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</span>
                                             </label>
@@ -497,7 +498,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                 <SectionHeader 
                                     title="4. Piano Annuale UDA" 
-                                    subtitle="Organizza le unità di apprendimento in sequenza temporale."
+                                    subtitle="Organizza le unitï¿½ di apprendimento in sequenza temporale."
                                     icon="view_timeline"
                                 />
                                 <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-2)' }}>
@@ -514,7 +515,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             {showSequenceHelp && (
                                 <InfoCard 
                                     title="Organizzazione Moduli"
-                                    description="Definisci le Unità di Apprendimento (UDA) in ordine cronologico. L'app calcolerà automaticamente le date sul calendario in base al monte ore di ciascuna UDA."
+                                    description="Definisci le Unitï¿½ di Apprendimento (UDA) in ordine cronologico. L'app calcolerï¿½ automaticamente le date sul calendario in base al monte ore di ciascuna UDA."
                                     variant="outlined"
                                     icon="info"
                                     onClose={() => setShowSequenceHelp(false)}
@@ -544,7 +545,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ gap: 'var(--md-sys-spacing-3)', overflowY: "auto", maxHeight: 'var(--md-sys-spacing-24)' }}>
                                     {plannedUdas.map((uda, idx) => (
                                         <div key={uda.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: "color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)" }}>
-                                            <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)', cursor: 'grab' }} title="Trascina per riordinare">drag_indicator</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', cursor: 'grab' }} title="Trascina per riordinare">drag_indicator</Box>
                                             
                                             <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                                                 <div style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>
@@ -568,13 +569,13 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </div>
 
                                             <button onClick={() => removeUdaFromPlan(idx)} style={{ color: "var(--md-sys-color-error)", background: 'none', border: 'none', cursor: 'pointer' }} title="Rimuovi UDA" aria-label="Rimuovi questa UDA dal piano">
-                                                <span className="material-symbols-outlined" aria-hidden="true">delete</span>
+                                                <Box component="span" className="material-symbols-outlined" aria-hidden="true">delete</Box>
                                             </button>
                                         </div>
                                     ))}
                                     {plannedUdas.length === 0 && (
                                         <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
-                                            <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>calendar_today</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>calendar_today</Box>
                                             <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</p>
                                         </div>
                                     )}
@@ -594,7 +595,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <InfoCard style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                        <label>Fine 1° Periodo</label>
+                                        <label>Fine 1ï¿½ Periodo</label>
                                         <input type="date" value={term1End} onChange={e => setTerm1End(e.target.value)} style={{ width: "var(--md-sys-percent-full)" }} />
                                     </div>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
@@ -614,7 +615,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </p>
                                             <h4 style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>{item.uda.title}</h4>
                                             <div style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: 'var(--md-sys-color-on-surface-variant)' }}>
-                                                <span className="material-symbols-outlined" style={{  fontSize: "var(--md-sys-typescale-body-small-font-size)"  }}>schedule</span>
+                                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>schedule</Box>
                                                 <span>{item.uda.hours} ore stimate</span>
                                             </div>
                                         </div>
@@ -627,7 +628,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     {step === 'document' && (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)', alignItems: "center", justifyContent: "center", textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>
                             <div style={{ backgroundColor: 'var(--md-sys-color-primary)', width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', borderRadius: 'var(--md-sys-spacing-16)', color: 'var(--md-sys-color-on-primary)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
-                                <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-primary)' }}>task_alt</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-primary)' }}>task_alt</Box>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <h3 style={{ color: 'var(--md-sys-color-on-surface)', marginBottom: 'var(--md-sys-spacing-8)' }}>Pianificazione Completata!</h3>
@@ -638,7 +639,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <Button onClick={handleGenerateDoc} disabled={isProcessing} variant="contained" sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }} title="Scarica il documento finale">
                                 {isProcessing ? <AiThinkingGem size="small" inline text="Generazione..." /> : (
                                     <>
-                                        <span className="material-symbols-outlined">description</span>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true">description</Box>
                                         Genera Documento Word
                                     </>
                                 )}

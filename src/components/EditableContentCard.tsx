@@ -66,7 +66,7 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
             size="small"
             sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-small)' }}
           >
-            <span className="material-symbols-outlined" aria-hidden="true">edit</span>
+            <Box component="span" className="material-symbols-outlined" aria-hidden="true">edit</Box>
           </IconButton>
         )}
       </Box>

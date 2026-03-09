@@ -249,7 +249,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
             color: activeMode === tab.key ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface-variant)',
             transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}
         >
-          <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-label-large-size)' }}>{tab.icon}</span>
+          <Box component="span" className="material-symbols-outlined" sx={{ fontSize: 'var(--md-sys-typescale-label-large-size)' }}>{tab.icon}</Box>
           {tab.label}
         </button>
       ))}
@@ -289,7 +289,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
         data-focus-priority="-1"
         aria-label="Chiudi assistente"
       >
-        <span className="material-symbols-outlined">close</span>
+        <Box component="span" className="material-symbols-outlined">close</Box>
       </button>
     </div>
   );
@@ -407,12 +407,12 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                   width: 'var(--md-sys-percent-full)',
                   transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}
               >
-                <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-10)', color: 'var(--md-sys-color-primary)' }}>{tool.icon}</span>
+                <Box component="span" className="material-symbols-outlined" sx={{ fontSize: 'var(--md-sys-spacing-10)', color: 'var(--md-sys-color-primary)' }}>{tool.icon}</Box>
                 <div>
                   <Typography variant="body1" style={{ color: 'var(--md-sys-color-on-surface)' }}>{tool.label}</Typography>
                   <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{tool.description}</Typography>
                 </div>
-                <span className="material-symbols-outlined" style={{ marginLeft: 'var(--md-sys-margin-auto)', color: 'var(--md-sys-color-on-surface-variant)' }}>chevron_right</span>
+                <Box component="span" className="material-symbols-outlined" sx={{ marginLeft: 'var(--md-sys-margin-auto)', color: 'var(--md-sys-color-on-surface-variant)' }}>chevron_right</Box>
               </button>
             ))}
           </div>
@@ -432,7 +432,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                 alignItems: 'center',
                 gap: 'var(--md-sys-spacing-2)'
               }}>
-                <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-secondary)' }}>import_contacts</span>
+                <Box component="span" className="material-symbols-outlined" sx={{ color: 'var(--md-sys-color-secondary)' }}>import_contacts</Box>
                 <Typography variant="h6" component="h3">NotebookLM</Typography>
               </div>
               <div style={{
@@ -445,7 +445,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                   onClick={handleNbSync}
                   disabled={nbLoading}
                 >
-                  <span className="material-symbols-outlined">sync</span>
+                  <Box component="span" className="material-symbols-outlined">sync</Box>
                 </Button>
                 <input
                   type="file"
@@ -460,7 +460,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                   onClick={() => nbFileInput.current?.click()}
                   disabled={nbLoading}
                 >
-                  <span className="material-symbols-outlined">upload</span>
+                  <Box component="span" className="material-symbols-outlined">upload</Box>
                 </Button>
               </div>
             </div>
@@ -503,7 +503,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                     color="error"
                     onClick={() => handleNbDelete(file.id)}
                   >
-                    <span className="material-symbols-outlined">delete</span>
+                    <Box component="span" className="material-symbols-outlined">delete</Box>
                   </Button>
                 </div>
               ))}
@@ -543,9 +543,9 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
           onClick={isRecording ? stopVoiceInput : startVoiceInput}
           title={isRecording ? 'Stop' : 'Voice input'}
         >
-          <span className="material-symbols-outlined">
+          <Box component="span" className="material-symbols-outlined">
             {isRecording ? 'mic' : 'mic_none'}
-          </span>
+          </Box>
         </Button>
         <Button
           variant="contained"
@@ -558,7 +558,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
             gap: 'var(--md-sys-spacing-4)'
           }}
         >
-          <span className="material-symbols-outlined">send</span>
+          <Box component="span" className="material-symbols-outlined">send</Box>
         </Button>
         {voiceError && <Typography variant="caption" style={{
           color: 'var(--md-sys-color-error)',

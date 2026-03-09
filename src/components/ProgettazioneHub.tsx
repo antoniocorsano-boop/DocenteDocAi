@@ -56,9 +56,9 @@ const Card: React.FC<CardProps> = ({ icon, title, description, color = 'surface'
             <CardContent sx={{ p: 'var(--md-sys-spacing-8)', '&:last-child': { pb: 'var(--md-sys-spacing-8)' } }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
                     <Box sx={{ width: 40, height: 40, borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: accent, userSelect: 'none' }}>{icon}</span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: accent, userSelect: 'none' }}>{icon}</Box>
                     </Box>
-                    {clickable && <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>arrow_forward</span>}
+                    {clickable && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>arrow_forward</Box>}
                 </Box>
                 <Typography variant="subtitle2">{title}</Typography>
                 <Typography variant="body2" sx={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{description}</Typography>

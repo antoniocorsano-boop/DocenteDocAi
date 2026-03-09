@@ -15,6 +15,7 @@ import { M3Dialog, TextField, EmptyState } from './ui';
 import InputAdornment from '@mui/material/InputAdornment';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ButtonBase from '@mui/material/ButtonBase';
 const createNewUda = (): Uda => ({
@@ -99,7 +100,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-11)', height: 'var(--md-sys-spacing-11)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)' }}>
-                            <span className="material-symbols-outlined">{udaProp === 'new' ? 'add_task' : 'edit_document'}</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">{udaProp === 'new' ? 'add_task' : 'edit_document'}</Box>
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
                             <h2 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{udaProp === 'new' ? 'Nuovo Progetto' : 'Modifica Progetto'}</h2>
@@ -107,7 +108,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                         </div>
                     </div>
                     <Button onClick={handleClose} variant="text">
-                        <span className="material-symbols-outlined">close</span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true">close</Box>
                     </Button>
                 </div>
                 
@@ -144,10 +145,10 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                             value={currentUda.externalLink || ''}
                             onChange={e => handleFieldChange('externalLink', e.target.value)}
                             placeholder="Incolla l'URL dell'analisi di NotebookLM..."
-                            slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span></InputAdornment> } }}
+                            slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">auto_awesome</Box></InputAdornment> } }}
                         />
                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
-                            <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-tertiary)' }}>auto_awesome</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-tertiary)' }}>auto_awesome</Box>
                             <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Bridge AI: Connetti il progetto al tuo spazio di lavoro esterno.</p>
                         </div>
                     </div>
@@ -179,7 +180,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                 })
                             ) : (
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface-variant)' }}>
-                                    <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-primary)' }}>add_circle</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-primary)' }}>add_circle</Box>
                                     <span style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>Tocca per selezionare competenze</span>
                                 </div>
                             )}
@@ -191,15 +192,14 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                             <Button
                                 onClick={handleDelete}
                                 variant="text"
+                                startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">delete</Box>}
                             >
-                                <span className="material-symbols-outlined">delete</span>
                                 Elimina
                             </Button>
                         )}
                         <div style={{ flex: 1 }} />
                         <Button onClick={handleClose} variant="text">Annulla</Button>
-                        <Button onClick={handleSave} variant="contained">
-                            <span className="material-symbols-outlined">save</span>
+                        <Button onClick={handleSave} variant="contained" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">save</Box>}>
                             Salva Progetto
                         </Button>
                     </div>
@@ -318,7 +318,7 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-5) var(--md-sys-spacing-6)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary-container)', color: 'var(--md-sys-color-on-primary-container)' }}>
-                            <span className="material-symbols-outlined">assignment</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">assignment</Box>
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
                             <h1 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Planner Progetti</h1>
@@ -328,8 +328,8 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                     <Button
                         onClick={handleNewUda}
                         variant="contained"
+                        startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add</Box>}
                     >
-                        <span className="material-symbols-outlined">add</span>
                         Nuovo Progetto
                     </Button>
                 </div>
@@ -388,7 +388,7 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                                                                 onClick={(e) => handleAiBridgeClick(uda, e)}
                                                                 style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-9)', height: 'var(--md-sys-spacing-9)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-tertiary-container)', color: 'var(--md-sys-color-on-tertiary-container)' }}
                                                             >
-                                                                <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-5)' }}>auto_awesome</span>
+                                                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-5)' }}>auto_awesome</Box>
                                                             </a>
                                                         )}
                                                     </td>
@@ -398,13 +398,13 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                                                                 onClick={() => handleExportUda(uda)}
                                                                 variant="text"
                                                             >
-                                                                <span className="material-symbols-outlined">ios_share</span>
+                                                                <Box component="span" className="material-symbols-outlined" aria-hidden="true">ios_share</Box>
                                                             </Button>
                                                             <Button
                                                                 onClick={() => handleEditUda(uda)}
                                                                 variant="text"
                                                             >
-                                                                <span className="material-symbols-outlined">edit</span>
+                                                                <Box component="span" className="material-symbols-outlined" aria-hidden="true">edit</Box>
                                                             </Button>
                                                         </div>
                                                     </td>

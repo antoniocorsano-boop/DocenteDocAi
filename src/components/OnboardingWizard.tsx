@@ -2,6 +2,7 @@
 // Onboarding wizard mostrato al primo avvio dell'app
 import React, { useState, useRef, useEffect } from 'react';
 import { TimetableSettings } from '../types';
+import Box from '@mui/material/Box';
 
 interface OnboardingWizardProps {
   settings: TimetableSettings;
@@ -259,7 +260,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ settings, onComplet
                     }}
                     aria-pressed={selected}
                   >
-                    {selected && <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-label-medium-size)', verticalAlign: 'middle', marginRight: 'var(--md-sys-spacing-1)' }}>check</span>}
+                    {selected && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-medium-size)', verticalAlign: 'middle', marginRight: 'var(--md-sys-spacing-1)' }}>check</Box>}
                     {d}
                   </button>
                 );
@@ -276,9 +277,9 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ settings, onComplet
         {step === 3 && (
           <>
             <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-4) 0' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-spacing-16)', color: 'var(--md-sys-color-primary)', display: 'block', marginBottom: 'var(--md-sys-spacing-4)' }}>
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-16)', color: 'var(--md-sys-color-primary)', display: 'block', marginBottom: 'var(--md-sys-spacing-4)' }}>
                 check_circle
-              </span>
+              </Box>
               <p style={{ color: 'var(--md-sys-color-primary)', fontFamily: 'var(--md-sys-typescale-label-large-font, inherit)', marginBottom: 'var(--md-sys-spacing-2)' }}>
                 Passo 3 di {TOTAL_STEPS}
               </p>

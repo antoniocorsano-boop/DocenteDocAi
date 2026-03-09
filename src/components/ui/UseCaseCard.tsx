@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { sanitizeHtml } from '../../utils/htmlSanitizer';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 
 interface UseCaseCardProps {
     scenario: string;
@@ -80,9 +80,9 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                     border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'
                 }}>
-                    <span className="material-symbols-outlined" style={{
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{
                         color: 'var(--md-sys-color-primary)'
-                    }}>tips_and_updates</span>
+                    }}>tips_and_updates</Box>
                     <Typography variant="body2" component="span" sx={{
                         color: 'var(--md-sys-color-outline)',
                         opacity: "var(--md-sys-state-opacity-caption)"

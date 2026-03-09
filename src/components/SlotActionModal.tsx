@@ -58,19 +58,19 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                             {slot.classe}
                         </Typography>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 14, color: 'var(--md-sys-color-on-primary-container)' }}>{typeIcon}</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 14, color: 'var(--md-sys-color-on-primary-container)' }}>{typeIcon}</Box>
                             <Typography variant="caption" component="span" sx={{ fontWeight: 500, color: 'var(--md-sys-color-on-primary-container)' }}>
                                 {lesson.tipoLezione || 'Lezione'}
                             </Typography>
                         </Box>
                         {attachmentCount > 0 && (
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }} title={`${attachmentCount} allegati`}>
-                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 14, color: 'var(--md-sys-color-on-primary-container)' }}>attachment</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 14, color: 'var(--md-sys-color-on-primary-container)' }}>attachment</Box>
                                 <Typography variant="overline" component="span" sx={{ color: 'var(--md-sys-color-on-primary-container)' }}>{attachmentCount}</Typography>
                             </Box>
                         )}
                     </Box>
-                    <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 18, color: 'var(--md-sys-color-on-primary-container)' }}>chevron_right</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 18, color: 'var(--md-sys-color-on-primary-container)' }}>chevron_right</Box>
                 </Box>
 
                 {/* Main Content */}
@@ -85,7 +85,7 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                     </Typography>
                     {lesson.nota && (
                         <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 0.5, mt: 0.5, opacity: 0.75 }}>
-                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 14, color: 'var(--md-sys-color-on-primary-container)', flexShrink: 0, marginTop: 2 }}>sticky_note_2</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 14, color: 'var(--md-sys-color-on-primary-container)', flexShrink: 0, marginTop: 2 }}>sticky_note_2</Box>
                             <Typography variant="caption" component="p" sx={{ color: 'var(--md-sys-color-on-primary-container)' }}>
                                 {lesson.nota}
                             </Typography>
@@ -117,7 +117,7 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                       width: 40, height: 40, flexShrink: 0,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                     }}>
-                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 20 }}>door_open</span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20 }}>door_open</Box>
                     </Box>
                     <Box sx={{ minWidth: 0 }}>
                         <Typography variant="button" component="p" sx={{ fontWeight: 700, color: 'inherit' }}>{isDraftExisting ? 'Torna in Aula' : 'Avvia Aula'}</Typography>
@@ -146,7 +146,7 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                       width: 40, height: 40, flexShrink: 0,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                     }}>
-                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 20 }}>edit</span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20 }}>edit</Box>
                     </Box>
                     <Box sx={{ minWidth: 0 }}>
                         <Typography variant="button" component="p" sx={{ fontWeight: 700, color: 'inherit' }}>Modifica</Typography>

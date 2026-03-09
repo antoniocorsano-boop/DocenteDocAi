@@ -1,7 +1,7 @@
 ﻿// Settings - Interface & Visual Experience Section
 import React from 'react';
 import { SettingsGroup } from './SettingsGroup';
-import { Typography, Button, Tabs, Tab, TextField as MuiTextField, InputAdornment } from '@mui/material';
+import { Typography, Button, Tabs, Tab, TextField as MuiTextField, InputAdornment, Box } from '@mui/material';
 import ThemeBubble from '../ThemeBubble';
 import { ThemeSettingsPanel } from './ThemeSettingsPanel';
 import { TimetableSettings, AppThemeState } from '../../types';
@@ -85,10 +85,10 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                         alignItems: 'center',
                         gap: 'var(--md-sys-spacing-3)'
                     }}>
-                        <span style={{
+                        <Box component="span" className="material-symbols-outlined" sx={{
                             fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                             color: 'var(--md-sys-color-primary)'
-                        }}>dashboard_customize</span>
+                        }}>dashboard_customize</Box>
                         <Typography variant="caption" style={{color: 'var(--md-sys-color-primary)',
                             fontWeight: 'var(--md-sys-typescale-weight-black)',
                             textTransform: 'uppercase',
@@ -118,8 +118,8 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                     <div style={{display: 'flex',
                         alignItems: 'center',
                         gap: 'var(--md-sys-spacing-4)'}}>
-                        <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                            color: 'var(--md-sys-color-primary)'}}>auto_awesome</span>
+                        <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            color: 'var(--md-sys-color-primary)'}}>auto_awesome</Box>
                         <Typography variant="caption" style={{color: 'var(--md-sys-color-primary)',
                             fontWeight: 'var(--md-sys-typescale-weight-black)',
                             textTransform: 'uppercase',
@@ -155,10 +155,10 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                     transition: `all var(--md-sys-motion-duration-short1) var(--md-sys-motion-easing-standard)`,
                                     textAlign: 'center'}}
                             >
-                                <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     color: themeState.visualStyle === style.id
                                         ? 'var(--md-sys-color-on-primary-container)'
-                                        : 'var(--md-sys-color-on-surface-variant)'}}>{style.icon}</span>
+                                        : 'var(--md-sys-color-on-surface-variant)'}}>{style.icon}</Box>
                                 <Typography variant="caption" style={{color: themeState.visualStyle === style.id
                                         ? 'var(--md-sys-color-on-primary-container)'
                                         : 'var(--md-sys-color-on-surface)',
@@ -181,8 +181,8 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                     <div style={{display: 'flex',
                         alignItems: 'center',
                         gap: 'var(--md-sys-spacing-4)'}}>
-                        <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                            color: 'var(--md-sys-color-primary)'}}>palette</span>
+                        <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            color: 'var(--md-sys-color-primary)'}}>palette</Box>
                         <Typography variant="caption" style={{color: 'var(--md-sys-color-primary)',
                             fontWeight: 'var(--md-sys-typescale-weight-black)',
                             textTransform: 'uppercase',
@@ -226,8 +226,8 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-4)',
                             marginBottom: 'var(--md-sys-spacing-4)'}}>
-                            <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                color: 'var(--md-sys-color-primary)'}}>magic_button</span>
+                            <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                                color: 'var(--md-sys-color-primary)'}}>magic_button</Box>
                             <Typography variant="caption" style={{color: 'var(--md-sys-color-primary)',
                                 fontWeight: 'var(--md-sys-typescale-weight-black)',
                                 textTransform: 'uppercase',
@@ -247,7 +247,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                     slotProps={{ htmlInput: {
                                         startAdornment: (
                                             <InputAdornment position="start">
-                                                <span className="material-symbols-outlined" aria-hidden="true">palette</span>
+                                                <Box component="span" className="material-symbols-outlined" aria-hidden="true">palette</Box>
                                             </InputAdornment>
                                         ),
                                     } }}
@@ -264,8 +264,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                     boxShadow: 'var(--md-sys-elevation-level2)',
                                     borderRadius: 'var(--md-sys-shape-corner-large)'}}
                             >
-                                <span style={{
-                                }}>{isGeneratingTheme ? 'sync' : 'auto_awesome'}</span>
+                                <Box component="span" className="material-symbols-outlined">{isGeneratingTheme ? 'sync' : 'auto_awesome'}</Box>
                             </Button>
                         </div>
                     </div>
@@ -283,8 +282,8 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                         marginBottom: 'var(--md-sys-spacing-4)',
                         paddingBottom: 'var(--md-sys-spacing-4)',
                         borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                        <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                            color: 'var(--md-sys-color-primary)'}}>tune</span>
+                        <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            color: 'var(--md-sys-color-primary)'}}>tune</Box>
                         <Typography
                             variant="caption"
                             style={{color: 'var(--md-sys-color-primary)',
@@ -439,8 +438,8 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                         alignItems: 'center',
                         gap: 'var(--md-sys-spacing-4)',
                         marginBottom: 'var(--md-sys-spacing-4)'}}>
-                        <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                            color: 'var(--md-sys-color-primary)'}}>import_export</span>
+                        <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            color: 'var(--md-sys-color-primary)'}}>import_export</Box>
                         <Typography
                             variant="caption"
                             style={{color: 'var(--md-sys-color-primary)',
@@ -465,9 +464,8 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                         <Button
                             onClick={onExportTheme}
                             variant="outlined"
+                            startIcon={<Box component="span" className="material-symbols-outlined">download</Box>}
                         >
-                            <span className="material-symbols-outlined" style={{marginRight: 'var(--md-sys-spacing-4)',
-                                fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>download</span>
                             ESPORTA TEMA
                         </Button>
                         <div style={{
@@ -490,9 +488,8 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             }}>
                                 <Button
                                     variant="outlined"
+                                    startIcon={<Box component="span" className="material-symbols-outlined">upload</Box>}
                                 >
-                                    <span className="material-symbols-outlined" style={{marginRight: 'var(--md-sys-spacing-4)',
-                                        fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>upload</span>
                                     IMPORTA TEMA
                                 </Button>
                             </label>
@@ -507,8 +504,8 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                     <div style={{display: 'flex',
                         alignItems: 'center',
                         gap: 'var(--md-sys-spacing-4)'}}>
-                        <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                            color: 'var(--md-sys-color-primary)'}}>refresh</span>
+                        <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            color: 'var(--md-sys-color-primary)'}}>refresh</Box>
                         <Typography variant="caption" style={{color: 'var(--md-sys-color-primary)',
                             fontWeight: 'var(--md-sys-typescale-weight-black)',
                             textTransform: 'uppercase',
@@ -519,8 +516,8 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                     <Button
                         onClick={onForceRefresh}
                         variant="outlined"
+                        startIcon={<Box component="span" className="material-symbols-outlined">cached</Box>}
                     >
-                        <span className="material-symbols-outlined" style={{marginRight: 'var(--md-sys-spacing-4)'}}>cached</span>
                         AGGIORNA BRAND E CACHE
                     </Button>
                 </div>
@@ -532,8 +529,8 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                     <div style={{display: 'flex',
                         alignItems: 'center',
                         gap: 'var(--md-sys-spacing-4)'}}>
-                        <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                            color: 'var(--md-sys-color-primary)'}}>tune</span>
+                        <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                            color: 'var(--md-sys-color-primary)'}}>tune</Box>
                         <Typography variant="caption" style={{color: 'var(--md-sys-color-primary)',
                             fontWeight: 'var(--md-sys-typescale-weight-black)',
                             textTransform: 'uppercase',

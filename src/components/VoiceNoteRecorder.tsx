@@ -5,6 +5,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { getGoogleAIClient } from '../services/aiClient.ts';
+import Box from '@mui/material/Box';
 interface VoiceNoteRecorderProps {
     onTranscription: (text: string) => void;
     compact?: boolean;
@@ -243,8 +244,8 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
                     borderRadius: 'var(--md-sys-shape-corner-full)',
                     animation: 'spin var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard) infinite'}} />
             ) : (
-                <span className="material-symbols-outlined" style={{fontSize: compact ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
-                    transition: 'transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'}}>{isRecording ? 'mic_off' : 'mic'}</span>
+                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{fontSize: compact ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
+                    transition: 'transform var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)'}}>{isRecording ? 'mic_off' : 'mic'}</Box>
             )}
             {!compact && !isProcessing && (
                 <span style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)',

@@ -147,8 +147,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
             <div style={{display: 'flex',
               alignItems: 'flex-start',
               gap: 'var(--md-sys-spacing-6)'}}>
-              <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-on-tertiary-container)',
-                marginTop: 'var(--md-sys-spacing-4)'}}>privacy_tip</span>
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-on-tertiary-container)',
+                marginTop: 'var(--md-sys-spacing-4)'}}>privacy_tip</Box>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <Typography
                   variant="caption"
@@ -231,7 +231,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   <div style={{display: 'flex',
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'}}>
-                    <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-tertiary)'}}>description</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-tertiary)'}}>description</Box>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <Typography variant="h6" sx={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.totalDocumentsGenerated)}</Typography>
@@ -255,7 +255,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   <div style={{display: 'flex',
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'}}>
-                    <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-secondary)'}}>smart_toy</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-secondary)'}}>smart_toy</Box>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <Typography variant="h6" sx={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.aiInteractionsCount)}</Typography>
@@ -279,8 +279,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   <div style={{display: 'flex',
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'}}>
-                    <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-primary)',
-                      fontSize: 'var(--md-sys-typescale-display-large-font-size)'}}>file_copy</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-primary)',
+                      fontSize: 'var(--md-sys-typescale-display-large-font-size)'}}>file_copy</Box>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <Typography variant="h6" sx={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.templatesCreated)}</Typography>
@@ -304,8 +304,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   <div style={{display: 'flex',
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'}}>
-                    <span className="material-symbols-outlined" style={{color: 'var(--md-sys-color-tertiary)',
-                      fontSize: 'var(--md-sys-typescale-display-large-font-size)'}}>batch_prediction</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-tertiary)',
+                      fontSize: 'var(--md-sys-typescale-display-large-font-size)'}}>batch_prediction</Box>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <Typography variant="h6" sx={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.exportBatchesCount)}</Typography>
@@ -521,11 +521,11 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   <div style={{textAlign: 'center',
                     paddingTop: 'var(--md-sys-spacing-12)',
                     paddingBottom: 'var(--md-sys-spacing-12)'}}>
-                    <span className="material-symbols-outlined" style={{fontSize: 'var(--md-sys-typescale-display-large-font-size)',
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{fontSize: 'var(--md-sys-typescale-display-large-font-size)',
                       color: 'var(--md-sys-color-on-surface-variant)',
                       opacity: 'var(--md-sys-state-opacity-tint-moderate)',
                       marginBottom: 'var(--md-sys-spacing-8)',
-                      display: 'block'}}>history</span>
+                      display: 'block'}}>history</Box>
                     <Typography variant="body2" sx={{
                       color: 'var(--md-sys-color-on-surface-variant)'}}>Nessun evento registrato</Typography>
                   </div>

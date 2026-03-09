@@ -7,7 +7,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AiSettings, Corpus, ChatMessage, KnowledgeBaseEntry } from '../types';
 import { generateAnswerFromCorpus } from '../services/aiService';
-import { IconButton, Typography } from '@mui/material';
+import { IconButton, Typography, Box } from '@mui/material';
 // MD3 Pure: Migrated to inline styles using MD3 tokens for chat interface, message bubbles, and input controls
 // All corpus-chat-* classes removed in favor of token-based styling
 
@@ -90,7 +90,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                 <IconButton 
                     onClick={onClose} 
                     aria-label="Torna alla lista"
-                ><span className="material-symbols-outlined" aria-hidden="true">arrow_back</span></IconButton>
+                ><Box component="span" className="material-symbols-outlined" aria-hidden="true">arrow_back</Box></IconButton>
                     <div style={{display: 'flex',
                         alignItems: 'center',
                         gap: 'var(--md-sys-spacing-3)',
