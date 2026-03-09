@@ -211,7 +211,7 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                         boxShadow: 'var(--md-sys-elevation-level2)',
                         transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'
                     }}>
-                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--icon-size-xl)' }}>{selectedProcess.icon}</span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-xl)' }}>{selectedProcess.icon}</Box>
                     </Box>
                     <Typography component="h2" sx={{ m: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{selectedProcess.title}</Typography>
                     <Typography sx={{ m: 0, fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{selectedProcess.description}</Typography>
@@ -249,14 +249,14 @@ const OperationsCenter: React.FC<OperationsCenterProps> = ({
                         {suggestedProcess && (
                             <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap="wrap" sx={{ gap: 'var(--md-sys-spacing-4)', p: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', bgcolor: 'var(--md-sys-color-tertiary-container)' }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-11)', height: 'var(--md-sys-spacing-11)', borderRadius: 'var(--md-sys-shape-corner-large)', bgcolor: 'var(--md-sys-color-tertiary)', color: 'var(--md-sys-color-on-tertiary)', flexShrink: 0 }}>
-                                    <span className="material-symbols-outlined" aria-hidden="true">lightbulb</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true">lightbulb</Box>
                                 </Box>
                                 <Box sx={{ flex: 1 }}>
                                     <Typography component="h3" sx={{ m: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', color: 'var(--md-sys-color-on-tertiary-container)' }}>Suggerimento AI</Typography>
                                     <Typography sx={{ m: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-tertiary-container)', opacity: 'var(--md-sys-state-opacity-caption)' }}>{suggestedProcess.description}</Typography>
                                 </Box>
-                                <Button onClick={() => setSelectedProcess(suggestedProcess)} variant="contained">
-                                    AVVIA <span className="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+                                <Button onClick={() => setSelectedProcess(suggestedProcess)} variant="contained" endIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">arrow_forward</Box>}>
+                                    AVVIA
                                 </Button>
                             </Stack>
                         )}
