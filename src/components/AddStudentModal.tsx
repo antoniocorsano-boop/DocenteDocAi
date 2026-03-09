@@ -79,7 +79,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
                     value={formData.classe}
                     onChange={e => setFormData({ ...formData, classe: e.target.value })}
                     required
-                    inputProps={{ id: 'student-classe-select', name: 'classe' }}
+                    slotProps={{ htmlInput: { id: 'student-classe-select', name: 'classe' } }}
                   >
 
                     {userClasses.map(c => <option key={c} value={c}>{c}</option>)}

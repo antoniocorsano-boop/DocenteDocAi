@@ -573,7 +573,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             value={themePrompt}
                                             onChange={e => setThemePrompt(e.target.value)}
                                             placeholder="Es. 'Colori tramonto'..."
-                                            InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">palette</span></InputAdornment> }} />
+                                            slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">palette</span></InputAdornment> } }} />
                                     </Box>
                                     <IconButton
                                         onClick={handleGenerateThemeFromPrompt}
@@ -1324,8 +1324,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700 }}>Google Cloud API</Typography>
                         </Stack>
                         <Stack spacing={2}>
-                            <TextField label="Client ID (OAuth)" value={localSettings.googleClientId || ''} onChange={e => handleChange('googleClientId', e.target.value)} InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">badge</span></InputAdornment> }} />
-                            <TextField label="API Key (Picker)" type="password" value={localSettings.googleApiKey || ''} onChange={e => handleChange('googleApiKey', e.target.value)} InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">lock</span></InputAdornment> }} />
+                            <TextField label="Client ID (OAuth)" value={localSettings.googleClientId || ''} onChange={e => handleChange('googleClientId', e.target.value)} slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">badge</span></InputAdornment> } }} />
+                            <TextField label="API Key (Picker)" type="password" value={localSettings.googleApiKey || ''} onChange={e => handleChange('googleApiKey', e.target.value)} slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">lock</span></InputAdornment> } }} />
                         </Stack>
                     </Box>
                     <Box sx={{ p: 2, bgcolor: 'color-mix(in srgb, var(--md-sys-color-error-container) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-extra-large)', border: '1px solid', borderColor: 'error.light' }}>

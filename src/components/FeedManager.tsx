@@ -1,4 +1,4 @@
-// MD3 Gold Compliant
+﻿// MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 
@@ -99,7 +99,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                         placeholder="www.nomescuola.edu.it/circolari"
                         disabled={true}
                         title="Funzionalità disabilitata"
-                        InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">link</span></InputAdornment> }}
+                        slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">link</span></InputAdornment> } }}
                     />
                     <Button 
                         onClick={handleAddSource} 

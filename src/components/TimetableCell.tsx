@@ -4,6 +4,7 @@ import { Lezione, Slot } from '../types';
 import { LESSON_TYPE_ICONS } from '../constants';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import ButtonBase from '@mui/material/ButtonBase';
 
 interface TimetableCellProps {
     slot: Slot;
@@ -22,32 +23,38 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, onClick }) 
   const hasAi = !!lesson?.externalLink;
   const typeIcon = lesson?.tipoLezione ? LESSON_TYPE_ICONS[lesson.tipoLezione] : (hasContent ? 'school' : null);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      onClick?.();
-      e.preventDefault();
-    }
-  };
+  const cellBase = {
+    borderRadius: 'var(--md-sys-shape-corner-small)',
+    p: 1,
+    minHeight: 'var(--md-sys-layout-timetable-cell-min-height)',
+    cursor: 'pointer',
+    position: 'relative' as const,
+    overflow: 'hidden',
+    '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 },
+    '&:hover::after': {
+      content: '""',
+      position: 'absolute',
+      inset: 0,
+      borderRadius: 'inherit',
+      backgroundColor: 'var(--md-sys-color-on-surface)',
+      opacity: 0.08,
+      pointerEvents: 'none',
+    },
+  } as const;
 
   if (!hasContent) {
     return (
-      <Box
+      <ButtonBase
         onClick={onClick}
-        role="button"
         aria-label={`Aggiungi lezione a ${slot.giorno} ${slot.ora}`}
-        tabIndex={0}
-        onKeyDown={handleKeyDown}
+        focusRipple
         sx={{
+          ...cellBase,
           bgcolor: 'var(--md-sys-color-surface)',
-          borderRadius: 'var(--md-sys-shape-corner-small)',
-          p: 1,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          minHeight: 'var(--md-sys-layout-timetable-cell-min-height)',
-          cursor: 'pointer',
-          '&:hover': { bgcolor: 'var(--md-sys-color-surface-container-high)' },
-          '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 },
+          width: '100%',
         }}
       >
         <span
@@ -55,7 +62,7 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, onClick }) 
           aria-hidden="true"
           style={{ fontSize: 18, color: 'var(--md-sys-color-outline)', opacity: 0.5 }}
         >add_circle</span>
-      </Box>
+      </ButtonBase>
     );
   }
 
@@ -77,35 +84,19 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, onClick }) 
         : 'var(--md-sys-color-on-primary-container)';
 
   return (
-    <Box
+    <ButtonBase
       onClick={onClick}
-      role="button"
       aria-label={`${slot.giorno} ${slot.ora}${classe ? `, ${classe}` : ''}${materia ? ` — ${materia}` : ''}`}
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
+      focusRipple
       sx={{
+        ...cellBase,
         bgcolor: bgColor,
-        borderRadius: 'var(--md-sys-shape-corner-small)',
-        p: 1,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
         gap: 0.5,
-        minHeight: 'var(--md-sys-layout-timetable-cell-min-height)',
-        cursor: 'pointer',
         opacity: isDone ? 0.7 : 1,
-        position: 'relative',
-        overflow: 'hidden',
-        '&:hover::after': {
-          content: '""',
-          position: 'absolute',
-          inset: 0,
-          borderRadius: 'inherit',
-          backgroundColor: 'var(--md-sys-color-on-surface)',
-          opacity: 0.08,
-          pointerEvents: 'none',
-        },
-        '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 },
+        width: '100%',
       }}
     >
       {/* Top row: type icon + badges */}
@@ -172,9 +163,9 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, onClick }) 
           {displaySub}
         </Typography>
       )}
-    </Box>
+    </ButtonBase>
   );
 };
 
-export default TimetableCell;
+export default React.memo(TimetableCell);
 

@@ -160,7 +160,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                 value={targetClass}
                                 onChange={e => setTargetClass(e.target.value)}
                                 required
-                                inputProps={{ id: 'import-target-class' }}
+                                slotProps={{ htmlInput: { id: 'import-target-class' } }}
                               >
 
                                 <option value="AUTO">✨ Rileva automaticamente dal file (Multi-classe)</option>
@@ -332,7 +332,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                               <NativeSelect
                                 value={columnMap.cognome}
                                 onChange={e => setColumnMap(p => ({ ...p, cognome: e.target.value }))}
-                                inputProps={{ id: 'map-cognome' }}
+                                slotProps={{ htmlInput: { id: 'map-cognome' } }}
                               >
 
                                 <option value="">Seleziona...</option>
@@ -345,7 +345,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                               <NativeSelect
                                 value={columnMap.nome}
                                 onChange={e => setColumnMap(p => ({ ...p, nome: e.target.value }))}
-                                inputProps={{ id: 'map-nome' }}
+                                slotProps={{ htmlInput: { id: 'map-nome' } }}
                               >
 
                                 <option value="">Seleziona...</option>
@@ -360,7 +360,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                       <NativeSelect
                                         value={columnMap.classe}
                                         onChange={e => setColumnMap(p => ({ ...p, classe: e.target.value }))}
-                                        inputProps={{ id: 'map-classe' }}
+                                        slotProps={{ htmlInput: { id: 'map-classe' } }}
                                       >
 
                                         <option value="">Seleziona...</option>

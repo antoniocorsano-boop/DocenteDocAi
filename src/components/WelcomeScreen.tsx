@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import Logo from './Logo';
 import { SCHOOL_TYPES_DISCIPLINES } from '../constants';
 import { ActionTile, InfoCard, TextField } from './ui';
@@ -140,7 +140,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                       <NativeSelect
                         value={schoolType}
                         onChange={(e) => setSchoolType(e.target.value)}
-                        inputProps={{ id: 'wizard-school-type' }}
+                        slotProps={{ htmlInput: { id: 'wizard-school-type' } }}
                       >
 
                         {Object.keys(SCHOOL_TYPES_DISCIPLINES).map(t => (

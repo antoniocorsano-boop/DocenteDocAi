@@ -91,7 +91,7 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                           <NativeSelect
                             value={grade}
                             onChange={e => setGrade(e.target.value)}
-                            inputProps={{ id: 'unified-grade-select' }}
+                            slotProps={{ htmlInput: { id: 'unified-grade-select' } }}
                           >
                             {([
                                 { value: '', label: 'Nessun Voto' },

@@ -402,7 +402,7 @@ export interface SettingsProps {
     onSaveTheme: (theme: AppThemeState) => void;
     onSaveAiSettings: (settings: AiSettings) => void;
     onExportData: () => void;
-    onImportData: (data: string) => void;
+    onImportData: (file: File) => void;
     showToast: (message: string, type?: 'success' | 'error' | 'info') => void;
     onCleanDemoData: () => void;
     onLogout: () => void;

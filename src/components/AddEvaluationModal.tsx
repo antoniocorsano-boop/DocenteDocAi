@@ -109,7 +109,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                     value={selectedStudentId}
                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStudentId(e.target.value)}
                     required
-                    inputProps={{ id: 'eval-student-select' }}
+                    slotProps={{ htmlInput: { id: 'eval-student-select' } }}
                   >
 
                     <option value="">Seleziona studente...</option>
@@ -125,7 +125,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                         value={selectedMateria}
                         onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedMateria(e.target.value)}
                         required
-                        inputProps={{ id: 'eval-materia-select' }}
+                        slotProps={{ htmlInput: { id: 'eval-materia-select' } }}
                       >
 
                         <option value="">Seleziona...</option>
@@ -139,7 +139,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                         value={voto}
                         onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setVoto(e.target.value)}
                         required
-                        inputProps={{ id: 'eval-voto-select' }}
+                        slotProps={{ htmlInput: { id: 'eval-voto-select' } }}
                       >
 
                         <option value="">Seleziona...</option>

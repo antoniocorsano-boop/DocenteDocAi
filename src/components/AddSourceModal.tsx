@@ -135,7 +135,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                       <NativeSelect
                                         value={selectedCorpusId}
                                         onChange={e => setSelectedCorpusId(e.target.value)}
-                                        inputProps={{ id: 'corpus-select' }}
+                                        slotProps={{ htmlInput: { id: 'corpus-select' } }}
                                       >
 
                                         <option value="">-- Nessuna Raccolta --</option>

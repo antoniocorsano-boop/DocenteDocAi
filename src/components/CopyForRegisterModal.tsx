@@ -130,7 +130,7 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                     <TextField multiline 
                         label={activeTab === 'text' ? "Testo da incollare" : "Codice Bridge (JSON)"}
                         value={activeTab === 'text' ? generatedText : generatedJson} 
-                        inputProps={{ readOnly: true }}
+                        slotProps={{ htmlInput: { readOnly: true } }}
                         rows={10}
                         sx={{ mb: 2, backgroundColor: 'var(--md-sys-color-surface-container-high)', fontFamily: 'monospace', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}
                     />

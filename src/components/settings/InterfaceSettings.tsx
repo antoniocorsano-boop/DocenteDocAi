@@ -1,4 +1,4 @@
-// Settings - Interface & Visual Experience Section
+﻿// Settings - Interface & Visual Experience Section
 import React from 'react';
 import { SettingsGroup } from './SettingsGroup';
 import { Typography, Button, Tabs, Tab, TextField as MuiTextField, InputAdornment } from '@mui/material';
@@ -244,13 +244,13 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                     placeholder="Es. 'Colori tramonto'..."
                                     variant="outlined"
                                     fullWidth
-                                    InputProps={{
+                                    slotProps={{ htmlInput: {
                                         startAdornment: (
                                             <InputAdornment position="start">
                                                 <span className="material-symbols-outlined" aria-hidden="true">palette</span>
                                             </InputAdornment>
                                         ),
-                                    }}
+                                    } }}
                                     sx={{ mb: 2 }} />
                             </div>
                             <Button

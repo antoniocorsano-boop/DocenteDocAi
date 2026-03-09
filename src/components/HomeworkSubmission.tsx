@@ -1,4 +1,4 @@
-// MD3 Gold Compliant
+﻿// MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 import React, { useState } from 'react';
@@ -87,7 +87,7 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
                             value={feedback}
                             onChange={(e) => setFeedback(e.target.value)}
                             placeholder="Es. Analisi molto curata, bravo..."
-                            InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">chat</span></InputAdornment> }}
+                            slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">chat</span></InputAdornment> } }}
                         />
                     </div>
                     <Button 

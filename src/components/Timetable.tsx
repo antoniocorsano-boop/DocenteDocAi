@@ -1,10 +1,13 @@
 // MD3 Compliant - Uses CSS custom properties for theming
-import { Tabs, Tab, Badge, Box } from '@mui/material';
 import React, { useState, useMemo } from 'react';
 import { Lezione, Slot, TimetableSettings } from '../types';
 import TimetableCell from './TimetableCell';
 import { DAYS_OF_WEEK } from '../constants';
 import Guidance from './Guidance';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Badge from '@mui/material/Badge';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';

@@ -151,7 +151,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                                 value={currentSlot.classe || ''}
                                 onChange={e => setCurrentSlot({ ...currentSlot, classe: e.target.value })}
                                 required
-                                inputProps={{ id: 'slot-class-select' }}
+                                slotProps={{ htmlInput: { id: 'slot-class-select' } }}
                               >
 
                                 <option value="">Seleziona...</option>
@@ -168,7 +168,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                                 value={currentSlot.materia || ''}
                                 onChange={e => setCurrentSlot({ ...currentSlot, materia: e.target.value })}
                                 required
-                                inputProps={{ id: 'slot-materia-select' }}
+                                slotProps={{ htmlInput: { id: 'slot-materia-select' } }}
                               >
 
                                 <option value="">Seleziona...</option>
@@ -194,7 +194,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                             value={currentLesson.externalLink || ''}
                             onChange={e => setCurrentLesson({ ...currentLesson, externalLink: e.target.value })}
                             placeholder="Incolla URL deliverable..."
-                            InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span></InputAdornment> }}
+                            slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">auto_awesome</span></InputAdornment> } }}
                         />
                     </Box>
                 )}

@@ -1,4 +1,4 @@
-// MD3 Compliant - Block J Migration Complete (1 violation eliminated)
+﻿// MD3 Compliant - Block J Migration Complete (1 violation eliminated)
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Studente, KnowledgeBaseEntry } from '../types';
@@ -226,7 +226,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                             placeholder="Digita nome o cognome..."
                             value={searchTerm}
                             onChange={e => setSearchTerm(e.target.value)}
-                            InputProps={{ startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">search</span></InputAdornment> }}
+                            slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><span className="material-symbols-outlined" aria-hidden="true">search</span></InputAdornment> } }}
                             aria-label="Ricerca studenti per nome o cognome"
                         />
                     </div>
@@ -239,7 +239,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                                 label="Seleziona classe"
                                 value={filterClass}
                                 onChange={e => setFilterClass(e.target.value as string)}
-                                inputProps={{ 'aria-label': 'Filtra studenti per classe' }}
+                                slotProps={{ htmlInput: { 'aria-label': 'Filtra studenti per classe' } }}
                             >
                                 <MenuItem value="all">Tutte le classi</MenuItem>
                                 {userClasses.map(c => <MenuItem key={c} value={c}>Classe {c}</MenuItem>)}

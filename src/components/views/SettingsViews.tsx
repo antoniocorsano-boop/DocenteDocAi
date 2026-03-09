@@ -54,7 +54,7 @@ export interface SettingsViewsProps {
     onUpdateTheme: (theme: AppThemeState) => void;
     onUpdateAiSettings: (settings: AiSettings) => void;
     onExportData: () => void;
-    onImportData: () => void;
+    onImportData: (file: File) => void;
     onDownloadDemoData: () => void;
     onCleanDemoData: () => void;
     onRestoreFromBackup: () => void;
