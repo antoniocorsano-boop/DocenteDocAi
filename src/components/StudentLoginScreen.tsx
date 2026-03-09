@@ -9,7 +9,7 @@ import { Studente } from '../types';
 import Logo from './Logo';
 import PinPadModal from './PinPadModal';
 import { TextField } from './ui';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { WELCOME_MESSAGES, EDUCATIONAL_QUOTES } from '../constants';
 interface StudentLoginScreenProps {
     students: Studente[];
@@ -75,20 +75,20 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                         </div>
                         <div style={{gap: 'var(--md-sys-spacing-2)'}}>
                             <span  style={{fontSize: "var(--md-sys-typescale-body-small-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", color: "var(--md-sys-color-secondary)", opacity: "var(--md-sys-state-opacity-supporting)"}}>Portale Studenti</span>
-                            <h1 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", lineHeight: "1" }}>
+                            <Typography component="h1" variant="h4" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", lineHeight: "1" }}>
                                 Accesso<br /><span style={{color: 'var(--md-sys-color-primary)'}}>Diario</span>
-                            </h1>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-headline-small-font-size)", fontWeight: "var(--md-sys-typescale-weight-medium)", opacity: "var(--md-sys-state-opacity-supporting)" }}>
+                            </Typography>
+                            <Typography component="p" variant="h5" sx={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-headline-small-font-size)", fontWeight: "var(--md-sys-typescale-weight-medium)", opacity: "var(--md-sys-state-opacity-supporting)" }}>
                                 {welcomeMessage}
-                            </p>
+                            </Typography>
                         </div>
                     </div>
 
                     <div  style={{borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                         <blockquote style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-headline-medium-font-size)", lineHeight: "1.625" }}>
+                            <Typography component="p" variant="h4" sx={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-headline-medium-font-size)", lineHeight: "1.625" }}>
                                 "{quote.text}"
-                            </p>
+                            </Typography>
                             <footer  style={{fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", color: "var(--md-sys-color-primary)"}}>
                                 — {quote.author}
                             </footer>
@@ -111,18 +111,18 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                             </div>
                             <div style={{gap: 'var(--md-sys-spacing-2)'}}>
                                 <span style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", color: "var(--md-sys-color-secondary)", opacity: "var(--md-sys-state-opacity-supporting)"}}>Portale Studenti</span>
-                                <h1 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em" }}>Accesso Diario</h1>
+                                <Typography component="h1" variant="h4" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em" }}>Accesso Diario</Typography>
                             </div>
                         </div>
 
                         <div  style={{ display: "none" }}>
-                            <h2 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)" }}>Identificati</h2>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-font-size)", opacity: "var(--md-sys-state-opacity-supporting)" }}>Seleziona la tua classe per iniziare</p>
+                            <Typography component="h2" variant="h5" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)" }}>Identificati</Typography>
+                            <Typography component="p" variant="subtitle1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-font-size)", opacity: "var(--md-sys-state-opacity-supporting)" }}>Seleziona la tua classe per iniziare</Typography>
                         </div>
 
                         {step === 'class' && (
                             <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center", opacity: "var(--md-sys-state-opacity-secondary)" }}>Seleziona la tua classe</p>
+                                <Typography component="p" variant="subtitle1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", textAlign: "center", opacity: "var(--md-sys-state-opacity-secondary)" }}>Seleziona la tua classe</Typography>
                                 <div style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                                     {uniqueClasses.map(cls => (
                                         <Button 
@@ -137,7 +137,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                 </div>
                                 {uniqueClasses.length === 0 && (
                                     <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-error) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textAlign: "center"}}>
-                                        <p style={{color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>Nessuna classe disponibile.</p>
+                                        <Typography component="p" variant="body2" sx={{color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>Nessuna classe disponibile.</Typography>
                                     </div>
                                 )}
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
@@ -153,7 +153,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                         <form onSubmit={handleLogin} style={{marginTop: 'var(--md-sys-spacing-8)'}}>
                             <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 5%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                                  <div style={{gap: 'var(--md-sys-spacing-1)'}}>
-                                    <p style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", color: "var(--md-sys-color-primary)", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-supporting)"}}>Classe Selezionata</p>
+                                    <Typography component="p" variant="body2" sx={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", color: "var(--md-sys-color-primary)", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-supporting)"}}>Classe Selezionata</Typography>
                                     <strong style={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)"}}>{selectedClass}</strong>
                                  </div>
                                  <Button type="button" onClick={() => setStep('class')} variant="outlined" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Cambia</Button>
@@ -197,7 +197,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
 
                             {error && (
                                 <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-error) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textAlign: "center"}}>
-                                    <p style={{color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>{error}</p>
+                                    <Typography component="p" variant="body2" sx={{color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>{error}</Typography>
                                 </div>
                             )}
 

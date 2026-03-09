@@ -2,7 +2,7 @@
 // Note: Circular indicators use functional borderRadius with eslint-disable comments
 
 import React, { useState, useEffect } from 'react';
-import { Button, Box  } from '@mui/material';
+import { Button, Box, Typography  } from '@mui/material';
 import { M3Dialog, PinPad } from './ui';
 interface PinPadModalProps {
     title: string;
@@ -52,7 +52,7 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
                     <div style={{ color: 'var(--md-sys-color-on-primary-container)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                         <span style={{ color: 'var(--md-sys-color-primary)' }}>lock</span>
                     </div>
-                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Inserisci il PIN docente per uscire</p>
+                    <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Inserisci il PIN docente per uscire</Typography>
                 </div>
 
                 {/* PIN Display */}
@@ -78,7 +78,7 @@ const PinPadModal: React.FC<PinPadModalProps> = ({ title, correctPin, onSuccess,
                 </div>
 
                 {error && (
-                    <p  style={{color: "var(--md-sys-color-error)", textAlign: "center", fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>PIN Errato</p>
+                    <Typography component="p" variant="body1" sx={{color: "var(--md-sys-color-error)", textAlign: "center", fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>PIN Errato</Typography>
                 )}
 
                 <PinPad onInput={handleInput} onDelete={handleDelete} />

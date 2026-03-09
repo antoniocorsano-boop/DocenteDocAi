@@ -3,7 +3,7 @@
 // Nessun valore hardcoded (px, rem, %, hex, rgba) presente. Nessun uso di className custom. Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md.
 // Audit e refactor completati: 2026-01-25.
 import React, { useState, useCallback } from 'react';
-import { Button  , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { Button  , FormControl, InputLabel, NativeSelect, Typography } from '@mui/material';
 import { M3Dialog, InfoCard, SectionHeader } from './ui';
 import { ImportService, ImportResult } from '../services/importService';
 import { RegisterService, RegisterProvider } from '../services/registerService';
@@ -143,14 +143,14 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-secondary-container) 30%, transparent)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", gap: 'var(--md-sys-spacing-6)'}}>
                                 <span  style={{color: "var(--md-sys-color-secondary)"}}>info</span>
-                                <p style={{ color: 'var(--md-sys-color-on-secondary-container)' }}>
+                                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-secondary-container)' }}>
                                     {RegisterService.getExportGuidance(provider)}
-                                </p>
+                                </Typography>
                             </div>
 
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                            <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                                 Carica il file esportato in formato <strong>CSV</strong> o <strong>Excel</strong>.
-                            </p>
+                            </Typography>
                         </div>
 
                         <div
@@ -189,17 +189,17 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                 {isLoading ? 'sync' : 'upload_file'}
                             </span>
                             <div style={{ textAlign: "center" }}>
-                                <p  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
+                                <Typography component="p" variant="body1" sx={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
                                     {isLoading ? 'Analisi in corso...' : 'Trascina qui il file o clicca per selezionarlo'}
-                                </p>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Supporta .csv, .xlsx, .xls</p>
+                                </Typography>
+                                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Supporta .csv, .xlsx, .xls</Typography>
                             </div>
                         </div>
 
                         {error && (
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-error-container)' , padding: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-error)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                 <span style={{}}>error</span>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{error}</p>
+                                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{error}</Typography>
                             </div>
                         )}
                     </>
@@ -291,7 +291,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         </div>
 
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)' , padding: 'var(--md-sys-spacing-8)', overflowX: "auto"}}>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-placeholder)", marginBottom: 'var(--md-sys-spacing-8)'}}>Anteprima Dati Raw (Prime 3 righe)</p>
+                            <Typography component="p" variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-placeholder)", marginBottom: 'var(--md-sys-spacing-8)'}}>Anteprima Dati Raw (Prime 3 righe)</Typography>
                             <table style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--md-sys-percent-100)' }}>
                                 <thead>
                                     <tr>
@@ -314,7 +314,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                     <div  style={{gap: 'var(--md-sys-spacing-4)'}}>
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', color: "var(--md-sys-color-primary)"}}>
                             <span style={{ color: 'var(--md-sys-color-primary)' }}>check_circle</span>
-                            <h3  style={{ fontWeight: "var(--md-sys-typescale-weight-black)" }}>Dati pronti per l&apos;importazione</h3>
+                            <Typography component="h3" variant="h6" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)" }}>Dati pronti per l&apos;importazione</Typography>
                         </div>
 
                         <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
@@ -353,7 +353,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
 
                         {result.errors.length > 0 && (
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-warning-container, var(--md-sys-color-error-container))', color: 'var(--md-sys-color-on-warning-container, var(--md-sys-color-on-error-container))' , padding: 'var(--md-sys-spacing-8)'}}>
-                                <p  style={{fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Avvisi durante l&apos;analisi:</p>
+                                <Typography component="p" variant="body1" sx={{fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Avvisi durante l&apos;analisi:</Typography>
                                 <ul  style={{ opacity: "var(--md-sys-state-opacity-caption)" }}>
                                     {result.errors.slice(0, 3).map((err, i) => (
                                         <li key={i}>{err}</li>

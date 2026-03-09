@@ -5,7 +5,7 @@ import { Studente, Valutazione } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import BarChart from './charts/BarChart';
 import DonutChart from './charts/DonutChart';
-import {DialogContent, DialogActions, Button } from '@mui/material';
+import {DialogContent, DialogActions, Button, Typography } from '@mui/material';
 import { M3Dialog } from './ui';
 interface ClassAnalyticsProps {
     userClasses: string[];
@@ -57,7 +57,7 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
             <DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
                 <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
-                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' , fontSize: 'var(--md-sys-typescale-headline-small-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Media Voti per Classe</h3>
+                        <Typography component="h3" variant="h5" sx={{ color: 'var(--md-sys-color-on-primary)' , fontSize: 'var(--md-sys-typescale-headline-small-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Media Voti per Classe</Typography>
                         <div style={{
   display: 'flex',
   justifyContent: 'center'
@@ -65,25 +65,25 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
                             {classPerformanceData.length > 0 ? (
                                 <BarChart data={classPerformanceData} color="var(--md-sys-color-tertiary)" />
                             ) : (
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , padding: 'var(--md-sys-spacing-8)'}}>Dati insufficienti per generare il grafico.</p>
+                                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , padding: 'var(--md-sys-spacing-8)'}}>Dati insufficienti per generare il grafico.</Typography>
                             )}
                         </div>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-small-font-size)', marginTop: 'var(--md-sys-spacing-4)', textAlign: "center"}}>
+                        <Typography component="p" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-small-font-size)', marginTop: 'var(--md-sys-spacing-4)', textAlign: "center"}}>
                             Confronto della media aritmetica dei voti di tutti gli studenti per ogni classe.
-                        </p>
+                        </Typography>
                     </div>
 
                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", flexDirection: "column", alignItems: "center"}}>
-                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' , fontSize: 'var(--md-sys-typescale-headline-small-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Situazione Globale</h3>
+                        <Typography component="h3" variant="h5" sx={{ color: 'var(--md-sys-color-on-primary)' , fontSize: 'var(--md-sys-typescale-headline-small-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Situazione Globale</Typography>
                         <DonutChart data={globalStats} />
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-small-font-size)', marginTop: 'var(--md-sys-spacing-4)', textAlign: "center"}}>
+                        <Typography component="p" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-small-font-size)', marginTop: 'var(--md-sys-spacing-4)', textAlign: "center"}}>
                             Proporzione di studenti con media sufficiente vs insufficiente su tutte le classi.
-                        </p>
+                        </Typography>
                     </div>
                 </div>
                 
                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
-                     <h3 style={{ color: 'var(--md-sys-color-on-primary)' , fontSize: 'var(--md-sys-typescale-headline-small-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Dettaglio Numerico</h3>
+                     <Typography component="h3" variant="h5" sx={{ color: 'var(--md-sys-color-on-primary)' , fontSize: 'var(--md-sys-typescale-headline-small-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Dettaglio Numerico</Typography>
                      <div style={{ overflowX: "auto" }}>
                          <table  style={{ width: "var(--md-sys-percent-full)", textAlign: "left" }}>
                              <thead>

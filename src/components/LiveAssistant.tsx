@@ -1,6 +1,7 @@
 // MD3 Compliant - Block M Migration (7 violations eliminated)
 // Note: Icon font sizes, layout percentages, and control dimensions retained with eslint-disable comments
 import React, { useState, useRef, useMemo } from 'react';
+import Typography from '@mui/material/Typography';
 import { LiveServerMessage, Modality, Type } from '@google/genai';
 import { LiveAssistantProps, TranscriptEntry, View } from '../types.ts';
 import { getGoogleAIClient } from '../services/aiClient.ts';
@@ -85,7 +86,7 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
         marginLeft: isUser ? 'auto' : '0',
         border: isUser ? 'none' : 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
       }}>
-        <p style={{ whiteSpace: "pre-wrap" }}>{entry.text}</p>
+        <Typography component="p" variant="body1" sx={{ whiteSpace: "pre-wrap" }}>{entry.text}</Typography>
         {entry.sources && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <p>FONTI:</p>

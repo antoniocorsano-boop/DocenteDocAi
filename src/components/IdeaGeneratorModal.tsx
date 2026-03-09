@@ -160,7 +160,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                 {error && (
                     <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-error) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: "var(--md-sys-color-error)"}}>
                         <span style={{}}>error</span>
-                        <p style={{  fontSize: "var(--md-sys-typescale-label-large-font-size)" , fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{error}</p>
+                        <Typography component="p" variant="caption" sx={{  fontSize: "var(--md-sys-typescale-label-large-font-size)" , fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{error}</Typography>
                     </div>
                 )}
             </Box>

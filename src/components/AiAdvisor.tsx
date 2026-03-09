@@ -2,6 +2,7 @@
 // AiAdvisor.tsx - All styling uses MD3 tokens via style props
 
 import React, { useState } from 'react';
+import Typography from '@mui/material/Typography';
 import { AiSettings, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { getAIPedagogicalAdvice } from '../services/aiService';
 import { AiThinkingGem } from './ui';
@@ -74,7 +75,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
             borderRadius: 'var(--md-sys-shape-corner-large)',
             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
         }}>
-            <h2 style={{
+            <Typography component="h2" variant="h6" sx={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: 'var(--md-sys-spacing-3)',
@@ -88,15 +89,15 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                     color: 'var(--md-sys-color-primary)'
                 }}>psychology</span>
                 Consulente Didattico AI
-            </h2>
-            <p style={{
+            </Typography>
+            <Typography component="p" variant="subtitle1" sx={{
                 color: 'var(--md-sys-color-on-surface-variant)',
                 fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                 lineHeight: 1.5,
                 margin: 0
             }}>
                 Seleziona uno studente (o l'intera classe) e un obiettivo. L'AI analizzerà i dati e proporrà attività personalizzate.
-            </p>
+            </Typography>
 
             <div style={{
                 display: 'flex',
@@ -217,7 +218,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                     <AiThinkingGem size="medium" text={advisorStatus} />
                 </div>
             )}
-            {error && <p style={{
+            {error && <Typography component="p" variant="body1" sx={{
                 color: 'var(--md-sys-color-error)',
                 fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                 backgroundColor: `color-mix(in srgb, var(--md-sys-color-error) var(--md-sys-percent-10), transparent)`,
@@ -225,7 +226,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                 borderRadius: 'var(--md-sys-shape-corner-medium)',
                 border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-error)',
                 margin: 0
-            }}>{error}</p>}
+            }}>{error}</Typography>}
             {advice && (
                 <div style={{
                     backgroundColor: 'var(--md-sys-color-surface-container-high)',
@@ -233,7 +234,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                     border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                     padding: 'var(--md-sys-spacing-6)'
                 }}>
-                    <h3 style={{
+                    <Typography component="h3" variant="h6" sx={{
                         fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                         fontWeight: 'var(--md-sys-typescale-weight-bold)',
                         color: 'var(--md-sys-color-on-surface)',
@@ -247,7 +248,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                             color: 'var(--md-sys-color-primary)'
                         }}>lightbulb</span>
                         Suggerimenti dell'AI:
-                    </h3>
+                    </Typography>
                     <div style={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -260,18 +261,18 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                                 padding: 'var(--md-sys-spacing-4)',
                                 border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
                             }}>
-                                <h4 style={{
+                                <Typography component="h4" variant="subtitle2" sx={{
                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                     color: 'var(--md-sys-color-on-surface)',
                                     margin: 'var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-2) var(--md-sys-spacing-0)'
-                                }}>{item.titolo}</h4>
-                                <p style={{
+                                }}>{item.titolo}</Typography>
+                                <Typography component="p" variant="body1" sx={{
                                     color: 'var(--md-sys-color-on-surface-variant)',
                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     lineHeight: 1.5,
                                     margin: 0
-                                }}>{item.descrizione}</p>
+                                }}>{item.descrizione}</Typography>
                             </div>
                         ))}
                     </div>

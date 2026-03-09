@@ -107,27 +107,27 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
              {/* Header Section */}
             <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
-                <h1 style={{ 
+                <Typography component="h1" variant="h4" sx={{ 
                     color: 'var(--md-sys-color-on-surface)',
                     fontWeight: 'var(--md-sys-typescale-weight-bold)',
                     fontSize: 'var(--md-sys-typescale-headline-large-font-size)',
                     marginBottom: 'var(--md-sys-spacing-2)'
                 }}>
                     Le Mie Classi
-                </h1>
-                <p style={{ 
+                </Typography>
+                <Typography component="p" variant="subtitle1" sx={{ 
                     color: 'var(--md-sys-color-on-surface)',
                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                     lineHeight: '1.5'
                 }}>
                     Gestione studenti e analisi.
-                </p>
+                </Typography>
             </div>
 
             {/* --- GLOBAL AGENDA WIDGET --- */}
             {upcomingTests.length > 0 && (
                 <section style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
-                    <h2 style={{ 
+                    <Typography component="h2" variant="h6" sx={{ 
                         color: 'var(--md-sys-color-on-surface)',
                         fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
                         fontWeight: 'var(--md-sys-typescale-weight-semibold)',
@@ -136,7 +136,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                         marginBottom: 'var(--md-sys-spacing-4)'
                     }}>
                         In Arrivo (Tutte le classi)
-                    </h2>
+                    </Typography>
                     <div style={{ 
                         display: 'flex',
                         flexDirection: 'column',
@@ -165,7 +165,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                     }}>
                                         {new Date(test.data).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' })}
                                     </span>
-                                    <h4 style={{
+                                    <Typography component="h4" variant="h6" sx={{
                                         color: 'var(--md-sys-color-on-surface)',
                                         fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
                                         fontWeight: 'var(--md-sys-typescale-weight-semibold)',
@@ -173,8 +173,8 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                         marginBottom: 'var(--md-sys-spacing-1)'
                                     }}>
                                         {test.materia}
-                                    </h4>
-                                    <p style={{
+                                    </Typography>
+                                    <Typography component="p" variant="body1" sx={{
                                         color: 'var(--md-sys-color-on-surface-variant)',
                                         fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                         overflow: 'hidden',
@@ -182,7 +182,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                         whiteSpace: 'nowrap'
                                     }}>
                                         {test.argomento || test.tipo}
-                                    </p>
+                                    </Typography>
                                 </div>
                                 <div style={{
                                     padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
@@ -356,7 +356,7 @@ const PrintCenterModal: React.FC<{
             maxWidth="md"
         >
             <DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
-                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</p>
+                    <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</Typography>
                     
                     <div style={{gap: 'var(--md-sys-spacing-2)'}}>
                         <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-medium)" }}>Periodo</label>

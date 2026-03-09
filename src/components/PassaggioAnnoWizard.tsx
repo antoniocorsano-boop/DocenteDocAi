@@ -1,7 +1,7 @@
 // MD3 Compliant - Migration completed
 // PassaggioAnnoWizard.tsx - All styling uses MD3 tokens via style props
 import React, { useState, useMemo, useEffect } from 'react';
-import {DialogContent, DialogActions, Button, Dialog, DialogTitle } from '@mui/material';
+import {DialogContent, DialogActions, Button, Dialog, DialogTitle, Typography } from '@mui/material';
 import { Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, RegisterEntry, StudentHistoryRecord } from '../types';
 import { getNextClass } from '../utils/schoolUtils';
 import { calculatePerformance } from '../utils/evaluationUtils';
@@ -185,7 +185,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                             />
                             
                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
-                                <h3 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", marginBottom: 'var(--md-sys-spacing-6)' }}>Checklist Automatica</h3>
+                                <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", marginBottom: 'var(--md-sys-spacing-6)' }}>Checklist Automatica</Typography>
                                 <ul style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
                                     {[
                                         { icon: "check_circle", text: "Backup completo dei dati su Drive/Locale." },
@@ -206,7 +206,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                     {step === "decisions" && (
                         <div style={{ gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
-                                <h3 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)" }}>Esiti Scrutinio</h3>
+                                <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)" }}>Esiti Scrutinio</Typography>
                                 <div style={{ display: "flex", gap: 'var(--md-sys-spacing-6)' }}>
                                     <span style={{ backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>{stats.promote} Promossi</span>
                                     <span style={{ backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>{stats.retain} Bocciati</span>
@@ -286,15 +286,15 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                             <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', color: 'var(--md-sys-color-on-error-container)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)', marginBottom: 'var(--md-sys-spacing-8)' }}>
                                 <span style={{ color: 'var(--md-sys-color-on-error-container)' }}>warning</span>
                             </div>
-                            <h3 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", marginBottom: 'var(--md-sys-spacing-8)' }}>Confermi l'operazione?</h3>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)', lineHeight: "1.625" }}>
+                            <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", marginBottom: 'var(--md-sys-spacing-8)' }}>Confermi l'operazione?</Typography>
+                            <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', lineHeight: "1.625" }}>
                                 L'anno scolastico verr? impostato a <strong style={{color: 'var(--md-sys-color-primary)'}}>{nextYear}</strong>.
                                 <br/><br/>
                                 ?? I dati giornalieri verranno <strong style={{color: "var(--md-sys-color-error)"}}>resettati</strong>. I dati storici saranno salvati nel profilo di ogni studente.
-                            </p>
+                            </Typography>
                             
                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textAlign: "left" }}>
-                                <p style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>Riepilogo Azioni:</p>
+                                <Typography component="p" variant="caption" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>Riepilogo Azioni:</Typography>
                                 <ul style={{gap: 'var(--md-sys-spacing-3)'}}>
                                     {[
                                         "Reset Valutazioni e Competenze",

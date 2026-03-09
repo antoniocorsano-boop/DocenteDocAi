@@ -23,6 +23,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import '../design-system/md3-utilities.css';
 import { useUIStore } from '../stores/useUIStore';
 interface AnnualPlanningWizardProps {
@@ -419,7 +420,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </label>
                                         </div>
                                     )) : (
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</p>
+                                        <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</Typography>
                                     )}
                                 </div>
                             </InfoCard>
@@ -552,9 +553,9 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                                     <span style={{ backgroundColor: 'var(--md-sys-color-primary-container)', fontWeight: "var(--md-sys-typescale-weight-bold)", color: "var(--md-sys-color-on-primary-container)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)' }}>
                                                         UDA {idx + 1}
                                                     </span>
-                                                    <p style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{uda.title}</p>
+                                                    <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{uda.title}</Typography>
                                                 </div>
-                                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "var(--md-sys-state-opacity-caption)" }}>{uda.topic || uda.title}</p>
+                                                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "var(--md-sys-state-opacity-caption)" }}>{uda.topic || uda.title}</Typography>
                                             </div>
 
                                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
@@ -576,7 +577,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     {plannedUdas.length === 0 && (
                                         <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>calendar_today</Box>
-                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</p>
+                                            <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</Typography>
                                         </div>
                                     )}
                                 </div>
@@ -610,10 +611,10 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     <div key={idx} style={{ position: 'relative' }}>
                                         <div style={{ position: 'absolute', left: 'var(--md-sys-spacing-neg-2)', top: 'var(--md-sys-spacing-1)', width: 'var(--md-sys-spacing-5)', height: 'var(--md-sys-spacing-5)',  borderRadius: 'var(--md-sys-percent-full)' , border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-surface-container-low)', boxShadow: 'var(--md-sys-elevation-level1)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}></div>
                                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
-                                            <p style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-4)' }}>
+                                            <Typography component="p" variant="caption" sx={{ fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-4)' }}>
                                                 {new Date(item.start).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })} - {new Date(item.end).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' })}
-                                            </p>
-                                            <h4 style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>{item.uda.title}</h4>
+                                            </Typography>
+                                            <Typography component="h4" variant="h6" sx={{ marginBottom: 'var(--md-sys-spacing-4)' }}>{item.uda.title}</Typography>
                                             <div style={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: 'var(--md-sys-color-on-surface-variant)' }}>
                                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>schedule</Box>
                                                 <span>{item.uda.hours} ore stimate</span>
@@ -631,10 +632,10 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-primary)' }}>task_alt</Box>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                <h3 style={{ color: 'var(--md-sys-color-on-surface)', marginBottom: 'var(--md-sys-spacing-8)' }}>Pianificazione Completata!</h3>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", justifyContent: "center" }}>
+                                <Typography component="h3" variant="h5" sx={{ color: 'var(--md-sys-color-on-surface)', marginBottom: 'var(--md-sys-spacing-8)' }}>Pianificazione Completata!</Typography>
+                                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', display: "flex", justifyContent: "center" }}>
                                     Tutte le UDA e le lezioni sono state salvate. Ora puoi generare il documento di programmazione annuale completo.
-                                </p>
+                                </Typography>
                             </div>
                             <Button onClick={handleGenerateDoc} disabled={isProcessing} variant="contained" sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }} title="Scarica il documento finale">
                                 {isProcessing ? <AiThinkingGem size="small" inline text="Generazione..." /> : (

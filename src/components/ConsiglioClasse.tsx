@@ -4,7 +4,7 @@
 // Audit e refactor completati: 2026-01-25.
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { InfoCard, SectionHeader } from './ui';
-import { Button , Tabs, Tab, Badge, Box } from '@mui/material';
+import { Button , Tabs, Tab, Badge, Box, Typography } from '@mui/material';
 import { Studente, Valutazione, GiudizioPeriodico, PeriodoValutazione, TimetableSettings, AiSettings, ValutazioneCompetenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { getPeriodicJudgmentSuggestion, generateClassCouncilNarrativeReport } from '../services/aiService';
@@ -284,7 +284,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                              <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                 {hasStudentChanged(student.id) && <span  title="Dati modificati in questa sessione"></span>}
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                    <h3  style={{ cursor: "pointer" }} onClick={(e) => { e.stopPropagation(); onViewStudentProfile(student); }}>{student.cognome} {student.nome}</h3>
+                                    <Typography component="h3" variant="subtitle1" sx={{ cursor: "pointer" }} onClick={(e) => { e.stopPropagation(); onViewStudentProfile(student); }}>{student.cognome} {student.nome}</Typography>
                                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)'}}>
                                         <span>Media: <strong>{performance.grade || 'N/D'}</strong></span>
                                         {performance.trend && (
@@ -445,7 +445,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 <span style={{
 }}>description</span>
                             </div>
-                            <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>Report Narrativo Suggerito</h3>
+                            <Typography component="h3" variant="subtitle1" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>Report Narrativo Suggerito</Typography>
                         </div>
                         <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
                             <Button variant="text" onClick={() => setNarrativeReport(null)}>Chiudi</Button>

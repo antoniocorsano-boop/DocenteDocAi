@@ -1,6 +1,6 @@
 // MD3 Compliant - Piano Inclusione Editor
 import React, { useState } from 'react';
-import { DialogContent, DialogActions, Button, Dialog, DialogTitle, TextField } from '@mui/material';
+import { DialogContent, DialogActions, Button, Dialog, DialogTitle, TextField, Typography } from '@mui/material';
 import { PianoInclusione, PianoInclusioneEditorProps } from '../types';
 import { getPIPSuggestion } from '../services/aiService';
 import { 
@@ -151,13 +151,13 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                         <InfoCard variant="elevated" >
                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                                 <span  style={{color: "var(--md-sys-color-primary)"}}>subject</span>
-                                <h3 style={{fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.05em"}}>
+                                <Typography component="h3" variant="caption" sx={{fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.05em"}}>
                                     Obiettivi per Materia (PEI/PDP)
-                                </h3>
+                                </Typography>
                             </div>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "var(--md-sys-typescale-body-small-font-size)", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                            <Typography component="p" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "var(--md-sys-typescale-body-small-font-size)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                 Definire gli obiettivi minimi o differenziati per ciascuna disciplina, se previsto dal piano.
-                            </p>
+                            </Typography>
                             
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 {settings.disciplines.map(materia => (

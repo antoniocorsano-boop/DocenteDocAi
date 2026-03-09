@@ -5,7 +5,7 @@ import { Studente, DidatticaInclusivaProps } from '../types';
 import PianoInclusioneEditor from './PianoInclusioneEditor';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { InfoCard, EmptyState, SectionHeader, Avatar } from './ui';
-import { Button , Tabs, Tab, Badge, Box } from '@mui/material';
+import { Button , Tabs, Tab, Badge, Box, Typography } from '@mui/material';
 
 const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
   const { students, pianiInclusione, onSavePiano, studentToEdit, onClearStudentToEdit, evaluations } = props;
@@ -59,8 +59,8 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                         <span style={{ color: 'var(--md-sys-color-on-tertiary)' }}>folder_shared</span>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <h3  style={{ fontSize: "var(--md-sys-typescale-title-large-font-size)" , color: "var(--md-sys-color-tertiary)", marginBottom: 'var(--md-sys-spacing-4)'}}>Gestione Piani Centralizzata</h3>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Crea o modifica PDP/PEI per ogni studente. L’AI ti guida nella compilazione suggerendo strategie personalizzate.</p>
+                        <Typography component="h3" variant="h6" sx={{ fontSize: "var(--md-sys-typescale-title-large-font-size)" , color: "var(--md-sys-color-tertiary)", marginBottom: 'var(--md-sys-spacing-4)'}}>Gestione Piani Centralizzata</Typography>
+                        <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Crea o modifica PDP/PEI per ogni studente. L'AI ti guida nella compilazione suggerendo strategie personalizzate.</Typography>
                     </div>
                 </div>
             </InfoCard>
@@ -86,7 +86,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                     <div style={{padding: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                         <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                         <div style={{ flexGrow: "1", minWidth: "0" }}>
-                                            <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.cognome} {student.nome}</p>
+                                            <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{student.cognome} {student.nome}</Typography>
                                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)'}}>
                                                 {hasPlan ? (
                                                     <span style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-tertiary-container) 50%, transparent)' , fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", color: "var(--md-sys-color-tertiary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)'}}>
@@ -157,8 +157,8 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                             <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                             <div style={{ flexGrow: "1" }}>
-                                <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{student.cognome} {student.nome}</h3>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>Classe {student.classe}</p>
+                                <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{student.cognome} {student.nome}</Typography>
+                                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>Classe {student.classe}</Typography>
                             </div>
                             <Button variant="text" size="small">
                                 Modifica
@@ -195,17 +195,17 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                 <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                     <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{student.cognome} {student.nome}</h3>
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,   fontSize: "var(--md-sys-typescale-label-large-font-size)"  }}>Classe {student.classe}</p>
+                                        <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{student.cognome} {student.nome}</Typography>
+                                        <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' ,   fontSize: "var(--md-sys-typescale-label-large-font-size)"  }}>Classe {student.classe}</Typography>
                                     </div>
                                 </div>
                                 <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-error) 10%, transparent)' , color: "var(--md-sys-color-error)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)',  borderRadius: "var(--md-sys-shape-corner-small)", fontSize: "var(--md-sys-typescale-label-large-font-size)" , fontWeight: "var(--md-sys-typescale-weight-bold)"}}>
                                     Media: {grade}
                                 </div>
                             </div>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "var(--md-sys-typescale-body-medium-font-size)", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                            <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: "var(--md-sys-typescale-body-medium-font-size)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                 Le performance recenti suggeriscono la necessit� di un piano personalizzato.
-                            </p>
+                            </Typography>
                             <Button 
                                 onClick={() => setEditingStudent(student)} 
                                 variant="outlined"

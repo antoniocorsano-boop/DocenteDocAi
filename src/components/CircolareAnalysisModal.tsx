@@ -115,8 +115,8 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex" }}>
                                 <span  style={{color: 'var(--md-sys-color-primary)'}}>info</span>
                                 <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                                    <h3  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Procedura Manuale (Privacy-Safe)</h3>
-                                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>L'AI analizza solo il testo che incolli qui. Non accediamo direttamente ai link per privacy.</p>
+                                    <Typography component="h3" variant="subtitle1" sx={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Procedura Manuale (Privacy-Safe)</Typography>
+                                    <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>L'AI analizza solo il testo che incolli qui. Non accediamo direttamente ai link per privacy.</Typography>
                                     <ol style={{ color: 'var(--md-sys-color-on-surface-variant)', gap: 'var(--md-sys-spacing-2)' }}>
                                         <li>
                                             <a href={url} target="_blank" rel="noopener noreferrer"  style={{color: 'var(--md-sys-color-primary)', fontWeight: "var(--md-sys-typescale-weight-bold)", display: "inline-flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
@@ -151,17 +151,17 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                         /* RESULT STATE */
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-secondary-container)', color: 'var(--md-sys-color-on-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
-                                <h3  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", display: "flex", alignItems: "center" }}>
+                                <Typography component="h3" variant="subtitle1" sx={{ fontWeight: "var(--md-sys-typescale-weight-bold)", display: "flex", alignItems: "center" }}>
                                     <span style={{}}>summarize</span>
                                     Riepilogo AI
-                                </h3>
-                                <p style={{ color: 'var(--md-sys-color-on-secondary-container)', opacity: "var(--md-sys-state-opacity-hover-overlay)", lineHeight: "1.625" }}>{result.summary}</p>
+                                </Typography>
+                                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-secondary-container)', opacity: "var(--md-sys-state-opacity-hover-overlay)", lineHeight: "1.625" }}>{result.summary}</Typography>
                             </div>
 
                             {result.events.length > 0 || result.deadlines.length > 0 ? (
                                 <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                        <h4 style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Eventi Rilevati</h4>
+                                        <Typography component="h4" variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Eventi Rilevati</Typography>
                                         <span style={{ backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-bold)", borderRadius: 'var(--md-sys-shape-corner-small)' }}>{result.events.length + result.deadlines.length}</span>
                                     </div>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
@@ -188,7 +188,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                             ) : (
                                 <div style={{ padding: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center" }}>
                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>event_busy</span>
-                                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessun evento o scadenza rilevato nel testo.</p>
+                                    <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessun evento o scadenza rilevato nel testo.</Typography>
                                 </div>
                             )}
                         </div>

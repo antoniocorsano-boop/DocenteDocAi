@@ -158,7 +158,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                     </div>
 
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <h1 style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)', marginBottom: 'var(--md-sys-spacing-6)', textAlign: 'center', textTransform: 'uppercase', lineHeight: 1 }}>{quiz.title}</h1>
+                        <Typography component="h1" variant="h5" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)', marginBottom: 'var(--md-sys-spacing-6)', textAlign: 'center', textTransform: 'uppercase', lineHeight: 1 }}>{quiz.title}</Typography>
                         <div style={{ display: 'flex', justifyContent: 'space-between', width: 'var(--md-sys-percent-100)', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>
                             <span>Argomento: <span style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{quiz.topic}</span></span>
                             <span>Data: ______________</span>

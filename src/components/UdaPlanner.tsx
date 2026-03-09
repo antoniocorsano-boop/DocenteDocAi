@@ -18,6 +18,7 @@ import DialogActions from '@mui/material/DialogActions';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ButtonBase from '@mui/material/ButtonBase';
+import Typography from '@mui/material/Typography';
 const createNewUda = (): Uda => ({
     id: `uda-${Date.now()}`,
     title: '',
@@ -103,8 +104,8 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true">{udaProp === 'new' ? 'add_task' : 'edit_document'}</Box>
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
-                            <h2 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{udaProp === 'new' ? 'Nuovo Progetto' : 'Modifica Progetto'}</h2>
-                            <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{currentUda.title || 'Senza titolo'}</p>
+                            <Typography component="h2" variant="h6" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{udaProp === 'new' ? 'Nuovo Progetto' : 'Modifica Progetto'}</Typography>
+                            <Typography component="p" variant="body2" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{currentUda.title || 'Senza titolo'}</Typography>
                         </div>
                     </div>
                     <Button onClick={handleClose} variant="text">
@@ -149,7 +150,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                         />
                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-tertiary)' }}>auto_awesome</Box>
-                            <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Bridge AI: Connetti il progetto al tuo spazio di lavoro esterno.</p>
+                            <Typography component="p" variant="body2" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Bridge AI: Connetti il progetto al tuo spazio di lavoro esterno.</Typography>
                         </div>
                     </div>
                     
@@ -249,8 +250,8 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                                                                             {isSelected && <span>check</span>}
                                                                                         </div>
                                                                                         <div style={{ minWidth: '0' }}>
-                                                                                            <p style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', margin: 0 }}>{comp.codice}</p>
-                                                                                            <p style={{ margin: 0 }}>{comp.nome}</p>
+                                                                                            <Typography component="p" variant="body1" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', margin: 0 }}>{comp.codice}</Typography>
+                                                                                            <Typography component="p" variant="body1" sx={{ margin: 0 }}>{comp.nome}</Typography>
                                                                                         </div>
                                         </div>
                                     );
@@ -321,8 +322,8 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true">assignment</Box>
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
-                            <h1 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Planner Progetti</h1>
-                            <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Organizza le tue UDA</p>
+                            <Typography component="h1" variant="h5" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Planner Progetti</Typography>
+                            <Typography component="p" variant="body1" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Organizza le tue UDA</Typography>
                         </div>
                     </div>
                     <Button

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 // Load Google GenAI dynamically to avoid bundling it in the main chunk
-import { Button  , TextField } from '@mui/material';
+import { Button  , TextField, Typography } from '@mui/material';
 import { M3Dialog } from './ui';
 
 declare global {
@@ -144,7 +144,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                             <span  style={{color: 'var(--md-sys-color-primary)'}}>movie</span>
                         </div>
                     </div>
-                    <p  style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", opacity: "var(--md-sys-state-opacity-empty)" }}>Inizializzazione...</p>
+                    <Typography component="p" variant="body1" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", opacity: "var(--md-sys-state-opacity-empty)" }}>Inizializzazione...</Typography>
                 </div>
             );
         }
@@ -155,13 +155,13 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                     <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-primary)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-primary)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                         <span style={{ color: 'var(--md-sys-color-primary)' }}>vpn_key</span>
                     </div>
-                    <h3 style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em", marginBottom: 'var(--md-sys-spacing-8)' }}>API Key Richiesta</h3>
-                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)', lineHeight: "1.625" }}>
+                    <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em", marginBottom: 'var(--md-sys-spacing-8)' }}>API Key Richiesta</Typography>
+                    <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)', lineHeight: "1.625" }}>
                         Per utilizzare la generazione video (modello Veo), è necessaria una API Key abilitata al billing.
                         <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer"  style={{color: 'var(--md-sys-color-primary)', fontWeight: "var(--md-sys-typescale-weight-black)"}}>
                             Scopri di più
                         </a>
-                    </p>
+                    </Typography>
                     {window.aistudio && (
                         <Button onClick={handleSelectKey} variant="contained">Seleziona API Key</Button>
                     )}
@@ -177,8 +177,8 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                             <span style={{}}>edit_note</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <h3  style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-4)'}}>1. Prompt Descrittivo</h3>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-supporting)" }}>Descrivi la scena che vuoi creare. Sii dettagliato per un risultato migliore.</p>
+                            <Typography component="h3" variant="h6" sx={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-4)'}}>1. Prompt Descrittivo</Typography>
+                            <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-supporting)" }}>Descrivi la scena che vuoi creare. Sii dettagliato per un risultato migliore.</Typography>
                         </div>
                     </div>
                     
@@ -211,8 +211,8 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                             <span style={{}}>movie</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <h3  style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-secondary)", marginBottom: 'var(--md-sys-spacing-4)'}}>2. Risultato</h3>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-supporting)" }}>Il video generato apparirà qui sotto.</p>
+                            <Typography component="h3" variant="h6" sx={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-secondary)", marginBottom: 'var(--md-sys-spacing-4)'}}>2. Risultato</Typography>
+                            <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-supporting)" }}>Il video generato apparirà qui sotto.</Typography>
                         </div>
                     </div>
 
@@ -225,8 +225,8 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                                         <span style={{ color: 'var(--md-sys-color-primary)' }}>auto_videocam</span>
                                     </div>
                                 </div>
-                                <p style={{ fontWeight: "var(--md-sys-typescale-weight-black)", color: 'var(--md-sys-color-primary)', letterSpacing: "-0.005em" }}>{loadingMessage}</p>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-secondary)" }}>Questa operazione pu� richiedere alcuni minuti.</p>
+                                <Typography component="p" variant="body1" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", color: 'var(--md-sys-color-primary)', letterSpacing: "-0.005em" }}>{loadingMessage}</Typography>
+                                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-secondary)" }}>Questa operazione pu&#65533; richiedere alcuni minuti.</Typography>
                             </div>
                         ) : generatedVideoUrl ? (
                             <div  style={{ width: "var(--md-sys-percent-100)", height: "var(--md-sys-percent-100)", display: "flex", flexDirection: "column" }}>
@@ -251,7 +251,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                         ) : (
                             <div style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", transition: "transform var(--md-sys-motion-duration-medium)" }}>
                                 <span  style={{marginBottom: 'var(--md-sys-spacing-8)', opacity: "var(--md-sys-state-opacity-tint-subtle)"}}>videocam_off</span>
-                                <p  style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", opacity: "var(--md-sys-state-opacity-empty)" }}>In attesa di generazione</p>
+                                <Typography component="p" variant="body1" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", opacity: "var(--md-sys-state-opacity-empty)" }}>In attesa di generazione</Typography>
                             </div>
                         )}
 

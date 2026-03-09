@@ -5,6 +5,7 @@
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 
 import React from 'react';
+import Typography from '@mui/material/Typography';
 import { UserProfile } from '../types';
 import { Avatar } from './ui';
 
@@ -18,7 +19,7 @@ const ProfileSelectionScreen: React.FC<ProfileSelectionScreenProps> = ({ profile
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
         <h1>Scegli il tuo profilo</h1>
-        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Seleziona un profilo per continuare.</p>
+        <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Seleziona un profilo per continuare.</Typography>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
           {profiles.map(profile => (
             <button key={profile.id}  onClick={() => onSelectProfile(profile)}>

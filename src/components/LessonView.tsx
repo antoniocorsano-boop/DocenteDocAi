@@ -231,9 +231,9 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                             <span style={{ fontSize: 'var(--md-sys-typescale-label-small-font-size)', color: 'var(--md-sys-color-on-primary)' }}>{lesson.unitaDiApprendimento}</span>
                         </div>
                     )}
-                    <h1 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-headline-medium-font-size)', color: 'var(--md-sys-color-on-primary-container)', lineHeight: 1.3 }}>
+                    <Typography component="h1" variant="h4" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-headline-medium-font-size)', color: 'var(--md-sys-color-on-primary-container)', lineHeight: 1.3 }}>
                         {lesson.contenuto}
-                    </h1>
+                    </Typography>
 
                     <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-3)' }}>
                         {[{ icon: 'school', text: lesson.classe }, { icon: 'menu_book', text: lesson.materia }, { icon: 'category', text: lesson.tipoLezione || 'Teoria' }].map(tag => (
@@ -255,8 +255,8 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                         <Box component="span" className="material-symbols-outlined" aria-hidden="true">psychology</Box>
                                     </div>
                                     <div style={{ flex: 1 }}>
-                                        <p style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', color: 'var(--md-sys-color-on-secondary-container)' }}>Assistente Pedagogico</p>
-                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-secondary-container)', opacity: 'var(--md-sys-state-opacity-caption)' }}>Analizza inclusivit� e coinvolgimento</p>
+                                        <Typography component="p" variant="subtitle2" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', color: 'var(--md-sys-color-on-secondary-container)' }}>Assistente Pedagogico</Typography>
+                                        <Typography component="p" variant="body2" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-secondary-container)', opacity: 'var(--md-sys-state-opacity-caption)' }}>Analizza inclusivit� e coinvolgimento</Typography>
                                     </div>
                                 </div>
                                 <Box sx={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
@@ -293,7 +293,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                         </ul>
                                     </div>
                                 ) : (
-                                    <p style={{ margin: 0, color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontStyle: 'italic' }}>Nessun obiettivo specificato.</p>
+                                    <Typography component="p" variant="body1" sx={{ margin: 0, color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontStyle: 'italic' }}>Nessun obiettivo specificato.</Typography>
                                 )}
                             </div>
                         </section>
@@ -303,9 +303,9 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                             <SectionHeader title="Svolgimento e Contenuti" icon="article" />
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', padding: 'var(--md-sys-spacing-4)' }}>
                                 {lesson.contesto ? (
-                                    <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface)', lineHeight: 1.7 }}>{lesson.contesto}</p>
+                                    <Typography component="p" variant="body1" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface)', lineHeight: 1.7 }}>{lesson.contesto}</Typography>
                                 ) : (
-                                    <p style={{ margin: 0, color: 'var(--md-sys-color-on-surface-variant)', fontStyle: 'italic' }}>Nessun dettaglio sullo svolgimento.</p>
+                                    <Typography component="p" variant="body1" sx={{ margin: 0, color: 'var(--md-sys-color-on-surface-variant)', fontStyle: 'italic' }}>Nessun dettaglio sullo svolgimento.</Typography>
                                 )}
                             </div>
                         </section>
@@ -326,10 +326,10 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                         {/* Materials */}
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', overflow: 'hidden' }}>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
-                                <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>
+                                <Typography component="h3" variant="subtitle2" sx={{ margin: 0, display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>
                                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-primary)' }}>attachment</Box>
                                     Materiali
-                                </h3>
+                                </Typography>
                                 <IconButton onClick={() => setIsMaterialPickerOpen(true)} aria-label="Aggiungi materiale" size="small">
                                     <AddIcon />
                                 </IconButton>
@@ -368,7 +368,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                 ) : (
                                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-6)', color: 'var(--md-sys-color-on-surface-variant)' }}>
                                         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-xl)' }}>folder_off</Box>
-                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>Nessun materiale</p>
+                                        <Typography component="p" variant="body2" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>Nessun materiale</Typography>
                                     </div>
                                 )}
                             </div>
@@ -389,12 +389,12 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', overflow: 'hidden' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-primary)' }}>assignment</Box>
-                                <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Compiti per Casa</h3>
+                                <Typography component="h3" variant="subtitle2" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Compiti per Casa</Typography>
                             </div>
                             <div style={{ padding: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
-                                <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: lesson.compiti ? 'var(--md-sys-color-on-surface)' : 'var(--md-sys-color-on-surface-variant)', fontStyle: lesson.compiti ? 'normal' : 'italic', lineHeight: 1.6 }}>
+                                <Typography component="p" variant="body1" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: lesson.compiti ? 'var(--md-sys-color-on-surface)' : 'var(--md-sys-color-on-surface-variant)', fontStyle: lesson.compiti ? 'normal' : 'italic', lineHeight: 1.6 }}>
                                     {lesson.compiti || 'Nessun compito assegnato.'}
-                                </p>
+                                </Typography>
 
                                 {settings && lesson.compiti && (
                                     <Button variant="outlined" onClick={handleExportHomework} disabled={isExporting} startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">print</Box>}>

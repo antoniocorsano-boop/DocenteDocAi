@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import { Uda, Competenza, TimetableSettings, Report, AiSettings } from '../types';
 import { generateUdaPdf, blobToBase64Parts, generateHtmlDocxBlob, viewPdfInNewTab, saveAs } from '../utils/documentUtils';
 import { generateMarkdownReport } from '../services/aiService';
-import { Button, Box  , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { Button, Box  , FormControl, InputLabel, NativeSelect, Typography } from '@mui/material';
 import { M3Dialog } from './ui';
 interface UdaExportModalProps {
     uda: Uda;
@@ -133,9 +133,9 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             <Box sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)' }}>
                 <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
                     <div style={{ backgroundColor: 'var(--md-sys-color-primary-container)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
-                        <p style={{ color: 'var(--md-sys-color-on-primary)' }}>
+                        <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-primary)' }}>
                             Stai esportando: <strong>{uda.title}</strong>
-                        </p>
+                        </Typography>
                     </div>
 
                                         <FormControl fullWidth sx={{ mb: 2 }}>
@@ -163,8 +163,8 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                                 <span  style={{ fontSize: "var(--md-sys-typescale-display-large-font-size)" }}>picture_as_pdf</span>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                <p  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Esporta in PDF</p>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Ideale per stampa e archiviazione</p>
+                                <Typography component="p" variant="subtitle1" sx={{ fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Esporta in PDF</Typography>
+                                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Ideale per stampa e archiviazione</Typography>
                             </div>
                         </button>
 
@@ -177,8 +177,8 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                                 <span  style={{ fontSize: "var(--md-sys-typescale-display-large-font-size)" }}>description</span>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                <p  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Esporta in Word</p>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Per modifiche manuali successive</p>
+                                <Typography component="p" variant="subtitle1" sx={{ fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Esporta in Word</Typography>
+                                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Per modifiche manuali successive</Typography>
                             </div>
                         </button>
 
@@ -191,8 +191,8 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                                 <span  style={{ fontSize: "var(--md-sys-typescale-display-large-font-size)" }}>auto_awesome</span>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                <p  style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Report con AI</p>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Genera analisi e suggerimenti didattici</p>
+                                <Typography component="p" variant="subtitle1" sx={{ fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Report con AI</Typography>
+                                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Genera analisi e suggerimenti didattici</Typography>
                             </div>
                         </button>
                     </div>
@@ -206,7 +206,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
 
                     {markdownReport && (
                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
-                            <h4  style={{marginBottom: 'var(--md-sys-spacing-8)', color: "var(--md-sys-color-tertiary)"}}>Report AI Generato</h4>
+                            <Typography component="h4" variant="h6" sx={{marginBottom: 'var(--md-sys-spacing-8)', color: "var(--md-sys-color-tertiary)"}}>Report AI Generato</Typography>
                             <div  style={{ overflowY: "auto" }}>
                                 {markdownReport}
                             </div>

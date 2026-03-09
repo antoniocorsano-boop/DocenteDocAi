@@ -5,7 +5,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { KnowledgeBaseEntry, MaterialeDidattico } from '../types';
-import { Button, Box  , Tabs, Tab, Badge } from '@mui/material';
+import { Button, Box  , Tabs, Tab, Badge, Typography } from '@mui/material';
 import { M3Dialog, TextField } from './ui';
 interface MaterialPickerModalProps {
     knowledgeBase: KnowledgeBaseEntry[];
@@ -201,7 +201,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                     <span style={{ color: 'var(--md-sys-color-primary)' }}>upload_file</span>
                                 </div>
                                 <p>Trascina qui i file</p>
-                                <p  style={{opacity: "var(--md-sys-state-opacity-supporting)", marginTop: 'var(--md-sys-spacing-4)'}}>oppure clicca per sfogliare</p>
+                                <Typography component="p" variant="body1" sx={{opacity: "var(--md-sys-state-opacity-supporting)", marginTop: 'var(--md-sys-spacing-4)'}}>oppure clicca per sfogliare</Typography>
                             </div>
                         )}
 
@@ -254,7 +254,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                             {materials.length === 0 && (
                                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)", opacity: "var(--md-sys-state-opacity-tint-moderate)" }}>
                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)'}}>inventory_2</span>
-                                    <p style={{ color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>Nessun materiale selezionato</p>
+                                    <Typography component="p" variant="subtitle1" sx={{ color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>Nessun materiale selezionato</Typography>
                                 </div>
                             )}
                         </div>

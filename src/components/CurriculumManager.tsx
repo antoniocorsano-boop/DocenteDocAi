@@ -6,7 +6,7 @@ import { parseCurriculumFromText } from '../services/aiService';
 import { extractTextFromFile } from '../utils/documentUtils';
 import { useFileDrop } from '../hooks/useFileDrop';
 import { InfoCard, EmptyState, TextField, AiThinkingGem, M3Dialog } from './ui';
-import { Button, DialogContent, DialogActions  , FormControl, InputLabel, NativeSelect , Tabs, Tab, Badge, Box } from '@mui/material';
+import { Button, DialogContent, DialogActions  , FormControl, InputLabel, NativeSelect , Tabs, Tab, Badge, Box, Typography } from '@mui/material';
 
 interface CurriculumManagerProps {
     curricula: CurriculumSubject[];
@@ -188,7 +188,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                             <Button onClick={() => onNavigate('home')} variant="text">
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true">arrow_back</Box>
                             </Button>
-                            <h1 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Curricoli</h1>
+                            <Typography component="h1" variant="h6" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Curricoli</Typography>
                         </div>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
@@ -238,8 +238,8 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                 }}
                             >
                                 <div style={{ flex: 1, minWidth: 0 }}>
-                                    <p style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{curr.subject}</p>
-                                    <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)', opacity: 'var(--md-sys-state-opacity-caption)' }}>{curr.gradeLevel}</p>
+                                    <Typography component="p" variant="subtitle1" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{curr.subject}</Typography>
+                                    <Typography component="p" variant="body2" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)', opacity: 'var(--md-sys-state-opacity-caption)' }}>{curr.gradeLevel}</Typography>
                                 </div>
                                 <Button
                                     onClick={(e) => { e.stopPropagation(); handleDelete(curr.id); }}
@@ -274,8 +274,8 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                         <>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-6)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
                                 <div style={{ flex: 1, minWidth: 0 }}>
-                                    <h2 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{selectedCurriculum.subject}</h2>
-                                    <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{selectedCurriculum.gradeLevel}</p>
+                                    <Typography component="h2" variant="h6" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{selectedCurriculum.subject}</Typography>
+                                    <Typography component="p" variant="body1" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{selectedCurriculum.gradeLevel}</Typography>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
                                                                           <Tabs
@@ -347,8 +347,8 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                         <div {...getRootProps()} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-large)', border: 'var(--md-sys-border-width-thick) dashed var(--md-sys-color-outline)', backgroundColor: 'var(--md-sys-color-surface-container)', cursor: 'pointer', textAlign: 'center' }}>
                             <input {...getInputProps()} />
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-primary)' }}>upload_file</Box>
-                            <p style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Carica PDF Programmazione</p>
-                            <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>o trascina il file qui</p>
+                            <Typography component="p" variant="subtitle1" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Carica PDF Programmazione</Typography>
+                            <Typography component="p" variant="body2" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>o trascina il file qui</Typography>
                         </div>
                         <TextField multiline 
                             label="O incolla il testo del programma" 

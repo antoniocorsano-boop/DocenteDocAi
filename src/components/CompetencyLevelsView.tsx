@@ -4,6 +4,7 @@
 // Audit e refactor completati: 2026-01-25.
 
 import React from 'react';
+import Typography from '@mui/material/Typography';
 import { Competenza, Livello } from '../types';
 interface CompetencyLevelsViewProps {
     competenze: Competenza[];
@@ -66,10 +67,10 @@ const LevelCard: React.FC<{ livello: Livello }> = ({ livello }) => {
             </div>
             <div style={{ flexGrow: "1" }}>
                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 'var(--md-sys-spacing-4)'}}>
-                    <h3 style={{ color: 'var(--md-sys-color-on-surface)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{nome}</h3>
+                    <Typography component="h3" variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-surface)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{nome}</Typography>
                     <span style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-spacing-3)"}}>Valore: {voto}</span>
                 </div>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  opacity: "var(--md-sys-state-opacity-hover-overlay)" }}>{descrizione}</p>
+                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' ,  opacity: "var(--md-sys-state-opacity-hover-overlay)" }}>{descrizione}</Typography>
             </div>
         </div>
     );
@@ -91,7 +92,7 @@ const CompetencyLevelsView: React.FC<CompetencyLevelsViewProps> = ({ competenze 
             {competenze.map(competenza => (
                 <div key={competenza.id} >
                     <div  style={{marginBottom: 'var(--md-sys-spacing-8)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
-                        <h2 style={{ color: "var(--md-sys-color-primary)" }}>{competenza.nome}</h2>
+                        <Typography component="h2" variant="h6" sx={{ color: "var(--md-sys-color-primary)" }}>{competenza.nome}</Typography>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)', backgroundColor: 'var(--md-sys-color-surface-container-high)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-spacing-3)"}}>
                             {competenza.framework || 'Framework Standard'}
                         </span>

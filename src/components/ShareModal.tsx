@@ -57,7 +57,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
             buttons={<Button onClick={onClose} variant="text">Chiudi</Button>}
         >
             <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 'var(--md-sys-state-opacity-tint-moderate)', gap: 'var(--md-sys-spacing-4)' }}>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>Scegli come condividere il contenuto</p>
+                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)' }}>Scegli come condividere il contenuto</Typography>
                 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
                     <button 

@@ -5,7 +5,7 @@
 import React, { useState } from 'react';
 import { Rubrica, Criterio, Indicatore, Competenza } from '../types';
 import { M3Dialog, InfoCard, TextField, EmptyState, SectionHeader } from './ui';
-import { DialogContent, DialogActions, Button } from '@mui/material';
+import { DialogContent, DialogActions, Button, Typography } from '@mui/material';
 interface RubricEditorProps {
     rubricToEdit?: Rubrica;
     allCompetenze: Competenza[];
@@ -134,7 +134,7 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                         <InfoCard key={competenza.id} elevation={1} style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)' , padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                                                 <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-secondary) 10%, transparent)' , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-medium-font-size)"}}>{competenza.codice.charAt(0)}</div>
-                                                <h4 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>{competenza.nome}</h4>
+                                                <Typography component="h4" variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>{competenza.nome}</Typography>
                                             </div>
                                             
                                             <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>

@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { SyncConflictData } from '../types';
-import { Button, Box  } from '@mui/material';
+import { Button, Box, Typography  } from '@mui/material';
 import { M3Dialog, InfoCard } from './ui';
 interface SyncConflictModalProps {
     data: SyncConflictData;
@@ -49,13 +49,13 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                         transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
                                                 >
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                <p style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
+                                <Typography component="p" variant="caption" sx={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
                                     <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>devices</span>
                                     Dati Locali (Attuali)
-                                </p>
-                                <p style={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-black)" }}>
+                                </Typography>
+                                <Typography component="p" variant="subtitle1" sx={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-black)" }}>
                                     {localDate ? localDate.toLocaleString() : 'Nessun dato'}
-                                </p>
+                                </Typography>
                             </div>
                             {!isRemoteNewer && <span style={{backgroundColor: "var(--md-sys-color-secondary)", color: "var(--md-sys-color-on-secondary-container)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-2)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.05em"}}>Più Recente</span>}
                         </div>
@@ -83,13 +83,13 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                         transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
                                                 >
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                <p style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
+                                <Typography component="p" variant="caption" sx={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
                                     <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>cloud</span>
                                     Cloud (Drive)
-                                </p>
-                                <p  style={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)"}}>
+                                </Typography>
+                                <Typography component="p" variant="subtitle1" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)"}}>
                                     {remoteDate.toLocaleString()}
-                                </p>
+                                </Typography>
                             </div>
                             {isRemoteNewer && <span style={{backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-2)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.05em"}}>Consigliato</span>}
                         </div>

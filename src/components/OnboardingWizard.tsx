@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { TimetableSettings } from '../types';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 interface OnboardingWizardProps {
   settings: TimetableSettings;
@@ -168,15 +169,15 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ settings, onComplet
         {step === 1 && (
           <>
             <div>
-              <p style={{ color: 'var(--md-sys-color-primary)', fontFamily: 'var(--md-sys-typescale-label-large-font, inherit)', marginBottom: 'var(--md-sys-spacing-2)' }}>
+              <Typography component="p" variant="body2" sx={{ color: 'var(--md-sys-color-primary)', fontFamily: 'var(--md-sys-typescale-label-large-font, inherit)', marginBottom: 'var(--md-sys-spacing-2)' }}>
                 Passo 1 di {TOTAL_STEPS}
-              </p>
-              <h2 style={{ color: 'var(--md-sys-color-on-surface)', fontFamily: 'var(--md-sys-typescale-headline-small-font, inherit)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', margin: '0 0 var(--md-sys-spacing-2)' }}>
+              </Typography>
+              <Typography component="h2" variant="h5" sx={{ color: 'var(--md-sys-color-on-surface)', fontFamily: 'var(--md-sys-typescale-headline-small-font, inherit)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', margin: '0 0 var(--md-sys-spacing-2)' }}>
                 Benvenuto in DocenteDoc AI 👋
-              </h2>
-              <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'var(--md-sys-typescale-body-medium-font, inherit)' }}>
+              </Typography>
+              <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'var(--md-sys-typescale-body-medium-font, inherit)' }}>
                 Configuriamo insieme il tuo profilo docente. Puoi completare o saltare in qualsiasi momento.
-              </p>
+              </Typography>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
               <div>
@@ -228,15 +229,15 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ settings, onComplet
         {step === 2 && (
           <>
             <div>
-              <p style={{ color: 'var(--md-sys-color-primary)', fontFamily: 'var(--md-sys-typescale-label-large-font, inherit)', marginBottom: 'var(--md-sys-spacing-2)' }}>
+              <Typography component="p" variant="body2" sx={{ color: 'var(--md-sys-color-primary)', fontFamily: 'var(--md-sys-typescale-label-large-font, inherit)', marginBottom: 'var(--md-sys-spacing-2)' }}>
                 Passo 2 di {TOTAL_STEPS}
-              </p>
-              <h2 style={{ color: 'var(--md-sys-color-on-surface)', fontFamily: 'var(--md-sys-typescale-headline-small-font, inherit)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', margin: '0 0 var(--md-sys-spacing-2)' }}>
+              </Typography>
+              <Typography component="h2" variant="h5" sx={{ color: 'var(--md-sys-color-on-surface)', fontFamily: 'var(--md-sys-typescale-headline-small-font, inherit)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', margin: '0 0 var(--md-sys-spacing-2)' }}>
                 Le tue materie
-              </h2>
-              <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'var(--md-sys-typescale-body-medium-font, inherit)' }}>
+              </Typography>
+              <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'var(--md-sys-typescale-body-medium-font, inherit)' }}>
                 Seleziona le discipline che insegni (puoi modificarle in Impostazioni).
-              </p>
+              </Typography>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-2)', maxHeight: 'var(--md-sys-viewport-height-30)', overflowY: 'auto' }}>
               {DISCIPLINE_DEFAULTS.map(d => {
@@ -280,15 +281,15 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ settings, onComplet
               <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-16)', color: 'var(--md-sys-color-primary)', display: 'block', marginBottom: 'var(--md-sys-spacing-4)' }}>
                 check_circle
               </Box>
-              <p style={{ color: 'var(--md-sys-color-primary)', fontFamily: 'var(--md-sys-typescale-label-large-font, inherit)', marginBottom: 'var(--md-sys-spacing-2)' }}>
+              <Typography component="p" variant="body2" sx={{ color: 'var(--md-sys-color-primary)', fontFamily: 'var(--md-sys-typescale-label-large-font, inherit)', marginBottom: 'var(--md-sys-spacing-2)' }}>
                 Passo 3 di {TOTAL_STEPS}
-              </p>
-              <h2 style={{ color: 'var(--md-sys-color-on-surface)', fontFamily: 'var(--md-sys-typescale-headline-small-font, inherit)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', margin: '0 0 var(--md-sys-spacing-4)' }}>
+              </Typography>
+              <Typography component="h2" variant="h5" sx={{ color: 'var(--md-sys-color-on-surface)', fontFamily: 'var(--md-sys-typescale-headline-small-font, inherit)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', margin: '0 0 var(--md-sys-spacing-4)' }}>
                 Tutto pronto{nome ? `, ${nome}` : ''}!
-              </h2>
-              <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'var(--md-sys-typescale-body-medium-font, inherit)' }}>
+              </Typography>
+              <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontFamily: 'var(--md-sys-typescale-body-medium-font, inherit)' }}>
                 Puoi sempre modificare il tuo profilo in <strong>Impostazioni</strong>. Buon lavoro!
-              </p>
+              </Typography>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)', alignItems: 'center' }}>
               <button style={primaryBtnStyle} onClick={handleComplete} type="button">

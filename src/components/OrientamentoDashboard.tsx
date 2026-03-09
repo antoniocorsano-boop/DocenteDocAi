@@ -8,7 +8,7 @@ import {
     StudentOrientamentoState 
 } from '../types';
 import { SectionHeader, Avatar, EmptyState, InfoCard } from './ui';
-import { Button, Box, FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { Button, Box, Typography, FormControl, InputLabel, NativeSelect } from '@mui/material';
 import AddOrientamentoActivityModal from './AddOrientamentoActivityModal';
 import StudentEPortfolioModal from './StudentEPortfolioModal';
 interface OrientamentoDashboardProps {
@@ -54,7 +54,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
     const renderActivitiesTab = () => (
         <div style={{gap: 'var(--md-sys-spacing-6)'}}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>Attivit� di Orientamento</h3>
+                <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>Attività di Orientamento</Typography>
                 <Button onClick={() => setIsAddActivityModalOpen(true)} variant="contained">
                     <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span>
                     Nuova Attivit�
@@ -70,9 +70,9 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                         icon="explore"
                         variant="surface"
                     >
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)' }}>
+                        <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)' }}>
                             {activity.description}
-                        </p>
+                        </Typography>
                     </InfoCard>
                 ))}
                 {filteredActivities.length === 0 && (
@@ -90,7 +90,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
 
     const renderStudentsTab = () => (
         <div style={{gap: 'var(--md-sys-spacing-6)'}}>
-            <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>Stato E-Portfolio Studenti</h3>
+            <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>Stato E-Portfolio Studenti</Typography>
             <div  style={{border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                 <table  style={{ width: 'var(--md-sys-percent-100)' }}>
                     <thead>
@@ -188,9 +188,9 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 >
                     <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
                         <span style={{fontWeight: "var(--md-sys-typescale-weight-black)", color: 'var(--md-sys-color-primary)'}}>{totalHours}h</span>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)' }}>
+                        <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-4)' }}>
                             {totalHours >= 30 ? '✅ Target raggiunto per la classe' : `Mancano ${30 - totalHours}h al target`}
-                        </p>
+                        </Typography>
                     </div>
                 </InfoCard>
 

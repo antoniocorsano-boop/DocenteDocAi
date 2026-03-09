@@ -3,7 +3,7 @@
 import React, { useMemo, useState } from 'react';
 import { Studente, ValutazioneCompetenza, TimetableSettings, Competenza, Livello } from '../types';
 import { M3Dialog, Avatar } from './ui';
-import {DialogContent, DialogActions, Button } from '@mui/material';
+import {DialogContent, DialogActions, Button, Typography } from '@mui/material';
 interface ClassCompetencyDashboardProps {
     selectedClass: string;
     students: Studente[];
@@ -102,10 +102,10 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <h1 style={{ color: 'var(--md-sys-color-on-primary)' }}>Competenze {selectedClass}</h1>
-                    <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                    <Typography component="h1" variant="h4" sx={{ color: 'var(--md-sys-color-on-primary)' }}>Competenze {selectedClass}</Typography>
+                    <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                         Analisi dei livelli raggiunti per area di competenza.
-                    </p>
+                    </Typography>
                 </div>
             </div>
             
@@ -144,9 +144,9 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                                 {summary.totalEvaluated}/{classStudents.length} Valutati
                                             </span>
                                         </div>
-                                        <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)' }}>
+                                        <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)' }}>
                                             {summary.competency.nome}
-                                        </h3>
+                                        </Typography>
                                     </div>
                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  transition: "transform var(--md-sys-motion-duration-medium)" }}>expand_more</span>
                                 </div>
@@ -187,9 +187,9 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                                 <div style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-display-large-font-size)', fontWeight: 'var(--md-sys-typescale-display-large-font-size-weight)' }}>{lc.count}</div>
                                             </div>
                                             <div style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", marginBottom: 'var(--md-sys-spacing-4)'}}>Studenti</div>
-                                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-body-large-font-size)', lineHeight: 'var(--md-sys-typescale-body-large-line-height)' }}>
+                                            <Typography component="p" variant="subtitle1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-body-large-font-size)', lineHeight: 'var(--md-sys-typescale-body-large-line-height)' }}>
                                                 {lc.level.descrizione}
-                                            </p>
+                                            </Typography>
                                         </div>
                                     );
                                 })}
@@ -201,8 +201,8 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                 {competencySummaries.length === 0 && (
                     <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 'var(--md-sys-state-opacity-tint-moderate)', marginBottom: 'var(--md-sys-spacing-8)' }}>bar_chart</span>
-                        <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)' }}>Nessun dato</p>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Non hai ancora configurato le competenze in Impostazioni.</p>
+                        <Typography component="p" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)' }}>Nessun dato</Typography>
+                        <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Non hai ancora configurato le competenze in Impostazioni.</Typography>
                     </div>
                 )}
             </div>
@@ -225,7 +225,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                                 <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                                    <p style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{student.cognome} {student.nome}</p>
+                                                    <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{student.cognome} {student.nome}</Typography>
                                                     <div  style={{ display: "flex", alignItems: "center" }}>
                                                         <span style={{borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: viewingStudents.levelColor, width: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-spacing-6)'}}></span>
                                                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>Livello raggiunto</span>

@@ -7,7 +7,7 @@ import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';
 import TemplateManager from './TemplateManager';
 import JSZip from 'jszip';
-import { Button  } from '@mui/material';
+import { Button, Typography  } from '@mui/material';
 import { M3Dialog } from './ui';
 // Type guards migliorati
 const isStudent = (data: unknown): data is Studente => {
@@ -291,7 +291,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                    style={{backgroundColor: "var(--md-sys-color-primary)", height: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-spacing-4)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', width: `${(progress.current / progress.total) * 100}%` }}
                 ></div>
               </div>
-              <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{progress.currentDoc}</p>
+              <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{progress.currentDoc}</Typography>
             </div>
           )}
 
@@ -328,9 +328,9 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
           <div  style={{gap: 'var(--md-sys-spacing-4)', overflowY: "auto"}}>
             {Object.entries(groupedDocuments).map(([groupName, docs]) => (
               <div key={groupName}>
-                <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)'}}>
+                <Typography component="h3" variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                   {groupName} ({docs.length})
-                </h3>
+                </Typography>
                 <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
                   {docs.map(doc => {
                     const isSelected = selectedDocuments.some(d => d.id === doc.id);
@@ -358,8 +358,8 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                             aria-label={`Seleziona ${doc.title}`}
                           />
                           <div style={{ flex: "1", minWidth: "0" }}>
-                            <p  style={{ fontWeight: "var(--md-sys-typescale-weight-medium)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.title}</p>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.subtitle}</p>
+                            <Typography component="p" variant="body1" sx={{ fontWeight: "var(--md-sys-typescale-weight-medium)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.title}</Typography>
+                            <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{doc.subtitle}</Typography>
                             <span style={{
                               display: 'inline-block',
                               padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-4)',

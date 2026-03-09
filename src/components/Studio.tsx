@@ -18,7 +18,7 @@ import TestGeneratorModal from './TestGeneratorModal';
 import TestPreviewModal from './TestPreviewModal';
 import Guidance from './Guidance';
 import { M3Dialog, AiThinkingGem } from './ui';
-import { DialogContent, DialogActions, Button, FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { DialogContent, DialogActions, Button, FormControl, InputLabel, NativeSelect, Typography } from '@mui/material';
 type StudioTask = 'summary' | 'key_points' | 'qa' | 'flashcards' | 'presentation' | 'document' | 'image' | 'quiz';
 
 interface StudioAction {
@@ -270,10 +270,10 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
 
             {/* Context Selection Card */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                <h2  style={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
+                <Typography component="h2" variant="h6" sx={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                     <span  style={{color: "var(--md-sys-color-primary)"}}>folder_open</span>
                     1. Seleziona Contesto (Knowledge Base)
-                </h2>
+                </Typography>
                 <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end", marginBottom: 'var(--md-sys-spacing-8)'}}>
                     <div  style={{ flexGrow: "1" }}>
                         <FormControl fullWidth sx={{ mb: 2 }}>
@@ -289,9 +289,9 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     </div>
                      <div  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>attachment</span>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
+                        <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
                             {selectedFileIds.length} file selezionati
-                        </p>
+                        </Typography>
                     </div>
                 </div>
 
@@ -308,7 +308,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         </div>
                     ))}
                     {availableFiles.length === 0 && (
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-large-font-size)', padding: 'var(--md-sys-spacing-8)'}}>Nessun file disponibile in questo set.</p>
+                        <Typography component="p" variant="subtitle1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-large-font-size)', padding: 'var(--md-sys-spacing-8)'}}>Nessun file disponibile in questo set.</Typography>
                     )}
                 </div>
             </div>
@@ -326,11 +326,11 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     {/* Generation Card */}
                     <div  style={{ height: 'var(--md-sys-percent-100)' }}>
                         <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
-                            <h2  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
+                            <Typography component="h2" variant="h6" sx={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                 <span  style={{color: "var(--md-sys-color-tertiary)"}}>design_services</span>
                                 Generazione & Creatività
-                            </h2>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Crea nuovi contenuti didattici.</p>
+                            </Typography>
+                            <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Crea nuovi contenuti didattici.</Typography>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'generation'))}
                     </div>
@@ -338,11 +338,11 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     {/* Analysis Card */}
                     <div  style={{ height: 'var(--md-sys-percent-100)' }}>
                         <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
-                            <h2  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
+                            <Typography component="h2" variant="h6" sx={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                 <span  style={{color: "var(--md-sys-color-secondary)"}}>analytics</span>
                                 Analisi & Sintesi
-                            </h2>
-                            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Rielabora e comprendi i documenti.</p>
+                            </Typography>
+                            <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Rielabora e comprendi i documenti.</Typography>
                         </div>
                         {renderActionGrid(studioActions.filter(a => a.category === 'analysis'))}
                     </div>

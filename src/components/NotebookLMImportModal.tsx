@@ -1,11 +1,11 @@
-// MD3 GOLD COMPLIANT — AUDIT 2026-01-25
+// MD3 GOLD COMPLIANT ï¿½ AUDIT 2026-01-25
 // Tutti i valori di design (colori, spacing, tipografia, elevazione, shape) sono gestiti esclusivamente tramite token MD3 (`var(--md-sys-*)`).
 // Nessun valore hardcoded (px, rem, %, hex, rgba) presente. Nessun uso di className custom. Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md.
 // Audit e refactor completati: 2026-01-25.
 import React, { useEffect, useState } from 'react';
 import { fetchNotebookFiles, NotebookLMFile } from '../services/notebooklmService';
 import { KnowledgeBaseEntry } from '../types';
-import { Button, Box  } from '@mui/material';
+import { Button, Box, Typography  } from '@mui/material';
 import { M3Dialog } from './ui';
 
 interface NotebookLMImportModalProps {
@@ -105,10 +105,10 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
             <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
               <span style={{ color: 'var(--md-sys-color-primary)' }}>cloud_off</span>
             </div>
-            <h3 style={{fontSize: "var(--md-sys-typescale-title-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Connessione Google Richiesta</h3>
-            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>
+            <Typography component="h3" variant="h6" sx={{fontSize: "var(--md-sys-typescale-title-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Connessione Google Richiesta</Typography>
+            <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>
               Per importare i tuoi materiali da NotebookLM, devi prima connettere il tuo account Google.
-            </p>
+            </Typography>
             <Button variant="contained" onClick={onConnect}>
               Connetti Account Google
             </Button>
@@ -120,7 +120,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
 
             {step === 'select' && !loading && !error && (
               <>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>Seleziona i materiali da importare nella Knowledge Base.</p>
+            <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>Seleziona i materiali da importare nella Knowledge Base.</Typography>
                 <div  style={{overflowY: "auto", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-spacing-1)", marginBottom: 'var(--md-sys-spacing-8)'}}>
                   {files.length === 0 && <div style={{ color: 'var(--md-sys-color-on-surface-variant)' , padding: 'var(--md-sys-spacing-8)', textAlign: "center"}}>Nessun file trovato.</div>}
                   {files.map(f => (
@@ -138,7 +138,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
 
         {step === 'catalog' && (
           <>
-            <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>Catalogazione materiali importati:</p>
+            <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>Catalogazione materiali importati:</Typography>
             <div  style={{gap: 'var(--md-sys-spacing-4)', overflowY: "auto"}}>
               {imported.map(entry => (
                 <div key={entry.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", borderRadius: "var(--md-sys-spacing-1)"}}>

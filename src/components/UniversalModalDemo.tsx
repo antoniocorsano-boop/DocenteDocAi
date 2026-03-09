@@ -3,7 +3,7 @@
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 import React, { useState } from 'react';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import UniversalModal from './UniversalModal';
 const UniversalModalDemo: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -21,10 +21,10 @@ const UniversalModalDemo: React.FC = () => {
         title="Esempio di Modale Universale"
         onClose={() => setOpen(false)}
       >
-        <p style={{ color: 'var(--md-sys-color-on-primary)' }}>
+        <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-primary)' }}>
           Questo è un esempio di contenuto per il nuovo modale accessibile e responsive.<br />
           Premi <b>ESC</b> o clicca fuori dal modale per chiudere.
-        </p>
+        </Typography>
         <div  style={{display: "flex", justifyContent: "flex-end", gap: 'var(--md-sys-spacing-3)'}}>
           <Button
             onClick={() => setOpen(false)}

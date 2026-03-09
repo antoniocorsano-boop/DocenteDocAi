@@ -1,6 +1,7 @@
 // MD3 Compliant - Block J Migration Complete (4 violations eliminated)
 
 import React, { useState, useRef } from 'react';
+import Typography from '@mui/material/Typography';
 interface ChipInputListProps {
     items: string[];
     onAdd: (item: string) => void;
@@ -127,7 +128,7 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                     ))}
                     
                     {items.length === 0 && (
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-large-font-size)', opacity: "var(--md-sys-state-opacity-empty)", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Nessun elemento aggiunto...</p>
+                        <Typography component="p" variant="subtitle1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , fontSize: 'var(--md-sys-typescale-body-large-font-size)', opacity: "var(--md-sys-state-opacity-empty)", paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Nessun elemento aggiunto...</Typography>
                     )}
                 </div>
                 
@@ -191,9 +192,9 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         }}>arrow_forward</span>
                     </button>
                 </div>
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-empty)", marginTop: 'var(--md-sys-spacing-3)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
+                <Typography component="p" variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-empty)", marginTop: 'var(--md-sys-spacing-3)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
                     Premi Invio o usa la virgola per aggiungere più elementi
-                </p>
+                </Typography>
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 // MD3 Compliant - Block J Migration Complete (2 violations eliminated)
-import { Tabs, Tab, Badge, Box } from '@mui/material';
+import { Tabs, Tab, Badge, Box, Typography } from '@mui/material';
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, RegisterEntry, Lezione, Competenza, AiSettings } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
@@ -172,8 +172,8 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true">accessibility_new</Box>
                         </div>
                         <div style={{ flex: 1 }}>
-                            <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-tertiary-container)' }}>Piano di Inclusione (BES/DSA)</h3>
-                            <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-tertiary-container)', opacity: 'var(--md-sys-state-opacity-caption)' }}>Gestisci misure compensative e dispensative.</p>
+                            <Typography component="h3" variant="subtitle1" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-tertiary-container)' }}>Piano di Inclusione (BES/DSA)</Typography>
+                            <Typography component="p" variant="body2" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-tertiary-container)', opacity: 'var(--md-sys-state-opacity-caption)' }}>Gestisci misure compensative e dispensative.</Typography>
                         </div>
                     </div>
                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-tertiary-container)' }}>arrow_forward</Box>
@@ -188,8 +188,8 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true">psychology</Box>
                         </div>
                         <div style={{ flex: 1 }}>
-                            <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Consulente AI: Giudizio</h3>
-                            <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Genera una bozza di giudizio basata sui dati.</p>
+                            <Typography component="h3" variant="subtitle1" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Consulente AI: Giudizio</Typography>
+                            <Typography component="p" variant="body2" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Genera una bozza di giudizio basata sui dati.</Typography>
                         </div>
                     </div>
                     <Button onClick={handleGenerateAiJudgment} variant="contained" disabled={isLoadingAi}>
@@ -203,9 +203,9 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-primary)' }}>auto_awesome</Box>
                             <span style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', color: 'var(--md-sys-color-on-primary-container)' }}>Suggerimento AI</span>
                         </div>
-                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-primary-container)', fontStyle: 'italic', lineHeight: 1.6 }}>
+                        <Typography component="p" variant="body1" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-primary-container)', fontStyle: 'italic', lineHeight: 1.6 }}>
                             &ldquo;{aiJudgment}&rdquo;
-                        </p>
+                        </Typography>
                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                             <Button onClick={() => { navigator.clipboard.writeText(aiJudgment); alert('Giudizio copiato negli appunti!'); }} variant="text" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">content_copy</Box>}>
                                 Copia Testo
@@ -222,8 +222,8 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true">workspace_premium</Box>
                         </div>
                         <div style={{ flex: 1 }}>
-                            <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Certificazione Competenze</h3>
-                            <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Fine ciclo studi</p>
+                            <Typography component="h3" variant="subtitle1" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Certificazione Competenze</Typography>
+                            <Typography component="p" variant="body2" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Fine ciclo studi</Typography>
                         </div>
                     </div>
                     <Button onClick={handleGenerateCertification} variant="outlined" disabled={isExporting}>Genera PDF</Button>
@@ -243,8 +243,8 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                     {materia.substring(0, 2).toUpperCase()}
                                 </div>
                                 <div style={{ flex: 1, minWidth: 0 }}>
-                                    <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{materia}</h3>
-                                    <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{evals.length} prove registrate</p>
+                                    <Typography component="h3" variant="subtitle1" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{materia}</Typography>
+                                    <Typography component="p" variant="body2" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{evals.length} prove registrate</Typography>
                                 </div>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-primary-container)' }}>
@@ -300,8 +300,8 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                             <div key={competenza.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', padding: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-3)' }}>
                                     <div style={{ flex: 1, minWidth: 0 }}>
-                                        <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-primary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{competenza.codice}</p>
-                                        <h3 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{competenza.nome}</h3>
+                                        <Typography component="p" variant="caption" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-primary)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{competenza.codice}</Typography>
+                                        <Typography component="h3" variant="subtitle1" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{competenza.nome}</Typography>
                                     </div>
                                     <div style={{
                                         padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
@@ -326,12 +326,12 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-on-surface-variant)' }}>event</Box>
                                         <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(latest.data).toLocaleDateString()}</span>
                                     </div>
-                                    <p style={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{level?.descrizione}</p>
+                                    <Typography component="p" variant="body1" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{level?.descrizione}</Typography>
                                 </div>
                                 {latest.nota && (
                                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-on-surface-variant)', flexShrink: 0 }}>chat_bubble</Box>
-                                        <p style={{ margin: 0, fontStyle: 'italic', color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>&ldquo;{latest.nota}&rdquo;</p>
+                                        <Typography component="p" variant="body2" sx={{ margin: 0, fontStyle: 'italic', color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>&ldquo;{latest.nota}&rdquo;</Typography>
                                     </div>
                                 )}
                             </div>
@@ -357,11 +357,11 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                     </div>
                                     <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{lesson.data ? new Date(lesson.data).toLocaleDateString() : ''}</span>
                                 </div>
-                                <p style={{ margin: 0, color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', lineHeight: 1.6 }}>{lesson.contenuto}</p>
+                                <Typography component="p" variant="body1" sx={{ margin: 0, color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', lineHeight: 1.6 }}>{lesson.contenuto}</Typography>
                                 {lesson.obiettivi && (
                                     <div style={{ padding: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', backgroundColor: 'var(--md-sys-color-surface-container-high)', borderLeft: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' }}>
-                                        <p style={{ margin: '0 0 var(--md-sys-spacing-1)', fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-small-font-size)', color: 'var(--md-sys-color-primary)', textTransform: 'uppercase' }}>Esito / Obiettivi</p>
-                                        <p style={{ margin: 0, color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>{lesson.obiettivi}</p>
+                                        <Typography component="p" variant="caption" sx={{ margin: '0 0 var(--md-sys-spacing-1)', fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-small-font-size)', color: 'var(--md-sys-color-primary)', textTransform: 'uppercase' }}>Esito / Obiettivi</Typography>
+                                        <Typography component="p" variant="body2" sx={{ margin: 0, color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>{lesson.obiettivi}</Typography>
                                     </div>
                                 )}
                             </div>
@@ -390,7 +390,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                         <Avatar name={`${student.nome} ${student.cognome}`} size="xl" />
                         <div style={{ flex: 1, minWidth: 0 }}>
-                            <h1 style={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{student.cognome} {student.nome}</h1>
+                            <Typography component="h1" variant="h5" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-headline-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{student.cognome} {student.nome}</Typography>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-1)', flexWrap: 'wrap' }}>
                                 <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>Classe {student.classe}</span>
                                 {student.hasBES && <span style={{ padding: '0 var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>BES</span>}

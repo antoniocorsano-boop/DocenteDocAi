@@ -1,5 +1,6 @@
 // MD3 Compliant - Block N Migration Complete (7 violations eliminated)
 import React, { useEffect, useState } from 'react';
+import Typography from '@mui/material/Typography';
 import { errorLogger, ErrorLog } from '../services/errorLogger';
 interface ErrorLogsDashboardProps {
   onClose?: () => void;
@@ -98,7 +99,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
 
       {/* Type Breakdown */}
       <div style={{marginBottom: 'var(--md-sys-spacing-6)'}}>
-        <h2  style={{marginBottom: 'var(--md-sys-spacing-6)'}}>By Type</h2>
+        <Typography component="h2" variant="h6" sx={{marginBottom: 'var(--md-sys-spacing-6)'}}>By Type</Typography>
         <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
           {Object.entries(stats.byType).map(([type, count]) => (
             <div key={type} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)' , padding: 'var(--md-sys-spacing-6)'}}>

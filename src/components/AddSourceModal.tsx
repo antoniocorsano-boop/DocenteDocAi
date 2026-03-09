@@ -6,7 +6,7 @@ import { useFileDrop } from '../hooks/useFileDrop';
 import { KnowledgeBaseEntry, Corpus } from '../types';
 import { extractTextFromFile, blobToBase64Parts } from '../utils/documentUtils';
 import { KB_CATEGORIES } from '../constants';
-import { Button  , FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { Button  , FormControl, InputLabel, NativeSelect, Typography } from '@mui/material';
 import { M3Dialog, CategoryCard, TextField } from './ui';
 interface AddSourceModalProps {
     corpora: Corpus[];
@@ -67,15 +67,15 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                 {isLoading ? (
                     <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
                         <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-spacing-1) solid var(--md-sys-color-outline)', borderColor: "var(--md-sys-color-primary)"}}></div>
-                        <p  style={{color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>{loadingMessage}</p>
+                        <Typography component="p" variant="caption" sx={{color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>{loadingMessage}</Typography>
                     </div>
                 ) : (
                     <>
                         <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <h3  style={{marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+                            <Typography component="h3" variant="h6" sx={{marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                 <span style={{ color: 'var(--md-sys-color-on-primary-container)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-radius-4)', backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center"}}>1</span> 
                                 Seleziona Destinazione
-                            </h3>
+                            </Typography>
                             <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                                 {/* MD3 grid fr tokens */}
                                 {KB_CATEGORIES.map(cat => (
@@ -98,10 +98,10 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                             filter: !selectedCategory ? 'grayscale(100%)' : 'none',
                             pointerEvents: !selectedCategory ? 'none' : 'auto'
                         }}>
-                            <h3  style={{marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+                            <Typography component="h3" variant="h6" sx={{marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                 <span style={{ color: 'var(--md-sys-color-on-secondary-container)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-radius-4)', backgroundColor: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center"}}>2</span>
                                 Carica File
-                            </h3>
+                            </Typography>
                             <div {...getRootProps()} style={{
                                 height: 'var(--md-sys-spacing-48)', // MD3 spacing token for drop zone height
                                 border: isDragActive ? 'var(--md-sys-elevation-2) dashed var(--md-sys-color-primary)' : 'var(--md-sys-elevation-0) dashed var(--md-sys-color-outline-variant)',
@@ -118,16 +118,16 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                             }}>
                                 <input {...getInputProps()} />
                                 <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>{isDragActive ? 'download' : 'upload_file'}</span>
-                                <p style={{ color: "var(--md-sys-color-on-surface-variant)" }}>Trascina i file qui o clicca per sfogliare</p>
-                                <p style={{opacity: "var(--md-sys-state-opacity-disabled-layer)", marginTop: 'var(--md-sys-spacing-6)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-on-surface-variant)"}}>Supporto PDF, DOCX, TXT</p>
+                                <Typography component="p" variant="body1" sx={{ color: "var(--md-sys-color-on-surface-variant)" }}>Trascina i file qui o clicca per sfogliare</Typography>
+                                <Typography component="p" variant="caption" sx={{opacity: "var(--md-sys-state-opacity-disabled-layer)", marginTop: 'var(--md-sys-spacing-6)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-on-surface-variant)"}}>Supporto PDF, DOCX, TXT</Typography>
                             </div>
                         </section>
 
                         <section  style={{borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'}}>
-                            <h3  style={{fontWeight: "var(--md-sys-typescale-weight-black)", marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+                            <Typography component="h3" variant="h6" sx={{fontWeight: "var(--md-sys-typescale-weight-black)", marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                 <span style={{ color: 'var(--md-sys-color-on-tertiary)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "var(--md-sys-typescale-weight-black)"}}>3</span> 
                                 Raccolta (Opzionale)
-                            </h3>
+                            </Typography>
                             <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end"}}>
                                 <div style={{ flexGrow: 1 }}>
                                                                         <FormControl sx={{ mb: 2 }}>

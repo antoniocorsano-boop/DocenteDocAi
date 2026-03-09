@@ -5,7 +5,7 @@
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
 
 import React, { useState } from 'react';
-import { Button, Box  } from '@mui/material';
+import { Button, Box, Typography  } from '@mui/material';
 import { M3Dialog, TextField } from './ui';
 interface ResetConfirmModalProps {
     onClose: () => void;
@@ -37,10 +37,10 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
                     <span style={{ color: 'var(--md-sys-color-error)' }}>warning</span>
                     <span style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Azione Irreversibile</span>
                 </div>
-                <p style={{ color: 'var(--md-sys-color-on-primary)' ,  lineHeight: "1.625" }}>
+                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-primary)' ,  lineHeight: "1.625" }}>
                     Stai per cancellare <strong>TUTTI</strong> i dati locali (studenti, voti, lezioni). 
                     Questa azione è <strong style={{color: "var(--md-sys-color-error)"}}>irreversibile</strong> se non hai un backup su Drive.
-                </p>
+                </Typography>
                 
                 <TextField 
                     label='Digita "CANCELLA" per confermare'

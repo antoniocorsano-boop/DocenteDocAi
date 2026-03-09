@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, TimetableSettings, AiSettings, Report, ValutazioneCompetenza, PeriodoValutazione } from '../types';
 import { generateCouncilDataPdf, viewPdfInNewTab } from '../utils/documentUtils';
 import { M3Dialog, InfoCard } from './ui';
-import {DialogContent, DialogActions, Button , FormControl, InputLabel, NativeSelect , Tabs, Tab, Badge, Box } from '@mui/material';
+import {DialogContent, DialogActions, Button , FormControl, InputLabel, NativeSelect , Tabs, Tab, Badge, Box, Typography } from '@mui/material';
 
 interface ConsiglioClasseWizardProps {
     onClose: () => void;
@@ -142,8 +142,8 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
             <DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
                 <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-5)', border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)`, display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <p style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-primary)"}}>Context Active</p>
-                        <h3 style={{ color: 'var(--md-sys-color-on-primary-container)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</h3>
+                        <Typography component="p" variant="caption" sx={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-primary)"}}>Context Active</Typography>
+                        <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary-container)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</Typography>
                     </div>
                     <Button variant="outlined" onClick={() => setStep(1)}  style={{ fontSize: "var(--md-sys-typescale-body-small-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase" }}>Cambia</Button>
                 </div>
@@ -158,9 +158,9 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                     </button>
                 </div>
                 
-                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , textAlign: "center", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
+                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , textAlign: "center", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
                     Il report verrà generato e aperto in una nuova scheda del browser.
-                </p>
+                </Typography>
             </DialogContent>
             <DialogActions>
                 <Button variant="text" onClick={() => setStep(1)}>Indietro</Button>
@@ -177,7 +177,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
              >
                 <DialogContent  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
                     <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: `var(--md-sys-border-width-thick) solid var(--md-sys-color-outline)`, borderColor: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-6)'}}></div>
-                    <p  style={{fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)"}}>{loadingMessage}</p>
+                    <Typography component="p" variant="body1" sx={{fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)"}}>{loadingMessage}</Typography>
                 </DialogContent>
             </M3Dialog>
         )

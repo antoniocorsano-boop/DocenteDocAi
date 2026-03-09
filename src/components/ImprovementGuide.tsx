@@ -13,7 +13,7 @@ import AiAdvisor from './AiAdvisor';
 import { generateHtmlDocxBlob } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
 import { AiMemoryChip, InfoCard, SectionHeader, AiThinkingGem } from './ui';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 interface ImprovementGuideProps {
     selectedClass: string;
     students: Studente[];
@@ -321,7 +321,7 @@ const handleExportDocx = async () => {
                 <div  style={{padding: 'var(--md-sys-spacing-8)'}}>
                     {competencyLevelData.map(compData => (
                         <div key={compData.name} style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                            <h3 style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "var(--md-sys-state-opacity-supporting)" }}>{compData.name}</h3>
+                            <Typography component="h3" variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "var(--md-sys-state-opacity-supporting)" }}>{compData.name}</Typography>
                             <BarChart
                                 data={compData.levels.map(l => ({ label: l.name, value: l.value }))}
                                 color="var(--md-sys-color-tertiary)"

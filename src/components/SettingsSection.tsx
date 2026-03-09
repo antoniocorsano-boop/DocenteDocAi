@@ -3,6 +3,7 @@
 // No className or Tailwind dependencies - all styling uses direct MD3 CSS variables
 
 import React from 'react';
+import Typography from '@mui/material/Typography';
 
 interface SettingsSectionProps {
     title: string;
@@ -112,8 +113,8 @@ const SettingsSection: React.FC<SettingsSectionProps> = ({
                     <span style={iconStyle}>{icon}</span>
                 </div>
                 <div style={textContainerStyle}>
-                    <h3 style={titleStyle}>{title}</h3>
-                    {subtitle && <p style={subtitleStyle}>{subtitle}</p>}
+                    <Typography component="h3" variant="subtitle1" sx={titleStyle}>{title}</Typography>
+                    {subtitle && <Typography component="p" variant="body1" sx={subtitleStyle}>{subtitle}</Typography>}
                 </div>
             </div>
             <div style={contentStyle}>

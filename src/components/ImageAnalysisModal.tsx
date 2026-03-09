@@ -107,7 +107,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
                       <span style={{ color: 'var(--md-sys-color-primary)' }}>add_photo_alternate</span>
                   </div>
                   <div style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center" }}>
-                      <p style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Trascina o clicca</p>
+                      <Typography component="p" variant="subtitle2" sx={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Trascina o clicca</Typography>
                   </div>
                 </>
               )}

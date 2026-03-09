@@ -6,6 +6,7 @@ import { Lezione, Slot, EventoCalendario, AppActions } from '../types';
 import { DAYS_OF_WEEK } from '../constants';
 import { useAcademicStore } from '../stores/useAcademicStore';
 
+import Typography from '@mui/material/Typography';
 import VoiceNoteRecorder from './VoiceNoteRecorder';
 interface FlowModeProps {
     actions: AppActions;
@@ -146,8 +147,8 @@ return (
             {/* --- HEADER (Minimal) --- */}
             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container)', display: "flex", justifyContent: "space-between", alignItems: "center", padding: 'var(--md-sys-spacing-6)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <h1 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "var(--md-sys-typescale-body-medium-tracking)" }}>Flow</h1>
-                    <p  style={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "var(--md-sys-state-opacity-supporting)"}}>{todayName}, {now.toLocaleDateString('it-IT', { day: '2-digit', month: 'long' })}</p>
+                    <Typography component="h1" variant="h4" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "var(--md-sys-typescale-body-medium-tracking)" }}>Flow</Typography>
+                    <Typography component="p" variant="body1" sx={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", opacity: "var(--md-sys-state-opacity-supporting)"}}>{todayName}, {now.toLocaleDateString('it-IT', { day: '2-digit', month: 'long' })}</Typography>
                 </div>
                 <button aria-label="Apri centro operativo" onClick={onOpenOperations} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-on-primary-container)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                     {}
@@ -163,7 +164,7 @@ return (
                         style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)' , textAlign: "center", opacity: "var(--md-sys-state-opacity-placeholder)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}
                     >
                         <span style={{ color: 'var(--md-sys-color-primary)', opacity: 'var(--md-sys-state-opacity-empty)', marginBottom: 'var(--md-sys-spacing-8)'}}>event_busy</span>
-                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Nessun evento o lezione oggi.</p>
+                        <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Nessun evento o lezione oggi.</Typography>
                         <button onClick={() => actions.handleNavigate('timetable')} style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)' , marginTop: 'var(--md-sys-spacing-4)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-label-large-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}>
                             Configura Orario
                         </button>
@@ -192,8 +193,8 @@ return (
                                 >
                                     <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 'var(--md-sys-spacing-6)'}}>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                            <h2 style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "var(--md-sys-typescale-body-medium-tracking)", lineHeight: "1.25" }}>{item.title}</h2>
-                                            <p style={{ color: 'var(--md-sys-color-on-primary)', opacity: "var(--md-sys-state-opacity-caption)", fontWeight: "var(--md-sys-typescale-weight-medium)", marginTop: 'var(--md-sys-spacing-4)'}}>{item.subtitle}</p>
+                                            <Typography component="h2" variant="h5" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "var(--md-sys-typescale-body-medium-tracking)", lineHeight: "1.25" }}>{item.title}</Typography>
+                                            <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-primary)', opacity: "var(--md-sys-state-opacity-caption)", fontWeight: "var(--md-sys-typescale-weight-medium)", marginTop: 'var(--md-sys-spacing-4)'}}>{item.subtitle}</Typography>
                                         </div>
                                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", justifyContent: "center" }}>
                                             <span style={{ color: 'var(--md-sys-color-primary)' }}>
@@ -220,8 +221,8 @@ return (
                                 <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", width: 'var(--md-sys-spacing-4)', textTransform: "uppercase" }}>{item.time}</span>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                        <p style={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{item.title}</p>
-                                        <p style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-medium)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{item.subtitle}</p>
+                                        <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{item.title}</Typography>
+                                        <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-medium)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>{item.subtitle}</Typography>
                                     </div>
                                 </div>
                             </div>
@@ -242,8 +243,8 @@ return (
                                     <span style={{ backgroundColor: 'var(--md-sys-color-primary-container)', fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)", borderRadius: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>{item.time}</span>
                                     {item.type === 'lesson' && <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", opacity: "var(--md-sys-state-opacity-placeholder)" }}>Lezione</span>}
                                 </div>
-                                <h3 style={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)", transition: "color var(--md-sys-motion-duration-medium)" }}>{item.title}</h3>
-                                <p style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "var(--md-sys-typescale-weight-medium)", marginTop: 'var(--md-sys-spacing-4)'}}>{item.subtitle}</p>
+                                <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)", transition: "color var(--md-sys-motion-duration-medium)" }}>{item.title}</Typography>
+                                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "var(--md-sys-typescale-weight-medium)", marginTop: 'var(--md-sys-spacing-4)'}}>{item.subtitle}</Typography>
                             </div>
                         </div>
                     );
