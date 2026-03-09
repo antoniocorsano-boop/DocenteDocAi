@@ -1,6 +1,7 @@
 // MD3 Compliant
 import React from 'react';
 import { DndContext, useDraggable, useDroppable, DragEndEvent } from '@dnd-kit/core';
+import Box from '@mui/material/Box';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for drag-and-drop interactions, colors, spacing, and transitions
 interface GanttBarProps {
@@ -58,26 +59,39 @@ const GanttBar: React.FC<GanttBarProps> = ({ id, title, onMove, col, maxCols = 4
   const visualTransform = transform ? `translateX(${transform.x}px)` : undefined;
 
   return (
-    <div
+    <Box
       ref={setNodeRef}
       {...attributes}
       {...listeners}
-      tabIndex={0}
-      role="button"
       aria-label={`Sposta UDA ${title}`}
-      aria-grabbed={keyboardDrag || isDragging}
       aria-pressed={keyboardDrag}
-      style={{
-        '--gantt-bar-transform': visualTransform,
+      onKeyDown={handleKeyDown}
+      style={{ '--gantt-bar-transform': visualTransform } as React.CSSProperties}
+      sx={{
         backgroundColor: isDragging ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
         boxShadow: isDragging ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)',
         borderRadius: 'var(--md-sys-shape-corner-medium)',
         border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
-      } as React.CSSProperties}
-      onKeyDown={handleKeyDown}
+        cursor: isDragging ? 'grabbing' : 'grab',
+        position: 'relative',
+        overflow: 'hidden',
+        '&:hover::after': {
+          content: '""',
+          position: 'absolute',
+          inset: 0,
+          borderRadius: 'inherit',
+          backgroundColor: 'var(--md-sys-color-on-surface)',
+          opacity: 0.08,
+          pointerEvents: 'none',
+        },
+        '&:focus-visible': {
+          outline: '2px solid var(--md-sys-color-primary)',
+          outlineOffset: 2,
+        },
+      }}
     >
       <div>{title}{keyboardDrag ? ` — col ${targetCol + 1}` : null}</div>
-    </div>
+    </Box>
   );
 };
 

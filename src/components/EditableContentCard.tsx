@@ -1,6 +1,12 @@
 // MD3 Compliant - Block G Migration (12 violations eliminated)
 
 import React, { useState, useEffect } from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
 
 interface EditableContentCardProps {
   title: string;
@@ -42,60 +48,53 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
   }
 
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         borderRadius: 'var(--md-sys-shape-corner-extra-large)',
         padding: 'var(--md-sys-spacing-8)',
-        outline: 'none'
       }}
-      tabIndex={0}
-      aria-label={title}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-        <h3 style={{ color: 'var(--md-sys-color-on-primary)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <Typography variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-primary)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }}>
           {icon && <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }} aria-hidden="true">{icon}</span>}
           {title}
-        </h3>
+        </Typography>
         {!isEditing && (
-          <button
+          <IconButton
             onClick={() => setIsEditing(true)}
             aria-label="Modifica contenuto"
-            tabIndex={0}
-            style={{ background: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-small)' }}
+            size="small"
+            sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-small)' }}
           >
-            <span style={{ fontFamily: "'Material Symbols Outlined'" }} aria-hidden="true">edit</span>
-          </button>
+            <span className="material-symbols-outlined" aria-hidden="true">edit</span>
+          </IconButton>
         )}
-      </div>
+      </Box>
 
-      <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
+      <Box sx={{ marginTop: 'var(--md-sys-spacing-4)' }}>
         {isEditing ? (
-          <div style={{ gap: 'var(--md-sys-spacing-2)' }}>
-            <textarea
+          <Stack spacing={2}>
+            <TextField
+              multiline
+              fullWidth
               value={currentContent}
               onChange={(e) => setCurrentContent(e.target.value)}
-              style={{
-                width: 'var(--md-sys-percent-100)',
-                borderRadius: 'var(--md-sys-shape-corner-small)',
-                background: 'var(--md-sys-color-surface-container)',
-                color: 'var(--md-sys-color-on-surface)'
-              }}
               rows={Math.max(5, currentContent.split('\n').length)}
+              label="Modifica contenuto"
               autoFocus
-              aria-label="Modifica contenuto"
             />
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 'var(--md-sys-spacing-8)' }}>
-              <button onClick={handleCancel} aria-label="Annulla modifica">Annulla</button>
-              <button onClick={handleSave} aria-label="Salva contenuto">Salva</button>
-            </div>
-          </div>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 'var(--md-sys-spacing-2)' }}>
+              <Button onClick={handleCancel} variant="text">Annulla</Button>
+              <Button onClick={handleSave} variant="contained">Salva</Button>
+            </Box>
+          </Stack>
         ) : (
-          <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+          <Box sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
             {renderContent()}
-          </div>
+          </Box>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
