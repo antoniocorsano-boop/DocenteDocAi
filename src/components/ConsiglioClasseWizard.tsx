@@ -67,7 +67,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                   <NativeSelect
                     value={selectedClass}
                     onChange={e => setSelectedClass(e.target.value)}
-                    slotProps={{ htmlInput: { id: 'council-class-select' } }}
+                    inputProps={{ id: 'council-class-select' }}
                   >
 
                     {props.userClasses.map(c => <option key={c} value={c}>{c}</option>)}

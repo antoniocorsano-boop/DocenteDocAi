@@ -84,8 +84,8 @@ const EditableContentCard: React.FC<EditableContentCardProps> = ({ title, conten
               autoFocus
             />
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 'var(--md-sys-spacing-2)' }}>
-              <Button onClick={handleCancel} variant="text">Annulla</Button>
-              <Button onClick={handleSave} variant="contained">Salva</Button>
+              <Button onClick={handleCancel} variant="text" aria-label="Annulla modifica">Annulla</Button>
+              <Button onClick={handleSave} variant="contained" aria-label="Salva contenuto">Salva</Button>
             </Box>
           </Stack>
         ) : (

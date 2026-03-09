@@ -127,7 +127,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                     value={voto}
                     onChange={e => setVoto(e.target.value)}
                     required
-                    slotProps={{ htmlInput: { id: 'voto' } }}
+                    inputProps={{ id: 'voto' }}
                   >
 
                     <option value="">Seleziona...</option>
@@ -161,7 +161,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
               <NativeSelect
                 value={selectedCompetenzaId}
                 onChange={e => {setSelectedCompetenzaId(e.target.value); setSelectedLevelId('');}}
-                slotProps={{ htmlInput: { id: 'competenza' } }}
+                inputProps={{ id: 'competenza' }}
               >
 
                 {settings.competenze.map(c => <option key={c.id} value={c.id}>{c.nome}</option>)}

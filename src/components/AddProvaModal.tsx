@@ -116,7 +116,7 @@ const AddProvaModal: React.FC<AddProvaModalProps> = ({ disciplines, onClose, onS
                         value={materia}
                         onChange={e => setMateria(e.target.value)}
                         required
-                        slotProps={{ htmlInput: { id: 'prova-materia', name: 'materia' } }}
+                        inputProps={{ id: 'prova-materia', name: 'materia' }}
                       >
 
                         {(disciplines || []).map(d => <option key={d} value={d}>{d}</option>)}
