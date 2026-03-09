@@ -16,6 +16,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import ButtonBase from '@mui/material/ButtonBase';
 const createNewUda = (): Uda => ({
     id: `uda-${Date.now()}`,
     title: '',
@@ -161,13 +162,11 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                     
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
                         <label style={{ fontSize: 'var(--md-sys-typescale-label-medium-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-on-surface-variant)' }}>Competenze Target</label>
-                        <div
-                            role="button"
-                            tabIndex={0}
-                            aria-label="Seleziona competenze target"
+                        <ButtonBase
                             onClick={handlePickerOpen}
-                            onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && handlePickerOpen()}
-                            style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-2)', alignItems: 'center', minHeight: 'var(--md-sys-spacing-12)', padding: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', cursor: 'pointer', backgroundColor: 'var(--md-sys-color-surface-container-low)' }}
+                            aria-label="Seleziona competenze target"
+                            focusRipple
+                            sx={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-2)', alignItems: 'center', width: '100%', minHeight: 'var(--md-sys-spacing-12)', padding: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', cursor: 'pointer', backgroundColor: 'var(--md-sys-color-surface-container-low)', position: 'relative', overflow: 'hidden', '&:hover::after': { content: '""', position: 'absolute', inset: 0, borderRadius: 'inherit', backgroundColor: 'var(--md-sys-color-on-surface)', opacity: 0.08, pointerEvents: 'none' }, '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 } }}
                         >
                             {currentUda.competencyIds.length > 0 ? (
                                 currentUda.competencyIds.map(id => {
@@ -184,7 +183,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                     <span style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>Tocca per selezionare competenze</span>
                                 </div>
                             )}
-                        </div>
+                        </ButtonBase>
                     </div>
 
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 'var(--md-sys-spacing-3)', paddingTop: 'var(--md-sys-spacing-4)', borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>

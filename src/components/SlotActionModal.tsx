@@ -44,7 +44,9 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                   display: 'flex',
                   flexDirection: 'column',
                   gap: 1,
-                  '&:hover': { filter: 'brightness(0.97)' },
+                  position: 'relative',
+                  overflow: 'hidden',
+                  '&:hover::after': { content: '""', position: 'absolute', inset: 0, borderRadius: 'inherit', backgroundColor: 'var(--md-sys-color-on-surface)', opacity: 0.08, pointerEvents: 'none' },
                 }}
                 onClick={onView}
                 aria-label="Vedi dettagli lezione"
@@ -104,7 +106,9 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                       bgcolor: 'var(--md-sys-color-primary)',
                       color: 'var(--md-sys-color-on-primary)',
                       textAlign: 'left', width: '100%',
-                      '&:hover': { filter: 'brightness(0.95)' },
+                      position: 'relative',
+                      overflow: 'hidden',
+                      '&:hover::after': { content: '""', position: 'absolute', inset: 0, borderRadius: 'inherit', backgroundColor: 'var(--md-sys-color-on-primary)', opacity: 0.08, pointerEvents: 'none' },
                     }}
                 >
                     <Box sx={{
@@ -131,7 +135,9 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                       bgcolor: 'var(--md-sys-color-secondary-container)',
                       color: 'var(--md-sys-color-on-secondary-container)',
                       textAlign: 'left', width: '100%',
-                      '&:hover': { filter: 'brightness(0.97)' },
+                      position: 'relative',
+                      overflow: 'hidden',
+                      '&:hover::after': { content: '""', position: 'absolute', inset: 0, borderRadius: 'inherit', backgroundColor: 'var(--md-sys-color-on-secondary-container)', opacity: 0.08, pointerEvents: 'none' },
                     }}
                 >
                     <Box sx={{

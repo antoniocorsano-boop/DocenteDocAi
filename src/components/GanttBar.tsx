@@ -2,6 +2,7 @@
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 import React from 'react';
+import ButtonBase from '@mui/material/ButtonBase';
 import { Uda } from '../types';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for positioning, colors, and interactions
@@ -23,18 +24,10 @@ const GanttBar: React.FC<GanttBarProps> = ({ uda, onClick }) => {
     };
 
     return (
-        <div
-            role="button"
-            tabIndex={0}
-            aria-label={`UDA: ${uda.title}`}
+        <ButtonBase
             onClick={handleClick}
-            onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleClick();
-                }
-            }}
-            
+            aria-label={`UDA: ${uda.title}`}
+            focusRipple
             style={{
                 '--gantt-bar-left': `${uda.startPos}%`,
                 '--gantt-bar-width': `${uda.width}%`,
@@ -42,10 +35,30 @@ const GanttBar: React.FC<GanttBarProps> = ({ uda, onClick }) => {
                 '--gantt-bar-border': uda.borderColor,
                 '--gantt-bar-text': uda.textColor,
             } as React.CSSProperties}
-            title={`${uda.title} (${uda.startDate ? new Date(uda.startDate).toLocaleDateString() : '} - ${uda.endDate ? new Date(uda.endDate).toLocaleDateString() : '})`}
+            title={`${uda.title} (${uda.startDate ? new Date(uda.startDate).toLocaleDateString() : ''} - ${uda.endDate ? new Date(uda.endDate).toLocaleDateString() : ''})`}
+            sx={{
+                display: 'block',
+                width: '100%',
+                textAlign: 'left',
+                position: 'relative',
+                overflow: 'hidden',
+                '&:hover::after': {
+                    content: '""',
+                    position: 'absolute',
+                    inset: 0,
+                    borderRadius: 'inherit',
+                    backgroundColor: 'var(--md-sys-color-on-surface)',
+                    opacity: 0.08,
+                    pointerEvents: 'none',
+                },
+                '&:focus-visible': {
+                    outline: '2px solid var(--md-sys-color-primary)',
+                    outlineOffset: 2,
+                },
+            }}
         >
-            <div  style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{uda.title}</div>
-        </div>
+            <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{uda.title}</div>
+        </ButtonBase>
     );
 };
 

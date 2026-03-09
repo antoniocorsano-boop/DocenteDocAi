@@ -3,6 +3,7 @@
 import React from 'react';
 import { Notifica, View } from '../types';
 import { Button, Typography } from '@mui/material';
+import ButtonBase from '@mui/material/ButtonBase';
 import { M3Popover } from './ui';
 
 interface NotificationsPopoverProps {
@@ -153,46 +154,40 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                             padding: 'var(--md-sys-spacing-2)'}}
                     >
                         {sortedNotifiche.map(notifica => (
-                            <div
+                            <ButtonBase
                                 key={notifica.id}
                                 onClick={() => handleItemClick(notifica)}
-                                tabIndex={0}
-                                role="button"
-                                aria-pressed="false"
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                        e.preventDefault();
-                                        handleItemClick(notifica);
-                                    }
-                                }}
-                                style={{
+                                focusRipple
+                                aria-label={notifica.titolo}
+                                sx={{
+                                    display: 'block',
+                                    width: '100%',
+                                    textAlign: 'left',
                                     padding: 'var(--md-sys-spacing-4)',
                                     borderRadius: 'var(--md-sys-shape-corner-medium)',
                                     cursor: 'pointer',
+                                    position: 'relative',
+                                    overflow: 'hidden',
                                     backgroundColor: notifica.letta
                                         ? 'var(--md-sys-color-surface-container)'
                                         : 'var(--md-sys-color-surface-dim)',
                                     border: `var(--md-sys-border-width-thin) solid ${notifica.letta
                                         ? 'var(--md-sys-color-outline-variant)'
                                         : 'var(--md-sys-color-primary)'}`,
-                                    transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-                                    outline: 'none'
-                                }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.backgroundColor = notifica.letta
-                                        ? 'var(--md-sys-color-surfaceContainerHigh)'
-                                        : 'color-mix(in srgb, var(--md-sys-color-surface-dim) 80%, var(--md-sys-color-surface-container-high))';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.backgroundColor = notifica.letta
-                                        ? 'var(--md-sys-color-surface-container)'
-                                        : 'var(--md-sys-color-surface-dim)';
-                                }}
-                                onFocus={() => {
-                                    // Focus effect handled via CSS
-                                }}
-                                onBlur={() => {
-                                    // Focus effect handled via CSS
+                                    transition: 'background-color, border-color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
+                                    '&:hover::after': {
+                                        content: '""',
+                                        position: 'absolute',
+                                        inset: 0,
+                                        borderRadius: 'inherit',
+                                        backgroundColor: 'var(--md-sys-color-on-surface)',
+                                        opacity: 0.08,
+                                        pointerEvents: 'none',
+                                    },
+                                    '&:focus-visible': {
+                                        outline: '2px solid var(--md-sys-color-primary)',
+                                        outlineOffset: 2,
+                                    },
                                 }}
                             >
                                 <div
@@ -319,7 +314,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                         })()}
                                     </div>
                                 </div>
-                            </div>
+                            </ButtonBase>
                         ))}
                     </div>
                 ) : (
