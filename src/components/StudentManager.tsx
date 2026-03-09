@@ -239,7 +239,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                                 label="Seleziona classe"
                                 value={filterClass}
                                 onChange={e => setFilterClass(e.target.value as string)}
-                                slotProps={{ htmlInput: { 'aria-label': 'Filtra studenti per classe' } }}
+                                inputProps={{ 'aria-label': 'Filtra studenti per classe' }}
                             >
                                 <MenuItem value="all">Tutte le classi</MenuItem>
                                 {userClasses.map(c => <MenuItem key={c} value={c}>Classe {c}</MenuItem>)}

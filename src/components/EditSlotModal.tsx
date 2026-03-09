@@ -151,7 +151,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                                 value={currentSlot.classe || ''}
                                 onChange={e => setCurrentSlot({ ...currentSlot, classe: e.target.value })}
                                 required
-                                slotProps={{ htmlInput: { id: 'slot-class-select' } }}
+                                inputProps={{ id: 'slot-class-select' }}
                               >
 
                                 <option value="">Seleziona...</option>
@@ -168,7 +168,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                                 value={currentSlot.materia || ''}
                                 onChange={e => setCurrentSlot({ ...currentSlot, materia: e.target.value })}
                                 required
-                                slotProps={{ htmlInput: { id: 'slot-materia-select' } }}
+                                inputProps={{ id: 'slot-materia-select' }}
                               >
 
                                 <option value="">Seleziona...</option>

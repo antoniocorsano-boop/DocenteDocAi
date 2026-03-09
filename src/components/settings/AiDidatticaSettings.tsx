@@ -173,7 +173,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                         gap: 'var(--md-sys-spacing-4)'}}>
                         <FormControl fullWidth sx={{ mb: 2 }}>
                             <InputLabel htmlFor="anno-scolastico">Anno Corrente</InputLabel>
-                            <NativeSelect slotProps={{ htmlInput: { id: 'anno-scolastico' } }} value={localSettings.annoScolasticoCorrente} onChange={e => onSettingChange('annoScolasticoCorrente', e.target.value)}>
+                            <NativeSelect inputProps={{ id: 'anno-scolastico' }} value={localSettings.annoScolasticoCorrente} onChange={e => onSettingChange('annoScolasticoCorrente', e.target.value)}>
                                 {localSettings.anniScolastici.map(year => <option key={year} value={year}>{year}</option>)}
                             </NativeSelect>
                         </FormControl>
@@ -258,7 +258,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             marginBottom: 'var(--md-sys-spacing-4)'}}>
                             <FormControl fullWidth sx={{ mb: 2 }}>
                                 <InputLabel htmlFor="ordinamento-scolastico">Ordinamento Scolastico</InputLabel>
-                                <NativeSelect slotProps={{ htmlInput: { id: 'ordinamento-scolastico' } }} value={selLevel} onChange={e => setSelLevel(e.target.value)}>
+                                <NativeSelect inputProps={{ id: 'ordinamento-scolastico' }} value={selLevel} onChange={e => setSelLevel(e.target.value)}>
                                     {SCHOOL_LEVELS.map(l => <option key={l} value={l}>{l}</option>)}
                                 </NativeSelect>
                             </FormControl>

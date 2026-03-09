@@ -140,7 +140,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                       <NativeSelect
                         value={schoolType}
                         onChange={(e) => setSchoolType(e.target.value)}
-                        slotProps={{ htmlInput: { id: 'wizard-school-type' } }}
+                        inputProps={{ id: 'wizard-school-type' }}
                       >
 
                         {Object.keys(SCHOOL_TYPES_DISCIPLINES).map(t => (
