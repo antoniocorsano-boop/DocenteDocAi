@@ -47,6 +47,7 @@ const StudentDashboardItem = React.memo(({ student, evaluations, onClick }: Stud
     return (
         <ButtonBase
             onClick={() => onClick(student)}
+            aria-label={`Dettagli studente: ${student.nome} ${student.cognome}`}
             sx={{
                 width: '100%',
                 display: 'flex',

@@ -54,7 +54,7 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-8)' }}>
                 {[1, 2, 3, 4].map((i) => (
-                    <ButtonBase key={i} onClick={() => onChange(i)} sx={{
+                    <ButtonBase key={i} onClick={() => onChange(i)} aria-label={`Valutazione ${i} di 4`} aria-pressed={i <= value} sx={{
                         flex: 1,
                         height: 'var(--md-sys-spacing-14)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',

@@ -52,6 +52,7 @@ const ChoiceCard: React.FC<{ icon: string; label: string; onClick: () => void; s
         <ButtonBase
             onClick={onClick}
             aria-pressed={selected}
+            aria-label={label}
             sx={{
                 display: 'flex',
                 flexDirection: 'column',

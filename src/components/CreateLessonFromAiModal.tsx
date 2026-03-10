@@ -295,6 +295,8 @@ return (
                                             key={key}
                                             component="button"
                                             type="button"
+                                            aria-label={`Seleziona slot ${slot.giorno} ${slot.ora}`}
+                                            aria-pressed={selectedSlotKey === key}
                                             onClick={() => setSelectedSlotKey(prev => prev === key ? '' : key)}
                                             sx={{
                                                 height: 'var(--md-sys-spacing-12)',
@@ -381,6 +383,7 @@ return (
                                             key={obj.id}
                                             component="button"
                                             type="button"
+                                            aria-label={obj.text}
                                             onClick={() => handleAddObjective(obj.text)}
                                             sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: 'var(--md-sys-percent-100)', textAlign: 'left', padding: 'var(--md-sys-spacing-6)', transition: 'color var(--md-sys-motion-duration-medium)', display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-6)' }}
                                         >
