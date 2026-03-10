@@ -3,18 +3,25 @@
 // Audit: marzo 2026
 import React, { useState, useMemo } from 'react';
 import { Slot, Lezione, TimetableSettings, AiSettings, Uda, KnowledgeBaseEntry, PianoInclusione, Studente } from '../types';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import ButtonBase from '@mui/material/ButtonBase';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
-import { M3Dialog, InfoCard, SectionHeader, TextField } from './ui';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import Typography from '@mui/material/Typography';
+import { SectionHeader, TextField } from './ui';
 interface EditSlotModalProps {
     slot: Slot;
     lesson?: Lezione;
@@ -36,56 +43,7 @@ interface EditSlotModalProps {
 
 type ActivityType = 'standard' | 'disposizione' | 'ricevimento';
 
-const ChoiceCard: React.FC<{ icon: string; label: string; onClick: () => void; selected: boolean }> = ({ icon, label, onClick, selected }) => (
-    <Paper
-        elevation={selected ? 3 : 1}
-        sx={{
-            borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-            border: `var(--md-sys-border-width-thick) solid ${selected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
-            bgcolor: selected ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
-            color: selected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
-            transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
-            minWidth: 'var(--md-sys-spacing-16)',
-            transform: selected ? 'scale(1.05)' : 'none',
-        }}
-    >
-        <ButtonBase
-            onClick={onClick}
-            aria-pressed={selected}
-            aria-label={label}
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 'var(--md-sys-spacing-2)',
-                p: 'var(--md-sys-spacing-4)',
-                width: '100%',
-                borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-                '&:hover': {
-                    bgcolor: selected
-                        ? 'color-mix(in srgb, var(--md-sys-color-primary) 8%, var(--md-sys-color-primary-container))'
-                        : 'var(--md-sys-color-surface-container-high)',
-                },
-            }}
-        >
-            <Box sx={{
-                width: 'var(--md-sys-spacing-12)',
-                height: 'var(--md-sys-spacing-12)',
-                borderRadius: 'var(--md-sys-shape-corner-medium)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                bgcolor: selected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
-                color: selected ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-primary)',
-                transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
-            }}>
-                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', userSelect: 'none' }}>{icon}</Box>
-            </Box>
-            <Typography variant="caption" sx={{ color: 'inherit', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>{label}</Typography>
-        </ButtonBase>
-    </Paper>
-);
+
 
 const EditSlotModal: React.FC<EditSlotModalProps> = ({
     slot,
@@ -147,51 +105,80 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
     };
 
     return (
-        <M3Dialog
-            title="Pianificazione Slot"
-            onClose={onClose}
-            maxWidth="lg"
-            buttons={
-                <>
-                    {lesson && (
-                        <Button onClick={() => { if (window.confirm('Eliminare?')) { onDelete(slotKey); onClose(); } }} variant="text">
-                            Rimuovi
-                        </Button>
-                    )}
-                    <Button onClick={onClose} variant="text">Annulla</Button>
-                    <Button onClick={handleSave} variant="contained">Conferma</Button>
-                </>
-            }
-        >
-            <Stack spacing="var(--md-sys-spacing-6)">
-                {/* Slot header */}
-                <Typography
-                    variant="overline"
-                    sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}
-                >
-                    {slot.giorno} • {slot.ora}
-                </Typography>
-
-                {/* Activity type selector */}
-                <Box component="section">
-                    <SectionHeader title="Tipologia Attività" icon="category" />
-                    <Stack direction="row" spacing="var(--md-sys-spacing-3)" sx={{ mt: 'var(--md-sys-spacing-4)', overflowX: 'auto', pb: 'var(--md-sys-spacing-1)' }}>
-                        <ChoiceCard icon="school" label="Lezione" selected={activityType === 'standard'} onClick={() => setActivityType('standard')} />
-                        <ChoiceCard icon="pending_actions" label="Disp." selected={activityType === 'disposizione'} onClick={() => setActivityType('disposizione')} />
-                        <ChoiceCard icon="diversity_3" label="Ricev." selected={activityType === 'ricevimento'} onClick={() => setActivityType('ricevimento')} />
-                    </Stack>
+        <Dialog open onClose={onClose} maxWidth="sm" fullWidth aria-labelledby="edit-slot-dialog-title">
+            <DialogTitle
+                id="edit-slot-dialog-title"
+                sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+            >
+                <Box>
+                    <Typography variant="h6" component="span">Pianificazione Slot</Typography>
+                    <Typography variant="caption" display="block" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
+                        {slot.giorno} • {slot.ora}
+                    </Typography>
                 </Box>
+                <IconButton edge="end" aria-label="Chiudi" onClick={onClose} size="small" sx={{ ml: 1 }}>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true">close</Box>
+                </IconButton>
+            </DialogTitle>
 
-                {/* Form area */}
-                <Paper
-                    variant="outlined"
-                    sx={{
-                        bgcolor: 'var(--md-sys-color-surface-container-low)',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
-                        borderColor: 'var(--md-sys-color-outline)',
-                        p: 'var(--md-sys-spacing-6)',
-                    }}
-                >
+            <DialogContent>
+                <Stack spacing="var(--md-sys-spacing-6)" sx={{ pt: 'var(--md-sys-spacing-2)' }}>
+                    {/* Activity type selector */}
+                    <Box component="section">
+                        <SectionHeader title="Tipologia Attività" icon="category" />
+                        <ToggleButtonGroup
+                            value={activityType}
+                            exclusive
+                            onChange={(_, v: ActivityType | null) => { if (v !== null) setActivityType(v); }}
+                            aria-label="Tipologia Attività"
+                            sx={{ mt: 'var(--md-sys-spacing-4)', display: 'flex', gap: 'var(--md-sys-spacing-3)' }}
+                        >
+                            {([
+                                { value: 'standard' as const, icon: 'school', label: 'Lezione' },
+                                { value: 'disposizione' as const, icon: 'pending_actions', label: 'Disp.' },
+                                { value: 'ricevimento' as const, icon: 'diversity_3', label: 'Ricev.' },
+                            ]).map(({ value, icon, label }) => (
+                                <ToggleButton
+                                    key={value}
+                                    value={value}
+                                    aria-label={label}
+                                    sx={{
+                                        flex: '0 0 auto',
+                                        flexDirection: 'column',
+                                        gap: 'var(--md-sys-spacing-2)',
+                                        p: 'var(--md-sys-spacing-4)',
+                                        minWidth: 'var(--md-sys-spacing-16)',
+                                        borderRadius: 'var(--md-sys-shape-corner-extra-large) !important',
+                                        border: '1px solid var(--md-sys-color-outline-variant) !important',
+                                        transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+                                        '&.Mui-selected': {
+                                            bgcolor: 'var(--md-sys-color-primary-container)',
+                                            color: 'var(--md-sys-color-on-primary-container)',
+                                            borderColor: 'var(--md-sys-color-primary) !important',
+                                            transform: 'scale(1.05)',
+                                        },
+                                    }}
+                                >
+                                    <Box sx={{
+                                        width: 'var(--md-sys-spacing-12)',
+                                        height: 'var(--md-sys-spacing-12)',
+                                        borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        bgcolor: activityType === value ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
+                                        color: activityType === value ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-primary)',
+                                        transition: `all var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)`,
+                                    }}>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', userSelect: 'none' }}>{icon}</Box>
+                                    </Box>
+                                    <Typography variant="caption" sx={{ color: 'inherit', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>{label}</Typography>
+                                </ToggleButton>
+                            ))}
+                        </ToggleButtonGroup>
+                    </Box>
+
+                    {/* Form fields */}
                     {activityType === 'standard' && (
                         <Stack spacing="var(--md-sys-spacing-6)">
                             <FormControl fullWidth>
@@ -250,14 +237,22 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                                 value={currentLesson.externalLink || ''}
                                 onChange={e => setCurrentLesson({ ...currentLesson, externalLink: e.target.value })}
                                 placeholder="Incolla URL deliverable..."
-                                slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">auto_awesome</Box></InputAdornment> } }}
+                                slotProps={{ input: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">auto_awesome</Box></InputAdornment> } }}
                             />
                         </Stack>
                     )}
 
                     {activityType === 'disposizione' && (
                         <Stack spacing="var(--md-sys-spacing-4)">
-                            <InfoCard title="Ora di Disposizione" description="Registra la tua presenza per sostituzioni o attività di plesso." icon="pending_actions" variant="outlined" />
+                            <Card variant="outlined">
+                                <CardContent sx={{ display: 'flex', gap: 'var(--md-sys-spacing-4)', alignItems: 'flex-start' }}>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--icon-size-medium)', mt: 0.5, flexShrink: 0 }}>pending_actions</Box>
+                                    <Box>
+                                        <Typography variant="subtitle2">Ora di Disposizione</Typography>
+                                        <Typography variant="body2" color="text.secondary">Registra la tua presenza per sostituzioni o attività di plesso.</Typography>
+                                    </Box>
+                                </CardContent>
+                            </Card>
                             <TextField
                                 multiline
                                 id="slot-disp-nota"
@@ -272,7 +267,15 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
 
                     {activityType === 'ricevimento' && (
                         <Stack spacing="var(--md-sys-spacing-4)">
-                            <InfoCard title="Colloquio Genitori" description="Spazio dedicato al ricevimento delle famiglie." icon="diversity_3" variant="tertiary" />
+                            <Card variant="outlined">
+                                <CardContent sx={{ display: 'flex', gap: 'var(--md-sys-spacing-4)', alignItems: 'flex-start' }}>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-tertiary)', fontSize: 'var(--icon-size-medium)', mt: 0.5, flexShrink: 0 }}>diversity_3</Box>
+                                    <Box>
+                                        <Typography variant="subtitle2">Colloquio Genitori</Typography>
+                                        <Typography variant="body2" color="text.secondary">Spazio dedicato al ricevimento delle famiglie.</Typography>
+                                    </Box>
+                                </CardContent>
+                            </Card>
                             <TextField
                                 multiline
                                 id="slot-ricev-nota"
@@ -284,9 +287,20 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                             />
                         </Stack>
                     )}
-                </Paper>
-            </Stack>
-        </M3Dialog>
+                </Stack>
+            </DialogContent>
+
+            <DialogActions>
+                {lesson && (
+                    <Button onClick={() => { if (window.confirm('Eliminare?')) { onDelete(slotKey); onClose(); } }} variant="text" color="error">
+                        Rimuovi
+                    </Button>
+                )}
+                <Box sx={{ flex: 1 }} />
+                <Button onClick={onClose} variant="text">Annulla</Button>
+                <Button onClick={handleSave} variant="contained">Conferma</Button>
+            </DialogActions>
+        </Dialog>
     );
 };
 

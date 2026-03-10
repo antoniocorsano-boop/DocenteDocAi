@@ -99,7 +99,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
           sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', pb: headline ? 1 : 2 }}
         >
           <Box>
-            <Typography variant="h6" component="h2" id="dialog-title">
+            <Typography variant="h6" component="h2">
               {title}
             </Typography>
             {headline && (
