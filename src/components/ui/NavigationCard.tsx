@@ -3,7 +3,7 @@
 
 import React from 'react';
 import MuiCard from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
+import ButtonBase from '@mui/material/ButtonBase';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -82,13 +82,13 @@ export const NavigationCard: React.FC<NavigationCardProps> = ({
             }}
         >
             {clickable ? (
-                <CardActionArea
+                <ButtonBase
                     onClick={onClick}
                     aria-label={ariaLabel ?? `${title}: ${description}`}
-                    sx={{ height: '100%' }}
+                    sx={{ display: 'block', width: '100%', height: '100%', textAlign: 'left', borderRadius: 'inherit' }}
                 >
                     {cardContent}
-                </CardActionArea>
+                </ButtonBase>
             ) : (
                 cardContent
             )}

@@ -16,7 +16,6 @@ import Avatar from './ui/Avatar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import ButtonBase from '@mui/material/ButtonBase';
@@ -194,7 +193,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 borderRadius: 'var(--md-sys-shape-corner-large)',
                             }}
                         >
-                            <CardActionArea onClick={() => onNavigate('teacher-inbox')} sx={{ borderRadius: 'var(--md-sys-shape-corner-large)' }}>
+                            <ButtonBase onClick={() => onNavigate('teacher-inbox')} sx={{ display: 'block', width: '100%', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
                                 <CardContent>
                                     <Stack direction="row" alignItems="center" justifyContent="space-between">
                                         <Stack direction="row" alignItems="center" spacing="var(--md-sys-spacing-4)">
@@ -237,7 +236,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-on-tertiary-container)' }}>arrow_forward</Box>
                                     </Stack>
                                 </CardContent>
-                            </CardActionArea>
+                            </ButtonBase>
                         </Card>
                     )}
 
@@ -256,7 +255,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 ].map(item => (
                                     <Grid key={item.view} size={{ xs: 6 }}>
                                         <Card sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', height: '100%' }}>
-                                            <CardActionArea onClick={() => onNavigate(item.view as View, selectedClass)} sx={{ p: 'var(--md-sys-spacing-4)', height: '100%', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
+                                            <ButtonBase onClick={() => onNavigate(item.view as View, selectedClass)} sx={{ display: 'block', width: '100%', p: 'var(--md-sys-spacing-4)', height: '100%', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
                                                 <Stack direction="row" alignItems="center" spacing="var(--md-sys-spacing-3)">
                                                     <Box sx={{ width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-medium)', bgcolor: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                                                         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: item.color, fontSize: 'var(--icon-size-medium)' }}>{item.icon}</Box>
@@ -266,7 +265,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                                         <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 'var(--md-sys-spacing-0-5)', display: 'block' }}>{item.caption}</Typography>
                                                     </Box>
                                                 </Stack>
-                                            </CardActionArea>
+                                            </ButtonBase>
                                         </Card>
                                     </Grid>
                                 ))}
@@ -286,7 +285,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 ].map(item => (
                                     <Grid key={item.view} size={{ xs: 6 }}>
                                         <Card sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', height: '100%' }}>
-                                            <CardActionArea onClick={() => onNavigate(item.view as View, selectedClass)} sx={{ p: 'var(--md-sys-spacing-4)', height: '100%', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
+                                            <ButtonBase onClick={() => onNavigate(item.view as View, selectedClass)} sx={{ display: 'block', width: '100%', p: 'var(--md-sys-spacing-4)', height: '100%', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
                                                 <Stack direction="row" alignItems="center" spacing="var(--md-sys-spacing-3)">
                                                     <Box sx={{ width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-medium)', bgcolor: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                                                         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: item.color, fontSize: 'var(--icon-size-medium)' }}>{item.icon}</Box>
@@ -296,7 +295,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                                         <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 'var(--md-sys-spacing-0-5)', display: 'block' }}>{item.caption}</Typography>
                                                     </Box>
                                                 </Stack>
-                                            </CardActionArea>
+                                            </ButtonBase>
                                         </Card>
                                     </Grid>
                                 ))}
@@ -317,7 +316,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 ].map(item => (
                                     <Grid key={item.view} size={{ xs: 4 }}>
                                         <Card sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', height: '100%' }}>
-                                            <CardActionArea onClick={() => onNavigate(item.view as View, selectedClass)} sx={{ p: 'var(--md-sys-spacing-4)', height: '100%', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: 'center' }}>
+                                            <ButtonBase onClick={() => onNavigate(item.view as View, selectedClass)} sx={{ display: 'block', width: '100%', p: 'var(--md-sys-spacing-4)', height: '100%', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: 'center' }}>
                                                 <Stack alignItems="center" spacing="var(--md-sys-spacing-2)">
                                                     <Box sx={{ width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-medium)', bgcolor: 'var(--md-sys-color-surface-container-high)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                                         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: item.color, fontSize: 'var(--icon-size-medium)' }}>{item.icon}</Box>
@@ -327,7 +326,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                                         <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 'var(--md-sys-spacing-0-5)', display: 'block' }}>{item.caption}</Typography>
                                                     </Box>
                                                 </Stack>
-                                            </CardActionArea>
+                                            </ButtonBase>
                                         </Card>
                                     </Grid>
                                 ))}

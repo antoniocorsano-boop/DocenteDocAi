@@ -27,7 +27,7 @@ exports[`CategoryCard Story Snapshots > renders default story correctly 1`] = `
         style="display: flex; flex-direction: column; align-items: center; gap: var(--md-sys-spacing-4);"
       >
         <h6
-          class="MuiTypography-root MuiTypography-subtitle2 css-5qmbmc-MuiTypography-root"
+          class="MuiTypography-root MuiTypography-subtitle2 css-1ksqu98-MuiTypography-root"
         >
           Test
         </h6>

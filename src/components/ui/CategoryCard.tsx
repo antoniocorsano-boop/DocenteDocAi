@@ -103,7 +103,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
         }}>
             <Typography
                 variant="subtitle2"
-                sx={{ textAlign: 'center', fontWeight: 900, letterSpacing: '-0.025em', color: 'text.primary', m: 0 }}
+                sx={{ textAlign: 'center', fontWeight: 'var(--md-sys-typescale-weight-black)', color: 'text.primary', m: 0 }}
             >
                 {label}
             </Typography>
