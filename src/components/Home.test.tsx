@@ -126,6 +126,9 @@ vi.mock('./ui', async () => {
     M3StateLayer: ({ children, ...props }: any) => (
       <div data-testid="m3-state-layer" {...props}>{children}</div>
     ),
+    PageWrapper: ({ children }: any) => (
+      <div data-testid="page-wrapper">{children}</div>
+    ),
   };
 });
 

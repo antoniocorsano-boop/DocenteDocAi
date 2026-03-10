@@ -24,6 +24,11 @@ vi.mock('./ui', () => ({
       {title}
     </button>
   ),
+  PageWrapper: ({ children }: any) => (
+    <div data-testid="page-wrapper">
+      {children}
+    </div>
+  ),
 }));
 
 // Mock AppLayout

@@ -34,8 +34,8 @@ describe('Calendar', () => {
   it('dovrebbe cambiare mese', () => {
     render(<Calendar eventi={mockEventi} setEventi={mockSetEventi} aiSettings={mockAiSettings} onNavigate={mockOnNavigate} />);
     
-    // Find the next button by role or title attribute
-    const nextButton = screen.getByTitle('Mese successivo');
+    // Find the next button by aria-label
+    const nextButton = screen.getByRole('button', { name: /periodo successivo/i });
     fireEvent.click(nextButton);
     expect(screen.getByText(/[Nn]ovembre 2023/)).toBeInTheDocument();
   });
