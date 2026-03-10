@@ -22,10 +22,12 @@ import './global.css';
 import { M3ThemeProvider } from './theme/theme';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import muiTheme from './theme/muiTheme';
+import { buildMuiTheme } from './theme/muiTheme';
 import { NKAProvider } from './nka/NKAProvider';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import { useMemo, useState, useEffect } from 'react';
+import { useSettingsStore } from './stores/useSettingsStore';
 
 /**
  * STORAGE RECOVERY:
@@ -146,6 +148,39 @@ if (!rootElement) throw new Error("Root element missing");
 
 const root = createRoot(rootElement);
 
+/**
+ * Reactive MUI ThemeProvider — reads mode from Zustand and rebuilds the MUI
+ * theme when dark/light/system changes, so MUI-internal component colours
+ * (hover overlays, ripples, select menus, etc.) are always in sync with the
+ * active mode.  Uses useMemo so the theme object is only recreated on
+ * mode changes.
+ */
+function AppMuiThemeWrapper({ children }: { children: React.ReactNode }) {
+  const mode = useSettingsStore(s => s.themeState.mode);
+
+  // Track OS dark-mode preference reactively (for mode === 'system')
+  const mq = typeof window !== 'undefined'
+    ? window.matchMedia('(prefers-color-scheme: dark)')
+    : null;
+  const [systemDark, setSystemDark] = useState(() => mq?.matches ?? false);
+  useEffect(() => {
+    if (!mq) return;
+    const handler = (e: MediaQueryListEvent) => setSystemDark(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const resolvedMode: 'light' | 'dark' =
+    mode === 'system' ? (systemDark ? 'dark' : 'light') : mode;
+  const theme = useMemo(() => buildMuiTheme(resolvedMode), [resolvedMode]);
+  return (
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline enableColorScheme />
+      {children}
+    </MuiThemeProvider>
+  );
+}
+
 // Loading fallback component
 function LoadingFallback() {
   return (
@@ -206,12 +241,11 @@ async function bootstrapApp() {
     root.render(
       <ErrorBoundary>
         <React.StrictMode>
-          <MuiThemeProvider theme={muiTheme}>
-            <CssBaseline enableColorScheme />
+          <AppMuiThemeWrapper>
             <M3ThemeProvider>
               <LoadingFallback />
             </M3ThemeProvider>
-          </MuiThemeProvider>
+          </AppMuiThemeWrapper>
         </React.StrictMode>
       </ErrorBoundary>
     );
@@ -226,8 +260,7 @@ async function bootstrapApp() {
     root.render(
       <ErrorBoundary>
         <React.StrictMode>
-          <MuiThemeProvider theme={muiTheme}>
-            <CssBaseline enableColorScheme />
+          <AppMuiThemeWrapper>
             <M3ThemeProvider>
               <NKAProvider>
                 <ModalProvider>
@@ -235,7 +268,7 @@ async function bootstrapApp() {
                 </ModalProvider>
               </NKAProvider>
             </M3ThemeProvider>
-          </MuiThemeProvider>
+          </AppMuiThemeWrapper>
         </React.StrictMode>
       </ErrorBoundary>
     );
@@ -246,12 +279,11 @@ async function bootstrapApp() {
       root.render(
         <ErrorBoundary>
           <React.StrictMode>
-            <MuiThemeProvider theme={muiTheme}>
-              <CssBaseline enableColorScheme />
+            <AppMuiThemeWrapper>
               <M3ThemeProvider>
                 <ErrorFallback error={e as Error} />
               </M3ThemeProvider>
-            </MuiThemeProvider>
+            </AppMuiThemeWrapper>
           </React.StrictMode>
         </ErrorBoundary>
       );

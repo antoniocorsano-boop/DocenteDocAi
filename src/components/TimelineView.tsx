@@ -108,9 +108,9 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
                     ...u,
                     startPos,
                     width: Math.max(0.5, endPos - startPos), // Minimal width ensures visibility
-                    color: `hsl(${hue}, var(--md-sys-percent-40), var(--md-sys-percent-90))`,
-                    borderColor: `hsl(${hue}, var(--md-sys-percent-60), var(--md-sys-percent-40))`,
-                    textColor: `hsl(${hue}, var(--md-sys-percent-80), var(--md-sys-percent-20))`
+                    color: `hsl(${hue}, var(--gantt-bg-saturation), var(--gantt-bg-lightness))`,
+                    borderColor: `hsl(${hue}, var(--gantt-border-saturation), var(--gantt-border-lightness))`,
+                    textColor: `hsl(${hue}, var(--gantt-text-saturation), var(--gantt-text-lightness))`
                 };
             })
             .filter(u => u.startPos < 100 && (u.startPos + u.width) > 0) // Filter out-of-range

@@ -117,10 +117,17 @@ export const ThemeService = {
   applyThemeState(state: AppThemeState): void {
     if (!state) return;
 
+    // Resolve 'system' to the actual OS preference
+    const systemPrefersDark =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const resolvedMode =
+      state.mode === 'system' ? (systemPrefersDark ? 'dark' : 'light') : state.mode;
+
     // Get base theme configuration
     const baseThemeConfig = {
       name: state.customizationName || state.generatedName || 'Default',
-      mode: state.mode === 'system' ? 'light' : state.mode,
+      mode: resolvedMode,
       visualStyle: state.visualStyle,
       colors: state.customColors || state.generatedColors,
       glassBlur: state.glassBlur,

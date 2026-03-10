@@ -6,53 +6,41 @@
  * I componenti MUI si adatteranno automaticamente al tema chiaro/scuro
  * e ai token globali senza duplicare valori.
  */
-import { createTheme } from '@mui/material/styles';
+import { createTheme, Theme } from '@mui/material/styles';
 
-const muiTheme = createTheme({
-  // CSS Variables abilitate: il tema usa var(--mui-*) internamente,
-  // ma noi sovrascriviamo con i token MD3 tramite palette CSS vars.
+// MD3 palette values per mode — hex only, never CSS vars (MUI Error #9)
+const lightPalette = {
+  primary: { main: '#6750A4', contrastText: '#FFFFFF', dark: '#4F378B', light: '#EADDFF' },
+  secondary: { main: '#625B71', contrastText: '#FFFFFF', dark: '#4A4458', light: '#E8DEF8' },
+  error: { main: '#B3261E', contrastText: '#FFFFFF', dark: '#8C1D18', light: '#F9DEDC' },
+  background: { default: '#FDFBFF', paper: '#FDFBFF' },
+  text: { primary: '#1C1B1F', secondary: '#49454F', disabled: '#1C1B1F' },
+  divider: '#C4C7C5',
+  action: { active: '#1C1B1F', hover: '#E7E0EC', selected: '#E8DEF8', disabled: '#1C1B1F', disabledBackground: '#E7E0EC' },
+};
+
+const darkPalette = {
+  primary: { main: '#D0BCFF', contrastText: '#381E72', dark: '#B69DF8', light: '#EADDFF' },
+  secondary: { main: '#CCC2DC', contrastText: '#332D41', dark: '#B0A7C0', light: '#E8DEF8' },
+  error: { main: '#F2B8B5', contrastText: '#601410', dark: '#CC7B77', light: '#F9DEDC' },
+  background: { default: '#1C1B1F', paper: '#1C1B1F' },
+  text: { primary: '#E6E1E5', secondary: '#CAC4D0', disabled: '#938F99' },
+  divider: '#444746',
+  action: { active: '#E6E1E5', hover: '#2E2D33', selected: '#2E273D', disabled: '#938F99', disabledBackground: '#2E2D33' },
+};
+
+export function buildMuiTheme(mode: 'light' | 'dark'): Theme {
+  const palette = mode === 'dark' ? darkPalette : lightPalette;
+  return createTheme({
   cssVariables: false,
 
   palette: {
+    mode,
     // NOTA: i valori hex rispecchiano i token MD3 definiti in theme.css.
     // Non usare CSS variables qui: MUI chiama alpha()/lighten()/darken() su questi valori
     // a runtime e non sa parsare i CSS custom property → MUI Error #9.
     // I componenti usano i token var(--md-sys-color-*) tramite sx prop e styled.
-    primary: {
-      main: '#6750A4',
-      contrastText: '#FFFFFF',
-      dark: '#4F378B',
-      light: '#EADDFF',
-    },
-    secondary: {
-      main: '#625B71',
-      contrastText: '#FFFFFF',
-      dark: '#4A4458',
-      light: '#E8DEF8',
-    },
-    error: {
-      main: '#B3261E',
-      contrastText: '#FFFFFF',
-      dark: '#8C1D18',
-      light: '#F9DEDC',
-    },
-    background: {
-      default: '#FDFBFF',
-      paper: '#FDFBFF',
-    },
-    text: {
-      primary: '#1C1B1F',
-      secondary: '#49454F',
-      disabled: '#1C1B1F',
-    },
-    divider: '#C4C7C5',
-    action: {
-      active: '#1C1B1F',
-      hover: '#E7E0EC',
-      selected: '#E8DEF8',
-      disabled: '#1C1B1F',
-      disabledBackground: '#E7E0EC',
-    },
+    ...palette,
   },
 
   typography: {
@@ -227,6 +215,9 @@ const muiTheme = createTheme({
       },
     },
   },
-});
+  });
+}
 
+// Default export: light theme (used in tests and as SSR-safe fallback)
+const muiTheme = buildMuiTheme('light');
 export default muiTheme;

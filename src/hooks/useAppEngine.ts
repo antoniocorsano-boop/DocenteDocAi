@@ -263,6 +263,18 @@ export const useAppEngine = () => {
         ThemeService.applyThemeState(themeState);
     }, [themeState]);
 
+    // Re-apply when OS dark/light preference changes (for mode === 'system')
+    useEffect(() => {
+        if (themeState.mode !== 'system') return;
+        const mq = typeof window !== 'undefined'
+            ? window.matchMedia('(prefers-color-scheme: dark)')
+            : null;
+        if (!mq) return;
+        const handler = () => ThemeService.applyThemeState(themeState);
+        mq.addEventListener('change', handler);
+        return () => mq.removeEventListener('change', handler);
+    }, [themeState]);
+
     // --- CORE ACTIONS (COORDINATION AND UI DISPATCH) ---
     // These actions are managed by AppEngine but dispatch to Zustand stores.
 
