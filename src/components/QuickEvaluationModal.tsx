@@ -7,10 +7,12 @@ import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
+import Paper from '@mui/material/Paper';
+import ButtonBase from '@mui/material/ButtonBase';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
@@ -37,29 +39,33 @@ const getTestTypeIcon = (tipo: string) => {
 };
 
 const ChoiceCard: React.FC<{ icon: string; label: string; onClick: () => void; selected: boolean }> = ({ icon, label, onClick, selected }) => (
-  <Card
-    component="button"
-    type="button"
-    onClick={onClick}
-    aria-pressed={selected}
+  <Paper
+    elevation={0}
     sx={{
-      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-      p: 4, borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+      borderRadius: 'var(--md-sys-shape-corner-extra-large)',
       border: `2px solid ${selected ? 'var(--md-sys-color-primary)' : 'color-mix(in srgb, var(--md-sys-color-outline-variant) 19%, transparent)'}`,
       bgcolor: selected ? 'var(--md-sys-color-primary-container)' : 'color-mix(in srgb, var(--md-sys-color-surface-container) 50%, transparent)',
-      color: selected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
-      boxShadow: selected ? 'var(--md-sys-elevation-level4)' : 'none',
       transform: selected ? 'scale(1.05)' : 'scale(1)',
       transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-      gap: 2, minWidth: 'var(--md-sys-spacing-16)', cursor: 'pointer',
+      overflow: 'hidden',
       '&:hover': { border: `2px solid var(--md-sys-color-outline)`, bgcolor: selected ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)' },
     }}
   >
-    <Box sx={{ width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-medium)', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: selected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)', color: selected ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-primary)', boxShadow: selected ? 'var(--md-sys-elevation-level2)' : 'none', transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}>
-      <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', userSelect: 'none', fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24" }}>{icon}</Box>
-    </Box>
-    <Box component="span" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontFamily: 'var(--md-sys-typescale-body-small-font-family)' }}>{label}</Box>
-  </Card>
+    <ButtonBase
+      onClick={onClick}
+      aria-pressed={selected}
+      sx={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        p: 4, gap: 2, minWidth: 'var(--md-sys-spacing-16)', width: '100%',
+        color: selected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
+      }}
+    >
+      <Box sx={{ width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-medium)', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: selected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)', color: selected ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-primary)', boxShadow: selected ? 'var(--md-sys-elevation-level2)' : 'none', transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}>
+        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', userSelect: 'none', fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24" }}>{icon}</Box>
+      </Box>
+      <Box component="span" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontFamily: 'var(--md-sys-typescale-body-small-font-family)' }}>{label}</Box>
+    </ButtonBase>
+  </Paper>
 );
 
 const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, lesson, settings, onClose, onSaveEvaluation, onSaveCompetencyEvaluation }) => {
@@ -130,19 +136,20 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
             </Box>
             
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                <FormControl sx={{ mb: 2 }}>
-                  <InputLabel htmlFor="voto">Voto / Giudizio</InputLabel>
-                  <NativeSelect
+                                <FormControl fullWidth>
+                  <InputLabel id="quick-voto-label" shrink>Voto / Giudizio</InputLabel>
+                  <Select
+                    labelId="quick-voto-label"
                     value={voto}
-                    onChange={e => setVoto(e.target.value)}
+                    label="Voto / Giudizio"
+                    displayEmpty
+                    notched
+                    onChange={(e: SelectChangeEvent) => setVoto(e.target.value)}
                     required
-                    inputProps={{ id: 'voto' }}
                   >
-
-                    <option value="">Seleziona...</option>
-                    {RATING_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
-                
-                  </NativeSelect>
+                    <MenuItem value="">Seleziona...</MenuItem>
+                    {RATING_OPTIONS.map(o => <MenuItem key={o} value={o}>{o}</MenuItem>)}
+                  </Select>
                 </FormControl>
 
                 <TextField
@@ -165,17 +172,18 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
     
     const renderCompetenzaTab = () => (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <FormControl sx={{ mb: 2 }}>
-              <InputLabel htmlFor="competenza">Competenza</InputLabel>
-              <NativeSelect
+                        <FormControl fullWidth>
+              <InputLabel id="quick-competenza-label" shrink>Competenza</InputLabel>
+              <Select
+                labelId="quick-competenza-label"
                 value={selectedCompetenzaId}
-                onChange={e => {setSelectedCompetenzaId(e.target.value); setSelectedLevelId('');}}
-                inputProps={{ id: 'competenza' }}
+                label="Competenza"
+                displayEmpty
+                notched
+                onChange={(e: SelectChangeEvent) => { setSelectedCompetenzaId(e.target.value); setSelectedLevelId(''); }}
               >
-
-                {settings.competenze.map(c => <option key={c.id} value={c.id}>{c.nome}</option>)}
-            
-              </NativeSelect>
+                {settings.competenze.map(c => <MenuItem key={c.id} value={c.id}>{c.nome}</MenuItem>)}
+              </Select>
             </FormControl>
 
             {selectedCompetenza && (
@@ -207,7 +215,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
                                     sx={{
                                         fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
                                         color: selectedLevelId === level.id ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
-                                        fontWeight: selectedLevelId === level.id ? 700 : 'normal' }}
+                                        fontWeight: selectedLevelId === level.id ? 'var(--md-sys-typescale-weight-bold)' : 'var(--md-sys-typescale-weight-regular)' }}
                                 >{level.descrizione}</Typography>
                             </Box>
                         ))}

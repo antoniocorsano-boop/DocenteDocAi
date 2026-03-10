@@ -12,7 +12,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
@@ -162,20 +163,21 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                 return (
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                                        <FormControl sx={{ mb: 2 }}>
-                              <InputLabel htmlFor="import-target-class">Destinazione</InputLabel>
-                              <NativeSelect
+                                                        <FormControl fullWidth>
+                              <InputLabel id="import-target-class-label" shrink>Destinazione</InputLabel>
+                              <Select
+                                labelId="import-target-class-label"
                                 value={targetClass}
-                                onChange={e => setTargetClass(e.target.value)}
+                                label="Destinazione"
+                                displayEmpty
+                                notched
+                                onChange={(e: SelectChangeEvent) => setTargetClass(e.target.value)}
                                 required
-                                inputProps={{ id: 'import-target-class' }}
                               >
-
-                                <option value="AUTO">✨ Rileva automaticamente dal file (Multi-classe)</option>
-                                <option disabled>──────────</option>
-                                {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
-                            
-                              </NativeSelect>
+                                <MenuItem value="AUTO">✨ Rileva automaticamente dal file (Multi-classe)</MenuItem>
+                                <MenuItem disabled>──────────</MenuItem>
+                                {userClasses.map(c => <MenuItem key={c} value={c}>{c}</MenuItem>)}
+                              </Select>
                             </FormControl>
                             {targetClass === 'AUTO' && <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 'var(--md-sys-spacing-4)', pl: 'var(--md-sys-spacing-4)', pr: 'var(--md-sys-spacing-4)' }}>Il file CSV deve contenere una colonna con il nome della classe (es. "1A", "2B").</Typography>}
                         </Box>
@@ -335,46 +337,49 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         </Typography>
 
                         <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)' }}>
-                                                        <FormControl sx={{ mb: 2 }}>
-                              <InputLabel htmlFor="map-cognome">Colonna COGNOME</InputLabel>
-                              <NativeSelect
+                                                        <FormControl fullWidth>
+                              <InputLabel id="map-cognome-label" shrink>Colonna COGNOME</InputLabel>
+                              <Select
+                                labelId="map-cognome-label"
                                 value={columnMap.cognome}
-                                onChange={e => setColumnMap(p => ({ ...p, cognome: e.target.value }))}
-                                inputProps={{ id: 'map-cognome' }}
+                                label="Colonna COGNOME"
+                                displayEmpty
+                                notched
+                                onChange={(e: SelectChangeEvent) => setColumnMap(p => ({ ...p, cognome: e.target.value }))}
                               >
-
-                                <option value="">Seleziona...</option>
-                                {csvHeaders.map(h => <option key={h} value={h}>{h}</option>)}
-                            
-                              </NativeSelect>
+                                <MenuItem value="">Seleziona...</MenuItem>
+                                {csvHeaders.map(h => <MenuItem key={h} value={h}>{h}</MenuItem>)}
+                              </Select>
                             </FormControl>
-                                                        <FormControl sx={{ mb: 2 }}>
-                              <InputLabel htmlFor="map-nome">Colonna NOME</InputLabel>
-                              <NativeSelect
+                            <FormControl fullWidth>
+                              <InputLabel id="map-nome-label" shrink>Colonna NOME</InputLabel>
+                              <Select
+                                labelId="map-nome-label"
                                 value={columnMap.nome}
-                                onChange={e => setColumnMap(p => ({ ...p, nome: e.target.value }))}
-                                inputProps={{ id: 'map-nome' }}
+                                label="Colonna NOME"
+                                displayEmpty
+                                notched
+                                onChange={(e: SelectChangeEvent) => setColumnMap(p => ({ ...p, nome: e.target.value }))}
                               >
-
-                                <option value="">Seleziona...</option>
-                                {csvHeaders.map(h => <option key={h} value={h}>{h}</option>)}
-                            
-                              </NativeSelect>
+                                <MenuItem value="">Seleziona...</MenuItem>
+                                {csvHeaders.map(h => <MenuItem key={h} value={h}>{h}</MenuItem>)}
+                              </Select>
                             </FormControl>
                             {targetClass === 'AUTO' && (
                                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                                                        <FormControl sx={{ mb: 2 }}>
-                                      <InputLabel htmlFor="map-classe">Colonna CLASSE</InputLabel>
-                                      <NativeSelect
+                                                                        <FormControl fullWidth>
+                                      <InputLabel id="map-classe-label" shrink>Colonna CLASSE</InputLabel>
+                                      <Select
+                                        labelId="map-classe-label"
                                         value={columnMap.classe}
-                                        onChange={e => setColumnMap(p => ({ ...p, classe: e.target.value }))}
-                                        inputProps={{ id: 'map-classe' }}
+                                        label="Colonna CLASSE"
+                                        displayEmpty
+                                        notched
+                                        onChange={(e: SelectChangeEvent) => setColumnMap(p => ({ ...p, classe: e.target.value }))}
                                       >
-
-                                        <option value="">Seleziona...</option>
-                                        {csvHeaders.map(h => <option key={h} value={h}>{h}</option>)}
-                                    
-                                      </NativeSelect>
+                                        <MenuItem value="">Seleziona...</MenuItem>
+                                        {csvHeaders.map(h => <MenuItem key={h} value={h}>{h}</MenuItem>)}
+                                      </Select>
                                     </FormControl>
                                 </Box>
                             )}

@@ -1,6 +1,8 @@
 // MD3 Compliant — Section Header
 import React from 'react';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import type { SxProps, Theme } from '@mui/material/styles';
 
 /**
  * SectionHeader Component
@@ -13,6 +15,8 @@ interface SectionHeaderProps {
     title: string;
     subtitle?: string;
     icon?: string;
+    sx?: SxProps<Theme>;
+    /** @deprecated use sx instead */
     style?: React.CSSProperties;
     className?: string;
     variant?: string;
@@ -23,27 +27,28 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
     title,
     subtitle,
     icon,
+    sx,
     style,
     className
 }) => {
 
     return (
-    <div
+    <Box
         className={className}
-        style={{
+        sx={{
             display: 'flex',
             alignItems: 'center',
             gap: 'var(--md-sys-spacing-4)',
-            marginBottom: 'var(--md-sys-spacing-4)',
-            marginTop: 'var(--md-sys-spacing-4)',
-            paddingLeft: 'var(--md-sys-spacing-4)',
-            paddingRight: 'var(--md-sys-spacing-4)',
-            ...style
+            mb: 'var(--md-sys-spacing-4)',
+            mt: 'var(--md-sys-spacing-4)',
+            px: 'var(--md-sys-spacing-4)',
+            ...((style as object) ?? {}),
+            ...((sx as object) ?? {}),
         }}
     >
         {icon && (
-            <div
-                style={{
+            <Box
+                sx={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -51,20 +56,21 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                     height: 'var(--md-sys-spacing-8)',
                     borderRadius: 'var(--md-sys-shape-corner-medium)',
                     backgroundColor: 'var(--md-sys-color-primary-container)',
-                    color: 'var(--md-sys-color-on-primary-container)'
+                    color: 'var(--md-sys-color-on-primary-container)',
+                    flexShrink: 0,
                 }}
             >
-                <span
+                <Box
+                    component="span"
                     className="material-symbols-outlined"
-                    style={{
-                        fontSize: 'var(--icon-size-medium)'
-                    }}
+                    aria-hidden="true"
+                    sx={{ fontSize: 'var(--icon-size-medium)' }}
                 >
                     {icon}
-                </span>
-            </div>
+                </Box>
+            </Box>
         )}
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography
                 variant="overline"
                 sx={{ color: 'text.secondary', letterSpacing: '0.1em' }}
@@ -79,8 +85,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
                     {subtitle}
                 </Typography>
             )}
-        </div>
-    </div>
+        </Box>
+    </Box>
     );
 };
 

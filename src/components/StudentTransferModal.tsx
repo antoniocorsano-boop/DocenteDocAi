@@ -7,7 +7,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
@@ -148,16 +149,18 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
 
                             {!isCustomClass ? (
                                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
-                                                                        <FormControl fullWidth sx={{ mb: 2 }}>
-                                      <InputLabel>Seleziona Classe Esistente</InputLabel>
-                                      <NativeSelect
+                                                                        <FormControl fullWidth>
+                                      <InputLabel id="transfer-classe-label" shrink>Seleziona Classe Esistente</InputLabel>
+                                      <Select
+                                        labelId="transfer-classe-label"
                                         value={newClass}
-                                        onChange={(e) => setNewClass(e.target.value)}
+                                        label="Seleziona Classe Esistente"
+                                        displayEmpty
+                                        notched
+                                        onChange={(e: SelectChangeEvent) => setNewClass(e.target.value)}
                                       >
-                                        {(userClasses.map(c => ({ value: c, label: c }))).map((o) => (
-                                          <option key={o.value} value={o.value}>{o.label}</option>
-                                        ))}
-                                      </NativeSelect>
+                                        {userClasses.map(c => <MenuItem key={c} value={c}>{c}</MenuItem>)}
+                                      </Select>
                                     </FormControl>
                                     <Button
                                         variant="text"
@@ -187,19 +190,19 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
                     ) : (
                         <Box sx={{ backgroundColor: 'var(--md-sys-color-error-container)', opacity: 'var(--md-sys-state-opacity-tint-faint)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-8)' }}>
                             <Typography variant="h6" sx={{ color: 'var(--md-sys-color-error)', px: 'var(--md-sys-spacing-4)' }}>Motivazione Uscita</Typography>
-                                                        <FormControl fullWidth sx={{ mb: 2 }}>
-                              <InputLabel>Esito</InputLabel>
-                              <NativeSelect
+                                                        <FormControl fullWidth>
+                              <InputLabel id="transfer-outcome-label" shrink>Esito</InputLabel>
+                              <Select
+                                labelId="transfer-outcome-label"
                                 value={outcome}
-                                onChange={(e) => setOutcome(e.target.value as 'Ritirato' | 'Trasferito')}
+                                label="Esito"
+                                displayEmpty
+                                notched
+                                onChange={(e: SelectChangeEvent) => setOutcome(e.target.value as 'Ritirato' | 'Trasferito')}
                               >
-                                {([
-                                    { value: 'Trasferito', label: 'Trasferito ad altra scuola' },
-                                    { value: 'Ritirato', label: 'Ritirato dagli studi' }
-                                ]).map((o) => (
-                                  <option key={o.value} value={o.value}>{o.label}</option>
-                                ))}
-                              </NativeSelect>
+                                <MenuItem value="Trasferito">Trasferito ad altra scuola</MenuItem>
+                                <MenuItem value="Ritirato">Ritirato dagli studi</MenuItem>
+                              </Select>
                             </FormControl>
                             <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', px: 'var(--md-sys-spacing-4)' }}>
                                 Lo studente verrà rimosso dall'elenco attivo e spostato nell'archivio storico.

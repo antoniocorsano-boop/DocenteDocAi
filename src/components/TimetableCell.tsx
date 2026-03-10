@@ -132,7 +132,7 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, onClick }) 
         <Typography
           variant="caption"
           sx={{
-            fontWeight: 700,
+            fontWeight: 'var(--md-sys-typescale-weight-bold)',
             color: onBgColor,
             lineHeight: 1.2,
             width: '100%',

@@ -5,11 +5,14 @@ import React, { useState } from 'react';
 import { HomeworkSubmission, Lezione, Studente } from '../types';
 import { TextField, Avatar } from './ui';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import InputAdornment from '@mui/material/InputAdornment';
-import Box from '@mui/material/Box';
 import { saveAs } from '../utils/documentUtils';
 import { RATING_OPTIONS } from '../constants';
 
@@ -45,80 +48,75 @@ const HomeworkSubmissionCard: React.FC<HomeworkSubmissionProps> = ({ submission,
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                <Avatar name={`${student.nome} ${student.cognome}`} size="lg"  />
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <h3>{student.cognome} {student.nome}</h3>
-                    <p>
+        <Stack spacing="var(--md-sys-spacing-4)">
+            <Stack direction="row" spacing="var(--md-sys-spacing-4)" alignItems="center">
+                <Avatar name={`${student.nome} ${student.cognome}`} size="lg" />
+                <Stack spacing="var(--md-sys-spacing-1)">
+                    <Typography variant="h6" component="h3">{student.cognome} {student.nome}</Typography>
+                    <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                         {lesson.materia} • {lesson.contenuto}
-                    </p>
-                </div>
-            </div>
+                    </Typography>
+                </Stack>
+            </Stack>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>description</span>
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <p>{submission.file?.name || 'Allegato Elaborato'}</p>
-                        <p>{submission.file?.mimeType}</p>
-                    </div>
-                </div>
-                <Button onClick={handleDownload} variant="contained" color="secondary" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-black)' }}>
-                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>download</span> 
+            <Stack direction="row" spacing="var(--md-sys-spacing-4)" alignItems="center">
+                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>description</Box>
+                <Stack spacing="var(--md-sys-spacing-1)" sx={{ flex: 1 }}>
+                    <Typography variant="body1">{submission.file?.name || 'Allegato Elaborato'}</Typography>
+                    <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{submission.file?.mimeType}</Typography>
+                </Stack>
+                <Button onClick={handleDownload} variant="contained" color="secondary" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">download</Box>} sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-black)' }}>
                     Scarica
                 </Button>
-            </div>
+            </Stack>
 
             {submission.status === 'pending' && onGrade && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                                <FormControl sx={{ mb: 2 }}>
-                          <InputLabel>Voto Finale</InputLabel>
-                          <NativeSelect
+                <Stack spacing="var(--md-sys-spacing-4)">
+                    <FormControl fullWidth>
+                        <InputLabel id="hw-grade-label" shrink>Voto Finale</InputLabel>
+                        <Select
+                            labelId="hw-grade-label"
                             value={grade}
-                            onChange={(e) => setGrade(e.target.value)}
-                          >
-
-                            <option value="">-</option>
-                            {RATING_OPTIONS.map((v) => <option key={v} value={v}>{v}</option>)}
-                        
-                          </NativeSelect>
-                        </FormControl>
-                        <TextField
-                            label="Feedback Rapido"
-                            value={feedback}
-                            onChange={(e) => setFeedback(e.target.value)}
-                            placeholder="Es. Analisi molto curata, bravo..."
-                            slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">chat</Box></InputAdornment> } }}
-                        />
-                    </div>
-                    <Button 
-                        onClick={handleGradeSubmit} 
-                        disabled={!grade} 
+                            label="Voto Finale"
+                            displayEmpty
+                            notched
+                            onChange={(e: SelectChangeEvent) => setGrade(e.target.value)}
+                            renderValue={(v) => v || <Typography component="span" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.6 }}>-</Typography>}
+                        >
+                            {RATING_OPTIONS.map((v) => (
+                                <MenuItem key={v} value={v}>{v}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <TextField
+                        label="Feedback Rapido"
+                        value={feedback}
+                        onChange={(e) => setFeedback(e.target.value)}
+                        placeholder="Es. Analisi molto curata, bravo..."
+                        slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">chat</Box></InputAdornment> } }}
+                    />
+                    <Button
+                        onClick={handleGradeSubmit}
+                        disabled={!grade}
                         variant="contained"
+                        startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">task_alt</Box>}
                     >
-                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>task_alt</span>
-                        Registra Valutazione & Archivia
+                        Registra Valutazione &amp; Archivia
                     </Button>
-                </div>
+                </Stack>
             )}
 
             {submission.status === 'graded' && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                        <span style={{ color: 'var(--md-sys-color-primary)' }}>check</span>
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <p>Valutato con successo</p>
-                        <p>Esito: {submission.teacherFeedback}</p>
-                        {feedback && <p>"{feedback}"</p>}
-                    </div>
-                </div>
+                <Stack direction="row" spacing="var(--md-sys-spacing-3)" alignItems="center">
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>check</Box>
+                    <Stack spacing="var(--md-sys-spacing-1)">
+                        <Typography variant="body1">Valutato con successo</Typography>
+                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Esito: {submission.teacherFeedback}</Typography>
+                        {feedback && <Typography variant="body2" sx={{ fontStyle: 'italic' }}>\u201c{feedback}\u201d</Typography>}
+                    </Stack>
+                </Stack>
             )}
-        </div>
+        </Stack>
     );
 };
 

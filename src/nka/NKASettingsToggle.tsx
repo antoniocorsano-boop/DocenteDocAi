@@ -1,5 +1,6 @@
 import React from 'react';
 import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useNKAStore } from './useNKAStore';
 
@@ -20,13 +21,7 @@ const NKASettingsToggle: React.FC = () => {
       role="region"
       aria-labelledby="nka-settings-title"
     >
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 'var(--md-sys-spacing-4)',
-        }}
-      >
+      <Stack spacing={2}>
         <Typography
           id="nka-settings-title"
           variant="subtitle2"
@@ -35,7 +30,7 @@ const NKASettingsToggle: React.FC = () => {
           Impostazioni Neural Knowledge Aura
         </Typography>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
+        <Stack spacing={1.5}>
           <label style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-3)', cursor: 'pointer' }}>
             <input
               type="checkbox"
@@ -101,8 +96,8 @@ const NKASettingsToggle: React.FC = () => {
               </Typography>
             </div>
           </label>
-        </div>
-      </div>
+        </Stack>
+      </Stack>
     </Paper>
   );
 };

@@ -2,6 +2,15 @@
 // AiAdvisor.tsx - All styling uses MD3 tokens via style props
 
 import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Typography from '@mui/material/Typography';
 import { AiSettings, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { getAIPedagogicalAdvice } from '../services/aiService';
@@ -66,11 +75,8 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
     };
 
     return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 'var(--md-sys-spacing-6)',
-            padding: 'var(--md-sys-spacing-6)',
+        <Stack spacing={3} sx={{
+            p: 'var(--md-sys-spacing-6)',
             backgroundColor: 'var(--md-sys-color-surface-container-low)',
             borderRadius: 'var(--md-sys-shape-corner-large)',
             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'
@@ -99,124 +105,72 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                 Seleziona uno studente (o l'intera classe) e un obiettivo. L'AI analizzerà i dati e proporrà attività personalizzate.
             </Typography>
 
-            <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 'var(--md-sys-spacing-4)',
-                padding: 'var(--md-sys-spacing-6)',
+            <Stack spacing={2} sx={{
+                p: 'var(--md-sys-spacing-6)',
                 backgroundColor: 'var(--md-sys-color-surface-container-high)',
                 borderRadius: 'var(--md-sys-shape-corner-large)',
                 border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
             }}>
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 'var(--md-sys-spacing-2)'
-                }}>
-                    <label htmlFor="student-select-advisor" style={{
-                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
+                <FormControl fullWidth>
+                    <InputLabel id="student-select-advisor-label" shrink>Studente / Gruppo</InputLabel>
+                    <Select
+                        labelId="student-select-advisor-label"
+                        inputProps={{ id: 'student-select-advisor' }}
+                        value={selectedStudentId}
+                        onChange={e => setSelectedStudentId(e.target.value)}
+                        label="Studente / Gruppo"
+                        displayEmpty
+                        notched
+                    >
+                        <MenuItem value="all">Tutta la classe</MenuItem>
+                        {students.map(s => <MenuItem key={s.id} value={s.id}>{s.cognome} {s.nome}</MenuItem>)}
+                    </Select>
+                </FormControl>
+
+                <Stack spacing={1}>
+                    <Typography component="span" variant="overline" sx={{
+                        fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                         fontWeight: 'var(--md-sys-typescale-weight-bold)',
                         color: 'var(--md-sys-color-on-surface)',
-                        textTransform: 'uppercase',
                         letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
-                    }}>Studente / Gruppo</label>
-                    <select id="student-select-advisor" value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value)} style={{
-                        padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-                        backgroundColor: 'var(--md-sys-color-surface-container-highest)',
-                        color: 'var(--md-sys-color-on-surface)',
-                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
-                        borderRadius: 'var(--md-sys-shape-corner-medium)',
-                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                        cursor: 'pointer'
-                    }}>
-                        <option value="all">Tutta la classe</option>
-                        {students.map(s => <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>)}
-                    </select>
-                </div>
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 'var(--md-sys-spacing-2)'
-                }}>
-                    <label style={{
-                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                        backgroundColor: advisorStatus ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-primary)',
-                        color: advisorStatus ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',
-                        cursor: advisorStatus ? 'not-allowed' : 'pointer',
-                        letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
-                    }}>Tipo di Intervento</label>
-                    <div style={{
-                        display: 'flex',
-                        gap: 'var(--md-sys-spacing-2)',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
-                        overflow: 'hidden',
-                        border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
-                    }}>
-                        <button
-                            type="button"
-                            onClick={() => setRequestType('recupero')}
-                            style={{
-                                flex: 1,
-                                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-                                backgroundColor: requestType === 'recupero' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-highest)',
-                                color: requestType === 'recupero' ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
-                                border: 'none',
-                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                fontWeight: requestType === 'recupero' ? 'bold' : 'normal',
-                                transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
-                                cursor: 'pointer',
-                                borderRadius: 0
-                            }}
-                        >Recupero</button>
-                        <button
-                            type="button"
-                            onClick={() => setRequestType('potenziamento')}
-                            style={{
-                                flex: 1,
-                                padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-                                backgroundColor: requestType === 'potenziamento' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-highest)',
-                                color: requestType === 'potenziamento' ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
-                                border: 'none',
-                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                fontWeight: requestType === 'potenziamento' ? 'bold' : 'normal',
-                                transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
-                                cursor: 'pointer',
-                                borderRadius: 0
-                            }}
-                        >Potenziamento</button>
-                    </div>
-                </div>
-                 <div style={{
-                    display: 'flex',
-                    justifyContent: 'center'
-                }}>
-                    <button onClick={handleGenerateAdvice} disabled={!!advisorStatus} aria-label={advisorStatus ? 'Elaborazione consiglio in corso...' : 'Genera consiglio AI'} style={{
-                        padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)',
-                        backgroundColor: advisorStatus ? 'var(--md-sys-color-surface-container-high)' : 'var(--md-sys-color-primary)',
-                        color: advisorStatus ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-primary)',
-                        fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                        cursor: advisorStatus ? 'not-allowed' : 'pointer',
-                        transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 'var(--md-sys-spacing-2)'
-                    }}>
-                        {advisorStatus ? <AiThinkingGem size="small" inline text="" /> : 'Genera Consiglio'}
-                    </button>
-                </div>
-            </div>
+                    }}>Tipo di Intervento</Typography>
+                    <ToggleButtonGroup
+                        exclusive
+                        value={requestType}
+                        onChange={(_e, val) => { if (val) setRequestType(val); }}
+                        aria-label="Tipo di intervento"
+                        fullWidth
+                        sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', overflow: 'hidden' }}
+                    >
+                        <ToggleButton value="recupero" aria-label="Recupero">Recupero</ToggleButton>
+                        <ToggleButton value="potenziamento" aria-label="Potenziamento">Potenziamento</ToggleButton>
+                    </ToggleButtonGroup>
+                </Stack>
+
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button
+                        variant="contained"
+                        onClick={handleGenerateAdvice}
+                        disabled={!!advisorStatus}
+                        aria-label={advisorStatus ? 'Elaborazione consiglio in corso...' : 'Genera consiglio AI'}
+                        startIcon={advisorStatus ? <AiThinkingGem size="small" inline text="" /> : undefined}
+                    >
+                        {advisorStatus ? 'Elaborazione...' : 'Genera Consiglio'}
+                    </Button>
+                </Box>
+            </Stack>
 
             {advisorStatus && (
-                 <div style={{
+                <Box sx={{
                     display: 'flex',
                     justifyContent: 'center',
-                    padding: 'var(--md-sys-spacing-4)',
+                    p: 'var(--md-sys-spacing-4)',
                     backgroundColor: 'var(--md-sys-color-surface-container-high)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
                 }}>
                     <AiThinkingGem size="medium" text={advisorStatus} />
-                </div>
+                </Box>
             )}
             {error && <Typography component="p" variant="body1" sx={{
                 color: 'var(--md-sys-color-error)',
@@ -228,17 +182,18 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                 margin: 0
             }}>{error}</Typography>}
             {advice && (
-                <div style={{
+                <Box sx={{
                     backgroundColor: 'var(--md-sys-color-surface-container-high)',
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                    padding: 'var(--md-sys-spacing-6)'
+                    p: 'var(--md-sys-spacing-6)'
                 }}>
                     <Typography component="h3" variant="h6" sx={{
                         fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                         fontWeight: 'var(--md-sys-typescale-weight-bold)',
                         color: 'var(--md-sys-color-on-surface)',
-                        margin: 'var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-4) var(--md-sys-spacing-0)',
+                        mb: 'var(--md-sys-spacing-4)',
+                        mt: 0,
                         display: 'flex',
                         alignItems: 'center',
                         gap: 'var(--md-sys-spacing-2)'
@@ -249,23 +204,20 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                         }}>lightbulb</span>
                         Suggerimenti dell'AI:
                     </Typography>
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 'var(--md-sys-spacing-4)'
-                    }}>
+                    <Stack spacing={2}>
                         {advice.map((item, index) => (
-                            <div key={index} style={{
+                            <Box key={index} sx={{
                                 backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                                padding: 'var(--md-sys-spacing-4)',
+                                p: 'var(--md-sys-spacing-4)',
                                 border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)'
                             }}>
                                 <Typography component="h4" variant="subtitle2" sx={{
                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                     fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                     color: 'var(--md-sys-color-on-surface)',
-                                    margin: 'var(--md-sys-spacing-0) var(--md-sys-spacing-0) var(--md-sys-spacing-2) var(--md-sys-spacing-0)'
+                                    mb: 'var(--md-sys-spacing-2)',
+                                    mt: 0
                                 }}>{item.titolo}</Typography>
                                 <Typography component="p" variant="body1" sx={{
                                     color: 'var(--md-sys-color-on-surface-variant)',
@@ -273,12 +225,12 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
                                     lineHeight: 1.5,
                                     margin: 0
                                 }}>{item.descrizione}</Typography>
-                            </div>
+                            </Box>
                         ))}
-                    </div>
-                </div>
+                    </Stack>
+                </Box>
             )}
-        </div>
+        </Stack>
     );
 };
 

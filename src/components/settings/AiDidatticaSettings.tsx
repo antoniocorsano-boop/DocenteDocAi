@@ -8,7 +8,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import MuiTextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import ChipInputList from '../ChipInputList';
@@ -178,11 +179,18 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                     <div style={{display: 'grid',
                         gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
                         gap: 'var(--md-sys-spacing-4)'}}>
-                        <FormControl fullWidth sx={{ mb: 2 }}>
-                            <InputLabel htmlFor="anno-scolastico">Anno Corrente</InputLabel>
-                            <NativeSelect inputProps={{ id: 'anno-scolastico' }} value={localSettings.annoScolasticoCorrente} onChange={e => onSettingChange('annoScolasticoCorrente', e.target.value)}>
-                                {localSettings.anniScolastici.map(year => <option key={year} value={year}>{year}</option>)}
-                            </NativeSelect>
+                        <FormControl fullWidth>
+                            <InputLabel id="anno-scolastico-label" shrink>Anno Corrente</InputLabel>
+                            <Select
+                                labelId="anno-scolastico-label"
+                                value={localSettings.annoScolasticoCorrente}
+                                label="Anno Corrente"
+                                displayEmpty
+                                notched
+                                onChange={(e: SelectChangeEvent) => onSettingChange('annoScolasticoCorrente', e.target.value)}
+                            >
+                                {localSettings.anniScolastici.map(year => <MenuItem key={year} value={year}>{year}</MenuItem>)}
+                            </Select>
                         </FormControl>
 
                         <div style={{
@@ -263,11 +271,18 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)',
                             gap: 'var(--md-sys-spacing-4)',
                             marginBottom: 'var(--md-sys-spacing-4)'}}>
-                            <FormControl fullWidth sx={{ mb: 2 }}>
-                                <InputLabel htmlFor="ordinamento-scolastico">Ordinamento Scolastico</InputLabel>
-                                <NativeSelect inputProps={{ id: 'ordinamento-scolastico' }} value={selLevel} onChange={e => setSelLevel(e.target.value)}>
-                                    {SCHOOL_LEVELS.map(l => <option key={l} value={l}>{l}</option>)}
-                                </NativeSelect>
+                            <FormControl fullWidth>
+                                <InputLabel id="ordinamento-scolastico-label" shrink>Ordinamento Scolastico</InputLabel>
+                                <Select
+                                    labelId="ordinamento-scolastico-label"
+                                    value={selLevel}
+                                    label="Ordinamento Scolastico"
+                                    displayEmpty
+                                    notched
+                                    onChange={(e: SelectChangeEvent) => setSelLevel(e.target.value)}
+                                >
+                                    {SCHOOL_LEVELS.map(l => <MenuItem key={l} value={l}>{l}</MenuItem>)}
+                                </Select>
                             </FormControl>
                             <MuiTextField
                                 label="Indirizzo / Specializzazione"

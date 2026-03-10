@@ -23,7 +23,8 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 type StudioTask = 'summary' | 'key_points' | 'qa' | 'flashcards' | 'presentation' | 'document' | 'image' | 'quiz';
 
@@ -282,15 +283,19 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                 </Typography>
                 <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end", marginBottom: 'var(--md-sys-spacing-8)'}}>
                     <div  style={{ flexGrow: "1" }}>
-                        <FormControl fullWidth sx={{ mb: 2 }}>
-                            <InputLabel>Filtra per Set di Documenti</InputLabel>
-                            <NativeSelect
+                        <FormControl fullWidth>
+                            <InputLabel id="studio-corpus-label" shrink>Filtra per Set di Documenti</InputLabel>
+                            <Select
+                                labelId="studio-corpus-label"
                                 value={selectedCorpusId}
-                                onChange={e => { setSelectedCorpusId(e.target.value); setSelectedFileIds([]); }}
+                                label="Filtra per Set di Documenti"
+                                displayEmpty
+                                notched
+                                onChange={(e: SelectChangeEvent) => { setSelectedCorpusId(e.target.value); setSelectedFileIds([]); }}
                             >
-                                <option value="">{`Tutti i Documenti (${knowledgeBase.length})`}</option>
-                                {corpora.map(c => <option key={c.id} value={c.id}>{c.displayName}</option>)}
-                            </NativeSelect>
+                                <MenuItem value="">{`Tutti i Documenti (${knowledgeBase.length})`}</MenuItem>
+                                {corpora.map(c => <MenuItem key={c.id} value={c.id}>{c.displayName}</MenuItem>)}
+                            </Select>
                         </FormControl>
                     </div>
                      <div  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>

@@ -121,7 +121,7 @@ const SettingsGroup: React.FC<{
                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 24 }}>{icon}</Box>
                 </Box>
                 <Box sx={{ minWidth: 0, flex: 1 }}>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 700, color: 'var(--md-sys-color-on-surface)', lineHeight: 1.3, margin: 0 }}>{title}</Typography>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-on-surface)', lineHeight: 1.3, margin: 0 }}>{title}</Typography>
                     {subtitle && <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', lineHeight: 1.4, margin: 0 }}>{subtitle}</Typography>}
                 </Box>
             </AccordionSummary>
@@ -390,11 +390,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <Stack direction="column" spacing={1.5}>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>dashboard_customize</Box>
-                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Modalità Interfaccia</Typography>
+                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Modalità Interfaccia</Typography>
                             </Stack>
                                                         <Tabs
-                              value={localSettings.uiMode || 'classic'}
-                              onChange={(_, v: string) => ((id) => handleChange('uiMode', id))(v)}
+                              value={themeState.uiMode || 'classic'}
+                              onChange={(_, v: string) => ((id) => handleThemeChange({ uiMode: id as 'classic' | 'flow' }))(v)}
                               indicatorColor="primary"
                               textColor="primary"
                               aria-label="Sezioni di navigazione"
@@ -437,7 +437,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             </Tabs>
                             <Typography variant="body2" sx={{color: 'var(--md-sys-color-on-surface-variant)',
                                 margin: 0}}>
-                                {localSettings.uiMode === 'flow'
+                                {themeState.uiMode === 'flow'
                                     ? 'Modalità Flow: Interfaccia dinamica basata su flussi di lavoro e suggerimenti contestuali.'
                                     : 'Modalità Classica: Layout standard con navigazione a griglia e accesso diretto ai moduli.'}
                             </Typography>
@@ -449,7 +449,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <Stack direction="column" spacing={2}>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>auto_awesome</Box>
-                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Ecosistema Visivo</Typography>
+                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Ecosistema Visivo</Typography>
                             </Stack>
                             <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: 2 }}>
                                 {[
@@ -510,7 +510,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <Stack direction="column" spacing={2}>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>palette</Box>
-                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Tema & Colori</Typography>
+                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Tema & Colori</Typography>
                             </Stack>
 
                             <Box sx={{ mb: 2 }}>
@@ -574,7 +574,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <Box sx={{ borderTop: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)', pt: 2 }}>
                                 <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
                                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>magic_button</Box>
-                                    <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Generatore AI</Typography>
+                                    <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Generatore AI</Typography>
                                 </Stack>
                                 <Stack direction="row" spacing={2} alignItems="flex-end">
                                     <Box sx={{ flex: 1 }}>
@@ -602,34 +602,34 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                             <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2, pb: 1.5, borderBottom: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>tune</Box>
-                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Parametri Strutturali</Typography>
+                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Parametri Strutturali</Typography>
                             </Stack>
                             <Stack spacing={2}>
                                 <Stack spacing={1}>
                                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 500 }}>Intensità Blur Vetro</Typography>
-                                        <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 600 }}>{themeState.glassBlur || 30}px</Typography>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Intensità Blur Vetro</Typography>
+                                        <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}>{themeState.glassBlur || 30}px</Typography>
                                     </Stack>
                                     <input type="range" min="0" max="100" step="5" value={themeState.glassBlur || 30} onChange={e => handleThemeChange({ glassBlur: parseInt(e.target.value) })} style={{ width: '100%' }} />
                                 </Stack>
                                 <Stack spacing={1}>
                                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 500 }}>Scala Font</Typography>
-                                        <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 600 }}>{themeState.fontScale || 1}x</Typography>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Scala Font</Typography>
+                                        <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}>{themeState.fontScale || 1}x</Typography>
                                     </Stack>
                                     <input type="range" min="0.8" max="1.4" step="0.1" value={themeState.fontScale || 1} onChange={e => handleThemeChange({ fontScale: parseFloat(e.target.value) })} style={{ width: '100%' }} />
                                 </Stack>
                                 <Stack spacing={1}>
                                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 500 }}>Livello Contrasto</Typography>
-                                        <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 600 }}>{themeState.contrastLevel || 0}</Typography>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Livello Contrasto</Typography>
+                                        <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}>{themeState.contrastLevel || 0}</Typography>
                                     </Stack>
                                     <input type="range" min="-50" max="50" step="5" value={themeState.contrastLevel || 0} onChange={e => handleThemeChange({ contrastLevel: parseInt(e.target.value) })} style={{ width: '100%' }} />
                                 </Stack>
                                 <Stack spacing={1}>
                                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 500 }}>Arrotondamento Bordi</Typography>
-                                        <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 600 }}>x{themeState.radiusMultiplier || 1}</Typography>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Arrotondamento Bordi</Typography>
+                                        <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}>x{themeState.radiusMultiplier || 1}</Typography>
                                     </Stack>
                                     <Stack direction="row" spacing={1} flexWrap="wrap">
                                         {[0.5, 1, 1.5, 2].map(m => (
@@ -651,7 +651,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                             <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>import_export</Box>
-                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Backup Tema</Typography>
+                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Backup Tema</Typography>
                             </Stack>
                             <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mb: 2 }}>Salva o carica configurazioni di tema personalizzate per riutilizzarle in futuro.</Typography>
                             <Stack direction="row" spacing={2} alignItems="center">
@@ -670,7 +670,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <Stack spacing={1}>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>refresh</Box>
-                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Manutenzione Brand</Typography>
+                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Manutenzione Brand</Typography>
                             </Stack>
                             <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</Typography>
                             <Button onClick={handleForceRefresh} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">cached</Box>}>AGGIORNA BRAND E CACHE</Button>
@@ -682,7 +682,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         <Stack spacing={1}>
                             <Stack direction="row" spacing={1} alignItems="center">
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>tune</Box>
-                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>M3 Theme Panel</Typography>
+                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>M3 Theme Panel</Typography>
                             </Stack>
                             <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Personalizza i token M3 per colori, tipografia, spacing e motion con anteprima live.</Typography>
                             <ThemeSettingsPanel />
@@ -727,7 +727,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>smart_toy</Box>
-                            <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Modello Intelligenza</Typography>
+                            <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Modello Intelligenza</Typography>
                         </Stack>
 
                                                 <Tabs
@@ -808,7 +808,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
                                 <Stack direction="row" spacing={1} alignItems="center">
                                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>calendar_month</Box>
-                                    <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 700, lineHeight: 1.5 }}>Anno Scolastico</Typography>
+                                    <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Anno Scolastico</Typography>
                                 </Stack>
                                 <Button onClick={handleAddNextYear} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add_circle</Box>}>
                                     Aggiungi
@@ -842,7 +842,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
                                 <Stack direction="row" spacing={1} alignItems="center">
                                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-secondary)' }}>school</Box>
-                                    <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 700, lineHeight: 1.5 }}>Gestione Cattedra</Typography>
+                                    <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Gestione Cattedra</Typography>
                                 </Stack>
                                 <Button
                                     onClick={() => {
@@ -860,7 +860,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <Box sx={{ mt: 2, p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                                 <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
                                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>account_tree</Box>
-                                    <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700, lineHeight: 1.5 }}>Formazione Classi Strutturata</Typography>
+                                    <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Formazione Classi Strutturata</Typography>
                                 </Stack>
 
                                 <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, mb: 2 }}>
@@ -883,7 +883,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                                 <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, mb: 2 }}>
                                     <Stack spacing={1}>
-                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 500 }}>Livelli / Anni</Typography>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Livelli / Anni</Typography>
                                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                                             {['1', '2', '3', '4', '5'].map(y => (
                                                 <Button
@@ -899,7 +899,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         </Box>
                                     </Stack>
                                     <Stack spacing={1}>
-                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 500 }}>Sezioni</Typography>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Sezioni</Typography>
                                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                                             {['A', 'B', 'C', 'D', 'E', 'F'].map(s => (
                                                 <Button
@@ -990,7 +990,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                     borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
                                                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-4)' }}>
                                                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', flex: 1 }}>
-                                                            <Typography component="span" variant="body2" sx={{ fontWeight: 500, color: 'var(--md-sys-color-on-surface)' }}>{subj}</Typography>
+                                                            <Typography component="span" variant="body2" sx={{ fontWeight: 'var(--md-sys-typescale-weight-medium)', color: 'var(--md-sys-color-on-surface)' }}>{subj}</Typography>
                                                             <Button
                                                                 onClick={() => handleBulkAssign(localSettings.classi, [subj])}
                                                                 variant="outlined"
@@ -1113,7 +1113,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 {Array.from(dismissedSuggestions).map((id) => (
                                     <Box key={id} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                                         <Stack spacing={0.5}>
-                                            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 500 }}>
+                                            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>
                                                 Suggerimento {id}
                                             </Typography>
                                             <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
@@ -1157,8 +1157,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     {storageInfo && (
                         <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1.5 }}>
-                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 700 }}>Storage Dispositivo</Typography>
-                                <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 500 }}>{storageInfo.used}MB / {storageInfo.total}MB</Typography>
+                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Storage Dispositivo</Typography>
+                                <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>{storageInfo.used}MB / {storageInfo.total}MB</Typography>
                             </Stack>
                             <LinearProgress
                                 variant="determinate"
@@ -1203,7 +1203,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{driveState.isAuthenticated ? 'cloud_done' : 'cloud_off'}</Box>
                             </Box>
                             <Stack spacing={0.25}>
-                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 700 }}>
+                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
                                     {driveState.isAuthenticated ? 'Google Drive Connesso' : 'Backup Cloud Disattivo'}
                                 </Typography>
                                 <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
@@ -1257,7 +1257,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <Stack spacing={0.5}>
                                     <Typography
                                         variant="overline"
-                                        sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 700, lineHeight: 1.5 }}
+                                        sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}
                                     >
                                         Log degli Errori
                                     </Typography>
@@ -1330,7 +1330,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>key</Box>
-                            <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 700 }}>Google Cloud API</Typography>
+                            <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Google Cloud API</Typography>
                         </Stack>
                         <Stack spacing={2}>
                             <TextField label="Client ID (OAuth)" value={localSettings.googleClientId || ''} onChange={e => handleChange('googleClientId', e.target.value)} slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">badge</Box></InputAdornment> } }} />
@@ -1340,7 +1340,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     <Box sx={{ p: 2, bgcolor: 'color-mix(in srgb, var(--md-sys-color-error-container) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-extra-large)', border: '1px solid', borderColor: 'error.light' }}>
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-error)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>warning</Box>
-                            <Typography variant="overline" sx={{ color: 'error.main', fontWeight: 700 }}>Zona Pericolo</Typography>
+                            <Typography variant="overline" sx={{ color: 'error.main', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Zona Pericolo</Typography>
                         </Stack>
                         <Button onClick={() => setIsResetModalOpen(true)} variant="contained" color="error" fullWidth startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">delete_forever</Box>}>
                             Reset Totale Dati
@@ -1353,7 +1353,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     <Typography variant="caption" component="div" sx={{ color: 'text.disabled' }}>
                         DocenteDoc AI v4.0.8 • Stable
                         <Box sx={{ pt: 1 }}>
-                            <Typography component="span" variant="caption" sx={{ fontWeight: 900, color: 'text.disabled' }}>Owner:</Typography> Antonio Corsano
+                            <Typography component="span" variant="caption" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)', color: 'text.disabled' }}>Owner:</Typography> Antonio Corsano
                             <Typography variant="caption" component="div" sx={{ mt: 0.5, color: 'text.disabled' }}>antonio.corsano@gmail.com</Typography>
                         </Box>
                     </Typography>

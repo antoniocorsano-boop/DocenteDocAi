@@ -7,18 +7,13 @@ import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
+import Paper from '@mui/material/Paper';
+import ButtonBase from '@mui/material/ButtonBase';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { M3Dialog, TextField } from './ui';
-interface AddEvaluationModalProps {
-    students: Studente[];
-    discipline: string[];
-    onClose: () => void;
-    onSave: (evaluation: Omit<Valutazione, 'id'>) => void;
-}
-
 interface AddEvaluationModalProps {
     students: Studente[];
     discipline: string[];
@@ -38,29 +33,39 @@ const getTestTypeIcon = (tipo: string) => {
 };
 
 const ChoiceCard: React.FC<{ icon: string; label: string; onClick: () => void; selected: boolean }> = ({ icon, label, onClick, selected }) => (
-  <Card
-    component="button"
-    type="button"
-    onClick={onClick}
-    aria-pressed={selected}
+  <Paper
+    elevation={selected ? 3 : 1}
     sx={{
-      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-      p: 4, borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-      border: `2px solid ${selected ? 'var(--md-sys-color-primary)' : 'color-mix(in srgb, var(--md-sys-color-outline-variant) 19%, transparent)'}`,
-      bgcolor: selected ? 'var(--md-sys-color-primary-container)' : 'color-mix(in srgb, var(--md-sys-color-surface-container) 50%, transparent)',
+      borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+      border: `2px solid ${selected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
+      bgcolor: selected ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
       color: selected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
-      boxShadow: selected ? 'var(--md-sys-elevation-level4)' : 'none',
-      transform: selected ? 'scale(1.05)' : 'scale(1)',
       transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-      gap: 2, minWidth: 'var(--md-sys-spacing-16)', cursor: 'pointer',
-      '&:hover': { border: `2px solid var(--md-sys-color-outline)`, bgcolor: selected ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)' },
+      minWidth: 'var(--md-sys-spacing-16)',
+      transform: selected ? 'scale(1.05)' : 'none',
     }}
   >
-    <Box sx={{ width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-medium)', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: selected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)', color: selected ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-primary)', boxShadow: selected ? 'var(--md-sys-elevation-level2)' : 'none', transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}>
-      <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', userSelect: 'none', fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24" }}>{icon}</Box>
-    </Box>
-    <Box component="span" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontFamily: 'var(--md-sys-typescale-body-small-font-family)' }}>{label}</Box>
-  </Card>
+    <ButtonBase
+      onClick={onClick}
+      aria-pressed={selected}
+      aria-label={label}
+      sx={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        gap: 'var(--md-sys-spacing-2)', p: 'var(--md-sys-spacing-4)', width: '100%',
+        borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+        '&:hover': {
+          bgcolor: selected
+            ? 'color-mix(in srgb, var(--md-sys-color-primary) 8%, var(--md-sys-color-primary-container))'
+            : 'var(--md-sys-color-surface-container-high)',
+        },
+      }}
+    >
+      <Box sx={{ width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-medium)', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: selected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)', color: selected ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-primary)', transition: 'all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}>
+        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', userSelect: 'none' }}>{icon}</Box>
+      </Box>
+      <Box component="span" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontFamily: 'var(--md-sys-typescale-body-small-font-family)' }}>{label}</Box>
+    </ButtonBase>
+  </Paper>
 );
 
 const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
@@ -109,50 +114,65 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
                 onSubmit={handleSubmit}
                 sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', overflowY: 'auto', maxHeight: 'var(--md-sys-viewport-60)' }}
             >
-                                <FormControl sx={{ mb: 2 }}>
-                  <InputLabel htmlFor="eval-student-select">Studente</InputLabel>
-                  <NativeSelect
+                <FormControl fullWidth>
+                  <InputLabel id="eval-student-label" shrink>Studente</InputLabel>
+                  <Select
+                    labelId="eval-student-label"
+                    id="eval-student-select"
                     value={selectedStudentId}
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStudentId(e.target.value)}
+                    label="Studente"
+                    displayEmpty
+                    notched
                     required
-                    inputProps={{ id: 'eval-student-select' }}
+                    onChange={(e: SelectChangeEvent) => setSelectedStudentId(e.target.value)}
+                    renderValue={(v) => v
+                      ? (students.find(s => s.id === v) ? `${students.find(s => s.id === v)!.cognome} ${students.find(s => s.id === v)!.nome}` : v)
+                      : <Typography component="span" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.6 }}>Seleziona studente...</Typography>
+                    }
                   >
-
-                    <option value="">Seleziona studente...</option>
-                    {students.map((s: Studente) => <option key={s.id} value={s.id}>{s.cognome} {s.nome}</option>)}
-                
-                  </NativeSelect>
+                    {students.map((s: Studente) => (
+                      <MenuItem key={s.id} value={s.id}>{s.cognome} {s.nome}</MenuItem>
+                    ))}
+                  </Select>
                 </FormControl>
 
                 <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)' }}>
-                                        <FormControl sx={{ mb: 2 }}>
-                      <InputLabel htmlFor="eval-materia-select">Materia</InputLabel>
-                      <NativeSelect
-                        value={selectedMateria}
-                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedMateria(e.target.value)}
-                        required
-                        inputProps={{ id: 'eval-materia-select' }}
-                      >
-
-                        <option value="">Seleziona...</option>
-                        {discipline.map((d: string) => <option key={d} value={d}>{d}</option>)}
-                    
-                      </NativeSelect>
-                    </FormControl>
-                                        <FormControl sx={{ mb: 2 }}>
-                      <InputLabel htmlFor="eval-voto-select">Voto / Giudizio</InputLabel>
-                      <NativeSelect
-                        value={voto}
-                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setVoto(e.target.value)}
-                        required
-                        inputProps={{ id: 'eval-voto-select' }}
-                      >
-
-                        <option value="">Seleziona...</option>
-                        {RATING_OPTIONS.map((o: string) => <option key={o} value={o}>{o}</option>)}
-                    
-                      </NativeSelect>
-                    </FormControl>
+                  <FormControl fullWidth>
+                    <InputLabel id="eval-materia-label" shrink>Materia</InputLabel>
+                    <Select
+                      labelId="eval-materia-label"
+                      id="eval-materia-select"
+                      value={selectedMateria}
+                      label="Materia"
+                      displayEmpty
+                      notched
+                      required
+                      onChange={(e: SelectChangeEvent) => setSelectedMateria(e.target.value)}
+                      renderValue={(v) => v || <Typography component="span" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.6 }}>Seleziona...</Typography>}
+                    >
+                      {discipline.map((d: string) => (
+                        <MenuItem key={d} value={d}>{d}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl fullWidth>
+                    <InputLabel id="eval-voto-label" shrink>Voto / Giudizio</InputLabel>
+                    <Select
+                      labelId="eval-voto-label"
+                      id="eval-voto-select"
+                      value={voto}
+                      label="Voto / Giudizio"
+                      displayEmpty
+                      notched
+                      required
+                      onChange={(e: SelectChangeEvent) => setVoto(e.target.value)}
+                      renderValue={(v) => v || <Typography component="span" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.6 }}>Seleziona...</Typography>}
+                    >
+                      {RATING_OPTIONS.map((o: string) => (
+                        <MenuItem key={o} value={o}>{o}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </Box>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>

@@ -67,7 +67,7 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
                 {/* AI Validation Section */}
                 <Box sx={{ bgcolor: 'primary.light', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider', p: 2, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'primary.contrastText' }}>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'primary.contrastText' }}>
                             Validazione Curricolo Verticale
                         </Typography>
                         <Button variant="contained" onClick={handleValidate} disabled={isValidating} size="small">
@@ -88,15 +88,15 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
 
                 {/* Phases Timeline */}
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    <Typography variant="overline" sx={{ color: 'text.secondary', fontWeight: 700, letterSpacing: '0.05em' }}>Fasi di Lavoro</Typography>
+                    <Typography variant="overline" sx={{ color: 'text.secondary', fontWeight: 'var(--md-sys-typescale-weight-bold)', letterSpacing: '0.05em' }}>Fasi di Lavoro</Typography>
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                         {uda.phases.map((phase) => (
                             <Box key={phase.id} sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, p: 2, bgcolor: 'background.paper', borderRadius: 'var(--md-sys-shape-corner-medium)', borderLeft: '4px solid', borderColor: 'primary.main' }}>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                                    <Typography variant="subtitle2" sx={{ color: 'primary.main', fontWeight: 700 }}>{phase.title}</Typography>
+                                    <Typography variant="subtitle2" sx={{ color: 'primary.main', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{phase.title}</Typography>
                                     <Chip label={`${phase.duration}h`} size="small" color="secondary" />
                                 </Box>
-                                <Typography variant="body2" sx={{ fontWeight: 500 }}>{phase.description}</Typography>
+                                <Typography variant="body2" sx={{ fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>{phase.description}</Typography>
                                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>{phase.activities}</Typography>
                             </Box>
                         ))}

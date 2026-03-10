@@ -58,7 +58,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
       width: '100%',
       minHeight: '100vh',
       bgcolor: 'var(--md-sys-color-surface)',
-      p: { xs: 2, sm: 3 },
+      p: { xs: 'var(--md-sys-spacing-4)', sm: 'var(--md-sys-spacing-6)' },
       boxSizing: 'border-box',
     }}>
       <Box sx={{
@@ -67,7 +67,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
         mx: 'auto',
         display: 'flex',
         flexDirection: 'column',
-        gap: 3,
+        gap: 'var(--md-sys-spacing-6)',
       }}>
 
         {/* HEADER */}
@@ -76,26 +76,26 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
-          gap: 2,
-          p: 2,
+          gap: 'var(--md-sys-spacing-4)',
+          p: 'var(--md-sys-spacing-4)',
           bgcolor: 'var(--md-sys-color-surface-container-low)',
           borderRadius: 'var(--md-sys-shape-corner-extra-large)',
           border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
           boxShadow: 'var(--md-sys-elevation-level2)',
         }}>
           {/* Title block */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, minWidth: 0 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', minWidth: 0 }}>
             <Box sx={{
-              width: 40, height: 40,
+              width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)',
               borderRadius: 'var(--md-sys-shape-corner-large)',
               bgcolor: 'var(--md-sys-color-primary)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               flexShrink: 0,
             }}>
-              <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20, color: 'var(--md-sys-color-on-primary)' }}>calendar_view_week</Box>
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-on-primary)' }}>calendar_view_week</Box>
             </Box>
             <Box sx={{ minWidth: 0 }}>
-              <Typography variant="h6" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 700, lineHeight: 1.2 }}>
+              <Typography variant="h6" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.2 }}>
                 Il Mio Orario
               </Typography>
               <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
@@ -105,7 +105,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
           </Box>
 
           {/* View switcher + day navigation */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', flexWrap: 'wrap' }}>
             <Tabs
               value={viewMode}
               onChange={(_, v: string) => setViewMode(v as 'week' | 'day')}
@@ -117,7 +117,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                 borderRadius: 'var(--md-sys-shape-corner-full)',
                 border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                 minHeight: 'auto',
-                p: 0.5,
+                p: 'var(--md-sys-spacing-1)',
                 '& .MuiTabs-indicator': { borderRadius: 'var(--md-sys-shape-corner-full)' },
               }}
             >
@@ -133,30 +133,30 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
                   data-testid={`tab-${tab.id}`}
                   label={
                     <Badge badgeContent={tab.badge} color="error">
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 16 }}>{tab.icon}</Box>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>
                         {tab.label}
                       </Box>
                     </Badge>
                   }
                   sx={{
                     borderRadius: 'var(--md-sys-shape-corner-full)',
-                    minHeight: 36,
-                    py: 0.5,
-                    px: 1.5,
+                    minHeight: 'var(--md-sys-spacing-9)',
+                    py: 'var(--md-sys-spacing-1)',
+                    px: 'var(--md-sys-spacing-3)',
                     textTransform: 'uppercase',
-                    fontSize: '0.75rem',
+                    fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                   }}
                 />
               ))}
             </Tabs>
 
             {viewMode === 'day' && (
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
                 <IconButton size="small" onClick={() => handleDayNav(-1)} aria-label="Giorno precedente" disabled={currentDayIndex === 0}>
                   <Box component="span" className="material-symbols-outlined" aria-hidden="true">chevron_left</Box>
                 </IconButton>
-                <Typography variant="overline" sx={{ minWidth: 80, textAlign: 'center', fontWeight: 600 }}>
+                <Typography variant="overline" sx={{ minWidth: 'var(--md-sys-spacing-20)', textAlign: 'center', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}>
                   {visibleDays[0]}
                 </Typography>
                 <IconButton size="small" onClick={() => handleDayNav(1)} aria-label="Giorno successivo" disabled={currentDayIndex === 5}>
@@ -186,7 +186,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
           bgcolor: 'var(--md-sys-color-surface-container-low)',
           borderRadius: 'var(--md-sys-shape-corner-extra-large)',
           border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
-          p: { xs: 1, sm: 2 },
+          p: { xs: 'var(--md-sys-spacing-2)', sm: 'var(--md-sys-spacing-4)' },
           boxShadow: 'var(--md-sys-elevation-level1)',
           overflowX: 'auto',
           width: '100%',
@@ -206,23 +206,23 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
             {/* Header row — display:contents preserves grid layout while adding ARIA row */}
             <Box role="row" sx={{ display: 'contents' }}>
               <Box role="columnheader" sx={{
-                p: 1, bgcolor: 'var(--md-sys-color-surface-container-high)',
+                p: 'var(--md-sys-spacing-2)', bgcolor: 'var(--md-sys-color-surface-container-high)',
                 borderRadius: 'var(--md-sys-shape-corner-medium)',
                 border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
-                <Typography variant="overline" sx={{ fontWeight: 700, color: 'var(--md-sys-color-on-surface-variant)' }}>ORA</Typography>
+                <Typography variant="overline" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-on-surface-variant)' }}>ORA</Typography>
               </Box>
               {visibleDays.map(day => (
                 <Box role="columnheader" key={day} sx={{
-                  p: 1,
+                  p: 'var(--md-sys-spacing-2)',
                   bgcolor: day === todayName ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)',
                   border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}>
                   <Typography variant="overline" sx={{
-                    fontWeight: 700,
+                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
                     color: day === todayName ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
                   }}>
                     {day.substring(0, 3)}
@@ -235,13 +235,13 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
             {settings.timeSlots.map(time => (
               <Box role="row" key={time} sx={{ display: 'contents' }}>
                 <Box role="rowheader" sx={{
-                  p: 1,
+                  p: 'var(--md-sys-spacing-2)',
                   bgcolor: 'var(--md-sys-color-surface-container)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)',
                   border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}>
-                  <Typography variant="body2" sx={{ fontWeight: 500, color: 'var(--md-sys-color-on-surface-variant)', whiteSpace: 'nowrap' }}>
+                  <Typography variant="body2" sx={{ fontWeight: 'var(--md-sys-typescale-weight-medium)', color: 'var(--md-sys-color-on-surface-variant)', whiteSpace: 'nowrap' }}>
                     {time}
                   </Typography>
                 </Box>

@@ -7,7 +7,8 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { M3Dialog,
     SectionHeader
 } from './ui';
@@ -70,18 +71,20 @@ const ImpromptuLessonModal: React.FC<ImpromptuLessonModalProps> = ({ classe, dis
                 />
 
                 <Box sx={{ mt: 'var(--md-sys-spacing-4)' }}>
-                                        <FormControl sx={{ mb: 2 }}>
-                      <InputLabel>Materia</InputLabel>
-                      <NativeSelect
+                                        <FormControl fullWidth>
+                      <InputLabel id="impromptu-materia-label" shrink>Materia</InputLabel>
+                      <Select
+                        labelId="impromptu-materia-label"
                         value={materia}
-                        onChange={e => setMateria(e.target.value)}
+                        label="Materia"
+                        displayEmpty
+                        notched
+                        onChange={(e: SelectChangeEvent) => setMateria(e.target.value)}
                         required
                       >
-
-                        <option value="" disabled>Seleziona materia...</option>
-                        {disciplines.map(d => <option key={d} value={d}>{d}</option>)}
-                    
-                      </NativeSelect>
+                        <MenuItem value="" disabled>Seleziona materia...</MenuItem>
+                        {disciplines.map(d => <MenuItem key={d} value={d}>{d}</MenuItem>)}
+                      </Select>
                     </FormControl>
 
                     <TextField multiline

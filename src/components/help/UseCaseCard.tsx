@@ -17,7 +17,7 @@ export const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }
         border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
     }}>
         <Typography variant="body1" sx={{
-            fontWeight: 700,
+            fontWeight: 'var(--md-sys-typescale-weight-bold)',
             color: 'primary.main',
             mb: 1.5
         }}>{scenario}</Typography>

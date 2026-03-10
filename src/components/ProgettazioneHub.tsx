@@ -1,4 +1,4 @@
-// MD3 Compliant - Progettazione Hub
+﻿// MD3 Compliant - Progettazione Hub
 /**
  * ProgettazioneHub.tsx
  * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
@@ -12,71 +12,16 @@ import { ProgettazioneHubProps, Uda, Competenza } from '../types';
 import AnnualPlanningWizard from './AnnualPlanningWizard';
 import SmartImportModal from './SmartImportModal';
 import CompetencyManager from './CompetencyManager';
-import {} from './ui';
 import Typography from '@mui/material/Typography';
-import MuiCard from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import TimelineView from './TimelineView';
 import UdaDetailModal from './UdaDetailModal';
+import { NavigationCard, PageWrapper } from './ui';
 
-// Local Card component (MUI-native replacement for M3ExpressiveCard)
-const _cardTokens: Record<string, readonly [string, string]> = {
-    primary:        ['var(--md-sys-color-primary-container)',      'var(--md-sys-color-primary)'],
-    secondary:      ['var(--md-sys-color-secondary-container)',    'var(--md-sys-color-secondary)'],
-    tertiary:       ['var(--md-sys-color-tertiary-container)',     'var(--md-sys-color-tertiary)'],
-    surface:        ['var(--md-sys-color-surface-container-high)', 'var(--md-sys-color-primary)'],
-    surfaceVariant: ['var(--md-sys-color-surface-container-low)',  'var(--md-sys-color-secondary)'],
-};
-interface CardProps {
-    icon: string; title: string; description: string;
-    color?: string; onClick?: () => void;
-    children?: React.ReactNode; ariaLabel?: string; style?: React.CSSProperties;
-}
-const Card: React.FC<CardProps> = ({ icon, title, description, color = 'surface', onClick, children, ariaLabel, style }) => {
-    const tokens = _cardTokens[color];
-    const bg = tokens ? tokens[0] : color;
-    const accent = tokens ? tokens[1] : 'var(--md-sys-color-primary)';
-    const clickable = Boolean(onClick);
-    return (
-        <MuiCard
-            onClick={onClick}
-            role={clickable ? 'button' : undefined}
-            tabIndex={clickable ? 0 : undefined}
-            aria-label={ariaLabel ?? (clickable ? `${title}: ${description}` : undefined)}
-            onKeyDown={(e) => { if (clickable && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onClick?.(); } }}
-            style={style}
-            sx={{
-                backgroundColor: bg,
-                borderRadius: 'var(--md-sys-shape-corner-large)',
-                border: '1px solid var(--md-sys-color-outline-variant)',
-                cursor: clickable ? 'pointer' : 'default',
-                boxShadow: 'var(--md-sys-elevation-level1)',
-                transition: 'transform 500ms cubic-bezier(0.38,1.21,0.22,1.00), box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
-                '&:hover': clickable ? { transform: 'scale(1.04)', boxShadow: 'var(--md-sys-elevation-level3)' } : {},
-            }}
-        >
-            <CardContent sx={{ p: 'var(--md-sys-spacing-8)', '&:last-child': { pb: 'var(--md-sys-spacing-8)' } }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
-                    <Box sx={{ width: 40, height: 40, borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: accent, userSelect: 'none' }}>{icon}</Box>
-                    </Box>
-                    {clickable && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>arrow_forward</Box>}
-                </Box>
-                <Typography variant="subtitle2">{title}</Typography>
-                <Typography variant="body2" sx={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{description}</Typography>
-                {children && (
-                    <Box sx={{ pt: 1, mt: 1, borderTop: '1px solid var(--md-sys-color-outline-variant)' }}>
-                        {children}
-                    </Box>
-                )}
-            </CardContent>
-        </MuiCard>
-    );
-};
 
 const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({ 
     onNavigate, 
@@ -109,8 +54,6 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
     // Dragging / feedback state
     const [previewMessage] = useState<string | null>(null);
 
-    // MD3 Theme tokens
-
     useEffect(() => {
         if (initialAction === 'annual-planning') {
             setIsPlanningWizardOpen(true);
@@ -126,18 +69,18 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
     };
 
     return (
-        <div style={{marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)', width: 'var(--md-sys-percent-100)', maxWidth: 'var(--md-sys-layout-content-max-width)', paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-8)', boxSizing: 'border-box'}}>
-            
+        <PageWrapper maxWidth="var(--md-sys-layout-content-max-width)" gap={0} sx={{ px: 'var(--md-sys-spacing-4)', boxSizing: 'border-box' }}>
+
             {/* Header */}
-            <div style={{ textAlign: "center", marginBottom: 'var(--md-sys-spacing-6)' }}>
-                <Typography variant="h5" sx={{color: "var(--md-sys-color-on-surface)", marginBottom: 'var(--md-sys-spacing-2)', marginTop: 'var(--md-sys-spacing-4)'}}>Progettazione</Typography>
-                <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', maxWidth: '640px', marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)' }}>
+            <Box sx={{ textAlign: 'center', mb: 'var(--md-sys-spacing-6)' }}>
+                <Typography variant="h5" sx={{ color: 'var(--md-sys-color-on-surface)', mb: 'var(--md-sys-spacing-2)', mt: 'var(--md-sys-spacing-4)' }}>Progettazione</Typography>
+                <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', maxWidth: '640px', mx: 'auto' }}>
                     Dall&apos;ispirazione alla pianificazione annuale. Gestisci i tuoi materiali, crea progetti e organizza le lezioni in un unico hub.
                 </Typography>
-            </div>
-            
+            </Box>
+
             {/* Tab Navigation */}
-            <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
+            <Box sx={{ mb: 'var(--md-sys-spacing-8)' }}>
                                   <Tabs
                    value={activeTab}
                    onChange={(_, v: string) => ((id: string) => setActiveTab(id as 'dashboard' | 'frameworks'))(v)}
@@ -181,12 +124,12 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                      />
                    ))}
                  </Tabs>
-            </div>
+            </Box>
 
             {activeTab === 'dashboard' ? (
                 <>
                     {/* 1. HERO ACTION: WIZARD */}
-                    <Card
+                    <NavigationCard
                         icon="calendar_month"
                         title="Wizard Annuale"
                         description="Pianifica l'intero anno scolastico. Definisci UDA, scadenze e monte ore con il supporto dell'AI."
@@ -195,7 +138,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             console.log('Audit: Opened Annual Planning Wizard');
                             setIsPlanningWizardOpen(true);
                         }}
-                        style={{marginBottom: 'var(--md-sys-spacing-8)'}}
+                        sx={{ mb: 'var(--md-sys-spacing-8)' }}
                     />
 
                     {/* 2. TIMELINE (GANTT 2.0 DYNAMIC) */}
@@ -211,118 +154,127 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                     />
 
                     {/* 3. BENTO GRID */}
-                    <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
-                        
-                        <Card
-                            icon="assignment"
-                            title="Planner UDA"
-                            description="Gestisci le Unit� di Apprendimento, le fasi di lavoro e le competenze target."
-                            color="var(--md-sys-color-secondary-container)"
-                            onClick={() => {
-                                console.log('Audit: Navigated to UDA Planner');
-                                onNavigate('uda');
-                            }}
-                            
-                        />
+                    <Grid container spacing={2}>
 
-                        <Card
-                            icon="auto_fix_high"
-                            title="Studio AI"
-                            description="Genera quiz, riassunti e materiali dai tuoi documenti."
-                            color="var(--md-sys-color-tertiary-container)"
-                            onClick={() => {
-                                console.log('Audit: Navigated to Studio AI');
-                                onNavigate('studio');
-                            }}
-                            
-                        />
+                        <Grid size={6}>
+                            <NavigationCard
+                                icon="assignment"
+                                title="Planner UDA"
+                                description="Gestisci le UnitÃ  di Apprendimento, le fasi di lavoro e le competenze target."
+                                color="var(--md-sys-color-secondary-container)"
+                                onClick={() => {
+                                    console.log('Audit: Navigated to UDA Planner');
+                                    onNavigate('uda');
+                                }}
+                            />
+                        </Grid>
 
-                        <Card
-                            icon="transform"
-                            title="Importa & Ristruttura"
-                            description="Converti vecchi file in documenti standard."
-                            color="var(--md-sys-color-surface-container)"
-                            onClick={() => {
-                                console.log('Audit: Opened Smart Import Modal');
-                                setIsSmartImportOpen(true);
-                            }}
-                            
-                        />
+                        <Grid size={6}>
+                            <NavigationCard
+                                icon="auto_fix_high"
+                                title="Studio AI"
+                                description="Genera quiz, riassunti e materiali dai tuoi documenti."
+                                color="var(--md-sys-color-tertiary-container)"
+                                onClick={() => {
+                                    console.log('Audit: Navigated to Studio AI');
+                                    onNavigate('studio');
+                                }}
+                            />
+                        </Grid>
 
-{/* Card Import da NotebookLM accanto a Knowledge Base */}
-                        <Card
-                            icon="cloud_download"
-                            title="Importa da NotebookLM"
-                            description="Sfoglia e importa materiali dal tuo spazio Google NotebookLM."
-                            color="var(--md-sys-color-surface-container)"
-                            onClick={() => {
-                                console.log('Audit: Opened NotebookLM Import Modal');
-                                setIsNotebookLMImportOpen(true);
-                            }}
-                            
-                        />
+                        <Grid size={6}>
+                            <NavigationCard
+                                icon="transform"
+                                title="Importa & Ristruttura"
+                                description="Converti vecchi file in documenti standard."
+                                color="var(--md-sys-color-surface-container)"
+                                onClick={() => {
+                                    console.log('Audit: Opened Smart Import Modal');
+                                    setIsSmartImportOpen(true);
+                                }}
+                            />
+                        </Grid>
 
-                        <Card
-                            icon="folder_open"
-                            title="Knowledge Base"
-                            description="Archivio documenti."
-                            color="var(--md-sys-color-surface-container)"
-                            onClick={() => {
-                                console.log('Audit: Navigated to Knowledge Base');
-                                onNavigate('knowledge-base');
-                            }}
-                            
-                        />
+                        {/* Card Import da NotebookLM accanto a Knowledge Base */}
+                        <Grid size={6}>
+                            <NavigationCard
+                                icon="cloud_download"
+                                title="Importa da NotebookLM"
+                                description="Sfoglia e importa materiali dal tuo spazio Google NotebookLM."
+                                color="var(--md-sys-color-surface-container)"
+                                onClick={() => {
+                                    console.log('Audit: Opened NotebookLM Import Modal');
+                                    setIsNotebookLMImportOpen(true);
+                                }}
+                            />
+                        </Grid>
 
-                        <Card
-                            icon="description"
-                            title="Template"
-                            description="Gestisci i modelli per UDA e verifiche."
-                            color="var(--md-sys-color-surface-container)"
-                            onClick={() => {
-                                console.log('Audit: Opened Template Manager');
-                                setIsTemplateManagerOpen(true);
-                            }}
-                            
-                        />
+                        <Grid size={6}>
+                            <NavigationCard
+                                icon="folder_open"
+                                title="Knowledge Base"
+                                description="Archivio documenti."
+                                color="var(--md-sys-color-surface-container)"
+                                onClick={() => {
+                                    console.log('Audit: Navigated to Knowledge Base');
+                                    onNavigate('knowledge-base');
+                                }}
+                            />
+                        </Grid>
 
-                        <Card
-                            icon="history_edu"
-                            title="Lezioni"
-                            description="Piani di lezione."
-                            color="var(--md-sys-color-surface-container)"
-                            onClick={() => {
-                                console.log('Audit: Navigated to Lessons');
-                                onNavigate('lessons');
-                            }}
-                            
-                        />
+                        <Grid size={6}>
+                            <NavigationCard
+                                icon="description"
+                                title="Template"
+                                description="Gestisci i modelli per UDA e verifiche."
+                                color="var(--md-sys-color-surface-container)"
+                                onClick={() => {
+                                    console.log('Audit: Opened Template Manager');
+                                    setIsTemplateManagerOpen(true);
+                                }}
+                            />
+                        </Grid>
 
-                        <Card
-                            icon="schema"
-                            title="Rubriche"
-                            description="Griglie valutazione."
-                            color="var(--md-sys-color-surface-container)"
-                            onClick={() => {
-                                console.log('Audit: Navigated to Rubriche');
-                                onNavigate('rubriche');
-                            }}
-                            
-                        />
+                        <Grid size={6}>
+                            <NavigationCard
+                                icon="history_edu"
+                                title="Lezioni"
+                                description="Piani di lezione."
+                                color="var(--md-sys-color-surface-container)"
+                                onClick={() => {
+                                    console.log('Audit: Navigated to Lessons');
+                                    onNavigate('lessons');
+                                }}
+                            />
+                        </Grid>
 
-                        <Card
-                            icon="print"
-                            title="Report"
-                            description="Stampe & PDF."
-                            color="var(--md-sys-color-surface-container)"
-                            onClick={() => {
-                                console.log('Audit: Navigated to Reportistica');
-                                onNavigate('reportistica');
-                            }}
-                            
-                        />
+                        <Grid size={6}>
+                            <NavigationCard
+                                icon="schema"
+                                title="Rubriche"
+                                description="Griglie valutazione."
+                                color="var(--md-sys-color-surface-container)"
+                                onClick={() => {
+                                    console.log('Audit: Navigated to Rubriche');
+                                    onNavigate('rubriche');
+                                }}
+                            />
+                        </Grid>
 
-                    </div>
+                        <Grid size={6}>
+                            <NavigationCard
+                                icon="print"
+                                title="Report"
+                                description="Stampe & PDF."
+                                color="var(--md-sys-color-surface-container)"
+                                onClick={() => {
+                                    console.log('Audit: Navigated to Reportistica');
+                                    onNavigate('reportistica');
+                                }}
+                            />
+                        </Grid>
+
+                    </Grid>
                 </>
             ) : (
                 /* COMPETENCY MANAGER */
@@ -379,7 +331,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                     onImport={(importedFiles: KnowledgeBaseEntry[]) => {
                         // Aggiorna la Knowledge Base con i materiali importati
                         if (onUpdateKnowledgeBase && typeof onUpdateKnowledgeBase === 'function') {
-                            // Se � fornito un dispatcher esplicito
+                            // Se ï¿½ fornito un dispatcher esplicito
                             onUpdateKnowledgeBase([
                                 ...knowledgeBase,
                                 ...importedFiles
@@ -399,19 +351,10 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                     onClose={() => setIsTemplateManagerOpen(false)}
                 />
             )}
-        </div>
+        </PageWrapper>
     );
 };
 
-// Declare `udas` explicitly
-const udas: Uda[] = []; // Replace with actual data source
-
-// Ensure `uda` properties are validated before passing to components
-udas.forEach((uda) => {
-    if (!uda.id || !uda.title || !uda.startDate || !uda.endDate) {
-        throw new Error(`Invalid Uda: Missing required properties for ${uda.id || 'unknown'}`);
-    }
-});
-
 export default ProgettazioneHub;
+
 

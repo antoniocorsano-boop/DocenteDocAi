@@ -13,7 +13,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import AddOrientamentoActivityModal from './AddOrientamentoActivityModal';
 import StudentEPortfolioModal from './StudentEPortfolioModal';
 interface OrientamentoDashboardProps {
@@ -168,18 +169,20 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                      style={{ flexGrow: "1" }}
                 />
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                        <FormControl sx={{ mb: 2 }}>
-                      <InputLabel>Classe</InputLabel>
-                      <NativeSelect
+                                        <FormControl fullWidth>
+                      <InputLabel id="orientamento-classe-label" shrink>Classe</InputLabel>
+                      <Select
+                        labelId="orientamento-classe-label"
                         value={selectedClass}
-                        onChange={e => setSelectedClass(e.target.value)}
+                        label="Classe"
+                        displayEmpty
+                        notched
+                        onChange={(e: SelectChangeEvent) => setSelectedClass(e.target.value)}
                       >
-
                         {userClasses.map(c => (
-                            <option key={c} value={c}>Classe {c}</option>
+                            <MenuItem key={c} value={c}>Classe {c}</MenuItem>
                         ))}
-                    
-                      </NativeSelect>
+                      </Select>
                     </FormControl>
                 </div>
             </div>

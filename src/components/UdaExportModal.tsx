@@ -12,7 +12,8 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
 interface UdaExportModalProps {
@@ -143,19 +144,19 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                         </Typography>
                     </div>
 
-                                        <FormControl fullWidth sx={{ mb: 2 }}>
-                      <InputLabel>Tipo di Documento</InputLabel>
-                      <NativeSelect
+                                        <FormControl fullWidth>
+                      <InputLabel id="uda-doctype-label" shrink>Tipo di Documento</InputLabel>
+                      <Select
+                        labelId="uda-doctype-label"
                         value={docType}
-                        onChange={(e) => setDocType(e.target.value as 'docente' | 'studente')}
+                        label="Tipo di Documento"
+                        displayEmpty
+                        notched
+                        onChange={(e: SelectChangeEvent) => setDocType(e.target.value as 'docente' | 'studente')}
                       >
-                        {([
-                            { value: 'docente', label: 'Progettazione per Docente (Completa)' },
-                            { value: 'studente', label: 'Guida per Studente (Semplificata)' }
-                        ]).map((o) => (
-                          <option key={o.value} value={o.value}>{o.label}</option>
-                        ))}
-                      </NativeSelect>
+                        <MenuItem value="docente">Progettazione per Docente (Completa)</MenuItem>
+                        <MenuItem value="studente">Guida per Studente (Semplificata)</MenuItem>
+                      </Select>
                     </FormControl>
 
                     <div style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>

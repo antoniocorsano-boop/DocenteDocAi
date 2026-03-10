@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import ButtonBase from '@mui/material/ButtonBase';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import { PageWrapper } from './ui';
 import { View, NavigationParams } from '../types';
 import { useAcademicStore } from '../stores/useAcademicStore';
 import { useStudentStore } from '../stores/useStudentStore';
@@ -116,17 +117,13 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
   return (
     <>
-      <Box
+      <PageWrapper
+        maxWidth="var(--md-sys-layout-content-max-width)"
+        gap="var(--md-sys-spacing-6)"
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 3,
-          px: 2,
-          pt: 2,
+          px: 'var(--md-sys-spacing-4)',
+          pt: 'var(--md-sys-spacing-4)',
           pb: 'calc(80px + env(safe-area-inset-bottom, 0px))',
-          maxWidth: 'var(--md-sys-layout-content-max-width)',
-          mx: 'auto',
-          width: '100%',
           boxSizing: 'border-box',
         }}
       >
@@ -349,7 +346,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             </List>
           )}
         </Box>
-      </Box>
+      </PageWrapper>
 
       {/* PRIMARY FAB */}
       <Fab

@@ -8,7 +8,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
@@ -94,27 +95,31 @@ const OrarioSettingsModal: React.FC<OrarioSettingsModalProps> = ({
           </Box>
 
           <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)' }}>
-                        <FormControl fullWidth sx={{ mb: 2 }}>
-              <InputLabel>Classe</InputLabel>
-              <NativeSelect
+            <FormControl fullWidth>
+              <InputLabel id="orario-classe-label" shrink>Classe</InputLabel>
+              <Select
+                labelId="orario-classe-label"
                 value={classe}
-                onChange={e => onChange('classe', (e as React.ChangeEvent<HTMLSelectElement>).target.value)}
+                label="Classe"
+                displayEmpty
+                notched
+                onChange={(e: SelectChangeEvent) => onChange('classe', e.target.value)}
               >
-                {(userClasses.map(c => ({ value: c, label: c }))).map((o) => (
-                  <option key={o.value} value={o.value}>{o.label}</option>
-                ))}
-              </NativeSelect>
+                {userClasses.map(c => <MenuItem key={c} value={c}>{c}</MenuItem>)}
+              </Select>
             </FormControl>
-                        <FormControl fullWidth sx={{ mb: 2 }}>
-              <InputLabel>Materia</InputLabel>
-              <NativeSelect
+            <FormControl fullWidth>
+              <InputLabel id="orario-materia-label" shrink>Materia</InputLabel>
+              <Select
+                labelId="orario-materia-label"
                 value={materia}
-                onChange={e => onChange('materia', (e as React.ChangeEvent<HTMLSelectElement>).target.value)}
+                label="Materia"
+                displayEmpty
+                notched
+                onChange={(e: SelectChangeEvent) => onChange('materia', e.target.value)}
               >
-                {(disciplines.map(m => ({ value: m, label: m }))).map((o) => (
-                  <option key={o.value} value={o.value}>{o.label}</option>
-                ))}
-              </NativeSelect>
+                {disciplines.map(m => <MenuItem key={m} value={m}>{m}</MenuItem>)}
+              </Select>
             </FormControl>
           </Box>
 

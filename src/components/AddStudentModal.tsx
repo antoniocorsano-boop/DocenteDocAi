@@ -5,7 +5,9 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
 import { M3Dialog, TextField } from './ui';
 interface AddStudentModalProps {
     studentToEdit?: Studente;
@@ -77,18 +79,23 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
                         required
                     />
                 </Box>
-                                <FormControl sx={{ mb: 2 }}>
-                  <InputLabel htmlFor="student-classe-select">Classe</InputLabel>
-                  <NativeSelect
+                <FormControl fullWidth>
+                  <InputLabel id="student-classe-label" shrink>Classe</InputLabel>
+                  <Select
+                    labelId="student-classe-label"
+                    id="student-classe-select"
                     value={formData.classe}
-                    onChange={e => setFormData({ ...formData, classe: e.target.value })}
+                    label="Classe"
+                    displayEmpty
+                    notched
                     required
-                    inputProps={{ id: 'student-classe-select', name: 'classe' }}
+                    onChange={(e: SelectChangeEvent) => setFormData({ ...formData, classe: e.target.value })}
+                    renderValue={(v) => v || <Typography component="span" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.6 }}>Seleziona...</Typography>}
                   >
-
-                    {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
-                
-                  </NativeSelect>
+                    {userClasses.map(c => (
+                      <MenuItem key={c} value={c}>{c}</MenuItem>
+                    ))}
+                  </Select>
                 </FormControl>
             </Box>
         </M3Dialog>

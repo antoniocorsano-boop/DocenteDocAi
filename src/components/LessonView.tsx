@@ -15,6 +15,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
+import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import DescriptionIcon from '@mui/icons-material/Description';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
@@ -216,7 +218,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
               <Box component="span" className="material-symbols-outlined" aria-hidden="true">{typeIcon}</Box>
             </Box>
             <Box sx={{ flex: 1 }}>
-              <Typography variant="h6" sx={{ fontWeight: 700, color: 'text.primary', m: 0 }}>Piano Lezione</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'text.primary', m: 0 }}>Piano Lezione</Typography>
               <Typography variant="caption" sx={{ color: 'text.secondary' }}>{lesson.id.split('-').slice(0,2).join('-')}</Typography>
             </Box>
           </Box>
@@ -224,41 +226,52 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         <DialogContent>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                 {/* HERO SECTION */}
-                <div style={{ borderRadius: 'var(--md-sys-shape-corner-extra-large)', backgroundColor: 'var(--md-sys-color-primary-container)', padding: 'var(--md-sys-spacing-6)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-extra-large)', backgroundColor: 'var(--md-sys-color-primary-container)', padding: 'var(--md-sys-spacing-6)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     {lesson.unitaDiApprendimento && (
-                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-primary)', alignSelf: 'flex-start' }}>
-                            <span style={{ fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-on-primary)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>UDA</span>
-                            <span style={{ fontSize: 'var(--md-sys-typescale-label-small-font-size)', color: 'var(--md-sys-color-on-primary)' }}>{lesson.unitaDiApprendimento}</span>
-                        </div>
+                        <Chip
+                            label={`UDA: ${lesson.unitaDiApprendimento}`}
+                            size="small"
+                            sx={{
+                                alignSelf: 'flex-start',
+                                backgroundColor: 'var(--md-sys-color-primary)',
+                                color: 'var(--md-sys-color-on-primary)',
+                                fontWeight: 'var(--md-sys-typescale-weight-bold)',
+                                letterSpacing: '0.08em',
+                                textTransform: 'uppercase',
+                            }}
+                        />
                     )}
                     <Typography component="h1" variant="h4" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-headline-medium-font-size)', color: 'var(--md-sys-color-on-primary-container)', lineHeight: 1.3 }}>
                         {lesson.contenuto}
                     </Typography>
 
-                    <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-3)' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-3)' }}>
                         {[{ icon: 'school', text: lesson.classe }, { icon: 'menu_book', text: lesson.materia }, { icon: 'category', text: lesson.tipoLezione || 'Teoria' }].map(tag => (
-                            <div key={tag.text} style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-surface-container)', color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-medium-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
-                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-4)' }}>{tag.icon}</Box>
-                                <span>{tag.text}</span>
-                            </div>
+                            <Chip
+                                key={tag.text}
+                                icon={<Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-4)', ml: '4px !important' }}>{tag.icon}</Box>}
+                                label={tag.text}
+                                size="small"
+                                sx={{ backgroundColor: 'var(--md-sys-color-surface-container)', color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}
+                            />
                         ))}
-                    </div>
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 'var(--md-sys-spacing-6)', alignItems: 'start' }}>
+                    </Box>
+                </Box>
+                <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 'var(--md-sys-spacing-6)', alignItems: 'start' }}>
                     {/* LEFT COLUMN */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)' }}>
                         {/* AI Assistant */}
                         {aiSettings && (
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-secondary-container)', padding: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-4)' }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-11)', height: 'var(--md-sys-spacing-11)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-secondary)', color: 'var(--md-sys-color-on-secondary)', flexShrink: 0 }}>
+                            <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-secondary-container)', padding: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-4)' }}>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-11)', height: 'var(--md-sys-spacing-11)', borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-secondary)', color: 'var(--md-sys-color-on-secondary)', flexShrink: 0 }}>
                                         <Box component="span" className="material-symbols-outlined" aria-hidden="true">psychology</Box>
-                                    </div>
-                                    <div style={{ flex: 1 }}>
+                                    </Box>
+                                    <Box sx={{ flex: 1 }}>
                                         <Typography component="p" variant="subtitle2" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', color: 'var(--md-sys-color-on-secondary-container)' }}>Assistente Pedagogico</Typography>
                                         <Typography component="p" variant="body2" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-secondary-container)', opacity: 'var(--md-sys-state-opacity-caption)' }}>Analizza inclusivit� e coinvolgimento</Typography>
-                                    </div>
-                                </div>
+                                    </Box>
+                                </Box>
                                 <Box sx={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
                                     <Button
                                         onClick={handleEnrichLesson}
@@ -277,55 +290,55 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                         {isAnalyzing ? <AiThinkingGem size="small" inline text="" /> : 'Analizza'}
                                     </Button>
                                 </Box>
-                            </div>
+                            </Box>
                         )}
 
                         {/* Objectives */}
-                        <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
+                        <Box component="section" sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                             <SectionHeader title="Obiettivi Didattici" icon="flag" />
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', padding: 'var(--md-sys-spacing-4)' }}>
+                            <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', padding: 'var(--md-sys-spacing-4)' }}>
                                 {lesson.obiettivi ? (
-                                    <div style={{ flex: 1 }}>
-                                        <ul style={{ margin: 0, paddingLeft: 'var(--md-sys-spacing-5)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
+                                    <Box sx={{ flex: 1 }}>
+                                        <Box component="ul" sx={{ margin: 0, paddingLeft: 'var(--md-sys-spacing-5)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
                                             {lesson.obiettivi.split('\n').filter(line => line.trim()).map((line, idx) => (
-                                                <li key={idx} style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface)', lineHeight: 1.6 }}>{line.replace(/^- /, '')}</li>
+                                                <Box component="li" key={idx} sx={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface)', lineHeight: 1.6 }}>{line.replace(/^- /, '')}</Box>
                                             ))}
-                                        </ul>
-                                    </div>
+                                        </Box>
+                                    </Box>
                                 ) : (
                                     <Typography component="p" variant="body1" sx={{ margin: 0, color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', fontStyle: 'italic' }}>Nessun obiettivo specificato.</Typography>
                                 )}
-                            </div>
-                        </section>
+                            </Box>
+                        </Box>
 
                         {/* Content */}
-                        <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
+                        <Box component="section" sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                             <SectionHeader title="Svolgimento e Contenuti" icon="article" />
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', padding: 'var(--md-sys-spacing-4)' }}>
+                            <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', padding: 'var(--md-sys-spacing-4)' }}>
                                 {lesson.contesto ? (
                                     <Typography component="p" variant="body1" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface)', lineHeight: 1.7 }}>{lesson.contesto}</Typography>
                                 ) : (
                                     <Typography component="p" variant="body1" sx={{ margin: 0, color: 'var(--md-sys-color-on-surface-variant)', fontStyle: 'italic' }}>Nessun dettaglio sullo svolgimento.</Typography>
                                 )}
-                            </div>
-                        </section>
+                            </Box>
+                        </Box>
 
                         {/* Notes */}
                         {lesson.nota && (
-                            <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
+                            <Box component="section" sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                                 <SectionHeader title="Note Docente" icon="sticky_note_2" />
-                                <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-4)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface)', lineHeight: 1.7, whiteSpace: 'pre-wrap', borderLeft: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-tertiary)' }}>
+                                <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)', padding: 'var(--md-sys-spacing-4)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface)', lineHeight: 1.7, whiteSpace: 'pre-wrap', borderLeft: 'var(--md-sys-border-width-thick) solid var(--md-sys-color-tertiary)' }}>
                                     {lesson.nota}
-                                </div>
-                            </section>
+                                </Box>
+                            </Box>
                         )}
-                    </div>
+                    </Box>
 
                     {/* RIGHT COLUMN */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)' }}>
                         {/* Materials */}
-                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', overflow: 'hidden' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                        <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', overflow: 'hidden' }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                 <Typography component="h3" variant="subtitle2" sx={{ margin: 0, display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>
                                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-primary)' }}>attachment</Box>
                                     Materiali
@@ -333,27 +346,28 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                 <IconButton onClick={() => setIsMaterialPickerOpen(true)} aria-label="Aggiungi materiale" size="small">
                                     <AddIcon />
                                 </IconButton>
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', padding: 'var(--md-sys-spacing-2) 0' }}>
+                            </Box>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', padding: 'var(--md-sys-spacing-2) 0' }}>
                                 {(lesson.materialiDidattici?.length || 0) > 0 ? (
                                     lesson.materialiDidattici!.map(material => (
-                                        <div key={material.id} style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)' }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-primary-container)', color: 'var(--md-sys-color-on-primary-container)', flexShrink: 0 }}>
+                                        <Box key={material.id} sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)' }}>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-primary-container)', color: 'var(--md-sys-color-on-primary-container)', flexShrink: 0 }}>
                                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-5)' }}>{getMaterialIcon(material)}</Box>
-                                            </div>
-                                            <div style={{ flex: 1, minWidth: 0 }}>
+                                            </Box>
+                                            <Box sx={{ flex: 1, minWidth: 0 }}>
                                                 {material.type === 'link' ? (
-                                                    <a href={material.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', textDecoration: 'none', fontWeight: 'var(--md-sys-typescale-weight-bold)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }}>{material.label}</a>
+                                                    <Link href={material.url} target="_blank" rel="noopener noreferrer" sx={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', textDecoration: 'none', fontWeight: 'var(--md-sys-typescale-weight-bold)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }}>{material.label}</Link>
                                                 ) : (
-                                                    <span
+                                                    <Box
+                                                        component="span"
                                                         onClick={() => material.type === 'kb' && handlePreviewKbMaterial(material)}
-                                                        style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: material.type === 'kb' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface)', cursor: material.type === 'kb' ? 'pointer' : 'default', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }}
+                                                        sx={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: material.type === 'kb' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface)', cursor: material.type === 'kb' ? 'pointer' : 'default', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }}
                                                     >
                                                         {material.type === 'kb' ? material.fileName : material.file?.name}
-                                                    </span>
+                                                    </Box>
                                                 )}
-                                            </div>
-                                            <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+                                            </Box>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
                                                 {material.type === 'file' && (
                                                     <IconButton onClick={() => handleDownloadMaterial(material)} aria-label="Scarica" size="small">
                                                         <DownloadIcon fontSize="small" />
@@ -362,17 +376,17 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                                 <IconButton onClick={() => handleRemoveMaterial(material.id)} aria-label="Rimuovi materiale" size="small">
                                                     <CloseIcon fontSize="small" />
                                                 </IconButton>
-                                            </div>
-                                        </div>
+                                            </Box>
+                                        </Box>
                                     ))
                                 ) : (
-                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-6)', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-6)', color: 'var(--md-sys-color-on-surface-variant)' }}>
                                         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-xl)' }}>folder_off</Box>
                                         <Typography component="p" variant="body2" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}>Nessun materiale</Typography>
-                                    </div>
+                                    </Box>
                                 )}
-                            </div>
-                        </div>
+                            </Box>
+                        </Box>
 
                         {/* Inclusion */}
                         <InfoCard 
@@ -386,12 +400,12 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                         </InfoCard>
 
                         {/* Homework */}
-                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', overflow: 'hidden' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                        <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container)', overflow: 'hidden' }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-5)', color: 'var(--md-sys-color-primary)' }}>assignment</Box>
                                 <Typography component="h3" variant="subtitle2" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-small-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Compiti per Casa</Typography>
-                            </div>
-                            <div style={{ padding: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
+                            </Box>
+                            <Box sx={{ padding: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                                 <Typography component="p" variant="body1" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: lesson.compiti ? 'var(--md-sys-color-on-surface)' : 'var(--md-sys-color-on-surface-variant)', fontStyle: lesson.compiti ? 'normal' : 'italic', lineHeight: 1.6 }}>
                                     {lesson.compiti || 'Nessun compito assegnato.'}
                                 </Typography>
@@ -401,10 +415,10 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
                                         PDF Compiti
                                     </Button>
                                 )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            </Box>
+                        </Box>
+                    </Box>
+                </Box>
             </Box>
         </DialogContent>
         <DialogActions sx={{ justifyContent: 'space-between', flexWrap: 'wrap', gap: 1.5 }}>

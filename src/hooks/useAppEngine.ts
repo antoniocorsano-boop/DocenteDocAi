@@ -24,6 +24,7 @@ import type { SyncConflictData } from '../types';
 import { messages } from '../messages';
 import { useSettingsStore } from '../stores/useSettingsStore';
 import { errorLogger } from '../services/errorLogger';
+import { ThemeService } from '../services/ThemeService';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useAppEngine = () => {
@@ -254,6 +255,13 @@ export const useAppEngine = () => {
         generateSuggestions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isDataLoaded, isTestMode]); // Re-run if data changes significantly
+
+    // --- THEME APPLICATION EFFECT ---
+    // Applies themeState (mode, visualStyle, colors, glassBlur, etc.) to DOM CSS variables
+    // and sets data-ui-mode attribute whenever the theme state changes.
+    useEffect(() => {
+        ThemeService.applyThemeState(themeState);
+    }, [themeState]);
 
     // --- CORE ACTIONS (COORDINATION AND UI DISPATCH) ---
     // These actions are managed by AppEngine but dispatch to Zustand stores.

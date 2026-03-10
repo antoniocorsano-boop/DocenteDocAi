@@ -18,6 +18,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 interface CurriculumManagerProps {
@@ -97,7 +98,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
     const renderEditor = () => {
         if (!selectedCurriculum) return null;
         return (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <Stack spacing={2}>
                 {selectedCurriculum.nuclei.length === 0 && (
                     <EmptyState title="Programma Vuoto" description="Inizia importando un documento o aggiungendo i nuclei fondanti." icon="library_books" />
                 )}
@@ -105,8 +106,8 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                     <InfoCard
                         key={nucleo.id}
                     >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', marginBottom: 'var(--md-sys-spacing-3)' }}>
-                            <div style={{ flex: 1 }}>
+                        <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 'var(--md-sys-spacing-3)' }}>
+                            <Box sx={{ flex: 1 }}>
                                 <TextField 
                                     label="Titolo Nucleo Fondante" 
                                     value={nucleo.title} 
@@ -116,7 +117,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                         handleUpdate({...selectedCurriculum, nuclei: newNuclei});
                                     }}
                                 />
-                            </div>
+                            </Box>
                             <Button 
                                 onClick={() => {
                                     const newNuclei = selectedCurriculum.nuclei.filter(n => n.id !== nucleo.id);
@@ -129,17 +130,17 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                 <span style={{
 }}>delete</span>
                             </Button>
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
+                        </Stack>
+                        <Stack spacing={1}>
                             {nucleo.objectives.map((obj, oIdx) => (
-                                <div key={obj.id} style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-surface-container)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
-                                    <span style={{
+                                <Stack key={obj.id} direction="row" alignItems="center" spacing={1.5} sx={{ p: 'var(--md-sys-spacing-2)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-surface-container)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
+                                    <Box component="span" sx={{
                                         width: 'var(--md-sys-spacing-2)',
                                         height: 'var(--md-sys-spacing-2)',
                                         borderRadius: 'var(--md-sys-shape-corner-full)',
                                         flexShrink: 0,
                                         background: obj.type === 'skill' ? 'var(--md-sys-color-tertiary)' : 'var(--md-sys-color-secondary)'
-                                    }}></span>
+                                    }} />
                                     <input 
                                         
                                         value={obj.text}
@@ -161,7 +162,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     >
                                         <span>close</span>
                                     </Button>
-                                </div>
+                                </Stack>
                             ))}
                             <Button 
                                 onClick={() => {
@@ -174,7 +175,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                             >
                                 <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span> Aggiungi Obiettivo
                             </Button>
-                        </div>
+                        </Stack>
                     </InfoCard>
                 ))}
                 <Button 
@@ -187,23 +188,23 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                 >
                     <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_circle</span> Nuovo Nucleo Fondante
                 </Button>
-            </div>
+            </Stack>
         );
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: 'var(--md-sys-percent-100)', backgroundColor: 'var(--md-sys-color-surface)', overflow: 'hidden' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', height: 'var(--md-sys-percent-100)', overflow: 'hidden' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 0, borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', backgroundColor: 'var(--md-sys-color-surface-container-low)', overflow: 'hidden' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', height: 'var(--md-sys-percent-100)', backgroundColor: 'var(--md-sys-color-surface)', overflow: 'hidden' }}>
+            <Box sx={{ display: 'grid', gridTemplateColumns: '280px 1fr', height: 'var(--md-sys-percent-100)', overflow: 'hidden' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0, borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', backgroundColor: 'var(--md-sys-color-surface-container-low)', overflow: 'hidden' }}>
+                    <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ p: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
+                        <Stack direction="row" alignItems="center" spacing={1}>
                             <Button onClick={() => onNavigate('home')} variant="text">
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true">arrow_back</Box>
                             </Button>
                             <Typography component="h1" variant="h6" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Curricoli</Typography>
-                        </div>
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
+                        </Stack>
+                    </Stack>
+                    <Stack spacing={1.5} sx={{ p: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
                                                 <FormControl fullWidth sx={{ mb: 2 }}>
                           <InputLabel id="curriculum-subject-label" shrink>Materia</InputLabel>
                           <Select
@@ -220,14 +221,14 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                         <Button onClick={handleCreate} variant="contained" >
                             Crea Curricolo
                         </Button>
-                    </div>
-                    <div style={{ flex: 1, overflowY: 'auto', padding: 'var(--md-sys-spacing-2)' }}>
+                    </Stack>
+                    <Box sx={{ flex: 1, overflowY: 'auto', p: 'var(--md-sys-spacing-2)' }}>
                         {curricula.map(curr => (
-                            <div
+                            <Box
                                 key={curr.id}
                                 onClick={() => setSelectedCurriculumId(curr.id)}
-                                style={{
-                                    padding: 'var(--md-sys-spacing-8)',
+                                sx={{
+                                    p: 'var(--md-sys-spacing-8)',
                                     borderRadius: 'var(--md-sys-shape-corner-medium)',
                                     cursor: 'pointer',
                                     transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
@@ -237,23 +238,14 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     background: selectedCurriculumId === curr.id ? 'var(--md-sys-color-primary)' : 'transparent',
                                     color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'inherit',
                                     boxShadow: selectedCurriculumId === curr.id ? 'var(--md-sys-elevation-level3)' : 'none',
-                                    transform: selectedCurriculumId === curr.id ? 'scale(1.02)' : 'scale(1)'
-                                }}
-                                onMouseEnter={(e) => {
-                                    if (selectedCurriculumId !== curr.id) {
-                                        e.currentTarget.style.background = 'var(--md-sys-color-surface-container-high)';
-                                    }
-                                }}
-                                onMouseLeave={(e) => {
-                                    if (selectedCurriculumId !== curr.id) {
-                                        e.currentTarget.style.background = 'transparent';
-                                    }
+                                    transform: selectedCurriculumId === curr.id ? 'scale(1.02)' : 'scale(1)',
+                                    '&:hover': { background: selectedCurriculumId === curr.id ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)' },
                                 }}
                             >
-                                <div style={{ flex: 1, minWidth: 0 }}>
+                                <Box sx={{ flex: 1, minWidth: 0 }}>
                                     <Typography component="p" variant="subtitle1" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{curr.subject}</Typography>
                                     <Typography component="p" variant="body2" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)', opacity: 'var(--md-sys-state-opacity-caption)' }}>{curr.gradeLevel}</Typography>
-                                </div>
+                                </Box>
                                 <Button
                                     onClick={(e) => { e.stopPropagation(); handleDelete(curr.id); }}
                                     variant="text"
@@ -278,19 +270,19 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                 >
                                     <span  style={{ fontSize: "var(--md-sys-typescale-label-large-font-size)" }}>delete</span>
                                 </Button>
-                            </div>
+                            </Box>
                         ))}
-                    </div>
-                </div>
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+                    </Box>
+                </Box>
+                <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
                     {selectedCurriculum ? (
                         <>
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 'var(--md-sys-spacing-4) var(--md-sys-spacing-6)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
-                                <div style={{ flex: 1, minWidth: 0 }}>
+                            <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ p: 'var(--md-sys-spacing-4) var(--md-sys-spacing-6)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
+                                <Box sx={{ flex: 1, minWidth: 0 }}>
                                     <Typography component="h2" variant="h6" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>{selectedCurriculum.subject}</Typography>
                                     <Typography component="p" variant="body1" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{selectedCurriculum.gradeLevel}</Typography>
-                                </div>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                                </Box>
+                                <Stack direction="row" alignItems="center" spacing={1.5}>
                                                                           <Tabs
                                        value={activeTab}
                                        onChange={(_, v: string) => ((id: string) => {
@@ -341,15 +333,15 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                             <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>auto_awesome</span> AI Import
                                         </Button>
                                     )}
-                                </div>
-                            </div>
-                                            {activeTab === 'editor' ? <div style={{ flex: 1, overflowY: 'auto', padding: 'var(--md-sys-spacing-6)' }}>{renderEditor()}</div> : <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><EmptyState title="Analisi Copertura" description="La funzione di copertura basata sulle lezioni svolte è in arrivo." icon="analytics" /></div>}
+                                </Stack>
+                            </Stack>
+                                            {activeTab === 'editor' ? <Box sx={{ flex: 1, overflowY: 'auto', p: 'var(--md-sys-spacing-6)' }}>{renderEditor()}</Box> : <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><EmptyState title="Analisi Copertura" description="La funzione di copertura basata sulle lezioni svolte è in arrivo." icon="analytics" /></Box>}
                         </>
                     ) : (
                         <EmptyState title="Seleziona un Curricolo" description="Scegli un programma dalla lista laterale per iniziare la progettazione per obiettivi." icon="menu_book" />
                     )}
-                </div>
-            </div>
+                </Box>
+            </Box>
             {isImporting && (
                 <M3Dialog
                     onClose={() => setIsImporting(false)}
@@ -357,12 +349,12 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                     maxWidth="xl"
                 >
                     <DialogContent>
-                        <div {...getRootProps()} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-large)', border: 'var(--md-sys-border-width-thick) dashed var(--md-sys-color-outline)', backgroundColor: 'var(--md-sys-color-surface-container)', cursor: 'pointer', textAlign: 'center' }}>
+                        <Box {...getRootProps()} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', p: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-shape-corner-large)', border: 'var(--md-sys-border-width-thick) dashed var(--md-sys-color-outline)', backgroundColor: 'var(--md-sys-color-surface-container)', cursor: 'pointer', textAlign: 'center' }}>
                             <input {...getInputProps()} />
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-primary)' }}>upload_file</Box>
                             <Typography component="p" variant="subtitle1" sx={{ margin: 0, fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>Carica PDF Programmazione</Typography>
                             <Typography component="p" variant="body2" sx={{ margin: 0, fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>o trascina il file qui</Typography>
-                        </div>
+                        </Box>
                         <TextField multiline 
                             label="O incolla il testo del programma" 
                             value={importText} 
@@ -384,7 +376,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                     </DialogActions>
                 </M3Dialog>
             )}
-        </div>
+        </Box>
     );
 };
 

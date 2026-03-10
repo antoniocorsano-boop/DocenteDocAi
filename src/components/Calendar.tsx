@@ -229,7 +229,7 @@ const renderHeader = () => {
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20 }}>chevron_right</Box>
                         </IconButton>
                     </Paper>
-                    <Typography variant="h5" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 400 }}>
+                    <Typography variant="h5" sx={{ color: 'var(--md-sys-color-on-surface)' }}>
                         {title}
                     </Typography>
                 </Stack>
@@ -280,7 +280,7 @@ const renderHeader = () => {
                                     px: 2,
                                     textTransform: 'uppercase',
                                     fontSize: '0.75rem',
-                                    fontWeight: 500,
+                                    fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                 }}
                             />
                         ))}
@@ -330,7 +330,7 @@ const renderHeader = () => {
                         <Typography
                             variant="caption"
                             sx={{
-                                fontWeight: 700,
+                                fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.08em',
                                 color: 'var(--md-sys-color-on-surface-variant)',
@@ -429,7 +429,7 @@ const renderHeader = () => {
                                             width: '100%',
                                             justifyContent: 'flex-start',
                                             fontSize: '0.68rem',
-                                            fontWeight: 500,
+                                            fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                             borderRadius: '4px',
                                             bgcolor: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
                                                      ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
@@ -488,7 +488,7 @@ const renderHeader = () => {
                                 variant="caption"
                                 sx={{
                                     display: 'block',
-                                    fontWeight: 700,
+                                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                     textTransform: 'uppercase',
                                     color: 'var(--md-sys-color-on-surface-variant)',
                                 }}
@@ -570,7 +570,7 @@ const renderHeader = () => {
                                                 height: 'auto',
                                                 justifyContent: 'flex-start',
                                                 fontSize: '0.68rem',
-                                                fontWeight: 500,
+                                                fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                                 borderRadius: '4px',
                                                 mb: 0.25,
                                                 bgcolor: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
@@ -603,7 +603,7 @@ const renderHeader = () => {
     const renderDayView = () => (
         <Stack direction="column">
             <Box sx={{ px: 3, py: 2, borderBottom: '1px solid var(--md-sys-color-outline-variant)' }}>
-                <Typography variant="h6" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 400, textTransform: 'capitalize' }}>
+                <Typography variant="h6" sx={{ color: 'var(--md-sys-color-primary)', textTransform: 'capitalize' }}>
                     {currentDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
                 </Typography>
             </Box>
@@ -653,13 +653,13 @@ const renderHeader = () => {
                                         '&:hover': { filter: 'brightness(0.95)' },
                                     }}
                                 >
-                                    <Typography variant="caption" sx={{ fontWeight: 700, minWidth: 48, flexShrink: 0 }}>
+                                    <Typography variant="caption" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', minWidth: 48, flexShrink: 0 }}>
                                         {ev.oraInizio || 'Tutto il giorno'}
                                     </Typography>
                                     <ListItemText
                                         primary={ev.titolo}
                                         secondary={ev.location ? `📍 ${ev.location}` : ev.descrizione}
-                                        primaryTypographyProps={{ variant: 'body2', fontWeight: 600 }}
+                                        primaryTypographyProps={{ variant: 'body2', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}
                                         secondaryTypographyProps={{ variant: 'caption', sx: { color: 'inherit', opacity: 0.75 } }}
                                     />
                                 </ListItemButton>
@@ -703,7 +703,7 @@ const renderHeader = () => {
                                         sx={{
                                             bgcolor: 'var(--md-sys-color-surface-container)',
                                             color: 'var(--md-sys-color-primary)',
-                                            fontWeight: 600,
+                                            fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                             lineHeight: '40px',
                                             borderBottom: '1px solid var(--md-sys-color-outline-variant)',
                                             textTransform: 'capitalize',
@@ -736,7 +736,7 @@ const renderHeader = () => {
                                                 sx={{
                                                     height: 24,
                                                     fontSize: '0.7rem',
-                                                    fontWeight: 600,
+                                                    fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                                     flexShrink: 0,
                                                     bgcolor: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
                                                              ev.tipo === 'scadenza' ? 'var(--md-sys-color-tertiary-container)' :
@@ -751,7 +751,7 @@ const renderHeader = () => {
                                             <ListItemText
                                                 primary={ev.titolo}
                                                 secondary={ev.descrizione}
-                                                primaryTypographyProps={{ variant: 'body2', fontWeight: 600 }}
+                                                primaryTypographyProps={{ variant: 'body2', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}
                                                 secondaryTypographyProps={{ variant: 'caption' }}
                                             />
                                         </ListItemButton>

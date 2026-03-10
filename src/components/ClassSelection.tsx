@@ -5,13 +5,15 @@ import { View, Valutazione, Studente, ValutazioneCompetenza, TimetableSettings, 
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { generateCouncilDataPdf } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
-import { M3Dialog, SectionHeader, EmptyState } from './ui';
+import { M3Dialog, SectionHeader, EmptyState, NavigationCard, PageWrapper } from './ui';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import MuiCard from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -19,60 +21,6 @@ import Badge from '@mui/material/Badge';
 import { useStudentStore } from '../stores/useStudentStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
 
-// Local Card component (MUI-native replacement for M3ExpressiveCard)
-const _cardTokens: Record<string, readonly [string, string]> = {
-    primary:        ['var(--md-sys-color-primary-container)',      'var(--md-sys-color-primary)'],
-    secondary:      ['var(--md-sys-color-secondary-container)',    'var(--md-sys-color-secondary)'],
-    tertiary:       ['var(--md-sys-color-tertiary-container)',     'var(--md-sys-color-tertiary)'],
-    surface:        ['var(--md-sys-color-surface-container-high)', 'var(--md-sys-color-primary)'],
-    surfaceVariant: ['var(--md-sys-color-surface-container-low)',  'var(--md-sys-color-secondary)'],
-};
-interface CardProps {
-    icon: string; title: string; description: string;
-    color?: string; onClick?: () => void;
-    children?: React.ReactNode; ariaLabel?: string; style?: React.CSSProperties;
-}
-const Card: React.FC<CardProps> = ({ icon, title, description, color = 'surface', onClick, children, ariaLabel, style }) => {
-    const tokens = _cardTokens[color];
-    const bg = tokens ? tokens[0] : color;
-    const accent = tokens ? tokens[1] : 'var(--md-sys-color-primary)';
-    const clickable = Boolean(onClick);
-    return (
-        <MuiCard
-            onClick={onClick}
-            role={clickable ? 'button' : undefined}
-            tabIndex={clickable ? 0 : undefined}
-            aria-label={ariaLabel ?? (clickable ? `${title}: ${description}` : undefined)}
-            onKeyDown={(e) => { if (clickable && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onClick?.(); } }}
-            style={style}
-            sx={{
-                backgroundColor: bg,
-                borderRadius: 'var(--md-sys-shape-corner-large)',
-                border: '1px solid var(--md-sys-color-outline-variant)',
-                cursor: clickable ? 'pointer' : 'default',
-                boxShadow: 'var(--md-sys-elevation-level1)',
-                transition: 'transform 500ms cubic-bezier(0.38,1.21,0.22,1.00), box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
-                '&:hover': clickable ? { transform: 'scale(1.04)', boxShadow: 'var(--md-sys-elevation-level3)' } : {},
-            }}
-        >
-            <CardContent sx={{ p: 'var(--md-sys-spacing-8)', '&:last-child': { pb: 'var(--md-sys-spacing-8)' } }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
-                    <Box sx={{ width: 40, height: 40, borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: accent, userSelect: 'none' }}>{icon}</Box>
-                    </Box>
-                    {clickable && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>arrow_forward</Box>}
-                </Box>
-                <Typography variant="subtitle2">{title}</Typography>
-                <Typography variant="body2" sx={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{description}</Typography>
-                {children && (
-                    <Box sx={{ pt: 1, mt: 1, borderTop: '1px solid var(--md-sys-color-outline-variant)' }}>
-                        {children}
-                    </Box>
-                )}
-            </CardContent>
-        </MuiCard>
-    );
-};
 
 interface ClassSelectionProps {
     onSelectClass: (className: string) => void;
@@ -113,14 +61,14 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
     }, [evaluations, students]);
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+        <PageWrapper gap="var(--md-sys-spacing-4)">
              {/* Header Section */}
-            <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
+            <Box sx={{ mb: 'var(--md-sys-spacing-6)' }}>
                 <Typography component="h1" variant="h4" sx={{ 
                     color: 'var(--md-sys-color-on-surface)',
                     fontWeight: 'var(--md-sys-typescale-weight-bold)',
                     fontSize: 'var(--md-sys-typescale-headline-large-font-size)',
-                    marginBottom: 'var(--md-sys-spacing-2)'
+                    mb: 'var(--md-sys-spacing-2)'
                 }}>
                     Le Mie Classi
                 </Typography>
@@ -131,93 +79,81 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                 }}>
                     Gestione studenti e analisi.
                 </Typography>
-            </div>
+            </Box>
 
             {/* --- GLOBAL AGENDA WIDGET --- */}
             {upcomingTests.length > 0 && (
-                <section style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
+                <Box component="section" sx={{ mb: 'var(--md-sys-spacing-6)' }}>
                     <Typography component="h2" variant="h6" sx={{ 
                         color: 'var(--md-sys-color-on-surface)',
                         fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
                         fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                         textTransform: 'uppercase',
                         letterSpacing: 'var(--md-sys-typescale-title-medium-tracking)',
-                        marginBottom: 'var(--md-sys-spacing-4)'
+                        mb: 'var(--md-sys-spacing-4)'
                     }}>
                         In Arrivo (Tutte le classi)
                     </Typography>
-                    <div style={{ 
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 'var(--md-sys-spacing-3)'
-                    }}>
+                    <Stack spacing={1.5}>
                         {upcomingTests.map((test, idx) => (
-                            <div 
+                            <MuiCard
                                 key={idx}
-                                style={{
-                                    padding: 'var(--md-sys-spacing-4)',
-                                    borderRadius: 'var(--md-sys-spacing-3)',
-                                    background: 'var(--md-sys-color-surface-container)',
-                                    borderLeft: 'var(--md-sys-spacing-1) solid var(--md-sys-color-tertiary)',
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center'
+                                elevation={1}
+                                sx={{
+                                    backgroundColor: 'var(--md-sys-color-surface-container)',
+                                    borderLeft: '4px solid var(--md-sys-color-tertiary)',
+                                    borderRadius: 'var(--md-sys-shape-corner-medium)',
                                 }}
                             >
-                                <div style={{ flex: 1 }}>
-                                    <span style={{
-                                        color: 'var(--md-sys-color-tertiary)',
-                                        fontSize: 'var(--md-sys-typescale-label-small-font-size)',
-                                        fontWeight: 'var(--md-sys-typescale-weight-semibold)',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
-                                    }}>
-                                        {new Date(test.data).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' })}
-                                    </span>
-                                    <Typography component="h4" variant="h6" sx={{
-                                        color: 'var(--md-sys-color-on-surface)',
-                                        fontSize: 'var(--md-sys-typescale-title-medium-font-size)',
-                                        fontWeight: 'var(--md-sys-typescale-weight-semibold)',
-                                        marginTop: 'var(--md-sys-spacing-1)',
-                                        marginBottom: 'var(--md-sys-spacing-1)'
-                                    }}>
-                                        {test.materia}
-                                    </Typography>
-                                    <Typography component="p" variant="body1" sx={{
-                                        color: 'var(--md-sys-color-on-surface-variant)',
-                                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                                        overflow: 'hidden',
-                                        textOverflow: 'ellipsis',
-                                        whiteSpace: 'nowrap'
-                                    }}>
-                                        {test.argomento || test.tipo}
-                                    </Typography>
-                                </div>
-                                <div style={{
-                                    padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
-                                    borderRadius: 'var(--md-sys-spacing-2)',
-                                    background: 'var(--md-sys-color-primary-container)',
-                                    color: 'var(--md-sys-color-on-primary-container)',
-                                    fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
-                                    fontWeight: 'var(--md-sys-typescale-weight-semibold)'
-                                }}>
-                                    {test.className}
-                                </div>
-                            </div>
+                                <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', '&:last-child': { pb: 2 } }}>
+                                    <Box sx={{ flex: 1, overflow: 'hidden' }}>
+                                        <Typography component="span" variant="overline" sx={{
+                                            display: 'block',
+                                            color: 'var(--md-sys-color-tertiary)',
+                                            lineHeight: 1.4,
+                                        }}>
+                                            {new Date(test.data).toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' })}
+                                        </Typography>
+                                        <Typography component="h4" variant="subtitle1" sx={{
+                                            color: 'var(--md-sys-color-on-surface)',
+                                            my: 0.5,
+                                        }}>
+                                            {test.materia}
+                                        </Typography>
+                                        <Typography component="p" variant="body2" sx={{
+                                            color: 'var(--md-sys-color-on-surface-variant)',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            whiteSpace: 'nowrap',
+                                        }}>
+                                            {test.argomento || test.tipo}
+                                        </Typography>
+                                    </Box>
+                                    <Chip
+                                        label={test.className}
+                                        size="small"
+                                        sx={{
+                                            ml: 2,
+                                            backgroundColor: 'var(--md-sys-color-primary-container)',
+                                            color: 'var(--md-sys-color-on-primary-container)',
+                                        }}
+                                    />
+                                </CardContent>
+                            </MuiCard>
                         ))}
-                    </div>
-                </section>
+                    </Stack>
+                </Box>
             )}
 
             {/* Section 1: Classes Grid (New Widget Style) */}
-            <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <Box component="section" sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                  <SectionHeader 
                     title="Classi Attive" 
                     icon="school"
                 />
                 
                 {userClasses.length > 0 ? (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Stack spacing={2}>
                         {userClasses.map((className) => {
                             const classStudents = students.filter(s => s.classe === className);
                             const studentCount = classStudents.length;
@@ -231,7 +167,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                 ? (studentAverages.reduce((a, b) => a + b, 0) / studentAverages.length).toFixed(1)
                                 : '-';
                             return (
-                                <Card
+                                <NavigationCard
                                     key={className}
                                     icon="groups"
                                     title={className}
@@ -241,7 +177,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                 />
                             );
                         })}
-                    </div>
+                    </Stack>
                 ) : (
                     <EmptyState
                         icon="school"
@@ -251,53 +187,43 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                         onAction={() => onNavigate('settings')}
                     />
                 )}
-            </section>
+            </Box>
 
             {/* Section 2: Global Tools */}
-            <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <Box component="section" sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                  <SectionHeader 
                     title="Gestione Rapida" 
                     icon="settings_applications"
                 />
                 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <button 
-                        onClick={() => onNavigate('studenti')} 
-                        
-                    >
-                        <span>group_add</span>
-                        <span>Importazione Massiva</span>
-                        <span>Carica studenti da CSV</span>
-                    </button>
-
-                    <button 
-                        onClick={() => setIsPrintCenterOpen(true)} 
-                        
-                    >
-                        <span>print</span>
-                        <span>Centro Stampe</span>
-                        <span>Report PDF multi-classe</span>
-                    </button>
-
-                    <button 
-                        onClick={() => onNavigate('analytics')} 
-                        
-                    >
-                        <span>analytics</span>
-                        <span>Analytics Hub</span>
-                        <span>Dashboard dati avanzata</span>
-                    </button>
-
-                    <button 
-                        onClick={() => onNavigate('didattica-inclusiva')} 
-                        
-                    >
-                        <span  style={{color: "var(--md-sys-color-tertiary)"}}>accessibility_new</span>
-                        <span>Didattica Inclusiva</span>
-                        <span>Gestione PEI/PDP globale</span>
-                    </button>
-                </div>
-            </section>
+                <Stack spacing={2}>
+                    <NavigationCard
+                        icon="group_add"
+                        title="Importazione Massiva"
+                        description="Carica studenti da CSV"
+                        onClick={() => onNavigate('studenti')}
+                    />
+                    <NavigationCard
+                        icon="print"
+                        title="Centro Stampe"
+                        description="Report PDF multi-classe"
+                        onClick={() => setIsPrintCenterOpen(true)}
+                    />
+                    <NavigationCard
+                        icon="analytics"
+                        title="Analytics Hub"
+                        description="Dashboard dati avanzata"
+                        onClick={() => onNavigate('analytics')}
+                    />
+                    <NavigationCard
+                        icon="accessibility_new"
+                        title="Didattica Inclusiva"
+                        description="Gestione PEI/PDP globale"
+                        color="tertiary"
+                        onClick={() => onNavigate('didattica-inclusiva')}
+                    />
+                </Stack>
+            </Box>
 
             {/* INTERNAL MODAL: PRINT CENTER */}
             {isPrintCenterOpen && (
@@ -310,7 +236,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                     settings={settings}
                 />
             )}
-        </div>
+        </PageWrapper>
     );
 };
 
@@ -364,12 +290,12 @@ const PrintCenterModal: React.FC<{
             onClose={onClose}
             maxWidth="md"
         >
-            <DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
+            <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                     <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Seleziona le classi e il periodo per cui generare il prospetto voti (PDF).</Typography>
-                    
-                    <div style={{gap: 'var(--md-sys-spacing-2)'}}>
-                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-medium)" }}>Periodo</label>
-                                                <Tabs
+
+                    <Stack spacing={1}>
+                        <Typography component="label" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Periodo</Typography>
+                        <Tabs
                           value={periodo}
                           onChange={(_, v: string) => ((id) => setPeriodo(id as PeriodoValutazione))(v)}
                           indicatorColor="primary"
@@ -412,51 +338,22 @@ const PrintCenterModal: React.FC<{
                             />
                           ))}
                         </Tabs>
-                    </div>
+                    </Stack>
 
-                    <div style={{gap: 'var(--md-sys-spacing-2)'}}>
-                        <label style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-medium)" }}>Classi</label>
-                        <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
+                    <Stack spacing={1}>
+                        <Typography component="label" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Classi</Typography>
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                             {userClasses.map(c => (
-                                <div 
-                                    key={c} 
+                                <Chip
+                                    key={c}
+                                    label={`Classe ${c}`}
                                     onClick={() => toggleClass(c)}
-                                    style={{
-                                        padding: 'var(--md-sys-spacing-4)',
-                                        borderRadius: 'var(--md-sys-shape-corner-full)',
-                                        border: 'var(--md-sys-border-width-thin) solid',
-                                        cursor: 'pointer',
-                                        transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: 'var(--md-sys-spacing-8)',
-                                        backgroundColor: selectedClasses.includes(c) 
-                                            ? 'var(--md-sys-color-primary)' 
-                                            : 'var(--md-sys-color-surface-container-low)',
-                                        color: selectedClasses.includes(c) 
-                                            ? 'var(--md-sys-color-on-primary)' 
-                                            : 'var(--md-sys-color-on-surface-variant)',
-                                        borderColor: selectedClasses.includes(c) 
-                                            ? 'var(--md-sys-color-primary)' 
-                                            : 'var(--md-sys-color-outline-variant)'
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        if (!selectedClasses.includes(c)) {
-                                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
-                                        }
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        if (!selectedClasses.includes(c)) {
-                                            e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-low)';
-                                        }
-                                    }}
-                                >
-                                    {selectedClasses.includes(c) && <span  style={{ fontSize: "var(--md-sys-typescale-headline-small-font-size)" }}>check</span>}
-                                    Classe {c}
-                                </div>
+                                    variant={selectedClasses.includes(c) ? 'filled' : 'outlined'}
+                                    color={selectedClasses.includes(c) ? 'primary' : 'default'}
+                                />
                             ))}
-                        </div>
-                    </div>
+                        </Box>
+                    </Stack>
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose} variant="text">Annulla</Button>

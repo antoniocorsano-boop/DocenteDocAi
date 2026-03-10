@@ -3,6 +3,9 @@
 import React, { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import { Report } from '../types';
 import { saveAs } from '../utils/documentUtils';
 
@@ -34,28 +37,25 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <h1>Archivio Report</h1>
-                    <p>Consulta, esporta e salva i report generati con l'AI.</p>
-                </div>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                        <span  aria-hidden="true">search</span>
-                        <input 
+        <Stack spacing={2}>
+            <Box>
+                <Typography component="h1" variant="h5" sx={{ mb: 'var(--md-sys-spacing-2)' }}>Archivio Report</Typography>
+                <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', m: 0 }}>Consulta, esporta e salva i report generati con l'AI.</Typography>
+            </Box>
+            <Stack spacing={2}>
+                <Stack direction="row" alignItems="center" spacing={1.5}>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true">search</Box>
+                        <TextField
                             type="text"
                             placeholder="Cerca report per nome o contesto..."
                             value={searchTerm}
                             onChange={e => setSearchTerm(e.target.value)}
-                            
-                            aria-label="Cerca report per nome o contesto"
+                            size="small"
+                            fullWidth
+                            inputProps={{ 'aria-label': 'Cerca report per nome o contesto' }}
                         />
-                    </div>
-                </div>
-                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                </Stack>
+                <Box>
                     <table>
                         <thead>
                             <tr>
@@ -98,10 +98,10 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                             ))}
                         </tbody>
                     </table>
-                </div>
-                {filteredReports.length === 0 && <p>{reportistica.length > 0 ? 'Nessun report corrisponde alla ricerca.' : 'Nessun report generato. Esportane uno da un progetto per vederlo qui.'}</p>}
-            </div>
-        </div>
+                </Box>
+                {filteredReports.length === 0 && <Typography component="p" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', m: 0 }}>{reportistica.length > 0 ? 'Nessun report corrisponde alla ricerca.' : 'Nessun report generato. Esportane uno da un progetto per vederlo qui.'}</Typography>}
+            </Stack>
+        </Stack>
     );
 }
 

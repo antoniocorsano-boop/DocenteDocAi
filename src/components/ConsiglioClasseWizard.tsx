@@ -7,9 +7,11 @@ import { M3Dialog, InfoCard } from './ui';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
@@ -72,21 +74,26 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                     
                 />
                 
-                                <FormControl sx={{ mb: 2 }}>
-                  <InputLabel htmlFor="council-class-select">Classe</InputLabel>
-                  <NativeSelect
+                <FormControl fullWidth>
+                  <InputLabel id="council-class-label" shrink>Classe</InputLabel>
+                  <Select
+                    labelId="council-class-label"
+                    id="council-class-select"
                     value={selectedClass}
-                    onChange={e => setSelectedClass(e.target.value)}
-                    inputProps={{ id: 'council-class-select' }}
+                    label="Classe"
+                    displayEmpty
+                    notched
+                    onChange={(e: SelectChangeEvent) => setSelectedClass(e.target.value)}
+                    renderValue={(v) => v || <Typography component="span" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.6 }}>Seleziona...</Typography>}
                   >
-
-                    {props.userClasses.map(c => <option key={c} value={c}>{c}</option>)}
-                
-                  </NativeSelect>
+                    {props.userClasses.map(c => (
+                      <MenuItem key={c} value={c}>{c}</MenuItem>
+                    ))}
+                  </Select>
                 </FormControl>
 
-                 <div style={{gap: 'var(--md-sys-spacing-2)'}}>
-                    <label  style={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>Periodo di Valutazione</label>
+                <Stack spacing="var(--md-sys-spacing-2)">
+                    <Typography sx={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", px: 'var(--md-sys-spacing-4)'}}>Periodo di Valutazione</Typography>
                                         <Tabs
                       value={periodo}
                       onChange={(_, v: string) => ((id) => setPeriodo(id as PeriodoValutazione))(v)}
@@ -131,7 +138,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                         />
                       ))}
                     </Tabs>
-                </div>
+                </Stack>
             </DialogContent>
             <DialogActions>
                 <Button variant="text" onClick={props.onClose}>Annulla</Button>
@@ -149,24 +156,24 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
 
     const renderStep2 = () => (
         <>
-            <DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
-                <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-5)', border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)`, display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+            <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)' }}>
+                <Box sx={{ bgcolor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)', p: 'var(--md-sys-spacing-5)', border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Stack spacing="var(--md-sys-spacing-4)">
                         <Typography component="p" variant="caption" sx={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-primary)"}}>Context Active</Typography>
-                        <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary-container)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</Typography>
-                    </div>
-                    <Button variant="outlined" onClick={() => setStep(1)}  style={{ fontSize: "var(--md-sys-typescale-body-small-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase" }}>Cambia</Button>
-                </div>
+                        <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary-container)', fontWeight: "var(--md-sys-typescale-weight-black)" }}>{selectedClass} • {periodo === 'primo-quadrimestre' ? '1Q' : 'Finale'}</Typography>
+                    </Stack>
+                    <Button variant="outlined" onClick={() => setStep(1)} sx={{ fontSize: "var(--md-sys-typescale-body-small-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase" }}>Cambia</Button>
+                </Box>
 
-                <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
-                    <button onClick={handleGeneratePdf} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', width: 'var(--md-sys-percent-100)', textAlign: "left" }}>
-                        <div><span  style={{ transition: "transform var(--md-sys-motion-duration-medium)" }}>picture_as_pdf</span></div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <p>Tabellone Dati (PDF)</p>
-                            <p>Medie, trend e rilevazioni competenze.</p>
-                        </div>
-                    </button>
-                </div>
+                <Stack spacing="var(--md-sys-spacing-3)">
+                    <Button variant="outlined" onClick={handleGeneratePdf} fullWidth sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', justifyContent: 'flex-start', textAlign: 'left', p: 'var(--md-sys-spacing-4)', gap: 'var(--md-sys-spacing-4)' }}>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true">picture_as_pdf</Box>
+                        <Stack spacing="var(--md-sys-spacing-1)" alignItems="flex-start">
+                            <Typography variant="body1" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Tabellone Dati (PDF)</Typography>
+                            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Medie, trend e rilevazioni competenze.</Typography>
+                        </Stack>
+                    </Button>
+                </Stack>
                 
                 <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , textAlign: "center", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
                     Il report verrà generato e aperto in una nuova scheda del browser.
@@ -185,8 +192,8 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
                  title=""
                  maxWidth="sm"
              >
-                <DialogContent  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
-                    <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: `var(--md-sys-border-width-thick) solid var(--md-sys-color-outline)`, borderColor: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-6)'}}></div>
+                <DialogContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+                    <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-medium)', width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', border: `var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)`, borderTopColor: 'transparent', mb: 'var(--md-sys-spacing-6)', animation: 'spin 0.8s linear infinite', '@keyframes spin': { to: { transform: 'rotate(360deg)' } } }} />
                     <Typography component="p" variant="body1" sx={{fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)"}}>{loadingMessage}</Typography>
                 </DialogContent>
             </M3Dialog>

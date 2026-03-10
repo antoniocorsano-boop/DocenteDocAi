@@ -8,6 +8,14 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
+import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Studente, Uda, TimetableSettings, AiSettings, Report, EventoCalendario, Lezione, KnowledgeBaseEntry, PianoInclusione } from '../types';
 import { generateClassPlanningDocument, generateSituazionePartenza, suggestAnnualPlan } from '../services/aiService';
@@ -318,16 +326,16 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     };
 
     const renderStepIndicator = () => (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-4)' }} role="navigation" aria-label="Progressi del wizard">
+        <Box component="nav" role="navigation" aria-label="Progressi del wizard" sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', p: 'var(--md-sys-spacing-4)' }}>
             {['Contesto', 'Analisi', 'Metodi', 'Piano', 'Anteprima', 'Output'].map((label, idx) => {
                 const stepIds: WizardStep[] = ['context', 'situation', 'methodology', 'sequence', 'preview', 'document'];
                 const isActive = stepIds.indexOf(step) === idx;
                 const isDone = stepIds.indexOf(step) > idx;
 
                 return (
-                    <div key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }} aria-current={isActive ? 'step' : undefined}>
-                        <div
-                            style={{
+                    <Box key={label} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }} aria-current={isActive ? 'step' : undefined}>
+                        <Box
+                            sx={{
                                 width: 'var(--md-sys-spacing-10)',
                                 height: 'var(--md-sys-spacing-10)',
                                 borderRadius: 'var(--md-sys-shape-corner-full)',
@@ -338,31 +346,29 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 color: isDone ? 'var(--md-sys-color-on-primary)' : isActive ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
                                 border: `var(--md-sys-border-width-thick) solid ${isActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                 fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                                // transition rimossa per compliance MD3
                             }}
                             aria-hidden="true"
                         >
                             {idx + 1}
-                        </div>
-                        <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', textAlign: 'center', color: 'var(--md-sys-color-on-surface)' }}>
+                        </Box>
+                        <Typography component="span" variant="caption" sx={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', textAlign: 'center', color: 'var(--md-sys-color-on-surface)' }}>
                             {label} {isDone ? '(Completato)' : isActive ? '(Corrente)' : ''}
-                        </span>
+                        </Typography>
                         {idx < 5 && (
-                            <div
-                                style={{
+                            <Box
+                                aria-hidden="true"
+                                sx={{
                                     width: 'var(--md-sys-spacing-8)',
                                     height: 'var(--md-sys-border-width-thick)',
                                     backgroundColor: isDone ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)',
-                                    marginTop: 'var(--md-sys-spacing-2)',
-                                    // transition rimossa per compliance MD3
+                                    mt: 'var(--md-sys-spacing-2)',
                                 }}
-                                aria-hidden="true"
                             />
                         )}
-                    </div>
+                    </Box>
                 );
             })}
-        </div>
+        </Box>
     );
 
     return (
@@ -372,127 +378,150 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     {renderStepIndicator()}
 
                     {step === 'context' && (
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        <Stack spacing={2}>
+                            <Stack spacing={2}>
                                 <Typography variant="h6" component="h3" sx={{ marginBottom: 'var(--md-sys-spacing-8)' }}>1. Definisci il Contesto</Typography>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                        <label htmlFor="wizard-select-class">Classe Target</label>
-                                        <select id="wizard-select-class" name="wizard-select-class" value={selectedClass} onChange={e => setSelectedClass(e.target.value)} style={{ width: 'var(--md-sys-percent-100)' }} title="Seleziona la classe per la programmazione">
-                                            {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
-                                        </select>
-                                    </div>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                        <label htmlFor="wizard-select-subject">Materia</label>
-                                        <select id="wizard-select-subject" name="wizard-select-subject" value={selectedSubject} onChange={e => setSelectedSubject(e.target.value)} style={{ width: 'var(--md-sys-percent-100)' }} title="Seleziona la materia">
-                                            {settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                                <Stack spacing={2}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="wizard-select-class-label" shrink>Classe Target</InputLabel>
+                                        <Select
+                                            labelId="wizard-select-class-label"
+                                            inputProps={{ id: 'wizard-select-class', name: 'wizard-select-class' }}
+                                            value={selectedClass}
+                                            onChange={e => setSelectedClass(e.target.value as string)}
+                                            label="Classe Target"
+                                            displayEmpty
+                                            notched
+                                            title="Seleziona la classe per la programmazione"
+                                        >
+                                            {userClasses.map(c => <MenuItem key={c} value={c}>{c}</MenuItem>)}
+                                        </Select>
+                                    </FormControl>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="wizard-select-subject-label" shrink>Materia</InputLabel>
+                                        <Select
+                                            labelId="wizard-select-subject-label"
+                                            inputProps={{ id: 'wizard-select-subject', name: 'wizard-select-subject' }}
+                                            value={selectedSubject}
+                                            onChange={e => setSelectedSubject(e.target.value as string)}
+                                            label="Materia"
+                                            displayEmpty
+                                            notched
+                                            title="Seleziona la materia"
+                                        >
+                                            {settings.disciplines.map(d => <MenuItem key={d} value={d}>{d}</MenuItem>)}
+                                        </Select>
+                                    </FormControl>
+                                </Stack>
+                            </Stack>
 
-                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)` }}>
+                            <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', p: 'var(--md-sys-spacing-8)', border: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)` }}>
                                 <Typography variant="subtitle1" component="h4" sx={{ marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)' }}>
                                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-secondary)' }}>folder_open</Box>
                                     Documenti di Riferimento (KB)
                                 </Typography>
-                                <div style={{ maxHeight: 'var(--md-sys-layout-popup-min-width)', overflowY: 'auto' }}>
+                                <Box sx={{ maxHeight: 'var(--md-sys-layout-popup-min-width)', overflowY: 'auto' }}>
                                     {recommendedFiles.length > 0 ? recommendedFiles.map(kb => (
-                                        <div key={kb.id} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: 'var(--md-sys-spacing-2)' }}>
+                                        <Stack key={kb.id} direction="row" alignItems="center" sx={{ p: 'var(--md-sys-spacing-2)' }}>
                                             <input type="checkbox" id={`kb-annual-${kb.id}`} checked={selectedKbFiles.includes(kb.id)} onChange={() => toggleKbFile(kb.id)} />
-                                            <label htmlFor={`kb-annual-${kb.id}`} style={{ display: 'flex', flexDirection: 'row', width: 'var(--md-sys-percent-full)', justifyContent: 'flex-start', cursor: 'pointer' }} title={kb.fileName}>
+                                            <Box component="label" htmlFor={`kb-annual-${kb.id}`} sx={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'flex-start', cursor: 'pointer' }} title={kb.fileName}>
                                                 {selectedKbFiles.includes(kb.id) && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>check</Box>}
                                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)', marginRight: "var(--md-sys-spacing-2)" }}>description</Box>
-                                                <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</span>
-                                            </label>
-                                        </div>
+                                                <Box component="span" sx={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</Box>
+                                            </Box>
+                                        </Stack>
                                     )) : (
                                         <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</Typography>
                                     )}
-                                </div>
-                            </div>
-                        </div>
+                                </Box>
+                            </Box>
+                        </Stack>
                     )}
 
                     {step === 'situation' && (
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        <Stack spacing={2}>
                             <Typography variant="h6" component="h3">2. Analisi della Classe</Typography>
-                            <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-2)' }}>
+                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-2)' }}>
                                 {SITUATION_TAGS.map(tag => (
-                                    <button
+                                    <Chip
                                         key={tag}
+                                        label={tag}
+                                        clickable
                                         onClick={() => setSituationTags(p => p.includes(tag) ? p.filter(t => t !== tag) : [...p, tag])}
-                                        style={{
-                                            padding: `var(--md-sys-spacing-2) var(--md-sys-spacing-3)`,
-                                            borderRadius: 'var(--md-sys-shape-corner-large)',
-                                            border: `var(--md-sys-border-width-thin) solid ${situationTags.includes(tag) ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
-                                            backgroundColor: situationTags.includes(tag) ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-high)',
-                                            color: situationTags.includes(tag) ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface-variant)',
-                                            cursor: 'pointer',
-                                            // transition rimossa per compliance MD3
-                                            fontSize: 'var(--md-sys-typescale-body-small-font-size)'
-                                        }}
+                                        color={situationTags.includes(tag) ? 'primary' : 'default'}
+                                        variant={situationTags.includes(tag) ? 'filled' : 'outlined'}
                                         title={`Aggiungi tag: ${tag}`}
-                                    >
-                                        {tag}
-                                    </button>
+                                    />
                                 ))}
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                <label htmlFor="wizard-situation-notes">Note Aggiuntive</label>
-                                <textarea id="wizard-situation-notes" name="wizard-situation-notes" style={{ width: 'var(--md-sys-percent-full)' }} rows={2} value={situationNotes} onChange={e => setSituationNotes(e.target.value)} placeholder="Dettagli specifici sulla classe..." />
-                            </div>
+                            </Box>
+                            <TextField
+                                id="wizard-situation-notes"
+                                name="wizard-situation-notes"
+                                label="Note Aggiuntive"
+                                multiline
+                                rows={2}
+                                fullWidth
+                                value={situationNotes}
+                                onChange={e => setSituationNotes(e.target.value)}
+                                placeholder="Dettagli specifici sulla classe..."
+                            />
                             <Button variant="outlined" fullWidth onClick={handleGenerateSituation} disabled={!!situationStatus} title="Usa l'AI per scrivere l'analisi">
                                 {situationStatus ? <AiThinkingGem size="small" inline text={situationStatus} /> : 'Genera Analisi con AI'}
                             </Button>
                             {situazioneText && (
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
-                                    <label htmlFor="wizard-situation-text">Testo Analisi (Modificabile)</label>
-                                    <textarea id="wizard-situation-text" name="wizard-situation-text" style={{ width: 'var(--md-sys-percent-full)' }} rows={6} value={situazioneText} onChange={e => setSituazioneText(e.target.value)} />
-                                </div>
+                                <TextField
+                                    id="wizard-situation-text"
+                                    name="wizard-situation-text"
+                                    label="Testo Analisi (Modificabile)"
+                                    multiline
+                                    rows={6}
+                                    fullWidth
+                                    value={situazioneText}
+                                    onChange={e => setSituazioneText(e.target.value)}
+                                />
                             )}
-                        </div>
+                        </Stack>
                     )}
 
                     {step === 'methodology' && (
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        <Stack spacing={2}>
                             <Typography variant="h6" component="h3">3. Obiettivi e Metodologie</Typography>
-                            <div style={{ backgroundColor: 'var(--md-sys-color-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)` }}>
-                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
-                                    <label htmlFor="wizard-methodology-text">Strategie Didattiche</label>
+                            <Box sx={{ backgroundColor: 'var(--md-sys-color-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', p: 'var(--md-sys-spacing-8)', border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)` }}>
+                                <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 'var(--md-sys-spacing-8)' }}>
+                                    <Typography component="label" htmlFor="wizard-methodology-text" variant="body1">Strategie Didattiche</Typography>
                                     <Button variant="text" onClick={handleGenerateMethodology} disabled={!!methodologyStatus} sx={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Suggerisci metodologie adatte al contesto">
                                         {methodologyStatus ? <AiThinkingGem size="small" inline text="Thinking..." /> : <><Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>lightbulb</Box> Suggerisci</>}
                                     </Button>
-                                </div>
-                                <textarea id="wizard-methodology-text" name="wizard-methodology-text" style={{ width: 'var(--md-sys-percent-full)' }} rows={6} value={methodology} onChange={e => setMethodology(e.target.value)} />
-                            </div>
-                        </div>
+                                </Stack>
+                                <TextField id="wizard-methodology-text" name="wizard-methodology-text" multiline rows={6} fullWidth value={methodology} onChange={e => setMethodology(e.target.value)} />
+                            </Box>
+                        </Stack>
                     )}
 
                     {step === 'sequence' && (
-                        <div style={{ gap: 'var(--md-sys-spacing-4)' }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }}>
+                        <Stack spacing={2}>
+                            <Stack direction="row" justifyContent="space-between" alignItems="center">
+                                <Stack direction="row" alignItems="center" spacing={3}>
                                     <Typography variant="h6" component="h3">4. Piano Annuale UDA</Typography>
-                                    <button
+                                    <IconButton
                                         onClick={() => setShowSequenceHelp(!showSequenceHelp)}
-                                        style={{ color: "var(--md-sys-color-secondary)", background: 'none', border: 'none', cursor: 'pointer' }}
                                         title="Info sulla sequenza"
                                         aria-label="Mostra informazioni sulla sequenza UDA"
+                                        sx={{ color: "var(--md-sys-color-secondary)" }}
                                     >
                                         <Box component="span" className="material-symbols-outlined" aria-hidden="true">help</Box>
-                                    </button>
-                                </div>
-                                <div style={{ display: 'flex', flexDirection: 'row', gap: 'var(--md-sys-spacing-2)' }}>
-                                    <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-2)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
-                                        <label htmlFor="wizard-hours-per-week">Ore/Sett:</label>
-                                        <input id="wizard-hours-per-week" name="wizard-hours-per-week" type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} style={{ width: "var(--md-sys-spacing-10)", backgroundColor: "transparent", textAlign: "center", fontWeight: "var(--md-sys-typescale-weight-bold)", borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }} title="Ore settimanali di lezione" />
-                                    </div>
+                                    </IconButton>
+                                </Stack>
+                                <Stack direction="row" spacing={1}>
+                                    <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', p: 'var(--md-sys-spacing-2)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
+                                        <Typography component="label" htmlFor="wizard-hours-per-week" variant="body2">Ore/Sett:</Typography>
+                                        <TextField id="wizard-hours-per-week" name="wizard-hours-per-week" type="number" value={hoursPerWeek} onChange={e => setHoursPerWeek(Math.max(1, parseInt(e.target.value)))} size="small" sx={{ width: "var(--md-sys-spacing-10)", '& .MuiInputBase-input': { textAlign: "center" } }} title="Ore settimanali di lezione" />
+                                    </Box>
                                     <Button variant="outlined" onClick={handleGeneratePlanFromKb} disabled={!!planGenerationStatus || selectedKbFiles.length === 0} sx={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Genera lista UDA dai documenti KB">
                                         {planGenerationStatus ? <AiThinkingGem size="small" inline text={planGenerationStatus} /> : 'Genera da KB'}
                                     </Button>
-                                </div>
-                            </div>
+                                </Stack>
+                            </Stack>
 
                             {showSequenceHelp && (
                                 <InfoCard
@@ -504,95 +533,92 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 />
                             )}
 
-                            <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end", marginBottom: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
-                                <div style={{ flexGrow: 1 }}>
-                                    <label htmlFor="wizard-new-uda-title">Titolo UDA</label>
-                                    <input id="wizard-new-uda-title" name="wizard-new-uda-title" type="text" value={newUdaTitle} onChange={e => setNewUdaTitle(e.target.value)} style={{ width: 'var(--md-sys-percent-full)' }} onKeyDown={e => e.key === 'Enter' && addUdaToPlan()} placeholder="Es. Il Verismo" />
-                                </div>
-                                <div style={{ width: 'var(--md-sys-spacing-16)' }}>
-                                    <label htmlFor="wizard-new-uda-hours">Ore</label>
-                                    <input id="wizard-new-uda-hours" name="wizard-new-uda-hours" type="number" value={newUdaHours} onChange={e => setNewUdaHours(parseInt(e.target.value))} style={{ width: 'var(--md-sys-percent-full)' }} />
-                                </div>
-                                <Button variant="contained" onClick={addUdaToPlan} sx={{ marginBottom: 'var(--md-sys-spacing-4)' }} title="Aggiungi alla lista">Aggiungi</Button>
-                            </div>
-                            {planGenerationStatus ? <div style={{ padding: 'var(--md-sys-spacing-8)', display: "flex", justifyContent: "center" }}><AiThinkingGem size="medium" text={planGenerationStatus} /></div> : (
-                                <div style={{ gap: 'var(--md-sys-spacing-3)', overflowY: "auto", maxHeight: 'var(--md-sys-spacing-24)' }}>
+                            <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end", mb: 'var(--md-sys-spacing-8)', p: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
+                                <Box sx={{ flexGrow: 1 }}>
+                                    <TextField id="wizard-new-uda-title" name="wizard-new-uda-title" type="text" label="Titolo UDA" fullWidth value={newUdaTitle} onChange={e => setNewUdaTitle(e.target.value)} onKeyDown={e => e.key === 'Enter' && addUdaToPlan()} placeholder="Es. Il Verismo" />
+                                </Box>
+                                <Box sx={{ width: 'var(--md-sys-spacing-16)' }}>
+                                    <TextField id="wizard-new-uda-hours" name="wizard-new-uda-hours" type="number" label="Ore" fullWidth value={newUdaHours} onChange={e => setNewUdaHours(parseInt(e.target.value))} />
+                                </Box>
+                                <Button variant="contained" onClick={addUdaToPlan} sx={{ mb: 'var(--md-sys-spacing-4)' }} title="Aggiungi alla lista">Aggiungi</Button>
+                            </Box>
+                            {planGenerationStatus ? <Box sx={{ p: 'var(--md-sys-spacing-8)', display: "flex", justifyContent: "center" }}><AiThinkingGem size="medium" text={planGenerationStatus} /></Box> : (
+                                <Stack spacing={1.5} sx={{ overflowY: "auto", maxHeight: 'var(--md-sys-spacing-24)' }}>
                                     {plannedUdas.map((uda, idx) => (
-                                        <div key={uda.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
+                                        <Box key={uda.id} sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', p: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', cursor: 'grab' }} title="Trascina per riordinare (futuro)">drag_indicator</Box>
 
-                                            <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)' }}>
-                                                    <span style={{ fontWeight: "var(--md-sys-typescale-weight-bold)", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)' }}>
+                                            <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                                                <Stack direction="row" alignItems="center" spacing={3} sx={{ mb: 'var(--md-sys-spacing-4)' }}>
+                                                    <Box component="span" sx={{ fontWeight: "var(--md-sys-typescale-weight-bold)", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", pl: 'var(--md-sys-spacing-4)', pr: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)' }}>
                                                         UDA {idx + 1}
-                                                    </span>
+                                                    </Box>
                                                     <Typography variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>{uda.title}</Typography>
-                                                </div>
+                                                </Stack>
                                                 <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", opacity: "var(--md-sys-state-opacity-caption)" }}>{uda.topic || uda.title}</Typography>
-                                            </div>
+                                            </Box>
 
-                                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-surface-container-low)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
-                                                <input
+                                            <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-surface-container-low)", pl: 'var(--md-sys-spacing-4)', pr: 'var(--md-sys-spacing-4)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
+                                                <TextField
                                                     id={`wizard-uda-hours-${uda.id}`}
                                                     name={`wizard-uda-hours-${uda.id}`}
                                                     type="number"
                                                     value={uda.hours}
                                                     onChange={e => updateUdaHours(uda.id, parseInt(e.target.value))}
-                                                    style={{ padding: 'var(--md-sys-spacing-4)', width: "var(--md-sys-spacing-10)", textAlign: "center", backgroundColor: "transparent", fontWeight: "var(--md-sys-typescale-weight-bold)", border: "none" }}
+                                                    size="small"
+                                                    sx={{ width: "var(--md-sys-spacing-10)", '& .MuiInputBase-input': { textAlign: "center" }, '& fieldset': { border: 'none' } }}
                                                     title="Modifica ore stimate"
                                                 />
-                                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>ore</span>
-                                            </div>
+                                                <Typography component="span" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>ore</Typography>
+                                            </Box>
 
                                             <Button variant="text" color="error" onClick={() => removeUdaFromPlan(idx)} title="Rimuovi UDA">
                                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true">delete</Box>
                                             </Button>
-                                        </div>
+                                        </Box>
                                     ))}
                                     {plannedUdas.length === 0 && (
                                         <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</Typography>
                                     )}
-                                </div>
+                                </Stack>
                             )}
-                        </div>
+                        </Stack>
                     )}
 
                     {step === 'preview' && (
-                        <div style={{ gap: 'var(--md-sys-spacing-4)' }}>
+                        <Stack spacing={2}>
                             <Typography variant="h6" component="h3">5. Anteprima Temporale</Typography>
-                            <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-6)' }}>
-                                <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                                    <label htmlFor="wizard-term1-end">Fine 1� Periodo</label>
-                                    <input id="wizard-term1-end" name="wizard-term1-end" type="date" value={term1End} onChange={e => setTerm1End(e.target.value)} style={{ width: 'var(--md-sys-percent-full)' }} />
-                                </div>
-                                <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                                    <label htmlFor="wizard-term2-end">Termine Lezioni</label>
-                                    <input id="wizard-term2-end" name="wizard-term2-end" type="date" value={term2End} onChange={e => setTerm2End(e.target.value)} style={{ width: 'var(--md-sys-percent-full)' }} />
-                                </div>
-                            </div>
-                            <div style={{ gap: 'var(--md-sys-spacing-6)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)', overflowY: "auto", maxHeight: 'var(--md-sys-spacing-24)' }}>
+                            <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-6)' }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                                    <TextField id="wizard-term1-end" name="wizard-term1-end" type="date" label="Fine 1° Periodo" InputLabelProps={{ shrink: true }} fullWidth value={term1End} onChange={e => setTerm1End(e.target.value)} />
+                                </Box>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                                    <TextField id="wizard-term2-end" name="wizard-term2-end" type="date" label="Termine Lezioni" InputLabelProps={{ shrink: true }} fullWidth value={term2End} onChange={e => setTerm2End(e.target.value)} />
+                                </Box>
+                            </Box>
+                            <Stack spacing={1.5} sx={{ overflowY: "auto", maxHeight: 'var(--md-sys-spacing-24)', pt: 'var(--md-sys-spacing-4)', pb: 'var(--md-sys-spacing-4)' }}>
                                 {schedulePreview.map((item, idx) => (
-                                    <div key={idx} style={{ position: "relative", paddingLeft: 'var(--md-sys-spacing-6)' }}>
-                                        <div style={{ position: 'absolute', left: 'calc(var(--md-sys-spacing-2) * -1)', top: 'var(--md-sys-spacing-1)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-percent-full)', borderWidth: 'var(--md-sys-border-width-thin)', borderColor: 'var(--md-sys-color-outline-variant)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }}></div>
+                                    <Box key={idx} sx={{ position: "relative", pl: 'var(--md-sys-spacing-6)' }}>
+                                        <Box sx={{ position: 'absolute', left: 'calc(var(--md-sys-spacing-2) * -1)', top: 'var(--md-sys-spacing-1)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-percent-full)', borderWidth: 'var(--md-sys-border-width-thin)', borderColor: 'var(--md-sys-color-outline-variant)', backgroundColor: item.end > term2End ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-primary)' }} />
                                         <Typography variant="caption" sx={{ textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", color: "var(--md-sys-color-primary)" }}>{new Date(item.start).toLocaleDateString()} - {new Date(item.end).toLocaleDateString()}</Typography>
                                         <Typography variant="subtitle1" component="h4" sx={{ color: 'var(--md-sys-color-on-surface)', margin: 0 }}>{item.uda.title}</Typography>
                                         <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0 }}>{item.uda.hours} ore</Typography>
-                                    </div>
+                                    </Box>
                                 ))}
-                            </div>
-                        </div>
+                            </Stack>
+                        </Stack>
                     )}
 
                     {step === 'document' && (
-                        <div style={{ gap: 'var(--md-sys-spacing-6)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-full)", textAlign: "center" }}>
-                            <div style={{ color: 'var(--md-sys-color-on-secondary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-secondary)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
+                        <Box sx={{ gap: 'var(--md-sys-spacing-6)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-full)", textAlign: "center" }}>
+                            <Box sx={{ color: 'var(--md-sys-color-on-secondary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-secondary)', display: "flex", alignItems: "center", justifyContent: "center", mb: 'var(--md-sys-spacing-8)' }}>
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-secondary-container)' }}>check_circle</Box>
-                            </div>
+                            </Box>
                             <Typography variant="h6" component="h3" sx={{ color: 'var(--md-sys-color-on-surface)' }}>Pianificazione Completata!</Typography>
                             <Button variant="contained" onClick={handleGenerateDoc} disabled={!!processingStatus} sx={{ display: 'flex', flexDirection: 'row', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Scarica il documento finale">
                                 {processingStatus ? <AiThinkingGem size="small" inline text={processingStatus} /> : 'Genera Documento Programmazione'}
                             </Button>
-                        </div>
+                        </Box>
                     )}
             </DialogContent>
 
@@ -600,7 +626,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                     {step !== 'document' && (
                         <>
                             {step !== 'context' && <Button variant="text" onClick={() => setStep(p => p === 'situation' ? 'context' : p === 'methodology' ? 'situation' : p === 'sequence' ? 'methodology' : 'sequence')} title="Torna indietro">Indietro</Button>}
-                            <div style={{ flexGrow: "1" }}></div>
+                            <Box sx={{ flexGrow: 1 }} />
                             {step === 'context' && <Button variant="contained" onClick={() => setStep('situation')} title="Vai all'analisi">Avanti</Button>}
                             {step === 'situation' && <Button variant="contained" onClick={() => setStep('methodology')} title="Vai alla metodologia">Avanti</Button>}
                             {step === 'methodology' && <Button variant="contained" onClick={() => setStep('sequence')} title="Vai al piano">Avanti</Button>}

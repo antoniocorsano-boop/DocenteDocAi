@@ -4,9 +4,12 @@
 // Audit e refactor completati: 2026-01-25.
 import React, { useState, useCallback } from 'react';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { M3Dialog, InfoCard, SectionHeader } from './ui';
 import { ImportService, ImportResult } from '../services/importService';
@@ -128,173 +131,139 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
             <>
                 {step === 'upload' && (
                     <>
-                        <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                                                        <FormControl sx={{ mb: 2 }}>
-                              <InputLabel>Seleziona il tuo Registro Elettronico</InputLabel>
-                              <NativeSelect
+                        <Box sx={{ mt: 'var(--md-sys-spacing-4)' }}>
+                            <FormControl fullWidth>
+                              <InputLabel id="register-provider-label" shrink>Seleziona il tuo Registro Elettronico</InputLabel>
+                              <Select
+                                labelId="register-provider-label"
                                 value={provider}
-                                onChange={(e) => setProvider(e.target.value as RegisterProvider)}
+                                label="Seleziona il tuo Registro Elettronico"
+                                displayEmpty
+                                notched
+                                onChange={(e: SelectChangeEvent) => setProvider(e.target.value as RegisterProvider)}
                               >
-
-                                <option value="generic">Altro / Generico</option>
-                                <option value="argo">Argo (DidUP)</option>
-                                <option value="spaggiari">ClasseViva (Spaggiari)</option>
-                                <option value="axios">Axios</option>
-                                <option value="sidi">SIDI (Anagrafe Studenti)</option>
-                            
-                              </NativeSelect>
+                                <MenuItem value="generic">Altro / Generico</MenuItem>
+                                <MenuItem value="argo">Argo (DidUP)</MenuItem>
+                                <MenuItem value="spaggiari">ClasseViva (Spaggiari)</MenuItem>
+                                <MenuItem value="axios">Axios</MenuItem>
+                                <MenuItem value="sidi">SIDI (Anagrafe Studenti)</MenuItem>
+                              </Select>
                             </FormControl>
                             
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-secondary-container) 30%, transparent)' , padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", display: "flex", gap: 'var(--md-sys-spacing-6)'}}>
-                                <span  style={{color: "var(--md-sys-color-secondary)"}}>info</span>
+                            <Stack direction="row" alignItems="center" gap="var(--md-sys-spacing-6)" sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-secondary-container) 30%, transparent)', p: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}>
+                                <Typography component="span" sx={{ color: 'var(--md-sys-color-secondary)' }}>info</Typography>
                                 <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-secondary-container)' }}>
                                     {RegisterService.getExportGuidance(provider)}
                                 </Typography>
-                            </div>
+                            </Stack>
 
                             <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                                 Carica il file esportato in formato <strong>CSV</strong> o <strong>Excel</strong>.
                             </Typography>
-                        </div>
+                        </Box>
 
-                        <div
+                        <Box
                             {...getRootProps()}
-                            style={{
+                            sx={{
                                 border: isDragActive ? 'var(--md-sys-border-width-thick) dashed var(--md-sys-color-primary)' : 'var(--md-sys-border-width-thick) dashed var(--md-sys-color-outline-variant)',
                                 borderRadius: 'var(--md-sys-shape-corner-large)',
-                                padding: 'var(--md-sys-spacing-12)',
+                                p: 'var(--md-sys-spacing-12)',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 gap: 'var(--md-sys-spacing-8)',
-                                transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                transition: 'background-color, border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                 backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-low)',
                                 transform: isDragActive ? 'scale(0.98)' : 'none',
                                 opacity: isLoading ? 0.5 : 1,
-                                cursor: isLoading ? 'wait' : 'pointer'
-                            }}
-                            onMouseEnter={(e) => {
-                                if (!isDragActive && !isLoading) {
-                                    e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-high)';
-                                }
-                            }}
-                            onMouseLeave={(e) => {
-                                if (!isDragActive && !isLoading) {
-                                    e.currentTarget.style.backgroundColor = 'var(--md-sys-color-surface-container-low)';
-                                }
+                                cursor: isLoading ? 'wait' : 'pointer',
+                                '&:hover': { backgroundColor: 'var(--md-sys-color-surface-container-high)' }
                             }}
                         >
                             <input {...getInputProps()} />
-                            <span style={{
-                                fontSize: 'var(--md-sys-typescale-display-large-font-size)',
-                                color: isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)'
-                            }}>
+                            <Typography component="span" sx={{ fontSize: 'var(--md-sys-typescale-display-large-font-size)', color: isDragActive ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)' }}>
                                 {isLoading ? 'sync' : 'upload_file'}
-                            </span>
-                            <div style={{ textAlign: "center" }}>
-                                <Typography component="p" variant="body1" sx={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
+                            </Typography>
+                            <Box sx={{ textAlign: 'center' }}>
+                                <Typography component="p" variant="body1" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
                                     {isLoading ? 'Analisi in corso...' : 'Trascina qui il file o clicca per selezionarlo'}
                                 </Typography>
                                 <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Supporta .csv, .xlsx, .xls</Typography>
-                            </div>
-                        </div>
+                            </Box>
+                        </Box>
 
                         {error && (
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-error-container)' , padding: 'var(--md-sys-spacing-8)', backgroundColor: "var(--md-sys-color-error)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
-                                <span style={{}}>error</span>
+                            <Stack direction="row" alignItems="center" gap="var(--md-sys-spacing-8)" sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-error-container)', p: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-error)' }}>
+                                <Typography component="span">error</Typography>
                                 <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{error}</Typography>
-                            </div>
+                            </Stack>
                         )}
                     </>
                 )}
 
                 {step === 'mapping' && rawData && (
-                    <div  style={{gap: 'var(--md-sys-spacing-6)'}}>
+                    <Stack spacing="var(--md-sys-spacing-6)">
                         <SectionHeader 
                             title="Mappatura Colonne" 
                             subtitle="Associa le colonne del tuo file ai campi di DocenteDoc AI"
                         />
 
-                        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
+                        <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-6)' }}>
                             <InfoCard title="Dati Studente" icon="person">
-                                <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-4)'}}>Cognome *</label>
-                                        <select 
-                                            value={mapping.cognome}
-                                            onChange={(e) => setMapping(prev => ({ ...prev, cognome: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--md-sys-percent-100)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}
-                                        >
-                                            <option value="">Seleziona colonna...</option>
-                                            {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
-                                        </select>
-                                    </div>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-4)'}}>Nome *</label>
-                                        <select 
-                                            value={mapping.nome}
-                                            onChange={(e) => setMapping(prev => ({ ...prev, nome: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--md-sys-percent-100)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}
-                                        >
-                                            <option value="">Seleziona colonna...</option>
-                                            {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
-                                        </select>
-                                    </div>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-4)'}}>Classe</label>
-                                        <select 
-                                            value={mapping.classe}
-                                            onChange={(e) => setMapping(prev => ({ ...prev, classe: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--md-sys-percent-100)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}
-                                        >
-                                            <option value="">Seleziona colonna...</option>
-                                            {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
-                                        </select>
-                                    </div>
-                                </div>
+                                <Stack spacing="var(--md-sys-spacing-4)" sx={{ p: 'var(--md-sys-spacing-8)' }}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="map-cognome-label" shrink>Cognome *</InputLabel>
+                                        <Select labelId="map-cognome-label" value={mapping.cognome} label="Cognome *" displayEmpty notched onChange={(e: SelectChangeEvent) => setMapping(prev => ({ ...prev, cognome: e.target.value }))}>
+                                            <MenuItem value="">Seleziona colonna...</MenuItem>
+                                            {rawData.headers.map(h => <MenuItem key={h} value={h}>{h}</MenuItem>)}
+                                        </Select>
+                                    </FormControl>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="map-nome-label" shrink>Nome *</InputLabel>
+                                        <Select labelId="map-nome-label" value={mapping.nome} label="Nome *" displayEmpty notched onChange={(e: SelectChangeEvent) => setMapping(prev => ({ ...prev, nome: e.target.value }))}>
+                                            <MenuItem value="">Seleziona colonna...</MenuItem>
+                                            {rawData.headers.map(h => <MenuItem key={h} value={h}>{h}</MenuItem>)}
+                                        </Select>
+                                    </FormControl>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="map-classe-label" shrink>Classe</InputLabel>
+                                        <Select labelId="map-classe-label" value={mapping.classe} label="Classe" displayEmpty notched onChange={(e: SelectChangeEvent) => setMapping(prev => ({ ...prev, classe: e.target.value }))}>
+                                            <MenuItem value="">Seleziona colonna...</MenuItem>
+                                            {rawData.headers.map(h => <MenuItem key={h} value={h}>{h}</MenuItem>)}
+                                        </Select>
+                                    </FormControl>
+                                </Stack>
                             </InfoCard>
 
                             <InfoCard title="Dati Valutazioni (Opzionale)" icon="grade" variant="outlined">
-                                <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-4)'}}>Voto</label>
-                                        <select 
-                                            value={mapping.voto}
-                                            onChange={(e) => setMapping(prev => ({ ...prev, voto: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--md-sys-percent-100)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}
-                                        >
-                                            <option value="">Seleziona colonna...</option>
-                                            {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
-                                        </select>
-                                    </div>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-4)'}}>Data</label>
-                                        <select 
-                                            value={mapping.data}
-                                            onChange={(e) => setMapping(prev => ({ ...prev, data: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--md-sys-percent-100)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}
-                                        >
-                                            <option value="">Seleziona colonna...</option>
-                                            {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
-                                        </select>
-                                    </div>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                        <label style={{display: "block", fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-4)'}}>Materia</label>
-                                        <select 
-                                            value={mapping.materia}
-                                            onChange={(e) => setMapping(prev => ({ ...prev, materia: e.target.value }))}
-                                            style={{ borderRadius: 'var(--md-sys-shape-corner-large)' , width: 'var(--md-sys-percent-100)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", backgroundColor: "var(--md-sys-color-surface)", fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}
-                                        >
-                                            <option value="">Seleziona colonna...</option>
-                                            {rawData.headers.map(h => <option key={h} value={h}>{h}</option>)}
-                                        </select>
-                                    </div>
-                                </div>
+                                <Stack spacing="var(--md-sys-spacing-4)" sx={{ p: 'var(--md-sys-spacing-8)' }}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="map-voto-label" shrink>Voto</InputLabel>
+                                        <Select labelId="map-voto-label" value={mapping.voto} label="Voto" displayEmpty notched onChange={(e: SelectChangeEvent) => setMapping(prev => ({ ...prev, voto: e.target.value }))}>
+                                            <MenuItem value="">Seleziona colonna...</MenuItem>
+                                            {rawData.headers.map(h => <MenuItem key={h} value={h}>{h}</MenuItem>)}
+                                        </Select>
+                                    </FormControl>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="map-data-label" shrink>Data</InputLabel>
+                                        <Select labelId="map-data-label" value={mapping.data} label="Data" displayEmpty notched onChange={(e: SelectChangeEvent) => setMapping(prev => ({ ...prev, data: e.target.value }))}>
+                                            <MenuItem value="">Seleziona colonna...</MenuItem>
+                                            {rawData.headers.map(h => <MenuItem key={h} value={h}>{h}</MenuItem>)}
+                                        </Select>
+                                    </FormControl>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="map-materia-label" shrink>Materia</InputLabel>
+                                        <Select labelId="map-materia-label" value={mapping.materia} label="Materia" displayEmpty notched onChange={(e: SelectChangeEvent) => setMapping(prev => ({ ...prev, materia: e.target.value }))}>
+                                            <MenuItem value="">Seleziona colonna...</MenuItem>
+                                            {rawData.headers.map(h => <MenuItem key={h} value={h}>{h}</MenuItem>)}
+                                        </Select>
+                                    </FormControl>
+                                </Stack>
                             </InfoCard>
-                        </div>
+                        </Box>
 
-                        <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)' , padding: 'var(--md-sys-spacing-8)', overflowX: "auto"}}>
+                        <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-high)', p: 'var(--md-sys-spacing-8)', overflowX: 'auto' }}>
                             <Typography component="p" variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-placeholder)", marginBottom: 'var(--md-sys-spacing-8)'}}>Anteprima Dati Raw (Prime 3 righe)</Typography>
                             <table style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  width: 'var(--md-sys-percent-100)' }}>
                                 <thead>
@@ -310,41 +279,40 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                                     ))}
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
+                        </Box>
+                    </Stack>
                 )}
 
                 {step === 'preview' && result && (
-                    <div  style={{gap: 'var(--md-sys-spacing-4)'}}>
-                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', color: "var(--md-sys-color-primary)"}}>
-                            <span style={{ color: 'var(--md-sys-color-primary)' }}>check_circle</span>
-                            <Typography component="h3" variant="h6" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)" }}>Dati pronti per l&apos;importazione</Typography>
-                        </div>
+                    <Stack spacing="var(--md-sys-spacing-4)">
+                        <Stack direction="row" alignItems="center" gap="var(--md-sys-spacing-6)" sx={{ color: 'var(--md-sys-color-primary)' }}>
+                            <Typography component="span" sx={{ color: 'var(--md-sys-color-primary)' }}>check_circle</Typography>
+                            <Typography component="h3" variant="h6" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)' }}>Dati pronti per l&apos;importazione</Typography>
+                        </Stack>
 
-                        <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-8)'}}>
+                        <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)' }}>
                             <InfoCard title="Riepilogo" icon="analytics">
-                                <ul style={{gap: 'var(--md-sys-spacing-2)'}}>
-                                    <li style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  display: "flex", justifyContent: "space-between" }}>
+                                <Box component="ul" sx={{ gap: 'var(--md-sys-spacing-2)' }}>
+                                    <Stack component="li" direction="row" justifyContent="space-between" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                                         <span>Studenti:</span>
-                                        <span style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{result.students.length}</span>
-                                    </li>
-                                    <li style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  display: "flex", justifyContent: "space-between" }}>
+                                        <Typography component="span" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{result.students.length}</Typography>
+                                    </Stack>
+                                    <Stack component="li" direction="row" justifyContent="space-between" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                                         <span>Valutazioni:</span>
-                                        <span style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{result.evaluations.length}</span>
-                                    </li>
-                                </ul>
+                                        <Typography component="span" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{result.evaluations.length}</Typography>
+                                    </Stack>
+                                </Box>
                             </InfoCard>
-
                             <InfoCard title="Classi rilevate" icon="class" variant="outlined">
-                                <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
+                                <Stack direction="row" flexWrap="wrap" gap="var(--md-sys-spacing-8)">
                                     {Array.from(new Set(result.students.map(s => s.classe))).map(c => (
-                                        <span key={c} style={{ color: 'var(--md-sys-color-on-secondary-container)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-spacing-1)", backgroundColor: "var(--md-sys-color-secondary)", fontWeight: "var(--md-sys-typescale-weight-bold)"}}>
+                                        <Typography key={c} component="span" sx={{ color: 'var(--md-sys-color-on-secondary-container)', px: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-1)', backgroundColor: 'var(--md-sys-color-secondary)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
                                             {c}
-                                        </span>
+                                        </Typography>
                                     ))}
-                                </div>
+                                </Stack>
                             </InfoCard>
-                        </div>
+                        </Box>
 
                         <Button 
                             variant="text" 
@@ -356,16 +324,16 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                         </Button>
 
                         {result.errors.length > 0 && (
-                            <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-warning-container, var(--md-sys-color-error-container))', color: 'var(--md-sys-color-on-warning-container, var(--md-sys-color-on-error-container))' , padding: 'var(--md-sys-spacing-8)'}}>
-                                <Typography component="p" variant="body1" sx={{fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Avvisi durante l&apos;analisi:</Typography>
-                                <ul  style={{ opacity: "var(--md-sys-state-opacity-caption)" }}>
+                            <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-warning-container, var(--md-sys-color-error-container))', color: 'var(--md-sys-color-on-warning-container, var(--md-sys-color-on-error-container))', p: 'var(--md-sys-spacing-8)' }}>
+                                <Typography component="p" variant="body1" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', mb: 'var(--md-sys-spacing-8)' }}>Avvisi durante l&apos;analisi:</Typography>
+                                <Box component="ul" sx={{ opacity: 'var(--md-sys-state-opacity-caption)' }}>
                                     {result.errors.slice(0, 3).map((err, i) => (
                                         <li key={i}>{err}</li>
                                     ))}
-                                </ul>
-                            </div>
+                                </Box>
+                            </Box>
                         )}
-                    </div>
+                    </Stack>
                 )}
             </>
         </M3Dialog>

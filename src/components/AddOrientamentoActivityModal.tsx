@@ -4,9 +4,13 @@ import React, { useState } from 'react';
 import { OrientamentoActivity } from '../types';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import ButtonBase from '@mui/material/ButtonBase';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { M3Dialog, TextField } from './ui';
 import { UI_TEXT } from '../constants/ui-text';
 interface AddOrientamentoActivityModalProps {
@@ -56,32 +60,30 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                     onChange={(e) => setActivity({ ...activity, title: e.target.value })}
                 />
                 
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'var(--md-sys-grid-fr-1)', // MD3 grid fr token
-                  gap: 'var(--md-sys-spacing-4)'
-                }}>
-                                        <FormControl sx={{ mb: 2 }}>
-                      <InputLabel>Tipo</InputLabel>
-                      <NativeSelect
-                        value={activity.type}
-                        onChange={(e) => setActivity({ ...activity, type: e.target.value as OrientamentoActivity['type'] })}
-                      >
-
-                        <option value="didattica">Didattica</option>
-                        <option value="extra-curriculare">Extra-curriculare</option>
-                        <option value="PCTO">PCTO</option>
-                        <option value="esperienziale">Esperienziale</option>
-                    
-                      </NativeSelect>
-                    </FormControl>
+                <Stack direction="row" spacing="var(--md-sys-spacing-4)">
+                  <FormControl fullWidth>
+                    <InputLabel id="orient-type-label" shrink>Tipo</InputLabel>
+                    <Select
+                      labelId="orient-type-label"
+                      value={activity.type}
+                      label="Tipo"
+                      displayEmpty
+                      notched
+                      onChange={(e: SelectChangeEvent) => setActivity({ ...activity, type: e.target.value as OrientamentoActivity['type'] })}
+                    >
+                      <MenuItem value="didattica">Didattica</MenuItem>
+                      <MenuItem value="extra-curriculare">Extra-curriculare</MenuItem>
+                      <MenuItem value="PCTO">PCTO</MenuItem>
+                      <MenuItem value="esperienziale">Esperienziale</MenuItem>
+                    </Select>
+                  </FormControl>
                     <TextField
                         label="Ore"
                         type="number"
                         value={activity.durationHours?.toString()}
                         onChange={(e) => setActivity({ ...activity, durationHours: parseInt(e.target.value) || 0 })}
                     />
-                </div>
+                </Stack>
 
                 <TextField
                     label="Data"
@@ -97,25 +99,14 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                     rows={3}
                 />
 
-                <div style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 'var(--md-sys-spacing-2)'
-                }}>
-                    <label style={{
-                      fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                      fontWeight: 'var(--md-sys-typescale-body-large-font-weight)',
-                      lineHeight: 'var(--md-sys-typescale-body-large-line-height)',
-                      color: 'var(--md-sys-color-on-surface-variant)'
-                    }}>Classi Coinvolte</label>
-                    <div style={{
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      gap: 'var(--md-sys-spacing-3)'
-                    }}>
+                <Stack spacing="var(--md-sys-spacing-2)">
+                    <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Classi Coinvolte</Typography>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-3)' }}>
                         {userClasses.map(cls => (
-                            <button
+                            <ButtonBase
                                 key={cls}
+                                aria-pressed={!!activity.classes?.includes(cls)}
+                                aria-label={cls}
                                 onClick={() => {
                                     const classes = activity.classes || [];
                                     if (classes.includes(cls)) {
@@ -124,27 +115,25 @@ const AddOrientamentoActivityModal: React.FC<AddOrientamentoActivityModalProps> 
                                         setActivity({ ...activity, classes: [...classes, cls] });
                                     }
                                 }}
-                                style={{
-                                  padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
+                                sx={{
+                                  px: 'var(--md-sys-spacing-4)', py: 'var(--md-sys-spacing-2)',
                                   borderRadius: 'var(--md-sys-shape-corner-full)',
                                   fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                   fontWeight: 'var(--md-sys-typescale-weight-bold)',
-                                  transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`, // MD3 motion tokens for duration and easing
-                                  border: 'none',
-                                  cursor: 'pointer',
-                                  backgroundColor: activity.classes?.includes(cls)
+                                  transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
+                                  bgcolor: activity.classes?.includes(cls)
                                     ? 'var(--md-sys-color-primary)'
                                     : 'var(--md-sys-color-surface-container-high)',
                                   color: activity.classes?.includes(cls)
                                     ? 'var(--md-sys-color-on-primary)'
-                                    : 'var(--md-sys-color-on-surface-variant)'
+                                    : 'var(--md-sys-color-on-surface-variant)',
                                 }}
                             >
                                 {cls}
-                            </button>
+                            </ButtonBase>
                         ))}
-                    </div>
-                </div>
+                    </Box>
+                </Stack>
             </Box>
         </M3Dialog>
     );

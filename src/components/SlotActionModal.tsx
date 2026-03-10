@@ -57,12 +57,12 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                 {/* Metadata Row */}
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 1 }}>
-                        <Typography variant="button" component="span" sx={{ fontWeight: 700, color: 'var(--md-sys-color-on-primary-container)' }}>
+                        <Typography variant="button" component="span" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-on-primary-container)' }}>
                             {slot.classe}
                         </Typography>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 14, color: 'var(--md-sys-color-on-primary-container)' }}>{typeIcon}</Box>
-                            <Typography variant="caption" component="span" sx={{ fontWeight: 500, color: 'var(--md-sys-color-on-primary-container)' }}>
+                            <Typography variant="caption" component="span" sx={{ fontWeight: 'var(--md-sys-typescale-weight-medium)', color: 'var(--md-sys-color-on-primary-container)' }}>
                                 {lesson.tipoLezione || 'Lezione'}
                             </Typography>
                         </Box>
@@ -83,7 +83,7 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                             {slot.materia}
                         </Typography>
                     )}
-                    <Typography variant="subtitle2" component="h3" sx={{ fontWeight: 700, lineHeight: 1.3, color: 'var(--md-sys-color-on-primary-container)' }}>
+                    <Typography variant="subtitle2" component="h3" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.3, color: 'var(--md-sys-color-on-primary-container)' }}>
                         {lesson.contenuto}
                     </Typography>
                     {lesson.nota && (
@@ -123,7 +123,7 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20 }}>door_open</Box>
                     </Box>
                     <Box sx={{ minWidth: 0 }}>
-                        <Typography variant="button" component="p" sx={{ fontWeight: 700, color: 'inherit' }}>{isDraftExisting ? 'Torna in Aula' : 'Avvia Aula'}</Typography>
+                        <Typography variant="button" component="p" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'inherit' }}>{isDraftExisting ? 'Torna in Aula' : 'Avvia Aula'}</Typography>
                         <Typography variant="caption" component="p" sx={{ color: 'inherit', opacity: 0.8 }}>Apri il registro e inizia la lezione.</Typography>
                     </Box>
                 </ButtonBase>
@@ -152,7 +152,7 @@ const SlotActionModal: React.FC<SlotActionModalProps> = ({ slot, lesson, isDraft
                         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20 }}>edit</Box>
                     </Box>
                     <Box sx={{ minWidth: 0 }}>
-                        <Typography variant="button" component="p" sx={{ fontWeight: 700, color: 'inherit' }}>Modifica</Typography>
+                        <Typography variant="button" component="p" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'inherit' }}>Modifica</Typography>
                         <Typography variant="caption" component="p" sx={{ color: 'inherit', opacity: 0.8 }}>Cambia contenuto o sposta.</Typography>
                     </Box>
                 </ButtonBase>

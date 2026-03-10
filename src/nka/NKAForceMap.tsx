@@ -111,7 +111,7 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
       }}
     >
       {isEmpty && (
-        <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-6)' }}>
+        <Box sx={{ textAlign: 'center', p: 'var(--md-sys-spacing-6)' }}>
           <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-on-surface-variant)', display: 'block', marginBottom: 'var(--md-sys-spacing-2)' }}>hub</Box>
           <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
             Nessun nodo disponibile
@@ -119,11 +119,11 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
           <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 'var(--md-sys-spacing-2)' }}>
             Aggiungi dei nodi per visualizzare la mappa neurale
           </Typography>
-        </div>
+        </Box>
       )}
 
       {error && (
-        <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-6)' }}>
+        <Box sx={{ textAlign: 'center', p: 'var(--md-sys-spacing-6)' }}>
           <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-hero)', color: 'var(--md-sys-color-error)', display: 'block', marginBottom: 'var(--md-sys-spacing-2)' }}>error</Box>
           <Typography variant="body1" sx={{ color: 'var(--md-sys-color-error)' }}>
             Errore di caricamento
@@ -131,15 +131,15 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
           <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 'var(--md-sys-spacing-2)' }}>
             {error}
           </Typography>
-        </div>
+        </Box>
       )}
 
       {loading && !error && (
-        <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-6)' }}>
+        <Box sx={{ textAlign: 'center', p: 'var(--md-sys-spacing-6)' }}>
           <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
             Calcolo disposizione AI…
           </Typography>
-        </div>
+        </Box>
       )}
 
       {!loading && !error && !isEmpty && (

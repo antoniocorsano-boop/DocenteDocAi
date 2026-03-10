@@ -4,6 +4,7 @@
 
 import React from 'react';
 import Card from '@mui/material/Card';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 interface ActionCardProps {
@@ -56,49 +57,41 @@ export const ActionCard: React.FC<ActionCardProps> = ({
         minHeight: 'var(--md-sys-spacing-14)',
         bgcolor: 'var(--md-sys-color-surface-container-low)',
         borderRadius: 'var(--md-sys-shape-corner-large)',
-      }}
-      onMouseEnter={(e) => {
-        if (!disabled) {
-          e.currentTarget.style.background = config.hoverBg;
-          e.currentTarget.style.transform = 'translateY(calc(-1 * var(--md-sys-spacing-1)))';
-          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level3)';
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (!disabled) {
-          e.currentTarget.style.background = 'var(--md-sys-color-surface)';
-          e.currentTarget.style.transform = 'translateY(0)';
-          e.currentTarget.style.boxShadow = 'var(--md-sys-elevation-level1)';
-        }
+        '&:hover': !disabled ? {
+          backgroundColor: config.hoverBg,
+          transform: 'translateY(calc(-1 * var(--md-sys-spacing-1)))',
+          boxShadow: 'var(--md-sys-elevation-level3)',
+        } : undefined,
       }}
     >
       {/* Icona */}
-      <div
-        style={{
+      <Box
+        sx={{
           width: 'var(--md-sys-spacing-8)',
           height: 'var(--md-sys-spacing-8)',
           borderRadius: 'var(--md-sys-spacing-3)',
           background: `${config.iconColor}20`,
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
         }}
       >
-        <span
+        <Box
+          component="span"
           className="material-symbols-outlined"
           aria-hidden="true"
-          style={{
+          sx={{
             fontSize: 'var(--md-sys-spacing-6)',
             color: config.iconColor,
-            fontVariationSettings: '"FILL" 0, "wght" 500'
+            fontVariationSettings: '"FILL" 0, "wght" 500',
           }}
         >
           {icon}
-        </span>
-      </div>
+        </Box>
+      </Box>
 
       {/* Testo */}
-      <div style={{ flex: 1 }}>
+      <Box sx={{ flex: 1 }}>
         <Typography
           variant="subtitle2"
           sx={{
@@ -118,22 +111,23 @@ export const ActionCard: React.FC<ActionCardProps> = ({
         >
           {description}
         </Typography>
-      </div>
+      </Box>
 
       {/* Indicatore freccia */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <span
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Box
+          component="span"
           className="material-symbols-outlined"
           aria-hidden="true"
-          style={{
+          sx={{
             fontSize: 'var(--md-sys-typescale-title-small-font-size)',
             color: config.iconColor,
-            opacity: 'var(--md-sys-state-opacity-secondary)'
+            opacity: 'var(--md-sys-state-opacity-secondary)',
           }}
         >
           arrow_forward
-        </span>
-      </div>
+        </Box>
+      </Box>
     </Card>
   );
 };

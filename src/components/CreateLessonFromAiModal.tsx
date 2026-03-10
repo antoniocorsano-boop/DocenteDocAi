@@ -11,7 +11,8 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { M3Dialog, TextField, AiThinkingGem } from './ui';
 interface CreateLessonFromAiModalProps {
     content: { title: string; htmlContent: string };
@@ -208,29 +209,39 @@ return (
                         />
 
                         <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)' }}>
-                                                        <FormControl sx={{ mb: 2 }}>
-                              <InputLabel>Classe</InputLabel>
-                              <NativeSelect
+                          <FormControl fullWidth>
+                              <InputLabel id="cla-classe-label" shrink>Classe</InputLabel>
+                              <Select
+                                labelId="cla-classe-label"
                                 value={classe}
-                                onChange={e => setClasse(e.target.value)}
+                                label="Classe"
+                                displayEmpty
+                                notched
                                 required
+                                onChange={(e: SelectChangeEvent) => setClasse(e.target.value)}
+                                renderValue={(v) => v || <Typography component="span" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.6 }}>Seleziona...</Typography>}
                               >
-
-                                {userClasses.map(c => <option key={c} value={c}>{c}</option>)}
-                            
-                              </NativeSelect>
+                                {userClasses.map(c => (
+                                  <MenuItem key={c} value={c}>{c}</MenuItem>
+                                ))}
+                              </Select>
                             </FormControl>
-                                                        <FormControl sx={{ mb: 2 }}>
-                              <InputLabel>Materia</InputLabel>
-                              <NativeSelect
+                          <FormControl fullWidth>
+                              <InputLabel id="cla-materia-label" shrink>Materia</InputLabel>
+                              <Select
+                                labelId="cla-materia-label"
                                 value={materia}
-                                onChange={e => setMateria(e.target.value)}
+                                label="Materia"
+                                displayEmpty
+                                notched
                                 required
+                                onChange={(e: SelectChangeEvent) => setMateria(e.target.value)}
+                                renderValue={(v) => v || <Typography component="span" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.6 }}>Seleziona...</Typography>}
                               >
-
-                                {disciplines.map(d => <option key={d} value={d}>{d}</option>)}
-                            
-                              </NativeSelect>
+                                {disciplines.map(d => (
+                                  <MenuItem key={d} value={d}>{d}</MenuItem>
+                                ))}
+                              </Select>
                             </FormControl>
                         </Box>
 

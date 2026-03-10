@@ -7,9 +7,12 @@ import { KnowledgeBaseEntry, Corpus } from '../types';
 import { extractTextFromFile, blobToBase64Parts } from '../utils/documentUtils';
 import { KB_CATEGORIES } from '../constants';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { M3Dialog, CategoryCard, TextField } from './ui';
 interface AddSourceModalProps {
@@ -132,22 +135,27 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                 <span style={{ color: 'var(--md-sys-color-on-tertiary)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "var(--md-sys-typescale-weight-black)"}}>3</span> 
                                 Raccolta (Opzionale)
                             </Typography>
-                            <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end"}}>
-                                <div style={{ flexGrow: 1 }}>
-                                                                        <FormControl sx={{ mb: 2 }}>
-                                      <InputLabel htmlFor="corpus-select">Raccolta Target</InputLabel>
-                                      <NativeSelect
+                            <Stack direction="row" spacing="var(--md-sys-spacing-8)" alignItems="flex-end">
+                                <Box sx={{ flexGrow: 1 }}>
+                                  <FormControl fullWidth>
+                                      <InputLabel id="corpus-select-label" shrink>Raccolta Target</InputLabel>
+                                      <Select
+                                        labelId="corpus-select-label"
+                                        id="corpus-select"
                                         value={selectedCorpusId}
-                                        onChange={e => setSelectedCorpusId(e.target.value)}
-                                        inputProps={{ id: 'corpus-select' }}
+                                        label="Raccolta Target"
+                                        displayEmpty
+                                        notched
+                                        onChange={(e: SelectChangeEvent) => setSelectedCorpusId(e.target.value)}
+                                        renderValue={(v) => v ? (corpora.find(c => c.id === v)?.displayName ?? v) : <Typography component="span" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.6 }}>-- Nessuna Raccolta --</Typography>}
                                       >
-
-                                        <option value="">-- Nessuna Raccolta --</option>
-                                        {corpora.map(c => <option key={c.id} value={c.id}>{c.displayName}</option>)}
-                                    
-                                      </NativeSelect>
+                                        <MenuItem value=""><em>-- Nessuna Raccolta --</em></MenuItem>
+                                        {corpora.map(c => (
+                                          <MenuItem key={c.id} value={c.id}>{c.displayName}</MenuItem>
+                                        ))}
+                                      </Select>
                                     </FormControl>
-                                </div>
+                                </Box>
                                 <Button 
                                     onClick={() => setIsCreating(p => !p)} 
                                     variant="contained"
@@ -156,9 +164,9 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                 >
                                     <span style={{}}>{isCreating ? 'remove' : 'add'}</span>
                                 </Button>
-                            </div>
+                            </Stack>
                             {isCreating && (
-                                 <div  style={{marginTop: 'var(--md-sys-spacing-6)', display: "flex", gap: 'var(--md-sys-spacing-6)'}}>
+                                 <Stack direction="row" spacing="var(--md-sys-spacing-6)" sx={{ mt: 'var(--md-sys-spacing-6)' }}>
                                     <TextField 
                                         id="new-corpus-name-input" 
                                         label="Nome Nuova Raccolta" 
@@ -167,12 +175,14 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                         placeholder="Es. Programmazioni 2024" 
                                     />
                                     <Button onClick={handleCreateCorpus} variant="contained" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)' }}>CREA</Button>
-                                </div>
+                                </Stack>
                             )}
                         </section>
                     </>
                 )}
-                {error && <div style={{ color: 'var(--md-sys-color-on-error-container)' , marginTop: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-6)', backgroundColor: "var(--md-sys-color-error)", borderRadius: 'var(--md-sys-shape-corner-small)'}}>{error}</div>}
+                {error && (
+                  <Box sx={{ color: 'var(--md-sys-color-on-error-container)', mt: 'var(--md-sys-spacing-4)', p: 'var(--md-sys-spacing-6)', bgcolor: 'var(--md-sys-color-error)', borderRadius: 'var(--md-sys-shape-corner-small)' }}>{error}</Box>
+                )}
             </section>
         </M3Dialog>
     );
