@@ -11,7 +11,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import type { SelectChangeEvent } from '@mui/material/Select';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
@@ -202,16 +204,17 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                         </div>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', flexShrink: 0 }}>
-                                                <FormControl sx={{ mb: 2 }}>
-                          <InputLabel>Materia</InputLabel>
-                          <NativeSelect
+                                                <FormControl fullWidth sx={{ mb: 2 }}>
+                          <InputLabel id="curriculum-subject-label" shrink>Materia</InputLabel>
+                          <Select
+                            labelId="curriculum-subject-label"
                             value={newSubject}
-                            onChange={e => setNewSubject(e.target.value)}
+                            label="Materia"
+                            notched
+                            onChange={(e: SelectChangeEvent) => setNewSubject(e.target.value)}
                           >
-
-                            {settings.disciplines.map(d => <option key={d} value={d}>{d}</option>)}
-                        
-                          </NativeSelect>
+                            {settings.disciplines.map(d => <MenuItem key={d} value={d}>{d}</MenuItem>)}
+                          </Select>
                         </FormControl>
                         <TextField label="Grado / Livello" value={newGradeLevel} onChange={e => setNewGradeLevel(e.target.value)} placeholder="Es. Classi Prime" />
                         <Button onClick={handleCreate} variant="contained" >

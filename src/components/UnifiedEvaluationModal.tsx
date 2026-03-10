@@ -9,7 +9,9 @@ import Typography from '@mui/material/Typography';
 import ButtonBase from '@mui/material/ButtonBase';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import type { SelectChangeEvent } from '@mui/material/Select';
 import { M3Dialog, InfoCard } from './ui';
 interface UnifiedEvaluationModalProps {
     student: Studente;
@@ -93,19 +95,21 @@ const UnifiedEvaluationModal: React.FC<UnifiedEvaluationModalProps> = ({
                             {student.cognome} {student.nome} • {prova.materia}
                         </Typography>
                                                 <FormControl fullWidth sx={{ mb: 2 }}>
-                          <InputLabel htmlFor="unified-grade-select">Voto Numerico</InputLabel>
-                          <NativeSelect
+                          <InputLabel id="unified-grade-label" shrink>Voto Numerico</InputLabel>
+                          <Select
+                            labelId="unified-grade-label"
                             value={grade}
-                            onChange={e => setGrade(e.target.value)}
-                            inputProps={{ id: 'unified-grade-select' }}
+                            label="Voto Numerico"
+                            displayEmpty
+                            notched
+                            onChange={(e: SelectChangeEvent) => setGrade(e.target.value)}
+                            renderValue={(v) => v || <Typography variant="body2" sx={{ opacity: 0.6 }}>Nessun Voto</Typography>}
                           >
-                            {([
-                                { value: '', label: 'Nessun Voto' },
-                                ...RATING_OPTIONS.map(o => ({ value: o, label: o }))
-                            ]).map((o) => (
-                              <option key={o.value} value={o.value}>{o.label}</option>
+                            <MenuItem value="">Nessun Voto</MenuItem>
+                            {RATING_OPTIONS.map(o => (
+                              <MenuItem key={o} value={o}>{o}</MenuItem>
                             ))}
-                          </NativeSelect>
+                          </Select>
                         </FormControl>
                     </Box>
                 </Box>

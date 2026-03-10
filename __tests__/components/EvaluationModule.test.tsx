@@ -261,8 +261,9 @@ describe('EvaluationModule', () => {
     if (!rossiMarioCell) throw new Error('Cella di Mario Rossi non trovata');
     fireEvent.click(rossiMarioCell);
 
-    // Seleziona un nuovo voto
-    fireEvent.change(screen.getByLabelText(/Voto Numerico/i), { target: { value: '8' } });
+    // Seleziona un nuovo voto (MUI Select: open + click option)
+    fireEvent.mouseDown(screen.getByRole('combobox', { name: /Voto Numerico/i }));
+    fireEvent.click(screen.getByRole('option', { name: '8' }));
 
     // Clicca Salva
     fireEvent.click(screen.getByText('Salva Valutazione'));

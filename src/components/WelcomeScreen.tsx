@@ -8,7 +8,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import type { SelectChangeEvent } from '@mui/material/Select';
 
 interface WelcomeScreenProps {
   onSetupComplete: (data: { name: string; schoolType?: string; firstClass?: string; isGuided: boolean }) => void;
@@ -141,19 +143,19 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
 
             {step === 2 && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                        <FormControl sx={{ mb: 2 }}>
-                      <InputLabel htmlFor="wizard-school-type">Tipo di Scuola</InputLabel>
-                      <NativeSelect
+                                        <FormControl fullWidth sx={{ mb: 2 }}>
+                      <InputLabel id="wizard-school-type-label" shrink>Tipo di Scuola</InputLabel>
+                      <Select
+                        labelId="wizard-school-type-label"
                         value={schoolType}
-                        onChange={(e) => setSchoolType(e.target.value)}
-                        inputProps={{ id: 'wizard-school-type' }}
+                        label="Tipo di Scuola"
+                        notched
+                        onChange={(e: SelectChangeEvent) => setSchoolType(e.target.value)}
                       >
-
                         {Object.keys(SCHOOL_TYPES_DISCIPLINES).map(t => (
-                            <option key={t} value={t}>{t}</option>
+                          <MenuItem key={t} value={t}>{t}</MenuItem>
                         ))}
-                    
-                      </NativeSelect>
+                      </Select>
                     </FormControl>
                                         <Typography
                                             variant="caption"
