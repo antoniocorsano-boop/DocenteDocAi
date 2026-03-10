@@ -583,7 +583,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             value={themePrompt}
                                             onChange={e => setThemePrompt(e.target.value)}
                                             placeholder="Es. 'Colori tramonto'..."
-                                            slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">palette</Box></InputAdornment> } }} />
+                                            slotProps={{ input: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">palette</Box></InputAdornment> } }} />
                                     </Box>
                                     <IconButton
                                         onClick={handleGenerateThemeFromPrompt}
@@ -607,24 +607,24 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <Stack spacing={2}>
                                 <Stack spacing={1}>
                                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Intensità Blur Vetro</Typography>
+                                        <Typography component="label" htmlFor="range-glass-blur" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Intensità Blur Vetro</Typography>
                                         <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}>{themeState.glassBlur || 30}px</Typography>
                                     </Stack>
-                                    <input type="range" min="0" max="100" step="5" value={themeState.glassBlur || 30} onChange={e => handleThemeChange({ glassBlur: parseInt(e.target.value) })} style={{ width: '100%' }} />
+                                    <input id="range-glass-blur" name="glassBlur" type="range" min="0" max="100" step="5" value={themeState.glassBlur || 30} onChange={e => handleThemeChange({ glassBlur: parseInt(e.target.value) })} style={{ width: '100%' }} />
                                 </Stack>
                                 <Stack spacing={1}>
                                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Scala Font</Typography>
+                                        <Typography component="label" htmlFor="range-font-scale" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Scala Font</Typography>
                                         <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}>{themeState.fontScale || 1}x</Typography>
                                     </Stack>
-                                    <input type="range" min="0.8" max="1.4" step="0.1" value={themeState.fontScale || 1} onChange={e => handleThemeChange({ fontScale: parseFloat(e.target.value) })} style={{ width: '100%' }} />
+                                    <input id="range-font-scale" name="fontScale" type="range" min="0.8" max="1.4" step="0.1" value={themeState.fontScale || 1} onChange={e => handleThemeChange({ fontScale: parseFloat(e.target.value) })} style={{ width: '100%' }} />
                                 </Stack>
                                 <Stack spacing={1}>
                                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Livello Contrasto</Typography>
+                                        <Typography component="label" htmlFor="range-contrast-level" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Livello Contrasto</Typography>
                                         <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}>{themeState.contrastLevel || 0}</Typography>
                                     </Stack>
-                                    <input type="range" min="-50" max="50" step="5" value={themeState.contrastLevel || 0} onChange={e => handleThemeChange({ contrastLevel: parseInt(e.target.value) })} style={{ width: '100%' }} />
+                                    <input id="range-contrast-level" name="contrastLevel" type="range" min="-50" max="50" step="5" value={themeState.contrastLevel || 0} onChange={e => handleThemeChange({ contrastLevel: parseInt(e.target.value) })} style={{ width: '100%' }} />
                                 </Stack>
                                 <Stack spacing={1}>
                                     <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -1333,8 +1333,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Google Cloud API</Typography>
                         </Stack>
                         <Stack spacing={2}>
-                            <TextField label="Client ID (OAuth)" value={localSettings.googleClientId || ''} onChange={e => handleChange('googleClientId', e.target.value)} slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">badge</Box></InputAdornment> } }} />
-                            <TextField label="API Key (Picker)" type="password" value={localSettings.googleApiKey || ''} onChange={e => handleChange('googleApiKey', e.target.value)} slotProps={{ htmlInput: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">lock</Box></InputAdornment> } }} />
+                            <TextField label="Client ID (OAuth)" value={localSettings.googleClientId || ''} onChange={e => handleChange('googleClientId', e.target.value)} slotProps={{ input: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">badge</Box></InputAdornment> } }} />
+                            <TextField label="API Key (Picker)" type="password" value={localSettings.googleApiKey || ''} onChange={e => handleChange('googleApiKey', e.target.value)} slotProps={{ input: { startAdornment: <InputAdornment position="start"><Box component="span" className="material-symbols-outlined" aria-hidden="true">lock</Box></InputAdornment> } }} />
                         </Stack>
                     </Box>
                     <Box sx={{ p: 2, bgcolor: 'color-mix(in srgb, var(--md-sys-color-error-container) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-extra-large)', border: '1px solid', borderColor: 'error.light' }}>
