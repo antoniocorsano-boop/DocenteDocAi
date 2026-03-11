@@ -420,7 +420,7 @@
      MD3 SPECIAL TOKENS (Expressive - Edge Cases)
      =========================================== */
   --md-sys-special-viewport-height: calc(var(--md-sys-spacing-15) - var(--md-sys-border-width-thin));
-
+}
 /* --- VISUAL STYLES OVERRIDES --- */
 
 /* Aura Style (Glassmorphism) */
@@ -1366,9 +1366,4 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 /* Flow Mode - Alternative UI layout */
 [data-ui-mode="flow"] {
   /* Flow mode specific styles can be added here if needed */
-}
-
-
-
-
 }
