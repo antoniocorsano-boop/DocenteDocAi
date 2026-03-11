@@ -95,40 +95,40 @@ const SecondaryNavDrawer: React.FC<SecondaryNavDrawerProps> = ({
         backdrop: {
           sx: { bgcolor: 'var(--md-sys-color-scrim)' },
         },
-      }}
-      PaperProps={{
-        sx: isDesktop
-          ? {
-              top: 'var(--md-sys-spacing-16)',
-              left: 'var(--md-sys-spacing-20)',
-              bottom: 0,
-              height: 'auto',
-              width: 'calc(var(--md-sys-spacing-20) * 2)',
-              bgcolor: 'var(--md-sys-color-surface-container-low)',
-              borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-              borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-              overflowX: 'hidden',
-              p: 'var(--md-sys-spacing-3) var(--md-sys-spacing-2)',
-              boxShadow: 'var(--md-sys-elevation-level3)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'var(--md-sys-spacing-2)',
-            }
-          : {
-              left: 0,
-              right: 0,
-              bottom: 'var(--md-sys-bottom-nav-offset)',
-              maxHeight: 'var(--md-sys-size-sheet-max-height)',
-              bgcolor: 'var(--md-sys-color-surface-container-low)',
-              borderTop: 'var(--md-sys-border-width-medium) solid var(--md-sys-color-outline-variant)',
-              borderRadius: 'var(--md-sys-shape-corner-extra-large) var(--md-sys-shape-corner-extra-large) 0 0',
-              overflowX: 'hidden',
-              p: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
-              boxShadow: 'var(--md-sys-elevation-level4)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 'var(--md-sys-spacing-2)',
-            },
+        paper: {
+          sx: isDesktop
+            ? {
+                top: 'var(--md-sys-spacing-16)',
+                left: 'var(--md-sys-spacing-20)',
+                bottom: 0,
+                height: 'auto',
+                width: 'calc(var(--md-sys-spacing-20) * 2)',
+                bgcolor: 'var(--md-sys-color-surface-container-low)',
+                borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                overflowX: 'hidden',
+                p: 'var(--md-sys-spacing-3) var(--md-sys-spacing-2)',
+                boxShadow: 'var(--md-sys-elevation-level3)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--md-sys-spacing-2)',
+              }
+            : {
+                left: 0,
+                right: 0,
+                bottom: 'var(--md-sys-bottom-nav-offset)',
+                maxHeight: 'var(--md-sys-size-sheet-max-height)',
+                bgcolor: 'var(--md-sys-color-surface-container-low)',
+                borderTop: 'var(--md-sys-border-width-medium) solid var(--md-sys-color-outline-variant)',
+                borderRadius: 'var(--md-sys-shape-corner-extra-large) var(--md-sys-shape-corner-extra-large) 0 0',
+                overflowX: 'hidden',
+                p: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
+                boxShadow: 'var(--md-sys-elevation-level4)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'var(--md-sys-spacing-2)',
+              },
+        },
       }}
     >
       {/* Handle bar (mobile only) */}

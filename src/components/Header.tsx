@@ -82,7 +82,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
     >
       <Toolbar
         sx={{
-          minHeight: 'var(--md-sys-spacing-16) !important',
+          minHeight: { xs: 'var(--md-sys-spacing-14) !important', sm: 'var(--md-sys-spacing-16) !important' },
           px: 'var(--md-sys-spacing-4) !important',
           gap: 'var(--md-sys-spacing-1)',
         }}
@@ -152,7 +152,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
               }}
             >
               <Box component="span" className="material-symbols-outlined" aria-hidden="true">cloud_off</Box>
-              <Typography variant="caption" component="span">Offline</Typography>
+              <Typography variant="caption" component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>Offline</Typography>
             </Box>
           )}
           <IconButton

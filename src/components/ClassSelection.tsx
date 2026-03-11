@@ -20,6 +20,7 @@ import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import { useStudentStore } from '../stores/useStudentStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
+import { generateHueFromString } from '../utils/colorUtils';
 
 
 interface ClassSelectionProps {
@@ -153,7 +154,11 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                 />
                 
                 {userClasses.length > 0 ? (
-                    <Stack spacing={2}>
+                    <Box sx={{
+                        display: 'grid',
+                        gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)' },
+                        gap: 'var(--md-sys-spacing-4)',
+                    }}>
                         {userClasses.map((className) => {
                             const classStudents = students.filter(s => s.classe === className);
                             const studentCount = classStudents.length;
@@ -163,21 +168,156 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                 const numGrade = grade ? parseFloat(grade) : null;
                                 return numGrade;
                             }).filter((v): v is number => v !== null);
-                            const classAverage = studentAverages.length > 0 
+                            const classAverage = studentAverages.length > 0
                                 ? (studentAverages.reduce((a, b) => a + b, 0) / studentAverages.length).toFixed(1)
-                                : '-';
+                                : null;
+                            const hue = generateHueFromString(className);
+                            const accentBg = `hsl(${hue}, 55%, 92%)`;
+                            const accentFg = `hsl(${hue}, 55%, 28%)`;
+                            const accentBorder = `hsl(${hue}, 55%, 78%)`;
+                            const avatarBg = `hsl(${hue}, 60%, 42%)`;
+                            const avgNum = classAverage ? parseFloat(classAverage) : null;
+                            const avgColor = avgNum === null
+                                ? 'var(--md-sys-color-on-surface-variant)'
+                                : avgNum >= 7
+                                ? 'hsl(145, 55%, 30%)'
+                                : avgNum >= 6
+                                ? 'hsl(40, 90%, 28%)'
+                                : 'hsl(0, 65%, 38%)';
+                            const avgBg = avgNum === null
+                                ? 'var(--md-sys-color-surface-variant)'
+                                : avgNum >= 7
+                                ? 'hsl(145, 55%, 90%)'
+                                : avgNum >= 6
+                                ? 'hsl(40, 90%, 90%)'
+                                : 'hsl(0, 65%, 92%)';
+
                             return (
-                                <NavigationCard
+                                <Box
                                     key={className}
-                                    icon="groups"
-                                    title={className}
-                                    description={`${studentCount} studenti | Media: ${classAverage}`}
-                                    color="primary"
+                                    component="button"
                                     onClick={() => onSelectClass(className)}
-                                />
+                                    aria-label={`Apri classe ${className}`}
+                                    sx={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'stretch',
+                                        cursor: 'pointer',
+                                        border: `1.5px solid ${accentBorder}`,
+                                        borderRadius: 'var(--md-sys-shape-corner-large)',
+                                        background: accentBg,
+                                        padding: 0,
+                                        overflow: 'hidden',
+                                        transition: 'box-shadow 0.18s, transform 0.14s',
+                                        textAlign: 'left',
+                                        '&:hover': {
+                                            boxShadow: `0 4px 18px hsla(${hue}, 55%, 40%, 0.22)`,
+                                            transform: 'translateY(-2px)',
+                                        },
+                                        '&:active': { transform: 'translateY(0)' },
+                                        '&:focus-visible': {
+                                            outline: `3px solid ${avatarBg}`,
+                                            outlineOffset: '2px',
+                                        },
+                                    }}
+                                >
+                                    {/* Card accent top strip */}
+                                    <Box sx={{ height: '6px', background: avatarBg, flexShrink: 0 }} />
+
+                                    <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-3)', p: 'var(--md-sys-spacing-4)' }}>
+                                        {/* Avatar */}
+                                        <Box sx={{
+                                            width: 52,
+                                            height: 52,
+                                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                            background: avatarBg,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            flexShrink: 0,
+                                        }}>
+                                            <Box
+                                                component="span"
+                                                className="material-symbols-outlined"
+                                                aria-hidden="true"
+                                                sx={{ fontSize: 28, color: '#fff' }}
+                                            >
+                                                groups
+                                            </Box>
+                                        </Box>
+
+                                        {/* Text */}
+                                        <Box sx={{ flex: 1, minWidth: 0 }}>
+                                            <Typography
+                                                component="h3"
+                                                sx={{
+                                                    color: accentFg,
+                                                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
+                                                    fontSize: 'var(--md-sys-typescale-title-large-font-size)',
+                                                    lineHeight: 1.2,
+                                                    mb: 'var(--md-sys-spacing-1)',
+                                                    overflow: 'hidden',
+                                                    textOverflow: 'ellipsis',
+                                                    whiteSpace: 'nowrap',
+                                                }}
+                                            >
+                                                {className}
+                                            </Typography>
+                                            <Typography
+                                                component="p"
+                                                sx={{
+                                                    color: accentFg,
+                                                    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                                                    opacity: 0.75,
+                                                }}
+                                            >
+                                                {studentCount} {studentCount === 1 ? 'studente' : 'studenti'}
+                                            </Typography>
+                                        </Box>
+
+                                        {/* Chevron */}
+                                        <Box
+                                            component="span"
+                                            className="material-symbols-outlined"
+                                            aria-hidden="true"
+                                            sx={{ fontSize: 20, color: accentFg, opacity: 0.5, mt: 0.5, flexShrink: 0 }}
+                                        >
+                                            chevron_right
+                                        </Box>
+                                    </Box>
+
+                                    {/* Stats footer */}
+                                    <Box sx={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                        borderTop: `1px solid ${accentBorder}`,
+                                        px: 'var(--md-sys-spacing-4)',
+                                        py: 'var(--md-sys-spacing-2)',
+                                        background: `hsla(${hue}, 30%, 96%, 0.7)`,
+                                    }}>
+                                        <Typography
+                                            component="span"
+                                            sx={{ fontSize: 'var(--md-sys-typescale-label-small-font-size)', color: accentFg, opacity: 0.65 }}
+                                        >
+                                            Media di classe
+                                        </Typography>
+                                        <Box sx={{
+                                            background: avgBg,
+                                            color: avgColor,
+                                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                                            px: 1.5,
+                                            py: 0.25,
+                                            fontWeight: 'var(--md-sys-typescale-weight-bold)',
+                                            fontSize: 'var(--md-sys-typescale-label-medium-font-size)',
+                                        }}>
+                                            {classAverage ?? '—'}
+                                        </Box>
+                                    </Box>
+                                </Box>
                             );
                         })}
-                    </Stack>
+                    </Box>
                 ) : (
                     <EmptyState
                         icon="school"

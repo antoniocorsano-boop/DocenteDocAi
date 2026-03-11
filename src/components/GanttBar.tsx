@@ -29,16 +29,21 @@ const GanttBar: React.FC<GanttBarProps> = ({ uda, onClick }) => {
             aria-label={`UDA: ${uda.title}`}
             focusRipple
             sx={{
-                '--gantt-bar-left': `${uda.startPos}%`,
-                '--gantt-bar-width': `${uda.width}%`,
-                '--gantt-bar-bg': uda.color,
-                '--gantt-bar-border': uda.borderColor,
-                '--gantt-bar-text': uda.textColor,
-                display: 'block',
-                width: '100%',
+                position: 'absolute',
+                left: `${uda.startPos}%`,
+                width: `${uda.width}%`,
+                top: '4px',
+                bottom: '4px',
+                background: uda.color,
+                border: `2px solid ${uda.borderColor}`,
+                borderRadius: 'var(--md-sys-shape-corner-small)',
+                color: uda.textColor,
                 textAlign: 'left',
-                position: 'relative',
                 overflow: 'hidden',
+                px: 'var(--md-sys-spacing-2)',
+                minWidth: '4px',
+                display: 'flex',
+                alignItems: 'center',
                 '&:hover::after': {
                     content: '""',
                     position: 'absolute',
@@ -52,10 +57,10 @@ const GanttBar: React.FC<GanttBarProps> = ({ uda, onClick }) => {
                     outline: '2px solid var(--md-sys-color-primary)',
                     outlineOffset: 2,
                 },
-            } as React.CSSProperties}
+            }}
             title={`${uda.title} (${uda.startDate ? new Date(uda.startDate).toLocaleDateString() : ''} - ${uda.endDate ? new Date(uda.endDate).toLocaleDateString() : ''})`}
         >
-            <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{uda.title}</div>
+            <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>{uda.title}</div>
         </ButtonBase>
     );
 };

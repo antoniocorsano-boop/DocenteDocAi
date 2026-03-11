@@ -568,7 +568,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       <Switch
                         checked={analyticsSettings.enabled}
                         onChange={(e) => handleToggleAnalytics(e.target.checked)}
-                        inputProps={{ 'aria-label': 'Analytics Abilitati' }}
+                        slotProps={{ input: { 'aria-label': 'Analytics Abilitati' } }}
                       />
                     }
                     label={
@@ -588,7 +588,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           <Switch
                             checked={analyticsSettings.collectFeatureUsage}
                             onChange={(e) => actions.setAnalyticsSettings({ ...analyticsSettings, collectFeatureUsage: e.target.checked })}
-                            inputProps={{ 'aria-label': 'Utilizzo Funzionalit\u00e0' }}
+                            slotProps={{ input: { 'aria-label': 'Utilizzo Funzionalità' } }}
                           />
                         }
                         label={
@@ -606,7 +606,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           <Switch
                             checked={analyticsSettings.collectDocumentMetrics}
                             onChange={(e) => actions.setAnalyticsSettings({ ...analyticsSettings, collectDocumentMetrics: e.target.checked })}
-                            inputProps={{ 'aria-label': 'Metriche Documenti' }}
+                            slotProps={{ input: { 'aria-label': 'Metriche Documenti' } }}
                           />
                         }
                         label={

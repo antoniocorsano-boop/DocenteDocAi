@@ -7,6 +7,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import { M3Dialog } from './ui';
 
 interface CopyForRegisterModalProps {
@@ -110,27 +112,28 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <div style={{
-                        padding: 'var(--md-sys-spacing-4)',
-                        backgroundColor: 'var(--md-sys-color-on-primary)',
+                    <Box sx={{
+                        padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
+                        backgroundColor: 'var(--md-sys-color-surface-container-low)',
                         borderRadius: 'var(--md-sys-shape-corner-large)',
-                        display: "flex",
-                        flexWrap: "wrap",
-                        border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: 'var(--md-sys-spacing-2)',
+                        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)'
                     }}>
-                        <label  style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
-                            <input type="checkbox" checked={includeAbsents} onChange={e => setIncludeAbsents(e.target.checked)}  /> 
-                            Assenti
-                        </label>
-                        <label  style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
-                            <input type="checkbox" checked={includeGrades} onChange={e => setIncludeGrades(e.target.checked)}  /> 
-                            Voti
-                        </label>
-                        <label  style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
-                            <input type="checkbox" checked={includeHomework} onChange={e => setIncludeHomework(e.target.checked)}  /> 
-                            Compiti
-                        </label>
-                    </div>
+                        <FormControlLabel
+                            control={<Checkbox checked={includeAbsents} onChange={e => setIncludeAbsents(e.target.checked)} size="small" />}
+                            label="Assenti"
+                        />
+                        <FormControlLabel
+                            control={<Checkbox checked={includeGrades} onChange={e => setIncludeGrades(e.target.checked)} size="small" />}
+                            label="Voti"
+                        />
+                        <FormControlLabel
+                            control={<Checkbox checked={includeHomework} onChange={e => setIncludeHomework(e.target.checked)} size="small" />}
+                            label="Compiti"
+                        />
+                    </Box>
 
                     <TextField multiline 
                         label={activeTab === 'text' ? "Testo da incollare" : "Codice Bridge (JSON)"}

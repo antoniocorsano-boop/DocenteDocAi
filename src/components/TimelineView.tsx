@@ -166,113 +166,117 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                <h2>
-                    <span style={{
-}}>calendar_view_week</span>
+            {/* Header */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
+                <h2 style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', margin: 0, fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface)' }}>
+                    <span className="material-symbols-outlined" aria-hidden="true">calendar_view_week</span>
                     Timeline Didattica
                 </h2>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                    <span><span></span> UDA</span>
-                    <span><span>flag</span> Scadenza</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
+                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '18px' }}>school</span> UDA
+                    </span>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
+                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '18px' }}>flag</span> Scadenza
+                    </span>
                 </div>
             </div>
 
-            <div  ref={scrollContainerRef}>
-                {/* 1. Background Grid (Dynamic) */}
-                <div  style={{ gridTemplateColumns: `repeat(${months.length}, 1fr)`, minWidth: `${minWidth}px` }}>
+            {/* Scrollable timeline container */}
+            <div ref={scrollContainerRef} style={{ overflowX: 'auto', overflowY: 'visible', position: 'relative', borderRadius: 'var(--md-sys-shape-corner-medium)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
+                {/* 1. Month header grid */}
+                <div style={{ display: 'grid', gridTemplateColumns: `repeat(${months.length}, minmax(80px, 1fr))`, minWidth: `${minWidth}px`, borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', background: 'var(--md-sys-color-surface-container-low)' }}>
                     {months.map((m, i) => (
-                        <div key={i} >
-                            <span>{m.label} <span style={{ fontSize: "var(--md-sys-typescale-label-large-font-size)", opacity: "var(--md-sys-state-opacity-supporting)", fontWeight: "normal" }}>{m.year}</span></span>
+                        <div key={i} style={{ padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)', fontSize: 'var(--md-sys-typescale-label-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)', borderRight: i < months.length - 1 ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' : 'none', whiteSpace: 'nowrap' }}>
+                            {m.label} <span style={{ fontSize: 'var(--md-sys-typescale-label-small-font-size)', opacity: 0.6 }}>{m.year}</span>
                         </div>
                     ))}
                 </div>
 
-                {/* Empty State Overlay */}
-                {isEmpty && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                            <span>edit_calendar</span>
-                            <p>Nessuna pianificazione.</p>
-                            <p>Usa il Wizard Annuale o crea un&apos;UDA.</p>
-                        </div>
-                    </div>
-                )}
+                {/* Inner content area — position relative for absolute children */}
+                <div style={{ position: 'relative', minWidth: `${minWidth}px`, background: 'var(--md-sys-color-surface)' }}>
 
-                {/* 2. Today Line (Wrapped for correct width context) */}
-                <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, minWidth: `${minWidth}px`, zIndex: 'var(--md-sys-z-raised)', pointerEvents: 'none' }}>
+                    {/* 2. Today line */}
                     {todayPosition >= 0 && todayPosition <= 100 && (
-                        <div
-                            
-                            style={{ left: `${todayPosition}%` }}
-                        >
-                            <div>OGGI</div>
+                        <div style={{ position: 'absolute', top: 0, bottom: 0, left: `${todayPosition}%`, width: '2px', background: 'var(--md-sys-color-primary)', zIndex: 2, pointerEvents: 'none' }}>
+                            <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', background: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', fontSize: '10px', padding: '1px 4px', borderRadius: 'var(--md-sys-shape-corner-extra-small)', whiteSpace: 'nowrap' }}>OGGI</div>
                         </div>
                     )}
-                </div>
 
-                {/* 3. Content Layers */}
-                <div  style={{ minWidth: `${minWidth}px` }}>
-                    {/* Top Row: Events */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        {events.filter(e => e.tipo === 'scadenza' || e.tipo === 'consiglio').map(evt => {
-                            const pos = getPositionPercentage(evt.data);
-                            if (pos < 0 || pos > 100) return null;
-                            return (
-                                <div
-                                    key={evt.id}
-                                    
-                                    style={{ left: `${pos}%` }}
-                                    title={`${evt.titolo} (${new Date(evt.data).toLocaleDateString()})`}
-                                    aria-label={`Evento: ${evt.titolo} il ${new Date(evt.data).toLocaleDateString()}`}
-                                >
-                                    <span>
-                                        {evt.tipo === 'scadenza' ? 'flag' : 'gavel'}
-                                    </span>
-                                    <div></div>
-                                </div>
-                            );
-                        })}
-                    </div>
+                    {/* Empty state */}
+                    {isEmpty && (
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-3)', padding: 'var(--md-sys-spacing-12)', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                            <span className="material-symbols-outlined" aria-hidden="true">edit_calendar</span>
+                            <span>Nessuna pianificazione. Usa il Wizard Annuale o crea un&apos;UDA.</span>
+                        </div>
+                    )}
 
-                    {/* Swimlanes for UDAs */}
+                    {/* 3. Events row */}
+                    {events.filter(e => e.tipo === 'scadenza' || e.tipo === 'consiglio').length > 0 && (
+                        <div style={{ position: 'relative', height: '28px', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
+                            {events.filter(e => e.tipo === 'scadenza' || e.tipo === 'consiglio').map(evt => {
+                                const pos = getPositionPercentage(evt.data);
+                                if (pos < 0 || pos > 100) return null;
+                                return (
+                                    <div
+                                        key={evt.id}
+                                        style={{ position: 'absolute', left: `${pos}%`, top: '50%', transform: 'translate(-50%, -50%)', color: evt.tipo === 'scadenza' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-secondary)', zIndex: 1 }}
+                                        title={`${evt.titolo} (${new Date(evt.data).toLocaleDateString()})`}
+                                        aria-label={`Evento: ${evt.titolo} il ${new Date(evt.data).toLocaleDateString()}`}
+                                    >
+                                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '18px' }}>
+                                            {evt.tipo === 'scadenza' ? 'flag' : 'gavel'}
+                                        </span>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
+
+                    {/* 4. Swimlanes for UDAs */}
                     {timelineData.map((lane, laneIndex) => (
-                        <div key={laneIndex} >
+                        <div key={laneIndex} style={{ position: 'relative', height: '40px', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-surface-container)' }}>
                             {lane.map(uda => (
-                                <Tooltip key={uda.id} label={`${uda.title}\n${uda.startDate ? new Date(uda.startDate).toLocaleDateString() : '} - ${uda.endDate ? new Date(uda.endDate).toLocaleDateString() : '}`} position="top">
-                                    <GanttBar key={uda.id} uda={uda} onClick={() => handleUdaClick(uda)} />
+                                <Tooltip key={uda.id} label={`${uda.title} — ${uda.startDate ? new Date(uda.startDate).toLocaleDateString() : ''} - ${uda.endDate ? new Date(uda.endDate).toLocaleDateString() : ''}`} position="top">
+                                    <GanttBar uda={uda} onClick={() => handleUdaClick(uda)} />
                                 </Tooltip>
                             ))}
                         </div>
                     ))}
 
-                    {/* Snackbar preview / undo */}
-                    {showSnackbar && lastMove && (
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                <div>UDA spostata. <button  onClick={() => {
-                                    const original = udas.find(u => u.id === lastMove.udaId);
-                                    if (original) {
-                                        onSaveUda({ ...original, startDate: lastMove.prevStart, endDate: lastMove.prevEnd });
-                                        setShowSnackbar(false);
-                                        setLastMove(null);
-                                    }
-                                }}>Annulla</button></div>
-                                <button onClick={() => setShowSnackbar(false)} aria-label="Chiudi" ><span style={{
-}}>close</span></button>
-                            </div>
-                        </div>
-                    )}
-
                     {/* Drag Preview Bubble */}
                     {previewMessage && (
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <div> {previewMessage}</div>
+                        <div style={{ position: 'sticky', bottom: 'var(--md-sys-spacing-3)', left: '50%', transform: 'translateX(-50%)', display: 'inline-flex', background: 'var(--md-sys-color-inverse-surface)', color: 'var(--md-sys-color-inverse-on-surface)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-4)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', zIndex: 3 }}>
+                            {previewMessage}
                         </div>
                     )}
-
                 </div>
             </div>
+
+            {/* Snackbar undo */}
+            {showSnackbar && lastMove && (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'var(--md-sys-color-inverse-surface)', color: 'var(--md-sys-color-inverse-on-surface)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', gap: 'var(--md-sys-spacing-4)' }}>
+                    <span>UDA spostata.</span>
+                    <button
+                        style={{ background: 'none', border: 'none', color: 'var(--md-sys-color-inverse-primary)', cursor: 'pointer', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}
+                        onClick={() => {
+                            const original = udas.find(u => u.id === lastMove.udaId);
+                            if (original) {
+                                onSaveUda({ ...original, startDate: lastMove.prevStart, endDate: lastMove.prevEnd });
+                                setShowSnackbar(false);
+                                setLastMove(null);
+                            }
+                        }}
+                    >Annulla</button>
+                    <button
+                        onClick={() => setShowSnackbar(false)}
+                        aria-label="Chiudi"
+                        style={{ background: 'none', border: 'none', color: 'var(--md-sys-color-inverse-on-surface)', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+                    >
+                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '18px' }}>close</span>
+                    </button>
+                </div>
+            )}
         </div>
     );
 };
