@@ -180,6 +180,14 @@ export default defineConfig([
           message:
             'MD3 violation: prefer sx prop over style on React/MUI components. Use sx={{}} for design token access.',
         },
+        {
+          // Nested var(var(--token)) — always a bug; the inner reference is silently ignored
+          // Correct: 'var(--md-sys-color-primary)'
+          // Wrong:   'var(var(--md-sys-color-primary))'
+          selector: 'Literal[value=/var\\(var\\(/]',
+          message:
+            'MD3 violation: nested var(var(...)) detected. Unwrap to a single var(--token) reference.',
+        },
       ],
     },
   },

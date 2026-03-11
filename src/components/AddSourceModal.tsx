@@ -126,7 +126,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                 <input {...getInputProps()} />
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)', mb: 'var(--md-sys-spacing-8)', fontSize: 'var(--md-sys-typescale-display-small-font-size)' }}>{isDragActive ? 'download' : 'upload_file'}</Box>
                                 <Typography component="p" variant="body1" sx={{ color: "var(--md-sys-color-on-surface-variant)" }}>Trascina i file qui o clicca per sfogliare</Typography>
-                                <Typography component="p" variant="caption" sx={{opacity: "var(--md-sys-state-opacity-disabled-layer)", marginTop: 'var(--md-sys-spacing-6)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-on-surface-variant)"}}>Supporto PDF, DOCX, TXT</Typography>
+                                <Typography component="p" variant="caption" sx={{opacity: "var(--md-sys-state-opacity-disabled)", marginTop: 'var(--md-sys-spacing-6)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-on-surface-variant)"}}>Supporto PDF, DOCX, TXT</Typography>
                             </Box>
                         </Box>
 

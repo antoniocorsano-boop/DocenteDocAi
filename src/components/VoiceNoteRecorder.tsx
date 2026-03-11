@@ -188,7 +188,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
     const visualizerStyle = {
         boxShadow: isRecording ? `0 0 0 ${Math.min(audioLevel / 5, 10)}px var(--md-sys-color-error-container)` : 'none',
         transform: isRecording ? `scale(${1 + (audioLevel / 255) * 0.2})` : 'scale(1)',
-        transition: 'box-shadow var(var(--md-sys-motion-duration-short)1) var(var(--md-sys-motion-easing-standard)), transform var(var(--md-sys-motion-duration-short)1) var(var(--md-sys-motion-easing-standard))'
+        transition: 'box-shadow var(--md-sys-motion-duration-short1) var(--md-sys-motion-easing-standard), transform var(--md-sys-motion-duration-short1) var(--md-sys-motion-easing-standard)'
     };
 
     return (

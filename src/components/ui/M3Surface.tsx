@@ -1,9 +1,11 @@
 ﻿// MD3 Gold Compliant
 // Semantic surface container wrapper with MD3 elevation-to-surface-color mapping.
 // Replaces arbitrary <div> containers with correct MD3 surface semantics.
-// Audit: febbraio 2026
+// Audit: febbraio 2026 — fix P0-B marzo 2026 (sx richiedeva MUI Box, non div nativo)
 
 import React from 'react';
+import Box from '@mui/material/Box';
+import type { SxProps, Theme } from '@mui/material';
 
 export type SurfaceElevation = 0 | 1 | 2 | 3 | 4 | 5;
 
@@ -16,11 +18,13 @@ const ELEVATION_TOKENS: Record<SurfaceElevation, string> = {
   5: 'var(--md-sys-color-surface-container-highest)',
 };
 
-export interface M3SurfaceProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface M3SurfaceProps extends React.HTMLAttributes<HTMLElement> {
   /** MD3 surface elevation tier (0-5), maps to surface-container tokens */
   elevation?: SurfaceElevation;
   /** Override the root element */
   component?: React.ElementType;
+  /** MUI sx prop — funziona correttamente perché Box è il root element */
+  sx?: SxProps<Theme>;
   children?: React.ReactNode;
 }
 
@@ -36,21 +40,26 @@ export interface M3SurfaceProps extends React.HTMLAttributes<HTMLDivElement> {
  *   ...
  * </M3Surface>
  */
-const M3Surface = React.forwardRef<HTMLDivElement, M3SurfaceProps>(
-  ({ elevation = 0, component: Component = 'div', style, children, ...rest }, ref) => {
+const M3Surface = React.forwardRef<HTMLElement, M3SurfaceProps>(
+  ({ elevation = 0, component: Component = 'div', style, children, sx, ...rest }, ref) => {
     const bg = ELEVATION_TOKENS[elevation];
     return (
-      <Component
+      <Box
+        component={Component}
         ref={ref}
-        sx={{
-          backgroundColor: bg,
-          color: 'var(--md-sys-color-on-surface)',
-          ...style,
-        }}
+        sx={[
+          {
+            backgroundColor: bg,
+            color: 'var(--md-sys-color-on-surface)',
+          },
+          ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+        ]}
+        // eslint-disable-next-line no-restricted-syntax -- style passthrough intenzionale: M3Surface espone style per override inline dell'utente
+        style={style}
         {...rest}
       >
         {children}
-      </Component>
+      </Box>
     );
   }
 );

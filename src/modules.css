@@ -64,7 +64,7 @@ transition-duration: var(--md-sys-motion-duration-short);
 transition-timing-function: var(--md-sys-motion-easing-standard);
     position: relative;
     overflow: hidden;
-    box-shadow: var(--md-sys-elevation-level1);
+    box-shadow: var(--md-sys-elevation-level-1);
 }
 
 @media (min-width: 600px) {
@@ -76,7 +76,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
 .hero-card-interactive:hover {
     filter: brightness(0.95);
     transform: translateY(calc(var(--md-sys-spacing-1) * -1)); /* M3 token applied: -var(--md-sys-spacing-1) ? calc(var(--md-sys-spacing-1) * -1) */
-    box-shadow: var(--md-sys-elevation-level2);
+    box-shadow: var(--md-sys-elevation-level-2);
 }
 
 .hero-card-interactive:focus-visible {

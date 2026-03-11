@@ -388,7 +388,7 @@ const handleAction = (action: typeof ACTIONS[number]) => {
           gap: var(--md-sys-spacing-3);
           box-shadow: var(--md-sys-elevation-1);
           cursor: pointer;
-          transition: transform var(--md-sys-motion-duration-short) var(var(--md-sys-motion-easing-standard)), box-shadow var(--md-sys-motion-duration-short) var(var(--md-sys-motion-easing-standard));
+          transition: transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard);
           text-align: left;
         }
         .assistant-fab-sheet-action:hover {

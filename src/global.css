@@ -143,13 +143,6 @@
   --md-sys-typescale-label-small-font-weight: var(--md-sys-typescale-weight-medium);
   --md-sys-typescale-label-small-letter-spacing: 0.05em;
 
-  --md-sys-spacing-1: var(--md-sys-spacing-1);
-  --md-sys-spacing-2: var(--md-sys-spacing-2);
-  --md-sys-spacing-3: var(--md-sys-spacing-3);
-  --md-sys-spacing-4: var(--md-sys-spacing-4);
-  --md-sys-spacing-5: var(--md-sys-spacing-5);
-  --md-sys-spacing-6: var(--md-sys-spacing-6);
-
   --md-sys-motion-duration-short1: 50ms;
   --md-sys-motion-duration-short2: 100ms;
   --md-sys-motion-duration-short3: 150ms;
@@ -167,6 +160,12 @@
   --md-sys-motion-duration-extra-long3: 900ms;
   --md-sys-motion-duration-extra-long4: 1000ms;
 
+  /* Shorthand aliases (no number suffix) — alias al valore canonico per categoria */
+  --md-sys-motion-duration-short:      var(--md-sys-motion-duration-short4);      /* 200ms */
+  --md-sys-motion-duration-medium:     var(--md-sys-motion-duration-medium2);     /* 300ms */
+  --md-sys-motion-duration-long:       var(--md-sys-motion-duration-long2);       /* 500ms */
+  --md-sys-motion-duration-extra-long: var(--md-sys-motion-duration-extra-long1); /* 700ms */
+
   --md-sys-motion-easing-standard: cubic-bezier(0.2, 0.0, 0, 1.0);
   --md-sys-motion-easing-standard-decelerate: cubic-bezier(0.0, 0.0, 0.0, 1.0);
   --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0.0, 1.0, 1.0);
@@ -180,6 +179,67 @@
   --gantt-border-lightness: 40%;
   --gantt-text-saturation: 80%;
   --gantt-text-lightness: 20%;
+
+  /* ─── Shape Corner Tokens — MD3 § Shape ──────────────────────────────────
+     https://m3.material.io/styles/shape/shape-scale-tokens
+     Previously used throughout CSS but never declared → border-radius silently 0 */
+  --md-sys-shape-corner-none:        0px;
+  --md-sys-shape-corner-extra-small: 4px;
+  --md-sys-shape-corner-small:       8px;
+  --md-sys-shape-corner-small-soft:  6px;    /* custom: between extra-small and small */
+  --md-sys-shape-corner-medium:      12px;
+  --md-sys-shape-corner-medium-soft: 10px;   /* custom: between small and medium */
+  --md-sys-shape-corner-large:       16px;
+  --md-sys-shape-corner-extra-large: 28px;
+  --md-sys-shape-corner-full:        9999px; /* pill / chip / circle */
+
+  /* ─── Elevation Level Aliases ─────────────────────────────────────────────
+     Map --md-sys-elevation-level-N → --md-sys-elevation-N (defined in theme.css) */
+  --md-sys-elevation-level0:  var(--md-sys-elevation-0);
+  --md-sys-elevation-level-0: var(--md-sys-elevation-0);
+  --md-sys-elevation-level1:  var(--md-sys-elevation-1);
+  --md-sys-elevation-level-1: var(--md-sys-elevation-1);
+  --md-sys-elevation-level2:  var(--md-sys-elevation-2);
+  --md-sys-elevation-level3:  var(--md-sys-elevation-3);
+  --md-sys-elevation-level-3: var(--md-sys-elevation-3);
+  --md-sys-elevation-level4:  var(--md-sys-elevation-3); /* cap at level 3 */
+  --md-sys-elevation1:        var(--md-sys-elevation-1); /* legacy no-hyphen alias */
+  --md-sys-elevation2:        var(--md-sys-elevation-2);
+  --md-sys-elevation3:        var(--md-sys-elevation-3);
+
+  /* ─── Spacing Extras ──────────────────────────────────────────────────────
+     Half-step slots not in the main 4px-increment scale */
+  --md-sys-spacing-1-5:        6px;      /* 1.5 × 4px */
+  --md-sys-spacing-2-5:        10px;     /* 2.5 × 4px */
+  --md-sys-spacing-240:        240px;    /* fixed sidebar / panel width */
+  --md-sys-margin-none:        0px;
+  --md-sys-special-offscreen:  -9999px;  /* accessibility off-screen utility */
+
+  /* ─── Motion Extras ───────────────────────────────────────────────────────*/
+  --md-sys-motion-duration-short-4: var(--md-sys-motion-duration-short4); /* hyphen-4 alias */
+  --motion-easing-expressive: cubic-bezier(0.34, 1.2, 0.64, 1); /* used by [data-visual-style="expressive"] */
+
+  /* ─── Typography Shorthands ───────────────────────────────────────────────
+     Shorthand references used where only font-size is needed */
+  --md-sys-typescale-label-large:             var(--md-sys-typescale-label-large-font-size);
+  --md-sys-typescale-body-large:              var(--md-sys-typescale-body-large-font-size);
+  --md-sys-typescale-body-small:              var(--md-sys-typescale-body-small-font-size);
+  --md-sys-typescale-label-tiny-font-size:    0.625rem; /* 10px — sub-label size */
+  --md-sys-typescale-body-medium-font-family: var(--font-family, sans-serif);
+  --md-sys-typescale-label-small-font-family: var(--font-family, sans-serif);
+
+  /* ─── Component-scoped vars (runtime values injected via JavaScript) ───────
+     Declared here only for CSS tooling resolution; JS overrides at runtime.  */
+  --gantt-bar-bg:        transparent;
+  --gantt-bar-border:    transparent;
+  --gantt-bar-left:      0px;
+  --gantt-bar-width:     0px;
+  --gantt-bar-transform: none;
+  --gantt-bar-text:      inherit;
+  --glass-blur-px:       8px;
+  --link-max-width:      100%;
+  --panel-max-height:    100vh;
+  --slot-hue:            220;
 }
 
 /* Dark mode color overrides are defined in src/theme.css under .theme-dark { }

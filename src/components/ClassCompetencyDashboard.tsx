@@ -117,13 +117,13 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                 <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', display: "flex", borderRadius: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-1)' }}>
                     <button 
                         onClick={() => setSortBy('competency')} 
-                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-large-font-weight-medium)', color: 'var(--md-sys-color-on-primary)'}}
+                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-medium, 500)', color: 'var(--md-sys-color-on-primary)'}}
                     >
                         Alfabetico
                     </button>
                     <button 
                         onClick={() => setSortBy('performance')} 
-                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-body-large-font-weight-medium)', color: 'var(--md-sys-color-on-primary)'}}
+                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-medium, 500)', color: 'var(--md-sys-color-on-primary)'}}
                     >
                         Rendimento
                     </button>

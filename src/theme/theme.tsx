@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { tokenLayers, TokenLayers } from './tokens';
+import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
@@ -81,18 +82,14 @@ const ThemeError: React.FC<{ onRetry: () => void }> = ({ onRetry }) => (
     >
       Failed to load theme configuration. Please try again.
     </Typography>
-    <button
+    <Button
       onClick={onRetry}
-      style={{
-        padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-6)',
-        border: 'none',
-        borderRadius: 'var(--md-sys-shape-corner-small)',
-        cursor: 'pointer',
-      }}
+      variant="contained"
       aria-label="Retry loading theme configuration"
+      sx={{ borderRadius: 'var(--md-sys-shape-corner-small)' }}
     >
-      <Typography variant="button">Retry</Typography>
-    </button>
+      Retry
+    </Button>
   </Paper>
 );
 
