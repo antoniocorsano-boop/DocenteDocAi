@@ -576,6 +576,18 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         isSelected={themeState.customizationName === theme.name}
                                         onClick={() => onSaveTheme({ ...themeState, customizationName: theme.name, customColors: theme.colors })} />
                                 ))}
+                                {themeState.generatedColors && (
+                                    <ThemeBubble
+                                        key="ai-generated"
+                                        name={themeState.generatedName || 'AI Custom'}
+                                        colors={{
+                                            primary: themeState.generatedColors.primary ?? 'var(--md-sys-color-primary)',
+                                            secondary: themeState.generatedColors.secondary ?? 'var(--md-sys-color-secondary)',
+                                            tertiary: themeState.generatedColors.tertiary ?? 'var(--md-sys-color-tertiary)',
+                                        }}
+                                        isSelected={themeState.customizationName === 'Custom'}
+                                        onClick={() => onSaveTheme({ ...themeState, customizationName: 'Custom', customColors: themeState.generatedColors })} />
+                                )}
                             </Box>
 
                             <Box sx={{ borderTop: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)', pt: 2 }}>
