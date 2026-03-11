@@ -659,8 +659,10 @@ const renderHeader = () => {
                                     <ListItemText
                                         primary={ev.titolo}
                                         secondary={ev.location ? `📍 ${ev.location}` : ev.descrizione}
-                                        primaryTypographyProps={{ variant: 'body2', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}
-                                        secondaryTypographyProps={{ variant: 'caption', sx: { color: 'inherit', opacity: 0.75 } }}
+                                        slotProps={{
+                                            primary: { variant: 'body2', sx: { fontWeight: 'var(--md-sys-typescale-weight-semibold)' } },
+                                            secondary: { variant: 'caption', sx: { color: 'inherit', opacity: 0.75 } },
+                                        }}
                                     />
                                 </ListItemButton>
                                 <Divider />
@@ -751,8 +753,10 @@ const renderHeader = () => {
                                             <ListItemText
                                                 primary={ev.titolo}
                                                 secondary={ev.descrizione}
-                                                primaryTypographyProps={{ variant: 'body2', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}
-                                                secondaryTypographyProps={{ variant: 'caption' }}
+                                                slotProps={{
+                                                    primary: { variant: 'body2', sx: { fontWeight: 'var(--md-sys-typescale-weight-semibold)' } },
+                                                    secondary: { variant: 'caption' },
+                                                }}
                                             />
                                         </ListItemButton>
                                         {idx < evts.length - 1 && <Divider component="li" />}
