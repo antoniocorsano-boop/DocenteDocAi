@@ -2,6 +2,7 @@
 
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations. ✅ COMPLETED
 import React, { useState } from 'react';
+import Box from '@mui/material/Box';
 import { Competenza } from '../types';
 import { DEFAULT_COMPETENZE } from '../constants';
 
@@ -101,7 +102,7 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                             }}
                         >
                             <span>{fw}</span>
-                            {fw === 'DigCompEdu 2.2' && <span>smart_toy</span>}
+                            {fw === 'DigCompEdu 2.2' && <Box component="span" className="material-symbols-outlined" aria-hidden="true">smart_toy</Box>}
                         </button>
                     ))}
                 </div>
@@ -154,14 +155,14 @@ const CompetencyManager: React.FC<CompetencyManagerProps> = ({ competenze, onUpd
                                     }}
                                     title={active ? `Disattiva ${comp.nome}` : `Attiva ${comp.nome}`}
                                 >
-                                    {active && <span>check</span>}
+                                    {active && <Box component="span" className="material-symbols-outlined" aria-hidden="true">check</Box>}
                                 </div>
                                 <div style={{ flexGrow: "1", minWidth: "0" }}>
                                     <span>{comp.codice}</span>
                                     <h3>{comp.nome}</h3>
                                     <p>{comp.framework}</p>
                                 </div>
-                                <span>expand_more</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true">expand_more</Box>
                             </summary>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <p>DESCRITTORI LIVELLI:</p>

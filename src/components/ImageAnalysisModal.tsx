@@ -106,7 +106,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
               ) : (
                 <>
                   <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
-                      <span style={{ color: 'var(--md-sys-color-primary)' }}>add_photo_alternate</span>
+                      <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>add_photo_alternate</Box>
                   </div>
                   <div style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center" }}>
                       <Typography component="p" variant="subtitle2" sx={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Trascina o clicca</Typography>
@@ -137,7 +137,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
             variant="contained"
             sx={{ width: 'var(--md-sys-percent-100)' }}
           >
-            {isLoading ? <span>progress_activity</span> : 'Analizza Immagine'}
+            {isLoading ? <Box component="span" className="material-symbols-outlined" aria-hidden="true">progress_activity</Box> : 'Analizza Immagine'}
           </Button>
           {error && <Typography component="p" sx={{ color: 'var(--md-sys-color-error)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', mt: 'var(--md-sys-spacing-4)', textAlign: 'center', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{error}</Typography>}
         </Box>
@@ -159,7 +159,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
             )}
             {!analysisResult && !isLoading && (
                 <Box sx={{ color: 'var(--md-sys-color-on-surface-variant)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: 'var(--md-sys-percent-100)', textAlign: 'center', opacity: 'var(--md-sys-state-opacity-placeholder)' }}>
-                    <span style={{ color: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>visibility</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)', marginBottom: 'var(--md-sys-spacing-8)' }}>visibility</Box>
                     <Typography component="p" sx={{ fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Il risultato dell'analisi apparirà qui.</Typography>
                 </Box>
             )}

@@ -2,6 +2,7 @@
 // Note: Icon font sizes, layout percentages, and control dimensions retained with eslint-disable comments
 import React, { useState, useRef, useMemo } from 'react';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import { LiveServerMessage, Modality, Type } from '@google/genai';
 import { LiveAssistantProps, TranscriptEntry, View } from '../types.ts';
 import { getGoogleAIClient } from '../services/aiClient.ts';
@@ -57,7 +58,7 @@ const ChatBubble: React.FC<{ entry: TranscriptEntry }> = ({ entry }) => {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-          <span  style={{  fontSize: "var(--md-sys-typescale-body-large-font-size)"  }}>check_circle</span>
+          <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>check_circle</Box>
           {entry.text.replace(/\[|\]/g, '')}
         </div>
       </div>
@@ -278,7 +279,7 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
         {transcripts.map((t, i) => <ChatBubble key={i} entry={t} />)}
         {transcripts.length === 0 && (
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-            <span>graphic_eq</span>
+            <Box component="span" className="material-symbols-outlined" aria-hidden="true">graphic_eq</Box>
             <p>L'assistente è pronto ad ascoltarti.</p>
           </div>
         )}

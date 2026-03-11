@@ -8,6 +8,7 @@ import { useUIStore } from '../stores/useUIStore';
 import TemplateManager from './TemplateManager';
 import JSZip from 'jszip';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
 // Type guards migliorati
@@ -317,8 +318,8 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                   variant="outlined"
                   
                   disabled={isGenerating}
+                  startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">description</Box>}
                 >
-                  <span>description</span>
                   Template
                 </Button>
               </div>

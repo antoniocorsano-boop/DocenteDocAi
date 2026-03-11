@@ -903,7 +903,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
 const NKAGuide: React.FC = () => (
   <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-4)' }}>
     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-2)' }}>
-      <span aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-headline-medium-font-size)', color: 'var(--md-sys-color-primary)' }}>auto_awesome</span>
+      <span aria-hidden="true" className="material-symbols-outlined" style={{ fontSize: 'var(--md-sys-typescale-headline-medium-font-size)', color: 'var(--md-sys-color-primary)' }}>auto_awesome</span>
       <div>
         <Typography variant="h6" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-black)' }}>NKA Aura — Mappa Neurale</Typography>
         <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-1)' }}>Neural Knowledge Architecture</Typography>
@@ -915,7 +915,7 @@ const NKAGuide: React.FC = () => (
     </InfoCard>
 
     <InfoCard title="Come aprire Aura" icon="touch_app">
-      <Typography variant="body2" sx={{ marginBottom: 'var(--md-sys-spacing-3)' }}>Il pulsante <strong>Aura</strong> (<span aria-hidden="true" style={{ verticalAlign: 'middle' }}>auto_awesome</span>) si trova nell'header in alto a destra.</Typography>
+      <Typography variant="body2" sx={{ marginBottom: 'var(--md-sys-spacing-3)' }}>Il pulsante <strong>Aura</strong> (<span aria-hidden="true" className="material-symbols-outlined" style={{ verticalAlign: 'middle' }}>auto_awesome</span>) si trova nell'header in alto a destra.</Typography>
       <ul style={{ paddingLeft: 'var(--md-sys-spacing-5)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
         <li><Typography variant="body2"><strong>Tap breve</strong> → apre la mappa neurale interattiva</Typography></li>
         <li><Typography variant="body2"><strong>Pressione lunga (500ms)</strong> → apre le opzioni avanzate di Aura</Typography></li>

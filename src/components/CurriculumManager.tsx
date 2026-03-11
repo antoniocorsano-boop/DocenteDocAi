@@ -160,7 +160,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                         variant="text"
                                         
                                     >
-                                        <span>close</span>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true">close</Box>
                                     </Button>
                                 </Stack>
                             ))}
@@ -171,9 +171,9 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                     handleUpdate({...selectedCurriculum, nuclei: newNuclei});
                                 }} 
                                 variant="outlined"
-                                
+                                startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add</Box>}
                             >
-                                <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span> Aggiungi Obiettivo
+                                Aggiungi Obiettivo
                             </Button>
                         </Stack>
                     </InfoCard>
@@ -184,9 +184,9 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                         handleUpdate({...selectedCurriculum, nuclei: [...selectedCurriculum.nuclei, newNucleus]});
                     }} 
                     variant="outlined"
-                    
+                    startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add_circle</Box>}
                 >
-                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_circle</span> Nuovo Nucleo Fondante
+                    Nuovo Nucleo Fondante
                 </Button>
             </Stack>
         );
@@ -268,7 +268,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                         }
                                     }}
                                 >
-                                    <span  style={{ fontSize: "var(--md-sys-typescale-label-large-font-size)" }}>delete</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: "var(--md-sys-typescale-label-large-font-size)" }}>delete</Box>
                                 </Button>
                             </Box>
                         ))}
@@ -329,8 +329,8 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                        ))}
                                      </Tabs>
                                     {activeTab === 'editor' && (
-                                        <Button onClick={() => setIsImporting(true)} variant="outlined" >
-                                            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>auto_awesome</span> AI Import
+                                        <Button onClick={() => setIsImporting(true)} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">auto_awesome</Box>}>
+                                            AI Import
                                         </Button>
                                     )}
                                 </Stack>

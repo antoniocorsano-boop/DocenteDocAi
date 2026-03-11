@@ -136,21 +136,21 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                     }}
                 >
                     <FormControl size="small" fullWidth>
-                        <InputLabel>Classe</InputLabel>
-                        <Select label="Classe" value={selectedClass} onChange={e => { setSelectedClass(e.target.value as string); setSelectedStudentId('all'); }}>
+                        <InputLabel id="analytics-classe-label">Classe</InputLabel>
+                        <Select labelId="analytics-classe-label" label="Classe" inputProps={{ id: 'analytics-classe-select', name: 'analytics-classe' }} value={selectedClass} onChange={e => { setSelectedClass(e.target.value as string); setSelectedStudentId('all'); }}>
                             {userClasses.map(c => <MenuItem key={c} value={c}>{c}</MenuItem>)}
                         </Select>
                     </FormControl>
                     <FormControl size="small" fullWidth>
-                        <InputLabel>Studente</InputLabel>
-                        <Select label="Studente" value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value as string)}>
+                        <InputLabel id="analytics-studente-label">Studente</InputLabel>
+                        <Select labelId="analytics-studente-label" label="Studente" inputProps={{ id: 'analytics-studente-select', name: 'analytics-studente' }} value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value as string)}>
                             <MenuItem value="all">Tutta la Classe (Media)</MenuItem>
                             {filteredStudents.map(s => <MenuItem key={s.id} value={s.id}>{s.cognome} {s.nome}</MenuItem>)}
                         </Select>
                     </FormControl>
                     <FormControl size="small" fullWidth>
-                        <InputLabel>Materia</InputLabel>
-                        <Select label="Materia" value={selectedSubject} onChange={e => setSelectedSubject(e.target.value as string)}>
+                        <InputLabel id="analytics-materia-label">Materia</InputLabel>
+                        <Select labelId="analytics-materia-label" label="Materia" inputProps={{ id: 'analytics-materia-select', name: 'analytics-materia' }} value={selectedSubject} onChange={e => setSelectedSubject(e.target.value as string)}>
                             <MenuItem value="all">Tutte le Materie</MenuItem>
                             {settings.disciplines.map(d => <MenuItem key={d} value={d}>{d}</MenuItem>)}
                         </Select>

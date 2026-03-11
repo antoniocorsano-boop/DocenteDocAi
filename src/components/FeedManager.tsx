@@ -107,9 +107,8 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                         onClick={handleAddSource} 
                         variant="contained" 
                         disabled={true} 
-                        
+                        startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add_link</Box>}
                     >
-                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_link</span>
                         Aggiungi
                     </Button>
                 </div>
@@ -123,8 +122,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                                        <span style={{
-}}>rss_feed</span>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true">rss_feed</Box>
                                     </div>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <p>{source.title}</p>
@@ -137,8 +135,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                                         variant="text" 
                                         
                                     >
-                                        <span style={{
-}}>delete</span>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true">delete</Box>
                                     </Button>
                                     <Button 
                                         onClick={() => handleCheckForUpdates(source)} 
@@ -159,7 +156,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                         </div>
                     )) : (
                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                            <span>rss_feed</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">rss_feed</Box>
                             <p>Nessuna fonte monitorata</p>
                             <p>Aggiungi il sito della tua scuola per ricevere notifiche sulle circolari.</p>
                         </div>

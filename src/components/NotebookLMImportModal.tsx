@@ -105,7 +105,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
         {!isAuthenticated ? (
           <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
             <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-6)'}}>
-              <span style={{ color: 'var(--md-sys-color-primary)' }}>cloud_off</span>
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>cloud_off</Box>
             </div>
             <Typography component="h3" variant="h6" sx={{fontSize: "var(--md-sys-typescale-title-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Connessione Google Richiesta</Typography>
             <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , marginBottom: 'var(--md-sys-spacing-8)'}}>
@@ -159,7 +159,7 @@ const NotebookLMImportModal: React.FC<NotebookLMImportModalProps> = ({
 
         {step === 'done' && (
           <div  style={{ textAlign: "center" }}>
-            <span  style={{color: "var(--md-sys-color-success)", marginBottom: 'var(--md-sys-spacing-8)'}}>check_circle</span>
+            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: "var(--md-sys-color-success)", marginBottom: 'var(--md-sys-spacing-8)'}}>check_circle</Box>
             <div style={{fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Importazione completata!</div>
           </div>
         )}

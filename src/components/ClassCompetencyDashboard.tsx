@@ -7,6 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 interface ClassCompetencyDashboardProps {
     selectedClass: string;
     students: Studente[];
@@ -151,7 +152,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                             {summary.competency.nome}
                                         </Typography>
                                     </div>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  transition: "transform var(--md-sys-motion-duration-medium)" }}>expand_more</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', transition: "transform var(--md-sys-motion-duration-medium)" }}>expand_more</Box>
                                 </div>
 
                                 {/* Visual Progress Bar */}
@@ -203,7 +204,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                 
                 {competencySummaries.length === 0 && (
                     <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 'var(--md-sys-state-opacity-tint-moderate)', marginBottom: 'var(--md-sys-spacing-8)' }}>bar_chart</span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 'var(--md-sys-state-opacity-tint-moderate)', marginBottom: 'var(--md-sys-spacing-8)' }}>bar_chart</Box>
                         <Typography component="p" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)' }}>Nessun dato</Typography>
                         <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Non hai ancora configurato le competenze in Impostazioni.</Typography>
                     </div>
@@ -235,7 +236,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                                     </div>
                                                 </div>
                                             </div>
-                                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  transition: "transform var(--md-sys-motion-duration-medium)" }}>arrow_forward</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', transition: "transform var(--md-sys-motion-duration-medium)" }}>arrow_forward</Box>
                                         </div>
                                     )
                                 })}

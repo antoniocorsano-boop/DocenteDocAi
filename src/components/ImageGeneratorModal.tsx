@@ -26,7 +26,7 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
         <M3Dialog
             title={
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-6)' }}>
-                    <span style={{ color: 'var(--md-sys-color-primary)' }}>image</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>image</Box>
                     <span>AI Image Lab</span>
                 </div>
             }
@@ -39,9 +39,9 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
                         onClick={handleSubmit} 
                         variant="contained" 
                         disabled={!prompt.trim()}
+                        startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">auto_awesome</Box>}
                         sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)' }}
                     >
-                        <Typography component="span" sx={{ mr: 'var(--md-sys-spacing-2)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>auto_awesome</Typography>
                         Genera Immagine
                     </Button>
                 </>

@@ -7,6 +7,7 @@ import { DAYS_OF_WEEK } from '../constants';
 import { useAcademicStore } from '../stores/useAcademicStore';
 
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -165,7 +166,7 @@ return (
                     border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   }}
                 >
-                  <span style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>bolt</span>
+                  <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>bolt</Box>
                 </IconButton>
             </div>
 
@@ -175,7 +176,7 @@ return (
                     <div 
                         style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)' , textAlign: "center", opacity: "var(--md-sys-state-opacity-placeholder)", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}
                     >
-                        <span style={{ color: 'var(--md-sys-color-primary)', opacity: 'var(--md-sys-state-opacity-empty)', marginBottom: 'var(--md-sys-spacing-8)'}}>event_busy</span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)', opacity: 'var(--md-sys-state-opacity-empty)', marginBottom: 'var(--md-sys-spacing-8)'}}>event_busy</Box>
                         <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Nessun evento o lezione oggi.</Typography>
                         <Button
                           onClick={() => actions.handleNavigate('timetable')}
@@ -218,15 +219,15 @@ return (
                                             <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-primary)', opacity: "var(--md-sys-state-opacity-caption)", fontWeight: "var(--md-sys-typescale-weight-medium)", marginTop: 'var(--md-sys-spacing-4)'}}>{item.subtitle}</Typography>
                                         </div>
                                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                            <span style={{ color: 'var(--md-sys-color-primary)' }}>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>
                                                 {item.type === 'lesson' ? 'school' : 'event'}
-                                            </span>
+                                            </Box>
                                         </div>
                                     </div>
                                     {item.actionLabel && (
                                         <Button
                                           onClick={item.onAction}
-                                          endIcon={<span style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>arrow_forward</span>}
+                                          endIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>arrow_forward</Box>}
                                           sx={{
                                             borderRadius: 'var(--md-sys-shape-corner-large)',
                                             width: 'var(--md-sys-percent-full)',
@@ -296,7 +297,7 @@ return (
                         borderRadius: 'var(--md-sys-spacing-4)',
                       }}
                     >
-                      <span style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>settings</span>
+                      <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>settings</Box>
                     </IconButton>
 
                     <ButtonBase
@@ -332,7 +333,7 @@ return (
                         color: 'var(--md-sys-color-on-primary)',
                       }}
                     >
-                      <span style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>add</span>
+                      <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}>add</Box>
                     </IconButton>
                 </div>
             </div>

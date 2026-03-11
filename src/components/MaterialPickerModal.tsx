@@ -203,7 +203,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                     }}
                                 />
                                 <div style={{ backgroundColor: 'var(--md-sys-color-primary)', opacity: 'var(--md-sys-state-opacity-tint-faint)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                                    <span style={{ color: 'var(--md-sys-color-primary)' }}>upload_file</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>upload_file</Box>
                                 </div>
                                 <p>Trascina qui i file</p>
                                 <Typography component="p" variant="body1" sx={{opacity: "var(--md-sys-state-opacity-supporting)", marginTop: 'var(--md-sys-spacing-4)'}}>oppure clicca per sfogliare</Typography>
@@ -224,8 +224,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                     onChange={e => setLinkLabel(e.target.value)} 
                                     fullWidth 
                                 />
-                                <Button onClick={handleAddLink} variant="contained" sx={{ width: "var(--md-sys-percent-100)" }}>
-                                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span>
+                                <Button onClick={handleAddLink} variant="contained" sx={{ width: "var(--md-sys-percent-100)" }} startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add</Box>}>
                                     Aggiungi Link
                                 </Button>
                             </div>
@@ -244,7 +243,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                             {materials.map(material => (
                                 <div key={material.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-on-primary)' , display: "flex", alignItems: "center", justifyContent: "space-between", padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>
-                                        <span  style={{color: "var(--md-sys-color-primary)"}}>{getMaterialIcon(material)}</span>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>{getMaterialIcon(material)}</Box>
                                         <span style={{ color: 'var(--md-sys-color-on-surface)' ,  overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{getMaterialLabel(material)}</span>
                                     </div>
                                     <Button 
@@ -252,13 +251,13 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
                                         variant="text" 
                                         sx={{color: "var(--md-sys-color-error)", opacity: "0", transition: "opacity var(--md-sys-motion-duration-medium)"}}
                                     >
-                                        <span style={{}}>close</span>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true">close</Box>
                                     </Button>
                                 </div>
                             ))}
                             {materials.length === 0 && (
                                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "var(--md-sys-percent-100)", opacity: "var(--md-sys-state-opacity-tint-moderate)" }}>
-                                    <span style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)'}}>inventory_2</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)'}}>inventory_2</Box>
                                     <Typography component="p" variant="subtitle1" sx={{ color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>Nessun materiale selezionato</Typography>
                                 </div>
                             )}

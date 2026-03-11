@@ -61,8 +61,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
         <div style={{gap: 'var(--md-sys-spacing-6)'}}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>Attività di Orientamento</Typography>
-                <Button onClick={() => setIsAddActivityModalOpen(true)} variant="contained">
-                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span>
+                <Button onClick={() => setIsAddActivityModalOpen(true)} variant="contained" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add</Box>}>
                     Nuova Attivit�
                 </Button>
             </div>

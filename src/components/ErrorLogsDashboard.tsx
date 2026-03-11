@@ -1,6 +1,7 @@
 // MD3 Compliant - Block N Migration Complete (7 violations eliminated)
 import React, { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import { errorLogger, ErrorLog } from '../services/errorLogger';
 interface ErrorLogsDashboardProps {
   onClose?: () => void;
@@ -150,7 +151,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
           onClick={handleExport}
            style={{paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-surface)", fontWeight: "var(--md-sys-typescale-weight-medium)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
         >
-          <span>download</span>
+          <Box component="span" className="material-symbols-outlined" aria-hidden="true">download</Box>
           Export JSON
         </button>
 
@@ -158,7 +159,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
           onClick={handleClearLogs}
           style={{ backgroundColor: 'var(--md-sys-color-error)', color: 'var(--md-sys-color-on-error)' , paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: "var(--md-sys-shape-corner-small)", fontWeight: "var(--md-sys-typescale-weight-medium)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
         >
-          <span>delete</span>
+          <Box component="span" className="material-symbols-outlined" aria-hidden="true">delete</Box>
           Clear All
         </button>
       </div>

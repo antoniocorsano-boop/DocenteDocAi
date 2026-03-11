@@ -14,6 +14,7 @@ import { generateHtmlDocxBlob } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
 import { AiMemoryChip, InfoCard, SectionHeader, AiThinkingGem } from './ui';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 interface ImprovementGuideProps {
     selectedClass: string;
@@ -228,7 +229,7 @@ const handleExportDocx = async () => {
     if (error) {
         return (
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                <span>error</span>
+                <Box component="span" className="material-symbols-outlined" aria-hidden="true">error</Box>
                 <p>{error}</p>
             </div>
         );
@@ -242,12 +243,10 @@ const handleExportDocx = async () => {
                     <p>Report generato per il consiglio di classe.</p>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                    <Button onClick={handleExportDocx} variant="outlined" >
-                        <span>description</span>
+                    <Button onClick={handleExportDocx} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">description</Box>}>
                         Esporta Word
                     </Button>
-                    <Button onClick={() => window.print()} variant="outlined" >
-                        <span>print</span>
+                    <Button onClick={() => window.print()} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">print</Box>}>
                         Stampa
                     </Button>
                 </div>

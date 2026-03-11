@@ -210,7 +210,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             // removed runtime mutation
                         }}
                     >
-                        <span style={{color: 'var(--md-sys-color-on-secondary-container)'}}>summarize</span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-on-secondary-container)'}}>summarize</Box>
                         <Typography variant="overline" sx={{color: 'var(--md-sys-color-on-secondary-container)',
                             margin: 0}}>Riassumi</Typography>
                     </button>
@@ -233,7 +233,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             // removed runtime mutation
                         }}
                     >
-                        <span style={{color: 'var(--md-sys-color-on-tertiary-container)'}}>quiz</span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-on-tertiary-container)'}}>quiz</Box>
                         <Typography variant="overline" sx={{color: 'var(--md-sys-color-on-tertiary-container)',
                             margin: 0}}>Crea Quiz</Typography>
                     </button>
@@ -258,7 +258,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             // removed runtime mutation
                         }}
                     >
-                        <span style={{color: 'var(--md-sys-color-on-primary-container)'}}>key</span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-on-primary-container)'}}>key</Box>
                         <Typography variant="overline" sx={{color: 'var(--md-sys-color-on-primary-container)',
                             margin: 0}}>Concetti Chiave</Typography>
                     </button>

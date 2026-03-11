@@ -7,6 +7,7 @@
 /* M3Expressive - ClassroomTools Component */
 
 import React, { useState, useRef, useEffect } from 'react';
+import { Box } from '@mui/material';
 import { Studente } from '../types';
 
 interface ClassroomToolsProps {
@@ -48,11 +49,11 @@ const TimerWidget: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             {/* Background Decor */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                 timer
+                <Box component="span" className="material-symbols-outlined" aria-hidden="true">timer</Box>
             </div>
             
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                <span>timer</span>
+                <Box component="span" className="material-symbols-outlined" aria-hidden="true">timer</Box>
                 <span>Cronometro</span>
             </div>
             
@@ -66,8 +67,7 @@ const TimerWidget: React.FC = () => {
                      
                     title="Reset"
                 >
-                    <span style={{
-}}>restart_alt</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true">restart_alt</Box>
                 </button>
                 <button
                     onClick={handleStartPause}
@@ -87,7 +87,7 @@ const TimerWidget: React.FC = () => {
                       minHeight: 'var(--md-sys-spacing-11)'
                     }}
                 >
-                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>{isActive ? 'pause' : 'play_arrow'}</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ marginRight: "var(--md-sys-spacing-2)" }}>{isActive ? 'pause' : 'play_arrow'}</Box>
                     {isActive ? 'Pausa' : 'Avvia'}
                 </button>
             </div>
@@ -119,11 +119,11 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
              {/* Background Decor */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                 casino
+                <Box component="span" className="material-symbols-outlined" aria-hidden="true">casino</Box>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                <span>casino</span>
+                <Box component="span" className="material-symbols-outlined" aria-hidden="true">casino</Box>
                 <span>Estrazione</span>
             </div>
 
@@ -147,7 +147,7 @@ const RandomStudentWidget: React.FC<{ presentStudents: Studente[] }> = ({ presen
                     </div>
                 ) : (
                      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                        <span>groups</span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true">groups</Box>
                         <span>Pronto ad estrarre</span>
                      </div>
                 )}

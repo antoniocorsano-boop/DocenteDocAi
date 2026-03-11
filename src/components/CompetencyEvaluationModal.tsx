@@ -9,6 +9,11 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import Radio from '@mui/material/Radio';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { M3Dialog } from './ui';
 interface CompetencyEvaluationModalProps {
     student: Studente;
@@ -91,13 +96,14 @@ return (
                                 mb: 'var(--md-sys-spacing-4)'
                             }}>
                                 <Box component="label" sx={{ display: 'flex', alignItems: 'flex-start', cursor: 'pointer' }}>
-                                    <input
-                                        type="radio"
+                                    <Radio
                                         name="level"
                                         value={level.id}
                                         checked={selectedLevelId === level.id}
                                         onChange={(e) => setSelectedLevelId(e.target.value)}
                                         required
+                                        size="small"
+                                        sx={{ p: 0, mr: 'var(--md-sys-spacing-3)', mt: 'var(--md-sys-spacing-1)' }}
                                     />
                                     <Box sx={{ flexGrow: 1 }}>
                                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
@@ -116,18 +122,19 @@ return (
                 </Box>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <Typography component="label" htmlFor="materia" variant="body2">Materia di Riferimento</Typography>
-                    <Box
-                        component="select"
-                        id="materia"
-                        value={selectedMateria}
-                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedMateria(e.target.value)}
-                        sx={{ width: '100%' }}
-                        required
-                    >
-                        <option value="">Seleziona...</option>
-                        {(settings.disciplines || []).map(d => <option key={d} value={d}>{d}</option>)}
-                    </Box>
+                    <FormControl fullWidth required>
+                        <InputLabel id="competency-materia-label">Materia di Riferimento</InputLabel>
+                        <Select
+                            labelId="competency-materia-label"
+                            id="materia"
+                            value={selectedMateria}
+                            label="Materia di Riferimento"
+                            onChange={(e) => setSelectedMateria(e.target.value)}
+                        >
+                            <MenuItem value="">Seleziona...</MenuItem>
+                            {(settings.disciplines || []).map(d => <MenuItem key={d} value={d}>{d}</MenuItem>)}
+                        </Select>
+                    </FormControl>
                 </Box>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>

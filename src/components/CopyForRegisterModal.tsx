@@ -60,8 +60,8 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
             maxWidth="md"
             buttons={<>
                 <Button onClick={onClose} variant="text">Chiudi</Button>
-                <Button onClick={() => handleCopy(activeTab === 'text' ? generatedText : generatedJson)} variant="contained">
-                    <span style={{ marginRight: 'var(--md-sys-spacing-2)' }}>content_copy</span> COPIA
+                <Button onClick={() => handleCopy(activeTab === 'text' ? generatedText : generatedJson)} variant="contained" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">content_copy</Box>}>
+                    COPIA
                 </Button>
             </>}
         >

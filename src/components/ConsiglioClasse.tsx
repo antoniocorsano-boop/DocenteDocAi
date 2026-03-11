@@ -255,7 +255,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <textarea value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ flexGrow: "1" }} rows={2} placeholder="Giudizio sintetico..."></textarea>
                                         <Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} sx={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
-                                            <span style={{ color: "var(--md-sys-color-on-surface-variant)" }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</Box>
                                         </Button>
                                     </div>
                                 </td>}
@@ -330,7 +330,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                     <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-4)'}}>
                                         <label htmlFor={`giudizio-${student.id}`} >Note/Giudizio</label>
                                         <Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} sx={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
-                                            <span style={{ color: 'var(--md-sys-color-primary)' }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</Box>
                                         </Button>
                                     </div>
                                     <textarea id={`giudizio-${student.id}`} value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ width: "var(--md-sys-percent-100)" }} rows={4} placeholder="Giudizio sintetico..."></textarea>
@@ -418,24 +418,24 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             onClick={handleExportPdf} 
                             disabled={isExporting}
                             variant="outlined"
+                            startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">picture_as_pdf</Box>}
                         >
-                            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>picture_as_pdf</span>
                             Esporta PDF
                         </Button>
                         <Button 
                             onClick={handleExportDocx} 
                             disabled={isExporting}
                             variant="outlined"
+                            startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">description</Box>}
                         >
-                            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>description</span>
                             Esporta Word
                         </Button>
                         <Button 
                             onClick={handleGenerateNarrativeReport} 
                             disabled={isGeneratingNarrative}
                             variant="contained"
+                            startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">auto_awesome</Box>}
                         >
-                            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>auto_awesome</span>
                             {isGeneratingNarrative ? 'Generazione...' : 'Report Narrativo AI'}
                         </Button>
                     </div>
@@ -447,8 +447,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                     <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-6)'}}>
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                             <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)' , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-primary)"}}>
-                                <span style={{
-}}>description</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true">description</Box>
                             </div>
                             <Typography component="h3" variant="subtitle1" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>Report Narrativo Suggerito</Typography>
                         </div>
@@ -457,8 +456,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             <Button variant="outlined" onClick={() => {
                                 navigator.clipboard.writeText(narrativeReport);
                                 alert("Report copiato!");
-                            }}>
-                                <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>content_copy</span>
+                            }} startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">content_copy</Box>}>
                                 Copia
                             </Button>
                         </div>
@@ -478,9 +476,8 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 variant={expandedColumns[key as keyof typeof expandedColumns] ? 'contained' : 'text'}
                                 onClick={() => setExpandedColumns(p => ({...p, [key]: !p[key as keyof typeof p]}))}
                                 size="small"
-                                
+                                startIcon={expandedColumns[key as keyof typeof expandedColumns] ? <Box component="span" className="material-symbols-outlined" aria-hidden="true">check</Box> : undefined}
                             >
-                                {expandedColumns[key as keyof typeof expandedColumns] && <span  style={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>check</span>}
                                 {key.charAt(0).toUpperCase() + key.slice(1)}
                             </Button>
                         ))}

@@ -415,7 +415,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             <input type="checkbox" id={`kb-annual-${kb.id}`} checked={selectedKbFiles.includes(kb.id)} onChange={() => toggleKbFile(kb.id)} />
                                             <label htmlFor={`kb-annual-${kb.id}`} style={{ display: "flex", alignItems: "center", gap: "var(--md-sys-spacing-2)" }} title={kb.fileName}>
                                                 {selectedKbFiles.includes(kb.id) && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-4)' }}>check</Box>}
-                                                <span style={{ color: 'var(--md-sys-color-primary)', marginRight: "var(--md-sys-spacing-2)" }}>description</span>
+                                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)', marginRight: "var(--md-sys-spacing-2)" }}>description</Box>
                                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{kb.fileName}</span>
                                             </label>
                                         </div>
@@ -486,7 +486,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                                     <label>Strategie Didattiche</label>
                                     <Button onClick={handleGenerateMethodology} disabled={isGeneratingMethodology} variant="text" sx={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Suggerisci metodologie adatte al contesto">
-                                        {isGeneratingMethodology ? <AiThinkingGem size="small" inline /> : <><span style={{ color: 'var(--md-sys-color-primary)' }}>lightbulb</span> Suggerisci</>}
+                                        {isGeneratingMethodology ? <AiThinkingGem size="small" inline /> : <><Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>lightbulb</Box> Suggerisci</>}
                                     </Button>
                                 </div>
                                 <textarea style={{ width: "var(--md-sys-percent-full)" }} rows={8} value={methodology} onChange={e => setMethodology(e.target.value)} />

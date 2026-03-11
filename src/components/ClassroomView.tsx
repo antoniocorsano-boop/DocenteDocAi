@@ -430,7 +430,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                 {/* Column 5: Notes */}
                                                 <div style={{ textAlign: 'center' }}>
                                                     {stat.notes ? (
-                                                        <span style={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }} title={typeof stat.notes === 'string' ? stat.notes : 'Note presenti'}>edit_note</span>
+                                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }} title={typeof stat.notes === 'string' ? stat.notes : 'Note presenti'}>edit_note</Box>
                                                     ) : (
                                                         <Typography variant="body2" sx={{ color: 'var(--md-sys-color-outline)' }}>-</Typography>
                                                     )}
@@ -467,7 +467,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                                                 gap: 'var(--md-sys-spacing-1)'
                                                             }}
                                                         >
-                                                            <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>star</span> {badges.length}
+                                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>star</Box> {badges.length}
                                                         </div>
                                                     )}
                                                 </div>
@@ -541,7 +541,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                                 }}
                             >
-                                <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>content_copy</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>content_copy</Box>
                                 Copia
                             </button>
                             <button
@@ -562,7 +562,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                                 }}
                             >
-                                <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>share</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>share</Box>
                                 Condividi
                             </button>
                             <button
@@ -583,7 +583,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                     letterSpacing: 'var(--md-sys-typescale-label-small-tracking)'
                                 }}
                             >
-                                <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>assignment</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>assignment</Box>
                                 Stampa Compiti (PDF)
                             </button>
                         </div>
@@ -640,7 +640,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                             </div>
                         ) : (
                             <div style={{ textAlign: 'center', padding: 'var(--md-sys-spacing-4)', opacity: 'var(--md-sys-state-opacity-secondary)' }}>
-                                <span style={{ marginBottom: 'var(--md-sys-spacing-2)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>folder_off</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ marginBottom: 'var(--md-sys-spacing-2)', fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>folder_off</Box>
                                 <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessun materiale.</Typography>
                             </div>
                         )}
@@ -648,7 +648,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                         {lesson.adattamenti && (
                             <div style={{ color: 'var(--md-sys-color-on-secondary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-secondary-container)' }}>
                                 <Typography variant="subtitle1" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-2)' }}>
-                                    <span style={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>accessibility_new</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-secondary-container)', fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>accessibility_new</Box>
                                     Inclusione
                                 </Typography>
                                 <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-secondary-container)', opacity: 'var(--md-sys-state-opacity-hover-overlay)', whiteSpace: 'pre-wrap' }}>{lesson.adattamenti}</Typography>
