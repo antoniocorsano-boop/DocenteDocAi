@@ -171,7 +171,7 @@ return (
                         alignItems: 'center',
                         justifyContent: 'center'
                     }}>
-                        <span style={{
+                        <span className="material-symbols-outlined" aria-hidden="true" style={{
                             fontSize: 'var(--md-sys-typescale-display-large-font-size)',
                             color: 'var(--md-sys-color-on-primary-container)'
                         }}>lightbulb</span>
@@ -205,7 +205,7 @@ return (
                         alignItems: 'center',
                         gap: 'var(--md-sys-spacing-3)'
                     }}>
-                        <span style={{
+                        <span className="material-symbols-outlined" aria-hidden="true" style={{
                             fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                             color: 'var(--md-sys-color-primary)'
                         }}>auto_awesome</span>
@@ -215,7 +215,7 @@ return (
                             color: 'var(--md-sys-color-on-surface)'
                         }}>Generatore Sequenze Lezioni</span>
                     </div>
-                    <span style={{
+                    <span className="material-symbols-outlined" aria-hidden="true" style={{
                         fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                         color: 'var(--md-sys-color-on-surface-variant)'
                     }}>expand_more</span>
@@ -257,7 +257,7 @@ return (
                                         <label htmlFor={`uda-select-${uda.id}`} style={{
                                             cursor: 'pointer',
                                             flex: 1
-                                        }}>{selectedUdaIds.includes(uda.id) && <span style={{
+                                        }}>{selectedUdaIds.includes(uda.id) && <span className="material-symbols-outlined" aria-hidden="true" style={{
                                             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                             color: 'var(--md-sys-color-primary)',
                                             marginRight: 'var(--md-sys-spacing-2)'
@@ -294,7 +294,7 @@ return (
                                             cursor: 'pointer',
                                             display: 'flex',
                                             alignItems: 'center'
-                                        }}>{selectedClasses.includes(c) && <span style={{
+                                        }}>{selectedClasses.includes(c) && <span className="material-symbols-outlined" aria-hidden="true" style={{
                                             fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                                             color: 'var(--md-sys-color-primary)',
                                             marginRight: 'var(--md-sys-spacing-2)'
@@ -343,11 +343,11 @@ return (
                                             alignItems: 'center',
                                             gap: 'var(--md-sys-spacing-2)'
                                         }} title={kb.fileName}>
-                                            {selectedKbIds.includes(kb.id) && <span style={{
+                                            {selectedKbIds.includes(kb.id) && <span className="material-symbols-outlined" aria-hidden="true" style={{
                                                 fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                                                 color: 'var(--md-sys-color-primary)'
                                             }}>check</span>}
-                                            <span style={{
+                                            <span className="material-symbols-outlined" aria-hidden="true" style={{
                                                 color: 'var(--md-sys-color-primary)',
                                                 fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                             }}>{kb.isGenerated ? 'auto_awesome' : 'description'}</span>
@@ -388,7 +388,7 @@ return (
                             gap: 'var(--md-sys-spacing-2)',
                             transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out'
                         }}>
-                            <span style={{
+                            <span className="material-symbols-outlined" aria-hidden="true" style={{
                                 fontSize: 'var(--md-sys-typescale-title-large-font-size)'
                             }}>auto_awesome</span>
                             Genera Sequenze di Lezioni
@@ -481,7 +481,7 @@ return (
                                 justifyContent: 'center',
                                 transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out'
                             }} title="Rimuovi filtri">
-                                <span style={{
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{
                                     fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                                     color: 'var(--md-sys-color-on-surface-variant)'
                                 }}>filter_alt_off</span>
@@ -547,7 +547,7 @@ return (
                                                     fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                                                     fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)'
                                                 }}>{udaKey} ({lessonItems.length})</span>
-                                                <span style={{
+                                                <span className="material-symbols-outlined" aria-hidden="true" style={{
                                                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                     color: 'var(--md-sys-color-on-surface-variant)'
                                                 }}>expand_more</span>
@@ -595,7 +595,7 @@ return (
                                                             transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short-4) var(--md-sys-motion-easing-decelerated)-out',
                                                             flexShrink: 0
                                                         }}>
-                                                            <span style={{
+                                                            <span className="material-symbols-outlined" aria-hidden="true" style={{
                                                                 fontSize: 'var(--md-sys-typescale-title-large-font-size)'
                                                             }}>door_open</span>
                                                             Avvia
@@ -616,7 +616,7 @@ return (
                             borderRadius: 'var(--md-sys-shape-corner-large)',
                             border: 'var(--md-sys-border-width-thick) dashed var(--md-sys-color-outline-variant)'
                         }}>
-                            <span style={{
+                            <span className="material-symbols-outlined" aria-hidden="true" style={{
                                 fontSize: 'var(--md-sys-typescale-display-large-font-size)',
                                 color: 'var(--md-sys-color-on-surface-variant)',
                                 display: 'block',
