@@ -11,7 +11,7 @@ exports[`CategoryCard Story Snapshots > renders default story correctly 1`] = `
     <div
       aria-pressed="false"
       role="button"
-      style="display: flex; flex-direction: column; align-items: center; gap: var(--md-sys-spacing-4); padding: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-large); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant); background-color: var(--md-sys-color-surface-container); box-shadow: var(--md-sys-elevation-level1); cursor: pointer; transition: opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard); transform: scale(1); outline: none;"
+      style="display: flex; flex-direction: column; align-items: center; gap: var(--md-sys-spacing-4); padding: var(--md-sys-spacing-6); border-radius: var(--md-sys-shape-corner-large); border: var(--md-sys-border-width-normal) solid var(--md-sys-color-outline-variant); background-color: var(--md-sys-color-surface-container); box-shadow: var(--md-sys-elevation-level1); transition: opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard); transform: scale(1); outline: none;"
       tabindex="0"
     >
       <div
