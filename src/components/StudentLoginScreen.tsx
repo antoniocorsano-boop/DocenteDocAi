@@ -130,7 +130,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                             key={cls} 
                                             onClick={() => handleClassSelect(cls)}
                                             variant="outlined"
-                                             style={{ fontWeight: "var(--md-sys-typescale-weight-black)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
+                                             sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)' }}
                                         >
                                             {cls}
                                         </Button>
@@ -142,7 +142,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                     </div>
                                 )}
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                                    <Button onClick={handleExitAttempt} variant="text" style={{width: "var(--md-sys-percent-100)", color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>
+                                    <Button onClick={handleExitAttempt} variant="text" sx={{width: "var(--md-sys-percent-100)", color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>
                                         <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>lock</span>
                                         Menu Docente
                                     </Button>
@@ -157,7 +157,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                     <Typography component="p" variant="body2" sx={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", color: "var(--md-sys-color-primary)", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-supporting)"}}>Classe Selezionata</Typography>
                                     <strong style={{color: "var(--md-sys-color-primary)", fontWeight: "var(--md-sys-typescale-weight-black)"}}>{selectedClass}</strong>
                                  </div>
-                                 <Button type="button" onClick={() => setStep('class')} variant="outlined" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Cambia</Button>
+                                 <Button type="button" onClick={() => setStep('class')} variant="outlined" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Cambia</Button>
                             </div>
 
                             <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
@@ -170,7 +170,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                     required 
                                     placeholder="Es. Rossi" 
                                     autoComplete="family-name"
-                                    style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
+                                    sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
                                 />
                                 <TextField 
                                     id="student-name"
@@ -181,7 +181,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                     required 
                                     placeholder="Es. Mario" 
                                     autoComplete="given-name"
-                                    style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
+                                    sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
                                 />
                             </div>
                             <TextField 
@@ -193,7 +193,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                 onChange={e => setBirthDate(e.target.value)} 
                                 required 
                                 autoComplete="bday"
-                                style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
+                                sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
                             />
 
                             {error && (
@@ -203,8 +203,8 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                             )}
 
                             <div  style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
-                                <Button type="button" onClick={() => setStep('class')} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>Indietro</Button>
-                                <Button type="submit" variant="contained"  style={{ flexGrow: "1", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>Accedi al Diario</Button>
+                                <Button type="button" onClick={() => setStep('class')} variant="text" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>Indietro</Button>
+                                <Button type="submit" variant="contained"  sx={{ flexGrow: "1", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>Accedi al Diario</Button>
                             </div>
                         </form>
                     )}

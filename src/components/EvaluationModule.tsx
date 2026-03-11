@@ -407,7 +407,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                     variant="contained"
                                     onClick={(e) => { e.stopPropagation(); onOpenInclusionPlanEditor(student); }}
                                     startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">psychology</Box>}
-                                    style={{ flex: 1 }}
+                                    sx={{ flex: 1 }}
                                 >
                                     Piano Inclusione
                                 </Button>
@@ -415,7 +415,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                     variant="outlined"
                                     onClick={(e) => { e.stopPropagation(); setViewingStudent(student); }}
                                     startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">analytics</Box>}
-                                    style={{ flex: 1 }}
+                                    sx={{ flex: 1 }}
                                 >
                                     Analizza
                                 </Button>
@@ -439,10 +439,10 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
         <div style={{ padding: 'var(--md-sys-spacing-4)' }}>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-2)', marginBottom: 'var(--md-sys-spacing-4)' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <Typography variant="h5" style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', letterSpacing: 'var(--md-sys-typescale-headline-large-tracking)', color: 'var(--md-sys-color-on-surface)' }}>
+                    <Typography variant="h5" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)', letterSpacing: 'var(--md-sys-typescale-headline-large-tracking)', color: 'var(--md-sys-color-on-surface)' }}>
                         Registro Valutazioni
                     </Typography>
-                    <Typography variant="body1" style={{ fontWeight: 'var(--md-sys-typescale-weight-medium)', marginTop: 'var(--md-sys-spacing-1)', opacity: 'var(--md-sys-state-opacity-supporting)', color: 'var(--md-sys-color-on-surface-variant)' }}>
+                    <Typography variant="body1" sx={{ fontWeight: 'var(--md-sys-typescale-weight-medium)', marginTop: 'var(--md-sys-spacing-1)', opacity: 'var(--md-sys-state-opacity-supporting)', color: 'var(--md-sys-color-on-surface-variant)' }}>
                         Gestione voti, competenze e monitoraggio performance
                     </Typography>
                 </div>
@@ -482,7 +482,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                 >
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-3)' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                            <Typography variant="h5" style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', letterSpacing: 'var(--md-sys-typescale-headline-medium-tracking)', color: 'var(--md-sys-color-on-surface)' }}>
+                            <Typography variant="h5" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)', letterSpacing: 'var(--md-sys-typescale-headline-medium-tracking)', color: 'var(--md-sys-color-on-surface)' }}>
                                 Valutazione Unificata
                             </Typography>
                             <Typography variant="caption" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', opacity: 'var(--md-sys-state-opacity-secondary)', marginTop: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>

@@ -1,4 +1,4 @@
-// MD3 GOLD COMPLIANT – Audit 2026-01-25
+﻿// MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
@@ -80,7 +80,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
         <section style={{padding: 'var(--md-sys-spacing-6)',
             maxWidth: 'var(--md-sys-spacing-4)',
             margin: 'var(--md-sys-margin-auto)'}}>
-            <Typography variant="h6" style={{display: 'flex',
+            <Typography variant="h6" sx={{display: 'flex',
                 alignItems: 'center',
                 gap: 'var(--md-sys-spacing-3)',
                 marginBottom: 'var(--md-sys-spacing-6)',
@@ -134,11 +134,11 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                     flex: 1,
                                     minWidth: 0
                                 }}>
-                                    <Typography variant="h6" style={{color: 'var(--md-sys-color-on-surface)',
+                                    <Typography variant="h6" sx={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                         margin: 0,
                                         marginBottom: 'var(--md-sys-spacing-1)'}}>{workflow.title}</Typography>
-                                    <Typography variant="body2" style={{color: 'var(--md-sys-color-on-surface)',
+                                    <Typography variant="body2" sx={{color: 'var(--md-sys-color-on-surface)',
                                         margin: 0}}>{workflow.description}</Typography>
                                 </div>
                                 <span style={{color: 'var(--md-sys-color-on-surface)',
@@ -177,7 +177,7 @@ const WorkflowGuide: React.FC<WorkflowGuideProps> = ({ onNavigate }) => {
                                             }}>
                                                 {stepIndex + 1}
                                             </div>
-                                            <Typography variant="body2" style={{color: 'var(--md-sys-color-on-surface)',
+                                            <Typography variant="body2" sx={{color: 'var(--md-sys-color-on-surface)',
                                                 margin: 0,
                                                 lineHeight: 1.5}} dangerouslySetInnerHTML={{ __html: sanitizeHtml(step) }} />
                                         </li>

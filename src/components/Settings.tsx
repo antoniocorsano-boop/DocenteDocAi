@@ -1,4 +1,4 @@
-﻿// MD3 Compliant - Migration completed with functional exceptions
+// MD3 Compliant - Migration completed with functional exceptions
 
 // MD3 Pure: Complete migration to inline styles using MD3 tokens for all settings interface and interactions
 // All legacy CSS classes removed in favor of token-based styling - MD3 compliant
@@ -33,6 +33,13 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
+import Slider from '@mui/material/Slider';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 import '../design-system/md3-utilities.css';
 import ThemeBubble from './ThemeBubble';
 import { ThemeSettingsPanel } from './settings/ThemeSettingsPanel';
@@ -75,7 +82,7 @@ const SettingsGroup: React.FC<{
             sx={{
                 border: '1px solid',
                 borderColor: expanded ? iconBg : 'var(--md-sys-color-outline-variant)',
-                borderRadius: '12px !important',
+                borderRadius: 'var(--md-sys-shape-corner-medium) !important',
                 '&:before': { display: 'none' },
                 transition: 'box-shadow 200ms ease, border-color 200ms ease',
             }}
@@ -469,7 +476,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                             onClick={() => handleThemeChange({ visualStyle: vstyle.id as AppThemeState['visualStyle'] })}
                                             aria-pressed={isSelected}
                                             aria-label={`Stile visivo: ${vstyle.label}`}
-                                            style={{
+                                            sx={{
                                                 display: 'flex',
                                                 flexDirection: 'column',
                                                 alignItems: 'center',
@@ -607,24 +614,24 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             <Stack spacing={2}>
                                 <Stack spacing={1}>
                                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                        <Typography component="label" htmlFor="range-glass-blur" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Intensità Blur Vetro</Typography>
+                                        <Typography id="label-glass-blur" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Intensità Blur Vetro</Typography>
                                         <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}>{themeState.glassBlur || 30}px</Typography>
                                     </Stack>
-                                    <input id="range-glass-blur" name="glassBlur" type="range" min="0" max="100" step="5" value={themeState.glassBlur || 30} onChange={e => handleThemeChange({ glassBlur: parseInt(e.target.value) })} style={{ width: '100%' }} />
+                                    <Slider id="range-glass-blur" aria-labelledby="label-glass-blur" min={0} max={100} step={5} value={themeState.glassBlur || 30} onChange={(_e, v) => handleThemeChange({ glassBlur: v as number })} sx={{ width: '100%' }} />
                                 </Stack>
                                 <Stack spacing={1}>
                                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                        <Typography component="label" htmlFor="range-font-scale" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Scala Font</Typography>
+                                        <Typography id="label-font-scale" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Scala Font</Typography>
                                         <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}>{themeState.fontScale || 1}x</Typography>
                                     </Stack>
-                                    <input id="range-font-scale" name="fontScale" type="range" min="0.8" max="1.4" step="0.1" value={themeState.fontScale || 1} onChange={e => handleThemeChange({ fontScale: parseFloat(e.target.value) })} style={{ width: '100%' }} />
+                                    <Slider id="range-font-scale" aria-labelledby="label-font-scale" min={0.8} max={1.4} step={0.1} value={themeState.fontScale || 1} onChange={(_e, v) => handleThemeChange({ fontScale: v as number })} sx={{ width: '100%' }} />
                                 </Stack>
                                 <Stack spacing={1}>
                                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                                        <Typography component="label" htmlFor="range-contrast-level" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Livello Contrasto</Typography>
+                                        <Typography id="label-contrast-level" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Livello Contrasto</Typography>
                                         <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}>{themeState.contrastLevel || 0}</Typography>
                                     </Stack>
-                                    <input id="range-contrast-level" name="contrastLevel" type="range" min="-50" max="50" step="5" value={themeState.contrastLevel || 0} onChange={e => handleThemeChange({ contrastLevel: parseInt(e.target.value) })} style={{ width: '100%' }} />
+                                    <Slider id="range-contrast-level" aria-labelledby="label-contrast-level" min={-50} max={50} step={5} value={themeState.contrastLevel || 0} onChange={(_e, v) => handleThemeChange({ contrastLevel: v as number })} sx={{ width: '100%' }} />
                                 </Stack>
                                 <Stack spacing={1}>
                                     <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -941,17 +948,18 @@ const Settings: React.FC<SettingsProps> = (props) => {
 
                             {/* MATRICE INTERATTIVA */}
                             <Box sx={{ mt: 2, p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)', overflowX: 'auto' }}>
-                                <table  style={{width: 'var(--md-sys-percent-100)'}}>
-                                    <thead>
-                                        <tr style={{backgroundColor: 'var(--md-sys-color-surface-container-high)'}}>
-                                            <th style={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
+                                <TableContainer component={Box}>
+                                <Table sx={{width: '100%'}}>
+                                    <TableHead>
+                                        <TableRow sx={{backgroundColor: 'var(--md-sys-color-surface-container-high)'}}>
+                                            <TableCell component="th" scope="col" sx={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                                                 textAlign: 'left',
                                                 fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                                 color: 'var(--md-sys-color-on-surface)',
                                                 borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
-                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>Materia / Classe</th>
+                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>Materia / Classe</TableCell>
                                             {localSettings.classi.map(cls => (
-                                                <th key={cls} style={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
+                                                <TableCell component="th" scope="col" key={cls} sx={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                                                     textAlign: 'center',
                                                     fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                                     color: 'var(--md-sys-color-on-surface)',
@@ -961,31 +969,23 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                     position: 'relative'}}>
                                                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                                         <span>{cls}</span>
-                                                        <button
+                                                        <IconButton
+                                                            size="small"
                                                             onClick={() => handleChange('classi', localSettings.classi.filter(c => c !== cls))}
-                                                            style={{background: 'none',
-                                                                border: 'none',
-                                                                color: 'var(--md-sys-color-error)',
-                                                                cursor: 'pointer',
-                                                                fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                                                                padding: 'var(--md-sys-spacing-1)',
-                                                                borderRadius: 'var(--md-sys-shape-corner-small)',
-                                                                display: 'flex',
-                                                                alignItems: 'center',
-                                                                justifyContent: 'center',
-                                                                lineHeight: 1}}
+                                                            aria-label={`Rimuovi classe ${cls}`}
+                                                            sx={{ color: 'var(--md-sys-color-error)', p: 'var(--md-sys-spacing-1)' }}
                                                         >
-                                                            ×
-                                                        </button>
+                                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>close</Box>
+                                                        </IconButton>
                                                     </Box>
-                                                </th>
+                                                </TableCell>
                                             ))}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
                                         {localSettings.disciplines.map(subj => (
-                                            <tr key={subj} style={{borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                                                <td style={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
+                                            <TableRow key={subj} sx={{borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
+                                                <TableCell sx={{padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`,
                                                     backgroundColor: 'var(--md-sys-color-surface-container-high)',
                                                     borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
                                                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-4)' }}>
@@ -999,25 +999,22 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                 Associa a tutte
                                                             </Button>
                                                         </Box>
-                                                        <button
+                                                        <IconButton
+                                                            size="small"
                                                             onClick={() => handleChange('disciplines', localSettings.disciplines.filter(s => s !== subj))}
-                                                            style={{background: 'none',
-                                                                border: 'none',
-                                                                color: 'var(--md-sys-color-error)',
-                                                                cursor: 'pointer',
-                                                                padding: 'var(--md-sys-spacing-4)',
-                                                                borderRadius: 'var(--md-sys-shape-corner-small)'}}
+                                                            aria-label={`Rimuovi materia ${subj}`}
+                                                            sx={{ color: 'var(--md-sys-color-error)', p: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)' }}
                                                         >
                                                             <Box component="span" className="material-symbols-outlined" sx={{
                                                                 fontSize: 'var(--md-sys-typescale-body-large-font-size)'
                                                             }}>delete</Box>
-                                                        </button>
+                                                        </IconButton>
                                                     </Box>
-                                                </td>
+                                                </TableCell>
                                                 {localSettings.classi.map(cls => {
                                                     const assignment = localSettings.teachingAssignments.find(a => a.classId === cls && a.subjectId === subj);
                                                     return (
-                                                        <td key={`${subj}-${cls}`} style={{padding: 'var(--md-sys-spacing-4)',
+                                                        <TableCell key={`${subj}-${cls}`} sx={{padding: 'var(--md-sys-spacing-4)',
                                                             textAlign: 'center',
                                                             borderLeft: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                                                             cursor: 'pointer'}}>
@@ -1063,22 +1060,23 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                         fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>add</Box>
                                                                 )}
                                                             </Box>
-                                                        </td>
+                                                        </TableCell>
                                                     );
-                                                })}                                            </tr>
+                                                })}                                            </TableRow>
                                         ))}
                                         {localSettings.disciplines.length === 0 && (
-                                            <tr>
-                                                <td colSpan={localSettings.classi.length + 1} style={{padding: 'var(--md-sys-spacing-4)',
+                                            <TableRow>
+                                                <TableCell colSpan={localSettings.classi.length + 1} sx={{padding: 'var(--md-sys-spacing-4)',
                                                     textAlign: 'center',
                                                     color: 'var(--md-sys-color-on-surface-variant)',
                                                     fontStyle: 'italic'}}>
                                                     Aggiungi una materia per iniziare la configurazione...
-                                                </td>
-                                            </tr>
+                                                </TableCell>
+                                            </TableRow>
                                         )}
-                                    </tbody>
-                                </table>
+                                    </TableBody>
+                                </Table>
+                                </TableContainer>
                             </Box>
 
                             <InfoCard

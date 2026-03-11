@@ -1,4 +1,4 @@
-// Settings - SettingsGroup component
+﻿// Settings - SettingsGroup component
 import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import { storage } from '../../utils/storage';
@@ -134,7 +134,7 @@ export const SettingsGroup: React.FC<SettingsGroupProps> = ({
                     <div style={{ minWidth: 0, flex: 1 }}>
                         <Typography
                             variant="subtitle1"
-                            style={{
+                            sx={{
                                 color: 'var(--md-sys-color-on-surface)',
                                 fontWeight: 'var(--md-sys-typescale-weight-semibold)'
                             }}
@@ -144,7 +144,7 @@ export const SettingsGroup: React.FC<SettingsGroupProps> = ({
                         {subtitle && (
                             <Typography
                                 variant="caption"
-                                style={{
+                                sx={{
                                     color: 'var(--md-sys-color-on-surface-variant)',
                                     marginTop: 'var(--md-sys-spacing-1)'
                                 }}

@@ -2,13 +2,39 @@
 // Accessibility settings panel (contrast, motion)
 // Audit: febbraio 2026
 
-import React from 'react';
-import { useAppTheme } from '../../contexts/ThemeContext';
+import React, { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 
+const STORAGE_KEY_CONTRAST = 'docentedoc-theme-contrast';
+const STORAGE_KEY_MOTION = 'docentedoc-reduced-motion';
+
 export const AccessibilitySettings: React.FC = () => {
-  const { contrast, setContrast, reducedMotion, setReducedMotion } = useAppTheme();
+  const [contrast, setContrastState] = useState<'normal' | 'high'>(() => {
+    try { return (localStorage.getItem(STORAGE_KEY_CONTRAST) as 'normal' | 'high') || 'normal'; }
+    catch { return 'normal'; }
+  });
+  const [reducedMotion, setReducedMotionState] = useState<boolean>(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY_MOTION);
+      return stored !== null ? stored === 'true' : window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    } catch { return false; }
+  });
+
+  useEffect(() => {
+    const level = contrast === 'high' ? '2' : '0';
+    document.documentElement.setAttribute('data-contrast-level', level);
+    try { localStorage.setItem(STORAGE_KEY_CONTRAST, contrast); } catch { /* ignore */ }
+  }, [contrast]);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('reduced-motion', reducedMotion);
+    document.documentElement.setAttribute('data-reduced-motion', reducedMotion.toString());
+    try { localStorage.setItem(STORAGE_KEY_MOTION, reducedMotion.toString()); } catch { /* ignore */ }
+  }, [reducedMotion]);
+
+  const setContrast = (c: 'normal' | 'high') => setContrastState(c);
+  const setReducedMotion = (v: boolean) => setReducedMotionState(v);
 
   return (
     <Paper

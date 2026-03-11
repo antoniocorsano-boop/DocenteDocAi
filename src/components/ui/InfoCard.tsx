@@ -4,6 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
+import type { SxProps, Theme } from '@mui/material/styles';
 
 
 interface InfoCardProps {
@@ -16,6 +17,7 @@ interface InfoCardProps {
     children?: React.ReactNode;
     onClick?: () => void;
     style?: React.CSSProperties;
+    sx?: SxProps<Theme>;
     className?: string;
     type?: string;
     message?: string;
@@ -32,6 +34,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
     children,
     onClick,
     style,
+    sx,
     className,
     elevation = 1,
 }) => {
@@ -40,11 +43,14 @@ const InfoCard: React.FC<InfoCardProps> = ({
             elevation={elevation}
             onClick={onClick}
             className={className}
-            sx={{
-                position: 'relative',
-                cursor: onClick ? 'pointer' : 'default',
-                ...style,
-            }}
+            sx={[
+                {
+                    position: 'relative',
+                    cursor: onClick ? 'pointer' : 'default',
+                    ...style,
+                },
+                ...(Array.isArray(sx) ? sx : sx ? [sx] : []),
+            ]}
         >
             <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 {/* Header with icon and close button */}

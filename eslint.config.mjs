@@ -147,4 +147,40 @@ export default defineConfig([
       '@typescript-eslint/explicit-module-boundary-types': 'off',
     },
   },
+  // ─── MD3 Governance: no hardcoded typography in JSX style props ──────────
+  {
+    // Exclude Storybook files — they intentionally demo raw values
+    files: ['src/**/*.tsx'],
+    ignores: ['src/**/*.stories.tsx', 'src/**/*.stories.ts'],
+    rules: {
+      'no-restricted-syntax': [
+        'warn',
+        {
+          // fontWeight: any raw numeric/keyword literal (not a var(-- token)
+          // Correct: fontWeight: 'var(--md-sys-typescale-weight-bold)'
+          // Wrong:   fontWeight: 700  |  fontWeight: 'bold'
+          selector:
+            'JSXAttribute[name.name=/^s[xy]$/] > JSXExpressionContainer > ObjectExpression > Property[key.name="fontWeight"] > Literal:not([value=/^var\\(--/])',
+          message:
+            'MD3 violation: hardcoded fontWeight. Use var(--md-sys-typescale-weight-{bold|semibold|medium|regular|light}).',
+        },
+        {
+          // fontSize: raw rem/pt/px *string* literal (not a var(-- token, not a number like icon sizes)
+          // Correct: fontSize: 'var(--md-sys-typescale-body-large-font-size)'  or  fontSize: 24 (icon)
+          // Wrong:   fontSize: '0.875rem'  |  fontSize: '14px'
+          selector:
+            'JSXAttribute[name.name=/^s[xy]$/] > JSXExpressionContainer > ObjectExpression > Property[key.name="fontSize"] > Literal[value=/rem$|px$|pt$/]:not([value=/^var\\(--/])',
+          message:
+            'MD3 violation: hardcoded fontSize rem/px string. Use var(--md-sys-typescale-*-font-size) token or a numeric icon size.',
+        },
+        {
+          // style prop on MUI/React components (uppercase names) — use sx instead
+          selector:
+            'JSXOpeningElement[name.name=/^[A-Z]/] > JSXAttribute[name.name="style"]',
+          message:
+            'MD3 violation: prefer sx prop over style on React/MUI components. Use sx={{}} for design token access.',
+        },
+      ],
+    },
+  },
 ]);

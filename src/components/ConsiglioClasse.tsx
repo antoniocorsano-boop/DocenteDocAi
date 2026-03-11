@@ -230,7 +230,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                         return (
                             <tr key={student.id}>
                                 <td>
-                                    <Button variant="text" onClick={() => onViewStudentProfile(student)} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  fontWeight: "var(--md-sys-typescale-weight-medium)" }} type="button">
+                                    <Button variant="text" onClick={() => onViewStudentProfile(student)} sx={{ borderRadius: 'var(--md-sys-shape-corner-large)' ,  fontWeight: "var(--md-sys-typescale-weight-medium)" }} type="button">
                                         {student.cognome} {student.nome}
                                     </Button>
                                 </td>
@@ -254,7 +254,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 <td style={{ minWidth: 'var(--md-sys-spacing-12)', ...getCellStyle('giudizio') }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <textarea value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ flexGrow: "1" }} rows={2} placeholder="Giudizio sintetico..."></textarea>
-                                        <Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
+                                        <Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} sx={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
                                             <span style={{ color: "var(--md-sys-color-on-surface-variant)" }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
                                         </Button>
                                     </div>
@@ -329,7 +329,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-4)'}}>
                                         <label htmlFor={`giudizio-${student.id}`} >Note/Giudizio</label>
-                                        <Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} style={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
+                                        <Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} sx={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
                                             <span style={{ color: 'var(--md-sys-color-primary)' }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</span>
                                         </Button>
                                     </div>
@@ -363,11 +363,11 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             <SectionHeader 
                 title="Consiglio di Classe"
                 subtitle={`Scrutinio e Valutazione Periodica • Classe ${selectedClass}`}
-                 style={{ textAlign: "center" }}
+                 sx={{ textAlign: "center" }}
             />
 
             {/* Controls */}
-            <InfoCard variant="outlined" style={{padding: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)'}}>
+            <InfoCard variant="outlined" sx={{padding: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                 <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                         <Tabs
                       value={periodo}
@@ -443,7 +443,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             </InfoCard>
 
             {narrativeReport && (
-                <InfoCard elevation={1} style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 5%, transparent)' , padding: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
+                <InfoCard elevation={1} sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 5%, transparent)' , padding: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                     <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-6)'}}>
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                             <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)' , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-primary)"}}>
@@ -469,7 +469,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                 </InfoCard>
             )}
 
-            <InfoCard elevation={1} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
+            <InfoCard elevation={1} sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
                  <div  style={{padding: 'var(--md-sys-spacing-8)', display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-8)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                     <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                         {Object.keys(expandedColumns).map(key => (

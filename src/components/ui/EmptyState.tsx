@@ -73,7 +73,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         variant="body1"
         sx={{
           color: 'var(--md-sys-color-on-surface-variant)',
-          maxWidth: 'var(--md-sys-spacing-16)'
+          maxWidth: '480px'
         }}
       >
         {description}

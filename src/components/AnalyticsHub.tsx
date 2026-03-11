@@ -173,10 +173,10 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                             <Button 
                                 onClick={() => setChartType('trend')} 
                                 variant={chartType === 'trend' ? 'contained' : 'text'}
-                                
-                                title="Trend Temporale"
+                                aria-label="Trend Temporale"
                             >
                                 <span
+                                    aria-hidden="true"
                                     style={{
                                         fontFamily: "'Material Symbols Outlined'"
                                     }}
@@ -185,10 +185,10 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                             <Button 
                                 onClick={() => setChartType('radar')} 
                                 variant={chartType === 'radar' ? 'contained' : 'text'}
-                                
-                                title="Radar Competenze"
+                                aria-label="Radar Competenze"
                             >
                                 <span
+                                    aria-hidden="true"
                                     style={{
                                         fontFamily: "'Material Symbols Outlined'"
                                     }}
@@ -197,10 +197,10 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                             <Button 
                                 onClick={() => setChartType('dist')} 
                                 variant={chartType === 'dist' ? 'contained' : 'text'}
-                                
-                                title="Distribuzione Voti"
+                                aria-label="Distribuzione Voti"
                             >
                                 <span
+                                    aria-hidden="true"
                                     style={{
                                         fontFamily: "'Material Symbols Outlined'"
                                     }}
@@ -214,7 +214,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
             {/* Responsive Card: Chart & AI */}
             <InfoCard
                 elevation={1}
-                style={{
+                sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     gap: 'var(--md-sys-spacing-6)',
@@ -223,7 +223,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
             >
                 <Typography
                     variant="h6"
-                    style={{ color: 'var(--md-sys-color-on-surface-variant)' }}
+                    sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
                 >
                     {chartType === 'trend' && 'Andamento Temporale'}
                     {chartType === 'radar' && 'Radar Competenze'}
@@ -233,7 +233,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         onClick={handleAskAi} 
                         disabled={isAiLoading} 
                         variant="outlined"
-                        style={{
+                        sx={{
                             display: 'flex',
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-2)'
@@ -319,7 +319,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                     </div>
                                     <Typography
                                         variant="body1"
-                                        style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}
+                                        sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}
                                     >{aiInsight}</Typography>
                                 </div>
                                 <div

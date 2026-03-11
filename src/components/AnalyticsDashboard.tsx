@@ -43,6 +43,9 @@ import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Stack from '@mui/material/Stack';
+import Switch from '@mui/material/Switch';
 import InputLabel from '@mui/material/InputLabel';
 import '../design-system/md3-utilities.css';
 
@@ -133,7 +136,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
       onClose={onClose}
       maxWidth="xl"
     >
-      <DialogContent style={{
+      <DialogContent sx={{
         display: 'flex',
         flexDirection: 'column',
         gap: 'var(--md-sys-spacing-6)',
@@ -141,21 +144,21 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
         maxHeight: 'var(--md-sys-spacing-80)'
       }}>
           {/* GDPR Notice */}
-          <div style={{backgroundColor: 'var(--md-sys-color-tertiary-container)',
+          <Box sx={{backgroundColor: 'var(--md-sys-color-tertiary-container)',
             opacity: 'var(--md-sys-state-layer-opacity-hover)',
             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
             padding: 'var(--md-sys-spacing-8)',
             backdropFilter: 'blur(var(--md-sys-blur-medium))',
             borderRadius: 'var(--md-sys-shape-corner-extra-large)'}}>
-            <div style={{display: 'flex',
+            <Box sx={{display: 'flex',
               alignItems: 'flex-start',
               gap: 'var(--md-sys-spacing-6)'}}>
               <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-on-tertiary-container)',
                 marginTop: 'var(--md-sys-spacing-4)'}}>privacy_tip</Box>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <Typography
                   variant="caption"
-                  style={{color: 'var(--md-sys-color-on-tertiary-container)',
+                  sx={{color: 'var(--md-sys-color-on-tertiary-container)',
                     textTransform: 'uppercase',
                     letterSpacing: 'var(--md-sys-typescale-label-large-tracking, 0.2em)',
                     marginBottom: 'var(--md-sys-spacing-4)',
@@ -167,9 +170,9 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   Questi dati sono memorizzati localmente sul tuo dispositivo e non vengono mai trasmessi a server esterni.
                   Puoi disabilitare la raccolta dati in qualsiasi momento dalle impostazioni.
                 </Typography>
-              </div>
-            </div>
-          </div>
+              </Box>
+            </Box>
+          </Box>
 
           {/* Tabs */}
                     <Tabs
@@ -219,124 +222,124 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
           {/* Tab Content */}
           {activeTab === 'overview' && (
-            <div style={{display: 'flex',
+            <Box sx={{display: 'flex',
               flexDirection: 'column',
               gap: 'var(--md-sys-spacing-6)',
               animation: `fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`}}>
-              <div style={{display: 'grid',
+              <Box sx={{display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-32), var(--md-sys-grid-fr-1)))',
                 gap: 'var(--md-sys-spacing-8)'}}>
-                <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                <Box sx={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                   padding: 'var(--md-sys-spacing-8)',
                   border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)'}}>
-                  <div style={{display: 'flex',
+                  <Box sx={{display: 'flex',
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'}}>
                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-tertiary)'}}>description</Box>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <Typography variant="h6" sx={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.totalDocumentsGenerated)}</Typography>
                       <Typography
                         variant="caption"
-                        style={{textTransform: 'uppercase',
+                        sx={{textTransform: 'uppercase',
                           letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                           color: 'var(--md-sys-color-on-surface-variant)'}}
                       >
                         Documenti
                       </Typography>
-                    </div>
-                  </div>
-                </div>
+                    </Box>
+                  </Box>
+                </Box>
 
-                <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                <Box sx={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                   padding: 'var(--md-sys-spacing-8)',
                   border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)'}}>
-                  <div style={{display: 'flex',
+                  <Box sx={{display: 'flex',
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'}}>
                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-secondary)'}}>smart_toy</Box>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <Typography variant="h6" sx={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.aiInteractionsCount)}</Typography>
                       <Typography
                         variant="caption"
-                        style={{textTransform: 'uppercase',
+                        sx={{textTransform: 'uppercase',
                           letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                           color: 'var(--md-sys-color-on-surface-variant)'}}
                       >
                         Interazioni AI
                       </Typography>
-                    </div>
-                  </div>
-                </div>
+                    </Box>
+                  </Box>
+                </Box>
 
-                <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                <Box sx={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                   padding: 'var(--md-sys-spacing-8)',
                   border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)'}}>
-                  <div style={{display: 'flex',
+                  <Box sx={{display: 'flex',
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'}}>
                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-primary)',
                       fontSize: 'var(--md-sys-typescale-display-large-font-size)'}}>file_copy</Box>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <Typography variant="h6" sx={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.templatesCreated)}</Typography>
                       <Typography
                         variant="caption"
-                        style={{textTransform: 'uppercase',
+                        sx={{textTransform: 'uppercase',
                           letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                           color: 'var(--md-sys-color-on-surface-variant)'}}
                       >
                         Template
                       </Typography>
-                    </div>
-                  </div>
-                </div>
+                    </Box>
+                  </Box>
+                </Box>
 
-                <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                <Box sx={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                   padding: 'var(--md-sys-spacing-8)',
                   border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)'}}>
-                  <div style={{display: 'flex',
+                  <Box sx={{display: 'flex',
                     alignItems: 'center',
                     gap: 'var(--md-sys-spacing-6)'}}>
                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-tertiary)',
                       fontSize: 'var(--md-sys-typescale-display-large-font-size)'}}>batch_prediction</Box>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <Typography variant="h6" sx={{
                         color: 'var(--md-sys-color-on-surface)'}}>{formatNumber(analyticsMetrics.exportBatchesCount)}</Typography>
                       <Typography
                         variant="caption"
-                        style={{textTransform: 'uppercase',
+                        sx={{textTransform: 'uppercase',
                           letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                           color: 'var(--md-sys-color-on-surface-variant)'}}
                       >
                         Export
                       </Typography>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
 
               {/* Attivit� Recente */}
-              <div style={{display: 'grid',
+              <Box sx={{display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-19), var(--md-sys-grid-fr-1)))',
                 gap: 'var(--md-sys-spacing-6)'}}>
-                <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                <Box sx={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                   padding: 'var(--md-sys-spacing-5)',
                   border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-extra-large)'}}>
                   <Typography
                     variant="caption"
-                    style={{textTransform: 'uppercase',
+                    sx={{textTransform: 'uppercase',
                       letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                       color: 'var(--md-sys-color-primary)',
                       marginBottom: 'var(--md-sys-spacing-8)',
@@ -344,10 +347,10 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   >
                     Attivit� 7 Giorni
                   </Typography>
-                  <div style={{display: 'flex',
+                  <Box sx={{display: 'flex',
                     flexDirection: 'column',
                     gap: 'var(--md-sys-spacing-3)'}}>
-                    <div style={{
+                    <Box sx={{
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center'
@@ -356,8 +359,8 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         color: 'var(--md-sys-color-on-surface-variant)'}}>Eventi Totali</Typography>
                       <Typography variant="body2" sx={{
                         color: 'var(--md-sys-color-on-surface)'}}>{stats.weeklyActivity}</Typography>
-                    </div>
-                    <div style={{
+                    </Box>
+                    <Box sx={{
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center'
@@ -369,18 +372,18 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                         {analyticsEvents.filter(e => e.eventType === 'document_generated' &&
                           new Date(e.timestamp) >= new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)).length}
                       </Typography>
-                    </div>
-                  </div>
-                </div>
+                    </Box>
+                  </Box>
+                </Box>
 
-                <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                <Box sx={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                   padding: 'var(--md-sys-spacing-5)',
                   border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-extra-large)'}}>
                   <Typography
                     variant="caption"
-                    style={{textTransform: 'uppercase',
+                    sx={{textTransform: 'uppercase',
                       letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                       color: 'var(--md-sys-color-primary)',
                       marginBottom: 'var(--md-sys-spacing-8)',
@@ -388,11 +391,11 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   >
                     Funzionalit� Top
                   </Typography>
-                  <div style={{display: 'flex',
+                  <Box sx={{display: 'flex',
                     flexDirection: 'column',
                     gap: 'var(--md-sys-spacing-2)'}}>
                     {stats.topFeatures.length > 0 ? stats.topFeatures.map(([feature, count]) => (
-                      <div key={feature} style={{
+                      <Box key={feature} sx={{
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center'
@@ -406,26 +409,26 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           flex: 1}}>{feature}</Typography>
                         <Typography variant="body2" sx={{
                           color: 'var(--md-sys-color-on-surface)'}}>{count}</Typography>
-                      </div>
+                      </Box>
                     )) : (
                       <Typography variant="body2" sx={{
                         color: 'var(--md-sys-color-on-surface-variant)',
                         fontStyle: 'italic'}}>Nessuna attivit� registrata</Typography>
                     )}
-                  </div>
-                </div>
-              </div>
+                  </Box>
+                </Box>
+              </Box>
 
               {/* Tipi Documento */}
               {stats.documentTypes.length > 0 && (
-                <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                <Box sx={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                   padding: 'var(--md-sys-spacing-5)',
                   border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-extra-large)'}}>
                   <Typography
                     variant="caption"
-                    style={{textTransform: 'uppercase',
+                    sx={{textTransform: 'uppercase',
                       letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                       color: 'var(--md-sys-color-primary)',
                       marginBottom: 'var(--md-sys-spacing-8)',
@@ -433,11 +436,11 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   >
                     Documenti per Tipo
                   </Typography>
-                  <div style={{display: 'grid',
+                  <Box sx={{display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-12), var(--md-sys-grid-fr-1)))',
                     gap: 'var(--md-sys-spacing-6)'}}>
                     {stats.documentTypes.map(([type, count]) => (
-                      <div key={type} style={{display: 'flex',
+                      <Box key={type} sx={{display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
                         padding: 'var(--md-sys-spacing-8)',
@@ -449,22 +452,22 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           textTransform: 'capitalize'}}>{type.replace('_', ' ')}</Typography>
                         <Typography variant="body2" sx={{
                           color: 'var(--md-sys-color-primary)'}}>{count}</Typography>
-                      </div>
+                      </Box>
                     ))}
-                  </div>
-                </div>
+                  </Box>
+                </Box>
               )}
-            </div>
+            </Box>
           )}
 
           {activeTab === 'details' && (
-            <div style={{display: 'flex',
+            <Box sx={{display: 'flex',
               flexDirection: 'column',
               gap: 'var(--md-sys-spacing-4)',
               animation: `fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`}}>
               <Typography
                 variant="caption"
-                style={{textTransform: 'uppercase',
+                sx={{textTransform: 'uppercase',
                   letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                   color: 'var(--md-sys-color-primary)',
                   paddingLeft: 'var(--md-sys-spacing-4)',
@@ -472,7 +475,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
               >
                 Eventi Recenti
               </Typography>
-              <div style={{overflowY: 'auto',
+              <Box sx={{overflowY: 'auto',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 'var(--md-sys-spacing-2)',
@@ -484,7 +487,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   const eventKey = `event-${event.id}`;
                   const isHovered = hoveredElements[eventKey] || false;
                   return (
-                    <div key={event.id} style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                    <Box key={event.id} sx={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                       opacity: isHovered ? 0.7 : 0.5,
                       padding: 'var(--md-sys-spacing-6)',
                       border: `var(--md-sys-border-width-thin) solid ${isHovered ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)'}`,
@@ -492,36 +495,36 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
                     onMouseEnter={() => setHoveredElements(prev => ({ ...prev, [eventKey]: true }))}
                     onMouseLeave={() => setHoveredElements(prev => ({ ...prev, [eventKey]: false }))}>
-                      <div style={{
+                      <Box sx={{
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'flex-start'
                       }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                           <Typography variant="body2" sx={{
                             color: 'var(--md-sys-color-on-surface)'}}>{event.featureName}</Typography>
                           <Typography
                             variant="caption"
-                            style={{textTransform: 'uppercase',
+                            sx={{textTransform: 'uppercase',
                               letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                               color: 'var(--md-sys-color-on-surface-variant)'}}
                           >
                             {event.eventType.replace('_', ' ')}
                           </Typography>
-                        </div>
-                        <span style={{fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+                        </Box>
+                        <Box component="span" sx={{fontSize: 'var(--md-sys-typescale-label-large-font-size)',
                           color: 'var(--md-sys-color-on-surface-variant)',
                           backgroundColor: 'var(--md-sys-color-surface-container-high)',
                           padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-4)',
                           borderRadius: 'var(--md-sys-spacing-4)'}}>
                           {formatDate(event.timestamp)}
-                        </span>
-                      </div>
-                    </div>
+                        </Box>
+                      </Box>
+                    </Box>
                   );
                 })}
                 {analyticsEvents.length === 0 && (
-                  <div style={{textAlign: 'center',
+                  <Box sx={{textAlign: 'center',
                     paddingTop: 'var(--md-sys-spacing-12)',
                     paddingBottom: 'var(--md-sys-spacing-12)'}}>
                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{fontSize: 'var(--md-sys-typescale-display-large-font-size)',
@@ -531,25 +534,25 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       display: 'block'}}>history</Box>
                     <Typography variant="body2" sx={{
                       color: 'var(--md-sys-color-on-surface-variant)'}}>Nessun evento registrato</Typography>
-                  </div>
+                  </Box>
                 )}
-              </div>
-            </div>
+              </Box>
+            </Box>
           )}
 
           {activeTab === 'settings' && (
-            <div style={{display: 'flex',
+            <Box sx={{display: 'flex',
               flexDirection: 'column',
               gap: 'var(--md-sys-spacing-6)',
               animation: `fade-in var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)`}}>
-              <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
+              <Box sx={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                 opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                 padding: 'var(--md-sys-spacing-5)',
                 border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                 borderRadius: 'var(--md-sys-shape-corner-extra-large)'}}>
                 <Typography
                   variant="caption"
-                  style={{textTransform: 'uppercase',
+                  sx={{textTransform: 'uppercase',
                     letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                     color: 'var(--md-sys-color-primary)',
                     marginBottom: 'var(--md-sys-spacing-8)',
@@ -557,203 +560,77 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 >
                   Raccolta Dati
                 </Typography>
-                <div style={{display: 'flex',
+                <Box sx={{display: 'flex',
                   flexDirection: 'column',
                   gap: 'var(--md-sys-spacing-4)'}}>
-                  <label style={{display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: 'var(--md-sys-spacing-6)',
-                    borderRadius: 'var(--md-sys-shape-corner-large)',
-                    cursor: 'pointer',
-                    transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
-                  onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'analytics-toggle': true }))}
-                  onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'analytics-toggle': false }))}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                      <Typography variant="body2" sx={{
-                        color: 'var(--md-sys-color-on-surface)'}}>Analytics Abilitati</Typography>
-                      <Typography variant="caption" sx={{
-                        color: 'var(--md-sys-color-on-surface-variant)'}}>
-                        Consenti raccolta dati anonimi di utilizzo
-                      </Typography>
-                    </div>
-                    <div style={{
-                      position: 'relative',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      cursor: 'pointer'
-                    }}>
-                      <input
-                        type="checkbox"
+                  <FormControlLabel
+                    control={
+                      <Switch
                         checked={analyticsSettings.enabled}
                         onChange={(e) => handleToggleAnalytics(e.target.checked)}
-                        style={{
-                          position: 'absolute',
-                          width: 'var(--md-sys-spacing-4)',
-                          height: 'var(--md-sys-spacing-4)',
-                          padding: '0',
-                          margin: '0',
-                          overflow: 'hidden',
-                          clipPath: 'inset(var(--md-sys-percent-full))',
-                          whiteSpace: 'nowrap',
-                          border: '0'
-                        }}
+                        inputProps={{ 'aria-label': 'Analytics Abilitati' }}
                       />
-                      <div style={{width: 'var(--md-sys-spacing-4)',
-                        height: 'var(--md-sys-spacing-6)',
-                        backgroundColor: analyticsSettings.enabled ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
-                        borderRadius: 'var(--md-sys-spacing-3)',
-                        position: 'relative',
-                        transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}>
-                        <div style={{
-                          position: 'absolute',
-                          top: 'var(--md-sys-spacing-4)',
-                          left: analyticsSettings.enabled ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
-                          width: 'var(--md-sys-spacing-4)',
-                          height: 'var(--md-sys-spacing-4)',
-                          backgroundColor: 'var(--md-sys-color-on-primary)',
-                          
-                          borderRadius: 'var(--md-sys-percent-full)',
-                          
-                          transition: `left var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}></div>
-                      </div>
-                    </div>
-                  </label>
+                    }
+                    label={
+                      <Stack spacing={0.5}>
+                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)' }}>Analytics Abilitati</Typography>
+                        <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Consenti raccolta dati anonimi di utilizzo</Typography>
+                      </Stack>
+                    }
+                    labelPlacement="start"
+                    sx={{ display: 'flex', justifyContent: 'space-between', m: 0, p: 'var(--md-sys-spacing-6)', borderRadius: 'var(--md-sys-shape-corner-large)' }}
+                  />
 
                   {analyticsSettings.enabled && (
                     <>
-                      <label style={{display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        padding: 'var(--md-sys-spacing-6)',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
-                        cursor: 'pointer',
-                        transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
-                      onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'feature-usage-toggle': true }))}
-                      onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'feature-usage-toggle': false }))}>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                          <Typography variant="body2" sx={{
-                            color: 'var(--md-sys-color-on-surface)'}}>Utilizzo Funzionalit�</Typography>
-                          <Typography variant="caption" sx={{
-                            color: 'var(--md-sys-color-on-surface-variant)'}}>
-                            Traccia quali funzionalit� vengono utilizzate
-                          </Typography>
-                        </div>
-                        <div style={{
-                          position: 'relative',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          cursor: 'pointer'
-                        }}>
-                          <input
-                            type="checkbox"
+                      <FormControlLabel
+                        control={
+                          <Switch
                             checked={analyticsSettings.collectFeatureUsage}
-                            onChange={(e) => actions.setAnalyticsSettings({
-                              ...analyticsSettings,
-                              collectFeatureUsage: e.target.checked
-                            })}
-                            style={{
-                              position: 'absolute',
-                              width: 'var(--md-sys-spacing-4)',
-                              height: 'var(--md-sys-spacing-4)',
-                              padding: '0',
-                              margin: '0',
-                              overflow: 'hidden',
-                              clipPath: 'inset(var(--md-sys-percent-full))',
-                              whiteSpace: 'nowrap',
-                              border: '0'
-                            }}
+                            onChange={(e) => actions.setAnalyticsSettings({ ...analyticsSettings, collectFeatureUsage: e.target.checked })}
+                            inputProps={{ 'aria-label': 'Utilizzo Funzionalit\u00e0' }}
                           />
-                          <div style={{width: 'var(--md-sys-spacing-4)',
-                            height: 'var(--md-sys-spacing-6)',
-                            backgroundColor: analyticsSettings.collectFeatureUsage ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
-                            borderRadius: 'var(--md-sys-spacing-3)',
-                            position: 'relative',
-                            transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}>
-                            <div style={{position: 'absolute',
-                              top: 'var(--md-sys-spacing-4)',
-                              left: analyticsSettings.collectFeatureUsage ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
-                              width: 'var(--md-sys-spacing-4)',
-                              height: 'var(--md-sys-spacing-4)',
-                              backgroundColor: 'var(--md-sys-color-on-primary)',
-                              borderRadius: 'var(--md-sys-percent-full)',
-                              transition: `left var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}></div>
-                          </div>
-                        </div>
-                      </label>
+                        }
+                        label={
+                          <Stack spacing={0.5}>
+                            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)' }}>Utilizzo Funzionalit\u00e0</Typography>
+                            <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Traccia quali funzionalit\u00e0 vengono utilizzate</Typography>
+                          </Stack>
+                        }
+                        labelPlacement="start"
+                        sx={{ display: 'flex', justifyContent: 'space-between', m: 0, p: 'var(--md-sys-spacing-6)', borderRadius: 'var(--md-sys-shape-corner-large)' }}
+                      />
 
-                      <label style={{display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        padding: 'var(--md-sys-spacing-6)',
-                        borderRadius: 'var(--md-sys-shape-corner-large)',
-                        cursor: 'pointer',
-                        transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}
-                      onMouseEnter={() => setHoveredElements(prev => ({ ...prev, 'document-metrics-toggle': true }))}
-                      onMouseLeave={() => setHoveredElements(prev => ({ ...prev, 'document-metrics-toggle': false }))}>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                          <Typography variant="body2" sx={{
-                            color: 'var(--md-sys-color-on-surface)'}}>Metriche Documenti</Typography>
-                          <Typography variant="caption" sx={{
-                            color: 'var(--md-sys-color-on-surface-variant)'}}>
-                            Traccia generazione e tipi di documenti
-                          </Typography>
-                        </div>
-                        <div style={{
-                          position: 'relative',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          cursor: 'pointer'
-                        }}>
-                          <input
-                            type="checkbox"
+                      <FormControlLabel
+                        control={
+                          <Switch
                             checked={analyticsSettings.collectDocumentMetrics}
-                            onChange={(e) => actions.setAnalyticsSettings({
-                              ...analyticsSettings,
-                              collectDocumentMetrics: e.target.checked
-                            })}
-                            style={{
-                              position: 'absolute',
-                              width: 'var(--md-sys-spacing-4)',
-                              height: 'var(--md-sys-spacing-4)',
-                              padding: '0',
-                              margin: '0',
-                              overflow: 'hidden',
-                              clipPath: 'inset(var(--md-sys-percent-full))',
-                              whiteSpace: 'nowrap',
-                              border: '0'
-                            }}
+                            onChange={(e) => actions.setAnalyticsSettings({ ...analyticsSettings, collectDocumentMetrics: e.target.checked })}
+                            inputProps={{ 'aria-label': 'Metriche Documenti' }}
                           />
-                          <div style={{width: 'var(--md-sys-spacing-4)',
-                            height: 'var(--md-sys-spacing-6)',
-                            backgroundColor: analyticsSettings.collectDocumentMetrics ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline)',
-                            borderRadius: 'var(--md-sys-spacing-3)',
-                            position: 'relative',
-                            transition: `background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}>
-                            <div style={{position: 'absolute',
-                              top: 'var(--md-sys-spacing-4)',
-                              left: analyticsSettings.collectDocumentMetrics ? 'var(--md-sys-spacing-4)' : 'var(--md-sys-spacing-4)',
-                              width: 'var(--md-sys-spacing-4)',
-                              height: 'var(--md-sys-spacing-4)',
-                              backgroundColor: 'var(--md-sys-color-on-primary)',
-                              borderRadius: 'var(--md-sys-percent-full)',
-                              transition: `left var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`}}></div>
-                          </div>
-                        </div>
-                      </label>
+                        }
+                        label={
+                          <Stack spacing={0.5}>
+                            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)' }}>Metriche Documenti</Typography>
+                            <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Traccia generazione e tipi di documenti</Typography>
+                          </Stack>
+                        }
+                        labelPlacement="start"
+                        sx={{ display: 'flex', justifyContent: 'space-between', m: 0, p: 'var(--md-sys-spacing-6)', borderRadius: 'var(--md-sys-shape-corner-large)' }}
+                      />
                     </>
                   )}
-                </div>
-              </div>
+                </Box>
+              </Box>
 
-              <div style={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
+              <Box sx={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                 borderRadius: 'var(--md-sys-shape-corner-extra-large)',
                 padding: 'var(--md-sys-spacing-5)',
                 border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                 opacity: 'var(--md-sys-state-layer-opacity-disabled)'}}>
                 <Typography
                   variant="caption"
-                  style={{textTransform: 'uppercase',
+                  sx={{textTransform: 'uppercase',
                     letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                     color: 'var(--md-sys-color-primary)',
                     marginBottom: 'var(--md-sys-spacing-8)',
@@ -761,7 +638,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 >
                   Gestione Dati
                 </Typography>
-                <div style={{display: 'flex',
+                <Box sx={{display: 'flex',
                   flexDirection: 'column',
                   gap: 'var(--md-sys-spacing-6)'}}>
                   <FormControl size="small" fullWidth>
@@ -781,16 +658,16 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     </Select>
                   </FormControl>
 
-                  <div style={{display: 'flex',
+                  <Box sx={{display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     paddingTop: 'var(--md-sys-spacing-4)',
                     borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                     opacity: 'var(--md-sys-state-opacity-tint-faint)'}}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                       <Typography
                         variant="caption"
-                        style={{textTransform: 'uppercase',
+                        sx={{textTransform: 'uppercase',
                           letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                           color: 'var(--md-sys-color-on-surface-variant)',
                           marginBottom: 'var(--md-sys-spacing-4)',
@@ -805,11 +682,11 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           : 'Mai'
                         }
                       </Typography>
-                    </div>
+                    </Box>
                     <Button
                       onClick={handleResetAnalytics}
                       variant="outlined"
-                      style={{color: 'var(--md-sys-color-error)',
+                      sx={{color: 'var(--md-sys-color-error)',
                         borderColor: 'var(--md-sys-color-error)',
                         opacity: hoveredElements['reset-button'] ? 0.1 : 0.3,
                         backgroundColor: hoveredElements['reset-button'] ? 'var(--md-sys-color-error)' : 'transparent',
@@ -819,10 +696,10 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                     >
                       Reset Dati
                     </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
           )}
       </DialogContent>
       <DialogActions>

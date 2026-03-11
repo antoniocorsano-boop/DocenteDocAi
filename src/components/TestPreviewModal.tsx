@@ -176,7 +176,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-4)' }}>
                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-bold)', minWidth: 'var(--md-sys-spacing-8)' }}>{index + 1}.</span>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-percent-100)' }}>
-                                        <Typography variant="body1" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>
+                                        <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>
                                             {question.text}
                                         </Typography>
                                         {question.type === 'multiple-choice' && (
@@ -186,7 +186,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)', minWidth: 'var(--md-sys-spacing-6)' }}>
                                                             {String.fromCharCode(65 + optionIndex)}.
                                                         </span>
-                                                        <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface)' }}>
+                                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)' }}>
                                                             {option}
                                                         </Typography>
                                                     </div>
@@ -197,18 +197,18 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)', marginLeft: 'var(--md-sys-spacing-8)' }}>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)', minWidth: 'var(--md-sys-spacing-6)' }}>A.</span>
-                                                    <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface)' }}>Vero</Typography>
+                                                    <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)' }}>Vero</Typography>
                                                 </div>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                                     <span style={{ color: 'var(--md-sys-color-on-surface-variant)', minWidth: 'var(--md-sys-spacing-6)' }}>B.</span>
-                                                    <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface)' }}>Falso</Typography>
+                                                    <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)' }}>Falso</Typography>
                                                 </div>
                                             </div>
                                         )}
                                         {question.type === 'open-ended' && (
                                             <div style={{ marginLeft: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)' }}>
                                                 <div style={{ border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', borderRadius: 'var(--md-sys-shape-corner-small)', padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface)', minHeight: 'var(--md-sys-spacing-16)' }}>
-                                                    <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                                                    <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                                                         Risposta aperta...
                                                     </Typography>
                                                 </div>
@@ -221,7 +221,7 @@ const TestPreviewModal: React.FC<TestPreviewModalProps> = ({ quiz, onClose }) =>
                     </div>
 
                     <div style={{ borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)', textAlign: 'center', paddingTop: 'var(--md-sys-spacing-4)', marginTop: 'var(--md-sys-spacing-12)' }}>
-                        <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                        <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                             Generato con DocenteDoc AI - Il tuo assistente didattico intelligente
                         </Typography>
                     </div>

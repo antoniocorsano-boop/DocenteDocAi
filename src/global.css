@@ -182,68 +182,8 @@
   --gantt-text-lightness: 20%;
 }
 
-/* Dark mode overrides */
-.dark {
-  --md-sys-color-primary: #d0bcff;
-  --md-sys-color-on-primary: #381e72;
-  --md-sys-color-primary-container: #4F378B;
-  --md-sys-color-on-primary-container: #EADDFF;
-  --md-sys-color-secondary: #ccc2dc;
-  --md-sys-color-on-secondary: #332d41;
-  --md-sys-color-secondary-container: #4A4458;
-  --md-sys-color-on-secondary-container: #E8DEF8;
-  --md-sys-color-tertiary: #efb8c8;
-  --md-sys-color-on-tertiary: #492532;
-  --md-sys-color-tertiary-container: #633B48;
-  --md-sys-color-on-tertiary-container: #FFD8E4;
-  --md-sys-color-error: #FFB4AB;
-  --md-sys-color-on-error: #690005;
-  --md-sys-color-error-container: #93000A;
-  --md-sys-color-on-error-container: #FFDAD6;
-  --md-sys-color-success: #8DD99F;
-  --md-sys-color-on-success: #003912;
-  --md-sys-color-warning: #FFBE48;
-  --md-sys-color-on-warning: #402D00;
-  --md-sys-color-background: #141218;
-  --md-sys-color-on-background: #E6E0E9;
-  --md-sys-color-surface: #141218;
-  --md-sys-color-on-surface: #E6E0E9;
-  --md-sys-color-surface-variant: #49454F;
-  --md-sys-color-on-surface-variant: #CAC4D0;
-  --md-sys-color-outline: #938F99;
-  --md-sys-color-outline-variant: #49454F;
-  --md-sys-color-shadow: #000000;
-  --md-sys-color-scrim: #000000;
-  --md-sys-color-inverse-surface: #E6E0E9;
-  --md-sys-color-inverse-on-surface: #313033;
-  --md-sys-color-inverse-primary: #6750A4;
-  --md-sys-color-primary-fixed: #EADDFF;
-  --md-sys-color-on-primary-fixed: #21005D;
-  --md-sys-color-primary-fixed-dim: #D0BCFF;
-  --md-sys-color-on-primary-fixed-variant: #4F378B;
-  --md-sys-color-secondary-fixed: #E8DEF8;
-  --md-sys-color-on-secondary-fixed: #1D192B;
-  --md-sys-color-secondary-fixed-dim: #CBC2DB;
-  --md-sys-color-on-secondary-fixed-variant: #4A4458;
-  --md-sys-color-tertiary-fixed: #FFD8E4;
-  --md-sys-color-on-tertiary-fixed: #31111D;
-  --md-sys-color-tertiary-fixed-dim: #EFB8C8;
-  --md-sys-color-on-tertiary-fixed-variant: #633B48;
-  --md-sys-color-surface-dim: #141218;
-  --md-sys-color-surface-bright: #3B383E;
-  --md-sys-color-surface-container-lowest: #0F0D13;
-  --md-sys-color-surface-container-low: #1D1B20;
-  --md-sys-color-surface-container: #211F26;
-  --md-sys-color-surface-container-high: #2D2A32;
-  --md-sys-color-surface-container-highest: #38343C;
-  /* Gantt bar dark-mode lightness overrides */
-  --gantt-bg-saturation: 30%;
-  --gantt-bg-lightness: 28%;
-  --gantt-border-saturation: 55%;
-  --gantt-border-lightness: 62%;
-  --gantt-text-saturation: 70%;
-  --gantt-text-lightness: 82%;
-}
+/* Dark mode color overrides are defined in src/theme.css under .theme-dark { }
+   Applied to document.documentElement by design-system/applyTheme() and AppMuiThemeWrapper. */
 
 /* Breakpoints */
 @media (max-width: 599px) {

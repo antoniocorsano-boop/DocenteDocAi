@@ -1,4 +1,4 @@
-
+﻿
 // MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
@@ -106,7 +106,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             <span style={{
  color: 'var(--md-sys-color-on-primary)'}}>chat</span>
                         </div>
-                        <Typography variant="h6" style={{color: 'var(--md-sys-color-on-surface)',
+                        <Typography variant="h6" sx={{color: 'var(--md-sys-color-on-surface)',
                             minWidth: 0,
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
@@ -133,7 +133,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                                 ? 'var(--md-sys-color-primary)'
                                 : 'var(--md-sys-color-surface-container-high)',
                             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)'}}>
-                            <Typography variant="body1" style={{color: msg.role === 'user' 
+                            <Typography variant="body1" sx={{color: msg.role === 'user' 
                                     ? 'var(--md-sys-color-on-primary)'
                                     : 'var(--md-sys-color-on-surface)',
                                 margin: 0}}>{msg.text}</Typography>
@@ -153,7 +153,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-2)'}}>
                                 <div style={{borderRadius: 'var(--md-sys-shape-corner-full)'}} />
-                                <Typography variant="body2" style={{color: 'var(--md-sys-color-on-surface-variant)',
+                                <Typography variant="body2" sx={{color: 'var(--md-sys-color-on-surface-variant)',
                                     margin: 0}}>Sto pensando...</Typography>
                             </div>
                         </div>
@@ -176,7 +176,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                             <span style={{
  color: 'var(--md-sys-color-on-secondary-container)'}}>quiz</span>
                         </div>
-                        <Typography variant="body1" style={{color: 'var(--md-sys-color-on-surface-variant)',
+                        <Typography variant="body1" sx={{color: 'var(--md-sys-color-on-surface-variant)',
                             margin: 0}}>Poni una domanda ai documenti in questo set.</Typography>
                     </div>
                 )}
@@ -211,7 +211,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                         }}
                     >
                         <span style={{color: 'var(--md-sys-color-on-secondary-container)'}}>summarize</span>
-                        <Typography variant="overline" style={{color: 'var(--md-sys-color-on-secondary-container)',
+                        <Typography variant="overline" sx={{color: 'var(--md-sys-color-on-secondary-container)',
                             margin: 0}}>Riassumi</Typography>
                     </button>
                     <button 
@@ -234,7 +234,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                         }}
                     >
                         <span style={{color: 'var(--md-sys-color-on-tertiary-container)'}}>quiz</span>
-                        <Typography variant="overline" style={{color: 'var(--md-sys-color-on-tertiary-container)',
+                        <Typography variant="overline" sx={{color: 'var(--md-sys-color-on-tertiary-container)',
                             margin: 0}}>Crea Quiz</Typography>
                     </button>
                     <button 
@@ -259,7 +259,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
                         }}
                     >
                         <span style={{color: 'var(--md-sys-color-on-primary-container)'}}>key</span>
-                        <Typography variant="overline" style={{color: 'var(--md-sys-color-on-primary-container)',
+                        <Typography variant="overline" sx={{color: 'var(--md-sys-color-on-primary-container)',
                             margin: 0}}>Concetti Chiave</Typography>
                     </button>
                 </div>

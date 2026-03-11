@@ -249,7 +249,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                                 <Button
                                     onClick={(e) => { e.stopPropagation(); handleDelete(curr.id); }}
                                     variant="text"
-                                    style={{
+                                    sx={{
                                         minWidth: 0,
                                         padding: 'var(--md-sys-spacing-1)',
                                         color: selectedCurriculumId === curr.id ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-error)',
@@ -359,7 +359,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                             label="O incolla il testo del programma" 
                             value={importText} 
                             onChange={e => setImportText(e.target.value)} 
-                            style={{ flexGrow: "1" }} 
+                            sx={{ flexGrow: "1" }} 
                             rows={12} 
                         />
                     </DialogContent>

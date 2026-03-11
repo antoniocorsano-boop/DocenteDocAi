@@ -1,4 +1,4 @@
-﻿// MD3 Compliant - Block N Migration Complete (5 violations eliminated)
+// MD3 Compliant - Block N Migration Complete (5 violations eliminated)
 // Note: Typography font sizes and functional border widths retained with eslint-disable comments
 import React, { useState, useEffect } from 'react';
 import { AiSettings, KnowledgeBaseEntry } from '../types';
@@ -125,7 +125,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
                     rows={6} 
                     placeholder="Es. 'Lezione attiva su Dante usando i social media'..." 
                     autoFocus
-                    style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
+                    sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
                 />
 
                 <Stack spacing="var(--md-sys-spacing-4)">

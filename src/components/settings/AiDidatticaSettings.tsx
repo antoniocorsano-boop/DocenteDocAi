@@ -1,4 +1,4 @@
-﻿// Settings - AI & Didattica Section
+// Settings - AI & Didattica Section
 import React from 'react';
 import { SettingsGroup } from './SettingsGroup';
 import { InfoCard } from '../ui';
@@ -84,7 +84,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                         color: 'var(--md-sys-color-secondary)'}}>smart_toy</Box>
                     <Typography
                         variant="caption"
-                        style={{color: 'var(--md-sys-color-secondary)',
+                        sx={{color: 'var(--md-sys-color-secondary)',
                             fontWeight: 'var(--md-sys-typescale-weight-black)',
                             letterSpacing: '0.1em',
                             textTransform: 'uppercase'}}
@@ -129,7 +129,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                         marginTop: 'var(--md-sys-spacing-4)'}}>info</Box>
                     <Typography
                         variant="body2"
-                        style={{color: currentAiProfile === 'esperto'
+                        sx={{color: currentAiProfile === 'esperto'
                                 ? 'var(--md-sys-color-on-secondary-container)'
                                 : 'var(--md-sys-color-on-primary-container)',
                             lineHeight: 1.5,
@@ -159,7 +159,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                 color: 'var(--md-sys-color-primary)'}}>calendar_month</Box>
                             <Typography
                                 variant="overline"
-                                style={{color: 'var(--md-sys-color-on-surface)',
+                                sx={{color: 'var(--md-sys-color-on-surface)',
                                     fontWeight: 'var(--md-sys-typescale-weight-black)',
                                     letterSpacing: '0.025em',
                                     textTransform: 'uppercase'}}
@@ -224,7 +224,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                 color: 'var(--md-sys-color-secondary)'}}>school</Box>
                             <Typography
                                 variant="overline"
-                                style={{color: 'var(--md-sys-color-on-surface)',
+                                sx={{color: 'var(--md-sys-color-on-surface)',
                                     fontWeight: 'var(--md-sys-typescale-weight-black)',
                                     letterSpacing: '0.025em',
                                     textTransform: 'uppercase'}}
@@ -258,7 +258,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                 color: 'var(--md-sys-color-primary)'}}>account_tree</Box>
                             <Typography
                                 variant="caption"
-                                style={{color: 'var(--md-sys-color-primary)',
+                                sx={{color: 'var(--md-sys-color-primary)',
                                     fontWeight: 'var(--md-sys-typescale-weight-black)',
                                     letterSpacing: '0.1em',
                                     textTransform: 'uppercase'}}
@@ -303,7 +303,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                 gap: 'var(--md-sys-spacing-4)'}}>
                                 <Typography
                                     variant="body2"
-                                    style={{color: 'var(--md-sys-color-on-surface)',
+                                    sx={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                 >
                                     Livelli / Anni
@@ -317,7 +317,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                             variant={selYears.includes(y) ? 'contained' : 'outlined'}
                                             size="small"
                                             onClick={() => setSelYears((prev: string[]) => prev.includes(y) ? prev.filter(i => i !== y) : [...prev, y])}
-                                            style={{
+                                            sx={{
                                                 minWidth: 'var(--md-sys-spacing-4)'
                                             }}
                                         >
@@ -331,7 +331,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                 gap: 'var(--md-sys-spacing-4)'}}>
                                 <Typography
                                     variant="body2"
-                                    style={{color: 'var(--md-sys-color-on-surface)',
+                                    sx={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                 >
                                     Sezioni
@@ -345,7 +345,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                             variant={selSections.includes(s) ? 'contained' : 'outlined'}
                                             size="small"
                                             onClick={() => setSelSections((prev: string[]) => prev.includes(s) ? prev.filter(i => i !== s) : [...prev, s])}
-                                            style={{
+                                            sx={{
                                                 minWidth: 'var(--md-sys-spacing-4)'
                                             }}
                                         >

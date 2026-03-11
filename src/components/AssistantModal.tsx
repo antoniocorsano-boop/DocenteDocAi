@@ -1,4 +1,4 @@
-﻿// MD3 Gold Compliant
+// MD3 Gold Compliant
 // Note: Scrollable areas use viewport height tokens for functional UX
 import React, { useState, useRef, useEffect } from 'react';
 import { fetchNotebookFiles, uploadNotebookFile, deleteNotebookFile, NotebookLMFile } from '../services/notebooklmService';
@@ -353,7 +353,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                   key={p}
                   variant="outlined"
                   onClick={() => handlePrompt(p)}
-                  style={{
+                  sx={{
                     marginRight: 'var(--md-sys-spacing-2)',
                     marginBottom: 'var(--md-sys-spacing-2)'
                   }}
@@ -367,7 +367,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
 
         {activeMode === 'tools' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-4)' }}>
-            <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
               Lancia uno strumento AI direttamente dalla chat.
             </Typography>
             {[
@@ -411,8 +411,8 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
               >
                 <Box component="span" className="material-symbols-outlined" sx={{ fontSize: 'var(--md-sys-spacing-10)', color: 'var(--md-sys-color-primary)' }}>{tool.icon}</Box>
                 <div>
-                  <Typography variant="body1" style={{ color: 'var(--md-sys-color-on-surface)' }}>{tool.label}</Typography>
-                  <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{tool.description}</Typography>
+                  <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface)' }}>{tool.label}</Typography>
+                  <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{tool.description}</Typography>
                 </div>
                 <Box component="span" className="material-symbols-outlined" sx={{ marginLeft: 'var(--md-sys-margin-auto)', color: 'var(--md-sys-color-on-surface-variant)' }}>chevron_right</Box>
               </button>
@@ -497,8 +497,8 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                     flexGrow: 1,
                     minWidth: "0"
                   }}>
-                    <Typography variant="body2" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.name}</Typography>
-                    <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(file.lastModified).toLocaleDateString()}</Typography>
+                    <Typography variant="body2" sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.name}</Typography>
+                    <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(file.lastModified).toLocaleDateString()}</Typography>
                   </div>
                   <Button
                     variant="text"
@@ -532,12 +532,12 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             disabled={loading}
-            style={isRecording ? { outline: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-error)' } : {}}
+            sx={isRecording ? { outline: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-error)' } : {}}
           />
         </div>
         <Button
           variant="text"
-          style={{
+          sx={{
             color: isRecording ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-secondary)',
             padding: 'var(--md-sys-spacing-4)',
             minWidth: '0'
@@ -553,7 +553,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
           variant="contained"
           onClick={handleSend}
           disabled={loading || !input.trim()}
-          style={{
+          sx={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -562,7 +562,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
         >
           <Box component="span" className="material-symbols-outlined">send</Box>
         </Button>
-        {voiceError && <Typography variant="caption" style={{
+        {voiceError && <Typography variant="caption" sx={{
           color: 'var(--md-sys-color-error)',
           width: 'var(--md-sys-percent-full)',
           textAlign: 'center'

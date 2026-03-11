@@ -42,5 +42,9 @@ export { PullToRefresh } from './PullToRefresh';
 export { FAB, FABSpeedDial } from './FAB';
 export { ThemeToggle } from './ThemeToggle';
 export { AccessibilitySettings } from './AccessibilitySettings';
+export { default as M3Surface } from './M3Surface';
+export type { M3SurfaceProps, SurfaceElevation } from './M3Surface';
+export { default as M3IconContainer } from './M3IconContainer';
+export type { M3IconContainerProps, IconContainerColor, IconContainerSize } from './M3IconContainer';
 
 

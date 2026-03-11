@@ -1,4 +1,4 @@
-﻿// MD3 Compliant - Block O Migration Complete (5 violations eliminated)
+// MD3 Compliant - Block O Migration Complete (5 violations eliminated)
 // Note: Circular indicators use functional borderRadius with eslint-disable comments
 
 import React, { useState, useEffect } from 'react';

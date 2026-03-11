@@ -1,4 +1,4 @@
-﻿// MD3 Compliant - Block P Migration Complete (4 violations eliminated)
+// MD3 Compliant - Block P Migration Complete (4 violations eliminated)
 // Note: Button typography and icon sizing retained with eslint-disable comments
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
@@ -57,7 +57,7 @@ const ImageGeneratorModal: React.FC<ImageGeneratorModalProps> = ({ onClose, onGe
                         rows={6}
                         placeholder="Es. 'Illustrazione minimalista del ciclo dell'acqua per una lezione di scienze, stile flat design'..."
                         autoFocus
-                        style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}
+                        sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}
                     />
                     <Typography component="p" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', opacity: 'var(--md-sys-state-opacity-secondary)' }}>
                         L'AI genererà un'immagine basata sulla tua descrizione. Sii specifico per risultati migliori.

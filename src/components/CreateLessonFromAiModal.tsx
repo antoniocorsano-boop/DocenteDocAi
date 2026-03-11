@@ -1,4 +1,4 @@
-﻿// MD3 Compliant - Block I Migration Complete (6 violations eliminated)
+// MD3 Compliant - Block I Migration Complete (6 violations eliminated)
 // Note: Icon font sizes (var(--md-sys-spacing-4)) retained with eslint-disable comments for Material Icons
 import React, { useState, useEffect, useMemo } from 'react';
 import { Lezione, AiSettings, Studente, PianoInclusione, Slot, CurriculumSubject } from '../types';
@@ -267,7 +267,7 @@ return (
                                 onChange={e => setObiettivi(e.target.value)}
                                 rows={5}
                                 placeholder="Elenco obiettivi didattici per la lezione..."
-                                style={{
+                                sx={{
                                     borderRadius: 'var(--md-sys-shape-corner-medium)',
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                     padding: 'var(--md-sys-spacing-6)',
@@ -347,7 +347,7 @@ return (
                                 onChange={(e) => setAdattamenti(e.target.value)}
                                 rows={4}
                                 placeholder="Es. Fornire mappe concettuali, consentire l'uso della calcolatrice..."
-                                style={{
+                                sx={{
                                     borderRadius: 'var(--md-sys-shape-corner-medium)',
                                     backgroundColor: 'var(--md-sys-color-surface-container-low)',
                                     padding: 'var(--md-sys-spacing-6)',

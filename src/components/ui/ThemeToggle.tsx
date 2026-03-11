@@ -3,7 +3,8 @@
 // Audit: febbraio 2026
 
 import React, { useState } from 'react';
-import { useAppTheme } from '../../contexts/ThemeContext';
+import { useSettingsStore } from '../../stores/useSettingsStore';
+import type { AppThemeState } from '../../types';
 import { Tooltip } from './index';
 
 interface ThemeToggleProps {
@@ -15,8 +16,20 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
   variant = 'icon',
   showLabel = false
 }) => {
-  const { mode, setMode, effectiveTheme, isSystemTheme } = useAppTheme();
+  const themeMode = useSettingsStore(s => s.themeState.mode);
+  const setThemeState = useSettingsStore(s => s.actions.setThemeState);
   const [isAnimating, setIsAnimating] = useState(false);
+
+  // Normalise: Zustand uses 'system', ThemeContext used 'auto' — map internally
+  const mode = themeMode === 'system' ? 'auto' : themeMode;
+  const setMode = (m: 'auto' | 'light' | 'dark') =>
+    setThemeState((prev: AppThemeState) => ({ ...prev, mode: m === 'auto' ? 'system' : m }));
+
+  const systemDark = typeof window !== 'undefined'
+    ? window.matchMedia('(prefers-color-scheme: dark)').matches
+    : false;
+  const effectiveTheme: 'light' | 'dark' = mode === 'auto' ? (systemDark ? 'dark' : 'light') : mode;
+  const isSystemTheme = mode === 'auto';
 
   const handleToggle = () => {
     setIsAnimating(true);

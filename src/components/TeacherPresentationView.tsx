@@ -127,7 +127,7 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                     <Button 
                         onClick={() => onNavigate('home')} 
                         variant="contained"
-                         style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard)' }}
+                         sx={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-long) var(--md-sys-motion-easing-standard)' }}
                     >
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                             <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Inizia Subito!</span>

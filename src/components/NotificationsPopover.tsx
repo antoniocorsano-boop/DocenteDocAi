@@ -1,4 +1,4 @@
-// ✅ MD3 Compliant
+﻿// ✅ MD3 Compliant
 // M3Expressive: NotificationsPopover - Notifications display popover with M3 tokens
 import React from 'react';
 import { Notifica, View } from '../types';
@@ -85,7 +85,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
             >
                 <Typography
                     variant="body2"
-                    style={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
+                    sx={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
                         color: 'var(--md-sys-color-on-surface)'}}
                 >
                     Notifiche
@@ -239,7 +239,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                                         >
                                             <Typography
                                                 variant="caption"
-                                                style={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
+                                                sx={{fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                                     overflow: 'hidden',
                                                     textOverflow: 'ellipsis',
                                                     whiteSpace: 'nowrap',
@@ -349,7 +349,7 @@ const NotificationsPopover: React.FC<NotificationsPopoverProps> = ({
                         </div>
                         <Typography
                             variant="body2"
-                            style={{color: 'var(--md-sys-color-on-surface-variant)',
+                            sx={{color: 'var(--md-sys-color-on-surface-variant)',
                                 textAlign: 'center'}}
                         >
                             Nessuna notifica

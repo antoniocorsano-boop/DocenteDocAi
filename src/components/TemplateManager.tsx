@@ -103,7 +103,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
       onClose={onClose}
       maxWidth="xl"
     >
-      <DialogContent style={{ padding: 0 }}>
+      <DialogContent sx={{ padding: 0 }}>
         <div style={{display: "flex", flexDirection: "column", padding: 'var(--md-sys-spacing-16)'}}>
               {/* Barra di ricerca e controlli */}
                 <div style={{display: "flex", gap: 'var(--md-sys-spacing-16)'}}>
@@ -122,7 +122,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                   <Button
                     onClick={handleCreateTemplate}
                     variant="contained"
-                    style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
+                    sx={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
                   >
                     <span  style={{ marginRight: 'var(--md-sys-spacing-2)' }}>add</span>
                     Nuovo Template
@@ -159,14 +159,14 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                         <SectionHeader 
                           title={groupName} 
                           subtitle={`${groupTemplates.length} template disponibili`}
-                          style={{marginBottom: 'var(--md-sys-spacing-16)'}}
+                          sx={{marginBottom: 'var(--md-sys-spacing-16)'}}
                         />
                         <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(calc(var(--md-sys-spacing-20) * 3.5), var(--md-sys-grid-fr-1)))", gap: 'var(--md-sys-spacing-16)'}}>
                           {groupTemplates.map(template => (
                             <InfoCard
                               key={template.id}
                               elevation={1}
-                              style={{ cursor: "pointer", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}
+                              sx={{ cursor: "pointer", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}
                             >
                               <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 'var(--md-sys-spacing-12)'}}>
                                 <div style={{flex: 1, display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-8)'}}>
@@ -197,7 +197,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                               </div>
 
                               {template.description && (
-                                <Typography variant="caption" style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
+                                <Typography variant="caption" sx={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                                   {template.description}
                                 </Typography>
                               )}

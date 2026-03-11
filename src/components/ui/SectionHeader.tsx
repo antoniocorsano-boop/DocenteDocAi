@@ -72,8 +72,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         )}
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography
-                variant="overline"
-                sx={{ color: 'text.secondary', letterSpacing: '0.1em' }}
+                variant="subtitle2"
+                sx={{ color: 'text.secondary' }}
             >
                 {title}
             </Typography>

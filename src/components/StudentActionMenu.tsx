@@ -97,7 +97,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     >
                         <Typography
                             variant="body2"
-                            style={{margin: 0,
+                            sx={{margin: 0,
                                 color: 'var(--md-sys-color-on-primary)',
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
@@ -108,7 +108,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         </Typography>
                         <Typography
                             variant="caption"
-                            style={{margin: 0,
+                            sx={{margin: 0,
                                 color: 'color-mix(in srgb, var(--md-sys-color-on-primary) 80%, transparent)', // MD3 EXCEPTION: Functional opacity for secondary text (no specific token available)
                                 fontWeight: 'var(--md-sys-typescale-weight-regular)'}}
                         >
@@ -133,7 +133,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     >
                         <Typography
                             variant="caption"
-                            style={{margin: '0 0 var(--md-sys-spacing-1) 0',
+                            sx={{margin: '0 0 var(--md-sys-spacing-1) 0',
                                 color: 'color-mix(in srgb, var(--md-sys-color-on-primary) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
                                 textTransform: 'uppercase',
                                 
@@ -145,7 +145,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         </Typography>
                         <Typography
                             variant="body2"
-                            style={{
+                            sx={{
                                 margin: 0,
                                 fontWeight: 'var(--md-sys-typescale-weight-medium)'
                             }}
@@ -168,7 +168,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     >
                         <Typography
                             variant="caption"
-                            style={{margin: '0 0 var(--md-sys-spacing-1) 0',
+                            sx={{margin: '0 0 var(--md-sys-spacing-1) 0',
                                 color: 'color-mix(in srgb, var(--md-sys-color-on-primary) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
                                 textTransform: 'uppercase',
                                 
@@ -203,7 +203,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     >
                         <Typography
                             variant="caption"
-                            style={{margin: '0 0 var(--md-sys-spacing-1) 0',
+                            sx={{margin: '0 0 var(--md-sys-spacing-1) 0',
                                 color: 'color-mix(in srgb, var(--md-sys-color-on-primary) 70%, transparent)', // MD3 EXCEPTION: Functional opacity for label text (no specific token available)
                                 textTransform: 'uppercase',
                                 
@@ -215,7 +215,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                         </Typography>
                         <Typography
                             variant="body2"
-                            style={{
+                            sx={{
                                 margin: 0,
                                 fontWeight: 'var(--md-sys-typescale-weight-medium)'
                             }}
@@ -231,7 +231,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
             >
                 <Typography
                     variant="caption"
-                    style={{margin: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
+                    sx={{margin: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4) var(--md-sys-spacing-2) var(--md-sys-spacing-4)',
                         textTransform: 'uppercase',
                         color: 'var(--md-sys-color-on-surface)',
                         
@@ -248,7 +248,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     }}
                     variant="text"
                     size="medium"
-                    style={{width: 'var(--md-sys-percent-100)', // MD3 EXCEPTION: Functional layout value for full-width buttons
+                    sx={{width: 'var(--md-sys-percent-100)', // MD3 EXCEPTION: Functional layout value for full-width buttons
                         justifyContent: 'flex-start',
                         marginBottom: 'var(--md-sys-spacing-2)',
                         gap: 'var(--md-sys-spacing-3)'}}
@@ -269,7 +269,7 @@ const StudentActionMenu: React.FC<StudentActionMenuProps> = ({
                     }}
                     variant="text"
                     size="medium"
-                    style={{width: 'var(--md-sys-percent-100)', // MD3 EXCEPTION: Functional layout value for full-width buttons
+                    sx={{width: 'var(--md-sys-percent-100)', // MD3 EXCEPTION: Functional layout value for full-width buttons
                         justifyContent: 'flex-start',
                         gap: 'var(--md-sys-spacing-3)'}}
                 >

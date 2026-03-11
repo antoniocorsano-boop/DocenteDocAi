@@ -6,7 +6,7 @@ import './src/theme.css';
 vi.mock('@testing-library/react', async () => {
   const actual = await vi.importActual('@testing-library/react');
   const { render: rtlRender } = actual as { render: (ui: React.ReactElement, options?: Record<string, unknown>) => unknown };
-  const { M3ThemeProvider } = await import('./src/theme/M3ThemeProvider');
+  const { M3ThemeProvider } = await import('./src/theme/theme');
   const React = await import('react');
 
   const renderWithTheme = (ui: React.ReactElement, options?: Record<string, unknown>) => {

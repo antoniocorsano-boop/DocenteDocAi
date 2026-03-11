@@ -14,7 +14,7 @@ const lightPalette = {
   secondary: { main: '#625B71', contrastText: '#FFFFFF', dark: '#4A4458', light: '#E8DEF8' },
   error: { main: '#B3261E', contrastText: '#FFFFFF', dark: '#8C1D18', light: '#F9DEDC' },
   background: { default: '#FDFBFF', paper: '#FDFBFF' },
-  text: { primary: '#1C1B1F', secondary: '#49454F', disabled: '#1C1B1F' },
+  text: { primary: '#1C1B1F', secondary: '#49454F', disabled: 'rgba(28,27,31,0.38)' },
   divider: '#C4C7C5',
   action: { active: '#1C1B1F', hover: '#E7E0EC', selected: '#E8DEF8', disabled: '#1C1B1F', disabledBackground: '#E7E0EC' },
 };
@@ -45,72 +45,73 @@ export function buildMuiTheme(mode: 'light' | 'dark'): Theme {
 
   typography: {
     fontFamily: 'Roboto, sans-serif',
-    // MD3 typescale mappati su MUI
+    // MD3 typescale mappati su MUI — valori raw per MUI JS (no CSS vars: MUI non sa parsarli)
+    // I token CSS corrispondenti sono in theme.css --md-sys-typescale-*
     h1: {
-      fontSize: 'var(--md-sys-typescale-display-large-font-size, 3.5625rem)',
-      lineHeight: 'var(--md-sys-typescale-display-large-line-height, 4rem)',
-      fontWeight: 'var(--md-sys-typescale-weight-regular, 400)',
+      fontSize: '3.5625rem',       // --md-sys-typescale-display-large-font-size
+      lineHeight: '4rem',          // --md-sys-typescale-display-large-line-height
+      fontWeight: 400,             // --md-sys-typescale-weight-regular
     },
     h2: {
-      fontSize: 'var(--md-sys-typescale-display-medium-font-size, 2.8125rem)',
-      lineHeight: 'var(--md-sys-typescale-display-medium-line-height, 3.25rem)',
-      fontWeight: 'var(--md-sys-typescale-weight-regular, 400)',
+      fontSize: '2.8125rem',       // --md-sys-typescale-display-medium-font-size
+      lineHeight: '3.25rem',       // --md-sys-typescale-display-medium-line-height
+      fontWeight: 400,
     },
     h3: {
-      fontSize: 'var(--md-sys-typescale-display-small-font-size, 2.25rem)',
-      lineHeight: 'var(--md-sys-typescale-display-small-line-height, 2.75rem)',
-      fontWeight: 'var(--md-sys-typescale-weight-regular, 400)',
+      fontSize: '2.25rem',         // --md-sys-typescale-display-small-font-size
+      lineHeight: '2.75rem',       // --md-sys-typescale-display-small-line-height
+      fontWeight: 400,
     },
     h4: {
-      fontSize: 'var(--md-sys-typescale-headline-large-font-size, 2rem)',
-      lineHeight: 'var(--md-sys-typescale-headline-large-line-height, 2.5rem)',
-      fontWeight: 'var(--md-sys-typescale-weight-regular, 400)',
+      fontSize: '2rem',            // --md-sys-typescale-headline-large-font-size
+      lineHeight: '2.5rem',        // --md-sys-typescale-headline-large-line-height
+      fontWeight: 400,
     },
     h5: {
-      fontSize: 'var(--md-sys-typescale-headline-medium-font-size, 1.75rem)',
-      lineHeight: 'var(--md-sys-typescale-headline-medium-line-height, 2.25rem)',
-      fontWeight: 'var(--md-sys-typescale-weight-regular, 400)',
+      fontSize: '1.75rem',         // --md-sys-typescale-headline-medium-font-size
+      lineHeight: '2.25rem',       // --md-sys-typescale-headline-medium-line-height
+      fontWeight: 400,
     },
     h6: {
-      fontSize: 'var(--md-sys-typescale-headline-small-font-size, 1.5rem)',
-      lineHeight: 'var(--md-sys-typescale-headline-small-line-height, 2rem)',
-      fontWeight: 'var(--md-sys-typescale-weight-regular, 400)',
+      fontSize: '1.5rem',          // --md-sys-typescale-headline-small-font-size
+      lineHeight: '2rem',          // --md-sys-typescale-headline-small-line-height
+      fontWeight: 400,
     },
     subtitle1: {
-      fontSize: 'var(--md-sys-typescale-title-large-font-size, 1.375rem)',
-      lineHeight: 'var(--md-sys-typescale-title-large-line-height, 1.75rem)',
-      fontWeight: 'var(--md-sys-typescale-weight-regular, 400)',
+      fontSize: '1.375rem',        // --md-sys-typescale-title-large-font-size
+      lineHeight: '1.75rem',       // --md-sys-typescale-title-large-line-height
+      fontWeight: 400,
     },
     subtitle2: {
-      fontSize: 'var(--md-sys-typescale-title-medium-font-size, 1rem)',
-      lineHeight: 'var(--md-sys-typescale-title-medium-line-height, 1.5rem)',
-      fontWeight: 'var(--md-sys-typescale-weight-medium, 500)',
+      fontSize: '1rem',            // --md-sys-typescale-title-medium-font-size
+      lineHeight: '1.5rem',        // --md-sys-typescale-title-medium-line-height
+      fontWeight: 500,             // --md-sys-typescale-weight-medium
     },
     body1: {
-      fontSize: 'var(--md-sys-typescale-body-large-font-size, 1rem)',
-      lineHeight: 'var(--md-sys-typescale-body-large-line-height, 1.5rem)',
-      fontWeight: 'var(--md-sys-typescale-weight-regular, 400)',
+      fontSize: '1rem',            // --md-sys-typescale-body-large-font-size
+      lineHeight: '1.5rem',        // --md-sys-typescale-body-large-line-height
+      fontWeight: 400,
     },
     body2: {
-      fontSize: 'var(--md-sys-typescale-body-medium-font-size, 0.875rem)',
-      lineHeight: 'var(--md-sys-typescale-body-medium-line-height, 1.25rem)',
-      fontWeight: 'var(--md-sys-typescale-weight-regular, 400)',
+      fontSize: '0.875rem',        // --md-sys-typescale-body-medium-font-size
+      lineHeight: '1.25rem',       // --md-sys-typescale-body-medium-line-height
+      fontWeight: 400,
     },
     button: {
-      fontSize: 'var(--md-sys-typescale-label-large-font-size, 0.875rem)',
-      lineHeight: 'var(--md-sys-typescale-label-large-line-height, 1.25rem)',
-      fontWeight: 'var(--md-sys-typescale-weight-medium, 500)',
+      fontSize: '0.875rem',        // --md-sys-typescale-label-large-font-size
+      lineHeight: '1.25rem',       // --md-sys-typescale-label-large-line-height
+      fontWeight: 500,
       textTransform: 'none',
     },
     caption: {
-      fontSize: 'var(--md-sys-typescale-body-small-font-size, 0.75rem)',
-      lineHeight: 'var(--md-sys-typescale-body-small-line-height, 1rem)',
-      fontWeight: 'var(--md-sys-typescale-weight-regular, 400)',
+      fontSize: '0.75rem',         // --md-sys-typescale-body-small-font-size
+      lineHeight: '1rem',          // --md-sys-typescale-body-small-line-height
+      fontWeight: 400,
     },
     overline: {
-      fontSize: 'var(--md-sys-typescale-label-small-font-size, 0.625rem)',
-      lineHeight: 'var(--md-sys-typescale-label-small-line-height, 1rem)',
-      fontWeight: 'var(--md-sys-typescale-weight-medium, 500)',
+      fontSize: '0.625rem',        // --md-sys-typescale-label-small-font-size
+      lineHeight: '1rem',          // --md-sys-typescale-label-small-line-height
+      fontWeight: 500,
       textTransform: 'none',
     },
   },

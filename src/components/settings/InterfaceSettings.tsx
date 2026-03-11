@@ -1,4 +1,4 @@
-﻿// Settings - Interface & Visual Experience Section
+// Settings - Interface & Visual Experience Section
 import React from 'react';
 import { SettingsGroup } from './SettingsGroup';
 import Typography from '@mui/material/Typography';
@@ -65,14 +65,14 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                     boxShadow: 'var(--md-sys-elevation-level1)'
                 }}
             >
-                <Typography variant="overline" style={{
+                <Typography variant="overline" sx={{
                     color: 'var(--md-sys-color-on-surface)',
                     fontWeight: 'var(--md-sys-typescale-weight-black)',
                     marginBottom: 'var(--md-sys-spacing-3)'
                 }}>
                     Interfaccia & Esperienza Visiva
                 </Typography>
-                <Typography variant="caption" style={{
+                <Typography variant="caption" sx={{
                     color: 'var(--md-sys-color-on-surface-variant)',
                     marginBottom: 'var(--md-sys-spacing-4)',
                     opacity: 'var(--md-sys-state-opacity-caption)'
@@ -95,7 +95,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             fontSize: 'var(--md-sys-typescale-title-large-font-size)',
                             color: 'var(--md-sys-color-primary)'
                         }}>dashboard_customize</Box>
-                        <Typography variant="caption" style={{color: 'var(--md-sys-color-primary)',
+                        <Typography variant="caption" sx={{color: 'var(--md-sys-color-primary)',
                             fontWeight: 'var(--md-sys-typescale-weight-black)',
                             textTransform: 'uppercase',
                             letterSpacing: '0.15em'}}>Modalità Interfaccia</Typography>
@@ -109,7 +109,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                         <Tab value="classic" label="Classica" sx={{ borderRadius: 'var(--md-sys-shape-corner-full)', minHeight: 'auto', py: 1, px: 2 }} />
                         <Tab value="flow" label="Dinamica (Flow)" sx={{ borderRadius: 'var(--md-sys-shape-corner-full)', minHeight: 'auto', py: 1, px: 2 }} />
                     </Tabs>
-                    <Typography variant="body2" style={{color: 'var(--md-sys-color-on-surface-variant)',
+                    <Typography variant="body2" sx={{color: 'var(--md-sys-color-on-surface-variant)',
                         margin: 0}}>
                         {localSettings.uiMode === 'flow'
                             ? 'Modalità Flow: Interfaccia dinamica basata su flussi di lavoro e suggerimenti contestuali.'
@@ -126,7 +126,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                         gap: 'var(--md-sys-spacing-4)'}}>
                         <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             color: 'var(--md-sys-color-primary)'}}>auto_awesome</Box>
-                        <Typography variant="caption" style={{color: 'var(--md-sys-color-primary)',
+                        <Typography variant="caption" sx={{color: 'var(--md-sys-color-primary)',
                             fontWeight: 'var(--md-sys-typescale-weight-black)',
                             textTransform: 'uppercase',
                             letterSpacing: '0.15em'}}>Ecosistema Visivo</Typography>
@@ -165,12 +165,12 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                     color: themeState.visualStyle === style.id
                                         ? 'var(--md-sys-color-on-primary-container)'
                                         : 'var(--md-sys-color-on-surface-variant)'}}>{style.icon}</Box>
-                                <Typography variant="caption" style={{color: themeState.visualStyle === style.id
+                                <Typography variant="caption" sx={{color: themeState.visualStyle === style.id
                                         ? 'var(--md-sys-color-on-primary-container)'
                                         : 'var(--md-sys-color-on-surface)',
                                     fontWeight: themeState.visualStyle === style.id ? 600 : 500,
                                     margin: 0}}>{style.label}</Typography>
-                                <Typography variant="caption" style={{color: themeState.visualStyle === style.id
+                                <Typography variant="caption" sx={{color: themeState.visualStyle === style.id
                                         ? 'var(--md-sys-color-on-primary-container)'
                                         : 'var(--md-sys-color-on-surface-variant)',
                                     margin: 0,
@@ -189,7 +189,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                         gap: 'var(--md-sys-spacing-4)'}}>
                         <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             color: 'var(--md-sys-color-primary)'}}>palette</Box>
-                        <Typography variant="caption" style={{color: 'var(--md-sys-color-primary)',
+                        <Typography variant="caption" sx={{color: 'var(--md-sys-color-primary)',
                             fontWeight: 'var(--md-sys-typescale-weight-black)',
                             textTransform: 'uppercase',
                             letterSpacing: '0.15em'}}>Tema & Colori</Typography>
@@ -234,7 +234,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             marginBottom: 'var(--md-sys-spacing-4)'}}>
                             <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                 color: 'var(--md-sys-color-primary)'}}>magic_button</Box>
-                            <Typography variant="caption" style={{color: 'var(--md-sys-color-primary)',
+                            <Typography variant="caption" sx={{color: 'var(--md-sys-color-primary)',
                                 fontWeight: 'var(--md-sys-typescale-weight-black)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '0.15em'}}>Generatore AI</Typography>
@@ -263,7 +263,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                 onClick={onGenerateTheme}
                                 disabled={isGeneratingTheme || !themePrompt.trim()}
                                 variant="contained"
-                                style={{minWidth: '0',
+                                sx={{minWidth: '0',
                                     width: 'var(--md-sys-spacing-4)',
                                     height: 'var(--md-sys-spacing-4)',
                                     padding: '0',
@@ -292,7 +292,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             color: 'var(--md-sys-color-primary)'}}>tune</Box>
                         <Typography
                             variant="caption"
-                            style={{color: 'var(--md-sys-color-primary)',
+                            sx={{color: 'var(--md-sys-color-primary)',
                                 fontWeight: 'var(--md-sys-typescale-weight-black)',
                                 letterSpacing: '0.1em',
                                 textTransform: 'uppercase'}}
@@ -313,14 +313,14 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             }}>
                                 <Typography
                                     variant="body2"
-                                    style={{color: 'var(--md-sys-color-on-surface)',
+                                    sx={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                 >
                                     Intensità Blur Vetro
                                 </Typography>
                                 <Typography
                                     variant="caption"
-                                    style={{color: 'var(--md-sys-color-on-surface-variant)',
+                                    sx={{color: 'var(--md-sys-color-on-surface-variant)',
                                         fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
                                 >
                                     {themeState.glassBlur || 30}px
@@ -342,14 +342,14 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             }}>
                                 <Typography
                                     variant="body2"
-                                    style={{color: 'var(--md-sys-color-on-surface)',
+                                    sx={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                 >
                                     Scala Font
                                 </Typography>
                                 <Typography
                                     variant="caption"
-                                    style={{color: 'var(--md-sys-color-on-surface-variant)',
+                                    sx={{color: 'var(--md-sys-color-on-surface-variant)',
                                         fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
                                 >
                                     {themeState.fontScale || 1}x
@@ -371,14 +371,14 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             }}>
                                 <Typography
                                     variant="body2"
-                                    style={{color: 'var(--md-sys-color-on-surface)',
+                                    sx={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                 >
                                     Livello Contrasto
                                 </Typography>
                                 <Typography
                                     variant="caption"
-                                    style={{color: 'var(--md-sys-color-on-surface-variant)',
+                                    sx={{color: 'var(--md-sys-color-on-surface-variant)',
                                         fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
                                 >
                                     {themeState.contrastLevel || 0}
@@ -400,14 +400,14 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             }}>
                                 <Typography
                                     variant="body2"
-                                    style={{color: 'var(--md-sys-color-on-surface)',
+                                    sx={{color: 'var(--md-sys-color-on-surface)',
                                         fontWeight: 'var(--md-sys-typescale-weight-medium)'}}
                                 >
                                     Arrotondamento Bordi
                                 </Typography>
                                 <Typography
                                     variant="caption"
-                                    style={{color: 'var(--md-sys-color-on-surface-variant)',
+                                    sx={{color: 'var(--md-sys-color-on-surface-variant)',
                                         fontWeight: 'var(--md-sys-typescale-weight-semibold)'}}
                                 >
                                     x{themeState.radiusMultiplier || 1}
@@ -422,7 +422,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                         variant={themeState.radiusMultiplier === m ? 'contained' : 'outlined'}
                                         size="small"
                                         onClick={() => onThemeChange('radiusMultiplier', m)}
-                                        style={{
+                                        sx={{
                                             minWidth: 'var(--md-sys-spacing-4)'
                                         }}
                                     >
@@ -448,7 +448,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                             color: 'var(--md-sys-color-primary)'}}>import_export</Box>
                         <Typography
                             variant="caption"
-                            style={{color: 'var(--md-sys-color-primary)',
+                            sx={{color: 'var(--md-sys-color-primary)',
                                 fontWeight: 'var(--md-sys-typescale-weight-black)',
                                 letterSpacing: '0.1em',
                                 textTransform: 'uppercase'}}
@@ -458,7 +458,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                     </div>
                     <Typography
                         variant="body2"
-                        style={{color: 'var(--md-sys-color-on-surface-variant)',
+                        sx={{color: 'var(--md-sys-color-on-surface-variant)',
                             marginBottom: 'var(--md-sys-spacing-4)',
                             lineHeight: 1.5}}
                     >
@@ -512,12 +512,12 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                         gap: 'var(--md-sys-spacing-4)'}}>
                         <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             color: 'var(--md-sys-color-primary)'}}>refresh</Box>
-                        <Typography variant="caption" style={{color: 'var(--md-sys-color-primary)',
+                        <Typography variant="caption" sx={{color: 'var(--md-sys-color-primary)',
                             fontWeight: 'var(--md-sys-typescale-weight-black)',
                             textTransform: 'uppercase',
                             letterSpacing: '0.15em'}}>Manutenzione Brand</Typography>
                     </div>
-                    <Typography variant="body2" style={{color: 'var(--md-sys-color-on-surface-variant)',
+                    <Typography variant="body2" sx={{color: 'var(--md-sys-color-on-surface-variant)',
                         margin: 0}}>Se visualizzi ancora il vecchio logo o nomi non corretti, forza il ricaricamento della cache.</Typography>
                     <Button
                         onClick={onForceRefresh}
@@ -537,12 +537,12 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                         gap: 'var(--md-sys-spacing-4)'}}>
                         <Box component="span" className="material-symbols-outlined" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             color: 'var(--md-sys-color-primary)'}}>tune</Box>
-                        <Typography variant="caption" style={{color: 'var(--md-sys-color-primary)',
+                        <Typography variant="caption" sx={{color: 'var(--md-sys-color-primary)',
                             fontWeight: 'var(--md-sys-typescale-weight-black)',
                             textTransform: 'uppercase',
                             letterSpacing: '0.15em'}}>M3 Theme Panel</Typography>
                     </div>
-                    <Typography variant="body2" style={{color: 'var(--md-sys-color-on-surface-variant)',
+                    <Typography variant="body2" sx={{color: 'var(--md-sys-color-on-surface-variant)',
                         margin: 0}}>Personalizza i token M3 per colori, tipografia, spacing e motion con anteprima live.</Typography>
                     <ThemeSettingsPanel />
                 </div>

@@ -1,4 +1,4 @@
-// MD3 Gold Compliant
+﻿// MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 import React from 'react';
@@ -28,15 +28,12 @@ const GanttBar: React.FC<GanttBarProps> = ({ uda, onClick }) => {
             onClick={handleClick}
             aria-label={`UDA: ${uda.title}`}
             focusRipple
-            style={{
+            sx={{
                 '--gantt-bar-left': `${uda.startPos}%`,
                 '--gantt-bar-width': `${uda.width}%`,
                 '--gantt-bar-bg': uda.color,
                 '--gantt-bar-border': uda.borderColor,
                 '--gantt-bar-text': uda.textColor,
-            } as React.CSSProperties}
-            title={`${uda.title} (${uda.startDate ? new Date(uda.startDate).toLocaleDateString() : ''} - ${uda.endDate ? new Date(uda.endDate).toLocaleDateString() : ''})`}
-            sx={{
                 display: 'block',
                 width: '100%',
                 textAlign: 'left',
@@ -55,7 +52,8 @@ const GanttBar: React.FC<GanttBarProps> = ({ uda, onClick }) => {
                     outline: '2px solid var(--md-sys-color-primary)',
                     outlineOffset: 2,
                 },
-            }}
+            } as React.CSSProperties}
+            title={`${uda.title} (${uda.startDate ? new Date(uda.startDate).toLocaleDateString() : ''} - ${uda.endDate ? new Date(uda.endDate).toLocaleDateString() : ''})`}
         >
             <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{uda.title}</div>
         </ButtonBase>

@@ -54,10 +54,10 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
         }}
         aria-label="Login docente"
       >
-        <Typography variant="h6" style={{ textAlign: 'center', color: 'var(--md-sys-color-on-surface)' }}>
+        <Typography variant="h6" sx={{ textAlign: 'center', color: 'var(--md-sys-color-on-surface)' }}>
           Accedi a DocenteDoc AI
         </Typography>
-        <Typography variant="body2" style={{ textAlign: 'center', color: 'var(--md-sys-color-on-surface-variant)' }}>
+        <Typography variant="body2" sx={{ textAlign: 'center', color: 'var(--md-sys-color-on-surface-variant)' }}>
           Inserisci le tue credenziali per continuare
         </Typography>
         <TextField
@@ -79,19 +79,19 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
           fullWidth
         />
         {error && (
-          <Typography variant="body2" style={{ color: 'var(--md-sys-color-error)', width: 'var(--md-sys-percent-100)', textAlign: 'center' }}>{error}</Typography>
+          <Typography variant="body2" sx={{ color: 'var(--md-sys-color-error)', width: 'var(--md-sys-percent-100)', textAlign: 'center' }}>{error}</Typography>
         )}
         <Button
           type="submit"
           variant="contained"
-          style={{ width: 'var(--md-sys-percent-100)' }}
+          sx={{ width: 'var(--md-sys-percent-100)' }}
         >
           Accedi
         </Button>
         <Button
           type="button"
           variant="text"
-          style={{ width: 'var(--md-sys-percent-100)' }}
+          sx={{ width: 'var(--md-sys-percent-100)' }}
           onClick={() => setError('Funzione di recupero password non ancora disponibile. Contatta il tuo amministratore.')}
         >
           Recupera password

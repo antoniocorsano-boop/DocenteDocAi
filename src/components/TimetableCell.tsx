@@ -157,6 +157,7 @@ const TimetableCell: React.FC<TimetableCellProps> = ({ slot, lesson, onClick }) 
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
+            // eslint-disable-next-line no-restricted-syntax -- sub-MD3-scale: 0.65rem intentional for compact timetable cell (no token below label-small)
             fontSize: '0.65rem',
           }}
         >

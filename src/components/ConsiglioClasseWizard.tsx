@@ -65,7 +65,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
 
     const renderStep1 = () => (
         <>
-            <DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
+            <DialogContent sx={{gap: 'var(--md-sys-spacing-6)'}}>
                 <InfoCard 
                     title="Seleziona il contesto" 
                     description="Scegli la classe e il periodo di riferimento per il quale desideri generare il report." 

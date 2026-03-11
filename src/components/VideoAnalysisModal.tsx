@@ -1,4 +1,4 @@
-﻿// ✅ MD3 Native Compliant - Migrated to direct MD3 tokens
+// ✅ MD3 Native Compliant - Migrated to direct MD3 tokens
 
 import React, { useState, useEffect } from 'react';
 // Load Google GenAI dynamically to avoid bundling it in the main chunk
@@ -194,7 +194,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                             }}
                             placeholder="Es. 'Un gatto astronauta fluttua nello spazio, inseguendo un gomitolo di lana cosmico'..."
                             // removed non-MD3 containerClassName
-                             style={{ height: "var(--md-sys-percent-100)" }}
+                             sx={{ height: "var(--md-sys-percent-100)" }}
                             label="Descrizione Video"
                         />
                     </div>

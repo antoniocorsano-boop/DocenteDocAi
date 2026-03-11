@@ -1,4 +1,4 @@
-﻿// MD3 Compliant - Block J Migration Complete (6 violations eliminated)
+// MD3 Compliant - Block J Migration Complete (6 violations eliminated)
 // Note: Drop zone height uses var(--md-sys-spacing-48) for functional UX (closest MD3 token available)
 
 import React, { useState, useCallback } from 'react';
@@ -8,6 +8,7 @@ import { extractTextFromFile, blobToBase64Parts } from '../utils/documentUtils';
 import { KB_CATEGORIES } from '../constants';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import Stack from '@mui/material/Stack';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -70,20 +71,20 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
             onClose={onClose}
             maxWidth="sm"
         >
-            <section style={{marginTop: 'var(--md-sys-spacing-8)'}}>
+            <Box component="section" sx={{mt: 'var(--md-sys-spacing-8)'}}>
                 {isLoading ? (
-                    <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                        <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-spacing-1) solid var(--md-sys-color-outline)', borderColor: "var(--md-sys-color-primary)"}}></div>
+                    <Stack alignItems="center" justifyContent="center" spacing={1}>
+                        <CircularProgress size="var(--md-sys-spacing-10)" sx={{ color: 'var(--md-sys-color-primary)' }} />
                         <Typography component="p" variant="caption" sx={{color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)"}}>{loadingMessage}</Typography>
-                    </div>
+                    </Stack>
                 ) : (
                     <>
-                        <section style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                        <Stack component="section" sx={{ gap: 'var(--md-sys-spacing-4)' }}>
                             <Typography component="h3" variant="h6" sx={{marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
-                                <span style={{ color: 'var(--md-sys-color-on-primary-container)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-radius-4)', backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center"}}>1</span> 
+                                <Box component="span" sx={{ color: 'var(--md-sys-color-on-primary-container)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-radius-4)', backgroundColor: 'var(--md-sys-color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>1</Box>
                                 Seleziona Destinazione
                             </Typography>
-                            <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
+                            <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-6)' }}>
                                 {/* MD3 grid fr tokens */}
                                 {KB_CATEGORIES.map(cat => (
                                     <CategoryCard 
@@ -96,26 +97,25 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                         onClick={() => setSelectedCategory(cat.id)} 
                                     />
                                 ))}
-                            </div>
-                        </section>
+                            </Box>
+                        </Stack>
 
-                        <section style={{
+                        <Box component="section" sx={{
                             transition: 'color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard), opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                             opacity: !selectedCategory ? 0.3 : 1,
                             filter: !selectedCategory ? 'grayscale(100%)' : 'none',
                             pointerEvents: !selectedCategory ? 'none' : 'auto'
                         }}>
                             <Typography component="h3" variant="h6" sx={{marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
-                                <span style={{ color: 'var(--md-sys-color-on-secondary-container)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-radius-4)', backgroundColor: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center"}}>2</span>
+                                <Box component="span" sx={{ color: 'var(--md-sys-color-on-secondary-container)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-radius-4)', backgroundColor: 'var(--md-sys-color-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>2</Box>
                                 Carica File
                             </Typography>
-                            <div {...getRootProps()} style={{
-                                height: 'var(--md-sys-spacing-48)', // MD3 spacing token for drop zone height
-                                border: isDragActive ? 'var(--md-sys-elevation-2) dashed var(--md-sys-color-primary)' : 'var(--md-sys-elevation-0) dashed var(--md-sys-color-outline-variant)',
+                            <Box {...getRootProps()} sx={{
+                                height: 'var(--md-sys-spacing-48)',
+                                border: isDragActive ? '2px dashed var(--md-sys-color-primary)' : '1px dashed var(--md-sys-color-outline-variant)',
                                 backgroundColor: isDragActive ? 'var(--md-sys-color-primary-container)' : 'transparent',
-                                opacity: isDragActive ? 0.1 : 1,
-                                transform: isDragActive ? 'scale(var(--md-sys-spacing-1) + var(1))' : 'scale(var(--md-sys-spacing-0) + var(1))',
-                                transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`, // MD3 motion tokens for duration and easing
+                                opacity: isDragActive ? 0.8 : 1,
+                                transition: `all var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)`,
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
@@ -124,15 +124,15 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                 borderRadius: 'var(--md-sys-shape-corner-extra-large)'
                             }}>
                                 <input {...getInputProps()} />
-                                <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)'}}>{isDragActive ? 'download' : 'upload_file'}</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)', mb: 'var(--md-sys-spacing-8)', fontSize: 'var(--md-sys-typescale-display-small-font-size)' }}>{isDragActive ? 'download' : 'upload_file'}</Box>
                                 <Typography component="p" variant="body1" sx={{ color: "var(--md-sys-color-on-surface-variant)" }}>Trascina i file qui o clicca per sfogliare</Typography>
                                 <Typography component="p" variant="caption" sx={{opacity: "var(--md-sys-state-opacity-disabled-layer)", marginTop: 'var(--md-sys-spacing-6)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)", color: "var(--md-sys-color-on-surface-variant)"}}>Supporto PDF, DOCX, TXT</Typography>
-                            </div>
-                        </section>
+                            </Box>
+                        </Box>
 
-                        <section  style={{borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'}}>
+                        <Box component="section" sx={{borderTop: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)'}}>
                             <Typography component="h3" variant="h6" sx={{fontWeight: "var(--md-sys-typescale-weight-black)", marginBottom: 'var(--md-sys-spacing-6)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
-                                <span style={{ color: 'var(--md-sys-color-on-tertiary)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "var(--md-sys-typescale-weight-black)"}}>3</span> 
+                                <Box component="span" sx={{ color: 'var(--md-sys-color-on-tertiary)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-tertiary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'var(--md-sys-typescale-weight-black)' }}>3</Box>
                                 Raccolta (Opzionale)
                             </Typography>
                             <Stack direction="row" spacing="var(--md-sys-spacing-8)" alignItems="flex-end">
@@ -162,7 +162,7 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                     color="secondary"
                                     title={isCreating ? "Annulla creazione" : "Crea nuova raccolta"}
                                 >
-                                    <span style={{}}>{isCreating ? 'remove' : 'add'}</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true">{isCreating ? 'remove' : 'add'}</Box>
                                 </Button>
                             </Stack>
                             {isCreating && (
@@ -177,13 +177,13 @@ const AddSourceModal: React.FC<AddSourceModalProps> = ({ corpora, setCorpora, on
                                     <Button onClick={handleCreateCorpus} variant="contained" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)' }}>CREA</Button>
                                 </Stack>
                             )}
-                        </section>
+                        </Box>
                     </>
                 )}
                 {error && (
                   <Box sx={{ color: 'var(--md-sys-color-on-error-container)', mt: 'var(--md-sys-spacing-4)', p: 'var(--md-sys-spacing-6)', bgcolor: 'var(--md-sys-color-error)', borderRadius: 'var(--md-sys-shape-corner-small)' }}>{error}</Box>
                 )}
-            </section>
+            </Box>
         </M3Dialog>
     );
 };

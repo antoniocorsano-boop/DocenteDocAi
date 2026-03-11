@@ -279,7 +279,7 @@ const renderHeader = () => {
                                     py: 0.5,
                                     px: 2,
                                     textTransform: 'uppercase',
-                                    fontSize: '0.75rem',
+                                    fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                                     fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                 }}
                             />
@@ -406,7 +406,7 @@ const renderHeader = () => {
                                     height: 28,
                                     mb: 0.5,
                                     typography: 'body2',
-                                    fontWeight: isToday ? 700 : 400,
+                                    fontWeight: isToday ? 'var(--md-sys-typescale-weight-bold)' : 'var(--md-sys-typescale-weight-regular)',
                                     color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
                                     bgcolor: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
                                     borderRadius: '50%',
@@ -428,7 +428,7 @@ const renderHeader = () => {
                                             height: 20,
                                             width: '100%',
                                             justifyContent: 'flex-start',
-                                            fontSize: '0.68rem',
+                                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                                             fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                             borderRadius: '4px',
                                             bgcolor: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :
@@ -504,7 +504,7 @@ const renderHeader = () => {
                                     height: 28,
                                     mt: 0.25,
                                     typography: 'body2',
-                                    fontWeight: isToday ? 700 : 400,
+                                    fontWeight: isToday ? 'var(--md-sys-typescale-weight-bold)' : 'var(--md-sys-typescale-weight-regular)',
                                     color: isToday ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface)',
                                     bgcolor: isToday ? 'var(--md-sys-color-primary)' : 'transparent',
                                     borderRadius: '50%',
@@ -569,7 +569,7 @@ const renderHeader = () => {
                                                 width: '100%',
                                                 height: 'auto',
                                                 justifyContent: 'flex-start',
-                                                fontSize: '0.68rem',
+                                                fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                                                 fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                                 borderRadius: '4px',
                                                 mb: 0.25,
@@ -735,7 +735,7 @@ const renderHeader = () => {
                                                 size="small"
                                                 sx={{
                                                     height: 24,
-                                                    fontSize: '0.7rem',
+                                                    fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                                                     fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                                     flexShrink: 0,
                                                     bgcolor: ev.tipo === 'urgente' ? 'var(--md-sys-color-error-container)' :

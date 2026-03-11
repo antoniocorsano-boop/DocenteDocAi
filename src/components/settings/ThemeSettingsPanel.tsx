@@ -13,20 +13,20 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
   return (
     <Paper
       elevation={2}
-      style={{
+      sx={{
         padding: 'var(--md-sys-spacing-4)',
         maxWidth: 'var(--md-sys-layout-panel-max-width)',
         margin: `0 var(--md-sys-margin-auto)`,
       }}
     >
-      <Typography variant="h6" style={{ marginBottom: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-on-surface)' }}>
+      <Typography variant="h6" sx={{ marginBottom: 'var(--md-sys-spacing-4)', color: 'var(--md-sys-color-on-surface)' }}>
         Theme Settings
       </Typography>
 
       {/* Dark Mode note */}
       <Paper
         elevation={1}
-        style={{
+        sx={{
           display: 'flex',
           alignItems: 'center',
           gap: 'var(--md-sys-spacing-3)',
@@ -35,13 +35,13 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         }}
       >
         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>brightness_auto</Box>
-        <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0 }}>
+        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', margin: 0 }}>
           Dark Mode — tema gestito dal sistema operativo (MD3 Compliant)
         </Typography>
       </Paper>
 
       {/* Color Overrides */}
-      <Typography variant="h6" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
+      <Typography variant="h6" sx={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
         Color Overrides (MD3 System Colors)
       </Typography>
       <div style={{
@@ -58,8 +58,8 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
           { key: 'surface',    label: 'Surface',    value: 'var(--md-sys-color-surface)' },
           { key: 'background', label: 'Background', value: 'var(--md-sys-color-background)' },
         ].map(({ key, label, value }) => (
-          <Paper key={key} elevation={1} style={{ padding: 'var(--md-sys-spacing-2)' }}>
-            <Typography variant="overline" component="span" style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface)' }}>{label}</Typography>
+          <Paper key={key} elevation={1} sx={{ padding: 'var(--md-sys-spacing-2)' }}>
+            <Typography variant="overline" component="span" sx={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface)' }}>{label}</Typography>
             <div style={{
               width: 'var(--md-sys-percent-100)',
               height: 'var(--md-sys-spacing-6)',
@@ -70,14 +70,14 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-              <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface)' }}>{value}</Typography>
+              <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface)' }}>{value}</Typography>
             </div>
           </Paper>
         ))}
       </div>
 
       {/* Typography Scale */}
-      <Typography variant="h6" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
+      <Typography variant="h6" sx={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
         Typography Scale (MD3 System)
       </Typography>
       <div style={{
@@ -87,15 +87,15 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         marginBottom: 'var(--md-sys-spacing-6)',
       }}>
         {(['display-large', 'headline-large', 'title-large', 'body-large'] as const).map(variant => (
-          <Paper key={variant} elevation={1} style={{ padding: 'var(--md-sys-spacing-2)' }}>
-            <Typography variant="overline" component="span" style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>{variant}</Typography>
-            <Typography variant="body1" style={{ color: 'var(--md-sys-color-on-surface)' }}>Aa</Typography>
+          <Paper key={variant} elevation={1} sx={{ padding: 'var(--md-sys-spacing-2)' }}>
+            <Typography variant="overline" component="span" sx={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>{variant}</Typography>
+            <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface)' }}>Aa</Typography>
           </Paper>
         ))}
       </div>
 
       {/* Spacing Scale */}
-      <Typography variant="h6" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
+      <Typography variant="h6" sx={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
         Spacing Scale (MD3 System)
       </Typography>
       <div style={{
@@ -105,8 +105,8 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
         marginBottom: 'var(--md-sys-spacing-6)',
       }}>
         {[1, 2, 3, 4, 5, 6].map(n => (
-          <Paper key={n} elevation={1} style={{ padding: 'var(--md-sys-spacing-2)' }}>
-            <Typography variant="overline" component="span" style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>spacing-{n}</Typography>
+          <Paper key={n} elevation={1} sx={{ padding: 'var(--md-sys-spacing-2)' }}>
+            <Typography variant="overline" component="span" sx={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>spacing-{n}</Typography>
             <div style={{
               width: 'var(--md-sys-percent-100)',
               height: `var(--md-sys-spacing-${n})`,
@@ -119,7 +119,7 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
       </div>
 
       {/* Motion Scale */}
-      <Typography variant="h6" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
+      <Typography variant="h6" sx={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
         Motion &amp; Easing (MD3 System)
       </Typography>
       <div style={{
@@ -134,9 +134,9 @@ export const ThemeSettingsPanel: React.FC<ThemeSettingsPanelProps> = ({ onClose 
           { label: 'Short Duration',  value: 'var(--md-sys-motion-duration-short2)' },
           { label: 'Medium Duration', value: 'var(--md-sys-motion-duration-medium2)' },
         ].map(({ label, value }) => (
-          <Paper key={label} elevation={1} style={{ padding: 'var(--md-sys-spacing-2)' }}>
-            <Typography variant="overline" component="span" style={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>{label}</Typography>
-            <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface)', wordBreak: 'break-all' }}>{value}</Typography>
+          <Paper key={label} elevation={1} sx={{ padding: 'var(--md-sys-spacing-2)' }}>
+            <Typography variant="overline" component="span" sx={{ display: 'block', marginBottom: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }}>{label}</Typography>
+            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', wordBreak: 'break-all' }}>{value}</Typography>
           </Paper>
         ))}
       </div>

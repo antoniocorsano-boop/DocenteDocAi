@@ -217,7 +217,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                     onClose={() => setViewingStudents(null)}
                     maxWidth="md"
                 >
-                    <DialogContent style={{gap: 'var(--md-sys-spacing-2)'}}>
+                    <DialogContent sx={{gap: 'var(--md-sys-spacing-2)'}}>
                                 {viewingStudents.students.map(student => {
                                      return (
                                         <div 

@@ -1,4 +1,4 @@
-﻿// MD3 Compliant - Block J Migration Complete (1 violation eliminated)
+// MD3 Compliant - Block J Migration Complete (1 violation eliminated)
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Studente, KnowledgeBaseEntry } from '../types';
@@ -250,7 +250,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                     <Button
                         onClick={() => setShowArchived(!showArchived)}
                         variant={showArchived ? "contained" : "text"}
-                        style={{
+                        sx={{
                             // student-manager-archive-toggle styles
                             marginLeft: 'var(--md-sys-spacing-2)'
                         }}

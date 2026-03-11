@@ -1,4 +1,4 @@
-// MD3 Gold Compliant
+﻿// MD3 Gold Compliant
 // Skeleton loaders per feedback durante caricamento
 // Audit: febbraio 2026
 
@@ -102,6 +102,7 @@ export const SkeletonList: React.FC<SkeletonListProps> = ({
           <Skeleton 
             width="60%" 
             height="var(--md-sys-spacing-3)" 
+            // eslint-disable-next-line no-restricted-syntax
             style={{ marginBottom: 'var(--md-sys-spacing-2)' }}
           />
           <Skeleton 

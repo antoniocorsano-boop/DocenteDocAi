@@ -117,9 +117,6 @@ export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({ children }) =>
           setOverrides(parsed);
         }
         
-        // Simulate async theme loading
-        await new Promise(resolve => setTimeout(resolve, 100));
-        
       } catch (error) {
         console.warn('Failed to parse theme overrides from localStorage', error);
         setHasError(true);

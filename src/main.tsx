@@ -173,6 +173,13 @@ function AppMuiThemeWrapper({ children }: { children: React.ReactNode }) {
   const resolvedMode: 'light' | 'dark' =
     mode === 'system' ? (systemDark ? 'dark' : 'light') : mode;
   const theme = useMemo(() => buildMuiTheme(resolvedMode), [resolvedMode]);
+
+  // Phase 1.2: Sync CSS class with MUI theme in the same commit to eliminate
+  // mixed-mode frames (MUI dark while CSS still light, or vice versa)
+  useEffect(() => {
+    document.documentElement.classList.toggle('theme-dark', resolvedMode === 'dark');
+  }, [resolvedMode]);
+
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline enableColorScheme />

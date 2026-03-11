@@ -80,7 +80,7 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
             mode="fullscreen"
         >
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", height: "var(--md-sys-percent-100)" }}>
-                <DialogContent style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 30%, transparent)' }}>
+                <DialogContent sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 30%, transparent)' }}>
                     <div style={{padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-8)'}}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <TextField 
@@ -89,7 +89,7 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                 onChange={e => setRubrica({...rubrica, titolo: e.target.value})} 
                                 placeholder="Es. Rubrica per Prova Orale di Storia"
                                 required
-                                style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
+                                sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
                             />
                         </div>
                         
@@ -134,7 +134,7 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                     const competenza = allCompetenze.find(c => c.id === criterio.competenzaId);
                                     if (!competenza) return null;
                                     return (
-                                        <InfoCard key={competenza.id} elevation={1} style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)' , padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                                        <InfoCard key={competenza.id} elevation={1} sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)' , padding: 'var(--md-sys-spacing-6)', gap: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)'}}>
                                                 <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-secondary) 10%, transparent)' , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-medium-font-size)"}}>{competenza.codice.charAt(0)}</div>
                                                 <Typography component="h4" variant="subtitle2" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>{competenza.nome}</Typography>
@@ -151,7 +151,7 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                                                 onChange={e => handleIndicatorChange(competenza.id, level.id, 'descrizione', e.target.value)}
                                                                 placeholder="Descrivi la padronanza..."
                                                                 rows={2}
-                                                                style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
+                                                                sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 50%, transparent)' }}
                                                             />
                                                         </div>
                                                     );
@@ -167,8 +167,8 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                     </div>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={onClose} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</Button>
-                    <Button onClick={handleSubmit} variant="contained"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Salva Rubrica</Button>
+                    <Button onClick={onClose} variant="text" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Annulla</Button>
+                    <Button onClick={handleSubmit} variant="contained"  sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Salva Rubrica</Button>
                 </DialogActions>
             </form>
         </M3Dialog>

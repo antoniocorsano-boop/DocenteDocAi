@@ -1,4 +1,4 @@
-﻿// MD3 Gold Compliant
+// MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 
@@ -240,7 +240,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                                     }
                                     icon="description"
                                     variant="surface"
-                                    style={{ marginBottom: 'var(--md-sys-spacing-8)' }}
+                                    sx={{ marginBottom: 'var(--md-sys-spacing-8)' }}
                                 />
 
                                 <Box

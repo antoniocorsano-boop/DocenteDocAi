@@ -1,4 +1,4 @@
-/**
+﻿/**
  * MetricCard Component
  * Card per visualizzare singole metriche con trend e confronto baseline
  */

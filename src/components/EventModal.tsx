@@ -1,4 +1,4 @@
-﻿// MD3 Compliant
+// MD3 Compliant
 import React, { useState } from 'react';
 import { EventoCalendario, TipoEvento } from '../types';
 import Button from '@mui/material/Button';
@@ -152,7 +152,7 @@ const EventModal: React.FC<EventModalProps> = ({ eventToEdit, onClose, onSave, o
                     value={event.descrizione || ''}
                     onChange={e => handleChange('descrizione', e.target.value)}
                     rows={3}
-                    style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}
+                    sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}
                 />
                 {validationError && (
                     <Typography variant="body2" sx={{ color: 'var(--md-sys-color-error)', mt: 'var(--md-sys-spacing-2)' }}>

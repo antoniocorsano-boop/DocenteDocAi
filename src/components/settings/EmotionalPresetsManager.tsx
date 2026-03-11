@@ -341,7 +341,7 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({ selec
         return (
           <Card
             key={presetKey}
-            style={{
+            sx={{
               padding: 'var(--md-sys-spacing-4)',
               cursor: 'pointer',
               border: isSelected ? `var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)` : 'none',
@@ -354,18 +354,18 @@ const EmotionalPresetsManager: React.FC<EmotionalPresetsManagerProps> = ({ selec
             onClick={() => handleSelect(presetKey)}
             aria-selected={isSelected}
           >
-            <Typography variant="subtitle1" style={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
+            <Typography variant="subtitle1" sx={{ marginBottom: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-on-surface)' }}>
               {preset.name}
             </Typography>
-            <Typography variant="body2" style={{ marginBottom: 'var(--md-sys-spacing-3)', color: 'var(--md-sys-color-on-surface)' }}>
+            <Typography variant="body2" sx={{ marginBottom: 'var(--md-sys-spacing-3)', color: 'var(--md-sys-color-on-surface)' }}>
               {preset.description}
             </Typography>
             {isSelected ? (
-              <Typography variant="body1" style={{ color: 'var(--md-sys-color-primary)' }}>
+              <Typography variant="body1" sx={{ color: 'var(--md-sys-color-primary)' }}>
                 Selected
               </Typography>
             ) : (
-              <Button variant="outlined" style={{ color: 'var(--md-sys-color-primary)' }}>
+              <Button variant="outlined" sx={{ color: 'var(--md-sys-color-primary)' }}>
                 Select
               </Button>
             )}

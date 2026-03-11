@@ -38,8 +38,7 @@ const Card: React.FC<CardProps> = ({ icon, title, description, color = 'surface'
             tabIndex={clickable ? 0 : undefined}
             aria-label={ariaLabel ?? (clickable ? `${title}: ${description}` : undefined)}
             onKeyDown={(e) => { if (clickable && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onClick?.(); } }}
-            style={style}
-            sx={{
+            sx={[style ?? {}, {
                 backgroundColor: bg,
                 borderRadius: 'var(--md-sys-shape-corner-large)',
                 border: '1px solid var(--md-sys-color-outline-variant)',
@@ -47,7 +46,7 @@ const Card: React.FC<CardProps> = ({ icon, title, description, color = 'surface'
                 boxShadow: 'var(--md-sys-elevation-level1)',
                 transition: 'transform 500ms cubic-bezier(0.38,1.21,0.22,1.00), box-shadow var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard)',
                 '&:hover': clickable ? { transform: 'scale(1.04)', boxShadow: 'var(--md-sys-elevation-level3)' } : {},
-            }}
+            }]}
         >
             <CardContent sx={{ p: 'var(--md-sys-spacing-8)', '&:last-child': { pb: 'var(--md-sys-spacing-8)' } }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
@@ -175,8 +174,8 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
             }}>
                 <input {...getInputProps()} />
                 <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)', transition: "transform var(--md-sys-motion-duration-medium)"}}>cloud_upload</span>
-                <Typography variant="caption" style={{textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)"}}>Carica Elaborato</Typography>
-                <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-secondary)", marginTop: 'var(--md-sys-spacing-4)'}}>Trascina qui il file o clicca per selezionare</Typography>
+                <Typography variant="caption" sx={{textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)"}}>Carica Elaborato</Typography>
+                <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-secondary)", marginTop: 'var(--md-sys-spacing-4)'}}>Trascina qui il file o clicca per selezionare</Typography>
             </div>
         );
     }
@@ -191,11 +190,11 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                     <Avatar name={`${student.nome} ${student.cognome}`} size="md"  />
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                        <Typography variant="h6" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em" }}>Diario di Classe</Typography>
-                        <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface-variant)', textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-supporting)" }}>Classe {student.classe} • {student.nome} {student.cognome}</Typography>
+                        <Typography variant="h6" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em" }}>Diario di Classe</Typography>
+                        <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-supporting)" }}>Classe {student.classe} • {student.nome} {student.cognome}</Typography>
                     </div>
                 </div>
-                <Button onClick={() => setIsExitMenuOpen(!isExitMenuOpen)} variant="outlined"  style={{color: "var(--md-sys-color-error)"}}>
+                <Button onClick={() => setIsExitMenuOpen(!isExitMenuOpen)} variant="outlined"  sx={{color: "var(--md-sys-color-error)"}}>
                     <span style={{
 }}>power_settings_new</span>
                 </Button>
@@ -208,8 +207,8 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                         >
                             <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>logout</span>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                <Typography variant="caption" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Termina Sessione</Typography>
-                                <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-supporting)" }}>Torna al login studenti</Typography>
+                                <Typography variant="caption" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Termina Sessione</Typography>
+                                <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-supporting)" }}>Torna al login studenti</Typography>
                             </div>
                         </button>
                         {onExitMode && (
@@ -220,8 +219,8 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                 <span style={{
 }}>lock</span>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                    <Typography variant="caption" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Menu Docente</Typography>
-                                    <Typography variant="caption" style={{ opacity: "var(--md-sys-state-opacity-supporting)" }}>Richiede PIN di sicurezza</Typography>
+                                    <Typography variant="caption" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Menu Docente</Typography>
+                                    <Typography variant="caption" sx={{ opacity: "var(--md-sys-state-opacity-supporting)" }}>Richiede PIN di sicurezza</Typography>
                                 </div>
                             </button>
                         )}
@@ -296,14 +295,14 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                         <span style={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", color: "var(--md-sys-color-primary)"}}>{item.title}</span>
                                     </div>
                                 </div>
-                                <Typography variant="h5" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em" }}>{item.content}</Typography>
+                                <Typography variant="h5" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em" }}>{item.content}</Typography>
                                 {item.homework && (
                                     <div style={{ backgroundColor: 'var(--md-sys-color-tertiary)', opacity: 0.05, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
                                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: "var(--md-sys-color-tertiary)"}}>
                                             <span  style={{ fontSize: "var(--md-sys-typescale-headline-small-font-size)" }}>home_work</span>
                                             <span style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Compito per casa</span>
                                         </div>
-                                        <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface-variant)', lineHeight: "1.625" }}>{item.homework}</Typography>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', lineHeight: "1.625" }}>{item.homework}</Typography>
                                     </div>
                                 )}
                                 {settings && (
@@ -311,7 +310,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                         onClick={() => handleDownloadHomeworkSheet(item.originalLesson)}
                                         disabled={isGeneratingPdf}
                                         variant="text"
-                                        style={{ color: 'var(--md-sys-color-on-surface-variant)', width: "var(--md-sys-percent-100)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}
+                                        sx={{ color: 'var(--md-sys-color-on-surface-variant)', width: "var(--md-sys-percent-100)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}
                                      >
                                          <span  style={{ marginRight: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>print</span>
                                          {isGeneratingPdf ? 'Generazione PDF...' : 'Scarica Scheda Lezione'}
@@ -321,7 +320,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                         )) : (
                             <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 'var(--md-sys-state-opacity-tint-moderate)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
                                 <span style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)', opacity: "var(--md-sys-state-opacity-tint-subtle)"}}>feed</span>
-                                <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-empty)" }}>Nessuna attività recente nel registro.</Typography>
+                                <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-empty)" }}>Nessuna attività recente nel registro.</Typography>
                             </div>
                         )}
                     </div>
@@ -346,8 +345,8 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                     >
                                         <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 'var(--md-sys-spacing-8)'}}>
                                             <div style={{gap: 'var(--md-sys-spacing-1)'}}>
-                                                <Typography variant="h6" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em" }}>{lesson.materia}</Typography>
-                                                <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-secondary)" }}>{lesson.contenuto}</Typography>
+                                                <Typography variant="h6" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em" }}>{lesson.materia}</Typography>
+                                                <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-secondary)" }}>{lesson.contenuto}</Typography>
                                             </div>
                                             <span style={{ color: 'var(--md-sys-color-primary)', backgroundColor: 'var(--md-sys-color-primary)', opacity: 'var(--md-sys-state-opacity-tint-faint)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", borderRadius: 'var(--md-sys-spacing-4)' }}>Nuovo</span>
                                         </div>
@@ -359,7 +358,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                 ))}
                                 {pendingHomework.length === 0 && (
                                     <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 'var(--md-sys-state-opacity-tint-moderate)', borderRadius: 'var(--md-sys-shape-corner-large)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", textAlign: "center"}}>
-                                        <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-empty)" }}>Nessun compito in sospeso.</Typography>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-empty)" }}>Nessun compito in sospeso.</Typography>
                                     </div>
                                 )}
                             </div>
@@ -377,8 +376,8 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                     return (
                                         <div key={sub.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 'var(--md-sys-state-opacity-placeholder)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "color var(--md-sys-motion-duration-medium)"}}>
                                             <div style={{gap: 'var(--md-sys-spacing-1)'}}>
-                                                <Typography variant="caption" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>{relatedLesson?.materia || 'Materia'}</Typography>
-                                                <Typography variant="caption" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-medium)", opacity: "var(--md-sys-state-opacity-secondary)" }}>{new Date(sub.date).toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' })}</Typography>
+                                                <Typography variant="caption" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>{relatedLesson?.materia || 'Materia'}</Typography>
+                                                <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-medium)", opacity: "var(--md-sys-state-opacity-secondary)" }}>{new Date(sub.date).toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' })}</Typography>
                                             </div>
                                             <div style={{display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 'var(--md-sys-spacing-8)'}}>
                                                 <span style={{
@@ -400,7 +399,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                     )
                                 })}
                                 {submittedHomework.length === 0 && (
-                                    <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-empty)" }}>Nessuna consegna effettuata.</Typography>
+                                    <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-empty)" }}>Nessuna consegna effettuata.</Typography>
                                 )}
                             </div>
                         </div>
@@ -421,13 +420,13 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                         {entry.fileName.endsWith('.pdf') ? 'picture_as_pdf' : 'description'}
                                     </span>
                                 </div>
-                                <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", lineHeight: "1.625" }}>{entry.fileName}</Typography>
+                                <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", lineHeight: "1.625" }}>{entry.fileName}</Typography>
                             </Card>
                         ))}
                         {kb.length === 0 && (
                             <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 'var(--md-sys-state-opacity-tint-moderate)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                                 <span style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)', opacity: "var(--md-sys-state-opacity-tint-subtle)"}}>folder_off</span>
-                                <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-empty)" }}>Nessun materiale condiviso.</Typography>
+                                <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-empty)" }}>Nessun materiale condiviso.</Typography>
                             </div>
                         )}
                      </div>

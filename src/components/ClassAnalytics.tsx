@@ -57,7 +57,7 @@ const ClassAnalytics: React.FC<ClassAnalyticsProps> = ({ userClasses, students, 
             onClose={onClose}
             maxWidth="xl"
         >
-            <DialogContent style={{gap: 'var(--md-sys-spacing-6)'}}>
+            <DialogContent sx={{gap: 'var(--md-sys-spacing-6)'}}>
                 <div  style={{display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
                         <Typography component="h3" variant="h5" sx={{ color: 'var(--md-sys-color-on-primary)' , fontSize: 'var(--md-sys-typescale-headline-small-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", marginBottom: 'var(--md-sys-spacing-8)'}}>Media Voti per Classe</Typography>

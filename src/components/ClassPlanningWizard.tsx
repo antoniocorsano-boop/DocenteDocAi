@@ -375,7 +375,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             title="Progettazione Annuale Guidata"
             mode="fullscreen"
         >
-            <DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-4)' }}>
+            <DialogContent sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', padding: 'var(--md-sys-spacing-4)' }}>
                 <div style={{ display: "flex", justifyContent: "center", maxWidth: "var(--md-sys-layout-container-max-width)" }}>
                     {renderStepIndicator()}
 
@@ -387,7 +387,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 icon="settings_input_component"
                             />
                             
-                            <InfoCard style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                            <InfoCard sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <label>Classe Target</label>
@@ -407,7 +407,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             <InfoCard 
                                 title="Documenti di Riferimento (KB)" 
                                 icon="folder_open"
-                                style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}
+                                sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}
                             >
                                 <div style={{ maxHeight: 'var(--md-sys-spacing-11)', overflowY: 'auto' }}>
                                     {recommendedFiles.length > 0 ? recommendedFiles.map(kb => (
@@ -435,7 +435,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 icon="analytics"
                             />
                             
-                            <InfoCard style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                            <InfoCard sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                 <div style={{ marginBottom: 'var(--md-sys-spacing-8)' }}>
                                     {SITUATION_TAGS.map(tag => (
                                         <button 
@@ -467,7 +467,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                             </InfoCard>
 
                             {situationText && (
-                                <InfoCard title="Testo Analisi" icon="description" style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                                <InfoCard title="Testo Analisi" icon="description" sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                     <textarea style={{ width: "var(--md-sys-percent-full)" }} rows={6} value={situationText} onChange={e => setSituationText(e.target.value)} />
                                 </InfoCard>
                             )}
@@ -482,7 +482,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 icon="psychology"
                             />
                             
-                            <InfoCard style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                            <InfoCard sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                                     <label>Strategie Didattiche</label>
                                     <Button onClick={handleGenerateMethodology} disabled={isGeneratingMethodology} variant="text" sx={{ display: 'flex', alignItems: "center", gap: 'var(--md-sys-spacing-8)' }} title="Suggerisci metodologie adatte al contesto">
@@ -520,11 +520,11 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                     variant="outlined"
                                     icon="info"
                                     onClose={() => setShowSequenceHelp(false)}
-                                    style={{ marginBottom: 'var(--md-sys-spacing-8)' }}
+                                    sx={{ marginBottom: 'var(--md-sys-spacing-8)' }}
                                 />
                             )}
 
-                            <InfoCard style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                            <InfoCard sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                 <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end" }}>
                                     <div style={{ flexGrow: 1 }}>
                                         <label>Titolo UDA</label>
@@ -593,7 +593,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                 icon="event_repeat"
                             />
                             
-                            <InfoCard style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
+                            <InfoCard sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <label>Fine 1� Periodo</label>
@@ -650,7 +650,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                 </div>
             </DialogContent>
 
-            <DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
+            <DialogActions sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                     {step !== 'document' && (
                         <>
                             {step !== 'context' && <Button onClick={() => setStep(p => p === 'situation' ? 'context' : p === 'methodology' ? 'situation' : p === 'sequence' ? 'methodology' : 'sequence')} variant="text" title="Torna indietro">Indietro</Button>}

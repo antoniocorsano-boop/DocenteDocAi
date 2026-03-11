@@ -197,7 +197,16 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
                   px: 'var(--md-sys-spacing-1)',
                 }}
               >
-                <Typography variant="caption" component="span" sx={{ color: 'var(--md-sys-color-on-error)', lineHeight: 1, fontSize: '0.6rem' }}>
+                <Typography
+                  variant="caption"
+                  component="span"
+                  sx={{
+                    color: 'var(--md-sys-color-on-error)',
+                    lineHeight: 1,
+                    // eslint-disable-next-line no-restricted-syntax -- sub-MD3-scale: 0.6rem intentional for compact notification badge (no token below label-small)
+                    fontSize: '0.6rem',
+                  }}
+                >
                   {unreadCount > 99 ? '99+' : unreadCount}
                 </Typography>
               </Box>

@@ -146,7 +146,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             className="material-symbols-outlined"
             aria-hidden="true"
             sx={{
-              fontSize: '2.5rem',
+              fontSize: 'var(--md-sys-typescale-display-small-font-size)',
               color: 'var(--md-sys-color-primary)',
               fontVariationSettings: '"FILL" 0',
               flexShrink: 0,
@@ -232,7 +232,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 component="span"
                 className="material-symbols-outlined"
                 aria-hidden="true"
-                sx={{ fontSize: '1.75rem', color: card.color, fontVariationSettings: '"FILL" 0' }}
+                sx={{ fontSize: 'var(--md-sys-typescale-headline-medium-font-size)', color: card.color, fontVariationSettings: '"FILL" 0' }}
               >
                 {card.icon}
               </Box>
@@ -272,7 +272,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 className="material-symbols-outlined"
                 aria-hidden="true"
                 sx={{
-                  fontSize: '2.5rem',
+                  fontSize: 'var(--md-sys-typescale-display-small-font-size)',
                   color: 'var(--md-sys-color-on-surface-variant)',
                   fontVariationSettings: '"FILL" 0, "wght" 300',
                 }}
@@ -366,7 +366,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           textTransform: 'none',
         }}
       >
-        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: '1.25rem' }}>
+        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-title-medium-font-size)' }}>
           playlist_add_check
         </Box>
         Inizia Giornata

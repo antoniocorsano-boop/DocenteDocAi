@@ -178,7 +178,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
     return (
         <Dialog open onClose={onClose} maxWidth="xl" fullWidth hideBackdrop>
             <DialogTitle>Passaggio Anno Scolastico</DialogTitle>
-            <DialogContent style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
+            <DialogContent sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
                     {step === "intro" && (
                         <div  style={{gap: 'var(--md-sys-spacing-8)', marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)', paddingTop: 'var(--md-sys-spacing-4)', paddingBottom: 'var(--md-sys-spacing-4)'}}>
                             <InfoCard 
@@ -186,7 +186,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                                 description="Procedura guidata per archiviare i dati, calcolare lo storico e preparare le classi per il nuovo anno."
                                 icon="school"
                                 variant="contained"
-                                style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent)' }}
+                                sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 20%, transparent)' }}
                             />
                             
                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
@@ -318,23 +318,23 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
                     )}
             </DialogContent>
 
-            <DialogActions style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-6)' }}>
+            <DialogActions sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderTop: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-6)' }}>
                     {step === "intro" && (
                         <>
-                            <Button onClick={onClose} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Annulla</Button>
-                            <Button onClick={() => setStep("decisions")} variant="contained"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Inizia Scrutinio</Button>
+                            <Button onClick={onClose} variant="text" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Annulla</Button>
+                            <Button onClick={() => setStep("decisions")} variant="contained"  sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Inizia Scrutinio</Button>
                         </>
                     )}
                     {step === "decisions" && (
                         <>
-                            <Button onClick={() => setStep("intro")} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Indietro</Button>
-                            <Button onClick={() => setStep("confirm")} variant="contained"  style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Conferma Esiti</Button>
+                            <Button onClick={() => setStep("intro")} variant="text" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Indietro</Button>
+                            <Button onClick={() => setStep("confirm")} variant="contained"  sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }}>Conferma Esiti</Button>
                         </>
                     )}
                     {step === "confirm" && (
                         <>
-                            <Button onClick={() => setStep("decisions")} variant="text" style={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }} disabled={isProcessing}>Indietro</Button>
-                            <Button onClick={handleConfirm} variant="contained" style={{ backgroundColor: 'var(--md-sys-color-error)', color: 'var(--md-sys-color-on-error)', fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }} disabled={isProcessing}>
+                            <Button onClick={() => setStep("decisions")} variant="text" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }} disabled={isProcessing}>Indietro</Button>
+                            <Button onClick={handleConfirm} variant="contained" sx={{ backgroundColor: 'var(--md-sys-color-error)', color: 'var(--md-sys-color-on-error)', fontWeight: "var(--md-sys-typescale-weight-black)", fontSize: "var(--md-sys-typescale-body-small-font-size)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-large-tracking)" }} disabled={isProcessing}>
                                 {isProcessing ? "Elaborazione..." : "Esegui Passaggio Anno"}
                             </Button>
                         </>

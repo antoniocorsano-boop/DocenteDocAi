@@ -1,4 +1,4 @@
-// MD3 Compliant - Updated for layered theme access
+﻿// MD3 Compliant - Updated for layered theme access
 
 import React, { useState, useMemo } from 'react';
 import { 
@@ -166,7 +166,7 @@ const OrientamentoDashboard: React.FC<OrientamentoDashboardProps> = ({
                 <SectionHeader 
                     title="Orientamento & E-Portfolio"
                     subtitle="Monitoraggio delle 30 ore annuali e gestione documenti istituzionali (Linee Guida 2023)."
-                     style={{ flexGrow: "1" }}
+                     sx={{ flexGrow: "1" }}
                 />
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <FormControl fullWidth>

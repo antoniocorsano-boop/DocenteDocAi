@@ -1,4 +1,4 @@
-
+﻿
 // MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
@@ -202,7 +202,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
 
             {/* INFO SECTION */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                <Typography variant="body2" component="p" style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                <Typography variant="body2" component="p" sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--icon-size-medium)', color: 'var(--md-sys-color-on-surface-variant)' }}>info</Box>
                     Tocca le materie per assegnarle alle classi.
                 </Typography>

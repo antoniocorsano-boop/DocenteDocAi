@@ -23,7 +23,7 @@ const UniversalModal: React.FC<UniversalModalProps> = ({
       title={title}
       maxWidth="sm"
     >
-      <DialogContent style={{backgroundColor: 'var(--md-sys-color-surface-container-high)',
+      <DialogContent sx={{backgroundColor: 'var(--md-sys-color-surface-container-high)',
         opacity: 'var(--md-sys-state-opacity-tint-moderate)',
         backdropFilter: 'blur(var(--md-sys-blur-small))'}}>
         {children}

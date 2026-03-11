@@ -57,7 +57,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
         <div style={{marginTop: 'var(--md-sys-spacing-8)'}}>
             <InfoCard
                 variant="tertiary"
-                style={{padding: 'var(--md-sys-spacing-5)'}}
+                sx={{padding: 'var(--md-sys-spacing-5)'}}
             >
                 <div style={{display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-8)'}}>
                     <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-tertiary) 10%, transparent)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-tertiary)"}}>
@@ -85,7 +85,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                 <InfoCard 
                                     key={student.id} 
                                     elevation={1}
-                                     style={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: "pointer" }}
+                                     sx={{ transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: "pointer" }}
                                     onClick={() => setEditingStudent(student)}
                                 >
                                     <div style={{padding: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
@@ -156,7 +156,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                     <InfoCard 
                         key={student.id} 
                         variant="outlined"
-                         style={{padding: 'var(--md-sys-spacing-8)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: "pointer"}}
+                         sx={{padding: 'var(--md-sys-spacing-8)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', cursor: "pointer"}}
                         onClick={() => setEditingStudent(student)}
                     >
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
@@ -193,7 +193,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                     <InfoCard 
                         key={student.id} 
                         elevation={1}
-                         style={{ borderLeft: "var(--md-sys-border-width-normal) solid" }}
+                         sx={{ borderLeft: "var(--md-sys-border-width-normal) solid" }}
                     >
                         <div style={{padding: 'var(--md-sys-spacing-4)'}}>
                             <div style={{display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-8)'}}>
@@ -214,7 +214,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                             <Button 
                                 onClick={() => setEditingStudent(student)} 
                                 variant="outlined"
-                                 style={{ width: "var(--md-sys-percent-100)" }}
+                                 sx={{ width: "var(--md-sys-percent-100)" }}
                             >
                                 <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_circle</span>
                                 Crea Piano
@@ -249,7 +249,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                     <SectionHeader
                         title="Didattica Inclusiva"
                         subtitle="Piani personalizzati (PDP/PEI) e monitoraggio assistito dall'AI"
-                        style={{ textAlign: 'center' }}
+                        sx={{ textAlign: 'center' }}
                     />
                     <div style={{ marginTop: 'var(--md-sys-spacing-8)' }}>
                         <div style={{ display: 'flex', justifyContent: 'center' }}>

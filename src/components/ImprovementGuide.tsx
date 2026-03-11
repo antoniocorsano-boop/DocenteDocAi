@@ -1,4 +1,4 @@
-// MD3 Gold Compliant
+﻿// MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 // M3Expressive: ImprovementGuide - Class analysis and improvement report with M3 tokens
@@ -304,13 +304,13 @@ const handleExportDocx = async () => {
 
             {/* Charts */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                <InfoCard title="Distribuzione Voti" icon="bar_chart" style={{ height: "var(--md-sys-percent-100)" }}>
+                <InfoCard title="Distribuzione Voti" icon="bar_chart" sx={{ height: "var(--md-sys-percent-100)" }}>
                     <div style={{padding: 'var(--md-sys-spacing-6)'}}>
                         <BarChart data={gradeDistributionData} color="var(--md-sys-color-secondary)" />
                     </div>
                 </InfoCard>
                 {objectiveAchievementData && (
-                    <InfoCard title="Raggiungimento Obiettivi" icon="pie_chart" style={{ height: "var(--md-sys-percent-100)" }}>
+                    <InfoCard title="Raggiungimento Obiettivi" icon="pie_chart" sx={{ height: "var(--md-sys-percent-100)" }}>
                         <div style={{display: "flex", justifyContent: "center", padding: 'var(--md-sys-spacing-8)'}}>
                             <DonutChart data={objectiveAchievementData} />
                         </div>

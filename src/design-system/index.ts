@@ -209,14 +209,14 @@ export const applyTheme = (theme: Theme): void => {
   root.style.colorScheme = themeToApply.mode;
   root.setAttribute('data-visual-style', themeToApply.visualStyle || 'aura');
 
-  // Remove both legacy theme-* classes and current dark/light classes to avoid conflicts
-  const classesToRemove = Array.from(body.classList).filter(
-    c => c === 'dark' || c === 'light' || c.startsWith('theme-')
-  );
-  if (classesToRemove.length > 0) body.classList.remove(...classesToRemove);
+  // Apply dark mode via .theme-dark on documentElement (single mechanism, synced with theme.css)
+  root.classList.toggle('theme-dark', themeToApply.mode === 'dark');
 
-  // Add the mode class matching the CSS selector (.dark { }) in global.css
-  body.classList.add(themeToApply.mode);
+  // Remove any legacy mode classes still on body from previous architecture
+  const legacyBodyClasses = Array.from(body.classList).filter(
+    c => c === 'dark' || c === 'light' || c === 'theme-dark' || c === 'theme-light'
+  );
+  if (legacyBodyClasses.length > 0) body.classList.remove(...legacyBodyClasses);
 
   if (themeToApply.name) {
       const themeSlug = themeToApply.name

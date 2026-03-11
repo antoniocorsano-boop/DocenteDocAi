@@ -1,4 +1,4 @@
-﻿// HelpModal.tsx - Block H completed (70 violations eliminated)
+// HelpModal.tsx - Block H completed (70 violations eliminated)
 import React, { useState } from 'react';
 import { View, HelpModalProps } from '../types';
 import { generateTechnicalDocumentContent, generateAcademicEssayContent } from '../services/aiService';
@@ -165,7 +165,7 @@ const SetupGuide = () => (
         gap: 'var(--md-sys-spacing-4)'
     }}>
         <Typography variant="h6">Guida alla Configurazione Iniziale</Typography>
-        <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface)' }}>Segui questi passaggi per configurare OrarioDoc AI per il nuovo anno scolastico.</Typography>
+        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)' }}>Segui questi passaggi per configurare OrarioDoc AI per il nuovo anno scolastico.</Typography>
 
         <div style={{
             backgroundColor: 'var(--md-sys-color-surface-container-low)',
@@ -173,12 +173,12 @@ const SetupGuide = () => (
             padding: 'var(--md-sys-spacing-4)',
             border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
         }}>
-            <Typography variant="subtitle1" style={{
+            <Typography variant="subtitle1" sx={{
                 color: 'var(--md-sys-color-primary)',
                 fontWeight: 'var(--md-sys-typescale-weight-bold)',
                 marginBottom: 'var(--md-sys-spacing-3)'
             }}>1. Impostazioni Generali</Typography>
-            <Typography variant="body2" style={{
+            <Typography variant="body2" sx={{
                 color: 'var(--md-sys-color-on-surface)',
                 marginBottom: 'var(--md-sys-spacing-3)'
             }}>Vai nel menu <strong>Impostazioni</strong> (icona ingranaggio in alto a destra).</Typography>
@@ -201,12 +201,12 @@ const SetupGuide = () => (
             padding: 'var(--md-sys-spacing-4)',
             border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-primary)`
         }}>
-            <Typography variant="subtitle1" style={{
+            <Typography variant="subtitle1" sx={{
                 color: 'var(--md-sys-color-on-primary-container)',
                 fontWeight: 'var(--md-sys-typescale-weight-bold)',
                 marginBottom: 'var(--md-sys-spacing-3)'
             }}>2. Configurazione Classi e Materie</Typography>
-            <Typography variant="body2" style={{
+            <Typography variant="body2" sx={{
                 color: 'var(--md-sys-color-on-primary-container)',
                 marginBottom: 'var(--md-sys-spacing-3)'
             }}>Sempre in Impostazioni:</Typography>
@@ -229,12 +229,12 @@ const SetupGuide = () => (
             padding: 'var(--md-sys-spacing-4)',
             border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-primary)`
         }}>
-            <Typography variant="subtitle1" style={{
+            <Typography variant="subtitle1" sx={{
                 color: 'var(--md-sys-color-on-primary-container)',
                 fontWeight: 'var(--md-sys-typescale-weight-bold)',
                 marginBottom: 'var(--md-sys-spacing-3)'
             }}>3. Inserimento Studenti</Typography>
-            <Typography variant="body2" style={{
+            <Typography variant="body2" sx={{
                 color: 'var(--md-sys-color-on-primary-container)',
                 marginBottom: 'var(--md-sys-spacing-3)'
             }}>Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Importa Studenti".</Typography>
@@ -257,12 +257,12 @@ const SetupGuide = () => (
             padding: 'var(--md-sys-spacing-4)',
             border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-primary)`
         }}>
-            <Typography variant="subtitle1" style={{
+            <Typography variant="subtitle1" sx={{
                 color: 'var(--md-sys-color-on-primary-container)',
                 fontWeight: 'var(--md-sys-typescale-weight-bold)',
                 marginBottom: 'var(--md-sys-spacing-3)'
             }}>4. Costruzione Orario</Typography>
-            <Typography variant="body2" style={{
+            <Typography variant="body2" sx={{
                 color: 'var(--md-sys-color-on-primary-container)',
                 marginBottom: 'var(--md-sys-spacing-3)'
             }}>Apri il <strong>Centro Operativo (⚡)</strong> e scegli "Configura Orario".</Typography>
@@ -300,7 +300,7 @@ const DigitalTeacherManual = () => {
             }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <Typography variant="h6">Manuale Integrale e Normativa</Typography>
-                    <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface)' }}>Versione 4.1.0 - M3 Expressive Edition</Typography>
+                    <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)' }}>Versione 4.1.0 - M3 Expressive Edition</Typography>
                 </div>
                 <Button onClick={downloadManual} variant="outlined" sx={{
                     fontSize: 'var(--md-sys-typescale--font-size)',
@@ -328,11 +328,11 @@ const DigitalTeacherManual = () => {
 
             <ManualSection title="1. Normativa, Sicurezza e Privacy" icon="security" defaultOpen>
                 <div style={{ marginBottom: 'var(--md-sys-spacing-4)' }}>
-                     <Typography variant="button" style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', marginBottom: 'var(--md-sys-spacing-2)' }}>GDPR & Sovranità del Dato</Typography>
-                     <Typography variant="body2" style={{ marginBottom: 'var(--md-sys-spacing-3)' }}>L'architettura <strong>Local-First</strong> garantisce che i dati sensibili degli studenti (voti, PEI) non vengano mai inviati a server proprietari del fornitore del software. Il titolare del trattamento resta la scuola/docente.</Typography>
+                     <Typography variant="button" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', marginBottom: 'var(--md-sys-spacing-2)' }}>GDPR & Sovranità del Dato</Typography>
+                     <Typography variant="body2" sx={{ marginBottom: 'var(--md-sys-spacing-3)' }}>L'architettura <strong>Local-First</strong> garantisce che i dati sensibili degli studenti (voti, PEI) non vengano mai inviati a server proprietari del fornitore del software. Il titolare del trattamento resta la scuola/docente.</Typography>
 
-                     <Typography variant="button" style={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', marginBottom: 'var(--md-sys-spacing-2)' }}>Norme Scolastiche</Typography>
-                     <Typography variant="body2" style={{ marginBottom: 'var(--md-sys-spacing-3)' }}>Il sistema supporta nativamente:</Typography>
+                     <Typography variant="button" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', marginBottom: 'var(--md-sys-spacing-2)' }}>Norme Scolastiche</Typography>
+                     <Typography variant="body2" sx={{ marginBottom: 'var(--md-sys-spacing-3)' }}>Il sistema supporta nativamente:</Typography>
                      <ul style={{ margin: 0, paddingLeft: 'var(--md-sys-spacing-5)' }}>
                          <li><strong>L. 170/2010 & Dir. BES:</strong> Modulo Inclusione dedicato.</li>
                          <li><strong>DPR 122/2009:</strong> Valutazione formativa e sommativa.</li>
@@ -386,7 +386,7 @@ const DigitalTeacherManual = () => {
                         padding: 'var(--md-sys-spacing-4)',
                         border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
                     }}>
-                        <Typography variant="button" style={{
+                        <Typography variant="button" sx={{
                             display: 'flex',
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-2)',
@@ -399,7 +399,7 @@ const DigitalTeacherManual = () => {
                             }}>admin_panel_settings</span>
                             Per il Dirigente
                         </Typography>
-                        <Typography variant="body2" style={{
+                        <Typography variant="body2" sx={{
                             color: 'var(--md-sys-color-on-surface)',
                             lineHeight: '1.5'
                         }}>Standardizzazione della documentazione didattica e monitoraggio effettivo delle UDA progettate. Riduzione del contenzioso grazie a valutazioni trasparenti.</Typography>
@@ -410,7 +410,7 @@ const DigitalTeacherManual = () => {
                         padding: 'var(--md-sys-spacing-4)',
                         border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)`
                     }}>
-                        <Typography variant="button" style={{
+                        <Typography variant="button" sx={{
                             display: 'flex',
                             alignItems: 'center',
                             gap: 'var(--md-sys-spacing-2)',
@@ -423,7 +423,7 @@ const DigitalTeacherManual = () => {
                             }}>engineering</span>
                             Per l'Animatore Digitale
                         </Typography>
-                        <Typography variant="body2" style={{
+                        <Typography variant="body2" sx={{
                             color: 'var(--md-sys-color-on-surface)',
                             lineHeight: '1.5'
                         }}>Ambiente "Sandbox" sicuro per formare i docenti all'uso dell'AI Generativa senza rischi per la privacy. Sviluppo competenze DigCompEdu.</Typography>
@@ -437,7 +437,7 @@ const DigitalTeacherManual = () => {
 
 const VocalAssistantGuideContent = () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-        <Typography variant="button" style={{
+        <Typography variant="button" sx={{
             display: "flex",
             alignItems: "center",
             gap: 'var(--md-sys-spacing-2)'
@@ -447,7 +447,7 @@ const VocalAssistantGuideContent = () => (
             }}>mic</span>
             Il tuo Copilota Didattico
         </Typography>
-        <Typography variant="body2" style={{
+        <Typography variant="body2" sx={{
             color: 'var(--md-sys-color-on-surface)',
             lineHeight: "1.625"
         }}>
@@ -466,7 +466,7 @@ const VocalAssistantGuideContent = () => (
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)"
                 }}>
-                    <Typography variant="subtitle1" style={{
+                    <Typography variant="subtitle1" sx={{
                         color: 'var(--md-sys-color-primary)',
                         fontWeight: "var(--md-sys-typescale-weight-bold)",
                         marginBottom: 'var(--md-sys-spacing-6)',
@@ -525,10 +525,10 @@ const UserGuide = () => (
                 borderLeft: "var(--md-sys-border-width-normal) solid var(--md-sys-color-primary)",
                 padding: 'var(--md-sys-spacing-4)'
             }}>
-                <Typography variant="button" style={{
+                <Typography variant="button" sx={{
                     color: 'var(--md-sys-color-primary)'
                 }}>1. Centro Operativo</Typography>
-                <Typography variant="body2" style={{
+                <Typography variant="body2" sx={{
                     lineHeight: "1.625",
                     opacity: "var(--md-sys-state-opacity-caption)"
                 }}>Tutto parte dall'icona <strong>Fulmine (⚡)</strong> in alto. Lì trovi i processi divisi per "Quotidianità" (Aula) e "Progettazione" (Strategia). Segui i pallini di suggerimento.</Typography>
@@ -539,10 +539,10 @@ const UserGuide = () => (
                 borderLeft: "var(--md-sys-border-width-normal) solid var(--md-sys-color-secondary)",
                 padding: 'var(--md-sys-spacing-4)'
             }}>
-                <Typography variant="button" style={{
+                <Typography variant="button" sx={{
                     color: 'var(--md-sys-color-secondary)'
                 }}>2. Progettazione Intelligente</Typography>
-                <Typography variant="body2" style={{
+                <Typography variant="body2" sx={{
                     lineHeight: "1.625",
                     opacity: "var(--md-sys-state-opacity-caption)"
                 }}>Carica i tuoi PDF nella <strong>Knowledge Base</strong>. Usa il <strong>Wizard Annuale</strong> nel Centro Operativo per creare percorsi didattici che l'AI validerà automaticamente.</Typography>
@@ -553,10 +553,10 @@ const UserGuide = () => (
                 borderLeft: "var(--md-sys-border-width-normal) solid var(--md-sys-color-tertiary)",
                 padding: 'var(--md-sys-spacing-4)'
             }}>
-                <Typography variant="button" style={{
+                <Typography variant="button" sx={{
                     color: 'var(--md-sys-color-tertiary)'
                 }}>3. In Aula (Continuità)</Typography>
-                <Typography variant="body2" style={{
+                <Typography variant="body2" sx={{
                     lineHeight: "1.625",
                     opacity: "var(--md-sys-state-opacity-caption)"
                 }}>Quando apri una lezione, vedrai automaticamente il riepilogo della lezione precedente per riprendere il filo. Usa il <strong>Centro Operativo</strong> per avviare l'Assistente Vocale.</Typography>
@@ -567,10 +567,10 @@ const UserGuide = () => (
                 borderLeft: "var(--md-sys-border-width-normal) solid var(--md-sys-color-error)",
                 padding: 'var(--md-sys-spacing-4)'
             }}>
-                <Typography variant="button" style={{
+                <Typography variant="button" sx={{
                     color: 'var(--md-sys-color-error)'
                 }}>4. Analisi & Report</Typography>
-                <Typography variant="body2" style={{
+                <Typography variant="body2" sx={{
                     lineHeight: "1.625",
                     opacity: "var(--md-sys-state-opacity-caption)"
                 }}>Prima dei consigli di classe, visita l'<strong>Analytics Hub</strong> per avere grafici chiari. Genera poi il PDF del verbale con un click.</Typography>
@@ -581,7 +581,7 @@ const UserGuide = () => (
 
 const TechnicalSpecs = () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-        <Typography variant="button" style={{
+        <Typography variant="button" sx={{
             color: 'var(--md-sys-color-on-surface)'
         }}>{specsContentData.title}</Typography>
         <div style={{
@@ -614,7 +614,7 @@ const TechnicalSpecs = () => (
 const NormativaContent: React.FC = () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
         <Typography variant="h6">Privacy e Cloud</Typography>
-        <Typography variant="body2" style={{
+        <Typography variant="body2" sx={{
             color: 'var(--md-sys-color-on-surface)',
             lineHeight: "1.625"
         }}>OrarioDoc AI adotta un approccio <strong>privacy-by-design</strong> innovativo.</Typography>
@@ -624,7 +624,7 @@ const NormativaContent: React.FC = () => (
             borderRadius: 'var(--md-sys-shape-corner-extra-large)',
             padding: 'var(--md-sys-spacing-4)'
         }}>
-            <Typography variant="subtitle1" style={{
+            <Typography variant="subtitle1" sx={{
                 fontWeight: "var(--md-sys-typescale-weight-bold)",
                 color: 'var(--md-sys-color-primary)'
             }}>I Tuoi Dati, Il Tuo Cloud</Typography>
@@ -766,7 +766,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                     }}>
                         <span style={{}}>{icon}</span>
                     </div>
-                    <Typography variant="subtitle1" style={{
+                    <Typography variant="subtitle1" sx={{
                         fontWeight: "var(--md-sys-typescale-weight-bold)",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
@@ -774,13 +774,13 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                         marginLeft: 'var(--md-sys-spacing-3)'
                     }}>{title}</Typography>
                 </div>
-                <Typography variant="button" style={{
+                <Typography variant="button" sx={{
                     color: 'var(--md-sys-color-primary)',
                     flexShrink: "0",
                     fontSize: 'var(--md-sys-typescale--font-size)'
                 }}>v4.1.0</Typography>
             </div>
-            <Typography variant="body2" style={{
+            <Typography variant="body2" sx={{
                 opacity: "var(--md-sys-state-opacity-supporting)",
                 lineHeight: "1.625",
                 display: "-webkit-box",
@@ -875,7 +875,7 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
                         textAlign: "center"
                     }}>
                         <Typography variant="h6">Manuale Completo PDF</Typography>
-                        <Typography variant="body2" style={{
+                        <Typography variant="body2" sx={{
                             opacity: "var(--md-sys-state-opacity-supporting)"
                         }}>
                             Scarica il manuale PDF aggiornato alla versione 4.1.0 con la guida al Centro Operativo e le specifiche tecniche.
@@ -905,8 +905,8 @@ const NKAGuide: React.FC = () => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', marginBottom: 'var(--md-sys-spacing-2)' }}>
       <span aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-headline-medium-font-size)', color: 'var(--md-sys-color-primary)' }}>auto_awesome</span>
       <div>
-        <Typography variant="h6" style={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-black)' }}>NKA Aura — Mappa Neurale</Typography>
-        <Typography variant="body2" style={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-1)' }}>Neural Knowledge Architecture</Typography>
+        <Typography variant="h6" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-black)' }}>NKA Aura — Mappa Neurale</Typography>
+        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginTop: 'var(--md-sys-spacing-1)' }}>Neural Knowledge Architecture</Typography>
       </div>
     </div>
 
@@ -915,7 +915,7 @@ const NKAGuide: React.FC = () => (
     </InfoCard>
 
     <InfoCard title="Come aprire Aura" icon="touch_app">
-      <Typography variant="body2" style={{ marginBottom: 'var(--md-sys-spacing-3)' }}>Il pulsante <strong>Aura</strong> (<span aria-hidden="true" style={{ verticalAlign: 'middle' }}>auto_awesome</span>) si trova nell'header in alto a destra.</Typography>
+      <Typography variant="body2" sx={{ marginBottom: 'var(--md-sys-spacing-3)' }}>Il pulsante <strong>Aura</strong> (<span aria-hidden="true" style={{ verticalAlign: 'middle' }}>auto_awesome</span>) si trova nell'header in alto a destra.</Typography>
       <ul style={{ paddingLeft: 'var(--md-sys-spacing-5)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
         <li><Typography variant="body2"><strong>Tap breve</strong> → apre la mappa neurale interattiva</Typography></li>
         <li><Typography variant="body2"><strong>Pressione lunga (500ms)</strong> → apre le opzioni avanzate di Aura</Typography></li>
@@ -923,7 +923,7 @@ const NKAGuide: React.FC = () => (
     </InfoCard>
 
     <InfoCard title="Nodi e connessioni" icon="hub">
-      <Typography variant="body2" style={{ marginBottom: 'var(--md-sys-spacing-3)' }}>La mappa è composta da <strong>nodi</strong> (concetti, classi, discipline) e <strong>connessioni</strong> (relazioni semantiche tra di essi).</Typography>
+      <Typography variant="body2" sx={{ marginBottom: 'var(--md-sys-spacing-3)' }}>La mappa è composta da <strong>nodi</strong> (concetti, classi, discipline) e <strong>connessioni</strong> (relazioni semantiche tra di essi).</Typography>
       <Typography variant="body2">Quando appare il pallino colorato sul pulsante Aura, significa che un <strong>nuovo nodo è disponibile</strong> da esplorare.</Typography>
     </InfoCard>
 

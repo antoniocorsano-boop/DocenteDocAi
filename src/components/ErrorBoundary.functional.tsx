@@ -34,10 +34,10 @@ const ErrorFallback: React.FC<{ error: Error; resetErrorBoundary: () => void }> 
           <Typography component="p" variant="body1" sx={{ margin: 'var(--md-sys-spacing-4)' , color: "var(--md-sys-color-error)"}}>{error.toString()}</Typography>
         </div>
         <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-3)'}}>
-          <Button variant="contained" onClick={resetErrorBoundary} style={{ width: "var(--md-sys-percent-100)", justifyContent: "center" }}>
+          <Button variant="contained" onClick={resetErrorBoundary} sx={{ width: "var(--md-sys-percent-100)", justifyContent: "center" }}>
             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ marginRight: 'var(--md-sys-spacing-2)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>refresh</Box> Ricarica App
           </Button>
-          <Button variant="outlined" onClick={handleHardReset} style={{ width: "var(--md-sys-percent-100)", justifyContent: "center" }}>
+          <Button variant="outlined" onClick={handleHardReset} sx={{ width: "var(--md-sys-percent-100)", justifyContent: "center" }}>
             Reset Totale (Emergenza)
           </Button>
         </div>

@@ -1,4 +1,4 @@
-// MD3 Compliant
+﻿// MD3 Compliant
 import React from 'react';
 import { DndContext, useDraggable, useDroppable, DragEndEvent } from '@dnd-kit/core';
 import Box from '@mui/material/Box';
@@ -66,8 +66,8 @@ const GanttBar: React.FC<GanttBarProps> = ({ id, title, onMove, col, maxCols = 4
       aria-label={`Sposta UDA ${title}`}
       aria-pressed={keyboardDrag}
       onKeyDown={handleKeyDown}
-      style={{ '--gantt-bar-transform': visualTransform } as React.CSSProperties}
       sx={{
+        '--gantt-bar-transform': visualTransform,
         backgroundColor: isDragging ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
         boxShadow: isDragging ? 'var(--md-sys-elevation-level2)' : 'var(--md-sys-elevation-level1)',
         borderRadius: 'var(--md-sys-shape-corner-medium)',

@@ -3,7 +3,7 @@ import { render, RenderOptions } from '@testing-library/react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import type { TypographyProps } from '@mui/material/Typography';
-import { M3ThemeProvider } from './theme/M3ThemeProvider';
+import { M3ThemeProvider } from './theme/theme';
 
 function mapM3Variant(variant: string): TypographyProps['variant'] {
   const map: Record<string, TypographyProps['variant']> = {
