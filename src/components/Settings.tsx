@@ -42,7 +42,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import '../design-system/md3-utilities.css';
 import ThemeBubble from './ThemeBubble';
-import { ThemeSettingsPanel } from './settings/ThemeSettingsPanel';
+
 import ChipInputList from './ChipInputList';
 import { useSettingsLogic } from '../hooks/useSettingsLogic';
 import { errorLogger } from '../services/errorLogger';
@@ -404,7 +404,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                               onChange={(_, v: string) => ((id) => handleThemeChange({ uiMode: id as 'classic' | 'flow' }))(v)}
                               indicatorColor="primary"
                               textColor="primary"
-                              aria-label="Sezioni di navigazione"
+                              aria-label="Modalità interfaccia"
                               sx={{
                                 bgcolor: 'var(--md-sys-color-surface-container-low)',
                                 borderRadius: 'var(--md-sys-shape-corner-full)',
@@ -526,7 +526,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                   onChange={(_, v: string) => ((id) => onSaveTheme({ ...themeState, mode: id as typeof themeState.mode }))(v)}
                                   indicatorColor="primary"
                                   textColor="primary"
-                                  aria-label="Sezioni di navigazione"
+                                  aria-label="Tema colore"
                                   sx={{
                                     bgcolor: 'var(--md-sys-color-surface-container-low)',
                                     borderRadius: 'var(--md-sys-shape-corner-full)',
@@ -684,17 +684,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         </Stack>
                         </Box>
 
-                        {/* SEZIONE 7: M3 THEME SETTINGS PANEL */}
-                        <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
-                        <Stack spacing={1}>
-                            <Stack direction="row" spacing={1} alignItems="center">
-                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>tune</Box>
-                                <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>M3 Theme Panel</Typography>
-                            </Stack>
-                            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Personalizza i token M3 per colori, tipografia, spacing e motion con anteprima live.</Typography>
-                            <ThemeSettingsPanel />
-                        </Stack>
-                        </Box>
+
                     </Stack>
                 </SettingsGroup>
 
@@ -742,7 +732,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                           onChange={(_, v: string) => ((id) => handleAiProfileChange(id as keyof typeof AI_PROFILES))(v)}
                           indicatorColor="primary"
                           textColor="primary"
-                          aria-label="Sezioni di navigazione"
+                          aria-label="Profilo AI"
                           sx={{
                             bgcolor: 'var(--md-sys-color-surface-container-low)',
                             borderRadius: 'var(--md-sys-shape-corner-full)',
@@ -785,7 +775,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             p: 'var(--md-sys-spacing-6)',
                             bgcolor: currentAiProfile === 'esperto'
                                 ? 'var(--md-sys-color-secondary-container)'
-                                : 'var(--md-sys-color-primaryContainer)',
+                                : 'var(--md-sys-color-primary-container)',
                             borderRadius: 'var(--md-sys-shape-corner-medium)',
                             border: `var(--md-sys-border-width-thin) solid ${currentAiProfile === 'esperto'
                                 ? 'var(--md-sys-color-secondary)'
@@ -1005,7 +995,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                             aria-label={`Rimuovi materia ${subj}`}
                                                             sx={{ color: 'var(--md-sys-color-error)', p: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-small)' }}
                                                         >
-                                                            <Box component="span" className="material-symbols-outlined" sx={{
+                                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{
                                                                 fontSize: 'var(--md-sys-typescale-body-large-font-size)'
                                                             }}>delete</Box>
                                                         </IconButton>
@@ -1026,7 +1016,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                     justifyContent: 'center',
                                                                     p: 'var(--md-sys-spacing-3)',
                                                                     borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                                                    bgcolor: assignment ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surface-container)',
+                                                                    bgcolor: assignment ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)',
                                                                     border: `var(--md-sys-border-width-thin) solid ${assignment ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)'}`,
                                                                     transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
                                                                     minHeight: 'var(--md-sys-spacing-4)',
@@ -1035,7 +1025,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                             >
                                                                 {assignment ? (
                                                                     <>
-                                                                        <Box component="span" className="material-symbols-outlined" sx={{color: 'var(--md-sys-color-primary)',
+                                                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-primary)',
                                                                             fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                                                                             marginRight: 'var(--md-sys-spacing-4)'}}>check_circle</Box>
                                                                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }} onClick={e => e.stopPropagation()}>
@@ -1056,7 +1046,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                                         </Box>
                                                                     </>
                                                                 ) : (
-                                                                    <Box component="span" className="material-symbols-outlined" sx={{color: 'var(--md-sys-color-outline-variant)',
+                                                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-outline-variant)',
                                                                         fontSize: 'var(--md-sys-typescale-body-large-font-size)'}}>add</Box>
                                                                 )}
                                                             </Box>
@@ -1195,7 +1185,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                         return null;
                     })()}
 
-                    <Box sx={{ p: 2, bgcolor: driveState.isAuthenticated ? 'var(--md-sys-color-primaryContainer)' : 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: driveState.isAuthenticated ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
+                    <Box sx={{ p: 2, bgcolor: driveState.isAuthenticated ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: driveState.isAuthenticated ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-outline-variant)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
                         <Stack direction="row" spacing={1} alignItems="center">
                             <Box sx={{ width: 36, height: 36, borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: driveState.isAuthenticated ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)', color: driveState.isAuthenticated ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)' }}>
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{driveState.isAuthenticated ? 'cloud_done' : 'cloud_off'}</Box>
