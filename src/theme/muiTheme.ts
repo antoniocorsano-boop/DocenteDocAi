@@ -44,7 +44,7 @@ export function buildMuiTheme(mode: 'light' | 'dark'): Theme {
   },
 
   typography: {
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: "'Roboto Flex', Roboto, sans-serif",
     // MD3 typescale mappati su MUI — valori raw per MUI JS (no CSS vars: MUI non sa parsarli)
     // I token CSS corrispondenti sono in theme.css --md-sys-typescale-*
     h1: {

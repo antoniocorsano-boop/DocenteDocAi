@@ -335,7 +335,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                     contentEditable
                     onInput={handleInput}
                     
-                    style={{ fontFamily: "'Times New Roman', serif", fontSize: 'var(--md-sys-typescale-body-medium-font-size)', lineHeight: '1.5' }}
+                    style={{ fontFamily: 'Georgia, serif', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', lineHeight: '1.5' }}   
                 >
                 </div>
             </div>

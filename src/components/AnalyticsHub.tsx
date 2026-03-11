@@ -19,6 +19,7 @@ import {
     AiThinkingGem,
 } from './ui';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -175,36 +176,21 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                 variant={chartType === 'trend' ? 'contained' : 'text'}
                                 aria-label="Trend Temporale"
                             >
-                                <span
-                                    aria-hidden="true"
-                                    style={{
-                                        fontFamily: "'Material Symbols Outlined'"
-                                    }}
-                                >show_chart</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true">show_chart</Box>
                             </Button>
                             <Button 
                                 onClick={() => setChartType('radar')} 
                                 variant={chartType === 'radar' ? 'contained' : 'text'}
                                 aria-label="Radar Competenze"
                             >
-                                <span
-                                    aria-hidden="true"
-                                    style={{
-                                        fontFamily: "'Material Symbols Outlined'"
-                                    }}
-                                >radar</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true">radar</Box>
                             </Button>
                             <Button 
                                 onClick={() => setChartType('dist')} 
                                 variant={chartType === 'dist' ? 'contained' : 'text'}
                                 aria-label="Distribuzione Voti"
                             >
-                                <span
-                                    aria-hidden="true"
-                                    style={{
-                                        fontFamily: "'Material Symbols Outlined'"
-                                    }}
-                                >bar_chart</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true">bar_chart</Box>
                             </Button>
                         </div>
                     </div>
@@ -239,12 +225,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                             gap: 'var(--md-sys-spacing-2)'
                         }}
                     >
-                        {isAiLoading ? <AiThinkingGem size="small" inline /> : <span
-                            style={{
-                                fontFamily: "'Material Symbols Outlined'",
-                                marginRight: 'var(--md-sys-spacing-2)'
-                            }}
-                        >auto_awesome</span>}
+                        {isAiLoading ? <AiThinkingGem size="small" inline /> : <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ marginRight: 'var(--md-sys-spacing-2)' }}>auto_awesome</Box>}
                         ANALISI AI
                     </Button>
 
@@ -310,12 +291,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                                             flexShrink: 0
                                         }}
                                     >
-                                        <span
-                                            style={{
-                                                color: 'var(--md-sys-color-on-primary-container)',
-                                                fontFamily: "'Material Symbols Outlined'"
-                                            }}
-                                        >lightbulb</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-primary-container)' }}>lightbulb</Box>
                                     </div>
                                     <Typography
                                         variant="body1"

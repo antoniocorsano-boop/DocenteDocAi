@@ -106,9 +106,9 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
       >
         <span
           aria-hidden="true"
+          className="material-symbols-outlined"
           style={{
             fontSize: 'calc(var(--md-sys-spacing-7))',
-            fontFamily: 'Material Symbols Outlined',
             filter: 'drop-shadow(0 0 var(--md-sys-spacing-2) var(--md-sys-color-primary))',
             userSelect: 'none',
           }}
@@ -163,8 +163,8 @@ const NKAHeaderAuraButton: React.FC<NKAHeaderAuraButtonProps> = ({ hasNewNode, o
           >
             <span
               aria-hidden="true"
+              className="material-symbols-outlined"
               style={{
-                fontFamily: 'Material Symbols Outlined',
                 fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
               }}
             >
