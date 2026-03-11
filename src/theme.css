@@ -1359,11 +1359,7 @@ transition-timing-function: var(--md-sys-motion-easing-standard);
    ============================================================================ */
 
 /* Classic Mode - Default UI layout */
-[data-ui-mode="classic"] {
-  /* Classic mode specific styles can be added here if needed */
-}
+/* [data-ui-mode="classic"] — reserved for future classic layout overrides */
 
 /* Flow Mode - Alternative UI layout */
-[data-ui-mode="flow"] {
-  /* Flow mode specific styles can be added here if needed */
-}
+/* [data-ui-mode="flow"] — reserved for future flow layout overrides */
