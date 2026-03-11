@@ -1052,7 +1052,8 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                                             </Box>
                                                         </TableCell>
                                                     );
-                                                })}                                            </TableRow>
+                                                })}
+                                            </TableRow>
                                         ))}
                                         {localSettings.disciplines.length === 0 && (
                                             <TableRow>
