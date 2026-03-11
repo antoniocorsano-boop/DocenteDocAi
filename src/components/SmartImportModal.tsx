@@ -163,7 +163,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <div  style={{borderRadius: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', width: 'var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-spacing-1) solid var(--md-sys-color-outline)', borderColor: 'var(--md-sys-color-primary)'}}></div>
                             <div  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <span style={{color: 'var(--md-sys-color-primary)'}}>auto_awesome</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-primary)'}}>auto_awesome</Box>
                             </div>
                         </div>
                         <div style={{textAlign: 'center', gap: 'var(--md-sys-spacing-2)'}}>
@@ -192,7 +192,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                                 alignItems: 'center',
                                 gap: 'var(--md-sys-spacing-8)'
                             }}>
-                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>description</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>description</Box>
                                 <Typography variant="h6" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Testo Originale (Estratto)</Typography>
                             </div>
                             <div style={{

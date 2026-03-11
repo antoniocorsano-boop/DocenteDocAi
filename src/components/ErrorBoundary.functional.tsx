@@ -88,7 +88,7 @@ const _ErrorFallbackUnused: React.FC<{ error: Error; resetErrorBoundary: () => v
     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', minHeight: "var(--md-sys-viewport-height-full)", display: "flex", alignItems: "center", justifyContent: "center", padding: 'var(--md-sys-spacing-6)'}}>
       <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: "var(--md-sys-percent-100)", backgroundColor: "var(--md-sys-color-surface)", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", textAlign: "center"}}>
         <div style={{ color: 'var(--md-sys-color-on-error-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-error)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", marginBottom: 'var(--md-sys-spacing-6)'}}>
-          <span style={{ color: 'var(--md-sys-color-on-error)' }}>dizzy</span>
+          <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-error)' }}>dizzy</Box>
         </div>
         <Typography component="h1" variant="h5" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: "var(--md-sys-typescale-weight-black)", marginBottom: 'var(--md-sys-spacing-2)'}}>Qualcosa è andato storto</Typography>
         <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-6)'}}>
@@ -99,7 +99,7 @@ const _ErrorFallbackUnused: React.FC<{ error: Error; resetErrorBoundary: () => v
         </div>
         <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-3)'}}>
           <button onClick={resetErrorBoundary}  style={{ width: "var(--md-sys-percent-100)", justifyContent: "center" }}>
-            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>refresh</span> Ricarica App
+            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ marginRight: "var(--md-sys-spacing-2)" }}>refresh</Box> Ricarica App
           </button>
           <button onClick={handleHardReset}  style={{ width: "var(--md-sys-percent-100)", justifyContent: "center" }}>
             Reset Totale (Emergenza)

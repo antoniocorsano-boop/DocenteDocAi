@@ -1,6 +1,7 @@
 // MD3 Compliant
 // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 import React, { useState } from 'react';
+import Box from '@mui/material/Box';
 import { HomeworkSubmission, Studente, Lezione } from '../types';
 import { Avatar } from './ui';
 
@@ -55,7 +56,7 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <h2>
-                            <span>inbox</span> Inbox Compiti
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">inbox</Box> Inbox Compiti
                         </h2>
                         <button onClick={onClose}  aria-label="Chiudi inbox"><span style={{
 }} aria-hidden="true">close</span></button>
@@ -104,7 +105,7 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                                     const lessonInfo = getLessonDisplay(sub.lessonId);
                                     return (
                                         <div key={sub.id}  style={{borderRadius: 'var(--md-sys-shape-corner-small)', transition: 'var(--md-sys-motion-easing-standard)'}}>
-                                            <span>check_circle</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">check_circle</Box>
                                             <span>{studentInfo.full} - Voto: {sub.teacherFeedback} - {lessonInfo.materia}</span>
                                         </div>
                                     )
@@ -129,7 +130,7 @@ const TeacherInbox: React.FC<TeacherInboxProps> = ({ submissions, students, less
                         </div>
                     ) : (
                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                            <span>rate_review</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">rate_review</Box>
                             <p>Seleziona un compito da correggere</p>
                         </div>
                     )}

@@ -291,8 +291,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             {/* TOOLBAR */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <button onClick={handleCloseSafe}  aria-label="Chiudi editor"><span style={{
-}} aria-hidden="true">arrow_back</span></button>
+                    <button onClick={handleCloseSafe}  aria-label="Chiudi editor"><span className="material-symbols-outlined" aria-hidden="true">arrow_back</span></button>
                     <input 
                         type="text" 
                         value={editorTitle} 
@@ -303,27 +302,27 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                 </div>
                 
                 <div  style={{ display: "none" }}>
-                    <button onClick={() => execCmd('bold')}  title="Grassetto" aria-label="Applica grassetto"><span  aria-hidden="true">format_bold</span></button>
-                    <button onClick={() => execCmd('italic')}  title="Corsivo" aria-label="Applica corsivo"><span  aria-hidden="true">format_italic</span></button>
-                    <button onClick={() => execCmd('formatBlock', 'h2')}  title="Titolo" aria-label="Applica stile titolo"><span  aria-hidden="true">title</span></button>
+                    <button onClick={() => execCmd('bold')}  title="Grassetto" aria-label="Applica grassetto"><span className="material-symbols-outlined" aria-hidden="true">format_bold</span></button>
+                    <button onClick={() => execCmd('italic')}  title="Corsivo" aria-label="Applica corsivo"><span className="material-symbols-outlined" aria-hidden="true">format_italic</span></button>
+                    <button onClick={() => execCmd('formatBlock', 'h2')}  title="Titolo" aria-label="Applica stile titolo"><span className="material-symbols-outlined" aria-hidden="true">title</span></button>
                     <div></div>
-                    <button onClick={() => execCmd('insertUnorderedList')}  title="Elenco" aria-label="Inserisci elenco puntato"><span  aria-hidden="true">format_list_bulleted</span></button>
-                    <button onClick={handleAiTable}  style={{color: "var(--md-sys-color-primary)"}} title="Tabella AI" aria-label="Genera tabella con AI"><span  aria-hidden="true">table_chart</span></button>
+                    <button onClick={() => execCmd('insertUnorderedList')}  title="Elenco" aria-label="Inserisci elenco puntato"><span className="material-symbols-outlined" aria-hidden="true">format_list_bulleted</span></button>
+                    <button onClick={handleAiTable}  style={{color: "var(--md-sys-color-primary)"}} title="Tabella AI" aria-label="Genera tabella con AI"><span className="material-symbols-outlined" aria-hidden="true">table_chart</span></button>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <button onClick={handleCopyForGoogleDocs}  title="Copia per Google Docs">
-                        <span>content_copy</span> Docs
+                        <span className="material-symbols-outlined" aria-hidden="true">content_copy</span> Docs
                     </button>
                     <button onClick={handleDownload} >
-                        <span>download</span> DOCX
+                        <span className="material-symbols-outlined" aria-hidden="true">download</span> DOCX
                     </button>
                     <button onClick={handlePrint}  title="Stampa / PDF" aria-label="Stampa o salva come PDF">
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }} aria-hidden="true">print</span>
+                        <span className="material-symbols-outlined" style={{ color: 'var(--md-sys-color-on-surface-variant)' }} aria-hidden="true">print</span>
                     </button>
                     {onSaveToKb && (
                         <button onClick={handleSave} >
-                            <span>save</span> Salva
+                            <span className="material-symbols-outlined" aria-hidden="true">save</span> Salva
                         </button>
                     )}
                 </div>
@@ -356,13 +355,13 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                     ) : (
                         <>
                             <button onClick={() => handleAiRefine("Riscrivi rendendo il tono più formale e professionale.")} >
-                                <span>history_edu</span> Rendi Formale
+                                <span className="material-symbols-outlined" aria-hidden="true">history_edu</span> Rendi Formale
                             </button>
                             <button onClick={() => handleAiRefine("Espandi questo concetto aggiungendo dettagli pedagogici.")} >
-                                <span>unfold_more</span> Espandi
+                                <span className="material-symbols-outlined" aria-hidden="true">unfold_more</span> Espandi
                             </button>
                             <button onClick={() => handleAiRefine("Sintetizza in un elenco puntato.")} >
-                                <span>format_list_bulleted</span> Sintetizza
+                                <span className="material-symbols-outlined" aria-hidden="true">format_list_bulleted</span> Sintetizza
                             </button>
                         </>
                     )}

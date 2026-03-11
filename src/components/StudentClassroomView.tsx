@@ -173,7 +173,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                 marginTop: 'var(--md-sys-spacing-4)'
             }}>
                 <input {...getInputProps()} />
-                <span style={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)', transition: "transform var(--md-sys-motion-duration-medium)"}}>cloud_upload</span>
+                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-8)', transition: "transform var(--md-sys-motion-duration-medium)"}}>cloud_upload</Box>
                 <Typography variant="caption" sx={{textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)"}}>Carica Elaborato</Typography>
                 <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-secondary)", marginTop: 'var(--md-sys-spacing-4)'}}>Trascina qui il file o clicca per selezionare</Typography>
             </div>
@@ -194,10 +194,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                         <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-supporting)" }}>Classe {student.classe} • {student.nome} {student.cognome}</Typography>
                     </div>
                 </div>
-                <Button onClick={() => setIsExitMenuOpen(!isExitMenuOpen)} variant="outlined"  sx={{color: "var(--md-sys-color-error)"}}>
-                    <span style={{
-}}>power_settings_new</span>
-                </Button>
+                <Button onClick={() => setIsExitMenuOpen(!isExitMenuOpen)} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">power_settings_new</Box>} sx={{color: "var(--md-sys-color-error)"}} />
                 
                 {isExitMenuOpen && (
                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 'var(--md-sys-state-opacity-hover-overlay)', borderRadius: 'var(--md-sys-shape-corner-large)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", padding: 'var(--md-sys-spacing-6)', display: "flex", flexDirection: "column"}}>
@@ -205,7 +202,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                             onClick={() => { onLogout(); setIsExitMenuOpen(false); }}
                             style={{ color: 'var(--md-sys-color-on-surface)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: "left", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', transition: "color var(--md-sys-motion-duration-medium)"}}
                         >
-                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>logout</span>
+                            <span className="material-symbols-outlined" aria-hidden="true" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>logout</span>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <Typography variant="caption" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Termina Sessione</Typography>
                                 <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: "var(--md-sys-state-opacity-supporting)" }}>Torna al login studenti</Typography>
@@ -216,8 +213,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                 onClick={() => { setIsPinModalOpen(true); setIsExitMenuOpen(false); }}
                                 style={{ borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', textAlign: "left", color: "var(--md-sys-color-error)", display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', transition: "color var(--md-sys-motion-duration-medium)", marginTop: 'var(--md-sys-spacing-4)'}}
                             >
-                                <span style={{
-}}>lock</span>
+                                <span className="material-symbols-outlined" aria-hidden="true">lock</span>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <Typography variant="caption" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Menu Docente</Typography>
                                     <Typography variant="caption" sx={{ opacity: "var(--md-sys-state-opacity-supporting)" }}>Richiede PIN di sicurezza</Typography>
@@ -299,7 +295,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                 {item.homework && (
                                     <div style={{ backgroundColor: 'var(--md-sys-color-tertiary)', opacity: 0.05, borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
                                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', color: "var(--md-sys-color-tertiary)"}}>
-                                            <span  style={{ fontSize: "var(--md-sys-typescale-headline-small-font-size)" }}>home_work</span>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: "var(--md-sys-typescale-headline-small-font-size)" }}>home_work</Box>
                                             <span style={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Compito per casa</span>
                                         </div>
                                         <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', lineHeight: "1.625" }}>{item.homework}</Typography>
@@ -312,14 +308,14 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                         variant="text"
                                         sx={{ color: 'var(--md-sys-color-on-surface-variant)', width: "var(--md-sys-percent-100)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}
                                      >
-                                         <span  style={{ marginRight: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>print</span>
+                                         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ marginRight: "var(--md-sys-spacing-2)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>print</Box>
                                          {isGeneratingPdf ? 'Generazione PDF...' : 'Scarica Scheda Lezione'}
                                      </Button>
                                 )}
                             </Card>
                         )) : (
                             <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 'var(--md-sys-state-opacity-tint-moderate)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}>
-                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)', opacity: "var(--md-sys-state-opacity-tint-subtle)"}}>feed</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)', opacity: "var(--md-sys-state-opacity-tint-subtle)"}}>feed</Box>
                                 <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-empty)" }}>Nessuna attività recente nel registro.</Typography>
                             </div>
                         )}
@@ -425,7 +421,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                         ))}
                         {kb.length === 0 && (
                             <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', opacity: 'var(--md-sys-state-opacity-tint-moderate)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
-                                <span style={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)', opacity: "var(--md-sys-state-opacity-tint-subtle)"}}>folder_off</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)', opacity: "var(--md-sys-state-opacity-tint-subtle)"}}>folder_off</Box>
                                 <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-empty)" }}>Nessun materiale condiviso.</Typography>
                             </div>
                         )}

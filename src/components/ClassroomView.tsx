@@ -213,11 +213,11 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-on-surface-variant)' }} aria-label="Presenti:">
-                        <span aria-hidden="true">group</span>
+                        <span className="material-symbols-outlined" aria-hidden="true">group</span>
                         <Typography variant="caption">{attendanceSummary.present} PRES.</Typography>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)', color: attendanceSummary.absent > 0 ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }} aria-label="Assenti:">
-                        <span aria-hidden="true">person_off</span>
+                        <span className="material-symbols-outlined" aria-hidden="true">person_off</span>
                         <Typography variant="caption">{attendanceSummary.absent} ASS.</Typography>
                     </div>
                 </div>
@@ -238,7 +238,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                     title="Finalizza e chiudi registro"
                     aria-label="Salva e chiudi il registro di questa lezione"
                 >
-                    <span aria-hidden="true">save</span> Fine
+                    <span className="material-symbols-outlined" aria-hidden="true">save</span> Fine
                 </button>
             </div>
 

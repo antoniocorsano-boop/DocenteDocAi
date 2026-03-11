@@ -61,7 +61,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
             >
                 <div style={{display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-8)'}}>
                     <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-tertiary) 10%, transparent)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-tertiary)"}}>
-                        <span style={{ color: 'var(--md-sys-color-on-tertiary)' }}>folder_shared</span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-tertiary)' }}>folder_shared</Box>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <Typography component="h3" variant="h6" sx={{ fontSize: "var(--md-sys-typescale-title-large-font-size)" , color: "var(--md-sys-color-tertiary)", marginBottom: 'var(--md-sys-spacing-4)'}}>Gestione Piani Centralizzata</Typography>
@@ -215,8 +215,7 @@ const DidatticaInclusiva: React.FC<DidatticaInclusivaProps> = (props) => {
                                 onClick={() => setEditingStudent(student)} 
                                 variant="outlined"
                                  sx={{ width: "var(--md-sys-percent-100)" }}
-                            >
-                                <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add_circle</span>
+                            >\n                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ marginRight: "var(--md-sys-spacing-2)" }}>add_circle</Box>
                                 Crea Piano
                             </Button>
                         </div>

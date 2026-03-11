@@ -26,8 +26,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
             maxWidth="sm"
             buttons={<>
                 <Button onClick={onIgnore} variant="text">Mantieni Dati Locali</Button>
-                <Button onClick={onRestore} variant="contained">
-                    <span style={{ marginRight: 'var(--md-sys-spacing-2)' }}>download</span>
+                <Button onClick={onRestore} variant="contained" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">download</Box>}>
                     Sincronizza dal Cloud
                 </Button>
             </>}
@@ -52,7 +51,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                 >
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <Typography component="p" variant="caption" sx={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
-                                    <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>devices</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>devices</Box>
                                     Dati Locali (Attuali)
                                 </Typography>
                                 <Typography component="p" variant="subtitle1" sx={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-black)" }}>
@@ -65,7 +64,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                         {/* DIRECTION ARROW */}
                         <div  style={{ display: "flex", justifyContent: "center" }}>
                             <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-spacing-2)', padding: 'var(--md-sys-spacing-8)', color: "var(--md-sys-color-primary)" }}>
-                                <span style={{ display: "block" }}>sync_problem</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ display: "block" }}>sync_problem</Box>
                             </div>
                         </div>
 
@@ -86,7 +85,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                                 >
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <Typography component="p" variant="caption" sx={{fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-4)'}}>
-                                    <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>cloud</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>cloud</Box>
                                     Cloud (Drive)
                                 </Typography>
                                 <Typography component="p" variant="subtitle1" sx={{fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-black)", color: "var(--md-sys-color-primary)"}}>

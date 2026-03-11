@@ -26,6 +26,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 type StudioTask = 'summary' | 'key_points' | 'qa' | 'flashcards' | 'presentation' | 'document' | 'image' | 'quiz';
 
 interface StudioAction {
@@ -262,7 +263,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                             Per utilizzare la generazione di immagini e video (modelli Imagen/Veo), è necessaria una API Key abilitata al billing.
                         </p>
                         <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer" >
-                            <span>info</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">info</Box>
                             Scopri di più sul billing
                         </a>
                     </DialogContent>
@@ -278,7 +279,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
             {/* Context Selection Card */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                 <Typography component="h2" variant="h6" sx={{marginBottom: 'var(--md-sys-spacing-8)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                    <span  style={{color: "var(--md-sys-color-primary)"}}>folder_open</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: "var(--md-sys-color-primary)"}}>folder_open</Box>
                     1. Seleziona Contesto (Knowledge Base)
                 </Typography>
                 <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)', alignItems: "flex-end", marginBottom: 'var(--md-sys-spacing-8)'}}>
@@ -299,7 +300,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         </FormControl>
                     </div>
                      <div  style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>attachment</span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>attachment</Box>
                         <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-bold)" }}>
                             {selectedFileIds.length} file selezionati
                         </Typography>
@@ -312,8 +313,8 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                         <div key={entry.id} >
                             <input type="checkbox" id={`studio-file-${entry.id}`} checked={selectedFileIds.includes(entry.id)} onChange={() => handleFileToggle(entry.id)} />
                             <label htmlFor={`studio-file-${entry.id}`} >
-                                {selectedFileIds.includes(entry.id) && <span  style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>check</span>}
-                                <span  style={{color: "var(--md-sys-color-primary)", fontSize: 'var(--md-sys-spacing-4)'}}>{entry.isGenerated ? 'auto_awesome' : 'description'}</span>
+                                {selectedFileIds.includes(entry.id) && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>check</Box>}
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: "var(--md-sys-color-primary)", fontSize: 'var(--md-sys-spacing-4)'}}>{entry.isGenerated ? 'auto_awesome' : 'description'}</Box>
                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{entry.fileName}</span>
                             </label>
                         </div>
@@ -338,7 +339,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     <div  style={{ height: 'var(--md-sys-percent-100)' }}>
                         <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                             <Typography component="h2" variant="h6" sx={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                                <span  style={{color: "var(--md-sys-color-tertiary)"}}>design_services</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: "var(--md-sys-color-tertiary)"}}>design_services</Box>
                                 Generazione & Creatività
                             </Typography>
                             <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Crea nuovi contenuti didattici.</Typography>
@@ -350,7 +351,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     <div  style={{ height: 'var(--md-sys-percent-100)' }}>
                         <div style={{marginBottom: 'var(--md-sys-spacing-8)'}}>
                             <Typography component="h2" variant="h6" sx={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
-                                <span  style={{color: "var(--md-sys-color-secondary)"}}>analytics</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: "var(--md-sys-color-secondary)"}}>analytics</Box>
                                 Analisi & Sintesi
                             </Typography>
                             <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' , marginTop: 'var(--md-sys-spacing-4)'}}>Rielabora e comprendi i documenti.</Typography>

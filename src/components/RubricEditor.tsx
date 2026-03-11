@@ -8,6 +8,7 @@ import { M3Dialog, InfoCard, TextField, EmptyState, SectionHeader } from './ui';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 interface RubricEditorProps {
     rubricToEdit?: Rubrica;
@@ -119,7 +120,7 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
                                                 color: rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'var(--md-sys-color-on-secondary-container)' : 'var(--md-sys-color-on-surface)',
                                                 border: `var(--md-sys-border-width-thin) solid ${rubrica.criteri.some(c => c.competenzaId === comp.id) ? 'var(--md-sys-color-outline)' : 'var(--md-sys-color-outline-variant)'}`
                                             }}>
-                                                {rubrica.criteri.some(c => c.competenzaId === comp.id) && <span  style={{ fontSize: "var(--md-sys-typescale-title-small-font-size)" }}>check</span>}
+                                                {rubrica.criteri.some(c => c.competenzaId === comp.id) && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: "var(--md-sys-typescale-title-small-font-size)" }}>check</Box>}
                                                 <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>{comp.nome}</span>
                                             </label>
                                         </div>

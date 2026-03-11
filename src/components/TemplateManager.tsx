@@ -8,6 +8,7 @@ import { M3Dialog, InfoCard, SectionHeader } from './ui';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 interface TemplateManagerProps {
@@ -109,7 +110,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                 <div style={{display: "flex", gap: 'var(--md-sys-spacing-16)'}}>
                   <div style={{ flex: 1 }}>
                     <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-medium)', padding: 'var(--md-sys-spacing-8)'}}>
-                      <span style={{color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-title-large-font-size)'}}>search</span>
+                      <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-title-large-font-size)'}}>search</Box>
                       <input
                         type="text"
                         placeholder="Cerca template..."
@@ -123,8 +124,8 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                     onClick={handleCreateTemplate}
                     variant="contained"
                     sx={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}
+                    startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add</Box>}
                   >
-                    <span  style={{ marginRight: 'var(--md-sys-spacing-2)' }}>add</span>
                     Nuovo Template
                   </Button>
                 </div>
@@ -133,7 +134,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                 <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-16)'}}>
                   {filteredTemplates.length === 0 ? (
                     <div style={{display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 'var(--md-sys-spacing-32)'}}>
-                      <span style={{fontSize: 'var(--md-sys-typography-display-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)'}}>description</span>
+                      <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{fontSize: 'var(--md-sys-typography-display-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)'}}>description</Box>
                       <Typography variant="subtitle1">
                         {searchTerm ? 'Nessun template trovato' : 'Nessun template creato'}
                       </Typography>
@@ -183,7 +184,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                                     onClick={() => setEditingTemplate(template)}
                                     title={`Modifica template ${template.name}`}
                                   >
-                                    <span>edit</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true">edit</Box>
                                   </Button>
                                   <Button
                                     onClick={() => handleDeleteTemplate(template.id, template.name)}
@@ -191,7 +192,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
                                     
                                     title={`Elimina template ${template.name}`}
                                   >
-                                    <span>delete</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true">delete</Box>
                                   </Button>
                                 </div>
                               </div>

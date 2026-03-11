@@ -287,7 +287,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                                                 <div
                                                     style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-spacing-6)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', cursor: 'pointer', fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}
                                                 >
-                                                    <span>add</span>
+                                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true">add</Box>
                                                 </div>
                                             )}
                                             {hasCompetencies && (

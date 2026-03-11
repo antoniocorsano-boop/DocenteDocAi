@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 // Load Google GenAI dynamically to avoid bundling it in the main chunk
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
@@ -143,7 +144,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <div  style={{ width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', borderRadius: 'var(--md-sys-spacing-4)' }}></div>
                         <div  style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                            <span  style={{color: 'var(--md-sys-color-primary)'}}>movie</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: 'var(--md-sys-color-primary)'}}>movie</Box>
                         </div>
                     </div>
                     <Typography component="p" variant="body1" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", opacity: "var(--md-sys-state-opacity-empty)" }}>Inizializzazione...</Typography>
@@ -155,7 +156,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
             return (
                 <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)' }}>
                     <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-primary)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-primary)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
-                        <span style={{ color: 'var(--md-sys-color-primary)' }}>vpn_key</span>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>vpn_key</Box>
                     </div>
                     <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em", marginBottom: 'var(--md-sys-spacing-8)' }}>API Key Richiesta</Typography>
                     <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)', lineHeight: "1.625" }}>
@@ -176,7 +177,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                 <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-8)' }}>
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-primary)', width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', color: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
-                            <span style={{}}>edit_note</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{}}>edit_note</Box>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <Typography component="h3" variant="h6" sx={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-primary)", marginBottom: 'var(--md-sys-spacing-4)'}}>1. Prompt Descrittivo</Typography>
@@ -201,7 +202,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
 
                     {error && (
                         <div style={{ backgroundColor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-bold)", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)" }}>
-                            <span  style={{ fontSize: 'var(--md-sys-spacing-5)' }}>error</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-spacing-5)' }}>error</Box>
                             {error}
                         </div>
                     )}
@@ -210,7 +211,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                 <div style={{display: "flex", flexDirection: "column", gap: 'var(--md-sys-spacing-6)'}}>
                     <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)", display: "flex", alignItems: "flex-start", gap: 'var(--md-sys-spacing-8)' }}>
                         <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-secondary)', width: 'var(--md-sys-spacing-16)', height: 'var(--md-sys-spacing-16)', color: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: "0" }}>
-                            <span style={{}}>movie</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{}}>movie</Box>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                             <Typography component="h3" variant="h6" sx={{fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--md-sys-color-secondary)", marginBottom: 'var(--md-sys-spacing-4)'}}>2. Risultato</Typography>
@@ -224,7 +225,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                                 <div style={{ marginBottom: 'var(--md-sys-spacing-8)' }}>
                                     <div style={{ width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)', borderRadius: 'var(--md-sys-shape-corner-small)', marginLeft: 'var(--md-sys-margin-auto)', marginRight: 'var(--md-sys-margin-auto)' }}></div>
                                     <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                        <span style={{ color: 'var(--md-sys-color-primary)' }}>auto_videocam</span>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>auto_videocam</Box>
                                     </div>
                                 </div>
                                 <Typography component="p" variant="body1" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", color: 'var(--md-sys-color-primary)', letterSpacing: "-0.005em" }}>{loadingMessage}</Typography>
@@ -252,7 +253,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                             </div>
                         ) : (
                             <div style={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", transition: "transform var(--md-sys-motion-duration-medium)" }}>
-                                <span  style={{marginBottom: 'var(--md-sys-spacing-8)', opacity: "var(--md-sys-state-opacity-tint-subtle)"}}>videocam_off</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{marginBottom: 'var(--md-sys-spacing-8)', opacity: "var(--md-sys-state-opacity-tint-subtle)"}}>videocam_off</Box>
                                 <Typography component="p" variant="body1" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", opacity: "var(--md-sys-state-opacity-empty)" }}>In attesa di generazione</Typography>
                             </div>
                         )}

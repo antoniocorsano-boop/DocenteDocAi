@@ -2,6 +2,7 @@
 
 // M3Expressive: EventActionPopover - Event action management popover with M3 tokens
 import React from 'react';
+import Box from '@mui/material/Box';
 import { M3Popover } from './ui';
 import { EventoCalendario } from '../types';
 
@@ -57,11 +58,11 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
                     onClick={handleEdit}
                     
                 >
-                    <span style={{
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{
   fontSize: 'var(--md-sys-typescale-body-medium-font-size)'
 }}>
                         edit
-                    </span>
+                    </Box>
                     <span>Modifica</span>
                 </button>
 
@@ -69,11 +70,11 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
                     onClick={handleDelete}
                     
                 >
-                    <span style={{
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{
   fontSize: 'var(--md-sys-typescale-body-medium-font-size)'
 }}>
                         delete
-                    </span>
+                    </Box>
                     <span>Elimina</span>
                 </button>
             </div>

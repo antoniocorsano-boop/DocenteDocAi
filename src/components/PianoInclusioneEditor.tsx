@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
@@ -133,7 +134,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                             <AiThinkingGem size="small" inline text="Generando..." />
                                         ) : (
                                             <>
-                                                <span  style={{ fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>auto_awesome</span>
+                                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>auto_awesome</Box>
                                                 AI
                                             </>
                                         )}
@@ -156,7 +157,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                         {/* Obiettivi per Materia */}
                         <InfoCard variant="elevated" >
                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
-                                <span  style={{color: "var(--md-sys-color-primary)"}}>subject</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{color: "var(--md-sys-color-primary)"}}>subject</Box>
                                 <Typography component="h3" variant="caption" sx={{fontSize: "var(--md-sys-typescale-body-medium-font-size)", fontWeight: "var(--md-sys-typescale-weight-bold)", color: "var(--md-sys-color-primary)", textTransform: "uppercase", letterSpacing: "0.05em"}}>
                                     Obiettivi per Materia (PEI/PDP)
                                 </Typography>
@@ -170,7 +171,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                     <div key={materia} >
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                             <label>
-                                                <span style={{ color: "var(--md-sys-color-primary)" }}>book</span>
+                                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: "var(--md-sys-color-primary)" }}>book</Box>
                                                 {materia}
                                             </label>
                                             <Button
@@ -184,7 +185,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                                                 {loadingSection === `obj-${materia}` ? (
                                                     <AiThinkingGem size="small" inline />
                                                 ) : (
-                                                    <span style={{ color: 'var(--md-sys-color-primary)' ,  fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>auto_awesome</span>
+                                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)', fontSize: "var(--md-sys-typescale-body-medium-font-size)" }}>auto_awesome</Box>
                                                 )}
                                             </Button>
                                         </div>
@@ -215,7 +216,7 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
                             variant="outlined"
                             
                         >
-                            <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>delete</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ marginRight: "var(--md-sys-spacing-2)" }}>delete</Box>
                             Elimina
                         </Button>
                     )}

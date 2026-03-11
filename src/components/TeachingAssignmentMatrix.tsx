@@ -185,7 +185,7 @@ export const TeachingAssignmentMatrix: React.FC<TeachingAssignmentMatrixProps> =
                                                                 transition: 'background var(--md-sys-motion-duration-short), color var(--md-sys-motion-duration-short)'
                                                             }}
                                                         >
-                                                            {isActive && <span>check</span>}
+                                                            {isActive && <Box component="span" className="material-symbols-outlined" aria-hidden="true">check</Box>}
                                                             <span>{subj}</span>
                                                         </button>
                                                     );

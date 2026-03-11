@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { messages } from '../messages';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import { M3Dialog } from './ui';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation, and animations
@@ -31,7 +32,7 @@ const RestoreAssistModal: React.FC<RestoreAssistModalProps> = ({
       buttons={dialogButtons}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-          <span>warning</span>
+          <Box component="span" className="material-symbols-outlined" aria-hidden="true">warning</Box>
           <p>
             {messages.restore.description}
           </p>
@@ -46,21 +47,21 @@ const RestoreAssistModal: React.FC<RestoreAssistModalProps> = ({
         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
           <Button onClick={onLoadDemo} variant="contained" >
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-              <span>auto_awesome</span>
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true">auto_awesome</Box>
               <span>{messages.restore.demo}</span>
             </div>
           </Button>
 
           <Button onClick={onRestoreFile} variant="outlined" >
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-              <span>upload</span>
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true">upload</Box>
               <span>{messages.restore.file}</span>
             </div>
           </Button>
 
           <Button onClick={onConnectDrive} variant="contained" color="secondary" >
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-              <span>cloud_sync</span>
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true">cloud_sync</Box>
               <span>{messages.restore.drive}</span>
             </div>
           </Button>

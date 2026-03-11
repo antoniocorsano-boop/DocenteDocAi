@@ -166,7 +166,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                             style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-8)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', textAlign: "left", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)" }}
                         >
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-primary-container)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-primary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--md-sys-motion-duration-medium)"}}>
-                                <span  style={{ fontSize: "var(--md-sys-typescale-display-large-font-size)" }}>picture_as_pdf</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: "var(--md-sys-typescale-display-large-font-size)" }}>picture_as_pdf</Box>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <Typography component="p" variant="subtitle1" sx={{ fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Esporta in PDF</Typography>
@@ -180,7 +180,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                             style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)', display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-8)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', textAlign: "left", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)" }}
                         >
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-secondary-container)', width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-secondary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--md-sys-motion-duration-medium)" }}>
-                                <span  style={{ fontSize: "var(--md-sys-typescale-display-large-font-size)" }}>description</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: "var(--md-sys-typescale-display-large-font-size)" }}>description</Box>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <Typography component="p" variant="subtitle1" sx={{ fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Esporta in Word</Typography>
@@ -194,7 +194,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                             style={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'var(--md-sys-color-surface-container-low)' , display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', padding: 'var(--md-sys-spacing-8)', transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)', textAlign: "left", border: "var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)"}}
                         >
                             <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-tertiary-container)' , width: 'var(--md-sys-spacing-4)', height: 'var(--md-sys-spacing-4)', backgroundColor: "var(--md-sys-color-tertiary)", display: "flex", alignItems: "center", justifyContent: "center", transition: "transform var(--md-sys-motion-duration-medium)"}}>
-                                <span  style={{ fontSize: "var(--md-sys-typescale-display-large-font-size)" }}>auto_awesome</span>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: "var(--md-sys-typescale-display-large-font-size)" }}>auto_awesome</Box>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                 <Typography component="p" variant="subtitle1" sx={{ fontWeight: "var(--md-sys-typescale-weight-bold)", fontSize: "var(--md-sys-typescale-body-large-font-size)" }}>Report con AI</Typography>
@@ -205,7 +205,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
 
                     {isExporting && (
                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", justifyContent: "center", gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)'}}>
-                            <span>sync</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">sync</Box>
                             <span>Generazione in corso...</span>
                         </div>
                     )}

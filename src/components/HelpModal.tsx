@@ -307,7 +307,7 @@ const DigitalTeacherManual = () => {
                     letterSpacing: 'var(--md-sys-typescale-label-large-tracking)',
                     textTransform: 'uppercase'
                 }}>
-                    <span style={{ marginRight: 'var(--md-sys-spacing-2)' }}>download</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ marginRight: 'var(--md-sys-spacing-2)' }}>download</Box>
                     Scarica .MD
                 </Button>
             </div>

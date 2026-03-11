@@ -2,6 +2,7 @@
 // Note: minHeight: "100vh" retained for functional full viewport height (no exact MD3 token available)
 import React from 'react';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Logo from './Logo';
 import { View } from '../types';
@@ -131,7 +132,7 @@ const TeacherPresentationView: React.FC<TeacherPresentationViewProps> = ({ onNav
                     >
                         <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                             <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em" }}>Inizia Subito!</span>
-                            <span  style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', transition: "transform var(--md-sys-motion-duration-long)" }}>arrow_forward</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', transition: "transform var(--md-sys-motion-duration-long)" }}>arrow_forward</Box>
                         </div>
                     </Button>
                 </div>

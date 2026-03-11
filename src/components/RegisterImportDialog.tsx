@@ -319,7 +319,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             onClick={() => setStep('mapping')}
                             sx={{ width: 'var(--md-sys-percent-100)', fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}
                         >
-                            <span  style={{ marginRight: "var(--md-sys-spacing-2)", fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>settings_backup_restore</span>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ marginRight: "var(--md-sys-spacing-2)", fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>settings_backup_restore</Box>
                             Modifica Mappatura Manuale
                         </Button>
 

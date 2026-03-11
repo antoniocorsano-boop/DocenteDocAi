@@ -200,7 +200,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                                     aria-label="Continua"
                                 >
                                     Continua
-                                    <span style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>arrow_forward</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>arrow_forward</Box>
                                 </Button>
             ) : (
                                 <Button
@@ -211,7 +211,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                                     aria-label="Inizia Ora"
                                 >
                                     Inizia Ora
-                                    <span style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>check</span>
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>check</Box>
                                 </Button>
             )}
         </div>
@@ -267,9 +267,9 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onSetupComplete }) => {
                             variant="contained"
                             sx={{ width: 'var(--md-sys-percent-100)', textTransform: 'uppercase' }}
                             aria-label="Entra nella Dashboard"
+                            endIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">login</Box>}
                         >
                             Entra nella Dashboard
-                            <span style={{ fontWeight: 'var(--md-sys-typescale-weight-black)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', marginLeft: 'var(--md-sys-spacing-3)' }}>login</span>
                         </Button>
       </form>
   );

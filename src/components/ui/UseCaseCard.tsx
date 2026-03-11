@@ -35,7 +35,7 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ scenario, steps, tip }) => {
                     justifyContent: "center",
                     color: 'var(--md-sys-color-on-primary)'
                 }}>
-                    <span style={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>lightbulb</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)' }}>lightbulb</Box>
                 </div>
                 <Typography variant="button" component="p" sx={{
                     color: 'var(--md-sys-color-primary)',

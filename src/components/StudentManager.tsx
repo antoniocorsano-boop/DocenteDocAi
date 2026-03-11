@@ -206,12 +206,10 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                 subtitle="Archivia, importa e aggiorna anagrafica e stato classe."
                 actions={
                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                        <Button onClick={() => setIsImportModalOpen(true)} variant="outlined" >
-                            <span>upload_file</span>
+                        <Button onClick={() => setIsImportModalOpen(true)} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">upload_file</Box>}>
                             Importa
                         </Button>
-                        <Button onClick={() => setEditingStudent('new')} variant="contained" >
-                            <span>add</span>
+                        <Button onClick={() => setEditingStudent('new')} variant="contained" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add</Box>}>
                             Nuovo
                         </Button>
                     </div>

@@ -10,6 +10,7 @@ import Logo from './Logo';
 import PinPadModal from './PinPadModal';
 import { TextField } from './ui';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { WELCOME_MESSAGES, EDUCATIONAL_QUOTES } from '../constants';
 interface StudentLoginScreenProps {
@@ -142,8 +143,7 @@ const StudentLoginScreen: React.FC<StudentLoginScreenProps> = ({ students, onLog
                                     </div>
                                 )}
                                 <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                                    <Button onClick={handleExitAttempt} variant="text" sx={{width: "var(--md-sys-percent-100)", color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>
-                                        <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>lock</span>
+                                    <Button onClick={handleExitAttempt} variant="text" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">lock</Box>} sx={{width: "var(--md-sys-percent-100)", color: "var(--md-sys-color-error)", fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", fontSize: "var(--md-sys-typescale-body-small-font-size)"}}>
                                         Menu Docente
                                     </Button>
                                 </div>

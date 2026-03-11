@@ -157,7 +157,7 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                                 checked={questionTypes.includes('multiple_choice')}
                                 onChange={() => toggleQuestionType('multiple_choice')}
                             />
-                            {questionTypes.includes('multiple_choice') && <span>check</span>}
+                            {questionTypes.includes('multiple_choice') && <Box component="span" className="material-symbols-outlined" aria-hidden="true">check</Box>}
                             <span>Scelta Multipla</span>
                         </label>
 
@@ -179,7 +179,7 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
                                 checked={questionTypes.includes('true_false')}
                                 onChange={() => toggleQuestionType('true_false')}
                             />
-                            {questionTypes.includes('true_false') && <span>check</span>}
+                            {questionTypes.includes('true_false') && <Box component="span" className="material-symbols-outlined" aria-hidden="true">check</Box>}
                             <span>Vero/Falso</span>
                         </label>
                     </Box>

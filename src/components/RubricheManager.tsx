@@ -11,6 +11,7 @@ import { Competenza, Rubrica, View } from '../types';
 import RubricEditor from './RubricEditor';
 import { InfoCard, EmptyState, SectionHeader, ActionTile } from './ui';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 interface RubricheManagerProps {
     competenze: Competenza[];
@@ -35,8 +36,7 @@ const RubricheManager: React.FC<RubricheManagerProps> = ({ competenze, rubriche,
                 <div>Rubriche di Valutazione</div>
                 <p>Crea e gestisci le griglie di competenza.</p>
             </div>
-                <Button onClick={() => setEditingRubric('new')} variant="contained" >
-                    <span  style={{ marginRight: "var(--md-sys-spacing-2)" }}>add</span>
+                <Button onClick={() => setEditingRubric('new')} variant="contained" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add</Box>}>
                     Crea Nuova
                 </Button>
             </div>

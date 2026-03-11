@@ -36,7 +36,7 @@ const ResetConfirmModal: React.FC<ResetConfirmModalProps> = ({ onClose, onConfir
         >
             <Box sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-high) 30%, transparent)', gap: 'var(--md-sys-spacing-6)' }}>
                 <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)', color: "var(--md-sys-color-error)", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                    <span style={{ color: 'var(--md-sys-color-error)' }}>warning</span>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-error)' }}>warning</Box>
                     <span style={{ fontWeight: "var(--md-sys-typescale-weight-bold)" }}>Azione Irreversibile</span>
                 </div>
                 <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-primary)' ,  lineHeight: "1.625" }}>

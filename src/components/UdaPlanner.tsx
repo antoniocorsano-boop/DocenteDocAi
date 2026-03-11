@@ -247,7 +247,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                                                                                 marginRight: 'var(--md-sys-spacing-4)',
                                                                                             }}
                                                                                         >
-                                                                                            {isSelected && <span>check</span>}
+                                                                                            {isSelected && <Box component="span" className="material-symbols-outlined" aria-hidden="true">check</Box>}
                                                                                         </div>
                                                                                         <div style={{ minWidth: '0' }}>
                                                                                             <Typography component="p" variant="body1" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', margin: 0 }}>{comp.codice}</Typography>

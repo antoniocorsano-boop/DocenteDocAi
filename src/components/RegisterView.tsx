@@ -116,7 +116,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({ entries, lessons, students,
                     <td>{entry.materia}</td>
                     <td>{lesson?.contenuto || 'Lezione improvvisata'}</td>
                     <td>
-                      <span>chevron_right</span>
+                      <Box component="span" className="material-symbols-outlined" aria-hidden="true">chevron_right</Box>
                     </td>
                   </tr>
                 );
