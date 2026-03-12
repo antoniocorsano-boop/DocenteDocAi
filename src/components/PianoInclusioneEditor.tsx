@@ -15,6 +15,7 @@ import {
     SectionHeader,
     AiThinkingGem 
 } from './ui';
+import { logger } from '../utils/logger';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for inclusion plan editor dialog, form sections, and AI generation features
 type SectionKey = 'puntiDiForza' | 'areeDiIntervento' | 'misureCompensative' | 'misureDispensative' | 'criteriValutazionePersonalizzati';
@@ -70,9 +71,9 @@ const PianoInclusioneEditor: React.FC<PianoInclusioneEditorProps> = ({ student, 
             }
         } catch (error: unknown) {
             if (error instanceof Error) {
-                console.error(`Error generating text for ${section}`, error);
+                logger.error(`Error generating text for ${section}`, error);
             } else {
-                console.error(`Error generating text for ${section}`, String(error));
+                logger.error(`Error generating text for ${section}`, String(error));
             }
             showToast("Si � verificato un errore durante la generazione del testo.", "error");
         } finally {

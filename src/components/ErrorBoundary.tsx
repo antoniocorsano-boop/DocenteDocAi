@@ -3,6 +3,7 @@ import React, { Component, ErrorInfo, ReactNode } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useUIStore } from '../stores/useUIStore';
+import { logger } from '../utils/logger';
 
 interface ErrorBoundaryProps {
 	children: ReactNode;
@@ -24,8 +25,8 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 	}
 
 	componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-		console.error('ErrorBoundary caught an error:', error, errorInfo);
-        console.error('ErrorBoundary: Full error stack:', error.stack);
+		logger.error('ErrorBoundary caught an error:', error, errorInfo);
+        logger.error('ErrorBoundary: Full error stack:', error.stack);
 		// For now, we'll just log it and show a user-friendly message
 	}
 

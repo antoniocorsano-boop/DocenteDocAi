@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
+import { logger } from '../utils/logger';
 
 declare global {
   interface Window {
@@ -129,7 +130,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
             }
 
         } catch (err: unknown) {
-            console.error("Error during video generation:", err);
+            logger.error("Error during video generation:", err);
             const errorMessage = err instanceof Error ? err.message : String(err);
             setError(`Errore durante la generazione: ${errorMessage}`);
         } finally {

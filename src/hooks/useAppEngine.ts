@@ -24,6 +24,7 @@ import type { SyncConflictData } from '../types';
 import { messages } from '../messages';
 import { useSettingsStore } from '../stores/useSettingsStore';
 import { errorLogger } from '../services/errorLogger';
+import { logger } from '../utils/logger';
 import { ThemeService } from '../services/ThemeService';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -63,7 +64,7 @@ export const useAppEngine = () => {
 
                 // In test mode: try to restore test-injected backup if present, otherwise fall back to lightweight demo user/state
                 if (isTestMode) {
-                    console.info('[useAppEngine] Test mode detected — attempting test backup restore or injecting demo user');
+                    logger.info('[useAppEngine] Test mode detected — attempting test backup restore or injecting demo user');
                     // Basic test user so traces and instrumentation have a user immediately
                     setUser({ id: 'test-local', displayName: 'Test Teacher' } as { id: string; displayName: string });
                     settingsActions.loadFromBackup({});
@@ -78,7 +79,7 @@ export const useAppEngine = () => {
                         const raw = await loadBackup();
                         const localData = raw ? validateBackupData(raw) : null;
                         if (localData) {
-                            console.info('[useAppEngine] Test backup found — restoring test data');
+                            logger.info('[useAppEngine] Test backup found — restoring test data');
                             studentActions.loadFromBackup(localData);
                             academicActions.loadFromBackup(localData);
                             systemActions.loadFromBackup(localData);
@@ -98,21 +99,21 @@ export const useAppEngine = () => {
                                 }));
                                 setKnowledgeBase(fullKb);
                             } catch (kbError) {
-                                console.warn('[useAppEngine] KB content load failed during test restore, using light data:', kbError);
+                                logger.warn('[useAppEngine] KB content load failed during test restore, using light data:', kbError);
                             }
                         } else {
-                            console.info('[useAppEngine] No test backup injected, using demo-light state');
+                            logger.info('[useAppEngine] No test backup injected, using demo-light state');
                             // Load demo data so tests have predictable UDA content for Gantt
                             try {
                                 setTimeout(() => {
                                     handleLoadDemoData();
                                 }, 200);
                             } catch (e) {
-                                console.warn('[useAppEngine] Failed to trigger demo load in test mode:', e);
+                                logger.warn('[useAppEngine] Failed to trigger demo load in test mode:', e);
                             }
                         }
                     } catch (e) {
-                        console.warn('[useAppEngine] Test backup restore attempt failed:', e);
+                        logger.warn('[useAppEngine] Test backup restore attempt failed:', e);
                     }
 
                     setIsDataLoaded(true);
@@ -124,7 +125,7 @@ export const useAppEngine = () => {
                 const localData = rawData ? validateBackupData(rawData) : null;
                 
                 if (localData) {
-                    console.log('[useAppEngine] Valid backup data found, restoring...');
+                    logger.debug('[useAppEngine] Valid backup data found, restoring...');
                     // Dispatch to Domain Stores
                     studentActions.loadFromBackup(localData);
                     academicActions.loadFromBackup(localData);
@@ -153,13 +154,13 @@ export const useAppEngine = () => {
                         }));
                         setKnowledgeBase(fullKb);
                     } catch (kbError) {
-                        console.warn('[useAppEngine] KB content load failed, using light data:', kbError);
+                        logger.warn('[useAppEngine] KB content load failed, using light data:', kbError);
                     }
                 } else {
-                    console.log('[useAppEngine] No valid backup found, starting with empty state.');
+                    logger.debug('[useAppEngine] No valid backup found, starting with empty state.');
                 }
             } catch (e) {
-                console.error("[useAppEngine] Initial data load failed:", e);
+                logger.error("[useAppEngine] Initial data load failed:", e);
                 // In case of critical error, start fresh
                 studentActions.resetStudentData();
                 academicActions.resetAcademicData();
@@ -247,7 +248,7 @@ export const useAppEngine = () => {
                 } as any);
                 systemActions.setSuggestions(aiSuggestions);
             } catch (error) {
-                console.error('[useAppEngine] AI suggestions generation failed:', error);
+                logger.error('[useAppEngine] AI suggestions generation failed:', error);
                 // Fallback is handled in aiSuggestionGenerator
             }
         };
@@ -701,7 +702,7 @@ export const useAppEngine = () => {
                     }
                     showToast('imported', 'success');
                 } else if (result.errors.length > 0) {
-                    console.error('Import errors:', result.errors);
+                    logger.error('Import errors:', result.errors);
                     showToast('invalidFile', 'error');
                 } else {
                     showToast('invalidFile', 'error');

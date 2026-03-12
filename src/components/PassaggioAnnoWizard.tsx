@@ -12,6 +12,7 @@ import { Studente, TimetableSettings, Valutazione, ValutazioneCompetenza, Regist
 import { getNextClass } from '../utils/schoolUtils';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { InfoCard } from './ui';
+import { logger } from '../utils/logger';
 interface PassaggioAnnoWizardProps {
     onClose: () => void;
     students: Studente[];
@@ -169,7 +170,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
             alert(`Passaggio all'anno ${nextYear} completato!`);
             onClose();
         } catch (e) {
-            console.error(e);
+            logger.error(e);
             alert("Errore durante il passaggio d'anno. Verifica il backup.");
         } finally {
             setIsProcessing(false);

@@ -3,6 +3,7 @@ import { tokenLayers, TokenLayers } from './tokens';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import { logger } from '../utils/logger';
 
 // Type for preset overrides (partial token layers)
 export type PresetOverrides = Partial<TokenLayers>;
@@ -115,7 +116,7 @@ export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({ children }) =>
         }
         
       } catch (error) {
-        console.warn('Failed to parse theme overrides from localStorage', error);
+        logger.warn('Failed to parse theme overrides from localStorage', error);
         setHasError(true);
       } finally {
         setIsLoading(false);
@@ -131,7 +132,7 @@ export const M3ThemeProvider: React.FC<M3ThemeProviderProps> = ({ children }) =>
       try {
         localStorage.setItem('m3-theme-overrides', JSON.stringify(overrides));
       } catch (error) {
-        console.error('Failed to save theme overrides to localStorage', error);
+        logger.error('Failed to save theme overrides to localStorage', error);
       }
     }
   }, [overrides, isLoading]);

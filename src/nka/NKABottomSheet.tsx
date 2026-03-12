@@ -14,6 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Skeleton from '@mui/material/Skeleton';
 import Icon from '@mui/material/Icon';
+import { logger } from '../utils/logger';
 
 interface NKABottomSheetProps {
   open: boolean;
@@ -34,7 +35,7 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
     try {
       playNkaSound('node');
     } catch (err) {
-      console.warn('[NKA] Sound play error:', err);
+      logger.warn('[NKA] Sound play error:', err);
     }
     setSelectedNode(node);
     setShowWizard(true);
@@ -47,7 +48,7 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
         const steps = await generateWizardForNodeLLM(node, {});
         setWizardSteps(steps);
       } catch (err) {
-        console.warn('[NKA] Wizard generation error:', err);
+        logger.warn('[NKA] Wizard generation error:', err);
         setWizardError('Errore nella generazione del wizard');
       } finally {
         setWizardLoading(false);

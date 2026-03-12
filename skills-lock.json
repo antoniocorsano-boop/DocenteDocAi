@@ -11,6 +11,16 @@
       "sourceType": "manual",
       "note": "Installed manually - original repo unavailable"
     },
+    "mui-v7-mastery": {
+      "source": "just-mpm/conformai",
+      "sourceType": "github",
+      "computedHash": "eed8a65a35a8c6b545da542ee92f51e786c40cc5677ee05fac36bc9913d9e27e"
+    },
+    "repository-analyzer": {
+      "source": "jackspace/claudeskillz",
+      "sourceType": "github",
+      "computedHash": "eef553f4b9fa39110732d506e0c28519ae99f991fa82d5f8081da6d1b7783546"
+    },
     "ui-ux-designer": {
       "source": "lotosbin/claude-skills",
       "sourceType": "github",

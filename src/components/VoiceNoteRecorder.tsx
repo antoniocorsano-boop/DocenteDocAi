@@ -6,6 +6,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { getGoogleAIClient } from '../services/aiClient.ts';
 import Box from '@mui/material/Box';
+import { logger } from '../utils/logger';
 interface VoiceNoteRecorderProps {
     onTranscription: (text: string) => void;
     compact?: boolean;
@@ -103,7 +104,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
             visualize();
 
         } catch (error) {
-            console.error("Error accessing microphone:", error);
+            logger.error("Error accessing microphone:", error);
             alert("Impossibile accedere al microfono. Verifica i permessi del browser.");
         }
     };
@@ -153,7 +154,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
                 const base64data = reader.result as string;
                 // Check valid data
                 if (!base64data || !base64data.includes(',')) {
-                    console.warn("Empty audio recording");
+                    logger.warn("Empty audio recording");
                     setIsProcessing(false);
                     return;
                 }
@@ -177,7 +178,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
                 cleanupAudioResources(); // Full cleanup
             };
         } catch (error) {
-            console.error("Error during transcription:", error);
+            logger.error("Error during transcription:", error);
             alert("Errore durante la trascrizione. Riprova.");
             setIsProcessing(false);
             cleanupAudioResources();

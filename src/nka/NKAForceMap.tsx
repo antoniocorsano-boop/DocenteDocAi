@@ -9,6 +9,7 @@ import { getLLMNeuralLayout } from './aiLayoutLLM';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import { logger } from '../utils/logger';
 
 interface NKAForceMapProps {
   nodes: readonly NKANode[];
@@ -63,7 +64,7 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
     // Set a timeout to prevent infinite loading
     const timeout = setTimeout(() => {
       if (!cancelled) {
-        console.warn('[NKA] LLM layout timeout, using fallback');
+        logger.warn('[NKA] LLM layout timeout, using fallback');
         setError('Timeout nel calcolo della disposizione AI');
         setLoading(false);
       }
@@ -82,7 +83,7 @@ const NKAForceMap: React.FC<NKAForceMapProps> = ({ nodes, onNodeSelect, width = 
       .catch(err => {
         if (!cancelled) {
           clearTimeout(timeout);
-          console.warn('[NKA] LLM layout error:', err);
+          logger.warn('[NKA] LLM layout error:', err);
           setError('Errore nel calcolo della disposizione AI');
           setLoading(false);
         }

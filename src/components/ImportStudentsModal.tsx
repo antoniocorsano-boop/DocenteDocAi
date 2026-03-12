@@ -18,6 +18,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import { M3Dialog, InfoCard } from './ui';
+import { logger } from '../utils/logger';
 interface ImportStudentsModalProps {
     onClose: () => void;
     onImport: (newStudents: Studente[]) => void;
@@ -91,7 +92,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
         } catch (err: unknown) {
             let message = 'Errore durante l\'analisi del file.';
             if (err instanceof Error) message = err.message;
-            console.error(err);
+            logger.error(err);
             setError(message);
             setStep('upload');
         } finally {

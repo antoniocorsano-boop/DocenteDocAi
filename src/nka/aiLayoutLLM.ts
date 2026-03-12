@@ -4,6 +4,7 @@ import { NKANode } from './types';
 import { NodePosition } from './aiLayout';
 import { buildLayoutPrompt } from './aiPromptTemplates';
 import { generateContent } from '../services/aiService';
+import { logger } from '../utils/logger';
 
 /**
  * Call an LLM to get optimal node positions for the neural map.
@@ -24,7 +25,7 @@ export async function getLLMNeuralLayout(nodes: readonly NKANode[], width: numbe
       };
     });
   } catch (error) {
-    console.warn('[NKA] LLM layout generation failed, using fallback spiral:', error);
+    logger.warn('[NKA] LLM layout generation failed, using fallback spiral:', error);
     // Fallback to spiral demo with safe positioning
     const angleStep = (2 * Math.PI) / Math.max(nodes.length, 1);
     const radius = Math.min(width, height) / 3;

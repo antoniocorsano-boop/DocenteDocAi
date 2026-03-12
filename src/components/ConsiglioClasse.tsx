@@ -15,6 +15,7 @@ import { calculatePerformance } from '../utils/evaluationUtils';
 import { getPeriodicJudgmentSuggestion, generateClassCouncilNarrativeReport } from '../services/aiService';
 import { generateCouncilTablePdf } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
+import { logger } from '../utils/logger';
 interface ConsiglioClasseProps {
   selectedClass: string;
   students: Studente[];
@@ -112,7 +113,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             handleLocalChange(student.id, 'giudizio', suggestion);
         } catch (error) {
             const errorMsg = error instanceof Error ? error.message : 'Errore sconosciuto';
-            console.error("Error suggesting judgment:", errorMsg);
+            logger.error("Error suggesting judgment:", errorMsg);
             alert("Errore durante le suggerimento del giudizio.");
         } finally {
             setLoadingAi(null);
@@ -137,7 +138,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             const report = await generateClassCouncilNarrativeReport(aiSettings, data);
             setNarrativeReport(report);
         } catch (error) {
-            console.error("Error generating narrative report:", error);
+            logger.error("Error generating narrative report:", error);
             alert("Errore durante la generazione del report narrativo.");
         } finally {
             setIsGeneratingNarrative(false);
@@ -160,7 +161,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             // viewPdfInNewTab(blob); // Rimosso import inutilizzato, lasciare gestione download a saveAs o altro
             saveAs(blob, `Scrutinio_${selectedClass}_${String(periodo)}.pdf`);
         } catch(e) {
-            console.error(e);
+            logger.error(e);
             alert("Si è verificato un errore durante l'esportazione del PDF.");
         } finally {
             setIsExporting(false);
@@ -179,7 +180,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             alert('Esportazione formato DOCX non ancora disponibile. Usa PDF.');
 
         } catch(e) {
-            console.error("Error exporting DOCX:", e);
+            logger.error("Error exporting DOCX:", e);
             alert("Errore durante la generazione del file Word.");
         } finally {
             setIsExporting(false);

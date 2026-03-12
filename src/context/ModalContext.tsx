@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import Paper from '@mui/material/Paper';
+import { logger } from '../utils/logger';
 
 interface ModalEntry {
   id: string;
@@ -21,7 +22,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const pushModal = (entry: ModalEntry) => {
     setStack((prev) => {
       if (prev.some((m) => m.id === entry.id)) {
-        console.warn(`Modal with ID "${entry.id}" is already open`);
+        logger.warn(`Modal with ID "${entry.id}" is already open`);
         return prev;
       }
       return [...prev, entry];

@@ -60,7 +60,7 @@ export const useDashboardStore = create<DashboardState>()(
           error: null
         });
       } catch (error) {
-        console.error('Failed to fetch dashboard metrics:', error);
+        logger.error('Failed to fetch dashboard metrics:', error);
         set({
           isLoading: false,
           error: error instanceof Error ? error.message : 'Failed to fetch metrics',
@@ -182,3 +182,4 @@ export const useAlertSummary = (): {
 // ============================================================================
 
 import React from 'react';
+import { logger } from '../utils/logger';

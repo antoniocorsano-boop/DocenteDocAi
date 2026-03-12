@@ -7,6 +7,7 @@ import { Uda, EventoCalendario } from '../types';
 import { generateHueFromString } from '../utils/colorUtils';
 import GanttBar from './GanttBar';
 import Tooltip from './Tooltip';
+import { logger } from '../utils/logger';
 
 interface TimelineViewProps {
     udas: Uda[];
@@ -160,7 +161,7 @@ const TimelineView: React.FC<TimelineViewProps> = ({ udas, events, onUdaClick, s
     }, [todayPosition, minWidth]);
 
     const handleUdaClick = (uda: Uda) => {
-        console.log(`Audit: Opened UDA detail modal for ${uda.id}: ${uda.title}`);
+        logger.debug(`Audit: Opened UDA detail modal for ${uda.id}: ${uda.title}`);
         onUdaClick(uda);
     };
 

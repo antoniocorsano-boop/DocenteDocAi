@@ -1,9 +1,10 @@
-﻿// MD3 Compliant
+// MD3 Compliant
 import React, { useState } from 'react';
 import { sanitizeHTML } from '../utils/securityUtils';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { M3Dialog } from './ui';
+import { logger } from '../utils/logger';
 interface DocumentViewerModalProps {
     title: string;
     htmlContent: string;
@@ -26,7 +27,7 @@ const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlCo
             setCopyStatus('copied');
             setTimeout(() => setCopyStatus('idle'), 2000);
         }).catch(err => {
-            console.error('Failed to copy text: ', err);
+            logger.error('Failed to copy text: ', err);
             alert('Impossibile copiare il testo.');
         });
     };

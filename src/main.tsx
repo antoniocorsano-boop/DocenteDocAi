@@ -60,14 +60,14 @@ if (typeof window !== 'undefined') {
     try {
       if (isExtensionSource(ev.filename)) {
         // Ignore noisy extension-injected errors
-          console.debug('[main] ignored extension error', ev.message, ev.filename);
+          logger.debug('[main] ignored extension error', ev.message, ev.filename);
         ev.preventDefault?.();
         return;
       }
-          console.error('[main] window.error', ev.message, ev.filename, ev.lineno, ev.colno, ev.error?.stack || '');
+          logger.error('[main] window.error', ev.message, ev.filename, ev.lineno, ev.colno, ev.error?.stack || '');
     } catch (err) {
       // swallow to avoid cascading failures
-      console.error('[main] error handler failed', err);
+      logger.error('[main] error handler failed', err);
     }
   });
 
@@ -76,13 +76,13 @@ if (typeof window !== 'undefined') {
       const reason = ev.reason;
       const stack = reason && typeof reason === 'object' ? (reason as { stack?: string }).stack : String(reason);
       if (stack && stack.indexOf('chrome-extension://') !== -1) {
-        console.debug('[main] ignored extension rejection', stack);
+        logger.debug('[main] ignored extension rejection', stack);
         ev.preventDefault?.();
         return;
       }
-      console.error('[main] unhandledrejection', reason);
+      logger.error('[main] unhandledrejection', reason);
     } catch (err) {
-      console.error('[main] unhandledrejection handler failed', err);
+      logger.error('[main] unhandledrejection handler failed', err);
     }
   });
 }
@@ -124,7 +124,7 @@ if (typeof window !== 'undefined') {
       window.__googleApiReady = false;
       window.__googleGsiReady = false;
     }
-  } catch (e) { console.debug('Google script load gate error', e); }
+  } catch (e) { logger.debug('Google script load gate error', e); }
 })();
 
 const rootElement = document.getElementById('root');
@@ -265,7 +265,7 @@ async function bootstrapApp() {
     );
   } catch (e) {
     // Critical bootstrap error — log full stack and render a minimal fallback
-    console.error('[main] bootstrap failed', e);
+    logger.error('[main] bootstrap failed', e);
     try {
       root.render(
         <ErrorBoundary>
@@ -279,7 +279,7 @@ async function bootstrapApp() {
         </ErrorBoundary>
       );
     } catch (renderErr) {
-      console.error('[main] render fallback failed', renderErr);
+      logger.error('[main] render fallback failed', renderErr);
     }
   }
 }

@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { useUIStore } from '../stores/useUIStore';
 import Typography from '@mui/material/Typography';
+import { logger } from '../utils/logger';
 const SNACKBAR_COLORS = {
   success: {
     bg: 'var(--md-sys-color-primary)',
@@ -76,7 +77,7 @@ const Snackbar: React.FC = () => {
     if (clearToast) {
       clearToast();
     } else {
-      console.warn('Snackbar Warning - clearToast is undefined, forcing close via store');
+      logger.warn('Snackbar Warning - clearToast is undefined, forcing close via store');
       // Fallback: Chiudi manualmente il toast se clearToast fallisce
       useUIStore.setState((state) => ({
         modals: {

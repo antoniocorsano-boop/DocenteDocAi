@@ -3,6 +3,7 @@
 // M3Expressive refactor: ✅ COMPLETED - Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation. Maintained responsive behavior and animations.
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
+import { logger } from '../utils/logger';
 
 function useGuidanceDismissed(id: string): [boolean, () => void] {
   const key = `guidance-dismissed-${id}`;
@@ -19,7 +20,7 @@ function useGuidanceDismissed(id: string): [boolean, () => void] {
       window.localStorage.setItem(key, 'true');
       setIsDismissed(true);
     } catch (error) {
-      console.error(`Failed to dismiss guidance with id "${id}":`, error);
+      logger.error(`Failed to dismiss guidance with id "${id}":`, error);
     }
   };
 

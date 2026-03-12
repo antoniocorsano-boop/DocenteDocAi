@@ -4,6 +4,7 @@
  */
 
 import { BackupPayload, Studente, Valutazione, Lezione } from '../types';
+import { logger } from './logger';
 
 /**
  * Type guards for validation
@@ -22,7 +23,7 @@ const isRecord = (value: unknown): value is Record<string, unknown> => {
  */
 export function validateBackupData(data: unknown): BackupPayload | null {
   if (!data || typeof data !== 'object') {
-    console.warn('[DataValidator] Invalid backup data: not an object');
+    logger.warn('[DataValidator] Invalid backup data: not an object');
     return null;
   }
 
@@ -113,10 +114,10 @@ export function validateBackupData(data: unknown): BackupPayload | null {
       isGlobalAiLoading: typeof backup.isGlobalAiLoading === 'boolean' ? backup.isGlobalAiLoading : false,
     } as unknown as BackupPayload;
 
-    console.log('[DataValidator] Backup data validated successfully');
+    logger.debug('[DataValidator] Backup data validated successfully');
     return validated;
   } catch (error) {
-    console.error('[DataValidator] Validation failed:', error);
+    logger.error('[DataValidator] Validation failed:', error);
     return null;
   }
 }

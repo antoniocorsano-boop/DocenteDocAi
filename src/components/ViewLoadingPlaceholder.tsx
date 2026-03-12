@@ -13,6 +13,7 @@ import React from 'react';
 import { AiThinkingGem } from './ui';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { logger } from '../utils/logger';
 interface ViewLoadingPlaceholderProps {
   message?: string;
   className?: string;
@@ -81,7 +82,7 @@ export function useViewPreload(viewName: string): void {
           mod.preloadView(viewName as import('../types').View);
         }
       }).catch(err => {
-        console.warn('[view-preload] Failed to import lazy loader:', err);
+        logger.warn('[view-preload] Failed to import lazy loader:', err);
       });
     }, 100);
     

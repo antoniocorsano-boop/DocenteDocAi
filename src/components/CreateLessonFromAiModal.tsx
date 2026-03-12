@@ -14,6 +14,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { M3Dialog, TextField, AiThinkingGem } from './ui';
+import { logger } from '../utils/logger';
 interface CreateLessonFromAiModalProps {
     content: { title: string; htmlContent: string };
     onClose: () => void;
@@ -177,7 +178,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
     
         } catch (error) {
             const errorMsg = error instanceof Error ? error.message : 'Errore sconosciuto';
-            console.error("Error generating inclusivity adaptations:", errorMsg);
+            logger.error("Error generating inclusivity adaptations:", errorMsg);
             alert("Si è verificato un errore durante la generazione dei suggerimenti per l'inclusività.");
         } finally {
             setIsAdaptationsLoading(false);

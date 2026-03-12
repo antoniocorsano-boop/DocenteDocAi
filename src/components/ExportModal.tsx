@@ -1,4 +1,4 @@
-﻿/**
+/**
  * // MD3 GOLD COMPLIANT
 // Audit date: 2026-01-25
 // Conformance: MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
@@ -26,6 +26,7 @@ import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import { M3Dialog, TextField, SectionHeader } from './ui';
+import { logger } from '../utils/logger';
 
 type Prova = {
     id: string;
@@ -294,7 +295,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
                 await exportToPDF();
             }
         } catch (error: unknown) {
-            console.error("Export failed:", error);
+            logger.error("Export failed:", error);
             let message = 'Errore sconosciuto.';
             if (error instanceof Error) message = error.message;
             alert(`Esportazione fallita:\n${message}`);

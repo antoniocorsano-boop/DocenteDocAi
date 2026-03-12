@@ -1,4 +1,4 @@
-﻿
+
 // MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
@@ -16,6 +16,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
+import { logger } from '../utils/logger';
 interface UdaExportModalProps {
     uda: Uda;
     competenze: Competenza[];
@@ -60,7 +61,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             viewPdfInNewTab(pdfBlob);
             onClose();
         } catch (error) {
-            console.error("Failed to generate UDA PDF:", error);
+            logger.error("Failed to generate UDA PDF:", error);
             alert("Si è verificato un errore durante la generazione del PDF.");
         } finally {
             setIsExporting(false);
@@ -104,7 +105,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             onClose();
             
         } catch (error) {
-            console.error("Failed to generate UDA DOCX:", error);
+            logger.error("Failed to generate UDA DOCX:", error);
             alert("Si è verificato un errore durante la generazione del file Word.");
         } finally {
             setIsExporting(false);
@@ -122,7 +123,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             const report = await generateMarkdownReport(aiSettings, 'uda-report', { prompt });
             setMarkdownReport(report);
         } catch (error) {
-            console.error("AI Report generation failed:", error);
+            logger.error("AI Report generation failed:", error);
             alert("L'assistente AI non è riuscito a generare il report.");
         } finally {
             setIsExporting(false);

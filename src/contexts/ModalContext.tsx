@@ -17,6 +17,7 @@ import React, { createContext, useContext, useCallback, useState, ReactNode, use
 import { createPortal } from 'react-dom';
 import { getModalZIndex } from '../design-system/zIndex';
 import Paper from '@mui/material/Paper';
+import { logger } from '../utils/logger';
 
 // ============================================================================
 // TYPES & INTERFACES
@@ -175,7 +176,7 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
       setStack((prev) => {
         // Prevent duplicate modal IDs
         if (prev.some((m) => m.id === options.id)) {
-          console.warn(`Modal with ID "${options.id}" is already open`);
+          logger.warn(`Modal with ID "${options.id}" is already open`);
           return prev;
         }
 

@@ -40,6 +40,7 @@ import ClassPlanningWizard from './ClassPlanningWizard';
 import SmartDocumentEditor from './SmartDocumentEditor';
 import DocumentViewerModal from './DocumentViewerModal';
 import { getDocumentTemplate } from '../utils/templateUtils';
+import { logger } from '../utils/logger';
 
 type DocPhase = 'avvio' | 'itinere' | 'valutazione' | 'chiusura';
 
@@ -180,7 +181,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             const blob = await generateStudentProfilePdf(student, studentEvals, studentCompEvals, props.settings);
             viewPdfInNewTab(blob);
         } catch (e) {
-            console.error("Failed to generate student PDF:", e);
+            logger.error("Failed to generate student PDF:", e);
             showToast("Errore durante la generazione del profilo studente. Riprova pi� tardi.", "error");
         } finally {
             setIsGenerating(false);
@@ -196,7 +197,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             // Se esiste una funzione generateLessonPdf, usala. Altrimenti, mostra errore.
             showToast("Funzione di generazione PDF lezione non implementata.", "error");
         } catch (e) {
-            console.error("Failed to generate lesson PDF:", e);
+            logger.error("Failed to generate lesson PDF:", e);
             showToast("Errore durante la generazione del piano lezione. Riprova pi� tardi.", "error");
         } finally {
             setIsGenerating(false);
@@ -221,7 +222,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             const blob = await generatePdfBrochure(content);
             viewPdfInNewTab(blob);
         } catch (e) {
-            console.error("Errore generazione brochure:", e);
+            logger.error("Errore generazione brochure:", e);
             showToast("Errore durante la generazione della brochure. Riprova pi� tardi.", "error");
         } finally {
             setIsGenerating(false);
@@ -248,7 +249,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             const blob = new Blob([html], { type: 'text/html' });
             saveAs(blob, `Programma_${selectedClass}_${selectedSubject}.docx`);
         } catch (e) {
-            console.error("Errore generazione programma:", e);
+            logger.error("Errore generazione programma:", e);
             showToast("Errore durante la generazione del programma svolto. Riprova pi� tardi.", "error");
         } finally {
             setIsGenerating(false);

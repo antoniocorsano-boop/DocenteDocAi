@@ -1,4 +1,4 @@
-﻿// MD3 Compliant - Progettazione Hub
+// MD3 Compliant - Progettazione Hub
 /**
  * ProgettazioneHub.tsx
  * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
@@ -65,7 +65,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
         if (onUpdateCompetencies) {
             onUpdateCompetencies(newCompetenze);
         } else {
-            console.warn("onUpdateCompetencies not provided to ProgettazioneHub");
+            logger.warn("onUpdateCompetencies not provided to ProgettazioneHub");
         }
     };
 
@@ -339,7 +339,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             ]);
                         } else {
                             // Fallback: log e chiudi modale
-                            console.warn('onUpdateKnowledgeBase non fornito, impossibile aggiornare la Knowledge Base.');
+                            logger.warn('onUpdateKnowledgeBase non fornito, impossibile aggiornare la Knowledge Base.');
                         }
                         setIsNotebookLMImportOpen(false);
                     }}

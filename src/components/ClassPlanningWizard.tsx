@@ -26,6 +26,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import '../design-system/md3-utilities.css';
 import { useUIStore } from '../stores/useUIStore';
+import { logger } from '../utils/logger';
 interface AnnualPlanningWizardProps {
     onClose: () => void;
     userClasses: string[];
@@ -121,7 +122,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             });
             setSituationText(text);
         } catch (e) {
-            console.error("Errore generazione testo situazione:", e);
+            logger.error("Errore generazione testo situazione:", e);
             showToast("Errore durante la generazione del testo della situazione di partenza. Riprova.", "error");
         } finally {
             setIsGeneratingSituation(false);
@@ -133,7 +134,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
         try {
             setMethodology('');
         } catch (e) {
-            console.error("Errore generazione metodologia:", e);
+            logger.error("Errore generazione metodologia:", e);
             showToast("Errore durante la generazione delle strategie metodologiche. Riprova.", "error");
         } finally {
             setIsGeneratingMethodology(false);
@@ -160,7 +161,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                 showToast("L'AI non ha trovato UDA nel documento. Puoi inserirle manualmente.", "info");
             }
         } catch (e) {
-            console.error("Errore durante l'analisi del documento:", e);
+            logger.error("Errore durante l'analisi del documento:", e);
             showToast("Errore durante l'analisi del documento. Riprova.", "error");
         } finally {
             setIsGeneratingPlan(false);
@@ -262,7 +263,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
             setStep('document');
         } catch (error) {
-            console.error("Errore nel salvataggio dei dati:", error);
+            logger.error("Errore nel salvataggio dei dati:", error);
             showToast("Errore nel salvataggio dei dati. Riprova.", "error");
         } finally {
             setIsProcessing(false);
@@ -312,7 +313,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             
             onClose();
         } catch (e: unknown) {
-            console.error("Errore generazione documento:", e);
+            logger.error("Errore generazione documento:", e);
             showToast("Errore durante la generazione del documento. Riprova.", "error");
         } finally {
             setIsProcessing(false);

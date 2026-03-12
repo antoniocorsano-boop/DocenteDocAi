@@ -11,6 +11,7 @@
  */
 
 import type { View } from '../../types';
+import { logger } from '../../utils/logger';
 
 /**
  * View loading status and performance metrics tracker
@@ -22,7 +23,7 @@ export const viewLoadingMetrics = {
   markLoaded(viewName: string): void {
     this.loaded.add(viewName);
     this.timestamps.set(viewName, performance.now());
-    console.info(`[performance] View loaded: ${viewName}`);
+    logger.info(`[performance] View loaded: ${viewName}`);
   },
   
   getLoadTime(viewName: string): number | null {
@@ -75,7 +76,7 @@ export function preloadView(viewName: View): void {
 
   const importer = VIEW_IMPORTERS[viewName];
   if (!importer) {
-    console.warn(`[lazy-load] No importer registered for view: ${viewName}`);
+    logger.warn(`[lazy-load] No importer registered for view: ${viewName}`);
     return;
   }
 
@@ -84,7 +85,7 @@ export function preloadView(viewName: View): void {
       viewLoadingMetrics.markLoaded(viewName);
     })
     .catch(err => {
-      console.warn(`[lazy-load] Failed to preload view: ${viewName}`, err);
+      logger.warn(`[lazy-load] Failed to preload view: ${viewName}`, err);
     });
 }
 

@@ -1,4 +1,5 @@
 import { KnowledgeBaseEntry } from '../types';
+import { logger } from '../utils/logger';
 
 // This service manages storing and retrieving Knowledge Base content
 // to/from IndexedDB in a dedicated store.
@@ -30,7 +31,7 @@ const getDb = (): Promise<IDBDatabase> => {
             const request = indexedDB.open(DB_NAME, DB_VERSION);
             
             request.onerror = () => {
-                console.error('[IndexedDbService] Database open error:', request.error);
+                logger.error('[IndexedDbService] Database open error:', request.error);
                 dbInitPromise = null;
                 reject(new Error(`KB Database open failed: ${request.error?.message || 'Unknown error'}`));
             };
@@ -40,7 +41,7 @@ const getDb = (): Promise<IDBDatabase> => {
                 
                 // Verifica che lo store esista
                     if (!dbInstance.objectStoreNames.contains(STORE_NAME)) {
-                    console.warn('[IndexedDbService] Store not found, recreating database...');
+                    logger.warn('[IndexedDbService] Store not found, recreating database...');
                     dbInstance.close();
                     dbInstance = null;
                     dbInitPromise = null;
@@ -64,7 +65,7 @@ const getDb = (): Promise<IDBDatabase> => {
                 
                 // Gestisci chiusura inaspettata
                 dbInstance.onclose = () => {
-                    console.warn('[IndexedDbService] Database connection closed unexpectedly');
+                    logger.warn('[IndexedDbService] Database connection closed unexpectedly');
                     dbInstance = null;
                     dbInitPromise = null;
                 };
@@ -82,11 +83,11 @@ const getDb = (): Promise<IDBDatabase> => {
                 
                 // Crea nuovo store
                 db.createObjectStore(STORE_NAME, { keyPath: 'id' });
-                console.log('[IndexedDbService] KB object store created/upgraded');
+                logger.debug('[IndexedDbService] KB object store created/upgraded');
             };
 
             request.onblocked = () => {
-                console.warn('[IndexedDbService] Database upgrade blocked - close other tabs');
+                logger.warn('[IndexedDbService] Database upgrade blocked - close other tabs');
                 dbInitPromise = null;
                 reject(new Error('KB Database upgrade blocked'));
             };
@@ -131,11 +132,11 @@ export const saveKbContentToIndexedDB = async (kbEntries: KnowledgeBaseEntry[]):
                 });
 
                 transaction.oncomplete = () => {
-                    console.log('[IndexedDbService] KB content saved successfully');
+                    logger.debug('[IndexedDbService] KB content saved successfully');
                     resolve();
                 };
                 transaction.onerror = () => {
-                    console.error('[IndexedDbService] Save KB transaction error:', transaction.error);
+                    logger.error('[IndexedDbService] Save KB transaction error:', transaction.error);
                     reject(transaction.error);
                 };
             } catch (error) {
@@ -143,7 +144,7 @@ export const saveKbContentToIndexedDB = async (kbEntries: KnowledgeBaseEntry[]):
             }
         });
     } catch (error) {
-        console.error("[IndexedDbService] Failed to save KB content:", error);
+        logger.error("[IndexedDbService] Failed to save KB content:", error);
         // Non bloccare l'app se il salvataggio KB fallisce
     }
 };
@@ -172,16 +173,16 @@ export const loadKbContentFromIndexedDB = async (): Promise<Record<string, Parti
                             };
                         });
                     }
-                    console.log('[IndexedDbService] KB content loaded, entries:', Object.keys(result).length);
+                    logger.debug('[IndexedDbService] KB content loaded, entries:', Object.keys(result).length);
                     resolve(result);
                 };
                 request.onerror = () => {
-                    console.error('[IndexedDbService] Load KB request error:', request.error);
+                    logger.error('[IndexedDbService] Load KB request error:', request.error);
                     reject(request.error);
                 };
                 
                 transaction.onerror = () => {
-                    console.error('[IndexedDbService] Load KB transaction error:', transaction.error);
+                    logger.error('[IndexedDbService] Load KB transaction error:', transaction.error);
                     reject(transaction.error);
                 };
             } catch (error) {
@@ -189,7 +190,7 @@ export const loadKbContentFromIndexedDB = async (): Promise<Record<string, Parti
             }
         });
     } catch (error) {
-        console.error("[IndexedDbService] Failed to load KB content:", error);
+        logger.error("[IndexedDbService] Failed to load KB content:", error);
         return {}; // Ritorna oggetto vuoto invece di throw
     }
 };
@@ -208,7 +209,7 @@ export const deleteKbContentFromIndexedDB = async (id: string): Promise<void> =>
                 void store.delete(id);
                 transaction.oncomplete = () => resolve();
                 transaction.onerror = () => {
-                    console.error('Delete KB entry transaction error:', transaction.error);
+                    logger.error('Delete KB entry transaction error:', transaction.error);
                     reject(transaction.error);
                 };
             } catch (error) {
@@ -216,7 +217,7 @@ export const deleteKbContentFromIndexedDB = async (id: string): Promise<void> =>
             }
         });
     } catch (error) {
-        console.error("Failed to initiate delete KB entry:", error);
+        logger.error("Failed to initiate delete KB entry:", error);
         throw error;
     }
 };
@@ -234,13 +235,13 @@ export const clearIndexedDB = async (): Promise<void> => {
                 if (typeof store.clear === 'function') {
                     void store.clear();
                 } else {
-                    console.warn('[IndexedDbService] Store clear not available; skipping');
+                    logger.warn('[IndexedDbService] Store clear not available; skipping');
                     resolve();
                     return;
                 }
                 transaction.oncomplete = () => resolve();
                 transaction.onerror = () => {
-                    console.error('Clear KB store transaction error:', transaction.error);
+                    logger.error('Clear KB store transaction error:', transaction.error);
                     reject(transaction.error);
                 };
             } catch (error) {
@@ -248,7 +249,7 @@ export const clearIndexedDB = async (): Promise<void> => {
             }
         });
     } catch (error) {
-        console.error("Failed to initiate clear KB store:", error);
+        logger.error("Failed to initiate clear KB store:", error);
         throw error;
     }
 };
@@ -274,7 +275,7 @@ export const deleteMainAppBackup = async (): Promise<void> => {
                     resolve();
                 };
                 transaction.onerror = () => {
-                    console.error('Delete main app backup transaction error:', transaction.error);
+                    logger.error('Delete main app backup transaction error:', transaction.error);
                     db.close();
                     reject(transaction.error);
                 };
@@ -284,7 +285,7 @@ export const deleteMainAppBackup = async (): Promise<void> => {
             }
         });
     } catch (error) {
-        console.error("Failed to initiate delete main app backup:", error);
+        logger.error("Failed to initiate delete main app backup:", error);
         throw error;
     }
 };
@@ -298,7 +299,7 @@ export const closeDatabase = (): void => {
         dbInstance = null;
     }
     dbInitPromise = null;
-    console.log('[IndexedDbService] Database connection closed');
+    logger.debug('[IndexedDbService] Database connection closed');
 };
 
 /**

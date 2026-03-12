@@ -1,3 +1,4 @@
+import { logger } from '../utils/logger';
 // Removed unused import KnowledgeBaseEntry
 
 // This service manages storing and retrieving the entire application state
@@ -19,7 +20,7 @@ export const initPersistentStorage = async (): Promise<boolean> => {
             return isPersisted;
         }
     } catch (error) {
-        console.error('[BackupService] Error initializing persistent storage:', error);
+        logger.error('[BackupService] Error initializing persistent storage:', error);
     }
     return false;
 };
@@ -31,7 +32,7 @@ export const checkStorageQuota = async (): Promise<StorageEstimate | null> => {
             return estimate;
         }
     } catch (error) {
-        console.error('[BackupService] Error checking storage quota:', error);
+        logger.error('[BackupService] Error checking storage quota:', error);
     }
     return null;
 };
@@ -57,7 +58,7 @@ const getDb = (): Promise<IDBDatabase> => {
                 const request = indexedDB.open(DB_NAME, DB_VERSION);
             
             request.onerror = () => {
-                console.error('[BackupService] Database open error:', request.error);
+                logger.error('[BackupService] Database open error:', request.error);
                 dbInitPromise = null;
                 reject(new Error(`Database open failed: ${request.error?.message || 'Unknown error'}`));
             };
@@ -67,7 +68,7 @@ const getDb = (): Promise<IDBDatabase> => {
                 
                 // Verifica che lo store esista
                 if (!dbInstance.objectStoreNames.contains(STORE_NAME)) {
-                    console.warn('[BackupService] Store not found, recreating database...');
+                    logger.warn('[BackupService] Store not found, recreating database...');
                     dbInstance.close();
                     dbInstance = null;
                     dbInitPromise = null;
@@ -92,13 +93,13 @@ const getDb = (): Promise<IDBDatabase> => {
                 
                 // Gestisci chiusura inaspettata
                 dbInstance.onclose = () => {
-                    console.warn('[BackupService] Database connection closed unexpectedly');
+                    logger.warn('[BackupService] Database connection closed unexpectedly');
                     dbInstance = null;
                     dbInitPromise = null;
                 };
                 
                 dbInstance.onerror = (event) => {
-                    console.error('[BackupService] Database error:', event);
+                    logger.error('[BackupService] Database error:', event);
                 };
 
                 resolve(dbInstance);
@@ -114,11 +115,11 @@ const getDb = (): Promise<IDBDatabase> => {
                 
                 // Crea nuovo store
                 db.createObjectStore(STORE_NAME);
-                console.log('[BackupService] Object store created/upgraded');
+                logger.debug('[BackupService] Object store created/upgraded');
             };
 
             request.onblocked = () => {
-                console.warn('[BackupService] Database upgrade blocked - close other tabs');
+                logger.warn('[BackupService] Database upgrade blocked - close other tabs');
                 dbInitPromise = null;
                 reject(new Error('Database upgrade blocked'));
             };
@@ -157,11 +158,11 @@ export const saveBackup = async (state: object): Promise<void> => {
                 void store.put(safeState, BACKUP_KEY);
                 
                 transaction.oncomplete = () => {
-                    console.log('[BackupService] Backup saved successfully');
+                    logger.debug('[BackupService] Backup saved successfully');
                     resolve();
                 };
                 transaction.onerror = () => {
-                    console.error('[BackupService] Save transaction error:', transaction.error);
+                    logger.error('[BackupService] Save transaction error:', transaction.error);
                     reject(transaction.error);
                 };
             } catch (error) {
@@ -169,7 +170,7 @@ export const saveBackup = async (state: object): Promise<void> => {
             }
         });
     } catch (error) {
-        console.error("[BackupService] Failed to save backup:", error);
+        logger.error("[BackupService] Failed to save backup:", error);
         throw error;
     }
 };
@@ -189,19 +190,19 @@ export const loadBackup = async (): Promise<unknown | null> => {
                 
                 request.onsuccess = () => {
                     if (request.result) {
-                        console.log('[BackupService] Backup loaded successfully');
+                        logger.debug('[BackupService] Backup loaded successfully');
                     } else {
-                        console.log('[BackupService] No backup found');
+                        logger.debug('[BackupService] No backup found');
                     }
                     resolve(request.result || null);
                 };
                 request.onerror = () => {
-                    console.error('[BackupService] Load request error:', request.error);
+                    logger.error('[BackupService] Load request error:', request.error);
                     reject(request.error);
                 };
                 
                 transaction.onerror = () => {
-                    console.error('[BackupService] Load transaction error:', transaction.error);
+                    logger.error('[BackupService] Load transaction error:', transaction.error);
                     reject(transaction.error);
                 };
             } catch (error) {
@@ -209,7 +210,7 @@ export const loadBackup = async (): Promise<unknown | null> => {
             }
         });
     } catch (error) {
-        console.error("[BackupService] Failed to load backup:", error);
+        logger.error("[BackupService] Failed to load backup:", error);
         return null; // Ritorna null invece di throw per non bloccare l'app
     }
 };
@@ -228,11 +229,11 @@ export const deleteBackup = async (): Promise<void> => {
                 void store.delete(BACKUP_KEY);
                 
                 transaction.oncomplete = () => {
-                    console.log('[BackupService] Backup deleted');
+                    logger.debug('[BackupService] Backup deleted');
                     resolve();
                 };
                 transaction.onerror = () => {
-                    console.error('[BackupService] Delete transaction error:', transaction.error);
+                    logger.error('[BackupService] Delete transaction error:', transaction.error);
                     reject(transaction.error);
                 };
             } catch (error) {
@@ -240,7 +241,7 @@ export const deleteBackup = async (): Promise<void> => {
             }
         });
     } catch (error) {
-        console.error("[BackupService] Failed to delete backup:", error);
+        logger.error("[BackupService] Failed to delete backup:", error);
         throw error;
     }
 };
@@ -262,7 +263,7 @@ export const closeDatabase = (): void => {
         dbInstance = null;
     }
     dbInitPromise = null;
-    console.log('[BackupService] Database connection closed');
+    logger.debug('[BackupService] Database connection closed');
 };
 
 /**

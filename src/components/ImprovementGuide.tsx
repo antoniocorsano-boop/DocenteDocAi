@@ -1,4 +1,4 @@
-﻿// MD3 Gold Compliant
+// MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 // M3Expressive: ImprovementGuide - Class analysis and improvement report with M3 tokens
@@ -16,6 +16,7 @@ import { AiMemoryChip, InfoCard, SectionHeader, AiThinkingGem } from './ui';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { logger } from '../utils/logger';
 interface ImprovementGuideProps {
     selectedClass: string;
     students: Studente[];
@@ -110,7 +111,7 @@ Usa un linguaggio formale, costruttivo e basato sui dati. La tua risposta deve e
                 setAnalysis(result);
 
             } catch (err) {
-                console.error("AI Analysis Error:", err);
+                logger.error("AI Analysis Error:", err);
                 setError("Impossibile generare l'analisi AI. Assicurati di avere abbastanza dati registrati (voti, competenze) e riprova.");
             } finally {
                 setLoadingStatus(null);

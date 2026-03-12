@@ -1,4 +1,4 @@
-﻿// MD3 Gold Compliant
+// MD3 Gold Compliant
 // Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
 // Audit: gennaio 2026
 
@@ -11,6 +11,7 @@ import { InfoCard, SectionHeader, TextField } from './ui';
 import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
 import Box from '@mui/material/Box';
+import { logger } from '../utils/logger';
 
 interface FeedManagerProps {
     sources: FeedSource[];
@@ -49,7 +50,7 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
             setPageUrl('');
             showToast(`Fonte "${title}" aggiunta con successo!`, 'success');
         } catch (error: unknown) {
-            console.error("Error adding feed source:", error);
+            logger.error("Error adding feed source:", error);
             let message = "Si è verificato un errore sconosciuto.";
             if (error instanceof Error) message = error.message;
             showToast(message, "error");

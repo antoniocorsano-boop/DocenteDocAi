@@ -5,6 +5,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { logger } from './logger';
 
 // ============================================================================
 // TYPES & INTERFACES
@@ -135,7 +136,7 @@ export class MetricsParser {
     try {
       return JSON.parse(fs.readFileSync(baselinePath, 'utf-8'));
     } catch (error) {
-      console.warn('Failed to load baseline metrics:', error);
+      logger.warn('Failed to load baseline metrics:', error);
       return null;
     }
   }
@@ -193,7 +194,7 @@ export class MetricsParser {
       const cutoff = Date.now() - (hours * 60 * 60 * 1000);
       return allAlerts.filter(alert => new Date(alert.timestamp).getTime() > cutoff);
     } catch (error) {
-      console.warn('Failed to load alerts:', error);
+      logger.warn('Failed to load alerts:', error);
       return [];
     }
   }

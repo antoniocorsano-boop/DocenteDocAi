@@ -44,6 +44,7 @@ import SettingsGroup from './settings/SettingsGroupAccordion';
 import ChipInputList from './ChipInputList';
 import { useSettingsLogic } from '../hooks/useSettingsLogic';
 import { errorLogger } from '../services/errorLogger';
+import { logger } from '../utils/logger';
 
 const Settings: React.FC<SettingsProps> = (props) => {
     const {
@@ -65,7 +66,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
             const total = ((estimate.quota || 0) / 1024 / 1024).toFixed(1);
             const percent = Math.round(((estimate.usage || 0) / (estimate.quota || 1)) * 100);
             setStorageInfo({ used, total, percent });
-        }).catch((error) => console.error('Storage estimation failed:', error));
+        }).catch((error) => logger.error('Storage estimation failed:', error));
     }, []);
 
     const settingsLogic = useSettingsLogic({
@@ -180,7 +181,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
             
             showToast('Tema esportato con successo!', 'success');
         } catch (error) {
-            console.error('Errore durante l\'esportazione del tema:', error);
+            logger.error('Errore durante l\'esportazione del tema:', error);
             showToast('Errore durante l\'esportazione del tema', 'error');
         }
     };
@@ -212,7 +213,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 showToast(`Tema "${themeData.themeState.customizationName}" importato con successo!`, 'success');
                 
             } catch (error) {
-                console.error('Errore durante l\'importazione del tema:', error);
+                logger.error('Errore durante l\'importazione del tema:', error);
                 showToast(`Errore durante l'importazione: ${error instanceof Error ? error.message : 'File non valido'}`, 'error');
             }
         };

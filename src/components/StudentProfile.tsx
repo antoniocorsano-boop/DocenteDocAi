@@ -13,6 +13,7 @@ import StudentInterviewModal from './StudentInterviewModal';
 import { EmptyState, InfoCard, Avatar } from './ui';
 import Button from '@mui/material/Button';
 import { getPeriodicJudgmentSuggestion } from '../services/aiService';
+import { logger } from '../utils/logger';
 
 interface StudentProfileProps {
     student: Studente;
@@ -93,7 +94,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             const blob = await generateStudentProfilePdf(student, evaluations, competencyEvaluations, settings);
             viewPdfInNewTab(blob);
         } catch (e: unknown) {
-            console.error("PDF Export failed", e);
+            logger.error("PDF Export failed", e);
             let message = 'Errore durante la creazione del PDF.';
             if (e instanceof Error) {
                 message = `Errore durante la creazione del PDF: ${e.message}`;
@@ -125,7 +126,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             const blob = await generateCertificazioneCompetenzePdf(student, certData, settings);
             viewPdfInNewTab(blob);
         } catch (e: unknown) {
-            console.error("Certificazione failed", e);
+            logger.error("Certificazione failed", e);
             let message = 'Errore creazione certificazione.';
             if (e instanceof Error) {
                 message = `Errore creazione certificazione: ${e.message}`;
@@ -150,7 +151,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             );
             setAiJudgment(suggestion);
         } catch (error) {
-            console.error("Error generating AI judgment:", error);
+            logger.error("Error generating AI judgment:", error);
             alert("Errore durante la generazione del giudizio AI.");
         } finally {
             setIsLoadingAi(false);

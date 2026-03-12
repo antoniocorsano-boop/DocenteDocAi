@@ -1,3 +1,4 @@
+import { logger } from '../utils/logger';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Lazy-load the Google GenAI SDK to avoid bundling it in the main chunk
@@ -58,7 +59,7 @@ export async function callAiWithRetry<T>(operation: () => Promise<T>, retries = 
 
         if (remainingRetries > 0 && isRetryable) {
             if (import.meta.env.DEV) {
-                console.warn(`AI API Warning: ${error.message}. Riprovo tra ${currentDelay}ms...`);
+                logger.warn(`AI API Warning: ${error.message}. Riprovo tra ${currentDelay}ms...`);
             }
             await new Promise(res => setTimeout(res, currentDelay));
             return attempt(remainingRetries - 1, currentDelay * 2);

@@ -1,4 +1,4 @@
-﻿// MD3 Compliant — Consiglio Classe Wizard
+// MD3 Compliant — Consiglio Classe Wizard
 
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, TimetableSettings, AiSettings, Report, ValutazioneCompetenza, PeriodoValutazione } from '../types';
@@ -17,6 +17,7 @@ import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { logger } from '../utils/logger';
 
 interface ConsiglioClasseWizardProps {
     onClose: () => void;
@@ -56,7 +57,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
             viewPdfInNewTab(blob);
             props.onClose();
         } catch (error) {
-            console.error("PDF generation failed", error);
+            logger.error("PDF generation failed", error);
             alert("Errore durante la generazione del PDF.");
         } finally {
             setIsLoading(false);

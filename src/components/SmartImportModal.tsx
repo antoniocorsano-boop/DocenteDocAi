@@ -1,4 +1,4 @@
-﻿import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useFileDrop } from '../hooks/useFileDrop';
 import { extractTextFromFile, generateHtmlDocxBlob } from '../utils/documentUtils';
 import { refactorProgrammazione } from '../services/aiService';
@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
+import { logger } from '../utils/logger';
 
 interface SmartImportModalProps {
     onClose: () => void;
@@ -41,7 +42,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
 
             setStep('result');
         } catch (error: unknown) {
-            console.error(error);
+            logger.error(error);
             let message = 'Errore durante l\'elaborazione.';
             if (error instanceof Error) {
                 message = "Errore durante l'elaborazione: " + error.message;

@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { M3Dialog, InfoCard } from './ui';
+import { logger } from '../utils/logger';
 interface ImageAnalysisModalProps {
   onClose: () => void;
 }
@@ -64,7 +65,7 @@ const ImageAnalysisModal: React.FC<ImageAnalysisModalProps> = ({ onClose }) => {
       // Simulate analysis result for now
       setAnalysisResult(`Analisi completata. Prompt: ${prompt}\nBase64 length: ${base64.length}`);
     } catch (error) {
-      console.error("Error during image analysis:", error);
+      logger.error("Error during image analysis:", error);
       setAnalysisResult("Si è verificato un errore durante l'analisi. Riprova.");
     } finally {
       setIsLoading(false);

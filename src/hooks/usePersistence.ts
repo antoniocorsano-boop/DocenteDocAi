@@ -10,6 +10,7 @@ import { useAcademicStore } from '../stores/useAcademicStore.ts';
 import { useSystemStore } from '../stores/useSystemStore.ts';
 import { useSettingsStore } from '../stores/useSettingsStore.ts';
 import { useUIStore } from '../stores/useUIStore.ts';
+import { logger } from '../utils/logger';
 
 /**
  * Middleware di Persistenza Unificato.
@@ -40,7 +41,7 @@ export const usePersistence = (isDataLoaded: boolean) => {
             setBackupState = uiState.actions?.setBackupState;
             isRestoring = uiState.modals?.isRestoring ?? false;
         } catch (e) {
-            console.error('Failed to access store state:', e);
+            logger.error('Failed to access store state:', e);
             return;
         }
 
@@ -49,7 +50,7 @@ export const usePersistence = (isDataLoaded: boolean) => {
 
         const handleSave = async () => {
             if (isSavingRef.current) {
-                console.log('[usePersistence] Save already in progress, skipping');
+                logger.debug('[usePersistence] Save already in progress, skipping');
                 return;
             }
             // Dirty-check and rate limit
@@ -110,29 +111,29 @@ export const usePersistence = (isDataLoaded: boolean) => {
             const isDirty = JSON.stringify(backupPayload) !== JSON.stringify(lastSavedData);
             const isRateLimited = now - lastSaveTime < SAVE_RATE_LIMIT_MS;
             if (!isDirty) {
-                console.log('[usePersistence] No changes detected, skipping save');
+                logger.debug('[usePersistence] No changes detected, skipping save');
                 return;
             }
             if (isRateLimited) {
-                console.log('[usePersistence] Save rate-limited, skipping save');
+                logger.debug('[usePersistence] Save rate-limited, skipping save');
                 return;
             }
             isSavingRef.current = true;
             try {
-                console.log('[usePersistence] Starting save operation...');
+                logger.debug('[usePersistence] Starting save operation...');
                 // 1. Persist heavy KB content
                 if (systemState.knowledgeBase && systemState.knowledgeBase.length > 0) {
-                    console.log('[usePersistence] Saving KB content to IndexedDB...');
+                    logger.debug('[usePersistence] Saving KB content to IndexedDB...');
                     await saveKbContentToIndexedDB(systemState.knowledgeBase);
                 }
                 // 2. Save backup
-                console.log('[usePersistence] Saving backup...');
+                logger.debug('[usePersistence] Saving backup...');
                 await saveBackup(backupPayload);
                 lastSavedDataRef.current = backupPayload;
                 lastSaveTimeRef.current = Date.now();
-                console.log('[usePersistence] Save operation completed successfully');
+                logger.debug('[usePersistence] Save operation completed successfully');
             } catch (error) {
-                console.error("Auto-save Bridge failed:", error);
+                logger.error("Auto-save Bridge failed:", error);
                 const currentUiActions = useUIStore.getState().actions;
                 if (currentUiActions?.setBackupState) {
                     currentUiActions.setBackupState({ status: 'error' } as import('../types').BackupState);
@@ -143,29 +144,29 @@ export const usePersistence = (isDataLoaded: boolean) => {
         };
 
         const triggerDebouncedSave = () => {
-            console.log('[usePersistence] Save triggered, scheduling debounced save...');
+            logger.debug('[usePersistence] Save triggered, scheduling debounced save...');
             if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
             saveTimeoutRef.current = setTimeout(() => {
-                console.log('[usePersistence] Executing debounced save...');
+                logger.debug('[usePersistence] Executing debounced save...');
                 handleSave();
             }, SAVE_DEBOUNCE_MS);
         };
 
         // Sottoscrizione ai cambiamenti degli store core
         const unsubStudent = useStudentStore.subscribe(() => {
-            console.log('[usePersistence] Student store changed, triggering save');
+            logger.debug('[usePersistence] Student store changed, triggering save');
             triggerDebouncedSave();
         });
         const unsubAcademic = useAcademicStore.subscribe(() => {
-            console.log('[usePersistence] Academic store changed, triggering save');
+            logger.debug('[usePersistence] Academic store changed, triggering save');
             triggerDebouncedSave();
         });
         const unsubSystem = useSystemStore.subscribe(() => {
-            console.log('[usePersistence] System store changed, triggering save');
+            logger.debug('[usePersistence] System store changed, triggering save');
             triggerDebouncedSave();
         });
         const unsubSettings = useSettingsStore.subscribe(() => {
-            console.log('[usePersistence] Settings store changed, triggering save');
+            logger.debug('[usePersistence] Settings store changed, triggering save');
             triggerDebouncedSave();
         });
         

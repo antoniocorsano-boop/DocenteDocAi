@@ -15,6 +15,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { M3Dialog } from './ui';
+import { logger } from '../utils/logger';
 interface CompetencyEvaluationModalProps {
     student: Studente;
     competenza: Competenza;
@@ -59,7 +60,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
             setNota(generatedNote);
         } catch (error) {
             const errorMsg = error instanceof Error ? error.message : 'Errore sconosciuto';
-            console.error("Error generating competency note:", errorMsg);
+            logger.error("Error generating competency note:", errorMsg);
             alert("Errore durante la generazione della nota. Riprova.");
         } finally {
             setIsGeneratingNote(false);

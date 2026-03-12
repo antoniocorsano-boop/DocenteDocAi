@@ -1,4 +1,4 @@
-﻿// HelpModal.tsx - Refactored: extracted sub-panels into help/ directory
+// HelpModal.tsx - Refactored: extracted sub-panels into help/ directory
 import React, { useState } from 'react';
 import { View, HelpModalProps } from '../types';
 import { generateTechnicalDocumentContent, generateAcademicEssayContent } from '../services/aiService';
@@ -21,6 +21,7 @@ import HelpNKAGuide from './help/HelpNKAGuide';
 import { faqContentData } from './help/HelpFaq';
 import { specsContentData } from './help/HelpTechnicalSpecs';
 import { vocalAssistantGuideData } from './help/HelpVocalAssistantGuide';
+import { logger } from '../utils/logger';
 
 type HelpTab = 'improvements' | 'manual' | 'guide' | 'setup' | 'assistant' | 'faq' | 'specs' | 'normativa' | 'nka';
 
@@ -228,7 +229,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
         onClose();
 
     } catch (error) {
-        console.error("Full document generation failed:", error);
+        logger.error("Full document generation failed:", error);
         alert("Errore generazione documento.");
         pdfWindow.close();
     } finally {

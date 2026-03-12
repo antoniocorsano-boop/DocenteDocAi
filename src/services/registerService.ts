@@ -1,4 +1,5 @@
 import { ImportResult } from './importService';
+import { logger } from '../utils/logger';
 
 export type RegisterProvider = 'argo' | 'spaggiari' | 'axios' | 'sidi' | 'generic';
 
@@ -84,7 +85,7 @@ export const RegisterService = {
      * reverse-engineering private APIs which is not recommended for production without official support.
      */
     async syncDirect(config: RegisterSyncConfig): Promise<ImportResult> {
-        console.log(`Syncing with ${config.provider}...`);
+        logger.debug(`Syncing with ${config.provider}...`);
         // This will be implemented when official or stable unofficial APIs are available
         return { 
             students: [], 

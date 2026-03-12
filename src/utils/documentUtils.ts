@@ -4,11 +4,12 @@
 
 // Safety check: ensure we're in a browser environment
 if (typeof window === 'undefined' || typeof document === 'undefined') {
-  console.warn('documentUtils: Browser APIs not available, some features will be disabled');
+  logger.warn('documentUtils: Browser APIs not available, some features will be disabled');
 }
 
 import { Uda, Lezione, Competenza, TimetableSettings, Studente, Valutazione, ValutazioneCompetenza, GiudizioPeriodico, PeriodoValutazione, TechnicalDocumentContent, EssayContent, FaqItem, VocalAssistantGuide, BrochureContent } from '../types';
 import { calculatePerformance } from './evaluationUtils';
+import { logger } from './logger';
 
 const loadPdfLib = async () => await import('pdf-lib');
 const loadMammoth = async () => await import('mammoth');
@@ -47,7 +48,7 @@ export const saveAs = (blob: Blob | string, name: string): void => {
             if (document.body.contains(a)) document.body.removeChild(a);
         }, 100);
     } catch (e) {
-        console.error("Errore download:", e);
+        logger.error("Errore download:", e);
         alert("Impossibile scaricare il file.");
     }
 };
@@ -260,7 +261,7 @@ export const generateHtmlDocxBlob = async (htmlContent: string, title?: string):
         });
         return await Packer.toBlob(docx);
     } catch (error) {
-        console.error('Error generating DOCX:', error);
+        logger.error('Error generating DOCX:', error);
         // Fallback: return empty blob
         return new Blob(['Unable to generate DOCX file'], { type: 'text/plain' });
     }

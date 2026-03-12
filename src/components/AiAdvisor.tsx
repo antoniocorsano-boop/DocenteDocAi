@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import { AiSettings, Studente, TimetableSettings, Valutazione, ValutazioneCompetenza } from '../types';
 import { getAIPedagogicalAdvice } from '../services/aiService';
 import { AiThinkingGem } from './ui';
+import { logger } from '../utils/logger';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for AI advisor interface, form controls, and advice display
 interface AiAdvisorProps {
@@ -67,7 +68,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
             setAdvice(result.suggerimenti);
         } catch (err) {
             const errorMsg = err instanceof Error ? err.message : "Si è verificato un errore durante la generazione del consiglio.";
-            console.error(err);
+            logger.error(err);
             setError(errorMsg);
         } finally {
             setAdvisorStatus(null);

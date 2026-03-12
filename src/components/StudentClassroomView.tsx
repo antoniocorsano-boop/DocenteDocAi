@@ -12,6 +12,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import PinPadModal from './PinPadModal';
+import { logger } from '../utils/logger';
 
 // Local Card component (MUI-native replacement for M3ExpressiveCard)
 const _cardTokens: Record<string, readonly [string, string]> = {
@@ -139,7 +140,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
             };
             onUploadSubmission(submission);
         } catch (e) {
-            console.error(e);
+            logger.error(e);
         }
     };
     
@@ -150,7 +151,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
             const blob = await generateHomeworkPdf(lesson, settings);
             viewPdfInNewTab(blob);
         } catch (e) {
-            console.error(e);
+            logger.error(e);
         } finally {
             setIsGeneratingPdf(false);
         }

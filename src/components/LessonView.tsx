@@ -34,6 +34,7 @@ import { LESSON_TYPE_ICONS } from '../constants';
 import MaterialPickerModal from './MaterialPickerModal';
 import LessonAnalysisModal from './LessonAnalysisModal';
 import { InfoCard, SectionHeader, AiThinkingGem } from './ui';
+import { logger } from '../utils/logger';
 
 interface LessonViewProps {
   lesson: Lezione;
@@ -66,7 +67,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
             });
         }
     } catch (error) {
-        console.error("Failed to enrich lesson:", error);
+        logger.error("Failed to enrich lesson:", error);
     } finally {
         setIsEnriching(false);
     }
@@ -78,7 +79,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         const pdfBlob = await generateLessonPdf(lesson);
         viewPdfInNewTab(pdfBlob);
     } catch (error) {
-        console.error("Failed to generate lesson PDF:", error);
+        logger.error("Failed to generate lesson PDF:", error);
         alert("Si è verificato un errore durante la generazione del PDF.");
     } finally {
         setIsExporting(false);
@@ -95,7 +96,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         const pdfBlob = await generateHomeworkPdf(lesson, settings);
         viewPdfInNewTab(pdfBlob);
     } catch (error) {
-        console.error("Failed to generate homework PDF:", error);
+        logger.error("Failed to generate homework PDF:", error);
         alert("Si è verificato un errore durante la generazione della scheda compiti.");
     } finally {
         setIsExporting(false);
@@ -137,7 +138,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         const blob = new Blob([byteArray], { type: material.file.mimeType });
         saveAs(blob, material.file.name);
     } catch (e) {
-        console.error("Failed to download local file material", e);
+        logger.error("Failed to download local file material", e);
         alert("Errore durante il download del file.");
     }
   };

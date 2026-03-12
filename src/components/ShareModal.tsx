@@ -1,10 +1,11 @@
-﻿// MD3 Gold Compliant
+// MD3 Gold Compliant
 
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
+import { logger } from '../utils/logger';
 
 interface ShareModalProps {
     title: string;
@@ -23,7 +24,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                     text: text });
                 onClose();
             } catch (error) {
-                console.error('Error sharing:', error);
+                logger.error('Error sharing:', error);
             }
         } else {
             alert('La condivisione nativa non è supportata su questo browser.');
@@ -46,7 +47,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                 onClose();
             }, 1500);
         }).catch(err => {
-            console.error('Failed to copy markdown text: ', err);
+            logger.error('Failed to copy markdown text: ', err);
             alert('Impossibile copiare il testo formattato.');
         });
     };

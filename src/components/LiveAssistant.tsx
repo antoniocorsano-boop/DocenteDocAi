@@ -8,6 +8,7 @@ import { LiveAssistantProps, TranscriptEntry, View } from '../types.ts';
 import { getGoogleAIClient } from '../services/aiClient.ts';
 import { performWebSearch } from '../services/aiService.ts';
 import { AiMemoryChip } from './ui';
+import { logger } from '../utils/logger';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for live assistant chat bubbles, audio controls, and status indicators
 // --- AUDIO ENCODING & DECODING ---
@@ -259,7 +260,7 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
           }
         },
         onclose: () => setIsConnected(false),
-        onerror: (e: unknown) => { console.error('Live Error', e); setIsConnected(false); }
+        onerror: (e: unknown) => { logger.error('Live Error', e); setIsConnected(false); }
       }
     });
     sessionPromiseRef.current = sessionPromise;

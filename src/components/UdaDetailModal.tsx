@@ -11,6 +11,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Uda, AiSettings, KnowledgeBaseEntry } from '../types';
 import InfoCard from './ui/InfoCard';
 import { validateUdaVerticalCurriculum } from '../services/aiService';
+import { logger } from '../utils/logger';
 interface UdaDetailModalProps {
     uda: Uda;
     onClose: () => void;
@@ -24,19 +25,19 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
     const [validationResult, setValidationResult] = useState<string | null>(null);
 
     useEffect(() => {
-        console.log(`Audit: Opened UDA detail modal for ${uda.id}: ${uda.title}`);
+        logger.debug(`Audit: Opened UDA detail modal for ${uda.id}: ${uda.title}`);
     }, [uda.id, uda.title]);
 
     const handleValidate = async () => {
-        console.log(`Audit: Started AI validation for UDA ${uda.id}`);
+        logger.debug(`Audit: Started AI validation for UDA ${uda.id}`);
         setIsValidating(true);
         setValidationResult(null);
         try {
             const result = await validateUdaVerticalCurriculum(aiSettings, uda, knowledgeBase);
             setValidationResult(result);
-            console.log(`Audit: Completed AI validation for UDA ${uda.id}`);
+            logger.debug(`Audit: Completed AI validation for UDA ${uda.id}`);
         } catch (error) {
-            console.error("Validation error:", error);
+            logger.error("Validation error:", error);
             alert("Errore durante la validazione AI.");
         } finally {
             setIsValidating(false);
@@ -44,12 +45,12 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
     };
 
     const handleClose = () => {
-        console.log(`Audit: Closed UDA detail modal for ${uda.id}`);
+        logger.debug(`Audit: Closed UDA detail modal for ${uda.id}`);
         onClose();
     };
 
     const handleEdit = () => {
-        console.log(`Audit: Clicked edit button for UDA ${uda.id}`);
+        logger.debug(`Audit: Clicked edit button for UDA ${uda.id}`);
         onEdit();
     };
 

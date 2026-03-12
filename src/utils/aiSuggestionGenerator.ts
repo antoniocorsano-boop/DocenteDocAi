@@ -1,5 +1,6 @@
 import { AiSuggestion, AppState } from '../types';
 import { getProactiveSuggestions } from '../services/aiService';
+import { logger } from './logger';
 
 const CACHE_KEY = 'ai_suggestions_cache';
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
@@ -19,7 +20,7 @@ export const generateAiSuggestions = async (appState: AppState): Promise<AiSugge
         // Skip AI call if API key is missing and fall back gracefully
         const hasApiKey = Boolean(import.meta.env.VITE_GEMINI_API_KEY);
         if (!hasApiKey) {
-            console.warn('[aiSuggestionGenerator] API key mancante, uso fallback suggestions');
+            logger.warn('[aiSuggestionGenerator] API key mancante, uso fallback suggestions');
             return getFallbackSuggestions(appState);
         }
 
@@ -43,7 +44,7 @@ export const generateAiSuggestions = async (appState: AppState): Promise<AiSugge
         return prioritizedSuggestions;
 
     } catch (error) {
-        console.error('[aiSuggestionGenerator] Error generating suggestions:', error);
+        logger.error('[aiSuggestionGenerator] Error generating suggestions:', error);
         // Graceful fallback: return system suggestions if AI fails
         return getFallbackSuggestions(appState);
     }
@@ -64,7 +65,7 @@ const getCachedSuggestions = (userId?: string): AiSuggestion[] | null => {
 
         return parsed.suggestions;
     } catch (error) {
-        console.error('[aiSuggestionGenerator] Cache read error:', error);
+        logger.error('[aiSuggestionGenerator] Cache read error:', error);
         return null;
     }
 };
@@ -78,7 +79,7 @@ const setCachedSuggestions = (suggestions: AiSuggestion[], userId?: string): voi
         };
         localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
     } catch (error) {
-        console.error('[aiSuggestionGenerator] Cache write error:', error);
+        logger.error('[aiSuggestionGenerator] Cache write error:', error);
     }
 };
 

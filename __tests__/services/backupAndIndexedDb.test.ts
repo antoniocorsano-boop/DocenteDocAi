@@ -93,6 +93,7 @@ describe('backupService (IndexedDB app_state)', () => {
         vi.clearAllMocks();
         resetBackupDb();
         vi.spyOn(console, 'log').mockImplementation(() => {});
+        vi.spyOn(console, 'debug').mockImplementation(() => {});
         vi.spyOn(console, 'error').mockImplementation(() => {});
         vi.spyOn(console, 'warn').mockImplementation(() => {});
         
@@ -234,7 +235,7 @@ describe('backupService (IndexedDB app_state)', () => {
     it('should handle closeDatabase when already closed', () => {
         resetBackupDb();
         closeDatabase();
-        expect(console.log).toHaveBeenCalledWith(expect.stringContaining('Database connection closed'));
+        expect(console.debug).toHaveBeenCalledWith(expect.stringContaining('Database connection closed'));
     });
 
     describe('error handling', () => {
@@ -661,6 +662,7 @@ describe('indexedDbService (IndexedDB kb_content)', () => {
         vi.clearAllMocks();
         resetKbDb();
         vi.spyOn(console, 'log').mockImplementation(() => {});
+        vi.spyOn(console, 'debug').mockImplementation(() => {});
         vi.spyOn(console, 'error').mockImplementation(() => {});
         vi.spyOn(console, 'warn').mockImplementation(() => {});
         

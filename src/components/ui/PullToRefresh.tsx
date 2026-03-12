@@ -3,6 +3,7 @@
 // Audit: febbraio 2026
 
 import React, { useState, useRef } from 'react';
+import { logger } from '../../utils/logger';
 
 interface PullToRefreshProps {
   children: React.ReactNode;
@@ -68,7 +69,7 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({
       try {
         await onRefresh();
       } catch (error) {
-        console.error('Refresh error:', error);
+        logger.error('Refresh error:', error);
       } finally {
         setIsRefreshing(false);
         setStatus('idle');

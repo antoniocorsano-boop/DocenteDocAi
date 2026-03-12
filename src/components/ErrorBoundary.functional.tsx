@@ -3,6 +3,7 @@ import React, { Component, ErrorInfo, ReactNode } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { logger } from '../utils/logger';
 
 interface Props {
   children?: ReactNode;
@@ -57,7 +58,7 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error('ErrorBoundary caught:', error, errorInfo);
+    logger.error('ErrorBoundary caught:', error, errorInfo);
   }
 
   render(): ReactNode {
@@ -112,5 +113,6 @@ const _ErrorFallbackUnused: React.FC<{ error: Error; resetErrorBoundary: () => v
 
 // Modern ErrorBoundary using react-error-boundary (recommended for functional React)
 // import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
+import { logger } from '../utils/logger';
 // NOT USED: react-error-boundary not installed
 */

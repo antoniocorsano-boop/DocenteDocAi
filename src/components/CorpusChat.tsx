@@ -1,4 +1,4 @@
-﻿
+
 // MD3 GOLD COMPLIANT – Audit 2026-01-25
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
@@ -10,6 +10,7 @@ import { generateAnswerFromCorpus } from '../services/aiService';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { logger } from '../utils/logger';
 // MD3 Pure: Migrated to inline styles using MD3 tokens for chat interface, message bubbles, and input controls
 // All corpus-chat-* classes removed in favor of token-based styling
 
@@ -71,7 +72,7 @@ const CorpusChat: React.FC<CorpusChatProps> = ({ corpus, aiSettings, onClose, kn
 
         } catch (error) {
             const errorMsg = error instanceof Error ? error.message : 'Riprova.';
-            console.error("Error generating answer from corpus:", errorMsg);
+            logger.error("Error generating answer from corpus:", errorMsg);
             const errorMessage: ChatMessage = {
                 role: 'model',
                 text: `Si è verificato un errore: ${errorMsg}`

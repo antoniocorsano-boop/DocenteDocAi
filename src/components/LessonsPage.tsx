@@ -5,6 +5,7 @@ import { generateLessonSequenceForClass } from '../services/aiService';
 const IdeaGeneratorModal = lazy(() => import('./IdeaGeneratorModal'));
 const CreateLessonFromAiModal = lazy(() => import('./CreateLessonFromAiModal').then(m => ({ default: m.CreateLessonFromAiModal })));
 import Typography from '@mui/material/Typography';
+import { logger } from '../utils/logger';
 
 // MD3 Compliant - Migration completed
 // LessonsPage.tsx: Migrated from 15 inline style violations to 0 violations
@@ -92,7 +93,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
             setSelectedClasses([]);
 
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             setError(err instanceof Error ? err.message : "Errore durante la generazione delle sequenze di lezioni.");
         } finally {
             setIsLoadingModalOpen(false);

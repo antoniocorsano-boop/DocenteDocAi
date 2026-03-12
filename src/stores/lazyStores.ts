@@ -8,6 +8,7 @@ import type { AcademicState, AcademicActions } from './useAcademicStore';
 import type { SystemState, SystemActions } from './useSystemStore';
 import type { UIState } from './useUIStore';
 import type { SettingsState } from '../types';
+import { logger } from '../utils/logger';
 
 type StudentStore = import('zustand').UseBoundStore<import('zustand').StoreApi<StudentState & { actions: StudentActions }>>;
 type AcademicStore = import('zustand').UseBoundStore<import('zustand').StoreApi<AcademicState & { actions: AcademicActions }>>;
@@ -96,23 +97,23 @@ export async function preloadAllStores(): Promise<void> {
     await getStudentStore();
     await getAcademicStore();
     await getSystemStore();
-    console.debug('[lazyStores] domain stores loaded');
+    logger.debug('[lazyStores] domain stores loaded');
   } catch (e) {
-    console.error('[lazyStores] failed loading domain stores', e);
+    logger.error('[lazyStores] failed loading domain stores', e);
     throw e;
   }
   try {
     await getUIStore();
-    console.debug('[lazyStores] ui store loaded');
+    logger.debug('[lazyStores] ui store loaded');
   } catch (e) {
-    console.error('[lazyStores] failed loading ui store', e);
+    logger.error('[lazyStores] failed loading ui store', e);
     throw e;
   }
   try {
     await getSettingsStore();
-    console.debug('[lazyStores] settings store loaded');
+    logger.debug('[lazyStores] settings store loaded');
   } catch (e) {
-    console.error('[lazyStores] failed loading settings store', e);
+    logger.error('[lazyStores] failed loading settings store', e);
     throw e;
   }
 }

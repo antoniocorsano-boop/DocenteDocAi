@@ -37,7 +37,7 @@ const getAuthToken = async (): Promise<string | null> => {
 
 // Helper per gestire errori API
 const handleApiError = (error: unknown, operation: string) => {
-  console.error(`NotebookLM ${operation} error:`, error);
+  logger.error(`NotebookLM ${operation} error:`, error);
   const errorMessage = error instanceof Error ? error.message : 'Errore sconosciuto';
   throw new Error(`Errore durante ${operation}: ${errorMessage}`);
 };
@@ -47,7 +47,7 @@ export const uploadNotebookFile = async (file: File): Promise<NotebookLMFile> =>
     const token = await getAuthToken();
     if (!token) {
       // Fallback: salva localmente se non autenticato
-      console.warn('NotebookLM non autenticato, salvataggio locale');
+      logger.warn('NotebookLM non autenticato, salvataggio locale');
       return {
         id: `nb-local-${Date.now()}`,
         name: file.name,
@@ -99,7 +99,7 @@ export const fetchNotebookFiles = async (): Promise<NotebookLMFile[]> => {
     const token = await getAuthToken();
     if (!token) {
       // Fallback: restituisci array vuoto se non autenticato
-      console.warn('NotebookLM non autenticato, nessun file remoto');
+      logger.warn('NotebookLM non autenticato, nessun file remoto');
       return [];
     }
 
@@ -138,7 +138,7 @@ export const deleteNotebookFile = async (id: string): Promise<void> => {
   try {
     const token = await getAuthToken();
     if (!token) {
-      console.warn('NotebookLM non autenticato, impossibile eliminare file remoto');
+      logger.warn('NotebookLM non autenticato, impossibile eliminare file remoto');
       return;
     }
 
@@ -154,7 +154,7 @@ export const deleteNotebookFile = async (id: string): Promise<void> => {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
 
-    console.log(`Documento ${id} eliminato da NotebookLM`);
+    logger.debug(`Documento ${id} eliminato da NotebookLM`);
 
   } catch (error) {
     return handleApiError(error, 'delete');
@@ -163,6 +163,7 @@ export const deleteNotebookFile = async (id: string): Promise<void> => {
 
 // Sincronizzazione con gestione conflitti tramite callback utente
 import { SyncConflictData } from '../types';
+import { logger } from '../utils/logger';
 
 export type ConflictHandler = (conflict: SyncConflictData) => Promise<'local' | 'remote'>;
 
@@ -174,10 +175,10 @@ export const syncNotebookFiles = async (
   try {
     const token = await getAuthToken();
     if (!token) {
-      console.warn('NotebookLM non autenticato, sincronizzazione saltata');
+      logger.warn('NotebookLM non autenticato, sincronizzazione saltata');
       return;
     }
-    console.log('Avvio sincronizzazione NotebookLM...');
+    logger.debug('Avvio sincronizzazione NotebookLM...');
     const remoteFiles = await fetchNotebookFiles();
     const localFiles = await getLocalFiles();
     const mergedFiles: NotebookLMFile[] = [...localFiles];
@@ -219,11 +220,11 @@ export const syncNotebookFiles = async (
     const remoteIds = new Set(remoteFiles.map(f => f.id));
     const onlyLocal = localFiles.filter(f => !remoteIds.has(f.id));
     if (onlyLocal.length > 0) {
-      console.log('Da caricare su NotebookLM:', onlyLocal);
+      logger.debug('Da caricare su NotebookLM:', onlyLocal);
       // TODO: upload su cloud se necessario
     }
     await saveLocalFiles(mergedFiles);
-    console.log(`Sync NotebookLM completata. Remoti: ${remoteFiles.length}, Locali: ${localFiles.length}`);
+    logger.debug(`Sync NotebookLM completata. Remoti: ${remoteFiles.length}, Locali: ${localFiles.length}`);
   } catch (error) {
     return handleApiError(error, 'sync');
   }

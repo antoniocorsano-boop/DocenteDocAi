@@ -1,3 +1,4 @@
+import { logger } from '../utils/logger';
 // Sound design for NKA: play M3-compliant sound cues for nodes/actions
 export const playNkaSound = (type: 'node' | 'action' | 'badge'): void => {
   try {
@@ -35,11 +36,11 @@ export const playNkaSound = (type: 'node' | 'action' | 'badge'): void => {
       try {
         ctx.close();
       } catch (err) {
-        console.warn('[NKA] Audio context close error:', err);
+        logger.warn('[NKA] Audio context close error:', err);
       }
     }, 200);
   } catch (err) {
-    console.warn('[NKA] Sound initialization error:', err);
+    logger.warn('[NKA] Sound initialization error:', err);
   }
 };
 

@@ -9,6 +9,7 @@ import { generateHtmlDocxBlob } from '../utils/documentUtils';
 import { sanitizeHTML } from '../utils/securityUtils';
 import { saveAs } from '../utils/documentUtils';
 import { AiThinkingGem } from './ui';
+import { logger } from '../utils/logger';
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation, and animations
 
 interface SmartDocumentEditorProps {
@@ -234,7 +235,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             const blob = await generateHtmlDocxBlob(htmlContent, editorTitle);
             saveAs(blob, `${editorTitle.replace(/\s/g, '_')}.docx`);
         } catch (e: unknown) {
-            console.error("Export error:", e);
+            logger.error("Export error:", e);
             if (e instanceof Error) {
                 message = "Errore esportazione DOCX: " + e.message;
             }

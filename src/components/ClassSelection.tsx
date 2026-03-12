@@ -1,4 +1,4 @@
-﻿// MD3 Compliant
+// MD3 Compliant
 
 import React, { useState, useMemo } from 'react';
 import { View, Valutazione, Studente, ValutazioneCompetenza, TimetableSettings, PeriodoValutazione } from '../types';
@@ -21,6 +21,7 @@ import Badge from '@mui/material/Badge';
 import { useStudentStore } from '../stores/useStudentStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
 import { generateHueFromString } from '../utils/colorUtils';
+import { logger } from '../utils/logger';
 
 
 interface ClassSelectionProps {
@@ -417,7 +418,7 @@ const PrintCenterModal: React.FC<{
                 await new Promise(r => setTimeout(r, 800));
             }
         } catch(e) {
-            console.error(e);
+            logger.error(e);
         } finally {
             setIsProcessing(false);
             onClose();

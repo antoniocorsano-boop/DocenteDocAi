@@ -1,4 +1,4 @@
-﻿// MD3 Compliant - Block J Migration Complete (4 violations eliminated)
+// MD3 Compliant - Block J Migration Complete (4 violations eliminated)
 import React, { useState, useMemo } from 'react';
 import { Studente, Lezione, Uda, TimetableSettings, AiSettings, Valutazione, ValutazioneCompetenza, DocumentTemplate } from '../types';
 import { generateStudentProfilePdf, generateLessonPdf, generateHtmlDocxBlob } from '../utils/documentUtils';
@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
+import { logger } from '../utils/logger';
 // Type guards migliorati
 const isStudent = (data: unknown): data is Studente => {
   return (
@@ -257,7 +258,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
       props.onClose();
 
     } catch (error) {
-      console.error("Errore generazione batch:", error);
+      logger.error("Errore generazione batch:", error);
       showToast("Errore durante la generazione dei documenti. Riprova.", "error");
     } finally {
       setIsGenerating(false);
