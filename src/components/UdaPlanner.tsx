@@ -9,6 +9,7 @@
 
 import React, { useState, Suspense, lazy } from 'react';
 import { Uda, Competenza, UdaPlannerProps } from '../types';
+import { logger } from '../utils/logger';
 const UdaExportModal = lazy(() => import('./UdaExportModal'));
 import Guidance from './Guidance';
 import { M3Dialog, TextField, EmptyState } from './ui';
@@ -53,7 +54,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
     const handleFieldChange = (field: keyof Uda, value: unknown) => setCurrentUda(prev => ({ ...prev, [field]: value }));
     
     const handleCompetencyToggle = (id: string) => {
-        console.log(`Audit: Toggled competency ${id} for UDA ${currentUda.id}`);
+        logger.audit(`Toggled competency ${id} for UDA ${currentUda.id}`);
         setCurrentUda(prev => ({ 
             ...prev, 
             competencyIds: prev.competencyIds.includes(id) 
@@ -64,31 +65,31 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
     
     const handleSave = () => {
         if (!currentUda.title || !currentUda.classe) { alert("Titolo e Classe obbligatori."); return; }
-        console.log(`Audit: Saved UDA ${currentUda.id}: ${currentUda.title}`);
+        logger.audit(`Saved UDA ${currentUda.id}: ${currentUda.title}`);
         onSaveUda(currentUda);
         onClose();
     };
 
     const handleDelete = () => {
         if (confirm('Eliminare questo progetto?')) {
-            console.log(`Audit: Deleted UDA ${currentUda.id}`);
+            logger.audit(`Deleted UDA ${currentUda.id}`);
             onDeleteUda(currentUda.id);
             onClose();
         }
     };
 
     const handleClose = () => {
-        console.log(`Audit: Closed UDA editor for ${currentUda.id}`);
+        logger.audit(`Closed UDA editor for ${currentUda.id}`);
         onClose();
     };
 
     const handlePickerOpen = () => {
-        console.log('Audit: Opened competency picker');
+        logger.audit('Opened competency picker');
         setIsCompetencyPickerOpen(true);
     };
 
     const handlePickerClose = () => {
-        console.log('Audit: Closed competency picker');
+        logger.audit('Closed competency picker');
         setIsCompetencyPickerOpen(false);
     };
 
@@ -280,33 +281,33 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
     const [exportingUda, setExportingUda] = useState<Uda | null>(null);
 
     const handleNewUda = () => {
-        console.log('Audit: Opened new UDA modal');
+        logger.audit('Opened new UDA modal');
         setEditingUda('new');
     };
 
     const handleEditUda = (uda: Uda) => {
-        console.log(`Audit: Opened edit modal for UDA ${uda.id}`);
+        logger.audit(`Opened edit modal for UDA ${uda.id}`);
         setEditingUda(uda);
     };
 
     const handleExportUda = (uda: Uda) => {
-        console.log(`Audit: Opened export modal for UDA ${uda.id}`);
+        logger.audit(`Opened export modal for UDA ${uda.id}`);
         setExportingUda(uda);
     };
 
     const handleCloseExport = () => {
-        console.log('Audit: Closed export modal');
+        logger.audit('Closed export modal');
         setExportingUda(null);
     };
 
     const handleTableRowClick = (uda: Uda) => {
-        console.log(`Audit: Clicked on UDA ${uda.id} in table`);
+        logger.audit(`Clicked on UDA ${uda.id} in table`);
         setEditingUda(uda);
     };
 
     const handleAiBridgeClick = (uda: Uda, e: React.MouseEvent) => {
         e.stopPropagation();
-        console.log(`Audit: Clicked AI bridge link for UDA ${uda.id}`);
+        logger.audit(`Clicked AI bridge link for UDA ${uda.id}`);
     };
 
     return (

@@ -4,6 +4,7 @@
 import React from 'react';
 import ButtonBase from '@mui/material/ButtonBase';
 import { Uda } from '../types';
+import { logger } from '../utils/logger';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for positioning, colors, and interactions
 interface GanttBarProps {
@@ -19,7 +20,7 @@ interface GanttBarProps {
 
 const GanttBar: React.FC<GanttBarProps> = ({ uda, onClick }) => {
     const handleClick = () => {
-        console.log(`Audit: Clicked on GanttBar for UDA ${uda.id}: ${uda.title}`);
+        logger.audit(`Clicked on GanttBar for UDA ${uda.id}: ${uda.title}`);
         onClick();
     };
 

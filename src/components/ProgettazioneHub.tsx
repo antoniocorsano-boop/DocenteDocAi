@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from 'react';
 import NotebookLMImportModal from './NotebookLMImportModal';
+import { logger } from '../utils/logger';
 import TemplateManager from './TemplateManager';
 import { KnowledgeBaseEntry } from '../types';
 import { ProgettazioneHubProps, Uda, Competenza } from '../types';
@@ -135,7 +136,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                         description="Pianifica l'intero anno scolastico. Definisci UDA, scadenze e monte ore con il supporto dell'AI."
                         color="var(--md-sys-color-primary-container)"
                         onClick={() => {
-                            console.log('Audit: Opened Annual Planning Wizard');
+                            logger.audit('Opened Annual Planning Wizard');
                             setIsPlanningWizardOpen(true);
                         }}
                         sx={{ mb: 'var(--md-sys-spacing-8)' }}
@@ -163,7 +164,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                                 description="Gestisci le UnitÃ  di Apprendimento, le fasi di lavoro e le competenze target."
                                 color="var(--md-sys-color-secondary-container)"
                                 onClick={() => {
-                                    console.log('Audit: Navigated to UDA Planner');
+                                    logger.audit('Navigated to UDA Planner');
                                     onNavigate('uda');
                                 }}
                             />
@@ -176,7 +177,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                                 description="Genera quiz, riassunti e materiali dai tuoi documenti."
                                 color="var(--md-sys-color-tertiary-container)"
                                 onClick={() => {
-                                    console.log('Audit: Navigated to Studio AI');
+                                    logger.audit('Navigated to Studio AI');
                                     onNavigate('studio');
                                 }}
                             />
@@ -189,7 +190,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                                 description="Converti vecchi file in documenti standard."
                                 color="var(--md-sys-color-surface-container)"
                                 onClick={() => {
-                                    console.log('Audit: Opened Smart Import Modal');
+                                    logger.audit('Opened Smart Import Modal');
                                     setIsSmartImportOpen(true);
                                 }}
                             />
@@ -203,7 +204,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                                 description="Sfoglia e importa materiali dal tuo spazio Google NotebookLM."
                                 color="var(--md-sys-color-surface-container)"
                                 onClick={() => {
-                                    console.log('Audit: Opened NotebookLM Import Modal');
+                                    logger.audit('Opened NotebookLM Import Modal');
                                     setIsNotebookLMImportOpen(true);
                                 }}
                             />
@@ -216,7 +217,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                                 description="Archivio documenti."
                                 color="var(--md-sys-color-surface-container)"
                                 onClick={() => {
-                                    console.log('Audit: Navigated to Knowledge Base');
+                                    logger.audit('Navigated to Knowledge Base');
                                     onNavigate('knowledge-base');
                                 }}
                             />
@@ -229,7 +230,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                                 description="Gestisci i modelli per UDA e verifiche."
                                 color="var(--md-sys-color-surface-container)"
                                 onClick={() => {
-                                    console.log('Audit: Opened Template Manager');
+                                    logger.audit('Opened Template Manager');
                                     setIsTemplateManagerOpen(true);
                                 }}
                             />
@@ -242,7 +243,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                                 description="Piani di lezione."
                                 color="var(--md-sys-color-surface-container)"
                                 onClick={() => {
-                                    console.log('Audit: Navigated to Lessons');
+                                    logger.audit('Navigated to Lessons');
                                     onNavigate('lessons');
                                 }}
                             />
@@ -255,7 +256,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                                 description="Griglie valutazione."
                                 color="var(--md-sys-color-surface-container)"
                                 onClick={() => {
-                                    console.log('Audit: Navigated to Rubriche');
+                                    logger.audit('Navigated to Rubriche');
                                     onNavigate('rubriche');
                                 }}
                             />
@@ -268,7 +269,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                                 description="Stampe & PDF."
                                 color="var(--md-sys-color-surface-container)"
                                 onClick={() => {
-                                    console.log('Audit: Navigated to Reportistica');
+                                    logger.audit('Navigated to Reportistica');
                                     onNavigate('reportistica');
                                 }}
                             />

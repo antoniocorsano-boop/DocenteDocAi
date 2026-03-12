@@ -4,6 +4,7 @@
 // CRITICAL: Import polyfills FIRST, before anything else
 // Polyfills handle DOM shims and performance fallbacks
 import './polyfills';
+import { logger } from './utils/logger';
 
 // Initialize tracing
 // import './tracing';
@@ -46,22 +47,6 @@ import { useSettingsStore } from './stores/useSettingsStore';
   }
 })();
 
-// --- DEBUG: Forza reset storage locale e log errori globali ---
-// Avoid clearing storage when running E2E tests so test harness can inject data
-const isTestMode = (typeof window !== 'undefined' && (window as { __TEST_MODE?: boolean }).__TEST_MODE === true) || ((import.meta as ImportMeta).env?.VITE_TEST_MODE === 'true');
-if (!isTestMode) {
-  try {
-    // TEMPORARILY DISABLED: localStorage.clear();
-    if (typeof window !== 'undefined' && 'indexedDB' in window) {
-      // TEMPORARILY DISABLED: indexedDB.deleteDatabase('OrarioDocAI_BackupDB');
-      // TEMPORARILY DISABLED: indexedDB.deleteDatabase('OrarioDocAI_Data');
-    }
-  } catch {
-    // Ignore errors during cleanup in non-test runs
-  }
-} else {
-  console.info('[main] Test mode active — preserving localStorage and IndexedDB for E2E');
-}
 // Improved global error handlers.
 // - Ignore errors originating from browser extensions (chrome-extension://)
 // - Avoid blocking alerts (which break automated tests)
@@ -126,13 +111,13 @@ if (typeof window !== 'undefined') {
       const gsi = document.createElement('script');
       gsi.src = 'https://accounts.google.com/gsi/client';
       gsi.async = true;
-      gsi.onload = () => { window.__googleGsiReady = true; console.log(`✅ Google GSI script loaded (${mode})`); };
+      gsi.onload = () => { window.__googleGsiReady = true; logger.debug(`✅ Google GSI script loaded (${mode})`); };
       document.head.appendChild(gsi);
 
       const api = document.createElement('script');
       api.src = 'https://apis.google.com/js/api.js';
       api.async = true;
-      api.onload = () => { window.__googleApiReady = true; console.log(`✅ Google API script loaded (${mode})`); };
+      api.onload = () => { window.__googleApiReady = true; logger.debug(`✅ Google API script loaded (${mode})`); };
       document.head.appendChild(api);
     } else {
       // Keep flags false in dev to avoid noisy 403s

@@ -150,16 +150,11 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
   };
 
   const generateBatch = async () => {
-    console.log('generateBatch called');
-    console.log('Selected documents:', selectedDocuments);
-
     if (selectedDocuments.length === 0) {
-      console.log('No documents selected, calling showToast');
       showToast('Seleziona almeno un documento da generare', 'info');
       return;
     }
 
-    console.log('Proceeding with batch generation');
     setIsGenerating(true);
     setProgress({ current: 0, total: selectedDocuments.length, currentDoc: '' });
 
@@ -168,9 +163,6 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
       documentCount: selectedDocuments.length,
       documentTypes: selectedDocuments.map(d => d.type).join(', ')
     });
-
-    console.log("generateBatch called", selectedDocuments);
-    console.log("selectedDocuments state:", selectedDocuments);
 
     try {
       const generatedFiles: { name: string; blob: Blob }[] = [];
