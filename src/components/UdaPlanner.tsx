@@ -12,7 +12,8 @@ import { Uda, Competenza, UdaPlannerProps } from '../types';
 import { logger } from '../utils/logger';
 const UdaExportModal = lazy(() => import('./UdaExportModal'));
 import Guidance from './Guidance';
-import { M3Dialog, TextField, EmptyState } from './ui';
+import { M3Dialog, TextField, EmptyState, M3ConfirmDialog, Skeleton } from './ui';
+import { useUIStore } from '../stores/useUIStore';
 import InputAdornment from '@mui/material/InputAdornment';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -48,8 +49,10 @@ interface UdaEditorProps {
 }
 
 const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, onClose, competenze }) => {
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [currentUda, setCurrentUda] = useState<Uda>(udaProp === 'new' ? createNewUda() : { ...udaProp });
     const [isCompetencyPickerOpen, setIsCompetencyPickerOpen] = useState(false);
+    const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
 
     const handleFieldChange = (field: keyof Uda, value: unknown) => setCurrentUda(prev => ({ ...prev, [field]: value }));
     
@@ -64,18 +67,21 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
     };
     
     const handleSave = () => {
-        if (!currentUda.title || !currentUda.classe) { alert("Titolo e Classe obbligatori."); return; }
+        if (!currentUda.title || !currentUda.classe) { showToast('Titolo e Classe obbligatori.', 'error'); return; }
         logger.audit(`Saved UDA ${currentUda.id}: ${currentUda.title}`);
         onSaveUda(currentUda);
         onClose();
     };
 
     const handleDelete = () => {
-        if (confirm('Eliminare questo progetto?')) {
-            logger.audit(`Deleted UDA ${currentUda.id}`);
-            onDeleteUda(currentUda.id);
-            onClose();
-        }
+        setConfirmDialog({
+            message: 'Eliminare questo progetto?',
+            onConfirm: () => {
+                logger.audit(`Deleted UDA ${currentUda.id}`);
+                onDeleteUda(currentUda.id);
+                onClose();
+            }
+        });
     };
 
     const handleClose = () => {
@@ -94,6 +100,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
     };
 
     return (
+        <>
         <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', height: 'var(--md-sys-percent-100)', backgroundColor: 'var(--md-sys-color-surface)', overflow: 'hidden' }}>
             {/* M3Expressive refactor: Aura ornaments */}
             <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 'var(--md-sys-z-base)', opacity: 0.04, backgroundImage: 'radial-gradient(circle at 80% 20%, var(--md-sys-color-primary), transparent 60%)' }} />
@@ -266,6 +273,16 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                 )}
             </div>
         </div>
+        {confirmDialog && (
+            <M3ConfirmDialog
+                title="Conferma eliminazione"
+                message={confirmDialog.message}
+                onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+                onCancel={() => setConfirmDialog(null)}
+                danger={true}
+            />
+        )}
+        </>
     );
 };
 
@@ -430,7 +447,7 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
             </div>
             
              {exportingUda && (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Skeleton height="var(--md-sys-spacing-32)" />}>
                     <UdaExportModal 
                         uda={exportingUda} 
                         aiSettings={aiSettings} 

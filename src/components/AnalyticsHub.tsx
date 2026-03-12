@@ -17,6 +17,7 @@ import {
     InfoCard,
     SectionHeader,
     AiThinkingGem,
+    Skeleton,
 } from './ui';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -239,17 +240,17 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                         }}
                     >
                     {chartType === 'trend' && (
-                        <Suspense fallback={<div>Loading chart...</div>}>
+                        <Suspense fallback={<Skeleton height="var(--md-sys-spacing-32)" />}>
                             <LineChart data={trendData} color="var(--md-sys-color-primary)" />
                         </Suspense>
                     )}
                     {chartType === 'radar' && (
-                        <Suspense fallback={<div>Loading chart...</div>}>
+                        <Suspense fallback={<Skeleton height="var(--md-sys-spacing-32)" />}>
                             <RadarChart data={radarData} color="var(--md-sys-color-tertiary)" />
                         </Suspense>
                     )}
                     {chartType === 'dist' && (
-                        <Suspense fallback={<div>Loading chart...</div>}>
+                        <Suspense fallback={<Skeleton height="var(--md-sys-spacing-32)" />}>
                             <BarChart data={distData} color="var(--md-sys-color-secondary)" />
                         </Suspense>
                     )}

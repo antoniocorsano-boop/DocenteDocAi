@@ -5,6 +5,7 @@
 import React, { useState } from 'react';
 import { Rubrica, Criterio, Indicatore, Competenza } from '../types';
 import { M3Dialog, InfoCard, TextField, EmptyState, SectionHeader } from './ui';
+import { useUIStore } from '../stores/useUIStore';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
@@ -24,6 +25,7 @@ const createEmptyRubric = (): Rubrica => ({
 });
 
 const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze, onClose, onSave }) => {
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [rubrica, setRubrica] = useState<Rubrica>(
         rubricToEdit ? { ...rubricToEdit } : createEmptyRubric()
     );
@@ -68,8 +70,8 @@ const RubricEditor: React.FC<RubricEditorProps> = ({ rubricToEdit, allCompetenze
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (!rubrica.titolo.trim()) { alert("Inserisci un titolo."); return; }
-        if (rubrica.criteri.length === 0) { alert("Seleziona almeno un criterio."); return; }
+        if (!rubrica.titolo.trim()) { showToast('Inserisci un titolo.', 'error'); return; }
+        if (rubrica.criteri.length === 0) { showToast('Seleziona almeno un criterio.', 'error'); return; }
         onSave(rubrica);
     };
 

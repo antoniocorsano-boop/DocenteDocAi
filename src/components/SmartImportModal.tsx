@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 
 interface SmartImportModalProps {
     onClose: () => void;
@@ -17,6 +18,7 @@ interface SmartImportModalProps {
 }
 
 const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings }) => {
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const [step, setStep] = useState<'upload' | 'processing' | 'result'>('upload');
     const [originalFile, setOriginalFile] = useState<File | null>(null);
     const [originalText, setOriginalText] = useState('');
@@ -47,7 +49,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
             if (error instanceof Error) {
                 message = "Errore durante l'elaborazione: " + error.message;
             }
-            alert(message);
+            showToast(message, 'error');
             setStep('upload');
         }
     }, [aiSettings]);

@@ -18,7 +18,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import SettingsGroup from './SettingsGroupAccordion';
-import { TextField, InfoCard } from '../ui';
+import { TextField, InfoCard, M3ConfirmDialog } from '../ui';
 import ChipInputList from '../ChipInputList';
 import { TimetableSettings, AiSettings } from '../../types';
 import { AI_PROFILES, SCHOOL_LEVELS } from '../../constants';
@@ -46,6 +46,7 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
     const [selSpec, setSelSpec] = useState('');
     const [selYears, setSelYears] = useState<string[]>(['1', '2', '3']);
     const [selSections, setSelSections] = useState<string[]>(['A', 'B']);
+    const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
 
     const currentAiProfile = localAiSettings.model === AI_PROFILES.esperto.model ? 'esperto' : 'rapido';
 
@@ -247,7 +248,7 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-secondary)' }}>school</Box>
                             <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Gestione Cattedra</Typography>
                         </Stack>
-                        <Button onClick={() => { if (confirm('Sei sicuro di voler svuotare tutta la cattedra?')) handleChange('teachingAssignments', []); }} variant="outlined">
+                        <Button onClick={() => setConfirmDialog({ message: 'Sei sicuro di voler svuotare tutta la cattedra?', onConfirm: () => handleChange('teachingAssignments', []) })} variant="outlined">
                             Svuota Tutto
                         </Button>
                     </Stack>
@@ -402,6 +403,15 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
                     />
                 </Box>
             </Stack>
+            {confirmDialog && (
+                <M3ConfirmDialog
+                    title="Conferma"
+                    message={confirmDialog.message}
+                    onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+                    onCancel={() => setConfirmDialog(null)}
+                    danger={true}
+                />
+            )}
         </SettingsGroup>
     );
 };

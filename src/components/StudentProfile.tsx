@@ -10,10 +10,11 @@ import { calculatePerformance } from '../utils/evaluationUtils';
 import { generateStudentProfilePdf, viewPdfInNewTab, generateCertificazioneCompetenzePdf } from '../utils/documentUtils';
 import { DEFAULT_COMPETENZE } from '../constants';
 import StudentInterviewModal from './StudentInterviewModal';
-import { EmptyState, InfoCard, Avatar } from './ui';
+import { EmptyState, InfoCard, Avatar, M3ConfirmDialog } from './ui';
 import Button from '@mui/material/Button';
 import { getPeriodicJudgmentSuggestion } from '../services/aiService';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 
 interface StudentProfileProps {
     student: Studente;
@@ -31,11 +32,13 @@ interface StudentProfileProps {
 export type ProfileTab = 'overview' | 'grades' | 'competencies' | 'notes' | 'history';
 
 const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, competencyEvaluations, settings, aiSettings, onBack, onDeleteEvaluation, onOpenInclusionPlanEditor, register = [], lessons = {} }) => {
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const [activeTab, setActiveTab] = useState<ProfileTab>('overview');
     const [isExporting, setIsExporting] = useState(false);
     const [isInterviewModeOpen, setIsInterviewModeOpen] = useState(false);
     const [aiJudgment, setAiJudgment] = useState<string | null>(null);
     const [isLoadingAi, setIsLoadingAi] = useState(false);
+    const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
 
     const performance = calculatePerformance(student.id, 'Complessivo', evaluations);
     const trendIcon = performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat';
@@ -99,7 +102,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             if (e instanceof Error) {
                 message = `Errore durante la creazione del PDF: ${e.message}`;
             }
-            alert(message);
+            showToast(message, 'error');
         } finally {
             setIsExporting(false);
         }
@@ -131,7 +134,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             if (e instanceof Error) {
                 message = `Errore creazione certificazione: ${e.message}`;
             }
-            alert(message);
+            showToast(message, 'error');
         } finally {
             setIsExporting(false);
         }
@@ -152,7 +155,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
             setAiJudgment(suggestion);
         } catch (error) {
             logger.error("Error generating AI judgment:", error);
-            alert("Errore durante la generazione del giudizio AI.");
+            showToast('Errore durante la generazione del giudizio AI.', 'error');
         } finally {
             setIsLoadingAi(false);
         }
@@ -212,7 +215,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                             &ldquo;{aiJudgment}&rdquo;
                         </Typography>
                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <Button onClick={() => { navigator.clipboard.writeText(aiJudgment); alert('Giudizio copiato negli appunti!'); }} variant="text" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">content_copy</Box>}>
+                            <Button onClick={() => { navigator.clipboard.writeText(aiJudgment); showToast('Giudizio copiato negli appunti!', 'success'); }} variant="text" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">content_copy</Box>}>
                                 Copia Testo
                             </Button>
                         </div>
@@ -271,7 +274,7 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
                                         <span style={{ fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(ev.data).toLocaleDateString()}</span>
-                                        <Button onClick={() => { if (confirm('Eliminare voto?')) onDeleteEvaluation(ev.id) }} variant="text">
+                                        <Button onClick={() => setConfirmDialog({ message: 'Eliminare voto?', onConfirm: () => onDeleteEvaluation(ev.id) })} variant="text">
                                             <Box component="span" className="material-symbols-outlined" aria-hidden="true">delete</Box>
                                         </Button>
                                     </div>
@@ -469,6 +472,15 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
                     competencyEvaluations={[]}
                     settings={settings}
                     onClose={() => setIsInterviewModeOpen(false)}
+                />
+            )}
+            {confirmDialog && (
+                <M3ConfirmDialog
+                    title="Conferma eliminazione"
+                    message={confirmDialog.message}
+                    onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+                    onCancel={() => setConfirmDialog(null)}
+                    danger={true}
                 />
             )}
         </div>

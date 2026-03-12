@@ -27,6 +27,7 @@ import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import { M3Dialog, TextField, SectionHeader } from './ui';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 
 type Prova = {
     id: string;
@@ -48,6 +49,7 @@ interface ExportModalProps {
 }
 
 const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluations, competencyEvaluations, settings, selectedClass }) => {
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const [exportOptions, setExportOptions] = useState({
         format: 'pdf',
         schoolYear: `${new Date().getFullYear()}/${new Date().getFullYear() + 1}`,
@@ -298,7 +300,7 @@ const ExportModal: React.FC<ExportModalProps> = ({ onClose, students, evaluation
             logger.error("Export failed:", error);
             let message = 'Errore sconosciuto.';
             if (error instanceof Error) message = error.message;
-            alert(`Esportazione fallita:\n${message}`);
+            showToast(`Esportazione fallita: ${message}`, 'error');
         } finally {
             setIsExporting(false);
             onClose();

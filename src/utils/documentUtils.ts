@@ -49,7 +49,7 @@ export const saveAs = (blob: Blob | string, name: string): void => {
         }, 100);
     } catch (e) {
         logger.error("Errore download:", e);
-        alert("Impossibile scaricare il file.");
+        throw e;
     }
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -11,7 +11,7 @@ import Badge from '@mui/material/Badge';
 import Slider from '@mui/material/Slider';
 import InputAdornment from '@mui/material/InputAdornment';
 import SettingsGroup from './SettingsGroupAccordion';
-import { TextField } from '../ui';
+import { TextField, M3ConfirmDialog } from '../ui';
 import ThemeBubble from '../ThemeBubble';
 import { AppThemeState } from '../../types';
 import { THEME_CUSTOMIZATIONS } from '../../constants';
@@ -34,6 +34,7 @@ export const SettingsInterfaceSection: React.FC<SettingsInterfaceSectionProps> =
     expanded, onToggle, themeState, onSaveTheme, handleThemeChange,
     themePrompt, setThemePrompt, isGeneratingTheme, handleGenerateThemeFromPrompt, showToast
 }) => {
+    const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void | Promise<void> } | null>(null);
     const handleExportTheme = () => {
         try {
             const themeData = {
@@ -83,18 +84,22 @@ export const SettingsInterfaceSection: React.FC<SettingsInterfaceSectionProps> =
     };
 
     const handleForceRefresh = async () => {
-        if (!confirm("Forzare l'aggiornamento del brand? L'app verrà ricaricata per pulire i vecchi file temporanei. I tuoi dati sono al sicuro.")) return;
-        try {
-            if ('serviceWorker' in navigator) {
-                const regs = await navigator.serviceWorker.getRegistrations();
-                for (const reg of regs) await reg.unregister();
+        setConfirmDialog({
+            message: "Forzare l'aggiornamento del brand? L'app verrà ricaricata per pulire i vecchi file temporanei. I tuoi dati sono al sicuro.",
+            onConfirm: async () => {
+                try {
+                    if ('serviceWorker' in navigator) {
+                        const regs = await navigator.serviceWorker.getRegistrations();
+                        for (const reg of regs) await reg.unregister();
+                    }
+                    if ('caches' in window) {
+                        const keys = await caches.keys();
+                        for (const key of keys) await caches.delete(key);
+                    }
+                    window.location.reload();
+                } catch { window.location.reload(); }
             }
-            if ('caches' in window) {
-                const keys = await caches.keys();
-                for (const key of keys) await caches.delete(key);
-            }
-            window.location.reload();
-        } catch { window.location.reload(); }
+        });
     };
 
     return (
@@ -367,6 +372,14 @@ export const SettingsInterfaceSection: React.FC<SettingsInterfaceSectionProps> =
                     </Stack>
                 </Box>
             </Stack>
+            {confirmDialog && (
+                <M3ConfirmDialog
+                    title="Conferma aggiornamento"
+                    message={confirmDialog.message}
+                    onConfirm={() => { void confirmDialog.onConfirm(); setConfirmDialog(null); }}
+                    onCancel={() => setConfirmDialog(null)}
+                />
+            )}
         </SettingsGroup>
     );
 };

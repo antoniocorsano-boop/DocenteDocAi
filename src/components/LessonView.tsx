@@ -33,8 +33,9 @@ import { generateHueFromString } from '../utils/colorUtils';
 import { LESSON_TYPE_ICONS } from '../constants';
 import MaterialPickerModal from './MaterialPickerModal';
 import LessonAnalysisModal from './LessonAnalysisModal';
-import { InfoCard, SectionHeader, AiThinkingGem } from './ui';
+import { InfoCard, SectionHeader, AiThinkingGem, M3ConfirmDialog } from './ui';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 
 interface LessonViewProps {
   lesson: Lezione;
@@ -47,9 +48,11 @@ interface LessonViewProps {
 }
 
 const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassroom, onUpdateLesson, knowledgeBase, aiSettings, settings }) => {
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [isExporting, setIsExporting] = useState(false);
   const [previewingMaterial, setPreviewingMaterial] = useState<KnowledgeBaseEntry | null>(null);
   const [isMaterialPickerOpen, setIsMaterialPickerOpen] = useState(false);
+  const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
   
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isEnriching, setIsEnriching] = useState(false);
@@ -80,7 +83,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         viewPdfInNewTab(pdfBlob);
     } catch (error) {
         logger.error("Failed to generate lesson PDF:", error);
-        alert("Si è verificato un errore durante la generazione del PDF.");
+        showToast('Si è verificato un errore durante la generazione del PDF.', 'error');
     } finally {
         setIsExporting(false);
     }
@@ -88,7 +91,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
 
   const handleExportHomework = async () => {
     if (!settings) {
-        alert("Impostazioni mancanti. Impossibile generare la scheda compiti.");
+        showToast('Impostazioni mancanti. Impossibile generare la scheda compiti.', 'error');
         return;
     }
     setIsExporting(true);
@@ -97,7 +100,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         viewPdfInNewTab(pdfBlob);
     } catch (error) {
         logger.error("Failed to generate homework PDF:", error);
-        alert("Si è verificato un errore durante la generazione della scheda compiti.");
+        showToast('Si è verificato un errore durante la generazione della scheda compiti.', 'error');
     } finally {
         setIsExporting(false);
     }
@@ -139,7 +142,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
         saveAs(blob, material.file.name);
     } catch (e) {
         logger.error("Failed to download local file material", e);
-        alert("Errore durante il download del file.");
+        showToast('Errore durante il download del file.', 'error');
     }
   };
 
@@ -149,7 +152,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
     if (kbEntry) {
         setPreviewingMaterial(kbEntry);
     } else {
-        alert("Materiale non trovato nella Knowledge Base.");
+        showToast('Materiale non trovato nella Knowledge Base.', 'error');
     }
   };
   
@@ -163,17 +166,21 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
   };
   
   const handleRemoveMaterial = (materialId: string) => {
-      if(!window.confirm("Sei sicuro di voler rimuovere questo allegato?")) return;
-      const updatedLesson = {
-          ...lesson,
-          materialiDidattici: (lesson.materialiDidattici || []).filter(m => m.id !== materialId)
-      };
-      onUpdateLesson(updatedLesson);
+      setConfirmDialog({
+          message: 'Sei sicuro di voler rimuovere questo allegato?',
+          onConfirm: () => {
+              const updatedLesson = {
+                  ...lesson,
+                  materialiDidattici: (lesson.materialiDidattici || []).filter(m => m.id !== materialId)
+              };
+              onUpdateLesson(updatedLesson);
+          }
+      });
   };
   
   const handleAnalyzePedagogy = async () => {
       if (!aiSettings) {
-          alert("Configurazione AI mancante.");
+          showToast('Configurazione AI mancante.', 'error');
           return;
       }
       setIsAnalyzing(true);
@@ -186,7 +193,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
       } catch (error: unknown) {
           let message = 'Errore sconosciuto';
           if (error instanceof Error) message = error.message;
-          alert(message);
+          showToast(message, 'error');
       } finally {
           setIsAnalyzing(false);
       }
@@ -476,6 +483,15 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
             title={lesson.contenuto}
             contextLabel={`Analisi ${lesson.materia} ${lesson.classe} • ${settings?.schoolType || ''}`}
           />
+      )}
+      {confirmDialog && (
+        <M3ConfirmDialog
+          title="Conferma rimozione"
+          message={confirmDialog.message}
+          onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+          onCancel={() => setConfirmDialog(null)}
+          danger={true}
+        />
       )}
     </>
   );

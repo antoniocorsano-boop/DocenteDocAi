@@ -21,7 +21,13 @@ vi.mock('../../src/utils/documentUtils', () => ({
 
 // Mock di securityUtils
 vi.mock('../../src/utils/securityUtils', () => ({
-  sanitizeHTML: vi.fn((html) => html), // Semplicemente restituisce l'HTML per il test
+  sanitizeHTML: vi.fn((html) => html),
+}));
+
+// Mock useUIStore with showToast
+const mockShowToast = vi.fn();
+vi.mock('../../src/stores/useUIStore', () => ({
+  useUIStore: vi.fn((selector: any) => selector({ actions: { showToast: mockShowToast } })),
 }));
 
 
@@ -224,21 +230,25 @@ describe('SmartDocumentEditor', () => {
       expect(document.execCommand).toHaveBeenCalledWith('copy');
       expect(window.getSelection().removeAllRanges).toHaveBeenCalled();
       expect(window.getSelection().addRange).toHaveBeenCalled();
-      expect(window.alert).toHaveBeenCalledWith(expect.stringContaining("Contenuto copiato!"));
+      expect(mockShowToast).toHaveBeenCalledWith(expect.stringContaining("Contenuto copiato!"), 'success');
     });
   });
 
-  it('dovrebbe avvisare sulle modifiche non salvate prima di chiudere', () => {
+  it('dovrebbe avvisare sulle modifiche non salvate prima di chiudere', async () => {
     render(<SmartDocumentEditor initialContent={initialContent} documentTitle={documentTitle} onClose={mockOnClose} aiSettings={mockAiSettings} />);
     const titleInput = screen.getByDisplayValue(documentTitle);
     fireEvent.change(titleInput, { target: { value: 'Changed' } }); // Make it dirty
 
-    (window.confirm as unknown as vi.MockInstance).mockReturnValueOnce(true); // User confirms to close
-    // Let's find the back button by class or icon
-    const backButton = screen.getAllByRole('button')[0]; // First button is usually back
+    // Let's find the back button by aria-label
+    const backButton = screen.getByLabelText('Chiudi editor');
     fireEvent.click(backButton);
 
-    expect(window.confirm).toHaveBeenCalledWith('Hai modifiche non salvate. Sei sicuro di voler chiudere?');
+    // M3ConfirmDialog should appear — find and click the confirm button
+    await waitFor(() => {
+      expect(screen.getByText('Hai modifiche non salvate. Sei sicuro di voler chiudere?')).toBeInTheDocument();
+    });
+    const confirmButton = screen.getByText('Conferma');
+    fireEvent.click(confirmButton);
     expect(mockOnClose).toHaveBeenCalledTimes(1);
   });
 

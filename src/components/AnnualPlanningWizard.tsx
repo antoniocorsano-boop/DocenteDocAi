@@ -1,7 +1,7 @@
 // MD3 Compliant - Block J Migration Complete (5 violations eliminated)
 
 import React, { useState, useMemo } from 'react';
-import { InfoCard, AiThinkingGem } from './ui';
+import { InfoCard, AiThinkingGem, EmptyState } from './ui';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -432,7 +432,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </Box>
                                         </Stack>
                                     )) : (
-                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</Typography>
+                                        <EmptyState icon="description" title="Nessun documento" description="Nessun documento suggerito. Caricali nella KB con tag &quot;Programmazione&quot;." />
                                     )}
                                 </Box>
                             </Box>
@@ -579,7 +579,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         </Box>
                                     ))}
                                     {plannedUdas.length === 0 && (
-                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</Typography>
+                                        <EmptyState icon="calendar_today" title="Nessuna UDA" description="Nessuna UDA pianificata. Aggiungine una o genera dalla KB." />
                                     )}
                                 </Stack>
                             )}

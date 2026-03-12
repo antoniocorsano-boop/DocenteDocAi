@@ -18,6 +18,7 @@ import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 
 interface ConsiglioClasseWizardProps {
     onClose: () => void;
@@ -32,6 +33,7 @@ interface ConsiglioClasseWizardProps {
 
 const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
   const [step, setStep] = useState<1 | 2>(1);
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const [selectedClass, setSelectedClass] = useState<string>(props.userClasses[0] || '');
     const [periodo, setPeriodo] = useState<PeriodoValutazione>('primo-quadrimestre');
     const [isLoading, setIsLoading] = useState(false);
@@ -58,7 +60,7 @@ const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
             props.onClose();
         } catch (error) {
             logger.error("PDF generation failed", error);
-            alert("Errore durante la generazione del PDF.");
+            showToast('Errore durante la generazione del PDF.', 'error');
         } finally {
             setIsLoading(false);
         }

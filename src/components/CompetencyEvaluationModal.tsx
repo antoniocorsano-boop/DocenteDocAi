@@ -16,6 +16,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { M3Dialog } from './ui';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 interface CompetencyEvaluationModalProps {
     student: Studente;
     competenza: Competenza;
@@ -26,6 +27,7 @@ interface CompetencyEvaluationModalProps {
 }
 
 const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ student, competenza, settings, aiSettings, onClose, onSave }) => {
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [selectedMateria, setSelectedMateria] = useState<string>((settings.disciplines && settings.disciplines[0]) || '');
     const [selectedLevelId, setSelectedLevelId] = useState<string>('');
     const [nota, setNota] = useState<string>('');
@@ -34,7 +36,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!selectedLevelId || !selectedMateria) {
-            alert("Seleziona un livello e una materia.");
+            showToast('Seleziona un livello e una materia.', 'error');
             return;
         }
         onSave({
@@ -48,7 +50,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
 
     const handleGenerateNote = async () => {
         if (!selectedLevelId) {
-            alert("Per favore, seleziona prima un livello di competenza.");
+            showToast('Per favore, seleziona prima un livello di competenza.', 'info');
             return;
         }
         const selectedLevel = competenza.livelli.find(l => l.id === selectedLevelId);
@@ -61,7 +63,7 @@ const CompetencyEvaluationModal: React.FC<CompetencyEvaluationModalProps> = ({ s
         } catch (error) {
             const errorMsg = error instanceof Error ? error.message : 'Errore sconosciuto';
             logger.error("Error generating competency note:", errorMsg);
-            alert("Errore durante la generazione della nota. Riprova.");
+            showToast('Errore durante la generazione della nota. Riprova.', 'error');
         } finally {
             setIsGeneratingNote(false);
         }

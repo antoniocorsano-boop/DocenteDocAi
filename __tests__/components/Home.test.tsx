@@ -29,6 +29,9 @@ vi.mock('../../src/components/ui', () => ({
             {children}
         </div>
     ),
+    EmptyState: ({ title, description }: any) => (
+        <div data-testid="empty-state">{title} - {description}</div>
+    ),
 }));
 
 // Mock AppLayout

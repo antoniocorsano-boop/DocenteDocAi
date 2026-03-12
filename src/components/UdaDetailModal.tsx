@@ -12,6 +12,7 @@ import { Uda, AiSettings, KnowledgeBaseEntry } from '../types';
 import InfoCard from './ui/InfoCard';
 import { validateUdaVerticalCurriculum } from '../services/aiService';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 interface UdaDetailModalProps {
     uda: Uda;
     onClose: () => void;
@@ -21,6 +22,7 @@ interface UdaDetailModalProps {
 }
 
 const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, aiSettings, knowledgeBase }) => {
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [isValidating, setIsValidating] = useState(false);
     const [validationResult, setValidationResult] = useState<string | null>(null);
 
@@ -38,7 +40,7 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
             logger.debug(`Audit: Completed AI validation for UDA ${uda.id}`);
         } catch (error) {
             logger.error("Validation error:", error);
-            alert("Errore durante la validazione AI.");
+            showToast('Errore durante la validazione AI.', 'error');
         } finally {
             setIsValidating(false);
         }

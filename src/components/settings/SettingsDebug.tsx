@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import SettingsGroup from './SettingsGroupAccordion';
-import { InfoCard } from '../ui';
+import { InfoCard, M3ConfirmDialog } from '../ui';
 import { errorLogger } from '../../services/errorLogger';
 
 interface SettingsDebugSectionProps {
@@ -15,7 +15,9 @@ interface SettingsDebugSectionProps {
 
 export const SettingsDebugSection: React.FC<SettingsDebugSectionProps> = ({
     expanded, onToggle, showToast
-}) => (
+}) => {
+    const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
+    return (
     <SettingsGroup
         id="debug_logging"
         title="Debug & Logging"
@@ -72,12 +74,13 @@ export const SettingsDebugSection: React.FC<SettingsDebugSectionProps> = ({
                         Esporta JSON
                     </Button>
                     <Button
-                        onClick={() => {
-                            if (confirm('Sei sicuro di voler eliminare tutti i log?')) {
+                        onClick={() => setConfirmDialog({
+                            message: 'Sei sicuro di voler eliminare tutti i log?',
+                            onConfirm: () => {
                                 errorLogger.clearAllLogs();
                                 showToast('Tutti i log sono stati eliminati', 'success');
                             }
-                        }}
+                        })}
                         variant="text"
                         fullWidth
                         startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">delete</Box>}
@@ -92,7 +95,17 @@ export const SettingsDebugSection: React.FC<SettingsDebugSectionProps> = ({
                 icon="info"
                 variant="outlined" />
         </Stack>
+        {confirmDialog && (
+            <M3ConfirmDialog
+                title="Conferma eliminazione"
+                message={confirmDialog.message}
+                onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+                onCancel={() => setConfirmDialog(null)}
+                danger={true}
+            />
+        )}
     </SettingsGroup>
-);
+    );
+};
 
 export default SettingsDebugSection;

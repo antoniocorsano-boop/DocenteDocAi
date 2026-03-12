@@ -73,14 +73,14 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography
                 variant="subtitle2"
-                sx={{ color: 'text.secondary' }}
+                sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}
             >
                 {title}
             </Typography>
             {subtitle && (
                 <Typography
                     variant="caption"
-                    sx={{ mt: 0.5, color: 'text.secondary' }}
+                    sx={{ mt: 0.5, color: 'var(--md-sys-color-on-surface-variant)' }}
                 >
                     {subtitle}
                 </Typography>

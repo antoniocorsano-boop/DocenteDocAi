@@ -13,6 +13,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import { M3Dialog, TextField } from './ui';
+import { useUIStore } from '../stores/useUIStore';
 interface StudentTransferModalProps {
     student: Studente;
     userClasses: string[];
@@ -22,6 +23,7 @@ interface StudentTransferModalProps {
 }
 
 const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, userClasses, onClose, onSave, currentSchoolYear }) => {
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [mode, setMode] = useState<'change_class' | 'transfer_out'>('change_class');
     const [newClass, setNewClass] = useState(student.classe);
     const [outcome, setOutcome] = useState<'Trasferito' | 'Ritirato'>('Trasferito');
@@ -37,7 +39,7 @@ const StudentTransferModal: React.FC<StudentTransferModalProps> = ({ student, us
         if (mode === 'change_class') {
             const targetClass = isCustomClass ? customClass.toUpperCase() : newClass;
             if (!targetClass) {
-                alert("Seleziona o inserisci la nuova classe.");
+                showToast('Seleziona o inserisci la nuova classe.', 'error');
                 return;
             }
 

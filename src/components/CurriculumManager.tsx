@@ -5,7 +5,8 @@ import { CurriculumSubject, CurriculumNucleo, AiSettings, TimetableSettings, Vie
 import { parseCurriculumFromText } from '../services/aiService';
 import { extractTextFromFile } from '../utils/documentUtils';
 import { useFileDrop } from '../hooks/useFileDrop';
-import { InfoCard, EmptyState, TextField, AiThinkingGem, M3Dialog } from './ui';
+import { InfoCard, EmptyState, TextField, AiThinkingGem, M3Dialog, M3ConfirmDialog } from './ui';
+import { useUIStore } from '../stores/useUIStore';
 import Button from '@mui/material/Button';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -30,10 +31,12 @@ interface CurriculumManagerProps {
 }
 
 const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpdateCurricula, settings, aiSettings, onNavigate }) => {
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const [selectedCurriculumId, setSelectedCurriculumId] = useState<string | null>(null);
     const [isImporting, setIsImporting] = useState(false);
     const [importText, setImportText] = useState('');
     const [isProcessingAI, setIsProcessingAI] = useState(false);
+    const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
     
     const [newSubject, setNewSubject] = useState(settings.disciplines[0] || '');
     const [newGradeLevel, setNewGradeLevel] = useState('Classi Prime');
@@ -55,10 +58,13 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
     };
 
     const handleDelete = (id: string) => {
-        if (confirm("Sei sicuro?")) {
-            onUpdateCurricula(curricula.filter(c => c.id !== id));
-            if (selectedCurriculumId === id) setSelectedCurriculumId(null);
-        }
+        setConfirmDialog({
+            message: 'Sei sicuro?',
+            onConfirm: () => {
+                onUpdateCurricula(curricula.filter(c => c.id !== id));
+                if (selectedCurriculumId === id) setSelectedCurriculumId(null);
+            }
+        });
     };
 
     const handleUpdate = (updatedCurr: CurriculumSubject) => {
@@ -80,7 +86,7 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
             setImportText('');
         } catch (e) {
             const errorMsg = e instanceof Error ? e.message : 'Errore sconosciuto';
-            alert("Errore AI: " + errorMsg);
+            showToast('Errore AI: ' + errorMsg, 'error');
         } finally {
             setIsProcessingAI(false);
         }
@@ -375,6 +381,15 @@ const CurriculumManager: React.FC<CurriculumManagerProps> = ({ curricula, onUpda
                         </Button>
                     </DialogActions>
                 </M3Dialog>
+            )}
+            {confirmDialog && (
+                <M3ConfirmDialog
+                    title="Conferma eliminazione"
+                    message={confirmDialog.message}
+                    onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+                    onCancel={() => setConfirmDialog(null)}
+                    danger={true}
+                />
             )}
         </Box>
     );

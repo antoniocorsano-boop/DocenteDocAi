@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { errorLogger, ErrorLog } from '../services/errorLogger';
+import { M3ConfirmDialog } from './ui';
 interface ErrorLogsDashboardProps {
   onClose?: () => void;
 }
@@ -12,6 +13,7 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
   const [filterType, setFilterType] = useState<ErrorLog['type'] | 'all'>('all');
   const [filterSeverity, setFilterSeverity] = useState<ErrorLog['severity'] | 'all'>('all');
   const [stats, setStats] = useState(errorLogger.getErrorStats());
+  const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
 
   useEffect(() => {
     const allLogs = errorLogger.getAllLogs();
@@ -37,11 +39,14 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
   };
 
   const handleClearLogs = () => {
-    if (window.confirm('Sei sicuro di voler eliminare tutti i log?')) {
-      errorLogger.clearAllLogs();
-      setLogs([]);
-      setStats(errorLogger.getErrorStats());
-    }
+    setConfirmDialog({
+      message: 'Sei sicuro di voler eliminare tutti i log?',
+      onConfirm: () => {
+        errorLogger.clearAllLogs();
+        setLogs([]);
+        setStats(errorLogger.getErrorStats());
+      }
+    });
   };
 
   const getSeverityColor = (severity: ErrorLog['severity']) => {
@@ -257,6 +262,15 @@ const ErrorLogsDashboard: React.FC<ErrorLogsDashboardProps> = ({ onClose }) => {
             )}
           </div>
         </div>
+      )}
+      {confirmDialog && (
+        <M3ConfirmDialog
+          title="Conferma eliminazione"
+          message={confirmDialog.message}
+          onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+          onCancel={() => setConfirmDialog(null)}
+          danger={true}
+        />
       )}
     </div>
   );

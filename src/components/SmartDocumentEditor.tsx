@@ -8,8 +8,9 @@ import { refineTextWithAi, generateDocumentTable } from '../services/aiService';
 import { generateHtmlDocxBlob } from '../utils/documentUtils';
 import { sanitizeHTML } from '../utils/securityUtils';
 import { saveAs } from '../utils/documentUtils';
-import { AiThinkingGem } from './ui';
+import { AiThinkingGem, M3ConfirmDialog } from './ui';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for colors, spacing, typography, elevation, and animations
 
 interface SmartDocumentEditorProps {
@@ -21,12 +22,14 @@ interface SmartDocumentEditorProps {
 }
 
 const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialContent, documentTitle, onClose, aiSettings, onSaveToKb }) => {
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const editorRef = useRef<HTMLDivElement>(null);
     const [isAiThinking, setIsAiThinking] = useState(false);
     const [aiMenuPosition, setAiMenuPosition] = useState<{top: number, left: number} | null>(null);
     const [selectedText, setSelectedText] = useState('');
     const [editorTitle, setEditorTitle] = useState(documentTitle);
     const [isDirty, setIsDirty] = useState(false);
+    const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
     
     // CRITICAL FIX: Store the last valid selection range within the editor
     // This persists the cursor position even when clicking toolbar buttons (which steals focus)
@@ -76,9 +79,10 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
 
     const handleCloseSafe = useCallback(() => {
         if (isDirty) {
-            if (window.confirm("Hai modifiche non salvate. Sei sicuro di voler chiudere?")) {
-                onClose();
-            }
+            setConfirmDialog({
+                message: 'Hai modifiche non salvate. Sei sicuro di voler chiudere?',
+                onConfirm: onClose
+            });
         } else {
             onClose();
         }
@@ -179,7 +183,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
         const textToProcess = selectedText || (editorRef.current ? editorRef.current.innerText : '');
         
         if (!textToProcess) {
-             alert("Scrivi o seleziona del testo prima di chiedere all'AI.");
+             showToast("Scrivi o seleziona del testo prima di chiedere all'AI.", 'info');
              return;
         }
 
@@ -196,7 +200,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             if (e instanceof Error) {
                 message = "Errore AI: " + e.message;
             }
-            alert(message);
+            showToast(message, 'error');
         } finally {
             setIsAiThinking(false);
             setAiMenuPosition(null);
@@ -221,7 +225,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             if (e instanceof Error) {
                 message = "Errore AI: " + e.message;
             }
-            alert(message);
+            showToast(message, 'error');
         } finally {
             setIsAiThinking(false);
         }
@@ -239,7 +243,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             if (e instanceof Error) {
                 message = "Errore esportazione DOCX: " + e.message;
             }
-            alert(message);
+            showToast(message, 'error');
         }
     }, [editorRef, editorTitle]);
     
@@ -263,7 +267,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                 selection.removeAllRanges();
             }
             
-            alert("Contenuto copiato! Ora puoi incollarlo (Ctrl+V) direttamente in un nuovo documento Google Docs mantenendo la formattazione.");
+            showToast('Contenuto copiato! Ora puoi incollarlo (Ctrl+V) direttamente in un nuovo documento Google Docs mantenendo la formattazione.', 'success');
          }
     }, [editorRef]);
 
@@ -367,6 +371,15 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
                         </>
                     )}
                 </div>
+            )}
+            {confirmDialog && (
+                <M3ConfirmDialog
+                    title="Modifiche non salvate"
+                    message={confirmDialog.message}
+                    onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+                    onCancel={() => setConfirmDialog(null)}
+                    danger={true}
+                />
             )}
         </div>
     );

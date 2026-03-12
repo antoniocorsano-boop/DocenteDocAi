@@ -16,6 +16,7 @@ import { getPeriodicJudgmentSuggestion, generateClassCouncilNarrativeReport } fr
 import { generateCouncilTablePdf } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 interface ConsiglioClasseProps {
   selectedClass: string;
   students: Studente[];
@@ -31,6 +32,7 @@ interface ConsiglioClasseProps {
 
 const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
   const { selectedClass, students, evaluations, giudizi, onSaveGiudizio, settings, aiSettings, annoScolasticoCorrente, onViewStudentProfile, competencyEvaluations } = props;
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     
     const [periodo, setPeriodo] = useState<PeriodoValutazione>('primo-quadrimestre');
     const [localGiudizi, setLocalGiudizi] = useState<Record<string, GiudizioPeriodico>>({});
@@ -114,7 +116,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
         } catch (error) {
             const errorMsg = error instanceof Error ? error.message : 'Errore sconosciuto';
             logger.error("Error suggesting judgment:", errorMsg);
-            alert("Errore durante le suggerimento del giudizio.");
+            showToast('Errore durante il suggerimento del giudizio.', 'error');
         } finally {
             setLoadingAi(null);
         }
@@ -139,7 +141,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             setNarrativeReport(report);
         } catch (error) {
             logger.error("Error generating narrative report:", error);
-            alert("Errore durante la generazione del report narrativo.");
+            showToast('Errore durante la generazione del report narrativo.', 'error');
         } finally {
             setIsGeneratingNarrative(false);
         }
@@ -162,7 +164,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             saveAs(blob, `Scrutinio_${selectedClass}_${String(periodo)}.pdf`);
         } catch(e) {
             logger.error(e);
-            alert("Si è verificato un errore durante l'esportazione del PDF.");
+            showToast("Si è verificato un errore durante l'esportazione del PDF.", 'error');
         } finally {
             setIsExporting(false);
         }
@@ -177,11 +179,11 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             
 // Removed unused html variable - DOCX generation handled by generateCouncilTablePdf
 
-            alert('Esportazione formato DOCX non ancora disponibile. Usa PDF.');
+            showToast('Esportazione formato DOCX non ancora disponibile. Usa PDF.', 'info');
 
         } catch(e) {
             logger.error("Error exporting DOCX:", e);
-            alert("Errore durante la generazione del file Word.");
+            showToast('Errore durante la generazione del file Word.', 'error');
         } finally {
             setIsExporting(false);
         }
@@ -456,7 +458,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             <Button variant="text" onClick={() => setNarrativeReport(null)}>Chiudi</Button>
                             <Button variant="outlined" onClick={() => {
                                 navigator.clipboard.writeText(narrativeReport);
-                                alert("Report copiato!");
+                                showToast('Report copiato!', 'success');
                             }} startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">content_copy</Box>}>
                                 Copia
                             </Button>

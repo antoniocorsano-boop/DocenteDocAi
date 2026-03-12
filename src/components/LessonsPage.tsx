@@ -6,6 +6,8 @@ const IdeaGeneratorModal = lazy(() => import('./IdeaGeneratorModal'));
 const CreateLessonFromAiModal = lazy(() => import('./CreateLessonFromAiModal').then(m => ({ default: m.CreateLessonFromAiModal })));
 import Typography from '@mui/material/Typography';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
+import { Skeleton } from './ui';
 
 // MD3 Compliant - Migration completed
 // LessonsPage.tsx: Migrated from 15 inline style violations to 0 violations
@@ -18,6 +20,7 @@ interface LessonsPageExtendedProps extends LessonsPageProps {
 }
 
 const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowledgeBase, userClasses, onViewLesson, onAddLessons, onStartClassroom, aiSettings, setIsLoadingModalOpen, setLoadingModalMessage, slots, onScheduleLesson, curricula = [], settings }) => {
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const [error, setError] = useState('');
     const [selectedUdaIds, setSelectedUdaIds] = useState<string[]>([]);
     const [selectedClasses, setSelectedClasses] = useState<string[]>([]);
@@ -61,7 +64,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
 
     const handleGenerateSequences = async () => {
         if (selectedUdaIds.length === 0 || selectedClasses.length === 0) {
-            alert("Seleziona almeno una UDA e una classe per procedere.");
+            showToast('Seleziona almeno una UDA e una classe per procedere.', 'error');
             return;
         }
         setLoadingModalMessage("L'AI sta generando le sequenze di lezioni usando i documenti selezionati...");
@@ -88,7 +91,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
                 allNewLessons = [...allNewLessons, ...newLessonsForClass];
             }
             onAddLessons(allNewLessons);
-            alert(`${allNewLessons.length} lezioni generate con successo per ${selectedClasses.length} classi e aggiunte all'archivio!`);
+            showToast(`${allNewLessons.length} lezioni generate con successo per ${selectedClasses.length} classi e aggiunte all'archivio!`, 'success');
             setSelectedUdaIds([]);
             setSelectedClasses([]);
 
@@ -636,7 +639,7 @@ return (
             </div>
 
             {isIdeaModalOpen && (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Skeleton height="var(--md-sys-spacing-32)" />}>
                     <IdeaGeneratorModal
                         onClose={() => setIsIdeaModalOpen(false)}
                         onGenerate={(content) => setGeneratedIdeaContent(content)}
@@ -648,7 +651,7 @@ return (
             )}
 
             {generatedIdeaContent && (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Skeleton height="var(--md-sys-spacing-32)" />}>
                     <CreateLessonFromAiModal
                         content={generatedIdeaContent}
                         onClose={() => setGeneratedIdeaContent(null)}
@@ -659,7 +662,7 @@ return (
                                 svolta: false
                             };
                             onAddLessons([newLesson]);
-                            alert("Lezione salvata in archivio!");
+                            showToast('Lezione salvata in archivio!', 'success');
                             setGeneratedIdeaContent(null);
                         }}
                         userClasses={userClasses}
@@ -670,7 +673,7 @@ return (
                         slots={slots}
                         onSchedule={(lesson: Lezione, slotKey: string) => {
                             onScheduleLesson({ ...lesson, slotKey });
-                            alert("Lezione salvata e pianificata con successo!");
+                            showToast('Lezione salvata e pianificata con successo!', 'success');
                             setGeneratedIdeaContent(null);
                         }}
                         curricula={curricula}

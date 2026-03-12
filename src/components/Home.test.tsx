@@ -129,6 +129,9 @@ vi.mock('./ui', async () => {
     PageWrapper: ({ children }: any) => (
       <div data-testid="page-wrapper">{children}</div>
     ),
+    EmptyState: ({ title, description }: any) => (
+      <div data-testid="empty-state">{title} - {description}</div>
+    ),
   };
 });
 

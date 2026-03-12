@@ -15,6 +15,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { M3Dialog, TextField, AiThinkingGem } from './ui';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 interface CreateLessonFromAiModalProps {
     content: { title: string; htmlContent: string };
     onClose: () => void;
@@ -30,6 +31,7 @@ interface CreateLessonFromAiModalProps {
 }
 
 const CreateLessonFromAiModal: React.FC<CreateLessonFromAiModalProps> = ({ content, onClose, onSave, userClasses, disciplines, students, pianiInclusione, aiSettings, slots, onSchedule, curricula }) => {
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [argomento, setArgomento] = useState('');
     const [obiettivi, setObiettivi] = useState('');
     const [classe, setClasse] = useState(userClasses[0] || '');
@@ -118,7 +120,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!argomento.trim() || !classe || !materia) {
-            alert('Per favore, compila Argomento, Classe e Materia.');
+            showToast('Per favore, compila Argomento, Classe e Materia.', 'error');
             return;
         }
         
@@ -146,7 +148,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
 
     const handleGenerateAdaptations = async () => {
         if (!classe || !argomento) {
-            alert("Definisci la classe e l'argomento della lezione prima di chiedere suggerimenti.");
+            showToast("Definisci la classe e l'argomento della lezione prima di chiedere suggerimenti.", 'info');
             return;
         }
     
@@ -158,7 +160,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
             });
     
             if (pianiInclusionePerClasse.length === 0) {
-                alert("Nessun Piano di Inclusione attivo trovato per questa classe. Aggiungine uno dalla sezione 'Didattica Inclusiva' per ricevere suggerimenti mirati.");
+                showToast("Nessun Piano di Inclusione attivo trovato per questa classe. Aggiungine uno dalla sezione 'Didattica Inclusiva' per ricevere suggerimenti mirati.", 'info');
                 return; 
             }
     
@@ -179,7 +181,7 @@ const [selectedSlotKey, setSelectedSlotKey] = useState<string>('');
         } catch (error) {
             const errorMsg = error instanceof Error ? error.message : 'Errore sconosciuto';
             logger.error("Error generating inclusivity adaptations:", errorMsg);
-            alert("Si è verificato un errore durante la generazione dei suggerimenti per l'inclusività.");
+            showToast("Si è verificato un errore durante la generazione dei suggerimenti per l'inclusività.", 'error');
         } finally {
             setIsAdaptationsLoading(false);
         }

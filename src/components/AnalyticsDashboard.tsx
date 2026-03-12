@@ -35,7 +35,7 @@ import Box from '@mui/material/Box';
 import React, { useState, useMemo } from 'react';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';
-import { M3Dialog } from './ui';
+import { M3Dialog, M3ConfirmDialog, EmptyState } from './ui';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
@@ -64,6 +64,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
     actions: state.actions
   }));
   const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
+  const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
 
   // Calcola statistiche aggiuntive
   const stats = useMemo(() => {
@@ -96,24 +97,27 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
   }, [analyticsEvents, analyticsMetrics, analyticsSettings]);
 
   const handleResetAnalytics = () => {
-    if (confirm('Sei sicuro di voler resettare tutti i dati analytics? Questa azione non pu� essere annullata.')) {
-      actions.setAnalyticsEvents([]);
-      actions.setAnalyticsMetrics({
-        totalDocumentsGenerated: 0,
-        documentsByType: {},
-        featuresUsage: {},
-        templatesCreated: 0,
-        exportBatchesCount: 0,
-        aiInteractionsCount: 0,
-        averageSessionDuration: 0,
-        lastUpdated: new Date().toISOString()
-      });
-      actions.setAnalyticsSettings({
-        ...analyticsSettings,
-        lastReset: new Date().toISOString()
-      });
-      showToast('Dati analytics resettati con successo.', 'info');
-    }
+    setConfirmDialog({
+      message: 'Sei sicuro di voler resettare tutti i dati analytics? Questa azione non può essere annullata.',
+      onConfirm: () => {
+        actions.setAnalyticsEvents([]);
+        actions.setAnalyticsMetrics({
+          totalDocumentsGenerated: 0,
+          documentsByType: {},
+          featuresUsage: {},
+          templatesCreated: 0,
+          exportBatchesCount: 0,
+          aiInteractionsCount: 0,
+          averageSessionDuration: 0,
+          lastUpdated: new Date().toISOString()
+        });
+        actions.setAnalyticsSettings({
+          ...analyticsSettings,
+          lastReset: new Date().toISOString()
+        });
+        showToast('Dati analytics resettati con successo.', 'info');
+      }
+    });
   };
 
   const handleToggleAnalytics = (enabled: boolean) => {
@@ -411,9 +415,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                           color: 'var(--md-sys-color-on-surface)'}}>{count}</Typography>
                       </Box>
                     )) : (
-                      <Typography variant="body2" sx={{
-                        color: 'var(--md-sys-color-on-surface-variant)',
-                        fontStyle: 'italic'}}>Nessuna attivit� registrata</Typography>
+                      <EmptyState icon="bar_chart_off" title="Nessuna attività" description="Nessuna attività registrata" />
                     )}
                   </Box>
                 </Box>
@@ -524,17 +526,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                   );
                 })}
                 {analyticsEvents.length === 0 && (
-                  <Box sx={{textAlign: 'center',
-                    paddingTop: 'var(--md-sys-spacing-12)',
-                    paddingBottom: 'var(--md-sys-spacing-12)'}}>
-                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{fontSize: 'var(--md-sys-typescale-display-large-font-size)',
-                      color: 'var(--md-sys-color-on-surface-variant)',
-                      opacity: 'var(--md-sys-state-opacity-tint-moderate)',
-                      marginBottom: 'var(--md-sys-spacing-8)',
-                      display: 'block'}}>history</Box>
-                    <Typography variant="body2" sx={{
-                      color: 'var(--md-sys-color-on-surface-variant)'}}>Nessun evento registrato</Typography>
-                  </Box>
+                  <EmptyState icon="history" title="Nessun evento" description="Nessun evento registrato" />
                 )}
               </Box>
             </Box>
@@ -707,6 +699,15 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
           Chiudi
         </Button>
       </DialogActions>
+      {confirmDialog && (
+        <M3ConfirmDialog
+          title="Conferma reset"
+          message={confirmDialog.message}
+          onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+          onCancel={() => setConfirmDialog(null)}
+          danger={true}
+        />
+      )}
     </M3Dialog>
   );
 };

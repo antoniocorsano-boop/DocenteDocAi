@@ -1,9 +1,9 @@
 // MD3 Compliant
 
 // M3Expressive: EventActionPopover - Event action management popover with M3 tokens
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import { M3Popover } from './ui';
+import { M3Popover, M3ConfirmDialog } from './ui';
 import { EventoCalendario } from '../types';
 
 interface EventActionPopoverProps {
@@ -15,16 +15,20 @@ interface EventActionPopoverProps {
 }
 
 const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl, onClose, onEdit, onDelete }) => {
+    const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
     const handleEdit = () => {
         onEdit(event);
         onClose();
     };
 
     const handleDelete = () => {
-        if (window.confirm('Sei sicuro?')) {
-            onDelete(event.id);
-            onClose();
-        }
+        setConfirmDialog({
+            message: 'Sei sicuro?',
+            onConfirm: () => {
+                onDelete(event.id);
+                onClose();
+            }
+        });
     };
 
     // Format event date
@@ -37,6 +41,7 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
     const subtitle = `${eventDate}${eventTime}`;
 
     return (
+        <>
         <M3Popover
             open={Boolean(anchorEl)}
             anchorEl={anchorEl}
@@ -79,6 +84,16 @@ const EventActionPopover: React.FC<EventActionPopoverProps> = ({ event, anchorEl
                 </button>
             </div>
         </M3Popover>
+        {confirmDialog && (
+            <M3ConfirmDialog
+                title="Conferma eliminazione"
+                message={confirmDialog.message}
+                onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+                onCancel={() => setConfirmDialog(null)}
+                danger={true}
+            />
+        )}
+        </>
     );
 };
 

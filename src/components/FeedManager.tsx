@@ -7,7 +7,7 @@
 import React, { useState } from 'react';
 import { FeedSource } from '../types';
 import { discoverAndCreateFeed, fetchAndParseRssFeed } from '../services/aiService';
-import { InfoCard, SectionHeader, TextField } from './ui';
+import { InfoCard, SectionHeader, TextField, M3ConfirmDialog } from './ui';
 import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
 import Box from '@mui/material/Box';
@@ -22,6 +22,7 @@ interface FeedManagerProps {
 
 const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToast }) => {
     const [pageUrl, setPageUrl] = useState('');
+    const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
     
     const handleAddSource = async () => {
         if (!pageUrl.trim()) return;
@@ -58,9 +59,12 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
     };
 
     const handleDeleteSource = (sourceId: string) => {
-        if (window.confirm("Sei sicuro di voler smettere di monitorare questa fonte?")) {
-            setSources(prev => prev.filter(s => s.id !== sourceId));
-        }
+        setConfirmDialog({
+            message: 'Sei sicuro di voler smettere di monitorare questa fonte?',
+            onConfirm: () => {
+                setSources(prev => prev.filter(s => s.id !== sourceId));
+            }
+        });
     };
 
     const handleCheckForUpdates = async (source: FeedSource) => {
@@ -164,6 +168,15 @@ const FeedManager: React.FC<FeedManagerProps> = ({ sources, setSources, showToas
                     )}
                 </div>
             </div>
+            {confirmDialog && (
+                <M3ConfirmDialog
+                    title="Conferma"
+                    message={confirmDialog.message}
+                    onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+                    onCancel={() => setConfirmDialog(null)}
+                    danger={true}
+                />
+            )}
         </div>
     );
 };

@@ -8,7 +8,7 @@ import Stack from '@mui/material/Stack';
 import ButtonBase from '@mui/material/ButtonBase';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import { PageWrapper } from './ui';
+import { PageWrapper, EmptyState } from './ui';
 import { View, NavigationParams } from '../types';
 import { useAcademicStore } from '../stores/useAcademicStore';
 import { useStudentStore } from '../stores/useStudentStore';
@@ -255,35 +255,11 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </Typography>
 
           {activities.length === 0 ? (
-            <Paper
-              elevation={0}
-              sx={{
-                p: 3,
-                borderRadius: 'var(--md-sys-shape-corner-large)',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: 1,
-                bgcolor: 'var(--md-sys-color-surface-container-low)',
-              }}
-            >
-              <Box
-                component="span"
-                className="material-symbols-outlined"
-                aria-hidden="true"
-                sx={{
-                  fontSize: 'var(--md-sys-typescale-display-small-font-size)',
-                  color: 'var(--md-sys-color-on-surface-variant)',
-                  fontVariationSettings: '"FILL" 0, "wght" 300',
-                }}
-              >
-                event_busy
-              </Box>
-              <Typography variant="subtitle1">Nessuna attività recente</Typography>
-              <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-                Le tue attività appariranno qui
-              </Typography>
-            </Paper>
+            <EmptyState
+              icon="event_busy"
+              title="Nessuna attività recente"
+              description="Le tue attività appariranno qui"
+            />
           ) : (
             <List disablePadding sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
               {activities.map((activity, index) => {

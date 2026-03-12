@@ -20,7 +20,7 @@ const AddSourceModal = lazy(() => import('./AddSourceModal'));
 const DocumentViewerModal = lazy(() => import('./DocumentViewerModal')); 
 const ImageViewerModal = lazy(() => import('./ImageViewerModal'));
 import { KB_CATEGORIES } from '../constants';
-import { InfoCard, CategoryCard, SectionHeader } from './ui';
+import { InfoCard, CategoryCard, SectionHeader, M3ConfirmDialog, Skeleton } from './ui';
 
 interface KnowledgeBaseProps {
     knowledgeBase: KnowledgeBaseEntry[];
@@ -39,11 +39,14 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
     const [isAddSourceModalOpen, setIsAddSourceModalOpen] = useState(false);
     const [previewingEntry, setPreviewingEntry] = useState<KnowledgeBaseEntry | null>(null);
     const [viewingImage, setViewingImage] = useState<KnowledgeBaseEntry | null>(null);
+    const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
     // aiSettings, settings, showGuidanceTips sono ricevuti come props ma non usati attualmente
 
     const handleDeleteFile = (fileId: string) => {
-        if (!window.confirm(`Sei sicuro di voler eliminare questo file?`)) return;
-        setKnowledgeBase(prev => prev.filter(entry => entry.id !== fileId));
+        setConfirmDialog({
+            message: 'Sei sicuro di voler eliminare questo file?',
+            onConfirm: () => setKnowledgeBase(prev => prev.filter(entry => entry.id !== fileId))
+        });
     };
 
     const handleAddEntries = (newEntries: KnowledgeBaseEntry[]) => {
@@ -188,7 +191,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
             </Box>
 
             {isAddSourceModalOpen && (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Skeleton height="var(--md-sys-spacing-32)" />}>
                     <AddSourceModal
                         corpora={corpora}
                         setCorpora={setCorpora}
@@ -198,7 +201,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                 </Suspense>
             )}
             {previewingEntry && (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Skeleton height="var(--md-sys-spacing-32)" />}>
                     <DocumentViewerModal
                         title={previewingEntry.fileName}
                         htmlContent={previewingEntry.htmlContent || `<pre>${previewingEntry.content}</pre>`}
@@ -207,7 +210,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                 </Suspense>
             )}
             {viewingImage && (
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Skeleton height="var(--md-sys-spacing-32)" />}>
                     <ImageViewerModal
                         prompt={viewingImage.content}
                         imageData={viewingImage.fileContent!.data}
@@ -216,6 +219,15 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                         onSaveToKb={() => {}}
                     />
                 </Suspense>
+            )}
+            {confirmDialog && (
+                <M3ConfirmDialog
+                    title="Conferma eliminazione"
+                    message={confirmDialog.message}
+                    onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+                    onCancel={() => setConfirmDialog(null)}
+                    danger={true}
+                />
             )}
         </Box>
     );

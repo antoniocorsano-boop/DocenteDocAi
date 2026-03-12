@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { M3Dialog } from './ui';
+import { useUIStore } from '../stores/useUIStore';
 
 interface CopyForRegisterModalProps {
     lesson: Lezione;
@@ -20,6 +21,7 @@ interface CopyForRegisterModalProps {
 }
 
 const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, entry, students, todaysEvaluations, onClose }) => {
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const [activeTab, setActiveTab] = useState<'text' | 'json'>('text');
     const [includeAbsents, setIncludeAbsents] = useState(true);
     const [includeGrades, setIncludeGrades] = useState(true);
@@ -50,7 +52,7 @@ const CopyForRegisterModal: React.FC<CopyForRegisterModalProps> = ({ lesson, ent
 
     const handleCopy = (text: string) => {
         navigator.clipboard.writeText(text);
-        alert("Copiato negli appunti!");
+        showToast('Copiato negli appunti!', 'success');
     };
 
     return (

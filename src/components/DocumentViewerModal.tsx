@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { M3Dialog } from './ui';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 interface DocumentViewerModalProps {
     title: string;
     htmlContent: string;
@@ -14,6 +15,7 @@ interface DocumentViewerModalProps {
 }
 
 const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlContent, onClose, onSaveToKb, onOpenCreateLesson }) => {
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied'>('idle');
 
     // Sanitize content before rendering to prevent XSS
@@ -28,7 +30,7 @@ const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlCo
             setTimeout(() => setCopyStatus('idle'), 2000);
         }).catch(err => {
             logger.error('Failed to copy text: ', err);
-            alert('Impossibile copiare il testo.');
+            showToast('Impossibile copiare il testo.', 'error');
         });
     };
 

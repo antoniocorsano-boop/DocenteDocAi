@@ -18,7 +18,7 @@ import {
     suggestAnnualPlan
 } from '../services/aiService';
 import { generateHtmlDocxBlob, saveAs } from '../utils/documentUtils';
-import { M3Dialog, InfoCard, SectionHeader, AiThinkingGem } from './ui';
+import { M3Dialog, InfoCard, SectionHeader, AiThinkingGem, EmptyState } from './ui';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Box from '@mui/material/Box';
@@ -421,7 +421,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                             </label>
                                         </div>
                                     )) : (
-                                        <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: "center", padding: 'var(--md-sys-spacing-8)' }}>Nessun documento suggerito. Caricali nella KB con tag "Programmazione".</Typography>
+                                        <EmptyState icon="description" title="Nessun documento" description="Nessun documento suggerito. Caricali nella KB con tag &quot;Programmazione&quot;." />
                                     )}
                                 </div>
                             </InfoCard>
@@ -576,10 +576,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                                         </div>
                                     ))}
                                     {plannedUdas.length === 0 && (
-                                        <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: "center", border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
-                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)' }}>calendar_today</Box>
-                                            <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessuna UDA pianificata. Aggiungine una o genera dalla KB.</Typography>
-                                        </div>
+                                        <EmptyState icon="calendar_today" title="Nessuna UDA" description="Nessuna UDA pianificata. Aggiungine una o genera dalla KB." />
                                     )}
                                 </div>
                             )}

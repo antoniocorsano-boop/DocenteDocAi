@@ -17,6 +17,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 interface UdaExportModalProps {
     uda: Uda;
     competenze: Competenza[];
@@ -27,6 +28,7 @@ interface UdaExportModalProps {
 }
 
 export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze, settings, onClose, onSaveReport, aiSettings }) => {
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [docType, setDocType] = useState<'docente' | 'studente'>('docente');
     const [isExporting, setIsExporting] = useState(false);
     const [markdownReport, setMarkdownReport] = useState<string | null>(null);
@@ -62,7 +64,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             onClose();
         } catch (error) {
             logger.error("Failed to generate UDA PDF:", error);
-            alert("Si è verificato un errore durante la generazione del PDF.");
+            showToast('Si è verificato un errore durante la generazione del PDF.', 'error');
         } finally {
             setIsExporting(false);
         }
@@ -106,7 +108,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             
         } catch (error) {
             logger.error("Failed to generate UDA DOCX:", error);
-            alert("Si è verificato un errore durante la generazione del file Word.");
+            showToast('Si è verificato un errore durante la generazione del file Word.', 'error');
         } finally {
             setIsExporting(false);
         }
@@ -124,7 +126,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
             setMarkdownReport(report);
         } catch (error) {
             logger.error("AI Report generation failed:", error);
-            alert("L'assistente AI non è riuscito a generare il report.");
+            showToast("L'assistente AI non è riuscito a generare il report.", 'error');
         } finally {
             setIsExporting(false);
         }

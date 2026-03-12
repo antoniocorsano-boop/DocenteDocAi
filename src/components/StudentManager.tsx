@@ -5,7 +5,7 @@ import { Studente, KnowledgeBaseEntry } from '../types';
 import AddStudentModal from './AddStudentModal';
 import ImportStudentsModal from './ImportStudentsModal';
 import StudentTransferModal from './StudentTransferModal';
-import { EmptyState, SectionHeader, Avatar, TextField } from './ui';
+import { EmptyState, SectionHeader, Avatar, TextField, M3ConfirmDialog } from './ui';
 import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
@@ -36,6 +36,7 @@ interface StudentItemProps {
 
 const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onRestore, isFocused, onFocus }: StudentItemProps) => {
     const itemRef = useRef<HTMLDivElement>(null);
+    const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
 
     useEffect(() => {
         if (isFocused && itemRef.current) {
@@ -113,7 +114,7 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
               </>
           )}
           <Button 
-              onClick={() => { if (confirm(`Eliminare definitivamente ${student.cognome} ${student.nome}?`)) onDelete(student.id); }} 
+              onClick={() => setConfirmDialog({ message: `Eliminare definitivamente ${student.cognome} ${student.nome}?`, onConfirm: () => onDelete(student.id) })} 
               variant="text" 
                
               title="Elimina studente definitivamente"
@@ -123,6 +124,15 @@ const StudentItem = React.memo(({ student, onEdit, onTransfer, onDelete, onResto
 }} aria-hidden="true">delete</span>
           </Button>
       </div>
+      {confirmDialog && (
+          <M3ConfirmDialog
+              title="Conferma eliminazione"
+              message={confirmDialog.message}
+              onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+              onCancel={() => setConfirmDialog(null)}
+              danger={true}
+          />
+      )}
     </div>
   );
 });
@@ -138,6 +148,7 @@ const StudentManager: React.FC<StudentManagerProps> = ({
     const [showArchived, setShowArchived] = useState(false);
     const [focusedStudentIndex, setFocusedStudentIndex] = useState<number>(0);
     const listContainerRef = useRef<HTMLDivElement>(null);
+    const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
 
     const filteredStudents = useMemo(() => {
         let result = students;
@@ -194,9 +205,10 @@ const StudentManager: React.FC<StudentManagerProps> = ({
     };
 
     const handleRestoreStudent = (student: Studente) => {
-        if (confirm(`Vuoi ripristinare ${student.cognome} ${student.nome} come studente attivo?`)) {
-            onSaveStudent({ ...student, isArchived: false, archiveYear: undefined });
-        }
+        setConfirmDialog({
+            message: `Vuoi ripristinare ${student.cognome} ${student.nome} come studente attivo?`,
+            onConfirm: () => onSaveStudent({ ...student, isArchived: false, archiveYear: undefined })
+        });
     };
 
     return (
@@ -312,6 +324,15 @@ const StudentManager: React.FC<StudentManagerProps> = ({
                     onImport={onImportStudents}
                     userClasses={userClasses}
                     knowledgeBase={knowledgeBase}
+                />
+            )}
+            {confirmDialog && (
+                <M3ConfirmDialog
+                    title="Conferma"
+                    message={confirmDialog.message}
+                    onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+                    onCancel={() => setConfirmDialog(null)}
+                    danger={true}
                 />
             )}
         </div>

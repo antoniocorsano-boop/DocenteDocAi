@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Report } from '../types';
 import { saveAs } from '../utils/documentUtils';
+import { EmptyState } from './ui';
 
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for report archive layout, search functionality, and table styling
@@ -99,7 +100,13 @@ const ArchivioReport: React.FC<ArchivioReportProps> = ({ reportistica, onDeleteR
                         </tbody>
                     </table>
                 </Box>
-                {filteredReports.length === 0 && <Typography component="p" variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', m: 0 }}>{reportistica.length > 0 ? 'Nessun report corrisponde alla ricerca.' : 'Nessun report generato. Esportane uno da un progetto per vederlo qui.'}</Typography>}
+                {filteredReports.length === 0 && (
+                  <EmptyState
+                    icon="description"
+                    title={reportistica.length > 0 ? 'Nessun risultato' : 'Nessun report'}
+                    description={reportistica.length > 0 ? 'Nessun report corrisponde alla ricerca.' : 'Nessun report generato. Esportane uno da un progetto per vederlo qui.'}
+                  />
+                )}
             </Stack>
         </Stack>
     );

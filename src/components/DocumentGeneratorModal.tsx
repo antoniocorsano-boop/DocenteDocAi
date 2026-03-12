@@ -7,17 +7,19 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { M3Dialog } from './ui';
+import { useUIStore } from '../stores/useUIStore';
 interface DocumentGeneratorModalProps {
     onClose: () => void;
     onGenerate: (prompt: string) => void;
 }
 
 const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose, onGenerate }) => {
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [prompt, setPrompt] = useState('');
 
     const handleSubmit = () => {
         if (!prompt.trim()) {
-            alert("Per favore, inserisci un prompt per il documento.");
+            showToast('Per favore, inserisci un prompt per il documento.', 'error');
             return;
         }
         onGenerate(prompt);

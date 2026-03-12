@@ -36,8 +36,8 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
         gap: 'var(--md-sys-spacing-4)',
         minHeight: 'var(--md-sys-spacing-14)',
         textAlign: 'center',
-        borderRadius: 'var(--md-sys-spacing-3)',
-        bgcolor: 'var(--md-sys-color-surface-variant)',
+        borderRadius: 'var(--md-sys-shape-corner-large)',
+        bgcolor: 'var(--md-sys-color-surface-container)',
         color: 'var(--md-sys-color-on-surface)',
       }}
     >

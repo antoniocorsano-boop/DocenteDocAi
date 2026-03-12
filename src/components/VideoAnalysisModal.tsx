@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 
 declare global {
   interface Window {
@@ -31,6 +32,7 @@ const loadingMessages = [
 ];
 
 const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [hasApiKey, setHasApiKey] = useState<boolean | null>(null);
     const [prompt, setPrompt] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -66,7 +68,7 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
             // GUIDELINE: MUST assume key selection was successful after triggering openSelectKey()
             setHasApiKey(true);
         } else {
-            alert("Per favore configura l'API Key nel tuo ambiente.");
+            showToast("Per favore configura l'API Key nel tuo ambiente.", 'error');
         }
     };
 

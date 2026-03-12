@@ -11,6 +11,7 @@ import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import { M3Dialog } from './ui';
 import HelpSetupGuide from './help/HelpSetupGuide';
+import { useUIStore } from '../stores/useUIStore';
 import HelpDigitalTeacherManual from './help/HelpDigitalTeacherManual';
 import HelpVocalAssistantGuide from './help/HelpVocalAssistantGuide';
 import HelpUserGuide from './help/HelpUserGuide';
@@ -195,13 +196,14 @@ const ImprovementsList: React.FC<{onNavigate: (v: View) => void; onClose: () => 
 const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, setIsLoadingModalOpen, setLoadingModalMessage }) => {
   const [activeTab, setActiveTab] = useState<HelpTab>('improvements');
   const [isGenerating, setIsGenerating] = useState(false);
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
 
   const handleGenerateFullDocument = async () => {
     if (isGenerating) return;
 
     const pdfWindow = window.open('', '_blank');
     if (!pdfWindow) {
-        alert("Impossibile aprire la nuova scheda. Verifica i popup.");
+        showToast('Impossibile aprire la nuova scheda. Verifica i pop-up.', 'error');
         return;
     }
     
@@ -230,7 +232,7 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
 
     } catch (error) {
         logger.error("Full document generation failed:", error);
-        alert("Errore generazione documento.");
+        showToast('Errore generazione documento.', 'error');
         pdfWindow.close();
     } finally {
         setIsGenerating(false);

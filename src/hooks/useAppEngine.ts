@@ -486,22 +486,20 @@ export const useAppEngine = () => {
     }, [showToast, studentActions, academicActions, systemActions, setNotifiche, settingsActions, uiActions]);
 
     const handleCleanDemoData = useCallback(async () => {
-        if (confirm("Sei sicuro di voler cancellare TUTTI i dati?")) {
-            await deleteBackup();
-            await clearIndexedDB();
-            studentActions.resetStudentData();
-            academicActions.resetAcademicData();
-            systemActions.resetSystemData();
-            settingsActions.reset();
-            uiActions.setBackupState({ status: 'synced', lastBackup: null });
-            uiActions.setDriveSyncState({ isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
-            uiActions.clearNavigationHistory();
-            setNotifiche([]); // Use destructured action
-            uiActions.setInstallPrompt(null); // Reset PWA state on clear
-            uiActions.setCanShowInstallPrompt(false);
-            uiActions.setIsGlobalAiLoading(false);
-            showToast('delete', 'success');
-        }
+        await deleteBackup();
+        await clearIndexedDB();
+        studentActions.resetStudentData();
+        academicActions.resetAcademicData();
+        systemActions.resetSystemData();
+        settingsActions.reset();
+        uiActions.setBackupState({ status: 'synced', lastBackup: null });
+        uiActions.setDriveSyncState({ isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
+        uiActions.clearNavigationHistory();
+        setNotifiche([]); // Use destructured action
+        uiActions.setInstallPrompt(null); // Reset PWA state on clear
+        uiActions.setCanShowInstallPrompt(false);
+        uiActions.setIsGlobalAiLoading(false);
+        showToast('delete', 'success');
     }, [showToast, studentActions, academicActions, systemActions, setNotifiche, settingsActions, uiActions]);
 
     const onScheduleLesson = useCallback((data: LessonScheduleInput) => {

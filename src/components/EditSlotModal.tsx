@@ -21,7 +21,8 @@ import Stack from '@mui/material/Stack';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Typography from '@mui/material/Typography';
-import { SectionHeader, TextField } from './ui';
+import { SectionHeader, TextField, M3ConfirmDialog } from './ui';
+import { useUIStore } from '../stores/useUIStore';
 interface EditSlotModalProps {
     slot: Slot;
     lesson?: Lezione;
@@ -53,6 +54,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
     onSaveLesson,
     timetableSettings,
     userClasses }) => {
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const slotKey = `${slot.giorno}-${slot.ora}`;
 
     const initialType = useMemo<ActivityType>(() => {
@@ -64,11 +66,12 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
     const [activityType, setActivityType] = useState<ActivityType>(initialType);
     const [currentSlot, setCurrentSlot] = useState<Slot>(slot);
     const [currentLesson, setCurrentLesson] = useState<Partial<Lezione>>(lesson || { tipoLezione: 'Teoria' });
+    const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
 
     const handleSave = () => {
         if (activityType === 'standard') {
             if (!currentSlot.classe || !currentSlot.materia) {
-                alert('Classe e Materia sono obbligatorie.');
+                showToast('Classe e Materia sono obbligatorie.', 'error');
                 return;
             }
             const newLesson: Lezione = {
@@ -292,7 +295,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
 
             <DialogActions>
                 {lesson && (
-                    <Button onClick={() => { if (window.confirm('Eliminare?')) { onDelete(slotKey); onClose(); } }} variant="text" color="error">
+                    <Button onClick={() => setConfirmDialog({ message: 'Eliminare?', onConfirm: () => { onDelete(slotKey); onClose(); } })} variant="text" color="error">
                         Rimuovi
                     </Button>
                 )}
@@ -300,6 +303,15 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                 <Button onClick={onClose} variant="text">Annulla</Button>
                 <Button onClick={handleSave} variant="contained">Conferma</Button>
             </DialogActions>
+            {confirmDialog && (
+                <M3ConfirmDialog
+                    title="Conferma eliminazione"
+                    message={confirmDialog.message}
+                    onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+                    onCancel={() => setConfirmDialog(null)}
+                    danger={true}
+                />
+            )}
         </Dialog>
     );
 };

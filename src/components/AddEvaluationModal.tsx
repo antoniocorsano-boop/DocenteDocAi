@@ -14,6 +14,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { M3Dialog, TextField } from './ui';
+import { useUIStore } from '../stores/useUIStore';
 interface AddEvaluationModalProps {
     students: Studente[];
     discipline: string[];
@@ -74,6 +75,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
     onClose,
     onSave
 }: AddEvaluationModalProps) => {
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const [selectedStudentId, setSelectedStudentId] = useState<string>('');
     const [selectedMateria, setSelectedMateria] = useState<string>(discipline[0] || '');
     const [tipo, setTipo] = useState<Valutazione['tipo']>('Orale');
@@ -84,7 +86,7 @@ const AddEvaluationModal: React.FC<AddEvaluationModalProps> = ({
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!selectedStudentId || !selectedMateria || !voto) {
-            alert("Compila tutti i campi obbligatori (Studente, Materia, Voto).");
+            showToast('Compila tutti i campi obbligatori (Studente, Materia, Voto).', 'error');
             return;
         }
         onSave({

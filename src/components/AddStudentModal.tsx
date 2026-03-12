@@ -9,6 +9,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { M3Dialog, TextField } from './ui';
+import { useUIStore } from '../stores/useUIStore';
 interface AddStudentModalProps {
     studentToEdit?: Studente;
     userClasses: string[];
@@ -17,6 +18,7 @@ interface AddStudentModalProps {
 }
 
 const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userClasses, onClose, onSave }) => {
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [formData, setFormData] = useState({
         cognome: '',
         nome: '',
@@ -35,7 +37,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ studentToEdit, userCl
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (!formData.cognome.trim() || !formData.nome.trim()) {
-            alert('Compila tutti i campi obbligatori.');
+            showToast('Compila tutti i campi obbligatori.', 'error');
             return;
         }
         onSave({

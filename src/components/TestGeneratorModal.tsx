@@ -11,6 +11,7 @@ import Badge from '@mui/material/Badge';
 import { M3Dialog,
     TextField
 } from './ui';
+import { useUIStore } from '../stores/useUIStore';
 
 // M3Expressive: Refactored to use dedicated CSS classes with M3 tokens for colors, spacing, typography, and animations
 
@@ -35,6 +36,7 @@ interface TestGeneratorModalProps {
 }
 
 const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGenerate }) => {
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const [topic, setTopic] = useState('');
     const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
     const [questionCount, setQuestionCount] = useState(10);
@@ -45,7 +47,7 @@ const TestGeneratorModal: React.FC<TestGeneratorModalProps> = ({ onClose, onGene
     };
 
     const handleSubmit = () => {
-        if (questionTypes.length === 0) { alert("Seleziona un tipo di domanda."); return; }
+        if (questionTypes.length === 0) { showToast('Seleziona un tipo di domanda.', 'error'); return; }
         onGenerate({ topic: topic || 'Argomenti KB', difficulty, questionCount, questionTypes });
     };
 

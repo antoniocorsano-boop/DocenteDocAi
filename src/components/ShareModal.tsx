@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 
 interface ShareModalProps {
     title: string;
@@ -14,6 +15,7 @@ interface ShareModalProps {
 }
 
 const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const [copyStatus, setCopyStatus] = useState<'idle' | 'copied'>('idle');
 
     const handleSimpleShare = async () => {
@@ -27,7 +29,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
                 logger.error('Error sharing:', error);
             }
         } else {
-            alert('La condivisione nativa non è supportata su questo browser.');
+            showToast('La condivisione nativa non è supportata su questo browser.', 'info');
         }
     };
 
@@ -48,7 +50,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ title, text, onClose }) => {
             }, 1500);
         }).catch(err => {
             logger.error('Failed to copy markdown text: ', err);
-            alert('Impossibile copiare il testo formattato.');
+            showToast('Impossibile copiare il testo formattato.', 'error');
         });
     };
 

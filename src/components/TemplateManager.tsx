@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import { DocumentTemplate } from '../types';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';
-import { M3Dialog, InfoCard, SectionHeader } from './ui';
+import { M3Dialog, InfoCard, SectionHeader, M3ConfirmDialog } from './ui';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
@@ -20,6 +20,7 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
   const [editingTemplate, setEditingTemplate] = useState<DocumentTemplate | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
 
   const { templates, actions } = useSystemStore(state => ({
     templates: state.templates,
@@ -75,10 +76,13 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
   };
 
   const handleDeleteTemplate = (templateId: string, templateName: string) => {
-    if (confirm(`Sei sicuro di voler eliminare il template "${templateName}"?`)) {
-      actions.setTemplates(prev => prev.filter(t => t.id !== templateId));
-      showToast(`Template "${templateName}" eliminato.`, 'info');
-    }
+    setConfirmDialog({
+      message: `Sei sicuro di voler eliminare il template "${templateName}"?`,
+      onConfirm: () => {
+        actions.setTemplates(prev => prev.filter(t => t.id !== templateId));
+        showToast(`Template "${templateName}" eliminato.`, 'info');
+      }
+    });
   };
 
   const handleApplyTemplate = (template: DocumentTemplate) => {
@@ -229,6 +233,15 @@ const TemplateManager: React.FC<TemplateManagerProps> = ({ onClose, onApplyTempl
         <DialogActions>
           <Button onClick={onClose} variant="text">Chiudi</Button>
         </DialogActions>
+      )}
+      {confirmDialog && (
+        <M3ConfirmDialog
+          title="Conferma eliminazione"
+          message={confirmDialog.message}
+          onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+          onCancel={() => setConfirmDialog(null)}
+          danger={true}
+        />
       )}
     </M3Dialog>
   );

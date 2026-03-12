@@ -7,12 +7,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import { getGoogleAIClient } from '../services/aiClient.ts';
 import Box from '@mui/material/Box';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 interface VoiceNoteRecorderProps {
     onTranscription: (text: string) => void;
     compact?: boolean;
 }
 
 const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, compact = false }) => {
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const [isRecording, setIsRecording] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
     const [audioLevel, setAudioLevel] = useState(0);
@@ -105,7 +107,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
 
         } catch (error) {
             logger.error("Error accessing microphone:", error);
-            alert("Impossibile accedere al microfono. Verifica i permessi del browser.");
+            showToast('Impossibile accedere al microfono. Verifica i permessi del browser.', 'error');
         }
     };
 
@@ -179,7 +181,7 @@ const VoiceNoteRecorder: React.FC<VoiceNoteRecorderProps> = ({ onTranscription, 
             };
         } catch (error) {
             logger.error("Error during transcription:", error);
-            alert("Errore durante la trascrizione. Riprova.");
+            showToast('Errore durante la trascrizione. Riprova.', 'error');
             setIsProcessing(false);
             cleanupAudioResources();
         }

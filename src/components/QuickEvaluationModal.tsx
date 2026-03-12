@@ -17,6 +17,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import { M3Dialog, TextField } from './ui';
+import { useUIStore } from '../stores/useUIStore';
 
 interface QuickEvaluationModalProps {
     student: Studente;
@@ -70,6 +71,7 @@ const ChoiceCard: React.FC<{ icon: string; label: string; onClick: () => void; s
 );
 
 const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, lesson, settings, onClose, onSaveEvaluation, onSaveCompetencyEvaluation }) => {
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const [activeTab, setActiveTab] = useState<'voto' | 'competenza'>('voto');
 
     // State for 'voto' tab
@@ -85,7 +87,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
 
     const handleSaveVoto = () => {
         if (!voto) {
-            alert("Per favore, inserisci un voto.");
+            showToast('Per favore, inserisci un voto.', 'error');
             return;
         }
         onSaveEvaluation({
@@ -102,7 +104,7 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
 
     const handleSaveCompetenza = () => {
         if (!selectedLevelId) {
-            alert("Per favore, seleziona un livello di competenza.");
+            showToast('Per favore, seleziona un livello di competenza.', 'error');
             return;
         }
         onSaveCompetencyEvaluation({

@@ -12,6 +12,7 @@ import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import Typography from '@mui/material/Typography';
 import { M3Dialog, TextField } from './ui';
+import { useUIStore } from '../stores/useUIStore';
 interface MaterialPickerModalProps {
     knowledgeBase: KnowledgeBaseEntry[];
     currentMaterials: MaterialeDidattico[];
@@ -20,6 +21,7 @@ interface MaterialPickerModalProps {
 }
 
 const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase, currentMaterials, onClose, onSave }) => {
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [activeTab, setActiveTab] = useState<'kb' | 'file' | 'link'>('kb');
     const [materials, setMaterials] = useState<MaterialeDidattico[]>(currentMaterials);
 
@@ -52,7 +54,7 @@ const MaterialPickerModal: React.FC<MaterialPickerModalProps> = ({ knowledgeBase
 
     const handleAddLink = () => {
         if (!linkLabel.trim() || !linkUrl.trim()) {
-            alert("Compila URL ed etichetta.");
+            showToast('Compila URL ed etichetta.', 'error');
             return;
         }
         let correctedUrl = linkUrl.trim();

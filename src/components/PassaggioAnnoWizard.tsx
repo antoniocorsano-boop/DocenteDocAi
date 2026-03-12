@@ -13,6 +13,7 @@ import { getNextClass } from '../utils/schoolUtils';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { InfoCard } from './ui';
 import { logger } from '../utils/logger';
+import { useUIStore } from '../stores/useUIStore';
 interface PassaggioAnnoWizardProps {
     onClose: () => void;
     students: Studente[];
@@ -38,6 +39,7 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
     onClose, students, settings, evaluations, competencyEvaluations, register, 
     onPromoteStudents, onBackupData, onResetData 
 }) => {
+  const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [step, setStep] = useState<WizardStep>('intro');
     const [isProcessing, setIsProcessing] = useState(false);
     const [outcomes, setOutcomes] = useState<Record<string, StudentOutcome>>({});
@@ -167,11 +169,11 @@ const PassaggioAnnoWizard: React.FC<PassaggioAnnoWizardProps> = ({
             onResetData();
             onPromoteStudents(newStudents, nextYear);
             
-            alert(`Passaggio all'anno ${nextYear} completato!`);
+            showToast(`Passaggio all'anno ${nextYear} completato!`, 'success');
             onClose();
         } catch (e) {
             logger.error(e);
-            alert("Errore durante il passaggio d'anno. Verifica il backup.");
+            showToast("Errore durante il passaggio d'anno. Verifica il backup.", 'error');
         } finally {
             setIsProcessing(false);
         }

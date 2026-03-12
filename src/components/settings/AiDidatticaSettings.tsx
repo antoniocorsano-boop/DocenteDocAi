@@ -1,7 +1,7 @@
 // Settings - AI & Didattica Section
-import React from 'react';
+import React, { useState } from 'react';
 import { SettingsGroup } from './SettingsGroup';
-import { InfoCard } from '../ui';
+import { InfoCard, M3ConfirmDialog } from '../ui';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Tabs from '@mui/material/Tabs';
@@ -61,6 +61,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
     updateAssignmentHours,
     handleBulkAssign
 }) => {
+    const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
     return (
         <SettingsGroup
             id="ai_didattica"
@@ -233,11 +234,7 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             </Typography>
                         </div>
                         <Button
-                            onClick={() => {
-                                if (confirm("Sei sicuro di voler svuotare tutta la cattedra?")) {
-                                    onSettingChange('teachingAssignments', []);
-                                }
-                            }}
+                            onClick={() => setConfirmDialog({ message: 'Sei sicuro di voler svuotare tutta la cattedra?', onConfirm: () => onSettingChange('teachingAssignments', []) })}
                             variant="outlined"
                         >
                             Svuota Tutto
@@ -563,6 +560,15 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                         variant="contained" />
                 </div>
             </div>
+            {confirmDialog && (
+                <M3ConfirmDialog
+                    title="Conferma"
+                    message={confirmDialog.message}
+                    onConfirm={() => { confirmDialog.onConfirm(); setConfirmDialog(null); }}
+                    onCancel={() => setConfirmDialog(null)}
+                    danger={true}
+                />
+            )}
         </SettingsGroup>
     );
 };
