@@ -6,8 +6,8 @@
 import './polyfills';
 import { logger } from './utils/logger';
 
-// Initialize tracing
-// import './tracing';
+// Initialize tracing — active when VITE_OTEL_EXPORTER_OTLP_ENDPOINT is set
+import './tracing';
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';

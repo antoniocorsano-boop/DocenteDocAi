@@ -3,25 +3,19 @@ import { BatchSpanProcessor, SimpleSpanProcessor } from '@opentelemetry/sdk-trac
 import { ConsoleSpanExporter } from '@opentelemetry/sdk-trace-base';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
 
-// Configure OTLP exporter to send traces to AI Toolkit
-const traceExporter = new OTLPTraceExporter({
-  url: 'http://localhost:4318/v1/traces', // AI Toolkit OTLP endpoint
-});
+const otlpEndpoint = import.meta.env.VITE_OTEL_EXPORTER_OTLP_ENDPOINT as string | undefined;
 
-// For debugging, also use console exporter
-const consoleExporter = new ConsoleSpanExporter();
+// If no endpoint is configured, skip tracing initialisation entirely
+if (otlpEndpoint) {
+  const traceExporter = new OTLPTraceExporter({ url: otlpEndpoint });
 
-// Initialize the provider with span processors
-const provider = new WebTracerProvider({
-  spanProcessors: [
+  const spanProcessors = [
     new BatchSpanProcessor(traceExporter),
-    new SimpleSpanProcessor(consoleExporter),
-  ],
-});
+    // Console output only in development to avoid noise in production
+    ...(import.meta.env.DEV ? [new SimpleSpanProcessor(new ConsoleSpanExporter())] : []),
+  ];
 
-// Register the provider
-provider.register();
-
-// Note: Auto-instrumentations for web may not cover all, especially custom AI calls
-// For Google GenAI, you may need manual instrumentation
+  const provider = new WebTracerProvider({ spanProcessors });
+  provider.register();
+}
 

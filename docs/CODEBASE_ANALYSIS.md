@@ -1,7 +1,7 @@
 # DocenteDoc AI — Analisi del Codebase
 
 **Generato:** 12 Marzo 2026  
-**Aggiornato:** 12 Marzo 2026 (Sprint logger + proxy + grid)  
+**Aggiornato:** 12 Marzo 2026 (Sprint A–E completi — types split, Settings split, ClassroomView split, proxy, OTel)  
 **Analizzato da:** Repository Analyzer  
 **Versione progetto:** 1.0.0
 
@@ -9,18 +9,18 @@
 
 ## Panoramica
 
-| Attributo                 | Valore                                  |
-| ------------------------- | --------------------------------------- |
-| **Linguaggio primario**   | TypeScript                              |
-| **Framework UI**          | React 18 + MUI v7                       |
-| **Design System**         | Material Design 3 (MD3)                 |
-| **Build tool**            | Vite 6                                  |
-| **Test runner**           | Vitest 4 + Playwright                   |
-| **Totale file sorgente**  | 340 (243 TSX + 97 TS)                   |
-| **Linee di codice (src)** | ~59.909 (TSX + TS, no test/stories)     |
-| **File di test**          | 98 (Vitest) + 13 (Playwright E2E)       |
-| **Totale commit**         | 493                                     |
-| **Commit più recente**    | `f11a88b4` feat(security) – 12 Mar 2026 |
+| Attributo                 | Valore                                       |
+| ------------------------- | -------------------------------------------- |
+| **Linguaggio primario**   | TypeScript                                   |
+| **Framework UI**          | React 18 + MUI v7                            |
+| **Design System**         | Material Design 3 (MD3)                      |
+| **Build tool**            | Vite 6                                       |
+| **Test runner**           | Vitest 4 + Playwright                        |
+| **Totale file sorgente**  | 340 (243 TSX + 97 TS)                        |
+| **Linee di codice (src)** | ~59.909 (TSX + TS, no test/stories)          |
+| **File di test**          | 98 (Vitest) + 13 (Playwright E2E)            |
+| **Totale commit**         | 493                                          |
+| **Commit più recente**    | `a4201f4b` refactor(classroom) – 12 Mar 2026 |
 
 ---
 
@@ -73,7 +73,8 @@ src/
 │   ├── ui/              (52 file)  — Componenti MD3 atomici (M3Button, M3Card…)
 │   ├── views/           (6 file)   — Layout di pagina di alto livello
 │   ├── charts/          (5 file)   — Grafici (Recharts wrappati)
-│   ├── settings/        (5 file)   — Sezioni della schermata Impostazioni
+│   ├── settings/        (13 file)  — Sezioni Impostazioni (7 pannelli estratti + stubs)
+│   ├── classroom/       (3 file)   — Tab estratti da ClassroomView (Register, Notes, Resources)
 │   ├── dashboard/       (4 file)   — Widget dashboard
 │   └── help/            (3 file)   — Componenti modale aiuto
 ├── nka/                 (20 file)  — NKA Design System (Neurospicy-Kind Approach)
@@ -85,7 +86,7 @@ src/
 ├── design-system/       (5 file)   — Token e primitivi MD3
 ├── theme/               (4 file)   — MUI theme, CSS tokens, ThemeProvider
 ├── constants/           (4 file)   — Costanti app (systemManual…)
-├── types/               (3 file)   — Tipi TypeScript condivisi
+├── types/               (9 file)   — Tipi per dominio (uda, student, ai, template, analytics, calendar…)
 ├── contexts/            (3 file)   — React Context providers
 ├── stories/             (3 file)   — Storybook stories design system
 ├── main.tsx                        — Entry point app
@@ -147,18 +148,18 @@ Il progetto segue un'architettura **Feature-Component** con separazione orizzont
 
 ### File più grandi (complessità)
 
-| File                       | Linee | Rischio                                |
-| -------------------------- | ----- | -------------------------------------- |
-| `types.ts`                 | 1.293 | 🔴 Alto — candidato a split            |
-| `Settings.tsx`             | 1.228 | 🟠 Medio-Alto — parzialmente splittato |
-| `useAppEngine.ts`          | 963   | 🟠 Medio-Alto                          |
-| `ClassroomView.tsx`        | 855   | 🟠 Medio-Alto                          |
-| `Calendar.tsx`             | 801   | 🟠 Medio                               |
-| `documentUtils.ts`         | 727   | 🟡 Medio                               |
-| `AnalyticsDashboard.tsx`   | 684   | 🟡 Medio                               |
-| `LessonsPage.tsx`          | 655   | 🟡 Medio                               |
-| `ClassPlanningWizard.tsx`  | 625   | 🟡 Medio                               |
-| `AnnualPlanningWizard.tsx` | 597   | 🟡 Medio                               |
+| File                       | Linee | Rischio                                                |
+| -------------------------- | ----- | ------------------------------------------------------ |
+| `types.ts`                 | 874   | 🟡 Barrel re-export — split dominio in `src/types/` ✅ |
+| `useAppEngine.ts`          | 963   | 🟠 Medio-Alto                                          |
+| `ClassroomView.tsx`        | 548   | 🟡 Medio — 3 tab estratti ✅                           |
+| `Calendar.tsx`             | 801   | 🟠 Medio                                               |
+| `documentUtils.ts`         | 727   | 🟡 Medio                                               |
+| `AnalyticsDashboard.tsx`   | 684   | 🟡 Medio                                               |
+| `LessonsPage.tsx`          | 655   | 🟡 Medio                                               |
+| `ClassPlanningWizard.tsx`  | 625   | 🟡 Medio                                               |
+| `AnnualPlanningWizard.tsx` | 597   | 🟡 Medio                                               |
+| `Settings.tsx`             | 137   | ✅ Risolto — 7 sezioni estratte in `settings/`         |
 
 ---
 
@@ -299,28 +300,23 @@ __tests__/
 
 ### Priorità Alta
 
-| Problema                     | File                         | Dettaglio                                                                                                           |
-| ---------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| God component                | `Settings.tsx` (1.228 righe) | Parzialmente splittato (SettingsGroupAccordion estratto) — ulteriore suddivisione in sotto-sezioni raccomandata     |
-| God component                | `types.ts` (1.293 righe)     | Tipi globali monolitici — candidato a split per dominio                                                             |
-| Storage cleanup disabilitato | `main.tsx` L54-57            | `localStorage.clear()` e `indexedDB.deleteDatabase` commentati come TEMPORARILY DISABLED — rimuovere o ripristinare |
-| Temp ID pattern              | `AnnualPlanningWizard.tsx`   | ID generati con `temp-${Date.now()}` — rischio di collisione                                                        |
+| Problema                     | File                       | Dettaglio                                                                                                           |
+| ---------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Storage cleanup disabilitato | `main.tsx` L54-57          | `localStorage.clear()` e `indexedDB.deleteDatabase` commentati come TEMPORARILY DISABLED — rimuovere o ripristinare |
+| Temp ID pattern              | `AnnualPlanningWizard.tsx` | ID generati con `temp-${Date.now()}` — rischio di collisione                                                        |
 
 ### Priorità Media
 
-| Problema                      | File                                                 | Dettaglio                                                                       |
-| ----------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `<div>` come container visivo | `ClassAnalytics.tsx`, `ClassCompetencyDashboard.tsx` | Violazione MD3 — da migrare a `Box` / `M3Surface`                               |
-| Commento TODO aperto          | `AuraView.tsx` L30                                   | Layout dipendente da container padre non risolto                                |
-| VideoAnalysisModal API key    | `VideoAnalysisModal.tsx`                             | Usa ancora `VITE_GEMINI_API_KEY` + `window.aistudio` fallback — migrare a proxy |
+| Problema                      | File                                                 | Dettaglio                                         |
+| ----------------------------- | ---------------------------------------------------- | ------------------------------------------------- |
+| `<div>` come container visivo | `ClassAnalytics.tsx`, `ClassCompetencyDashboard.tsx` | Violazione MD3 — da migrare a `Box` / `M3Surface` |
+| Commento TODO aperto          | `AuraView.tsx` L30                                   | Layout dipendente da container padre non risolto  |
 
 ### Priorità Bassa
 
-| Problema             | Dettaglio                                                                                     |
-| -------------------- | --------------------------------------------------------------------------------------------- |
-| Tracing disabilitato | `import './tracing'` commentato in main.tsx — OpenTelemetry configurato ma non attivo         |
-| HTML template colors | `src/utils/html-template-colors.ts` — colori hardcoded HEX documentati ma non tokenizzati MD3 |
-| `temp-` IDs          | Pattern ricorrente in wizard — non critico ma fragile                                         |
+| Problema    | Dettaglio                                             |
+| ----------- | ----------------------------------------------------- |
+| `temp-` IDs | Pattern ricorrente in wizard — non critico ma fragile |
 
 ---
 
@@ -341,9 +337,9 @@ __tests__/
 
 ### Punti di Debolezza
 
-- 🔴 **Componenti "god"**: `types.ts` (1.293) e `Settings.tsx` (1.228) superano la soglia critica
-- 🟠 **No backend proprio**: tutta la logica risiede nel browser — scalabilità limitata per funzionalità collaborative
-- 🟡 **VideoAnalysisModal**: unico componente ancora con `VITE_GEMINI_API_KEY` + `window.aistudio` — candidato a migrazione proxy
+- � **No backend proprio**: tutta la logica risiede nel browser — scalabilità limitata per funzionalità collaborative
+- 🟡 **`useAppEngine.ts` (963 righe)**: orchestratore app ancora monolitico — candidato futuro a suddivisione per dominio
+- 🟡 **`Calendar.tsx` (801 righe)**: componente con logica view + drag mista — prossimo candidato a refactoring
 - 🟡 **ClassSelection.tsx breakpoint**: unico `1fr` residuo non tokenizzato (sintassi MUI sx responsiva — intenzionale)
 
 ---
@@ -379,27 +375,105 @@ Progetto configurato per deploy su Vercel (vedi `docs/DEPLOY_VERCEL.md` e `docs/
 
 ## Raccomandazioni Prioritarie
 
-### ✅ Completate (sprint precedenti)
+### ✅ Completate (sprint A–E)
 
-| #   | Raccomandazione                                                  | Sprint        | Commit     |
-| --- | ---------------------------------------------------------------- | ------------- | ---------- |
-| 1   | Rimuovere `console.*` dai file produzione — logger centralizzato | Sprint logger | `dde3519b` |
-| 2   | Risolvere `TEMPORARILY DISABLED` in `main.tsx`                   | Sprint 3      | —          |
-| 3   | Spezzare `Settings.tsx` in sotto-componenti                      | Sprint 3      | —          |
-| 4   | Spezzare `HelpModal.tsx` in 8 sub-panel                          | Sprint 3      | —          |
-| 5   | Implementare `handleApplyTemplate` in `BatchExportWizard`        | Sprint 3      | —          |
-| 6   | Logger centralizzato con livelli configurabili                   | Sprint logger | `dde3519b` |
-| 7   | Tokenizzare `gridTemplateColumns` ricorrenti                     | Sprint grid   | `f11a88b4` |
-| 8   | Proxy backend per API key AI (Vercel Edge Function)              | Sprint proxy  | `f11a88b4` |
+| #   | Raccomandazione                                                                                    | Sprint        | Commit     |
+| --- | -------------------------------------------------------------------------------------------------- | ------------- | ---------- |
+| 1   | Rimuovere `console.*` dai file produzione — logger centralizzato                                   | Sprint logger | `dde3519b` |
+| 2   | Risolvere `TEMPORARILY DISABLED` in `main.tsx`                                                     | Sprint 3      | —          |
+| 3   | Spezzare `Settings.tsx` in sotto-componenti (hook + SettingsGroup)                                 | Sprint 3      | —          |
+| 4   | Spezzare `HelpModal.tsx` in 8 sub-panel                                                            | Sprint 3      | —          |
+| 5   | Implementare `handleApplyTemplate` in `BatchExportWizard`                                          | Sprint 3      | —          |
+| 6   | Logger centralizzato con livelli configurabili                                                     | Sprint logger | `dde3519b` |
+| 7   | Tokenizzare `gridTemplateColumns` ricorrenti                                                       | Sprint grid   | `f11a88b4` |
+| 8   | Proxy backend per API key AI (Vercel Edge Function)                                                | Sprint proxy  | `f11a88b4` |
+| 14  | Tokenizzare `html-template-colors.ts` — già migrato a variabili MD3 ✅                             | pre-esistente | —          |
+| A1  | Fix duplicato `KnowledgeBaseEntry` in `types.ts`                                                   | Sprint A      | `—`        |
+| A2  | Attivare OpenTelemetry — `import './tracing'` attivo in `main.tsx`                                 | Sprint A      | `—`        |
+| B   | Split `types.ts` in 6 moduli dominio (`uda`, `student`, `ai`, `template`, `analytics`, `calendar`) | Sprint B      | `—`        |
+| C   | Split `Settings.tsx` (1.285 → 137 righe) — 7 sezioni in `src/components/settings/`                 | Sprint C      | `016eeb93` |
+| D   | Rimuovere `VITE_GEMINI_API_KEY` da `VideoAnalysisModal.tsx` — `window.aistudio` unico fast-path    | Sprint D      | `—`        |
+| E   | Estrarre 3 tab da `ClassroomView.tsx` (907 → 548 righe) in `src/components/classroom/`             | Sprint E      | `a4201f4b` |
 
-### Lungo termine
+### Piano Sprint — Raccomandazioni Aperte
 
-9. **Split `types.ts`** (1.293 righe) — suddividere per dominio (`uda.types.ts`, `student.types.ts`, `template.types.ts` ecc.)
-10. **Split `Settings.tsx`** completamento — estrarre le sezioni AI, Lingua, Export in componenti autonomi
-11. **Migrare `VideoAnalysisModal.tsx`** al proxy Vercel — eliminare l'unico residuo `VITE_GEMINI_API_KEY` browser
-12. **Refactoring `ClassroomView.tsx`** (855 righe) — alta complessità ciclomatica
-13. **Attivare OpenTelemetry** — decommentare `import './tracing'` in `main.tsx`, configurare exporter OTLP
-14. **Tokenizzare `html-template-colors.ts`** — colori HEX hardcoded → token MD3
+> **Legenda:** 🔴 bloccante · 🟠 urgente · 🟡 pianificato · ⬜ in attesa
+
+---
+
+#### Sprint A — Quick Wins ✅ Completato
+
+| #   | Priorità | Task                                                                               | File coinvolti                   | Stato |
+| --- | -------- | ---------------------------------------------------------------------------------- | -------------------------------- | ----- |
+| A1  | 🟡       | Fix duplicato `KnowledgeBaseEntry` in `types.ts`                                   | `src/types.ts`                   | ✅    |
+| A2  | 🟡       | Attivare OpenTelemetry: `import './tracing'` attivo, exporter OTLP production-safe | `src/main.tsx`, `src/tracing.ts` | ✅    |
+
+---
+
+#### Sprint B — Split `types.ts` ✅ Completato
+
+| #   | Priorità | Task                                        | File creato                                         | Stato |
+| --- | -------- | ------------------------------------------- | --------------------------------------------------- | ----- |
+| B1  | 🟠       | Tipi dominio UDA e lezione                  | `src/types/uda.types.ts` (179 righe)                | ✅    |
+| B2  | 🟠       | Tipi studente e classe                      | `src/types/student.types.ts` (154 righe)            | ✅    |
+| B3  | 🟠       | Tipi template e documenti                   | `src/types/template.types.ts` (72 righe)            | ✅    |
+| B4  | 🟠       | Tipi AI / GenAI                             | `src/types/ai.types.ts` (142 righe)                 | ✅    |
+| B5  | 🟠       | Tipi analytics e calendario                 | `src/types/analytics.types.ts`, `calendar.types.ts` | ✅    |
+| B6  | 🟠       | Barrel re-export                            | `src/types/index.ts`                                | ✅    |
+| B7  | 🟠       | `src/types.ts` ridotto a barrel + re-export | `src/types.ts` (874 righe, ancora con tipi Props)   | ✅    |
+
+---
+
+#### Sprint C — Split `Settings.tsx` ✅ Completato (`016eeb93`)
+
+`Settings.tsx` ridotto da 1.285 → **137 righe**. 7 sezioni estratte in `src/components/settings/`.
+
+| #   | Sezione estratta                 | File creato                 | Righe |
+| --- | -------------------------------- | --------------------------- | ----- |
+| C1  | Interfaccia/Aspetto/Tipografia   | `SettingsInterface.tsx`     | ~280  |
+| C2  | Profilo docente                  | `SettingsProfile.tsx`       | ~70   |
+| C3  | AI Didattica                     | `SettingsAI.tsx`            | ~340  |
+| C4  | Suggerimenti AI dismissati       | `SettingsAISuggestions.tsx` | ~80   |
+| C5  | Cloud / Google Drive             | `SettingsCloud.tsx`         | ~120  |
+| C6  | Debug / Logging                  | `SettingsDebug.tsx`         | ~100  |
+| C7  | Avanzato (API keys, danger zone) | `SettingsAdvanced.tsx`      | ~90   |
+
+---
+
+#### Sprint D — Migrazione `VideoAnalysisModal.tsx` al proxy ✅ Completato
+
+| #   | Task                                                                      | Stato |
+| --- | ------------------------------------------------------------------------- | ----- |
+| D1  | Rimuovere `VITE_GEMINI_API_KEY` da `VideoAnalysisModal.tsx`               | ✅    |
+| D2  | Generazione video ristretta a `window.aistudio` (AI Studio host env only) | ✅    |
+
+---
+
+#### Sprint E — Refactoring `ClassroomView.tsx` ✅ Completato (`a4201f4b`)
+
+`ClassroomView.tsx` ridotto da 907 → **548 righe**. 3 tab estratti in `src/components/classroom/`.
+
+| #   | Task                                           | File creato                 | Righe |
+| --- | ---------------------------------------------- | --------------------------- | ----- |
+| E1  | Tab Registro presenze (focus grid, attendance) | `ClassroomRegisterTab.tsx`  | 266   |
+| E2  | Tab Diario/Note (textarea, voice recorder)     | `ClassroomNotesTab.tsx`     | 77    |
+| E3  | Tab Risorse materiali + adattamenti            | `ClassroomResourcesTab.tsx` | 70    |
+
+---
+
+### Sequenza sprint — tutti completati ✅
+
+```
+Sprint A ✅ → Sprint B ✅ → Sprint D ✅ → Sprint C ✅ → Sprint E ✅
+```
+
+### Prossimi candidati (backlog)
+
+| #   | File               | Righe | Azione suggerita                                        |
+| --- | ------------------ | ----- | ------------------------------------------------------- |
+| F   | `useAppEngine.ts`  | 963   | Split per dominio (classroom, planning, AI, drive)      |
+| G   | `Calendar.tsx`     | 801   | Estrarre logica drag-and-drop e view-switch in sub-hook |
+| H   | `documentUtils.ts` | 727   | Split per tipo documento (PDF, DOCX, CSV)               |
 
 ---
 

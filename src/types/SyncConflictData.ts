@@ -5,5 +5,7 @@ export interface SyncConflictData {
   remoteContent: string;
   lastModifiedLocal: string;
   lastModifiedRemote: string;
+  remoteTime?: string;
+  localTime?: string;
 }
 

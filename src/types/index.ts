@@ -1,23 +1,27 @@
 /**
  * Type Definitions Index
- * 
- * This module re-exports all types from the monolithic types.ts file.
- * Future refactoring should move types here from types.ts progressively.
- * 
- * TODO: Migrate types from src/types.ts to this directory:
- * - student.ts - StudentState, Studente, PianoInclusione, etc.
- * - academic.ts - AcademicState, Lezione, Slot, Uda, etc.
- * - system.ts - SystemState, UserProfile, Notifica, etc.
- * - settings.ts - SettingsState, TimetableSettings, AiSettings, etc.
- * - ui.ts - UIState, Modals, View, etc.
- * - orientamento.ts - Orientamento types
- * - evaluation.ts - Valutazione types
- * - calendar.ts - EventoCalendario types
+ *
+ * Domain type modules. All types are re-exported from src/types.ts for
+ * backward-compatible access via `import { X } from '../types'`.
+ *
+ * Domain modules (import directly for tree-shaking in isolated modules):
+ * - uda.types     — Slot, Lezione, Uda, Rubrica, Competenza, TimetableSettings …
+ * - student.types — Studente, Valutazione, RegisterEntry, PianoInclusione …
+ * - ai.types      — AiSettings, KnowledgeBaseEntry, Corpus, DTOs …
+ * - template.types — DocumentTemplate, Report, BrochureContent …
+ * - calendar.types — EventoCalendario, TipoEvento
+ * - analytics.types — AnalyticsEvent, AnalyticsMetrics, AnalyticsSettings
  */
 
-// Re-export from existing modular types
+export * from './uda.types';
+export * from './student.types';
+export * from './ai.types';
+export * from './template.types';
+export * from './calendar.types';
+export * from './analytics.types';
 export * from './metrics';
 export * from './SyncConflictData';
+
 
 // Legacy types.ts exports (to be migrated)
 // NOTE: Import from '../types' for now until migration is complete

@@ -39,12 +39,12 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
     const [generatedVideoUrl, setGeneratedVideoUrl] = useState<string | null>(null);
 
     useEffect(() => {
-        // GUIDELINE: Use window.aistudio.hasSelectedApiKey() to check for selected key
+        // Video generation (Veo) requires the AI Studio host environment.
+        // VITE_GEMINI_API_KEY is intentionally NOT used here — the key must stay server-side.
         if (window.aistudio) {
             window.aistudio.hasSelectedApiKey().then(setHasApiKey);
         } else {
-            // Check if injected via process.env
-            setHasApiKey(!!import.meta.env.VITE_GEMINI_API_KEY);
+            setHasApiKey(false);
         }
     }, []);
 
@@ -84,7 +84,9 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
             // GUIDELINE: Create new GoogleGenAI instance right before call (lazy-loaded)
             const genaiModule = await import('@google/genai');
             const GoogleGenAI = genaiModule.GoogleGenAI;
-            const ai = new GoogleGenAI(import.meta.env.VITE_GEMINI_API_KEY);
+            // In AI Studio the key is provided by the host environment; do NOT use VITE_GEMINI_API_KEY.
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const ai = new GoogleGenAI({ apiKey: '' } as any);
 
             // Veo model parameters
             let operation = await ai.models.generateVideos({
@@ -116,9 +118,8 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
             const downloadLink = operation.response?.generatedVideos?.[0]?.video?.uri;
 
             if (downloadLink) {
-                // GUIDELINE: Append API key when fetching from download link
-                const urlWithKey = `${downloadLink}&key=${import.meta.env.VITE_GEMINI_API_KEY}`;
-                const response = await fetch(urlWithKey);
+                // In AI Studio the video URI is a signed URL — no API key suffix needed.
+                const response = await fetch(downloadLink);
                 if (!response.ok) {
                     throw new Error(`Errore nel download del video: ${response.statusText}`);
                 }
@@ -159,12 +160,10 @@ const VideoAnalysisModal: React.FC<VideoAnalysisModalProps> = ({ onClose }) => {
                     <div style={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-primary)', width: 'var(--md-sys-spacing-8)', height: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-primary)', display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 'var(--md-sys-spacing-8)' }}>
                         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>vpn_key</Box>
                     </div>
-                    <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em", marginBottom: 'var(--md-sys-spacing-8)' }}>API Key Richiesta</Typography>
+                    <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em", marginBottom: 'var(--md-sys-spacing-8)' }}>AI Studio Richiesto</Typography>
                     <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)', marginBottom: 'var(--md-sys-spacing-8)', lineHeight: "1.625" }}>
-                        Per utilizzare la generazione video (modello Veo), è necessaria una API Key abilitata al billing.
-                        <a href="https://ai.google.dev/gemini-api/docs/billing" target="_blank" rel="noopener noreferrer"  style={{color: 'var(--md-sys-color-primary)', fontWeight: "var(--md-sys-typescale-weight-black)"}}>
-                            Scopri di più
-                        </a>
+                        La generazione video (Veo) è disponibile solo nell&apos;ambiente AI Studio.
+                        Apri l&apos;applicazione in AI Studio e seleziona una API Key abilitata.
                     </Typography>
                     {window.aistudio && (
                         <Button onClick={handleSelectKey} variant="contained">Seleziona API Key</Button>
