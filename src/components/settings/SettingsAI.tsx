@@ -51,8 +51,8 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
 
     const handleAddNextYear = () => {
         const nextYear = generateNextSchoolYear(localSettings.annoScolasticoCorrente);
-        if (!localSettings.anniScolastici.includes(nextYear)) {
-            handleChange('anniScolastici', [...localSettings.anniScolastici, nextYear]);
+        if (!(localSettings.anniScolastici ?? []).includes(nextYear)) {
+            handleChange('anniScolastici', [...(localSettings.anniScolastici ?? []), nextYear]);
             handleChange('annoScolasticoCorrente', nextYear);
             showToast(`Anno ${nextYear} aggiunto e selezionato.`, 'success');
         } else {
@@ -65,11 +65,11 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
         selYears.forEach(y => {
             selSections.forEach(s => {
                 const name = `${y}${s}${selSpec ? ' ' + selSpec : ''}`;
-                if (!localSettings.classi.includes(name)) newClasses.push(name);
+                if (!(localSettings.classi ?? []).includes(name)) newClasses.push(name);
             });
         });
         if (newClasses.length > 0) {
-            handleChange('classi', [...localSettings.classi, ...newClasses]);
+            handleChange('classi', [...(localSettings.classi ?? []), ...newClasses]);
             showToast(`${newClasses.length} classi generate con successo!`, 'success');
         } else {
             showToast('Nessuna nuova classe da generare.', 'info');
@@ -78,11 +78,11 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
 
     const handleAddSubject = () => {
         if (!newSubjectName.trim()) return;
-        if (localSettings.disciplines.includes(newSubjectName.trim())) {
+        if ((localSettings.disciplines ?? []).includes(newSubjectName.trim())) {
             showToast('Materia già presente', 'info');
             return;
         }
-        handleChange('disciplines', [...localSettings.disciplines, newSubjectName.trim()]);
+        handleChange('disciplines', [...(localSettings.disciplines ?? []), newSubjectName.trim()]);
         setNewSubjectName('');
     };
 
@@ -159,7 +159,7 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
                         <FormControl size="small" fullWidth>
                             <InputLabel>Anno Corrente</InputLabel>
                             <Select label="Anno Corrente" value={localSettings.annoScolasticoCorrente} onChange={e => handleChange('annoScolasticoCorrente', e.target.value as string)}>
-                                {localSettings.anniScolastici.map(year => <MenuItem key={year} value={year}>{year}</MenuItem>)}
+                                {(localSettings.anniScolastici ?? []).map(year => <MenuItem key={year} value={year}>{year}</MenuItem>)}
                             </Select>
                         </FormControl>
                         <ChipInputList
@@ -252,7 +252,7 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
                                 <TableHead>
                                     <TableRow sx={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                         <TableCell component="th" scope="col" sx={{ padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`, textAlign: 'left', fontWeight: 'var(--md-sys-typescale-weight-semibold)', color: 'var(--md-sys-color-on-surface)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>Materia / Classe</TableCell>
-                                        {localSettings.classi.map(cls => (
+                                        {(localSettings.classi ?? []).map(cls => (
                                             <TableCell component="th" scope="col" key={cls} sx={{ padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`, textAlign: 'center', fontWeight: 'var(--md-sys-typescale-weight-semibold)', color: 'var(--md-sys-color-on-surface)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', borderLeft: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', position: 'relative' }}>
                                                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 'var(--md-sys-spacing-4)' }}>
                                                     <span>{cls}</span>
@@ -265,7 +265,7 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {localSettings.disciplines.map(subj => (
+                                    {(localSettings.disciplines ?? []).map(subj => (
                                         <TableRow key={subj} sx={{ borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
                                             <TableCell sx={{ padding: `var(--md-sys-spacing-3) var(--md-sys-spacing-4)`, backgroundColor: 'var(--md-sys-color-surface-container-high)', borderRight: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
                                                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-4)' }}>
@@ -278,7 +278,7 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
                                                     </IconButton>
                                                 </Box>
                                             </TableCell>
-                                            {localSettings.classi.map(cls => {
+                                            {(localSettings.classi ?? []).map(cls => {
                                                 const assignment = localSettings.teachingAssignments.find(a => a.classId === cls && a.subjectId === subj);
                                                 return (
                                                     <TableCell key={`${subj}-${cls}`} sx={{ padding: 'var(--md-sys-spacing-4)', textAlign: 'center', borderLeft: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', cursor: 'pointer' }}>

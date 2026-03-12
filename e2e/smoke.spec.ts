@@ -55,6 +55,9 @@ test.describe('OrarioDoc AI - Smoke Tests', () => {
     await page.addInitScript(() => {
       (window as { __TEST_MODE?: boolean }).__TEST_MODE = true;
     });
+    // Navigate to the app first so that IndexedDB writes happen on the correct origin (localhost:5173)
+    await page.goto('/');
+    // Inject test backup into IDB on the correct origin, then reload so the app reads it fresh
     await page.evaluate(() => {
       return new Promise<void>((resolve) => {
         try {
@@ -80,8 +83,8 @@ test.describe('OrarioDoc AI - Smoke Tests', () => {
               udas: [],
               knowledgeBase: [],
               notifiche: [],
-              // minimal settings
-              settings: {},
+              // minimal settings — onboarded:true prevents wizard from blocking tests
+              settings: { onboarded: true },
               aiSettings: {},
               themeState: null
             };
@@ -93,8 +96,7 @@ test.describe('OrarioDoc AI - Smoke Tests', () => {
         } catch (e) { resolve(); }
       });
     });
-    // Now navigate to app root which will load the backup and set the user
-    await page.goto('/');
+    // Reload so the app reads the freshly injected backup from IndexedDB
     await page.reload();
     // Wait for app shell to mount - simplified for SPA
     await page.waitForFunction(() => {
@@ -107,15 +109,16 @@ test.describe('OrarioDoc AI - Smoke Tests', () => {
 
   test('Flusso di Onboarding (Accesso Rapido)', async ({ page }) => {
     // Controlla se siamo già loggati - usa aria-label dei pulsanti di navigazione
-    const isAlreadyLoggedIn = await page.getByRole('button', { name: 'scheduleOrario' }).isVisible().catch(() => false) ||
-                              await page.getByRole('button', { name: 'design_servicesProgetta' }).isVisible().catch(() => false) ||
-                              await page.getByRole('button', { name: 'groupsClassi' }).isVisible().catch(() => false) ||
-                              await page.locator('nav, [role="navigation"]').isVisible().catch(() => false);
+    const isAlreadyLoggedIn = await page.locator('.app-shell-container').isVisible().catch(() => false) ||
+                              await page.getByRole('button', { name: /^Orario$/ }).isVisible().catch(() => false) ||
+                              await page.getByRole('button', { name: /^Progetta$/ }).isVisible().catch(() => false) ||
+                              await page.getByRole('button', { name: /^Classi$/ }).isVisible().catch(() => false) ||
+                              await page.locator('[aria-label="Navigazione principale"]').isVisible().catch(() => false);
 
-    console.log('Login detection - Orario visible:', await page.getByRole('button', { name: 'scheduleOrario' }).isVisible().catch(() => false));
-    console.log('Login detection - Progetta visible:', await page.getByRole('button', { name: 'design_servicesProgetta' }).isVisible().catch(() => false));
-    console.log('Login detection - Classi visible:', await page.getByRole('button', { name: 'groupsClassi' }).isVisible().catch(() => false));
-    console.log('Login detection - Navigation visible:', await page.locator('nav, [role="navigation"]').isVisible().catch(() => false));
+    console.log('Login detection - app-shell visible:', await page.locator('.app-shell-container').isVisible().catch(() => false));
+    console.log('Login detection - Orario visible:', await page.getByRole('button', { name: /^Orario$/ }).isVisible().catch(() => false));
+    console.log('Login detection - Progetta visible:', await page.getByRole('button', { name: /^Progetta$/ }).isVisible().catch(() => false));
+    console.log('Login detection - Classi visible:', await page.getByRole('button', { name: /^Classi$/ }).isVisible().catch(() => false));
     console.log('Login detection - Final result:', isAlreadyLoggedIn);
 
     if (!isAlreadyLoggedIn) {
@@ -201,15 +204,15 @@ test.describe('OrarioDoc AI - Smoke Tests', () => {
     }, { timeout: 20000 });
 
     // Controlla se siamo già loggati - usa aria-label dei pulsanti di navigazione
-    const isAlreadyLoggedIn = await page.getByRole('button', { name: 'scheduleOrario' }).isVisible().catch(() => false) ||
-                              await page.getByRole('button', { name: 'design_servicesProgetta' }).isVisible().catch(() => false) ||
-                              await page.getByRole('button', { name: 'groupsClassi' }).isVisible().catch(() => false) ||
-                              await page.locator('nav, [role="navigation"]').isVisible().catch(() => false);
+    const isAlreadyLoggedIn = await page.locator('.app-shell-container').isVisible().catch(() => false) ||
+                              await page.getByRole('button', { name: /^Orario$/ }).isVisible().catch(() => false) ||
+                              await page.getByRole('button', { name: /^Progetta$/ }).isVisible().catch(() => false) ||
+                              await page.getByRole('button', { name: /^Classi$/ }).isVisible().catch(() => false) ||
+                              await page.locator('[aria-label="Navigazione principale"]').isVisible().catch(() => false);
 
-    console.log('Login detection - Navigazione Core - Orario visible:', await page.getByRole('button', { name: 'scheduleOrario' }).isVisible().catch(() => false));
-    console.log('Login detection - Navigazione Core - Progetta visible:', await page.getByRole('button', { name: 'design_servicesProgetta' }).isVisible().catch(() => false));
-    console.log('Login detection - Navigazione Core - Classi visible:', await page.getByRole('button', { name: 'groupsClassi' }).isVisible().catch(() => false));
-    console.log('Login detection - Navigazione Core - Navigation visible:', await page.locator('nav, [role="navigation"]').isVisible().catch(() => false));
+    console.log('Login detection - Navigazione Core - app-shell visible:', await page.locator('.app-shell-container').isVisible().catch(() => false));
+    console.log('Login detection - Navigazione Core - Orario visible:', await page.getByRole('button', { name: /^Orario$/ }).isVisible().catch(() => false));
+    console.log('Login detection - Navigazione Core - Progetta visible:', await page.getByRole('button', { name: /^Progetta$/ }).isVisible().catch(() => false));
     console.log('Login detection - Navigazione Core - Final result:', isAlreadyLoggedIn);
 
     if (!isAlreadyLoggedIn) {
@@ -302,7 +305,7 @@ test.describe('OrarioDoc AI - Smoke Tests', () => {
       await settingsLink.click();
 
       // Verifica che la pagina Impostazioni sia caricata
-      await expect(page.getByText('Impostazioni')).toBeVisible({ timeout: 10000 });
+      await expect(page.getByRole('heading', { name: 'Impostazioni' })).toBeVisible({ timeout: 10000 });
 
     } catch (error) {
       // Fallback: screenshot per debug
@@ -332,15 +335,15 @@ test.describe('OrarioDoc AI - Smoke Tests', () => {
     }, { timeout: 20000 });
 
     // Controlla se siamo già loggati - usa aria-label dei pulsanti di navigazione
-    const isAlreadyLoggedIn = await page.getByRole('button', { name: 'scheduleOrario' }).isVisible().catch(() => false) ||
-                              await page.getByRole('button', { name: 'design_servicesProgetta' }).isVisible().catch(() => false) ||
-                              await page.getByRole('button', { name: 'groupsClassi' }).isVisible().catch(() => false) ||
-                              await page.locator('nav, [role="navigation"]').isVisible().catch(() => false);
+    const isAlreadyLoggedIn = await page.locator('.app-shell-container').isVisible().catch(() => false) ||
+                              await page.getByRole('button', { name: /^Orario$/ }).isVisible().catch(() => false) ||
+                              await page.getByRole('button', { name: /^Progetta$/ }).isVisible().catch(() => false) ||
+                              await page.getByRole('button', { name: /^Classi$/ }).isVisible().catch(() => false) ||
+                              await page.locator('[aria-label="Navigazione principale"]').isVisible().catch(() => false);
 
-    console.log('Login detection - Knowledge Base - Orario visible:', await page.getByRole('button', { name: 'scheduleOrario' }).isVisible().catch(() => false));
-    console.log('Login detection - Knowledge Base - Progetta visible:', await page.getByRole('button', { name: 'design_servicesProgetta' }).isVisible().catch(() => false));
-    console.log('Login detection - Knowledge Base - Classi visible:', await page.getByRole('button', { name: 'groupsClassi' }).isVisible().catch(() => false));
-    console.log('Login detection - Knowledge Base - Navigation visible:', await page.locator('nav, [role="navigation"]').isVisible().catch(() => false));
+    console.log('Login detection - Knowledge Base - app-shell visible:', await page.locator('.app-shell-container').isVisible().catch(() => false));
+    console.log('Login detection - Knowledge Base - Orario visible:', await page.getByRole('button', { name: /^Orario$/ }).isVisible().catch(() => false));
+    console.log('Login detection - Knowledge Base - Progetta visible:', await page.getByRole('button', { name: /^Progetta$/ }).isVisible().catch(() => false));
     console.log('Login detection - Knowledge Base - Final result:', isAlreadyLoggedIn);
 
     if (!isAlreadyLoggedIn) {
@@ -417,11 +420,12 @@ test.describe('OrarioDoc AI - Smoke Tests', () => {
 
       // Attendi che la navigazione sia completata - aspetta contenuto specifico KB
       await page.waitForFunction(() => {
+        const bodyText = document.body.textContent ?? '';
         return !!(
-          // Controlla il titolo della sezione
-          document.querySelector('h1, h2')?.textContent?.includes('Knowledge Base') ||
+          // Controlla il titolo della sezione (qualsiasi tag heading)
+          bodyText.includes('Knowledge Base') ||
           // Controlla il pulsante "Carica Documenti"
-          document.querySelector('button')?.textContent?.includes('Carica Documenti') ||
+          Array.from(document.querySelectorAll('button')).some(b => (b.textContent ?? '').includes('Carica Documenti')) ||
           // Controlla la card di sincronia NotebookLM
           document.querySelector('[data-testid*="notebook"], [class*="notebook"]') ||
           document.querySelector('main .knowledge-base-folder-grid') ||
@@ -430,7 +434,7 @@ test.describe('OrarioDoc AI - Smoke Tests', () => {
       }, { timeout: 20000 });
 
       // Verifica che siamo nella pagina corretta
-      await expect(page.getByText('Knowledge Base')).toBeVisible({ timeout: 10000 });
+      await expect(page.getByRole('heading', { name: 'Knowledge Base' })).toBeVisible({ timeout: 10000 });
       // Verifica anche che ci siano elementi specifici della Knowledge Base
       await expect(page.getByText('Carica Documenti')).toBeVisible({ timeout: 5000 });
 

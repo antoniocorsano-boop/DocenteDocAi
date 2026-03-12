@@ -232,7 +232,7 @@ export const Timetable: React.FC<TimetableProps> = React.memo(({ slots, lessons,
             </Box>
 
             {/* Data rows */}
-            {settings.timeSlots.map(time => (
+            {(settings.timeSlots ?? []).map(time => (
               <Box role="row" key={time} sx={{ display: 'contents' }}>
                 <Box role="rowheader" sx={{
                   p: 'var(--md-sys-spacing-2)',

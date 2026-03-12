@@ -86,7 +86,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
 
   return (
     // Outer shell: full viewport height, no overflow — contains everything
-    <Box sx={{
+    <Box className="app-shell-container" sx={{
       display: 'flex',
       flexDirection: 'column',
       height: 'var(--md-sys-viewport-height-dvh)',

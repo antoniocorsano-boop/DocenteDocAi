@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { messages } from '../messages';
 import { TimetableSettings, AiSettings, AppThemeState } from '../types';
-import { AI_PROFILES } from '../constants';
+import { AI_PROFILES, DEFAULT_TIMETABLE_SETTINGS } from '../constants';
 import { ThemeService } from '../services/ThemeService';
 import { useDebounce } from './useDebounce';
 
@@ -49,8 +49,8 @@ export const useSettingsLogic = ({
     toggleAssociation: (studentId: string, classCode: string) => void;
     updateAssignmentHours: (id: string, hours: number) => void;
 } => {
-    // Local State
-    const [localSettings, setLocalSettings] = useState<TimetableSettings>(settings);
+    // Local State — merge incoming settings with defaults to guard against incomplete backup data
+    const [localSettings, setLocalSettings] = useState<TimetableSettings>({ ...DEFAULT_TIMETABLE_SETTINGS, ...settings });
     const [localAiSettings, setLocalAiSettings] = useState<AiSettings>(aiSettings);
     const [themePrompt, setThemePrompt] = useState('');
     const [isGeneratingTheme, setIsGeneratingTheme] = useState(false);
@@ -61,7 +61,7 @@ export const useSettingsLogic = ({
 
     // Sync Props to State (when props change externally)
     useEffect(() => {
-        setLocalSettings(settings);
+        setLocalSettings(prev => ({ ...DEFAULT_TIMETABLE_SETTINGS, ...prev, ...settings }));
     }, [settings]);
 
     useEffect(() => {
