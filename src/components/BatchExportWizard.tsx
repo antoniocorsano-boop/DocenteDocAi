@@ -73,6 +73,7 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [progress, setProgress] = useState<{ current: number; total: number; currentDoc: string } | null>(null);
   const [showTemplateManager, setShowTemplateManager] = useState(false);
+  const [activeTemplate, setActiveTemplate] = useState<DocumentTemplate | null>(null);
 
   const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const { trackAnalyticsEvent } = useSystemStore(state => ({ trackAnalyticsEvent: state.actions.trackAnalyticsEvent }));
@@ -145,8 +146,24 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
   };
 
   const handleApplyTemplate = (template: DocumentTemplate) => {
-    // Per ora mostriamo solo un messaggio, in futuro applicheremo effettivamente il template
-    showToast(`Template "${template.name}" selezionato. Funzionalità di applicazione template in sviluppo.`, "info");
+    setActiveTemplate(template);
+    setShowTemplateManager(false);
+
+    // Filtra la selezione ai documenti compatibili con il tipo del template
+    const compatible = availableDocuments.filter(d => d.type === template.type);
+    if (compatible.length === 0) {
+      showToast(`Nessun documento compatibile con il template "${template.name}" (tipo: ${template.type}).`, 'info');
+      return;
+    }
+
+    // Se erano già selezionati solo documenti compatibili, mantienili; altrimenti seleziona tutti compatibili
+    const currentCompatibleSelected = selectedDocuments.filter(d => d.type === template.type);
+    setSelectedDocuments(currentCompatibleSelected.length > 0 ? currentCompatibleSelected : compatible);
+
+    showToast(
+      `Template "${template.name}" applicato: ${compatible.length} documenti compatibili selezionati.`,
+      'success'
+    );
   };
 
   const generateBatch = async () => {
@@ -196,11 +213,15 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
           case 'uda': {
             if (!isUda(doc.data)) continue;
             const uda = doc.data;
+            const udaConfig = activeTemplate?.type === 'uda' ? activeTemplate.config : null;
             const udaHtml = `
               <h1>${uda.title}</h1>
               <p><strong>Classe:</strong> ${uda.classe}</p>
+              ${udaConfig?.customIntroduction ? `<p>${udaConfig.customIntroduction}</p>` : ''}
               <p><strong>Descrizione:</strong> ${uda.introduction || 'N/A'}</p>
               <p><strong>Obiettivi:</strong> ${uda.evaluation || 'N/A'}</p>
+              ${udaConfig?.includePhases && uda.phases?.length ? `<h2>Fasi</h2><ul>${uda.phases.map((p: { title: string; description: string; activities: string; duration: string }) => `<li><strong>${p.title}</strong> (${p.duration}h): ${p.description}</li>`).join('')}</ul>` : ''}
+              ${udaConfig?.customConclusion ? `<p>${udaConfig.customConclusion}</p>` : ''}
             `;
             blob = await generateHtmlDocxBlob(udaHtml, `UDA_${uda.title}`);
             fileName = `UDA_${uda.title.replace(/\s+/g, '_')}.docx`;
@@ -307,13 +328,23 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
                     setShowTemplateManager(true);
                     trackAnalyticsEvent('feature_usage', 'template_manager');
                   }}
-                  variant="outlined"
-                  
+                  variant={activeTemplate ? 'contained' : 'outlined'}
                   disabled={isGenerating}
                   startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">description</Box>}
                 >
-                  Template
+                  {activeTemplate ? `Template: ${activeTemplate.name}` : 'Template'}
                 </Button>
+                {activeTemplate && (
+                  <Button
+                    onClick={() => { setActiveTemplate(null); }}
+                    variant="text"
+                    disabled={isGenerating}
+                    aria-label="Rimuovi template attivo"
+                    sx={{ minWidth: 'auto', px: 1 }}
+                  >
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true">close</Box>
+                  </Button>
+                )}
               </div>
             </div>
           </div>
