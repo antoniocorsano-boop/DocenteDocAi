@@ -273,5 +273,40 @@ export const applyTheme = (theme: Theme): void => {
     const tokenInfo = baseDesignSystem.spacing[tokenName];
     root.style.setProperty(tokenInfo.cssVar, tokenInfo.value);
   }
+
+  // Visual style overrides — applied LAST so they win over base inline tokens.
+  // These mirror the values in theme.css [data-visual-style="..."] blocks but must
+  // also be set as inline styles because root.style.setProperty() (above) would
+  // otherwise take precedence over CSS attribute-selector rules.
+  const visualStyleOverrides: Partial<Record<string, Record<string, string>>> = {
+    cupertino: {
+      '--md-sys-color-primary': '#007AFF',
+      '--md-sys-color-primary-rgb': '0, 122, 255',
+      '--md-sys-shape-scale-factor': '0.8',
+      '--md-sys-surface-alpha': '0.7',
+    },
+    windows: {
+      '--md-sys-color-primary': '#0078D4',
+      '--md-sys-color-primary-rgb': '0, 120, 212',
+      '--md-sys-shape-scale-factor': '0.4',
+      '--md-sys-surface-alpha': '0.85',
+    },
+    expressive: {
+      '--md-sys-color-primary': '#1a73e8',
+      '--md-sys-color-primary-rgb': '26, 115, 232',
+      '--md-sys-shape-scale-factor': '1.2',
+    },
+    minimal: {
+      '--md-sys-shape-scale-factor': '0.25',
+    },
+  };
+
+  const vsStyle = themeToApply.visualStyle;
+  if (vsStyle && visualStyleOverrides[vsStyle]) {
+    const overrides = visualStyleOverrides[vsStyle]!;
+    for (const [prop, value] of Object.entries(overrides)) {
+      root.style.setProperty(prop, value);
+    }
+  }
 };
 
