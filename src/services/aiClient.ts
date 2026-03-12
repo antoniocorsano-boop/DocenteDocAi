@@ -1,14 +1,43 @@
 import { logger } from '../utils/logger';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+// ---------------------------------------------------------------------------
+// Proxy client — used in production when VITE_GEMINI_API_KEY is not bundled.
+// Calls /api/ai (Vercel serverless function) which holds the key server-side.
+// ---------------------------------------------------------------------------
+const createProxyClient = () => ({
+    models: {
+        generateContent: async (params: {
+            model: string;
+            contents: unknown;
+            config?: unknown;
+        }): Promise<{ text: string }> => {
+            const response = await fetch('/api/ai', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(params),
+            });
+            if (!response.ok) {
+                const err = await response.json().catch(() => ({ error: response.statusText }));
+                throw Object.assign(new Error(err.error ?? 'AI proxy error'), { status: response.status });
+            }
+            return response.json();
+        },
+    },
+});
+
 // Lazy-load the Google GenAI SDK to avoid bundling it in the main chunk
 let _cachedGenAiModule: any = null;
 export const getGoogleAIClient = async (): Promise<any> => {
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+    // Production path: no key in bundle → use server-side proxy
     if (!apiKey) {
-        throw new Error('API_KEY non configurata. Assicurati che VITE_GEMINI_API_KEY sia presente in .env.local.');
+        return createProxyClient();
     }
 
+    // Dev path: key available locally → use SDK directly
     if (!_cachedGenAiModule) {
         _cachedGenAiModule = await import('@google/genai');
     }
@@ -72,5 +101,7 @@ export async function callAiWithRetry<T>(operation: () => Promise<T>, retries = 
     return attempt(retries, delay);
 }
 
-export const isAiConfigured = (): boolean => !!import.meta.env.VITE_GEMINI_API_KEY;
+// In dev: check direct key. In production: proxy always available if deployed.
+export const isAiConfigured = (): boolean =>
+    !!import.meta.env.VITE_GEMINI_API_KEY || !import.meta.env.DEV;
 

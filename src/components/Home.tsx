@@ -1,4 +1,4 @@
-﻿import React, { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -206,7 +206,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </Box>
 
         {/* METRIC CARDS */}
-        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1.5 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 1.5 }}>
           {metricCards.map(card => (
             <ButtonBase
               key={card.key}

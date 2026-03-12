@@ -365,7 +365,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>auto_awesome</Box>
                                 <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Ecosistema Visivo</Typography>
                             </Stack>
-                            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: 2 }}>
+                            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, var(--md-sys-grid-fr-1)))', gap: 2 }}>
                                 {[
                                     { id: 'aura', label: 'Aura', icon: 'blur_on', desc: 'Glassmorphism' },
                                     { id: 'expressive', label: 'Google', icon: 'android', desc: 'Expressive' },
@@ -470,7 +470,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 </Tabs>
                             </Box>
 
-                            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 2, mb: 2 }}>
+                            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, var(--md-sys-grid-fr-1)))', gap: 2, mb: 2 }}>
                                 {THEME_CUSTOMIZATIONS.map(theme => (
                                     <ThemeBubble
                                         key={theme.name}
@@ -617,12 +617,12 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     onToggle={() => handleGroupToggle('profile')}
                 >
                     <Stack spacing={2}>
-                        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
+                        <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 2 }}>
                             <TextField label="Nome" value={localSettings.nomeInsegnante} onChange={e => handleChange('nomeInsegnante', e.target.value)} />
                             <TextField label="Cognome" value={localSettings.cognomeInsegnante || ''} onChange={e => handleChange('cognomeInsegnante', e.target.value)} />
                         </Box>
                         <TextField label="Email Istituzionale" type="email" value={localSettings.email || ''} onChange={e => handleChange('email', e.target.value)} placeholder="nome.cognome@scuola.edu.it" />
-                        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
+                        <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 2 }}>
                             <TextField label="Nome Istituto" value={localSettings.nomeIstituto} onChange={e => handleChange('nomeIstituto', e.target.value)} />
                             <TextField label="Città" value={localSettings.cittaIstituto} onChange={e => handleChange('cittaIstituto', e.target.value)} />
                         </Box>
@@ -731,7 +731,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                 </Button>
                             </Stack>
 
-                            <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
+                            <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 2 }}>
                                 <FormControl size="small" fullWidth>
                                     <InputLabel>Anno Corrente</InputLabel>
                                     <Select
@@ -779,7 +779,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                     <Typography variant="overline" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Formazione Classi Strutturata</Typography>
                                 </Stack>
 
-                                <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, mb: 2 }}>
+                                <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 2, mb: 2 }}>
                                     <FormControl size="small" fullWidth>
                                         <InputLabel>Ordinamento Scolastico</InputLabel>
                                         <Select
@@ -797,7 +797,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                                         placeholder="Es: Scientifico, CAT, Musicale..." />
                                 </Box>
 
-                                <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, mb: 2 }}>
+                                <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 2, mb: 2 }}>
                                     <Stack spacing={1}>
                                         <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>Livelli / Anni</Typography>
                                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
@@ -1134,7 +1134,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
                             )
                         )}
                     </Box>
-                    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 2 }}>
+                    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, var(--md-sys-grid-fr-1)))', gap: 2 }}>
                         <Button onClick={onExportData} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">download</Box>}>
                             Backup Locale
                         </Button>

@@ -315,7 +315,7 @@ const renderHeader = () => {
                 role="row"
                 sx={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(7, 1fr)',
+                    gridTemplateColumns: 'repeat(7, var(--md-sys-grid-fr-1))',
                     bgcolor: 'var(--md-sys-color-surface-container-low)',
                     borderBottom: '1px solid var(--md-sys-color-outline-variant)',
                 }}
@@ -347,7 +347,7 @@ const renderHeader = () => {
                 role="rowgroup"
                 sx={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(7, 1fr)',
+                    gridTemplateColumns: 'repeat(7, var(--md-sys-grid-fr-1))',
                     borderLeft: '1px solid var(--md-sys-color-outline-variant)',
                     borderTop: '1px solid var(--md-sys-color-outline-variant)',
                 }}
@@ -468,7 +468,7 @@ const renderHeader = () => {
             <Box
                 sx={{
                     display: 'grid',
-                    gridTemplateColumns: '56px repeat(7, 1fr)',
+                    gridTemplateColumns: '56px repeat(7, var(--md-sys-grid-fr-1))',
                     bgcolor: 'var(--md-sys-color-surface-container-low)',
                     borderBottom: '1px solid var(--md-sys-color-outline-variant)',
                     position: 'sticky',
@@ -527,7 +527,7 @@ const renderHeader = () => {
                         key={hour}
                         sx={{
                             display: 'grid',
-                            gridTemplateColumns: '56px repeat(7, 1fr)',
+                            gridTemplateColumns: '56px repeat(7, var(--md-sys-grid-fr-1))',
                             minHeight: 60,
                             borderBottom: '1px solid var(--md-sys-color-outline-variant)',
                         }}

@@ -105,7 +105,7 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
                 </Box>
 
                 {/* Additional Info Grid */}
-                <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
+                <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 2 }}>
                     <InfoCard title="Prodotto Finale" icon="inventory_2">
                         <Typography variant="body2">{uda.finalProduct}</Typography>
                     </InfoCard>
