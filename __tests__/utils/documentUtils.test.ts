@@ -22,6 +22,7 @@ vi.mock('docx', () => ({
 
 describe('documentUtils', () => {
   beforeEach(() => {
+    vi.restoreAllMocks();
     vi.clearAllMocks();
     // Mock document methods
     global.URL.createObjectURL = vi.fn(() => 'blob:mock-url');
