@@ -1,6 +1,7 @@
 # DocenteDoc AI — Analisi del Codebase
 
 **Generato:** 12 Marzo 2026  
+**Aggiornato:** 12 Marzo 2026 (Sprint logger + proxy + grid)  
 **Analizzato da:** Repository Analyzer  
 **Versione progetto:** 1.0.0
 
@@ -8,18 +9,18 @@
 
 ## Panoramica
 
-| Attributo                 | Valore                                           |
-| ------------------------- | ------------------------------------------------ |
-| **Linguaggio primario**   | TypeScript                                       |
-| **Framework UI**          | React 18 + MUI v7                                |
-| **Design System**         | Material Design 3 (MD3)                          |
-| **Build tool**            | Vite 6                                           |
-| **Test runner**           | Vitest 4 + Playwright                            |
-| **Totale file sorgente**  | 377 (275 TSX + 102 TS)                           |
-| **Linee di codice (src)** | ~78.784 (TSX: 54.616 + TS: 13.192 + CSS: 10.976) |
-| **File di test**          | 28 (Vitest) + 13 (Playwright E2E)                |
-| **Totale commit**         | 488                                              |
-| **Commit più recente**    | `da8f6783` fix(typography) – 12 Mar 2026         |
+| Attributo                 | Valore                                  |
+| ------------------------- | --------------------------------------- |
+| **Linguaggio primario**   | TypeScript                              |
+| **Framework UI**          | React 18 + MUI v7                       |
+| **Design System**         | Material Design 3 (MD3)                 |
+| **Build tool**            | Vite 6                                  |
+| **Test runner**           | Vitest 4 + Playwright                   |
+| **Totale file sorgente**  | 340 (243 TSX + 97 TS)                   |
+| **Linee di codice (src)** | ~59.909 (TSX + TS, no test/stories)     |
+| **File di test**          | 98 (Vitest) + 13 (Playwright E2E)       |
+| **Totale commit**         | 493                                     |
+| **Commit più recente**    | `f11a88b4` feat(security) – 12 Mar 2026 |
 
 ---
 
@@ -44,20 +45,21 @@
 
 ### Sviluppo
 
-| Categoria       | Tecnologia                     | Versione |
-| --------------- | ------------------------------ | -------- |
-| Build           | Vite                           | ^6.0.0   |
-| Type checking   | TypeScript                     | ^5.9.3   |
-| Linting         | ESLint 9 + typescript-eslint   | ^9.39.2  |
-| CSS Linting     | Stylelint                      | ^17.4.0  |
-| Unit test       | Vitest                         | ^4.0.16  |
-| E2E             | Playwright                     | ^1.57.0  |
-| Visual test     | Storybook 8                    | ^8.6.15  |
-| Commit guard    | commitlint + husky             | ^20.3.0  |
-| Bundle analysis | rollup-plugin-visualizer       | ^7.0.1   |
-| PWA             | vite-plugin-pwa                | ^1.2.0   |
-| Compression     | vite-plugin-compression2       | ^2.5.0   |
-| Accessibility   | axe-core, @axe-core/playwright | ^4.11.0  |
+| Categoria        | Tecnologia                     | Versione |
+| ---------------- | ------------------------------ | -------- |
+| Build            | Vite                           | ^6.0.0   |
+| Type checking    | TypeScript                     | ^5.9.3   |
+| Linting          | ESLint 9 + typescript-eslint   | ^9.39.2  |
+| CSS Linting      | Stylelint                      | ^17.4.0  |
+| Unit test        | Vitest                         | ^4.0.16  |
+| E2E              | Playwright                     | ^1.57.0  |
+| Visual test      | Storybook 8                    | ^8.6.15  |
+| Commit guard     | commitlint + husky             | ^20.3.0  |
+| Bundle analysis  | rollup-plugin-visualizer       | ^7.0.1   |
+| PWA              | vite-plugin-pwa                | ^1.2.0   |
+| Compression      | vite-plugin-compression2       | ^2.5.0   |
+| Accessibility    | axe-core, @axe-core/playwright | ^4.11.0  |
+| Serverless proxy | @vercel/node                   | ^5.6.15  |
 
 ---
 
@@ -145,18 +147,18 @@ Il progetto segue un'architettura **Feature-Component** con separazione orizzont
 
 ### File più grandi (complessità)
 
-| File                       | Linee | Rischio                     |
-| -------------------------- | ----- | --------------------------- |
-| `Settings.tsx`             | 1.378 | 🔴 Alto — candidato a split |
-| `HelpModal.tsx`            | 1.123 | 🔴 Alto — candidato a split |
-| `ClassroomView.tsx`        | 907   | 🟠 Medio-Alto               |
-| `Dashboard.tsx`            | 884   | 🟠 Medio-Alto               |
-| `Calendar.tsx`             | 841   | 🟠 Medio-Alto               |
-| `AnalyticsDashboard.tsx`   | 715   | 🟠 Medio                    |
-| `LessonsPage.tsx`          | 685   | 🟡 Medio                    |
-| `ClassPlanningWizard.tsx`  | 672   | 🟡 Medio                    |
-| `ReportisticaHub.tsx`      | 670   | 🟡 Medio                    |
-| `AnnualPlanningWizard.tsx` | 644   | 🟡 Medio                    |
+| File                       | Linee | Rischio                                |
+| -------------------------- | ----- | -------------------------------------- |
+| `types.ts`                 | 1.293 | 🔴 Alto — candidato a split            |
+| `Settings.tsx`             | 1.228 | 🟠 Medio-Alto — parzialmente splittato |
+| `useAppEngine.ts`          | 963   | 🟠 Medio-Alto                          |
+| `ClassroomView.tsx`        | 855   | 🟠 Medio-Alto                          |
+| `Calendar.tsx`             | 801   | 🟠 Medio                               |
+| `documentUtils.ts`         | 727   | 🟡 Medio                               |
+| `AnalyticsDashboard.tsx`   | 684   | 🟡 Medio                               |
+| `LessonsPage.tsx`          | 655   | 🟡 Medio                               |
+| `ClassPlanningWizard.tsx`  | 625   | 🟡 Medio                               |
+| `AnnualPlanningWizard.tsx` | 597   | 🟡 Medio                               |
 
 ---
 
@@ -166,8 +168,8 @@ I file con il maggior numero di commit sono i candidati principali a refactoring
 
 | File                   | Commit tocchi | Note                                       |
 | ---------------------- | ------------- | ------------------------------------------ |
-| `Settings.tsx`         | 54            | File più churnato — logica molto mista     |
-| `Home.tsx`             | 53            | Hub navigazione, modificato frequentemente |
+| `Settings.tsx`         | 58            | File più churnato — logica molto mista     |
+| `Home.tsx`             | 55            | Hub navigazione, modificato frequentemente |
 | `App.tsx`              | 48            | Root app — routing e providers             |
 | `ProgettazioneHub.tsx` | 43            |                                            |
 | `HelpModal.tsx`        | 41            | Contenuto documentazione vivo              |
@@ -251,7 +253,7 @@ Il progetto integra **due provider AI** in modalità client-side:
 
 | Metrica       | Valore                               |
 | ------------- | ------------------------------------ |
-| File di test  | 28 (in `src/__tests__/` e co-locati) |
+| File di test  | 98 (in `src/__tests__/` e co-locati) |
 | Test totali   | ~1.216 (ultimo run)                  |
 | Test passanti | 1.216 / 1.216                        |
 | Test saltati  | 10                                   |
@@ -297,22 +299,20 @@ __tests__/
 
 ### Priorità Alta
 
-| Problema                     | File                                                   | Dettaglio                                                                                                           |
-| ---------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
-| God component                | `Settings.tsx` (1.378 righe)                           | Dovrebbe essere suddiviso in sotto-sezioni indipendenti                                                             |
-| God component                | `HelpModal.tsx` (1.123 righe)                          | Contenuto documentazione hardcoded in JSX                                                                           |
-| Console.log in produzione    | `UdaPlanner.tsx`, `ProgettazioneHub.tsx` (12 ciascuno) | Debug statements attivi non rimossi                                                                                 |
-| Storage cleanup disabilitato | `main.tsx` L54-57                                      | `localStorage.clear()` e `indexedDB.deleteDatabase` commentati come TEMPORARILY DISABLED — rimuovere o ripristinare |
-| Temp ID pattern              | `AnnualPlanningWizard.tsx`                             | ID generati con `temp-${Date.now()}` — rischio di collisione                                                        |
+| Problema                     | File                         | Dettaglio                                                                                                           |
+| ---------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| God component                | `Settings.tsx` (1.228 righe) | Parzialmente splittato (SettingsGroupAccordion estratto) — ulteriore suddivisione in sotto-sezioni raccomandata     |
+| God component                | `types.ts` (1.293 righe)     | Tipi globali monolitici — candidato a split per dominio                                                             |
+| Storage cleanup disabilitato | `main.tsx` L54-57            | `localStorage.clear()` e `indexedDB.deleteDatabase` commentati come TEMPORARILY DISABLED — rimuovere o ripristinare |
+| Temp ID pattern              | `AnnualPlanningWizard.tsx`   | ID generati con `temp-${Date.now()}` — rischio di collisione                                                        |
 
 ### Priorità Media
 
-| Problema                       | File                                                                              | Dettaglio                                                           |
-| ------------------------------ | --------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Console.log                    | `BatchExportWizard.tsx` (7), `ReportisticaHub.tsx` (4), `ConsiglioClasse.tsx` (4) | Debug statements da rimuovere prima di prod                         |
-| `<div>` come container visivo  | `ClassAnalytics.tsx`, `ClassCompetencyDashboard.tsx`, `BatchExportWizard.tsx`     | Violazione MD3 — da migrare a `Box` / `M3Surface`                   |
-| Template mock non implementato | `BatchExportWizard.tsx` L148                                                      | `handleApplyTemplate` mostra solo un toast, non applica il template |
-| Commento TODO aperto           | `AuraView.tsx` L30                                                                | Layout dipendente da container padre non risolto                    |
+| Problema                      | File                                                 | Dettaglio                                                                       |
+| ----------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `<div>` come container visivo | `ClassAnalytics.tsx`, `ClassCompetencyDashboard.tsx` | Violazione MD3 — da migrare a `Box` / `M3Surface`                               |
+| Commento TODO aperto          | `AuraView.tsx` L30                                   | Layout dipendente da container padre non risolto                                |
+| VideoAnalysisModal API key    | `VideoAnalysisModal.tsx`                             | Usa ancora `VITE_GEMINI_API_KEY` + `window.aistudio` fallback — migrare a proxy |
 
 ### Priorità Bassa
 
@@ -329,21 +329,22 @@ __tests__/
 ### Punti di Forza
 
 - ✅ **Zero violazioni** ESLint, TypeScript, Stylelint nel run attuale
-- ✅ **Test coverage alta**: 1.216 test unitari, 13 spec E2E
+- ✅ **Test coverage alta**: 1.216 test unitari (98 file Vitest), 13 spec E2E Playwright
 - ✅ **Commit convention**: commitlint con Conventional Commits (`feat/fix/refactor/test/chore`)
 - ✅ **Accessibilità**: axe-core integrato in Playwright, attributi aria sistematici
 - ✅ **PWA**: manifest, service worker, compressione brotli
 - ✅ **Observability**: OpenTelemetry configurato (SDK pronto, exporter OTLP)
-- ✅ **Security**: nessuna API key nel codice, PKCE per OAuth2, sanitizzazione input
+- ✅ **Security**: nessuna API key nel bundle browser (proxy Vercel), PKCE per OAuth2, sanitizzazione input
 - ✅ **Performance**: critical CSS inline, lazy loading, bundle compression
+- ✅ **Logger centralizzato**: 0 `console.*` in produzione — tutto via `logger.debug/info/warn/error`
+- ✅ **AI proxy sicuro**: `api/ai.ts` Vercel serverless — `GEMINI_API_KEY` mai nel bundle
 
 ### Punti di Debolezza
 
-- 🔴 **Componenti "god"**: `Settings.tsx` e `HelpModal.tsx` superano 1.000 righe
-- 🟠 **Console.log in produzione**: ~60+ chiamate attive (escluse stories), nessun logger centralizzato
-- 🟠 **AI key client-side**: le API key Anthropic/Google sono gestite in-browser — rischio esposizione se l'app è pubblica
-- 🟡 **No backend proprio**: tutta la logica risiede nel browser — scalabilità limitata per funzionalità collaborative
-- 🟡 **Duplicate `gridTemplateColumns`**: pattern CSS inline ripetuto in molti componenti — candidato a token/utility
+- 🔴 **Componenti "god"**: `types.ts` (1.293) e `Settings.tsx` (1.228) superano la soglia critica
+- 🟠 **No backend proprio**: tutta la logica risiede nel browser — scalabilità limitata per funzionalità collaborative
+- 🟡 **VideoAnalysisModal**: unico componente ancora con `VITE_GEMINI_API_KEY` + `window.aistudio` — candidato a migrazione proxy
+- 🟡 **ClassSelection.tsx breakpoint**: unico `1fr` residuo non tokenizzato (sintassi MUI sx responsiva — intenzionale)
 
 ---
 
@@ -378,22 +379,27 @@ Progetto configurato per deploy su Vercel (vedi `docs/DEPLOY_VERCEL.md` e `docs/
 
 ## Raccomandazioni Prioritarie
 
-### Immediato
+### ✅ Completate (sprint precedenti)
 
-1. **Rimuovere console.log** dai file di produzione (`UdaPlanner.tsx`, `ProgettazioneHub.tsx`, `BatchExportWizard.tsx` etc.) — usare un logger centralizzato con livelli configurabili
-2. **Risolvere TEMPORARILY DISABLED** in `main.tsx` — decidere se il cleanup storage deve tornare attivo o essere rimosso definitivamente
+| #   | Raccomandazione                                                  | Sprint        | Commit     |
+| --- | ---------------------------------------------------------------- | ------------- | ---------- |
+| 1   | Rimuovere `console.*` dai file produzione — logger centralizzato | Sprint logger | `dde3519b` |
+| 2   | Risolvere `TEMPORARILY DISABLED` in `main.tsx`                   | Sprint 3      | —          |
+| 3   | Spezzare `Settings.tsx` in sotto-componenti                      | Sprint 3      | —          |
+| 4   | Spezzare `HelpModal.tsx` in 8 sub-panel                          | Sprint 3      | —          |
+| 5   | Implementare `handleApplyTemplate` in `BatchExportWizard`        | Sprint 3      | —          |
+| 6   | Logger centralizzato con livelli configurabili                   | Sprint logger | `dde3519b` |
+| 7   | Tokenizzare `gridTemplateColumns` ricorrenti                     | Sprint grid   | `f11a88b4` |
+| 8   | Proxy backend per API key AI (Vercel Edge Function)              | Sprint proxy  | `f11a88b4` |
 
-### Breve termine
+### Lungo termine
 
-3. **Spezzare `Settings.tsx`** in sotto-componenti (`GeneralSettings`, `AISettings`, `InterfaceSettings` ecc.) — già presenti parzialmente in `src/components/settings/`
-4. **Spezzare `HelpModal.tsx`** — estrarre il contenuto documentazione in file MDX o JSON separati
-5. **Implementare `handleApplyTemplate`** in `BatchExportWizard.tsx` — attualmente è uno stub
-
-### Medio termine
-
-6. **Logger centralizzato**: sostituire `console.*` con un modulo logger che rispette `NODE_ENV` / feature flag
-7. **Tokenizzare `gridTemplateColumns`** ricorrenti — creare utility token MD3 o styled components
-8. **Revisione gestione API key**: valutare un proxy backend (Vercel Edge Function) per non esporre le chiavi AI nel bundle browser
+9. **Split `types.ts`** (1.293 righe) — suddividere per dominio (`uda.types.ts`, `student.types.ts`, `template.types.ts` ecc.)
+10. **Split `Settings.tsx`** completamento — estrarre le sezioni AI, Lingua, Export in componenti autonomi
+11. **Migrare `VideoAnalysisModal.tsx`** al proxy Vercel — eliminare l'unico residuo `VITE_GEMINI_API_KEY` browser
+12. **Refactoring `ClassroomView.tsx`** (855 righe) — alta complessità ciclomatica
+13. **Attivare OpenTelemetry** — decommentare `import './tracing'` in `main.tsx`, configurare exporter OTLP
+14. **Tokenizzare `html-template-colors.ts`** — colori HEX hardcoded → token MD3
 
 ---
 
