@@ -59,8 +59,8 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                                variant === 'subject' ? 'var(--md-sys-color-on-tertiary-container)' :
                                'var(--md-sys-color-on-primary-container)'
                     }}>
-                        <span style={{
-                            fontSize: 'var(--md-sys-spacing-5)',
+                        <span className="material-symbols-outlined" aria-hidden="true" style={{
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             userSelect: 'none'
                         }}>{icon}</span>
                     </div>
@@ -119,8 +119,8 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                                     transition: 'opacity var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                                 }}
                             >
-                                <span style={{
-                                    fontSize: 'var(--md-sys-spacing-3)',
+                                <span className="material-symbols-outlined" aria-hidden="true" style={{
+                                    fontSize: 'var(--md-sys-typescale-label-large-font-size)',
                                     userSelect: 'none'
                                 }}>close</span>
                             </button>
@@ -143,8 +143,8 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                     backgroundColor: 'var(--md-sys-color-surface-container-highest)',
                     transition: 'border-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                 }} onClick={() => inputRef.current?.focus()}>
-                    <span style={{
-                        fontSize: 'var(--md-sys-spacing-4)',
+                    <span className="material-symbols-outlined" style={{
+                        fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                         opacity: 'var(--md-sys-state-opacity-secondary)',
                         transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
                         color: 'var(--md-sys-color-on-surface-variant)'
@@ -186,8 +186,8 @@ const ChipInputList: React.FC<ChipInputListProps> = ({ items, onAdd, onRemove, p
                         }}
                         disabled={!newItem.trim()}
                     >
-                        <span style={{
-                            fontSize: 'var(--md-sys-spacing-4)',
+                        <span className="material-symbols-outlined" aria-hidden="true" style={{
+                            fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                             userSelect: 'none'
                         }}>arrow_forward</span>
                     </button>

@@ -18,7 +18,9 @@ exports[`CategoryCard Story Snapshots > renders default story correctly 1`] = `
         style="width: var(--md-sys-spacing-8); height: var(--md-sys-spacing-8); border-radius: var(--md-sys-shape-corner-medium); display: flex; align-items: center; justify-content: center; color: blue; transition: opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard); transform: rotate(0deg) scale(1);"
       >
         <span
-          style="font-size: var(--md-sys-spacing-6);"
+          aria-hidden="true"
+          class="material-symbols-outlined"
+          style="font-size: var(--md-sys-typescale-title-large-font-size);"
         >
           test
         </span>

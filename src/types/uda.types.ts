@@ -174,6 +174,10 @@ export interface TimetableSettings {
     autoSyncEnabled: boolean;
     autoSyncInterval: number;
     securityPin: string;
+    /** Numero di ore di lezione giornaliere (default 6) */
+    oreGiornaliere?: number;
+    /** Ora di inizio della prima lezione (formato HH:MM, default '08:00') */
+    orarioInizio?: string;
     /** Flag persistito: true dopo che l'utente ha completato o saltato l'onboarding */
     onboarded?: boolean;
 }

@@ -51,7 +51,7 @@ describe('useSettingsLogic', () => {
 
   it('should initialize with local state', () => {
     const { result } = renderHook(() => useSettingsLogic(mockProps));
-    expect(result.current.localSettings).toEqual(mockSettings);
+    expect(result.current.localSettings).toMatchObject(mockSettings);
     expect(result.current.localAiSettings).toEqual(mockAiSettings);
   });
 

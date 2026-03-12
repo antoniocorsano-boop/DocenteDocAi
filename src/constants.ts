@@ -196,6 +196,8 @@ export const DEFAULT_TIMETABLE_SETTINGS: TimetableSettings = {
     autoSyncEnabled: true,
     autoSyncInterval: 5,
     securityPin: '0000',
+    oreGiornaliere: 6,
+    orarioInizio: '08:00',
 };
 
 

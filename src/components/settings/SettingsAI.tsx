@@ -151,11 +151,11 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>calendar_month</Box>
                             <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Anno Scolastico</Typography>
                         </Stack>
-                        <Button onClick={handleAddNextYear} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add_circle</Box>}>
-                            Aggiungi
+                        <Button onClick={handleAddNextYear} variant="outlined" size="small" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add_circle</Box>}>
+                            Aggiungi anno
                         </Button>
                     </Stack>
-                    <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 2 }}>
+                    <Stack spacing={2}>
                         <FormControl size="small" fullWidth>
                             <InputLabel>Anno Corrente</InputLabel>
                             <Select label="Anno Corrente" value={localSettings.annoScolasticoCorrente} onChange={e => handleChange('annoScolasticoCorrente', e.target.value as string)}>
@@ -170,7 +170,74 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
                             placeholder="Es: 2025/2026"
                             icon="history"
                         />
+                    </Stack>
+                </Box>
+
+                {/* CONFIGURAZIONE ORARIO GIORNALIERO */}
+                <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
+                    <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-tertiary)' }}>schedule</Box>
+                        <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)', lineHeight: 1.5 }}>Configurazione Orario</Typography>
+                    </Stack>
+                    <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 2 }}>
+                        <FormControl size="small" fullWidth>
+                            <InputLabel>Ore giornaliere</InputLabel>
+                            <Select
+                                label="Ore giornaliere"
+                                value={localSettings.oreGiornaliere ?? 6}
+                                onChange={e => {
+                                    const ore = Number(e.target.value);
+                                    const startH = parseInt((localSettings.orarioInizio ?? '08:00').split(':')[0], 10);
+                                    const startM = parseInt((localSettings.orarioInizio ?? '08:00').split(':')[1], 10);
+                                    const slots = Array.from({ length: ore }, (_, i) => {
+                                        const total = startH * 60 + startM + i * 60;
+                                        const h = Math.floor(total / 60).toString().padStart(2, '0');
+                                        const m = (total % 60).toString().padStart(2, '0');
+                                        return `${h}:${m}`;
+                                    });
+                                    handleChange('oreGiornaliere', ore);
+                                    handleChange('timeSlots', slots);
+                                }}
+                            >
+                                {[4, 5, 6, 7, 8, 9, 10].map(n => (
+                                    <MenuItem key={n} value={n}>{n} ore</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <FormControl size="small" fullWidth>
+                            <InputLabel>Inizio lezioni</InputLabel>
+                            <Select
+                                label="Inizio lezioni"
+                                value={localSettings.orarioInizio ?? '08:00'}
+                                onChange={e => {
+                                    const start = e.target.value as string;
+                                    const ore = localSettings.oreGiornaliere ?? 6;
+                                    const [sh, sm] = start.split(':').map(Number);
+                                    const slots = Array.from({ length: ore }, (_, i) => {
+                                        const total = sh * 60 + sm + i * 60;
+                                        const h = Math.floor(total / 60).toString().padStart(2, '0');
+                                        const m = (total % 60).toString().padStart(2, '0');
+                                        return `${h}:${m}`;
+                                    });
+                                    handleChange('orarioInizio', start);
+                                    handleChange('timeSlots', slots);
+                                }}
+                            >
+                                {['07:00', '07:30', '08:00', '08:30', '09:00'].map(t => (
+                                    <MenuItem key={t} value={t}>{t}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                     </Box>
+                    {(localSettings.timeSlots ?? []).length > 0 && (
+                        <Box sx={{ mt: 2, p: 1.5, bgcolor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)', display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                            {(localSettings.timeSlots ?? []).map(slot => (
+                                <Box key={slot} sx={{ px: 1.5, py: 0.5, bgcolor: 'var(--md-sys-color-tertiary-container)', color: 'var(--md-sys-color-on-tertiary-container)', borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>
+                                    {slot}
+                                </Box>
+                            ))}
+                        </Box>
+                    )}
                 </Box>
 
                 {/* GESTIONE CATTEDRA */}

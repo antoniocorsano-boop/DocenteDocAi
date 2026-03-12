@@ -91,8 +91,8 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
                 transform: hovered && !isSelected ? 'rotate(6deg) scale(1.1)' : 'rotate(0deg) scale(1)'
             }}
         >
-            <span style={{
-                fontSize: 'var(--md-sys-spacing-6)'
+            <span className="material-symbols-outlined" aria-hidden="true" style={{
+                fontSize: 'var(--md-sys-typescale-title-large-font-size)'
             }}>{icon}</span>
         </div>
         <div style={{

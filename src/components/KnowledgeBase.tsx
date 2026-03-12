@@ -11,10 +11,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import SearchOffIcon from '@mui/icons-material/SearchOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 import { KnowledgeBaseEntry, Corpus, AiSettings, TimetableSettings } from '../types';
 const AddSourceModal = lazy(() => import('./AddSourceModal'));
 const DocumentViewerModal = lazy(() => import('./DocumentViewerModal')); 
@@ -101,21 +101,30 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
         const categoryInfo = currentView.type === 'category' ? KB_CATEGORIES.find(c => c.id === currentView.id) : null;
         return (
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                <Box component="header" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 3, py: 2, bgcolor: 'background.paper', borderBottom: '1px solid', borderColor: 'divider' }}>
+                <Box component="header" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, py: 1.5, bgcolor: 'var(--md-sys-color-surface-container)', borderBottom: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)', borderRadius: 'var(--md-sys-shape-corner-large)', mb: 1 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                        <IconButton onClick={() => setCurrentView({ type: 'root', id: '' })} aria-label="Torna alle cartelle">
-                            <ArrowBackIcon />
+                        <IconButton onClick={() => setCurrentView({ type: 'root', id: '' })} aria-label="Torna alle cartelle" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true">arrow_back</Box>
                         </IconButton>
-                        <Typography variant="h6">{categoryInfo?.label || 'File'}</Typography>
+                        {categoryInfo?.icon && (
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-title-medium-font-size)' }}>{categoryInfo.icon}</Box>
+                        )}
+                        <Typography variant="h6" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{categoryInfo?.label || 'File'}</Typography>
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                        <input 
-                            type="text" 
-                            placeholder="Cerca in questa cartella..." 
-                            value={searchTerm} 
-                            onChange={(e) => setSearchTerm(e.target.value)} 
+                    <FormControl size="small" variant="outlined" sx={{ minWidth: 200 }}>
+                        <InputLabel htmlFor="kb-search">Cerca</InputLabel>
+                        <OutlinedInput
+                            id="kb-search"
+                            label="Cerca"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            startAdornment={
+                                <InputAdornment position="start">
+                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>search</Box>
+                                </InputAdornment>
+                            }
                         />
-                    </Box>
+                    </FormControl>
                 </Box>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -123,16 +132,14 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                         <Box 
                             key={entry.id} 
                             onClick={() => handleFileClick(entry)}
-                            sx={{ display: 'flex', alignItems: 'center', gap: 1.5, p: 2, cursor: 'pointer', bgcolor: 'background.paper', borderRadius: 'var(--md-sys-shape-corner-medium)', '&:hover': { bgcolor: 'action.hover' } }}
+                            sx={{ display: 'flex', alignItems: 'center', gap: 1.5, p: 2, cursor: 'pointer', bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-medium)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)', '&:hover': { bgcolor: 'var(--md-sys-color-surface-container-high)' } }}
                         >
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 24 }}>
-                                    {entry.category === 'ai_deliverable' ? 'auto_awesome' : (entry.fileContent?.mimeType === 'application/pdf' ? 'picture_as_pdf' : 'description')}
-                                </Box>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-title-large-font-size)', color: entry.category === 'ai_deliverable' ? 'var(--md-sys-color-secondary)' : 'var(--md-sys-color-primary)', flexShrink: 0 }}>
+                                {entry.category === 'ai_deliverable' ? 'auto_awesome' : (entry.fileContent?.mimeType === 'application/pdf' ? 'picture_as_pdf' : 'description')}
                             </Box>
                             <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0 }}>
-                                <Typography variant="subtitle2" noWrap>{entry.fileName}</Typography>
-                                <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                                <Typography variant="subtitle2" noWrap sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>{entry.fileName}</Typography>
+                                <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                                     {entry.isGenerated ? 'Generato con AI' : 'Documento locale'}
                                 </Typography>
                             </Box>
@@ -140,15 +147,16 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                                 onClick={(e) => { e.stopPropagation(); handleDeleteFile(entry.id); }} 
                                 aria-label={`Elimina ${entry.fileName}`}
                                 size="small"
+                                sx={{ color: 'var(--md-sys-color-error)' }}
                             >
-                                <DeleteIcon fontSize="small" />
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>delete</Box>
                             </IconButton>
                         </Box>
                     ))}
                     {filteredFiles.length === 0 && (
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, p: 3 }}>
-                            <SearchOffIcon sx={{ color: 'text.secondary' }} />
-                            <Typography variant="body2" sx={{ color: 'text.secondary' }}>Nessun file trovato in questa cartella.</Typography>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>search_off</Box>
+                            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Nessun file trovato in questa cartella.</Typography>
                         </Box>
                     )}
                 </Box>
@@ -164,7 +172,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                     subtitle="Archivio fonti, documenti e deliverable generati dall'AI."
                     icon="database"
                 />
-                <Button variant="contained" onClick={() => setIsAddSourceModalOpen(true)} startIcon={<AddCircleIcon />}>
+                <Button variant="contained" onClick={() => setIsAddSourceModalOpen(true)} startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add_circle</Box>}>
                     Carica Documenti
                 </Button>
             </Box>
