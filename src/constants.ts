@@ -124,6 +124,46 @@ export const DEFAULT_COMPETENZE: Competenza[] = [
     { id: 'comp-key-6', codice: 'C. Chiave 6', nome: 'Competenza in materia di cittadinanza', framework: 'Competenze Chiave Europee (2018)', livelli: createLivelli('ck6') },
     { id: 'comp-key-7', codice: 'C. Chiave 7', nome: 'Competenza imprenditoriale', framework: 'Competenze Chiave Europee (2018)', livelli: createLivelli('ck7') },
     { id: 'comp-key-8', codice: 'C. Chiave 8', nome: 'Competenza in materia di consapevolezza ed espressione culturali', framework: 'Competenze Chiave Europee (2018)', livelli: createLivelli('ck8') },
+
+    // === CERTIFICAZIONE PRIMO CICLO — DM 742/2017 ===
+    // Competenze certificate al termine della Scuola Primaria e della Secondaria di I Grado
+    // Riferimento normativo: DM 3 ottobre 2017 n. 742 + Indicazioni Nazionali DM 254/2012
+    { id: 'pc-1', codice: 'PC 1', nome: 'Comunicazione nella madrelingua / lingua di istruzione', framework: 'Primo Ciclo — DM 742/2017', livelli: createLivelli('pc1') },
+    { id: 'pc-2', codice: 'PC 2', nome: 'Comunicazione nelle lingue straniere', framework: 'Primo Ciclo — DM 742/2017', livelli: createLivelli('pc2') },
+    { id: 'pc-3', codice: 'PC 3', nome: 'Competenza matematica e competenze di base in scienze e tecnologia', framework: 'Primo Ciclo — DM 742/2017', livelli: createLivelli('pc3') },
+    { id: 'pc-4', codice: 'PC 4', nome: 'Competenze digitali', framework: 'Primo Ciclo — DM 742/2017', livelli: createLivelli('pc4') },
+    { id: 'pc-5', codice: 'PC 5', nome: 'Imparare ad imparare', framework: 'Primo Ciclo — DM 742/2017', livelli: createLivelli('pc5') },
+    { id: 'pc-6', codice: 'PC 6', nome: 'Competenze sociali e civiche', framework: 'Primo Ciclo — DM 742/2017', livelli: createLivelli('pc6') },
+    { id: 'pc-7', codice: 'PC 7', nome: 'Spirito di iniziativa e imprenditorialità', framework: 'Primo Ciclo — DM 742/2017', livelli: createLivelli('pc7') },
+    { id: 'pc-8', codice: 'PC 8', nome: 'Consapevolezza ed espressione culturale', framework: 'Primo Ciclo — DM 742/2017', livelli: createLivelli('pc8') },
+
+    // === EDUCAZIONE CIVICA — L. 92/2019 + DM 35/2020 ===
+    // Tre nuclei tematici trasversali a tutti gli ordini scolastici (33 ore/anno obbligatorie)
+    { id: 'ec-1', codice: 'EC 1', nome: 'Costituzione, legalità, diritti e solidarietà', framework: 'Educazione Civica — L. 92/2019', livelli: createLivelli('ec1') },
+    { id: 'ec-2', codice: 'EC 2', nome: 'Sviluppo sostenibile, ambiente e Agenda 2030', framework: 'Educazione Civica — L. 92/2019', livelli: createLivelli('ec2') },
+    { id: 'ec-3', codice: 'EC 3', nome: 'Cittadinanza digitale (privacy, sicurezza, identità online)', framework: 'Educazione Civica — L. 92/2019', livelli: createLivelli('ec3') },
+
+    // === DIGCOMP 2.2 — COMPETENZE DIGITALI STUDENTI (Raccomandazione UE 2022) ===
+    // Da non confondere con DigCompEdu (per docenti): queste riguardano i cittadini/studenti
+    { id: 'dcit-1', codice: 'DC 1', nome: 'Alfabetizzazione su informazioni e dati', framework: 'DigComp 2.2 — Studenti', livelli: createLivelli('dcit1') },
+    { id: 'dcit-2', codice: 'DC 2', nome: 'Comunicazione e collaborazione digitale', framework: 'DigComp 2.2 — Studenti', livelli: createLivelli('dcit2') },
+    { id: 'dcit-3', codice: 'DC 3', nome: 'Creazione di contenuti digitali', framework: 'DigComp 2.2 — Studenti', livelli: createLivelli('dcit3') },
+    { id: 'dcit-4', codice: 'DC 4', nome: 'Sicurezza online e benessere digitale', framework: 'DigComp 2.2 — Studenti', livelli: createLivelli('dcit4') },
+    { id: 'dcit-5', codice: 'DC 5', nome: 'Risoluzione di problemi e pensiero computazionale', framework: 'DigComp 2.2 — Studenti', livelli: createLivelli('dcit5') },
+
+    // === ORIENTAMENTO — DM 328/2022 (Linee guida per l'orientamento) ===
+    // Attività di orientamento obbligatorie dal 2023/24 (30 ore biennio II grado, 60h triennio)
+    { id: 'or-1', codice: 'OR 1', nome: 'Autoconoscenza, autoefficacia e motivazione', framework: 'Orientamento — DM 328/2022', livelli: createLivelli('or1') },
+    { id: 'or-2', codice: 'OR 2', nome: 'Esplorazione del sé e del contesto formativo e lavorativo', framework: 'Orientamento — DM 328/2022', livelli: createLivelli('or2') },
+    { id: 'or-3', codice: 'OR 3', nome: 'Pianificazione del progetto personale e professionale', framework: 'Orientamento — DM 328/2022', livelli: createLivelli('or3') },
+    { id: 'or-4', codice: 'OR 4', nome: 'Transizione, employability e adattabilità al cambiamento', framework: 'Orientamento — DM 328/2022', livelli: createLivelli('or4') },
+
+    // === ASSI CULTURALI — DM 139/2007 (Biennio Secondaria II Grado) ===
+    // Obbligo scolastico: competenze di base al termine del biennio (16 anni)
+    { id: 'ac-1', codice: 'AC-L', nome: 'Asse dei linguaggi (italiano, lingue straniere, espressività)', framework: 'Assi Culturali — DM 139/2007', livelli: createLivelli('ac1') },
+    { id: 'ac-2', codice: 'AC-M', nome: 'Asse matematico (calcolo, modellizzazione, problem solving)', framework: 'Assi Culturali — DM 139/2007', livelli: createLivelli('ac2') },
+    { id: 'ac-3', codice: 'AC-S', nome: 'Asse scientifico-tecnologico (osservazione, sperimentazione, tecnologia)', framework: 'Assi Culturali — DM 139/2007', livelli: createLivelli('ac3') },
+    { id: 'ac-4', codice: 'AC-H', nome: 'Asse storico-sociale (storia, diritto, economia, cittadinanza)', framework: 'Assi Culturali — DM 139/2007', livelli: createLivelli('ac4') },
 ];
 
 export const INITIAL_KB_GUIDE: KnowledgeBaseEntry = {

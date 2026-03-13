@@ -7,7 +7,7 @@
  * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
  */
 
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState, useMemo, Suspense, lazy } from 'react';
 import { Uda, Competenza, UdaPlannerProps } from '../types';
 import { logger } from '../utils/logger';
 const UdaExportModal = lazy(() => import('./UdaExportModal'));
@@ -21,6 +21,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
+import Chip from '@mui/material/Chip';
 const createNewUda = (): Uda => ({
     id: `uda-${Date.now()}`,
     title: '',
@@ -40,6 +41,16 @@ const createNewUda = (): Uda => ({
     textColor: 'var(--md-sys-color-on-primary)'
 });
 
+const FRAMEWORK_SHORT: Record<string, string> = {
+    'DigCompEdu 3.0 (AI)': 'DigCompEdu',
+    'Competenze Chiave Europee (2018)': 'EU 2018',
+    'Primo Ciclo \u2014 DM 742/2017': 'Primo Ciclo',
+    'Educazione Civica \u2014 L. 92/2019': 'Ed. Civica',
+    'DigComp 2.2 \u2014 Studenti': 'DigComp 2.2',
+    'Orientamento \u2014 DM 328/2022': 'Orientamento',
+    'Assi Culturali \u2014 DM 139/2007': 'Assi Culturali',
+};
+
 interface UdaEditorProps {
     udaProp: Uda | 'new';
     onSaveUda: (uda: Uda) => void;
@@ -52,6 +63,8 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
   const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [currentUda, setCurrentUda] = useState<Uda>(udaProp === 'new' ? createNewUda() : { ...udaProp });
     const [isCompetencyPickerOpen, setIsCompetencyPickerOpen] = useState(false);
+    const [compSearch, setCompSearch] = useState('');
+    const [compFrameworkFilter, setCompFrameworkFilter] = useState<string | null>(null);
     const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
 
     const handleFieldChange = (field: keyof Uda, value: unknown) => setCurrentUda(prev => ({ ...prev, [field]: value }));
@@ -97,7 +110,26 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
     const handlePickerClose = () => {
         logger.audit('Closed competency picker');
         setIsCompetencyPickerOpen(false);
+        setCompSearch('');
+        setCompFrameworkFilter(null);
     };
+
+    const allFrameworks = useMemo(
+        () => [...new Set(competenze.map(c => c.framework ?? ''))].filter(Boolean),
+        [competenze]
+    );
+
+    const filteredGrouped = useMemo(() => {
+        const q = compSearch.trim().toLowerCase();
+        const filtered = competenze.filter(c =>
+            (!compFrameworkFilter || c.framework === compFrameworkFilter) &&
+            (!q || c.nome.toLowerCase().includes(q) || c.codice.toLowerCase().includes(q))
+        );
+        const fws = compFrameworkFilter ? [compFrameworkFilter] : allFrameworks;
+        return fws
+            .map(fw => ({ fw, items: filtered.filter(c => c.framework === fw) }))
+            .filter(g => g.items.length > 0);
+    }, [competenze, compSearch, compFrameworkFilter, allFrameworks]);
 
     return (
         <>
@@ -218,56 +250,139 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                     <M3Dialog
                         onClose={handlePickerClose}
                         title="Seleziona Competenze"
-                        maxWidth="xl"
+                        maxWidth="sm"
                     >
-                        <DialogContent>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
-                                {competenze.map(comp => {
-                                    const isSelected = currentUda.competencyIds.includes(comp.id);
-                                    return (
-                                        <div 
-                                            key={comp.id} 
-                                            onClick={() => handleCompetencyToggle(comp.id)}
-                                                                                        style={{
-                                                                                            display: 'flex',
-                                                                                            alignItems: 'center',
-                                                                                            gap: 'var(--md-sys-spacing-4)',
-                                                                                            padding: 'var(--md-sys-spacing-6)',
-                                                                                            borderRadius: 'var(--md-sys-shape-corner-medium)',
-                                                                                            backgroundColor: isSelected ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container-low)',
-                                                                                            border: isSelected ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
-                                                                                            fontWeight: isSelected ? 700 : 400,
-                                                                                            cursor: 'pointer',
-                                                                                            transition: 'opacity, transform, background-color, color, border-color-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
-                                                                                        }}
-                                                                                >
-                                                                                        <div
-                                                                                            style={{
-                                                                                                width: 'var(--md-sys-spacing-6)',
-                                                                                                height: 'var(--md-sys-spacing-6)',
-                                                                                                borderRadius: 'var(--md-sys-shape-corner-full)',
-                                                                                                backgroundColor: isSelected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface)',
-                                                                                                display: 'flex',
-                                                                                                alignItems: 'center',
-                                                                                                justifyContent: 'center',
-                                                                                                color: isSelected ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-outline)',
-                                                                                                border: isSelected ? 'none' : 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)',
-                                                                                                marginRight: 'var(--md-sys-spacing-4)',
-                                                                                            }}
-                                                                                        >
-                                                                                            {isSelected && <Box component="span" className="material-symbols-outlined" aria-hidden="true">check</Box>}
-                                                                                        </div>
-                                                                                        <div style={{ minWidth: '0' }}>
-                                                                                            <Typography component="p" variant="body1" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', margin: 0 }}>{comp.codice}</Typography>
-                                                                                            <Typography component="p" variant="body1" sx={{ margin: 0 }}>{comp.nome}</Typography>
-                                                                                        </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
+                        <Box sx={{
+                            px: 'var(--md-sys-spacing-4)',
+                            pt: 'var(--md-sys-spacing-3)',
+                            pb: 'var(--md-sys-spacing-2)',
+                            borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                            bgcolor: 'var(--md-sys-color-surface)',
+                        }}>
+                            <TextField
+                                fullWidth
+                                size="small"
+                                placeholder="Cerca competenza…"
+                                value={compSearch}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCompSearch(e.target.value)}
+                                slotProps={{ input: { startAdornment: (
+                                    <InputAdornment position="start">
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: '18px', color: 'var(--md-sys-color-on-surface-variant)' }}>search</Box>
+                                    </InputAdornment>
+                                ) } }}
+                                sx={{ mb: 'var(--md-sys-spacing-2)' }}
+                            />
+                            <Box sx={{ display: 'flex', gap: 'var(--md-sys-spacing-2)', overflowX: 'auto', pb: 'var(--md-sys-spacing-1)', '&::-webkit-scrollbar': { height: '3px' } }}>
+                                <Chip
+                                    label="Tutti"
+                                    size="small"
+                                    onClick={() => setCompFrameworkFilter(null)}
+                                    color={compFrameworkFilter === null ? 'primary' : 'default'}
+                                    variant={compFrameworkFilter === null ? 'filled' : 'outlined'}
+                                />
+                                {allFrameworks.map(fw => (
+                                    <Chip
+                                        key={fw}
+                                        label={FRAMEWORK_SHORT[fw] ?? fw}
+                                        size="small"
+                                        onClick={() => setCompFrameworkFilter(prev => prev === fw ? null : fw)}
+                                        color={compFrameworkFilter === fw ? 'primary' : 'default'}
+                                        variant={compFrameworkFilter === fw ? 'filled' : 'outlined'}
+                                        sx={{ whiteSpace: 'nowrap' }}
+                                    />
+                                ))}
+                            </Box>
+                        </Box>
+                        <DialogContent sx={{ p: 0 }}>
+                            {filteredGrouped.length === 0 ? (
+                                <EmptyState message="Nessuna competenza trovata" />
+                            ) : (
+                                filteredGrouped.map(({ fw, items }) => (
+                                    <Box key={fw}>
+                                        <Typography
+                                            variant="caption"
+                                            component="p"
+                                            sx={{
+                                                px: 'var(--md-sys-spacing-4)',
+                                                py: 'var(--md-sys-spacing-2)',
+                                                color: 'var(--md-sys-color-primary)',
+                                                bgcolor: 'var(--md-sys-color-surface-container-low)',
+                                                fontWeight: 'var(--md-sys-typescale-weight-medium)',
+                                                letterSpacing: '0.05em',
+                                                textTransform: 'uppercase',
+                                                display: 'block',
+                                                borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                                            }}
+                                        >
+                                            {fw}
+                                        </Typography>
+                                        {items.map(comp => {
+                                            const isSelected = currentUda.competencyIds.includes(comp.id);
+                                            return (
+                                                <ButtonBase
+                                                    key={comp.id}
+                                                    onClick={() => handleCompetencyToggle(comp.id)}
+                                                    component="div"
+                                                    sx={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        gap: 'var(--md-sys-spacing-3)',
+                                                        width: '100%',
+                                                        textAlign: 'left',
+                                                        px: 'var(--md-sys-spacing-4)',
+                                                        py: 'var(--md-sys-spacing-2)',
+                                                        minHeight: '40px',
+                                                        bgcolor: isSelected ? 'var(--md-sys-color-primary-container)' : 'transparent',
+                                                        borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                                                        '&:hover': { bgcolor: isSelected ? 'var(--md-sys-color-primary-container)' : 'var(--md-sys-color-surface-container)' },
+                                                        transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)',
+                                                    }}
+                                                >
+                                                    <Box sx={{
+                                                        width: '18px', height: '18px', flexShrink: 0,
+                                                        borderRadius: 'var(--md-sys-shape-corner-extra-small)',
+                                                        bgcolor: isSelected ? 'var(--md-sys-color-primary)' : 'transparent',
+                                                        border: isSelected ? 'none' : '1.5px solid var(--md-sys-color-outline)',
+                                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                        color: 'var(--md-sys-color-on-primary)',
+                                                    }}>
+                                                        {isSelected && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: '13px' }}>check</Box>}
+                                                    </Box>
+                                                    <Box sx={{
+                                                        px: '6px', py: '2px',
+                                                        bgcolor: isSelected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-secondary-container)',
+                                                        color: isSelected ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-secondary-container)',
+                                                        borderRadius: 'var(--md-sys-shape-corner-full)',
+                                                        fontSize: '0.65rem',
+                                                        fontWeight: 'var(--md-sys-typescale-weight-bold)',
+                                                        lineHeight: '1.5',
+                                                        flexShrink: 0,
+                                                        whiteSpace: 'nowrap',
+                                                    }}>
+                                                        {comp.codice}
+                                                    </Box>
+                                                    <Typography variant="body2" component="span" sx={{
+                                                        color: isSelected ? 'var(--md-sys-color-on-primary-container)' : 'var(--md-sys-color-on-surface)',
+                                                        fontWeight: isSelected ? 'var(--md-sys-typescale-weight-medium)' : 'var(--md-sys-typescale-weight-regular)',
+                                                        lineHeight: '1.35',
+                                                    }}>
+                                                        {comp.nome}
+                                                    </Typography>
+                                                </ButtonBase>
+                                            );
+                                        })}
+                                    </Box>
+                                ))
+                            )}
                         </DialogContent>
-                        <DialogActions >
-                            <Button onClick={handlePickerClose} variant="contained" sx={{ width: "var(--md-sys-percent-100)" }}>Conferma Selezione</Button>
+                        <DialogActions sx={{ px: 'var(--md-sys-spacing-4)', py: 'var(--md-sys-spacing-3)', gap: 'var(--md-sys-spacing-2)', justifyContent: 'space-between' }}>
+                            <Typography variant="caption" sx={{ color: 'var(--md-sys-color-outline)' }}>
+                                {currentUda.competencyIds.length > 0 ? `${currentUda.competencyIds.length} selezionate` : 'Nessuna selezionata'}
+                            </Typography>
+                            <Box sx={{ display: 'flex', gap: 'var(--md-sys-spacing-2)' }}>
+                                <Button onClick={handlePickerClose} variant="outlined">Annulla</Button>
+                                <Button onClick={handlePickerClose} variant="contained">Conferma</Button>
+                            </Box>
                         </DialogActions>
                     </M3Dialog>
                 )}

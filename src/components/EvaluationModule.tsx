@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, EvaluationModuleProps, Prova } from '../types';
 import AddProvaModal from './AddProvaModal';
+import BulkEvaluationModal from './BulkEvaluationModal';
 import StudentProfile from './StudentProfile';
 import ExportModal from './ExportModal';
 import { calculatePerformance } from '../utils/evaluationUtils';
@@ -50,6 +51,7 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
     const [selectedClass, setSelectedClass] = useState<string>(initialClass || userClasses[0] || '1A');
     const [activeTab, setActiveTab] = useState<ViewTab>('grid');
     const [isAddProvaModalOpen, setIsAddProvaModalOpen] = useState(false);
+    const [isBulkModalOpen, setIsBulkModalOpen] = useState(false);
     const [isExportModalOpen, setIsExportModalOpen] = useState(false);
     const [viewingStudent, setViewingStudent] = useState<Studente | null>(() => {
         if (initialStudentId) {
@@ -463,9 +465,14 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                         </Select>
                     </FormControl>
 
-                    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)' }}>
-                        <Button variant="contained" onClick={() => setIsAddProvaModalOpen(true)}>
+                    <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)', flexWrap: 'wrap' }}>
+                        <Button variant="contained" onClick={() => setIsAddProvaModalOpen(true)}
+                            startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">add_task</Box>}>
                             Nuova Prova
+                        </Button>
+                        <Button variant="contained" color="secondary" onClick={() => setIsBulkModalOpen(true)}
+                            startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">group_work</Box>}>
+                            Di Gruppo
                         </Button>
                         <Button variant="outlined" onClick={() => setIsExportModalOpen(true)}>
                             Esporta
@@ -543,6 +550,23 @@ const EvaluationModule: React.FC<EvaluationModuleProps> = ({
                     disciplines={disciplines}
                     onClose={() => setIsAddProvaModalOpen(false)}
                     onSave={handleSaveNewProva}
+                />
+            )}
+
+            {isBulkModalOpen && (
+                <BulkEvaluationModal
+                    students={filteredStudents}
+                    evaluations={evaluations}
+                    settings={settings}
+                    onClose={() => setIsBulkModalOpen(false)}
+                    onSave={(evals) => {
+                        evals.forEach(ev => {
+                            setEvaluations((prev: Valutazione[]) => [
+                                ...prev,
+                                { ...ev, id: `eval-bulk-${Date.now()}-${ev.studenteId}` }
+                            ]);
+                        });
+                    }}
                 />
             )}
 
