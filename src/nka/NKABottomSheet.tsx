@@ -13,7 +13,6 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Skeleton from '@mui/material/Skeleton';
-import Icon from '@mui/material/Icon';
 import { logger } from '../utils/logger';
 
 interface NKABottomSheetProps {
@@ -154,7 +153,7 @@ const NKABottomSheet: React.FC<NKABottomSheetProps> = ({ open, nodes, onClose, o
             right: 'var(--md-sys-spacing-4)',
           }}
         >
-          <Icon>close</Icon>
+          <Box component="span" className="material-symbols-outlined" aria-hidden="true">close</Box>
         </IconButton>
 
         <Button
