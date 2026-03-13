@@ -1,8 +1,5 @@
+// MD3 GOLD COMPLIANT — Migrated to M3Dialog (marzo 2026)
 import React, { useState, useEffect } from 'react';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -10,6 +7,7 @@ import Chip from '@mui/material/Chip';
 import EditIcon from '@mui/icons-material/Edit';
 import { Uda, AiSettings, KnowledgeBaseEntry } from '../types';
 import InfoCard from './ui/InfoCard';
+import { M3Dialog } from './ui';
 import { validateUdaVerticalCurriculum } from '../services/aiService';
 import { logger } from '../utils/logger';
 import { useUIStore } from '../stores/useUIStore';
@@ -57,20 +55,31 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
     };
 
     return (
-        <Dialog open onClose={handleClose} maxWidth="md" fullWidth>
-            <DialogTitle>{uda.title}</DialogTitle>
-            <DialogContent sx={{ bgcolor: 'background.default', display: 'flex', flexDirection: 'column', gap: 3, pt: 2 }}>
+        <M3Dialog
+            title={uda.title}
+            onClose={handleClose}
+            maxWidth="lg"
+            buttons={
+                <>
+                    <Button variant="text" onClick={handleClose}>Chiudi</Button>
+                    <Button variant="contained" onClick={handleEdit} startIcon={<EditIcon />}>
+                        Modifica nel Planner
+                    </Button>
+                </>
+            }
+        >
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-5)', pt: 'var(--md-sys-spacing-2)' }}>
                 {/* Metadata Chips */}
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-2)' }}>
                     <Chip icon={<Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 16 }}>school</Box>} label={`Classe ${uda.classe}`} color="primary" variant="outlined" />
                     <Chip icon={<Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 16 }}>menu_book</Box>} label={uda.materia} color="secondary" variant="outlined" />
                     <Chip icon={<Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 16 }}>event</Box>} label={`${new Date(uda.startDate!).toLocaleDateString()} - ${new Date(uda.endDate!).toLocaleDateString()}`} variant="outlined" />
                 </Box>
 
                 {/* AI Validation Section */}
-                <Box sx={{ bgcolor: 'primary.light', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'divider', p: 2, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+                <Box sx={{ bgcolor: 'var(--md-sys-color-primary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid var(--md-sys-color-outline-variant)', p: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'primary.contrastText' }}>
+                        <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-primary-container)' }}>
                             Validazione Curricolo Verticale
                         </Typography>
                         <Button variant="contained" onClick={handleValidate} disabled={isValidating} size="small">
@@ -78,7 +87,7 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
                         </Button>
                     </Box>
                     {validationResult && (
-                        <Box sx={{ bgcolor: 'background.paper', borderRadius: 'var(--md-sys-shape-corner-large)', p: 2, border: '1px solid', borderColor: 'divider' }}>
+                        <Box sx={{ bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', p: 'var(--md-sys-spacing-4)', border: '1px solid var(--md-sys-color-outline-variant)' }}>
                             <Typography variant="body2" sx={{ lineHeight: 1.625 }}>{validationResult}</Typography>
                         </Box>
                     )}
@@ -90,24 +99,24 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
                 </InfoCard>
 
                 {/* Phases Timeline */}
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    <Typography variant="overline" sx={{ color: 'text.secondary', fontWeight: 'var(--md-sys-typescale-weight-bold)', letterSpacing: '0.05em' }}>Fasi di Lavoro</Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                    <Typography variant="overline" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Fasi di Lavoro</Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
                         {uda.phases.map((phase) => (
-                            <Box key={phase.id} sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, p: 2, bgcolor: 'background.paper', borderRadius: 'var(--md-sys-shape-corner-medium)', borderLeft: '4px solid', borderColor: 'primary.main' }}>
+                            <Box key={phase.id} sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-1)', p: 'var(--md-sys-spacing-4)', bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-medium)', borderLeft: '4px solid var(--md-sys-color-primary)' }}>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                                    <Typography variant="subtitle2" sx={{ color: 'primary.main', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{phase.title}</Typography>
+                                    <Typography variant="titleSmall" sx={{ color: 'var(--md-sys-color-primary)' }}>{phase.title}</Typography>
                                     <Chip label={`${phase.duration}h`} size="small" color="secondary" />
                                 </Box>
                                 <Typography variant="body2" sx={{ fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>{phase.description}</Typography>
-                                <Typography variant="body2" sx={{ color: 'text.secondary' }}>{phase.activities}</Typography>
+                                <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{phase.activities}</Typography>
                             </Box>
                         ))}
                     </Box>
                 </Box>
 
                 {/* Additional Info Grid */}
-                <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 2 }}>
+                <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--md-sys-spacing-4)' }}>
                     <InfoCard title="Prodotto Finale" icon="inventory_2">
                         <Typography variant="body2">{uda.finalProduct}</Typography>
                     </InfoCard>
@@ -115,15 +124,8 @@ const UdaDetailModal: React.FC<UdaDetailModalProps> = ({ uda, onClose, onEdit, a
                         <Typography variant="body2">{uda.evaluation}</Typography>
                     </InfoCard>
                 </Box>
-            </DialogContent>
-
-            <DialogActions>
-                <Button variant="text" onClick={handleClose}>Chiudi</Button>
-                <Button variant="contained" onClick={handleEdit} startIcon={<EditIcon />}>
-                    Modifica nel Planner
-                </Button>
-            </DialogActions>
-        </Dialog>
+            </Box>
+        </M3Dialog>
     );
 };
 

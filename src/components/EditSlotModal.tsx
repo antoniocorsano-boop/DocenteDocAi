@@ -1,18 +1,11 @@
-﻿// MD3 Gold Compliant
-// Tutti gli stili usano esclusivamente token MD3 (nessun valore hardcoded)
-// Audit: marzo 2026
+﻿// MD3 GOLD COMPLIANT — Migrated to M3Dialog (marzo 2026)
 import React, { useState, useMemo } from 'react';
 import { Slot, Lezione, TimetableSettings, AiSettings, Uda, KnowledgeBaseEntry, PianoInclusione, Studente } from '../types';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import FormControl from '@mui/material/FormControl';
-import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -21,7 +14,7 @@ import Stack from '@mui/material/Stack';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Typography from '@mui/material/Typography';
-import { SectionHeader, TextField, M3ConfirmDialog } from './ui';
+import { SectionHeader, TextField, M3ConfirmDialog, M3Dialog } from './ui';
 import { useUIStore } from '../stores/useUIStore';
 interface EditSlotModalProps {
     slot: Slot;
@@ -107,24 +100,33 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
         onClose();
     };
 
-    return (
-        <Dialog open onClose={onClose} maxWidth="sm" fullWidth aria-labelledby="edit-slot-dialog-title">
-            <DialogTitle
-                id="edit-slot-dialog-title"
-                sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
-            >
-                <Box>
-                    <Typography variant="h6" component="span">Pianificazione Slot</Typography>
-                    <Typography variant="caption" display="block" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
-                        {slot.giorno} • {slot.ora}
-                    </Typography>
-                </Box>
-                <IconButton edge="end" aria-label="Chiudi" onClick={onClose} size="small" sx={{ ml: 1 }}>
-                    <Box component="span" className="material-symbols-outlined" aria-hidden="true">close</Box>
-                </IconButton>
-            </DialogTitle>
+    const titleNode = (
+        <Box>
+            <Typography variant="h6" component="span">Pianificazione Slot</Typography>
+            <Typography variant="caption" display="block" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
+                {slot.giorno} • {slot.ora}
+            </Typography>
+        </Box>
+    );
 
-            <DialogContent>
+    return (
+        <M3Dialog
+            title={titleNode}
+            onClose={onClose}
+            maxWidth="md"
+            buttons={
+                <>
+                    {lesson && (
+                        <Button onClick={() => setConfirmDialog({ message: 'Eliminare?', onConfirm: () => { onDelete(slotKey); onClose(); } })} variant="text" color="error">
+                            Rimuovi
+                        </Button>
+                    )}
+                    <Box sx={{ flex: 1 }} />
+                    <Button onClick={onClose} variant="text">Annulla</Button>
+                    <Button onClick={handleSave} variant="contained">Conferma</Button>
+                </>
+            }
+        >
                 <Stack spacing="var(--md-sys-spacing-6)" sx={{ pt: 'var(--md-sys-spacing-2)' }}>
                     {/* Activity type selector */}
                     <Box component="section">
@@ -252,7 +254,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--icon-size-medium)', mt: 0.5, flexShrink: 0 }}>pending_actions</Box>
                                     <Box>
                                         <Typography variant="subtitle2">Ora di Disposizione</Typography>
-                                        <Typography variant="body2" color="text.secondary">Registra la tua presenza per sostituzioni o attività di plesso.</Typography>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Registra la tua presenza per sostituzioni o attività di plesso.</Typography>
                                     </Box>
                                 </CardContent>
                             </Card>
@@ -275,7 +277,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-tertiary)', fontSize: 'var(--icon-size-medium)', mt: 0.5, flexShrink: 0 }}>diversity_3</Box>
                                     <Box>
                                         <Typography variant="subtitle2">Colloquio Genitori</Typography>
-                                        <Typography variant="body2" color="text.secondary">Spazio dedicato al ricevimento delle famiglie.</Typography>
+                                        <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Spazio dedicato al ricevimento delle famiglie.</Typography>
                                     </Box>
                                 </CardContent>
                             </Card>
@@ -291,18 +293,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                         </Stack>
                     )}
                 </Stack>
-            </DialogContent>
 
-            <DialogActions>
-                {lesson && (
-                    <Button onClick={() => setConfirmDialog({ message: 'Eliminare?', onConfirm: () => { onDelete(slotKey); onClose(); } })} variant="text" color="error">
-                        Rimuovi
-                    </Button>
-                )}
-                <Box sx={{ flex: 1 }} />
-                <Button onClick={onClose} variant="text">Annulla</Button>
-                <Button onClick={handleSave} variant="contained">Conferma</Button>
-            </DialogActions>
             {confirmDialog && (
                 <M3ConfirmDialog
                     title="Conferma eliminazione"
@@ -312,7 +303,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
                     danger={true}
                 />
             )}
-        </Dialog>
+        </M3Dialog>
     );
 };
 
