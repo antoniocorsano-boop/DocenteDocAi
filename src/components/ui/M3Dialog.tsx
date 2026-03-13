@@ -9,6 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 import { useKeyboardNavigation } from '../../hooks/useKeyboardNavigation';
 
 // ============================================================================
@@ -33,6 +35,7 @@ export interface M3DialogProps {
   hideCloseButton?: boolean;
   level?: number;
   wrapperTestId?: string;
+  mobileFullscreen?: boolean;
 }
 
 const MAX_WIDTH_MAP: Record<NonNullable<M3DialogProps['maxWidth']>, 'xs' | 'sm' | 'md' | 'lg' | 'xl'> = {
@@ -59,7 +62,10 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
   hideBackdrop = false,
   hideCloseButton = false,
   wrapperTestId,
+  mobileFullscreen = false,
 }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   // Keep keyboard navigation hook for accessibility
   const dialogRef = useKeyboardNavigation(isOpen, onClose, { focusOnOpen: true, restoreFocus: true });
 
@@ -76,7 +82,7 @@ export const M3Dialog: React.FC<M3DialogProps> = ({
       onClose={backdropClickable ? onClose : undefined}
       maxWidth={MAX_WIDTH_MAP[maxWidth]}
       fullWidth
-      fullScreen={mode === 'fullscreen'}
+      fullScreen={mode === 'fullscreen' || (mobileFullscreen && isMobile)}
       hideBackdrop={hideBackdrop}
       slotProps={{
         backdrop: { onClick: handleBackdropClick },

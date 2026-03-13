@@ -8,6 +8,8 @@
  */
 
 import React, { useState } from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -48,6 +50,8 @@ interface LessonViewProps {
 }
 
 const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassroom, onUpdateLesson, knowledgeBase, aiSettings, settings }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
   const [isExporting, setIsExporting] = useState(false);
   const [previewingMaterial, setPreviewingMaterial] = useState<KnowledgeBaseEntry | null>(null);
@@ -219,7 +223,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
           color: hsl(${hue}, var(--md-sys-percent-60), var(--md-sys-percent-30));
         }
       `}</style>
-      <Dialog open onClose={onClose} maxWidth="lg" fullWidth fullScreen>
+      <Dialog open onClose={onClose} maxWidth="lg" fullWidth fullScreen={isMobile}>
         <DialogTitle>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <Box className="lesson-icon-dynamic" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 48, height: 48, borderRadius: 'var(--md-sys-shape-corner-large)', flexShrink: 0 }}>

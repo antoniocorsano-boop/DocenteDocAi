@@ -143,7 +143,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
       <DialogContent sx={{
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--md-sys-spacing-6)',
+        gap: { xs: 'var(--md-sys-spacing-4)', sm: 'var(--md-sys-spacing-6)' },
         overflowY: 'auto',
         maxHeight: 'var(--md-sys-spacing-80)'
       }}>
@@ -151,7 +151,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
           <Box sx={{backgroundColor: 'var(--md-sys-color-tertiary-container)',
             opacity: 'var(--md-sys-state-layer-opacity-hover)',
             border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
-            padding: 'var(--md-sys-spacing-8)',
+            padding: { xs: 'var(--md-sys-spacing-4)', sm: 'var(--md-sys-spacing-8)' },
             backdropFilter: 'blur(var(--md-sys-blur-medium))',
             borderRadius: 'var(--md-sys-shape-corner-extra-large)'}}>
             <Box sx={{display: 'flex',
@@ -235,7 +235,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 gap: 'var(--md-sys-spacing-8)'}}>
                 <Box sx={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
-                  padding: 'var(--md-sys-spacing-8)',
+                  padding: { xs: 'var(--md-sys-spacing-4)', sm: 'var(--md-sys-spacing-8)' },
                   border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)'}}>
                   <Box sx={{display: 'flex',
@@ -259,7 +259,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
                 <Box sx={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
-                  padding: 'var(--md-sys-spacing-8)',
+                  padding: { xs: 'var(--md-sys-spacing-4)', sm: 'var(--md-sys-spacing-8)' },
                   border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)'}}>
                   <Box sx={{display: 'flex',
@@ -283,7 +283,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
                 <Box sx={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
-                  padding: 'var(--md-sys-spacing-8)',
+                  padding: { xs: 'var(--md-sys-spacing-4)', sm: 'var(--md-sys-spacing-8)' },
                   border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)'}}>
                   <Box sx={{display: 'flex',
@@ -308,7 +308,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
 
                 <Box sx={{backgroundColor: 'var(--md-sys-color-surface-container-low)',
                   opacity: 'var(--md-sys-state-layer-opacity-disabled)',
-                  padding: 'var(--md-sys-spacing-8)',
+                  padding: { xs: 'var(--md-sys-spacing-4)', sm: 'var(--md-sys-spacing-8)' },
                   border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                   borderRadius: 'var(--md-sys-shape-corner-medium)'}}>
                   <Box sx={{display: 'flex',
@@ -445,7 +445,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       <Box key={type} sx={{display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        padding: 'var(--md-sys-spacing-8)',
+                        padding: { xs: 'var(--md-sys-spacing-4)', sm: 'var(--md-sys-spacing-8)' },
                         backgroundColor: 'var(--md-sys-color-surface)',
                         opacity: 'var(--md-sys-state-layer-opacity-disabled)',
                         borderRadius: 'var(--md-sys-shape-corner-medium)'}}>

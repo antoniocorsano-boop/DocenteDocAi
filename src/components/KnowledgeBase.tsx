@@ -114,7 +114,7 @@ const KnowledgeBase: React.FC<KnowledgeBaseProps> = ({ knowledgeBase, setKnowled
                         )}
                         <Typography variant="h6" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{categoryInfo?.label || 'File'}</Typography>
                     </Box>
-                    <FormControl size="small" variant="outlined" sx={{ minWidth: 200 }}>
+                    <FormControl size="small" variant="outlined" sx={{ minWidth: { xs: '100%', sm: 200 } }}>
                         <InputLabel htmlFor="kb-search">Cerca</InputLabel>
                         <OutlinedInput
                             id="kb-search"

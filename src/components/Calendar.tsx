@@ -520,7 +520,7 @@ const renderHeader = () => {
             {/* Time grid */}
             <Box
                 ref={scrollContainerRef}
-                sx={{ overflowY: 'auto', maxHeight: 'calc(100vh - 200px)' }}
+                sx={{ overflowY: 'auto', maxHeight: 'calc(var(--md-sys-viewport-height-dvh) - 200px)' }}
             >
                 {Array.from({ length: 24 }, (_, hour) => (
                     <Box
@@ -608,7 +608,7 @@ const renderHeader = () => {
                 </Typography>
             </Box>
 
-            <Box ref={scrollContainerRef} sx={{ overflowY: 'auto', maxHeight: 'calc(100vh - 200px)' }}>
+            <Box ref={scrollContainerRef} sx={{ overflowY: 'auto', maxHeight: 'calc(var(--md-sys-viewport-height-dvh) - 200px)' }}>
                 {dayEvents.length === 0 ? (
                     <Stack alignItems="center" justifyContent="center" sx={{ py: 6, textAlign: 'center' }}>
                         <Box
