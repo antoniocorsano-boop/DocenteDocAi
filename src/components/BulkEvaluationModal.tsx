@@ -9,7 +9,9 @@ import { RATING_OPTIONS, EVALUATION_TYPES } from '../constants';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { M3Dialog, Avatar } from './ui';
 import Button from '@mui/material/Button';
+import ButtonBase from '@mui/material/ButtonBase';
 import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 import Tabs from '@mui/material/Tabs';
@@ -166,15 +168,15 @@ const BulkEvaluationModal: React.FC<BulkEvaluationModalProps> = ({
         const isAssigned = variant === 'assigned';
         const otherGrade = variant === 'other' ? assignments[student.id] : null;
         return (
-            <Box
+            <ButtonBase
                 key={student.id}
-                component="button"
                 onClick={onClick}
+                focusRipple
                 aria-label={`${student.cognome} ${student.nome} — ${isAssigned ? 'rimuovi' : 'assegna a ' + activeBand}`}
                 sx={{
                     display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)',
                     width: '100%', textAlign: 'left', px: 'var(--md-sys-spacing-3)',
-                    py: 'var(--md-sys-spacing-2)', border: 'none', cursor: 'pointer',
+                    py: 'var(--md-sys-spacing-2)',
                     borderRadius: 'var(--md-sys-shape-corner-medium)',
                     bgcolor: isAssigned
                         ? 'var(--md-sys-color-primary-container)'
@@ -238,7 +240,7 @@ const BulkEvaluationModal: React.FC<BulkEvaluationModalProps> = ({
                         close
                     </Box>
                 )}
-            </Box>
+            </ButtonBase>
         );
     };
 
@@ -264,21 +266,14 @@ const BulkEvaluationModal: React.FC<BulkEvaluationModalProps> = ({
                     </Select>
                 </FormControl>
 
-                <Box
-                    component="input"
+                <TextField
                     type="date"
                     value={data}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData(e.target.value)}
+                    size="small"
                     aria-label="Data prova"
-                    sx={{
-                        flex: '1 1 130px', height: '40px',
-                        border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
-                        borderRadius: 'var(--md-sys-shape-corner-small)',
-                        px: 'var(--md-sys-spacing-3)',
-                        bgcolor: 'var(--md-sys-color-surface)',
-                        color: 'var(--md-sys-color-on-surface)',
-                        fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                    }}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData(e.target.value)}
+                    sx={{ flex: '1 1 130px' }}
+                    slotProps={{ inputLabel: { shrink: true } }}
                 />
             </Box>
 
@@ -298,23 +293,14 @@ const BulkEvaluationModal: React.FC<BulkEvaluationModalProps> = ({
             </Box>
 
             {/* Argomento */}
-            <Box
-                component="input"
-                type="text"
+            <TextField
                 value={argomento}
-                placeholder="Argomento / titolo prova (opzionale)"
+                label="Argomento / titolo prova"
+                placeholder="opzionale"
+                size="small"
+                fullWidth
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setArgomento(e.target.value)}
                 aria-label="Argomento prova"
-                sx={{
-                    width: '100%', height: '36px',
-                    border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
-                    borderRadius: 'var(--md-sys-shape-corner-small)',
-                    px: 'var(--md-sys-spacing-3)',
-                    bgcolor: 'var(--md-sys-color-surface)',
-                    color: 'var(--md-sys-color-on-surface)',
-                    fontSize: 'var(--md-sys-typescale-body-medium-font-size)',
-                    '&::placeholder': { color: 'var(--md-sys-color-on-surface-variant)' },
-                }}
             />
         </Box>
     );
