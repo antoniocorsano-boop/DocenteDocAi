@@ -1,5 +1,41 @@
 // MD3 Gold Compliant
 // Note: Scrollable areas use viewport height tokens for functional UX
+
+// Web Speech API — not yet in TypeScript's lib.dom.d.ts as stable
+interface SpeechRecognitionResultEntry {
+  readonly transcript: string;
+}
+interface SpeechRecognitionResult {
+  readonly length: number;
+  [index: number]: SpeechRecognitionResultEntry;
+}
+interface SpeechRecognitionResultList {
+  readonly length: number;
+  [index: number]: SpeechRecognitionResult;
+}
+interface SpeechRecognitionEvent extends Event {
+  readonly results: SpeechRecognitionResultList;
+}
+interface SpeechRecognitionErrorEvent extends Event {
+  readonly error: 'not-allowed' | 'no-speech' | 'audio-capture' | string;
+}
+interface SpeechRecognitionInstance {
+  lang: string;
+  interimResults: boolean;
+  maxAlternatives: number;
+  continuous: boolean;
+  start(): void;
+  stop(): void;
+  onresult: ((event: SpeechRecognitionEvent) => void) | null;
+  onend: (() => void) | null;
+  onerror: ((event: SpeechRecognitionErrorEvent) => void) | null;
+}
+type SpeechRecognitionCtor = new () => SpeechRecognitionInstance;
+type SpeechRecognitionWindow = Window & {
+  SpeechRecognition?: SpeechRecognitionCtor;
+  webkitSpeechRecognition?: SpeechRecognitionCtor;
+};
+
 import React, { useState, useRef, useEffect } from 'react';
 import { fetchNotebookFiles, uploadNotebookFile, deleteNotebookFile, NotebookLMFile } from '../services/notebooklmService';
 import { chatWithAi } from '../services/aiService';
@@ -108,8 +144,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [voiceError, setVoiceError] = useState<string | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const recognitionRef = useRef<any>(null);
+  const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // --- Voice Recognition Logic ---
@@ -119,8 +154,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
       setVoiceError('Il riconoscimento vocale non è supportato su questo browser.');
       return;
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const SpeechRecognition = (window as SpeechRecognitionWindow).SpeechRecognition || (window as SpeechRecognitionWindow).webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
     recognition.lang = 'it-IT';
     recognition.interimResults = true;
@@ -129,8 +163,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
     recognitionRef.current = recognition;
     setTranscript('');
     setIsRecording(true);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    recognition.onresult = (event: any) => {
+    recognition.onresult = (event: SpeechRecognitionEvent) => {
       let final = '';
       for (let i = 0; i < event.results.length; ++i) {
           final += event.results[i][0].transcript;
@@ -145,8 +178,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
         setTimeout(() => handleSend(), 100); // invia subito
       }
     };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    recognition.onerror = (event: any) => {
+    recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
       setIsRecording(false);
       setTranscript('');
       let msg = 'Errore durante la dettatura.';

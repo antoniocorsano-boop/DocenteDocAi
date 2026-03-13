@@ -2,12 +2,21 @@
 // Nessun valore hardcoded: solo token MD3, nessun px/rem/%/hex/rgba, nessuna utility custom.
 // Conforme a MD3_GOVERNANCE_COMPLIANCE_CONTRACT.md
 // M3Expressive refactor: Tutti i layout, colori, spaziature e tipografia sono gestiti tramite token MD3.
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // ...vite-env.d.ts should not be imported directly...
 /**
  * Studio.tsx
  * // M3Expressive refactor: Removed inline Tailwind classes, applied dedicated CSS classes with M3 tokens for layout, colors, spacing, and typography.
  */
+
+// AI Studio SDK injected at runtime by the AI Studio host environment
+declare global {
+  interface Window {
+    aistudio?: {
+      hasSelectedApiKey(): Promise<boolean>;
+      openSelectKey(): Promise<void>;
+    };
+  }
+}
 
 import React, { useState, useEffect } from 'react';
 import { KnowledgeBaseEntry, StudioProps, GeneratedQuiz } from '../types'; 
@@ -74,8 +83,8 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
         const localKey = localStorage.getItem('gemini_api_key');
         if (localKey) {
             setHasApiKey(true);
-        } else if ((window as any).aistudio) {
-            (window as any).aistudio.hasSelectedApiKey().then(setHasApiKey);
+        } else if (window.aistudio) {
+            window.aistudio.hasSelectedApiKey().then(setHasApiKey);
         } else {
             setHasApiKey(false);
         }
@@ -227,8 +236,8 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
     );
 
     const handleSelectKey = async () => {
-        if ((window as any).aistudio) {
-            await (window as any).aistudio.openSelectKey();
+        if (window.aistudio) {
+            await window.aistudio.openSelectKey();
             setHasApiKey(true);
         } else {
             showToast("Per favore configura l'API Key nelle Impostazioni.", "error");
@@ -269,7 +278,7 @@ export const Studio: React.FC<StudioProps> = ({ corpora, knowledgeBase, setKnowl
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => setIsKeySelectionOpen(false)} variant="text">Annulla</Button>
-                        {typeof (window as any).aistudio !== 'undefined' && (
+                        {typeof window.aistudio !== 'undefined' && (
                             <Button onClick={handleSelectKey} variant="contained">Seleziona API Key (Demo)</Button>
                         )}
                     </DialogActions>
