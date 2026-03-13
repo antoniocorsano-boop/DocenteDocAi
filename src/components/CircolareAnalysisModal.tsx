@@ -79,12 +79,12 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                     <Button variant="contained" onClick={handleAnalyze} disabled={isLoading || !manualText.trim()}>
                         {isLoading ? (
                             <>
-                                <Typography component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>progress_activity</Typography>
+                                <Typography component="span" className="material-symbols-outlined" sx={{ mr: 'var(--md-sys-spacing-2)' }}>progress_activity</Typography>
                                 Analisi...
                             </>
                         ) : (
                             <>
-                                <Typography component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>auto_awesome</Typography>
+                                <Typography component="span" className="material-symbols-outlined" sx={{ mr: 'var(--md-sys-spacing-2)' }}>auto_awesome</Typography>
                                 Analizza Testo
                             </>
                         )}
@@ -96,7 +96,7 @@ const CircolareAnalysisModal: React.FC<CircolareAnalysisModalProps> = (props) =>
                 <>
                     <Button variant="text" onClick={() => setResult(null)}>Indietro</Button>
                     <Button variant="contained" onClick={handleImport}>
-                        <Typography component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>save</Typography>
+                        <Typography component="span" className="material-symbols-outlined" sx={{ mr: 'var(--md-sys-spacing-2)' }}>save</Typography>
                         Salva Eventi e Note
                     </Button>
                 </>

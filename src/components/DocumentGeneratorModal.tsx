@@ -34,7 +34,7 @@ const DocumentGeneratorModal: React.FC<DocumentGeneratorModalProps> = ({ onClose
                 <>
                     <Button type="button" onClick={onClose} variant="text">Annulla</Button>
                     <Button type="button" onClick={handleSubmit} variant="contained">
-                        <Typography component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>auto_awesome</Typography>
+                        <Typography component="span" className="material-symbols-outlined" sx={{ mr: 'var(--md-sys-spacing-2)' }}>auto_awesome</Typography>
                         Genera Documento
                     </Button>
                 </>

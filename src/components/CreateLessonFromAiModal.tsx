@@ -259,7 +259,7 @@ return (
                                         sx={{ textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)', borderRadius: 'var(--md-sys-shape-corner-medium)' }}
                                         title="Seleziona dal curricolo"
                                     >
-                                        <Typography component="span" sx={{ fontSize: 'var(--md-sys-spacing-4)' }}>library_add</Typography>
+                                        <Typography component="span" className="material-symbols-outlined" sx={{ fontSize: 'var(--md-sys-spacing-4)' }}>library_add</Typography>
                                         Curricolo
                                     </Button>
                                 )}
@@ -283,7 +283,7 @@ return (
                             />
                             {matchingCurriculum && !obiettivi && (
                                 <Typography component="p" onClick={() => setIsObjectivePickerOpen(true)} sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)', mt: 'var(--md-sys-spacing-4)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)', fontWeight: 'var(--md-sys-typescale-weight-bold)', cursor: 'pointer' }}>
-                                    <Typography component="span" sx={{ fontSize: 'var(--md-sys-spacing-4)' }}>info</Typography>
+                                    <Typography component="span" className="material-symbols-outlined" sx={{ fontSize: 'var(--md-sys-spacing-4)' }}>info</Typography>
                                     Curricolo disponibile: {matchingCurriculum.gradeLevel} di {matchingCurriculum.subject}
                                 </Typography>
                             )}
@@ -317,7 +317,7 @@ return (
                                                 transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)'
                                             }}
                                         >
-                                            {selectedSlotKey === key && <Typography component="span" sx={{ fontSize: 'var(--md-sys-spacing-4)' }}>check</Typography>}
+                                            {selectedSlotKey === key && <Typography component="span" className="material-symbols-outlined" sx={{ fontSize: 'var(--md-sys-spacing-4)' }}>check</Typography>}
                                             <Typography component="span" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{slot.giorno} {slot.ora}</Typography>
                                         </ButtonBase>
                                     ))}
@@ -339,7 +339,7 @@ return (
                                     {isAdaptationsLoading ? (
                                         <AiThinkingGem size="small" inline text="Suggerisco..." />
                                     ) : (
-                                        <Typography component="span" sx={{ fontSize: 'var(--md-sys-spacing-4)' }}>auto_awesome</Typography>
+                                        <Typography component="span" className="material-symbols-outlined" sx={{ fontSize: 'var(--md-sys-spacing-4)' }}>auto_awesome</Typography>
                                     )}
                                     {isAdaptationsLoading ? '' : 'Suggerisci con AI'}
                                 </Button>
@@ -378,7 +378,7 @@ return (
                             <details key={nucleo.id} open>
                                 <summary>
                                     <Typography component="span" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: 'var(--md-sys-typescale-weight-black)' }}>{nucleo.title}</Typography>
-                                    <Typography component="span" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-spacing-4)' }}>expand_more</Typography>
+                                    <Typography component="span" className="material-symbols-outlined" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-spacing-4)' }}>expand_more</Typography>
                                 </summary>
                                 <Box sx={{ padding: 'var(--md-sys-spacing-8)', gap: 'var(--md-sys-spacing-3)', backgroundColor: 'var(--md-sys-color-surface)' }}>
                                     {nucleo.objectives.map(obj => (
@@ -390,7 +390,7 @@ return (
                                             onClick={() => handleAddObjective(obj.text)}
                                             sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', width: 'var(--md-sys-percent-100)', textAlign: 'left', padding: 'var(--md-sys-spacing-6)', transition: 'color var(--md-sys-motion-duration-medium)', display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-6)' }}
                                         >
-                                            <Typography component="span" sx={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-spacing-4)', transition: 'transform var(--md-sys-motion-duration-medium)' }}>add_circle</Typography>
+                                            <Typography component="span" className="material-symbols-outlined" sx={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-spacing-4)', transition: 'transform var(--md-sys-motion-duration-medium)' }}>add_circle</Typography>
                                             <Typography component="span" sx={{ color: 'var(--md-sys-color-on-primary)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>{obj.text}</Typography>
                                         </ButtonBase>
                                     ))}

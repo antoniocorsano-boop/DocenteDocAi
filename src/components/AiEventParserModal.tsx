@@ -52,7 +52,7 @@ const AiEventParserModal: React.FC<AiEventParserModalProps> = ({ onClose, onEven
                             </>
                         ) : (
                             <>
-                                <Typography component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>auto_awesome</Typography>
+                                <Typography component="span" className="material-symbols-outlined" sx={{ mr: 'var(--md-sys-spacing-2)' }}>auto_awesome</Typography>
                                 Analizza Testo
                             </>
                         )}

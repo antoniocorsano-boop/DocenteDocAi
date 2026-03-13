@@ -62,18 +62,18 @@ const DocumentViewerModal: React.FC<DocumentViewerModalProps> = ({ title, htmlCo
                 <>
                     {onSaveToKb && (
                         <Button onClick={handleSave} variant="outlined">
-                            <Box component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>save</Box>
+                            <Box component="span" className="material-symbols-outlined" sx={{ mr: 'var(--md-sys-spacing-2)' }}>save</Box>
                             Salva in KB
                         </Button>
                     )}
                     <Button onClick={onClose} variant="text">Chiudi</Button>
                     <Button onClick={handleCopyToClipboard} variant="contained" color="secondary">
-                        <Box component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>{copyStatus === 'copied' ? 'check' : 'content_copy'}</Box>
+                        <Box component="span" className="material-symbols-outlined" sx={{ mr: 'var(--md-sys-spacing-2)' }}>{copyStatus === 'copied' ? 'check' : 'content_copy'}</Box>
                         {copyStatus === 'copied' ? 'Copiato!' : 'Copia Testo'}
                     </Button>
                     {onOpenCreateLesson && (
                         <Button onClick={handleCreateLesson} variant="contained">
-                            <Box component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>add_task</Box>
+                            <Box component="span" className="material-symbols-outlined" sx={{ mr: 'var(--md-sys-spacing-2)' }}>add_task</Box>
                             Crea Lezione
                         </Button>
                     )}

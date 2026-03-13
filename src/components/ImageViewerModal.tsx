@@ -39,12 +39,12 @@ const ImageViewerModal: React.FC<ImageViewerModalProps> = ({ prompt, imageData, 
             buttons={
                 <>
                     <Button onClick={handleSave} variant="outlined">
-                        <Box component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>save</Box>
+                        <Box component="span" className="material-symbols-outlined" sx={{ mr: 'var(--md-sys-spacing-2)' }}>save</Box>
                         Salva in Knowledge Base
                     </Button>
                     <Button onClick={onClose} variant="text">Chiudi</Button>
                     <Button onClick={handleDownload} variant="contained">
-                        <Box component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>download</Box>
+                        <Box component="span" className="material-symbols-outlined" sx={{ mr: 'var(--md-sys-spacing-2)' }}>download</Box>
                         Scarica
                     </Button>
                 </>

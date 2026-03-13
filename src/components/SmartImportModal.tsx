@@ -76,7 +76,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
                     <>
                         <Button variant="text" onClick={() => setStep('upload')}>Ricomincia</Button>
                         <Button variant="contained" onClick={handleDownloadDocx}>
-                            <Box component="span" sx={{ mr: 'var(--md-sys-spacing-2)' }}>download</Box>
+                            <Box component="span" className="material-symbols-outlined" sx={{ mr: 'var(--md-sys-spacing-2)' }}>download</Box>
                             Scarica DOCX
                         </Button>
                     </>
