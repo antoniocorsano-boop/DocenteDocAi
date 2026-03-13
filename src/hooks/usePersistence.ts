@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import { useEffect, useRef } from 'react';
 import { saveKbContentToIndexedDB } from '../services/indexedDbService.ts';
 import { saveBackup } from '../services/backupService.ts';
@@ -21,7 +21,7 @@ export const usePersistence = (isDataLoaded: boolean) => {
     const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const isSavingRef = useRef(false);
     // Emergency stabilization: add dirty-check and rate limit
-    const lastSavedDataRef = useRef<any>(null);
+    const lastSavedDataRef = useRef<BackupPayload | null>(null);
     const lastSaveTimeRef = useRef<number>(0);
     const SAVE_DEBOUNCE_MS = 1000;
     const SAVE_RATE_LIMIT_MS = 5000;
@@ -32,7 +32,7 @@ export const usePersistence = (isDataLoaded: boolean) => {
             return;
         }
         
-        let setBackupState: any;
+        let setBackupState: ((stateOrFn: import('../types').BackupState | ((prev: import('../types').BackupState) => import('../types').BackupState)) => void) | undefined;
         let isRestoring: boolean;
         
         try {
@@ -97,13 +97,13 @@ export const usePersistence = (isDataLoaded: boolean) => {
                 settings: settingsState.settings,
                 aiSettings: settingsState.aiSettings,
                 themeState: settingsState.themeState,
-                installPrompt: uiState.installPrompt as any,
+                installPrompt: uiState.installPrompt,
                 canShowInstallPrompt: uiState.canShowInstallPrompt,
                 isGlobalAiLoading: uiState.isGlobalAiLoading,
                 navigationHistory: uiState.navigationHistory,
                 backupState: uiState.backupState,
                 driveSyncState: uiState.driveSyncState,
-            } as any;
+            } as unknown as BackupPayload;
 
             const now = Date.now();
             const lastSavedData = lastSavedDataRef.current;

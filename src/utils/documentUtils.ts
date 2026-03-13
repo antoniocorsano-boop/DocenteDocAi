@@ -71,8 +71,8 @@ const getPdfJs = async () => {
 };
 
 const extractTextFromPdfClientSide = async (file: File): Promise<string> => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const pdfJsObj = await getPdfJs() as any;
+     
+    const pdfJsObj = await getPdfJs() as unknown as { getDocument: (options: { data: Uint8Array }) => { promise: Promise<{ numPages: number; getPage: (n: number) => Promise<{ getTextContent: () => Promise<{ items: unknown[] }> }> }> } };
     if (!pdfJsObj) throw new Error('PDF.js not available');
     const arrayBuffer = await file.arrayBuffer();
     const loadingTask = pdfJsObj.getDocument({ data: new Uint8Array(arrayBuffer) });
@@ -218,8 +218,9 @@ export const generateHtmlDocxBlob = async (htmlContent: string, title?: string):
                 if (['h1', 'h2', 'h3', 'p', 'div'].includes(nodeName)) {
                     const runs = extractTextRuns(el);
                     if (runs.length) {
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        const options: any = { children: runs };
+                        // docx Paragraph options — heading is an optional field not in the base overload
+                        type ParagraphInitWithHeading = import('docx').IParagraphOptions;
+                        const options: ParagraphInitWithHeading = { children: runs };
                         if (nodeName === 'h1') options.heading = HeadingLevel.HEADING_1;
                         else if (nodeName === 'h2') options.heading = HeadingLevel.HEADING_2;
                         else if (nodeName === 'h3') options.heading = HeadingLevel.HEADING_3;
@@ -325,8 +326,8 @@ type DrawTextOptions = {
 const drawTextSafe = (ctx: PdfContext, text: string, options: DrawTextOptions = {}) => {
     const safeText = cleanTextForWinAnsi(text || '');
     const { isBold = false, size = 11, color = null, indent = 0, align = 'left', maxWidth } = options;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const resolvedColor = color || { type: 'RGB', red: 0, green: 0, blue: 0 } as any;
+    // pdf-lib RGB type — defaults to black, explicit type cast avoids any
+    const resolvedColor: import('pdf-lib').RGB = color ?? { type: 'RGB', red: 0, green: 0, blue: 0 };
     
     if (maxWidth) {
         const font = isBold ? ctx.boldFont : ctx.font;
@@ -702,8 +703,9 @@ export const generateCouncilDataPdf = async (selectedClass: string, periodo: Per
         return [s.cognome, s.nome, avg, studentEvals.length];
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (doc as any).autoTable({
+    // jspdf-autotable extends jsPDF at runtime — no @types entry; cast through unknown
+    type JsPDFWithAutoTable = typeof doc & { autoTable: (options: Record<string, unknown>) => void };
+    (doc as unknown as JsPDFWithAutoTable).autoTable({
         head: [['Cognome', 'Nome', 'Media Generale', 'Num. Valutazioni']],
         body: tableData,
         startY: 40,
@@ -746,8 +748,8 @@ export const generateCouncilTablePdf = async (selectedClass: string, periodo: Pe
         return row;
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (doc as any).autoTable({
+    type JsPDFWithAutoTable2 = typeof doc & { autoTable: (options: Record<string, unknown>) => void };
+    (doc as unknown as JsPDFWithAutoTable2).autoTable({
         head: [head],
         body: body,
         startY: 40,
