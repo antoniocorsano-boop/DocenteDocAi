@@ -3,6 +3,7 @@ import { Studente, Lezione, HomeworkStatus, ParticipationEntry, ObservationEntry
 import { Avatar } from '../ui';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import ButtonBase from '@mui/material/ButtonBase';
 import Tooltip from '@mui/material/Tooltip';
 
 type AttendanceStatus = 'presente' | 'assente' | 'ritardo';
@@ -104,37 +105,37 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
     const objectives = lesson.obiettivi ? lesson.obiettivi.split('\n').filter(o => o.trim()) : [];
 
     return (
-        <div style={{ marginTop: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+        <Box sx={{ marginTop: 'var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
 
             {/* â”€â”€ Obiettivi collapsibili â”€â”€ */}
             {objectives.length > 0 && (
-                <div style={{
+                <Box sx={{
                     borderRadius: 'var(--md-sys-shape-corner-large)',
                     border: '1px solid var(--md-sys-color-outline-variant)',
                     overflow: 'hidden',
                 }}>
-                    <button
+                    <ButtonBase
+                        focusRipple
                         onClick={() => setObjectivesOpen(o => !o)}
-                        style={{
+                        sx={{
                             width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                             padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)',
                             backgroundColor: 'var(--md-sys-color-surface-container)',
-                            border: 'none', cursor: 'pointer',
                             color: 'var(--md-sys-color-primary)',
                         }}
                         aria-expanded={objectivesOpen}
                         aria-controls="register-objectives"
                     >
-                        <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', fontWeight: 'bold', fontSize: 'var(--md-sys-typescale-label-large-font-size)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '18px' }}>target</span>
+                        <Box component="span" sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-label-large-font-size)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 18 }}>target</Box>
                             Obiettivi Didattici ({objectives.filter((_, i) => checkedObjectives[i]).length}/{objectives.length})
-                        </span>
-                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '20px', transition: 'transform 200ms' }}>
+                        </Box>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20, transition: 'transform 200ms' }}>
                             {objectivesOpen ? 'expand_less' : 'expand_more'}
-                        </span>
-                    </button>
+                        </Box>
+                    </ButtonBase>
                     {objectivesOpen && (
-                        <div id="register-objectives" style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)', backgroundColor: 'var(--md-sys-color-surface)' }}>
+                        <Box id="register-objectives" sx={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)', backgroundColor: 'var(--md-sys-color-surface)' }}>
                             {objectives.map((obj, idx) => (
                                 <label key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-3)', cursor: 'pointer' }}>
                                     <input
@@ -150,28 +151,27 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
                                     </Typography>
                                 </label>
                             ))}
-                        </div>
+                        </Box>
                     )}
-                </div>
+                </Box>
             )}
-
             {/* â”€â”€ Riepilogo presenze â”€â”€ */}
-            <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-3)', flexWrap: 'wrap' }}>
+            <Box sx={{ display: 'flex', gap: 'var(--md-sys-spacing-3)', flexWrap: 'wrap' }}>
                 {([
                     { label: 'Presenti', value: totals.present, icon: 'check_circle', color: 'var(--md-sys-color-primary)' },
                     { label: 'Assenti',  value: totals.absent,  icon: 'cancel',        color: 'var(--md-sys-color-error)' },
                     { label: 'Ritardo',  value: totals.late,    icon: 'schedule',      color: 'var(--md-sys-color-tertiary)' },
                 ] as const).map(chip => (
-                    <div key={chip.label} style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-surface-container)', border: '1px solid var(--md-sys-color-outline-variant)' }}>
-                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '16px', color: chip.color }}>{chip.icon}</span>
-                        <Typography variant="caption" sx={{ fontWeight: 'bold', color: chip.color }}>{chip.value}</Typography>
-                        <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{chip.label}</Typography>
-                    </div>
+                    <Box key={chip.label} sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)', padding: 'var(--md-sys-spacing-1) var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: 'var(--md-sys-color-surface-container)', border: '1px solid var(--md-sys-color-outline-variant)' }}>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 16, color: chip.color }}>{chip.icon}</Box>
+                    <Typography variant="caption" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: chip.color }}>{chip.value}</Typography>
+                    <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{chip.label}</Typography>
+                </Box>
                 ))}
-            </div>
+            </Box>
 
             {/* â”€â”€ Tabella compatta â”€â”€ */}
-            <div style={{ overflowX: 'auto', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid var(--md-sys-color-outline-variant)' }}>
+            <Box sx={{ overflowX: 'auto', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid var(--md-sys-color-outline-variant)' }}>
                 <table
                     style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'auto' }}
                     role="grid"
@@ -214,35 +214,35 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
                                 >
                                     {/* Studente */}
                                     <td style={tdStyle}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
                                             <Avatar name={student.cognome} size="sm" />
-                                            <div style={{ minWidth: 0 }}>
-                                                <Typography variant="body2" sx={{ fontWeight: 'bold', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: isAbsent ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-surface)', textDecoration: isAbsent ? 'line-through' : 'none' }}>
+                                            <Box sx={{ minWidth: 0 }}>
+                                                <Typography variant="body2" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: isAbsent ? 'var(--md-sys-color-on-surface-variant)' : 'var(--md-sys-color-on-surface)', textDecoration: isAbsent ? 'line-through' : 'none' }}>
                                                     {student.cognome} {student.nome}
                                                 </Typography>
                                                 <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{student.classe}</Typography>
-                                            </div>
-                                        </div>
+                                            </Box>
+                                        </Box>
                                     </td>
 
                                     {/* Presenza */}
                                     <td style={{ ...tdStyle, textAlign: 'center' }}>
                                         <Tooltip title={ATTENDANCE_LABEL[status]} placement="top">
-                                            <button
+                                            <ButtonBase
+                                                focusRipple
                                                 onClick={e => { e.stopPropagation(); onAttendanceToggle(student.id); }}
                                                 aria-label={`Presenza: ${ATTENDANCE_LABEL[status]}. Click per cambiare`}
-                                                style={{
+                                                sx={{
                                                     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
                                                     width: '32px', height: '32px',
                                                     borderRadius: 'var(--md-sys-shape-corner-full)',
-                                                    border: 'none', cursor: 'pointer',
                                                     backgroundColor: status === 'presente' ? 'var(--md-sys-color-primary-container)' : status === 'assente' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-tertiary-container)',
                                                     color: status === 'presente' ? 'var(--md-sys-color-on-primary-container)' : status === 'assente' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-tertiary-container)',
                                                     transition: 'background-color var(--md-sys-motion-duration-short)',
                                                 }}
                                             >
-                                                <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '18px' }}>{ATTENDANCE_ICON[status]}</span>
-                                            </button>
+                                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 18 }}>{ATTENDANCE_ICON[status]}</Box>
+                                            </ButtonBase>
                                         </Tooltip>
                                     </td>
 
@@ -250,11 +250,11 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
                                     <td style={{ ...tdStyle, textAlign: 'center' }}>
                                         {hwStatus ? (
                                             <Tooltip title={HW_LABEL[hwStatus]} placement="top">
-                                                <span className="material-symbols-outlined" aria-label={HW_LABEL[hwStatus]} style={{
-                                                    fontSize: '20px',
+                                                <Box component="span" className="material-symbols-outlined" aria-label={HW_LABEL[hwStatus]} sx={{
+                                                    fontSize: 20,
                                                     color: hwStatus === 'done' ? 'var(--md-sys-color-primary)' : hwStatus === 'missing' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-tertiary)',
                                                     display: 'inline-block',
-                                                }}>{HW_ICON[hwStatus]}</span>
+                                                }}>{HW_ICON[hwStatus]}</Box>
                                             </Tooltip>
                                         ) : (
                                             <Typography variant="body2" component="span" sx={{ color: 'var(--md-sys-color-outline)' }}>â€”</Typography>
@@ -263,34 +263,34 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
 
                                     {/* Partecipazione */}
                                     <td style={tdStyle}>
-                                        <div style={{ display: 'flex', gap: 'var(--md-sys-spacing-1)', flexWrap: 'wrap' }}>
+                                            <Box sx={{ display: 'flex', gap: 'var(--md-sys-spacing-1)', flexWrap: 'wrap' }}>
                                             {(['positive', 'question', 'collaboration', 'distraction'] as ParticipationEntry['type'][]).map(type => {
                                                 const count = badges.filter(b => b.type === type).length;
                                                 if (!count) return null;
                                                 return (
                                                     <Tooltip key={type} title={`${type} Ã—${count}`} placement="top">
-                                                        <span style={{
+                                                        <Box component="span" sx={{
                                                             display: 'inline-flex', alignItems: 'center', gap: '2px',
                                                             padding: '1px 6px',
                                                             borderRadius: 'var(--md-sys-shape-corner-full)',
-                                                            fontSize: '11px', fontWeight: 'bold',
+                                                            fontSize: 'var(--md-sys-typescale-label-small-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                                             backgroundColor: type === 'positive' ? 'var(--md-sys-color-primary-container)' : type === 'distraction' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-secondary-container)',
                                                             color: type === 'positive' ? 'var(--md-sys-color-on-primary-container)' : type === 'distraction' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-secondary-container)',
                                                         }}>
-                                                            <Box component="span" className="material-symbols-outlined" sx={{ fontSize: '12px' }}>{PARTICIPATION_ICON[type]}</Box>
+                                                            <Box component="span" className="material-symbols-outlined" sx={{ fontSize: 12 }}>{PARTICIPATION_ICON[type]}</Box>
                                                             {count > 1 && count}
-                                                        </span>
+                                                        </Box>
                                                     </Tooltip>
                                                 );
                                             })}
-                                        </div>
+                                        </Box>
                                     </td>
 
                                     {/* Scritti */}
                                     <td style={{ ...tdStyle, textAlign: 'center' }}>
                                         {stat.writtenCount > 0 ? (
                                             <Tooltip title={`${stat.writtenCount} valutazioni`} placement="top">
-                                                <Typography variant="body2" component="span" sx={{ fontWeight: 'bold', color: gradeColor(stat.writtenAvg) }}>
+                                                <Typography variant="body2" component="span" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: gradeColor(stat.writtenAvg) }}>
                                                     {stat.writtenAvg}
                                                 </Typography>
                                             </Tooltip>
@@ -303,7 +303,7 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
                                     <td style={{ ...tdStyle, textAlign: 'center' }}>
                                         {stat.oralCount > 0 ? (
                                             <Tooltip title={`${stat.oralCount} valutazioni`} placement="top">
-                                                <Typography variant="body2" component="span" sx={{ fontWeight: 'bold', color: gradeColor(stat.oralAvg) }}>
+                                                <Typography variant="body2" component="span" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: gradeColor(stat.oralAvg) }}>
                                                     {stat.oralAvg}
                                                 </Typography>
                                             </Tooltip>
@@ -314,42 +314,42 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
 
                                     {/* Media + trend */}
                                     <td style={{ ...tdStyle, textAlign: 'center' }}>
-                                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
-                                            <Typography variant="body2" component="span" sx={{ fontWeight: 'bold', color: gradeColor(stat.grade) }}>
+                                        <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
+                                            <Typography variant="body2" component="span" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: gradeColor(stat.grade) }}>
                                                 {stat.grade || 'â€”'}
                                             </Typography>
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{
-                                                fontSize: '16px',
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{
+                                                fontSize: 16,
                                                 color: stat.trend === 'up' ? 'var(--md-sys-color-primary)' : stat.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)',
                                             }}>
                                                 {stat.trend === 'up' ? 'trending_up' : stat.trend === 'down' ? 'trending_down' : 'trending_flat'}
-                                            </span>
-                                        </div>
+                                            </Box>
+                                        </Box>
                                     </td>
 
                                     {/* Azioni */}
                                     <td style={{ ...tdStyle, textAlign: 'center' }}>
-                                        <button
+                                        <ButtonBase
+                                            focusRipple
                                             onClick={e => { e.stopPropagation(); onSelectStudentForActions(student); }}
                                             aria-label={`Azioni per ${student.cognome}`}
-                                            style={{
+                                            sx={{
                                                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
                                                 width: '32px', height: '32px',
-                                                backgroundColor: 'transparent', border: 'none',
+                                                backgroundColor: 'transparent',
                                                 borderRadius: 'var(--md-sys-shape-corner-full)',
-                                                cursor: 'pointer',
                                                 color: 'var(--md-sys-color-on-surface-variant)',
                                             }}
                                         >
-                                            <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: '20px' }}>more_vert</span>
-                                        </button>
+                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20 }}>more_vert</Box>
+                                        </ButtonBase>
                                     </td>
                                 </tr>
                             );
                         })}
                     </tbody>
                 </table>
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 };

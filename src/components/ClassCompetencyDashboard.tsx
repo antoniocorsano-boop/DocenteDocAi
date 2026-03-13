@@ -92,10 +92,10 @@ const CompetencyCard: React.FC<CompetencyCardProps> = ({ summary, totalStudents,
                     }}>
                         <Typography variant="labelSmall" sx={{
                             color: 'var(--md-sys-color-on-primary)',
-                            fontWeight: 700,
+                            fontWeight: 'var(--md-sys-typescale-weight-bold)',
                             letterSpacing: '0.06em',
                             textTransform: 'uppercase',
-                            fontSize: '11px',
+                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                         }}>
                             {summary.competency.codice}
                         </Typography>
@@ -108,7 +108,7 @@ const CompetencyCard: React.FC<CompetencyCardProps> = ({ summary, totalStudents,
                     {summary.totalEvaluated > 0 && (
                         <Typography variant="labelSmall" sx={{
                             color: 'var(--md-sys-color-primary)',
-                            fontWeight: 600,
+                            fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                             ml: 'auto',
                             flexShrink: 0,
                         }}>
@@ -174,7 +174,7 @@ const CompetencyCard: React.FC<CompetencyCardProps> = ({ summary, totalStudents,
                                 }} />
                                 <Typography variant="labelSmall" sx={{
                                     color: 'var(--md-sys-color-on-surface-variant)',
-                                    fontSize: '11px',
+                                    fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                                 }}>
                                     {lc.level.nome} ({lc.count})
                                 </Typography>
@@ -221,7 +221,7 @@ const CompetencyCard: React.FC<CompetencyCardProps> = ({ summary, totalStudents,
                                 {/* numero grande */}
                                 <Typography variant="h4" sx={{
                                     color: onContainerColor,
-                                    fontWeight: 700,
+                                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                     lineHeight: 1,
                                 }}>
                                     {lc.count}
@@ -229,10 +229,10 @@ const CompetencyCard: React.FC<CompetencyCardProps> = ({ summary, totalStudents,
                                 {/* nome livello */}
                                 <Typography variant="labelSmall" sx={{
                                     color: onContainerColor,
-                                    fontWeight: 600,
+                                    fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                                     textTransform: 'uppercase',
                                     letterSpacing: '0.05em',
-                                    fontSize: '10px',
+                                    fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                                     opacity: 0.85,
                                 }}>
                                     {lc.level.nome}
@@ -241,7 +241,7 @@ const CompetencyCard: React.FC<CompetencyCardProps> = ({ summary, totalStudents,
                                 {lc.level.descrizione && (
                                     <Typography variant="bodySmall" sx={{
                                         color: onContainerColor,
-                                        fontSize: '11px',
+                                        fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                                         lineHeight: 1.3,
                                         opacity: 0.75,
                                         mt: '2px',
@@ -257,7 +257,7 @@ const CompetencyCard: React.FC<CompetencyCardProps> = ({ summary, totalStudents,
                                             group
                                         </Box>
                                         <Typography variant="labelSmall" sx={{
-                                            color: onContainerColor, fontSize: '11px', opacity: 0.75,
+                                            color: onContainerColor, fontSize: 'var(--md-sys-typescale-label-small-font-size)', opacity: 0.75,
                                         }}>
                                             Vedi studenti
                                         </Typography>
@@ -444,7 +444,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                 ? 'var(--md-sys-color-on-secondary-container)'
                                 : 'var(--md-sys-color-on-surface-variant)',
                             borderColor: 'var(--md-sys-color-outline-variant)',
-                            fontWeight: sortBy === 'competency' ? 600 : 400,
+                            fontWeight: sortBy === 'competency' ? 'var(--md-sys-typescale-weight-semibold)' : 'var(--md-sys-typescale-weight-regular)',
                         }}
                     />
                     <Chip
@@ -458,7 +458,7 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                                 ? 'var(--md-sys-color-on-secondary-container)'
                                 : 'var(--md-sys-color-on-surface-variant)',
                             borderColor: 'var(--md-sys-color-outline-variant)',
-                            fontWeight: sortBy === 'performance' ? 600 : 400,
+                            fontWeight: sortBy === 'performance' ? 'var(--md-sys-typescale-weight-semibold)' : 'var(--md-sys-typescale-weight-regular)',
                         }}
                     />
                 </Box>
