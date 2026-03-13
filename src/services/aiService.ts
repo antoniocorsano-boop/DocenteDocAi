@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { AiSettings, Lezione, Uda, Valutazione, ValutazioneCompetenza, Competenza, Studente, Livello, KnowledgeBaseEntry, AiSuggestion, PianoInclusione, CircularAnalysisResult, EventoCalendario, ChatMessage, GeneratedQuiz, LessonAnalysisResult, CurriculumSubject, TechnicalDocumentContent, EssayContent } from '../types';
 import { getGoogleAIClient, callAiWithRetry } from './aiClient';
 import * as Prompts from './aiPrompts';
@@ -111,7 +111,7 @@ export const performWebSearch = async (aiSettings: AiSettings, query: string): P
         });
         const sources: { title: string; uri: string }[] = [];
         if (response.candidates?.[0]?.groundingMetadata?.groundingChunks) {
-            response.candidates[0].groundingMetadata.groundingChunks.forEach((chunk: any) => {
+            response.candidates[0].groundingMetadata.groundingChunks.forEach((chunk: { web?: { uri: string; title: string } }) => {
                 if (chunk.web?.uri && chunk.web?.title) sources.push({ title: chunk.web.title, uri: chunk.web.uri });
             });
         }
@@ -186,7 +186,7 @@ export const generateMethodologyStrategies = async (aiSettings: AiSettings, ctx:
     });
 };
 
-export const suggestAnnualPlan = async (aiSettings: AiSettings, kb: string, subj: string, cls: string): Promise<any[]> => {
+export const suggestAnnualPlan = async (aiSettings: AiSettings, kb: string, subj: string, cls: string): Promise<Partial<Uda>[]> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const response = await ai.models.generateContent({
@@ -194,7 +194,7 @@ export const suggestAnnualPlan = async (aiSettings: AiSettings, kb: string, subj
             contents: ensureString(Prompts.getAnnualPlanPrompt(kb, subj, cls)),
             config: { responseMimeType: "application/json", systemInstruction: buildSystemInstruction({ classContext: cls, subject: subj }) }
         });
-        return cleanAndParseJson<any[]>(response.text || '[]');
+        return cleanAndParseJson<Partial<Uda>[]>(response.text || '[]');
     });
 };
 
@@ -292,7 +292,7 @@ export const generateLessonSequenceForClass = async (
     uda: Uda[],
     classe: string,
     kb: string
-): Promise<any[]> => {
+): Promise<Partial<Lezione>[]> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -300,7 +300,7 @@ export const generateLessonSequenceForClass = async (
             contents: ensureString(Prompts.getLessonSequencePrompt(uda, classe, kb)),
             config: { responseMimeType: "application/json" }
         });
-        return cleanAndParseJson<any[]>(r.text || '[]');
+        return cleanAndParseJson<Partial<Lezione>[]>(r.text || '[]');
     });
 };
 
@@ -330,7 +330,7 @@ export const getAIPedagogicalAdvice = async (aiSettings: AiSettings, data: {
     lesson: Lezione;
     students: Studente[];
     evaluations: Valutazione[];
-}, type: string, comps: Competenza[]): Promise<any> => {
+}, type: string, comps: Competenza[]): Promise<Record<string, unknown>> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -338,7 +338,7 @@ export const getAIPedagogicalAdvice = async (aiSettings: AiSettings, data: {
             contents: ensureString(Prompts.getAIPedagogicalAdvicePrompt(data, type)),
             config: { responseMimeType: "application/json" }
         });
-        return cleanAndParseJson<any>(r.text || '{}');
+        return cleanAndParseJson<Record<string, unknown>>(r.text || '{}');
     });
 };
 
@@ -430,7 +430,7 @@ export const getProactiveSuggestions = async (aiSettings: AiSettings, state: {
     });
 };
 
-export const generateThemeFromPrompt = async (aiSettings: AiSettings, p: string): Promise<any> => {
+export const generateThemeFromPrompt = async (aiSettings: AiSettings, p: string): Promise<Record<string, unknown>> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -438,11 +438,11 @@ export const generateThemeFromPrompt = async (aiSettings: AiSettings, p: string)
             contents: ensureString(Prompts.getThemePrompt(p)),
             config: { responseMimeType: "application/json" }
         });
-        return cleanAndParseJson<any>(r.text || '{}');
+        return cleanAndParseJson<Record<string, unknown>>(r.text || '{}');
     });
 };
 
-export const generateImageFromPrompt = async (aiSettings: AiSettings, p: string): Promise<any> => {
+export const generateImageFromPrompt = async (aiSettings: AiSettings, p: string): Promise<{ data: string; mimeType: string }> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -490,7 +490,7 @@ export const chatWithAi = async (aiSettings: AiSettings, messages: ChatMessage[]
     });
 };
 
-export const extractEventFromText = async (aiSettings: AiSettings, t: string): Promise<any> => {
+export const extractEventFromText = async (aiSettings: AiSettings, t: string): Promise<Partial<EventoCalendario>> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const r = await ai.models.generateContent({
@@ -498,7 +498,7 @@ export const extractEventFromText = async (aiSettings: AiSettings, t: string): P
             contents: ensureString(Prompts.getEventExtractionPrompt(t)),
             config: { responseMimeType: "application/json" }
         });
-        return cleanAndParseJson<any>(r.text || '{}');
+        return cleanAndParseJson<Partial<EventoCalendario>>(r.text || '{}');
     });
 };
 
@@ -586,7 +586,7 @@ export const generateClassCouncilNarrativeReport = async (aiSettings: AiSettings
     });
 };
 
-export const generateTemplateWithAi = async (aiSettings: AiSettings, description: string, type: string): Promise<any> => {
+export const generateTemplateWithAi = async (aiSettings: AiSettings, description: string, type: string): Promise<Record<string, unknown>> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
         const response = await ai.models.generateContent({
