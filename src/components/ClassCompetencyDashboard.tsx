@@ -1,13 +1,16 @@
-﻿// MD3 Compliant - Migrated from legacy className usage
+﻿// MD3 GOLD COMPLIANT — ClassCompetencyDashboard: riprogettato
 
 import React, { useMemo, useState } from 'react';
 import { Studente, ValutazioneCompetenza, TimetableSettings, Competenza, Livello } from '../types';
-import { M3Dialog, Avatar } from './ui';
+import { M3Dialog, M3Surface, Avatar, PageWrapper } from './ui';
+import ButtonBase from '@mui/material/ButtonBase';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+
 interface ClassCompetencyDashboardProps {
     selectedClass: string;
     students: Studente[];
@@ -16,24 +19,278 @@ interface ClassCompetencyDashboardProps {
     onViewStudentProfile: (student: Studente) => void;
 }
 
-// Data structure for the view
 interface CompetencySummary {
     competency: Competenza;
     levelCounts: { level: Livello; count: number; students: Studente[] }[];
     totalEvaluated: number;
 }
 
+// ── Colori semantici per livello ─────────────────────────────────────────────
+function getLevelColor(levelName: string): string {
+    const lower = levelName.toLowerCase();
+    if (lower.includes('avanzato') || lower.startsWith('a')) return 'var(--md-sys-color-tertiary)';
+    if (lower.includes('intermedio') || lower.startsWith('b')) return 'var(--md-sys-color-secondary)';
+    if (lower.includes('base') || lower.startsWith('c')) return 'var(--md-sys-color-primary)';
+    if (lower.includes('iniziale') || lower.startsWith('d')) return 'var(--md-sys-color-error)';
+    return 'var(--md-sys-color-outline)';
+}
+
+function getLevelContainerColor(levelName: string): string {
+    const lower = levelName.toLowerCase();
+    if (lower.includes('avanzato') || lower.startsWith('a')) return 'var(--md-sys-color-tertiary-container)';
+    if (lower.includes('intermedio') || lower.startsWith('b')) return 'var(--md-sys-color-secondary-container)';
+    if (lower.includes('base') || lower.startsWith('c')) return 'var(--md-sys-color-primary-container)';
+    if (lower.includes('iniziale') || lower.startsWith('d')) return 'var(--md-sys-color-error-container)';
+    return 'var(--md-sys-color-surface-container)';
+}
+
+function getLevelOnContainerColor(levelName: string): string {
+    const lower = levelName.toLowerCase();
+    if (lower.includes('avanzato') || lower.startsWith('a')) return 'var(--md-sys-color-on-tertiary-container)';
+    if (lower.includes('intermedio') || lower.startsWith('b')) return 'var(--md-sys-color-on-secondary-container)';
+    if (lower.includes('base') || lower.startsWith('c')) return 'var(--md-sys-color-on-primary-container)';
+    if (lower.includes('iniziale') || lower.startsWith('d')) return 'var(--md-sys-color-on-error-container)';
+    return 'var(--md-sys-color-on-surface-variant)';
+}
+
+// ── Singola card competenza (con espansione controllata) ──────────────────────
+interface CompetencyCardProps {
+    summary: CompetencySummary;
+    totalStudents: number;
+    onLevelClick: (lc: CompetencySummary['levelCounts'][0], competencyName: string) => void;
+}
+
+const CompetencyCard: React.FC<CompetencyCardProps> = ({ summary, totalStudents, onLevelClick }) => {
+    const [expanded, setExpanded] = useState(false);
+    const notEvaluated = totalStudents - summary.totalEvaluated;
+    const pctEvaluated = totalStudents > 0 ? Math.round((summary.totalEvaluated / totalStudents) * 100) : 0;
+
+    return (
+        <M3Surface elevation={1} sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', overflow: 'hidden' }}>
+            {/* ── Header sempre visibile ── */}
+            <ButtonBase
+                onClick={() => setExpanded(v => !v)}
+                focusRipple
+                aria-expanded={expanded}
+                aria-label={`${expanded ? 'Chiudi' : 'Espandi'} ${summary.competency.nome}`}
+                sx={{
+                    width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'stretch',
+                    px: 'var(--md-sys-spacing-4)', pt: 'var(--md-sys-spacing-4)', pb: 'var(--md-sys-spacing-3)',
+                    gap: 'var(--md-sys-spacing-3)',
+                    textAlign: 'left',
+                    '&:hover': { bgcolor: 'var(--md-sys-color-surface-container-high)' },
+                    '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: -2 },
+                }}
+            >
+                {/* riga 1: badge codice + contatore + chevron */}
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                    <Box sx={{
+                        px: 'var(--md-sys-spacing-2)', py: '2px',
+                        borderRadius: 'var(--md-sys-shape-corner-small)',
+                        bgcolor: 'var(--md-sys-color-primary)',
+                        flexShrink: 0,
+                    }}>
+                        <Typography variant="labelSmall" sx={{
+                            color: 'var(--md-sys-color-on-primary)',
+                            fontWeight: 700,
+                            letterSpacing: '0.06em',
+                            textTransform: 'uppercase',
+                            fontSize: '11px',
+                        }}>
+                            {summary.competency.codice}
+                        </Typography>
+                    </Box>
+
+                    <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', flexShrink: 0 }}>
+                        {summary.totalEvaluated}/{totalStudents} valutati
+                    </Typography>
+
+                    {summary.totalEvaluated > 0 && (
+                        <Typography variant="labelSmall" sx={{
+                            color: 'var(--md-sys-color-primary)',
+                            fontWeight: 600,
+                            ml: 'auto',
+                            flexShrink: 0,
+                        }}>
+                            {pctEvaluated}%
+                        </Typography>
+                    )}
+
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{
+                        fontSize: 20,
+                        color: 'var(--md-sys-color-on-surface-variant)',
+                        ml: summary.totalEvaluated > 0 ? 0 : 'auto',
+                        flexShrink: 0,
+                        transition: 'transform 0.2s',
+                        transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                    }}>
+                        expand_more
+                    </Box>
+                </Box>
+
+                {/* riga 2: nome competenza */}
+                <Typography variant="titleMedium" sx={{
+                    color: 'var(--md-sys-color-on-surface)',
+                    fontWeight: 'var(--md-sys-typescale-weight-medium)',
+                    lineHeight: 1.4,
+                }}>
+                    {summary.competency.nome}
+                </Typography>
+
+                {/* riga 3: barra di progresso composita */}
+                <Box sx={{
+                    height: 6, borderRadius: 'var(--md-sys-shape-corner-full)',
+                    bgcolor: 'var(--md-sys-color-surface-container-high)',
+                    overflow: 'hidden', display: 'flex',
+                }}>
+                    {summary.levelCounts.map(lc => {
+                        if (lc.count === 0 || totalStudents === 0) return null;
+                        return (
+                            <Box key={lc.level.id} sx={{
+                                height: '100%',
+                                width: `${(lc.count / totalStudents) * 100}%`,
+                                bgcolor: getLevelColor(lc.level.nome),
+                                flexShrink: 0,
+                            }} />
+                        );
+                    })}
+                    {notEvaluated > 0 && totalStudents > 0 && (
+                        <Box sx={{
+                            height: '100%',
+                            width: `${(notEvaluated / totalStudents) * 100}%`,
+                            bgcolor: 'var(--md-sys-color-surface-container-high)',
+                        }} />
+                    )}
+                </Box>
+
+                {/* riga 4: legenda livelli (sempre visibile) */}
+                {summary.totalEvaluated > 0 && (
+                    <Box sx={{ display: 'flex', gap: 'var(--md-sys-spacing-3)', flexWrap: 'wrap' }}>
+                        {summary.levelCounts.filter(lc => lc.count > 0).map(lc => (
+                            <Box key={lc.level.id} sx={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                <Box sx={{
+                                    width: 8, height: 8, borderRadius: '50%',
+                                    bgcolor: getLevelColor(lc.level.nome), flexShrink: 0,
+                                }} />
+                                <Typography variant="labelSmall" sx={{
+                                    color: 'var(--md-sys-color-on-surface-variant)',
+                                    fontSize: '11px',
+                                }}>
+                                    {lc.level.nome} ({lc.count})
+                                </Typography>
+                            </Box>
+                        ))}
+                    </Box>
+                )}
+            </ButtonBase>
+
+            {/* ── Espansione: cards per livello ── */}
+            {expanded && (
+                <Box sx={{
+                    px: 'var(--md-sys-spacing-4)', pb: 'var(--md-sys-spacing-4)',
+                    pt: 'var(--md-sys-spacing-2)',
+                    display: 'grid',
+                    gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(4, 1fr)' },
+                    gap: 'var(--md-sys-spacing-2)',
+                    borderTop: '1px solid var(--md-sys-color-outline-variant)',
+                }}>
+                    {summary.levelCounts.map(lc => {
+                        const containerColor = getLevelContainerColor(lc.level.nome);
+                        const onContainerColor = getLevelOnContainerColor(lc.level.nome);
+                        const isClickable = lc.count > 0;
+                        return (
+                            <ButtonBase
+                                key={lc.level.id}
+                                onClick={isClickable ? () => onLevelClick(lc, summary.competency.nome) : undefined}
+                                focusRipple={isClickable}
+                                disabled={!isClickable}
+                                aria-label={`${lc.level.nome}: ${lc.count} studenti`}
+                                sx={{
+                                    display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
+                                    p: 'var(--md-sys-spacing-3)',
+                                    borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                    bgcolor: containerColor,
+                                    opacity: isClickable ? 1 : 0.5,
+                                    cursor: isClickable ? 'pointer' : 'default',
+                                    textAlign: 'left',
+                                    gap: 'var(--md-sys-spacing-1)',
+                                    '&:hover': isClickable ? { filter: 'brightness(0.92)' } : {},
+                                    '&:focus-visible': { outline: `2px solid ${getLevelColor(lc.level.nome)}`, outlineOffset: 2 },
+                                }}
+                            >
+                                {/* numero grande */}
+                                <Typography variant="h4" sx={{
+                                    color: onContainerColor,
+                                    fontWeight: 700,
+                                    lineHeight: 1,
+                                }}>
+                                    {lc.count}
+                                </Typography>
+                                {/* nome livello */}
+                                <Typography variant="labelSmall" sx={{
+                                    color: onContainerColor,
+                                    fontWeight: 600,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.05em',
+                                    fontSize: '10px',
+                                    opacity: 0.85,
+                                }}>
+                                    {lc.level.nome}
+                                </Typography>
+                                {/* descrizione */}
+                                {lc.level.descrizione && (
+                                    <Typography variant="bodySmall" sx={{
+                                        color: onContainerColor,
+                                        fontSize: '11px',
+                                        lineHeight: 1.3,
+                                        opacity: 0.75,
+                                        mt: '2px',
+                                    }}>
+                                        {lc.level.descrizione}
+                                    </Typography>
+                                )}
+                                {/* link studenti */}
+                                {lc.count > 0 && (
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px', mt: 'auto', pt: 'var(--md-sys-spacing-2)' }}>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true"
+                                            sx={{ fontSize: 12, color: onContainerColor, opacity: 0.75 }}>
+                                            group
+                                        </Box>
+                                        <Typography variant="labelSmall" sx={{
+                                            color: onContainerColor, fontSize: '11px', opacity: 0.75,
+                                        }}>
+                                            Vedi studenti
+                                        </Typography>
+                                    </Box>
+                                )}
+                            </ButtonBase>
+                        );
+                    })}
+                </Box>
+            )}
+        </M3Surface>
+    );
+};
+
+// ── Componente principale ─────────────────────────────────────────────────────
 const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
     selectedClass,
     students,
     competencyEvaluations,
     settings,
-    onViewStudentProfile
+    onViewStudentProfile,
 }) => {
-  const [viewingStudents, setViewingStudents] = useState<{ title: string; students: Studente[], levelColor: string } | null>(null);
+    const [viewingStudents, setViewingStudents] = useState<{
+        title: string;
+        students: Studente[];
+        levelColor: string;
+    } | null>(null);
     const [sortBy, setSortBy] = useState<'competency' | 'performance'>('competency');
 
-    const classStudents = useMemo(() => students.filter(s => s.classe === selectedClass), [students, selectedClass]);
+    const classStudents = useMemo(
+        () => students.filter(s => s.classe === selectedClass),
+        [students, selectedClass]
+    );
 
     const competencySummaries: CompetencySummary[] = useMemo(() => {
         const summaries = settings.competenze.map(competency => {
@@ -52,201 +309,255 @@ const ClassCompetencyDashboard: React.FC<ClassCompetencyDashboardProps> = ({
                 }
             });
 
-            // Ensure consistent order A -> D
             const levelCounts = competency.livelli.map(level => ({
                 level,
                 count: levelMap[level.id].students.length,
-                students: levelMap[level.id].students.sort((a, b) => a.cognome.localeCompare(b.cognome))
+                students: levelMap[level.id].students.sort((a, b) => a.cognome.localeCompare(b.cognome)),
             }));
 
             const totalEvaluated = levelCounts.reduce((sum, lc) => sum + lc.count, 0);
-
             return { competency, levelCounts, totalEvaluated };
         });
 
         if (sortBy === 'performance') {
             summaries.sort((a, b) => {
-                const getWeightedScore = (summary: CompetencySummary) => {
-                    if (summary.totalEvaluated === 0) return 0;
-                    return summary.levelCounts.reduce((score, lc) => {
-                        const numericScore = parseInt(lc.level.punteggio || '0', 10);
-                        return score + (numericScore * lc.count);
-                    }, 0) / summary.totalEvaluated;
+                const score = (s: CompetencySummary) => {
+                    if (s.totalEvaluated === 0) return 0;
+                    return s.levelCounts.reduce((acc, lc) => {
+                        return acc + (parseInt(lc.level.punteggio || '0', 10) * lc.count);
+                    }, 0) / s.totalEvaluated;
                 };
-                return getWeightedScore(b) - getWeightedScore(a); // Highest performance first
+                return score(b) - score(a);
             });
         } else {
-            summaries.sort((a,b) => a.competency.nome.localeCompare(b.competency.nome));
+            summaries.sort((a, b) => a.competency.nome.localeCompare(b.competency.nome));
         }
 
         return summaries;
     }, [settings.competenze, classStudents, competencyEvaluations, sortBy]);
 
-    const getLevelColor = (levelName: string) => {
-        const lower = levelName.toLowerCase();
-        if (lower.includes('avanzato') || lower.includes('a -')) return 'var(--md-sys-color-tertiary)';
-        if (lower.includes('intermedio') || lower.includes('b -')) return 'var(--md-sys-color-secondary)';
-        if (lower.includes('base') || lower.includes('c -')) return 'var(--md-sys-color-primary)';
-        if (lower.includes('iniziale') || lower.includes('d -')) return 'var(--md-sys-color-error)';
-        return 'var(--md-sys-color-surface-variant)';
-    };
-
-    const handleLevelClick = (levelCount: CompetencySummary['levelCounts'][0], competencyName: string) => {
-        if (levelCount.count > 0) {
-            const color = getLevelColor(levelCount.level.nome);
+    const handleLevelClick = (lc: CompetencySummary['levelCounts'][0], competencyName: string) => {
+        if (lc.count > 0) {
             setViewingStudents({
-                title: `${competencyName} - Livello ${levelCount.level.nome}`,
-                students: levelCount.students,
-                levelColor: color
+                title: `${competencyName} — ${lc.level.nome}`,
+                students: lc.students,
+                levelColor: getLevelColor(lc.level.nome),
             });
         }
     };
-    
+
+    // ── Statistiche globali ───────────────────────────────────────────────
+    const totalEvals = competencySummaries.reduce((s, c) => s + c.totalEvaluated, 0);
+    const totalPossible = competencySummaries.length * classStudents.length;
+    const coveragePct = totalPossible > 0 ? Math.round((totalEvals / totalPossible) * 100) : 0;
+
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <Typography component="h1" variant="h4" sx={{ color: 'var(--md-sys-color-on-primary)' }}>Competenze {selectedClass}</Typography>
-                    <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
-                        Analisi dei livelli raggiunti per area di competenza.
+        <>
+            <PageWrapper
+                maxWidth="var(--md-sys-layout-content-max-width)"
+                gap="var(--md-sys-spacing-5)"
+                sx={{
+                    px: 'var(--md-sys-spacing-4)',
+                    pt: 'var(--md-sys-spacing-4)',
+                    pb: 'calc(24px + env(safe-area-inset-bottom, 0px))',
+                }}
+            >
+                {/* ── Intestazione ────────────────────────────────────────── */}
+                <Box>
+                    <Typography variant="h5" sx={{ color: 'var(--md-sys-color-on-surface)' }}>
+                        Competenze
                     </Typography>
-                </div>
-            </div>
-            
-            {/* Controls */}
-            <div style={{display: "flex", justifyContent: "flex-end", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', display: "flex", borderRadius: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-1)' }}>
-                    <button 
-                        onClick={() => setSortBy('competency')} 
-                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-medium, 500)', color: 'var(--md-sys-color-on-primary)'}}
-                    >
-                        Alfabetico
-                    </button>
-                    <button 
-                        onClick={() => setSortBy('performance')} 
-                        style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-medium, 500)', color: 'var(--md-sys-color-on-primary)'}}
-                    >
-                        Rendimento
-                    </button>
-                </div>
-            </div>
+                    <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: '2px' }}>
+                        {selectedClass} · Analisi dei livelli raggiunti per area di competenza
+                    </Typography>
+                </Box>
 
-            <div style={{marginTop: 'var(--md-sys-spacing-4)'}}>
-                {competencySummaries.map(summary => {
-                    const notEvaluatedCount = classStudents.length - summary.totalEvaluated;
-                    return (
-                        <details key={summary.competency.id} style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}>
-                            <summary  style={{padding: 'var(--md-sys-spacing-8)', cursor: "pointer"}}>
-                                {/* Custom Header Content */}
-                                <div style={{display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-6)'}}>
-                                    <div style={{ flexGrow: "1", minWidth: "0" }}>
-                                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-4)'}}>
-                                            <span style={{ color: 'var(--md-sys-color-on-primary-container)' , fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", letterSpacing: "var(--md-sys-typescale-label-small-tracking)", backgroundColor: "var(--md-sys-color-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-shape-corner-medium)', overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap"}}>
-                                                {summary.competency.codice}
-                                            </span>
-                                            <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>
-                                                {summary.totalEvaluated}/{classStudents.length} Valutati
-                                            </span>
-                                        </div>
-                                        <Typography component="h3" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)' }}>
-                                            {summary.competency.nome}
-                                        </Typography>
-                                    </div>
-                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', transition: "transform var(--md-sys-motion-duration-medium)" }}>expand_more</Box>
-                                </div>
-
-                                {/* Visual Progress Bar */}
-                                <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', height: 'var(--md-sys-spacing-2)', width: "var(--md-sys-percent-full)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex" }}>
-                                    {summary.levelCounts.map(lc => {
-                                        if (lc.count === 0) return null;
-                                        const pct = (lc.count / classStudents.length) * 100;
-                                        const levelColor = getLevelColor(lc.level.nome);
-                                        return (
-                                            <div 
-                                                key={lc.level.id} 
-                                                style={{ height: "var(--md-sys-percent-full)", width: `${pct}%`, backgroundColor: levelColor }} 
-                                            />
-                                        );
-                                    })}
-                                    {notEvaluatedCount > 0 && (
-                                        <div 
-                                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', height: "var(--md-sys-percent-full)", width: `${(notEvaluatedCount / classStudents.length) * 100}%` }}
-                                        />
-                                    )}
-                                </div>
-                            </summary>
-                            
-                            <div  style={{padding: 'var(--md-sys-spacing-8)', paddingTop: "0", display: "grid", gridTemplateColumns: "var(--md-sys-grid-fr-1)", gap: 'var(--md-sys-spacing-6)'}}>
-                                {summary.levelCounts.map(lc => {
-                                    return (
-                                        <div 
-                                            key={lc.level.id} 
-                                            onClick={() => handleLevelClick(lc, summary.competency.nome)}
-                                            style={{padding: 'var(--md-sys-spacing-8)'}}
-                                        >
-                                            <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-8)'}}>
-                                                <div style={{borderRadius: 'var(--md-sys-shape-corner-full)', fontWeight: 'var(--md-sys-typescale-body-large-font-weight-bold)'}}>
-                                                    {lc.level.nome.charAt(0)}
-                                                </div>
-                                                <div style={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-display-large-font-size)', fontWeight: 'var(--md-sys-typescale-display-large-font-size-weight)' }}>{lc.count}</div>
-                                            </div>
-                                            <div style={{ color: 'var(--md-sys-color-on-surface-variant)' , fontWeight: "var(--md-sys-typescale-weight-bold)", textTransform: "uppercase", marginBottom: 'var(--md-sys-spacing-4)'}}>Studenti</div>
-                                            <Typography component="p" variant="subtitle1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: 'var(--md-sys-typescale-body-large-font-size)', lineHeight: 'var(--md-sys-typescale-body-large-line-height)' }}>
-                                                {lc.level.descrizione}
-                                            </Typography>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </details>
-                    );
-                })}
-                
-                {competencySummaries.length === 0 && (
-                    <div style={{ padding: 'var(--md-sys-spacing-4)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
-                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 'var(--md-sys-state-opacity-tint-moderate)', marginBottom: 'var(--md-sys-spacing-8)' }}>bar_chart</Box>
-                        <Typography component="p" variant="h6" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontSize: 'var(--md-sys-typescale-title-large-font-size)', fontWeight: 'var(--md-sys-typescale-title-large-font-size-weight)' }}>Nessun dato</Typography>
-                        <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Non hai ancora configurato le competenze in Impostazioni.</Typography>
-                    </div>
+                {/* ── Riepilogo copertura ──────────────────────────────────── */}
+                {competencySummaries.length > 0 && classStudents.length > 0 && (
+                    <Box sx={{ display: 'flex', gap: 'var(--md-sys-spacing-3)', flexWrap: 'wrap' }}>
+                        <Box sx={{
+                            px: 'var(--md-sys-spacing-4)', py: 'var(--md-sys-spacing-3)',
+                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                            bgcolor: 'var(--md-sys-color-surface-container)',
+                            minWidth: 80, textAlign: 'center',
+                        }}>
+                            <Typography variant="h6" sx={{ color: 'var(--md-sys-color-primary)', lineHeight: 1 }}>
+                                {classStudents.length}
+                            </Typography>
+                            <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                                studenti
+                            </Typography>
+                        </Box>
+                        <Box sx={{
+                            px: 'var(--md-sys-spacing-4)', py: 'var(--md-sys-spacing-3)',
+                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                            bgcolor: 'var(--md-sys-color-surface-container)',
+                            minWidth: 80, textAlign: 'center',
+                        }}>
+                            <Typography variant="h6" sx={{ color: 'var(--md-sys-color-secondary)', lineHeight: 1 }}>
+                                {competencySummaries.length}
+                            </Typography>
+                            <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                                competenze
+                            </Typography>
+                        </Box>
+                        <Box sx={{
+                            px: 'var(--md-sys-spacing-4)', py: 'var(--md-sys-spacing-3)',
+                            borderRadius: 'var(--md-sys-shape-corner-medium)',
+                            bgcolor: coveragePct >= 80
+                                ? 'var(--md-sys-color-tertiary-container)'
+                                : coveragePct >= 40
+                                ? 'var(--md-sys-color-secondary-container)'
+                                : 'var(--md-sys-color-surface-container)',
+                            minWidth: 80, textAlign: 'center',
+                        }}>
+                            <Typography variant="h6" sx={{
+                                color: coveragePct >= 80
+                                    ? 'var(--md-sys-color-on-tertiary-container)'
+                                    : coveragePct >= 40
+                                    ? 'var(--md-sys-color-on-secondary-container)'
+                                    : 'var(--md-sys-color-on-surface)',
+                                lineHeight: 1,
+                            }}>
+                                {coveragePct}%
+                            </Typography>
+                            <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                                copertura
+                            </Typography>
+                        </Box>
+                    </Box>
                 )}
-            </div>
 
-            {/* Student List Modal */}
+                {/* ── Controlli ordinamento ────────────────────────────────── */}
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                    <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mr: 'var(--md-sys-spacing-1)' }}>
+                        Ordina:
+                    </Typography>
+                    <Chip
+                        label="Alfabetico"
+                        size="small"
+                        onClick={() => setSortBy('competency')}
+                        variant={sortBy === 'competency' ? 'filled' : 'outlined'}
+                        sx={{
+                            bgcolor: sortBy === 'competency' ? 'var(--md-sys-color-secondary-container)' : 'transparent',
+                            color: sortBy === 'competency'
+                                ? 'var(--md-sys-color-on-secondary-container)'
+                                : 'var(--md-sys-color-on-surface-variant)',
+                            borderColor: 'var(--md-sys-color-outline-variant)',
+                            fontWeight: sortBy === 'competency' ? 600 : 400,
+                        }}
+                    />
+                    <Chip
+                        label="Rendimento"
+                        size="small"
+                        onClick={() => setSortBy('performance')}
+                        variant={sortBy === 'performance' ? 'filled' : 'outlined'}
+                        sx={{
+                            bgcolor: sortBy === 'performance' ? 'var(--md-sys-color-secondary-container)' : 'transparent',
+                            color: sortBy === 'performance'
+                                ? 'var(--md-sys-color-on-secondary-container)'
+                                : 'var(--md-sys-color-on-surface-variant)',
+                            borderColor: 'var(--md-sys-color-outline-variant)',
+                            fontWeight: sortBy === 'performance' ? 600 : 400,
+                        }}
+                    />
+                </Box>
+
+                {/* ── Lista competenze ─────────────────────────────────────── */}
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
+                    {competencySummaries.length > 0 ? (
+                        competencySummaries.map(summary => (
+                            <CompetencyCard
+                                key={summary.competency.id}
+                                summary={summary}
+                                totalStudents={classStudents.length}
+                                onLevelClick={handleLevelClick}
+                            />
+                        ))
+                    ) : (
+                        <M3Surface elevation={0} sx={{
+                            borderRadius: 'var(--md-sys-shape-corner-large)',
+                            p: 'var(--md-sys-spacing-8)',
+                            display: 'flex', flexDirection: 'column', alignItems: 'center',
+                            gap: 'var(--md-sys-spacing-3)', textAlign: 'center',
+                            bgcolor: 'var(--md-sys-color-surface-container)',
+                        }}>
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true"
+                                sx={{ fontSize: 48, color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.5 }}>
+                                bar_chart
+                            </Box>
+                            <Typography variant="titleMedium" sx={{ color: 'var(--md-sys-color-on-surface)' }}>
+                                Nessuna competenza configurata
+                            </Typography>
+                            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', maxWidth: 320 }}>
+                                Aggiungi le competenze nelle Impostazioni per iniziare a valutare la classe.
+                            </Typography>
+                        </M3Surface>
+                    )}
+                </Box>
+            </PageWrapper>
+
+            {/* ── Modale studenti per livello ─────────────────────────────── */}
             {viewingStudents && (
                 <M3Dialog
                     title={viewingStudents.title}
                     onClose={() => setViewingStudents(null)}
-                    maxWidth="md"
+                    maxWidth="sm"
                 >
-                    <DialogContent sx={{gap: 'var(--md-sys-spacing-2)'}}>
-                                {viewingStudents.students.map(student => {
-                                     return (
-                                        <div 
-                                            key={student.id} 
-                                            onClick={() => { setViewingStudents(null); onViewStudentProfile(student); }} 
-                                            style={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)' , display: "flex", alignItems: "center", justifyContent: "space-between", padding: 'var(--md-sys-spacing-8)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)", cursor: "pointer", transition: 'opacity, transform, background-color, color, border-color, box-shadow var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)'}}
-                                        >
-                                            <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
-                                                <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
-                                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                                    <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-bold)" }}>{student.cognome} {student.nome}</Typography>
-                                                    <div  style={{ display: "flex", alignItems: "center" }}>
-                                                        <span style={{borderRadius: 'var(--md-sys-shape-corner-full)', backgroundColor: viewingStudents.levelColor, width: 'var(--md-sys-spacing-6)', height: 'var(--md-sys-spacing-6)'}}></span>
-                                                        <span style={{ color: 'var(--md-sys-color-on-surface-variant)' ,  fontSize: "var(--md-sys-typescale-body-small-font-size)" }}>Livello raggiunto</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)', transition: "transform var(--md-sys-motion-duration-medium)" }}>arrow_forward</Box>
-                                        </div>
-                                    )
-                                })}
+                    <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)', p: 'var(--md-sys-spacing-3)' }}>
+                        {viewingStudents.students.length === 0 ? (
+                            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: 'center', py: 'var(--md-sys-spacing-4)' }}>
+                                Nessuno studente a questo livello.
+                            </Typography>
+                        ) : viewingStudents.students.map(student => (
+                            <ButtonBase
+                                key={student.id}
+                                onClick={() => { setViewingStudents(null); onViewStudentProfile(student); }}
+                                focusRipple
+                                aria-label={`Apri profilo di ${student.nome} ${student.cognome}`}
+                                sx={{
+                                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                                    p: 'var(--md-sys-spacing-3)',
+                                    borderRadius: 'var(--md-sys-shape-corner-medium)',
+                                    bgcolor: 'var(--md-sys-color-surface-container)',
+                                    textAlign: 'left',
+                                    '&:hover': { bgcolor: 'var(--md-sys-color-surface-container-high)' },
+                                    '&:focus-visible': { outline: '2px solid var(--md-sys-color-primary)', outlineOffset: 2 },
+                                }}
+                            >
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+                                    <Avatar name={`${student.nome} ${student.cognome}`} size="md" />
+                                    <Box>
+                                        <Typography variant="body2" sx={{
+                                            color: 'var(--md-sys-color-on-surface)',
+                                            fontWeight: 'var(--md-sys-typescale-weight-medium)',
+                                        }}>
+                                            {student.cognome} {student.nome}
+                                        </Typography>
+                                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '4px', mt: '2px' }}>
+                                            <Box sx={{
+                                                width: 8, height: 8, borderRadius: '50%',
+                                                bgcolor: viewingStudents.levelColor, flexShrink: 0,
+                                            }} />
+                                            <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                                                Livello raggiunto
+                                            </Typography>
+                                        </Box>
+                                    </Box>
+                                </Box>
+                                <Box component="span" className="material-symbols-outlined" aria-hidden="true"
+                                    sx={{ fontSize: 18, color: 'var(--md-sys-color-on-surface-variant)' }}>
+                                    arrow_forward
+                                </Box>
+                            </ButtonBase>
+                        ))}
                     </DialogContent>
-                    <DialogActions>
+                    <DialogActions sx={{ px: 'var(--md-sys-spacing-4)', pb: 'var(--md-sys-spacing-3)' }}>
                         <Button onClick={() => setViewingStudents(null)} variant="text">Chiudi</Button>
                     </DialogActions>
                 </M3Dialog>
             )}
-        </div>
+        </>
     );
 };
 
