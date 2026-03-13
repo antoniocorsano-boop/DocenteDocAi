@@ -1,6 +1,7 @@
 import { logger } from '../utils/logger';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+type GenAIModule = { GoogleGenAI?: new (opts: { apiKey: string }) => unknown; default?: unknown };
+type GoogleAIClient = { models: { generateContent: (params: { model: string; contents: unknown; config?: unknown }) => Promise<{ text: string }> } };
 
 // ---------------------------------------------------------------------------
 // Proxy client — used in production when VITE_GEMINI_API_KEY is not bundled.
@@ -28,8 +29,8 @@ const createProxyClient = () => ({
 });
 
 // Lazy-load the Google GenAI SDK to avoid bundling it in the main chunk
-let _cachedGenAiModule: any = null;
-export const getGoogleAIClient = async (): Promise<any> => {
+let _cachedGenAiModule: GenAIModule | null = null;
+export const getGoogleAIClient = async (): Promise<GoogleAIClient> => {
     const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
     // Production path: no key in bundle → use server-side proxy
@@ -41,9 +42,9 @@ export const getGoogleAIClient = async (): Promise<any> => {
     if (!_cachedGenAiModule) {
         _cachedGenAiModule = await import('@google/genai');
     }
-    const mod = _cachedGenAiModule;
-    const GoogleGenAI = mod?.GoogleGenAI || mod?.default || mod;
-    return new GoogleGenAI({ apiKey });
+    const mod = _cachedGenAiModule as GenAIModule;
+    const GoogleGenAI = mod?.GoogleGenAI || (mod?.default as (new (opts: { apiKey: string }) => GoogleAIClient) | undefined);
+    return new (GoogleGenAI as new (opts: { apiKey: string }) => GoogleAIClient)({ apiKey });
 };
 
 /**
@@ -63,7 +64,7 @@ export async function callAiWithRetry<T>(operation: () => Promise<T>, retries = 
     const attempt = async (remainingRetries: number, currentDelay: number): Promise<T> => {
         try {
             return await operationWithTimeout();
-        } catch (error: any) {
+        } catch (error: unknown) {
             const elapsed = Date.now() - startTime;
             if (elapsed >= maxTotalTimeMs) {
                 throw new Error('Tempo totale di retry superato. Riprova più tardi.');
@@ -71,24 +72,25 @@ export async function callAiWithRetry<T>(operation: () => Promise<T>, retries = 
 
             let isRetryable = false;
             let userMessage = 'Si è verificato un errore imprevisto. Riprova.';
+            const err = error as { status?: number; message?: string };
 
-            if (error?.status === 429 || error?.message?.includes('quota')) {
+            if (err?.status === 429 || err?.message?.includes('quota')) {
                 userMessage = 'Limite di utilizzo AI raggiunto. Riprova più tardi.';
                 isRetryable = true;
-            } else if (error?.status === 503 || error?.status === 500 || error?.message?.includes('overloaded')) {
+            } else if (err?.status === 503 || err?.status === 500 || err?.message?.includes('overloaded')) {
                 userMessage = 'Servizio AI temporaneamente non disponibile. Riprova.';
                 isRetryable = true;
-            } else if (error?.message?.includes('Richiesta AI scaduta') || error?.message?.includes('troppo tempo')) {
+            } else if (err?.message?.includes('Richiesta AI scaduta') || err?.message?.includes('troppo tempo')) {
                 userMessage = 'La richiesta AI ha impiegato troppo tempo. Riprova più tardi.';
                 isRetryable = true;
-            } else if (error?.message?.includes('API_KEY')) {
+            } else if (err?.message?.includes('API_KEY')) {
                 userMessage = 'Configurazione AI non valida. Contatta il supporto.';
                 isRetryable = false;
             }
 
         if (remainingRetries > 0 && isRetryable) {
             if (import.meta.env.DEV) {
-                logger.warn(`AI API Warning: ${error.message}. Riprovo tra ${currentDelay}ms...`);
+                logger.warn(`AI API Warning: ${err.message}. Riprovo tra ${currentDelay}ms...`);
             }
             await new Promise(res => setTimeout(res, currentDelay));
             return attempt(remainingRetries - 1, currentDelay * 2);

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 /**
  * LIGHTWEIGHT: Safe DOM and Performance polyfills
  * Only add missing APIs, don't override existing ones
@@ -12,7 +12,7 @@ if (typeof window !== 'undefined' && !window.performance) {
     measure: () => {},
     getEntriesByType: () => [],
     getEntriesByName: () => [],
-  } as any;
+  } as unknown as Performance;
 }
 
 // Safe requestAnimationFrame polyfill
@@ -29,7 +29,7 @@ if (typeof window !== 'undefined' && !window.console) {
     error: () => {},
     info: () => {},
     debug: () => {},
-  } as any;
+  } as unknown as Console;
 }
 
 // Safe localStorage/sessionStorage
@@ -41,7 +41,7 @@ if (typeof window !== 'undefined') {
       removeItem: () => {},
       clear: () => {},
       length: 0,
-    } as any;
+    } as unknown as Storage;
   }
 
   if (!window.sessionStorage) {
@@ -51,13 +51,13 @@ if (typeof window !== 'undefined') {
       removeItem: () => {},
       clear: () => {},
       length: 0,
-    } as any;
+    } as unknown as Storage;
   }
 }
 
 // Only set now() if it doesn't exist
 if (typeof globalThis !== 'undefined' && globalThis.performance && typeof globalThis.performance.now !== 'function') {
-  (globalThis.performance as any).now = () => Date.now();
+  (globalThis.performance as unknown as { now: () => number }).now = () => Date.now();
 }
 
 export {};
