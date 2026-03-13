@@ -212,8 +212,8 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
               <Box component="span" className="material-symbols-outlined" aria-hidden="true">{typeIcon}</Box>
             </Box>
             <Box sx={{ flex: 1 }}>
-              <Typography variant="h6" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'text.primary', m: 0 }}>Piano Lezione</Typography>
-              <Typography variant="caption" sx={{ color: 'text.secondary' }}>{lesson.id.split('-').slice(0,2).join('-')}</Typography>
+              <Typography variant="h6" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-on-surface)', m: 0 }}>Piano Lezione</Typography>
+              <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{lesson.id.split('-').slice(0,2).join('-')}</Typography>
             </Box>
           </Box>
         </DialogTitle>
@@ -416,7 +416,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
             </Box>
         </DialogContent>
         <DialogActions sx={{ justifyContent: 'space-between', flexWrap: 'wrap', gap: 1.5 }}>
-            <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+            <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                 Ultima modifica: {new Date().toLocaleDateString()}
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -442,7 +442,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
             <DialogTitle>{previewingMaterial.fileName}</DialogTitle>
             <DialogContent>
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-medium)', bgcolor: 'background.paper', p: 2, maxHeight: '60vh', overflowY: 'auto', border: '1px solid', borderColor: 'divider' }}>
+                    <Box sx={{ borderRadius: 'var(--md-sys-shape-corner-medium)', bgcolor: 'var(--md-sys-color-surface-container)', p: 2, maxHeight: '60vh', overflowY: 'auto', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
                         <Box component="pre" sx={{ m: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-word', typography: 'body2', fontFamily: 'monospace' }}>{sanitizeHTML(previewingMaterial.content)}</Box>
                     </Box>
                 </Box>

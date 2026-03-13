@@ -110,11 +110,11 @@ const Settings: React.FC<SettingsProps> = (props) => {
                 />
 
                 <Box sx={{ textAlign: 'center', py: 2 }}>
-                    <Typography variant="caption" component="div" sx={{ color: 'text.disabled' }}>
+                    <Typography variant="caption" component="div" sx={{ color: 'var(--md-sys-color-outline)' }}>
                         DocenteDoc AI v4.0.8 • Stable
                         <Box sx={{ pt: 1 }}>
-                            <Typography component="span" variant="caption" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)', color: 'text.disabled' }}>Owner:</Typography> Antonio Corsano
-                            <Typography variant="caption" component="div" sx={{ mt: 0.5, color: 'text.disabled' }}>antonio.corsano@gmail.com</Typography>
+                            <Typography component="span" variant="caption" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)', color: 'var(--md-sys-color-outline)' }}>Owner:</Typography> Antonio Corsano
+                            <Typography variant="caption" component="div" sx={{ mt: 0.5, color: 'var(--md-sys-color-outline)' }}>antonio.corsano@gmail.com</Typography>
                         </Box>
                     </Typography>
                     <Button

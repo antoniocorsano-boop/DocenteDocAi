@@ -63,7 +63,7 @@ const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onC
                         <span
                             className="material-symbols-outlined"
                             aria-hidden="true"
-                            style={{ color: '#fff', fontSize: '20px' }}
+                            style={{ color: 'var(--md-sys-color-on-primary)', fontSize: '20px' }}
                         >check_circle</span>
                     </div>
                 )}

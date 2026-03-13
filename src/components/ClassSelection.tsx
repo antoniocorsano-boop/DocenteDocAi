@@ -241,7 +241,7 @@ const ClassSelection: React.FC<ClassSelectionProps> = ({ onSelectClass, onNaviga
                                                 component="span"
                                                 className="material-symbols-outlined"
                                                 aria-hidden="true"
-                                                sx={{ fontSize: 28, color: '#fff' }}
+                                                sx={{ fontSize: 28, color: 'var(--md-sys-color-on-primary)' }}
                                             >
                                                 groups
                                             </Box>

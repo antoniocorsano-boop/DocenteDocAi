@@ -289,7 +289,7 @@ export const SettingsInterfaceSection: React.FC<SettingsInterfaceSectionProps> =
                                     onClick={handleGenerateThemeFromPrompt}
                                     disabled={isGeneratingTheme || !themePrompt.trim()}
                                     aria-label="Genera tema AI"
-                                    sx={{ bgcolor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', borderRadius: 2, '&:hover': { bgcolor: 'color-mix(in srgb, var(--md-sys-color-primary) 85%, black)' }, '&.Mui-disabled': { bgcolor: 'action.disabledBackground' } }}
+                                    sx={{ bgcolor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', borderRadius: 2, '&:hover': { bgcolor: 'color-mix(in srgb, var(--md-sys-color-primary) 85%, black)' }, '&.Mui-disabled': { bgcolor: 'var(--md-sys-color-surface-container-high)' } }}
                                 >
                                     <Box component="span" className="material-symbols-outlined" aria-hidden="true">{isGeneratingTheme ? 'sync' : 'auto_awesome'}</Box>
                                 </IconButton>

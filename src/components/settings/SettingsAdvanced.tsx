@@ -50,10 +50,10 @@ export const SettingsAdvancedSection: React.FC<SettingsAdvancedSectionProps> = (
                     />
                 </Stack>
             </Box>
-            <Box sx={{ p: 2, bgcolor: 'color-mix(in srgb, var(--md-sys-color-error-container) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-extra-large)', border: '1px solid', borderColor: 'error.light' }}>
+            <Box sx={{ p: 2, bgcolor: 'color-mix(in srgb, var(--md-sys-color-error-container) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-extra-large)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-error)' }}>
                 <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-error)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>warning</Box>
-                    <Typography variant="overline" sx={{ color: 'error.main', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Zona Pericolo</Typography>
+                    <Typography variant="overline" sx={{ color: 'var(--md-sys-color-error)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Zona Pericolo</Typography>
                 </Stack>
                 <Button
                     onClick={() => setIsResetModalOpen(true)}

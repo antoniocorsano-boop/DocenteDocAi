@@ -89,7 +89,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       flexDirection: 'column',
       height: 'var(--md-sys-viewport-height-dvh)',
       overflow: 'hidden',
-      bgcolor: 'background.paper',
+      bgcolor: 'var(--md-sys-color-surface)',
     }}>
       {/* Header: static in flow, never overlaps content */}
       <Header
@@ -131,7 +131,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
               flexShrink: 0,
               display: 'flex',
               flexDirection: 'column',
-              bgcolor: 'background.paper',
+              bgcolor: 'var(--md-sys-color-surface-container-low)',
               borderRight: 'var(--md-sys-border-width-thin) solid',
               borderColor: 'divider',
               overflowY: 'auto',
@@ -155,7 +155,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             flex: 1,
             overflowY: 'auto',
             overflowX: 'hidden',
-            bgcolor: 'background.paper',
+            bgcolor: 'var(--md-sys-color-surface)',
             pb: isDesktop ? undefined : 'calc(var(--md-sys-spacing-16) + env(safe-area-inset-bottom, 0px))',
             minWidth: 0,
           }}

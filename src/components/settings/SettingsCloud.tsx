@@ -63,7 +63,7 @@ export const SettingsCloudSection: React.FC<SettingsCloudSectionProps> = ({
                             variant="determinate"
                             value={storageInfo.percent}
                             color={storageInfo.percent > 80 ? 'error' : 'primary'}
-                            sx={{ borderRadius: 1, height: 6, bgcolor: 'action.hover' }}
+                            sx={{ borderRadius: 1, height: 6, bgcolor: 'var(--md-sys-color-surface-container-high)' }}
                         />
                         <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                             Dati salvati in IndexedDB (senza limiti LocalStorage).

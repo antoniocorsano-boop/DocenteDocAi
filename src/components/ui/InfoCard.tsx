@@ -62,7 +62,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
                                     width: 48,
                                     height: 48,
                                     borderRadius: 'var(--md-sys-shape-corner-large)',
-                                    bgcolor: 'action.hover',
+                                    bgcolor: 'var(--md-sys-color-surface-container-high)',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
