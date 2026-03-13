@@ -5,8 +5,80 @@
  * ai token CSS var(--md-sys-*) già definiti nel sistema MD3 custom del progetto.
  * I componenti MUI si adatteranno automaticamente al tema chiaro/scuro
  * e ai token globali senza duplicare valori.
+ *
+ * ── Tipografia MD3 ─────────────────────────────────────────────────────────
+ * I variant standard MUI (h1-h6, body1/2, subtitle1/2, caption, overline) sono
+ * mappati ai corrispettivi MD3. I variant nativi MD3 (titleLarge, titleMedium …)
+ * sono registrati tramite module augmentation qui sotto e definiti nel tema.
+ *
+ * MAPPA RAPIDA MUI → MD3:
+ *   h1          = Display Large   (57px)
+ *   h2          = Display Medium  (45px)
+ *   h3          = Display Small   (36px)
+ *   h4          = Headline Large  (32px)
+ *   h5          = Headline Medium (28px)
+ *   h6          = Headline Small  (24px)
+ *   subtitle1   = Title Large     (22px)
+ *   subtitle2   = Title Medium    (16px 500)
+ *   body1       = Body Large      (16px)
+ *   body2       = Body Medium     (14px)
+ *   caption     = Body Small      (12px)
+ *   overline    = Label Small     (11px 500)
+ *   button      = Label Large     (14px 500)
+ *
+ * VARIANT MD3-NATIVI (aggiunti):
+ *   titleLarge  = 22px / 28px / 400
+ *   titleMedium = 16px / 24px / 500
+ *   titleSmall  = 14px / 20px / 500
+ *   bodyLarge   = 16px / 24px / 400
+ *   bodyMedium  = 14px / 20px / 400
+ *   bodySmall   = 12px / 16px / 400
+ *   labelLarge  = 14px / 20px / 500
+ *   labelMedium = 12px / 16px / 500
+ *   labelSmall  = 11px / 16px / 500
  */
 import { createTheme, Theme } from '@mui/material/styles';
+import type { CSSProperties } from 'react';
+
+// ── Module augmentation: aggiunge variant MD3-nativi a MUI Typography ────────
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    titleLarge:  CSSProperties;
+    titleMedium: CSSProperties;
+    titleSmall:  CSSProperties;
+    bodyLarge:   CSSProperties;
+    bodyMedium:  CSSProperties;
+    bodySmall:   CSSProperties;
+    labelLarge:  CSSProperties;
+    labelMedium: CSSProperties;
+    labelSmall:  CSSProperties;
+  }
+  interface TypographyVariantsOptions {
+    titleLarge?:  CSSProperties;
+    titleMedium?: CSSProperties;
+    titleSmall?:  CSSProperties;
+    bodyLarge?:   CSSProperties;
+    bodyMedium?:  CSSProperties;
+    bodySmall?:   CSSProperties;
+    labelLarge?:  CSSProperties;
+    labelMedium?: CSSProperties;
+    labelSmall?:  CSSProperties;
+  }
+}
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    titleLarge:  true;
+    titleMedium: true;
+    titleSmall:  true;
+    bodyLarge:   true;
+    bodyMedium:  true;
+    bodySmall:   true;
+    labelLarge:  true;
+    labelMedium: true;
+    labelSmall:  true;
+  }
+}
 
 // MD3 palette values per mode — hex only, never CSS vars (MUI Error #9)
 const lightPalette = {
@@ -114,6 +186,64 @@ export function buildMuiTheme(mode: 'light' | 'dark'): Theme {
       fontWeight: 500,
       textTransform: 'none',
     },
+
+    // ── Variant MD3-nativi (usabili con variant="titleMedium" ecc.) ──────────
+    // Equivalenti ai MUI standard ma con nome semantico MD3.
+    // Preferiti in nuovi componenti per leggibilità e futura migrazione.
+    titleLarge: {
+      fontFamily: "'Roboto Flex', Roboto, sans-serif",
+      fontSize: '1.375rem',        // 22px
+      lineHeight: '1.75rem',       // 28px
+      fontWeight: 400,
+    },
+    titleMedium: {
+      fontFamily: "'Roboto Flex', Roboto, sans-serif",
+      fontSize: '1rem',            // 16px
+      lineHeight: '1.5rem',        // 24px
+      fontWeight: 500,
+    },
+    titleSmall: {
+      fontFamily: "'Roboto Flex', Roboto, sans-serif",
+      fontSize: '0.875rem',        // 14px
+      lineHeight: '1.25rem',       // 20px
+      fontWeight: 500,
+    },
+    bodyLarge: {
+      fontFamily: "'Roboto Flex', Roboto, sans-serif",
+      fontSize: '1rem',            // 16px
+      lineHeight: '1.5rem',        // 24px
+      fontWeight: 400,
+    },
+    bodyMedium: {
+      fontFamily: "'Roboto Flex', Roboto, sans-serif",
+      fontSize: '0.875rem',        // 14px
+      lineHeight: '1.25rem',       // 20px
+      fontWeight: 400,
+    },
+    bodySmall: {
+      fontFamily: "'Roboto Flex', Roboto, sans-serif",
+      fontSize: '0.75rem',         // 12px
+      lineHeight: '1rem',          // 16px
+      fontWeight: 400,
+    },
+    labelLarge: {
+      fontFamily: "'Roboto Flex', Roboto, sans-serif",
+      fontSize: '0.875rem',        // 14px
+      lineHeight: '1.25rem',       // 20px
+      fontWeight: 500,
+    },
+    labelMedium: {
+      fontFamily: "'Roboto Flex', Roboto, sans-serif",
+      fontSize: '0.75rem',         // 12px
+      lineHeight: '1rem',          // 16px
+      fontWeight: 500,
+    },
+    labelSmall: {
+      fontFamily: "'Roboto Flex', Roboto, sans-serif",
+      fontSize: '0.6875rem',       // 11px
+      lineHeight: '1rem',          // 16px
+      fontWeight: 500,
+    },
   },
 
   shape: {
@@ -126,6 +256,22 @@ export function buildMuiTheme(mode: 'light' | 'dark'): Theme {
   components: {
     // I componenti MUI non devono interferire col sistema MD3 custom.
     // Ogni componente usa i token CSS vars tramite palette/typography.
+    MuiTypography: {
+      defaultProps: {
+        variantMapping: {
+          // MD3-native variants → HTML semantici
+          titleLarge:  'p',
+          titleMedium: 'p',
+          titleSmall:  'p',
+          bodyLarge:   'p',
+          bodyMedium:  'p',
+          bodySmall:   'p',
+          labelLarge:  'span',
+          labelMedium: 'span',
+          labelSmall:  'span',
+        },
+      },
+    },
     MuiButtonBase: {
       defaultProps: {
         disableRipple: false,
