@@ -116,7 +116,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
             if (kbEntry) setPreviewingMaterial(kbEntry);
         } else if (material.type === 'file' && material.file?.content) {
             setPreviewingMaterial({
-                id: `temp-${Date.now()}`,
+                id: crypto.randomUUID(),
                 fileName: material.file.name,
                 content: "Contenuto Binario",
                 fileContent: { data: material.file.content, mimeType: material.file.mimeType },

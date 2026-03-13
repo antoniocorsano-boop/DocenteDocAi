@@ -174,7 +174,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
 
     const addUdaToPlan = () => {
         if (!newUdaTitle.trim()) return;
-        const newId = `temp-${Date.now()}`;
+        const newId = crypto.randomUUID();
         setPlannedUdas([...plannedUdas, { id: newId, title: newUdaTitle, hours: newUdaHours, topic: newUdaTitle }]);
         setNewUdaTitle('');
         setNewUdaHours(10);
