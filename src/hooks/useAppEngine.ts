@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
     AppState, AppActions, UserProfile, TimetableSettings, AiSettings, AppThemeState,
@@ -69,7 +69,7 @@ export const useAppEngine = () => {
                     setUser({ id: 'test-local', displayName: 'Test Teacher' } as { id: string; displayName: string });
                     settingsActions.loadFromBackup({});
                     uiActions.setBackupState({ status: 'synced', lastBackup: null } as BackupState);
-                    uiActions.setDriveSyncState({ isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined } as any);
+                    uiActions.setDriveSyncState({ isAuthenticated: false, isSyncing: false, lastSyncTime: null, error: undefined });
                     uiActions.setNavigationHistory([] as { view: View; context: unknown }[]);
                     // Impedisci apertura automatica modale Assistant in test
                     if (uiActions.toggleModal) uiActions.toggleModal('isLiveAssistantModalOpen', false);
@@ -93,7 +93,7 @@ export const useAppEngine = () => {
                             uiActions.setNavigationHistory(localData.navigationHistory || []);
                             try {
                                 const kbContentMap = await loadKbContentFromIndexedDB();
-                                const fullKb = (localData.knowledgeBase || []).map((entry: any) => ({
+                                const fullKb = (localData.knowledgeBase || []).map((entry: KnowledgeBaseEntry) => ({
                                     ...entry,
                                     ...(kbContentMap[entry.id] || {})
                                 }));
@@ -148,7 +148,7 @@ export const useAppEngine = () => {
                     // Handle heavy KB content from IndexedDB separately
                     try {
                         const kbContentMap = await loadKbContentFromIndexedDB();
-                        const fullKb = (localData.knowledgeBase || []).map((entry: any) => ({
+                        const fullKb = (localData.knowledgeBase || []).map((entry: KnowledgeBaseEntry) => ({
                             ...entry,
                             ...(kbContentMap[entry.id] || {})
                         }));
@@ -245,7 +245,7 @@ export const useAppEngine = () => {
                     studentProfileContext,
                     selectedClassForDashboard,
                     actions: { ...studentActions, ...academicActions, ...systemActions }
-                } as any);
+                } as AppState);
                 systemActions.setSuggestions(aiSuggestions);
             } catch (error) {
                 logger.error('[useAppEngine] AI suggestions generation failed:', error);
@@ -282,12 +282,12 @@ export const useAppEngine = () => {
     // Centralized toast dispatcher using messages.ts
     const showToast = useCallback((messageKey: string, type: 'success' | 'error' | 'info' = 'info') => {
         // If the messageKey is a known key in messages.toast, use it, else fallback to the string
-        const msg = (messages.toast as any)[messageKey] || messageKey;
+        const msg = (messages.toast as Record<string, string>)[messageKey] || messageKey;
         uiActions.showToast(msg, type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleNavigate = useCallback((newView: View, context: any = null) => {
+    const handleNavigate = useCallback((newView: View, context: Record<string, unknown> | null = null) => {
         try {
             uiActions.addNavigationEntry({ view, context: viewContext }); // Save current view to history
             setView(newView);
@@ -344,15 +344,14 @@ export const useAppEngine = () => {
 
         uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: true, error: undefined }));
         try {
-            const remoteMeta = await getBackupMetadata(folderId || settings.backupFolderId || '') as any;
+            const remoteMeta = await getBackupMetadata(folderId || settings.backupFolderId || '') as { modifiedTime?: string } | null;
             if (remoteMeta && remoteMeta.modifiedTime && driveState.lastSyncTime && new Date(remoteMeta.modifiedTime) > new Date(driveState.lastSyncTime)) {
                 uiActions.setSyncConflictModal({
                     isOpen: true,
                     data: {
-                        remoteTime: new Date(remoteMeta.modifiedTime).getTime(),
-                        localTime: new Date(driveState.lastSyncTime).getTime(),
-                        isOpen: true
-                    } as any
+                        remoteTime: new Date(remoteMeta.modifiedTime!).getTime(),
+                        localTime: new Date(driveState.lastSyncTime as string).getTime(),
+                    }
                 });
                 uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false }));
                 return;
@@ -401,9 +400,9 @@ export const useAppEngine = () => {
             await uploadBackup(payload, folderId || settings.backupFolderId);
             uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false, lastSyncTime: new Date() }));
             showToast('success', 'success');
-        } catch (e: any) {
+        } catch (e: unknown) {
             showToast('error', 'error');
-            uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false, error: e.message }));
+            uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false, error: e instanceof Error ? e.message : String(e) }));
         }
     }, [user, students, lessons, slots, evaluations, competencyEvals, uda, eventi, knowledgeBase, corpora, notifiche, rubriche, pianiInclusione, giudizi, reportistica, feedSources, draftRegister, finalizedRegister, curricula, submissions, suggestions, activeSuggestion, studentProfileContext, selectedClassForDashboard, settings, aiSettings, themeState, driveSyncState, navigationHistory, uiActions, showToast, installPrompt, canShowInstallPrompt, isGlobalAiLoading, dismissedSuggestions, backupState]);
 
@@ -425,7 +424,7 @@ export const useAppEngine = () => {
         uiActions.setIsRestoring(true);
 
         try {
-            const restoredData = await downloadBackup(folderId || settings.backupFolderId || '') as any;
+            const restoredData = await downloadBackup(folderId || settings.backupFolderId || '') as Partial<BackupPayload> | null;
             if (restoredData) {
                 // Dispatch to Domain Stores
                 studentActions.loadFromBackup(restoredData);
@@ -452,9 +451,9 @@ export const useAppEngine = () => {
                 }
                 showToast('restoreSuccess', 'success');
             }
-        } catch (e: any) {
+        } catch (e: unknown) {
             showToast('restoreError', 'error');
-            uiActions.setDriveSyncState(prev => ({ ...prev, error: e.message }));
+            uiActions.setDriveSyncState(prev => ({ ...prev, error: e instanceof Error ? e.message : String(e) }));
         } finally {
             uiActions.setDriveSyncState(prev => ({ ...prev, isSyncing: false }));
             uiActions.setIsRestoring(false);
@@ -468,9 +467,10 @@ export const useAppEngine = () => {
 
     const handleLoadDemoData = useCallback(() => {
         import('../services/demoData.ts').then(module => {
-            studentActions.loadFromBackup(module.DEMO_DATA as any);
-            academicActions.loadFromBackup(module.DEMO_DATA as any);
-            systemActions.loadFromBackup(module.DEMO_DATA as any);
+            const demoData = module.DEMO_DATA as Partial<BackupPayload>;
+            studentActions.loadFromBackup(demoData);
+            academicActions.loadFromBackup(demoData);
+            systemActions.loadFromBackup(demoData);
             
             // module.DEMO_DATA does not contain settings, so we skip settingsActions.loadFromBackup or pass empty obj
             settingsActions.loadFromBackup({});
@@ -712,9 +712,9 @@ export const useAppEngine = () => {
     }, [showToast, studentActions, academicActions, systemActions, settingsActions, uiActions]);
 
     const handleInstallApp = useCallback(() => {
-        if (installPrompt && typeof (installPrompt as any).prompt === 'function') {
-            (installPrompt as any).prompt();
-            (installPrompt as any).userChoice?.then((choiceResult: any) => {
+        if (installPrompt && typeof installPrompt.prompt === 'function') {
+            installPrompt.prompt();
+            installPrompt.userChoice?.then((choiceResult: { outcome: 'accepted' | 'dismissed'; platform: string }) => {
                 if (choiceResult.outcome === 'accepted') {
                     uiActions.setInstallPrompt(null);
                     uiActions.setCanShowInstallPrompt(false);
@@ -788,7 +788,7 @@ export const useAppEngine = () => {
         uiActions.toggleModal('isOperationsCenterOpen', true);
     }, [uiActions]);
 
-    const handleAiSuggestionFromHome = useCallback((action: any) => {
+    const handleAiSuggestionFromHome = useCallback((action: { type: string; payload: View }) => {
         if (action.type === 'navigate') {
             handleNavigate(action.payload);
         }
@@ -888,7 +888,7 @@ export const useAppEngine = () => {
         dismissSuggestion: dismissSuggestionWrapper,
         setStudentProfileContext: studentActions.setStudentProfileContext,
         setSelectedClassForDashboard: studentActions.setSelectedClassForDashboard,
-        loadFromBackup: (data: any) => {
+        loadFromBackup: (data: Partial<BackupPayload>) => {
             studentActions.loadFromBackup(data);
             academicActions.loadFromBackup(data);
             systemActions.loadFromBackup(data);
@@ -1012,7 +1012,7 @@ export const useAppEngine = () => {
         isRegisterImportOpen: modals.isRegisterImportOpen,
         setIsRegisterImportOpen: uiActions.toggleModal.bind(null, 'isRegisterImportOpen'),
         syncConflictModal: syncConflictModal,
-        setSyncConflictModal: (modal: { isOpen: boolean; data: SyncConflictData | null } | null) => uiActions.setSyncConflictModal(modal as any),
+        setSyncConflictModal: (modal: { isOpen: boolean; data: SyncConflictData | null } | null) => uiActions.setSyncConflictModal(modal),
         createLessonContext: createLessonContext,
         setCreateLessonContext: uiActions.setCreateLessonContext,
         isYearTransitionOpen: modals.isYearTransitionOpen,
