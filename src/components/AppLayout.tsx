@@ -28,7 +28,6 @@ interface AppLayoutProps {
   onInstallApp: () => void;
   onOpenOperations: () => void;
   hasSuggestion: boolean;
-  onOpenNKA?: () => void;
 }
 
 const NAV_ITEMS = [
@@ -58,7 +57,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   onInstallApp,
   onOpenOperations,
   hasSuggestion,
-  onOpenNKA
 }) => {
   // Usa matchMedia per reagire al breakpoint senza polling resize
   const [isDesktop, setIsDesktop] = React.useState(
@@ -111,7 +109,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         onInstallApp={onInstallApp}
         onOpenOperations={onOpenOperations}
         hasSuggestion={hasSuggestion}
-        onOpenNKA={onOpenNKA}
+        onOpenMore={() => setSecondaryNavOpen(p => !p)}
+        moreOpen={secondaryNavOpen}
         currentView={view}
       />
 

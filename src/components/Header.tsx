@@ -13,12 +13,9 @@ import { HeaderProps, BeforeInstallPromptEvent, Notifica, View } from '../types'
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import Avatar from './ui/Avatar';
 import Logo from './Logo';
-import NKAHeaderAuraButton from '../nka/NKAHeaderAuraButton';
-import { useNKAStore } from '../nka/useNKAStore';
 import Breadcrumb from './Breadcrumb';
 
 interface ExtendedHeaderProps extends Omit<HeaderProps, 'onOpenImageAnalysis' | 'onOpenVideoAnalysis' | 'onOpenHelp' | 'onOpenCircularAnalysis' | 'setNotifiche' | 'installPrompt' | 'onInstallApp'> {
-  onOpenNKA?: () => void;
   onOpenImageAnalysis?: () => void;
   onOpenVideoAnalysis?: () => void;
   onOpenHelp?: () => void;
@@ -26,6 +23,10 @@ interface ExtendedHeaderProps extends Omit<HeaderProps, 'onOpenImageAnalysis' | 
   setNotifiche?: React.Dispatch<React.SetStateAction<Notifica[]>>;
   installPrompt?: BeforeInstallPromptEvent | null;
   onInstallApp?: () => void;
+  /** Apre il drawer secondario (voce «Altro» del menù principale) */
+  onOpenMore?: () => void;
+  /** Stato aperto/chiuso del drawer secondario */
+  moreOpen?: boolean;
   /** View corrente — necessaria per il Breadcrumb */
   currentView?: View;
 }
@@ -40,15 +41,14 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
   isAiProcessing,
   hasSuggestion,
   onOpenOperations,
-  onOpenNKA,
+  onOpenMore,
+  moreOpen = false,
   currentView,
 }) => {
   const teacherName = settings?.nomeInsegnante || '';
   const teacherSurname = settings?.cognomeInsegnante || '';
   const isOnline = useOnlineStatus();
   const unreadCount = notifiche.filter(n => !n.letta).length;
-  const { nodes } = useNKAStore();
-  const hasNewNode = nodes.some(n => n.isNew);
 
   // Scroll elevation: tint header when main content is scrolled
   const [scrolled, setScrolled] = React.useState(false);
@@ -109,13 +109,6 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
           >
             <Box component="span" className="material-symbols-outlined" aria-hidden="true">bolt</Box>
           </IconButton>
-          {onOpenNKA && (
-            <NKAHeaderAuraButton
-              hasNewNode={hasNewNode}
-              onClick={onOpenNKA}
-              onLongPress={() => onNavigate('settings')}
-            />
-          )}
         </Box>
 
         {/* Title/Logo + Breadcrumb — left-aligned per MD3 top app bar spec */}
@@ -155,13 +148,31 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
               <Typography variant="caption" component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>Offline</Typography>
             </Box>
           )}
-          <IconButton
-            aria-label="Impostazioni"
-            onClick={() => onNavigate('settings')}
-            sx={{ color: 'var(--md-sys-color-on-surface)' }}
-          >
-            <Box component="span" className="material-symbols-outlined" aria-hidden="true">settings</Box>
-          </IconButton>
+          {/* Altro — visibile solo su mobile (< 1024px); su desktop usa la NavigationRail */}
+          {onOpenMore && (
+            <IconButton
+              aria-label="Altro"
+              aria-expanded={moreOpen}
+              aria-haspopup="dialog"
+              onClick={onOpenMore}
+              sx={{
+                display: { xs: 'inline-flex', lg: 'none' },
+                color: moreOpen
+                  ? 'var(--md-sys-color-on-secondary-container)'
+                  : 'var(--md-sys-color-on-surface)',
+                bgcolor: moreOpen
+                  ? 'var(--md-sys-color-secondary-container)'
+                  : 'transparent',
+                '&:hover': moreOpen ? {
+                  bgcolor: 'color-mix(in srgb, var(--md-sys-color-secondary-container) 88%, var(--md-sys-color-on-secondary-container))',
+                } : {},
+              }}
+            >
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true">
+                {moreOpen ? 'menu_open' : 'menu'}
+              </Box>
+            </IconButton>
+          )}
           <IconButton
             aria-label="Menu utente"
             onClick={() => onNavigate('settings')}

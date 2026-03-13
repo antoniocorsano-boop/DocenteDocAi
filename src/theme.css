@@ -578,6 +578,38 @@
   --md-sys-color-surface-container: #211F26;
   --md-sys-color-surface-container-high: #2D2A32;
   --md-sys-color-surface-container-highest: #38343C;
+  /* RGB companion tokens — required for rgba() usages throughout CSS */
+  --md-sys-color-primary-rgb: 208, 188, 255;
+  --md-sys-color-on-primary-rgb: 56, 30, 114;
+  --md-sys-color-primary-container-rgb: 79, 55, 139;
+  --md-sys-color-on-primary-container-rgb: 234, 221, 255;
+  --md-sys-color-secondary-rgb: 204, 194, 220;
+  --md-sys-color-on-secondary-rgb: 51, 45, 65;
+  --md-sys-color-secondary-container-rgb: 74, 68, 88;
+  --md-sys-color-on-secondary-container-rgb: 232, 222, 248;
+  --md-sys-color-tertiary-rgb: 239, 184, 200;
+  --md-sys-color-on-tertiary-rgb: 73, 37, 50;
+  --md-sys-color-tertiary-container-rgb: 99, 59, 72;
+  --md-sys-color-on-tertiary-container-rgb: 255, 216, 228;
+  --md-sys-color-error-rgb: 255, 180, 171;
+  --md-sys-color-on-error-rgb: 105, 0, 5;
+  --md-sys-color-error-container-rgb: 147, 0, 10;
+  --md-sys-color-on-error-container-rgb: 255, 218, 214;
+  --md-sys-color-success-rgb: 141, 217, 159;
+  --md-sys-color-on-success-rgb: 0, 57, 18;
+  --md-sys-color-warning-rgb: 255, 190, 72;
+  --md-sys-color-on-warning-rgb: 64, 45, 0;
+  --md-sys-color-background-rgb: 20, 18, 24;
+  --md-sys-color-on-background-rgb: 230, 224, 233;
+  --md-sys-color-surface-rgb: 20, 18, 24;
+  --md-sys-color-on-surface-rgb: 230, 224, 233;
+  --md-sys-color-outline-rgb: 147, 143, 153;
+  --md-sys-color-outline-variant-rgb: 73, 69, 79;
+  --md-sys-color-surface-container-lowest-rgb: 15, 13, 19;
+  --md-sys-color-surface-container-low-rgb: 29, 27, 32;
+  --md-sys-color-surface-container-rgb: 33, 31, 38;
+  --md-sys-color-surface-container-high-rgb: 45, 42, 50;
+  --md-sys-color-surface-container-highest-rgb: 56, 52, 60;
   /* Aura design system variables */
   --aura-gradient: linear-gradient(145deg, var(--md-sys-color-background) 0%, var(--md-sys-color-surface-container) 100%);
   --glass-bg: var(--md-sys-color-surface-container-high);
@@ -589,6 +621,39 @@
   --gantt-border-lightness: 62%;
   --gantt-text-saturation: 70%;
   --gantt-text-lightness: 82%;
+}
+
+/* ===========================================
+   MOBILE COMPACT SCALE (max 599px)
+   Riduce spacing, tipografia e shape uniformemente.
+   I token di tipografia referenziano già spacing, quindi
+   ridurre spacing riduce automaticamente font-size e padding.
+   =========================================== */
+@media (max-width: 599px) {
+  :root {
+    /* Spacing compatto — ridotto ~12-15% */
+    --md-sys-spacing-3:  11px;   /* 12 → 11 */
+    --md-sys-spacing-4:  14px;   /* 16 → 14 — body text, padding medio */
+    --md-sys-spacing-5:  17px;   /* 20 → 17 — title-medium */
+    --md-sys-spacing-6:  20px;   /* 24 → 20 — headline-small, title-large */
+    --md-sys-spacing-7:  23px;   /* 28 → 23 — headline-medium */
+    --md-sys-spacing-8:  27px;   /* 32 → 27 — headline-large */
+    --md-sys-spacing-9:  30px;   /* 36 → 30 */
+    --md-sys-spacing-10: 34px;   /* 40 → 34 */
+    --md-sys-spacing-11: 37px;   /* 44 → 37 — display-medium */
+    --md-sys-spacing-12: 40px;   /* 48 → 40 — section gap */
+    --md-sys-spacing-14: 47px;   /* 56 → 47 — display-large */
+    --md-sys-spacing-16: 52px;   /* 64 → 52 — header / bottom-nav height */
+
+    /* Shape corners più compatti */
+    --md-sys-shape-corner-medium:      10px;  /* 12 → 10 */
+    --md-sys-shape-corner-large:       12px;  /* 16 → 12 */
+    --md-sys-shape-corner-extra-large: 20px;  /* 28 → 20 */
+
+    /* Layout components */
+    --md-sys-layout-avatar-size: 36px;   /* 40 → 36 */
+    --md-sys-layout-fab-size:    48px;   /* 56 → 48 */
+  }
 }
 
 body {

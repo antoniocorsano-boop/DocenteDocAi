@@ -79,7 +79,6 @@ const App: React.FC = () => {
             onInstallApp={actions.handleInstallApp}
             onOpenOperations={() => modals.setIsOperationsCenterOpen?.(true)}
             hasSuggestion={!!activeSuggestion}
-            onOpenNKA={() => modals.setIsNkaMapOpen?.(true)}
         >
             <ErrorBoundary>
                 <main id="main-content" role="main" aria-label="Contenuto principale" tabIndex={-1} style={{ outline: 'none' }}>

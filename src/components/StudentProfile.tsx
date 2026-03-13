@@ -39,6 +39,8 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
     const [aiJudgment, setAiJudgment] = useState<string | null>(null);
     const [isLoadingAi, setIsLoadingAi] = useState(false);
     const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
+    // Print is synchronous — no async exporting state needed
+    const isExporting = false;
 
     const performance = calculatePerformance(student.id, 'Complessivo', evaluations);
     const trendIcon = performance.trend === 'up' ? 'trending_up' : performance.trend === 'down' ? 'trending_down' : 'trending_flat';

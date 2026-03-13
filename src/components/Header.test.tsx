@@ -80,7 +80,6 @@ it('shows avatar and settings', () => {
     renderWithM3Theme(<Header {...baseProps} />);
     // Verifica presenza avatar (iniziali o immagine)
     expect(screen.getByLabelText('Menu utente')).toBeInTheDocument();
-    expect(screen.getByLabelText('Impostazioni')).toBeInTheDocument();
   });
 
   it('applies MD3 tokens and accessibility', () => {
