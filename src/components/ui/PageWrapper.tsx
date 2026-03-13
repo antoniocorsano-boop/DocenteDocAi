@@ -14,7 +14,7 @@ interface PageWrapperProps {
 
 export const PageWrapper: React.FC<PageWrapperProps> = ({
     children,
-    gap = 'var(--md-sys-spacing-6)',
+    gap = 'var(--md-sys-spacing-5)',
     maxWidth,
     sx,
 }) => (
@@ -23,11 +23,13 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
             width: '100%',
             maxWidth: maxWidth ?? '100%',
             mx: 'auto',
-            px: 'var(--md-sys-spacing-6)',
-            pb: 'var(--md-sys-spacing-8)',
+            px: 'var(--md-sys-spacing-4)',
+            pt: 'var(--md-sys-spacing-4)',
+            pb: 'var(--md-sys-spacing-6)',
             display: 'flex',
             flexDirection: 'column',
             gap,
+            boxSizing: 'border-box',
             ...((sx as object) ?? {}),
         }}
     >
