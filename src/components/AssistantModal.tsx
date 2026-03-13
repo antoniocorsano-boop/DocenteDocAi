@@ -40,6 +40,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { fetchNotebookFiles, uploadNotebookFile, deleteNotebookFile, NotebookLMFile } from '../services/notebooklmService';
 import { chatWithAi } from '../services/aiService';
 import Button from '@mui/material/Button';
+import ButtonBase from '@mui/material/ButtonBase';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { M3Dialog, TextField } from './ui';
@@ -251,10 +252,10 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
   if (!open) return null;
 
   const tabRow = (
-    <div
+    <Box
       role="tablist"
       aria-label="Modalità assistente"
-      style={{
+      sx={{
         display: 'flex',
         flexDirection: 'row',
         gap: 'var(--md-sys-spacing-2)',
@@ -263,19 +264,18 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
         borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}
     >
       {TABS.map(tab => (
-        <button
+        <ButtonBase
           key={tab.key}
           role="tab"
           aria-selected={activeMode === tab.key}
+          focusRipple
           onClick={() => setActiveMode(tab.key)}
-          style={{
+          sx={{
             display: 'flex',
             alignItems: 'center',
             gap: 'var(--md-sys-spacing-2)',
             padding: 'var(--md-sys-spacing-2) var(--md-sys-spacing-6)',
             borderRadius: 'var(--md-sys-shape-corner-full)',
-            border: 'none',
-            cursor: 'pointer',
             fontFamily: 'var(--md-sys-typescale-label-large-font, inherit)',
             fontSize: 'var(--md-sys-typescale-label-large-size)',
             fontWeight: activeMode === tab.key ? 'var(--md-sys-typescale-weight-bold)' : 'var(--md-sys-typescale-weight-medium)',
@@ -285,13 +285,13 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
         >
           <Box component="span" className="material-symbols-outlined" sx={{ fontSize: 'var(--md-sys-typescale-label-large-size)' }}>{tab.icon}</Box>
           {tab.label}
-        </button>
+        </ButtonBase>
       ))}
-    </div>
+    </Box>
   );
 
   const headerContent = (
-    <div style={{
+    <Box sx={{
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -300,32 +300,32 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
       backgroundColor: 'var(--md-sys-color-surface)',
       borderBottom: `var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)`
     }}>
-      <div style={{
+      <Box sx={{
         flexGrow: 1,
-        minWidth: "0"
+        minWidth: 0
       }}>
       <Typography variant="h6" component="h2">
           Assistente DocenteDoc AI
         </Typography>
-      </div>
-      <button
+      </Box>
+      <ButtonBase
         onClick={onClose}
-        style={{
+        focusRipple
+        sx={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: 'var(--md-sys-spacing-4)',
           borderRadius: 'var(--md-sys-shape-corner-medium)',
-          width: "var(--md-sys-spacing-10)",
-          height: "var(--md-sys-spacing-10)",
-          transition: "color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)"
+          width: 'var(--md-sys-spacing-10)',
+          height: 'var(--md-sys-spacing-10)',
+          transition: 'color var(--md-sys-motion-duration-medium) var(--md-sys-motion-easing-standard)',
         }}
         data-focus-priority="-1"
         aria-label="Chiudi assistente"
       >
         <Box component="span" className="material-symbols-outlined">close</Box>
-      </button>
-    </div>
+      </ButtonBase>
+    </Box>
   );
 
   return (
@@ -340,7 +340,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
     >
         {activeMode === 'chat' && (
           <>
-            <div style={{
+            <Box sx={{
               display: 'flex',
               flexDirection: 'column',
               gap: 'var(--md-sys-spacing-4)',
@@ -350,17 +350,17 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
               
             }}>
               {messages.length === 0 && (
-                <div style={{
+                <Box sx={{
                   textAlign: 'center',
                   color: 'var(--md-sys-color-primary)'
                 }}>
                   Come posso aiutarti?
-                </div>
+                </Box>
               )}
               {messages.map((msg, i) => (
-                <div
+                <Box
                   key={i}
-                  style={{
+                  sx={{
                     padding: 'var(--md-sys-spacing-4)',
                     borderRadius: 'var(--md-sys-shape-corner-medium)',
                     backgroundColor: msg.role === 'user' ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
@@ -370,11 +370,11 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                   }}
                 >
                   {msg.text}
-                </div>
+                </Box>
               ))}
               {loading && <div role="status" aria-live="polite" aria-atomic="true" style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Sto pensando…</div>}
-            </div>
-            <div style={{
+            </Box>
+            <Box sx={{
               display: 'flex',
               flexDirection: 'row',
               flexWrap: 'wrap',
@@ -393,12 +393,12 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                   {p}
                 </Button>
               ))}
-            </div>
+            </Box>
           </>
         )}
 
         {activeMode === 'tools' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-4)' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-4)' }}>
             <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
               Lancia uno strumento AI direttamente dalla chat.
             </Typography>
@@ -422,11 +422,12 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                 description: 'Estrai dati da circolari scolastiche',
                 onAction: onOpenCircularAnalysis },
             ].map(tool => (
-              <button
+              <ButtonBase
                 key={tool.key}
                 onClick={() => { tool.onAction?.(); onClose(); }}
                 disabled={!tool.onAction}
-                style={{
+                focusRipple
+                sx={{
                   display: 'flex',
                   flexDirection: 'row',
                   alignItems: 'center',
@@ -435,32 +436,31 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                   borderRadius: 'var(--md-sys-shape-corner-large)',
                   border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                   backgroundColor: tool.onAction ? 'var(--md-sys-color-surface-container)' : 'var(--md-sys-color-surface-container-low)',
-                  cursor: tool.onAction ? 'pointer' : 'default',
                   opacity: tool.onAction ? undefined : 'var(--md-sys-state-opacity-placeholder)',
                   textAlign: 'left',
                   width: 'var(--md-sys-percent-full)',
                   transition: 'background-color var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}
               >
                 <Box component="span" className="material-symbols-outlined" sx={{ fontSize: 'var(--md-sys-spacing-10)', color: 'var(--md-sys-color-primary)' }}>{tool.icon}</Box>
-                <div>
+                <Box>
                   <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface)' }}>{tool.label}</Typography>
                   <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{tool.description}</Typography>
-                </div>
+                </Box>
                 <Box component="span" className="material-symbols-outlined" sx={{ marginLeft: 'var(--md-sys-margin-auto)', color: 'var(--md-sys-color-on-surface-variant)' }}>chevron_right</Box>
-              </button>
+              </ButtonBase>
             ))}
-          </div>
+          </Box>
         )}
 
         {activeMode === 'docs' && (
-          <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
-            <div style={{
+          <Box sx={{ marginTop: 'var(--md-sys-spacing-4)' }}>
+            <Box sx={{
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center'
             }}>
-              <div style={{
+              <Box sx={{
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -468,8 +468,8 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
               }}>
                 <Box component="span" className="material-symbols-outlined" sx={{ color: 'var(--md-sys-color-secondary)' }}>import_contacts</Box>
                 <Typography variant="h6" component="h3">NotebookLM</Typography>
-              </div>
-              <div style={{
+              </Box>
+              <Box sx={{
                 display: 'flex',
                 flexDirection: 'row',
                 gap: 'var(--md-sys-spacing-2)'
@@ -496,16 +496,16 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                 >
                   <Box component="span" className="material-symbols-outlined">upload</Box>
                 </Button>
-              </div>
-            </div>
-            {nbError && <div style={{
+              </Box>
+            </Box>
+            {nbError && <Box sx={{
               padding: 'var(--md-sys-spacing-4)',
               borderRadius: 'var(--md-sys-shape-corner-medium)',
               color: 'var(--md-sys-color-error)',
               backgroundColor: 'var(--md-sys-color-error-container)'
-            }}>{nbError}</div>}
+            }}>{nbError}</Box>}
             {nbLoading && <div style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Caricamento…</div>}
-            <div style={{
+            <Box sx={{
               display: 'flex',
               flexDirection: 'column',
               gap: 'var(--md-sys-spacing-4)',
@@ -515,7 +515,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
               
             }}>
               {nbFiles.map(file => (
-                <div key={file.id} style={{
+                <Box key={file.id} sx={{
                   display: 'flex',
                   flexDirection: 'row',
                   justifyContent: 'space-between',
@@ -525,13 +525,13 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                   backgroundColor: 'var(--md-sys-color-surface-container-high)',
                   border: `var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)`
                 }}>
-                  <div style={{
+                  <Box sx={{
                     flexGrow: 1,
-                    minWidth: "0"
+                    minWidth: 0
                   }}>
                     <Typography variant="body2" sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{file.name}</Typography>
                     <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{new Date(file.lastModified).toLocaleDateString()}</Typography>
-                  </div>
+                  </Box>
                   <Button
                     variant="text"
                     color="error"
@@ -539,10 +539,10 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
                   >
                     <Box component="span" className="material-symbols-outlined">delete</Box>
                   </Button>
-                </div>
+                </Box>
               ))}
-            </div>
-          </div>
+            </Box>
+          </Box>
         )}
 
       {/* Input Footer */}
@@ -556,7 +556,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
           backgroundColor: 'var(--md-sys-color-surface-container-low)',
           borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)'
         }}>
-        <div style={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1 }}>
           <TextField
             label={isRecording ? "In ascolto..." : "Scrivi una domanda…"}
             placeholder={isRecording ? "In ascolto..." : "Scrivi una domanda…"}
@@ -566,7 +566,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
             disabled={loading}
             sx={isRecording ? { outline: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-error)' } : {}}
           />
-        </div>
+        </Box>
         <Button
           variant="text"
           sx={{

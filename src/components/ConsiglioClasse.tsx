@@ -9,6 +9,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
+import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 import { Studente, Valutazione, GiudizioPeriodico, PeriodoValutazione, TimetableSettings, AiSettings, ValutazioneCompetenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
@@ -185,7 +186,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
     };
 
     const renderDesktopTable = () => (
-         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
             <table>
                 <thead >
                     <tr>
@@ -245,12 +246,12 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 </>}
                                 {expandedColumns.giudizio &&
                                 <td style={{ minWidth: 'var(--md-sys-spacing-12)', ...getCellStyle('giudizio') }}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <textarea value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ flexGrow: "1" }} rows={2} placeholder="Giudizio sintetico..."></textarea>
                                         <Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} sx={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
                                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</Box>
                                         </Button>
-                                    </div>
+                                    </Box>
                                 </td>}
                                 {showFinalGrades && expandedColumns.valutazione && <>
                                     <td style={getCellStyle('votoAmmissione')}><input type="text"  value={giudizioStudente.votoAmmissione} onChange={e => handleLocalChange(student.id, 'votoAmmissione', e.target.value)} /></td>
@@ -261,11 +262,11 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                     })}
                 </tbody>
             </table>
-        </div>
+        </Box>
     );
 
     const renderMobileList = () => (
-        <div  style={{gap: 'var(--md-sys-spacing-3)'}}>
+        <Box sx={{gap: 'var(--md-sys-spacing-3)'}}>
             {students.map(student => {
                  const isExpanded = expandedStudentId === student.id;
                  const key = `${String(student.id)}-${String(periodo)}-${String(annoScolasticoCorrente)}`;
@@ -277,82 +278,82 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                  if (!giudizioStudente) return null;
 
                 return (
-                    <div key={student.id} >
-                        <div  onClick={() => setExpandedStudentId(prev => prev === student.id ? null : student.id)}>
-                             <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
+                    <Box key={student.id}>
+                        <ButtonBase focusRipple onClick={() => setExpandedStudentId(prev => prev === student.id ? null : student.id)} sx={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
+                             <Box sx={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                 {hasStudentChanged(student.id) && <span  title="Dati modificati in questa sessione"></span>}
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <Typography component="h3" variant="subtitle1" sx={{ cursor: "pointer" }} onClick={(e) => { e.stopPropagation(); onViewStudentProfile(student); }}>{student.cognome} {student.nome}</Typography>
-                                    <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)'}}>
+                                    <Box sx={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)', marginTop: 'var(--md-sys-spacing-4)'}}>
                                         <span>Media: <strong>{performance.grade || 'N/D'}</strong></span>
                                         {performance.trend && (
-                                            <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>
-                                                <span style={{ color: "var(--md-sys-color-on-surface-variant)" }}>{trendIcon}</span>
-                                            </span>
+                                            <Box component="span" sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)', color: performance.trend === 'up' ? 'var(--md-sys-color-tertiary)' : performance.trend === 'down' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-on-surface-variant)' }}>
+                                                <Box component="span" sx={{ color: "var(--md-sys-color-on-surface-variant)" }}>{trendIcon}</Box>
+                                            </Box>
                                         )}
-                                    </div>
-                                </div>
-                            </div>
+                                    </Box>
+                                </Box>
+                            </Box>
                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)' }}>expand_more</Box>
-                        </div>
-                        <div style={{
+                        </ButtonBase>
+                        <Box sx={{
                             display: isExpanded ? 'block' : 'none',
                             borderTop: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                             backgroundColor: 'var(--md-sys-color-surface)',
                             animation: isExpanded ? 'slideDown var(--md-sys-motion-duration-short) var(--md-sys-motion-easing-standard)-out' : 'none'
                         }}>
-                             <div style={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                             <Box sx={{gap: 'var(--md-sys-spacing-4)', padding: 'var(--md-sys-spacing-8)'}}>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <label htmlFor={`votoDisciplina-${student.id}`} >Voto Disciplina</label>
                                     <input id={`votoDisciplina-${student.id}`} type="text"  value={giudizioStudente.votoDisciplina} onChange={e => handleLocalChange(student.id, 'votoDisciplina', e.target.value)} />
-                                </div>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                </Box>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <label htmlFor={`educazioneCivica-${student.id}`} >Ed. Civica</label>
                                         <input id={`educazioneCivica-${student.id}`} type="text"  value={giudizioStudente.educazioneCivica} onChange={e => handleLocalChange(student.id, 'educazioneCivica', e.target.value)} />
-                                    </div>
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                    </Box>
+                                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                         <label htmlFor={`comportamento-${student.id}`} >Comportamento</label>
                                         <select id={`comportamento-${student.id}`}  value={giudizioStudente.comportamento} onChange={e => handleLocalChange(student.id, 'comportamento', e.target.value)}>
                                             <option value="">-</option>
                                             {[10,9,8,7,6,5].map(v => <option key={v} value={v.toString()}>{v}</option>)}
                                         </select>
-                                    </div>
-                                </div>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-4)'}}>
+                                    </Box>
+                                </Box>
+                                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                    <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 'var(--md-sys-spacing-4)'}}>
                                         <label htmlFor={`giudizio-${student.id}`} >Note/Giudizio</label>
                                         <Button variant="text" onClick={() => handleAiSuggest(student)} disabled={loadingAi === student.id} sx={{ borderRadius: 'var(--md-sys-shape-corner-large)' }} title="Suggerisci con AI" type="button">
                                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)' }}>{loadingAi === student.id ? 'pending' : 'auto_awesome'}</Box>
                                         </Button>
-                                    </div>
+                                    </Box>
                                     <textarea id={`giudizio-${student.id}`} value={giudizioStudente.giudizio} onChange={e => handleLocalChange(student.id, 'giudizio', e.target.value)}  style={{ width: "var(--md-sys-percent-100)" }} rows={4} placeholder="Giudizio sintetico..."></textarea>
-                                </div>
+                                </Box>
                                 {showFinalGrades && (
                                     <>
                                         <hr  />
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                                 <label htmlFor={`votoAmmissione-${student.id}`} >Voto di Ammissione</label>
                                                 <input id={`votoAmmissione-${student.id}`} type="text"  value={giudizioStudente.votoAmmissione} onChange={e => handleLocalChange(student.id, 'votoAmmissione', e.target.value)} />
-                                            </div>
-                                            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                                            </Box>
+                                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                                 <label htmlFor={`votoUscita-${student.id}`} >Voto di Uscita</label>
                                                 <input id={`votoUscita-${student.id}`} type="text"  value={giudizioStudente.votoUscita} onChange={e => handleLocalChange(student.id, 'votoUscita', e.target.value)} />
-                                            </div>
-                                        </div>
+                                            </Box>
+                                        </Box>
                                     </>
                                 )}
-                            </div>
-                        </div>
-                    </div>
+                            </Box>
+                        </Box>
+                    </Box>
                 );
             })}
-        </div>
+        </Box>
     );
     
     return (
-        <div  style={{maxWidth: "var(--md-sys-percent-100)", marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", width: "var(--md-sys-percent-100)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
+        <Box sx={{maxWidth: "var(--md-sys-percent-100)", marginLeft: "var(--md-sys-margin-auto)", marginRight: "var(--md-sys-margin-auto)", width: "var(--md-sys-percent-100)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)'}}>
             <SectionHeader 
                 title="Consiglio di Classe"
                 subtitle={`Scrutinio e Valutazione Periodica • Classe ${selectedClass}`}
@@ -361,7 +362,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
 
             {/* Controls */}
             <InfoCard variant="outlined" sx={{padding: 'var(--md-sys-spacing-6)', marginBottom: 'var(--md-sys-spacing-8)'}}>
-                <div  style={{display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+                <Box sx={{display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
                                         <Tabs
                       value={periodo}
                       onChange={(_, v: string) => ((id) => setPeriodo(id as PeriodoValutazione))(v)}
@@ -406,7 +407,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                       ))}
                     </Tabs>
 
-                    <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
+                    <Box sx={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
                         <Button 
                             onClick={handleExportPdf} 
                             disabled={isExporting}
@@ -431,20 +432,20 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                         >
                             {isGeneratingNarrative ? 'Generazione...' : 'Report Narrativo AI'}
                         </Button>
-                    </div>
-                </div>
+                    </Box>
+                </Box>
             </InfoCard>
 
             {narrativeReport && (
                 <InfoCard elevation={1} sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary-container) 5%, transparent)' , padding: 'var(--md-sys-spacing-8)', marginBottom: 'var(--md-sys-spacing-8)'}}>
-                    <div style={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-6)'}}>
-                        <div style={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
-                            <div style={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)' , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-primary)"}}>
+                    <Box sx={{display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 'var(--md-sys-spacing-6)'}}>
+                        <Box sx={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-6)'}}>
+                            <Box sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-primary) 10%, transparent)' , width: "var(--md-sys-spacing-10)", height: "var(--md-sys-spacing-10)", borderRadius: 'var(--md-sys-spacing-4)', display: "flex", alignItems: "center", justifyContent: "center", color: "var(--md-sys-color-primary)"}}>
                                 <Box component="span" className="material-symbols-outlined" aria-hidden="true">description</Box>
-                            </div>
+                            </Box>
                             <Typography component="h3" variant="subtitle1" sx={{ color: 'var(--md-sys-color-on-primary)' ,  fontWeight: "var(--md-sys-typescale-weight-black)" }}>Report Narrativo Suggerito</Typography>
-                        </div>
-                        <div style={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
+                        </Box>
+                        <Box sx={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
                             <Button variant="text" onClick={() => setNarrativeReport(null)}>Chiudi</Button>
                             <Button variant="outlined" onClick={() => {
                                 navigator.clipboard.writeText(narrativeReport);
@@ -452,17 +453,17 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                             }} startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">content_copy</Box>}>
                                 Copia
                             </Button>
-                        </div>
-                    </div>
-                    <div style={{ color: 'var(--md-sys-color-on-primary)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', lineHeight: "1.625", whiteSpace: "pre-wrap", padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
+                        </Box>
+                    </Box>
+                    <Box sx={{ color: 'var(--md-sys-color-on-primary)', backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', lineHeight: "1.625", whiteSpace: "pre-wrap", padding: 'var(--md-sys-spacing-6)', border: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)" }}>
                         {narrativeReport}
-                    </div>
+                    </Box>
                 </InfoCard>
             )}
 
             <InfoCard elevation={1} sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)' }}>
-                 <div  style={{padding: 'var(--md-sys-spacing-8)', display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-8)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
-                    <div style={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
+                 <Box sx={{padding: 'var(--md-sys-spacing-8)', display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 'var(--md-sys-spacing-8)', borderBottom: "var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)"}}>
+                    <Box sx={{display: "flex", flexWrap: "wrap", gap: 'var(--md-sys-spacing-8)'}}>
                         {Object.keys(expandedColumns).map(key => (
                             <Button
                                 key={key}
@@ -474,12 +475,12 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                                 {key.charAt(0).toUpperCase() + key.slice(1)}
                             </Button>
                         ))}
-                    </div>
-                 </div>
+                    </Box>
+                 </Box>
                 {renderDesktopTable()}
                 {renderMobileList()}
             </InfoCard>
-        </div>
+        </Box>
     );
 };
 
