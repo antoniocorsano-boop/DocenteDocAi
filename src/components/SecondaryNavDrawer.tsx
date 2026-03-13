@@ -182,7 +182,7 @@ const SecondaryNavDrawer: React.FC<SecondaryNavDrawerProps> = ({
             <Typography variant="overline" sx={{
               color: 'var(--md-sys-color-primary)',
               letterSpacing: '0.08em',
-              fontWeight: 600,
+              fontWeight: 'var(--md-sys-typescale-weight-semibold)',
             }}>
               {group.label}
             </Typography>

@@ -267,7 +267,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCompSearch(e.target.value)}
                                 slotProps={{ input: { startAdornment: (
                                     <InputAdornment position="start">
-                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: '18px', color: 'var(--md-sys-color-on-surface-variant)' }}>search</Box>
+                                        <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 18, color: 'var(--md-sys-color-on-surface-variant)' }}>search</Box>
                                     </InputAdornment>
                                 ) } }}
                                 sx={{ mb: 'var(--md-sys-spacing-2)' }}
@@ -346,14 +346,14 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                                                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                                                         color: 'var(--md-sys-color-on-primary)',
                                                     }}>
-                                                        {isSelected && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: '13px' }}>check</Box>}
+                                                        {isSelected && <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 13 }}>check</Box>}
                                                     </Box>
                                                     <Box sx={{
                                                         px: '6px', py: '2px',
                                                         bgcolor: isSelected ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-secondary-container)',
                                                         color: isSelected ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-secondary-container)',
                                                         borderRadius: 'var(--md-sys-shape-corner-full)',
-                                                        fontSize: '0.65rem',
+                                                        fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                                                         fontWeight: 'var(--md-sys-typescale-weight-bold)',
                                                         lineHeight: '1.5',
                                                         flexShrink: 0,

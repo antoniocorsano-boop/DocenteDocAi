@@ -1,6 +1,7 @@
 // MD3 Compliant - Pure CSS tokens, no useTheme dependency
 
 import React from 'react';
+import { Box, ButtonBase } from '@mui/material';
 
 interface ThemeBubbleProps {
     name: string;
@@ -11,12 +12,12 @@ interface ThemeBubbleProps {
 
 const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onClick }) => {
     return (
-        <button
+        <ButtonBase
             onClick={onClick}
             title={name}
             aria-label={`Seleziona tema ${name}`}
             aria-pressed={isSelected}
-            style={{
+            sx={{
                 borderRadius: 'var(--md-sys-shape-corner-large)',
                 border: isSelected
                     ? 'var(--md-sys-border-width-thick) solid var(--md-sys-color-primary)'
@@ -38,7 +39,7 @@ const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onC
             }}
         >
             {/* Color preview: 3 horizontal bands */}
-            <div style={{
+            <Box sx={{
                 display: 'flex',
                 width: '100%',
                 height: '36px',
@@ -46,13 +47,13 @@ const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onC
                 overflow: 'hidden',
                 position: 'relative',
             }}>
-                <div style={{ backgroundColor: colors.primary, flex: 1 }} />
-                <div style={{ backgroundColor: colors.secondary, flex: 1 }} />
-                <div style={{ backgroundColor: colors.tertiary, flex: 1 }} />
+                <Box sx={{ backgroundColor: colors.primary, flex: 1 }} />
+                <Box sx={{ backgroundColor: colors.secondary, flex: 1 }} />
+                <Box sx={{ backgroundColor: colors.tertiary, flex: 1 }} />
 
                 {/* Checkmark overlay — only when selected */}
                 {isSelected && (
-                    <div style={{
+                    <Box sx={{
                         position: 'absolute',
                         inset: 0,
                         display: 'flex',
@@ -60,17 +61,18 @@ const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onC
                         justifyContent: 'center',
                         backgroundColor: 'rgba(0,0,0,0.25)',
                     }}>
-                        <span
+                        <Box
+                            component="span"
                             className="material-symbols-outlined"
                             aria-hidden="true"
-                            style={{ color: 'var(--md-sys-color-on-primary)', fontSize: '20px' }}
-                        >check_circle</span>
-                    </div>
+                            sx={{ color: 'var(--md-sys-color-on-primary)', fontSize: 20 }}
+                        >check_circle</Box>
+                    </Box>
                 )}
-            </div>
+            </Box>
 
             {/* Theme name */}
-            <span style={{
+            <Box component="span" sx={{
                 fontSize: 'var(--md-sys-typescale-body-small-font-size)',
                 fontWeight: isSelected
                     ? 'var(--md-sys-typescale-weight-bold)'
@@ -86,8 +88,8 @@ const ThemeBubble: React.FC<ThemeBubbleProps> = ({ name, colors, isSelected, onC
                 maxWidth: '100%',
             }}>
                 {name}
-            </span>
-        </button>
+            </Box>
+        </ButtonBase>
     );
 };
 
