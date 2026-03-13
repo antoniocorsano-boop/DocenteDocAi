@@ -375,8 +375,9 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                             <div style={{
                                 flex: 1
                             }}>
-                                <input
-                                    type="text"
+                                <input                                    id="ai-add-subject-name"
+                                    name="subjectName"
+                                    aria-label="Aggiungi Materia Singola"                                    type="text"
                                     placeholder="Aggiungi Materia Singola (es: Italiano)"
                                     value={newSubjectName}
                                     onChange={e => setNewSubjectName(e.target.value)}
@@ -515,6 +516,9 @@ export const AiDidatticaSettings: React.FC<AiDidatticaSettingsProps> = ({
                                                                     gap: 'var(--md-sys-spacing-4)'}} onClick={e => e.stopPropagation()}>
                                                                     <input
                                                                         type="number"
+                                                                        id={`ai-hours-${assignment.classId}-${subj}`}
+                                                                        name="hoursPerWeek"
+                                                                        aria-label={`Ore settimanali ${subj} - ${assignment.classId}`}
                                                                         value={assignment.hoursPerWeek}
                                                                         onChange={e => updateAssignmentHours(assignment.classId, subj, parseInt(e.target.value) || 1)}
                                                                         style={{width: 'var(--md-sys-spacing-4)',

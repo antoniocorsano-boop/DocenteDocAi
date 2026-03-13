@@ -1,7 +1,7 @@
 # DocenteDoc AI — Analisi del Codebase
 
 **Generato:** 12 Marzo 2026  
-**Aggiornato:** 12 Marzo 2026 (Sprint A–E completi — types split, Settings split, ClassroomView split, proxy, OTel)  
+**Aggiornato:** 13 Marzo 2026 (Sprint A–E + bugfix: saveAs, form a11y, Vite deps)  
 **Analizzato da:** Repository Analyzer  
 **Versione progetto:** 1.0.0
 
@@ -16,11 +16,11 @@
 | **Design System**         | Material Design 3 (MD3)                      |
 | **Build tool**            | Vite 6                                       |
 | **Test runner**           | Vitest 4 + Playwright                        |
-| **Totale file sorgente**  | 340 (243 TSX + 97 TS)                        |
-| **Linee di codice (src)** | ~59.909 (TSX + TS, no test/stories)          |
+| **Totale file sorgente**  | 508 (319 TSX + 189 TS, inclusi test/stories) |
+| **Linee di codice (src)** | ~83.910 (TSX + TS totali, src/)              |
 | **File di test**          | 98 (Vitest) + 13 (Playwright E2E)            |
-| **Totale commit**         | 493                                          |
-| **Commit più recente**    | `a4201f4b` refactor(classroom) – 12 Mar 2026 |
+| **Totale commit**         | 495+                                         |
+| **Commit più recente**    | `8f5a965a` fix(tests) – 12 Mar 2026          |
 
 ---
 
@@ -134,32 +134,34 @@ Il progetto segue un'architettura **Feature-Component** con separazione orizzont
 | Moduli TypeScript (TS) sorgente | 96     |
 | File di test (`.test.tsx`)      | 28     |
 | Fogli di stile (CSS)            | 17     |
-| Storybook stories               | ~20    |
-| Configurazioni (json/yaml)      | 10+    |
+| Storybook stories               | ~27    |
+| Configurazioni (json/yaml)      | 33     |
 
 ### Linee di codice
 
-| Categoria              | LOC         |
-| ---------------------- | ----------- |
-| TSX sorgente (no test) | 54.616      |
-| TS sorgente (no test)  | 13.192      |
-| CSS                    | 10.976      |
-| **Totale stimato**     | **~78.784** |
+| Categoria                     | LOC        |
+| ----------------------------- | ---------- |
+| TS/TSX sorgente (src/, tutti) | 83.910     |
+| CSS                           | 17 file    |
+| **Test (Vitest)**             | 1.226 test |
 
 ### File più grandi (complessità)
 
-| File                       | Linee | Rischio                                                |
-| -------------------------- | ----- | ------------------------------------------------------ |
-| `types.ts`                 | 874   | 🟡 Barrel re-export — split dominio in `src/types/` ✅ |
-| `useAppEngine.ts`          | 963   | 🟠 Medio-Alto                                          |
-| `ClassroomView.tsx`        | 548   | 🟡 Medio — 3 tab estratti ✅                           |
-| `Calendar.tsx`             | 801   | 🟠 Medio                                               |
-| `documentUtils.ts`         | 727   | 🟡 Medio                                               |
-| `AnalyticsDashboard.tsx`   | 684   | 🟡 Medio                                               |
-| `LessonsPage.tsx`          | 655   | 🟡 Medio                                               |
-| `ClassPlanningWizard.tsx`  | 625   | 🟡 Medio                                               |
-| `AnnualPlanningWizard.tsx` | 597   | 🟡 Medio                                               |
-| `Settings.tsx`             | 137   | ✅ Risolto — 7 sezioni estratte in `settings/`         |
+| File                       | Linee | Rischio                                    |
+| -------------------------- | ----- | ------------------------------------------ |
+| `useAppEngine.ts`          | 961   | 🟠 Alto — sprint F candidato               |
+| `Dashboard.tsx`            | 853   | 🟠 Medio-Alto — in `components/dashboard/` |
+| `types.ts`                 | 823   | 🟡 Barrel + tipi residui Props             |
+| `Calendar.tsx`             | 801   | 🟠 Medio — sprint G candidato              |
+| `documentUtils.ts`         | 727   | 🟡 Medio — sprint H candidato              |
+| `AnalyticsDashboard.tsx`   | 685   | 🟡 Medio                                   |
+| `LessonsPage.tsx`          | 658   | 🟡 Medio                                   |
+| `ReportisticaHub.tsx`      | 636   | 🟡 Medio                                   |
+| `ClassPlanningWizard.tsx`  | 622   | 🟡 Medio                                   |
+| `AnnualPlanningWizard.tsx` | 597   | 🟡 Medio                                   |
+| `AiDidatticaSettings.tsx`  | 564   | 🟡 Settings sub-panel (intentional)        |
+| `Settings.tsx`             | 137   | ✅ Risolto — 7 sezioni in `settings/`      |
+| `ClassroomView.tsx`        | 548   | ✅ 3 tab estratti in `classroom/`          |
 
 ---
 
@@ -203,15 +205,17 @@ Directory `src/nka/` — sotto-sistema di design dedicato all'accessibilità cog
 - `NKANodeCard.tsx` — Knowledge node card
 - `NKABottomSheet.tsx` — Bottom sheet per mobile
 
-### Stato Compliance MD3 (12 Mar 2026)
+### Stato Compliance MD3 (13 Mar 2026)
 
-| Check                 | Stato                                             |
-| --------------------- | ------------------------------------------------- |
-| ESLint                | ✅ 0 errori                                       |
-| TypeScript            | ✅ 0 errori                                       |
-| Stylelint             | ✅ 0 errori                                       |
-| Icon span violations  | ✅ 0 violazioni                                   |
-| Font family allineato | ✅ muiTheme = `'Roboto Flex', Roboto, sans-serif` |
+| Check                       | Stato                                             |
+| --------------------------- | ------------------------------------------------- |
+| ESLint                      | ✅ 0 errori                                       |
+| TypeScript                  | ✅ 0 errori (file modificati)                     |
+| Stylelint                   | ✅ 0 errori                                       |
+| Icon span violations        | ✅ 0 violazioni                                   |
+| Font family allineato       | ✅ muiTheme = `'Roboto Flex', Roboto, sans-serif` |
+| Form a11y (id/name/htmlFor) | ✅ 18 violazioni risolte (Settings panel)         |
+| Vitest (unit)               | ✅ 1.216/1.216 passing, 0 failures                |
 
 ---
 
@@ -255,8 +259,8 @@ Il progetto integra **due provider AI** in modalità client-side:
 | Metrica       | Valore                               |
 | ------------- | ------------------------------------ |
 | File di test  | 98 (in `src/__tests__/` e co-locati) |
-| Test totali   | ~1.216 (ultimo run)                  |
-| Test passanti | 1.216 / 1.216                        |
+| Test totali   | 1.226 (ultimo run – 13 Mar 2026)     |
+| Test passanti | 1.216 / 1.216 (100%)                 |
 | Test saltati  | 10                                   |
 | Coverage tool | @vitest/coverage-v8                  |
 
@@ -300,17 +304,27 @@ __tests__/
 
 ### Priorità Alta
 
-| Problema                     | File                       | Dettaglio                                                                                                           |
-| ---------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| Storage cleanup disabilitato | `main.tsx` L54-57          | `localStorage.clear()` e `indexedDB.deleteDatabase` commentati come TEMPORARILY DISABLED — rimuovere o ripristinare |
-| Temp ID pattern              | `AnnualPlanningWizard.tsx` | ID generati con `temp-${Date.now()}` — rischio di collisione                                                        |
+| Problema                     | File                       | Dettaglio                                                                                                             |
+| ---------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Storage cleanup disabilitato | `main.tsx` L54-57          | `localStorage.clear()` e `indexedDB.deleteDatabase` commentati come `TEMPORARILY DISABLED` — rimuovere o ripristinare |
+| Temp ID pattern              | `AnnualPlanningWizard.tsx` | ID generati con `temp-${Date.now()}` — rischio di collisione                                                          |
 
 ### Priorità Media
 
-| Problema                      | File                                                 | Dettaglio                                         |
-| ----------------------------- | ---------------------------------------------------- | ------------------------------------------------- |
-| `<div>` come container visivo | `ClassAnalytics.tsx`, `ClassCompetencyDashboard.tsx` | Violazione MD3 — da migrare a `Box` / `M3Surface` |
-| Commento TODO aperto          | `AuraView.tsx` L30                                   | Layout dipendente da container padre non risolto  |
+| Problema                      | File                                                 | Dettaglio                                                |
+| ----------------------------- | ---------------------------------------------------- | -------------------------------------------------------- |
+| `<div>` come container visivo | `ClassAnalytics.tsx`, `ClassCompetencyDashboard.tsx` | Violazione MD3 — da migrare a `Box` / `M3Surface`        |
+| Commento TODO aperto          | `AuraView.tsx` L30                                   | Layout dipendente da container padre non risolto         |
+| `any` diffuso                 | src/ (205 occorrenze)                                | Annotazioni `any` non strict — gradualmente da tipizzare |
+| `type TODO` dispersi          | src/ (33 occorrenze non-storybook)                   | Commenti TODO sparsi — catalogati, richiede triage       |
+
+### Già risolti (13 Mar 2026)
+
+| Problema                                        | Fix                                                                                   |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `saveAs` lanciava eccezione invece di alert     | `src/utils/documentUtils.ts` — catch → `window.alert()` + `vi.restoreAllMocks()`      |
+| Form fields senza `id`/`name` (13 violazioni)   | `SettingsAI`, `InterfaceSettings`, `AiDidatticaSettings`, `SettingsCloud`             |
+| `InputLabel` non associata a `Select` (5 viol.) | `SettingsAI.tsx` — `htmlFor`/`labelId`/`inputProps.id` aggiunti a tutti i FormControl |
 
 ### Priorità Bassa
 
@@ -492,4 +506,4 @@ Sprint A ✅ → Sprint B ✅ → Sprint D ✅ → Sprint C ✅ → Sprint E ✅
 
 ---
 
-_Analisi generata automaticamente il 12 Marzo 2026 — aggiornare dopo ogni milestone significativa._
+_Analisi aggiornata il 13 Marzo 2026 — aggiornare dopo ogni milestone significativa._

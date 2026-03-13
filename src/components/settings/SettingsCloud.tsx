@@ -122,7 +122,7 @@ export const SettingsCloudSection: React.FC<SettingsCloudSectionProps> = ({
                     <Button onClick={() => fileInputRef.current?.click()} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">upload</Box>}>
                         Ripristina File
                     </Button>
-                    <input type="file" ref={fileInputRef} style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }} accept=".json,.csv,.xlsx,.xls" onChange={handleFileChange} />
+                    <input type="file" id="settings-restore-file" name="restoreFile" aria-label="Ripristina file di backup" ref={fileInputRef} style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }} accept=".json,.csv,.xlsx,.xls" onChange={handleFileChange} />
                 </Box>
             </Stack>
         </SettingsGroup>

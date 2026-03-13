@@ -158,8 +158,8 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
                     </Stack>
                     <Stack spacing={2}>
                         <FormControl size="small" fullWidth>
-                            <InputLabel>Anno Corrente</InputLabel>
-                            <Select label="Anno Corrente" value={localSettings.annoScolasticoCorrente} onChange={e => handleChange('annoScolasticoCorrente', e.target.value as string)}>
+                            <InputLabel id="select-anno-corrente-label" htmlFor="select-anno-corrente">Anno Corrente</InputLabel>
+                            <Select labelId="select-anno-corrente-label" inputProps={{ id: 'select-anno-corrente', name: 'annoScolasticoCorrente' }} label="Anno Corrente" value={localSettings.annoScolasticoCorrente} onChange={e => handleChange('annoScolasticoCorrente', e.target.value as string)}>
                                 {(localSettings.anniScolastici ?? []).map(year => <MenuItem key={year} value={year}>{year}</MenuItem>)}
                             </Select>
                         </FormControl>
@@ -182,8 +182,10 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
                     </Stack>
                     <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 2 }}>
                         <FormControl size="small" fullWidth>
-                            <InputLabel>Ore giornaliere</InputLabel>
+                            <InputLabel id="select-ore-giornaliere-label" htmlFor="select-ore-giornaliere">Ore giornaliere</InputLabel>
                             <Select
+                                labelId="select-ore-giornaliere-label"
+                                inputProps={{ id: 'select-ore-giornaliere', name: 'oreGiornaliere' }}
                                 label="Ore giornaliere"
                                 value={localSettings.oreGiornaliere ?? 6}
                                 onChange={e => {
@@ -206,8 +208,10 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
                             </Select>
                         </FormControl>
                         <FormControl size="small" fullWidth>
-                            <InputLabel>Inizio lezioni</InputLabel>
+                            <InputLabel id="select-inizio-lezioni-label" htmlFor="select-inizio-lezioni">Inizio lezioni</InputLabel>
                             <Select
+                                labelId="select-inizio-lezioni-label"
+                                inputProps={{ id: 'select-inizio-lezioni', name: 'orarioInizio' }}
                                 label="Inizio lezioni"
                                 value={localSettings.orarioInizio ?? '08:00'}
                                 onChange={e => {
@@ -261,12 +265,12 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
                         </Stack>
                         <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 2, mb: 2 }}>
                             <FormControl size="small" fullWidth>
-                                <InputLabel>Ordinamento Scolastico</InputLabel>
-                                <Select label="Ordinamento Scolastico" value={selLevel} onChange={e => setSelLevel(e.target.value as string)}>
+                                <InputLabel id="select-ordinamento-label" htmlFor="select-ordinamento">Ordinamento Scolastico</InputLabel>
+                                <Select labelId="select-ordinamento-label" inputProps={{ id: 'select-ordinamento', name: 'ordinamentoScolastico' }} label="Ordinamento Scolastico" value={selLevel} onChange={e => setSelLevel(e.target.value as string)}>
                                     {SCHOOL_LEVELS.map(l => <MenuItem key={l} value={l}>{l}</MenuItem>)}
                                 </Select>
                             </FormControl>
-                            <TextField label="Indirizzo / Specializzazione" value={selSpec} onChange={e => setSelSpec(e.target.value)} placeholder="Es: Scientifico, CAT, Musicale..." />
+                            <TextField id="settings-indirizzo" name="indirizzo" label="Indirizzo / Specializzazione" value={selSpec} onChange={e => setSelSpec(e.target.value)} placeholder="Es: Scientifico, CAT, Musicale..." />
                         </Box>
                         <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1) var(--md-sys-grid-fr-1)', gap: 2, mb: 2 }}>
                             <Stack spacing={1}>
@@ -300,6 +304,8 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
                         <Stack direction="row" spacing={2} alignItems="flex-end">
                             <Box sx={{ flex: 1 }}>
                                 <TextField
+                                    id="settings-materia-singola"
+                                    name="materiaSingola"
                                     label="Materia Singola"
                                     placeholder="Es: Italiano"
                                     value={newSubjectName}
@@ -367,6 +373,9 @@ export const SettingsAISection: React.FC<SettingsAISectionProps> = ({
                                                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-4)' }} onClick={e => e.stopPropagation()}>
                                                                         <input
                                                                             type="number"
+                                                                            id={`hours-${cls}-${subj}`}
+                                                                            name="hoursPerWeek"
+                                                                            aria-label={`Ore settimanali ${subj} - ${cls}`}
                                                                             value={assignment.hoursPerWeek}
                                                                             onChange={e => updateAssignmentHours(assignment.id ?? `${assignment.classId}-${subj}`, parseInt(e.target.value) || 1)}
                                                                             style={{ width: '44px', padding: 'var(--md-sys-spacing-1)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', borderRadius: 'var(--md-sys-shape-corner-small)', backgroundColor: 'var(--md-sys-color-surface)', color: 'var(--md-sys-color-on-surface)', fontSize: 'var(--md-sys-typescale-body-large-font-size)', textAlign: 'center' }}

@@ -339,6 +339,8 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                 </Typography>
                             </div>
                             <input
+                                id="settings-glass-blur"
+                                aria-label="Intensità Blur Vetro"
                                 type="range" min="0" max="100" step="5"
                                 value={themeState.glassBlur || 30}
                                 onChange={e => onThemeChange('glassBlur', parseInt(e.target.value))}
@@ -368,6 +370,8 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                 </Typography>
                             </div>
                             <input
+                                id="settings-font-scale"
+                                aria-label="Scala Font"
                                 type="range" min="0.8" max="1.4" step="0.1"
                                 value={themeState.fontScale || 1}
                                 onChange={e => onThemeChange('fontScale', parseFloat(e.target.value))}
@@ -397,6 +401,8 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                 </Typography>
                             </div>
                             <input
+                                id="settings-contrast-level"
+                                aria-label="Livello Contrasto"
                                 type="range" min="-50" max="50" step="5"
                                 value={themeState.contrastLevel || 0}
                                 onChange={e => onThemeChange('contrastLevel', parseInt(e.target.value))}
