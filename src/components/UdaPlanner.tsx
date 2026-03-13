@@ -442,6 +442,26 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
         logger.audit(`Clicked AI bridge link for UDA ${uda.id}`);
     };
 
+    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
+
+    const handleDuplicateAsTemplate = (uda: Uda, e: React.MouseEvent) => {
+        e.stopPropagation();
+        const template: Uda = {
+            ...uda,
+            id: `uda-${Date.now()}`,
+            title: `Copia — ${uda.title}`,
+            classe: '',
+            startDate: undefined,
+            endDate: undefined,
+            linkedEventId: undefined,
+            startPos: 0,
+            width: 100,
+        };
+        logger.audit(`Duplicated UDA ${uda.id} as template`);
+        showToast('Template creato — modifica classe e titolo.', 'success');
+        setEditingUda(template);
+    };
+
     return (
         <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', height: 'var(--md-sys-percent-100)', backgroundColor: 'var(--md-sys-color-surface)', overflow: 'hidden' }}>
             {/* M3Expressive refactor: Aura ornaments */}
@@ -528,6 +548,14 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                                                     </td>
                                                     <td style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }} onClick={e => e.stopPropagation()}>
                                                         <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
+                                                            <Button
+                                                                onClick={(e) => handleDuplicateAsTemplate(uda, e)}
+                                                                variant="text"
+                                                                title="Usa come template per una nuova classe"
+                                                                aria-label={`Duplica ${uda.title} come template`}
+                                                            >
+                                                                <Box component="span" className="material-symbols-outlined" aria-hidden="true">content_copy</Box>
+                                                            </Button>
                                                             <Button
                                                                 onClick={() => handleExportUda(uda)}
                                                                 variant="text"
