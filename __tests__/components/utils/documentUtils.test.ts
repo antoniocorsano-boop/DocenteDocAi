@@ -8,54 +8,16 @@ import {
   blobToBase64Parts, 
   base64ToBlob, 
   viewPdfInNewTab,
-  generateHomeworkPdf,
-  generateCertificazioneCompetenzePdf,
-  generateUdaPdf,
-  generateLessonPdf,
-  generateStudentProfilePdf,
-  generatePdfBrochure,
-  generateCouncilDataPdf,
-  generateCouncilTablePdf,
-  generateFullAppGuidePdf
 } from '../../../src/utils/documentUtils';
-import * as pdfLib from 'pdf-lib';
+import {
+  printHomeworkSheet, printLessonDocument, printStudentProfile,
+  printCertificazioneCompetenze, printUdaDocument, printCouncilData,
+  printCouncilTable, printPdfBrochure, printFullAppGuide,
+} from '../../../src/utils/printUtils';
 import * as docx from 'docx';
 import mammoth from 'mammoth';
 
 // Mock delle dipendenze esterne
-vi.mock('pdf-lib', () => {
-  const mockFont = {
-    widthOfTextAtSize: vi.fn((text) => text.length * 10),
-  };
-  return {
-    PDFDocument: {
-      create: vi.fn(() => ({
-        embedFont: vi.fn(() => Promise.resolve(mockFont)),
-        addPage: vi.fn(() => ({
-          getSize: vi.fn(() => ({ width: 600, height: 800 })),
-          drawText: vi.fn(),
-          drawLine: vi.fn(),
-          drawRectangle: vi.fn(),
-        })),
-        save: vi.fn(() => Promise.resolve(new Uint8Array())),
-      })),
-    },
-    StandardFonts: { Helvetica: 'Helvetica', HelveticaBold: 'Helvetica-Bold' },
-    rgb: vi.fn(),
-    PageSizes: { A4: [595.28, 841.89] },
-  };
-});
-
-vi.mock('jspdf', () => {
-  class MockJsPDF {
-    setFontSize = vi.fn();
-    text = vi.fn();
-    output = vi.fn(() => new Blob(['pdf content'], { type: 'application/pdf' }));
-    autoTable = vi.fn();
-  }
-  return { jsPDF: MockJsPDF };
-});
-
 vi.mock('docx', () => ({
   Document: vi.fn(),
   Packer: {
@@ -91,29 +53,20 @@ class MockFileReader {
 }
 vi.stubGlobal('FileReader', MockFileReader);
 
-// Mock pdfjs-dist
-vi.mock('pdfjs-dist/legacy/build/pdf', () => {
-  const mockPdf = {
-    numPages: 1,
-    getPage: vi.fn(() => Promise.resolve({
-      getTextContent: vi.fn(() => Promise.resolve({
-        items: [{ str: 'testo pdf' }]
+// pdfjs-dist is now loaded from CDN; stub window.pdfjsLib + data-pdfjs-cdn script in beforeEach
+const mockPdfJsLib = {
+  getDocument: vi.fn(() => ({
+    promise: Promise.resolve({
+      numPages: 1,
+      getPage: vi.fn(() => Promise.resolve({
+        getTextContent: vi.fn(() => Promise.resolve({
+          items: [{ str: 'testo pdf' }]
+        }))
       }))
-    }))
-  };
-  return {
-    default: {
-      getDocument: vi.fn(() => ({
-        promise: Promise.resolve(mockPdf)
-      })),
-      GlobalWorkerOptions: {}
-    },
-    getDocument: vi.fn(() => ({
-      promise: Promise.resolve(mockPdf)
-    })),
-    GlobalWorkerOptions: {}
-  };
-});
+    })
+  })),
+  GlobalWorkerOptions: { workerSrc: '' },
+};
 
 describe('documentUtils', () => {
   
@@ -122,11 +75,21 @@ describe('documentUtils', () => {
     // Mock browser APIs
     global.URL.createObjectURL = vi.fn(() => 'mock-url');
     global.URL.revokeObjectURL = vi.fn();
-    global.open = vi.fn();
+    const mockWin = { document: { write: vi.fn(), close: vi.fn() }, print: vi.fn(), close: vi.fn() };
+    global.open = vi.fn(() => mockWin);
     global.Node = {
       ELEMENT_NODE: 1,
       TEXT_NODE: 3
     } as any;
+
+    // Set up window.pdfjsLib so getPdfJs() CDN loader resolves immediately via early-return path
+    (window as any).pdfjsLib = mockPdfJsLib;
+    // Inject the sentinel script tag so getPdfJs() takes the early-return branch
+    if (!document.querySelector('script[data-pdfjs-cdn]')) {
+      const s = document.createElement('script');
+      s.setAttribute('data-pdfjs-cdn', '');
+      document.head.appendChild(s);
+    }
   });
 
   describe('saveAs', () => {
@@ -337,199 +300,143 @@ describe('documentUtils', () => {
     });
   });
 
-  describe('generateHomeworkPdf', () => {
-    it('dovrebbe generare un PDF per i compiti', async () => {
+  describe('printHomeworkSheet', () => {
+    it('dovrebbe aprire una finestra di stampa per i compiti', () => {
       const lesson = {
-        classe: '1A',
-        materia: 'Matematica',
-        contenuto: 'Equazioni',
-        compiti: 'Esercizi 1-10',
-        obiettivi: '• Capire le equazioni',
-        materialiDidattici: [
-          { label: 'Libro', type: 'file' },
-          { label: 'Sito', type: 'link', url: 'https://test.com' }
-        ]
+        id: 'l1', classe: '1A', materia: 'Matematica',
+        contenuto: 'Equazioni', compiti: 'Esercizi 1-10',
+        obiettivi: 'Capire le equazioni',
+        materialiDidattici: [{ id: 'm1', label: 'Libro', type: 'file' }]
       };
       const settings = { nomeIstituto: 'Scuola Test', nomeInsegnante: 'Prof. Rossi' };
-      
-      const blob = await generateHomeworkPdf(lesson as any, settings as any);
-      expect(blob).toBeInstanceOf(Blob);
-      expect(pdfLib.PDFDocument.create).toHaveBeenCalled();
+      printHomeworkSheet(lesson as any, settings as any);
+      expect(global.open).toHaveBeenCalledWith('', '_blank');
     });
 
-    it('dovrebbe gestire compiti mancanti', async () => {
-      const lesson = {
-        classe: '1A',
-        materia: 'Matematica',
-        contenuto: 'Equazioni',
-        compiti: '',
-      };
-      const blob = await generateHomeworkPdf(lesson as any, {});
-      expect(blob).toBeInstanceOf(Blob);
-    });
-
-    it('dovrebbe gestire testo lungo con wrapping', async () => {
-      const lesson = {
-        classe: '1A',
-        materia: 'Matematica',
-        contenuto: 'Questo è un testo molto lungo che dovrebbe sicuramente superare la larghezza massima della pagina e quindi innescare la logica di wrapping del testo nel PDF generato.',
-        compiti: 'Esercizi',
-      };
-      const blob = await generateHomeworkPdf(lesson as any, {});
-      expect(blob).toBeInstanceOf(Blob);
+    it('dovrebbe gestire compiti mancanti', () => {
+      const lesson = { id: 'l2', classe: '1A', materia: 'Matematica', contenuto: 'Equazioni', compiti: '' };
+      printHomeworkSheet(lesson as any, {} as any);
+      expect(global.open).toHaveBeenCalled();
     });
   });
 
-  describe('generateCertificazioneCompetenzePdf', () => {
-    it('dovrebbe generare un PDF per la certificazione competenze', async () => {
-      const student = { nome: 'Mario', cognome: 'Rossi', classe: '1A' };
+  describe('printCertificazioneCompetenze', () => {
+    it('dovrebbe aprire una finestra di stampa per la certificazione competenze', () => {
+      const student = { id: 's1', nome: 'Mario', cognome: 'Rossi', classe: '1A' };
       const competencyData = [{ competencyName: 'Comp 1', level: 'A' }];
       const settings = { annoScolasticoCorrente: '2023/24' };
-      
-      const blob = await generateCertificazioneCompetenzePdf(student as any, competencyData, settings as any);
-      expect(blob).toBeInstanceOf(Blob);
+      printCertificazioneCompetenze(student as any, competencyData, settings as any);
+      expect(global.open).toHaveBeenCalledWith('', '_blank');
     });
   });
 
-  describe('generateUdaPdf', () => {
-    it('dovrebbe generare un PDF per UDA (docente)', async () => {
+  describe('printUdaDocument', () => {
+    it('dovrebbe aprire una finestra di stampa per UDA (docente)', () => {
       const uda = {
-        title: 'Test UDA',
-        classe: '1A',
-        materia: 'Italiano',
-        introduction: 'Intro',
-        finalProduct: 'Prodotto',
-        competencyIds: ['c1'],
-        phases: [{ title: 'Fase 1', duration: '1h', description: 'Desc', activities: 'Att' }],
-        evaluation: 'Val',
-        tools: 'Strumenti'
+        id: 'u1', title: 'Test UDA', classe: '1A', materia: 'Italiano',
+        introduction: 'Intro', finalProduct: 'Prodotto', competencyIds: ['c1'],
+        phases: [{ id: 'p1', title: 'Fase 1', duration: '1h', description: 'Desc', activities: 'Att' }],
+        evaluation: 'Val', tools: 'Strumenti', startPos: 0, width: 100, color: '', borderColor: '', textColor: ''
       };
-      const competenze = [{ id: 'c1', nome: 'Comp 1', codice: 'C1' }];
+      const competenze = [{ id: 'c1', nome: 'Comp 1', codice: 'C1', livelli: [] }];
       const settings = { nomeIstituto: 'Scuola', nomeInsegnante: 'Docente' };
-      
-      const blob = await generateUdaPdf(uda, competenze, settings, 'docente');
-      expect(blob).toBeInstanceOf(Blob);
+      printUdaDocument(uda as any, competenze as any, settings as any, 'docente');
+      expect(global.open).toHaveBeenCalledWith('', '_blank');
     });
 
-    it('dovrebbe generare un PDF per UDA (studente)', async () => {
+    it('dovrebbe aprire una finestra di stampa per UDA (studente)', () => {
       const uda = {
-        title: 'Test UDA',
-        classe: '1A',
-        materia: 'Italiano',
-        introduction: 'Intro',
-        finalProduct: 'Prodotto',
-        competencyIds: [],
-        phases: [],
-        evaluation: 'Val',
-        tools: 'Strumenti'
+        id: 'u2', title: 'Test UDA', classe: '1A', materia: 'Italiano',
+        introduction: 'Intro', finalProduct: 'Prodotto', competencyIds: [],
+        phases: [], evaluation: 'Val', tools: 'Strumenti',
+        startPos: 0, width: 100, color: '', borderColor: '', textColor: ''
       };
-      const blob = await generateUdaPdf(uda, [], {}, 'studente');
-      expect(blob).toBeInstanceOf(Blob);
-    });
-
-    it('dovrebbe gestire molte righe e creare nuove pagine', async () => {
-      const uda = {
-        title: 'UDA Lunga',
-        classe: '1A',
-        materia: 'Italiano',
-        introduction: 'Intro',
-        finalProduct: 'Prodotto',
-        competencyIds: [],
-        phases: Array(20).fill({ title: 'Fase', duration: '1h', description: 'Desc', activities: 'Att' }),
-        evaluation: 'Val',
-        tools: 'Strumenti'
-      };
-      const blob = await generateUdaPdf(uda as any, [], {}, 'docente');
-      expect(blob).toBeInstanceOf(Blob);
+      printUdaDocument(uda as any, [], {} as any, 'studente');
+      expect(global.open).toHaveBeenCalled();
     });
   });
 
-  describe('generateLessonPdf', () => {
-    it('dovrebbe generare un PDF per la lezione', async () => {
+  describe('printLessonDocument', () => {
+    it('dovrebbe aprire una finestra di stampa per la lezione', () => {
       const lesson = {
-        classe: '1A',
-        materia: 'Italiano',
-        contenuto: 'Argomento',
-        obiettivi: 'Obiettivi',
-        compiti: 'Compiti',
-        nota: 'Nota'
+        id: 'l1', classe: '1A', materia: 'Italiano',
+        contenuto: 'Argomento', obiettivi: 'Obiettivi',
+        compiti: 'Compiti', nota: 'Nota'
       };
-      const blob = await generateLessonPdf(lesson);
-      expect(blob).toBeInstanceOf(Blob);
+      printLessonDocument(lesson as any);
+      expect(global.open).toHaveBeenCalledWith('', '_blank');
     });
   });
 
-  describe('generateStudentProfilePdf', () => {
-    it('dovrebbe generare un PDF per il profilo studente', async () => {
-      const student = { nome: 'Mario', cognome: 'Rossi', classe: '1A' };
-      const evaluations = [{ materia: 'Italiano', voto: '8' }];
-      const competencyEvaluations = [{ competenzaId: 'c1', livelloId: 'A', materia: 'Italiano' }];
-      const blob = await generateStudentProfilePdf(student, evaluations, competencyEvaluations, {});
-      expect(blob).toBeInstanceOf(Blob);
+  describe('printStudentProfile', () => {
+    it('dovrebbe aprire una finestra di stampa per il profilo studente', () => {
+      const student = { id: 's1', nome: 'Mario', cognome: 'Rossi', classe: '1A' };
+      const evaluations = [{ id: 'e1', studenteId: 's1', materia: 'Italiano', data: '2023-10-10', tipo: 'Scritto', voto: '8' }];
+      const competencyEvaluations = [{ id: 'ce1', studenteId: 's1', competenzaId: 'c1', livelloId: 'A', materia: 'Italiano', data: '2023-10-10' }];
+      printStudentProfile(student as any, evaluations as any, competencyEvaluations as any, {} as any);
+      expect(global.open).toHaveBeenCalledWith('', '_blank');
     });
   });
 
-  describe('generatePdfBrochure', () => {
-    it('dovrebbe generare un PDF per la brochure', async () => {
+  describe('printPdfBrochure', () => {
+    it('dovrebbe aprire una finestra di stampa per la brochure', () => {
       const content = {
-        brochureTitle: 'Brochure',
-        introduction: 'Desc',
+        brochureTitle: 'Brochure', introduction: 'Desc',
         useCases: [{ title: 'Sezione', benefits: ['Item 1'] }],
         technicalGuarantees: { title: 'Tech', content: 'Content' },
         roadmap: { title: 'Roadmap', items: [{ title: 'Step 1', description: 'Desc' }] },
         callToAction: 'CTA'
       };
-      const blob = await generatePdfBrochure(content as any);
-      expect(blob).toBeInstanceOf(Blob);
+      printPdfBrochure(content as any);
+      expect(global.open).toHaveBeenCalledWith('', '_blank');
     });
   });
 
-  describe('generateCouncilDataPdf', () => {
-    it('dovrebbe generare un PDF per i dati del consiglio', async () => {
-      const students = [{ id: 's1', nome: 'Mario', cognome: 'Rossi' }];
-      const evaluations = [{ studenteId: 's1', voto: '8' }];
-      const blob = await generateCouncilDataPdf('1A', { nome: 'Trimestre' }, students, evaluations, [], {});
-      expect(blob).toBeInstanceOf(Blob);
+  describe('printCouncilData', () => {
+    it('dovrebbe aprire una finestra di stampa per i dati del consiglio', () => {
+      const students = [{ id: 's1', nome: 'Mario', cognome: 'Rossi', classe: '1A' }];
+      const evaluations = [{ id: 'e1', studenteId: 's1', materia: 'Italiano', data: '2023-10-10', tipo: 'Scritto', voto: '8' }];
+      printCouncilData('1A', 'Primo Trimestre' as any, students as any, evaluations as any, [], {} as any);
+      expect(global.open).toHaveBeenCalledWith('', '_blank');
     });
   });
 
-  describe('generateCouncilTablePdf', () => {
-    it('dovrebbe generare un PDF per il tabellone dello scrutinio', async () => {
+  describe('printCouncilTable', () => {
+    it('dovrebbe aprire una finestra di stampa per il tabellone dello scrutinio', () => {
       const students = [
-        { id: 's1', nome: 'Mario', cognome: 'Rossi' },
-        { id: 's2', nome: 'Luigi', cognome: 'Verdi' }
+        { id: 's1', nome: 'Mario', cognome: 'Rossi', classe: '1A' },
+        { id: 's2', nome: 'Luigi', cognome: 'Verdi', classe: '1A' }
       ];
       const evaluations = [
-        { studenteId: 's1', materia: 'Italiano', voto: '8' },
-        { studenteId: 's2', materia: 'Matematica', voto: '7' }
+        { id: 'e1', studenteId: 's1', materia: 'Italiano', data: '2023-10-10', tipo: 'Scritto', voto: '8' },
+        { id: 'e2', studenteId: 's2', materia: 'Matematica', data: '2023-10-10', tipo: 'Scritto', voto: '7' }
       ];
-      const blob = await generateCouncilTablePdf('1A', { nome: 'Trimestre' }, '2023/24', students, evaluations, {}, {}, true);
-      expect(blob).toBeInstanceOf(Blob);
+      printCouncilTable('1A', 'Primo Trimestre' as any, '2023/24', students as any, evaluations as any, {}, {} as any, true);
+      expect(global.open).toHaveBeenCalledWith('', '_blank');
     });
 
-    it('dovrebbe gestire studente senza valutazioni', async () => {
-      const students = [{ id: 's3', nome: 'Anna', cognome: 'Bianchi' }];
-      const evaluations = [];
-      const blob = await generateCouncilTablePdf('1A', { nome: 'Trimestre' }, '2023/24', students, evaluations, {}, {}, true);
-      expect(blob).toBeInstanceOf(Blob);
+    it('dovrebbe gestire studente senza valutazioni', () => {
+      const students = [{ id: 's3', nome: 'Anna', cognome: 'Bianchi', classe: '1A' }];
+      printCouncilTable('1A', 'Primo Trimestre' as any, '2023/24', students as any, [], {}, {} as any, true);
+      expect(global.open).toHaveBeenCalledWith('', '_blank');
     });
   });
 
-  describe('generateFullAppGuidePdf', () => {
-    it('dovrebbe generare un PDF per la guida completa', async () => {
+  describe('printFullAppGuide', () => {
+    it('dovrebbe aprire una finestra di stampa per la guida completa', () => {
       const essay = { title: 'Titolo', content: 'Contenuto' };
       const faqs = [{ q: 'Q', a: 'A' }];
       const specs = { title: 'Specs', specs: ['I1'] };
       const vocal = { title: 'Vocal', sections: [{ title: 'S1', commands: ['C1'] }] };
-      const blob = await generateFullAppGuidePdf(essay, faqs as any, specs as any, {}, vocal as any);
-      expect(blob).toBeInstanceOf(Blob);
+      printFullAppGuide(essay as any, faqs as any, specs as any, {} as any, vocal as any);
+      expect(global.open).toHaveBeenCalledWith('', '_blank');
     });
 
-    it('dovrebbe gestire essayContent nullo', async () => {
+    it('dovrebbe gestire essayContent nullo', () => {
       const specs = { title: 'Specs', specs: [] };
       const vocal = { title: 'Vocal', sections: [] };
-      const blob = await generateFullAppGuidePdf(null, [], specs as any, {}, vocal as any);
-      expect(blob).toBeInstanceOf(Blob);
+      printFullAppGuide(null as any, [], specs as any, {} as any, vocal as any);
+      expect(global.open).toHaveBeenCalled();
     });
   });
 });

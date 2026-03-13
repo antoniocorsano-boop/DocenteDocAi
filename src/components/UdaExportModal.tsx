@@ -6,7 +6,8 @@
 
 import React, { useState } from 'react';
 import { Uda, Competenza, TimetableSettings, Report, AiSettings } from '../types';
-import { generateUdaPdf, blobToBase64Parts, generateHtmlDocxBlob, viewPdfInNewTab, saveAs } from '../utils/documentUtils';
+import { blobToBase64Parts, generateHtmlDocxBlob } from '../utils/documentUtils';
+import { printUdaDocument, buildUdaHtmlBlob } from '../utils/printUtils';
 import { generateMarkdownReport } from '../services/aiService';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -36,11 +37,11 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
     const handlePdfExport = async () => {
         setIsExporting(true);
         try {
-            const pdfBlob = await generateUdaPdf(uda, competenze, settings, docType);
-            const { data: base64Content, mimeType } = await blobToBase64Parts(pdfBlob);
+            const htmlBlob = buildUdaHtmlBlob(uda, competenze, settings, docType);
+            const { data: base64Content, mimeType } = await blobToBase64Parts(htmlBlob);
             const fileName = docType === 'docente' 
-                ? `Progettazione_UDA_${uda.title.replace(/ /g, '_')}.pdf` 
-                : `Guida_Progetto_${uda.title.replace(/ /g, '_')}.pdf`;
+                ? `Progettazione_UDA_${uda.title.replace(/ /g, '_')}.html` 
+                : `Guida_Progetto_${uda.title.replace(/ /g, '_')}.html`;
 
             const newReport: Report = {
                 id: `report-${Date.now()}`,
@@ -51,7 +52,7 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                     id: uda.id,
                     titolo: uda.title },
                 modelloUsato: {
-                    nome: docType === 'docente' ? 'PDF Docente (Standard)' : 'PDF Studente (Standard)',
+                    nome: docType === 'docente' ? 'Stampa Docente (HTML)' : 'Stampa Studente (HTML)',
                     tipo: 'pdf' },
                 file: {
                     name: fileName,
@@ -59,12 +60,11 @@ export const UdaExportModal: React.FC<UdaExportModalProps> = ({ uda, competenze,
                     mimeType: mimeType }
             };
             onSaveReport(newReport);
-
-            viewPdfInNewTab(pdfBlob);
+            printUdaDocument(uda, competenze, settings, docType);
             onClose();
         } catch (error) {
-            logger.error("Failed to generate UDA PDF:", error);
-            showToast('Si è verificato un errore durante la generazione del PDF.', 'error');
+            logger.error("Failed to generate UDA document:", error);
+            showToast('Si è verificato un errore durante la generazione del documento.', 'error');
         } finally {
             setIsExporting(false);
         }

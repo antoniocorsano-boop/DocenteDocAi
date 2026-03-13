@@ -28,7 +28,8 @@ import DownloadIcon from '@mui/icons-material/Download';
 import DoorOpenIcon from '@mui/icons-material/MeetingRoom';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { Lezione, MaterialeDidattico, KnowledgeBaseEntry, AiSettings, LessonAnalysisResult, TimetableSettings } from '../types';
-import { generateLessonPdf, generateHtmlDocxBlob, viewPdfInNewTab, generateHomeworkPdf, saveAs } from '../utils/documentUtils';
+import { generateHtmlDocxBlob, saveAs } from '../utils/documentUtils';
+import { printLessonDocument, printHomeworkSheet } from '../utils/printUtils';
 import { analyzeLessonPedagogy, addContextToLesson } from '../services/aiService';
 import { sanitizeHTML } from '../utils/securityUtils';
 import { generateHueFromString } from '../utils/colorUtils';
@@ -53,7 +54,6 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
-  const [isExporting, setIsExporting] = useState(false);
   const [previewingMaterial, setPreviewingMaterial] = useState<KnowledgeBaseEntry | null>(null);
   const [isMaterialPickerOpen, setIsMaterialPickerOpen] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState<{ message: string; onConfirm: () => void } | null>(null);
@@ -80,34 +80,16 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
     }
   };
 
-  const handleExport = async () => {
-    setIsExporting(true);
-    try {
-        const pdfBlob = await generateLessonPdf(lesson);
-        viewPdfInNewTab(pdfBlob);
-    } catch (error) {
-        logger.error("Failed to generate lesson PDF:", error);
-        showToast('Si è verificato un errore durante la generazione del PDF.', 'error');
-    } finally {
-        setIsExporting(false);
-    }
+  const handleExport = () => {
+    printLessonDocument(lesson);
   };
 
-  const handleExportHomework = async () => {
+  const handleExportHomework = () => {
     if (!settings) {
         showToast('Impostazioni mancanti. Impossibile generare la scheda compiti.', 'error');
         return;
     }
-    setIsExporting(true);
-    try {
-        const pdfBlob = await generateHomeworkPdf(lesson, settings);
-        viewPdfInNewTab(pdfBlob);
-    } catch (error) {
-        logger.error("Failed to generate homework PDF:", error);
-        showToast('Si è verificato un errore durante la generazione della scheda compiti.', 'error');
-    } finally {
-        setIsExporting(false);
-    }
+    printHomeworkSheet(lesson, settings);
   };
   
   const handleExportDocx = async () => {

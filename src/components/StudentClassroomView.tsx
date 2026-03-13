@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Studente, Lezione, KnowledgeBaseEntry, HomeworkSubmission, RegisterEntry, TimetableSettings } from '../types';
-import { blobToBase64Parts, generateHomeworkPdf, viewPdfInNewTab } from '../utils/documentUtils';
+import { blobToBase64Parts } from '../utils/documentUtils';
+import { printHomeworkSheet } from '../utils/printUtils';
 import { useFileDrop } from '../hooks/useFileDrop';
 import { SectionHeader, Avatar } from './ui';
 import Button from '@mui/material/Button';
@@ -87,7 +88,6 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
     const [activeTab, setActiveTab] = useState<'feed' | 'homework' | 'materials'>('feed');
     const [isExitMenuOpen, setIsExitMenuOpen] = useState(false);
     const [isPinModalOpen, setIsPinModalOpen] = useState(false);
-    const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
 
     // Filter relevant data
     const classLessons = useMemo(() => 
@@ -144,17 +144,9 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
         }
     };
     
-    const handleDownloadHomeworkSheet = async (lesson: Lezione) => {
+    const handleDownloadHomeworkSheet = (lesson: Lezione) => {
         if (!settings) return;
-        setIsGeneratingPdf(true);
-        try {
-            const blob = await generateHomeworkPdf(lesson, settings);
-            viewPdfInNewTab(blob);
-        } catch (e) {
-            logger.error(e);
-        } finally {
-            setIsGeneratingPdf(false);
-        }
+        printHomeworkSheet(lesson, settings);
     };
 
     const UploadButton: React.FC<{ lessonId: string }> = ({ lessonId }) => {

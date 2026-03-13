@@ -4,60 +4,30 @@ import {
   blobToBase64Parts, 
   base64ToBlob, 
   extractTextFromFile,
-  generateHomeworkPdf,
-  generateCertificazioneCompetenzePdf,
-  generateUdaPdf,
-  generateLessonPdf,
-  generateStudentProfilePdf,
-  generatePdfBrochure,
-  generateCouncilDataPdf,
-  generateCouncilTablePdf,
-  generateFullAppGuidePdf,
   generateHtmlDocxBlob
 } from '../../src/utils/documentUtils';
+import {
+  printHomeworkSheet,
+  printLessonDocument,
+  printStudentProfile,
+  printCertificazioneCompetenze,
+  printUdaDocument,
+  printCouncilData,
+  printCouncilTable,
+  printPdfBrochure,
+  printFullAppGuide,
+  buildLessonHtmlBlob,
+  buildStudentProfileHtmlBlob,
+  buildUdaHtmlBlob,
+} from '../../src/utils/printUtils';
 import { Lezione, TimetableSettings, Studente, Valutazione, ValutazioneCompetenza, Uda, Competenza, PeriodoValutazione, BrochureContent, TechnicalDocumentContent, EssayContent, FaqItem, VocalAssistantGuide } from '../../src/types';
 
 // Mock external libraries
-vi.mock('pdf-lib', () => ({
-  PDFDocument: {
-    create: vi.fn().mockImplementation(async () => ({
-      embedFont: vi.fn().mockImplementation(async () => ({
-        widthOfTextAtSize: vi.fn(() => 100)
-      })),
-      addPage: vi.fn().mockImplementation(() => ({
-        getSize: vi.fn(() => ({ width: 595, height: 842 })),
-        drawText: vi.fn(),
-        drawLine: vi.fn(),
-        drawRectangle: vi.fn(),
-      })),
-      save: vi.fn().mockImplementation(async () => new Uint8Array()),
-    })),
-  },
-  rgb: vi.fn(),
-  StandardFonts: {
-    Helvetica: 'Helvetica',
-    HelveticaBold: 'HelveticaBold',
-  },
-  PageSizes: {
-    A4: [595, 842],
-  },
-}));
-
 vi.mock('mammoth', () => ({
   default: {
     extractRawText: vi.fn().mockImplementation(async () => ({ value: 'extracted docx text' })),
   },
   extractRawText: vi.fn().mockImplementation(async () => ({ value: 'extracted docx text' })),
-}));
-
-vi.mock('jspdf', () => ({
-  jsPDF: vi.fn().mockImplementation(function(this: any) {
-    this.setFontSize = vi.fn();
-    this.text = vi.fn();
-    this.output = vi.fn(() => new Blob());
-    this.autoTable = vi.fn();
-    return this;
-  }),
 }));
 
 vi.mock('docx', () => ({
@@ -102,6 +72,10 @@ describe('documentUtils Extended', () => {
       });
     };
     vi.stubGlobal('FileReader', mockFileReader);
+
+    // Mock window.open for print functions
+    const mockWin = { document: { write: vi.fn(), close: vi.fn() }, print: vi.fn(), close: vi.fn() };
+    vi.stubGlobal('open', vi.fn(() => mockWin));
   });
 
   describe('saveAs', () => {
@@ -162,7 +136,7 @@ describe('documentUtils Extended', () => {
     });
   });
 
-  describe('PDF Generation Functions', () => {
+  describe('Print Functions (printUtils)', () => {
     const mockSettings: TimetableSettings = {
       nomeIstituto: 'Test School',
       nomeInsegnante: 'Test Teacher',
@@ -202,19 +176,31 @@ describe('documentUtils Extended', () => {
       materialiDidattici: [{ id: 'm1', type: 'link', url: 'http://test.com', label: 'Link' }]
     };
 
-    it('generateHomeworkPdf should generate a blob', async () => {
-      const blob = await generateHomeworkPdf(mockLesson, mockSettings);
-      expect(blob.type).toBe('application/pdf');
+    it('printHomeworkSheet should call window.open', () => {
+      printHomeworkSheet(mockLesson, mockSettings);
+      expect(window.open).toHaveBeenCalledWith('', '_blank');
     });
 
-    it('generateCertificazioneCompetenzePdf should generate a blob', async () => {
+    it('printLessonDocument should call window.open', () => {
+      printLessonDocument(mockLesson);
+      expect(window.open).toHaveBeenCalledWith('', '_blank');
+    });
+
+    it('printStudentProfile should call window.open', () => {
       const student: Studente = { id: 's1', nome: 'Mario', cognome: 'Rossi', classe: '1A' };
-      const data = [{ competencyName: 'Comp 1', level: 'A' }];
-      const blob = await generateCertificazioneCompetenzePdf(student, data, mockSettings);
-      expect(blob.type).toBe('application/pdf');
+      const evaluations: Valutazione[] = [{ id: 'e1', studenteId: 's1', materia: 'Italiano', data: '2023-10-10', tipo: 'Scritto', voto: '8' }];
+      const compEvals: ValutazioneCompetenza[] = [];
+      printStudentProfile(student, evaluations, compEvals, mockSettings);
+      expect(window.open).toHaveBeenCalledWith('', '_blank');
     });
 
-    it('generateUdaPdf should generate a blob', async () => {
+    it('printCertificazioneCompetenze should call window.open', () => {
+      const student: Studente = { id: 's1', nome: 'Mario', cognome: 'Rossi', classe: '1A' };
+      printCertificazioneCompetenze(student, [{ competencyName: 'Comp 1', level: 'A' }], mockSettings);
+      expect(window.open).toHaveBeenCalledWith('', '_blank');
+    });
+
+    it('printUdaDocument should call window.open', () => {
       const uda: Uda = {
         id: 'u1', title: 'UDA 1', classe: '1A', materia: 'Italiano',
         introduction: 'Intro', finalProduct: 'Product', competencyIds: ['c1'],
@@ -222,31 +208,23 @@ describe('documentUtils Extended', () => {
         evaluation: 'Eval', tools: 'Tools', startPos: 0, width: 100, color: '', borderColor: '', textColor: ''
       };
       const comp: Competenza = { id: 'c1', nome: 'Comp 1', codice: 'C1', livelli: [] };
-      const blob = await generateUdaPdf(uda, [comp], mockSettings, 'docente');
-      expect(blob.type).toBe('application/pdf');
+      printUdaDocument(uda, [comp], mockSettings, 'docente');
+      expect(window.open).toHaveBeenCalledWith('', '_blank');
     });
 
-    it('generateLessonPdf should generate a blob', async () => {
-      const blob = await generateLessonPdf(mockLesson);
-      expect(blob.type).toBe('application/pdf');
-    });
-
-    it('generateStudentProfilePdf should generate a blob with competencies', async () => {
-      const student: Studente = { id: 's1', nome: 'Mario', cognome: 'Rossi', classe: '1A' };
-      const evaluations: Valutazione[] = [{ id: 'e1', studenteId: 's1', materia: 'Italiano', data: '2023-10-10', tipo: 'Scritto', voto: '8' }];
-      const compEvals: ValutazioneCompetenza[] = [{ id: 'ce1', studenteId: 's1', competenzaId: 'c1', livelloId: 'A', materia: 'Italiano', data: '2023-10-10' }];
-      const blob = await generateStudentProfilePdf(student, evaluations, compEvals, mockSettings);
-      expect(blob.type).toBe('application/pdf');
-    });
-
-    it('generateCouncilTablePdf should handle missing grades', async () => {
+    it('printCouncilData should call window.open', () => {
       const students: Studente[] = [{ id: 's1', nome: 'Mario', cognome: 'Rossi', classe: '1A' }];
-      const evaluations: Valutazione[] = []; // No evaluations
-      const blob = await generateCouncilTablePdf('1A', 'Primo Trimestre' as PeriodoValutazione, '2023/24', students, evaluations, {}, mockSettings, true);
-      expect(blob).toBeDefined();
+      printCouncilData('1A', 'Primo Trimestre' as PeriodoValutazione, students, [], [], mockSettings);
+      expect(window.open).toHaveBeenCalledWith('', '_blank');
     });
 
-    it('generatePdfBrochure should generate a blob', async () => {
+    it('printCouncilTable should call window.open', () => {
+      const students: Studente[] = [{ id: 's1', nome: 'Mario', cognome: 'Rossi', classe: '1A' }];
+      printCouncilTable('1A', 'Primo Trimestre' as PeriodoValutazione, '2023/24', students, [], {}, mockSettings, true);
+      expect(window.open).toHaveBeenCalledWith('', '_blank');
+    });
+
+    it('printPdfBrochure should call window.open', () => {
       const content: BrochureContent = {
         brochureTitle: 'Title', introduction: 'Intro',
         useCases: [{ title: 'UC1', benefits: ['B1'] }],
@@ -254,60 +232,42 @@ describe('documentUtils Extended', () => {
         roadmap: { title: 'Roadmap', items: [{ title: 'Step 1', description: 'Desc' }] },
         callToAction: 'Action'
       };
-      const blob = await generatePdfBrochure(content);
-      expect(blob.type).toBe('application/pdf');
+      printPdfBrochure(content);
+      expect(window.open).toHaveBeenCalledWith('', '_blank');
     });
 
-    it('generateFullAppGuidePdf should generate a blob', async () => {
+    it('printFullAppGuide should call window.open', () => {
       const essay: EssayContent = { title: 'Essay', content: 'Content' };
       const faq: FaqItem[] = [{ q: 'Q', a: 'A' }];
       const specs: TechnicalDocumentContent = { title: 'Specs', specs: ['S1'] };
       const vocal: VocalAssistantGuide = { title: 'Vocal', sections: [{ title: 'S1', commands: ['C1'] }] };
-      const blob = await generateFullAppGuidePdf(essay, faq, specs, {}, vocal);
-      expect(blob.type).toBe('application/pdf');
-    });
-  });
-
-  describe('jsPDF Functions', () => {
-    const mockSettings: TimetableSettings = {
-      nomeIstituto: 'Test School',
-      nomeInsegnante: 'Test Teacher',
-      annoScolasticoCorrente: '2023/24',
-      classi: [],
-      disciplines: [],
-      timeSlots: [],
-      defaultView: 'week',
-      schoolType: 'Superior',
-      livelli: [],
-      sezioni: [],
-      teachingAssignments: [],
-      competenze: [],
-      cittaIstituto: 'Test City',
-      anniScolastici: ['2023/24'],
-      activityStartDate: '2023-09-01',
-      activityEndDate: '2024-06-30',
-      notificationSettings: { enabled: false, reminders: [], desktopNotifications: false },
-      showGuidanceTips: true,
-      visualTheme: 'default',
-      uiMode: 'classic',
-      visualPreferences: { font: 'Roboto', shape: 'rounded' },
-      autoSyncEnabled: false,
-      autoSyncInterval: 30,
-      securityPin: ''
-    };
-
-    it('generateCouncilDataPdf should generate a blob', async () => {
-      const students: Studente[] = [{ id: 's1', nome: 'Mario', cognome: 'Rossi', classe: '1A' }];
-      const evaluations: Valutazione[] = [{ id: 'e1', studenteId: 's1', materia: 'Italiano', data: '2023-10-10', tipo: 'Scritto', voto: '8' }];
-      const blob = await generateCouncilDataPdf('1A', 'Primo Trimestre' as PeriodoValutazione, students, evaluations, [], mockSettings);
-      expect(blob).toBeDefined();
+      printFullAppGuide(essay, faq, specs, {}, vocal);
+      expect(window.open).toHaveBeenCalledWith('', '_blank');
     });
 
-    it('generateCouncilTablePdf should generate a blob', async () => {
-      const students: Studente[] = [{ id: 's1', nome: 'Mario', cognome: 'Rossi', classe: '1A' }];
-      const evaluations: Valutazione[] = [{ id: 'e1', studenteId: 's1', materia: 'Italiano', data: '2023-10-10', tipo: 'Scritto', voto: '8' }];
-      const blob = await generateCouncilTablePdf('1A', 'Primo Trimestre' as PeriodoValutazione, '2023/24', students, evaluations, {}, mockSettings, true);
-      expect(blob).toBeDefined();
+    it('buildLessonHtmlBlob should return text/html Blob', () => {
+      const blob = buildLessonHtmlBlob(mockLesson);
+      expect(blob.type).toBe('text/html');
+      expect(blob.size).toBeGreaterThan(0);
+    });
+
+    it('buildStudentProfileHtmlBlob should return text/html Blob', () => {
+      const student: Studente = { id: 's1', nome: 'Mario', cognome: 'Rossi', classe: '1A' };
+      const blob = buildStudentProfileHtmlBlob(student, [], [], mockSettings);
+      expect(blob.type).toBe('text/html');
+      expect(blob.size).toBeGreaterThan(0);
+    });
+
+    it('buildUdaHtmlBlob should return text/html Blob', () => {
+      const uda: Uda = {
+        id: 'u1', title: 'UDA 1', classe: '1A', materia: 'Italiano',
+        introduction: 'Intro', finalProduct: 'Product', competencyIds: [],
+        phases: [], evaluation: 'Eval', tools: 'Tools',
+        startPos: 0, width: 100, color: '', borderColor: '', textColor: ''
+      };
+      const blob = buildUdaHtmlBlob(uda, [], mockSettings, 'docente');
+      expect(blob.type).toBe('text/html');
+      expect(blob.size).toBeGreaterThan(0);
     });
   });
 

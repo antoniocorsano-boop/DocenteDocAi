@@ -13,8 +13,8 @@ import Typography from '@mui/material/Typography';
 import { Studente, Valutazione, GiudizioPeriodico, PeriodoValutazione, TimetableSettings, AiSettings, ValutazioneCompetenza } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
 import { getPeriodicJudgmentSuggestion, generateClassCouncilNarrativeReport } from '../services/aiService';
-import { generateCouncilTablePdf } from '../utils/documentUtils';
-import { saveAs } from '../utils/documentUtils';
+
+import { printCouncilTable } from '../utils/printUtils';
 import { logger } from '../utils/logger';
 import { useUIStore } from '../stores/useUIStore';
 interface ConsiglioClasseProps {
@@ -147,27 +147,17 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
         }
     };
     
-    const handleExportPdf = async () => {
-        setIsExporting(true);
-        try {
-            const blob = await generateCouncilTablePdf(
-                selectedClass,
-                periodo,
-                annoScolasticoCorrente,
-                students,
-                evaluations,
-                localGiudizi,
-                settings,
-                showFinalGrades
-            );
-            // viewPdfInNewTab(blob); // Rimosso import inutilizzato, lasciare gestione download a saveAs o altro
-            saveAs(blob, `Scrutinio_${selectedClass}_${String(periodo)}.pdf`);
-        } catch(e) {
-            logger.error(e);
-            showToast("Si è verificato un errore durante l'esportazione del PDF.", 'error');
-        } finally {
-            setIsExporting(false);
-        }
+    const handleExportPdf = () => {
+        printCouncilTable(
+            selectedClass,
+            periodo,
+            annoScolasticoCorrente,
+            students,
+            evaluations,
+            localGiudizi,
+            settings,
+            showFinalGrades
+        );
     };
 
     const handleExportDocx = async () => {

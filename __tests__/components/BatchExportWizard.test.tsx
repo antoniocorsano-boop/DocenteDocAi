@@ -13,10 +13,24 @@ vi.mock("../../src/stores/useUIStore", () => {
 
 // Mock documentUtils functions
 vi.mock("../../src/utils/documentUtils", () => ({
-  generateStudentProfilePdf: vi.fn(() => Promise.resolve(new Blob())),
-  generateLessonPdf: vi.fn(() => Promise.resolve(new Blob())),
   generateHtmlDocxBlob: vi.fn(() => Promise.resolve(new Blob())),
   saveAs: vi.fn(),
+}));
+
+// Mock printUtils blob builders
+vi.mock("../../src/utils/printUtils", () => ({
+  buildStudentProfileHtmlBlob: vi.fn(() => new Blob(['<html></html>'], { type: 'text/html' })),
+  buildLessonHtmlBlob: vi.fn(() => new Blob(['<html></html>'], { type: 'text/html' })),
+  buildUdaHtmlBlob: vi.fn(() => new Blob(['<html></html>'], { type: 'text/html' })),
+  printHomeworkSheet: vi.fn(),
+  printLessonDocument: vi.fn(),
+  printStudentProfile: vi.fn(),
+  printCouncilData: vi.fn(),
+  printCouncilTable: vi.fn(),
+  printUdaDocument: vi.fn(),
+  printPdfBrochure: vi.fn(),
+  printFullAppGuide: vi.fn(),
+  printCertificazioneCompetenze: vi.fn(),
 }));
 
 // Mock JSZip

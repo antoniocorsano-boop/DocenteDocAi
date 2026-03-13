@@ -74,7 +74,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
         <M3Dialog
             title={
                 <Stack direction="row" alignItems="center" gap="var(--md-sys-spacing-6)">
-                    <Typography component="span" sx={{color: "var(--md-sys-color-tertiary)"}}>lightbulb</Typography>
+                    <Typography component="span" className="material-symbols-outlined" sx={{color: "var(--md-sys-color-tertiary)"}}>lightbulb</Typography>
                     <span>AI Lesson Lab</span>
                 </Stack>
             }
@@ -169,7 +169,7 @@ const IdeaGeneratorModal: React.FC<IdeaGeneratorModalProps> = ({ onClose, onGene
 
                 {error && (
                     <Stack direction="row" alignItems="center" gap="var(--md-sys-spacing-8)" sx={{ p: 'var(--md-sys-spacing-4)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-error) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', color: 'var(--md-sys-color-error)' }}>
-                        <Typography component="span">error</Typography>
+                        <Typography component="span" className="material-symbols-outlined">error</Typography>
                         <Typography component="p" variant="caption" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: 'var(--md-sys-typescale-label-large-tracking)' }}>{error}</Typography>
                     </Stack>
                 )}

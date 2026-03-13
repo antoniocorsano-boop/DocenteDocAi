@@ -3,8 +3,8 @@
 import React, { useState, useMemo } from 'react';
 import { View, Valutazione, Studente, ValutazioneCompetenza, TimetableSettings, PeriodoValutazione } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
-import { generateCouncilDataPdf } from '../utils/documentUtils';
-import { saveAs } from '../utils/documentUtils';
+
+import { printCouncilData } from '../utils/printUtils';
 import { M3Dialog, SectionHeader, EmptyState, NavigationCard, PageWrapper } from './ui';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -404,7 +404,7 @@ const PrintCenterModal: React.FC<{
         try {
             for (const className of selectedClasses) {
                 const classStudents = students.filter(s => s.classe === className);
-                const blob = await generateCouncilDataPdf(
+                printCouncilData(
                     className,
                     periodo,
                     classStudents,
@@ -412,10 +412,8 @@ const PrintCenterModal: React.FC<{
                     competencyEvaluations,
                     settings
                 );
-                // FIX DEFINITIVO: String() per il periodo nel nome file
-                saveAs(blob, `Report_Consiglio_${String(className)}_${String(periodo)}.pdf`);
-                // Small delay to allow download initiation
-                await new Promise(r => setTimeout(r, 800));
+                // Small delay between windows
+                await new Promise(r => setTimeout(r, 400));
             }
         } catch(e) {
             logger.error(e);

@@ -306,7 +306,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
 
                         {error && (
                             <Box sx={{ color: 'var(--md-sys-color-on-error-container)', borderRadius: 'var(--md-sys-shape-corner-large)', display: 'flex', alignItems: 'flex-start', gap: 'var(--md-sys-spacing-6)', padding: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-error)' }}>
-                                <Typography component="span">error</Typography>
+                                <Typography component="span" className="material-symbols-outlined">error</Typography>
                                 <Typography variant="body2" sx={{ fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>{error}</Typography>
                             </Box>
                         )}
@@ -314,7 +314,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
                         {infoMessage && (
                             <Box sx={{ color: 'var(--md-sys-color-on-tertiary-container)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-5)', backgroundColor: 'var(--md-sys-color-tertiary)' }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)', mb: 'var(--md-sys-spacing-8)' }}>
-                                    <Typography component="span">lightbulb</Typography>
+                                    <Typography component="span" className="material-symbols-outlined">lightbulb</Typography>
                                     <Typography variant="h6" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Suggerimento AI: XLSX to CSV</Typography>
                                 </Box>
                                 <Box sx={{ color: 'var(--md-sys-color-on-tertiary-container)', opacity: 'var(--md-sys-state-opacity-hover-overlay)' }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(infoMessage.replace(/\n/g, '<br />')) }} />
@@ -420,7 +420,7 @@ const ImportStudentsModal: React.FC<ImportStudentsModalProps> = ({ onClose, onIm
 
                         {targetClass === 'AUTO' && (
                             <Box sx={{ backgroundColor: 'var(--md-sys-color-surface-container-low)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)', fontSize: 'var(--md-sys-typescale-body-medium-font-size)', display: 'flex', gap: 'var(--md-sys-spacing-6)', alignItems: 'flex-start' }}>
-                                <Typography component="span" sx={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-title-small-font-size)' }}>info</Typography>
+                                <Typography component="span" className="material-symbols-outlined" sx={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-title-small-font-size)' }}>info</Typography>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                                     <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)', mb: 'var(--md-sys-spacing-4)' }}>Nota Importante</Typography>
                                     <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Gli studenti verranno assegnati alle classi indicate nel file. Se una classe nel file non esiste nelle tue Impostazioni, lo studente verrà comunque importato ma la classe sarà creata implicitamente.</Typography>

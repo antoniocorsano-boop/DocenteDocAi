@@ -148,26 +148,13 @@ export default defineConfig({
           if (id.includes('@google/genai') || id.includes('node_modules/lighthouse') || id.includes('node_modules/chrome-launcher')) {
             return 'ai-vendor';
           }
-          // PDF libs (dynamic-import only — excluded from modulepreload)
+          // Document libs (dynamic-import only — excluded from modulepreload)
+          // Note: pdf-lib, jspdf, pdfjs-dist removed — replaced by browser print API + CDN
           if (
-            id.includes('jspdf') ||
-            id.includes('pdf-lib') ||
             id.includes('mammoth') ||
             id.includes('docx') ||
-            id.includes('pdfjs-dist') ||
-            // jspdf heavy runtime deps (transitive, not directly imported)
-            id.includes('html2canvas') ||
-            id.includes('canvg') ||
             id.includes('jszip') ||
-            id.includes('pako') ||
             id.includes('fflate') ||
-            id.includes('svg-pathdata') ||
-            id.includes('stackblur-canvas') ||
-            id.includes('rgbcolor') ||
-            id.includes('xmlbuilder') ||
-            id.includes('fast-png') ||
-            id.includes('iobuffer') ||
-            id.includes('base64-js') ||
             // docx/mammoth transitive deps
             id.includes('@xmldom') ||
             id.includes('bluebird') ||

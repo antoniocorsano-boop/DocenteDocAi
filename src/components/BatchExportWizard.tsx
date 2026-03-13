@@ -1,8 +1,9 @@
 // MD3 Compliant - Block J Migration Complete (4 violations eliminated)
 import React, { useState, useMemo } from 'react';
 import { Studente, Lezione, Uda, TimetableSettings, AiSettings, Valutazione, ValutazioneCompetenza, DocumentTemplate } from '../types';
-import { generateStudentProfilePdf, generateLessonPdf, generateHtmlDocxBlob } from '../utils/documentUtils';
+import { generateHtmlDocxBlob } from '../utils/documentUtils';
 import { saveAs } from '../utils/documentUtils';
+import { buildStudentProfileHtmlBlob, buildLessonHtmlBlob } from '../utils/printUtils';
 import { useSystemStore } from '../stores/useSystemStore';
 import { useUIStore } from '../stores/useUIStore';
 import TemplateManager from './TemplateManager';
@@ -188,6 +189,8 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
       for (let i = 0; i < selectedDocuments.length; i++) {
         const doc = selectedDocuments[i];
         setProgress({ current: i + 1, total: selectedDocuments.length, currentDoc: doc.title });
+        // Yield to event loop so React can render the progress indicator
+        await new Promise(resolve => setTimeout(resolve, 0));
 
         let blob: Blob;
         let fileName: string;
@@ -198,16 +201,16 @@ const BatchExportWizard: React.FC<BatchExportWizardProps> = (props) => {
             const student = doc.data;
             const studentEvals = props.evaluations.filter(e => e.studenteId === student.id);
             const studentCompEvals = props.competencyEvaluations.filter(e => e.studenteId === student.id);
-            blob = await generateStudentProfilePdf(student, studentEvals, studentCompEvals, props.settings);
-            fileName = `Profilo_${student.cognome}_${student.nome}.pdf`;
+            blob = buildStudentProfileHtmlBlob(student, studentEvals, studentCompEvals, props.settings);
+            fileName = `Profilo_${student.cognome}_${student.nome}.html`;
             break;
           }
 
           case 'lesson_plan': {
             if (!isLesson(doc.data)) continue;
             const lesson = doc.data;
-            blob = await generateLessonPdf(lesson);
-            fileName = `Piano_Lezione_${lesson.id}.pdf`;
+            blob = buildLessonHtmlBlob(lesson);
+            fileName = `Piano_Lezione_${lesson.id}.html`;
             break;
           }
 

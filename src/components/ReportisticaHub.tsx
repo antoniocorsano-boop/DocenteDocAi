@@ -34,7 +34,8 @@ import type {
 } from '../types';
 import ArchivioReport from './ArchivioReport';
 import UdaExportModal from './UdaExportModal';
-import { generateStudentProfilePdf, viewPdfInNewTab, generatePdfBrochure, saveAs } from '../utils/documentUtils';
+
+import { printStudentProfile, printPdfBrochure } from '../utils/printUtils';
 import ConsiglioClasseWizard from './ConsiglioClasseWizard';
 import ClassPlanningWizard from './ClassPlanningWizard';
 import SmartDocumentEditor from './SmartDocumentEditor';
@@ -172,21 +173,12 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
     };
 
     // --- GENERATION HANDLERS ---
-    const handleGenerateStudentPdf = async (student: Studente) => {
+    const handleGenerateStudentPdf = (student: Studente) => {
         if (!student) return;
-        setIsGenerating(true);
-        try {
-            const studentEvals = props.evaluations.filter(e => e.studenteId === student.id);
-            const studentCompEvals = props.competencyEvaluations.filter(e => e.studenteId === student.id);
-            const blob = await generateStudentProfilePdf(student, studentEvals, studentCompEvals, props.settings);
-            viewPdfInNewTab(blob);
-        } catch (e) {
-            logger.error("Failed to generate student PDF:", e);
-            showToast("Errore durante la generazione del profilo studente. Riprova pi� tardi.", "error");
-        } finally {
-            setIsGenerating(false);
-            resetWizard();
-        }
+        const studentEvals = props.evaluations.filter(e => e.studenteId === student.id);
+        const studentCompEvals = props.competencyEvaluations.filter(e => e.studenteId === student.id);
+        printStudentProfile(student, studentEvals, studentCompEvals, props.settings);
+        resetWizard();
     };
 
     const handleGenerateLessonPdf = async (lesson: Lezione) => {
@@ -205,28 +197,19 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
         }
     };
 
-    const handleGenerateBrochure = async () => {
-        setIsGenerating(true);
-        try {
-            const content = {
-                brochureTitle: `Offerta Formativa ${props.settings.annoScolasticoCorrente}`,
-                introduction: `Benvenuti all'istituto ${props.settings.nomeIstituto}. Il nostro approccio didattico mette al centro lo studente.`,
-                useCases: [
-                    { title: "Didattica per Competenze", benefits: ["Apprendimento attivo", "Valutazione formativa"] },
-                    { title: "Inclusione", benefits: ["Piani personalizzati (PDP/PEI)", "Ambienti flessibili"] }
-                ],
-                technicalGuarantees: { title: "Innovazione", content: "Utilizziamo strumenti avanzati come OrarioDoc AI." },
-                roadmap: { title: "Percorso", items: [{ title: "Accoglienza", description: "Attivit� di ingresso" }, { title: "Svolgimento", description: "Lezioni e UDA" }] },
-                callToAction: "Costruiamo il futuro."
-            };
-            const blob = await generatePdfBrochure(content);
-            viewPdfInNewTab(blob);
-        } catch (e) {
-            logger.error("Errore generazione brochure:", e);
-            showToast("Errore durante la generazione della brochure. Riprova pi� tardi.", "error");
-        } finally {
-            setIsGenerating(false);
-        }
+    const handleGenerateBrochure = () => {
+        const content = {
+            brochureTitle: `Offerta Formativa ${props.settings.annoScolasticoCorrente}`,
+            introduction: `Benvenuti all'istituto ${props.settings.nomeIstituto}. Il nostro approccio didattico mette al centro lo studente.`,
+            useCases: [
+                { title: "Didattica per Competenze", benefits: ["Apprendimento attivo", "Valutazione formativa"] },
+                { title: "Inclusione", benefits: ["Piani personalizzati (PDP/PEI)", "Ambienti flessibili"] }
+            ],
+            technicalGuarantees: { title: "Innovazione", content: "Utilizziamo strumenti avanzati come OrarioDoc AI." },
+            roadmap: { title: "Percorso", items: [{ title: "Accoglienza", description: "Attività di ingresso" }, { title: "Svolgimento", description: "Lezioni e UDA" }] },
+            callToAction: "Costruiamo il futuro."
+        };
+        printPdfBrochure(content);
     };
 
     const handleGenerateSyllabus = async () => {

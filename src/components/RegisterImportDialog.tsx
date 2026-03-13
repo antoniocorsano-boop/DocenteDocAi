@@ -152,7 +152,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                             </FormControl>
                             
                             <Stack direction="row" alignItems="center" gap="var(--md-sys-spacing-6)" sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', backgroundColor: 'color-mix(in srgb, var(--md-sys-color-secondary-container) 30%, transparent)', p: 'var(--md-sys-spacing-8)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)' }}>
-                                <Typography component="span" sx={{ color: 'var(--md-sys-color-secondary)' }}>info</Typography>
+                                <Typography component="span" className="material-symbols-outlined" sx={{ color: 'var(--md-sys-color-secondary)' }}>info</Typography>
                                 <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-secondary-container)' }}>
                                     {RegisterService.getExportGuidance(provider)}
                                 </Typography>
@@ -196,7 +196,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
 
                         {error && (
                             <Stack direction="row" alignItems="center" gap="var(--md-sys-spacing-8)" sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', color: 'var(--md-sys-color-on-error-container)', p: 'var(--md-sys-spacing-8)', backgroundColor: 'var(--md-sys-color-error)' }}>
-                                <Typography component="span">error</Typography>
+                                <Typography component="span" className="material-symbols-outlined">error</Typography>
                                 <Typography component="p" variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{error}</Typography>
                             </Stack>
                         )}
@@ -287,7 +287,7 @@ const RegisterImportDialog: React.FC<RegisterImportDialogProps> = ({ onClose, on
                 {step === 'preview' && result && (
                     <Stack spacing="var(--md-sys-spacing-4)">
                         <Stack direction="row" alignItems="center" gap="var(--md-sys-spacing-6)" sx={{ color: 'var(--md-sys-color-primary)' }}>
-                            <Typography component="span" sx={{ color: 'var(--md-sys-color-primary)' }}>check_circle</Typography>
+                            <Typography component="span" className="material-symbols-outlined" sx={{ color: 'var(--md-sys-color-primary)' }}>check_circle</Typography>
                             <Typography component="h3" variant="h6" sx={{ fontWeight: 'var(--md-sys-typescale-weight-black)' }}>Dati pronti per l&apos;importazione</Typography>
                         </Stack>
 

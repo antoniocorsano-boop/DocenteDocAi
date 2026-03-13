@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, HelpModalProps } from '../types';
 import { generateTechnicalDocumentContent, generateAcademicEssayContent } from '../services/aiService';
-import { generateFullAppGuidePdf } from '../utils/documentUtils';
+import { printFullAppGuide } from '../utils/printUtils';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -200,40 +200,23 @@ const HelpModal: React.FC<HelpModalProps> = ({ onClose, onNavigate, aiSettings, 
 
   const handleGenerateFullDocument = async () => {
     if (isGenerating) return;
-
-    const pdfWindow = window.open('', '_blank');
-    if (!pdfWindow) {
-        showToast('Impossibile aprire la nuova scheda. Verifica i pop-up.', 'error');
-        return;
-    }
-    
-    pdfWindow.document.write('<html><body><h1>Generazione documento in corso...</h1></body></html>');
-
     setIsGenerating(true);
     setIsLoadingModalOpen(true);
     try {
         setLoadingModalMessage('Generazione contenuti...');
         const essayContent = await generateAcademicEssayContent(aiSettings);
         const techInfo = await generateTechnicalDocumentContent(aiSettings) || {};
-        
-        const pdfBlob = await generateFullAppGuidePdf(
-            essayContent ?? null, 
-            faqContentData, 
-            specsContentData, 
+        printFullAppGuide(
+            essayContent ?? null,
+            faqContentData,
+            specsContentData,
             techInfo,
             vocalAssistantGuideData
         );
-        
-        const pdfUrl = URL.createObjectURL(pdfBlob);
-        pdfWindow.location.href = pdfUrl;
-        setTimeout(() => URL.revokeObjectURL(pdfUrl), 60000);
-        
         onClose();
-
     } catch (error) {
         logger.error("Full document generation failed:", error);
         showToast('Errore generazione documento.', 'error');
-        pdfWindow.close();
     } finally {
         setIsGenerating(false);
         setIsLoadingModalOpen(false);

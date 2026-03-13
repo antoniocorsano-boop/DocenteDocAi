@@ -7,7 +7,8 @@ import Typography from '@mui/material/Typography';
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, RegisterEntry, Lezione, Competenza, AiSettings } from '../types';
 import { calculatePerformance } from '../utils/evaluationUtils';
-import { generateStudentProfilePdf, viewPdfInNewTab, generateCertificazioneCompetenzePdf } from '../utils/documentUtils';
+
+import { printStudentProfile, printCertificazioneCompetenze } from '../utils/printUtils';
 import { DEFAULT_COMPETENZE } from '../constants';
 import StudentInterviewModal from './StudentInterviewModal';
 import { EmptyState, InfoCard, Avatar, M3ConfirmDialog } from './ui';
@@ -34,7 +35,6 @@ export type ProfileTab = 'overview' | 'grades' | 'competencies' | 'notes' | 'his
 const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, competencyEvaluations, settings, aiSettings, onBack, onDeleteEvaluation, onOpenInclusionPlanEditor, register = [], lessons = {} }) => {
     const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const [activeTab, setActiveTab] = useState<ProfileTab>('overview');
-    const [isExporting, setIsExporting] = useState(false);
     const [isInterviewModeOpen, setIsInterviewModeOpen] = useState(false);
     const [aiJudgment, setAiJudgment] = useState<string | null>(null);
     const [isLoadingAi, setIsLoadingAi] = useState(false);
@@ -91,53 +91,23 @@ const StudentProfile: React.FC<StudentProfileProps> = ({ student, evaluations, c
         );
     }, [lessons, student]);
 
-    const handleExportPdf = async () => {
-        setIsExporting(true);
-        try {
-            const blob = await generateStudentProfilePdf(student, evaluations, competencyEvaluations, settings);
-            viewPdfInNewTab(blob);
-        } catch (e: unknown) {
-            logger.error("PDF Export failed", e);
-            let message = 'Errore durante la creazione del PDF.';
-            if (e instanceof Error) {
-                message = `Errore durante la creazione del PDF: ${e.message}`;
-            }
-            showToast(message, 'error');
-        } finally {
-            setIsExporting(false);
-        }
+    const handleExportPdf = () => {
+        printStudentProfile(student, evaluations, competencyEvaluations, settings);
     };
 
-    const handleGenerateCertification = async () => {
-        setIsExporting(true);
-        try {
-            // Aggregate levels for certification
-            const certData = Object.values(groupedCompetencyEvals).map(({ competenza, evals }) => {
-                // Logic: take the latest or best level. Let's take latest.
-                const latest = evals.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())[0];
-                const level = competenza.livelli.find(l => l.id === latest.livelloId);
-                // Map internal level names to A/B/C/D if possible, otherwise pass name
-                let mappedLevel = 'D'; // Default
-                if (level) {
-                    if (level.nome.includes('Avanzato') || level.nome.startsWith('A')) mappedLevel = 'A';
-                    else if (level.nome.includes('Intermedio') || level.nome.startsWith('B')) mappedLevel = 'B';
-                    else if (level.nome.includes('Base') || level.nome.startsWith('C')) mappedLevel = 'C';
-                }
-                return { competencyName: competenza.nome, level: mappedLevel };
-            });
-
-            const blob = await generateCertificazioneCompetenzePdf(student, certData, settings);
-            viewPdfInNewTab(blob);
-        } catch (e: unknown) {
-            logger.error("Certificazione failed", e);
-            let message = 'Errore creazione certificazione.';
-            if (e instanceof Error) {
-                message = `Errore creazione certificazione: ${e.message}`;
+    const handleGenerateCertification = () => {
+        const certData = Object.values(groupedCompetencyEvals).map(({ competenza, evals }) => {
+            const latest = evals.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())[0];
+            const level = competenza.livelli.find(l => l.id === latest.livelloId);
+            let mappedLevel = 'D';
+            if (level) {
+                if (level.nome.includes('Avanzato') || level.nome.startsWith('A')) mappedLevel = 'A';
+                else if (level.nome.includes('Intermedio') || level.nome.startsWith('B')) mappedLevel = 'B';
+                else if (level.nome.includes('Base') || level.nome.startsWith('C')) mappedLevel = 'C';
             }
-            showToast(message, 'error');
-        } finally {
-            setIsExporting(false);
-        }
+            return { competencyName: competenza.nome, level: mappedLevel };
+        });
+        printCertificazioneCompetenze(student, certData, settings);
     };
 
     const handleGenerateAiJudgment = async () => {

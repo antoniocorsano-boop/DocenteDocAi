@@ -168,7 +168,7 @@ const StudentInterviewModal: React.FC<StudentInterviewModalProps> = ({ student, 
 
                     <Box data-testid="m3-card" sx={{ backgroundColor: 'color-mix(in srgb, var(--md-sys-color-surface-container-low) 50%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', border: 'var(--md-sys-border-width-normal) solid var(--md-sys-color-outline)' }}>
                         <Typography variant="h5" sx={{ mb: 'var(--md-sys-spacing-8)', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-8)' }}>
-                            <Typography component="span" sx={{ color: 'var(--md-sys-color-primary)' }}>info</Typography>
+                            <Typography component="span" className="material-symbols-outlined" sx={{ color: 'var(--md-sys-color-primary)' }}>info</Typography>
                             Informazioni Studente
                         </Typography>
                         <Box sx={{ display: 'grid', gridTemplateColumns: 'var(--md-sys-grid-fr-1)', gap: 'var(--md-sys-spacing-8)' }}>

@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { Studente, Valutazione, TimetableSettings, AiSettings, Report, ValutazioneCompetenza, PeriodoValutazione } from '../types';
-import { generateCouncilDataPdf, viewPdfInNewTab } from '../utils/documentUtils';
+import { printCouncilData } from '../utils/printUtils';
 import { M3Dialog, InfoCard } from './ui';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
@@ -17,8 +17,6 @@ import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { logger } from '../utils/logger';
-import { useUIStore } from '../stores/useUIStore';
 
 interface ConsiglioClasseWizardProps {
     onClose: () => void;
@@ -33,37 +31,26 @@ interface ConsiglioClasseWizardProps {
 
 const ConsiglioClasseWizard: React.FC<ConsiglioClasseWizardProps> = (props) => {
   const [step, setStep] = useState<1 | 2>(1);
-    const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const [selectedClass, setSelectedClass] = useState<string>(props.userClasses[0] || '');
     const [periodo, setPeriodo] = useState<PeriodoValutazione>('primo-quadrimestre');
-    const [isLoading, setIsLoading] = useState(false);
-    const [loadingMessage, setLoadingMessage] = useState('');
+    const [isLoading, _setIsLoading] = useState(false);
+    const [loadingMessage, _setLoadingMessage] = useState('');
 
     const classStudents = useMemo(() => {
         return props.students.filter(s => s.classe === selectedClass);
     }, [selectedClass, props.students]);
     
-    const handleGeneratePdf = async () => {
+    const handleGeneratePdf = () => {
         if (!selectedClass) return;
-        setIsLoading(true);
-        setLoadingMessage('Aggregazione dati e creazione PDF...');
-        try {
-            const blob = await generateCouncilDataPdf(
-                selectedClass,
-                periodo,
-                classStudents,
-                props.evaluations,
-                props.competencyEvaluations,
-                props.settings
-            );
-            viewPdfInNewTab(blob);
-            props.onClose();
-        } catch (error) {
-            logger.error("PDF generation failed", error);
-            showToast('Errore durante la generazione del PDF.', 'error');
-        } finally {
-            setIsLoading(false);
-        }
+        printCouncilData(
+            selectedClass,
+            periodo,
+            classStudents,
+            props.evaluations,
+            props.competencyEvaluations,
+            props.settings
+        );
+        props.onClose();
     };
 
     const renderStep1 = () => (

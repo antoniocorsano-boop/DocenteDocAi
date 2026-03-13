@@ -67,7 +67,7 @@ const ObservationModal: React.FC<ObservationModalProps> = ({ student, initialDat
                         border: i <= value ? 'none' : 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
                         boxShadow: i <= value ? 'var(--md-sys-elevation-level1)' : 'none',
                         transform: i <= value ? 'scale(1.05)' : 'scale(1)' }}>
-                        <Box component="span" sx={{ fontSize: 'var(--md-sys-spacing-6)' }}>{i <= value ? 'star' : 'star_outline'}</Box>
+                        <Box component="span" className="material-symbols-outlined" sx={{ fontSize: 'var(--md-sys-spacing-6)' }}>{i <= value ? 'star' : 'star_outline'}</Box>
                     </ButtonBase>
                 ))}
             </Box>

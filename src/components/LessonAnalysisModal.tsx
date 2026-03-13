@@ -32,7 +32,7 @@ const LessonAnalysisModal: React.FC<LessonAnalysisModalProps> = ({ result, onClo
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-                            <Typography component="span">rocket_launch</Typography>
+                            <Typography component="span" className="material-symbols-outlined">rocket_launch</Typography>
                         </Box>
                         <Typography variant="h6" component="h3">Strategie di Coinvolgimento</Typography>
                     </Box>

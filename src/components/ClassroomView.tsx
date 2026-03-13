@@ -11,7 +11,8 @@ import ObservationModal from './ObservationModal';
 import CopyForRegisterModal from './CopyForRegisterModal';
 import QuickEvaluationModal from './QuickEvaluationModal';
 import { calculatePerformance } from '../utils/evaluationUtils';
-import { generateHomeworkPdf, viewPdfInNewTab } from '../utils/documentUtils';
+
+import { printHomeworkSheet } from '../utils/printUtils';
 import StudentProfile from './StudentProfile';
 import { Avatar, M3Dialog } from './ui';
 import DialogContent from '@mui/material/DialogContent';
@@ -147,14 +148,13 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
         });
     }, [classStudents, evaluations, observations]);
 
-    const handlePrintHomework = async () => {
+    const handlePrintHomework = () => {
         if (!lesson) return;
-        const blob = await generateHomeworkPdf(lesson, settings);
-        viewPdfInNewTab(blob);
+        printHomeworkSheet(lesson, settings);
     };
 
     return (
-        <div style={{ maxWidth: 'var(--md-sys-percent-full)', display: 'flex', justifyContent: 'center', padding: 'var(--md-sys-spacing-4)' }}>
+        <div style={{ maxWidth: 'var(--md-sys-percent-full)', display: 'flex', flexDirection: 'column', width: '100%', padding: 'var(--md-sys-spacing-4)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--md-sys-spacing-4)' }}>
                 <button
                     onClick={onCloseView}
@@ -414,7 +414,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                                             color: badge.color
                                         }}
                                     >
-                                        <span style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{badge.icon}</span>
+                                        <span className="material-symbols-outlined" aria-hidden="true" style={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>{badge.icon}</span>
                                         <Typography variant="caption" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{badge.label}</Typography>
                                     </button>
                                 ))}
