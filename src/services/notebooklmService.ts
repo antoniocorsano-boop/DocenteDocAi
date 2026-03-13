@@ -221,7 +221,9 @@ export const syncNotebookFiles = async (
     const onlyLocal = localFiles.filter(f => !remoteIds.has(f.id));
     if (onlyLocal.length > 0) {
       logger.debug('Da caricare su NotebookLM:', onlyLocal);
-      // TODO: upload su cloud se necessario
+      // Upload su cloud non implementato: NotebookLM non espone API di write pubbliche.
+      // I file solo-locali vengono mantenuti nel merge locale; sincronizzazione bidirezionale
+      // richiederà un endpoint dedicato quando disponibile.
     }
     await saveLocalFiles(mergedFiles);
     logger.debug(`Sync NotebookLM completata. Remoti: ${remoteFiles.length}, Locali: ${localFiles.length}`);
