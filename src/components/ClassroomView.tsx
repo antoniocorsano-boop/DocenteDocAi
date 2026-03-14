@@ -41,6 +41,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
     onFinalizeRegister,
     onCloseView,
     onSaveOralEvaluation,
+    onSaveCompetencyEvaluation,
     onOpenLiveAssistant,
     settings,
     aiSettings,
@@ -523,7 +524,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                     settings={settings}
                     onClose={() => setQuickEvalStudent(null)}
                     onSaveEvaluation={(data) => { onSaveOralEvaluation(data); setQuickEvalStudent(null); }}
-                    onSaveCompetencyEvaluation={() => { /* Logic handled in parent or modal directly if needed */ }}
+                    onSaveCompetencyEvaluation={(data) => { onSaveCompetencyEvaluation?.(data); setQuickEvalStudent(null); }}
                 />
             )}
 

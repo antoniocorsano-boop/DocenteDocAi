@@ -34,6 +34,8 @@ export interface Valutazione {
     voto: string;
     argomento?: string;
     note?: string;
+    /** FK to Lezione.id — set when evaluation is entered during a classroom session */
+    lezioneId?: string;
 }
 
 export type HomeworkStatus = 'completed' | 'partial' | 'missing' | 'default';

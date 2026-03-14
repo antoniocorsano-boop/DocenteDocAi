@@ -97,7 +97,8 @@ const QuickEvaluationModal: React.FC<QuickEvaluationModalProps> = ({ student, le
             tipo,
             voto,
             argomento,
-            note: noteVoto
+            note: noteVoto,
+            lezioneId: lesson.id
         });
         onClose();
     };

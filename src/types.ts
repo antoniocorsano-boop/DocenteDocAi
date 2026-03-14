@@ -737,6 +737,7 @@ export interface ClassroomViewProps {
     onCloseView: () => void;
     settings: TimetableSettings;
     onSaveOralEvaluation: (data: EvaluationInput) => void;
+    onSaveCompetencyEvaluation?: (data: Omit<ValutazioneCompetenza, 'id'>) => void;
     onOpenStudentActionMenu?: (student: Studente, anchorEl: HTMLElement) => void;
     onOpenAulaTool?: (tool: string) => void;
     onPromoteImpromptuLesson?: (lesson: Lezione) => void;

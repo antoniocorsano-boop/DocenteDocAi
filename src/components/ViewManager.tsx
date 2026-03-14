@@ -187,6 +187,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                     onCloseView={() => handleBack(true)}
                                     settings={settings}
                                     onSaveOralEvaluation={handleAddEvaluation}
+                                    onSaveCompetencyEvaluation={(data) => setCompetencyEvals(prev => [...prev, { ...data, id: `cv-${Date.now()}` }])}
                                     onOpenStudentActionMenu={() => { }}
                                     onOpenAulaTool={() => { }}
                                     onPromoteImpromptuLesson={(lesson: Lezione) => setLessons(prev => ({ ...prev, [lesson.id]: lesson }))}
