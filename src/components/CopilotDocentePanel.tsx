@@ -15,6 +15,8 @@ import CommunicationHelperPanel from './copilot/CommunicationHelperPanel';
 import TrendPredictionPanel from './copilot/TrendPredictionPanel';
 import AggregatedDashboard from './copilot/AggregatedDashboard';
 import CopilotActionsBar from './copilot/CopilotActionsBar';
+import AIExplainabilityPanel from './copilot/AIExplainabilityPanel';
+import AIDevToolsPanel from './copilot/AIDevToolsPanel';
 
 import type { AISuggestion } from '../ai/contextEngine/types';
 import type { ClassHealthIndex } from '../ai/classHealth/types';
@@ -61,6 +63,8 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
         <Tab label="Predizione" />
         <Tab label="Dashboard" />
         <Tab label="Azioni" />
+        <Tab label="Spiegabilità" />
+        <Tab label="Dev Tools" />
       </Tabs>
       <Box sx={{ minHeight: 80 }}>
         {tab === 0 && (
@@ -144,6 +148,12 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
             students={students}
             evaluations={evaluations}
           />
+        )}
+        {tab === 9 && (
+          <AIExplainabilityPanel suggestions={suggestions} defaultFirstExpanded />
+        )}
+        {tab === 10 && (
+          <AIDevToolsPanel />
         )}
       </Box>
     </InfoCard>

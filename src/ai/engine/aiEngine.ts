@@ -40,6 +40,29 @@ export interface AIAnalysisResult {
   excellenceCount: number;
 }
 
+// ── run stats ─────────────────────────────────────────────────────────────────
+
+export interface AIRunStats {
+  /** Total wall-clock ms for the last non-cached analysis run */
+  totalMs: number;
+  /** ms spent in each sub-analyser */
+  breakdown: {
+    classHealth: number;
+    risk: number;
+    excellence: number;
+    forecasts: number;
+  };
+  /** ISO timestamp of the last run */
+  lastRun: string;
+}
+
+let _lastRunStats: AIRunStats | null = null;
+
+/** Returns timing stats from the most recent non-cached `runAIAnalysis` call. */
+export function getLastRunStats(): AIRunStats | null {
+  return _lastRunStats;
+}
+
 // ── engine ────────────────────────────────────────────────────────────────────
 
 function parseVoto(v: string): number {
@@ -64,11 +87,21 @@ export function runAIAnalysis(context: AIContext): AIAnalysisResult {
   const cached = getCachedAnalysis(hash);
   if (cached !== null) return cached;
 
+  const t0 = performance.now();
+
+  const t1 = performance.now();
   const classHealth = computeClassHealthIndex(context);
+  const t2 = performance.now();
+
   const risks = analyzeRisk(context);
+  const t3 = performance.now();
+
   const excellence = analyzeExcellence(context);
+  const t4 = performance.now();
+
   const suggestions = [...risks, ...excellence];
   const predictions = generateForecasts(context.students, context.evaluations);
+  const t5 = performance.now();
 
   const validScores = context.evaluations
     .map((e) => parseVoto(e.voto))
@@ -80,6 +113,17 @@ export function runAIAnalysis(context: AIContext): AIAnalysisResult {
           (validScores.reduce((a, b) => a + b, 0) / validScores.length).toFixed(1),
         )
       : 0;
+
+  _lastRunStats = {
+    totalMs: parseFloat((t5 - t0).toFixed(2)),
+    breakdown: {
+      classHealth: parseFloat((t2 - t1).toFixed(2)),
+      risk: parseFloat((t3 - t2).toFixed(2)),
+      excellence: parseFloat((t4 - t3).toFixed(2)),
+      forecasts: parseFloat((t5 - t4).toFixed(2)),
+    },
+    lastRun: new Date().toISOString(),
+  };
 
   const result: AIAnalysisResult = {
     classHealth,

@@ -21,6 +21,8 @@ import type { AIAnalysisResult } from '../engine/aiEngine';
 // ── internal store ────────────────────────────────────────────────────────────
 
 const _cache = new Map<string, AIAnalysisResult>();
+let _hits = 0;
+let _misses = 0;
 
 // ── hash ──────────────────────────────────────────────────────────────────────
 
@@ -47,7 +49,13 @@ export function buildContextHash(context: AIContext): string {
  * present.
  */
 export function getCachedAnalysis(hash: string): AIAnalysisResult | null {
-  return _cache.get(hash) ?? null;
+  const result = _cache.get(hash) ?? null;
+  if (result !== null) {
+    _hits++;
+  } else {
+    _misses++;
+  }
+  return result;
 }
 
 /**
@@ -63,9 +71,29 @@ export function setCachedAnalysis(hash: string, result: AIAnalysisResult): void 
  */
 export function clearCache(): void {
   _cache.clear();
+  _hits = 0;
+  _misses = 0;
 }
 
 /** Number of entries currently held in the cache. Exposed for debugging. */
 export function cacheSize(): number {
   return _cache.size;
+}
+
+export interface CacheStats {
+  size: number;
+  hits: number;
+  misses: number;
+  hitRate: number;
+}
+
+/** Returns cache performance stats for the dev tools panel. */
+export function getCacheStats(): CacheStats {
+  const total = _hits + _misses;
+  return {
+    size: _cache.size,
+    hits: _hits,
+    misses: _misses,
+    hitRate: total > 0 ? parseFloat((_hits / total).toFixed(3)) : 0,
+  };
 }
