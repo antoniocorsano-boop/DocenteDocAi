@@ -16,6 +16,7 @@ import { useStudentStore } from '../stores/useStudentStore';
 import { useSettingsStore } from '../stores/useSettingsStore';
 import { useUIStore } from '../stores/useUIStore';
 import { chatWithAi } from '../services/aiService';
+import DailyBriefingModal from './DailyBriefingModal';
 
 interface HomeProps {
   onNavigate: (view: View, params?: NavigationParams) => void;
@@ -122,6 +123,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const aiSettings   = useSettingsStore(s => s.aiSettings);
   const openAssistant = useUIStore(s => s.modals.setIsLiveAssistantModalOpen);
 
+  const [isDailyBriefingOpen, setIsDailyBriefingOpen] = useState(false);
+
   // â”€â”€ Chat state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const [messages, setMessages]   = useState<ChatMessage[]>([]);
   const [input, setInput]         = useState('');
@@ -168,7 +171,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
   const fabLabel = hour < 14 ? 'Inizia Giornata' : 'Nuova UDA';
   const fabIcon  = hour < 14 ? 'playlist_add_check' : 'layers';
-  const fabView: View = hour < 14 ? 'presenze' as View : 'uda' as View;
 
   return (
     <>
@@ -476,28 +478,31 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
       {/* â”€â”€ FAB contestuale â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <Fab
-        variant="extended"
         color="primary"
         aria-label={fabLabel}
-        onClick={() => onNavigate(fabView)}
+        onClick={hour < 14 ? () => setIsDailyBriefingOpen(true) : () => onNavigate('uda' as View)}
         sx={{
           position: 'fixed',
           bottom: 'calc(80px + env(safe-area-inset-bottom, 0px))',
-          right: 'calc(var(--md-sys-spacing-4, 16px) + var(--md-sys-spacing-10, 40px) + var(--md-sys-spacing-4, 16px))',
-          zIndex: 'var(--md-sys-z-modal)',
+          right: 'calc(var(--md-sys-spacing-4, 16px) + 64px)',
+          zIndex: 1250,
           bgcolor: 'var(--md-sys-color-primary)',
           color: 'var(--md-sys-color-on-primary)',
           borderRadius: 'var(--md-sys-shape-corner-large)',
-          gap: 1,
-          textTransform: 'none',
         }}
       >
         <Box component="span" className="material-symbols-outlined" aria-hidden="true"
-          sx={{ fontSize: 'var(--md-sys-typescale-title-medium-font-size)' }}>
+          sx={{ fontSize: 24 }}>
           {fabIcon}
         </Box>
-        {fabLabel}
       </Fab>
+
+      {isDailyBriefingOpen && (
+        <DailyBriefingModal
+          onClose={() => setIsDailyBriefingOpen(false)}
+          onNavigate={onNavigate}
+        />
+      )}
     </>
   );
 };
