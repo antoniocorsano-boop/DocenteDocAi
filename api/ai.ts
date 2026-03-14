@@ -15,7 +15,7 @@ const GOOGLE_AI_BASE = 'https://generativelanguage.googleapis.com/v1beta/models'
 // Rate-limit safeguard: reject payloads over 1MB
 const MAX_BODY_BYTES = 1_000_000;
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
   // Only allow POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });

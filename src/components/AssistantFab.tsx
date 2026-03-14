@@ -85,7 +85,7 @@ const AssistantFab: React.FC<AssistantFabProps> = () => {
       if (menuOpen) setMenuOpen(false);
     }
     if (!isDraggingRef.current) return;
-    const fabSize = readToken('--md-sys-spacing-10', 40);
+    const fabSize = readToken('--md-sys-layout-fab-size', 56);
     const margin  = readToken('--md-sys-spacing-4', 16);
     setPosition(clampPosition(dragStartFab.current.x + dx, dragStartFab.current.y + dy, fabSize, margin));
   }, [menuOpen]);
@@ -260,8 +260,8 @@ const handleAction = (action: typeof ACTIONS[number]) => {
           color: var(--md-sys-color-on-primary);
           border: none;
           border-radius: var(--md-sys-shape-corner-full);
-          width: var(--md-sys-spacing-10);
-          height: var(--md-sys-spacing-10);
+          width: var(--md-sys-layout-fab-size);
+          height: var(--md-sys-layout-fab-size);
           box-shadow: var(--md-sys-elevation-1);
           font-size: var(--md-sys-typescale-display-large-font-size);
           display: flex;
@@ -294,8 +294,8 @@ const handleAction = (action: typeof ACTIONS[number]) => {
           background: var(--md-sys-color-surface-container-high);
           border: none;
           border-radius: var(--md-sys-shape-corner-full);
-          width: var(--md-sys-spacing-9);
-          height: var(--md-sys-spacing-9);
+          width: var(--md-sys-spacing-12);
+          height: var(--md-sys-spacing-12);
           display: flex;
           align-items: center;
           justify-content: center;

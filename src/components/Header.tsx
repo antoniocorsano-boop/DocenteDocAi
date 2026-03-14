@@ -178,7 +178,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
             aria-label="Menu utente"
             onClick={() => onNavigate('settings')}
             sx={{
-              width: 'var(--md-sys-spacing-11)',
+              width: 'var(--md-sys-spacing-12)',
               aspectRatio: '1',
               borderRadius: 'var(--md-sys-shape-corner-full)',
               p: 0,

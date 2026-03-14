@@ -279,7 +279,7 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
 
                 return (
                     <Box key={student.id}>
-                        <ButtonBase focusRipple onClick={() => setExpandedStudentId(prev => prev === student.id ? null : student.id)} sx={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <ButtonBase focusRipple onClick={() => setExpandedStudentId(prev => prev === student.id ? null : student.id)} aria-label={`${isExpanded ? 'Comprimi' : 'Espandi'} dettagli di ${student.cognome} ${student.nome}`} aria-expanded={isExpanded} sx={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center', minHeight: 'var(--md-sys-spacing-12)' }}>
                              <Box sx={{display: "flex", alignItems: "center", gap: 'var(--md-sys-spacing-8)'}}>
                                 {hasStudentChanged(student.id) && <span  title="Dati modificati in questa sessione"></span>}
                                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>

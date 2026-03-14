@@ -158,3 +158,74 @@ Ogni volta che implementi un'integrazione:
 
 **Nota:** Usa questo prompt come **documento guida per Copilot**. Procedi step by step e salva le modifiche solo dopo aver verificato ogni integrazione.
 Non passare allo step successivo se il precedente non è stato completato e testato.
+
+---
+
+## DocenteDoc AI — Copilot Task Workflow
+
+Prompt per Copilot per agire come team di sviluppo completo, step-by-step, atomic tasks, MD3 compliant, mobile-ready, privacy-first.
+
+### STEP 1 — Analisi Codebase
+
+- Leggi store (`src/stores/*.ts`), tipi (`src/types/*.ts`), hook (`src/hooks/*.ts`), componenti (`src/components/**/*.tsx`), design-system.
+- Mappa moduli/casi d'uso: Progettazione → Aula → Valutazioni → Dashboard → Reporting.
+- Identifica gap critici: lint, TS, MD3, responsive.
+
+### STEP 2 — Task & Proposte
+
+- Crea task atomic per ciascun modulo con dipendenze esplicite.
+- Genera snippet prototipo: Wizard Annuale, QuickEvaluation, RAG AI.
+
+### STEP 3 — Implementazione Core
+
+#### 3a — UDA → Lessons
+
+- Aggiorna tipi (`udaId`), filtro `LessonsPage`, UdaPlanner click-to-lessons.
+
+#### 3b — Lessons → Aula
+
+- ClassroomView chip MD3, passa `uda[]` da ViewManager.
+
+#### 3c — Quick Evaluation
+
+- Assegna `lezioneId` a valutazioni, salva nello store.
+
+#### 3d — Evaluations → Analytics
+
+- `handleAddEvaluation`, `onFinalizeRegister`.
+- Esporre `trackAnalyticsEvent` in `actions` di useAppEngine.
+- Aggiorna interface `AppActions`, fix memo deps.
+
+### STEP 4 — Verifica
+
+- Controlla compliance MD3 (ButtonBase, M3Surface, spacing/colors)
+- Mobile ≤840px floating nav.
+- Lancia `npm run lint` e `npx tsc -b --noEmit`.
+- Aggiorna test unitari, zero regressioni.
+
+### STEP 5 — Dashboard Competenze ✅ completato 2026-03-14
+
+- Componente `ClassCompetencyDashboard.tsx` con tab: Matrici | Radar | Trend | Interventi AI.
+- RadarChart ponderato (0–100), Trend chart mensile + volume, AISection studenti a rischio + eccellenza.
+- Analytics: `trackAnalyticsEvent('feature_usage','competency_dashboard_viewed',{classId})` su mount.
+- Memo `classStudentIds` per filtro valutazioni.
+- MD3 compliant, zero inline-style, test passati (1214).
+
+### STEP 6 — Integrazione Globale
+
+- Collega a ViewManager, AppRouter, AppLayout.
+- Aggiorna nav primaria e drawer secondario.
+- Verifica flusso completo: Progettazione → Aula → Valutazioni → Dashboard.
+
+### STEP 7 — Refactor & Ottimizzazione
+
+- Ottimizza hook, store, memo, lazy-loading.
+- Aggiorna documentazione e commit atomic.
+- Test obbligatori prima del commit.
+
+### Regole Generali
+
+- Human-in-the-loop: AI propone, docente approva.
+- Tutti i dati restano locali o su Google Drive docente.
+- Commit chiari e atomic.
+- Rispetta MD3 Expressive e responsive.

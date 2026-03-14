@@ -193,7 +193,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 borderRadius: 'var(--md-sys-shape-corner-large)',
                             }}
                         >
-                            <ButtonBase onClick={() => onNavigate('teacher-inbox')} sx={{ display: 'block', width: '100%', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
+                            <ButtonBase onClick={() => onNavigate('teacher-inbox')} aria-label="Vai a Inbox Compiti" sx={{ display: 'block', width: '100%', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
                                 <CardContent>
                                     <Stack direction="row" alignItems="center" justifyContent="space-between">
                                         <Stack direction="row" alignItems="center" spacing="var(--md-sys-spacing-4)">
@@ -256,7 +256,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 ].map(item => (
                                     <Grid key={item.view} size={{ xs: 4 }}>
                                         <Card sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', height: '100%' }}>
-                                            <ButtonBase onClick={() => onNavigate(item.view as View, selectedClass)} sx={{ display: 'block', width: '100%', p: 'var(--md-sys-spacing-4)', height: '100%', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
+                                            <ButtonBase onClick={() => onNavigate(item.view as View, selectedClass)} aria-label={`Vai a ${item.label}`} sx={{ display: 'block', width: '100%', p: 'var(--md-sys-spacing-4)', height: '100%', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
                                                 <Stack direction="row" alignItems="center" spacing="var(--md-sys-spacing-3)">
                                                     <Box sx={{ width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-medium)', bgcolor: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                                                         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: item.color, fontSize: 'var(--icon-size-medium)' }}>{item.icon}</Box>
@@ -286,7 +286,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 ].map(item => (
                                     <Grid key={item.view} size={{ xs: 6 }}>
                                         <Card sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', height: '100%' }}>
-                                            <ButtonBase onClick={() => onNavigate(item.view as View, selectedClass)} sx={{ display: 'block', width: '100%', p: 'var(--md-sys-spacing-4)', height: '100%', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
+                                            <ButtonBase onClick={() => onNavigate(item.view as View, selectedClass)} aria-label={`Vai a ${item.label}`} sx={{ display: 'block', width: '100%', p: 'var(--md-sys-spacing-4)', height: '100%', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
                                                 <Stack direction="row" alignItems="center" spacing="var(--md-sys-spacing-3)">
                                                     <Box sx={{ width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-medium)', bgcolor: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                                                         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: item.color, fontSize: 'var(--icon-size-medium)' }}>{item.icon}</Box>
@@ -317,7 +317,7 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                                 ].map(item => (
                                     <Grid key={item.view} size={{ xs: 4 }}>
                                         <Card sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', height: '100%' }}>
-                                            <ButtonBase onClick={() => onNavigate(item.view as View, selectedClass)} sx={{ display: 'block', width: '100%', p: 'var(--md-sys-spacing-4)', height: '100%', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: 'center' }}>
+                                            <ButtonBase onClick={() => onNavigate(item.view as View, selectedClass)} aria-label={`Vai a ${item.label}`} sx={{ display: 'block', width: '100%', p: 'var(--md-sys-spacing-4)', height: '100%', borderRadius: 'var(--md-sys-shape-corner-large)', textAlign: 'center' }}>
                                                 <Stack alignItems="center" spacing="var(--md-sys-spacing-2)">
                                                     <Box sx={{ width: 'var(--md-sys-spacing-10)', height: 'var(--md-sys-spacing-10)', borderRadius: 'var(--md-sys-shape-corner-medium)', bgcolor: 'var(--md-sys-color-surface-container-high)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                                         <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: item.color, fontSize: 'var(--icon-size-medium)' }}>{item.icon}</Box>

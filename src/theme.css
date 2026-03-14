@@ -352,6 +352,7 @@
   --md-sys-layout-card-min-height: 200px;
   --md-sys-layout-avatar-size: 40px;
   --md-sys-layout-fab-size: 56px;
+  --md-sys-layout-min-touch-target: 44px; /* WCAG 2.5.5 minimum touch target */
   --md-sys-layout-button-min-width: 64px;
   --md-sys-layout-popup-min-width: 120px;
   --md-sys-layout-menu-min-width: 200px;
@@ -641,7 +642,7 @@
     --md-sys-spacing-9:  30px;   /* 36 → 30 */
     --md-sys-spacing-10: 34px;   /* 40 → 34 */
     --md-sys-spacing-11: 37px;   /* 44 → 37 — display-medium */
-    --md-sys-spacing-12: 40px;   /* 48 → 40 — section gap */
+    --md-sys-spacing-12: 44px;   /* 48 → 44 — section gap; minimum for WCAG 2.5.5 touch targets */
     --md-sys-spacing-14: 47px;   /* 56 → 47 — display-large */
     --md-sys-spacing-16: 52px;   /* 64 → 52 — header / bottom-nav height */
 
@@ -653,6 +654,7 @@
     /* Layout components */
     --md-sys-layout-avatar-size: 36px;   /* 40 → 36 */
     --md-sys-layout-fab-size:    48px;   /* 56 → 48 */
+    --md-sys-layout-min-touch-target: 44px; /* locked — never below WCAG 44px */
   }
 }
 

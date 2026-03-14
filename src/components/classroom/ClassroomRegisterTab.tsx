@@ -234,7 +234,7 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
                                                 aria-label={`Presenza: ${ATTENDANCE_LABEL[status]}. Click per cambiare`}
                                                 sx={{
                                                     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                                                    width: '32px', height: '32px',
+                                                    width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)',
                                                     borderRadius: 'var(--md-sys-shape-corner-full)',
                                                     backgroundColor: status === 'presente' ? 'var(--md-sys-color-primary-container)' : status === 'assente' ? 'var(--md-sys-color-error-container)' : 'var(--md-sys-color-tertiary-container)',
                                                     color: status === 'presente' ? 'var(--md-sys-color-on-primary-container)' : status === 'assente' ? 'var(--md-sys-color-on-error-container)' : 'var(--md-sys-color-on-tertiary-container)',
@@ -335,7 +335,7 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
                                             aria-label={`Azioni per ${student.cognome}`}
                                             sx={{
                                                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                                                width: '32px', height: '32px',
+                                                width: 'var(--md-sys-spacing-12)', height: 'var(--md-sys-spacing-12)',
                                                 backgroundColor: 'transparent',
                                                 borderRadius: 'var(--md-sys-shape-corner-full)',
                                                 color: 'var(--md-sys-color-on-surface-variant)',

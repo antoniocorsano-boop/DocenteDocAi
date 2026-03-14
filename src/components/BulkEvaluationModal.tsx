@@ -542,7 +542,7 @@ const BulkEvaluationModal: React.FC<BulkEvaluationModalProps> = ({
                             Per Livelli
                         </Box>
                     }
-                    sx={{ minHeight: '40px', py: 0, textTransform: 'none', fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}
+                    sx={{ minHeight: 'var(--md-sys-spacing-12)', py: 'var(--md-sys-spacing-1)', textTransform: 'none', fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}
                 />
                 <Tab
                     value="ai"
@@ -552,7 +552,7 @@ const BulkEvaluationModal: React.FC<BulkEvaluationModalProps> = ({
                             Assistita AI
                         </Box>
                     }
-                    sx={{ minHeight: '40px', py: 0, textTransform: 'none', fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}
+                    sx={{ minHeight: 'var(--md-sys-spacing-12)', py: 'var(--md-sys-spacing-1)', textTransform: 'none', fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}
                 />
             </Tabs>
 
