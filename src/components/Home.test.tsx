@@ -223,6 +223,11 @@ describe('Home Component', () => {
     });
 
     it('should render metric cards with correct data', () => {
+      // Pin time to 10:00 so getTimedActions returns the 9-14h set (includes 'Valutazioni')
+      vi.useFakeTimers();
+      const mockDate = new Date('2024-01-15T10:00:00');
+      vi.setSystemTime(mockDate);
+
       renderWithM3Theme(
         <Home
           onNavigate={mockNavigate}
@@ -234,8 +239,10 @@ describe('Home Component', () => {
       expect(screen.getAllByText('Studenti').length).toBeGreaterThan(0);
       // The number of students is shown as "2"
       expect(screen.getAllByText('2').length).toBeGreaterThan(0);
-      // "Valutazioni" label is present
+      // "Valutazioni" label is present (only in 9-14h timed actions set)
       expect(screen.getAllByText('Valutazioni').length).toBeGreaterThan(0);
+
+      vi.useRealTimers();
     });
 
     it.skip('should render hero card with next lesson', () => {
