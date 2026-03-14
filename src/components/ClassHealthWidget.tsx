@@ -5,11 +5,15 @@ import { InfoCard, AiMemoryChip } from './ui'
 import type { Studente, Valutazione } from '../types'
 import { buildAIContext } from '../ai/contextEngine/contextBuilder'
 import { computeClassHealthIndex } from '../ai/classHealth/classHealthIndex'
-import type { HealthGrade } from '../ai/classHealth/types'
+import type { ClassHealthIndex, HealthGrade } from '../ai/classHealth/types'
 
 interface ClassHealthWidgetProps {
-  students: Studente[]
-  evaluations: Valutazione[]
+  /** Pre-computed result from useAIPipeline — skips internal computation */
+  health?: ClassHealthIndex
+  /** Required when health prop is not provided */
+  students?: Studente[]
+  /** Required when health prop is not provided */
+  evaluations?: Valutazione[]
   className?: string
 }
 
@@ -124,14 +128,17 @@ const DimensionRow: React.FC<{
 
 // ── Main widget ───────────────────────────────────────────────────────────────
 const ClassHealthWidget: React.FC<ClassHealthWidgetProps> = ({
-  students,
-  evaluations,
+  health: healthProp,
+  students = [],
+  evaluations = [],
   className,
 }) => {
-  const health = useMemo(
+  const computed = useMemo(
     () => computeClassHealthIndex(buildAIContext(students, [], evaluations)),
     [students, evaluations],
   )
+  // Use pipeline-provided result when available, otherwise compute locally.
+  const health = healthProp ?? computed
 
   const meta = GRADE_META[health.grade]
 

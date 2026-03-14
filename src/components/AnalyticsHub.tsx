@@ -6,7 +6,7 @@
 
 import React, { useState, useMemo, useEffect, Suspense, lazy } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, AiSettings } from '../types';
-import { useAISuggestions } from '../ai/contextEngine/useAISuggestions';
+import { useAIPipeline } from '../ai/pipeline/useAIPipeline';
 import AISuggestionsPanel from './AISuggestionsPanel';
 import ClassHealthWidget from './ClassHealthWidget';
 const LineChart = lazy(() => import('./charts/AdvancedCharts').then(m => ({ default: m.LineChart })));
@@ -81,7 +81,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
     const radarData = useMemo(() => calculateCompetencyRadar(filteredCompEvals, settings.competenze, selectedStudentId !== 'all' ? selectedStudentId : undefined), [filteredCompEvals, settings.competenze, selectedStudentId]);
     const distData = useMemo(() => calculateGradeDistribution(filteredEvals), [filteredEvals]);
 
-    const aiSuggestions = useAISuggestions(filteredStudents, filteredEvals);
+    const aiPipeline = useAIPipeline(filteredStudents, filteredEvals);
 
     const handleAskAi = async () => {
         setIsAiLoading(true);
@@ -204,7 +204,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
             </InfoCard>
 
             {/* AI: Class Health Index */}
-            <ClassHealthWidget students={filteredStudents} evaluations={filteredEvals} />
+            <ClassHealthWidget health={aiPipeline.classHealth} />
 
             {/* Responsive Card: Chart & AI */}
             <InfoCard
@@ -320,7 +320,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                 )}
             </InfoCard>
 
-            <AISuggestionsPanel suggestions={aiSuggestions} />
+            <AISuggestionsPanel suggestions={aiPipeline.suggestions} />
         </div>
     );
 };
