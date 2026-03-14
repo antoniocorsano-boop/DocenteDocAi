@@ -252,6 +252,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
                         materia: selectedSubject,
                         contenuto: `${item.uda.title} - Lezione ${i+1}`,
                         unitaDiApprendimento: newUda.title,
+                        udaId: newUda.id,
                         svolta: false
                     });
                 }

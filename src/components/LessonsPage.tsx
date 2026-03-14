@@ -83,11 +83,16 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
 
             for (const targetClass of selectedClasses) {
                 const extractedLessons = await generateLessonSequenceForClass(aiSettings, selectedUdas, targetClass, kbText);
-                const newLessonsForClass: Lezione[] = (extractedLessons as Omit<Lezione, 'id' | 'svolta'>[]).map((lessonData, index) => ({
-                    ...lessonData,
-                    id: `lesson-seq-${Date.now()}-${targetClass}-${index}`,
-                    svolta: false,
-                }));
+                const newLessonsForClass: Lezione[] = (extractedLessons as Omit<Lezione, 'id' | 'svolta'>[]).map((lessonData, index) => {
+                    // Try to attach the udaId based on unitaDiApprendimento returned by AI
+                    const matchedUda = selectedUdas.find(u => u.title === lessonData.unitaDiApprendimento);
+                    return {
+                        ...lessonData,
+                        id: `lesson-seq-${Date.now()}-${targetClass}-${index}`,
+                        svolta: false,
+                        udaId: matchedUda?.id ?? (selectedUdas.length === 1 ? selectedUdas[0].id : undefined),
+                    };
+                });
                 allNewLessons = [...allNewLessons, ...newLessonsForClass];
             }
             onAddLessons(allNewLessons);
@@ -108,7 +113,13 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
 
         lessons.filter(lesson => {
             if (filterClass && lesson.classe !== filterClass) return false;
-            if (filterUda && lesson.unitaDiApprendimento !== filterUda) return false;
+            if (filterUda) {
+                // Match by FK udaId (preferred) or fall back to title string
+                const matchedTitle = uda.find(u => u.id === filterUda)?.title;
+                const matchById = lesson.udaId === filterUda;
+                const matchByTitle = matchedTitle ? lesson.unitaDiApprendimento === matchedTitle : false;
+                if (!matchById && !matchByTitle) return false;
+            }
             return true;
         }).forEach(lesson => {
             const classKey = lesson.classe || 'Senza Classe';
@@ -470,7 +481,7 @@ return (
                                 cursor: 'pointer'
                             }}>
                                 <option value="">Tutte le UDA</option>
-                                {filteredUdas.map((u: Uda) => <option key={u.id} value={u.title}>{u.title}</option>)}
+                                {filteredUdas.map((u: Uda) => <option key={u.id} value={u.id}>{u.title}</option>)}
                             </select>
                         </div>
                         {(filterClass || filterUda) && (

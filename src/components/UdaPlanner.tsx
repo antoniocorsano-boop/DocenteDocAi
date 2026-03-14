@@ -408,7 +408,10 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
         : Array.isArray(props.uda)
             ? props.uda
             : [];
-    const { onSaveUda, onDeleteUda, aiSettings, competenze, settings, onSaveReport, showGuidanceTips } = props;
+    const { onSaveUda, onDeleteUda, aiSettings, competenze, settings, onSaveReport, showGuidanceTips, lessons, onNavigate } = props;
+    const lessonsArr = useMemo(() => Object.values(lessons ?? {}), [lessons]);
+    const getLessonCount = (uda: Uda) =>
+        lessonsArr.filter(l => l.udaId === uda.id || l.unitaDiApprendimento === uda.title).length;
     const [editingUda, setEditingUda] = useState<Uda | 'new' | null>(null);
     const [exportingUda, setExportingUda] = useState<Uda | null>(null);
 
@@ -510,7 +513,7 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                                     <table style={{ width: 'var(--md-sys-percent-100)', borderCollapse: 'collapse' }}>
                                         <thead style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)' }}>
                                             <tr>
-                                                {['Titolo Progetto', 'Classe', 'Materia', 'AI Bridge', 'Azioni'].map(h => (
+                                                {['Titolo Progetto', 'Classe', 'Materia', 'Lezioni', 'AI Bridge', 'Azioni'].map(h => (
                                                     <th key={h} style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', textAlign: 'left', fontSize: 'var(--md-sys-typescale-label-medium-font-size)', fontWeight: 'var(--md-sys-typescale-weight-bold)', color: 'var(--md-sys-color-on-surface-variant)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)', whiteSpace: 'nowrap' }}>{h}</th>
                                                 ))}
                                             </tr>
@@ -532,6 +535,16 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                                                     </td>
                                                     <td style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
                                                         <span style={{ fontSize: 'var(--md-sys-typescale-body-medium-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>{uda.materia}</span>
+                                                    </td>
+                                                    <td style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
+                                                        <ButtonBase
+                                                            onClick={e => { e.stopPropagation(); onNavigate('lessons'); }}
+                                                            aria-label={`Vai alle lezioni di ${uda.title}`}
+                                                            sx={{ borderRadius: 'var(--md-sys-shape-corner-medium)', px: 'var(--md-sys-spacing-2)', py: 'var(--md-sys-spacing-1)', gap: 'var(--md-sys-spacing-1)', display: 'flex', alignItems: 'center' }}
+                                                        >
+                                                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-body-large-font-size)', color: 'var(--md-sys-color-primary)' }}>menu_book</Box>
+                                                            <Typography variant="body2" sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{getLessonCount(uda)}</Typography>
+                                                        </ButtonBase>
                                                     </td>
                                                     <td style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
                                                         {uda.externalLink && (

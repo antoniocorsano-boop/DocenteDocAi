@@ -29,6 +29,8 @@ export interface Lezione {
     data?: string;
     tipoLezione?: 'Teoria' | 'Disegno' | 'Laboratorio' | 'Test' | 'Verifica' | 'Disposizione' | 'Ricevimento';
     unitaDiApprendimento?: string;
+    /** FK to Uda.id — preferred over the string unitaDiApprendimento */
+    udaId?: string;
     nota?: string;
     obiettivi?: string;
     contesto?: string;
