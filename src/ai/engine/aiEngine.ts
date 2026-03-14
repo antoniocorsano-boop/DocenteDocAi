@@ -15,9 +15,13 @@ import { analyzeRisk } from '../contextEngine/riskAnalyzer';
 import { analyzeExcellence } from '../contextEngine/excellenceAnalyzer';
 import { generateForecasts } from '../copilot/trendEngine';
 import { buildContextHash, getCachedAnalysis, setCachedAnalysis } from '../cache/aiCache';
+import { createAuditTrail, recordAuditStep, finishAuditTrail } from '../audit/auditRecorder';
+import { pushAudit } from '../audit/auditTrail';
+export { getAuditHistory, getLastAudit, clearAuditHistory } from '../audit/auditTrail';
 import type { ClassHealthIndex } from '../classHealth/types';
 import type { AISuggestion } from '../contextEngine/types';
 import type { StudentForecast } from '../copilot/trendEngine';
+export type { AIAuditTrail, AuditStep } from '../audit/auditTypes';
 
 // ── public result type ────────────────────────────────────────────────────────
 
@@ -85,23 +89,39 @@ function parseVoto(v: string): number {
 export function runAIAnalysis(context: AIContext): AIAnalysisResult {
   const hash = buildContextHash(context);
   const cached = getCachedAnalysis(hash);
-  if (cached !== null) return cached;
+  if (cached !== null) {
+    // Record a cache-hit audit trail (no steps) so DevTools can observe it
+    const audit = createAuditTrail(hash);
+    pushAudit(finishAuditTrail(audit, true));
+    return cached;
+  }
+
+  const audit = createAuditTrail(hash);
+  const inputSummary = `${context.students.length} students, ${context.evaluations.length} evals`;
 
   const t0 = performance.now();
 
   const t1 = performance.now();
   const classHealth = computeClassHealthIndex(context);
   const t2 = performance.now();
+  recordAuditStep(audit, 'classHealthIndex', t2 - t1, inputSummary,
+    `score=${classHealth.score} grade=${classHealth.grade}`);
 
   const risks = analyzeRisk(context);
   const t3 = performance.now();
+  recordAuditStep(audit, 'riskAnalyzer', t3 - t2, inputSummary,
+    `${risks.length} at-risk students`);
 
   const excellence = analyzeExcellence(context);
   const t4 = performance.now();
+  recordAuditStep(audit, 'excellenceAnalyzer', t4 - t3, inputSummary,
+    `${excellence.length} excellent students`);
 
   const suggestions = [...risks, ...excellence];
   const predictions = generateForecasts(context.students, context.evaluations);
   const t5 = performance.now();
+  recordAuditStep(audit, 'trendEngine', t5 - t4, inputSummary,
+    `${predictions.length} forecasts`);
 
   const validScores = context.evaluations
     .map((e) => parseVoto(e.voto))
@@ -136,5 +156,6 @@ export function runAIAnalysis(context: AIContext): AIAnalysisResult {
     excellenceCount: excellence.length,
   };
   setCachedAnalysis(hash, result);
+  pushAudit(finishAuditTrail(audit, false));
   return result;
 }
