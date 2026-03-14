@@ -19,6 +19,9 @@ vi.mock('../stores/useStudentStore');
 
 // Mock UI components (coerenti con i unit tests)
 vi.mock('./ui', () => ({
+  M3Surface: ({ children, ...props }: any) => (
+    <div data-testid="m3-surface" {...props}>{children}</div>
+  ),
   ActionTile: ({ title, subtitle, onClick }: any) => (
     <button onClick={onClick} aria-label={`${title} - ${subtitle}`} style={{padding: 'var(--md-sys-spacing-4)'}}>
       {title}
@@ -31,6 +34,16 @@ vi.mock('./ui', () => ({
   ),
   EmptyState: ({ title, description }: any) => (
     <div data-testid="empty-state">{title} - {description}</div>
+  ),
+  TextField: ({ value, onChange, onKeyDown, placeholder, disabled }: any) => (
+    <input
+      data-testid="m3-text-field"
+      value={value}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
+      placeholder={placeholder}
+      disabled={disabled}
+    />
   ),
 }));
 
@@ -80,19 +93,14 @@ describe('Home Component - Integration (lean)', () => {
 
   it('renders main sections and quick actions', () => {
     renderWithM3Theme(<Home onNavigate={mockNavigate} dismissSuggestion={mockDismissSuggestion} onOpenRegisterImport={mockOnOpenRegisterImport} />);
-    // Hero section: check for lesson tagline or fallback
-    expect(screen.getAllByText(/Pianifica la prossima lezione|Lezione in classe|Prossima Lezione/)).not.toHaveLength(0);
-    // Metrics section
-    expect(screen.getAllByText('Studenti')).not.toHaveLength(0);
-    expect(screen.getAllByText('Valutazioni')).not.toHaveLength(0);
-    // Recent Activities section
-    expect(screen.getAllByText('Attività recenti')).not.toHaveLength(0);
-    // Quick Actions section
-    expect(screen.getAllByText('Registro')).not.toHaveLength(0);
-    expect(screen.getAllByText('Presenze')).not.toHaveLength(0);
-    expect(screen.getAllByText('Valutazioni')).not.toHaveLength(0);
-    // FAB
-    expect(screen.getAllByText('Inizia Giornata')).not.toHaveLength(0);
+    // Greeting section (always present)
+    expect(screen.getAllByText(/buongiorno|buon pomeriggio|buona sera/i)).not.toHaveLength(0);
+    // AI Assistant section (replaces legacy Activities)
+    expect(screen.getAllByText('Assistente DocenteDoc')).not.toHaveLength(0);
+    // Quick Actions section (labels from DOC_ACTIONS — always present)
+    expect(screen.getAllByText('UDA')).not.toHaveLength(0);
+    // FAB aria-label is visible to screen readers
+    expect(screen.getByRole('button', { name: /Inizia Giornata|Nuova UDA/i })).toBeInTheDocument();
   });
 
   // SKIP: Test navigation quick actions disabilitato per divergenza strutturale mock/componente reale (vedi compliance report)

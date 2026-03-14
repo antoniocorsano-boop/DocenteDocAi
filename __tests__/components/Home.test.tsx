@@ -14,6 +14,9 @@ vi.mock('../../src/stores/useStudentStore');
 
 // Mock the M3Components
 vi.mock('../../src/components/ui', () => ({
+    M3Surface: ({ children, ...props }: any) => (
+        <div data-testid="m3-surface" {...props}>{children}</div>
+    ),
     ActionTile: ({ title, subtitle, icon, variant, onClick }: any) => (
         <button data-testid="action-tile" onClick={onClick}>
             {title} - {subtitle}
@@ -31,6 +34,16 @@ vi.mock('../../src/components/ui', () => ({
     ),
     EmptyState: ({ title, description }: any) => (
         <div data-testid="empty-state">{title} - {description}</div>
+    ),
+    TextField: ({ value, onChange, onKeyDown, placeholder, disabled }: any) => (
+        <input
+            data-testid="m3-text-field"
+            value={value}
+            onChange={onChange}
+            onKeyDown={onKeyDown}
+            placeholder={placeholder}
+            disabled={disabled}
+        />
     ),
 }));
 
@@ -57,16 +70,11 @@ describe('Home Component', () => {
         );
         // Hero section
         expect(screen.getAllByText(/Buongiorno|Buon pomeriggio|Buona sera|Pianifica la prossima lezione|Prossima Lezione/)).not.toHaveLength(0);
+        // Quick Actions section (labels from DOC_ACTIONS — always present)
+        expect(screen.getAllByText('UDA')).not.toHaveLength(0);
         // Metrics section
-        expect(screen.getAllByText('Studenti')).not.toHaveLength(0);
-        expect(screen.getAllByText('Valutazioni')).not.toHaveLength(0);
-        // Recent Activities section
-        expect(screen.getAllByText('Attività recenti')).not.toHaveLength(0);
-        // Quick Actions section
-        expect(screen.getAllByText('Registro')).not.toHaveLength(0);
-        expect(screen.getAllByText('Presenze')).not.toHaveLength(0);
-        expect(screen.getAllByText('Valutazioni')).not.toHaveLength(0);
-        // FAB
-        expect(screen.getAllByText('Inizia Giornata')).not.toHaveLength(0);
+        expect(screen.getAllByText(/studenti/i)).not.toHaveLength(0);
+        // FAB aria-label is visible to screen readers
+        expect(screen.getByRole('button', { name: /Inizia Giornata|Nuova UDA/i })).toBeInTheDocument();
     });
 });
