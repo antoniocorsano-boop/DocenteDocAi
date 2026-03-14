@@ -11,7 +11,7 @@
 | 1   | Audit UI/UX attuale per mobile (< 600px): gap vs UX nativa Google (Drive, Calendar, Gmail)         | 🔴 High   | [x]   |
 | 2   | Refactor layout: MD3 Surface, ButtonBase, BottomNavigationRail, Drawer per full mobile interaction | 🔴 High   | [x]   |
 | 3   | Accessibilità completa: aria-labels, focus navigation, touch target ≥ 48px                         | 🔴 High   | [x]   |
-| 4   | Test navigazione gesture (swipe, scroll, tap, long press) su Android/iOS simulati                  | 🟡 Medium | [ ]   |
+| 4   | Test navigazione gesture (swipe, scroll, tap, long press) su Android/iOS simulati                  | 🟡 Medium | [x]   |
 
 ---
 
@@ -74,7 +74,7 @@
 | --- | ------------------------------------------------------------------------------- | --------- | ----- |
 | 23  | Full test suite coverage (Vitest): mobile, desktop, edge cases                  | 🔴 High   | [x]   |
 | 24  | Lint & Prettier: 0 warning/0 error, `useCallback`/`useMemo` deps corrette       | 🔴 High   | [x]   |
-| 25  | MD3 compliance audit finale: colori, spacing, aria-labels su tutti i componenti | 🟡 Medium | [ ]   |
+| 25  | MD3 compliance audit finale: colori, spacing, aria-labels su tutti i componenti | 🟡 Medium | [x]   |
 
 ---
 
@@ -91,13 +91,13 @@
 ## Progresso globale
 
 ```
-Completati : 18 / 28  (64%)
+Completati : 20 / 28  (71%)
 In corso   :  0
-Aperti     : 10
+Aperti     :  8
 
-🔴 High    : 2 aperti  (#4 gesture tests, #25 MD3 audit)
-🟡 Medium  : 6 aperti
-🟢 Low     : 2 aperti
+🔴 High    : 0 aperti  ✅ tutti completati
+🟡 Medium  : 6 aperti  (#15, #16, #18, #21, #27, #28)
+🟢 Low     : 2 aperti  (#17, #19)
 ```
 
 ---
