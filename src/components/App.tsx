@@ -13,6 +13,7 @@ import SkipLink from './SkipLink';
 import SuggestionBanner from './SuggestionBanner';
 import { useAppEngine } from '../hooks/useAppEngine';
 import { usePrefetch } from '../hooks/usePrefetch';
+import { useSmartNavigation } from '../hooks/useSmartNavigation';
 import ViewManager from './ViewManager';
 import { ModalManager } from './ModalManager';
 import Snackbar from './Snackbar';
@@ -55,8 +56,11 @@ const App: React.FC = () => {
     const user = appState.user;
     const notifiche = appState.notifiche;
 
-    // Prefetch bundle chunks for the most-likely next views (#21)
-    usePrefetch(view);
+    // Smart Navigation: learn patterns + predict next view (#17)
+    const { predictedNextView } = useSmartNavigation(view);
+
+    // Prefetch bundle chunks — priority on predicted next view (#21)
+    usePrefetch(view, predictedNextView);
 
     // assistantMode locale — argomento condiviso per AssistantModal
     const handleOpenCircularAnalysis = (url: string, title: string) => {
