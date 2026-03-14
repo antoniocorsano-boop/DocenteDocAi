@@ -4,12 +4,14 @@
  * // M3Expressive refactor: Removed all className attributes, converted to inline styles with MD3 tokens for layout, colors, spacing, and typography.
  */
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useAIPipeline } from '../ai/pipeline/useAIPipeline';
 import AISuggestionsPanel from './AISuggestionsPanel';
 import AITrendPanel from './AITrendPanel';
 import ClassHealthWidget from './ClassHealthWidget';
 import CopilotDocentePanel from './CopilotDocentePanel';
+import { useAcademicStore } from '../stores/useAcademicStore';
+
 import InfoCard from './ui/InfoCard';
 import SectionHeader from './ui/SectionHeader';
 import EmptyState from './ui/EmptyState';
@@ -58,6 +60,10 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
 
     // Central AI pipeline
     const aiPipeline = useAIPipeline(selectedClass, filteredStudents, filteredEvals);
+
+    // UDA, competenze, settings globali
+    const udas = useAcademicStore((s) => s.uda);
+    const competenze = settings.competenze || [];
 
 
 
@@ -133,6 +139,11 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                 snapshots={aiPipeline.snapshots}
                 className={selectedClass}
                 studentId={selectedStudentId}
+                students={filteredStudents}
+                evaluations={filteredEvals}
+                udas={udas}
+                competenze={competenze}
+                settings={settings}
             />
         </Box>
     );

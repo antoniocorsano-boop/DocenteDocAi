@@ -10,15 +10,13 @@ import CopilotHealthOverviewPanel from './copilot/CopilotHealthOverviewPanel';
 import AITrendPanel from './AITrendPanel';
 import Button from '@mui/material/Button';
 import ExportModal from './ExportModal';
-import LessonAssistantPanel from './LessonAssistantPanel';
-import UdaPlanner from './UdaPlanner';
 import AISuggestionsPanel from './AISuggestionsPanel';
 import TeacherCopilotPanel from './TeacherCopilotPanel';
+import PlanningAssistantPanel from './copilot/PlanningAssistantPanel';
 
 import type { AISuggestion } from '../ai/contextEngine/types';
 import type { ClassHealthIndex } from '../ai/classHealth/types';
 import type { AISnapshot } from '../stores/useAISnapshotStore';
-import type { LessonAssistantResponse } from '../ai/lessonAssistant/types';
 import type { Studente, Valutazione, Uda, Competenza, TimetableSettings } from '../types';
 
 interface CopilotDocentePanelProps {
@@ -27,7 +25,6 @@ interface CopilotDocentePanelProps {
   snapshots: AISnapshot[];
   className: string;
   studentId: string;
-  lessonAssistant: LessonAssistantResponse;
   students: Studente[];
   evaluations: Valutazione[];
   udas: Uda[];
@@ -35,7 +32,7 @@ interface CopilotDocentePanelProps {
   settings: TimetableSettings;
 }
 
-export default function CopilotDocentePanel({ suggestions, classHealth, snapshots, className, studentId, lessonAssistant, students, evaluations, udas, competenze, settings }: CopilotDocentePanelProps): JSX.Element {
+export default function CopilotDocentePanel({ suggestions, classHealth, snapshots, className, studentId, students, evaluations, udas, settings }: Omit<CopilotDocentePanelProps, 'competenze'>): JSX.Element {
   const [tab, setTab] = React.useState<number>(0);
   const [exportOpen, setExportOpen] = React.useState(false);
 
@@ -98,33 +95,14 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
           </Box>
         )}
         {tab === 4 && (
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4, py: 2 }}>
-            <Box sx={{ flex: 1, minWidth: 0 }}>
-              <LessonAssistantPanel data={lessonAssistant} />
-            </Box>
-            <Box sx={{ flex: 1, minWidth: 0 }}>
-              <UdaPlanner
-                uda={udas}
-                onSaveUda={() => {}}
-                onDeleteUda={() => {}}
-                aiSettings={{ model: 'gemini' }}
-                competenze={competenze}
-                settings={settings}
-                onSaveReport={() => {}}
-                showGuidanceTips={false}
-                lessons={{}}
-                onNavigate={() => {}}
-                knowledgeBase={[]}
-                showToast={() => {}}
-                setIsLoadingModalOpen={() => {}}
-                setLoadingModalMessage={() => {}}
-                eventi={[]}
-                onAddLessons={() => {}}
-                onSaveEvent={() => {}}
-                curricula={[]}
-              />
-            </Box>
-          </Box>
+          <PlanningAssistantPanel
+            suggestions={suggestions}
+            students={students}
+            evaluations={evaluations}
+            udas={udas}
+            className={className}
+            studentId={studentId}
+          />
         )}
         {tab === 5 && (
           <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4, py: 2 }}>
