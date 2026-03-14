@@ -1,3 +1,10 @@
+/**
+ * useAppEngine — orchestratore centrale dell'applicazione.
+ *
+ * Integra tutti gli store Zustand di dominio (student, academic, system, settings, UI)
+ * ed espone un'unica interfaccia `AppState + AppActions` consumata da `App.tsx`.
+ * Gestisce navigazione, notifiche, suggerimenti AI, backup e stato globale della sessione.
+ */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import {

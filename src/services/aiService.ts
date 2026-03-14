@@ -119,6 +119,12 @@ export const performWebSearch = async (aiSettings: AiSettings, query: string): P
     });
 };
 
+/**
+ * Genera una proposta di lezione basata sul contesto didattico corrente.
+ * @param aiSettings - Configurazione del modello AI da usare
+ * @param context - Contesto: classe, materia, UDA di riferimento, lezioni esistenti e KB
+ * @returns Oggetto `Lezione` parziale con titolo, obiettivi e attività suggeriti
+ */
 export const getLessonSuggestion = async (aiSettings: AiSettings, context: {
     classe: string; materia: string; uda?: Uda; existingLessonsInUda: Lezione[];
     topic?: string; knowledgeBase?: KnowledgeBaseEntry[]; pianiInclusione?: PianoInclusione[]; allCompetenze: Competenza[];
@@ -186,6 +192,14 @@ export const generateMethodologyStrategies = async (aiSettings: AiSettings, ctx:
     });
 };
 
+/**
+ * Genera una proposta di piano annuale (elenco UDA) basata sulla Knowledge Base.
+ * @param aiSettings - Configurazione del modello AI
+ * @param kb - Contenuto testuale della Knowledge Base del docente
+ * @param subj - Materia di insegnamento
+ * @param cls - Classe di riferimento
+ * @returns Array di `Uda` parziali con titoli, obiettivi e durate suggeriti
+ */
 export const suggestAnnualPlan = async (aiSettings: AiSettings, kb: string, subj: string, cls: string): Promise<Partial<Uda>[]> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
@@ -254,6 +268,16 @@ export const generateAcademicEssayContent = async (aiSettings: AiSettings): Prom
     });
 };
 
+/**
+ * Genera un giudizio periodico testuale per uno studente.
+ * @param aiSettings - Configurazione del modello AI
+ * @param s - Profilo dello studente
+ * @param per - Periodo di valutazione (es. 'I quadrimestre')
+ * @param evals - Valutazioni disciplinari dello studente nel periodo
+ * @param cEvals - Valutazioni per competenza dello studente
+ * @param comps - Elenco completo delle competenze di riferimento
+ * @returns Stringa con il giudizio sintetico suggerito
+ */
 export const getPeriodicJudgmentSuggestion = async (aiSettings: AiSettings, s: Studente, per: string, evals: Valutazione[], cEvals: ValutazioneCompetenza[], comps: Competenza[]): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
@@ -265,6 +289,13 @@ export const getPeriodicJudgmentSuggestion = async (aiSettings: AiSettings, s: S
     });
 };
 
+/**
+ * Genera un report didattico in formato Markdown per diversi contesti.
+ * @param aiSettings - Configurazione del modello AI da usare
+ * @param type - Tipo di report (es. `'class_summary'`, `'student_progress'`, `'uda_report'`)
+ * @param data - Dati contestuali da includere nella generazione (classe, studenti, UDA, ecc.)
+ * @returns Stringa Markdown con il contenuto del report generato
+ */
 export const generateMarkdownReport = async (aiSettings: AiSettings, type: string, data: Record<string, unknown>): Promise<string> => {
     return callAiWithRetry(async () => {
         const ai = await getGoogleAIClient();
