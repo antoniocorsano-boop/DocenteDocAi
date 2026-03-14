@@ -144,7 +144,7 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
         return Object.keys(groups)
             .sort((a, b) => a.localeCompare(b))
             .map((classKey) => [classKey, groups[classKey]]);
-        }, [lessons, filterClass, filterUda]);
+        }, [lessons, filterClass, filterUda, uda]);
 
     const filteredUdas = useMemo(() => {
         if (!filterClass) return uda;
