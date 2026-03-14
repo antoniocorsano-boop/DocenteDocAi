@@ -66,6 +66,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
       component="header"
       role="banner"
       position="static"
+      className="app-header-bar"
       elevation={scrolled ? 2 : 0}
       sx={{
         zIndex: 'var(--md-sys-z-app-bar)',

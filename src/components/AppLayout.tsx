@@ -91,6 +91,38 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
       overflow: 'hidden',
       bgcolor: 'var(--md-sys-color-surface)',
     }}>
+      {/* Floating nav styles — scoped to ≤840px, zero impact on desktop */}
+      <style>{`
+        @media (max-width: 840px) {
+          /* ── Header: lift out of flow and float at top ── */
+          .app-header-bar.MuiAppBar-root {
+            position: fixed !important;
+            top: var(--md-sys-spacing-4) !important;
+            left: var(--md-sys-spacing-4) !important;
+            right: var(--md-sys-spacing-4) !important;
+            width: auto !important;
+            border-radius: var(--md-sys-shape-corner-extra-large) !important;
+            box-shadow: var(--md-sys-elevation-level2) !important;
+          }
+          /* ── Shell: add top padding to compensate for header leaving flow ── */
+          /* --md-sys-spacing-16 resolves to 64px (52px compact); +spacing-4 = 16px viewport margin */
+          .app-shell-container {
+            padding-top: calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-4) + var(--md-sys-spacing-2)) !important;
+          }
+          /* ── Main content: extra bottom clearance for elevated nav ── */
+          /* Floating nav: height≈64px + spacing-4 margin (16px) + spacing-2 buffer (8px) */
+          .app-main-content {
+            padding-bottom: calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-4) + var(--md-sys-spacing-2) + env(safe-area-inset-bottom, 0px)) !important;
+          }
+          /* ── BottomNav: add horizontal + bottom margin; round corners ── */
+          .bottom-nav-container {
+            left: var(--md-sys-spacing-4) !important;
+            right: var(--md-sys-spacing-4) !important;
+            bottom: var(--md-sys-spacing-4) !important;
+            border-radius: var(--md-sys-shape-corner-extra-large) !important;
+          }
+        }
+      `}</style>
       {/* Header: static in flow, never overlaps content */}
       <Header
         showBackButton={view !== 'home'}
@@ -151,6 +183,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         {/* Main content: fills remaining width, scrolls independently */}
         <Box
           component="main"
+          className="app-main-content"
           sx={{
             flex: 1,
             overflowY: 'auto',
