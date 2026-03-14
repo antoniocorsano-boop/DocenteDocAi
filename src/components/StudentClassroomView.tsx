@@ -5,6 +5,7 @@ import { printHomeworkSheet } from '../utils/printUtils';
 import { useFileDrop } from '../hooks/useFileDrop';
 import { SectionHeader, Avatar } from './ui';
 import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import MuiCard from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -337,7 +338,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
                                                 <Typography variant="h6" sx={{ fontWeight: "var(--md-sys-typescale-weight-black)", letterSpacing: "-0.005em" }}>{lesson.materia}</Typography>
                                                 <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", opacity: "var(--md-sys-state-opacity-secondary)" }}>{lesson.contenuto}</Typography>
                                             </div>
-                                            <span style={{ color: 'var(--md-sys-color-primary)', backgroundColor: 'var(--md-sys-color-primary)', opacity: 'var(--md-sys-state-opacity-tint-faint)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.1em", borderRadius: 'var(--md-sys-spacing-4)' }}>Nuovo</span>
+                                            <Chip label="Nuovo" size="small" sx={{ color: 'var(--md-sys-color-on-primary)', backgroundColor: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: '0.1em', borderRadius: 'var(--md-sys-spacing-4)' }} />
                                         </div>
                                         <div style={{ backgroundColor: 'var(--md-sys-color-surface-container-high)', opacity: 'var(--md-sys-state-opacity-placeholder)', borderRadius: 'var(--md-sys-shape-corner-large)', padding: 'var(--md-sys-spacing-6)', fontSize: "var(--md-sys-typescale-body-large-font-size)", fontWeight: "var(--md-sys-typescale-weight-medium)", lineHeight: "1.625"}}>
                                             {lesson.compiti}

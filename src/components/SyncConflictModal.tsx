@@ -5,6 +5,7 @@ import React from 'react';
 import { SyncConflictData } from '../types';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import { M3Dialog, InfoCard } from './ui';
 interface SyncConflictModalProps {
@@ -58,7 +59,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                     {localDate ? localDate.toLocaleString() : 'Nessun dato'}
                                 </Typography>
                             </div>
-                            {!isRemoteNewer && <span style={{backgroundColor: "var(--md-sys-color-secondary)", color: "var(--md-sys-color-on-secondary-container)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-2)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.05em"}}>Più Recente</span>}
+                            {!isRemoteNewer && <Chip label="Più Recente" size="small" sx={{ backgroundColor: 'var(--md-sys-color-secondary)', color: 'var(--md-sys-color-on-secondary-container)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: '0.05em', borderRadius: 'var(--md-sys-spacing-2)' }} />}
                         </div>
 
                         {/* DIRECTION ARROW */}
@@ -92,7 +93,7 @@ const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, 
                                     {remoteDate.toLocaleString()}
                                 </Typography>
                             </div>
-                            {isRemoteNewer && <span style={{backgroundColor: "var(--md-sys-color-primary)", color: "var(--md-sys-color-on-primary)", paddingLeft: 'var(--md-sys-spacing-4)', paddingRight: 'var(--md-sys-spacing-4)', borderRadius: 'var(--md-sys-spacing-2)', fontWeight: "var(--md-sys-typescale-weight-black)", textTransform: "uppercase", letterSpacing: "0.05em"}}>Consigliato</span>}
+                            {isRemoteNewer && <Chip label="Consigliato" size="small" sx={{ backgroundColor: 'var(--md-sys-color-primary)', color: 'var(--md-sys-color-on-primary)', fontWeight: 'var(--md-sys-typescale-weight-black)', textTransform: 'uppercase', letterSpacing: '0.05em', borderRadius: 'var(--md-sys-spacing-2)' }} />}
                         </div>
                     </div>
 
