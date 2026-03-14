@@ -172,6 +172,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                     draftEntry={currentDraftEntry}
                                     students={students}
                                     lessons={lessons}
+                                    uda={uda}
                                     knowledgeBase={knowledgeBase}
                                     evaluations={evaluations}
                                     competencyEvaluations={competencyEvals}

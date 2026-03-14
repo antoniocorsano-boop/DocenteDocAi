@@ -727,6 +727,7 @@ export interface ClassroomViewProps {
     draftEntry: RegisterEntry;
     students: Studente[];
     lessons: Record<string, Lezione>;
+    uda?: Uda[];
     knowledgeBase: KnowledgeBaseEntry[];
     evaluations: Valutazione[];
     competencyEvaluations: ValutazioneCompetenza[];

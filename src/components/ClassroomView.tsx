@@ -1,5 +1,5 @@
 ﻿import React, { useState, useMemo } from 'react';
-import { Studente, MaterialeDidattico, KnowledgeBaseEntry, ClassroomViewProps, HomeworkStatus, ParticipationEntry } from '../types';
+import { Studente, MaterialeDidattico, KnowledgeBaseEntry, ClassroomViewProps, HomeworkStatus, ParticipationEntry, Uda } from '../types';
 import { ClassroomRegisterTab, StudentStat } from './classroom/ClassroomRegisterTab';
 import { ClassroomNotesTab } from './classroom/ClassroomNotesTab';
 import { ClassroomResourcesTab } from './classroom/ClassroomResourcesTab';
@@ -23,6 +23,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
 
 type AttendanceStatus = 'presente' | 'assente' | 'ritardo';
 type ClassroomTab = 'register' | 'tools' | 'resources' | 'notes';
@@ -32,6 +33,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
     draftEntry,
     students,
     lessons,
+    uda,
     knowledgeBase,
     evaluations,
     competencyEvaluations,
@@ -61,6 +63,11 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
             svolta: false
         };
     }, [lessons, draftEntry.lessonId, draftEntry.materia, draftEntry.classe]);
+
+    const linkedUda = useMemo<Uda | undefined>(() => {
+        if (!uda || !lesson.udaId) return undefined;
+        return uda.find(u => u.id === lesson.udaId);
+    }, [uda, lesson.udaId]);
 
     const classStudents = useMemo(() => {
         return students.filter(s => s.classe === draftEntry.classe).sort((a, b) => a.cognome.localeCompare(b.cognome));
@@ -206,6 +213,14 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
             <div style={{ marginBottom: 'var(--md-sys-spacing-6)' }}>
                 <Typography variant="h4" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-bold)', marginBottom: 'var(--md-sys-spacing-1)' }}>{lesson.materia}</Typography>
                 <Typography variant="body1" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{lesson.contenuto || 'Lezione'}</Typography>
+                {linkedUda && (
+                    <Chip
+                        size="small"
+                        icon={<Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-small-font-size) !important' }}>assignment</Box>}
+                        label={linkedUda.title}
+                        sx={{ mt: 'var(--md-sys-spacing-2)', backgroundColor: 'var(--md-sys-color-primary-container)', color: 'var(--md-sys-color-on-primary-container)', fontSize: 'var(--md-sys-typescale-label-small-font-size)' }}
+                    />
+                )}
 
                 <div style={{ marginTop: 'var(--md-sys-spacing-4)' }}>
                                         <Tabs
