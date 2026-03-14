@@ -10,11 +10,10 @@ import CopilotHealthOverviewPanel from './copilot/CopilotHealthOverviewPanel';
 import AITrendPanel from './AITrendPanel';
 import Button from '@mui/material/Button';
 import ExportModal from './ExportModal';
-import AISuggestionsPanel from './AISuggestionsPanel';
-import TeacherCopilotPanel from './TeacherCopilotPanel';
 import PlanningAssistantPanel from './copilot/PlanningAssistantPanel';
 import CommunicationHelperPanel from './copilot/CommunicationHelperPanel';
 import TrendPredictionPanel from './copilot/TrendPredictionPanel';
+import AggregatedDashboard from './copilot/AggregatedDashboard';
 
 import type { AISuggestion } from '../ai/contextEngine/types';
 import type { ClassHealthIndex } from '../ai/classHealth/types';
@@ -59,7 +58,7 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
         <Tab label="Planning" />
         <Tab label="Comunicazione" />
         <Tab label="Predizione" />
-        <Tab label="Aggregated Insights" />
+        <Tab label="Dashboard" />
       </Tabs>
       <Box sx={{ minHeight: 80 }}>
         {tab === 0 && (
@@ -126,14 +125,16 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
           />
         )}
         {tab === 7 && (
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4, py: 2 }}>
-            <Box sx={{ flex: 1, minWidth: 0 }}>
-              <AISuggestionsPanel suggestions={suggestions} />
-            </Box>
-            <Box sx={{ flex: 1, minWidth: 0 }}>
-              <TeacherCopilotPanel students={students} evaluations={evaluations} className={className} />
-            </Box>
-          </Box>
+          <AggregatedDashboard
+            suggestions={suggestions}
+            classHealth={classHealth}
+            snapshots={snapshots}
+            students={students}
+            evaluations={evaluations}
+            udas={udas}
+            className={className}
+            studentId={studentId}
+          />
         )}
       </Box>
     </InfoCard>
