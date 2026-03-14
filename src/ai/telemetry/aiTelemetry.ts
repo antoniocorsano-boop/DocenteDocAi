@@ -1,18 +1,26 @@
 /**
- * aiTelemetry.ts — Lightweight AI feature telemetry (Stabilization Pass)
+ * aiTelemetry.ts — AI feature telemetry + OTel span helpers (Sprint 1)
  *
- * Logs key AI interaction events to the console and to a circular in-memory
- * event buffer when AI Experimental Mode is active. All functions are
- * no-ops when beta mode is off, so they are safe to call unconditionally.
+ * Two layers:
+ *   1. Event buffer — logs key AI interaction events to a circular in-memory
+ *      buffer when AI Experimental Mode is active.
+ *   2. OTel spans — `startAISpan()` creates real OpenTelemetry spans via the
+ *      application-scoped Tracer from tracing.ts.  When no OTLP endpoint is
+ *      configured the tracer is a no-op proxy, so all usages are safe
+ *      unconditionally.
  *
  * Beta mode is read directly from localStorage ('ai_beta_mode') so these
- * functions can be called from plain event handlers without requiring a
- * React hook context.
+ * functions can be called from plain event handlers without a React context.
  *
  * Usage:
- *   import { logAIActionTriggered } from '@/ai/telemetry/aiTelemetry'
- *   onClick={() => logAIActionTriggered(action.actionType, student.id)}
+ *   import { logAIActionTriggered, startAISpan } from '@/ai/telemetry/aiTelemetry'
+ *   const span = startAISpan('riskAnalyzer', { studentCount: 22 })
+ *   // … do work …
+ *   span.end()
  */
+import type { Span } from '@opentelemetry/api';
+import { SpanStatusCode } from '@opentelemetry/api';
+import { getTracer } from '@/tracing';
 import type { CopilotActionType } from '../copilot/actions/types';
 import type { AISuggestion } from '../contextEngine/types';
 
@@ -97,4 +105,34 @@ export function logAIExplanationOpened(suggestionId: string): void {
  */
 export function logAILessonGenerated(context: string): void {
   emit({ event: 'ai_lesson_generated', ts: new Date().toISOString(), context });
+}
+
+// ── OTel span helpers ─────────────────────────────────────────────────────────
+
+/**
+ * Starts an OpenTelemetry span for an AI sub-module step.
+ *
+ * The span name is prefixed with `ai.` automatically.
+ * When no OTLP endpoint is configured the tracer is a no-op proxy —
+ * span.end() is always safe to call.
+ *
+ * @param name   Short identifier for the step (e.g. 'riskAnalyzer')
+ * @param attrs  Optional key/value attributes attached to the span
+ * @returns      Active OTel Span — caller must call span.end() when the step completes
+ *
+ * @example
+ * const span = startAISpan('riskAnalyzer', { studentCount: 22 });
+ * const risks = analyzeRisk(context);
+ * span.end();
+ */
+export function startAISpan(
+  name: string,
+  attrs?: Record<string, string | number | boolean>,
+): Span {
+  const span = getTracer().startSpan(`ai.${name}`);
+  if (attrs) {
+    Object.entries(attrs).forEach(([k, v]) => span.setAttribute(k, v));
+  }
+  span.setStatus({ code: SpanStatusCode.OK });
+  return span;
 }

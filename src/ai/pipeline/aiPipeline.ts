@@ -6,10 +6,12 @@ import { generateAISuggestions } from '../contextEngine/suggestionEngine'
 import { computeClassHealthIndex } from '../classHealth/classHealthIndex'
 import { predictClassRisk } from '../prediction/predictClassRisk'
 import { askLessonAssistant } from '../lessonAssistant/lessonAssistant'
+import { buildContextHash, getCachedAnalysis, setCachedAnalysis } from '../cache/aiCache'
 import type { AISuggestion } from '../contextEngine/types'
 import type { ClassHealthIndex } from '../classHealth/types'
 import type { StudentRiskPrediction } from '../prediction/types'
 import type { LessonAssistantResponse } from '../lessonAssistant/types'
+import type { AIAnalysisResult } from '../engine/aiEngine'
 
 export interface AIPipelineResult {
   /** 0-100 score + grade for the current filtered cohort */
@@ -32,16 +34,27 @@ export interface AIPipelineResult {
  *
  * All modules are pure functions: no side-effects, deterministic output,
  * safe to memoize.
+ *
+ * @deprecated Prefer `runUnifiedAnalysis` from `@/ai/orchestrator/unifiedOrchestrator`
+ *   which adds caching, audit persistence, and OTel instrumentation.
+ *   This function is kept for backward-compat and will be a thin shim in v3.
  */
 export function runAIPipeline(
   students: Studente[],
   evaluations: Valutazione[],
   lessons: Lezione[] = [],
 ): AIPipelineResult {
-  // Step 1 — build shared context (single allocation)
+  // Build shared context (single allocation)
   const context = buildAIContext(students, lessons, evaluations)
 
-  // Step 2 — parallel analysis (pure, no inter-dependencies)
+  // Hash-based cache check (Sprint 1  — added)
+  const hash = buildContextHash(context)
+  const cached = getCachedAnalysis(hash) as (AIPipelineResult & AIAnalysisResult) | null
+  if (cached !== null && 'riskPredictions' in cached) {
+    return cached as AIPipelineResult
+  }
+
+  // Run all modules
   const riskSuggestions = analyzeRisk(context)
   const excellenceSuggestions = analyzeExcellence(context)
   const suggestions = generateAISuggestions(context)
@@ -49,7 +62,7 @@ export function runAIPipeline(
   const riskPredictions = predictClassRisk(students, evaluations)
   const lessonAssistant = askLessonAssistant(context)
 
-  return {
+  const result: AIPipelineResult = {
     classHealth,
     riskSuggestions,
     excellenceSuggestions,
@@ -57,4 +70,9 @@ export function runAIPipeline(
     riskPredictions,
     lessonAssistant,
   }
+
+  // Store in shared cache so aiEngine cache-hits benefit from pipeline runs
+  setCachedAnalysis(hash, result as unknown as AIAnalysisResult)
+
+  return result
 }

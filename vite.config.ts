@@ -11,6 +11,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 export default defineConfig({
   resolve: {
     alias: {
+      '@': path.resolve(dirname, './src'),
       react: 'react',
       'react-dom': 'react-dom',
       scheduler: 'scheduler',

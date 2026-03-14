@@ -97,3 +97,31 @@ export function getCacheStats(): CacheStats {
     hitRate: total > 0 ? parseFloat((_hits / total).toFixed(3)) : 0,
   };
 }
+
+// ── UnifiedAIResult cache (Sprint 1) ─────────────────────────────────────────
+// Separate Map so legacy getCachedAnalysis / setCachedAnalysis are undisturbed.
+
+import type { UnifiedAIResult } from '../orchestrator/types';
+
+const _unifiedCache = new Map<string, UnifiedAIResult>();
+
+/** Returns a cached UnifiedAIResult or null. */
+export function getCachedUnifiedResult(hash: string): UnifiedAIResult | null {
+  const result = _unifiedCache.get(hash) ?? null;
+  if (result !== null) _hits++;
+  else _misses++;
+  return result;
+}
+
+/** Stores a UnifiedAIResult in the cache. */
+export function setCachedUnifiedResult(hash: string, result: UnifiedAIResult): void {
+  _unifiedCache.set(hash, result);
+}
+
+/** Clears both legacy and unified caches. */
+export function clearAllCaches(): void {
+  _cache.clear();
+  _unifiedCache.clear();
+  _hits = 0;
+  _misses = 0;
+}

@@ -4,17 +4,24 @@
  * Persisted Zustand store for AI pipeline snapshots.
  * Saves one snapshot per (className × calendar-day); prunes to max 30 per class.
  * Storage key: 'docentedoc-ai-snapshots'
+ *
+ * Schema v2 (Sprint 1): added schemaVersion, classAverage, predictions.
+ * V1 records are migrated transparently on hydration via schemaMigration.ts.
  */
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { AIPipelineResult } from '../ai/pipeline/aiPipeline';
 import type { HealthGrade } from '../ai/classHealth/types';
+import type { StudentForecast } from '../ai/copilot/trendEngine';
+import { migrateSnapshotArray, AI_SNAPSHOT_SCHEMA_VERSION } from '../ai/migration/schemaMigration';
 
 // ============================================================================
 // TYPES
 // ============================================================================
 
 export interface AISnapshot {
+  /** Schema version — used for safe localStorage migration */
+  schemaVersion: typeof AI_SNAPSHOT_SCHEMA_VERSION;
   /** Unique key — `${className}::${date}` */
   id: string;
   className: string;
@@ -24,6 +31,10 @@ export interface AISnapshot {
   grade: HealthGrade;
   riskCount: number;
   excellenceCount: number;
+  /** Class grade average (0 when no evaluations) — added in v2 */
+  classAverage: number;
+  /** Per-student forecasts for sparkline charts — added in v2 */
+  predictions: StudentForecast[];
 }
 
 interface AISnapshotState {
@@ -67,7 +78,11 @@ export const useAISnapshotStore = create<AISnapshotStore>()(
         saveSnapshot: (className, pipeline) => {
           const date = todayISO();
           const id = `${className}::${date}`;
+          const avg = pipeline.classHealth.score > 0
+            ? parseFloat((pipeline.classHealth.score / 10).toFixed(1))
+            : 0;
           const next: AISnapshot = {
+            schemaVersion: AI_SNAPSHOT_SCHEMA_VERSION,
             id,
             className,
             date,
@@ -75,6 +90,8 @@ export const useAISnapshotStore = create<AISnapshotStore>()(
             grade: pipeline.classHealth.grade,
             riskCount: pipeline.riskSuggestions.length,
             excellenceCount: pipeline.excellenceSuggestions.length,
+            classAverage: avg,
+            predictions: [],
           };
 
           set((state) => {
@@ -108,6 +125,14 @@ export const useAISnapshotStore = create<AISnapshotStore>()(
           })),
       },
     }),
-    { name: 'docentedoc-ai-snapshots' }
+    {
+      name: 'docentedoc-ai-snapshots',
+      // Migrate v1 → v2 on hydration so legacy localStorage data is not lost
+      merge: (persisted, current) => {
+        const raw = (persisted as { snapshots?: unknown[] })?.snapshots ?? [];
+        const migrated = migrateSnapshotArray(Array.isArray(raw) ? raw : []);
+        return { ...current, snapshots: migrated };
+      },
+    }
   )
 );
