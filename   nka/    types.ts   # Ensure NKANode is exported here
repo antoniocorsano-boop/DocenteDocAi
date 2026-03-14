@@ -1,7 +1,0 @@
-type NKANode = {
-	id: string;
-	name: string;
-	children?: NKANode[];
-};
-
-export { NKANode };

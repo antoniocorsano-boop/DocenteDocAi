@@ -205,7 +205,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             setIsAiThinking(false);
             setAiMenuPosition(null);
         }
-    }, [selectedText, editorRef, aiSettings, insertHtmlAtCursor, setIsAiThinking]);
+    }, [selectedText, editorRef, aiSettings, insertHtmlAtCursor, setIsAiThinking, showToast]);
 
     const handleAiTable = useCallback(async () => {
         // We use prompt() which steals focus, so savedRange is essential here
@@ -229,7 +229,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
         } finally {
             setIsAiThinking(false);
         }
-    }, [aiSettings, insertHtmlAtCursor, setIsAiThinking]);
+    }, [aiSettings, insertHtmlAtCursor, setIsAiThinking, showToast]);
 
     const handleDownload = useCallback(async () => {
         if (!editorRef.current) return;
@@ -245,7 +245,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             }
             showToast(message, 'error');
         }
-    }, [editorRef, editorTitle]);
+    }, [editorRef, editorTitle, showToast]);
     
     const handleCopyForGoogleDocs = useCallback(() => {
          if (!editorRef.current) return;
@@ -269,7 +269,7 @@ const SmartDocumentEditor: React.FC<SmartDocumentEditorProps> = ({ initialConten
             
             showToast('Contenuto copiato! Ora puoi incollarlo (Ctrl+V) direttamente in un nuovo documento Google Docs mantenendo la formattazione.', 'success');
          }
-    }, [editorRef]);
+    }, [editorRef, showToast]);
 
     const handleSave = useCallback(() => {
         if (!editorRef.current || !onSaveToKb) return;

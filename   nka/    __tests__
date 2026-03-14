@@ -1,8 +1,0 @@
-const { render, screen } = require('@testing-library/react');
-const NKANodeCard = require('../NKANodeCard');
-
-test('renders NKANodeCard component', () => {
-    render(<NKANodeCard />);
-    const element = screen.getByText(/expected text/i);
-    expect(element).toBeInTheDocument();
-});

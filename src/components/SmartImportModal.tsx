@@ -52,7 +52,7 @@ const SmartImportModal: React.FC<SmartImportModalProps> = ({ onClose, aiSettings
             showToast(message, 'error');
             setStep('upload');
         }
-    }, [aiSettings]);
+    }, [aiSettings, showToast]);
 
     const { getRootProps, getInputProps, isDragActive } = useFileDrop({
         onDrop,
