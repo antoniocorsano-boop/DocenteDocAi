@@ -62,9 +62,9 @@
 
 | #   | Task                                                                    | Priorità  | Stato |
 | --- | ----------------------------------------------------------------------- | --------- | ----- |
-| 20  | Full offline-first: IndexedDB / localStorage per UDA, Lessons, Students | 🔴 High   | [ ]   |
+| 20  | Full offline-first: IndexedDB / localStorage per UDA, Lessons, Students | 🔴 High   | [x]   |
 | 21  | Pre-fetch dati successivi per mobile smooth experience                  | 🟡 Medium | [ ]   |
-| 22  | Ottimizza bundle + lazy load: Chart, AI Panel caricati solo on demand   | 🟡 Medium | [ ]   |
+| 22  | Ottimizza bundle + lazy load: Chart, AI Panel caricati solo on demand   | 🟡 Medium | [x]   |
 
 ---
 
@@ -72,7 +72,7 @@
 
 | #   | Task                                                                            | Priorità  | Stato |
 | --- | ------------------------------------------------------------------------------- | --------- | ----- |
-| 23  | Full test suite coverage (Vitest): mobile, desktop, edge cases                  | 🔴 High   | [ ]   |
+| 23  | Full test suite coverage (Vitest): mobile, desktop, edge cases                  | 🔴 High   | [x]   |
 | 24  | Lint & Prettier: 0 warning/0 error, `useCallback`/`useMemo` deps corrette       | 🔴 High   | [x]   |
 | 25  | MD3 compliance audit finale: colori, spacing, aria-labels su tutti i componenti | 🟡 Medium | [ ]   |
 
@@ -82,7 +82,7 @@
 
 | #   | Task                                                                | Priorità  | Stato |
 | --- | ------------------------------------------------------------------- | --------- | ----- |
-| 26  | CI/CD pipeline: build mobile web, PWA, future native wrapper        | 🔴 High   | [ ]   |
+| 26  | CI/CD pipeline: build mobile web, PWA, future native wrapper        | 🔴 High   | [x]   |
 | 27  | Telemetria e logging AI + UX per miglioramenti continui             | 🟡 Medium | [ ]   |
 | 28  | Documentazione: props, stores, hooks, context per team dev e utenti | 🟡 Medium | [ ]   |
 
@@ -91,12 +91,12 @@
 ## Progresso globale
 
 ```
-Completati : 14 / 28  (50%)
+Completati : 18 / 28  (64%)
 In corso   :  0
-Aperti     : 14
+Aperti     : 10
 
-🔴 High    : 5 aperti
-🟡 Medium  : 7 aperti
+🔴 High    : 2 aperti  (#4 gesture tests, #25 MD3 audit)
+🟡 Medium  : 6 aperti
 🟢 Low     : 2 aperti
 ```
 
