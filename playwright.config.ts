@@ -92,6 +92,27 @@ export default defineConfig({
       retries: 1,
       workers: 2,
     },
+
+    // Mobile gesture tests — Roadmap #4
+    // Simulates Pixel 5 (393×851, touch enabled)
+    {
+      name: 'mobile-gestures',
+      use: {
+        ...devices['Pixel 5'],
+        hasTouch: true,
+        isMobile: true,
+        launchOptions: {
+          args: [
+            '--disable-web-security',
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+          ]
+        }
+      },
+      testMatch: ['**/gesture-mobile.spec.ts'],
+      retries: 2,
+      workers: 1,
+    },
   ],
 
   outputDir: 'test-results',
