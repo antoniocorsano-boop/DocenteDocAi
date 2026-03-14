@@ -4,6 +4,8 @@
 
 import React from 'react';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { View } from '../types';
 import { useUIStore } from '../stores/useUIStore';
 
 // Legge un token CSS numerico (px) dal root — usato per il calcolo dei boundary durante il drag
@@ -34,8 +36,9 @@ function loadSavedPosition(): FabPosition | null {
   return null;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface AssistantFabProps {}
+interface AssistantFabProps {
+  onNavigate?: (view: View) => void;
+}
 
 const ACTIONS: Array<{ key: AssistantMode; label: string; icon: string; description: string }> = [
   { key: 'chat', label: 'Chat & Suggerimenti', icon: 'chat_bubble', description: 'Dialogo e azioni consigliate' },
@@ -44,13 +47,18 @@ const ACTIONS: Array<{ key: AssistantMode; label: string; icon: string; descript
   { key: 'backup', label: 'Backup & Drive', icon: 'cloud_sync', description: 'Backup e sincronizzazione' },
 ];
 
+const QUICK_ACTIONS: Array<{ view: View; label: string; icon: string }> = [
+  { view: 'lessons',     label: 'Aggiungi Lezione',  icon: 'menu_book' },
+  { view: 'evaluations', label: 'Valuta Studente',   icon: 'grade' },
+];
+
 // MD3 Gold: sostituisco valori hardcoded con token MD3
 const ACTION_ITEM_HEIGHT = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--md-sys-spacing-20')) || 80;
 const FAB_HEIGHT = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--md-sys-spacing-16')) || 64;
 
 type AssistantMode = 'chat' | 'docs' | 'tools' | 'backup';
 
-const AssistantFab: React.FC<AssistantFabProps> = () => {
+const AssistantFab: React.FC<AssistantFabProps> = ({ onNavigate }) => {
   const isAssistantOpen = useUIStore(s => s.modals.isLiveAssistantModalOpen);
   const [menuOpen, setMenuOpen] = React.useState(false);
   // mode tracks current assistant tab — read by AssistantModal via toggleModal context
@@ -175,20 +183,39 @@ const handleAction = (action: typeof ACTIONS[number]) => {
               <>
                 <div className="assistant-fab-sheet-scrim" role="presentation" onClick={() => setMenuOpen(false)} />
                 <div className="assistant-fab-sheet" role="dialog" aria-modal="true" aria-label="Azioni assistente">
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                      <p>Assistente AI</p>
-                      <p>Azioni rapide</p>
+                  <div className="assistant-fab-sheet-header">
+                    <div>
+                      <Typography variant="subtitle1" component="p" sx={{ color: 'var(--md-sys-color-on-surface)', lineHeight: 1.2 }}>Assistente AI</Typography>
+                      <Typography variant="caption" component="p" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>Azioni rapide</Typography>
                     </div>
                     <button
                       className="assistant-fab-sheet-close"
                       aria-label="Chiudi menu assistente"
                       onClick={() => setMenuOpen(false)}
                     >
-                                  <Box component="span" className="material-symbols-outlined" aria-hidden="true">close</Box>
+                      <Box component="span" className="material-symbols-outlined" aria-hidden="true">close</Box>
                     </button>
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
+                  {onNavigate && (
+                    <>
+                      <Typography variant="overline" component="p" sx={{ color: 'var(--md-sys-color-primary)', letterSpacing: '0.08em', mt: 'var(--md-sys-spacing-2)' }}>Azioni Rapide</Typography>
+                      <div className="assistant-fab-sheet-actions">
+                        {QUICK_ACTIONS.map(action => (
+                          <button
+                            key={action.view}
+                            className="assistant-fab-sheet-action"
+                            onClick={() => { onNavigate(action.view); setMenuOpen(false); }}
+                            aria-label={action.label}
+                          >
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)', fontSize: 22 }}>{action.icon}</Box>
+                            <Typography variant="body2" component="span" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>{action.label}</Typography>
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                  <Typography variant="overline" component="p" sx={{ color: 'var(--md-sys-color-on-surface-variant)', letterSpacing: '0.08em', mt: 'var(--md-sys-spacing-2)' }}>Assistente AI</Typography>
+                  <div className="assistant-fab-sheet-actions">
                     {ACTIONS.map((action) => (
                       <button
                         key={action.key}
@@ -196,10 +223,10 @@ const handleAction = (action: typeof ACTIONS[number]) => {
                         onClick={() => handleAction(action)}
                         aria-label={action.label}
                       >
-                                      <Box component="span" className="material-symbols-outlined" aria-hidden="true">{action.icon}</Box>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-                          <p>{action.label}</p>
-                          <p>{action.description}</p>
+                        <Box component="span" className="material-symbols-outlined" aria-hidden="true">{action.icon}</Box>
+                        <div>
+                          <Typography variant="body2" component="p" sx={{ color: 'var(--md-sys-color-on-surface)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>{action.label}</Typography>
+                          <Typography variant="caption" component="p" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{action.description}</Typography>
                         </div>
                       </button>
                     ))}
@@ -362,8 +389,8 @@ const handleAction = (action: typeof ACTIONS[number]) => {
           gap: var(--md-sys-spacing-4);
         }
         .assistant-fab-sheet-close {
-          width: var(--md-sys-spacing-10);
-          height: var(--md-sys-spacing-10);
+          width: var(--md-sys-layout-min-touch-target);
+          height: var(--md-sys-layout-min-touch-target);
           border-radius: var(--md-sys-shape-corner-full);
           border: none;
           background: var(--md-sys-color-surface-variant);

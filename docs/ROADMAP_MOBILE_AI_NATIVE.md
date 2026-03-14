@@ -8,9 +8,9 @@
 
 | #   | Task                                                                                               | Priorità  | Stato |
 | --- | -------------------------------------------------------------------------------------------------- | --------- | ----- |
-| 1   | Audit UI/UX attuale per mobile (< 600px): gap vs UX nativa Google (Drive, Calendar, Gmail)         | 🔴 High   | [ ]   |
-| 2   | Refactor layout: MD3 Surface, ButtonBase, BottomNavigationRail, Drawer per full mobile interaction | 🔴 High   | [ ]   |
-| 3   | Accessibilità completa: aria-labels, focus navigation, touch target ≥ 48px                         | 🔴 High   | [ ]   |
+| 1   | Audit UI/UX attuale per mobile (< 600px): gap vs UX nativa Google (Drive, Calendar, Gmail)         | 🔴 High   | [x]   |
+| 2   | Refactor layout: MD3 Surface, ButtonBase, BottomNavigationRail, Drawer per full mobile interaction | 🔴 High   | [x]   |
+| 3   | Accessibilità completa: aria-labels, focus navigation, touch target ≥ 48px                         | 🔴 High   | [x]   |
 | 4   | Test navigazione gesture (swipe, scroll, tap, long press) su Android/iOS simulati                  | 🟡 Medium | [ ]   |
 
 ---
@@ -32,7 +32,7 @@
 | --- | ---------------------------------------------------------------------------------- | --------- | ----- |
 | 9   | Dashboard classe: tab Matrici / Radar / Trend / Interventi AI + Recharts           | 🔴 High   | [x]   |
 | 10  | `trackAnalyticsEvent` su tutte le interazioni chiave (dashboard, tab, salvataggio) | 🟡 Medium | [x]   |
-| 11  | Memoization corretta `classStudentIds` e `lessonsArr` per prevenire re-render      | 🟡 Medium | [ ]   |
+| 11  | Memoization corretta `classStudentIds` e `lessonsArr` per prevenire re-render      | 🟡 Medium | [x]   |
 
 ---
 
@@ -91,11 +91,11 @@
 ## Progresso globale
 
 ```
-Completati : 10 / 28  (36%)
+Completati : 13 / 28  (46%)
 In corso   :  0
-Aperti     : 18
+Aperti     : 15
 
-🔴 High    : 8 aperti
+🔴 High    : 5 aperti
 🟡 Medium  : 8 aperti
 🟢 Low     : 2 aperti
 ```

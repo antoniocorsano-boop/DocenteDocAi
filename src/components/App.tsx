@@ -170,7 +170,7 @@ const App: React.FC = () => {
                     <NKABottomSheet open={true} nodes={nkaStore.nodes} onClose={() => modals.setIsNkaMapOpen?.(false)} onNodeSelect={() => {}} />
                     </React.Suspense>
                 )}
-                <AssistantFab />
+                <AssistantFab onNavigate={actions.handleNavigate} />
                 {modals.isLiveAssistantModalOpen && (
                     <React.Suspense fallback={<ViewLoadingPlaceholder message="Caricamento assistente..." />}>
                     <AssistantModal
