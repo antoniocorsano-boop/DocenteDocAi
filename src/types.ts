@@ -599,6 +599,7 @@ handleNavigate: (view: View, context?: unknown) => void;
     handleCreateUda: (data: UdaCreateInput) => void;
     handleAddNote: (data: { note: string, studentName?: string }) => void;
     onMarkAttendance: (data: { studentName: string; status: "presente" | "assente" | "ritardo"; }) => void;
+    trackAnalyticsEvent?: (eventType: string, featureName: string, metadata?: Record<string, string | number | boolean>) => void;
     handleOpenBackupInfo: () => void;
     handleExportData: () => Promise<void>;
     handleImportData: (file: File) => void;

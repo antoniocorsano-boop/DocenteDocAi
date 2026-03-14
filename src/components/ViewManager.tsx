@@ -179,8 +179,12 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                     onUpdateDraftEntry={(key: string, updates: Partial<RegisterEntry>) => setDraftRegister(prev => ({ ...prev, [key]: { ...prev[key], ...updates } }))}
                                     onFinalizeRegister={(key: string) => { 
                                         const entry = draftRegister[key]; 
-                                        setFinalizedRegister(prev => [...prev, { ...entry, status: 'finalized' }]); 
-                                        setDraftRegister(prev => { const newDrafts = { ...prev }; delete newDrafts[key]; return newDrafts; }); 
+                                        setFinalizedRegister(prev => [...prev, { ...entry, status: 'finalized' }]);
+                                        setDraftRegister(prev => { const newDrafts = { ...prev }; delete newDrafts[key]; return newDrafts; });
+                                        // Track classroom session closure for analytics
+                                        const presentCount = Object.values(entry?.studentAttendance ?? {}).filter(s => s === 'presente').length;
+                                        const absentCount = Object.values(entry?.studentAttendance ?? {}).filter(s => s === 'assente').length;
+                                        actions.trackAnalyticsEvent?.('feature_usage', 'register_finalized', { presentCount, absentCount });
                                         handleBack(true); 
                                     }}
                                     onReopenRegister={(key: string) => setDraftRegister(prev => ({ ...prev, [key]: { ...prev[key], status: 'draft' } }))}

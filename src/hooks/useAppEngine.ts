@@ -571,8 +571,12 @@ export const useAppEngine = () => {
 
     const handleAddEvaluation = useCallback((data: EvaluationInput) => {
         const newEval = { ...data, id: `eval-${Date.now()}` };
-        setEvaluations(prev => [...prev, newEval]); // Use destructured action
-    }, [setEvaluations]);
+        setEvaluations(prev => [...prev, newEval]);
+        trackAnalyticsEvent('feature_usage', 'evaluation_saved', {
+            tipo: data.tipo,
+            materia: data.materia,
+        });
+    }, [setEvaluations, trackAnalyticsEvent]);
 
     const handleCreateUda = useCallback((data: UdaCreateInput) => {
         const newUda: Uda = {
@@ -951,6 +955,7 @@ export const useAppEngine = () => {
         handleEnterStudentMode, handleStartClassroom, handleEditSlot, handleShowSlotActions,
         handleAiSuggest, onScheduleLesson, handleAddEvaluation,
         handleCreateUda, onMarkAttendance,
+        trackAnalyticsEvent,
         handleOpenBackupInfo, handleExportData, handleImportData,
         handleAiSuggestionFromHome,
         handleOpenOperations,
@@ -977,7 +982,7 @@ export const useAppEngine = () => {
         handleCleanDemoData, handleConfigureDrive, handleConnectDrive, handleDisconnectDrive, handleSyncToDrive,
         handleRestoreFromDrive, pickGoogleDriveFolder, createAppFolder, handleInstallApp, handleEnterStudentMode,
         handleStartClassroom, handleEditSlot, handleShowSlotActions, handleAiSuggest, onScheduleLesson,
-        handleAddEvaluation, handleCreateUda, onMarkAttendance, handleOpenBackupInfo,
+        handleAddEvaluation, handleCreateUda, onMarkAttendance, trackAnalyticsEvent, handleOpenBackupInfo,
         handleExportData, handleImportData, handleAiSuggestionFromHome, handleOpenOperations, onAddLessonsWrapper, 
         onSaveUda, onSaveReport, onSaveEvent, handleGradeSubmission, handlePromoteStudents,
         handleResetYearData, uiActions.setLessonViewContext
