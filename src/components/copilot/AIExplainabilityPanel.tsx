@@ -157,7 +157,7 @@ const SourceDataView: React.FC<SourceDataProps> = ({ sourceData }) => {
       <Stack spacing={0.5}>
         {rows.map(({ label, value }) => (
           <Stack key={label} direction="row" justifyContent="space-between" alignItems="center">
-            <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.75rem' }}>
+            <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
               {label}
             </Typography>
             <Typography
@@ -275,7 +275,6 @@ const SuggestionRow: React.FC<SuggestionRowProps> = ({ suggestion, defaultExpand
                 </Box>
               }
               sx={{
-                fontSize: '0.66rem',
                 bgcolor: 'transparent',
                 borderColor: TREND_COLOR[trendDir] ?? 'var(--md-sys-color-outline)',
                 color: TREND_COLOR[trendDir] ?? 'var(--md-sys-color-on-surface-variant)',
@@ -347,7 +346,7 @@ const SuggestionRow: React.FC<SuggestionRowProps> = ({ suggestion, defaultExpand
                           >
                             arrow_right
                           </Box>
-                          <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.82rem' }}>
+                          <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                             {point}
                           </Typography>
                         </Stack>
@@ -361,7 +360,7 @@ const SuggestionRow: React.FC<SuggestionRowProps> = ({ suggestion, defaultExpand
                 )}
               </>
             ) : (
-              <Alert severity="info" sx={{ fontSize: '0.78rem' }}>
+              <Alert severity="info">
                 Nessuna spiegazione dettagliata disponibile per questo suggerimento.
               </Alert>
             )}

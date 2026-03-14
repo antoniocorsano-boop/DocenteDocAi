@@ -29,7 +29,7 @@ export default function ExplainableInsightChip({
   explanation,
   suggestionId,
   label = 'Perché?',
-}: ExplainableInsightChipProps) {
+}: ExplainableInsightChipProps): JSX.Element | null {
   const [anchor, setAnchor] = useState<HTMLElement | null>(null);
 
   if (!explanation) return null;
@@ -58,7 +58,6 @@ export default function ExplainableInsightChip({
           </Box>
         }
         sx={{
-          fontSize: '0.7rem',
           cursor: 'pointer',
           borderColor: 'var(--md-sys-color-tertiary)',
           color: 'var(--md-sys-color-tertiary)',
@@ -142,7 +141,7 @@ export default function ExplainableInsightChip({
                     size="small"
                     label={`Media: ${explanation.sourceData.average.toFixed(1)}`}
                     variant="filled"
-                    sx={{ bgcolor: 'var(--md-sys-color-surface-container)', fontSize: '0.7rem' }}
+                    sx={{ bgcolor: 'var(--md-sys-color-surface-container)' }}
                   />
                 )}
                 {explanation.sourceData.sampleCount !== undefined && (
@@ -150,7 +149,7 @@ export default function ExplainableInsightChip({
                     size="small"
                     label={`${explanation.sourceData.sampleCount} valutazioni`}
                     variant="filled"
-                    sx={{ bgcolor: 'var(--md-sys-color-surface-container)', fontSize: '0.7rem' }}
+                    sx={{ bgcolor: 'var(--md-sys-color-surface-container)' }}
                   />
                 )}
                 {explanation.sourceData.trend && (
@@ -171,7 +170,6 @@ export default function ExplainableInsightChip({
                           ? 'success'
                           : 'default'
                     }
-                    sx={{ fontSize: '0.7rem' }}
                   />
                 )}
               </Box>

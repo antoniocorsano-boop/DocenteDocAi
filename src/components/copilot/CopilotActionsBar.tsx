@@ -255,7 +255,7 @@ function RiskStudentRow({ suggestion, student, evaluations, onActionApplied }: R
                 {ACTION_ICON[action.actionType]}
               </Box>
             }
-            sx={{ fontSize: '0.75rem', textTransform: 'none' }}
+            sx={{ textTransform: 'none' }}
           >
             {action.label}
           </Button>
@@ -302,7 +302,7 @@ export default function CopilotActionsBar({
   evaluations,
   onActionApplied,
   maxVisible = 5,
-}: CopilotActionsBarProps) {
+}: CopilotActionsBarProps): JSX.Element {
   const [appliedCount, setAppliedCount] = useState(0);
 
   const studentMap = useMemo(
@@ -321,6 +321,11 @@ export default function CopilotActionsBar({
     [riskSuggestions, studentMap, maxVisible],
   );
 
+  const handleActionApplied = useCallback((action: CopilotAction) => {
+    setAppliedCount((n) => n + 1);
+    onActionApplied?.(action);
+  }, [onActionApplied]);
+
   if (riskyStudents.length === 0) {
     return (
       <Alert
@@ -335,11 +340,6 @@ export default function CopilotActionsBar({
       </Alert>
     );
   }
-
-  const handleActionApplied = useCallback((action: CopilotAction) => {
-    setAppliedCount((n) => n + 1);
-    onActionApplied?.(action);
-  }, [onActionApplied]);
 
   return (
     <Stack spacing={1.5}>

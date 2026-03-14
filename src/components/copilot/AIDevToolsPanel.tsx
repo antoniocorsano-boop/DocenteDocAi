@@ -106,7 +106,7 @@ const CacheSection: React.FC<CacheSectionProps> = ({ stats, onClear }) => (
         variant="text"
         onClick={onClear}
         aria-label="Svuota cache AI"
-        sx={{ color: 'var(--md-sys-color-error)', fontSize: '0.72rem' }}
+        sx={{ color: 'var(--md-sys-color-error)' }}
         startIcon={
           <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: '16px !important' }}>
             delete_sweep
@@ -265,7 +265,7 @@ const TelemetrySection: React.FC<TelemetrySectionProps> = ({ events, onClear }) 
         <Typography variant="titleSmall" sx={{ color: 'var(--md-sys-color-on-surface)', mb: 'var(--md-sys-spacing-3)' }}>
           Telemetria
         </Typography>
-        <Alert severity="info" sx={{ fontSize: '0.78rem' }}>
+        <Alert severity="info">
           Nessun evento registrato ancora — interagisci con i suggerimenti AI.
         </Alert>
       </Box>
@@ -283,7 +283,7 @@ const TelemetrySection: React.FC<TelemetrySectionProps> = ({ events, onClear }) 
           variant="text"
           onClick={onClear}
           aria-label="Cancella log telemetria"
-          sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.72rem' }}
+          sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
         >
           Cancella log
         </Button>
@@ -292,9 +292,9 @@ const TelemetrySection: React.FC<TelemetrySectionProps> = ({ events, onClear }) 
         <Table size="small" aria-label="Telemetria AI">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontSize: '0.7rem', color: 'var(--md-sys-color-on-surface-variant)', py: 0.5 }}>Evento</TableCell>
-              <TableCell sx={{ fontSize: '0.7rem', color: 'var(--md-sys-color-on-surface-variant)', py: 0.5 }}>ID / Dettaglio</TableCell>
-              <TableCell sx={{ fontSize: '0.7rem', color: 'var(--md-sys-color-on-surface-variant)', py: 0.5 }}>Ora</TableCell>
+              <TableCell sx={{ color: 'var(--md-sys-color-on-surface-variant)', py: 0.5 }}>Evento</TableCell>
+              <TableCell sx={{ color: 'var(--md-sys-color-on-surface-variant)', py: 0.5 }}>ID / Dettaglio</TableCell>
+              <TableCell sx={{ color: 'var(--md-sys-color-on-surface-variant)', py: 0.5 }}>Ora</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -319,7 +319,7 @@ const TelemetrySection: React.FC<TelemetrySectionProps> = ({ events, onClear }) 
                       >
                         {icon}
                       </Box>
-                      <Typography variant="labelSmall" sx={{ color, fontSize: '0.68rem', whiteSpace: 'nowrap' }}>
+                      <Typography variant="labelSmall" sx={{ color, whiteSpace: 'nowrap' }}>
                         {ev.event}
                       </Typography>
                     </Stack>
@@ -327,13 +327,13 @@ const TelemetrySection: React.FC<TelemetrySectionProps> = ({ events, onClear }) 
                   <TableCell sx={{ py: 0.5 }}>
                     <Typography
                       variant="bodySmall"
-                      sx={{ fontSize: '0.68rem', color: 'var(--md-sys-color-on-surface-variant)', maxWidth: 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                      sx={{ color: 'var(--md-sys-color-on-surface-variant)', maxWidth: 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                     >
                       {detail}
                     </Typography>
                   </TableCell>
                   <TableCell sx={{ py: 0.5 }}>
-                    <Typography variant="bodySmall" sx={{ fontSize: '0.68rem', color: 'var(--md-sys-color-on-surface-variant)', whiteSpace: 'nowrap' }}>
+                    <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)', whiteSpace: 'nowrap' }}>
                       {time}
                     </Typography>
                   </TableCell>
@@ -457,7 +457,7 @@ export default function AIDevToolsPanel(): JSX.Element {
         {runStats ? (
           <TimingSection stats={runStats} />
         ) : (
-          <Alert severity="info" sx={{ fontSize: '0.78rem' }}>
+          <Alert severity="info">
             Nessun run completato — i dati di timing compariranno dopo la prima analisi.
           </Alert>
         )}
@@ -480,7 +480,7 @@ export default function AIDevToolsPanel(): JSX.Element {
 
       {/* Footer info */}
       <Box sx={{ gridColumn: '1 / -1' }}>
-        <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: '0.7rem' }}>
+        <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
           I dati sono in-memory e si azzerano al refresh. Per il buffer completo usa <code>window.__aiTelemetry</code> in DevTools.
         </Typography>
       </Box>
