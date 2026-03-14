@@ -98,4 +98,13 @@ _Obiettivo: completare le feature Medium/Low priorità rimaste dalla Fase 7._
 
 ---
 
+## [2026-03-14] CopilotDocentePanel Fase 2 — COMPLETATO
+
+- Aggiunti tab Andamento (trend AI, AITrendPanel) ed Esportazione (ExportModal) nel CopilotDocentePanel
+- Wiring props, mock settings, MD3/TS clean
+- Commit: "feat(copilot): trend+export tab"
+- Pronto per QA e validazione docente
+
+---
+
 _Ultimo aggiornamento: v4.1 — 26/28 task completati (93%) — a cura di GitHub Copilot_

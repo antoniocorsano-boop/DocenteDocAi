@@ -1,6 +1,6 @@
 import type { Valutazione } from '@/types'
 import type { AIContext } from './contextBuilder'
-import type { AISuggestion } from './types'
+import type { AISuggestion, AIExplanation } from './types'
 
 const EXCELLENCE_THRESHOLD = 8.0
 const EXCELLENCE_MIN_SAMPLES = 3
@@ -54,12 +54,30 @@ export function analyzeExcellence(context: AIContext): AISuggestion[] {
     const consistencyNote = isConsistent ? ' consistently' : ''
     const message = `${fullName}${consistencyNote} exceeds expectations with an average of ${avg.toFixed(1)} — consider enrichment activities`
 
+    const bullets: string[] = [
+      `Media voti: ${avg.toFixed(1)}/10`,
+      `Voti ≥ 8: ${highCount} su ${scores.length} (${Math.round(highRatio * 100)}%)`,
+      `Valutazioni analizzate: ${scores.length}`,
+    ]
+    if (isConsistent) bullets.push(`Andamento costante (dev. std. ${stdDev.toFixed(2)})`)
+
+    const explanation: AIExplanation = {
+      reason: `${fullName} ha una media di ${avg.toFixed(1)}/10 con ${Math.round(highRatio * 100)}% di voti eccellenti.`,
+      bulletPoints: bullets,
+      sourceData: {
+        average: parseFloat(avg.toFixed(2)),
+        trend: 'improving',
+        sampleCount: scores.length,
+      },
+    }
+
     suggestions.push({
       id: `excellence-${student.id}`,
       type: 'student_excellence',
       studentId: student.id,
       message,
       confidence: parseFloat(confidence.toFixed(2)),
+      explanation,
     })
   }
 

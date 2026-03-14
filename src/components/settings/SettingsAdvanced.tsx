@@ -3,10 +3,14 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Divider from '@mui/material/Divider';
 import InputAdornment from '@mui/material/InputAdornment';
 import SettingsGroup from './SettingsGroupAccordion';
 import { TextField } from '../ui';
 import { TimetableSettings } from '../../types';
+import { useAIBeta } from '../../hooks/useAIBeta';
 
 interface SettingsAdvancedSectionProps {
     expanded: boolean;
@@ -18,7 +22,10 @@ interface SettingsAdvancedSectionProps {
 
 export const SettingsAdvancedSection: React.FC<SettingsAdvancedSectionProps> = ({
     expanded, onToggle, localSettings, handleChange, setIsResetModalOpen
-}) => (
+}) => {
+    const { isBeta, setBeta } = useAIBeta();
+
+    return (
     <SettingsGroup
         id="advanced"
         title="Avanzate"
@@ -29,6 +36,32 @@ export const SettingsAdvancedSection: React.FC<SettingsAdvancedSectionProps> = (
         onToggle={onToggle}
     >
         <Stack spacing={2}>
+            {/* AI Experimental Mode */}
+            <Box sx={{ p: 2, bgcolor: 'color-mix(in srgb, var(--md-sys-color-tertiary-container) 20%, transparent)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid var(--md-sys-color-tertiary)' }}>
+                <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-tertiary)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>science</Box>
+                    <Typography variant="overline" sx={{ color: 'var(--md-sys-color-tertiary)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>AI Experimental Mode</Typography>
+                </Stack>
+                <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mb: 1.5 }}>
+                    Abilita funzionalità AI in beta: Copilot Docente, predizione trend, azioni automatiche e dashboard aggregata.
+                </Typography>
+                <FormControlLabel
+                    control={
+                        <Switch
+                            checked={isBeta}
+                            onChange={(e) => setBeta(e.target.checked)}
+                            aria-label="Abilita AI Experimental Mode"
+                            color="secondary"
+                        />
+                    }
+                    label={isBeta ? 'Attivo — funzionalità AI beta abilitate' : 'Disattivo — solo funzionalità stabili'}
+                    sx={{ '& .MuiFormControlLabel-label': { fontSize: '0.85rem' } }}
+                />
+            </Box>
+
+            <Divider />
+
+            {/* Google Cloud API */}
             <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                 <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-primary)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>key</Box>
@@ -50,6 +83,8 @@ export const SettingsAdvancedSection: React.FC<SettingsAdvancedSectionProps> = (
                     />
                 </Stack>
             </Box>
+
+            {/* Danger zone */}
             <Box sx={{ p: 2, bgcolor: 'color-mix(in srgb, var(--md-sys-color-error-container) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-extra-large)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-error)' }}>
                 <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
                     <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-error)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>warning</Box>
@@ -67,6 +102,7 @@ export const SettingsAdvancedSection: React.FC<SettingsAdvancedSectionProps> = (
             </Box>
         </Stack>
     </SettingsGroup>
-);
+    );
+};
 
 export default SettingsAdvancedSection;

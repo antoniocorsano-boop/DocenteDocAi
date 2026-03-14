@@ -165,7 +165,7 @@ describe('generateForecasts — insufficient data (< 3 unique days)', () => {
   const student = makeStudent('ins1');
   const evals: Valutazione[] = [
     // Only 2 distinct days — regression not triggered
-    { id: 'e1', studenteId: 'ins1', materia: 'Chimica', data: '2026-02-10', tipo: 'Scraitto', voto: '6' },
+    { id: 'e1', studenteId: 'ins1', materia: 'Chimica', data: '2026-02-10', tipo: 'Scritto', voto: '6' },
     { id: 'e2', studenteId: 'ins1', materia: 'Chimica', data: '2026-02-20', tipo: 'Scritto', voto: '7' },
   ];
 

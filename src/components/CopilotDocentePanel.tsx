@@ -14,6 +14,7 @@ import PlanningAssistantPanel from './copilot/PlanningAssistantPanel';
 import CommunicationHelperPanel from './copilot/CommunicationHelperPanel';
 import TrendPredictionPanel from './copilot/TrendPredictionPanel';
 import AggregatedDashboard from './copilot/AggregatedDashboard';
+import CopilotActionsBar from './copilot/CopilotActionsBar';
 
 import type { AISuggestion } from '../ai/contextEngine/types';
 import type { ClassHealthIndex } from '../ai/classHealth/types';
@@ -59,6 +60,7 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
         <Tab label="Comunicazione" />
         <Tab label="Predizione" />
         <Tab label="Dashboard" />
+        <Tab label="Azioni" />
       </Tabs>
       <Box sx={{ minHeight: 80 }}>
         {tab === 0 && (
@@ -134,6 +136,13 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
             udas={udas}
             className={className}
             studentId={studentId}
+          />
+        )}
+        {tab === 8 && (
+          <CopilotActionsBar
+            riskSuggestions={suggestions}
+            students={students}
+            evaluations={evaluations}
           />
         )}
       </Box>

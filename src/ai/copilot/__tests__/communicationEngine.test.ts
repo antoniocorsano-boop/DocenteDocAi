@@ -36,9 +36,7 @@ function makeSuggestion(
     type,
     studentId,
     message: `Test: ${type} for ${studentId}`,
-    subject: 'Matematica',
     confidence: 0.9,
-    priority: 'high',
     ...overrides,
   };
 }
