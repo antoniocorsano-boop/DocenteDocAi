@@ -7,7 +7,7 @@
  * On click, opens a confirmation/preview dialog before the action is applied.
  * MD3 compliant — all containers via Box sx tokens, no raw div styling.
  */
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -28,6 +28,9 @@ import {
   type RecoveryPayload,
   type ParentMessagePayload,
 } from '../../ai/copilot/actions';
+import {
+  logAIActionTriggered,
+} from '../../ai/telemetry/aiTelemetry';
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 
@@ -238,7 +241,10 @@ function RiskStudentRow({ suggestion, student, evaluations, onActionApplied }: R
             size="small"
             variant="outlined"
             aria-label={`${action.label} per ${student.nome} ${student.cognome}`}
-            onClick={() => setDialogAction(action)}
+            onClick={() => {
+              logAIActionTriggered(action.actionType, student.id);
+              setDialogAction(action);
+            }}
             startIcon={
               <Box
                 component="span"
@@ -330,10 +336,10 @@ export default function CopilotActionsBar({
     );
   }
 
-  function handleActionApplied(action: CopilotAction) {
+  const handleActionApplied = useCallback((action: CopilotAction) => {
     setAppliedCount((n) => n + 1);
     onActionApplied?.(action);
-  }
+  }, [onActionApplied]);
 
   return (
     <Stack spacing={1.5}>

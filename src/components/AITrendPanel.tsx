@@ -5,7 +5,7 @@
  * as a compact bar chart + metadata row.  No external chart dependencies
  * — pure MUI + CSS custom-properties.
  */
-import React from 'react';
+import React, { useMemo } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -149,22 +149,30 @@ const Legend: React.FC = () => (
 // ============================================================================
 
 const AITrendPanel: React.FC<AITrendPanelProps> = ({ snapshots, className, onClearHistory }) => {
-  const visible = snapshots.slice(-MAX_BARS);
+  const visible = useMemo(() => snapshots.slice(-MAX_BARS), [snapshots]);
 
-  if (visible.length < 2) {
+  const trendMetrics = useMemo(() => {
+    if (visible.length < 2) return null;
+    const latest = visible[visible.length - 1];
+    const prev = visible[visible.length - 2];
+    const delta = latest.score - prev.score;
+    return {
+      delta,
+      deltaStr: delta > 0 ? `+${delta}` : `${delta}`,
+      deltaColor:
+        delta > 0
+          ? 'var(--md-sys-color-tertiary)'
+          : delta < 0
+          ? 'var(--md-sys-color-error)'
+          : 'var(--md-sys-color-on-surface-variant)',
+    };
+  }, [visible]);
+
+  if (!trendMetrics) {
     return null; // Hide until there are at least 2 data points
   }
 
-  const latest = visible[visible.length - 1];
-  const prev = visible[visible.length - 2];
-  const delta = latest.score - prev.score;
-  const deltaStr = delta > 0 ? `+${delta}` : `${delta}`;
-  const deltaColor =
-    delta > 0
-      ? 'var(--md-sys-color-tertiary)'
-      : delta < 0
-      ? 'var(--md-sys-color-error)'
-      : 'var(--md-sys-color-on-surface-variant)';
+  const { deltaStr, deltaColor } = trendMetrics;
 
   return (
     <InfoCard variant="outlined">

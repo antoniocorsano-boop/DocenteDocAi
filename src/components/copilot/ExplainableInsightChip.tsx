@@ -15,20 +15,29 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import type { AIExplanation } from '../../ai/contextEngine/types';
+import { logAIExplanationOpened } from '../../ai/telemetry/aiTelemetry';
 
 interface ExplainableInsightChipProps {
   explanation: AIExplanation | undefined;
+  /** Suggestion ID for telemetry (optional — falls back to explanation reason hash) */
+  suggestionId?: string;
   /** Optional label override (default: "Perché?") */
   label?: string;
 }
 
 export default function ExplainableInsightChip({
   explanation,
+  suggestionId,
   label = 'Perché?',
 }: ExplainableInsightChipProps) {
   const [anchor, setAnchor] = useState<HTMLElement | null>(null);
 
   if (!explanation) return null;
+
+  function handleOpen(e: React.MouseEvent<HTMLElement>): void {
+    logAIExplanationOpened(suggestionId ?? explanation!.reason.slice(0, 40));
+    setAnchor(e.currentTarget);
+  }
 
   return (
     <>
@@ -37,7 +46,7 @@ export default function ExplainableInsightChip({
         variant="outlined"
         label={label}
         aria-label="Mostra la spiegazione AI"
-        onClick={(e) => setAnchor(e.currentTarget)}
+        onClick={handleOpen}
         icon={
           <Box
             component="span"

@@ -14,6 +14,7 @@ import { computeClassHealthIndex } from '../classHealth/classHealthIndex';
 import { analyzeRisk } from '../contextEngine/riskAnalyzer';
 import { analyzeExcellence } from '../contextEngine/excellenceAnalyzer';
 import { generateForecasts } from '../copilot/trendEngine';
+import { buildContextHash, getCachedAnalysis, setCachedAnalysis } from '../cache/aiCache';
 import type { ClassHealthIndex } from '../classHealth/types';
 import type { AISuggestion } from '../contextEngine/types';
 import type { StudentForecast } from '../copilot/trendEngine';
@@ -49,6 +50,9 @@ function parseVoto(v: string): number {
 /**
  * Runs a full AI analysis pass over the provided context.
  *
+ * Results are cached by context hash — identical student + evaluation sets
+ * return the memoized result instantly without re-running the pipeline.
+ *
  * @param context - AIContext built via buildAIContext()
  * @returns AIAnalysisResult — all AI-derived data for the current dataset
  *
@@ -56,6 +60,10 @@ function parseVoto(v: string): number {
  * const result = useMemo(() => runAIAnalysis(ctx), [ctx]);
  */
 export function runAIAnalysis(context: AIContext): AIAnalysisResult {
+  const hash = buildContextHash(context);
+  const cached = getCachedAnalysis(hash);
+  if (cached !== null) return cached;
+
   const classHealth = computeClassHealthIndex(context);
   const risks = analyzeRisk(context);
   const excellence = analyzeExcellence(context);
@@ -73,7 +81,7 @@ export function runAIAnalysis(context: AIContext): AIAnalysisResult {
         )
       : 0;
 
-  return {
+  const result: AIAnalysisResult = {
     classHealth,
     risks,
     excellence,
@@ -83,4 +91,6 @@ export function runAIAnalysis(context: AIContext): AIAnalysisResult {
     atRiskCount: risks.length,
     excellenceCount: excellence.length,
   };
+  setCachedAnalysis(hash, result);
+  return result;
 }
