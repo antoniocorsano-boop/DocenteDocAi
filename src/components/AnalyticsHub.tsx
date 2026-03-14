@@ -126,9 +126,14 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                 onClearHistory={aiPipeline.clearSnapshots}
             />
 
-            {/* Row 4: Chart mode selector and CopilotDocentePanel */}
-            <CopilotDocentePanel />
-            <CopilotDocentePanel />
+            {/* Row 4: CopilotDocentePanel (Fase 1 MVP) */}
+            <CopilotDocentePanel
+                suggestions={aiPipeline.studentSuggestions}
+                classHealth={aiPipeline.classHealth}
+                snapshots={aiPipeline.snapshots}
+                className={selectedClass}
+                studentId={selectedStudentId}
+            />
         </Box>
     );
 };
