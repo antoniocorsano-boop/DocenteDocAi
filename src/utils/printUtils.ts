@@ -425,3 +425,131 @@ export const buildUdaHtmlBlob = (
     settings: TimetableSettings,
     docType: 'docente' | 'studente'
 ): Blob => new Blob([buildUdaHtml(uda, allCompetenze, settings, docType)], { type: 'text/html' });
+
+// ─── AI Dashboard Report ─────────────────────────────────────────────────────
+
+import type { AIPipelineResult } from '../ai/pipeline/aiPipeline';
+
+function healthGradeColor(grade: string): string {
+    switch (grade) {
+        case 'ottimo':     return '#c8e6c9';
+        case 'buono':      return '#fff9c4';
+        case 'sufficiente': return '#ffe0b2';
+        case 'critico':    return '#ffcdd2';
+        default:           return '#ede7f6';
+    }
+}
+
+function progressBar(score: number): string {
+    const color =
+        score >= 80 ? '#4caf50'
+        : score >= 65 ? '#ff9800'
+        : score >= 50 ? '#2196f3'
+        : '#f44336';
+    return `<div style="background:#e0e0e0;border-radius:4px;height:8px;width:100%;margin:2px 0 4px">
+        <div style="background:${color};width:${score}%;height:8px;border-radius:4px"></div>
+    </div>`;
+}
+
+function buildAIReportHtml(
+    className: string,
+    pipeline: AIPipelineResult,
+    studentNames: Map<string, string>,
+): string {
+    const { classHealth, riskSuggestions, excellenceSuggestions, riskPredictions, lessonAssistant } = pipeline;
+
+    // ── Class Health section ──
+    const healthRows = [
+        classHealth.dimensions.gradeAverage,
+        classHealth.dimensions.riskRatio,
+        classHealth.dimensions.assessmentCoverage,
+    ].map(d => `
+        <tr>
+            <td>${d.label}</td>
+            <td>${d.detail}</td>
+            <td style="width:120px">
+                ${progressBar(d.score)}
+                <span style="font-size:9pt;font-weight:700">${d.score}/100</span>
+            </td>
+        </tr>`).join('');
+
+    // ── Risk suggestions section ──
+    const riskRows = riskSuggestions.length === 0
+        ? '<p style="color:#49454f">Nessun studente a rischio rilevato.</p>'
+        : `<ul>${riskSuggestions.map(s => `<li>${s.message} <em style="color:#79747e">(confidenza: ${Math.round(s.confidence * 100)}%)</em></li>`).join('')}</ul>`;
+
+    // ── Excellence section ──
+    const excellenceRows = excellenceSuggestions.length === 0
+        ? '<p style="color:#49454f">Nessuna eccellenza rilevata.</p>'
+        : `<ul>${excellenceSuggestions.map(s => `<li>${s.message} <em style="color:#79747e">(confidenza: ${Math.round(s.confidence * 100)}%)</em></li>`).join('')}</ul>`;
+
+    // ── Risk predictions table ──
+    const sortedPredictions = [...riskPredictions]
+        .filter(p => p.riskProbability > 0)
+        .sort((a, b) => b.riskProbability - a.riskProbability);
+    const predRows = sortedPredictions.length === 0
+        ? '<p style="color:#49454f">Nessun dato di previsione disponibile.</p>'
+        : `<table><thead><tr><th>Studente</th><th>Probabilità rischio</th><th>Fattori</th></tr></thead><tbody>
+            ${sortedPredictions.map(p => {
+                const pct = Math.round(p.riskProbability * 100);
+                const name = studentNames.get(p.studentId) ?? p.studentId;
+                const color = pct >= 70 ? '#ffcdd2' : pct >= 40 ? '#fff9c4' : '#c8e6c9';
+                return `<tr><td>${name}</td><td style="background:${color};font-weight:700;text-align:center">${pct}%</td><td>${p.factors.join(', ') || '—'}</td></tr>`;
+            }).join('')}
+        </tbody></table>`;
+
+    // ── Lesson suggestions section ──
+    const lessonRows = lessonAssistant.suggestions.length === 0
+        ? '<p style="color:#49454f">Nessuna attività suggerita.</p>'
+        : `<table><thead><tr><th>Materia</th><th>Tipo</th><th>Descrizione</th></tr></thead><tbody>
+            ${lessonAssistant.suggestions.map(s => `<tr><td>${s.subject}</td><td>${s.type}</td><td>${s.description}</td></tr>`).join('')}
+        </tbody></table>`;
+
+    const gradeLabel = {
+        ottimo: 'OTTIMO', buono: 'BUONO', sufficiente: 'SUFFICIENTE', critico: 'CRITICO',
+    }[classHealth.grade] ?? classHealth.grade.toUpperCase();
+
+    const body = `
+        <div class="header">
+            <h1>Report AI — Classe ${className}</h1>
+            <div class="meta">Generato il ${todayStr()} &nbsp;|&nbsp; Motore: DocenteDoc AI (locale)</div>
+        </div>
+
+        <h2>Stato della Classe</h2>
+        <div class="highlight-box" style="background:${healthGradeColor(classHealth.grade)}">
+            <div class="box-title" style="font-size:22pt">${classHealth.score}/100</div>
+            <div style="font-size:14pt;font-weight:700;margin-bottom:4px">${gradeLabel}</div>
+            <div style="font-size:10pt;color:#49454f">${classHealth.summary}</div>
+        </div>
+        <table>
+            <thead><tr><th>Dimensione</th><th>Dettaglio</th><th>Punteggio</th></tr></thead>
+            <tbody>${healthRows}</tbody>
+        </table>
+
+        <h2>Studenti a Rischio</h2>
+        ${riskRows}
+
+        <h2>Eccellenze</h2>
+        ${excellenceRows}
+
+        <h2>Previsione Rischio per Studente</h2>
+        ${predRows}
+
+        <h2>Attività Didattiche Consigliate</h2>
+        <p class="meta">Lacune rilevate: ${lessonAssistant.gapsFound} &nbsp;|&nbsp; ${lessonAssistant.summary}</p>
+        ${lessonRows}
+
+        <div class="footer">
+            Report generato automaticamente da DocenteDoc AI · Uso riservato al docente · Non sostituisce la valutazione professionale.
+        </div>`;
+
+    return wrapDocument(`Report AI Classe ${className}`, body);
+}
+
+export function printAIReport(
+    className: string,
+    pipeline: AIPipelineResult,
+    studentNames: Map<string, string>,
+): void {
+    openPrintWindow(buildAIReportHtml(className, pipeline, studentNames));
+}

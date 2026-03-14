@@ -12,6 +12,7 @@ import ClassHealthWidget from './ClassHealthWidget';
 import LessonAssistantPanel from './LessonAssistantPanel';
 import RiskPredictionPanel from './RiskPredictionPanel';
 import TeacherCopilotPanel from './TeacherCopilotPanel';
+import { printAIReport } from '../utils/printUtils';
 const LineChart = lazy(() => import('./charts/AdvancedCharts').then(m => ({ default: m.LineChart })));
 const RadarChart = lazy(() => import('./charts/AdvancedCharts').then(m => ({ default: m.RadarChart })));
 const BarChart = lazy(() => import('./charts/BarChart'));
@@ -130,11 +131,24 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                 gap: 'var(--md-sys-spacing-6)'
             }}
         >
-            <SectionHeader 
-                title="Analytics Hub"
-                subtitle="Analisi dati classe e studente."
-                
-            />
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 'var(--md-sys-spacing-4)', flexWrap: 'wrap' }}>
+                <SectionHeader 
+                    title="Analytics Hub"
+                    subtitle="Analisi dati classe e studente."
+                />
+                <Button
+                    variant="outlined"
+                    onClick={() => {
+                        const names = new Map(filteredStudents.map(s => [s.id, `${s.cognome} ${s.nome}`]));
+                        printAIReport(selectedClass, aiPipeline, names);
+                    }}
+                    sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', flexShrink: 0 }}
+                    aria-label="Esporta report AI"
+                >
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true">picture_as_pdf</Box>
+                    Esporta Report AI
+                </Button>
+            </Box>
 
             {/* Responsive Card: Filters */}
             <InfoCard variant="outlined" >
