@@ -61,9 +61,8 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
     // Central AI pipeline
     const aiPipeline = useAIPipeline(selectedClass, filteredStudents, filteredEvals);
 
-    // UDA, competenze, settings globali
+    // UDA, settings globali
     const udas = useAcademicStore((s) => s.uda);
-    const competenze = settings.competenze || [];
 
 
 
@@ -142,7 +141,6 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                 students={filteredStudents}
                 evaluations={filteredEvals}
                 udas={udas}
-                competenze={competenze}
                 settings={settings}
             />
         </Box>

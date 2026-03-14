@@ -13,6 +13,7 @@ import ExportModal from './ExportModal';
 import AISuggestionsPanel from './AISuggestionsPanel';
 import TeacherCopilotPanel from './TeacherCopilotPanel';
 import PlanningAssistantPanel from './copilot/PlanningAssistantPanel';
+import CommunicationHelperPanel from './copilot/CommunicationHelperPanel';
 
 import type { AISuggestion } from '../ai/contextEngine/types';
 import type { ClassHealthIndex } from '../ai/classHealth/types';
@@ -55,6 +56,7 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
         <Tab label="Andamento" />
         <Tab label="Esportazione" />
         <Tab label="Planning" />
+        <Tab label="Comunicazione" />
         <Tab label="Aggregated Insights" />
       </Tabs>
       <Box sx={{ minHeight: 80 }}>
@@ -105,6 +107,15 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
           />
         )}
         {tab === 5 && (
+          <CommunicationHelperPanel
+            suggestions={suggestions}
+            students={students}
+            evaluations={evaluations}
+            className={className}
+            studentId={studentId}
+          />
+        )}
+        {tab === 6 && (
           <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4, py: 2 }}>
             <Box sx={{ flex: 1, minWidth: 0 }}>
               <AISuggestionsPanel suggestions={suggestions} />
