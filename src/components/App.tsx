@@ -10,7 +10,9 @@ import '../design-system/breakpoints.css';
 import '../design-system/accessibility-focus.css';
 import AssistantFab from './AssistantFab';
 import SkipLink from './SkipLink';
+import SuggestionBanner from './SuggestionBanner';
 import { useAppEngine } from '../hooks/useAppEngine';
+import { usePrefetch } from '../hooks/usePrefetch';
 import ViewManager from './ViewManager';
 import { ModalManager } from './ModalManager';
 import Snackbar from './Snackbar';
@@ -53,6 +55,9 @@ const App: React.FC = () => {
     const user = appState.user;
     const notifiche = appState.notifiche;
 
+    // Prefetch bundle chunks for the most-likely next views (#21)
+    usePrefetch(view);
+
     // assistantMode locale — argomento condiviso per AssistantModal
     const handleOpenCircularAnalysis = (url: string, title: string) => {
         modals.setCircularAnalysisModal?.({ isOpen: true, url, title });
@@ -62,6 +67,29 @@ const App: React.FC = () => {
         <>
             {/* Skip link per accessibilità — WCAG 2.4.1 */}
             <SkipLink href="#main-content" label="Vai al contenuto principale" />
+
+            {/* Contextual suggestion banner (#16) — shown when system detects actionable state */}
+            {activeSuggestion && (
+                <SuggestionBanner
+                    suggestion={activeSuggestion}
+                    onAction={() => {
+                        const { type, payload } = activeSuggestion.action;
+                        if (type === 'navigate') {
+                            if (typeof payload === 'string') {
+                                actions.handleNavigate(payload as Parameters<typeof actions.handleNavigate>[0]);
+                            } else if (payload && typeof payload === 'object') {
+                                const p = payload as { view: Parameters<typeof actions.handleNavigate>[0]; context?: Record<string, unknown> };
+                                actions.handleNavigate(p.view, p.context ?? null);
+                            }
+                        } else if (type === 'modal') {
+                            actions.toggleModal(payload as string, true);
+                        }
+                        actions.dismissSuggestion(activeSuggestion.id);
+                    }}
+                    onDismiss={() => actions.dismissSuggestion(activeSuggestion.id)}
+                />
+            )}
+
             <AppLayout
             view={view}
             onNavigate={actions.handleNavigate}

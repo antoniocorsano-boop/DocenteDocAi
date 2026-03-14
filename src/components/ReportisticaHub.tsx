@@ -42,6 +42,7 @@ import SmartDocumentEditor from './SmartDocumentEditor';
 import DocumentViewerModal from './DocumentViewerModal';
 import { getDocumentTemplate } from '../utils/templateUtils';
 import { logger } from '../utils/logger';
+import { generateMarkdownReport } from '../services/aiService';
 
 type DocPhase = 'avvio' | 'itinere' | 'valutazione' | 'chiusura';
 
@@ -77,7 +78,7 @@ interface ReportisticaHubProps {
 }
 
 const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
-    const [wizard, setWizard] = useState<'uda' | 'student' | 'lesson' | 'planning' | 'syllabus' | null>(null);
+    const [wizard, setWizard] = useState<'uda' | 'student' | 'lesson' | 'planning' | 'syllabus' | 'ai-summary' | null>(null);
     const [isCouncilWizardOpen, setIsCouncilWizardOpen] = useState(false);
     const [activePhase, setActivePhase] = useState<DocPhase>('avvio');
 
@@ -197,6 +198,54 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
         }
     };
 
+    // --- AI CLASS SUMMARY (#15 AI plugin + #18 data synthesis) ---
+    const handleGenerateAiClassSummary = async () => {
+        if (!selectedClass) return;
+        setIsGenerating(true);
+        try {
+            const studentsInClass = props.students.filter(s => s.classe === selectedClass);
+            const udaInClass = props.uda.filter((u: Uda) => u.classe === selectedClass);
+            const lessonsInClass = Object.values(props.lessons).filter((l: Lezione) => l.classe === selectedClass);
+            const evalsInClass = props.evaluations.filter(e =>
+                studentsInClass.some(s => s.id === e.studenteId)
+            );
+
+            const markdownText = await generateMarkdownReport(props.aiSettings, 'class_summary', {
+                classe: selectedClass,
+                numStudenti: studentsInClass.length,
+                numUda: udaInClass.length,
+                numLezioni: lessonsInClass.length,
+                numValutazioni: evalsInClass.length,
+                nomeInsegnante: props.settings.nomeInsegnante,
+                annoScolastico: props.settings.annoScolasticoCorrente || '',
+            });
+
+            const report: Report = {
+                id: `report-ai-${Date.now()}`,
+                nome: `Riepilogo Classe ${selectedClass}`,
+                dataCreazione: new Date().toISOString(),
+                contesto: { tipo: 'classe', id: selectedClass, titolo: `Classe ${selectedClass}` },
+                modelloUsato: {
+                    nome: props.aiSettings.model || 'gemini-3-flash-preview',
+                    tipo: 'generative',
+                },
+                file: {
+                    name: `Riepilogo_${selectedClass.replace(/\s/g, '_')}.md`,
+                    content: markdownText,
+                    mimeType: 'text/markdown',
+                },
+            };
+
+            props.onSaveReport(report);
+            showToast(`Riepilogo per ${selectedClass} salvato con successo.`, 'success');
+            resetWizard();
+        } catch (e) {
+            logger.error('[ReportisticaHub] AI summary error:', e);
+            showToast('Errore durante la generazione del riepilogo AI. Riprova più tardi.', 'error');
+            setIsGenerating(false);
+        }
+    };
+
     const handleGenerateBrochure = () => {
         const content = {
             brochureTitle: `Offerta Formativa ${props.settings.annoScolasticoCorrente}`,
@@ -260,6 +309,16 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
             phase: 'avvio',
             variant: 'tertiary',
             action: handleGenerateBrochure
+        },
+        {
+            id: 'ai_class_summary',
+            title: 'Riepilogo AI Classe',
+            subtitle: 'Sintesi attività (AI)',
+            icon: 'auto_awesome',
+            phase: 'itinere',
+            variant: 'primary',
+            action: () => setWizard('ai-summary'),
+            description: 'Genera un riepilogo AI dell\'andamento della classe su lezioni, UDA e valutazioni.',
         },
         {
             id: 'lesson_plan',
@@ -348,7 +407,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                             </Select>
                         </FormControl>
                     )}
-                    {(wizard === 'student' || wizard === 'lesson' || wizard === 'syllabus') && (
+                    {(wizard === 'student' || wizard === 'lesson' || wizard === 'syllabus' || wizard === 'ai-summary') && (
                         <FormControl fullWidth size="small">
                             <InputLabel>1. Seleziona Classe</InputLabel>
                             <Select
@@ -414,6 +473,7 @@ const ReportisticaHub: React.FC<ReportisticaHubProps> = (props) => {
                     {(wizard === 'student' && selectedStudent) && <Button onClick={() => handleGenerateStudentPdf(selectedStudent)} variant="contained" disabled={isGenerating}>{isGenerating ? "Generazione..." : "Genera PDF"}</Button>}
                     {(wizard === 'lesson' && selectedLesson) && <Button onClick={() => handleGenerateLessonPdf(selectedLesson)} variant="contained" disabled={isGenerating}>{isGenerating ? "Generazione..." : "Genera PDF"}</Button>}
                     {(wizard === 'syllabus' && selectedClass && selectedSubject) && <Button onClick={handleGenerateSyllabus} variant="contained" disabled={isGenerating}>{isGenerating ? "Generazione..." : "Scarica DOC"}</Button>}
+                    {(wizard === 'ai-summary' && selectedClass) && <Button onClick={handleGenerateAiClassSummary} variant="contained" disabled={isGenerating}>{isGenerating ? 'Generazione...' : 'Genera Riepilogo AI'}</Button>}
                 </DialogActions>
             </M3Dialog>
         );

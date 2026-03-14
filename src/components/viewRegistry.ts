@@ -142,3 +142,43 @@ export const VIEW_PARENT: Partial<Record<View, View>> = {
     'student-workspace':        'aula',
 };
 
+// ---------------------------------------------------------------------------
+// PREFETCH_MAP — adjacent views to warm-load after the current view renders.
+// Used by usePrefetch hook (Roadmap #21).
+// ---------------------------------------------------------------------------
+export const PREFETCH_MAP: Partial<Record<View, Array<() => Promise<unknown>>>> = {
+    'home': [
+        () => import('./ProgettazioneHub'),
+        () => import('./ClassSelection'),
+        () => import('./Calendar'),
+    ],
+    'progettazione-hub': [
+        () => import('./UdaPlanner'),
+        () => import('./LessonsPage'),
+        () => import('./ReportisticaHub'),
+        () => import('./KnowledgeBase'),
+    ],
+    'aula': [
+        () => import('./ClassDashboard'),
+        () => import('./EvaluationModule'),
+        () => import('./ClassroomView'),
+        () => import('./StudentManager'),
+    ],
+    'uda': [
+        () => import('./LessonsPage'),
+        () => import('./ReportisticaHub'),
+    ],
+    'studenti': [
+        () => import('./EvaluationModule'),
+        () => import('./ClassCompetencyDashboard'),
+        () => import('./DidatticaInclusiva'),
+    ],
+    'studio': [
+        () => import('./KnowledgeBase'),
+        () => import('./AnalyticsHub'),
+    ],
+    'evaluations': [
+        () => import('./ClassCompetencyDashboard'),
+        () => import('./RegisterView'),
+    ],
+};
