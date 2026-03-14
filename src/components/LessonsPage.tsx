@@ -19,7 +19,7 @@ interface LessonsPageExtendedProps extends LessonsPageProps {
     settings?: TimetableSettings; // Added optional settings prop
 }
 
-const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowledgeBase, userClasses, onViewLesson, onAddLessons, onStartClassroom, aiSettings, setIsLoadingModalOpen, setLoadingModalMessage, slots, onScheduleLesson, curricula = [], settings }) => {
+const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowledgeBase, userClasses, onViewLesson, onAddLessons, onStartClassroom, aiSettings, setIsLoadingModalOpen, setLoadingModalMessage, slots, onScheduleLesson, curricula = [], settings, initialUdaId, initialClass }) => {
     const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
     const [error, setError] = useState('');
     const [selectedUdaIds, setSelectedUdaIds] = useState<string[]>([]);
@@ -28,9 +28,9 @@ const LessonsPage: React.FC<LessonsPageExtendedProps> = ({ lessons, uda, knowled
     // KB Selection
     const [selectedKbIds, setSelectedKbIds] = useState<string[]>([]);
 
-    // Filtri per l'archivio
-    const [filterClass, setFilterClass] = useState<string>('');
-    const [filterUda, setFilterUda] = useState<string>('');
+    // Filtri per l'archivio — pre-initialize from routing context
+    const [filterClass, setFilterClass] = useState<string>(initialClass ?? '');
+    const [filterUda, setFilterUda] = useState<string>(initialUdaId ?? '');
 
     // Idea Generator State
     const [isIdeaModalOpen, setIsIdeaModalOpen] = useState(false);

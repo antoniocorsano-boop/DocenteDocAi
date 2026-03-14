@@ -251,9 +251,10 @@ const ClassDashboard: React.FC<ClassDashboardProps> = ({
                             <Grid container spacing={"var(--md-sys-spacing-3)"}>
                                 {[
                                     { view: 'register', icon: 'book', bg: 'var(--md-sys-color-primary-container)', color: 'var(--md-sys-color-on-primary-container)', label: 'Diario di Bordo', caption: 'Lezioni, assenze, note' },
+                                    { view: 'lessons', icon: 'menu_book', bg: 'var(--md-sys-color-primary-container)', color: 'var(--md-sys-color-on-primary-container)', label: 'Lezioni', caption: 'Sequenze per UDA' },
                                     { view: 'didattica-inclusiva', icon: 'accessibility_new', bg: 'var(--md-sys-color-secondary-container)', color: 'var(--md-sys-color-on-secondary-container)', label: 'Inclusione', caption: 'PDP, PEI e strategie' },
                                 ].map(item => (
-                                    <Grid key={item.view} size={{ xs: 6 }}>
+                                    <Grid key={item.view} size={{ xs: 4 }}>
                                         <Card sx={{ borderRadius: 'var(--md-sys-shape-corner-large)', height: '100%' }}>
                                             <ButtonBase onClick={() => onNavigate(item.view as View, selectedClass)} sx={{ display: 'block', width: '100%', p: 'var(--md-sys-spacing-4)', height: '100%', borderRadius: 'var(--md-sys-shape-corner-large)' }}>
                                                 <Stack direction="row" alignItems="center" spacing="var(--md-sys-spacing-3)">

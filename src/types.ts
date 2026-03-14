@@ -764,6 +764,10 @@ export interface LessonsPageProps {
     onScheduleLesson: (data: LessonScheduleInput) => void;
     curricula?: CurriculumSubject[];
     settings?: TimetableSettings;
+    /** Pre-select a UDA filter when opening from UdaPlanner */
+    initialUdaId?: string;
+    /** Pre-select a class filter when opening from ClassDashboard */
+    initialClass?: string;
 }
 
 export interface RegisterViewProps {
@@ -785,7 +789,7 @@ export interface UdaPlannerProps {
     competenze: Competenza[];
     settings: TimetableSettings;
     onSaveReport: (report: Report) => void;
-    onNavigate: (view: View) => void;
+    onNavigate: (view: View, context?: unknown) => void;
     showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
     showGuidanceTips: boolean;
     setIsLoadingModalOpen: (open: boolean) => void;

@@ -538,7 +538,7 @@ const UdaPlanner: React.FC<UdaPlannerProps & { udas?: Uda[] }> = (props) => {
                                                     </td>
                                                     <td style={{ padding: 'var(--md-sys-spacing-3) var(--md-sys-spacing-4)', borderBottom: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)' }}>
                                                         <ButtonBase
-                                                            onClick={e => { e.stopPropagation(); onNavigate('lessons'); }}
+                                                            onClick={e => { e.stopPropagation(); onNavigate('lessons', { udaId: uda.id }); }}
                                                             aria-label={`Vai alle lezioni di ${uda.title}`}
                                                             sx={{ borderRadius: 'var(--md-sys-shape-corner-medium)', px: 'var(--md-sys-spacing-2)', py: 'var(--md-sys-spacing-1)', gap: 'var(--md-sys-spacing-1)', display: 'flex', alignItems: 'center' }}
                                                         >
