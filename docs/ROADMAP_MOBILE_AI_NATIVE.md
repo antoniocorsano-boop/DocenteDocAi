@@ -22,7 +22,7 @@
 | 5   | Analizzare tutte le route e contesti (UDA → Lessons → Classroom → Dashboard)  | 🔴 High   | [x]   |
 | 6   | Gestione contestuale centralizzata: ViewManager + context objects strutturati | 🔴 High   | [x]   |
 | 7   | Bottom nav + secondary drawer fully responsive, highlight sezione corrente    | 🔴 High   | [x]   |
-| 8   | Quick-action FAB menu (aggiungi lezione, valuta studente) mobile-wide         | 🟡 Medium | [ ]   |
+| 8   | Quick-action FAB menu (aggiungi lezione, valuta studente) mobile-wide         | 🟡 Medium | [x]   |
 
 ---
 
@@ -91,12 +91,12 @@
 ## Progresso globale
 
 ```
-Completati : 13 / 28  (46%)
+Completati : 14 / 28  (50%)
 In corso   :  0
-Aperti     : 15
+Aperti     : 14
 
 🔴 High    : 5 aperti
-🟡 Medium  : 8 aperti
+🟡 Medium  : 7 aperti
 🟢 Low     : 2 aperti
 ```
 

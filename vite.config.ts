@@ -69,7 +69,7 @@ export default defineConfig({
       injectManifest: {
         globPatterns: ['index.html', '**/*.{js,css,woff,woff2,png,svg,webmanifest}'],
         // Escludi dal precache i chunk lazy pesanti: vengono scaricati on-demand, non al primo avvio
-        globIgnores: ['**/{pdf-vendor,xlsx-vendor,dnd-vendor,chart-vendor,ai-vendor}-*.js'],
+        globIgnores: ['**/{pdf-vendor,xlsx-vendor,dnd-vendor,chart-vendor,ai-vendor,opentelemetry-vendor}-*.js'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // Aumentato a 5MB per gestire i chunk pesanti
       },
       devOptions: {
@@ -117,7 +117,8 @@ export default defineConfig({
           !dep.includes('ai-vendor') &&
           !dep.includes('dnd-vendor') &&
           !dep.includes('chart-vendor') &&
-          !dep.includes('xlsx-vendor')
+          !dep.includes('xlsx-vendor') &&
+          !dep.includes('opentelemetry-vendor')
         ),
     },
     rollupOptions: {
@@ -137,10 +138,11 @@ export default defineConfig({
           ) {
             return 'react-vendor';
           }
-          // MUI + Emotion — depends on react-vendor, isolated to break vendor↔react-vendor cycle
+          // MUI + Emotion + Popper — depends on react-vendor
           if (
             id.includes('node_modules/@mui/') ||
-            id.includes('node_modules/@emotion/')
+            id.includes('node_modules/@emotion/') ||
+            id.includes('node_modules/@popperjs/')
           ) {
             return 'mui-vendor';
           }
@@ -149,19 +151,22 @@ export default defineConfig({
             return 'ai-vendor';
           }
           // Document libs (dynamic-import only — excluded from modulepreload)
-          // Note: pdf-lib, jspdf, pdfjs-dist removed — replaced by browser print API + CDN
+          // jspdf + html2canvas are dynamically imported in ExportModal/TestPreviewModal
+          // Note: canvg / svg-pathdata / d3-path are shared with recharts, left in vendor to avoid circular chunk
           if (
-            id.includes('mammoth') ||
-            id.includes('docx') ||
-            id.includes('jszip') ||
-            id.includes('fflate') ||
-            // docx/mammoth transitive deps
-            id.includes('@xmldom') ||
-            id.includes('bluebird') ||
-            id.includes('underscore') ||
-            id.includes('dingbat-to-unicode') ||
-            id.includes('lop') ||
-            id.includes('option')
+            id.includes('/node_modules/mammoth') ||
+            id.includes('/node_modules/docx/') ||
+            id.includes('/node_modules/jszip/') ||
+            id.includes('/node_modules/fflate/') ||
+            id.includes('/node_modules/jspdf/') ||
+            id.includes('/node_modules/html2canvas/') ||
+            // docx/mammoth transitive deps — use exact path prefix to avoid broad substring matches
+            id.includes('/node_modules/@xmldom/') ||
+            id.includes('/node_modules/bluebird/') ||
+            id.includes('/node_modules/underscore/') ||
+            id.includes('/node_modules/dingbat-to-unicode/') ||
+            id.includes('/node_modules/lop/') ||
+            id.includes('/node_modules/option/')
           ) {
             return 'pdf-vendor';
           }
@@ -173,8 +178,28 @@ export default defineConfig({
           if (id.includes('@dnd-kit')) {
             return 'dnd-vendor';
           }
-          // Chart / analytics libs
-          if (id.includes('chart') || id.includes('recharts') || id.includes('d3')) {
+          // OpenTelemetry — lazy-loaded, only active when OTLP endpoint is configured
+          if (
+            id.includes('@opentelemetry/') ||
+            id.includes('node_modules/protobufjs') ||
+            id.includes('@protobufjs/') ||
+            (id.includes('node_modules/pako') && !id.includes('jszip'))
+          ) {
+            return 'opentelemetry-vendor';
+          }
+          // Chart / analytics libs + recharts transitive deps (redux family)
+          if (
+            id.includes('chart') ||
+            id.includes('recharts') ||
+            id.includes('d3') ||
+            id.includes('@reduxjs/toolkit') ||
+            // exact redux packages (not redux-like e.g. 'reductor')
+            /[/]node_modules[/]redux[-/]/.test(id) ||
+            id.includes('node_modules/react-redux') ||
+            id.includes('node_modules/redux-thunk') ||
+            id.includes('node_modules/reselect') ||
+            id.includes('node_modules/react-transition-group')
+          ) {
             return 'chart-vendor';
           }
           // Other large node_modules

@@ -6,8 +6,11 @@
 import './polyfills';
 import { logger } from './utils/logger';
 
-// Initialize tracing — active when VITE_OTEL_EXPORTER_OTLP_ENDPOINT is set
-import './tracing';
+// Initialize tracing lazily — OpenTelemetry packages are only loaded when the
+// OTLP endpoint is configured (not at boot for normal users)
+if (import.meta.env.VITE_OTEL_EXPORTER_OTLP_ENDPOINT) {
+  import('./tracing');
+}
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';
