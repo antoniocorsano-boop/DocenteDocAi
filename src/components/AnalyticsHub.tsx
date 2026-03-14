@@ -8,6 +8,7 @@ import React, { useState, useMemo, useEffect, Suspense, lazy } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, AiSettings } from '../types';
 import { useAISuggestions } from '../ai/contextEngine/useAISuggestions';
 import AISuggestionsPanel from './AISuggestionsPanel';
+import ClassHealthWidget from './ClassHealthWidget';
 const LineChart = lazy(() => import('./charts/AdvancedCharts').then(m => ({ default: m.LineChart })));
 const RadarChart = lazy(() => import('./charts/AdvancedCharts').then(m => ({ default: m.RadarChart })));
 const BarChart = lazy(() => import('./charts/BarChart'));
@@ -201,6 +202,9 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                     </div>
                 </div>
             </InfoCard>
+
+            {/* AI: Class Health Index */}
+            <ClassHealthWidget students={filteredStudents} evaluations={filteredEvals} />
 
             {/* Responsive Card: Chart & AI */}
             <InfoCard
