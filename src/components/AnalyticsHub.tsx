@@ -6,6 +6,8 @@
 
 import React, { useState, useMemo, useEffect, Suspense, lazy } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, AiSettings } from '../types';
+import { useAISuggestions } from '../ai/contextEngine/useAISuggestions';
+import AISuggestionsPanel from './AISuggestionsPanel';
 const LineChart = lazy(() => import('./charts/AdvancedCharts').then(m => ({ default: m.LineChart })));
 const RadarChart = lazy(() => import('./charts/AdvancedCharts').then(m => ({ default: m.RadarChart })));
 const BarChart = lazy(() => import('./charts/BarChart'));
@@ -77,6 +79,8 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
     const trendData = useMemo(() => calculateClassTrend(filteredEvals, filteredStudents), [filteredEvals, filteredStudents]);
     const radarData = useMemo(() => calculateCompetencyRadar(filteredCompEvals, settings.competenze, selectedStudentId !== 'all' ? selectedStudentId : undefined), [filteredCompEvals, settings.competenze, selectedStudentId]);
     const distData = useMemo(() => calculateGradeDistribution(filteredEvals), [filteredEvals]);
+
+    const aiSuggestions = useAISuggestions(filteredStudents, filteredEvals);
 
     const handleAskAi = async () => {
         setIsAiLoading(true);
@@ -311,6 +315,8 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
                     </div>
                 )}
             </InfoCard>
+
+            <AISuggestionsPanel suggestions={aiSuggestions} />
         </div>
     );
 };
