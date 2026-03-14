@@ -11,6 +11,7 @@ import AISuggestionsPanel from './AISuggestionsPanel';
 import ClassHealthWidget from './ClassHealthWidget';
 import LessonAssistantPanel from './LessonAssistantPanel';
 import RiskPredictionPanel from './RiskPredictionPanel';
+import TeacherCopilotPanel from './TeacherCopilotPanel';
 const LineChart = lazy(() => import('./charts/AdvancedCharts').then(m => ({ default: m.LineChart })));
 const RadarChart = lazy(() => import('./charts/AdvancedCharts').then(m => ({ default: m.RadarChart })));
 const BarChart = lazy(() => import('./charts/BarChart'));
@@ -207,6 +208,9 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
 
             {/* AI: Class Health Index */}
             <ClassHealthWidget health={aiPipeline.classHealth} />
+
+            {/* AI: Teacher Copilot */}
+            <TeacherCopilotPanel students={filteredStudents} evaluations={filteredEvals} />
 
             {/* Responsive Card: Chart & AI */}
             <InfoCard
