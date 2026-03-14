@@ -4,10 +4,12 @@
  * // M3Expressive refactor: Removed all className attributes, converted to inline styles with MD3 tokens for layout, colors, spacing, and typography.
  */
 
-import React, { useState, useMemo, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useMemo, useEffect, useRef, Suspense, lazy } from 'react';
 import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, AiSettings } from '../types';
 import { useAIPipeline } from '../ai/pipeline/useAIPipeline';
+import { useAISnapshotStore } from '../stores/useAISnapshotStore';
 import AISuggestionsPanel from './AISuggestionsPanel';
+import AITrendPanel from './AITrendPanel';
 import ClassHealthWidget from './ClassHealthWidget';
 import LessonAssistantPanel from './LessonAssistantPanel';
 import RiskPredictionPanel from './RiskPredictionPanel';
@@ -86,6 +88,24 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
     const distData = useMemo(() => calculateGradeDistribution(filteredEvals), [filteredEvals]);
 
     const aiPipeline = useAIPipeline(filteredStudents, filteredEvals);
+
+    // ---- Snapshot persistence ------------------------------------------------
+    const snapshotActions = useAISnapshotStore((s) => s.actions);
+    const snapshots = useAISnapshotStore((s) =>
+        s.snapshots
+            .filter((snap) => snap.className === selectedClass)
+            .sort((a, b) => a.date.localeCompare(b.date))
+    );
+    // Save at most once per (class × calendar-day) to avoid spamming storage
+    const savedRef = useRef(new Set<string>());
+    useEffect(() => {
+        if (!selectedClass || filteredStudents.length === 0) return;
+        const key = `${selectedClass}::${new Date().toISOString().slice(0, 10)}`;
+        if (savedRef.current.has(key)) return;
+        savedRef.current.add(key);
+        snapshotActions.saveSnapshot(selectedClass, aiPipeline);
+    }, [selectedClass, aiPipeline, filteredStudents.length, snapshotActions]);
+    // -------------------------------------------------------------------------
 
     const handleAskAi = async () => {
         setIsAiLoading(true);
@@ -222,6 +242,13 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
 
             {/* AI: Class Health Index */}
             <ClassHealthWidget health={aiPipeline.classHealth} />
+
+            {/* AI: Historical trend (shown once ≥2 daily snapshots are saved) */}
+            <AITrendPanel
+                snapshots={snapshots}
+                className={selectedClass}
+                onClearHistory={() => snapshotActions.clearClass(selectedClass)}
+            />
 
             {/* AI: Teacher Copilot */}
             <TeacherCopilotPanel students={filteredStudents} evaluations={filteredEvals} />
