@@ -9,6 +9,8 @@ import { Studente, Valutazione, ValutazioneCompetenza, TimetableSettings, AiSett
 import { useAIPipeline } from '../ai/pipeline/useAIPipeline';
 import AISuggestionsPanel from './AISuggestionsPanel';
 import ClassHealthWidget from './ClassHealthWidget';
+import LessonAssistantPanel from './LessonAssistantPanel';
+import RiskPredictionPanel from './RiskPredictionPanel';
 const LineChart = lazy(() => import('./charts/AdvancedCharts').then(m => ({ default: m.LineChart })));
 const RadarChart = lazy(() => import('./charts/AdvancedCharts').then(m => ({ default: m.RadarChart })));
 const BarChart = lazy(() => import('./charts/BarChart'));
@@ -321,6 +323,10 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({
             </InfoCard>
 
             <AISuggestionsPanel suggestions={aiPipeline.suggestions} />
+
+            <LessonAssistantPanel data={aiPipeline.lessonAssistant} />
+
+            <RiskPredictionPanel predictions={aiPipeline.riskPredictions} students={filteredStudents} />
         </div>
     );
 };
