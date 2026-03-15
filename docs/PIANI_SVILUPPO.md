@@ -80,13 +80,13 @@ _Obiettivo: abilitare la distribuzione a qualsiasi docente con copertura legale 
 _Scenario target: uso volontario da parte di singoli docenti, senza contratto istituzionale._  
 _Stima: 1–3 mesi, principalmente burocrazia + un piccolo import UI._
 
-| ID  | Feature                     | Descrizione                                                                                                                                | Effort        | Stato         |
-| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------- | ------------- |
-| D1  | Termini di Utilizzo (ToS)   | Modale ToS v1.0 con disclaimer responsabilità docente come Titolare del Trattamento. Accessibile da Privacy consent + Settings → Avanzate. | 3h            | ✅ completato |
-| D2  | Dominio `.app`              | Registrazione dominio dedicato (es. `docentedoc.app`). Non è codice.                                                                       | 1h burocrazia | ⬜ backlog    |
-| D3  | Import CSV Argo/Spaggiari   | Parser CSV già presente in `importService.ts` e `registerService.ts`. Aggiungere UI guidata con template scaricabile.                      | 1 gg          | ⬜ backlog    |
-| D4  | DPA Vercel + Anthropic      | Firmare i Data Processing Agreement online. Non è codice.                                                                                  | 2h burocrazia | ⬜ backlog    |
-| D5  | Pagina pubblica informativa | Landing page con descrizione app, link ToS, informativa privacy pubblica, contatto sviluppatore.                                           | 1–2 gg        | ⬜ backlog    |
+| ID  | Feature                     | Descrizione                                                                                                                                               | Effort        | Stato         |
+| --- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------------- |
+| D1  | Termini di Utilizzo (ToS)   | Modale ToS v1.0 con disclaimer responsabilità docente come Titolare del Trattamento. Accessibile da Privacy consent + Settings → Avanzate.                | 3h            | ✅ completato |
+| D2  | Dominio `.app`              | Registrazione dominio dedicato (es. `docentedoc.app`). Non è codice.                                                                                      | 1h burocrazia | ⬜ backlog    |
+| D3  | Import CSV Argo/Spaggiari   | `RegisterImportWizard.tsx` (4-step stepper: scegli registro, guida esportazione, carica file, conferma). Wired in `SettingsCloud.tsx`. Commit `b89a213c`. | 1 gg          | ✅ completato |
+| D4  | DPA Vercel + Anthropic      | Firmare i Data Processing Agreement online. Non è codice.                                                                                                 | 2h burocrazia | ⬜ backlog    |
+| D5  | Pagina pubblica informativa | Landing page con descrizione app, link ToS, informativa privacy pubblica, contatto sviluppatore.                                                          | 1–2 gg        | ⬜ backlog    |
 
 ---
 
