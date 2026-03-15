@@ -32,6 +32,7 @@ import SimulationLab from './SimulationLab';
 import ExplainabilityDemo from './ExplainabilityDemo';
 import BiasAuditPanel from './BiasAuditPanel';
 import PedagogyInsightPanel from './PedagogyInsightPanel';
+import TrustScorePanel from './TrustScorePanel';
 import type { AIAuditTrail } from '../audit/auditTypes';
 
 // ── section wrapper ───────────────────────────────────────────────────────────
@@ -157,6 +158,13 @@ const AIInspectorPanel: React.FC = memo(() => {
       {/* ── Row 6: Pedagogical Alignment (full width) ── */}
       <SectionCard fullWidth>
         <PedagogyInsightPanel />
+      </SectionCard>
+
+      <Divider sx={{ gridColumn: '1 / -1' }} />
+
+      {/* ── Row 7: AI Trust Score (full width) ── */}
+      <SectionCard fullWidth>
+        <TrustScorePanel />
       </SectionCard>
 
       {/* Footer */}

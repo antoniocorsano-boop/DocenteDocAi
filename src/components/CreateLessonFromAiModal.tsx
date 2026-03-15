@@ -308,7 +308,7 @@ return (
                                                 border: selectedSlotKey === key ? 'var(--md-sys-border-width-thin) solid var(--md-sys-color-primary)' : 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline)',
                                                 backgroundColor: selectedSlotKey === key ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-surface-container-high)',
                                                 color: selectedSlotKey === key ? 'var(--md-sys-color-on-primary)' : 'var(--md-sys-color-on-surface-variant)',
-                                                fontWeight: selectedSlotKey === key ? 700 : 500,
+                                                fontWeight: selectedSlotKey === key ? 'var(--md-sys-typescale-weight-semibold)' : 'var(--md-sys-typescale-weight-medium)',
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 gap: 'var(--md-sys-spacing-8)',

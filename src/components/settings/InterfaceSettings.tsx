@@ -168,7 +168,7 @@ export const InterfaceSettings: React.FC<InterfaceSettingsProps> = ({
                                 <Typography variant="caption" sx={{color: themeState.visualStyle === style.id
                                         ? 'var(--md-sys-color-on-primary-container)'
                                         : 'var(--md-sys-color-on-surface)',
-                                    fontWeight: themeState.visualStyle === style.id ? 600 : 500,
+                                    fontWeight: themeState.visualStyle === style.id ? 'var(--md-sys-typescale-weight-semibold)' : 'var(--md-sys-typescale-weight-medium)',
                                     margin: 0}}>{style.label}</Typography>
                                 <Typography variant="caption" sx={{color: themeState.visualStyle === style.id
                                         ? 'var(--md-sys-color-on-primary-container)'

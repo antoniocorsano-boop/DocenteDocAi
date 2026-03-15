@@ -255,7 +255,7 @@ const SecondaryNavDrawer: React.FC<SecondaryNavDrawerProps> = ({
                     component="span"
                     sx={{
                       color: 'inherit',
-                      fontWeight: isActive ? 600 : 400,
+                      fontWeight: isActive ? 'var(--md-sys-typescale-weight-semibold)' : 'var(--md-sys-typescale-weight-regular)',
                       lineHeight: 1.2,
                       fontSize: isDesktop ? '0.8125rem' : '0.625rem',
                       whiteSpace: isDesktop ? 'nowrap' : 'normal',
