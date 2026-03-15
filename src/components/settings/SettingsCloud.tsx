@@ -8,6 +8,7 @@ import SettingsGroup from './SettingsGroupAccordion';
 import { InfoCard } from '../ui';
 import { DriveSyncState, TimetableSettings } from '../../types';
 import { logger } from '../../utils/logger';
+import RegisterImportWizard from './RegisterImportWizard';
 
 interface SettingsCloudSectionProps {
     expanded: boolean;
@@ -25,6 +26,7 @@ export const SettingsCloudSection: React.FC<SettingsCloudSectionProps> = ({
 }) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [storageInfo, setStorageInfo] = useState<{ used: string; total: string; percent: number } | null>(null);
+    const [wizardOpen, setWizardOpen] = useState(false);
 
     useEffect(() => {
         if (!navigator?.storage?.estimate) return;
@@ -122,8 +124,21 @@ export const SettingsCloudSection: React.FC<SettingsCloudSectionProps> = ({
                     <Button onClick={() => fileInputRef.current?.click()} variant="outlined" startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">upload</Box>}>
                         Ripristina File
                     </Button>
+                    <Button
+                        onClick={() => setWizardOpen(true)}
+                        variant="outlined"
+                        aria-label="Importa studenti e valutazioni da registro elettronico"
+                        startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">school</Box>}
+                    >
+                        Importa da Registro
+                    </Button>
                     <input type="file" id="settings-restore-file" name="restoreFile" aria-label="Ripristina file di backup" ref={fileInputRef} style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }} accept=".json,.csv,.xlsx,.xls" onChange={handleFileChange} />
                 </Box>
+                <RegisterImportWizard
+                    open={wizardOpen}
+                    onClose={() => setWizardOpen(false)}
+                    onImportFile={(file) => { onImportData(file); setWizardOpen(false); }}
+                />
             </Stack>
         </SettingsGroup>
     );
