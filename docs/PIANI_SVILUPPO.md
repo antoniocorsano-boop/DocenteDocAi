@@ -86,7 +86,7 @@ _Stima: 1–3 mesi, principalmente burocrazia + un piccolo import UI._
 | D2  | Dominio `.app`              | Registrazione dominio dedicato (es. `docentedoc.app`). Non è codice.                                                                                      | 1h burocrazia | ⬜ backlog    |
 | D3  | Import CSV Argo/Spaggiari   | `RegisterImportWizard.tsx` (4-step stepper: scegli registro, guida esportazione, carica file, conferma). Wired in `SettingsCloud.tsx`. Commit `b89a213c`. | 1 gg          | ✅ completato |
 | D4  | DPA Vercel + Anthropic      | Firmare i Data Processing Agreement online. Non è codice.                                                                                                 | 2h burocrazia | ⬜ backlog    |
-| D5  | Pagina pubblica informativa | Landing page con descrizione app, link ToS, informativa privacy pubblica, contatto sviluppatore.                                                          | 1–2 gg        | ⬜ backlog    |
+| D5  | Pagina pubblica informativa | Landing page con descrizione app, link ToS, informativa privacy pubblica, contatto sviluppatore.                                                          | 1–2 gg        | ✅ completato |
 
 ---
 
