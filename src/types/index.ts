@@ -21,6 +21,7 @@ export * from './calendar.types';
 export * from './analytics.types';
 export * from './metrics';
 export * from './SyncConflictData';
+export * from './funding.types';
 
 
 // Legacy types.ts exports (to be migrated)
