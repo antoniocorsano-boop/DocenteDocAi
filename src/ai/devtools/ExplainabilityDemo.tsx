@@ -102,7 +102,7 @@ const ExplainabilityDemo: React.FC = memo(() => {
             sx={{
               bgcolor: 'var(--md-sys-color-secondary-container)',
               color: 'var(--md-sys-color-on-secondary-container)',
-              fontSize: '0.65rem',
+              fontSize: 'var(--md-sys-typescale-label-small-font-size)',
             }}
           />
         </Stack>
@@ -164,7 +164,7 @@ const ExplainabilityDemo: React.FC = memo(() => {
                     sx={{
                       color: 'var(--md-sys-color-on-surface)',
                       fontFamily: 'monospace',
-                      fontSize: '0.7rem',
+                      fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap',
@@ -179,7 +179,7 @@ const ExplainabilityDemo: React.FC = memo(() => {
                       sx={{
                         color: 'var(--md-sys-color-on-surface-variant)',
                         fontVariantNumeric: 'tabular-nums',
-                        fontSize: '0.7rem',
+                      fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                       }}
                     >
                       {Math.round(exp.riskScore * 100)} %
@@ -188,7 +188,7 @@ const ExplainabilityDemo: React.FC = memo(() => {
                       size="small"
                       label={cp.label}
                       color={cp.color}
-                      sx={{ fontSize: '0.6rem', height: 18 }}
+                      sx={{ fontSize: 'var(--md-sys-typescale-label-small-font-size)', height: 18 }}
                     />
                   </Stack>
                 </Box>

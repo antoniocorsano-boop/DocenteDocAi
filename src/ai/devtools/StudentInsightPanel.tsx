@@ -80,14 +80,14 @@ const FactorBar: React.FC<{ factor: RiskFactor; maxImpact: number }> = ({ factor
         <Stack direction="row" alignItems="center" spacing={0.75}>
           <Typography
             variant="bodySmall"
-            sx={{ color: tok('on-surface'), fontWeight: 500 }}
+            sx={{ color: tok('on-surface'), fontWeight: 'var(--md-sys-typescale-weight-medium)' }}
           >
             {factor.label}
           </Typography>
           <Tooltip title={`${factor.description}  (rilevato: ${factor.evidence})`} arrow>
             <InfoOutlinedIcon
               fontSize="inherit"
-              sx={{ color: tok('on-surface-variant'), cursor: 'help', fontSize: '0.95rem' }}
+              sx={{ color: tok('on-surface-variant'), cursor: 'help', fontSize: 16 }}
               aria-label={`Info: ${factor.label}`}
             />
           </Tooltip>
@@ -199,7 +199,7 @@ const RiskHeader: React.FC<{ explanation: AIExplanation }> = ({ explanation }) =
           sx={{
             bgcolor: meta.chipBg,
             color: meta.chipColor,
-            fontWeight: 600,
+            fontWeight: 'var(--md-sys-typescale-weight-bold)',
             '& .MuiChip-icon': { color: 'inherit' },
           }}
         />
@@ -263,14 +263,14 @@ const StudentInsightPanel: React.FC<StudentInsightPanelProps> = memo(({
         <Stack direction="row" spacing={2} mt="var(--md-sys-spacing-3)" flexWrap="wrap">
           <Typography variant="labelSmall" sx={{ color: tok('on-surface-variant') }}>
             Media:{' '}
-            <Box component="span" sx={{ color: tok('on-surface'), fontWeight: 600 }}>
+            <Box component="span" sx={{ color: tok('on-surface'), fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
               {explanation.gradeAverage.toFixed(1)}/10
             </Box>
           </Typography>
           {explanation.worstSubject && (
             <Typography variant="labelSmall" sx={{ color: tok('on-surface-variant') }}>
               Materia critica:{' '}
-              <Box component="span" sx={{ color: tok('on-surface'), fontWeight: 600 }}>
+              <Box component="span" sx={{ color: tok('on-surface'), fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>
                 {explanation.worstSubject}
               </Box>
             </Typography>

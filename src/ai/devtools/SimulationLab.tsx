@@ -106,7 +106,7 @@ const RiskBadge: React.FC<{ dist: string }> = ({ dist }) => {
       label={dist}
       size="small"
       color={colorMap[dist] ?? 'default'}
-      sx={{ textTransform: 'capitalize', fontSize: '0.7rem' }}
+      sx={{ textTransform: 'capitalize', fontSize: 'var(--md-sys-typescale-label-small-font-size)' }}
     />
   );
 };
@@ -164,7 +164,7 @@ const ResultsTable: React.FC<{ runs: SimulationResult[] }> = memo(({ runs }) => 
         <TableBody>
           {visible.map(r => (
             <TableRow key={r.runId} hover>
-              <TableCell sx={{ fontFamily: 'monospace', fontSize: '0.7rem' }}>
+              <TableCell sx={{ fontFamily: 'monospace', fontSize: 'var(--md-sys-typescale-label-small-font-size)' }}>
                 {r.scenarioId}
               </TableCell>
               <TableCell>
@@ -286,7 +286,7 @@ const SimulationLab: React.FC = memo(() => {
             sx={{
               bgcolor: 'var(--md-sys-color-tertiary-container)',
               color: 'var(--md-sys-color-on-tertiary-container)',
-              fontSize: '0.65rem',
+              fontSize: 'var(--md-sys-typescale-label-small-font-size)',
             }}
           />
         </Stack>
