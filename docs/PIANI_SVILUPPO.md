@@ -72,6 +72,76 @@ _Stima: 9–12 mesi. Non avviare prima che il pilota sia validato._
 
 ---
 
+---
+
+## Analisi Economica (Marzo 2026)
+
+### Scenario 1 — Utente privato con disclaimer ToS
+
+Il docente accetta i termini di utilizzo e gestisce i dati sotto propria responsabilità.
+
+| Voce                      | Costo                                       |
+| ------------------------- | ------------------------------------------- |
+| Vercel Hobby (hosting)    | €0/mese                                     |
+| Gemini API Flash          | €0 fino a ~60 req/min, poi ~€0.075/1M token |
+| Anthropic Claude          | ~€0.003/richiesta media (3K token)          |
+| Dominio `.app`            | ~€15/anno                                   |
+| **Totale infrastruttura** | **< €5/mese** uso moderato                  |
+
+Cosa serve in più: pagina ToS + disclaimer (2h, €0 sviluppo).  
+Limite: senza DPA firmato con Vercel/Anthropic la catena di responsabilità è incompleta — tollerato per uso personale.
+
+---
+
+### Scenario 2 — Import da registri ufficiali (Argo, Spaggiari, SIDI)
+
+I registri non hanno API pubbliche — esportano CSV/XML.
+
+| Voce                            | Effort                     | Costo                                                            |
+| ------------------------------- | -------------------------- | ---------------------------------------------------------------- |
+| Parser CSV Argo/Spaggiari       | 2–3 gg (base già presente) | €0                                                               |
+| Parser XML SIDI                 | 3–5 gg                     | €0                                                               |
+| Accordo formale con i fornitori | Negoziazione               | €0–5k/anno royalty (oppure €0 se uso file esportato dal docente) |
+
+**Variante senza accordo:** import "tollerato" tramite file esportati manualmente dal docente — pattern usato dalla maggior parte delle app didattiche italiane, funziona già oggi.
+
+---
+
+### Scenario 3 — Strumento ufficiale PA
+
+| Voce                            | Costo one-time | Costo ricorrente            |
+| ------------------------------- | -------------- | --------------------------- |
+| AGID qualificazione SaaS        | €2–5k          | —                           |
+| Pentest certificato             | €3–8k          | €3–8k ogni 2 anni           |
+| Audit accessibilità WCAG 2.1 AA | €1–3k          | —                           |
+| SPID integration                | €500–2k setup  | €0.05–0.10/login            |
+| Vercel Pro (SLA 99.99%)         | —              | €20/mese                    |
+| Supporto legale GDPR            | €1–3k          | €500/anno                   |
+| **Totale stimato**              | **€8–22k**     | **€500–1k/anno + usage AI** |
+
+### Modelli di sostenibilità
+
+| Modello                                | Prezzo                   | Break-even            |
+| -------------------------------------- | ------------------------ | --------------------- |
+| SaaS individuale                       | €5–8/mese per docente    | 20–30 docenti paganti |
+| Licenza istituto                       | €200–500/anno per scuola | 5–10 scuole           |
+| Freemium (base gratis, AI a pagamento) | €3–5/mese funzioni AI    | 40–60 utenti attivi   |
+| Bando PNRR / fondi scuola              | €10–50k grant una tantum | 1 bando vinto         |
+
+### Roadmap economica
+
+| Fase                         | Quando      | Costo               | Requisiti          |
+| ---------------------------- | ----------- | ------------------- | ------------------ |
+| Pilota                       | Ora         | €0                  | ✅ già fatto       |
+| Distribuzione libera con ToS | +1 mese     | €15/mese            | ToS + dominio      |
+| Import registri ufficiali    | +2–3 mesi   | €0 sviluppo         | Parser CSV/XML     |
+| Primo contratto istituto     | +6–12 mesi  | €500–1k/anno        | Piano B completo   |
+| PA ufficiale                 | +12–18 mesi | €8–22k investimento | Piani B+C completi |
+
+**La soglia critica è il primo contratto con un istituto** — da quel momento i ricavi coprono i costi di compliance. Prima di quel punto tutti i costi sono evitabili.
+
+---
+
 ## Note di architettura
 
 - `purgeAIData()` in `src/utils/dataRetention.ts` — cancella artefatti AI, non tocca dati primari docente
