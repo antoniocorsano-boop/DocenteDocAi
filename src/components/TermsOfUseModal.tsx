@@ -193,7 +193,7 @@ const TermsOfUseModal: React.FC<TermsOfUseModalProps> = ({ open, onClose }) => (
     <DialogActions sx={{ px: 3, py: 2 }}>
       <Button
         onClick={onClose}
-        variant="filled"
+        variant="contained"
         aria-label="Chiudi termini di utilizzo"
       >
         Chiudi

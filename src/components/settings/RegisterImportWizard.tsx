@@ -292,10 +292,10 @@ const RegisterImportWizard: React.FC<RegisterImportWizardProps> = ({ open, onClo
                 {parsing ? (
                   <Typography variant="body2">Analisi in corso…</Typography>
                 ) : file ? (
-                  <Typography variant="body2" sx={{ fontWeight: 600 }}>{file.name}</Typography>
+                  <Typography variant="body2" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>{file.name}</Typography>
                 ) : (
                   <>
-                    <Typography variant="body2" sx={{ fontWeight: 600 }}>Clicca per selezionare</Typography>
+                    <Typography variant="body2" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Clicca per selezionare</Typography>
                     <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
                       CSV, Excel (.xlsx/.xls) — max 5 MB
                     </Typography>
