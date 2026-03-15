@@ -64,6 +64,23 @@ npm run build
 
 **📋 [Report Compliance MD3 Completo](MD3_COMPLIANCE_FINAL_REPORT.md)** - 100% compliant, zero violazioni attive
 
+## 🤖 AI Pipeline Intelligente — Livelli 1–6
+
+Sistema a strati completato con Sprint 1–8 (`tag: level-6-ready`, 1733 test):
+
+| Livello | Sprint               | Moduli                                                                                   | Dipendenze |
+| ------- | -------------------- | ---------------------------------------------------------------------------------------- | ---------- |
+| 1       | Simulazione          | `classroomSimulator`, `scenarioGenerator`, `benchmarkMetrics`                            | —          |
+| 2       | Predizione           | `predictStudentRisk`                                                                     | L1         |
+| 3       | Spiegabilità         | `decisionExplainer`, `AIAuditViewer`                                                     | L1–L2      |
+| 4       | Fairness             | `biasReport`, `BiasAuditPanel`                                                           | L1–L3      |
+| 5       | Pedagogia            | `bloomsClassifier`, `alignmentScorer`, `pedagogyReport`                                  | L1–L4      |
+| 5       | Trust Score          | `trustScoreEngine`, `trustReport`, `TrustScorePanel`                                     | L1–L5      |
+| **6**   | **Decision Support** | **`lessonRecommender`, `activityGenerator`, `curriculumAdvisor`, `RecommendationPanel`** | **L1–L5**  |
+
+Tutti i pannelli DevTools sono visibili in `AIInspectorPanel` (Row 1–8).  
+Testing manuale: apri DevTools → tab AI Inspector → premi "Ricalcola" su ogni pannello.
+
 ## 🏛️ Architettura
 
 - **Local-First**: Dati prioritariamente locali con sync opzionale
