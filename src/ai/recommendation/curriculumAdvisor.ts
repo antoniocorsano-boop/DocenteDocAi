@@ -29,6 +29,9 @@ function cid(): string {
   return `cur-rec-${++_curSeq}`;
 }
 
+/** @internal — reset the ID sequence between test runs to ensure deterministic IDs */
+export function _resetCurSeqForTesting(): void { _curSeq = 0; }
+
 function round3(n: number): number {
   return Math.round(n * 1000) / 1000;
 }

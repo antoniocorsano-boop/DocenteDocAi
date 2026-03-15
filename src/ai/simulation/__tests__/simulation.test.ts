@@ -289,6 +289,9 @@ describe('full-pipeline determinism', () => {
     const scenario = generateScenario(12345);
     const a = runSimulation(scenario);
     const b = runSimulation(scenario);
-    expect(a.metrics).toStrictEqual(b.metrics);
+    // executionTimeMs is wall-clock and varies by ±1ms — exclude from determinism check
+    const { executionTimeMs: _aMs, ...aRest } = a.metrics;
+    const { executionTimeMs: _bMs, ...bRest } = b.metrics;
+    expect(aRest).toStrictEqual(bRest);
   });
 });

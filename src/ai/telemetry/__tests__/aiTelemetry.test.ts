@@ -65,10 +65,13 @@ describe('telemetry event buffer', () => {
     expect(new Date(event.ts).toISOString()).toBe(event.ts);
   });
 
-  it('logAIActionTriggered records actionType and studentId', () => {
+  it('logAIActionTriggered records actionType and pseudonymized id (no raw studentId)', () => {
     logAIActionTriggered('schedule_recovery', 'student-1');
     const event = getTelemetryBuffer().find((e) => e.event === 'ai_action_triggered');
     expect(event?.actionType).toBe('schedule_recovery');
-    expect(event?.studentId).toBe('student-1');
+    // Raw studentId must NOT appear in the buffer — only a truncated pseudoId (GDPR R1)
+    expect((event as Record<string, unknown>)?.studentId).toBeUndefined();
+    // pseudoId is the first 8 chars of btoa('student-1')
+    expect((event as Record<string, unknown>)?.pseudoId).toBe(btoa('student-1').slice(0, 8));
   });
 });

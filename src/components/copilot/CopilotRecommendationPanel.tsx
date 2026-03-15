@@ -40,6 +40,7 @@ import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlin
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 import { useAcademicStore } from '../../stores/useAcademicStore';
+import PluginSlot from '../ui/PluginSlot';
 import { predictStudentRisk } from '../../ai/prediction/predictStudentRisk';
 import { explainClass } from '../../ai/explainability/decisionExplainer';
 import { generateBiasReport } from '../../ai/fairness/biasReport';
@@ -554,6 +555,13 @@ const CopilotRecommendationPanel: React.FC<CopilotRecommendationPanelProps> = ({
           )}
         </Stack>
       )}
+
+      {/* ── Plugin extension slot (studio-tools) ─────────────────────────────── */}
+      <PluginSlot
+        slot="studio-tools"
+        context={{ recommendations: recommendations ?? [] }}
+        emptyFallback={null}
+      />
     </Box>
   );
 };

@@ -45,6 +45,15 @@ export function pushAudit(trail: AIAuditTrail): void {
   if (_history.length >= MAX_HISTORY) _history.shift();
   _history.push(trail);
 
+  // Fire-and-forget localStorage persistence — keeps the last 10 entries across
+  // page refreshes. No raw student PII is stored (AIAuditTrail contains only
+  // execution metadata: timings, step names, cache hit flag).
+  try {
+    localStorage.setItem('ai_audit_trail', JSON.stringify(_history.slice(-10)));
+  } catch {
+    // quota exceeded or private browsing — ignore silently
+  }
+
   if (isBetaActive()) {
     const stepsSummary = trail.cacheHit
       ? '(cache hit — no steps)'
@@ -52,6 +61,22 @@ export function pushAudit(trail: AIAuditTrail): void {
     console.debug(
       `[AI Audit] id=${trail.id} total=${trail.totalMs}ms cache=${trail.cacheHit} | ${stepsSummary}`,
     );
+  }
+}
+
+/**
+ * Restores the last persisted audit entries from localStorage into the in-memory
+ * buffer. Call once on app startup before any reads from `getAuditHistory()`.
+ */
+export function loadAuditHistoryFromStorage(): void {
+  try {
+    const raw = localStorage.getItem('ai_audit_trail');
+    if (raw) {
+      const stored: AIAuditTrail[] = JSON.parse(raw);
+      _history.push(...stored.slice(0, MAX_HISTORY));
+    }
+  } catch {
+    // malformed JSON or missing — ignore
   }
 }
 

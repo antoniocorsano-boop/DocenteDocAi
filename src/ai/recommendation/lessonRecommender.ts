@@ -53,7 +53,7 @@ const RISK_DETECTION_TARGET = 0.70;
 const DIM_LABELS_IT: Record<AlignmentDimension, string> = {
   bloomCoverage:         'copertura della tassonomia di Bloom',
   cognitiveProgression:  'progressione cognitiva',
-  activeLearningRatio:   'attività ordi superiore (HOTS)',
+  activeLearningRatio:   'attività di ordine superiore (HOTS)',
   inclusionSignals:      'segnali di inclusione',
   diversityOfMethods:    'diversità metodologica',
 };
@@ -97,6 +97,9 @@ function round3(n: number): number {
 function gap(score: number, target: number): number {
   return Math.max(0, target - score);
 }
+
+/** @internal — reset the ID sequence between test runs to ensure deterministic IDs */
+export function _resetIdSeqForTesting(): void { _seq = 0; }
 
 // ── pedagogy recommendations ──────────────────────────────────────────────────
 

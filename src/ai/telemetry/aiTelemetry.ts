@@ -82,12 +82,16 @@ export function logAISuggestionViewed(
 /**
  * Fired when the teacher clicks an action button in CopilotActionsBar
  * (before confirming). Records intent, not completion.
+ *
+ * studentId is pseudonymized (base64, first 8 chars) before buffering
+ * to avoid storing raw PII in the telemetry buffer (GDPR compliance).
  */
 export function logAIActionTriggered(
   actionType: CopilotActionType,
   studentId: string,
 ): void {
-  emit({ event: 'ai_action_triggered', ts: new Date().toISOString(), actionType, studentId });
+  const pseudoId = btoa(studentId).slice(0, 8);
+  emit({ event: 'ai_action_triggered', ts: new Date().toISOString(), actionType, pseudoId });
 }
 
 /**
