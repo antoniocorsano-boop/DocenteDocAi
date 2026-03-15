@@ -30,6 +30,7 @@ import AISpanTimeline from './AISpanTimeline';
 import AIAuditViewer from './AIAuditViewer';
 import SimulationLab from './SimulationLab';
 import ExplainabilityDemo from './ExplainabilityDemo';
+import BiasAuditPanel from './BiasAuditPanel';
 import type { AIAuditTrail } from '../audit/auditTypes';
 
 // ── section wrapper ───────────────────────────────────────────────────────────
@@ -141,6 +142,13 @@ const AIInspectorPanel: React.FC = memo(() => {
       {/* ── Row 4: Explainability Demo (full width) ── */}
       <SectionCard fullWidth>
         <ExplainabilityDemo />
+      </SectionCard>
+
+      <Divider sx={{ gridColumn: '1 / -1' }} />
+
+      {/* ── Row 5: Fairness / Bias Audit (full width) ── */}
+      <SectionCard fullWidth>
+        <BiasAuditPanel />
       </SectionCard>
 
       {/* Footer */}
