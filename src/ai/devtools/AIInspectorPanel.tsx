@@ -29,6 +29,7 @@ import { getAuditHistory } from '../audit/auditTrail';
 import AICacheStats from './AICacheStats';
 import AISpanTimeline from './AISpanTimeline';
 import AIAuditViewer from './AIAuditViewer';
+import SimulationLab from './SimulationLab';
 import type { AIAuditTrail } from '../audit/auditTypes';
 
 // ── section wrapper ───────────────────────────────────────────────────────────
@@ -126,6 +127,13 @@ const AIInspectorPanel: React.FC = memo(() => {
       {/* ── Row 2: Audit Trail (full width) ── */}
       <SectionCard fullWidth>
         <AIAuditViewer />
+      </SectionCard>
+
+      <Divider sx={{ gridColumn: '1 / -1' }} />
+
+      {/* ── Row 3: Simulation Lab (full width) ── */}
+      <SectionCard fullWidth>
+        <SimulationLab />
       </SectionCard>
 
       {/* Footer */}
