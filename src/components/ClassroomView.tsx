@@ -145,8 +145,8 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
             const notes = observations[student.id] || '';
             return {
                 student,
-                grade,
-                trend,
+                grade: grade ?? '',
+                trend: trend ?? '',
                 writtenCount: writtenEvals.length,
                 writtenAvg,
                 oralCount: oralEvals.length,

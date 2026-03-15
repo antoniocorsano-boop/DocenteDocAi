@@ -20,6 +20,7 @@ import AIDevToolsPanel from './copilot/AIDevToolsPanel';
 import CopilotRecommendationPanel from './copilot/CopilotRecommendationPanel';
 import { AITabErrorBoundary } from './copilot/AITabErrorBoundary';
 import FundingPanel from './copilot/FundingPanel';
+import { CopilotMaturitaPanel } from './copilot/maturita';
 
 import type { AISuggestion } from '../ai/contextEngine/types';
 import type { ClassHealthIndex } from '../ai/classHealth/types';
@@ -70,6 +71,7 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
         <Tab label="Dev Tools" />
         <Tab label="Raccomandazioni AI" />
         <Tab label="Finanziamenti" />
+        <Tab label="Maturità AI" />
       </Tabs>
       <Box sx={{ minHeight: 80 }}>
         {tab === 0 && (
@@ -195,6 +197,15 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
             <FundingPanel
               students={students}
               udas={udas}
+              className={className}
+            />
+          </AITabErrorBoundary>
+        )}
+        {tab === 13 && (
+          <AITabErrorBoundary tabName="Maturità AI">
+            <CopilotMaturitaPanel
+              students={students}
+              evaluations={evaluations}
               className={className}
             />
           </AITabErrorBoundary>

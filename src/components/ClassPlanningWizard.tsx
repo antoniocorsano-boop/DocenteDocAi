@@ -156,7 +156,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
         try {
             const plan = await suggestAnnualPlan(aiSettings, kbContent, selectedSubject, selectedClass);
             if (plan.length > 0) {
-                setPlannedUdas(plan.map((u, i) => ({...u, id: `plan-gen-${i}`})));
+                setPlannedUdas(plan.map((u, i) => ({ id: `plan-gen-${i}`, title: u.title ?? '', hours: (u as { hours?: number }).hours ?? 10, topic: (u as { topic?: string }).topic ?? u.title ?? '' })));
             } else {
                 showToast("L'AI non ha trovato UDA nel documento. Puoi inserirle manualmente.", "info");
             }

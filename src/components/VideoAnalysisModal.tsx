@@ -9,16 +9,6 @@ import Typography from '@mui/material/Typography';
 import { M3Dialog } from './ui';
 import { logger } from '../utils/logger';
 import { useUIStore } from '../stores/useUIStore';
-
-declare global {
-  interface Window {
-    aistudio?: {
-      hasSelectedApiKey: () => Promise<boolean>;
-      openSelectKey?: () => void | Promise<void>;
-      generateContent?: (params: unknown) => Promise<unknown>;
-    };
-  }
-}
 interface VideoAnalysisModalProps {
     onClose: () => void;
 }

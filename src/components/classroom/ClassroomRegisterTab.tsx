@@ -51,8 +51,8 @@ const ATTENDANCE_LABEL: Record<AttendanceStatus, string> = {
     ritardo:  'Ritardo',
 };
 
-const HW_ICON: Record<HomeworkStatus, string>  = { done: 'task_alt', missing: 'unpublished', partial: 'pending' };
-const HW_LABEL: Record<HomeworkStatus, string> = { done: 'Svolti', missing: 'Mancanti', partial: 'Parziali' };
+const HW_ICON: Record<HomeworkStatus, string>  = { completed: 'task_alt', missing: 'unpublished', partial: 'pending', default: 'help_outline' };
+const HW_LABEL: Record<HomeworkStatus, string> = { completed: 'Svolti', missing: 'Mancanti', partial: 'Parziali', default: '—' };
 
 function gradeColor(grade: string): string {
     const g = parseFloat(grade);
@@ -252,7 +252,7 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
                                             <Tooltip title={HW_LABEL[hwStatus]} placement="top">
                                                 <Box component="span" className="material-symbols-outlined" aria-label={HW_LABEL[hwStatus]} sx={{
                                                     fontSize: 20,
-                                                    color: hwStatus === 'done' ? 'var(--md-sys-color-primary)' : hwStatus === 'missing' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-tertiary)',
+                                                    color: hwStatus === 'completed' ? 'var(--md-sys-color-primary)' : hwStatus === 'missing' ? 'var(--md-sys-color-error)' : 'var(--md-sys-color-tertiary)',
                                                     display: 'inline-block',
                                                 }}>{HW_ICON[hwStatus]}</Box>
                                             </Tooltip>

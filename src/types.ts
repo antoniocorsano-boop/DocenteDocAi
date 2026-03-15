@@ -575,6 +575,8 @@ export interface AppActions {
     setIsRestoring: (value: boolean) => void;
     showToast: (message: string, type?: 'success' | 'error' | 'info') => void;
     clearToast: () => void;
+    toggleModal: (modalKey: keyof Modals, value?: boolean) => void;
+    setSyncConflictModal: (modal: { isOpen: boolean; data: SyncConflictData | null } | null) => void;
 
 handleNavigate: (view: View, context?: unknown) => void;
     handleBack: (force?: boolean) => void;
@@ -599,7 +601,7 @@ handleNavigate: (view: View, context?: unknown) => void;
     handleCreateUda: (data: UdaCreateInput) => void;
     handleAddNote: (data: { note: string, studentName?: string }) => void;
     onMarkAttendance: (data: { studentName: string; status: "presente" | "assente" | "ritardo"; }) => void;
-    trackAnalyticsEvent?: (eventType: string, featureName: string, metadata?: Record<string, string | number | boolean>) => void;
+    trackAnalyticsEvent?: (eventType: "feature_usage" | "document_generated" | "template_created" | "export_batch" | "ai_interaction" | "navigation", featureName: string, metadata?: Record<string, string | number | boolean>) => void;
     handleOpenBackupInfo: () => void;
     handleExportData: () => Promise<void>;
     handleImportData: (file: File) => void;

@@ -6,6 +6,7 @@ declare global {
 		aistudio?: {
 			hasSelectedApiKey: () => Promise<boolean>;
 			openSelectKey: () => Promise<void>;
+			generateContent?: (params: unknown) => Promise<unknown>;
 		};
 	}
 }

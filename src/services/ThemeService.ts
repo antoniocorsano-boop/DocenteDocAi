@@ -181,11 +181,11 @@ export const ThemeService = {
     
     // Map the AI response to our ColorTokens structure
     return {
-      name: generated.name || 'AI Generated',
+      name: generated.name as string || 'AI Generated',
       colors: {
-        primary: generated.primary,
-        secondary: generated.secondary,
-        tertiary: generated.tertiary
+        primary: generated.primary as string,
+        secondary: generated.secondary as string,
+        tertiary: generated.tertiary as string
       } as Partial<ColorTokens>
     };
   }

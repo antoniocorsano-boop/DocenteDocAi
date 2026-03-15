@@ -16,9 +16,9 @@ interface SyncConflictModalProps {
 
 const SyncConflictModal: React.FC<SyncConflictModalProps> = ({ data, onRestore, onIgnore }) => {
   // Determina quale è più recente
-    const isRemoteNewer = (data.remoteTime ?? data.lastModifiedRemote) > (data.localTime ?? data.lastModifiedLocal);
-    const remoteDate = new Date(data.remoteTime ?? data.lastModifiedRemote);
-    const localDate = (data.localTime ?? data.lastModifiedLocal) ? new Date(data.localTime ?? data.lastModifiedLocal) : null;
+    const isRemoteNewer = (data.remoteTime ?? data.lastModifiedRemote ?? 0) > (data.localTime ?? data.lastModifiedLocal ?? 0);
+    const remoteDate = new Date(data.remoteTime ?? data.lastModifiedRemote ?? 0);
+    const localDate = (data.localTime ?? data.lastModifiedLocal) ? new Date((data.localTime ?? data.lastModifiedLocal)!) : null;
 
     return (
         <M3Dialog

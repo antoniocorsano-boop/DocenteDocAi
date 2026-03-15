@@ -185,7 +185,7 @@ export const LiveAssistant: React.FC<LiveAssistantProps> = (props) => {
     const outputNode = outputCtx.createGain();
     outputNode.connect(outputCtx.destination);
 
-    const sessionPromise = ai.live.connect({
+    const sessionPromise = ai.live!.connect({
       model: 'gemini-2.5-flash-native-audio-preview-09-2025',
       config: {
         // GUIDELINE: responseModalities MUST contain exactly one modality, which must be AUDIO

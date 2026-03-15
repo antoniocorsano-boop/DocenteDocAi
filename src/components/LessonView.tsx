@@ -60,6 +60,7 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
   
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isEnriching, setIsEnriching] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<LessonAnalysisResult | null>(null);
 
   const handleEnrichLesson = async () => {
@@ -93,6 +94,8 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
   };
   
   const handleExportDocx = async () => {
+      setIsExporting(true);
+      try {
       const safeContent = sanitizeHTML(lesson.contenuto);
       const safeObjectives = sanitizeHTML(lesson.obiettivi || '');
       const safeContext = sanitizeHTML(lesson.contesto || '');
@@ -113,6 +116,9 @@ const LessonView: React.FC<LessonViewProps> = ({ lesson, onClose, onStartClassro
 
       const blob = await generateHtmlDocxBlob(html, lesson.contenuto);
       saveAs(blob, `Lezione_${lesson.contenuto.replace(/ /g, '_')}.docx`);
+      } finally {
+          setIsExporting(false);
+      }
   };
   
   const handleDownloadMaterial = (material: MaterialeDidattico) => {

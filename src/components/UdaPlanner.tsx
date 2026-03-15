@@ -295,7 +295,7 @@ const UdaEditor: React.FC<UdaEditorProps> = ({ udaProp, onSaveUda, onDeleteUda, 
                         </Box>
                         <DialogContent sx={{ p: 0 }}>
                             {filteredGrouped.length === 0 ? (
-                                <EmptyState message="Nessuna competenza trovata" />
+                                <EmptyState icon="search_off" title="Nessuna competenza trovata" description="" />
                             ) : (
                                 filteredGrouped.map(({ fw, items }) => (
                                     <Box key={fw}>

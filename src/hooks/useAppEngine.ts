@@ -252,7 +252,7 @@ export const useAppEngine = () => {
                     studentProfileContext,
                     selectedClassForDashboard,
                     actions: { ...studentActions, ...academicActions, ...systemActions }
-                } as AppState);
+                } as unknown as AppState);
                 systemActions.setSuggestions(aiSuggestions);
             } catch (error) {
                 logger.error('[useAppEngine] AI suggestions generation failed:', error);
@@ -294,18 +294,19 @@ export const useAppEngine = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleNavigate = useCallback((newView: View, context: Record<string, unknown> | null = null) => {
+    const handleNavigate = useCallback((newView: View, context?: unknown) => {
+        const ctx = (context ?? null) as Record<string, unknown> | null;
         try {
             uiActions.addNavigationEntry({ view, context: viewContext }); // Save current view to history
             setView(newView);
-            setViewContext(context);
+            setViewContext(ctx);
             window.scrollTo(0, 0);
             
             // Log successful navigation
             errorLogger.logInfo(
                 `Navigated to ${newView}`,
                 'navigation',
-                { fromView: view, toView: newView, hasContext: !!context }
+                { fromView: view, toView: newView, hasContext: !!ctx }
             );
         } catch (error) {
             errorLogger.logNavigationError(newView, error as Error, view);
@@ -799,9 +800,9 @@ export const useAppEngine = () => {
         uiActions.toggleModal('isOperationsCenterOpen', true);
     }, [uiActions]);
 
-    const handleAiSuggestionFromHome = useCallback((action: { type: string; payload: View }) => {
-        if (action.type === 'navigate') {
-            handleNavigate(action.payload);
+    const handleAiSuggestionFromHome = useCallback((action: { type: string; payload?: string | Record<string, unknown> }) => {
+        if (action.type === 'navigate' && action.payload) {
+            handleNavigate(action.payload as View);
         }
     }, [handleNavigate]);
 
@@ -899,10 +900,11 @@ export const useAppEngine = () => {
         dismissSuggestion: dismissSuggestionWrapper,
         setStudentProfileContext: studentActions.setStudentProfileContext,
         setSelectedClassForDashboard: studentActions.setSelectedClassForDashboard,
-        loadFromBackup: (data: Partial<BackupPayload>) => {
-            studentActions.loadFromBackup(data);
-            academicActions.loadFromBackup(data);
-            systemActions.loadFromBackup(data);
+        loadFromBackup: (data: unknown) => {
+            const d = data as Partial<BackupPayload>;
+            studentActions.loadFromBackup(d);
+            academicActions.loadFromBackup(d);
+            systemActions.loadFromBackup(d);
         },
         resetAll: () => {
             studentActions.resetStudentData();
@@ -975,6 +977,7 @@ export const useAppEngine = () => {
         handleResetYearData,
         importEvaluations: studentActions.importEvaluations,
         toggleModal: uiActions.toggleModal,
+        setSyncConflictModal: (modal: { isOpen: boolean; data: SyncConflictData | null } | null) => uiActions.setSyncConflictModal(modal),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }), [setUser, setStudents, setLessons, setSlots, setEvaluations, setCompetencyEvals, setUda,
         setEventi, setKnowledgeBase, setCorpora, setNotifiche, setRubriche, setPianiInclusione,

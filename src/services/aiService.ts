@@ -27,14 +27,13 @@ export const generateContent = async (prompt: string, options: { temperature?: n
         const response = await ai.models.generateContent({
             model: 'gemini-3-pro-preview',
             contents: ensureString(prompt),
-            generationConfig: {
+            config: {
                 temperature: options.temperature ?? 0.7,
                 maxOutputTokens: options.maxTokens ?? 1000,
                 stopSequences: options.stop ? [options.stop] : undefined
             }
         });
-        // Gemini API: text or content
-        return { content: response.text || response.content || '' };
+        return { content: response.text || '' };
     });
 };
 

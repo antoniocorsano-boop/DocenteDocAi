@@ -56,9 +56,7 @@ export const AnalyticsViewsRenderer: React.FC<{
                     userClasses={props.settings.classi}
                     students={props.students}
                     evaluations={props.evaluations}
-                    competencyEvaluations={props.competencyEvals}
                     settings={props.settings}
-                    aiSettings={props.aiSettings}
                 />
             );
         case 'reportistica':

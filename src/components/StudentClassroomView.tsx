@@ -89,6 +89,7 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
     const [activeTab, setActiveTab] = useState<'feed' | 'homework' | 'materials'>('feed');
     const [isExitMenuOpen, setIsExitMenuOpen] = useState(false);
     const [isPinModalOpen, setIsPinModalOpen] = useState(false);
+    const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
 
     // Filter relevant data
     const classLessons = useMemo(() => 
@@ -147,7 +148,12 @@ const StudentClassroomView: React.FC<StudentClassroomViewProps> = ({
     
     const handleDownloadHomeworkSheet = (lesson: Lezione) => {
         if (!settings) return;
-        printHomeworkSheet(lesson, settings);
+        setIsGeneratingPdf(true);
+        try {
+            printHomeworkSheet(lesson, settings);
+        } finally {
+            setIsGeneratingPdf(false);
+        }
     };
 
     const UploadButton: React.FC<{ lessonId: string }> = ({ lessonId }) => {

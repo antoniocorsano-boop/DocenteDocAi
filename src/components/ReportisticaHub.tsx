@@ -42,6 +42,7 @@ import SmartDocumentEditor from './SmartDocumentEditor';
 import DocumentViewerModal from './DocumentViewerModal';
 import { getDocumentTemplate } from '../utils/templateUtils';
 import { logger } from '../utils/logger';
+import { saveAs } from '../utils/documentUtils';
 import { generateMarkdownReport } from '../services/aiService';
 
 type DocPhase = 'avvio' | 'itinere' | 'valutazione' | 'chiusura';

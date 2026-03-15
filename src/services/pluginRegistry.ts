@@ -28,7 +28,8 @@ export type WidgetSlot =
   | 'studio-tools'         // Additional tools below Studio AI grid
   | 'reportistica-after'   // Below the document grid in ReportisticaHub
   | 'settings-extra'       // Extra panels at bottom of Settings
-  | 'global-overlay';      // Full-screen overlays (e.g. tutorials, tours)
+  | 'global-overlay'       // Full-screen overlays (e.g. tutorials, tours)
+  | 'maturita-widget';     // Slot per plugin futuri nel tab Maturità AI
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Widget definition

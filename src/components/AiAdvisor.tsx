@@ -65,7 +65,7 @@ const AiAdvisor: React.FC<AiAdvisorProps> = ({ students, evaluations, competency
             await new Promise(r => setTimeout(r, 500)); // UX delay
 
             const result = await getAIPedagogicalAdvice(aiSettings, studentData as { lesson: import('../types').Lezione; students: import('../types').Studente[]; evaluations: import('../types').Valutazione[] }, requestType, settings.competenze);
-            setAdvice(result.suggerimenti);
+            setAdvice(result.suggerimenti as Advice[] | null);
         } catch (err) {
             const errorMsg = err instanceof Error ? err.message : "Si è verificato un errore durante la generazione del consiglio.";
             logger.error(err);

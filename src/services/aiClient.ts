@@ -1,7 +1,11 @@
 import { logger } from '../utils/logger';
 
 type GenAIModule = { GoogleGenAI?: new (opts: { apiKey: string }) => unknown; default?: unknown };
-type GoogleAIClient = { models: { generateContent: (params: { model: string; contents: unknown; config?: unknown }) => Promise<{ text: string }> } };
+type GoogleAIClient = {
+    apiKey?: string;
+    models: { generateContent: (params: { model: string; contents: unknown; config?: unknown }) => Promise<{ text: string; candidates?: Array<{ content?: { parts?: Array<{ inlineData?: { data: string; mimeType: string }; text?: string }> }; groundingMetadata?: { groundingChunks?: Array<{ web?: { uri: string; title: string } }> } }> }> };
+    live?: { connect: (params: unknown) => Promise<unknown> };
+};
 
 // ---------------------------------------------------------------------------
 // Proxy client — used in production when VITE_GEMINI_API_KEY is not bundled.

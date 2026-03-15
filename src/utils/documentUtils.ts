@@ -203,12 +203,14 @@ export const generateHtmlDocxBlob = async (htmlContent: string, title?: string):
                 if (['h1', 'h2', 'h3', 'p', 'div'].includes(nodeName)) {
                     const runs = extractTextRuns(el);
                     if (runs.length) {
-                        // docx Paragraph options — heading is an optional field not in the base overload
                         type ParagraphInitWithHeading = import('docx').IParagraphOptions;
-                        const options: ParagraphInitWithHeading = { children: runs };
-                        if (nodeName === 'h1') options.heading = HeadingLevel.HEADING_1;
-                        else if (nodeName === 'h2') options.heading = HeadingLevel.HEADING_2;
-                        else if (nodeName === 'h3') options.heading = HeadingLevel.HEADING_3;
+                        const headingLevel = nodeName === 'h1' ? HeadingLevel.HEADING_1
+                            : nodeName === 'h2' ? HeadingLevel.HEADING_2
+                            : nodeName === 'h3' ? HeadingLevel.HEADING_3
+                            : undefined;
+                        const options: ParagraphInitWithHeading = headingLevel
+                            ? { children: runs, heading: headingLevel }
+                            : { children: runs };
                         nodes.push(new Paragraph(options));
                     }
                 } else if (nodeName === 'ul' || nodeName === 'ol') {

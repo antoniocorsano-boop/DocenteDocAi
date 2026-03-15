@@ -6,7 +6,7 @@
 
 import React, { useState } from 'react';
 import { Uda, Competenza, TimetableSettings, Report, AiSettings } from '../types';
-import { blobToBase64Parts, generateHtmlDocxBlob } from '../utils/documentUtils';
+import { blobToBase64Parts, generateHtmlDocxBlob, saveAs } from '../utils/documentUtils';
 import { printUdaDocument, buildUdaHtmlBlob } from '../utils/printUtils';
 import { generateMarkdownReport } from '../services/aiService';
 import Button from '@mui/material/Button';

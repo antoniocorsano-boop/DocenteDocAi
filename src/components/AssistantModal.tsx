@@ -156,7 +156,7 @@ const AssistantModal: React.FC<AssistantModalProps> = ({
       return;
     }
     const SpeechRecognition = (window as SpeechRecognitionWindow).SpeechRecognition || (window as SpeechRecognitionWindow).webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
+    const recognition = new SpeechRecognition!();
     recognition.lang = 'it-IT';
     recognition.interimResults = true;
     recognition.maxAlternatives = 1;

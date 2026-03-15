@@ -12,6 +12,7 @@ import AssistantFab from './AssistantFab';
 import SkipLink from './SkipLink';
 import SuggestionBanner from './SuggestionBanner';
 import { useAppEngine } from '../hooks/useAppEngine';
+import type { Modals } from '../types';
 import { usePrefetch } from '../hooks/usePrefetch';
 import { useSmartNavigation } from '../hooks/useSmartNavigation';
 import ViewManager from './ViewManager';
@@ -86,7 +87,7 @@ const App: React.FC = () => {
                                 actions.handleNavigate(p.view, p.context ?? null);
                             }
                         } else if (type === 'modal') {
-                            actions.toggleModal(payload as string, true);
+                            actions.toggleModal(payload as keyof Modals, true);
                         }
                         actions.dismissSuggestion(activeSuggestion.id);
                     }}
