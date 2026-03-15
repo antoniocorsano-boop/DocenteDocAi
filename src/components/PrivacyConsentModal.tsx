@@ -19,6 +19,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import ShieldOutlinedIcon from '@mui/icons-material/ShieldOutlined';
+import TermsOfUseModal from './TermsOfUseModal';
 
 export const CONSENT_KEY = 'privacy_consent_v1';
 
@@ -53,6 +54,7 @@ interface PrivacyConsentModalProps {
 const PrivacyConsentModal: React.FC<PrivacyConsentModalProps> = ({ onAccepted }) => {
   const [checkedInformativa, setCheckedInformativa] = useState(false);
   const [checkedTrattamento, setCheckedTrattamento] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
 
   const canAccept = checkedInformativa && checkedTrattamento;
 
@@ -175,7 +177,15 @@ const PrivacyConsentModal: React.FC<PrivacyConsentModalProps> = ({ onAccepted })
         </Stack>
       </DialogContent>
 
-      <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
+      <DialogActions sx={{ px: 3, pb: 2, gap: 1, flexWrap: 'wrap' }}>
+        <Button
+          variant="text"
+          onClick={() => setShowTerms(true)}
+          aria-label="Leggi i termini di utilizzo"
+          sx={{ mr: 'auto', textTransform: 'none' }}
+        >
+          Termini di utilizzo
+        </Button>
         <Button
           variant="contained"
           onClick={handleAccept}
@@ -186,6 +196,8 @@ const PrivacyConsentModal: React.FC<PrivacyConsentModalProps> = ({ onAccepted })
           Accetto e continuo
         </Button>
       </DialogActions>
+
+      <TermsOfUseModal open={showTerms} onClose={() => setShowTerms(false)} />
     </Dialog>
   );
 };

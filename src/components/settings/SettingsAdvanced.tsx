@@ -12,6 +12,7 @@ import { TextField } from '../ui';
 import { TimetableSettings } from '../../types';
 import { useAIBeta } from '../../hooks/useAIBeta';
 import { purgeAIData } from '../../utils/dataRetention';
+import TermsOfUseModal from '../TermsOfUseModal';
 
 interface SettingsAdvancedSectionProps {
     expanded: boolean;
@@ -26,6 +27,7 @@ export const SettingsAdvancedSection: React.FC<SettingsAdvancedSectionProps> = (
 }) => {
     const { isBeta, setBeta } = useAIBeta();
     const [aiDataPurged, setAiDataPurged] = useState(false);
+    const [showTerms, setShowTerms] = useState(false);
 
     const handlePurgeAIData = () => {
         purgeAIData();
@@ -118,7 +120,18 @@ export const SettingsAdvancedSection: React.FC<SettingsAdvancedSectionProps> = (
                         Cancella dati AI
                     </Button>
                 )}
+                <Button
+                    onClick={() => setShowTerms(true)}
+                    variant="text"
+                    color="secondary"
+                    fullWidth
+                    startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">gavel</Box>}
+                    aria-label="Leggi i termini di utilizzo"
+                >
+                    Termini di utilizzo
+                </Button>
             </Box>
+            <TermsOfUseModal open={showTerms} onClose={() => setShowTerms(false)} />
 
             <Divider />
 

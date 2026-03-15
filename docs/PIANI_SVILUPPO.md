@@ -64,13 +64,29 @@ _Stima: 9–12 mesi. Non avviare prima che il pilota sia validato._
 
 ## Scenari di distribuzione
 
-| Scenario                                                 | Prerequisiti               | Tempo     |
-| -------------------------------------------------------- | -------------------------- | --------- |
-| **Pilota** — singolo docente, uso personale              | ~~A1, B2, B4~~ ✅ + B5     | ✅ ora    |
-| **Distribuzione libera** — più docenti, qualsiasi scuola | Piano A + Piano B completo | 2–3 mesi  |
-| **Contratto PA** — istituti scolastici ufficiali         | Piano A + B + C            | 9–12 mesi |
+| Scenario                                                 | Prerequisiti                              | Tempo     |
+| -------------------------------------------------------- | ----------------------------------------- | --------- |
+| **Pilota** — singolo docente, uso personale              | ~~A1, B2, B4, B5, D1~~ ✅                 | ✅ ora    |
+| **Distribuzione libera** — più docenti, qualsiasi scuola | D2 (dominio) + B1 + B3 + Piano A completo | 1–3 mesi  |
+| **Contratto PA** — istituti scolastici ufficiali         | Piano A + B + C                           | 9–12 mesi |
 
 ---
+
+---
+
+## Piano D — Distribuzione Libera
+
+_Obiettivo: abilitare la distribuzione a qualsiasi docente con copertura legale minima._  
+_Scenario target: uso volontario da parte di singoli docenti, senza contratto istituzionale._  
+_Stima: 1–3 mesi, principalmente burocrazia + un piccolo import UI._
+
+| ID  | Feature                     | Descrizione                                                                                                                                | Effort        | Stato         |
+| --- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------- | ------------- |
+| D1  | Termini di Utilizzo (ToS)   | Modale ToS v1.0 con disclaimer responsabilità docente come Titolare del Trattamento. Accessibile da Privacy consent + Settings → Avanzate. | 3h            | ✅ completato |
+| D2  | Dominio `.app`              | Registrazione dominio dedicato (es. `docentedoc.app`). Non è codice.                                                                       | 1h burocrazia | ⬜ backlog    |
+| D3  | Import CSV Argo/Spaggiari   | Parser CSV già presente in `importService.ts` e `registerService.ts`. Aggiungere UI guidata con template scaricabile.                      | 1 gg          | ⬜ backlog    |
+| D4  | DPA Vercel + Anthropic      | Firmare i Data Processing Agreement online. Non è codice.                                                                                  | 2h burocrazia | ⬜ backlog    |
+| D5  | Pagina pubblica informativa | Landing page con descrizione app, link ToS, informativa privacy pubblica, contatto sviluppatore.                                           | 1–2 gg        | ⬜ backlog    |
 
 ---
 
