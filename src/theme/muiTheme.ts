@@ -43,40 +43,58 @@ import type { CSSProperties } from 'react';
 // ── Module augmentation: aggiunge variant MD3-nativi a MUI Typography ────────
 declare module '@mui/material/styles' {
   interface TypographyVariants {
-    titleLarge:  CSSProperties;
-    titleMedium: CSSProperties;
-    titleSmall:  CSSProperties;
-    bodyLarge:   CSSProperties;
-    bodyMedium:  CSSProperties;
-    bodySmall:   CSSProperties;
-    labelLarge:  CSSProperties;
-    labelMedium: CSSProperties;
-    labelSmall:  CSSProperties;
+    displayLarge:   CSSProperties;
+    displayMedium:  CSSProperties;
+    displaySmall:   CSSProperties;
+    headlineLarge:  CSSProperties;
+    headlineMedium: CSSProperties;
+    headlineSmall:  CSSProperties;
+    titleLarge:     CSSProperties;
+    titleMedium:    CSSProperties;
+    titleSmall:     CSSProperties;
+    bodyLarge:      CSSProperties;
+    bodyMedium:     CSSProperties;
+    bodySmall:      CSSProperties;
+    labelLarge:     CSSProperties;
+    labelMedium:    CSSProperties;
+    labelSmall:     CSSProperties;
   }
   interface TypographyVariantsOptions {
-    titleLarge?:  CSSProperties;
-    titleMedium?: CSSProperties;
-    titleSmall?:  CSSProperties;
-    bodyLarge?:   CSSProperties;
-    bodyMedium?:  CSSProperties;
-    bodySmall?:   CSSProperties;
-    labelLarge?:  CSSProperties;
-    labelMedium?: CSSProperties;
-    labelSmall?:  CSSProperties;
+    displayLarge?:   CSSProperties;
+    displayMedium?:  CSSProperties;
+    displaySmall?:   CSSProperties;
+    headlineLarge?:  CSSProperties;
+    headlineMedium?: CSSProperties;
+    headlineSmall?:  CSSProperties;
+    titleLarge?:     CSSProperties;
+    titleMedium?:    CSSProperties;
+    titleSmall?:     CSSProperties;
+    bodyLarge?:      CSSProperties;
+    bodyMedium?:     CSSProperties;
+    bodySmall?:      CSSProperties;
+    labelLarge?:     CSSProperties;
+    labelMedium?:    CSSProperties;
+    labelSmall?:     CSSProperties;
   }
 }
 
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
-    titleLarge:  true;
-    titleMedium: true;
-    titleSmall:  true;
-    bodyLarge:   true;
-    bodyMedium:  true;
-    bodySmall:   true;
-    labelLarge:  true;
-    labelMedium: true;
-    labelSmall:  true;
+    displayLarge:   true;
+    displayMedium:  true;
+    displaySmall:   true;
+    headlineLarge:  true;
+    headlineMedium: true;
+    headlineSmall:  true;
+    titleLarge:     true;
+    titleMedium:    true;
+    titleSmall:     true;
+    bodyLarge:      true;
+    bodyMedium:     true;
+    bodySmall:      true;
+    labelLarge:     true;
+    labelMedium:    true;
+    labelSmall:     true;
   }
 }
 
@@ -187,9 +205,45 @@ export function buildMuiTheme(mode: 'light' | 'dark'): Theme {
       textTransform: 'none',
     },
 
-    // ── Variant MD3-nativi (usabili con variant="titleMedium" ecc.) ──────────
-    // Equivalenti ai MUI standard ma con nome semantico MD3.
+    // ── Variant MD3-nativi (usabili con variant="displaySmall" ecc.) ─────────
+    // Coprono l'intera typescale MD3 con nome semantico.
     // Preferiti in nuovi componenti per leggibilità e futura migrazione.
+    displayLarge: {
+      fontFamily: "'Roboto Flex', Roboto, sans-serif",
+      fontSize: '3.5625rem',       // 57px
+      lineHeight: '4rem',          // 64px
+      fontWeight: 400,
+    },
+    displayMedium: {
+      fontFamily: "'Roboto Flex', Roboto, sans-serif",
+      fontSize: '2.8125rem',       // 45px
+      lineHeight: '3.25rem',       // 52px
+      fontWeight: 400,
+    },
+    displaySmall: {
+      fontFamily: "'Roboto Flex', Roboto, sans-serif",
+      fontSize: '2.25rem',         // 36px
+      lineHeight: '2.75rem',       // 44px
+      fontWeight: 400,
+    },
+    headlineLarge: {
+      fontFamily: "'Roboto Flex', Roboto, sans-serif",
+      fontSize: '2rem',            // 32px
+      lineHeight: '2.5rem',        // 40px
+      fontWeight: 400,
+    },
+    headlineMedium: {
+      fontFamily: "'Roboto Flex', Roboto, sans-serif",
+      fontSize: '1.75rem',         // 28px
+      lineHeight: '2.25rem',       // 36px
+      fontWeight: 400,
+    },
+    headlineSmall: {
+      fontFamily: "'Roboto Flex', Roboto, sans-serif",
+      fontSize: '1.5rem',          // 24px
+      lineHeight: '2rem',          // 32px
+      fontWeight: 400,
+    },
     titleLarge: {
       fontFamily: "'Roboto Flex', Roboto, sans-serif",
       fontSize: '1.375rem',        // 22px
@@ -260,15 +314,21 @@ export function buildMuiTheme(mode: 'light' | 'dark'): Theme {
       defaultProps: {
         variantMapping: {
           // MD3-native variants → HTML semantici
-          titleLarge:  'p',
-          titleMedium: 'p',
-          titleSmall:  'p',
-          bodyLarge:   'p',
-          bodyMedium:  'p',
-          bodySmall:   'p',
-          labelLarge:  'span',
-          labelMedium: 'span',
-          labelSmall:  'span',
+          displayLarge:   'p',
+          displayMedium:  'p',
+          displaySmall:   'p',
+          headlineLarge:  'p',
+          headlineMedium: 'p',
+          headlineSmall:  'p',
+          titleLarge:     'p',
+          titleMedium:    'p',
+          titleSmall:     'p',
+          bodyLarge:      'p',
+          bodyMedium:     'p',
+          bodySmall:      'p',
+          labelLarge:     'span',
+          labelMedium:    'span',
+          labelSmall:     'span',
         },
       },
     },

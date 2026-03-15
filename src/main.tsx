@@ -236,6 +236,23 @@ function ErrorFallback({ error: _error }: { error: Error }) {
 // Ensure Zustand stores are preloaded before importing the App
 async function bootstrapApp() {
   try {
+    // ── Landing page fast-path (no consent gate, no App bootstrap) ──────────
+    if (window.location.pathname.startsWith('/landing')) {
+      const { default: LandingPage } = await import('./pages/landing/LandingPage');
+      root.render(
+        <ErrorBoundary>
+          <React.StrictMode>
+            <AppMuiThemeWrapper>
+              <M3ThemeProvider>
+                <LandingPage />
+              </M3ThemeProvider>
+            </AppMuiThemeWrapper>
+          </React.StrictMode>
+        </ErrorBoundary>
+      );
+      return;
+    }
+
     // Show loading state
     root.render(
       <ErrorBoundary>
