@@ -1,15 +1,14 @@
 /**
- * AIInspectorPanel.tsx — AI Observability Dashboard (Sprint 2)
+ * AIInspectorPanel.tsx — AI Observability & Research Dashboard (Sprints 2-4)
  *
- * Composed dashboard presenting all four observability sections:
- *   1. Cache Stats      — hit-rate, entry counts, clear button
- *   2. Span Timeline    — per-analyser duration bars for recent runs
- *   3. Audit Trail      — table of all recorded AI runs (memory + IDB)
- *   4. Telemetry Events — user interaction event log (from aiTelemetry buffer)
+ * Sections:
+ *   1. Cache Stats           — hit-rate, entry counts, clear button
+ *   2. Span Timeline         — per-analyser duration bars for recent runs
+ *   3. Audit Trail           — full recorded AI run history (memory + IDB)
+ *   4. Simulation Lab        — synthetic classroom benchmarking (Sprint 3)
+ *   5. Explainability Demo   — per-student risk factors + confidence (Sprint 4)
  *
  * Gated by `useAIBeta().isBeta` — renders a locked placeholder otherwise.
- *
- * Auto-refreshes timeline + telemetry every 5 s so live runs are visible.
  *
  * MD3 compliant — MUI v7 only.
  */
@@ -30,6 +29,7 @@ import AICacheStats from './AICacheStats';
 import AISpanTimeline from './AISpanTimeline';
 import AIAuditViewer from './AIAuditViewer';
 import SimulationLab from './SimulationLab';
+import ExplainabilityDemo from './ExplainabilityDemo';
 import type { AIAuditTrail } from '../audit/auditTypes';
 
 // ── section wrapper ───────────────────────────────────────────────────────────
@@ -134,6 +134,13 @@ const AIInspectorPanel: React.FC = memo(() => {
       {/* ── Row 3: Simulation Lab (full width) ── */}
       <SectionCard fullWidth>
         <SimulationLab />
+      </SectionCard>
+
+      <Divider sx={{ gridColumn: '1 / -1' }} />
+
+      {/* ── Row 4: Explainability Demo (full width) ── */}
+      <SectionCard fullWidth>
+        <ExplainabilityDemo />
       </SectionCard>
 
       {/* Footer */}
