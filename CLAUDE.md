@@ -164,3 +164,41 @@ VITE_OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318/v1/traces  # Tracing loca
 - **`temp-${Date.now()}` IDs** nei wizard (AnnualPlanningWizard, ClassPlanningWizard) — pattern esistente, non sostituire con UUID senza allineare tutta la logica di serializzazione.
 - **Google Drive GSI**: in production usa variabili Vercel. In dev richiede `VITE_ENABLE_GSI_DEV=true` + client ID valido.
 - **Storybook** gira su porta 6006, separata dal dev server.
+
+---
+
+## Stato Progetto — Marzo 2026
+
+### Pipeline AI — COMPLETATA (Sprint 1–9)
+
+| Sprint | Feature                                           | Stato |
+| ------ | ------------------------------------------------- | ----- |
+| 1–4    | Core UDA planner, classroom, evaluation           | ✅    |
+| 5–6    | AI Decision Support (raccomandazioni, predizione) | ✅    |
+| 7–8    | Copilot panel, spiegabilità, telemetria           | ✅    |
+| 9      | Audit Level 6, fix deficit, R1–R6 risolti         | ✅    |
+
+- **Test baseline**: 1740 passed / 1752 total (12 intentional skip), 0 failing
+- **Ultimo commit stabile**: `10a48791` — fix(audit): risoluzione completa deficit Livello 6
+- **CI**: 4 GitHub Actions workflow attivi (lint, test, release-gate, e2e-smoke)
+
+### Componenti Pilot (aggiunti post-audit)
+
+| File                                            | Scopo                                                                            |
+| ----------------------------------------------- | -------------------------------------------------------------------------------- |
+| `src/components/copilot/AITabErrorBoundary.tsx` | Per-tab error boundary per i 12 sub-tab del CopilotDocentePanel (no page reload) |
+| `src/components/PrivacyConsentModal.tsx`        | Prima schermata GDPR art.13 (blocking dialog, localStorage persistence)          |
+| `src/utils/dataRetention.ts`                    | GDPR B4: cleanup automatico artefatti AI dopo 365 giorni                         |
+
+### Privacy / GDPR
+
+- Consenso utente richiesto al primo avvio via `PrivacyConsentModal` (`privacy_consent_v1` in localStorage).
+- `hasPrivacyConsent()` / `recordConsent()` esportate da `PrivacyConsentModal.tsx`.
+- Data retention: `runRetentionCheck()` chiamato a ogni avvio da `main.tsx` — rimuove dati AI scaduti.
+- Dati **primari** del docente (UDA, alunni, valutazioni) NON soggetti a auto-delete.
+
+### Prossimi obiettivi
+
+- **Pilota**: consenso + retention wired ✅ — pronto per deploy pilota
+- **GDPR completo** (2–3 mesi): registro trattamenti, DPA, right-to-erasure UI
+- **Certificazione PA** (9–12 mesi): SPID, dichiarazione accessibilità, pentest, AGID

@@ -18,6 +18,7 @@ import CopilotActionsBar from './copilot/CopilotActionsBar';
 import AIExplainabilityPanel from './copilot/AIExplainabilityPanel';
 import AIDevToolsPanel from './copilot/AIDevToolsPanel';
 import CopilotRecommendationPanel from './copilot/CopilotRecommendationPanel';
+import { AITabErrorBoundary } from './copilot/AITabErrorBoundary';
 
 import type { AISuggestion } from '../ai/contextEngine/types';
 import type { ClassHealthIndex } from '../ai/classHealth/types';
@@ -70,19 +71,25 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
       </Tabs>
       <Box sx={{ minHeight: 80 }}>
         {tab === 0 && (
-          <CopilotPerformancePanel
-            suggestions={suggestions}
-            className={className}
-            studentId={studentId}
-            students={students}
-            evaluations={evaluations}
-          />
+          <AITabErrorBoundary tabName="Performance">
+            <CopilotPerformancePanel
+              suggestions={suggestions}
+              className={className}
+              studentId={studentId}
+              students={students}
+              evaluations={evaluations}
+            />
+          </AITabErrorBoundary>
         )}
         {tab === 1 && (
-          <CopilotHealthOverviewPanel classHealth={classHealth} snapshots={snapshots} className={className} />
+          <AITabErrorBoundary tabName="Overview">
+            <CopilotHealthOverviewPanel classHealth={classHealth} snapshots={snapshots} className={className} />
+          </AITabErrorBoundary>
         )}
         {tab === 2 && (
-          <AITrendPanel snapshots={snapshots} className={className} />
+          <AITabErrorBoundary tabName="Andamento">
+            <AITrendPanel snapshots={snapshots} className={className} />
+          </AITabErrorBoundary>
         )}
         {tab === 3 && (
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, py: 2 }}>
@@ -106,64 +113,80 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
           </Box>
         )}
         {tab === 4 && (
-          <PlanningAssistantPanel
-            suggestions={suggestions}
-            students={students}
-            evaluations={evaluations}
-            udas={udas}
-            className={className}
-            studentId={studentId}
-          />
+          <AITabErrorBoundary tabName="Planning">
+            <PlanningAssistantPanel
+              suggestions={suggestions}
+              students={students}
+              evaluations={evaluations}
+              udas={udas}
+              className={className}
+              studentId={studentId}
+            />
+          </AITabErrorBoundary>
         )}
         {tab === 5 && (
-          <CommunicationHelperPanel
-            suggestions={suggestions}
-            students={students}
-            evaluations={evaluations}
-            className={className}
-            studentId={studentId}
-          />
+          <AITabErrorBoundary tabName="Comunicazione">
+            <CommunicationHelperPanel
+              suggestions={suggestions}
+              students={students}
+              evaluations={evaluations}
+              className={className}
+              studentId={studentId}
+            />
+          </AITabErrorBoundary>
         )}
         {tab === 6 && (
-          <TrendPredictionPanel
-            students={students}
-            evaluations={evaluations}
-            className={className}
-            studentId={studentId}
-          />
+          <AITabErrorBoundary tabName="Predizione">
+            <TrendPredictionPanel
+              students={students}
+              evaluations={evaluations}
+              className={className}
+              studentId={studentId}
+            />
+          </AITabErrorBoundary>
         )}
         {tab === 7 && (
-          <AggregatedDashboard
-            suggestions={suggestions}
-            classHealth={classHealth}
-            snapshots={snapshots}
-            students={students}
-            evaluations={evaluations}
-            udas={udas}
-            className={className}
-            studentId={studentId}
-          />
+          <AITabErrorBoundary tabName="Dashboard">
+            <AggregatedDashboard
+              suggestions={suggestions}
+              classHealth={classHealth}
+              snapshots={snapshots}
+              students={students}
+              evaluations={evaluations}
+              udas={udas}
+              className={className}
+              studentId={studentId}
+            />
+          </AITabErrorBoundary>
         )}
         {tab === 8 && (
-          <CopilotActionsBar
-            riskSuggestions={suggestions}
-            students={students}
-            evaluations={evaluations}
-          />
+          <AITabErrorBoundary tabName="Azioni">
+            <CopilotActionsBar
+              riskSuggestions={suggestions}
+              students={students}
+              evaluations={evaluations}
+            />
+          </AITabErrorBoundary>
         )}
         {tab === 9 && (
-          <AIExplainabilityPanel suggestions={suggestions} defaultFirstExpanded />
+          <AITabErrorBoundary tabName="Spiegabilità">
+            <AIExplainabilityPanel suggestions={suggestions} defaultFirstExpanded />
+          </AITabErrorBoundary>
         )}
         {tab === 10 && (
-          <AIDevToolsPanel />
+          <AITabErrorBoundary tabName="Dev Tools">
+            <AIDevToolsPanel />
+          </AITabErrorBoundary>
         )}
         {tab === 11 && (
-          <CopilotRecommendationPanel
-            students={students}
-            evaluations={evaluations}
-            udas={udas}
-            className={className}
-          />
+          <AITabErrorBoundary tabName="Raccomandazioni AI">
+            <CopilotRecommendationPanel
+              students={students}
+              evaluations={evaluations}
+              udas={udas}
+              className={className}
+            />
+          </AITabErrorBoundary>
         )}
       </Box>
     </InfoCard>

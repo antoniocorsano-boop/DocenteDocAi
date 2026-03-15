@@ -31,6 +31,8 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { useMemo, useState, useEffect } from 'react';
 import { useSettingsStore } from './stores/useSettingsStore';
+import { runRetentionCheck } from './utils/dataRetention';
+import { hasPrivacyConsent } from './components/PrivacyConsentModal';
 
 /**
  * STORAGE RECOVERY:
@@ -49,6 +51,9 @@ import { useSettingsStore } from './stores/useSettingsStore';
     // Intentionally ignore legacy storage cleanup errors
   }
 })();
+
+// GDPR B4 — data retention: purge AI artefacts older than 365 days
+runRetentionCheck();
 
 // Improved global error handlers.
 // - Ignore errors originating from browser extensions (chrome-extension://)
@@ -250,17 +255,29 @@ async function bootstrapApp() {
     // Dynamically import App after stores are ready to avoid initialization races
     const { App } = await import('./components/App');
     const { ModalProvider } = await import('./contexts/ModalContext');
+    const { default: PrivacyConsentModal } = await import('./components/PrivacyConsentModal');
+
+    /** Consent gate — keeps app blocked until GDPR informativa is accepted. */
+    function AppWithConsent() {
+      const [consented, setConsented] = useState(() => hasPrivacyConsent());
+      if (!consented) {
+        return <PrivacyConsentModal onAccepted={() => setConsented(true)} />;
+      }
+      return (
+        <NKAProvider>
+          <ModalProvider>
+            <App />
+          </ModalProvider>
+        </NKAProvider>
+      );
+    }
 
     root.render(
       <ErrorBoundary>
         <React.StrictMode>
           <AppMuiThemeWrapper>
             <M3ThemeProvider>
-              <NKAProvider>
-                <ModalProvider>
-                  <App />
-                </ModalProvider>
-              </NKAProvider>
+              <AppWithConsent />
             </M3ThemeProvider>
           </AppMuiThemeWrapper>
         </React.StrictMode>
