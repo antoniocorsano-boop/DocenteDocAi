@@ -87,6 +87,11 @@ export interface CacheStats {
   hitRate: number;
 }
 
+/** Returns the number of entries in the unified (orchestrator) result cache. */
+export function getUnifiedCacheSize(): number {
+  return _unifiedCache.size;
+}
+
 /** Returns cache performance stats for the dev tools panel. */
 export function getCacheStats(): CacheStats {
   const total = _hits + _misses;

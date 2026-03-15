@@ -14,7 +14,9 @@ import React from 'react';
 
 vi.mock('../../../ai/cache/aiCache', () => ({
   getCacheStats: vi.fn(() => ({ size: 3, hits: 10, misses: 2, hitRate: 0.833 })),
+  getUnifiedCacheSize: vi.fn(() => 0),
   clearCache: vi.fn(),
+  clearAllCaches: vi.fn(),
 }));
 
 vi.mock('../../../ai/telemetry/aiTelemetry', () => ({
@@ -24,6 +26,22 @@ vi.mock('../../../ai/telemetry/aiTelemetry', () => ({
 
 vi.mock('../../../ai/engine/aiEngine', () => ({
   getLastRunStats: vi.fn(() => null),
+}));
+
+vi.mock('../../../ai/audit/auditTrail', () => ({
+  getAuditHistory: vi.fn(() => []),
+  clearAuditHistory: vi.fn(),
+}));
+
+vi.mock('../../../ai/audit/auditDb', () => ({
+  getAllPersistedAudits: vi.fn(async () => []),
+  clearPersistedAudits: vi.fn(async () => undefined),
+  exportAuditJSON: vi.fn(async () => new Blob(['[]'], { type: 'application/json' })),
+}));
+
+// Mock the Sprint 2 inspector so it doesn't duplicate stat labels in this test
+vi.mock('../../../ai/devtools/AIInspectorPanel', () => ({
+  default: () => React.createElement('div', { 'data-testid': 'ai-inspector-panel' }),
 }));
 
 // isBeta is toggled per-test via the module factory variable trick:

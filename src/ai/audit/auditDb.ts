@@ -123,6 +123,20 @@ export async function exportAuditJSON(contextHash?: string): Promise<Blob> {
 }
 
 /**
+ * Returns the most recent `limit` audit records across all classes.
+ * Used by the Dev Tools Audit Viewer when no specific context hash is known.
+ */
+export async function getAllPersistedAudits(limit = 50): Promise<PersistedAudit[]> {
+  try {
+    const db = getDb();
+    const all = await db.audits.orderBy('startedAt').reverse().limit(limit).toArray();
+    return all;
+  } catch {
+    return [];
+  }
+}
+
+/**
  * Deletes all audit records for a given context hash.
  * Used from the Dev Tools "Clear Audit" button.
  */

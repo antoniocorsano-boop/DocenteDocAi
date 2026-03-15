@@ -32,6 +32,7 @@ import {
 } from '../../ai/telemetry/aiTelemetry';
 import { getLastRunStats, type AIRunStats } from '../../ai/engine/aiEngine';
 import { useAIBeta } from '../../hooks/useAIBeta';
+import AIInspectorPanel from '../../ai/devtools/AIInspectorPanel';
 
 // ── constants ─────────────────────────────────────────────────────────────────
 
@@ -483,6 +484,18 @@ export default function AIDevToolsPanel(): JSX.Element {
         <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
           I dati sono in-memory e si azzerano al refresh. Per il buffer completo usa <code>window.__aiTelemetry</code> in DevTools.
         </Typography>
+      </Box>
+
+      {/* ── Sprint 2: AI Inspector (Audit Trail + Span Timeline + Cache) ── */}
+      <Box sx={{ gridColumn: '1 / -1' }}>
+        <Divider sx={{ mb: 'var(--md-sys-spacing-6)' }} />
+        <Typography
+          variant="titleMedium"
+          sx={{ color: 'var(--md-sys-color-on-surface)', mb: 'var(--md-sys-spacing-4)' }}
+        >
+          AI Inspector
+        </Typography>
+        <AIInspectorPanel />
       </Box>
     </Box>
   );
