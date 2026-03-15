@@ -491,7 +491,7 @@ describe('aiService - AI Generation Functions', () => {
       const result = await generateContent('Prompt', { temperature: 0.5, maxTokens: 500, stop: 'STOP' });
       expect(result.content).toBe('Generico');
       expect(mockGenerateContent).toHaveBeenCalledWith(expect.objectContaining({
-        generationConfig: expect.objectContaining({
+        config: expect.objectContaining({
           temperature: 0.5,
           maxOutputTokens: 500,
           stopSequences: ['STOP']
@@ -503,7 +503,7 @@ describe('aiService - AI Generation Functions', () => {
       mockGenerateContent.mockResolvedValue({ text: 'Generico' });
       await generateContent('Prompt', {});
       expect(mockGenerateContent).toHaveBeenCalledWith(expect.objectContaining({
-        generationConfig: expect.objectContaining({
+        config: expect.objectContaining({
           temperature: 0.7,
           maxOutputTokens: 1000,
           stopSequences: undefined
@@ -511,10 +511,10 @@ describe('aiService - AI Generation Functions', () => {
       }));
     });
 
-    it('dovrebbe usare response.content se response.text � assente', async () => {
-      mockGenerateContent.mockResolvedValue({ content: 'Contenuto alternativo' });
+    it('dovrebbe restituire stringa vuota se response.text è assente', async () => {
+      mockGenerateContent.mockResolvedValue({});
       const result = await generateContent('Prompt', {});
-      expect(result.content).toBe('Contenuto alternativo');
+      expect(result.content).toBe('');
     });
 
     it('dovrebbe gestire oggetti tramite ensureString', async () => {

@@ -1,0 +1,18 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://localhost:5173",
+      "localStorage": [
+        {
+          "name": "privacy_consent_v1",
+          "value": "{\"accepted\":true,\"ts\":\"2026-01-01T00:00:00.000Z\"}"
+        },
+        {
+          "name": "__e2e_test_mode",
+          "value": "true"
+        }
+      ]
+    }
+  ]
+}

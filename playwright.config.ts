@@ -22,6 +22,8 @@ export default defineConfig({
     // SPA-specific configurations
     ignoreHTTPSErrors: true,
     bypassCSP: true, // Per development server
+    // Pre-accept privacy consent so blocking modal never appears in tests
+    storageState: './e2e/storage-state.json',
   },
 
   webServer: {

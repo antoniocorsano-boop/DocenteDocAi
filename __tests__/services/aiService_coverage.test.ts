@@ -153,7 +153,7 @@ describe('aiService', () => {
             const result = await aiService.generateContent('test prompt', { temperature: 0.5 });
             expect(result.content).toBe('Generated text');
             expect(mockGenerateContent).toHaveBeenCalledWith(expect.objectContaining({
-                generationConfig: expect.objectContaining({ temperature: 0.5 })
+                config: expect.objectContaining({ temperature: 0.5 })
             }));
         });
     });

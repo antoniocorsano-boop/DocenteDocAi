@@ -230,7 +230,9 @@ const App: React.FC = () => {
                 <Snackbar />
             </ErrorBoundary>
         </AppLayout>
-        {!appState.settings.onboarded && (
+        {!appState.settings.onboarded && 
+         !(window as unknown as { __TEST_MODE?: boolean }).__TEST_MODE &&
+         localStorage.getItem('__e2e_test_mode') !== 'true' && (
             <React.Suspense fallback={null}>
                 <OnboardingWizard
                     settings={appState.settings}

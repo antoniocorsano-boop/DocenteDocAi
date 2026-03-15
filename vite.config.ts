@@ -1,7 +1,12 @@
 // CRITICAL: Import build-time polyfill FIRST to prevent SSR errors
 import './src/build-polyfill.js';
 
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import { createHtmlPlugin } from 'vite-plugin-html';
@@ -11,7 +16,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 export default defineConfig({
   resolve: {
     alias: {
-      '@': path.resolve(dirname, './src'),
+      '@': path.resolve(__dirname, './src'),
       react: 'react',
       'react-dom': 'react-dom',
       scheduler: 'scheduler',

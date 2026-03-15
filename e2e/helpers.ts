@@ -9,6 +9,10 @@ export async function setTestMode(page: Page): Promise<void> {
     // Quiet common noisy prefixes used across the app during E2E
     windowExt.__SILENT_PREFIXES = ['[IndexedDbService]', '[BackupService]', '[AssistantFab]', 'PW_CONSOLE'];
 
+    // Pre-accept privacy consent so the blocking modal never appears in tests
+    try {
+      localStorage.setItem('privacy_consent_v1', JSON.stringify({ accepted: true, ts: new Date().toISOString() }));
+    } catch { /* ignore */ }
     // Wrap console methods to filter noisy messages coming from in-page code
     try {
       const methods = ['log', 'info', 'warn', 'error', 'debug'];
@@ -65,7 +69,7 @@ export async function seedIndexedDB(page: Page): Promise<void> {
             udas: [],
             knowledgeBase: [],
             notifiche: [],
-            settings: {},
+            settings: { onboarded: true },
             aiSettings: {},
             themeState: null
           };

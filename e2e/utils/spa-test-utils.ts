@@ -148,6 +148,8 @@ export class SPAStateHelper {
           // Clear storage se possibile
           if (typeof localStorage !== 'undefined') {
             localStorage.clear();
+            // Re-set keys needed to bypass blocking modals in tests
+            localStorage.setItem('privacy_consent_v1', JSON.stringify({ accepted: true, ts: new Date().toISOString() }));
           }
           if (typeof sessionStorage !== 'undefined') {
             sessionStorage.clear();
@@ -271,8 +273,44 @@ export class SPATestSuite {
    * Setup comune per tutti i test SPA
    */
   async setup(): Promise<void> {
-    await this.state.resetAppState();
+    // Set test mode before page loads so the app skips blocking modals
+    await this.page.addInitScript(() => {
+      (window as { __TEST_MODE?: boolean }).__TEST_MODE = true;
+    });
+
+    // Navigate first so IndexedDB writes happen on the correct origin
     await this.page.goto('http://localhost:5173');
+
+    // Seed IndexedDB with a minimal logged-in state
+    await this.page.evaluate(() => {
+      return new Promise<void>((resolve) => {
+        try {
+          const req = indexedDB.open('OrarioDocAI_BackupDB', 3);
+          req.onupgradeneeded = (e) => {
+            const db = (e.target as IDBOpenDBRequest).result;
+            if (!db.objectStoreNames.contains('app_state')) db.createObjectStore('app_state');
+          };
+          req.onsuccess = () => {
+            const db = req.result;
+            const tx = db.transaction('app_state', 'readwrite');
+            tx.objectStore('app_state').put({
+              user: { id: 'test-local', displayName: 'Test Teacher' },
+              students: [], lessons: [], slots: {}, evaluations: [], udas: [],
+              knowledgeBase: [], notifiche: [],
+              settings: { onboarded: true },
+              aiSettings: {}, themeState: null
+            }, 'latest_backup');
+            tx.oncomplete = () => { db.close(); resolve(); };
+            tx.onerror = () => { db.close(); resolve(); };
+          };
+          req.onerror = () => resolve();
+        } catch { resolve(); }
+      });
+    });
+
+    // Reload so the app reads the freshly seeded backup
+    await this.page.reload();
+
     await this.state.verifyLoggedInState();
   }
 

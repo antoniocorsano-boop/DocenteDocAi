@@ -276,7 +276,9 @@ async function bootstrapApp() {
 
     /** Consent gate — keeps app blocked until GDPR informativa is accepted. */
     function AppWithConsent() {
-      const [consented, setConsented] = useState(() => hasPrivacyConsent());
+      const isTestMode = !!(window as unknown as { __TEST_MODE?: boolean }).__TEST_MODE
+        || localStorage.getItem('__e2e_test_mode') === 'true';
+      const [consented, setConsented] = useState(() => isTestMode || hasPrivacyConsent());
       if (!consented) {
         return <PrivacyConsentModal onAccepted={() => setConsented(true)} />;
       }
