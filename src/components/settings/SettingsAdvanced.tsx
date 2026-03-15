@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -11,6 +11,7 @@ import SettingsGroup from './SettingsGroupAccordion';
 import { TextField } from '../ui';
 import { TimetableSettings } from '../../types';
 import { useAIBeta } from '../../hooks/useAIBeta';
+import { purgeAIData } from '../../utils/dataRetention';
 
 interface SettingsAdvancedSectionProps {
     expanded: boolean;
@@ -24,6 +25,13 @@ export const SettingsAdvancedSection: React.FC<SettingsAdvancedSectionProps> = (
     expanded, onToggle, localSettings, handleChange, setIsResetModalOpen
 }) => {
     const { isBeta, setBeta } = useAIBeta();
+    const [aiDataPurged, setAiDataPurged] = useState(false);
+
+    const handlePurgeAIData = () => {
+        purgeAIData();
+        setAiDataPurged(true);
+        setTimeout(() => setAiDataPurged(false), 4000);
+    };
 
     return (
     <SettingsGroup
@@ -83,6 +91,36 @@ export const SettingsAdvancedSection: React.FC<SettingsAdvancedSectionProps> = (
                     />
                 </Stack>
             </Box>
+
+            {/* Privacy — GDPR B5: cancellazione dati AI */}
+            <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
+                <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1.5 }}>
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ color: 'var(--md-sys-color-secondary)', fontSize: 'var(--md-sys-typescale-body-large-font-size)' }}>shield</Box>
+                    <Typography variant="overline" sx={{ color: 'var(--md-sys-color-secondary)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}>Privacy</Typography>
+                </Stack>
+                <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mb: 2 }}>
+                    Rimuove i dati AI elaborati localmente (telemetria, audit trail AI) dal dispositivo.
+                    I dati del docente (UDA, alunni, valutazioni) non vengono cancellati.
+                </Typography>
+                {aiDataPurged ? (
+                    <Typography variant="body2" sx={{ color: 'var(--md-sys-color-secondary)', fontWeight: 'var(--md-sys-typescale-weight-medium)' }}>
+                        ✓ Dati AI eliminati correttamente.
+                    </Typography>
+                ) : (
+                    <Button
+                        onClick={handlePurgeAIData}
+                        variant="outlined"
+                        color="secondary"
+                        fullWidth
+                        startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">delete_sweep</Box>}
+                        aria-label="Cancella i dati AI elaborati localmente"
+                    >
+                        Cancella dati AI
+                    </Button>
+                )}
+            </Box>
+
+            <Divider />
 
             {/* Danger zone */}
             <Box sx={{ p: 2, bgcolor: 'color-mix(in srgb, var(--md-sys-color-error-container) 10%, transparent)', borderRadius: 'var(--md-sys-shape-corner-extra-large)', border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-error)' }}>
