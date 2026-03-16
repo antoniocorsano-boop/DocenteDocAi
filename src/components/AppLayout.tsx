@@ -3,7 +3,6 @@
 // Audit: marzo 2026
 import React from 'react';
 import Box from '@mui/material/Box';
-import NavigationRail from './NavigationRail';
 import BottomNav from './BottomNav';
 import SecondaryNavDrawer from './SecondaryNavDrawer';
 import { Header } from './Header';
@@ -30,15 +29,6 @@ interface AppLayoutProps {
   hasSuggestion: boolean;
 }
 
-const NAV_ITEMS = [
-  { id: 'home' as View,               label: 'Home',       icon: 'home',            activeIcon: 'home' },
-  { id: 'timetable' as View,          label: 'Orario',     icon: 'schedule',        activeIcon: 'watch_later' },
-  { id: 'progettazione-hub' as View,  label: 'Progetta',   icon: 'design_services', activeIcon: 'edit_document' },
-  { id: 'aula' as View,               label: 'Classi',     icon: 'groups',          activeIcon: 'groups' },
-  { id: 'orientamento' as View,       label: 'Orientamento', icon: 'explore',       activeIcon: 'explore' },
-  { id: 'calendario' as View,         label: 'Agenda',     icon: 'calendar_month',  activeIcon: 'event_note' },
-];
-
 export const AppLayout: React.FC<AppLayoutProps> = ({
   children,
   view,
@@ -58,22 +48,11 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   onOpenOperations,
   hasSuggestion,
 }) => {
-  // Usa matchMedia per reagire al breakpoint senza polling resize
-  const [isDesktop, setIsDesktop] = React.useState(
-    () => window.matchMedia('(min-width: 1024px)').matches
-  );
-  const [secondaryNavOpen, setSecondaryNavOpen] = React.useState(false);
+  const [mainNavOpen, setMainNavOpen] = React.useState(false);
 
+  // Chiudi il drawer al cambio di vista
   React.useEffect(() => {
-    const mq = window.matchMedia('(min-width: 1024px)');
-    const onChange = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []);
-
-  // Chiudi il drawer secondario al cambio di vista
-  React.useEffect(() => {
-    setSecondaryNavOpen(false);
+    setMainNavOpen(false);
   }, [view]);
 
   // Aggiorna document.title al cambio di view (accessibilità + SEO)
@@ -105,14 +84,14 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             box-shadow: var(--md-sys-elevation-level2) !important;
           }
           /* ── Shell: add top padding to compensate for header leaving flow ── */
-          /* --md-sys-spacing-16 resolves to 64px (52px compact); +spacing-4 = 16px viewport margin */
+          /* --md-sys-spacing-14 resolves to 56px (47px compact); +spacing-4 = 16px viewport margin */
           .app-shell-container {
             padding-top: calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-4) + var(--md-sys-spacing-2)) !important;
           }
           /* ── Main content: extra bottom clearance for elevated nav ── */
-          /* Floating nav: height≈64px + spacing-4 margin (16px) + spacing-2 buffer (8px) */
+          /* Floating nav: height≈56px + spacing-4 margin (16px) + spacing-2 buffer (8px) */
           .app-main-content {
-            padding-bottom: calc(var(--md-sys-spacing-16) + var(--md-sys-spacing-4) + var(--md-sys-spacing-2) + env(safe-area-inset-bottom, 0px)) !important;
+            padding-bottom: calc(var(--md-sys-spacing-14) + var(--md-sys-spacing-4) + var(--md-sys-spacing-2) + env(safe-area-inset-bottom, 0px)) !important;
           }
           /* ── BottomNav: add horizontal + bottom margin; round corners ── */
           .bottom-nav-container {
@@ -141,77 +120,41 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         onInstallApp={onInstallApp}
         onOpenOperations={onOpenOperations}
         hasSuggestion={hasSuggestion}
-        onOpenMore={() => setSecondaryNavOpen(p => !p)}
-        moreOpen={secondaryNavOpen}
+        onOpenMore={() => setMainNavOpen(p => !p)}
+        moreOpen={mainNavOpen}
         currentView={view}
       />
 
-      {/* Body row: nav sidebar + scrollable content */}
-      <Box sx={{
-        display: 'flex',
-        flex: 1,
-        overflow: 'hidden',
-        minHeight: 0,
-      }}>
-        {/* Navigation Rail: in-flow sidebar, hidden on mobile */}
-        {isDesktop && (
-          <Box
-            component="aside"
-            aria-label="Navigazione laterale"
-            sx={{
-              width: 'var(--md-sys-spacing-20)',
-              flexShrink: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              bgcolor: 'var(--md-sys-color-surface-container-low)',
-              borderRight: 'var(--md-sys-border-width-thin) solid',
-              borderColor: 'divider',
-              overflowY: 'auto',
-              overflowX: 'hidden',
-            }}
-          >
-            <NavigationRail
-              items={NAV_ITEMS}
-              activeView={view}
-              onNavigate={(v, c) => onNavigate(v, c as NavigationParams)}
-              onOpenMore={() => setSecondaryNavOpen(p => !p)}
-              moreOpen={secondaryNavOpen}
-            />
-          </Box>
-        )}
-
-        {/* Main content: fills remaining width, scrolls independently */}
-        <Box
-          component="main"
-          className="app-main-content"
-          sx={{
-            flex: 1,
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            bgcolor: 'var(--md-sys-color-surface)',
-            pb: isDesktop ? undefined : 'calc(var(--md-sys-spacing-16) + env(safe-area-inset-bottom, 0px))',
-            minWidth: 0,
-          }}
-        >
-          {children}
-        </Box>
+      {/* Body: main scrollable content, full width — no persistent sidebar */}
+      <Box
+        component="main"
+        className="app-main-content"
+        sx={{
+          flex: 1,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          bgcolor: 'var(--md-sys-color-surface)',
+          pb: { xs: 'calc(var(--md-sys-spacing-14) + env(safe-area-inset-bottom, 0px))', lg: 0 },
+          minWidth: 0,
+        }}
+      >
+        {children}
       </Box>
 
-      {/* BottomNav: position:fixed, auto-hidden on desktop via its own CSS */}
+      {/* BottomNav: icon-only, position:fixed, auto-hidden on desktop via CSS */}
       <BottomNav
         activeView={view}
         onNavigate={(v) => onNavigate(v)}
-        onOpenMore={() => setSecondaryNavOpen(p => !p)}
-        moreOpen={secondaryNavOpen}
+        onOpenMore={() => setMainNavOpen(p => !p)}
+        moreOpen={mainNavOpen}
       />
 
-      {/* Drawer secondario — tutte le sezioni non esposte nel nav principale */}
+      {/* Unified Nav Drawer — primary + all secondary sections */}
       <SecondaryNavDrawer
-        open={secondaryNavOpen}
-        onClose={() => setSecondaryNavOpen(false)}
+        open={mainNavOpen}
+        onClose={() => setMainNavOpen(false)}
         onNavigate={(v) => onNavigate(v)}
         activeView={view}
-        isDesktop={isDesktop}
       />
     </Box>
   );

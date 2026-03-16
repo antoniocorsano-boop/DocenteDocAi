@@ -42,7 +42,6 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
   hasSuggestion,
   onOpenOperations,
   onOpenMore,
-  moreOpen = false,
   currentView,
 }) => {
   const teacherName = settings?.nomeInsegnante || '';
@@ -114,7 +113,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
 
         {/* Title/Logo + Breadcrumb — left-aligned per MD3 top app bar spec */}
         <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', ml: 'var(--md-sys-spacing-2)', minWidth: 0 }}>
-          <Logo isAiThinking={isAiProcessing} onHomeNavigate={() => !showBackButton && onNavigate('home')} />
+          <Logo isAiThinking={isAiProcessing} onHomeNavigate={onOpenMore} />
           {showBackButton && currentView ? (
             <Breadcrumb currentView={currentView} onNavigate={onNavigate} />
           ) : (
@@ -148,31 +147,6 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
               <Box component="span" className="material-symbols-outlined" aria-hidden="true">cloud_off</Box>
               <Typography variant="caption" component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>Offline</Typography>
             </Box>
-          )}
-          {/* Altro — visibile solo su mobile (< 1024px); su desktop usa la NavigationRail */}
-          {onOpenMore && (
-            <IconButton
-              aria-label="Altro"
-              aria-expanded={moreOpen}
-              aria-haspopup="dialog"
-              onClick={onOpenMore}
-              sx={{
-                display: { xs: 'inline-flex', lg: 'none' },
-                color: moreOpen
-                  ? 'var(--md-sys-color-on-secondary-container)'
-                  : 'var(--md-sys-color-on-surface)',
-                bgcolor: moreOpen
-                  ? 'var(--md-sys-color-secondary-container)'
-                  : 'transparent',
-                '&:hover': moreOpen ? {
-                  bgcolor: 'color-mix(in srgb, var(--md-sys-color-secondary-container) 88%, var(--md-sys-color-on-secondary-container))',
-                } : {},
-              }}
-            >
-              <Box component="span" className="material-symbols-outlined" aria-hidden="true">
-                {moreOpen ? 'menu_open' : 'menu'}
-              </Box>
-            </IconButton>
           )}
           <IconButton
             aria-label="Menu utente"

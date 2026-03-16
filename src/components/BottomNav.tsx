@@ -3,7 +3,6 @@
 // MD3 spec: pill 64×32dp, corner-full, secondary-container color.
 import React, { useState } from 'react';
 import { View } from '../types';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 
@@ -85,9 +84,9 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate, onOpenMor
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: 'var(--md-sys-spacing-1)',
+                gap: 0,
                 flex: 1,
-                minHeight: 'var(--md-sys-spacing-16)',
+                minHeight: 'var(--md-sys-spacing-14)',
                 padding: 'var(--md-sys-spacing-2) 0',
                 WebkitTapHighlightColor: 'transparent',
               }}
@@ -150,20 +149,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onNavigate, onOpenMor
                 </span>
               </span>
 
-              {/* Label */}
-              <Typography
-                variant="caption"
-                component="span"
-                sx={{
-                  fontWeight: isActive ? 'var(--md-sys-typescale-weight-bold)' : 'var(--md-sys-typescale-weight-regular)',
-                  color: isActive
-                    ? 'var(--md-sys-color-on-surface)'
-                    : 'var(--md-sys-color-on-surface-variant)',
-                  transition: `color ${SPRING_EFFECTS}, font-weight ${SPRING_EFFECTS}`,
-                }}
-              >
-                {item.label}
-              </Typography>
+
             </ButtonBase>
           );
         })}
