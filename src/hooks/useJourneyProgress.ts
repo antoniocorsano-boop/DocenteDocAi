@@ -27,6 +27,8 @@ export interface JourneyProgress {
   nextActions: CopilotSuggestion[];
   levelUpPending: boolean;
   confidenceScore: number;
+  /** True when teacher is operating in personal mode (no class) */
+  isPersonalMode: boolean;
 }
 
 export function useJourneyProgress(): JourneyProgress {
@@ -48,7 +50,8 @@ export function useJourneyProgress(): JourneyProgress {
   return useMemo(() => {
     const level = toJourneyLevel(model.capabilityLevel);
     const progress = computeJourneyProgress(model);
-    const nextActions = generateNextActions({ model, interactionMode, aiMaturitaScore });
+    const isPersonalMode = model.usageProfile.isPersonalMode ?? false;
+    const nextActions = generateNextActions({ model, interactionMode, aiMaturitaScore, isPersonalMode });
 
     return {
       level,
@@ -57,6 +60,7 @@ export function useJourneyProgress(): JourneyProgress {
       nextActions,
       levelUpPending: model.levelUpPending,
       confidenceScore: model.confidenceScore,
+      isPersonalMode,
     };
   }, [model, interactionMode, aiMaturitaScore]);
 }

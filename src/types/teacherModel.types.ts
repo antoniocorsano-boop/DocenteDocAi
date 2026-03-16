@@ -20,6 +20,17 @@ export interface UsageProfile {
   udaCreated: number;
   exportsGenerated: number;
   driveConnected: boolean;
+  // — v2: personal mode & integrations (from new CognitionBus events) —
+  /** Distinct feature areas visited for the first time (feature.discovered) */
+  featuresDiscovered: number;
+  /** External book/publisher services linked (book.account.linked) */
+  bookServicesLinked: number;
+  /** External services connected — LMS, registro, PA portals (external.service.connected) */
+  externalServicesConnected: number;
+  /** True when teacher is operating without a class (session.mode = 'personal') */
+  isPersonalMode: boolean;
+  /** True after workspace.configured fires (initial setup completed) */
+  workspaceConfigured: boolean;
 }
 
 /** Inferred pedagogical preferences */

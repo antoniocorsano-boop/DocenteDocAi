@@ -90,6 +90,28 @@ export function initUsageTracker(store: UsageTrackingStore): void {
   cognitionBus.on('copilot.automation.enabled', () => {
     store.updateCopilotProfile({ automationEnabled: true });
   });
+
+  // ── Modalità personale / Workspace ──
+  cognitionBus.on('session.mode', (payload) => {
+    store.updateUsageProfile({ isPersonalMode: payload.mode === 'personal' });
+  });
+  cognitionBus.on('workspace.configured', () => {
+    store.updateUsageProfile({ workspaceConfigured: true });
+  });
+  cognitionBus.on('feature.discovered', () => {
+    const u = store.getUsageProfile();
+    store.updateUsageProfile({ featuresDiscovered: (u.featuresDiscovered ?? 0) + 1 });
+  });
+
+  // ── Integrazioni esterne ──
+  cognitionBus.on('book.account.linked', () => {
+    const u = store.getUsageProfile();
+    store.updateUsageProfile({ bookServicesLinked: (u.bookServicesLinked ?? 0) + 1 });
+  });
+  cognitionBus.on('external.service.connected', () => {
+    const u = store.getUsageProfile();
+    store.updateUsageProfile({ externalServicesConnected: (u.externalServicesConnected ?? 0) + 1 });
+  });
 }
 
 /** Reset for testing only */

@@ -20,10 +20,19 @@ interface SuggestionContext {
   model: TeacherModel;
   interactionMode: InteractionMode;
   aiMaturitaScore: number;
+  /** True when teacher is in personal mode (no class assigned yet) */
+  isPersonalMode?: boolean;
 }
 
 /** Static suggestion catalogue (id is stable for cooldown tracking) */
-const CATALOGUE: (CopilotSuggestion & { minLevel: JourneyLevel; minAiScore?: number })[] = [
+const CATALOGUE: (CopilotSuggestion & {
+  minLevel: JourneyLevel;
+  minAiScore?: number;
+  /** Only shown when teacher is in personal mode (no class) */
+  personalModeOnly?: boolean;
+  /** Only shown when at least one book service has been linked */
+  requiresBookLinked?: boolean;
+})[] = [
   // esploratore suggestions
   {
     id: 'sug-lesson-streak',
@@ -93,6 +102,43 @@ const CATALOGUE: (CopilotSuggestion & { minLevel: JourneyLevel; minAiScore?: num
     targetView: 'settings',
     icon: 'psychology',
   },
+  // ── Personal Mode / Onboarding ──
+  {
+    id: 'sug-personal-mode-start',
+    type: 'feature',
+    minLevel: 'esploratore',
+    personalModeOnly: true,
+    message: 'Stai lavorando in modalità personale. Crea una UDA o carica risorse nella Knowledge Base — senza bisogno di studenti.',
+    targetView: 'planning',
+    icon: 'person',
+  },
+  {
+    id: 'sug-add-first-class',
+    type: 'workflow',
+    minLevel: 'esploratore',
+    message: 'Aggiungi la prima classe per sbloccare il registro presenze, le valutazioni e gli insight sugli studenti.',
+    targetView: 'classroom',
+    icon: 'group_add',
+  },
+  // ── Integrazioni libro / servizi ──
+  {
+    id: 'sug-book-integration-uda',
+    type: 'workflow',
+    minLevel: 'esploratore',
+    requiresBookLinked: true,
+    message: 'Hai collegato un servizio libro. Integra le risorse digitali direttamente nelle tue UDA!',
+    targetView: 'planning',
+    icon: 'auto_stories',
+  },
+  // ── AI Artistica ──
+  {
+    id: 'sug-artistic-consilium',
+    type: 'feature',
+    minLevel: 'praticante',
+    message: 'Il Consilium Artistico suggerisce attività creative e interdisciplinari per le tue UDA. Prova l\'AI Artistica!',
+    targetView: 'copilot',
+    icon: 'palette',
+  },
 ];
 
 function isOnCooldown(suggestion: CopilotSuggestion, model: TeacherModel): boolean {
@@ -105,7 +151,7 @@ function isOnCooldown(suggestion: CopilotSuggestion, model: TeacherModel): boole
 }
 
 export function generateNextActions(ctx: SuggestionContext): CopilotSuggestion[] {
-  const { model, interactionMode, aiMaturitaScore } = ctx;
+  const { model, interactionMode, aiMaturitaScore, isPersonalMode } = ctx;
   const journeyLevel = toJourneyLevel(model.capabilityLevel);
 
   const levelOrder: JourneyLevel[] = ['esploratore', 'praticante', 'maestro'];
@@ -119,6 +165,10 @@ export function generateNextActions(ctx: SuggestionContext): CopilotSuggestion[]
     if (sug.minAiScore !== undefined && aiMaturitaScore < sug.minAiScore) return false;
     // Cooldown
     if (isOnCooldown(sug, model)) return false;
+    // Personal mode gate
+    if (sug.personalModeOnly && !isPersonalMode) return false;
+    // Book integration gate
+    if (sug.requiresBookLinked && !(model.usageProfile.bookServicesLinked ?? 0)) return false;
     return true;
   });
 

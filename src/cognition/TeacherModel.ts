@@ -25,6 +25,11 @@ export function createEmptyTeacherModel(): TeacherModel {
       udaCreated: 0,
       exportsGenerated: 0,
       driveConnected: false,
+      featuresDiscovered: 0,
+      bookServicesLinked: 0,
+      externalServicesConnected: 0,
+      isPersonalMode: false,
+      workspaceConfigured: false,
     },
     pedagogicalProfile: {
       assessmentPreference: 'mixed',
@@ -61,6 +66,9 @@ const KEY_MAP: Record<string, keyof UsageProfile> = {
   uda: 'udaCreated',
   export_generated: 'exportsGenerated',
   export: 'exportsGenerated',
+  feature_discovered: 'featuresDiscovered',
+  book_linked: 'bookServicesLinked',
+  external_service: 'externalServicesConnected',
 };
 
 /**

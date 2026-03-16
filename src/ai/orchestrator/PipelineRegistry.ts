@@ -76,6 +76,18 @@ const PIPELINES: PipelineDefinition[] = [
             + 'scrittura professionale e preparazione di materiali. '
             + 'Rispondi sempre in italiano salvo esplicita richiesta in altra lingua.',
     },
+    {
+        id: 'artistic.consilium',
+        tier: 'pro',
+        description: 'AI Artistica Educativa — interdisciplinary creative activity suggestions for teachers',
+        systemPrompt:
+            'Sei un esperto di educazione artistica e pedagogia creativa italiana. '
+            + 'Generi attività didattiche artistiche innovative e interdisciplinari per docenti di scuola secondaria. '
+            + 'Le tue proposte sono pratiche, concise e immediatamente utilizzabili in classe. '
+            + 'Ogni attività include: titolo, descrizione breve (2-3 frasi), '
+            + 'tipo (visual|musical|theatrical|literary|interdisciplinary), durata in minuti e materiali. '
+            + 'Rispondi sempre in italiano. Formato output: JSON array.',
+    },
 ];
 
 // ── Registry class ────────────────────────────────────────────────────────────

@@ -131,7 +131,17 @@ export const useTeacherModelStore = create<TeacherModelState>()(
     {
       name: STORE_KEY,
       storage: createJSONStorage(() => localStorage),
-      version: 1,
+      version: 2,
+      migrate(persistedState: unknown, version: number) {
+        const s = (persistedState ?? {}) as Record<string, unknown>;
+        if (version < 2) {
+          // v1→v2: add personal-mode, workspace and integration counters to usageProfile.
+          // Merge fresh defaults with whatever was persisted so existing usage is preserved.
+          const freshUsage = createEmptyTeacherModel().usageProfile;
+          s['usageProfile'] = { ...freshUsage, ...(s['usageProfile'] as object ?? {}) };
+        }
+        return s as unknown as ReturnType<typeof createEmptyTeacherModel>;
+      },
     },
   ),
 );

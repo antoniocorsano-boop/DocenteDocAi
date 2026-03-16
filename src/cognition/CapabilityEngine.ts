@@ -40,6 +40,16 @@ const L3_TO_L4 = [
   (m: TeacherModel) => m.copilotInteractionProfile.automationEnabled,
 ];
 
+/**
+ * Soft signals from new events — improve globalConfidence but don't gate promotions.
+ * These represent workspace integration & discovery, not core pedagogical capability.
+ */
+const BONUS_SIGNALS: ((m: TeacherModel) => boolean)[] = [
+  (m) => (m.usageProfile.featuresDiscovered ?? 0) >= 3,
+  (m) => m.usageProfile.workspaceConfigured ?? false,
+  (m) => (m.usageProfile.bookServicesLinked ?? 0) >= 1,
+];
+
 function score(predicates: ((m: TeacherModel) => boolean)[], model: TeacherModel): number {
   if (predicates.length === 0) return 0;
   const met = predicates.filter((p) => p(model)).length;
@@ -47,7 +57,7 @@ function score(predicates: ((m: TeacherModel) => boolean)[], model: TeacherModel
 }
 
 export function computeCapability(model: TeacherModel): CapabilityResult {
-  const allCriteria = [...L1_TO_L2, ...L2_TO_L3, ...L3_TO_L4];
+  const allCriteria = [...L1_TO_L2, ...L2_TO_L3, ...L3_TO_L4, ...BONUS_SIGNALS];
   const globalConfidence = score(allCriteria, model);
 
   // Determine the highest warranted level
