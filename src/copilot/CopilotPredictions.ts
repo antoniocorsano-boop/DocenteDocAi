@@ -136,6 +136,61 @@ const _factories: Partial<{
             priority: 2,
         },
     ],
+
+    'class.first_student_added': (p) => [
+        {
+            id: `suggest.class.first_student.${p.studentId ?? Date.now()}`,
+            label: 'Inizia il registro',
+            description: 'Ottima mossa! Ora puoi aggiungere una lezione e iniziare a registrare.',
+            actionKey: 'navigation.register',
+            actionPayload: {},
+            priority: 1,
+        },
+    ],
+
+    'workspace.configured': () => [
+        {
+            id: `suggest.workspace.start.${Date.now()}`,
+            label: 'Crea la prima UDA',
+            description: 'Workspace pronto — inizia con una Unità Didattica o aggiungi studenti.',
+            actionKey: 'navigation.planning',
+            actionPayload: {},
+            priority: 1,
+        },
+    ],
+
+    'feature.discovered': (p) => [
+        {
+            id: `suggest.feature.guide.${p.feature ?? 'unknown'}.${Date.now()}`,
+            label: 'Mostra guida',
+            description: `Vuoi una panoramica rapida di questa funzionalità?`,
+            actionKey: 'copilot.show_feature_guide',
+            actionPayload: { feature: p.feature },
+            priority: 2,
+        },
+    ],
+
+    'book.account.linked': (p) => [
+        {
+            id: `suggest.book.explore.${p.serviceId ?? Date.now()}`,
+            label: 'Esplora risorse digitali',
+            description: 'Account collegato — accedi alle risorse del libro direttamente dall\'app.',
+            actionKey: 'navigation.resources',
+            actionPayload: { serviceId: p.serviceId },
+            priority: 1,
+        },
+    ],
+
+    'book.service.interacted': (p) => [
+        {
+            id: `suggest.book.integrate.${p.resourceId ?? Date.now()}`,
+            label: 'Integra nella UDA',
+            description: 'Vuoi collegare questa risorsa alla pianificazione della tua UDA?',
+            actionKey: 'uda.link_resource',
+            actionPayload: { serviceId: p.serviceId, resourceId: p.resourceId },
+            priority: 2,
+        },
+    ],
 };
 
 // ── Public API ────────────────────────────────────────────────────────────────

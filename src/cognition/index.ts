@@ -5,7 +5,7 @@
 export { cognitionBus } from './CognitionBus';
 export type { CognitionEvents } from './CognitionBus';
 
-export { eventMap } from './eventMap';
+export { eventMap, getEventMeta, getEventsByPattern, getEventsByType, getCopilotEvents, getPersonalModeEvents } from './eventMap';
 export type { AppEvent } from './eventMap';
 
 export { initUsageTracker, _resetUsageTracker } from './UsageTracker';

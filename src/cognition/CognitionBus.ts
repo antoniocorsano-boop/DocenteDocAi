@@ -13,46 +13,65 @@
 import mitt from 'mitt';
 
 export type CognitionEvents = {
-  // Registro / Lezioni
+  // ── Registro / Lezioni ────────────────────────────────────────────────
   'lesson.created': { lessonId?: string };
   'lesson.updated': { lessonId?: string };
   'lesson.deleted': { lessonId?: string };
   'attendance.recorded': { lessonId?: string };
-  // Valutazioni
+  // ── Valutazioni ───────────────────────────────────────────────────────
   'assessment.generated': { assessmentId?: string };
   'evaluation.added': { studentId?: string };
   'evaluation.bulk_added': { count?: number };
   'rubric.created': { rubricId?: string };
-  // UDA / Progettazione
+  // ── UDA / Progettazione ───────────────────────────────────────────────
   'uda.created': { udaId?: string };
   'uda.updated': { udaId?: string };
   'planning.wizard.completed': Record<string, never>;
   'annual.plan.created': Record<string, never>;
-  // Studenti
+  // ── Studenti ──────────────────────────────────────────────────────────
   'student.added': { studentId?: string };
   'student.profile.updated': { studentId?: string };
   'student.risk.changed': { studentId?: string; risk?: string };
-  // Knowledge Base
+  // — Crescita classe (milestone)
+  'class.first_student_added': { studentId?: string };
+  'class.roster.completed': { studentCount?: number };
+  // ── Knowledge Base ────────────────────────────────────────────────────
   'kb.document.uploaded': { docId?: string };
   'kb.document.queried': { query?: string };
-  // AI / Copilot
+  // ── AI / Copilot ──────────────────────────────────────────────────────
   'copilot.suggestion.accepted': { suggestionId?: string };
   'copilot.suggestion.rejected': { suggestionId?: string };
   'copilot.manual_prompt': Record<string, never>;
   'copilot.automation.enabled': Record<string, never>;
   'ai.pipeline.completed': { pipeline?: string };
   'ai.interaction': Record<string, never>;
-  // Drive
+  // ── Drive ─────────────────────────────────────────────────────────────
   'drive.connected': Record<string, never>;
   'drive.backup.saved': Record<string, never>;
   'drive.backup.restored': Record<string, never>;
-  // Navigazione
+  // ── Navigazione ───────────────────────────────────────────────────────
   'navigation.view_changed': { from?: string; to?: string };
-  // Export
+  // ── Export ────────────────────────────────────────────────────────────
   'export.generated': { format?: 'pdf' | 'csv'; type?: string };
-  // Analytics
+  // ── Analytics ─────────────────────────────────────────────────────────
   'analytics.viewed': Record<string, never>;
-  // Sistema
+  // ── Workspace / Uso personale ─────────────────────────────────────────
+  /** Docente aggiorna una preferenza (tema, lingua, layout, privacy…) */
+  'teacher.preference.updated': { key?: string; value?: string };
+  /** Prima configurazione completata (wizard / onboarding settings) */
+  'workspace.configured': Record<string, never>;
+  /** Docente raggiunge un'area/feature per la prima volta */
+  'feature.discovered': { feature?: string };
+  /** Passaggio tra modalità personale e modalità classe */
+  'session.mode': { mode?: 'personal' | 'classroom' };
+  // ── Libri / Servizi esterni ───────────────────────────────────────────
+  /** Collegamento account libro di testo / editore */
+  'book.account.linked': { serviceId?: string; bookIsbn?: string; publisher?: string };
+  /** Interazione con un servizio libro collegato */
+  'book.service.interacted': { serviceId?: string; action?: string; resourceId?: string };
+  /** Connessione generica a servizio esterno (LMS, registro, portale PA…) */
+  'external.service.connected': { serviceId?: string; serviceType?: string };
+  // ── Sistema ───────────────────────────────────────────────────────────
   'app.session.started': Record<string, never>;
   'onboarding.completed': Record<string, never>;
 };

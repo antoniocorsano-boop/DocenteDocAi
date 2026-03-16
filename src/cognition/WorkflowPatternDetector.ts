@@ -36,6 +36,14 @@ const KNOWN_PATTERNS: { id: string; sequence: (keyof CognitionEvents)[] }[] = [
     id: 'driveWorkflow',
     sequence: ['drive.connected', 'drive.backup.saved'],
   },
+  {
+    id: 'onboardingWorkflow',
+    sequence: ['app.session.started', 'workspace.configured'],
+  },
+  {
+    id: 'integrationWorkflow',
+    sequence: ['book.account.linked', 'book.service.interacted'],
+  },
 ];
 
 interface SessionEvent {
@@ -95,6 +103,13 @@ const TRACKED_EVENTS: (keyof CognitionEvents)[] = [
   'copilot.manual_prompt',
   'drive.connected',
   'drive.backup.saved',
+  'app.session.started',
+  'workspace.configured',
+  'class.first_student_added',
+  'student.added',
+  'book.account.linked',
+  'book.service.interacted',
+  'feature.discovered',
 ];
 
 /** Call once at app startup. Idempotent. */
