@@ -23,6 +23,8 @@ import { AppLayout } from './AppLayout';
 import { useNKAStore } from '../nka/useNKAStore';
 import { ViewLoadingPlaceholder } from './ViewLoadingPlaceholder';
 
+import { CopilotProvider } from '../copilot/CopilotProvider';
+
 // OnboardingWizard: lazy-loaded (onboarded users skip it entirely)
 const OnboardingWizard = React.lazy(() => import('./OnboardingWizard'));
 
@@ -51,6 +53,22 @@ const App: React.FC = () => {
     const isGlobalAiLoading = appState.isGlobalAiLoading;
     const installPrompt = appState.installPrompt;
     const activeSuggestion = appState.activeSuggestion;
+
+    // Adapter: ActionContext.showToast uses raw strings; showToast uses i18n keys
+    const copilotToast = React.useCallback(
+        (message: string, severity?: 'success' | 'info' | 'warning' | 'error') => {
+            actions.showToast(message, severity === 'warning' ? 'info' : severity);
+        },
+        [actions],
+    );
+
+    // Adapter: CopilotActions navigate uses plain strings; handleNavigate uses View enum
+    const copilotNavigate = React.useCallback(
+        (view: string, ctx?: Record<string, unknown>) => {
+            actions.handleNavigate(view as Parameters<typeof actions.handleNavigate>[0], ctx ?? null);
+        },
+        [actions],
+    );
     // assistantMode is not in AppState, set default value
     const [assistantMode] = React.useState<'chat' | 'docs' | 'tools' | 'backup'>('chat');
     const nkaStore = useNKAStore();
@@ -69,6 +87,7 @@ const App: React.FC = () => {
     };
 
     return (
+        <CopilotProvider onNavigate={copilotNavigate} onToast={copilotToast}>
         <>
             {/* Skip link per accessibilità — WCAG 2.4.1 */}
             <SkipLink href="#main-content" label="Vai al contenuto principale" />
@@ -241,6 +260,7 @@ const App: React.FC = () => {
             </React.Suspense>
         )}
         </>
+        </CopilotProvider>
     );
 };
 
