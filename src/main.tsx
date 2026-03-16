@@ -33,6 +33,8 @@ import { useMemo, useState, useEffect } from 'react';
 import { useSettingsStore } from './stores/useSettingsStore';
 import { runRetentionCheck } from './utils/dataRetention';
 import { hasPrivacyConsent } from './components/PrivacyConsentModal';
+import { WorkflowEngine } from './core/workflows/WorkflowEngine';
+import { registerBuiltinWorkflows } from './core/workflows/builtinWorkflows';
 
 /**
  * STORAGE RECOVERY:
@@ -54,6 +56,10 @@ import { hasPrivacyConsent } from './components/PrivacyConsentModal';
 
 // GDPR B4 — data retention: purge AI artefacts older than 365 days
 runRetentionCheck();
+
+// Step 4 — Workflow Engine: register built-in workflows and start the engine
+registerBuiltinWorkflows();
+WorkflowEngine.start();
 
 // Improved global error handlers.
 // - Ignore errors originating from browser extensions (chrome-extension://)
