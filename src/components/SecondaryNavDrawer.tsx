@@ -57,6 +57,7 @@ export const SECONDARY_NAV_GROUPS: SecondaryNavGroup[] = [
     label: 'Altre Sezioni',
     icon: 'more_horiz',
     items: [
+      { id: 'teacher-dashboard', icon: 'space_dashboard' },
       { id: 'orientamento', icon: 'explore' },
       { id: 'calendario',   icon: 'calendar_month' },
       { id: 'student-dashboard', icon: 'school' },

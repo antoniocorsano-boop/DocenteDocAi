@@ -18,6 +18,7 @@ import { useAcademicStore } from '@/stores/useAcademicStore';
 import { useAIMaturitaStore } from '@/stores/useAIMaturitaStore';
 import { runMaturitaPipeline } from '@/ai/maturita/maturitaPipeline';
 import AIMaturitaDashboard from './AIMaturitaDashboard';
+import { FeatureHintChip } from '../../journey';
 
 // ── Props ─────────────────────────────────────────────────────────────────────
 
@@ -58,7 +59,12 @@ const CopilotMaturitaPanel: React.FC<CopilotMaturitaPanelProps> = ({
     hydrate(sections);
   }, [sections, hydrate]);
 
-  return <AIMaturitaDashboard />;
+  return (
+    <>
+      <FeatureHintChip hintId="ai-maturity" requiredLevel="maestro" message="Sei un Maestro! Questa dashboard mostra il tuo profilo di maturità AI completo." />
+      <AIMaturitaDashboard />
+    </>
+  );
 };
 
 export default CopilotMaturitaPanel;

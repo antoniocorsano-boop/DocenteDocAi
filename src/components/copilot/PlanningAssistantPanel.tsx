@@ -16,6 +16,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Chip from '@mui/material/Chip';
 import { InfoCard, SectionHeader, EmptyState } from '../ui';
+import { FeatureHintChip } from '../journey';
 import type { AISuggestion } from '../../ai/contextEngine/types';
 import type { Studente, Valutazione, Uda } from '../../types';
 import { generateStudentPlans, type StudentPlan, type ActivitySuggestion } from '../../ai/copilot/planningEngine';
@@ -258,6 +259,7 @@ const PlanningAssistantPanel: React.FC<PlanningAssistantPanelProps> = ({
         title="Planning Assistant"
         subtitle={`Piani personalizzati — classe ${className}`}
       />
+      <FeatureHintChip hintId="planning-assistant" requiredLevel="praticante" message="Hai sbloccato l'Assistente Pianificazione — esplora le funzioni avanzate!" />
 
       {/* inner tabs */}
       <Tabs

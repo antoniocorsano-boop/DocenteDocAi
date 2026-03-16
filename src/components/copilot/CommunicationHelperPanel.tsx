@@ -27,6 +27,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import { InfoCard, SectionHeader, EmptyState } from '../ui';
+import { FeatureHintChip } from '../journey';
 import type { AISuggestion } from '../../ai/contextEngine/types';
 import type { Studente, Valutazione } from '../../types';
 import {
@@ -399,6 +400,7 @@ const CommunicationHelperPanel: React.FC<CommunicationHelperPanelProps> = ({
         title="Communication Helper"
         subtitle={`Messaggi precompilati — classe ${className}`}
       />
+      <FeatureHintChip hintId="comm-helper" requiredLevel="praticante" message="Funzionalità avanzate comunicazione disponibili per i Praticanti." />
 
       {/* inner tabs */}
       <Tabs

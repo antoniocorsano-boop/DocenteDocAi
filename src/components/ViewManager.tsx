@@ -369,6 +369,9 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                             case 'teacher-presentation-view':
                                 componentProps = { onNavigate: handleNavigate };
                                 break;
+                            case 'teacher-dashboard':
+                                componentProps = { onNavigate: handleNavigate };
+                                break;
                         }
 
                         return config.auraWrapper !== false ? (

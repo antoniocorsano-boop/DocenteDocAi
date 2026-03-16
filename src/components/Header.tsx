@@ -14,6 +14,7 @@ import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import Avatar from './ui/Avatar';
 import Logo from './Logo';
 import Breadcrumb from './Breadcrumb';
+import { UserLevelBadge } from './journey';
 
 interface ExtendedHeaderProps extends Omit<HeaderProps, 'onOpenImageAnalysis' | 'onOpenVideoAnalysis' | 'onOpenHelp' | 'onOpenCircularAnalysis' | 'setNotifiche' | 'installPrompt' | 'onInstallApp'> {
   onOpenImageAnalysis?: () => void;
@@ -129,6 +130,7 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
 
         {/* Trailing: Status, Settings, Avatar */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
+          {user && <UserLevelBadge />}
           {!isOnline && (
             <Box
               role="status"

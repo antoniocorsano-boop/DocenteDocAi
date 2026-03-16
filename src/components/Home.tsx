@@ -10,6 +10,8 @@ import ButtonBase from '@mui/material/ButtonBase';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import { PageWrapper, M3Surface, TextField } from './ui';
+import { JourneyProgressPanel, LevelUpCelebration } from './journey';
+import { useJourneyProgress } from '../hooks/useJourneyProgress';
 import { View, NavigationParams, ChatMessage } from '../types';
 import { useAcademicStore } from '../stores/useAcademicStore';
 import { useStudentStore } from '../stores/useStudentStore';
@@ -168,6 +170,8 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
   const lessonsCount = Object.keys(lessons || {}).length;
   const studentsCount = students?.length ?? 0;
+
+  const { level, nextActions } = useJourneyProgress();
 
   const fabLabel = hour < 14 ? 'Inizia Giornata' : 'Nuova UDA';
   const fabIcon  = hour < 14 ? 'playlist_add_check' : 'layers';
@@ -360,6 +364,40 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </Box>
         </M3Surface>
 
+        {/* Journey panel + adaptive sections */}
+        <JourneyProgressPanel />
+
+        {(level === 'praticante' || level === 'maestro') && (
+          <Box component="section" aria-label="Insight di oggi">
+            <Typography variant="overline" sx={{ color: 'var(--md-sys-color-secondary)', letterSpacing: '0.08em', mb: 'var(--md-sys-spacing-2)', display: 'block' }}>Insight di oggi</Typography>
+            <Box sx={{ display: 'flex', gap: 'var(--md-sys-spacing-3)', flexWrap: 'wrap' }}>
+              <ButtonBase onClick={() => onNavigate('copilot' as View)} focusRipple aria-label="Vai al Copilot per analisi andamento" sx={{ flex: 1, minWidth: 140, display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', px: 'var(--md-sys-spacing-3)', py: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-large)', bgcolor: 'var(--md-sys-color-secondary-container)', '&:hover': { filter: 'brightness(0.95)' } }}>
+                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20, color: 'var(--md-sys-color-on-secondary-container)' }}>bar_chart</Box>
+                <Typography variant="labelMedium" sx={{ color: 'var(--md-sys-color-on-secondary-container)' }}>Andamento classe</Typography>
+              </ButtonBase>
+              <ButtonBase onClick={() => onNavigate('studio' as View)} focusRipple aria-label="Vai allo Studio AI" sx={{ flex: 1, minWidth: 140, display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', px: 'var(--md-sys-spacing-3)', py: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-large)', bgcolor: 'var(--md-sys-color-tertiary-container)', '&:hover': { filter: 'brightness(0.95)' } }}>
+                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20, color: 'var(--md-sys-color-on-tertiary-container)' }}>psychology</Box>
+                <Typography variant="labelMedium" sx={{ color: 'var(--md-sys-color-on-tertiary-container)' }}>Analisi predittiva</Typography>
+              </ButtonBase>
+            </Box>
+          </Box>
+        )}
+
+        {level === 'maestro' && nextActions.length > 0 && (
+          <Box component="section" aria-label="Automazioni suggerite">
+            <Typography variant="overline" sx={{ color: 'var(--md-sys-color-tertiary)', letterSpacing: '0.08em', mb: 'var(--md-sys-spacing-2)', display: 'block' }}>Automazioni suggerite</Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
+              {nextActions.slice(0, 2).map((action) => (
+                <ButtonBase key={action.id} onClick={() => action.targetView && onNavigate(action.targetView as View)} focusRipple aria-label={action.message} sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', px: 'var(--md-sys-spacing-3)', py: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-large)', bgcolor: 'var(--md-sys-color-surface-container)', textAlign: 'left', '&:hover': { bgcolor: 'var(--md-sys-color-surface-container-high)' } }}>
+                  <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20, color: 'var(--md-sys-color-tertiary)', flexShrink: 0 }}>{action.icon}</Box>
+                  <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-surface)' }}>{action.message}</Typography>
+                </ButtonBase>
+              ))}
+            </Box>
+          </Box>
+        )}
+
+
         {/* â”€â”€ Azioni Adesso â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
         <Box component="section" aria-label={timedLabel}>
           <Typography variant="overline" sx={{
@@ -503,6 +541,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           onNavigate={onNavigate}
         />
       )}
+      <LevelUpCelebration />
     </>
   );
 };

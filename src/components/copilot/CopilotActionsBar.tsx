@@ -19,6 +19,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Divider from '@mui/material/Divider';
 import Alert from '@mui/material/Alert';
+import LinearProgress from '@mui/material/LinearProgress';
+import { useJourneyProgress } from '../../hooks/useJourneyProgress';
+import { M3Surface } from '../ui';
 import type { Studente, Valutazione } from '@/types';
 import type { AISuggestion } from '../../ai/contextEngine/types';
 import {
@@ -304,6 +307,7 @@ export default function CopilotActionsBar({
   maxVisible = 5,
 }: CopilotActionsBarProps): JSX.Element {
   const [appliedCount, setAppliedCount] = useState(0);
+  const { level, progress, nextActions } = useJourneyProgress();
 
   const studentMap = useMemo(
     () => new Map(students.map((s) => [s.id, s])),
@@ -369,6 +373,41 @@ export default function CopilotActionsBar({
           onActionApplied={handleActionApplied}
         />
       ))}
+
+      {level !== 'maestro' && (
+        <M3Surface elevation={1} sx={{ p: 1.5, borderRadius: 'var(--md-sys-shape-corner-medium)' }}>
+          <Stack spacing={1}>
+            <Stack direction="row" alignItems="center" justifyContent="space-between">
+              <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                Il tuo percorso
+              </Typography>
+              <Chip
+                size="small"
+                label={level === 'esploratore' ? 'Esploratore' : 'Praticante'}
+                color={level === 'esploratore' ? 'default' : 'primary'}
+                variant="outlined"
+                sx={{ height: 20, fontSize: '0.65rem' }}
+              />
+            </Stack>
+            <LinearProgress
+              variant="determinate"
+              value={Math.round(progress * 100)}
+              aria-label="Progresso livello"
+              sx={{ borderRadius: 4, height: 6 }}
+            />
+            {nextActions[0] && (
+              <Button
+                size="small"
+                variant="text"
+                sx={{ alignSelf: 'flex-start', fontSize: '0.75rem', p: 0, minHeight: 'auto' }}
+                onClick={() => {}}
+              >
+                {nextActions[0].message}
+              </Button>
+            )}
+          </Stack>
+        </M3Surface>
+      )}
     </Stack>
   );
 }

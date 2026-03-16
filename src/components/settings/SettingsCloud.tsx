@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import LinearProgress from '@mui/material/LinearProgress';
 import SettingsGroup from './SettingsGroupAccordion';
 import { InfoCard } from '../ui';
+import { FeatureHintChip } from '../journey';
 import { DriveSyncState, TimetableSettings } from '../../types';
 import { logger } from '../../utils/logger';
 import RegisterImportWizard from './RegisterImportWizard';
@@ -55,6 +56,7 @@ export const SettingsCloudSection: React.FC<SettingsCloudSectionProps> = ({
             onToggle={onToggle}
         >
             <Stack spacing={2}>
+                <FeatureHintChip hintId="drive-sync" requiredLevel="maestro" message="Attiva il backup Google Drive per sincronizzare tutti i tuoi dati in cloud." />
                 {storageInfo && (
                     <Box sx={{ p: 2, bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-large)', border: '1px solid', borderColor: 'var(--md-sys-color-outline-variant)' }}>
                         <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1.5 }}>

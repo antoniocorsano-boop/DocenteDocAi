@@ -314,7 +314,8 @@ export type View =
     | 'curriculum-manager'
     | 'teacher-inbox'
     | 'video-analysis'
-    | 'teacher-presentation-view';
+    | 'teacher-presentation-view'
+    | 'teacher-dashboard';
 
 export interface UserProfile {
     id: string;

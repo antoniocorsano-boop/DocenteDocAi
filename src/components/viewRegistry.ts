@@ -33,6 +33,7 @@ export const TeacherPresentationView = lazy(() => import('./TeacherPresentationV
 export const Studio = lazy(() => import('./Studio'));
 export const OrientamentoDashboard = lazy(() => import('./OrientamentoDashboard'));
 export const LiveAssistant = lazy(() => import('./LiveAssistant'));
+export const TeacherDashboard = lazy(() => import('./TeacherDashboard'));
 
 export interface ViewConfig {
     id: View;
@@ -71,6 +72,7 @@ export const VIEW_CONFIGS: Partial<Record<View, ViewConfig>> = {
     'teacher-inbox': { id: 'teacher-inbox', component: TeacherInbox, auraWrapper: true },
     'teacher-presentation-view': { id: 'teacher-presentation-view', component: TeacherPresentationView, auraWrapper: true },
     'orientamento': { id: 'orientamento', component: OrientamentoDashboard, auraWrapper: true, fullWidth: true },
+    'teacher-dashboard': { id: 'teacher-dashboard', component: TeacherDashboard, auraWrapper: true },
 };
 
 // ---------------------------------------------------------------------------
@@ -109,6 +111,7 @@ export const VIEW_LABELS: Record<View, string> = {
     'teacher-inbox':                'Inbox Docente',
     'video-analysis':               'Analisi Video',
     'teacher-presentation-view':    'Presentazione',
+    'teacher-dashboard':             'Dashboard Docente',
 };
 
 // ---------------------------------------------------------------------------

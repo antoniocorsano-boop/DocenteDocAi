@@ -23,6 +23,7 @@ export * from './metrics';
 export * from './SyncConflictData';
 export * from './funding.types';
 export * from './aiMaturita.types';
+export * from './teacherModel.types';
 
 
 // Legacy types.ts exports (to be migrated)
