@@ -18,7 +18,7 @@
 
 import { cognitionBus } from '../cognition/CognitionBus';
 import { streamAIToString } from '../ai/orchestrator/StreamingManager';
-import type { CopilotSuggestion } from '../types/teacherModel.types';
+import type { CopilotSuggestion } from '../copilot/CopilotPredictions';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -114,10 +114,11 @@ function parseArtisticSuggestions(raw: string): ArtisticSuggestion[] {
           materials,
           copilotSuggestion: {
             id: `artistic.chip.${Date.now()}.${i}`,
-            type: 'feature',
-            message: `${title} (${estimatedMinutes} min) — ${description}`,
-            targetView: 'copilot',
-            icon: 'palette',
+            label: title.slice(0, 50),
+            description: `(${estimatedMinutes} min) ${description}`,
+            actionKey: 'artistic.open',
+            actionPayload: {},
+            priority: 2,
           },
         };
       })
@@ -156,10 +157,11 @@ export function getQuickArtisticHint(udaTitle?: string): CopilotSuggestion {
   const topic = udaTitle ? `"${sanitize(udaTitle)}"` : 'questa UDA';
   return {
     id: `artistic.quick.${Date.now()}`,
-    type: 'feature',
-    message: `Il Consilium Artistico può suggerire attività creative per ${topic}. Vuoi provare l'AI Artistica?`,
-    targetView: 'copilot',
-    icon: 'palette',
+    label: 'Attività artistiche creative',
+    description: `Il Consilium Artistico può suggerire attività creative per ${topic}. Vuoi provare l'AI Artistica?`,
+    actionKey: 'artistic.open',
+    actionPayload: {},
+    priority: 2,
   };
 }
 
@@ -188,10 +190,11 @@ export function initArtisticConsilium(onHint: ArtisticHintCallback): void {
   cognitionBus.on('planning.wizard.completed', () => {
     onHint({
       id: `artistic.planning.${Date.now()}`,
-      type: 'workflow',
-      message: 'Piano didattico completato! Vuoi arricchirlo con attività artistiche e interdisciplinari?',
-      targetView: 'copilot',
-      icon: 'palette',
+      label: 'Attività artistiche per il piano',
+      description: 'Piano didattico completato! Vuoi arricchirlo con attività artistiche e interdisciplinari?',
+      actionKey: 'artistic.open',
+      actionPayload: {},
+      priority: 2,
     });
   });
 
@@ -199,10 +202,11 @@ export function initArtisticConsilium(onHint: ArtisticHintCallback): void {
   cognitionBus.on('kb.document.uploaded', () => {
     onHint({
       id: `artistic.kb.${Date.now()}`,
-      type: 'feature',
-      message: 'Documento caricato — il Consilium Artistico può suggerire attività collegate al contenuto.',
-      targetView: 'copilot',
-      icon: 'auto_stories',
+      label: 'Attività collegate al documento',
+      description: 'Documento caricato — il Consilium Artistico può suggerire attività collegate al contenuto.',
+      actionKey: 'artistic.open',
+      actionPayload: {},
+      priority: 3,
     });
   });
 }

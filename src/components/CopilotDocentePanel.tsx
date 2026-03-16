@@ -21,6 +21,7 @@ import CopilotRecommendationPanel from './copilot/CopilotRecommendationPanel';
 import { AITabErrorBoundary } from './copilot/AITabErrorBoundary';
 import FundingPanel from './copilot/FundingPanel';
 import { CopilotMaturitaPanel } from './copilot/maturita';
+import ArtisticConsiliumPanel from './copilot/ArtisticConsiliumPanel';
 
 import type { AISuggestion } from '../ai/contextEngine/types';
 import type { ClassHealthIndex } from '../ai/classHealth/types';
@@ -72,6 +73,7 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
         <Tab label="Raccomandazioni AI" />
         <Tab label="Finanziamenti" />
         <Tab label="Maturità AI" />
+        <Tab label="Artistico" />
       </Tabs>
       <Box sx={{ minHeight: 80 }}>
         {tab === 0 && (
@@ -207,6 +209,13 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
               students={students}
               evaluations={evaluations}
               className={className}
+            />
+          </AITabErrorBoundary>
+        )}
+        {tab === 14 && (
+          <AITabErrorBoundary tabName="Artistico">
+            <ArtisticConsiliumPanel
+              defaultUdaTitle={udas.length > 0 ? udas[0].title : undefined}
             />
           </AITabErrorBoundary>
         )}
