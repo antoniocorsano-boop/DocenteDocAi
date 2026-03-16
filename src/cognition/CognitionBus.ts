@@ -71,6 +71,9 @@ export type CognitionEvents = {
   'book.service.interacted': { serviceId?: string; action?: string; resourceId?: string };
   /** Connessione generica a servizio esterno (LMS, registro, portale PA…) */
   'external.service.connected': { serviceId?: string; serviceType?: string };
+  // ── AI Artistica Educativa ────────────────────────────────────────────
+  /** Il Consilium Artistico ha generato attività AI per una UDA */
+  'artistic.suggestions.generated': { count?: number; subject?: string; gradeLevel?: string };
   // ── Sistema ───────────────────────────────────────────────────────────
   'app.session.started': Record<string, never>;
   'onboarding.completed': Record<string, never>;

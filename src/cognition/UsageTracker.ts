@@ -103,6 +103,15 @@ export function initUsageTracker(store: UsageTrackingStore): void {
     store.updateUsageProfile({ featuresDiscovered: (u.featuresDiscovered ?? 0) + 1 });
   });
 
+  // ── AI Artistica ──
+  cognitionBus.on('artistic.suggestions.generated', (payload) => {
+    const u = store.getUsageProfile();
+    // Each generation counts as a feature interaction
+    store.updateUsageProfile({ featuresDiscovered: (u.featuresDiscovered ?? 0) + 1 });
+    // Also record as an AI interaction for maturity scoring
+    void payload; // payload available for future TCM analytics (count, subject, gradeLevel)
+  });
+
   // ── Integrazioni esterne ──
   cognitionBus.on('book.account.linked', () => {
     const u = store.getUsageProfile();

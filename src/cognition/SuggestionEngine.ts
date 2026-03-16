@@ -13,10 +13,12 @@
 import type { TeacherModel, CopilotSuggestion, JourneyLevel } from '../types/teacherModel.types';
 import type { InteractionMode } from '../types/aiMaturita.types';
 import { toJourneyLevel } from './CapabilityEngine';
+import { generateArtisticSuggestions } from '../services/ArtisticConsilium';
+import type { ArtisticSuggestion } from '../services/ArtisticConsilium';
 
 const COOLDOWN_MS = 24 * 60 * 60 * 1000; // 24 hours
 
-interface SuggestionContext {
+export interface SuggestionContext {
   model: TeacherModel;
   interactionMode: InteractionMode;
   aiMaturitaScore: number;
@@ -63,7 +65,7 @@ const CATALOGUE: (CopilotSuggestion & {
     id: 'sug-mode-semi-osmotica',
     type: 'automation',
     minLevel: 'praticante',
-    message: "Sei pronto per la modalità Semi-osmotica: il Copilot anticipa le tue azioni. Attivala nelle impostazioni AI.",
+    message: "Sei pronto per la modalit�  Semi-osmotica: il Copilot anticipa le tue azioni. Attivala nelle impostazioni AI.",
     targetView: 'settings',
     icon: 'tune',
   },
@@ -98,7 +100,7 @@ const CATALOGUE: (CopilotSuggestion & {
     type: 'automation',
     minLevel: 'maestro',
     minAiScore: 60,
-    message: "Sei pronto per la modalità Osmotica: il Copilot gestisce tutto in autonomia. Attivala.",
+    message: "Sei pronto per la modalit�  Osmotica: il Copilot gestisce tutto in autonomia. Attivala.",
     targetView: 'settings',
     icon: 'psychology',
   },
@@ -108,7 +110,7 @@ const CATALOGUE: (CopilotSuggestion & {
     type: 'feature',
     minLevel: 'esploratore',
     personalModeOnly: true,
-    message: 'Stai lavorando in modalità personale. Crea una UDA o carica risorse nella Knowledge Base — senza bisogno di studenti.',
+    message: 'Stai lavorando in modalit�  personale. Crea una UDA o carica risorse nella Knowledge Base — senza bisogno di studenti.',
     targetView: 'planning',
     icon: 'person',
   },
@@ -135,7 +137,7 @@ const CATALOGUE: (CopilotSuggestion & {
     id: 'sug-artistic-consilium',
     type: 'feature',
     minLevel: 'praticante',
-    message: 'Il Consilium Artistico suggerisce attività creative e interdisciplinari per le tue UDA. Prova l\'AI Artistica!',
+    message: 'Il Consilium Artistico suggerisce attivit�  creative e interdisciplinari per le tue UDA. Prova l\'AI Artistica!',
     targetView: 'copilot',
     icon: 'palette',
   },
@@ -189,4 +191,46 @@ export function generateNextActions(ctx: SuggestionContext): CopilotSuggestion[]
   }
 
   return candidates.slice(0, 3);
+}
+
+// ── Async enrichment with AI-generated artistic suggestions ──────────────────────
+
+function activityTypeToIcon(type: ArtisticSuggestion['activityType']): string {
+  const map: Record<ArtisticSuggestion['activityType'], string> = {
+    visual: 'palette',
+    musical: 'music_note',
+    theatrical: 'theater_comedy',
+    literary: 'menu_book',
+    interdisciplinary: 'auto_awesome',
+  };
+  return map[type] ?? 'palette';
+}
+
+/**
+ * Async: calls the Consilium Artistico pipeline and returns TCM-format suggestions.
+ * Only runs for praticante or maestro level to avoid unnecessary AI calls.
+ * These are merged into nextActions by useJourneyProgress.
+ */
+export async function generateArtisticNextActions(
+  ctx: SuggestionContext,
+): Promise<CopilotSuggestion[]> {
+  const journeyLevel = toJourneyLevel(ctx.model.capabilityLevel);
+  if (journeyLevel === 'esploratore') return [];
+
+  const context = {
+    gradeLevel: journeyLevel === 'maestro' ? 'scuola secondaria superiore' : 'scuola secondaria',
+    learningObjectives:
+      ctx.aiMaturitaScore >= 60
+        ? ['interdisciplinarit� ', 'competenze trasversali', 'creativit� ']
+        : ['arricchimento didattico'],
+  };
+
+  const suggestions = await generateArtisticSuggestions(context).catch(() => []);
+  return suggestions.map((s) => ({
+    id: `sug-artistic.ai.${s.id}`,
+    type: 'feature' as const,
+    message: `${s.title} (${s.estimatedMinutes}� min) — ${s.description.slice(0, 80)}`,
+    targetView: 'copilot',
+    icon: activityTypeToIcon(s.activityType),
+  }));
 }

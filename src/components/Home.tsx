@@ -383,9 +383,26 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </Box>
         )}
 
-        {level === 'maestro' && nextActions.length > 0 && (
-          <Box component="section" aria-label="Automazioni suggerite">
-            <Typography variant="overline" sx={{ color: 'var(--md-sys-color-tertiary)', letterSpacing: '0.08em', mb: 'var(--md-sys-spacing-2)', display: 'block' }}>Automazioni suggerite</Typography>
+        {level === 'esploratore' && (
+          <Box component="section" aria-label="Scopri l'AI Artistica Educativa">
+            <ButtonBase
+              onClick={() => onNavigate('copilot' as View)}
+              focusRipple
+              aria-label="Scopri il Consilium Artistico AI nel tab Artistico del Copilot Docente"
+              sx={{ width: '100%', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', px: 'var(--md-sys-spacing-4)', py: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-large)', bgcolor: 'var(--md-sys-color-primary-container)', textAlign: 'left', '&:hover': { filter: 'brightness(0.95)' } }}
+            >
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 24, color: 'var(--md-sys-color-on-primary-container)', flexShrink: 0 }}>palette</Box>
+              <Box>
+                <Typography variant="labelMedium" sx={{ color: 'var(--md-sys-color-on-primary-container)', display: 'block' }}>AI Artistica Educativa</Typography>
+                <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-primary-container)', opacity: 0.8 }}>Genera attività creative e interdisciplinari per le tue UDA</Typography>
+              </Box>
+            </ButtonBase>
+          </Box>
+        )}
+
+        {(level === 'praticante' || level === 'maestro') && nextActions.length > 0 && (
+          <Box component="section" aria-label={level === 'maestro' ? 'Automazioni suggerite' : 'Suggerimenti contestuali'}>
+            <Typography variant="overline" sx={{ color: 'var(--md-sys-color-tertiary)', letterSpacing: '0.08em', mb: 'var(--md-sys-spacing-2)', display: 'block' }}>{level === 'maestro' ? 'Automazioni suggerite' : 'Suggerimenti contestuali'}</Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
               {nextActions.slice(0, 2).map((action) => (
                 <ButtonBase key={action.id} onClick={() => action.targetView && onNavigate(action.targetView as View)} focusRipple aria-label={action.message} sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', px: 'var(--md-sys-spacing-3)', py: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-large)', bgcolor: 'var(--md-sys-color-surface-container)', textAlign: 'left', '&:hover': { bgcolor: 'var(--md-sys-color-surface-container-high)' } }}>

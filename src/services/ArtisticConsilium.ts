@@ -146,7 +146,18 @@ export async function generateArtisticSuggestions(
     maxTokens: 600,
   }).catch(() => '');
 
-  return parseArtisticSuggestions(raw);
+  const results = parseArtisticSuggestions(raw);
+
+  // Analytics: emit to CognitionBus for TCM tracking
+  if (results.length > 0) {
+    cognitionBus.emit('artistic.suggestions.generated', {
+      count: results.length,
+      subject: context.subject,
+      gradeLevel: context.gradeLevel,
+    });
+  }
+
+  return results;
 }
 
 /**
@@ -207,6 +218,34 @@ export function initArtisticConsilium(onHint: ArtisticHintCallback): void {
       actionKey: 'artistic.open',
       actionPayload: {},
       priority: 3,
+    });
+  });
+
+  // Feature discovery — teacher explored a new area; nudge toward artistic tab
+  cognitionBus.on('feature.discovered', (payload) => {
+    // Only hint if the discovered feature is copilot-adjacent or unspecified
+    const f = payload.feature ?? '';
+    if (!f || f.startsWith('copilot') || f === 'planning' || f === 'uda') {
+      onHint({
+        id: `artistic.feature.${Date.now()}`,
+        label: 'Prova l’AI Artistica Educativa',
+        description: 'Hai scoperto una nuova area — il tab Artistico nel Copilot genera attività creative per le tue UDA.',
+        actionKey: 'artistic.open',
+        actionPayload: {},
+        priority: 1,
+      });
+    }
+  });
+
+  // Workspace configured — app setup done; good moment to present creative tools
+  cognitionBus.on('workspace.configured', () => {
+    onHint({
+      id: `artistic.workspace.${Date.now()}`,
+      label: 'AI Artistica pronta',
+      description: 'Il tuo spazio di lavoro è configurato. Genera attività artistiche e interdisciplinari per arricchire le UDA.',
+      actionKey: 'artistic.open',
+      actionPayload: {},
+      priority: 1,
     });
   });
 }
