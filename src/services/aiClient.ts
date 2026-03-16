@@ -29,6 +29,52 @@ const createProxyClient = () => ({
             }
             return response.json();
         },
+        /**
+         * Streaming variant — yields SSE tokens from /api/ai.
+         * Use for real-time Copilot chat responses.
+         */
+        streamGenerateContent: async function* (params: {
+            model: string;
+            contents: unknown;
+            config?: unknown;
+        }): AsyncGenerator<string, void, unknown> {
+            const response = await fetch('/api/ai', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...params, streaming: true }),
+            });
+            if (!response.ok) {
+                const err = await response.json().catch(() => ({ error: response.statusText }));
+                throw Object.assign(new Error(err.error ?? 'AI proxy stream error'), { status: response.status });
+            }
+            if (!response.body) throw new Error('Streaming not supported');
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
+            let buffer = '';
+            try {
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) break;
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop() ?? '';
+                    for (const line of lines) {
+                        const trimmed = line.trim();
+                        if (!trimmed || !trimmed.startsWith('data: ')) continue;
+                        const json = trimmed.slice(6);
+                        if (json === '[DONE]') return;
+                        try {
+                            const data = JSON.parse(json) as { candidates?: { content?: { parts?: { text?: string }[] } }[] };
+                            const token = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                            if (token) yield token;
+                        } catch { /* skip malformed line */ }
+                    }
+                }
+            } finally {
+                reader.releaseLock();
+            }
+        },
     },
 });
 

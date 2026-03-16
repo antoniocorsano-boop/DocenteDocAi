@@ -31,7 +31,7 @@ import { startAISpan } from '../telemetry/aiTelemetry';
 import type { AIContext } from '../contextEngine/contextBuilder';
 import type { UnifiedAIResult, UnifiedAIOptions } from './types';
 import { AI_SCHEMA_VERSION } from './types';
-import type { AIRunStats } from '../engine/aiEngine';
+import type { AIRunStats } from './types';
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 

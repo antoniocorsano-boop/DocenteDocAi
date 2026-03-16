@@ -11,7 +11,27 @@ import type { AISuggestion } from '../contextEngine/types';
 import type { StudentForecast } from '../copilot/trendEngine';
 import type { StudentRiskPrediction } from '../prediction/types';
 import type { LessonAssistantResponse } from '../lessonAssistant/types';
-import type { AIRunStats } from '../engine/aiEngine';
+
+// ── Re-export AIRunStats inline so aiEngine.ts is no longer required ──────────
+
+/** Timing breakdown from an AI orchestrator run */
+export interface AIRunStats {
+    /** Total wall-clock ms for the last non-cached analysis run */
+    totalMs: number;
+    /** ms spent in each sub-analyser */
+    breakdown: {
+        classHealth: number;
+        risk: number;
+        excellence: number;
+        forecasts: number;
+    };
+    /** ISO timestamp of the last run */
+    lastRun: string;
+}
+
+// ── Re-export sub-module helpers ─────────────────────────────────────────────
+export type { ModelTier } from './ModelRouter';
+export type { PipelineDefinition } from './PipelineRegistry';
 
 // ── Schema version (bump on every breaking change) ────────────────────────────
 

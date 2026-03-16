@@ -241,9 +241,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     return res.status(503).json({ error: 'AI service not configured on server' });
   }
 
-  const { model, contents, config } = body as {
+  const { model, contents, config, streaming } = body as {
     model: string;
     contents: string | unknown[];
+    streaming?: boolean;
     config?: {
       responseMimeType?: string;
       systemInstruction?: string;
@@ -298,6 +299,59 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
     requestBody.tools = config.tools;
   }
 
+  // ── Streaming path (SSE) ──────────────────────────────────────────────────
+  if (streaming) {
+    const streamUrl = `${GOOGLE_AI_BASE}/${safeModel}:streamGenerateContent?alt=sse&key=${apiKey}`;
+
+    let streamResponse: Response;
+    try {
+      streamResponse = await fetch(streamUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody),
+      });
+    } catch (err) {
+      return res.status(502).json({ error: 'Failed to reach AI streaming service', detail: String(err) });
+    }
+
+    if (!streamResponse.ok) {
+      const errText = await streamResponse.text();
+      return res.status(streamResponse.status).json({ error: errText });
+    }
+
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    res.setHeader('X-Accel-Buffering', 'no');
+
+    if (!streamResponse.body) {
+      res.write('data: [DONE]\n\n');
+      res.end();
+      return;
+    }
+
+    const reader = streamResponse.body.getReader();
+    const decoder = new TextDecoder('utf-8');
+
+    try {
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        res.write(chunk);
+      }
+    } catch (err) {
+      // Stream aborted — close gracefully
+      res.write(`data: {"error":"${String(err)}"}\n\n`);
+    } finally {
+      reader.releaseLock();
+      res.write('data: [DONE]\n\n');
+      res.end();
+    }
+    return;
+  }
+
+  // ── Non-streaming path (default) ──────────────────────────────────────────
   const url = `${GOOGLE_AI_BASE}/${safeModel}:generateContent?key=${apiKey}`;
 
   let googleResponse: Response;
