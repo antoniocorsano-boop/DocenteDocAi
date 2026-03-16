@@ -5,14 +5,26 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "rewrites": [
+    {
+      "source": "/manifest.webmanifest",
+      "destination": "/manifest.webmanifest"
+    },
     { "source": "/manifest.json", "destination": "/manifest.json" },
     { "source": "/favicon.ico", "destination": "/favicon.ico" },
     { "source": "/sw.js", "destination": "/sw.js" },
+    { "source": "/robots.txt", "destination": "/robots.txt" },
+    {
+      "source": "/scheduler-polyfill.js",
+      "destination": "/scheduler-polyfill.js"
+    },
     { "source": "/icons/(.*)", "destination": "/icons/$1" },
     { "source": "/icona/(.*)", "destination": "/icona/$1" },
     { "source": "/assets/(.*)", "destination": "/assets/$1" },
     { "source": "/", "destination": "/index.html" },
-    { "source": "/((?!assets|icons|icona|manifest.json|favicon.ico|sw.js).*)", "destination": "/index.html" },
+    {
+      "source": "/((?!assets|icons|icona|manifest\\.webmanifest|manifest\\.json|favicon\\.ico|sw\\.js|robots\\.txt|scheduler-polyfill\\.js).*)",
+      "destination": "/index.html"
+    },
     { "source": "/api/(.*)", "destination": "/api/$1" }
   ],
   "headers": [
