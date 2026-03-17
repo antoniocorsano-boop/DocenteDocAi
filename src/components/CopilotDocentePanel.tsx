@@ -3,34 +3,67 @@ import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import InfoCard from './ui/InfoCard';
-import SectionHeader from './ui/SectionHeader';
-import CopilotPerformancePanel from './copilot/CopilotPerformancePanel';
-import CopilotHealthOverviewPanel from './copilot/CopilotHealthOverviewPanel';
-import AITrendPanel from './AITrendPanel';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
-import ExportModal from './ExportModal';
-import PlanningAssistantPanel from './copilot/PlanningAssistantPanel';
-import CommunicationHelperPanel from './copilot/CommunicationHelperPanel';
-import TrendPredictionPanel from './copilot/TrendPredictionPanel';
-import AggregatedDashboard from './copilot/AggregatedDashboard';
-import CopilotActionsBar from './copilot/CopilotActionsBar';
-import AIExplainabilityPanel from './copilot/AIExplainabilityPanel';
-import AIDevToolsPanel from './copilot/AIDevToolsPanel';
-import CopilotRecommendationPanel from './copilot/CopilotRecommendationPanel';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import CircularProgress from '@mui/material/CircularProgress';
+import InfoCard from './ui/InfoCard';
+import SectionHeader from './ui/SectionHeader';
+// Tab 0 — default tab, kept eager to avoid Suspense flash on first render
+import CopilotPerformancePanel from './copilot/CopilotPerformancePanel';
 import { AITabErrorBoundary } from './copilot/AITabErrorBoundary';
-import FundingPanel from './copilot/FundingPanel';
-import { CopilotMaturitaPanel } from './copilot/maturita';
-import ArtisticConsiliumPanel from './copilot/ArtisticConsiliumPanel';
 import { useTeacherModelStore } from '../stores/useTeacherModelStore';
 
 import type { AISuggestion } from '../ai/contextEngine/types';
 import type { ClassHealthIndex } from '../ai/classHealth/types';
 import type { AISnapshot } from '../stores/useAISnapshotStore';
 import type { Studente, Valutazione, Uda, Competenza, TimetableSettings } from '../types';
+
+// ── Lazy-loaded panels (chunk loaded on first tab visit) ──────────────────────
+const CopilotHealthOverviewPanel = React.lazy(() => import('./copilot/CopilotHealthOverviewPanel'));
+const AITrendPanel = React.lazy(() => import('./AITrendPanel'));
+const ExportModal = React.lazy(() => import('./ExportModal'));
+const PlanningAssistantPanel = React.lazy(() => import('./copilot/PlanningAssistantPanel'));
+const CommunicationHelperPanel = React.lazy(() => import('./copilot/CommunicationHelperPanel'));
+const TrendPredictionPanel = React.lazy(() => import('./copilot/TrendPredictionPanel'));
+const AggregatedDashboard = React.lazy(() => import('./copilot/AggregatedDashboard'));
+const CopilotActionsBar = React.lazy(() => import('./copilot/CopilotActionsBar'));
+const AIExplainabilityPanel = React.lazy(() => import('./copilot/AIExplainabilityPanel'));
+const AIDevToolsPanel = React.lazy(() => import('./copilot/AIDevToolsPanel'));
+const CopilotRecommendationPanel = React.lazy(() => import('./copilot/CopilotRecommendationPanel'));
+const FundingPanel = React.lazy(() => import('./copilot/FundingPanel'));
+const CopilotMaturitaPanel = React.lazy(() =>
+  import('./copilot/maturita').then((m) => ({ default: m.CopilotMaturitaPanel })),
+);
+const ArtisticConsiliumPanel = React.lazy(() => import('./copilot/ArtisticConsiliumPanel'));
+
+// ── Tab loading fallback ──────────────────────────────────────────────────────
+function TabFallback(): JSX.Element {
+  return (
+    <Box sx={{ display: 'flex', justifyContent: 'center', py: 'var(--md-sys-spacing-8)' }}>
+      <CircularProgress size={32} aria-label="Caricamento pannello" />
+    </Box>
+  );
+}
+
+// ── First-run onboarding ──────────────────────────────────────────────────────
+const ONBOARDING_KEY = 'copilot_onboarding_v1';
+
+function useFirstRun(): [boolean, () => void] {
+  const [show, setShow] = React.useState<boolean>(() => {
+    try { return localStorage.getItem(ONBOARDING_KEY) !== 'true'; } catch { return false; }
+  });
+  const dismiss = React.useCallback(() => {
+    try { localStorage.setItem(ONBOARDING_KEY, 'true'); } catch { /* ignore */ }
+    setShow(false);
+  }, []);
+  return [show, dismiss];
+}
 
 interface CopilotDocentePanelProps {
   suggestions: AISuggestion[];
@@ -51,6 +84,7 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
   const [exportOpen, setExportOpen] = React.useState(false);
   const capabilityLevel = useTeacherModelStore((s) => s.capabilityLevel);
   const [altroAnchor, setAltroAnchor] = React.useState<null | HTMLElement>(null);
+  const [showOnboarding, dismissOnboarding] = useFirstRun();
 
   return (
     <InfoCard variant="outlined" sx={{ mt: 'var(--md-sys-spacing-6)' }}>
@@ -109,6 +143,7 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
           <MenuItem onClick={() => { setTab(10); setAltroAnchor(null); }}>Dev Tools</MenuItem>
         )}
       </Menu>
+      <React.Suspense fallback={<TabFallback />}>
       <Box sx={{ minHeight: 80 }}>
         {tab === 0 && (
           <AITabErrorBoundary tabName="Performance">
@@ -262,6 +297,42 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
           </AITabErrorBoundary>
         )}
       </Box>
+      </React.Suspense>
+      <Dialog
+        open={showOnboarding}
+        onClose={dismissOnboarding}
+        aria-labelledby="copilot-onboarding-title"
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle id="copilot-onboarding-title">Benvenuto nel Copilot Docente</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1" sx={{ mb: 'var(--md-sys-spacing-3)' }}>
+            Il <strong>Copilot Docente</strong> è il tuo assistente AI sempre disponibile.
+            Analizza la tua classe, suggerisce interventi didattici e ti guida passo dopo passo.
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Esplora i pannelli: <strong>Performance</strong> per una panoramica immediata,{' '}
+            <strong>Planning</strong> per ottimizzare le lezioni,{' '}
+            <strong>Predizione</strong> per anticipare difficoltà degli studenti.
+          </Typography>
+          {capabilityLevel >= 2 && (
+            <Typography variant="body2" sx={{ mt: 'var(--md-sys-spacing-2)', color: 'var(--md-sys-color-tertiary)' }}>
+              ✦ Hai sbloccato il <strong>Consilium Artistico</strong> — visita il tab{' '}
+              <strong>Artistico</strong> per suggerimenti narrativi e creativi.
+            </Typography>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={dismissOnboarding}
+            variant="contained"
+            aria-label="Chiudi introduzione Copilot e inizia ad esplorare"
+          >
+            Inizia ad esplorare
+          </Button>
+        </DialogActions>
+      </Dialog>
     </InfoCard>
   );
 }
