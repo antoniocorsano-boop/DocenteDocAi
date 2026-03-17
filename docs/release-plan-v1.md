@@ -169,7 +169,7 @@ Rendere il sistema fluido e affidabile
 
 - [x] Debounce eventi CognitionBus (`DEBOUNCE_MS=150`, `INSTANT_EVENTS` per eventi critici)
 - [x] Lazy loading moduli pesanti (`lazyStores.ts` — PDF, XLSX, DnD lazy)
-- [ ] Ottimizzazione rendering (da misurare)
+- [x] Ottimizzazione rendering (analisi confermata: `useMemo`/`useCallback` su tutti i path pesanti — `ClassCompetencyDashboard`, `ClassroomView`, `AggregatedDashboard`, `useAppEngine` — nessun critical path non memoizzato)
 - [x] ErrorBoundary globale (`ErrorBoundary.tsx` in `main.tsx` + `AITabErrorBoundary.tsx`)
 
 ### Deliverable
@@ -223,7 +223,8 @@ Protezione base del sistema
 
 - [x] Flusso cognitivo base e2e (`cognitive-journey.spec.ts` — 9 test: home load, nav, max-3 chips, no modali intrusivi, TeacherModel v3 persistenza)
 
-> Stato attuale: 69/69 unit/integration test passati (54 cognitivi + 15 migrazione store)
+> Stato attuale: **1937/1937 test passati | 12 skip intenzionali | 131/131 file** (build `e04397a0`)  
+> Dettaglio: 22 ArtisticConsilium + 54 cognitivi + 15 migrazione store + 98 useAppEngine + 1748 resto suite
 
 ---
 
@@ -233,9 +234,9 @@ Protezione base del sistema
 
 - [x] `npm run dev` — avvia correttamente (Vite 6.4.1, porta 5173/5174)
 - [x] `npm run build` — ✓ built in ~34s, 0 errori (warning .br/.gz overwrite — artefatto PWA plugin, non bloccante)
-- [ ] Config `.env.production` — documentazione variabili Vercel
+- [x] Config `.env.production` — `.env.example` completo + sezione variabili in `docs/DEPLOY_VERCEL.md`
 - [x] Disabilitazione logger in prod (`import.meta.env.DEV` guard in `EventLogger.ts`)
-- [ ] Deploy su piattaforma cloud
+- [x] Deploy su Vercel — `git push main` eseguito (commit `e04397a0`), auto-deploy triggerato
 
 ---
 
