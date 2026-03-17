@@ -112,6 +112,7 @@ export const VIEW_LABELS: Record<View, string> = {
     'video-analysis':               'Analisi Video',
     'teacher-presentation-view':    'Presentazione',
     'teacher-dashboard':             'Dashboard Docente',
+    'copilot':                       'Copilot Docente',
 };
 
 // ---------------------------------------------------------------------------

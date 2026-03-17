@@ -20,6 +20,7 @@ import Home from '../Home';
 import KnowledgeBase from '../KnowledgeBase';
 import { Studio } from '../Studio';
 import FeedManager from '../FeedManager';
+import CopilotView from './CopilotView';
 import {
     Lezione, KnowledgeBaseEntry, Corpus, Studente,
     Valutazione, ValutazioneCompetenza, RegisterEntry, AiSuggestion,
@@ -82,7 +83,7 @@ export interface SettingsViewsProps {
 }
 
 export const SettingsViewsRenderer: React.FC<{
-    viewType: 'home' | 'settings' | 'knowledge-base' | 'studio' | 'feed-manager';
+    viewType: 'home' | 'settings' | 'knowledge-base' | 'studio' | 'feed-manager' | 'copilot';
     props: SettingsViewsProps;
 }> = ({ viewType, props }) => {
     switch (viewType) {
@@ -205,6 +206,8 @@ export const SettingsViewsRenderer: React.FC<{
                     onOpenCircularAnalysis={() => {}}
                 />
             );
+        case 'copilot':
+            return <CopilotView />;
         default:
             return null;
     }

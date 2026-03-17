@@ -56,7 +56,7 @@ export type SchedulingViewType = 'timetable' | 'calendario' | 'lessons';
 export type EvaluationViewType = 'evaluations' | 'register' | 'class-competency-dashboard' | 'competency-levels';
 export type PlanningViewType = 'uda' | 'rubriche' | 'didattica-inclusiva' | 'curriculum-manager';
 export type AnalyticsViewType = 'analytics' | 'reportistica' | 'improvement-guide' | 'consiglio-di-classe';
-export type SettingsViewType = 'home' | 'settings' | 'knowledge-base' | 'studio' | 'feed-manager';
+export type SettingsViewType = 'home' | 'settings' | 'knowledge-base' | 'studio' | 'feed-manager' | 'copilot';
 
 export type AnyViewType = 
     | SchedulingViewType 
@@ -102,6 +102,7 @@ export function getViewRouter(viewName: string): {
     if (viewName === 'knowledge-base') return { category: 'settings', viewType: 'knowledge-base' as SettingsViewType };
     if (viewName === 'studio') return { category: 'settings', viewType: 'studio' as SettingsViewType };
     if (viewName === 'feed-manager') return { category: 'settings', viewType: 'feed-manager' as SettingsViewType };
+    if (viewName === 'copilot') return { category: 'settings', viewType: 'copilot' as SettingsViewType };
 
     return null;
 }

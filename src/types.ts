@@ -315,7 +315,8 @@ export type View =
     | 'teacher-inbox'
     | 'video-analysis'
     | 'teacher-presentation-view'
-    | 'teacher-dashboard';
+    | 'teacher-dashboard'
+    | 'copilot';
 
 export interface UserProfile {
     id: string;
