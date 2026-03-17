@@ -21,6 +21,7 @@ import Divider from '@mui/material/Divider';
 import Alert from '@mui/material/Alert';
 import LinearProgress from '@mui/material/LinearProgress';
 import { useJourneyProgress } from '../../hooks/useJourneyProgress';
+import { useNextAction } from '../../hooks/useNextAction';
 import { M3Surface } from '../ui';
 import type { Studente, Valutazione } from '@/types';
 import type { AISuggestion } from '../../ai/contextEngine/types';
@@ -307,7 +308,8 @@ export default function CopilotActionsBar({
   maxVisible = 5,
 }: CopilotActionsBarProps): JSX.Element {
   const [appliedCount, setAppliedCount] = useState(0);
-  const { level, progress, nextActions } = useJourneyProgress();
+  const { level, progress } = useJourneyProgress();
+  const nextAction = useNextAction();
 
   const studentMap = useMemo(
     () => new Map(students.map((s) => [s.id, s])),
@@ -386,7 +388,7 @@ export default function CopilotActionsBar({
                 label={level === 'esploratore' ? 'Esploratore' : 'Praticante'}
                 color={level === 'esploratore' ? 'default' : 'primary'}
                 variant="outlined"
-                sx={{ height: 20, fontSize: '0.65rem' }}
+                sx={{ height: 20, fontSize: 'var(--md-sys-typescale-label-small-font-size)' }}
               />
             </Stack>
             <LinearProgress
@@ -395,16 +397,15 @@ export default function CopilotActionsBar({
               aria-label="Progresso livello"
               sx={{ borderRadius: 4, height: 6 }}
             />
-            {nextActions[0] && (
-              <Button
-                size="small"
-                variant="text"
-                sx={{ alignSelf: 'flex-start', fontSize: '0.75rem', p: 0, minHeight: 'auto' }}
-                onClick={() => {}}
-              >
-                {nextActions[0].message}
-              </Button>
-            )}
+            <Button
+              size="small"
+              variant="text"
+              aria-label={nextAction.cta}
+              sx={{ alignSelf: 'flex-start', fontSize: 'var(--md-sys-typescale-label-small-font-size)', p: 0, minHeight: 'auto' }}
+              onClick={() => {}}
+            >
+              {nextAction.label}
+            </Button>
           </Stack>
         </M3Surface>
       )}

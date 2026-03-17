@@ -44,3 +44,23 @@ export {
   _resetEventLogger,
 } from './EventLogger';
 export type { LoggedEvent, EventReplay } from './EventLogger';
+
+// ── v4: Progressive Disclosure ─────────────────────────────────────────
+
+export {
+  getAvailableFeatures,
+  computeCapabilityLevel,
+} from './CapabilityEngine';
+export type { FeatureKey } from './CapabilityEngine';
+
+export { getPrimaryNextAction } from './SuggestionEngine';
+
+export { buildDecisionExplanation } from './DecisionExplanation';
+export type { DecisionExplanation } from './DecisionExplanation';
+
+export { isFeatureAvailable } from './FeatureGate';
+
+// ── v5: Decision Engine — single source of truth for "what to do next" ────────
+
+export { getNextAction } from './decisionEngine/getNextAction';
+export type { NextAction, NextActionContext } from './decisionEngine/types';

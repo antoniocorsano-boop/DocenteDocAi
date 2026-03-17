@@ -8,7 +8,7 @@ import '../design-system/typography.css';
 import '../design-system/spacing.css';
 import '../design-system/breakpoints.css';
 import '../design-system/accessibility-focus.css';
-import AssistantFab from './AssistantFab';
+import FloatingSatelliteCopilot from './copilot/FloatingSatelliteCopilot';
 import SkipLink from './SkipLink';
 import SuggestionBanner from './SuggestionBanner';
 import { useAppEngine } from '../hooks/useAppEngine';
@@ -222,7 +222,7 @@ const App: React.FC = () => {
                     <NKABottomSheet open={true} nodes={nkaStore.nodes} onClose={() => modals.setIsNkaMapOpen?.(false)} onNodeSelect={() => {}} />
                     </React.Suspense>
                 )}
-                <AssistantFab onNavigate={actions.handleNavigate} />
+                <FloatingSatelliteCopilot onNavigate={(v) => actions.handleNavigate(v as Parameters<typeof actions.handleNavigate>[0])} />
                 {modals.isLiveAssistantModalOpen && (
                     <React.Suspense fallback={<ViewLoadingPlaceholder message="Caricamento assistente..." />}>
                     <AssistantModal

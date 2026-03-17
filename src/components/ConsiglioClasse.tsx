@@ -39,7 +39,6 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
     const [localGiudizi, setLocalGiudizi] = useState<Record<string, GiudizioPeriodico>>({});
     const [changedCells, setChangedCells] = useState<Set<string>>(new Set());
     const [loadingAi, setLoadingAi] = useState<string | null>(null);
-    const [isExporting, setIsExporting] = useState(false);
     const [isGeneratingNarrative, setIsGeneratingNarrative] = useState(false);
     const [narrativeReport, setNarrativeReport] = useState<string | null>(null);
     const [expandedStudentId, setExpandedStudentId] = useState<string | null>(null);
@@ -159,25 +158,6 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
             settings,
             showFinalGrades
         );
-    };
-
-    const handleExportDocx = async () => {
-        setIsExporting(true);
-        try {
-            // FIX: Ensure correct data types for props of calculatePerformance
-            // const student = students.find(s => s.classe === selectedClass); // Rimosso: non usato
-            // const performance = student ? calculatePerformance(student.id, 'Complessivo', evaluations.filter(e => e.studenteId === student.id)) : { grade: null, trend: null };
-            
-// Removed unused html variable - DOCX generation handled by generateCouncilTablePdf
-
-            showToast('Esportazione formato DOCX non ancora disponibile. Usa PDF.', 'info');
-
-        } catch(e) {
-            logger.error("Error exporting DOCX:", e);
-            showToast('Errore durante la generazione del file Word.', 'error');
-        } finally {
-            setIsExporting(false);
-        }
     };
 
     const hasStudentChanged = (studentId: string): boolean => {
@@ -410,19 +390,10 @@ const ConsiglioClasse: React.FC<ConsiglioClasseProps> = (props) => {
                     <Box sx={{display: "flex", gap: 'var(--md-sys-spacing-8)'}}>
                         <Button 
                             onClick={handleExportPdf} 
-                            disabled={isExporting}
                             variant="outlined"
                             startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">picture_as_pdf</Box>}
                         >
                             Esporta PDF
-                        </Button>
-                        <Button 
-                            onClick={handleExportDocx} 
-                            disabled={isExporting}
-                            variant="outlined"
-                            startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">description</Box>}
-                        >
-                            Esporta Word
                         </Button>
                         <Button 
                             onClick={handleGenerateNarrativeReport} 

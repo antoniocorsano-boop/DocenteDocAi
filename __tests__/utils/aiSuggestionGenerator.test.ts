@@ -23,11 +23,12 @@ describe('aiSuggestionGenerator', () => {
     vi.stubEnv('VITE_GEMINI_API_KEY', 'test-key');
   });
 
-  it('should return fallback suggestions if API key is missing', async () => {
+  it('should call AI service even without VITE_GEMINI_API_KEY', async () => {
     vi.stubEnv('VITE_GEMINI_API_KEY', '');
+    (getProactiveSuggestions as any).mockResolvedValue([{ id: 'ai1', title: 'AI' }]);
     const result = await generateAiSuggestions(mockAppState as AppState);
-    expect(result.length).toBeGreaterThan(0);
-    expect(result[0].id).toBe('fallback_import_students');
+    expect(result[0].id).toBe('ai1');
+    expect(getProactiveSuggestions).toHaveBeenCalled();
   });
 
   it('should return cached suggestions if valid', async () => {

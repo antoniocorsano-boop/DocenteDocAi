@@ -1,82 +1,243 @@
 # Design System Handoff — DocenteDoc AI
 
-**Data:** 2026-03-08  
-**Stato:** Fondamenta stabili — in transizione da token CSS inline → MUI v7 nativo  
-**Target:** App mobile-first PWA, moderna, coerente, piacevole su ogni schermo
+**Data ultimo aggiornamento:** 2026-03-17  
+**Stato:** ✅ Stabile — token canonici, enforcement ESLint attivo, 0 violazioni  
+**Target:** App mobile-first PWA, MD3 Gold Compliant
 
 ---
 
-## 1. Contesto: cosa è successo
+## 1. Source of truth
 
-L'app ha attraversato **tre mesi di migrazioni parziali** verso MD3 personalizzato con token CSS custom (`var(--md-sys-*)`). Il risultato è un sistema **ibrido** che funziona ma ha due problemi strutturali:
-
-1. **Inline styles ovunque** — quasi tutti i componenti definiscono stili con `style={{...}}` usando i token CSS. Questo è tecnicamente corretto ma non è come si usa MUI v7: rende il codice verboso, difficile da leggere e da mantenere, e impedisce di sfruttare le feature del tema MUI (responsive breakpoints, theme overrides, sx shorthand).
-
-2. **Componenti custom legacy** ancora presenti (`M3Typography`, `M3Surface`, `M3Dialog`, ecc.) che wrappano MUI in modo inutile — MUI v7 è già MD3-compliant nativamente.
-
-**Il stack attuale è:**
-
-- MUI v7 (`@mui/material ^7.3.9`) installato e funzionante
-- `src/theme/muiTheme.ts` — tema centralizzato con palette MD3, tipografia, shape, spacing
-- `src/theme/M3ThemeProvider.tsx` — provider attivo nell'albero React
-- Token CSS `var(--md-sys-*)` definiti in `src/theme.css` (colori, spacing, typescale, motion, elevation)
-- Spacing base = 4px (coerente con MD3 e con `theme.spacing()` MUI)
+| Layer                | File                                    | Contenuto                                                                     |
+| -------------------- | --------------------------------------- | ----------------------------------------------------------------------------- |
+| **Token CSS**        | `src/theme.css`                         | Unica fonte autoritativa di tutti i `--md-sys-*` custom properties            |
+| **Tema MUI**         | `src/theme/muiTheme.ts`                 | `createTheme()` con palette hex (no CSS var — MUI Error #9), spacing base 4px |
+| **Provider**         | `src/theme/M3ThemeProvider.tsx`         | Provider attivo nell'albero React; gestisce dark mode e visual style          |
+| **TypeScript types** | `src/theme/tokens.ts`                   | Interfacce `SysLayer / RefLayer / CompLayer`, usate nei test                  |
+| **DS primitives**    | `src/design-system/index.ts`            | `baseDesignSystem` (frozen object) con cssVar references                      |
+| **Typography CSS**   | `src/design-system/typography.css`      | 15 classi `.m3-{role}` pronte all'uso su qualsiasi elemento                   |
+| **Spacing CSS**      | `src/design-system/spacing.css`         | Classi utility `.m3-p-*`, `.m3-gap-*`                                         |
+| **Semantic tokens**  | `src/design-system/semantic-tokens.css` | Alias semantici di alto livello                                               |
 
 ---
 
-## 2. Stato attuale di Settings.tsx (file pilota)
+## 2. Token inventory completo
 
-**Settings.tsx è il file più avanzato dell'app** — è stato riscritto interamente con la struttura corretta, tutti i bug principali corretti, ed è il modello di riferimento per la migrazione degli altri.
+### Colori — `--md-sys-color-*`
 
-### Struttura ✅
+95+ token. Categorie principali:
+
+| Categoria  | Token                                                                        |
+| ---------- | ---------------------------------------------------------------------------- |
+| Primary    | `primary`, `on-primary`, `primary-container`, `on-primary-container`         |
+| Secondary  | `secondary`, `on-secondary`, `secondary-container`, `on-secondary-container` |
+| Tertiary   | `tertiary`, `on-tertiary`, `tertiary-container`, `on-tertiary-container`     |
+| Semantic   | `error`, `on-error`, `error-container`, `success`, `warning`                 |
+| Surface    | `surface`, `on-surface`, `surface-variant`, `on-surface-variant`             |
+| Container  | `surface-container-lowest/low/[default]/high/highest`                        |
+| Outline    | `outline`, `outline-variant`                                                 |
+| Background | `background`, `on-background`                                                |
+| RGB        | tutti i precedenti con suffisso `-rgb` per `rgba(var(...), alpha)`           |
+
+### Spacing — `--md-sys-spacing-*`
+
+Base 4px. Scale: `0, 0.5, 1–20, 24, 28, 32, 35, 42, 56, 64, 80`  
+→ `spacing-1 = 4px`, `spacing-2 = 8px`, `spacing-3 = 12px`, `spacing-4 = 16px`, ecc.  
+`theme.spacing(1) = 4px` in MUI — numericamente allineati, strutturalmente separati.
+
+### Tipografia — `--md-sys-typescale-*`
+
+15 ruoli tipografici:
+
+| Ruolo             | Font-size token                               |
+| ----------------- | --------------------------------------------- |
+| `display-large`   | 56px                                          |
+| `display-medium`  | 45px                                          |
+| `display-small`   | 36px                                          |
+| `headline-large`  | 32px                                          |
+| `headline-medium` | 28px                                          |
+| `headline-small`  | 24px                                          |
+| `title-large`     | 24px                                          |
+| `title-medium`    | 20px                                          |
+| `title-small`     | 16px                                          |
+| `body-large`      | 16px                                          |
+| `body-medium`     | 14px                                          |
+| `body-small`      | 12px                                          |
+| `label-large`     | 14px                                          |
+| `label-medium`    | 12px                                          |
+| `label-small`     | **11px** (MD3 spec, distinto da label-medium) |
+
+Token speciali:
+
+- `--md-sys-typescale-footnote-size: 10px` — footnote nei template
+- `--md-sys-typescale-code-font-size: 11px` — snippet monospace / hint CSV/JSON
+
+Font weight (7 livelli):
 
 ```
-Settings (pagina full-screen)
-├── Paper (shell verticale, height: 100dvh)
-│   ├── Paper (top app bar con back button + SectionHeader)
-│   └── div[flex:1, overflow:auto] (scrollable content)
-│       ├── SettingsGroup id="interface_experience" variant="primary"
-│       ├── SettingsGroup id="profile"              variant="surface"
-│       ├── SettingsGroup id="ai_didattica"         variant="secondary"
-│       ├── SettingsGroup id="ai_suggestions"       variant="tertiary"
-│       ├── SettingsGroup id="cloud"                variant="primary"
-│       ├── SettingsGroup id="debug_logging"        variant="surface"
-│       ├── SettingsGroup id="advanced"             variant="surface"
-│       └── div (footer: versione + logout)
-└── ResetConfirmModal (portale)
+--md-sys-typescale-weight-black:     900
+--md-sys-typescale-weight-extrabold: 800
+--md-sys-typescale-weight-bold:      700
+--md-sys-typescale-weight-semibold:  600
+--md-sys-typescale-weight-medium:    500
+--md-sys-typescale-weight-regular:   400
+--md-sys-typescale-weight-light:     300
 ```
 
-### `SettingsGroup` component ✅
+### Icone — `--md-sys-icon-size-*` ✨ (aggiunto 2026-03-17)
 
-**È il pattern accordion corretto per MUI v7 + MD3.** Implementa:
+| Token                    | Valore | Uso                    |
+| ------------------------ | ------ | ---------------------- |
+| `--md-sys-icon-size-xs`  | 14px   | tiny status / badge    |
+| `--md-sys-icon-size-sm`  | 16px   | small action / chip    |
+| `--md-sys-icon-size-md`  | 20px   | default UI icon        |
+| `--md-sys-icon-size-lg`  | 24px   | prominent action       |
+| `--md-sys-icon-size-xl`  | 28px   | hero / dialog          |
+| `--md-sys-icon-size-2xl` | 36px   | display / illustration |
 
-- `<Paper elevation={1|2}>` come container
-- `<button>` nativo HTML come trigger (accessibile, `aria-expanded`, `aria-controls`)
-- Icon container colorato dal `variant` (primary/secondary/tertiary/surface)
-- Panel con `maxHeight` + `opacity` transition (CSS, non JS)
-- Stato open/closed persistito in `localStorage`
+### Shape — `--md-sys-shape-corner-*`
 
-### Bug corretti (2026-03-08) ✅
+`none` → `extra-small` → `small` → `medium` → `large` → `extra-large` → `full`
 
-| Bug                                                     | Fix                                                               |
-| ------------------------------------------------------- | ----------------------------------------------------------------- |
-| 3 icone Material Symbols renderizzate come testo        | Aggiunta `className="material-symbols-outlined"`                  |
-| Storage progress bar invisibile (height 0)              | Aggiunta `height`, `backgroundColor`, `overflow: hidden` al track |
-| Encoding corrotto `gi<0xFFFD>`                          | → `già`                                                           |
-| Import file rotto (FileReader duplicato)                | `handleFileChange` passa `File` direttamente a `onImportData`     |
-| `onImportData: (data: string)` incompatibile con engine | → `(file: File)` in `SettingsProps` e `SettingsViewsProps`        |
-| Token CSS rotto `var(--md-sys-color-error)-container`   | → `var(--md-sys-color-error-container)`                           |
-| Logout button con `height: 16px` (inutilizzabile)       | Rimosso height fisso                                              |
-| Delete classe button 16×16px                            | Rimosso size fisso, padding adeguato                              |
-| Input ore `width: 16px` (inutilizzabile)                | → `44px`                                                          |
-| Typography con `<div>` child (HTML invalido)            | Aggiunto `component="div"`                                        |
-| `variant="contained"` → non in union type               | → `variant="primary"`                                             |
+### Elevation — `--md-sys-elevation-{0-5}`
 
-### Difetti residui (da fare nel prossimo step)
+Box-shadow values MD3. Usare solo tramite `Paper elevation={n}` o il token diretto.
 
-- Tutti gli stili sono ancora **`style={{}}`** con token CSS inline → da migrare a `sx` MUI
-- `SettingsGroup.variant` union type ha ancora `contained | tonal | elevated | outlined` inutilizzati
-- La matrice cattedra (`<table>`) usa `<button>` nativo senza `type="button"` (può triggerare submit)
+### Z-index — `--md-sys-z-*`
+
+Definiti in `src/styles/md3-z-index.css`. Centralizzati e governance tramite provider.
+
+### Motion — `--md-sys-motion-*`
+
+Durations e easing MD3 (`short1/2/3/4`, `medium1/2/3/4`, `long1/2/3/4`).
+
+---
+
+## 3. Enforcement durante lo sviluppo
+
+### ESLint — unico gate attivo e funzionante
+
+Tutte le violazioni MD3 sono intercettate automaticamente da 4 regole `no-restricted-syntax` in `eslint.config.mjs` (applicate a `src/**/*.tsx`, escluse le Storybook):
+
+| Regola              | Pattern bloccato                                     | Correzione                                                                         |
+| ------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| **fontWeight**      | `fontWeight: 700` o `fontWeight: 'bold'` in sx/style | `fontWeight: 'var(--md-sys-typescale-weight-bold)'`                                |
+| **fontSize string** | `fontSize: '0.875rem'` o `'14px'` in sx/style        | `fontSize: 'var(--md-sys-typescale-body-medium-font-size)'` o numero raw per icone |
+| **style su MUI**    | `<Button style={{...}}>`                             | `<Button sx={{...}}>`                                                              |
+| **nested var**      | `'var(var(--token))'`                                | `'var(--token)'`                                                                   |
+
+```bash
+npm run lint            # audit MD3 + lint generale (alias md3:audit, md3:scan, md3:check)
+npm run md3:scan:strict # 0 warning tollerati
+npm run md3:audit:all   # lint + tsc (gate completo)
+npm run md3:validate    # lint + build (gate pre-deploy)
+```
+
+**Stato corrente:** 0 errori · 0 warning (verificato 2026-03-17)
+
+### Cosa NON cattura ESLint (pattern da controllare in review)
+
+- `<div>` usati come container visivi al posto di `M3Surface` / `Box` (strutturale, non sintattico)
+- Spacing MUI numerico (`sx={{ p: 2 }}`) mescolato con token CSS (`var(--md-sys-spacing-2)`) — stesso valore ma percorsi diversi
+- `Paper elevation={n}` che genera box-shadow MUI bypassando i token MD3
+
+---
+
+## 4. Come usare i token nei componenti
+
+### Tipografia — modo corretto
+
+```tsx
+// ✅ Componente MUI con variant MD3
+<Typography variant="bodyMedium">Testo</Typography>
+
+// ✅ Token CSS su un elemento non-Typography
+<Box sx={{ fontSize: 'var(--md-sys-typescale-label-small-font-size)' }}>11px</Box>
+
+// ✅ Monospace / codice
+<Box sx={{ fontFamily: 'monospace', fontSize: 'var(--md-sys-typescale-code-font-size)' }}>CSV</Box>
+
+// ❌ Vietato
+<Box sx={{ fontSize: '0.75rem', fontWeight: 500 }}>...</Box>
+```
+
+### Icone Material Symbols — modo corretto
+
+```tsx
+// ✅ Token icon-size
+<Box component="span" className="material-symbols-outlined" aria-hidden="true"
+  sx={{ fontSize: 'var(--md-sys-icon-size-md)' }}>
+  home
+</Box>
+
+// ❌ Vietato — numero raw in stringa
+<Box sx={{ fontSize: '20px' }}>home</Box>
+
+// ⚠️ Tollerato — numero raw senza unità (non bloccato da ESLint, ma usa token)
+<Box sx={{ fontSize: 20 }}>home</Box>
+```
+
+### Spacing — modo corretto
+
+```tsx
+// ✅ Token CSS (esplicito, tracciabile)
+<Box sx={{ p: 'var(--md-sys-spacing-4)', gap: 'var(--md-sys-spacing-3)' }}>
+
+// ✅ MUI numerico (allineato: spacing(1) = 4px = spacing-1)
+<Box sx={{ px: 2, py: 1 }}>
+
+// ❌ Vietato — hardcoded non tracciato
+<Box sx={{ padding: '16px' }}>
+```
+
+### Surface / container — modo corretto
+
+```tsx
+// ✅ Componenti DS
+<M3Surface elevation={1}>...</M3Surface>
+<Paper elevation={2} sx={{ bgcolor: 'var(--md-sys-color-surface-container)' }}>
+
+// ❌ Vietato per layout shell/card/banner
+<div style={{ background: '...' }}>
+```
+
+---
+
+## 5. Stato compliance (2026-03-17)
+
+| Area                       | Stato       | Note                                                               |
+| -------------------------- | ----------- | ------------------------------------------------------------------ | ---- | ------- | ------------------- |
+| Token CSS (theme.css)      | ✅ Completo | 95+ color, spacing, typescale, icon-size, shape, elevation, motion |
+| Typography tokens          | ✅ Completo | 15 ruoli + footnote + code-font-size                               |
+| Icon size tokens           | ✅ Completo | 6 livelli xs→2xl (aggiunto 2026-03-17)                             |
+| ESLint enforcement         | ✅ Attivo   | 4 regole no-restricted-syntax, 0 errori 0 warning                  |
+| Modali (53 file)           | ✅ 53/53    | Tutti usano M3Dialog                                               |
+| Componenti journey/copilot | ✅ Conformi | Icon sizes migrati a token                                         |
+| MUI muiTheme.ts            | ✅ Stabile  | Raw hex (no CSS var), spacing base 4px                             |
+| Dark mode                  | ✅ Attivo   | `.theme-dark` class su body + `global.css`                         |
+| Visual styles              | ✅ Attivo   | `[data-visual-style="aura                                          | flat | minimal | ..."]` in theme.css |
+
+---
+
+## 6. Gotchas e pattern da evitare
+
+- **`label-small-font-size = 11px`** (non 12px come label-medium) — da usare per label compatte, non per codice (usare `code-font-size`)
+- **MUI `elevation={n}` genera box-shadow propria** — i token `--md-sys-elevation-*` sono fallback CSS, non si agganciano automaticamente
+- **`theme.spacing(1) = 4px` e `var(--md-sys-spacing-1) = 4px`** coincidono ma non sono connessi — se cambia uno, l'altro non scala
+- **Icon size ESLint**: i numeri raw (es. `fontSize: 20`) sono tollerati da ESLint (non stringe con unità), ma usa sempre il token `var(--md-sys-icon-size-md)` per tracciabilità
+- **fontWeight `black` e `extrabold`** esistono (900/800) ma sono raramente MD3-semantici — usarli solo per display su titoli promozionali
+
+---
+
+## 7. Comandi di riferimento rapido
+
+```bash
+npm run lint              # ← esegui dopo ogni modifica UI — deve restare 0/0
+npm run md3:scan:strict   # ← CI gate — 0 warning tollerati
+npm run md3:audit:all     # ← lint + tsc completo (pre-PR)
+npm run md3:validate      # ← lint + build (pre-deploy)
+npx tsc -b --noEmit       # ← check tipi standalone
+```
 
 ---
 

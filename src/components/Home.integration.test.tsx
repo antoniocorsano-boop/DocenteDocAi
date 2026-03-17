@@ -98,9 +98,9 @@ describe('Home Component - Integration (lean)', () => {
     // AI Assistant section (replaces legacy Activities)
     expect(screen.getAllByText('Assistente DocenteDoc')).not.toHaveLength(0);
     // Quick Actions section (labels from DOC_ACTIONS — always present)
-    expect(screen.getAllByText('UDA')).not.toHaveLength(0);
+    expect(screen.getAllByText(/^(UDA|Lezione)$/)).not.toHaveLength(0);
     // FAB aria-label is visible to screen readers
-    expect(screen.getByRole('button', { name: /Inizia Giornata|Nuova UDA/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Inizia Giornata|Nuova UDA|Nuova Lezione/i })).toBeInTheDocument();
   });
 
   // SKIP: Test navigation quick actions disabilitato per divergenza strutturale mock/componente reale (vedi compliance report)

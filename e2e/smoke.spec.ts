@@ -32,7 +32,7 @@ test.describe('OrarioDoc AI - Smoke Tests', () => {
     page.on('console', msg => {
       try {
         const text = msg.text ? msg.text() : '';
-        const prefixes = (process.env.SILENCE_PW_CONSOLE_PREFIXES || '[IndexedDbService],[BackupService],[AssistantFab],PW_CONSOLE').split(',');
+        const prefixes = (process.env.SILENCE_PW_CONSOLE_PREFIXES || '[IndexedDbService],[BackupService],[FloatingSatelliteCopilot],PW_CONSOLE').split(',');
         for (let i = 0; i < prefixes.length; i++) {
           const p = prefixes[i];
           if (!p) continue;

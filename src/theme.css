@@ -322,7 +322,7 @@
   --md-sys-typescale-label-medium-line-height: var(--md-sys-spacing-4);
   --md-sys-typescale-label-medium-font-weight: 500;
   --md-sys-typescale-label-medium-tracking: 0.5px;
-  --md-sys-typescale-label-small-font-size: var(--md-sys-spacing-3); /* var(--md-sys-spacing-3) */
+  --md-sys-typescale-label-small-font-size: 11px; /* MD3 spec: 11sp (distinct from label-medium 12px) */
   --md-sys-typescale-label-small-line-height: var(--md-sys-spacing-4);
   --md-sys-typescale-label-small-font-weight: 500;
   --md-sys-typescale-label-small-tracking: 0.5px;
@@ -341,6 +341,20 @@
   --md-sys-typescale-tracking-title: 0.15px;       /* title-medium / body-large per spec */
   --md-sys-typescale-tracking-body: 0.25px;        /* body-medium per spec */
   --md-sys-typescale-footnote-size: 10px;          /* footnote in document templates */
+  --md-sys-typescale-code-font-size: 11px;         /* monospace code snippets, CSV/JSON format hints */
+
+  /* ===========================================
+     MD3 ICON SIZE SCALE
+     Semantic icon sizes for Material Symbols.
+     Use these tokens instead of raw numeric literals.
+     xs=14 sm=16 md=20 lg=24 xl=28 2xl=36
+     =========================================== */
+  --md-sys-icon-size-xs:  14px;   /* tiny status / badge icons */
+  --md-sys-icon-size-sm:  16px;   /* small action / chip icons */
+  --md-sys-icon-size-md:  20px;   /* default UI icons */
+  --md-sys-icon-size-lg:  24px;   /* prominent action icons */
+  --md-sys-icon-size-xl:  28px;   /* hero / dialog icons */
+  --md-sys-icon-size-2xl: 36px;   /* display / illustration icons */
 
   /* ===========================================
      MD3 LAYOUT TOKENS (Expressive - Common Dimensions)

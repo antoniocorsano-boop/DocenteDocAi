@@ -53,6 +53,9 @@ export function createEmptyTeacherModel(): TeacherModel {
     preferences: {
       suggestionVerbosity: 'concise',
       acceptsArtisticSuggestions: true,
+      acceptsClassManagementSuggestions: true,
+      acceptsLessonDesignSuggestions: true,
+      acceptsBookIntegrationSuggestions: true,
     },
   };
 }

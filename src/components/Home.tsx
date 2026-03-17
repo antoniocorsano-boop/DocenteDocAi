@@ -12,6 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import { PageWrapper, M3Surface, TextField } from './ui';
 import { JourneyProgressPanel, LevelUpCelebration } from './journey';
 import { useJourneyProgress } from '../hooks/useJourneyProgress';
+import { useNextAction } from '../hooks/useNextAction';
 import { View, NavigationParams, ChatMessage } from '../types';
 import { useAcademicStore } from '../stores/useAcademicStore';
 import { useStudentStore } from '../stores/useStudentStore';
@@ -171,10 +172,30 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   const lessonsCount = Object.keys(lessons || {}).length;
   const studentsCount = students?.length ?? 0;
 
-  const { level, nextActions } = useJourneyProgress();
+  const { level } = useJourneyProgress();
+  const nextAction = useNextAction();
 
-  const fabLabel = hour < 14 ? 'Inizia Giornata' : 'Nuova UDA';
-  const fabIcon  = hour < 14 ? 'playlist_add_check' : 'layers';
+  const isEsploratore = level === 'esploratore';
+
+  // Rinomina UDA → Lezione per chi è ancora all'inizio
+  const adaptedTimedActions = useMemo(() =>
+    timedActions.map(a => a.view === 'uda' && isEsploratore ? { ...a, label: 'Lezione', icon: 'edit_document' } : a),
+    [timedActions, isEsploratore]
+  );
+
+  const visibleDocActions = useMemo(() =>
+    DOC_ACTIONS.map(d => d.view === 'uda' && isEsploratore ? { ...d, label: 'Lezione', desc: 'Pianifica una lezione' } : d),
+    [isEsploratore]
+  );
+
+  // Prossimo passo guidato — mostrato agli esploratori
+  const nextStep = useMemo(() => {
+    if (!isEsploratore) return null;
+    return { label: nextAction.label, icon: nextAction.icon, view: (nextAction.targetView ?? 'copilot') as View };
+  }, [isEsploratore, nextAction]);
+
+  const fabLabel = hour < 14 ? 'Inizia Giornata' : (isEsploratore ? 'Nuova Lezione' : 'Nuova UDA');
+  const fabIcon  = hour < 14 ? 'playlist_add_check' : (isEsploratore ? 'edit_document' : 'layers');
 
   return (
     <>
@@ -237,6 +258,42 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </Box>
 
         {/* â”€â”€ Scadenzario normativo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* Prossimo passo — guida contestuale per gli esploratori */}
+        {nextStep && (
+          <ButtonBase
+            onClick={() => onNavigate(nextStep.view)}
+            aria-label={nextStep.label}
+            focusRipple
+            sx={{
+              width: '100%',
+              display: 'flex', alignItems: 'center',
+              gap: 'var(--md-sys-spacing-3)',
+              px: 'var(--md-sys-spacing-4)', py: 'var(--md-sys-spacing-3)',
+              borderRadius: 'var(--md-sys-shape-corner-large)',
+              bgcolor: 'var(--md-sys-color-secondary-container)',
+              textAlign: 'left',
+              '&:hover': { filter: 'brightness(0.97)' },
+            }}
+          >
+            <Box component="span" className="material-symbols-outlined" aria-hidden="true"
+              sx={{ fontSize: 24, color: 'var(--md-sys-color-on-secondary-container)', flexShrink: 0 }}>
+              {nextStep.icon}
+            </Box>
+            <Box sx={{ flex: 1 }}>
+              <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-on-secondary-container)', opacity: 0.75, display: 'block' }}>
+                Prossimo passo
+              </Typography>
+              <Typography variant="labelLarge" sx={{ color: 'var(--md-sys-color-on-secondary-container)' }}>
+                {nextStep.label}
+              </Typography>
+            </Box>
+            <Box component="span" className="material-symbols-outlined" aria-hidden="true"
+              sx={{ fontSize: 20, color: 'var(--md-sys-color-on-secondary-container)', opacity: 0.7 }}>
+              arrow_forward
+            </Box>
+          </ButtonBase>
+        )}
+
         {deadlineAlerts.length > 0 && (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
             {deadlineAlerts.map((a, i) => {
@@ -400,16 +457,14 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </Box>
         )}
 
-        {(level === 'praticante' || level === 'maestro') && nextActions.length > 0 && (
+        {(level === 'praticante' || level === 'maestro') && (
           <Box component="section" aria-label={level === 'maestro' ? 'Automazioni suggerite' : 'Suggerimenti contestuali'}>
             <Typography variant="overline" sx={{ color: 'var(--md-sys-color-tertiary)', letterSpacing: '0.08em', mb: 'var(--md-sys-spacing-2)', display: 'block' }}>{level === 'maestro' ? 'Automazioni suggerite' : 'Suggerimenti contestuali'}</Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
-              {nextActions.slice(0, 2).map((action) => (
-                <ButtonBase key={action.id} onClick={() => action.targetView && onNavigate(action.targetView as View)} focusRipple aria-label={action.message} sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', px: 'var(--md-sys-spacing-3)', py: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-large)', bgcolor: 'var(--md-sys-color-surface-container)', textAlign: 'left', '&:hover': { bgcolor: 'var(--md-sys-color-surface-container-high)' } }}>
-                  <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20, color: 'var(--md-sys-color-tertiary)', flexShrink: 0 }}>{action.icon}</Box>
-                  <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-surface)' }}>{action.message}</Typography>
-                </ButtonBase>
-              ))}
+              <ButtonBase focusRipple aria-label={nextAction.label} onClick={() => nextAction.targetView && onNavigate(nextAction.targetView as View)} sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', px: 'var(--md-sys-spacing-3)', py: 'var(--md-sys-spacing-3)', borderRadius: 'var(--md-sys-shape-corner-large)', bgcolor: 'var(--md-sys-color-surface-container)', textAlign: 'left', '&:hover': { bgcolor: 'var(--md-sys-color-surface-container-high)' } }}>
+                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 20, color: 'var(--md-sys-color-tertiary)', flexShrink: 0 }}>{nextAction.icon}</Box>
+                <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-surface)' }}>{nextAction.label}</Typography>
+              </ButtonBase>
             </Box>
           </Box>
         )}
@@ -423,37 +478,93 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           }}>
             {timedLabel}
           </Typography>
-          <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--md-sys-spacing-3)' }}>
-            {timedActions.map(a => (
+          {isEsploratore ? (
+            /* Esploratore: 1 azione principale prominente + 2 secondarie compatte */
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-2)' }}>
               <ButtonBase
-                key={String(a.view)}
-                onClick={() => onNavigate(a.view)}
-                aria-label={`Vai a ${a.label}`}
+                onClick={() => onNavigate(adaptedTimedActions[0].view)}
+                aria-label={`Vai a ${adaptedTimedActions[0].label}`}
                 focusRipple
                 sx={{
-                  display: 'flex', flexDirection: 'column', alignItems: 'center',
-                  gap: 'var(--md-sys-spacing-2)', p: 'var(--md-sys-spacing-4)',
+                  width: '100%',
+                  display: 'flex', alignItems: 'center',
+                  gap: 'var(--md-sys-spacing-3)', px: 'var(--md-sys-spacing-4)', py: 'var(--md-sys-spacing-4)',
                   borderRadius: 'var(--md-sys-shape-corner-large)',
-                  bgcolor: 'var(--md-sys-color-surface-container)',
-                  transition: 'background-color 0.2s',
-                  '&:hover': { bgcolor: 'var(--md-sys-color-surface-container-high)' },
-                  '&:focus-visible': { outline: `2px solid ${a.color}`, outlineOffset: 2 },
+                  bgcolor: 'var(--md-sys-color-primary-container)',
+                  textAlign: 'left',
+                  '&:hover': { filter: 'brightness(0.97)' },
+                  '&:focus-visible': { outline: `2px solid ${adaptedTimedActions[0].color}`, outlineOffset: 2 },
                 }}
               >
                 <Box component="span" className="material-symbols-outlined" aria-hidden="true"
-                  sx={{ fontSize: 28, color: a.color, fontVariationSettings: '"FILL" 0' }}>
-                  {a.icon}
+                  sx={{ fontSize: 32, color: 'var(--md-sys-color-on-primary-container)' }}>
+                  {adaptedTimedActions[0].icon}
                 </Box>
-                <Typography variant="caption" sx={{
-                  color: 'var(--md-sys-color-on-surface)',
-                  fontWeight: 'var(--md-sys-typescale-weight-medium)',
-                  textAlign: 'center',
-                }}>
-                  {a.label}
+                <Typography variant="titleMedium" sx={{ color: 'var(--md-sys-color-on-primary-container)' }}>
+                  {adaptedTimedActions[0].label}
                 </Typography>
               </ButtonBase>
-            ))}
-          </Box>
+              <Box sx={{ display: 'flex', gap: 'var(--md-sys-spacing-2)' }}>
+                {adaptedTimedActions.slice(1).map(a => (
+                  <ButtonBase
+                    key={String(a.view)}
+                    onClick={() => onNavigate(a.view)}
+                    aria-label={`Vai a ${a.label}`}
+                    focusRipple
+                    sx={{
+                      flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      gap: 'var(--md-sys-spacing-2)', px: 'var(--md-sys-spacing-3)', py: 'var(--md-sys-spacing-2)',
+                      borderRadius: 'var(--md-sys-shape-corner-large)',
+                      border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
+                      bgcolor: 'transparent',
+                      '&:hover': { bgcolor: 'var(--md-sys-color-surface-container)' },
+                    }}
+                  >
+                    <Box component="span" className="material-symbols-outlined" aria-hidden="true"
+                      sx={{ fontSize: 18, color: 'var(--md-sys-color-on-surface-variant)' }}>
+                      {a.icon}
+                    </Box>
+                    <Typography variant="labelMedium" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                      {a.label}
+                    </Typography>
+                  </ButtonBase>
+                ))}
+              </Box>
+            </Box>
+          ) : (
+            /* Praticante / Maestro: griglia 3 tile */
+            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--md-sys-spacing-3)' }}>
+              {adaptedTimedActions.map(a => (
+                <ButtonBase
+                  key={String(a.view)}
+                  onClick={() => onNavigate(a.view)}
+                  aria-label={`Vai a ${a.label}`}
+                  focusRipple
+                  sx={{
+                    display: 'flex', flexDirection: 'column', alignItems: 'center',
+                    gap: 'var(--md-sys-spacing-2)', p: 'var(--md-sys-spacing-4)',
+                    borderRadius: 'var(--md-sys-shape-corner-large)',
+                    bgcolor: 'var(--md-sys-color-surface-container)',
+                    transition: 'background-color 0.2s',
+                    '&:hover': { bgcolor: 'var(--md-sys-color-surface-container-high)' },
+                    '&:focus-visible': { outline: `2px solid ${a.color}`, outlineOffset: 2 },
+                  }}
+                >
+                  <Box component="span" className="material-symbols-outlined" aria-hidden="true"
+                    sx={{ fontSize: 28, color: a.color, fontVariationSettings: '"FILL" 0' }}>
+                    {a.icon}
+                  </Box>
+                  <Typography variant="caption" sx={{
+                    color: 'var(--md-sys-color-on-surface)',
+                    fontWeight: 'var(--md-sys-typescale-weight-medium)',
+                    textAlign: 'center',
+                  }}>
+                    {a.label}
+                  </Typography>
+                </ButtonBase>
+              ))}
+            </Box>
+          )}
         </Box>
 
         {/* â”€â”€ Documenti & Burocrazia â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
@@ -465,7 +576,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             Documenti & Burocrazia
           </Typography>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-2)' }}>
-            {DOC_ACTIONS.map(d => (
+            {visibleDocActions.map(d => (
               <ButtonBase
                 key={String(d.view)}
                 onClick={() => onNavigate(d.view)}

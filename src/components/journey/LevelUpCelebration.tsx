@@ -76,7 +76,7 @@ const LevelUpCelebration: React.FC = () => {
             component="span"
             className="material-symbols-outlined"
             aria-hidden="true"
-            sx={{ color: 'var(--md-sys-color-tertiary)', fontSize: '1.75rem' }}
+            sx={{ color: 'var(--md-sys-color-tertiary)', fontSize: 'var(--md-sys-icon-size-xl)' }}
           >
             auto_awesome
           </Box>
@@ -97,7 +97,7 @@ const LevelUpCelebration: React.FC = () => {
                   component="span"
                   className="material-symbols-outlined"
                   aria-hidden="true"
-                  sx={{ fontSize: '1rem', color: 'var(--md-sys-color-primary)' }}
+                  sx={{ fontSize: 'var(--md-sys-icon-size-sm)', color: 'var(--md-sys-color-primary)' }}
                 >
                   check_circle
                 </Box>

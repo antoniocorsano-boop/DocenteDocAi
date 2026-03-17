@@ -52,7 +52,7 @@ test.describe('Mobile gesture & layout tests', () => {
       const noisy = [
         '[BackupService]',
         '[IndexedDbService]',
-        '[AssistantFab]',
+        '[FloatingSatelliteCopilot]',
       ];
       if (noisy.some((p) => msg.text().includes(p))) return;
     });

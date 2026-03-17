@@ -284,6 +284,17 @@ export function generateNextActions(ctx: SuggestionContext): CopilotSuggestion[]
     if (sug.source === 'artistic' && model.preferences?.acceptsArtisticSuggestions === false) {
       return false;
     }
+    // User preference: suggestion category toggles
+    const prefs = model.preferences;
+    if (
+      prefs?.acceptsClassManagementSuggestions === false &&
+      ['sug-lesson-streak', 'sug-add-first-class'].includes(sug.id)
+    ) return false;
+    if (
+      prefs?.acceptsLessonDesignSuggestions === false &&
+      ['sug-personal-mode-start', 'sug-uda-planning', 'sug-book-integration-uda'].includes(sug.id)
+    ) return false;
+    if (prefs?.acceptsBookIntegrationSuggestions === false && sug.requiresBookLinked) return false;
     return true;
   });
 
@@ -311,6 +322,17 @@ export function generateNextActions(ctx: SuggestionContext): CopilotSuggestion[]
   }
 
   return contracted;
+}
+
+/**
+ * Returns the single highest-priority next action for the current context.
+ * This is the recommended "one primary CTA" for the NextStepBanner.
+ *
+ * Always returns a suggestion (falls back to FALLBACK_SUGGESTION).
+ */
+export function getPrimaryNextAction(ctx: SuggestionContext): CopilotSuggestion {
+  const actions = generateNextActions(ctx);
+  return actions[0] ?? FALLBACK_SUGGESTION;
 }
 
 // ── Async enrichment with AI-generated artistic suggestions ──────────────────────

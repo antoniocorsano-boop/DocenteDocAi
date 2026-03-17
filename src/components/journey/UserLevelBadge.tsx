@@ -68,7 +68,7 @@ const UserLevelBadge: React.FC = () => {
       }
       sx={{
         cursor: 'pointer',
-        fontWeight: 'bold',
+        fontWeight: 'var(--md-sys-typescale-weight-bold)',
         ...(isMaestro && {
           bgcolor: 'var(--md-sys-color-tertiary-container)',
           color: 'var(--md-sys-color-on-tertiary-container)',

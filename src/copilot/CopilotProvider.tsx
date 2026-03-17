@@ -275,7 +275,7 @@ function CopilotSuggestionBar({
                                 deleteIcon={
                                     <CloseIcon
                                         aria-label={`Ignora: ${s.label}`}
-                                        style={{ fontSize: 14 }}
+                                        sx={{ fontSize: 14 }}
                                     />
                                 }
                                 aria-label={`Suggerimento: ${s.label}`}
@@ -284,7 +284,7 @@ function CopilotSuggestionBar({
                                 variant="outlined"
                                 sx={{
                                     borderRadius: 'var(--md-sys-shape-corner-small, 8px)',
-                                    fontWeight: 500,
+                                    fontWeight: 'var(--md-sys-typescale-weight-medium)',
                                     cursor: 'pointer',
                                 }}
                             />

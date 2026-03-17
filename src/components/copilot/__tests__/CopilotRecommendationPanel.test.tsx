@@ -83,14 +83,15 @@ describe('CopilotRecommendationPanel', () => {
     expect(screen.getByText('Raccomandazioni AI')).toBeInTheDocument();
     expect(screen.getByText(/3 lezi/)).toBeInTheDocument();   // 3 lessons
     expect(screen.getByText(/1 student/)).toBeInTheDocument(); // 1 student
-    expect(screen.getByText(/2 UDA/)).toBeInTheDocument();     // 2 UDAs
+    expect(screen.getByText(/2 (UDA|Lezioni|lezioni)/i)).toBeInTheDocument(); // 2 UDAs (label adapts to capability level)
     expect(screen.getByRole('button', { name: /calcola raccomandazioni/i })).toBeInTheDocument();
   });
 
   it('shows info Alert prompting to press Calcola before first run', () => {
     render(<CopilotRecommendationPanel {...defaultProps} />);
-    const alert = screen.getByRole('alert');
-    expect(alert.textContent).toMatch(/Calcola/);
+    const alerts = screen.getAllByRole('alert');
+    const calcolaAlert = alerts.find(a => /Calcola/.test(a.textContent ?? ''));
+    expect(calcolaAlert).toBeDefined();
   });
 
   it('shows loading spinner while computation is in progress', async () => {

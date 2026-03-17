@@ -7,6 +7,8 @@ import { useAcademicStore } from '../stores/useAcademicStore';
 import { useAIMaturitaStore } from '../stores/useAIMaturitaStore';
 import { useStudentStore } from '../stores/useStudentStore';
 import { useSystemStore } from '../stores/useSystemStore';
+import { useTeacherModelStore } from '../stores/useTeacherModelStore';
+import { cognitionBus } from '../cognition/CognitionBus';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -428,6 +430,17 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ settings, onComplet
   // ── Complete ─────────────────────────────────────────────────────────────────
   const handleComplete = useCallback(() => {
     clearPersistedState();
+
+    // Calibrate TeacherModel from onboarding data
+    const { updateUsageProfile, capabilityLevel } = useTeacherModelStore.getState();
+    updateUsageProfile({ workspaceConfigured: true });
+    // Seed capabilityLevel from declared AI experience (only promote, never demote)
+    if (interactionMode !== 'classica' && capabilityLevel < 2) {
+      useTeacherModelStore.setState({ capabilityLevel: 2 });
+    }
+    cognitionBus.emit('workspace.configured', {});
+    cognitionBus.emit('onboarding.completed', {});
+
     onComplete({
       nomeInsegnante: nome.trim() || settings.nomeInsegnante,
       cognomeInsegnante: cognome.trim() || settings.cognomeInsegnante,
@@ -438,7 +451,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ settings, onComplet
       disciplines: disciplines.length ? disciplines : settings.disciplines,
       onboarded: true,
     });
-  }, [nome, cognome, email, istituto, citta, schoolType, disciplines, settings, onComplete]);
+  }, [nome, cognome, email, istituto, citta, schoolType, disciplines, interactionMode, settings, onComplete]);
 
   const handleSkip = useCallback(() => {
     clearPersistedState();
@@ -976,7 +989,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ settings, onComplet
           <input ref={fileInputRef} id="onb-file-upload" type="file" accept=".csv,.json"
             style={{ display: 'none' }} onChange={handleFileChange} aria-label="Seleziona file CSV o JSON" />
         </Box>
-        <Box sx={{ p: 'var(--md-sys-spacing-3)', bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-small)', fontFamily: 'monospace', fontSize: '11px', color: 'var(--md-sys-color-on-surface-variant)' }}>
+        <Box sx={{ p: 'var(--md-sys-spacing-3)', bgcolor: 'var(--md-sys-color-surface-container)', borderRadius: 'var(--md-sys-shape-corner-small)', fontFamily: 'monospace', fontSize: 'var(--md-sys-typescale-code-font-size)', color: 'var(--md-sys-color-on-surface-variant)' }}>
           <div>Lezioni CSV: id, classe, materia, contenuto, data, svolta</div>
           <div>UDA CSV: id, title, classe, materia, introduction, startDate, endDate</div>
         </Box>
@@ -1024,7 +1037,7 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({ settings, onComplet
             <InfoOutlinedIcon sx={{ fontSize: 14, color: 'var(--md-sys-color-primary)' }} aria-hidden="true" />
             <Typography variant="labelMedium" sx={{ color: 'var(--md-sys-color-on-surface)' }}>Colonne attese</Typography>
           </Box>
-          <Box sx={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--md-sys-color-on-surface-variant)', lineHeight: 1.8 }}>
+          <Box sx={{ fontFamily: 'monospace', fontSize: 'var(--md-sys-typescale-code-font-size)', color: 'var(--md-sys-color-on-surface-variant)', lineHeight: 1.8 }}>
             <div><strong>Argo:</strong> cognome;nome;classe;dataNascita;codiceFiscale;bes;dsa;h104</div>
             <div><strong>Spaggiari:</strong> Cognome,Nome,Classe,Data Nascita (virgola)</div>
             <div><strong>Generico:</strong> qualsiasi CSV con cognome/nome/classe</div>

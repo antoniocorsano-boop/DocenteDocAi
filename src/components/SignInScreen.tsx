@@ -88,14 +88,6 @@ const SignInScreen: React.FC<SignInScreenProps> = ({ onSignInSuccess }) => {
         >
           Accedi
         </Button>
-        <Button
-          type="button"
-          variant="text"
-          sx={{ width: 'var(--md-sys-percent-100)' }}
-          onClick={() => setError('Funzione di recupero password non ancora disponibile. Contatta il tuo amministratore.')}
-        >
-          Recupera password
-        </Button>
       </form>
     </div>
   );

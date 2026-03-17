@@ -152,37 +152,37 @@ export const VIEW_PARENT: Partial<Record<View, View>> = {
 // ---------------------------------------------------------------------------
 export const PREFETCH_MAP: Partial<Record<View, Array<() => Promise<unknown>>>> = {
     'home': [
-        () => import('./ProgettazioneHub'),
-        () => import('./ClassSelection'),
-        () => import('./Calendar'),
+        (): Promise<unknown> => import('./ProgettazioneHub'),
+        (): Promise<unknown> => import('./ClassSelection'),
+        (): Promise<unknown> => import('./Calendar'),
     ],
     'progettazione-hub': [
-        () => import('./UdaPlanner'),
-        () => import('./LessonsPage'),
-        () => import('./ReportisticaHub'),
-        () => import('./KnowledgeBase'),
+        (): Promise<unknown> => import('./UdaPlanner'),
+        (): Promise<unknown> => import('./LessonsPage'),
+        (): Promise<unknown> => import('./ReportisticaHub'),
+        (): Promise<unknown> => import('./KnowledgeBase'),
     ],
     'aula': [
-        () => import('./ClassDashboard'),
-        () => import('./EvaluationModule'),
-        () => import('./ClassroomView'),
-        () => import('./StudentManager'),
+        (): Promise<unknown> => import('./ClassDashboard'),
+        (): Promise<unknown> => import('./EvaluationModule'),
+        (): Promise<unknown> => import('./ClassroomView'),
+        (): Promise<unknown> => import('./StudentManager'),
     ],
     'uda': [
-        () => import('./LessonsPage'),
-        () => import('./ReportisticaHub'),
+        (): Promise<unknown> => import('./LessonsPage'),
+        (): Promise<unknown> => import('./ReportisticaHub'),
     ],
     'studenti': [
-        () => import('./EvaluationModule'),
-        () => import('./ClassCompetencyDashboard'),
-        () => import('./DidatticaInclusiva'),
+        (): Promise<unknown> => import('./EvaluationModule'),
+        (): Promise<unknown> => import('./ClassCompetencyDashboard'),
+        (): Promise<unknown> => import('./DidatticaInclusiva'),
     ],
     'studio': [
-        () => import('./KnowledgeBase'),
-        () => import('./AnalyticsHub'),
+        (): Promise<unknown> => import('./KnowledgeBase'),
+        (): Promise<unknown> => import('./AnalyticsHub'),
     ],
     'evaluations': [
-        () => import('./ClassCompetencyDashboard'),
-        () => import('./RegisterView'),
+        (): Promise<unknown> => import('./ClassCompetencyDashboard'),
+        (): Promise<unknown> => import('./RegisterView'),
     ],
 };

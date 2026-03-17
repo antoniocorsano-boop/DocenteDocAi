@@ -144,6 +144,12 @@ export interface TeacherPreferences {
   suggestionVerbosity: 'concise' | 'detailed';
   /** Accetta suggerimenti artistici/creativi */
   acceptsArtisticSuggestions: boolean;
+  /** Accetta suggerimenti sulla gestione della classe (default: true) */
+  acceptsClassManagementSuggestions?: boolean;
+  /** Accetta suggerimenti sulla progettazione didattica (default: true) */
+  acceptsLessonDesignSuggestions?: boolean;
+  /** Accetta suggerimenti sull'integrazione libri (default: true) */
+  acceptsBookIntegrationSuggestions?: boolean;
   /** Orario preferito per i reminder (non implementato, riservato per futuro) */
   preferredReminderTime?: string;
 }

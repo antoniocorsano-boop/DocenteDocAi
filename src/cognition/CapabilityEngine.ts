@@ -14,6 +14,7 @@
  */
 
 import type { TeacherModel, CapabilityLevel, JourneyLevel } from '../types/teacherModel.types';
+import type { AppEvent } from './eventMap';
 
 interface CapabilityResult {
   level: CapabilityLevel;
@@ -108,4 +109,50 @@ export function computeJourneyProgress(model: TeacherModel): number {
     return Math.min(0.5 + score(L2_TO_L3, model) * 0.5, 0.99);
   }
   return 1; // maestro
+}
+
+// ── Feature Gating ───────────────────────────────────────────────────────────
+
+/** Stable keys for features progressively unlocked by CapabilityLevel */
+export type FeatureKey =
+  | 'ADD_STUDENT'
+  | 'CREATE_LESSON'
+  | 'CREATE_UDA'
+  | 'ARTISTIC_TOOLS'
+  | 'BOOK_INTEGRATION';
+
+const FEATURE_MAP: Record<CapabilityLevel, FeatureKey[]> = {
+  1: ['ADD_STUDENT'],
+  2: ['ADD_STUDENT', 'CREATE_LESSON'],
+  3: ['ADD_STUDENT', 'CREATE_LESSON', 'CREATE_UDA', 'ARTISTIC_TOOLS'],
+  4: ['ADD_STUDENT', 'CREATE_LESSON', 'CREATE_UDA', 'ARTISTIC_TOOLS', 'BOOK_INTEGRATION'],
+};
+
+/**
+ * Returns the set of features available at a given CapabilityLevel.
+ * Higher levels include all lower-level features (cumulative).
+ */
+export function getAvailableFeatures(level: CapabilityLevel): FeatureKey[] {
+  return FEATURE_MAP[level] ?? FEATURE_MAP[1];
+}
+
+/**
+ * Event-based capability level heuristic.
+ *
+ * Determines CapabilityLevel from a list of AppEvents based on milestone events.
+ * Lighter-weight complement to computeCapability(model) for scenarios where
+ * only an event log is available (e.g. onboarding, tests).
+ *
+ * Rules:
+ *   L1 → default
+ *   L2 → 'class.first_student_added' present
+ *   L3 → 'workspace.configured' present
+ *   L4 → 'book.service.interacted' present
+ */
+export function computeCapabilityLevel(events: AppEvent[]): CapabilityLevel {
+  const names = new Set(events.map((e) => e.name as string));
+  if (names.has('book.service.interacted')) return 4;
+  if (names.has('workspace.configured')) return 3;
+  if (names.has('class.first_student_added')) return 2;
+  return 1;
 }

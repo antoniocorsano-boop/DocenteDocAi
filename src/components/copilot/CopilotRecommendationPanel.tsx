@@ -53,6 +53,8 @@ import {
 } from '../../ai/recommendation/lessonRecommender';
 import { generateCurriculumRecommendations } from '../../ai/recommendation/curriculumAdvisor';
 import { generateActivity, type Activity } from '../../ai/recommendation/activityGenerator';
+import { useTerminology } from '../../hooks/useTerminology';
+import { useNextAction } from '../../hooks/useNextAction';
 import type { Studente, Valutazione, Uda } from '../../types';
 
 // ── token helper ──────────────────────────────────────────────────────────────
@@ -354,6 +356,8 @@ const CopilotRecommendationPanel: React.FC<CopilotRecommendationPanelProps> = ({
   const lessonsMap = useAcademicStore(s => s.lessons);
   const [recommendations, setRecommendations] = useState<Recommendation[] | null>(null);
   const [loading, setLoading] = useState(false);
+  const { udaLabelPlural } = useTerminology();
+  const nextAction = useNextAction();
 
   const run = useCallback(() => {
     setLoading(true);
@@ -494,7 +498,7 @@ const CopilotRecommendationPanel: React.FC<CopilotRecommendationPanelProps> = ({
           }}
         />
         <Chip
-          label={`${udaCount} UDA`}
+          label={`${udaCount} ${udaLabelPlural}`}
           size="small"
           sx={{
             bgcolor:  tok('surface-container-high'),
@@ -504,7 +508,31 @@ const CopilotRecommendationPanel: React.FC<CopilotRecommendationPanelProps> = ({
         />
       </Stack>
 
-      {/* ── Initial prompt ───────────────────────────────────────────────────── */}
+      {/* ── Initial prompt ───────────────────────────────────────────────────── */}      {/* ── Decision Engine guidance ──────────────────────────────────── */}
+      {recommendations === null && !loading && (
+        <Alert
+          severity="info"
+          icon={
+            <Box component="span" className="material-symbols-outlined" aria-hidden="true"
+              sx={{ fontSize: 'var(--md-sys-icon-size-sm)', verticalAlign: 'middle' }}>
+              {nextAction.icon}
+            </Box>
+          }
+          sx={{
+            mb: 1.5,
+            bgcolor: tok('primary-container'),
+            color:   tok('on-primary-container'),
+            '& .MuiAlert-icon': { color: tok('primary') },
+          }}
+        >
+          <Typography variant="labelSmall" sx={{ display: 'block', mb: 0.25, fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}>
+            {nextAction.label}
+          </Typography>
+          <Typography variant="bodySmall">
+            {nextAction.reason}
+          </Typography>
+        </Alert>
+      )}
       {recommendations === null && !loading && (
         <Alert
           severity="info"

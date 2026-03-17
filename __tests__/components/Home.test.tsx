@@ -70,11 +70,11 @@ describe('Home Component', () => {
         );
         // Hero section
         expect(screen.getAllByText(/Buongiorno|Buon pomeriggio|Buona sera|Pianifica la prossima lezione|Prossima Lezione/)).not.toHaveLength(0);
-        // Quick Actions section (labels from DOC_ACTIONS — always present)
-        expect(screen.getAllByText('UDA')).not.toHaveLength(0);
+        // Quick Actions section (labels adapt to capability level — UDA for advanced, Lezione for esploratori)
+        expect(screen.getAllByText(/^(UDA|Lezione)$/)).not.toHaveLength(0);
         // Metrics section
         expect(screen.getAllByText(/studenti/i)).not.toHaveLength(0);
-        // FAB aria-label is visible to screen readers
-        expect(screen.getByRole('button', { name: /Inizia Giornata|Nuova UDA/i })).toBeInTheDocument();
+        // FAB aria-label is visible to screen readers (adapts to level)
+        expect(screen.getByRole('button', { name: /Inizia Giornata|Nuova UDA|Nuova Lezione/i })).toBeInTheDocument();
     });
 });

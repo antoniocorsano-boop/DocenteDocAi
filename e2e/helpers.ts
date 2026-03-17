@@ -7,7 +7,7 @@ export async function setTestMode(page: Page): Promise<void> {
     // Also allow explicit silence flag for verbose components
     windowExt.__SILENCE_ASSISTANT_LOGS = true;
     // Quiet common noisy prefixes used across the app during E2E
-    windowExt.__SILENT_PREFIXES = ['[IndexedDbService]', '[BackupService]', '[AssistantFab]', 'PW_CONSOLE'];
+    windowExt.__SILENT_PREFIXES = ['[IndexedDbService]', '[BackupService]', '[FloatingSatelliteCopilot]', 'PW_CONSOLE'];
 
     // Pre-accept privacy consent so the blocking modal never appears in tests
     try {

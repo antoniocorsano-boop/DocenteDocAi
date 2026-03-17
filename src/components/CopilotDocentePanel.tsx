@@ -9,6 +9,9 @@ import CopilotPerformancePanel from './copilot/CopilotPerformancePanel';
 import CopilotHealthOverviewPanel from './copilot/CopilotHealthOverviewPanel';
 import AITrendPanel from './AITrendPanel';
 import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
 import ExportModal from './ExportModal';
 import PlanningAssistantPanel from './copilot/PlanningAssistantPanel';
 import CommunicationHelperPanel from './copilot/CommunicationHelperPanel';
@@ -22,6 +25,7 @@ import { AITabErrorBoundary } from './copilot/AITabErrorBoundary';
 import FundingPanel from './copilot/FundingPanel';
 import { CopilotMaturitaPanel } from './copilot/maturita';
 import ArtisticConsiliumPanel from './copilot/ArtisticConsiliumPanel';
+import { useTeacherModelStore } from '../stores/useTeacherModelStore';
 
 import type { AISuggestion } from '../ai/contextEngine/types';
 import type { ClassHealthIndex } from '../ai/classHealth/types';
@@ -44,6 +48,8 @@ interface CopilotDocentePanelProps {
 export default function CopilotDocentePanel({ suggestions, classHealth, snapshots, className, studentId, students, evaluations, udas, settings }: Omit<CopilotDocentePanelProps, 'competenze'>): JSX.Element {
   const [tab, setTab] = React.useState<number>(0);
   const [exportOpen, setExportOpen] = React.useState(false);
+  const capabilityLevel = useTeacherModelStore((s) => s.capabilityLevel);
+  const [altroAnchor, setAltroAnchor] = React.useState<null | HTMLElement>(null);
 
   return (
     <InfoCard variant="outlined" sx={{ mt: 'var(--md-sys-spacing-6)' }}>
@@ -51,30 +57,57 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
         title="Copilot Docente"
         subtitle="AI per pianificazione, gestione e automazioni didattiche."
       />
-      <Tabs
-        value={tab}
-        onChange={(_, v) => setTab(v)}
-        aria-label="Copilot Docente Tabs"
-        sx={{ mb: 'var(--md-sys-spacing-4)' }}
-        variant="scrollable"
-        scrollButtons="auto"
+      <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+        <Tabs
+          value={tab}
+          onChange={(_, v) => setTab(v)}
+          aria-label="Copilot Docente Tabs"
+          sx={{ mb: 'var(--md-sys-spacing-4)', flex: 1 }}
+          variant="scrollable"
+          scrollButtons="auto"
+        >
+          <Tab label="Performance" />
+          <Tab label="Overview" />
+          <Tab label="Andamento" />
+          <Tab label="Esportazione" />
+          <Tab label="Planning" />
+          <Tab label="Comunicazione" />
+          <Tab label="Predizione" />
+          <Tab label="Dashboard" />
+          <Tab label="Azioni" />
+          <Tab label="Spiegabilità" />
+          <Tab label="Dev Tools" sx={{ display: import.meta.env.DEV ? undefined : 'none' }} />
+          <Tab label="Raccomandazioni AI" />
+          <Tab label="Finanziamenti" sx={{ display: 'none' }} />
+          <Tab label="Maturità AI" sx={{ display: 'none' }} />
+          <Tab label="Artistico" sx={{ display: capabilityLevel >= 2 ? undefined : 'none' }} />
+        </Tabs>
+        <Tooltip title="Sezioni avanzate">
+          <Button
+            size="small"
+            variant="text"
+            onClick={(e) => setAltroAnchor(e.currentTarget)}
+            aria-label="Apri menu sezioni avanzate"
+            aria-haspopup="true"
+            aria-expanded={Boolean(altroAnchor)}
+            sx={{ mb: 'var(--md-sys-spacing-4)', flexShrink: 0, textTransform: 'none' }}
+          >
+            Altro ▾
+          </Button>
+        </Tooltip>
+      </Box>
+      <Menu
+        anchorEl={altroAnchor}
+        open={Boolean(altroAnchor)}
+        onClose={() => setAltroAnchor(null)}
+        MenuListProps={{ 'aria-label': 'Sezioni avanzate' }}
       >
-        <Tab label="Performance" />
-        <Tab label="Overview" />
-        <Tab label="Andamento" />
-        <Tab label="Esportazione" />
-        <Tab label="Planning" />
-        <Tab label="Comunicazione" />
-        <Tab label="Predizione" />
-        <Tab label="Dashboard" />
-        <Tab label="Azioni" />
-        <Tab label="Spiegabilità" />
-        <Tab label="Dev Tools" />
-        <Tab label="Raccomandazioni AI" />
-        <Tab label="Finanziamenti" />
-        <Tab label="Maturità AI" />
-        <Tab label="Artistico" />
-      </Tabs>
+        <MenuItem onClick={() => { setTab(12); setAltroAnchor(null); }}>Finanziamenti</MenuItem>
+        <MenuItem onClick={() => { setTab(13); setAltroAnchor(null); }}>Maturità AI</MenuItem>
+        {import.meta.env.DEV && (
+          <MenuItem onClick={() => { setTab(10); setAltroAnchor(null); }}>Dev Tools</MenuItem>
+        )}
+      </Menu>
       <Box sx={{ minHeight: 80 }}>
         {tab === 0 && (
           <AITabErrorBoundary tabName="Performance">
@@ -214,9 +247,17 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
         )}
         {tab === 14 && (
           <AITabErrorBoundary tabName="Artistico">
-            <ArtisticConsiliumPanel
-              defaultUdaTitle={udas.length > 0 ? udas[0].title : undefined}
-            />
+            {capabilityLevel >= 2 ? (
+              <ArtisticConsiliumPanel
+                defaultUdaTitle={udas.length > 0 ? udas[0].title : undefined}
+              />
+            ) : (
+              <Box sx={{ p: 'var(--md-sys-spacing-4)', textAlign: 'center' }}>
+                <Typography variant="body2" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                  Questa funzionalità è disponibile a partire dal livello <strong>Praticante</strong>.
+                </Typography>
+              </Box>
+            )}
           </AITabErrorBoundary>
         )}
       </Box>

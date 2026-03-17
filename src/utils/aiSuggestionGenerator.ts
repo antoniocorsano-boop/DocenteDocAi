@@ -17,13 +17,6 @@ interface CachedSuggestions {
  */
 export const generateAiSuggestions = async (appState: AppState): Promise<AiSuggestion[]> => {
     try {
-        // Skip AI call if API key is missing and fall back gracefully
-        const hasApiKey = Boolean(import.meta.env.VITE_GEMINI_API_KEY);
-        if (!hasApiKey) {
-            logger.warn('[aiSuggestionGenerator] API key mancante, uso fallback suggestions');
-            return getFallbackSuggestions(appState);
-        }
-
         // Check cache first
         const cached = getCachedSuggestions(appState.user?.id);
         if (cached) {

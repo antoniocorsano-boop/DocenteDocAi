@@ -162,11 +162,11 @@ export default defineConfig([
           selector:
             'JSXAttribute[name.name=/^s[xy]$/] > JSXExpressionContainer > ObjectExpression > Property[key.name="fontWeight"] > Literal:not([value=/^var\\(--/])',
           message:
-            'MD3 violation: hardcoded fontWeight. Use var(--md-sys-typescale-weight-{bold|semibold|medium|regular|light}).',
+            'MD3 violation: hardcoded fontWeight. Use var(--md-sys-typescale-weight-{black|extrabold|bold|semibold|medium|regular|light}).',
         },
         {
           // fontSize: raw rem/pt/px *string* literal (not a var(-- token, not a number like icon sizes)
-          // Correct: fontSize: 'var(--md-sys-typescale-body-large-font-size)'  or  fontSize: 24 (icon)
+          // Correct: fontSize: 'var(--md-sys-typescale-body-large-font-size)'  or  fontSize: 24  or  fontSize: 'var(--md-sys-icon-size-lg)'
           // Wrong:   fontSize: '0.875rem'  |  fontSize: '14px'
           selector:
             'JSXAttribute[name.name=/^s[xy]$/] > JSXExpressionContainer > ObjectExpression > Property[key.name="fontSize"] > Literal[value=/rem$|px$|pt$/]:not([value=/^var\\(--/])',

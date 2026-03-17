@@ -27,11 +27,13 @@ npm run test:e2e                 # Playwright su localhost:5173 (avvia dev auto)
 npm run test:e2e:smoke           # solo smoke test (chromium, rapido)
 
 # Lint / QA
-npm run lint                     # ESLint (ts, tsx)
+npm run lint                     # ESLint — include le 4 regole MD3 no-restricted-syntax
 npm run lint:fix                 # ESLint con autofix
 npm run lint:css                 # Stylelint su src/**/*.css
-npm run md3:audit                # Audit conformità MD3 componenti
-npm run md3:scan                 # Scanner MD3 compliance (CJS)
+npm run md3:audit                # alias → npm run lint (ESLint è l'enforcement MD3)
+npm run md3:scan:strict          # alias → lint --max-warnings 0 (zero-tolerance)
+npm run md3:audit:all            # alias → lint + tsc (audit completo)
+npm run md3:validate             # alias → lint + build (gate pre-deploy)
 
 # Storybook
 npm run storybook                # dev su http://localhost:6006
@@ -87,13 +89,14 @@ import { useAppEngine } from "@/hooks/useAppEngine";
 Ogni modifica UI **deve** rispettare Material Design 3:
 
 - **Container visivi**: usa `M3Surface`, `AppLayout`, o wrapper MD3. **Vietato `<div>` per shell/card/layout.**
-- **Tipografia**: usa `M3Typography`. Vietato `fontSize` / `fontWeight` inline.
+- **Tipografia**: usa `M3Typography`. Vietato `fontSize` / `fontWeight` inline (stringa rem/px o numero grezzo per il testo — ok numero grezzo per icone).
 - **Spacing**: solo token MD3. Vietato spacing hardcoded o non tracciato.
+- **Icone**: usa `var(--md-sys-icon-size-{xs|sm|md|lg|xl|2xl})` anziché numeri raw (16/20/24/…).
 - **Bottoni/interattivi**: usa componenti MUI v7 o wrapper MD3. Ogni elemento interattivo deve avere `aria-label`.
 - **Errori/loader/stati**: usa componenti MD3 dedicati. Vietati `<div>` stilizzati come fallback.
 - **Elevation**: solo se semanticamente necessaria MD3. Niente `box-shadow` custom.
 
-Dopo ogni modifica UI, verifica con `npm run md3:audit`.
+Dopo ogni modifica UI, verifica con `npm run lint` (0 errori, 0 warning = conforme MD3).
 
 ---
 

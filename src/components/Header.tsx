@@ -65,10 +65,11 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
     <AppBar
       component="header"
       role="banner"
-      position="static"
+      position="sticky"
       className="app-header-bar"
       elevation={scrolled ? 2 : 0}
       sx={{
+        top: 0,
         zIndex: 'var(--md-sys-z-app-bar)',
         bgcolor: scrolled
           ? 'var(--md-sys-color-surface-container)'
@@ -88,7 +89,10 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
           gap: 'var(--md-sys-spacing-1)',
         }}
       >
-        {/* Leading: Back + Aura */}
+        {/* Logo: SEMPRE al primo posto — posizione fissa, non si sposta mai tra le schermate */}
+        <Logo isAiThinking={isAiProcessing} onHomeNavigate={onOpenMore} />
+
+        {/* Leading nav: Back + Quick Operations */}
         <Box component="nav" aria-label="Azioni principali" sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
           {showBackButton && (
             <IconButton
@@ -112,9 +116,8 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
           </IconButton>
         </Box>
 
-        {/* Title/Logo + Breadcrumb — left-aligned per MD3 top app bar spec */}
-        <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)', ml: 'var(--md-sys-spacing-2)', minWidth: 0 }}>
-          <Logo isAiThinking={isAiProcessing} onHomeNavigate={onOpenMore} />
+        {/* Titolo / Breadcrumb — occupa lo spazio rimasto */}
+        <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', ml: 'var(--md-sys-spacing-1)', minWidth: 0 }}>
           {showBackButton && currentView ? (
             <Breadcrumb currentView={currentView} onNavigate={onNavigate} />
           ) : (
