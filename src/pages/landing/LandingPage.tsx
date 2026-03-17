@@ -1,13 +1,15 @@
 /**
  * LandingPage.tsx
  *
- * Official public landing page for DocenteDocAI.
+ * Portale di ingresso guidato DocenteDocAI.
  *
  * Sections (anchor IDs match NAV_LINKS in LandingNav):
- *   #progetto       — Hero
+ *   #hero           — Hero "Ti guidiamo noi"
+ *   #demo           — CopilotDemo interattivo (wow moment)
+ *   #come-funziona  — 3 passi semplicissimi
+ *   #per-chi        — Docenti persi → guidati, esperti → accelerati
+ *   #cta            — Final CTA
  *   #valori         — Valori del progetto (4 card)
- *   #funzionalita   — Cosa fa DocenteDocAI (3 feature blocks)
- *   #stakeholder    — Stakeholder view (interactive tabs)
  *   #etica-ai       — AI Responsabile
  *   #partecipa      — Partecipa al progetto + Trasparenza
  *   footer          — Privacy / ToS / Contatti
@@ -15,7 +17,7 @@
  * Design:
  *   - MUI v7 + MD3 CSS tokens only (no hardcoded values)
  *   - WCAG 2.1 AA (landmark roles, aria-labels, skip-link friendly)
- *   - Responsive via MUI breakpoints / CSS grid
+ *   - Mobile-first, thumb-interaction optimized
  */
 import React, { memo } from 'react';
 import Box from '@mui/material/Box';
@@ -30,8 +32,12 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import TouchAppIcon from '@mui/icons-material/TouchApp';
+import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
+import RouteIcon from '@mui/icons-material/Route';
 import LandingNav from './LandingNav';
-import StakeholderTabs from './StakeholderTabs';
+import CopilotDemoWidget from './CopilotDemoWidget';
 
 // ── shared helpers ────────────────────────────────────────────────────────────
 
@@ -82,31 +88,73 @@ const SectionHeading: React.FC<{ title: string; subtitle?: string }> = ({ title,
   </Box>
 );
 
+// ── TRUST BADGES ──────────────────────────────────────────────────────────────
+
+const TRUST_BADGES = [
+  'Privacy by design',
+  'GDPR compliant',
+  'Nessun dato condiviso',
+  'Open source',
+] as const;
+
 // ── HERO ──────────────────────────────────────────────────────────────────────
 
 const Hero: React.FC = memo(() => (
   <Box
-    id="progetto"
+    id="hero"
     component="section"
-    aria-label="Presentazione DocenteDocAI"
+    aria-label="Ingresso guidato DocenteDocAI"
     sx={{
-      pt: { xs: 'var(--md-sys-spacing-10)', md: 'var(--md-sys-spacing-12)' },
-      pb: { xs: 'var(--md-sys-spacing-8)', md: 'var(--md-sys-spacing-10)' },
+      pt: { xs: 'var(--md-sys-spacing-10)', md: 'var(--md-sys-spacing-14)' },
+      pb: { xs: 'var(--md-sys-spacing-8)', md: 'var(--md-sys-spacing-12)' },
       bgcolor: 'var(--md-sys-color-surface)',
       scrollMarginTop: 64,
+      position: 'relative',
+      overflow: 'hidden',
     }}
   >
-    <Container maxWidth="lg">
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 4, md: 8 }} alignItems="center">
+    {/* Decorative background blobs */}
+    <Box aria-hidden="true" sx={{
+      position: 'absolute',
+      top: '-15%',
+      right: '-10%',
+      width: { xs: 260, md: 420 },
+      height: { xs: 260, md: 420 },
+      borderRadius: '50%',
+      bgcolor: 'var(--md-sys-color-primary-container)',
+      opacity: 0.35,
+      filter: 'blur(60px)',
+      pointerEvents: 'none',
+    }} />
+    <Box aria-hidden="true" sx={{
+      position: 'absolute',
+      bottom: '-10%',
+      left: '-8%',
+      width: { xs: 200, md: 320 },
+      height: { xs: 200, md: 320 },
+      borderRadius: '50%',
+      bgcolor: 'var(--md-sys-color-secondary-container)',
+      opacity: 0.3,
+      filter: 'blur(60px)',
+      pointerEvents: 'none',
+    }} />
+
+    <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        spacing={{ xs: 6, md: 10 }}
+        alignItems={{ md: 'center' }}
+      >
         {/* Text block */}
-        <Box sx={{ flex: 1, maxWidth: 640 }}>
+        <Box sx={{ flex: 1, maxWidth: 560 }}>
           <Chip
-            label="Progetto open · Marzo 2026"
+            icon={<AutoAwesomeIcon fontSize="small" aria-hidden />}
+            label="Guida AI attiva · Marzo 2026"
             size="small"
             sx={{
-              bgcolor: 'var(--md-sys-color-secondary-container)',
-              color: 'var(--md-sys-color-on-secondary-container)',
-              mb: 'var(--md-sys-spacing-3)',
+              bgcolor: 'var(--md-sys-color-tertiary-container)',
+              color: 'var(--md-sys-color-on-tertiary-container)',
+              mb: 'var(--md-sys-spacing-4)',
               fontWeight: 'var(--md-sys-typescale-weight-medium)',
             }}
           />
@@ -117,13 +165,16 @@ const Hero: React.FC = memo(() => (
             sx={{
               color: 'var(--md-sys-color-on-surface)',
               mb: 'var(--md-sys-spacing-4)',
-              lineHeight: 1.15,
+              lineHeight: 1.1,
+              letterSpacing: '-0.5px',
             }}
           >
-            Intelligenza artificiale al servizio della{' '}
+            Non devi capire{' '}
             <Box component="span" sx={{ color: 'var(--md-sys-color-primary)' }}>
-              didattica.
+              cosa fare.
             </Box>
+            <br />
+            Ti guidiamo noi.
           </Typography>
 
           <Typography
@@ -131,115 +182,548 @@ const Hero: React.FC = memo(() => (
             sx={{
               color: 'var(--md-sys-color-on-surface-variant)',
               mb: 'var(--md-sys-spacing-6)',
-              maxWidth: 580,
               lineHeight: 1.7,
+              maxWidth: 480,
             }}
           >
-            DocenteDocAI aiuta gli insegnanti ad analizzare le lezioni, comprendere i processi
-            di apprendimento e migliorare la progettazione didattica nel rispetto della privacy
-            e della responsabilità educativa.
+            DocenteDocAI legge il tuo contesto e ti suggerisce il prossimo passo giusto.
+            Non un elenco di funzionalità — una guida sempre presente.
           </Typography>
 
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} flexWrap="wrap">
             <Button
               variant="contained"
               size="large"
-              endIcon={<ArrowForwardIcon />}
-              aria-label="Scopri il progetto DocenteDocAI"
-              href="#valori"
+              href="/"
               component="a"
-              sx={{ borderRadius: 'var(--md-sys-shape-corner-full)' }}
+              endIcon={<ArrowForwardIcon />}
+              aria-label="Inizia subito con DocenteDocAI"
+              sx={{
+                borderRadius: 'var(--md-sys-shape-corner-full)',
+                px: 'var(--md-sys-spacing-6)',
+                py: 'var(--md-sys-spacing-3)',
+              }}
             >
-              Scopri il progetto
+              Inizia subito
             </Button>
             <Button
               variant="outlined"
               size="large"
-              aria-label="Accedi alla demo di DocenteDocAI"
-              href="/"
+              href="#demo"
               component="a"
+              aria-label="Guarda la demo del Copilot"
               sx={{ borderRadius: 'var(--md-sys-shape-corner-full)' }}
             >
-              Accedi alla demo
+              Vedi come funziona
             </Button>
-            <Button
-              variant="text"
-              size="large"
-              aria-label="Informazioni per scuole pilota"
-              href="#partecipa"
-              component="a"
-              sx={{ color: 'var(--md-sys-color-secondary)' }}
-            >
-              Scuole pilota
-            </Button>
+          </Stack>
+
+          {/* Trust badges */}
+          <Stack
+            direction="row"
+            spacing={1}
+            flexWrap="wrap"
+            useFlexGap
+            sx={{ mt: 'var(--md-sys-spacing-5)' }}
+          >
+            {TRUST_BADGES.map(b => (
+              <Chip
+                key={b}
+                label={b}
+                size="small"
+                icon={<CheckCircleOutlineIcon fontSize="small" aria-hidden />}
+                sx={{
+                  bgcolor: 'transparent',
+                  color: 'var(--md-sys-color-on-surface-variant)',
+                  border: '1px solid var(--md-sys-color-outline-variant)',
+                  fontSize: 11,
+                }}
+              />
+            ))}
           </Stack>
         </Box>
 
-        {/* Visual block — minimal AI+education illustration using icons */}
+        {/* Visual block */}
         <Box
-          aria-hidden="true"
           sx={{
             flexShrink: 0,
-            width: { xs: '100%', md: 340 },
-            height: { xs: 200, md: 280 },
-            borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-            bgcolor: 'var(--md-sys-color-primary-container)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            position: 'relative',
-            overflow: 'hidden',
+            width: { xs: '100%', md: 380 },
           }}
         >
-          {/* Subtle decorative rings */}
-          <Box sx={{
-            position: 'absolute',
-            inset: -40,
-            borderRadius: '50%',
-            border: '1px solid var(--md-sys-color-primary)',
-            opacity: 0.1,
-          }} />
-          <Box sx={{
-            position: 'absolute',
-            inset: -10,
-            borderRadius: '50%',
-            border: '1px solid var(--md-sys-color-primary)',
-            opacity: 0.08,
-          }} />
-
-          {/* Central icon cluster */}
-          <Stack alignItems="center" spacing={1} sx={{ position: 'relative', zIndex: 1 }}>
-            <Box
-              component="span"
-              className="material-symbols-outlined"
-              sx={{ fontSize: 64, color: 'var(--md-sys-color-primary)', opacity: 0.9 }}
-            >
-              psychology
+          {/* Satellite icon preview */}
+          <Box
+            aria-hidden="true"
+            sx={{
+              width: '100%',
+              borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+              bgcolor: 'var(--md-sys-color-primary-container)',
+              p: 'var(--md-sys-spacing-6)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'var(--md-sys-spacing-4)',
+              position: 'relative',
+              overflow: 'hidden',
+              border: '1px solid var(--md-sys-color-outline-variant)',
+            }}
+          >
+            {/* Decorative rings */}
+            <Box sx={{
+              position: 'absolute',
+              right: -30,
+              top: -30,
+              width: 120,
+              height: 120,
+              borderRadius: '50%',
+              border: '1px solid var(--md-sys-color-primary)',
+              opacity: 0.15,
+            }} />
+            {/* "AI is reading context..." indicator */}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+              <Box sx={{
+                width: 36,
+                height: 36,
+                borderRadius: '50%',
+                bgcolor: 'var(--md-sys-color-primary)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <AutoAwesomeIcon sx={{ fontSize: 'var(--md-sys-icon-size-sm)', color: 'var(--md-sys-color-on-primary)' }} />
+              </Box>
+              <Box>
+                <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-on-primary-container)', display: 'block' }}>
+                  Copilot AI
+                </Typography>
+                <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-primary-container)', opacity: 0.75 }}>
+                  Analisi contesto…
+                </Typography>
+              </Box>
             </Box>
-            <Stack direction="row" spacing={2}>
-              <Box component="span" className="material-symbols-outlined"
-                sx={{ fontSize: 28, color: 'var(--md-sys-color-secondary)', opacity: 0.75 }}>
-                auto_stories
+
+            {/* Fake suggestion card */}
+            <Box sx={{
+              bgcolor: 'var(--md-sys-color-surface)',
+              borderRadius: 'var(--md-sys-shape-corner-large)',
+              p: 'var(--md-sys-spacing-3)',
+              border: '1px solid var(--md-sys-color-outline-variant)',
+            }}>
+              <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-primary)', display: 'block', mb: '4px' }}>
+                Prossimo passo
+              </Typography>
+              <Typography variant="titleSmall" sx={{ color: 'var(--md-sys-color-on-surface)' }}>
+                Aggiungi il tuo primo studente
+              </Typography>
+              <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: '4px' }}>
+                Il sistema costruirà il profilo della classe attorno agli studenti reali.
+              </Typography>
+              <Box sx={{
+                mt: 'var(--md-sys-spacing-2)', display: 'inline-flex', alignItems: 'center',
+                gap: 'var(--md-sys-spacing-1)', color: 'var(--md-sys-color-primary)',
+              }}>
+                <Typography variant="labelSmall">Vai →</Typography>
               </Box>
-              <Box component="span" className="material-symbols-outlined"
-                sx={{ fontSize: 28, color: 'var(--md-sys-color-tertiary)', opacity: 0.75 }}>
-                analytics
-              </Box>
-              <Box component="span" className="material-symbols-outlined"
-                sx={{ fontSize: 28, color: 'var(--md-sys-color-secondary)', opacity: 0.75 }}>
-                verified
-              </Box>
-            </Stack>
-            <Typography variant="labelMedium" sx={{ color: 'var(--md-sys-color-on-primary-container)' }}>
-              AI · Pedagogia · Dati
-            </Typography>
-          </Stack>
+            </Box>
+
+            {/* Reasoning label */}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+              <PsychologyAltIcon sx={{ fontSize: 'var(--md-sys-icon-size-xs)', color: 'var(--md-sys-color-on-primary-container)', opacity: 0.6 }} />
+              <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-on-primary-container)', opacity: 0.6 }}>
+                Perché: workspace nuovo, nessun studente registrato
+              </Typography>
+            </Box>
+          </Box>
         </Box>
       </Stack>
     </Container>
   </Box>
 ));
 Hero.displayName = 'Hero';
+
+// ── DEMO SECTION ──────────────────────────────────────────────────────────────
+
+const DemoSection: React.FC = memo(() => (
+  <Box
+    id="demo"
+    component="section"
+    aria-label="Demo interattiva del Copilot AI"
+    sx={{
+      py: { xs: 'var(--md-sys-spacing-10)', md: 'var(--md-sys-spacing-12)' },
+      bgcolor: 'var(--md-sys-color-surface-container-low)',
+      scrollMarginTop: 64,
+    }}
+  >
+    <Container maxWidth="lg">
+      <Stack direction={{ xs: 'column', lg: 'row' }} spacing={{ xs: 6, lg: 10 }} alignItems={{ lg: 'center' }}>
+        {/* Left: explanation */}
+        <Box sx={{ flex: 1, maxWidth: 440 }}>
+          <Chip
+            icon={<TouchAppIcon fontSize="small" aria-hidden />}
+            label="Prova la demo"
+            size="small"
+            sx={{
+              bgcolor: 'var(--md-sys-color-secondary-container)',
+              color: 'var(--md-sys-color-on-secondary-container)',
+              mb: 'var(--md-sys-spacing-3)',
+              fontWeight: 'var(--md-sys-typescale-weight-medium)',
+            }}
+          />
+          <Typography
+            variant="headlineMedium"
+            component="h2"
+            sx={{ color: 'var(--md-sys-color-on-surface)', mb: 'var(--md-sys-spacing-3)', lineHeight: 1.15 }}
+          >
+            Il tuo Copilot personale — sempre presente
+          </Typography>
+          <Typography
+            variant="bodyLarge"
+            sx={{ color: 'var(--md-sys-color-on-surface-variant)', mb: 'var(--md-sys-spacing-5)', lineHeight: 1.7 }}
+          >
+            Un bottone flottante che osserva il tuo stato, capisce dove sei nel flusso di lavoro,
+            e ti mostra <strong>esattamente il prossimo passo</strong> — con motivazione trasparente.
+          </Typography>
+
+          <Stack spacing="var(--md-sys-spacing-3)">
+            {[
+              { n: '01', text: 'Il bottone appare con un badge pulsante' },
+              { n: '02', text: 'Tocca — l\'overlay si apre con il suggerimento contestuale' },
+              { n: '03', text: 'Agisci — il sistema avanza al passo successivo' },
+            ].map(({ n, text }) => (
+              <Box
+                key={n}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 'var(--md-sys-spacing-3)',
+                  p: 'var(--md-sys-spacing-3)',
+                  borderRadius: 'var(--md-sys-shape-corner-large)',
+                  bgcolor: 'var(--md-sys-color-surface)',
+                  border: '1px solid var(--md-sys-color-outline-variant)',
+                }}
+              >
+                <Typography
+                  variant="labelLarge"
+                  sx={{
+                    color: 'var(--md-sys-color-primary)',
+                    fontWeight: 'var(--md-sys-typescale-weight-bold)',
+                    flexShrink: 0,
+                    width: 28,
+                  }}
+                >
+                  {n}
+                </Typography>
+                <Typography variant="bodyMedium" sx={{ color: 'var(--md-sys-color-on-surface)' }}>
+                  {text}
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
+        </Box>
+
+        {/* Right: interactive demo */}
+        <Box sx={{ flex: 1, maxWidth: { xs: '100%', lg: 480 } }}>
+          <CopilotDemoWidget />
+          <Typography
+            variant="labelSmall"
+            sx={{
+              display: 'block',
+              textAlign: 'center',
+              mt: 'var(--md-sys-spacing-2)',
+              color: 'var(--md-sys-color-on-surface-variant)',
+              opacity: 0.6,
+            }}
+          >
+            Demo interattiva — tocca il bottone ✦
+          </Typography>
+        </Box>
+      </Stack>
+    </Container>
+  </Box>
+));
+DemoSection.displayName = 'DemoSection';
+
+// ── COME FUNZIONA ─────────────────────────────────────────────────────────────
+
+const ComeFunzionaSection: React.FC = memo(() => (
+  <Section id="come-funziona" ariaLabel="Come funziona DocenteDocAI">
+    <SectionHeading
+      title="Come funziona"
+      subtitle="Tre passi. Niente da imparare."
+    />
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
+        gap: 'var(--md-sys-spacing-5)',
+      }}
+    >
+      {[
+        {
+          n: '1',
+          icon: <RouteIcon sx={{ fontSize: 'var(--md-sys-icon-size-xl)', color: 'var(--md-sys-color-primary)' }} />,
+          title: 'Entri',
+          body: 'Apri l\'app. Il sistema rileva immediatamente il tuo stato: prima volta, docente esperto, classe nuova — capisce.',
+        },
+        {
+          n: '2',
+          icon: <PsychologyAltIcon sx={{ fontSize: 'var(--md-sys-icon-size-xl)', color: 'var(--md-sys-color-secondary)' }} />,
+          title: 'Il sistema capisce',
+          body: 'Analizza il contesto — classi, lezioni, progressioni — e calcola in tempo reale il passo che vale di più per te in quel momento.',
+        },
+        {
+          n: '3',
+          icon: <AutoAwesomeIcon sx={{ fontSize: 'var(--md-sys-icon-size-xl)', color: 'var(--md-sys-color-tertiary)' }} />,
+          title: 'Ricevi la guida',
+          body: 'Il Copilot ti mostra il suggerimento, spiega il perché, e ti porta direttamente dove serve con un tap.',
+        },
+      ].map(({ n, icon, title, body }) => (
+        <Box
+          key={n}
+          sx={{
+            p: 'var(--md-sys-spacing-5)',
+            borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+            bgcolor: 'var(--md-sys-color-surface-container)',
+            border: '1px solid var(--md-sys-color-outline-variant)',
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+        >
+          <Typography
+            variant="displayLarge"
+            component="span"
+            aria-hidden="true"
+            sx={{
+              position: 'absolute',
+              top: 'var(--md-sys-spacing-3)',
+              right: 'var(--md-sys-spacing-4)',
+              color: 'var(--md-sys-color-outline-variant)',
+              lineHeight: 1,
+              fontWeight: 'var(--md-sys-typescale-weight-black)',
+              opacity: 0.4,
+            }}
+          >
+            {n}
+          </Typography>
+
+          <Box sx={{ mb: 'var(--md-sys-spacing-3)' }} aria-hidden="true">
+            {icon}
+          </Box>
+          <Typography
+            variant="titleMedium"
+            component="h3"
+            sx={{ color: 'var(--md-sys-color-on-surface)', mb: 'var(--md-sys-spacing-2)' }}
+          >
+            {title}
+          </Typography>
+          <Typography variant="bodyMedium" sx={{ color: 'var(--md-sys-color-on-surface-variant)', lineHeight: 1.7 }}>
+            {body}
+          </Typography>
+        </Box>
+      ))}
+    </Box>
+  </Section>
+));
+ComeFunzionaSection.displayName = 'ComeFunzionaSection';
+
+// ── PER CHI ────────────────────────────────────────────────────────────────────
+
+const PerChiSection: React.FC = memo(() => (
+  <Section id="per-chi" ariaLabel="A chi si rivolge DocenteDocAI" bg="primary-container">
+    <SectionHeading
+      title="Per qualunque docente"
+    />
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+        gap: 'var(--md-sys-spacing-5)',
+      }}
+    >
+      {[
+        {
+          label: 'Docente alle prime armi',
+          tag: 'Guidato',
+          tagColor: 'var(--md-sys-color-primary)',
+          tagBg: 'var(--md-sys-color-surface)',
+          description: 'Non sai da dove partire? Il sistema lo sa. Ti guida dal primo studente fino alla prima UDA, passo dopo passo, senza che tu debba esplorare menù o leggere manuali.',
+          steps: ['Prima schermate → guida immediata', 'Ogni azione spiega il perché', 'Progredisci senza ansia'],
+        },
+        {
+          label: 'Docente esperto',
+          tag: 'Accelerato',
+          tagColor: 'var(--md-sys-color-tertiary)',
+          tagBg: 'var(--md-sys-color-surface)',
+          description: 'Già navigato? Il Copilot si adatta: suggerisce ottimizzazioni avanzate, analisi predittive sulla classe, azioni ad alto impatto che risparmiano ore di lavoro.',
+          steps: ['Predizione trend di apprendimento', 'Insight automatici per classe', 'Azioni strategiche ad alto impatto'],
+        },
+      ].map(({ label, tag, tagColor, tagBg, description, steps }) => (
+        <Card
+          key={label}
+          sx={{
+            borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+            bgcolor: 'var(--md-sys-color-surface)',
+            border: '1px solid var(--md-sys-color-outline-variant)',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <CardContent sx={{ p: 'var(--md-sys-spacing-5) !important', flex: 1 }}>
+            <Stack direction="row" alignItems="center" spacing={2} mb="var(--md-sys-spacing-3)">
+              <Typography
+                variant="titleMedium"
+                component="h3"
+                sx={{ color: 'var(--md-sys-color-on-surface)', flex: 1 }}
+              >
+                {label}
+              </Typography>
+              <Chip
+                label={tag}
+                size="small"
+                sx={{
+                  bgcolor: tagBg,
+                  color: tagColor,
+                  border: `1px solid ${tagColor}`,
+                  fontWeight: 'var(--md-sys-typescale-weight-bold)',
+                }}
+              />
+            </Stack>
+
+            <Typography
+              variant="bodyMedium"
+              sx={{ color: 'var(--md-sys-color-on-surface-variant)', mb: 'var(--md-sys-spacing-4)', lineHeight: 1.7 }}
+            >
+              {description}
+            </Typography>
+
+            <Stack spacing="var(--md-sys-spacing-2)">
+              {steps.map(s => (
+                <Box key={s} sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)' }}>
+                  <CheckCircleOutlineIcon
+                    sx={{ fontSize: 'var(--md-sys-icon-size-sm)', color: tagColor, flexShrink: 0 }}
+                    aria-hidden
+                  />
+                  <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                    {s}
+                  </Typography>
+                </Box>
+              ))}
+            </Stack>
+          </CardContent>
+        </Card>
+      ))}
+    </Box>
+  </Section>
+));
+PerChiSection.displayName = 'PerChiSection';
+
+// ── CTA FINALE ────────────────────────────────────────────────────────────────
+
+const CtaSection: React.FC = memo(() => (
+  <Box
+    id="cta"
+    component="section"
+    aria-label="Invito all'azione principale"
+    sx={{
+      py: { xs: 'var(--md-sys-spacing-12)', md: 'var(--md-sys-spacing-16)' },
+      bgcolor: 'var(--md-sys-color-surface)',
+      scrollMarginTop: 64,
+    }}
+  >
+    <Container maxWidth="md">
+      <Box
+        sx={{
+          textAlign: 'center',
+          p: { xs: 'var(--md-sys-spacing-6)', md: 'var(--md-sys-spacing-10)' },
+          borderRadius: 'var(--md-sys-shape-corner-extra-large)',
+          bgcolor: 'var(--md-sys-color-primary-container)',
+          border: '1px solid var(--md-sys-color-outline-variant)',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        {/* Decorative ring */}
+        <Box aria-hidden="true" sx={{
+          position: 'absolute',
+          right: '-5%',
+          top: '-20%',
+          width: 280,
+          height: 280,
+          borderRadius: '50%',
+          border: '1px solid var(--md-sys-color-primary)',
+          opacity: 0.12,
+        }} />
+
+        <AutoAwesomeIcon
+          sx={{ fontSize: 'var(--md-sys-icon-size-2xl)', color: 'var(--md-sys-color-primary)', mb: 'var(--md-sys-spacing-3)' }}
+          aria-hidden
+        />
+
+        <Typography
+          variant="displaySmall"
+          component="h2"
+          sx={{
+            color: 'var(--md-sys-color-on-primary-container)',
+            mb: 'var(--md-sys-spacing-3)',
+            lineHeight: 1.15,
+          }}
+        >
+          Provalo. Non devi imparare niente.
+        </Typography>
+
+        <Typography
+          variant="bodyLarge"
+          sx={{
+            color: 'var(--md-sys-color-on-primary-container)',
+            opacity: 0.85,
+            mb: 'var(--md-sys-spacing-6)',
+            maxWidth: 500,
+            mx: 'auto',
+            lineHeight: 1.7,
+          }}
+        >
+          Apri l'app e il sistema capirà subito cosa fare. La guida parte dal primo secondo.
+        </Typography>
+
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">
+          <Button
+            variant="contained"
+            size="large"
+            href="/"
+            component="a"
+            endIcon={<ArrowForwardIcon />}
+            aria-label="Avvia DocenteDocAI adesso"
+            sx={{
+              borderRadius: 'var(--md-sys-shape-corner-full)',
+              px: 'var(--md-sys-spacing-8)',
+              py: 'var(--md-sys-spacing-3)',
+              bgcolor: 'var(--md-sys-color-primary)',
+              color: 'var(--md-sys-color-on-primary)',
+              '&:hover': { bgcolor: 'var(--md-sys-color-primary)', filter: 'brightness(0.92)' },
+            }}
+          >
+            Avvia DocenteDocAI
+          </Button>
+          <Button
+            variant="outlined"
+            size="large"
+            href="#partecipa"
+            component="a"
+            aria-label="Partecipa come scuola pilota"
+            sx={{
+              borderRadius: 'var(--md-sys-shape-corner-full)',
+              borderColor: 'var(--md-sys-color-primary)',
+              color: 'var(--md-sys-color-primary)',
+              bgcolor: 'var(--md-sys-color-surface)',
+              '&:hover': { bgcolor: 'var(--md-sys-color-surface-container)' },
+            }}
+          >
+            Scuola pilota
+          </Button>
+        </Stack>
+      </Box>
+    </Container>
+  </Box>
+));
+CtaSection.displayName = 'CtaSection';
 
 // ── VALORI ────────────────────────────────────────────────────────────────────
 
@@ -322,147 +806,6 @@ const ValoriSection: React.FC = memo(() => (
   </Section>
 ));
 ValoriSection.displayName = 'ValoriSection';
-
-// ── FUNZIONALITÀ ──────────────────────────────────────────────────────────────
-
-const FEATURES = [
-  {
-    icon: 'account_tree',
-    title: 'Analisi pedagogica',
-    badge: 'Bloom Taxonomy',
-    body: 'Ogni lezione e UDA viene analizzata rispetto ai 6 livelli cognitivi della Tassonomia di Bloom (ricordare, comprendere, applicare, analizzare, valutare, creare). Il sistema identifica squilibri e lacune nella progressione didattica.',
-    pills: ['Analisi automatica', 'Distribuzione cognitiva', 'Progressione curricolare'],
-  },
-  {
-    icon: 'recommend',
-    title: 'Raccomandazioni didattiche',
-    badge: 'AI Decision Support',
-    body: 'Il sistema genera suggerimenti contestuali basati sulla storia della classe e sulle performance individuali. Ogni raccomandazione include il livello Bloom target, le attività proposte e la motivazione del sistema.',
-    pills: ['Personalizzazione per classe', 'Attività generate', 'Motivazione esplicita'],
-  },
-  {
-    icon: 'verified',
-    title: 'Indicatori di fiducia',
-    badge: 'Trust Score',
-    body: 'Un punteggio di affidabilità accompagna ogni output AI: valuta la qualità dei dati, la coerenza pedagogica e il livello di incertezza del modello. Il docente può calibrare il peso da dare a ogni suggerimento.',
-    pills: ['Confidence score', 'Explainability', 'Controllo docente'],
-  },
-];
-
-const FunzionalitaSection: React.FC = memo(() => (
-  <Section id="funzionalita" ariaLabel="Funzionalità di DocenteDocAI" bg="container">
-    <SectionHeading
-      title="Cosa fa DocenteDocAI"
-      subtitle="Tre aree di supporto alla professionalità docente."
-    />
-    <Stack spacing="var(--md-sys-spacing-5)">
-      {FEATURES.map((f, i) => (
-        <Card
-          key={f.title}
-          variant="outlined"
-          sx={{
-            borderRadius: 'var(--md-sys-shape-corner-extra-large)',
-            borderColor: 'var(--md-sys-color-outline-variant)',
-            bgcolor: 'var(--md-sys-color-surface)',
-            overflow: 'visible',
-          }}
-        >
-          <CardContent sx={{ p: 'var(--md-sys-spacing-5) !important' }}>
-            <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 3, md: 5 }} alignItems={{ md: 'center' }}>
-              {/* Number + icon */}
-              <Stack alignItems="center" spacing={1} sx={{ flexShrink: 0, minWidth: 80 }}>
-                <Box
-                  aria-hidden="true"
-                  sx={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: 'var(--md-sys-shape-corner-large)',
-                    bgcolor: 'var(--md-sys-color-primary-container)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Box
-                    component="span"
-                    className="material-symbols-outlined"
-                    sx={{ fontSize: 28, color: 'var(--md-sys-color-primary)' }}
-                  >
-                    {f.icon}
-                  </Box>
-                </Box>
-                <Typography
-                  variant="labelSmall"
-                  sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
-                  aria-hidden
-                >
-                  0{i + 1}
-                </Typography>
-              </Stack>
-
-              {/* Content */}
-              <Box sx={{ flex: 1 }}>
-                <Stack direction="row" spacing={1} alignItems="center" mb="var(--md-sys-spacing-2)" flexWrap="wrap">
-                  <Typography
-                    variant="titleMedium"
-                    component="h3"
-                    sx={{ color: 'var(--md-sys-color-on-surface)' }}
-                  >
-                    {f.title}
-                  </Typography>
-                  <Chip
-                    label={f.badge}
-                    size="small"
-                    sx={{
-                      bgcolor: 'var(--md-sys-color-secondary-container)',
-                      color: 'var(--md-sys-color-on-secondary-container)',
-                      fontWeight: 'var(--md-sys-typescale-weight-medium)',
-                    }}
-                  />
-                </Stack>
-                <Typography
-                  variant="bodyMedium"
-                  sx={{ color: 'var(--md-sys-color-on-surface-variant)', mb: 'var(--md-sys-spacing-3)', lineHeight: 1.7 }}
-                >
-                  {f.body}
-                </Typography>
-                <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
-                  {f.pills.map(p => (
-                    <Chip
-                      key={p}
-                      label={p}
-                      size="small"
-                      icon={<CheckCircleOutlineIcon fontSize="small" aria-hidden />}
-                      sx={{
-                        bgcolor: 'var(--md-sys-color-surface-container)',
-                        color: 'var(--md-sys-color-on-surface-variant)',
-                        border: '1px solid var(--md-sys-color-outline-variant)',
-                      }}
-                    />
-                  ))}
-                </Stack>
-              </Box>
-            </Stack>
-          </CardContent>
-        </Card>
-      ))}
-    </Stack>
-  </Section>
-));
-FunzionalitaSection.displayName = 'FunzionalitaSection';
-
-// ── STAKEHOLDER ───────────────────────────────────────────────────────────────
-
-const StakeholderSection: React.FC = memo(() => (
-  <Section id="stakeholder" ariaLabel="Valore per diversi stakeholder">
-    <SectionHeading
-      title="A chi si rivolge"
-      subtitle="DocenteDocAI è progettato per rispondere a esigenze diverse nel mondo della scuola."
-    />
-    <StakeholderTabs />
-  </Section>
-));
-StakeholderSection.displayName = 'StakeholderSection';
 
 // ── ETICA AI ──────────────────────────────────────────────────────────────────
 
@@ -787,7 +1130,7 @@ const LandingPage: React.FC = () => (
     {/* Skip link for keyboard/screen-reader users */}
     <Box
       component="a"
-      href="#progetto"
+      href="#hero"
       sx={{
         position: 'absolute',
         left: '-9999px',
@@ -814,11 +1157,13 @@ const LandingPage: React.FC = () => (
 
     <LandingNav />
 
-    <Box component="main" id="progetto">
+    <Box component="main" id="hero">
       <Hero />
+      <DemoSection />
+      <ComeFunzionaSection />
+      <PerChiSection />
+      <CtaSection />
       <ValoriSection />
-      <FunzionalitaSection />
-      <StakeholderSection />
       <EticaAISection />
       <PartecipaSection />
     </Box>

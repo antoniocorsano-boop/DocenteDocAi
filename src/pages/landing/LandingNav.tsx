@@ -34,10 +34,11 @@ import PsychologyIcon from '@mui/icons-material/Psychology';
 // ── nav links ─────────────────────────────────────────────────────────────────
 
 export const NAV_LINKS = [
-  { id: 'progetto',      label: 'Progetto' },
+  { id: 'hero',          label: 'Home' },
+  { id: 'demo',          label: 'Demo' },
+  { id: 'come-funziona', label: 'Come funziona' },
+  { id: 'per-chi',       label: 'Per chi' },
   { id: 'valori',        label: 'Valori' },
-  { id: 'funzionalita',  label: 'Funzionalità' },
-  { id: 'stakeholder',   label: 'Stakeholder' },
   { id: 'etica-ai',      label: 'Etica AI' },
   { id: 'partecipa',     label: 'Partecipa' },
 ] as const;
