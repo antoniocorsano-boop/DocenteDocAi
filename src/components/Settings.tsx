@@ -16,6 +16,7 @@ import { SettingsAISuggestionsSection } from './settings/SettingsAISuggestions';
 import { SettingsCloudSection } from './settings/SettingsCloud';
 import { SettingsDebugSection } from './settings/SettingsDebug';
 import { SettingsAdvancedSection } from './settings/SettingsAdvanced';
+import SettingsIntegrationsSection from './settings/SettingsIntegrations';
 
 const Settings: React.FC<SettingsProps> = (props) => {
     const {
@@ -95,6 +96,14 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     onSyncToDrive={onSyncToDrive}
                     onExportData={onExportData}
                     onImportData={onImportData}
+                />
+                <SettingsIntegrationsSection
+                    expanded={expandedId === 'integrations'}
+                    onToggle={() => handleGroupToggle('integrations')}
+                    onConnectDrive={onConnectDrive}
+                    onSyncToDrive={onSyncToDrive}
+                    isDriveConnected={driveState.isAuthenticated}
+                    driveConnectedAt={driveState.lastSyncTime ? String(driveState.lastSyncTime) : undefined}
                 />
                 <SettingsDebugSection
                     expanded={expandedId === 'debug_logging'}

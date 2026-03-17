@@ -7,7 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Badge from '@mui/material/Badge';
 import Slider from '@mui/material/Slider';
 import InputAdornment from '@mui/material/InputAdornment';
 import SettingsGroup from './SettingsGroupAccordion';
@@ -230,12 +229,10 @@ export const SettingsInterfaceSection: React.FC<SettingsInterfaceSectionProps> =
                                         aria-controls={`panel-${tab.id}`}
                                         data-testid={`tab-${tab.id}`}
                                         label={
-                                            <Badge color="error">
-                                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                                                    <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>
-                                                    {tab.label}
-                                                </Box>
-                                            </Badge>
+                                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                                <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-typescale-label-large-font-size)' }}>{tab.icon}</Box>
+                                                {tab.label}
+                                            </Box>
                                         }
                                         sx={{ borderRadius: 'var(--md-sys-shape-corner-full)', minHeight: 'auto', py: 1, px: 2, textTransform: 'uppercase', fontSize: 'var(--md-sys-typescale-label-small-font-size)' }}
                                     />

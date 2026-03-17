@@ -24,6 +24,7 @@ export * from './SyncConflictData';
 export * from './funding.types';
 export * from './aiMaturita.types';
 export * from './teacherModel.types';
+export * from './integration.types';
 
 
 // Legacy types.ts exports (to be migrated)

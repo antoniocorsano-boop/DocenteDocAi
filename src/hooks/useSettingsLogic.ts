@@ -6,6 +6,7 @@ import { TimetableSettings, AiSettings, AppThemeState } from '../types';
 import { AI_PROFILES, DEFAULT_TIMETABLE_SETTINGS } from '../constants';
 import { ThemeService } from '../services/ThemeService';
 import { useDebounce } from './useDebounce';
+import { useSettingsStore } from '../stores/useSettingsStore';
 
 // MD3 compliant percentage values
 const MD3_SATURATION_HIGH = 70;
@@ -87,8 +88,9 @@ export const useSettingsLogic = ({
     }, []);
 
     const handleThemeChange = useCallback((partial: Partial<AppThemeState>) => {
-        onSaveTheme({ ...themeState, ...partial });
-    }, [themeState, onSaveTheme]);
+        const current = useSettingsStore.getState().themeState;
+        onSaveTheme({ ...current, ...partial });
+    }, [onSaveTheme]);
 
     const handleBulkAssign = useCallback((selectedClasses: string[], selectedSubjects: string[]) => {
         const newAssignments = [...(localSettings.teachingAssignments || [])];

@@ -146,6 +146,16 @@ if (!rootElement) throw new Error("Root element missing");
 
 const root = createRoot(rootElement);
 
+// ── Instant dark-mode bootstrap ─────────────────────────────────────────────
+// Apply the last-known mode BEFORE the first React render so the page never
+// flashes the wrong theme.  Written each time the resolved mode changes.
+(function applyStoredThemeMode() {
+  try {
+    const stored = localStorage.getItem('docente-ui-mode');
+    if (stored === 'dark') document.documentElement.classList.add('theme-dark');
+  } catch { /* ignore in SSR / private-mode browsers */ }
+})();
+
 /**
  * Reactive MUI ThemeProvider — reads mode from Zustand and rebuilds the MUI
  * theme when dark/light/system changes, so MUI-internal component colours
@@ -173,9 +183,12 @@ function AppMuiThemeWrapper({ children }: { children: React.ReactNode }) {
   const theme = useMemo(() => buildMuiTheme(resolvedMode), [resolvedMode]);
 
   // Phase 1.2: Sync CSS class with MUI theme in the same commit to eliminate
-  // mixed-mode frames (MUI dark while CSS still light, or vice versa)
+  // mixed-mode frames (MUI dark while CSS still light, or vice versa).
+  // Also persist resolved mode to localStorage so the bootstrap snippet above
+  // can apply .theme-dark instantly on the next page load (prevents FOWT).
   useEffect(() => {
     document.documentElement.classList.toggle('theme-dark', resolvedMode === 'dark');
+    try { localStorage.setItem('docente-ui-mode', resolvedMode); } catch { /* ignore */ }
   }, [resolvedMode]);
 
   return (

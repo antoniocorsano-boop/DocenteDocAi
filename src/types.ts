@@ -554,6 +554,7 @@ export interface AppActions {
     setSuggestions: (suggestions: AiSuggestion[]) => void;
     setActiveSuggestion: (suggestion: SystemSuggestion | null) => void;
     dismissSuggestion: (id: string) => void;
+    reactivateSuggestion: (id: string) => void;
     setStudentProfileContext: (student: Studente | null) => void;
     setSelectedClassForDashboard: (className: string | null) => void;
     loadFromBackup: (data: unknown) => void;

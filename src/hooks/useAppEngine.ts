@@ -343,6 +343,7 @@ export const useAppEngine = () => {
         setSuggestions: systemActions.setSuggestions,
         setActiveSuggestion: systemActions.setActiveSuggestion,
         dismissSuggestion: dismissSuggestionWrapper,
+        reactivateSuggestion: systemActions.reactivateSuggestion,
         setStudentProfileContext: studentActions.setStudentProfileContext,
         setSelectedClassForDashboard: studentActions.setSelectedClassForDashboard,
         loadFromBackup: (data: unknown) => {

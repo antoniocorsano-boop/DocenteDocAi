@@ -31,6 +31,7 @@ import NextStepBanner from '../journey/NextStepBanner';
 import { useNextAction } from '../../hooks/useNextAction';
 import { useJourneyProgress } from '../../hooks/useJourneyProgress';
 import { useGuidedExecutionStore } from '../../stores/useGuidedExecutionStore';
+import { useIntegrationStore } from '../../stores/useIntegrationStore';
 import { buildExecutionPlan } from '../../cognition/guidedExecution';
 import GuidedStepOverlay from './GuidedStepOverlay';
 import MolecularActionTree from './MolecularActionTree';
@@ -56,6 +57,19 @@ const LEVEL_LABELS: Record<string, string> = {
   esploratore: 'Esploratore',
   praticante: 'Praticante',
   maestro: 'Maestro',
+};
+
+const EVENT_LABELS: Record<string, string> = {
+  class_created:      'Classe creata',
+  students_imported:  'Studenti importati',
+  student_added:      'Studente aggiunto',
+  uda_created:        'UDA creata',
+  event_scheduled:    'Evento programmato',
+  content_generated:  'Contenuto generato',
+  attendance_marked:  'Presenze registrate',
+  evaluation_added:   'Valutazione aggiunta',
+  drive_synced:       'Drive sincronizzato',
+  classroom_synced:   'Classroom sincronizzato',
 };
 
 const NEXT_LEVEL_LABELS: Record<string, string | null> = {
@@ -99,6 +113,13 @@ const FloatingSatelliteCopilot: React.FC<Props> = ({ onNavigate }) => {
   // ── Decision Engine (read-only) ────────────────────────────────────────────
   const action       = useNextAction();
   const { level, progress, capabilityLevel, confidenceScore } = useJourneyProgress();
+
+  // ── Integration events (cross-surface: WhatsApp / Telegram) ───────────────
+  const hasPendingEvents  = useIntegrationStore((s) => s.hasPendingEvents);
+  const pendingEvents     = useIntegrationStore((s) =>
+    s.events.filter((e) => !e.acknowledged).slice(0, 5),
+  );
+  const acknowledgeEvents = useIntegrationStore((s) => s.actions.acknowledgeEvents);
 
   // ── Guided Execution ──────────────────────────────────────────────────────
   const { isGuided, startGuided } = useGuidedExecutionStore(
@@ -169,8 +190,11 @@ const FloatingSatelliteCopilot: React.FC<Props> = ({ onNavigate }) => {
   const handleFabClick = useCallback(() => {
     if (isDragging.current) return;
     setBadge(false);
-    setOpen((v) => !v);
-  }, []);
+    setOpen((v) => {
+      if (!v) acknowledgeEvents(); // clear integration badge on open
+      return !v;
+    });
+  }, [acknowledgeEvents]);
 
   const handleOverlayTouchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
     swipeStartY.current = e.touches[0].clientY;
@@ -272,8 +296,8 @@ const FloatingSatelliteCopilot: React.FC<Props> = ({ onNavigate }) => {
           {open ? 'close' : 'assistant'}
         </Box>
 
-        {/* Badge dot */}
-        {badge && !open && (
+        {/* Badge dot — lights up for journey changes OR pending integration events */}
+        {(badge || hasPendingEvents) && !open && (
           <Box
             aria-label="Nuova azione disponibile"
             sx={{
@@ -483,6 +507,61 @@ const FloatingSatelliteCopilot: React.FC<Props> = ({ onNavigate }) => {
                   )}
                 </Stack>
               </Box>
+
+              {/* ── Integration events (WhatsApp / Telegram actions) ──────── */}
+              {pendingEvents.length > 0 && (
+                <>
+                  <Divider sx={{ borderColor: 'var(--md-sys-color-outline-variant)' }} />
+                  <Box>
+                    <Stack direction="row" alignItems="center" gap="var(--md-sys-spacing-2)" sx={{ mb: 'var(--md-sys-spacing-2)' }}>
+                      <Box
+                        component="span"
+                        className="material-symbols-outlined"
+                        aria-hidden="true"
+                        sx={{ fontSize: 'var(--md-sys-icon-size-sm)', color: 'var(--md-sys-color-tertiary)' }}
+                      >
+                        notifications
+                      </Box>
+                      <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                        Azioni recenti da chat
+                      </Typography>
+                    </Stack>
+                    <Stack gap="var(--md-sys-spacing-1)">
+                      {pendingEvents.map((ev) => (
+                        <Stack
+                          key={ev.id}
+                          direction="row"
+                          alignItems="center"
+                          gap="var(--md-sys-spacing-2)"
+                          sx={{
+                            p: 'var(--md-sys-spacing-2)',
+                            borderRadius: 'var(--md-sys-shape-corner-small)',
+                            bgcolor: 'var(--md-sys-color-surface-container)',
+                          }}
+                        >
+                          <Box
+                            component="span"
+                            className="material-symbols-outlined"
+                            aria-hidden="true"
+                            sx={{ fontSize: 'var(--md-sys-icon-size-xs)', color: 'var(--md-sys-color-secondary)', flexShrink: 0 }}
+                          >
+                            {ev.source === 'whatsapp' ? 'chat' : ev.source === 'telegram' ? 'send' : 'sync'}
+                          </Box>
+                          <Typography
+                            variant="bodySmall"
+                            sx={{ color: 'var(--md-sys-color-on-surface)', flexGrow: 1 }}
+                          >
+                            {EVENT_LABELS[ev.type] ?? ev.type}
+                          </Typography>
+                          <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)', flexShrink: 0 }}>
+                            {new Date(ev.timestamp).toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}
+                          </Typography>
+                        </Stack>
+                      ))}
+                    </Stack>
+                  </Box>
+                </>
+              )}
 
               {/* ── Decision explanation (collapsible) ────────────────────── */}
               <Box>

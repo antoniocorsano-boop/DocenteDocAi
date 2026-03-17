@@ -276,7 +276,7 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                                     onSyncToDrive: actions.handleSyncToDrive, onRestoreFromDrive: actions.handleRestoreFromDrive,
                                     onConfigureDrive: actions.handleConfigureDrive, onSelectBackupFolder: actions.pickGoogleDriveFolder,
                                     onCreateAppFolder: actions.createAppFolder, onClose: actions.handleBack, onOpenBackupInfo: actions.handleOpenBackupInfo,
-                                    onReactivateSuggestion: actions.setActiveSuggestion
+                                    onReactivateSuggestion: actions.reactivateSuggestion
                                 };
                                 break;
                             case 'studenti':
