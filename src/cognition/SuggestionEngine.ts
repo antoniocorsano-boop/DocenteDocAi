@@ -1,4 +1,4 @@
-/**
+﻿﻿/**
  * SuggestionEngine — generates contextual CopilotSuggestions based on the
  * TeacherModel, current InteractionMode and AI Maturity score.
  *
@@ -65,7 +65,7 @@ const CATALOGUE: (CopilotSuggestion & {
     id: 'sug-mode-semi-osmotica',
     type: 'automation',
     minLevel: 'praticante',
-    message: "Sei pronto per la modalit�  Semi-osmotica: il Copilot anticipa le tue azioni. Attivala nelle impostazioni AI.",
+    message: "Sei pronto per la modalità Semi-osmotica: il Copilot anticipa le tue azioni. Attivala nelle impostazioni AI.",
     targetView: 'settings',
     icon: 'tune',
   },
@@ -100,7 +100,7 @@ const CATALOGUE: (CopilotSuggestion & {
     type: 'automation',
     minLevel: 'maestro',
     minAiScore: 60,
-    message: "Sei pronto per la modalit�  Osmotica: il Copilot gestisce tutto in autonomia. Attivala.",
+    message: "Sei pronto per la modalità Osmotica: il Copilot gestisce tutto in autonomia. Attivala.",
     targetView: 'settings',
     icon: 'psychology',
   },
@@ -110,7 +110,7 @@ const CATALOGUE: (CopilotSuggestion & {
     type: 'feature',
     minLevel: 'esploratore',
     personalModeOnly: true,
-    message: 'Stai lavorando in modalit�  personale. Crea una UDA o carica risorse nella Knowledge Base — senza bisogno di studenti.',
+    message: 'Stai lavorando in modalità personale. Crea una UDA o carica risorse nella Knowledge Base — senza bisogno di studenti.',
     targetView: 'planning',
     icon: 'person',
   },
@@ -137,7 +137,7 @@ const CATALOGUE: (CopilotSuggestion & {
     id: 'sug-artistic-consilium',
     type: 'feature',
     minLevel: 'praticante',
-    message: 'Il Consilium Artistico suggerisce attivit�  creative e interdisciplinari per le tue UDA. Prova l\'AI Artistica!',
+    message: 'Il Consilium Artistico suggerisce attività creative e interdisciplinari per le tue UDA. Prova l\'AI Artistica!',
     targetView: 'copilot',
     icon: 'palette',
   },
@@ -221,7 +221,7 @@ export async function generateArtisticNextActions(
     gradeLevel: journeyLevel === 'maestro' ? 'scuola secondaria superiore' : 'scuola secondaria',
     learningObjectives:
       ctx.aiMaturitaScore >= 60
-        ? ['interdisciplinarit� ', 'competenze trasversali', 'creativit� ']
+        ? ['interdisciplinarità', 'competenze trasversali', 'creatività']
         : ['arricchimento didattico'],
   };
 
@@ -229,7 +229,7 @@ export async function generateArtisticNextActions(
   return suggestions.map((s) => ({
     id: `sug-artistic.ai.${s.id}`,
     type: 'feature' as const,
-    message: `${s.title} (${s.estimatedMinutes}� min) — ${s.description.slice(0, 80)}`,
+    message: `${s.title} (${s.estimatedMinutes}àmin) — ${s.description.slice(0, 80)}`,
     targetView: 'copilot',
     icon: activityTypeToIcon(s.activityType),
   }));
