@@ -20,7 +20,16 @@ import MenuItem from '@mui/material/MenuItem';
 import SectionHeader from '../ui/SectionHeader';
 import EmptyState from '../ui/EmptyState';
 
-const CopilotView: React.FC = () => {
+interface CopilotViewProps {
+    initialSubTab?: string;
+}
+
+const SUB_TAB_TO_INDEX: Record<string, number> = {
+    artistic: 14,
+    guide: 11,
+};
+
+const CopilotView: React.FC<CopilotViewProps> = ({ initialSubTab }) => {
     const students = useStudentStore((s) => s.students);
     const evaluations = useStudentStore((s) => s.evaluations);
     const udas = useAcademicStore((s) => s.uda);
@@ -125,6 +134,7 @@ const CopilotView: React.FC = () => {
                 evaluations={filteredEvals}
                 udas={udas}
                 settings={settings}
+                initialTab={initialSubTab !== undefined ? (SUB_TAB_TO_INDEX[initialSubTab] ?? 0) : undefined}
             />
         </Box>
     );

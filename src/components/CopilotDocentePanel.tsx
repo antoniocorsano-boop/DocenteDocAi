@@ -43,10 +43,11 @@ interface CopilotDocentePanelProps {
   udas: Uda[];
   competenze: Competenza[];
   settings: TimetableSettings;
+  initialTab?: number;
 }
 
-export default function CopilotDocentePanel({ suggestions, classHealth, snapshots, className, studentId, students, evaluations, udas, settings }: Omit<CopilotDocentePanelProps, 'competenze'>): JSX.Element {
-  const [tab, setTab] = React.useState<number>(0);
+export default function CopilotDocentePanel({ suggestions, classHealth, snapshots, className, studentId, students, evaluations, udas, settings, initialTab }: Omit<CopilotDocentePanelProps, 'competenze'>): JSX.Element {
+  const [tab, setTab] = React.useState<number>(initialTab ?? 0);
   const [exportOpen, setExportOpen] = React.useState(false);
   const capabilityLevel = useTeacherModelStore((s) => s.capabilityLevel);
   const [altroAnchor, setAltroAnchor] = React.useState<null | HTMLElement>(null);

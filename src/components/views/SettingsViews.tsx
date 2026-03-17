@@ -206,8 +206,13 @@ export const SettingsViewsRenderer: React.FC<{
                     onOpenCircularAnalysis={() => {}}
                 />
             );
-        case 'copilot':
-            return <CopilotView />;
+        case 'copilot': {
+            const ctx = props.viewContext;
+            const subTab = typeof ctx === 'object' && ctx !== null && 'subTab' in ctx
+                ? (ctx as { subTab?: string }).subTab
+                : undefined;
+            return <CopilotView initialSubTab={subTab} />;
+        }
         default:
             return null;
     }
