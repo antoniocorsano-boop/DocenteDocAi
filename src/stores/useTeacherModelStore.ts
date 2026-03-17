@@ -14,12 +14,15 @@ import type {
   CopilotInteractionProfile,
   WorkflowPattern,
   CapabilityLevel,
+  TeacherPreferences,
 } from '../types/teacherModel.types';
 import type { AnalyticsMetrics } from '../types/analytics.types';
 import {
   createEmptyTeacherModel,
   mergeUsageFromAnalytics,
   computeCapability,
+  onSuggestionAccepted,
+  onSuggestionIgnored,
 } from '../cognition';
 
 interface TeacherModelState extends TeacherModel {
@@ -31,6 +34,12 @@ interface TeacherModelState extends TeacherModel {
   dismissHint: (hintId: string) => void;
   /** Seeds model from existing analyticsMetrics (call once at mount) */
   syncFromAnalytics: (metrics: Partial<AnalyticsMetrics>) => void;
+  /** Feedback loop: registra accettazione di un suggerimento */
+  acceptSuggestion: (actionKey: string) => void;
+  /** Feedback loop: registra rifiuto/ignore di un suggerimento */
+  ignoreSuggestion: (actionKey: string) => void;
+  /** Aggiorna le preferenze del docente */
+  updatePreferences: (partial: Partial<TeacherPreferences>) => void;
   // Required by UsageTracker interface
   getUsageProfile: () => UsageProfile;
   getCopilotProfile: () => CopilotInteractionProfile;
@@ -116,6 +125,27 @@ export const useTeacherModelStore = create<TeacherModelState>()(
         });
       },
 
+      acceptSuggestion(actionKey) {
+        set((state) => {
+          const updated = onSuggestionAccepted(state as TeacherModel, actionKey);
+          return { ...updated };
+        });
+      },
+
+      ignoreSuggestion(actionKey) {
+        set((state) => {
+          const updated = onSuggestionIgnored(state as TeacherModel, actionKey);
+          return { ...updated };
+        });
+      },
+
+      updatePreferences(partial) {
+        set((state) => ({
+          preferences: { ...state.preferences, ...partial },
+          lastUpdated: Date.now(),
+        }));
+      },
+
       getUsageProfile() {
         return get().usageProfile;
       },
@@ -131,14 +161,22 @@ export const useTeacherModelStore = create<TeacherModelState>()(
     {
       name: STORE_KEY,
       storage: createJSONStorage(() => localStorage),
-      version: 2,
+      version: 3,
       migrate(persistedState: unknown, version: number) {
         const s = (persistedState ?? {}) as Record<string, unknown>;
         if (version < 2) {
           // v1→v2: add personal-mode, workspace and integration counters to usageProfile.
-          // Merge fresh defaults with whatever was persisted so existing usage is preserved.
           const freshUsage = createEmptyTeacherModel().usageProfile;
           s['usageProfile'] = { ...freshUsage, ...(s['usageProfile'] as object ?? {}) };
+        }
+        if (version < 3) {
+          // v2→v3: add decision memory fields (completedActions, ignoredSuggestions,
+          // preferences, suggestionCooldown) — merge defaults with persisted state.
+          const fresh = createEmptyTeacherModel();
+          s['completedActions'] = (s['completedActions'] as string[] | undefined) ?? fresh.completedActions;
+          s['ignoredSuggestions'] = (s['ignoredSuggestions'] as Record<string, number> | undefined) ?? fresh.ignoredSuggestions;
+          s['preferences'] = { ...fresh.preferences, ...(s['preferences'] as object ?? {}) };
+          s['suggestionCooldown'] = (s['suggestionCooldown'] as Record<string, number> | undefined) ?? fresh.suggestionCooldown;
         }
         return s as unknown as ReturnType<typeof createEmptyTeacherModel>;
       },

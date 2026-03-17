@@ -16,6 +16,31 @@ export type { WorkflowStore } from './WorkflowPatternDetector';
 
 export { computeCapability, toJourneyLevel, computeJourneyProgress } from './CapabilityEngine';
 
-export { generateNextActions } from './SuggestionEngine';
+export { generateNextActions, generateArtisticNextActions } from './SuggestionEngine';
+export type { SuggestionContext } from './SuggestionEngine';
 
-export { createEmptyTeacherModel, mergeUsageFromAnalytics } from './TeacherModel';
+export { createEmptyTeacherModel, mergeUsageFromAnalytics, onSuggestionAccepted, onSuggestionIgnored } from './TeacherModel';
+
+// ── v3: Governance + Logging ──────────────────────────────────────────────────
+
+export {
+  DecisionContract,
+  validateSuggestion,
+  applyContract,
+} from './decisionContract';
+export type { SuggestionSource, ContractViolation, ValidatableSuggestion } from './decisionContract';
+
+export {
+  logEvent,
+  getSessionLog,
+  replayEvents,
+  replayCurrentSession,
+  getEventsByType as getLoggedEventsByType,
+  getEventsBySource,
+  countEvents,
+  hasEventOccurred,
+  getLastEvent,
+  getCurrentSessionId,
+  _resetEventLogger,
+} from './EventLogger';
+export type { LoggedEvent, EventReplay } from './EventLogger';

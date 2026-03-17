@@ -33,6 +33,9 @@ function makeModel(
     lastUpdated: number;
     isPersonalMode: boolean;
     bookServicesLinked: number;
+    completedActions: string[];
+    ignoredSuggestions: Record<string, number>;
+    suggestionCooldown: Record<string, number>;
   }> = {},
 ) {
   return {
@@ -41,6 +44,14 @@ function makeModel(
     levelUpPending: false,
     dismissedHints: overrides.dismissedHints ?? [],
     lastUpdated: overrides.lastUpdated ?? 0,
+    // v3 fields
+    completedActions: overrides.completedActions ?? [],
+    ignoredSuggestions: overrides.ignoredSuggestions ?? {},
+    suggestionCooldown: overrides.suggestionCooldown ?? {},
+    preferences: {
+      suggestionVerbosity: 'concise',
+      acceptsArtisticSuggestions: true,
+    },
     usageProfile: {
       featuresDiscovered: 0,
       bookServicesLinked: overrides.bookServicesLinked ?? 0,
@@ -180,19 +191,19 @@ describe('generateNextActions', () => {
     }
   });
 
-  it('type-level cooldown suppresses same type within 24h', () => {
-    const lastUpdated = Date.now() - 1000; // 1 second ago (within 24h)
+  it('per-actionKey cooldown blocks specific suggestion within COOLDOWN_MS', () => {
+    // New v3 behavior: cooldown is per-actionKey, not per-type
     const ctx = {
       model: makeModel(2, {
-        dismissedHints: ['workflow'],  // dismissing type prefix
-        lastUpdated,
+        suggestionCooldown: { 'settings.drive_backup': Date.now() },
       }),
       interactionMode: 'guidata' as const,
       aiMaturitaScore: 0,
     };
     const result = generateNextActions(ctx);
-    // workflow-type suggestions should be suppressed
-    expect(result.some((s) => s.type === 'workflow')).toBe(false);
+    // drive-backup is in cooldown, should not appear
+    expect(result.some((s) => s.id === 'sug-drive-backup')).toBe(false);
+    // Other workflow-type suggestions can still appear (actionKey-specific cooldown)
   });
 });
 
@@ -218,6 +229,7 @@ describe('generateArtisticNextActions', () => {
       model: makeModel(2),
       interactionMode: 'guidata' as const,
       aiMaturitaScore: 20,
+      hasActiveDidacticContext: true, // required gate
     };
     await generateArtisticNextActions(ctx);
     expect(generateArtisticSuggestions).toHaveBeenCalledOnce();
@@ -229,9 +241,23 @@ describe('generateArtisticNextActions', () => {
       model: makeModel(4),
       interactionMode: 'osmotica' as const,
       aiMaturitaScore: 80,
+      hasActiveDidacticContext: true, // required gate
     };
     await generateArtisticNextActions(ctx);
     expect(generateArtisticSuggestions).toHaveBeenCalledOnce();
+  });
+
+  it('returns [] when hasActiveDidacticContext is false (no UDA/lesson active)', async () => {
+    vi.mocked(generateArtisticSuggestions).mockResolvedValue([]);
+    const ctx = {
+      model: makeModel(2),
+      interactionMode: 'guidata' as const,
+      aiMaturitaScore: 20,
+      hasActiveDidacticContext: false,
+    };
+    const result = await generateArtisticNextActions(ctx);
+    expect(result).toEqual([]);
+    expect(generateArtisticSuggestions).not.toHaveBeenCalled();
   });
 
   it('maps ArtisticSuggestion to teacherModel CopilotSuggestion format', async () => {
@@ -256,6 +282,7 @@ describe('generateArtisticNextActions', () => {
       model: makeModel(2),
       interactionMode: 'guidata' as const,
       aiMaturitaScore: 20,
+      hasActiveDidacticContext: true,
     };
     const result = await generateArtisticNextActions(ctx);
     expect(result).toHaveLength(1);
@@ -277,7 +304,7 @@ describe('generateArtisticNextActions', () => {
         copilotSuggestion: { id: 'm1-hint', label: 'l', actionKey: 'artistic.open', actionPayload: {}, priority: 2 },
       },
     ]);
-    const ctx = { model: makeModel(2), interactionMode: 'guidata' as const, aiMaturitaScore: 0 };
+    const ctx = { model: makeModel(2), interactionMode: 'guidata' as const, aiMaturitaScore: 0, hasActiveDidacticContext: true };
     const result = await generateArtisticNextActions(ctx);
     expect(result[0].icon).toBe('music_note');
   });
@@ -290,7 +317,7 @@ describe('generateArtisticNextActions', () => {
         copilotSuggestion: { id: 't1-hint', label: 'l', actionKey: 'artistic.open', actionPayload: {}, priority: 2 },
       },
     ]);
-    const ctx = { model: makeModel(2), interactionMode: 'guidata' as const, aiMaturitaScore: 0 };
+    const ctx = { model: makeModel(2), interactionMode: 'guidata' as const, aiMaturitaScore: 0, hasActiveDidacticContext: true };
     const result = await generateArtisticNextActions(ctx);
     expect(result[0].icon).toBe('theater_comedy');
   });
@@ -301,6 +328,7 @@ describe('generateArtisticNextActions', () => {
       model: makeModel(2),
       interactionMode: 'guidata' as const,
       aiMaturitaScore: 70,
+      hasActiveDidacticContext: true,
     };
     await generateArtisticNextActions(ctx);
     const callArg = vi.mocked(generateArtisticSuggestions).mock.calls[0][0];
@@ -315,6 +343,7 @@ describe('generateArtisticNextActions', () => {
       model: makeModel(2),
       interactionMode: 'guidata' as const,
       aiMaturitaScore: 30,
+      hasActiveDidacticContext: true,
     };
     await generateArtisticNextActions(ctx);
     const callArg = vi.mocked(generateArtisticSuggestions).mock.calls[0][0];
@@ -327,6 +356,7 @@ describe('generateArtisticNextActions', () => {
       model: makeModel(2),
       interactionMode: 'guidata' as const,
       aiMaturitaScore: 0,
+      hasActiveDidacticContext: true,
     };
     const result = await generateArtisticNextActions(ctx);
     expect(result).toEqual([]);

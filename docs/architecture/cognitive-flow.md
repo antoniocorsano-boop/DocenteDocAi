@@ -269,12 +269,218 @@ useJourneyProgress()                    src/hooks/useJourneyProgress.ts
 
 ---
 
-## Estensioni Future
+## Architettura v3 — Consolidamento (Marzo 2026)
+
+### Overview Aggiornato
+
+```
+[USER ACTION]
+     ↓
+[EventEmitter / Hook]
+     ↓
+[CognitionBus]  ──────────────► [EventLogger]          src/cognition/EventLogger.ts
+     │                               │ (sessionStorage ring buffer, max 500 eventi)
+     │                               │ replay, countEvents, hasEventOccurred
+     ↓
+┌──────────────────────────────────────────────────┐
+│               COGNITION LAYER                    │
+├──────────────────────────────────────────────────┤
+│ - eventMap.ts                                    │
+│ - WorkflowPatternDetector                        │
+│ - UsageTracker                                   │
+│ - CapabilityEngine                               │
+└──────────────────────────────────────────────────┘
+     ↓
+[INSIGHT GENERATION]
+     ↓
+┌──────────────────────────────────────────────────┐
+│           GOVERNANCE LAYER  ← NEW                │
+├──────────────────────────────────────────────────┤
+│ - DecisionContract (contratto normativo)         │   src/cognition/decisionContract.ts
+│   MAX_SUGGESTIONS=3, COOLDOWN_MS=6h              │
+│   ARTISTIC_MIN_CAPABILITY_LEVEL=2                │
+│   IGNORED_THRESHOLD=3                            │
+│   validateSuggestion() / applyContract()         │
+└──────────────────────────────────────────────────┘
+     ↓
+┌──────────────────────────────────────────────────┐
+│             SUGGESTION LAYER                     │
+├──────────────────────────────────────────────────┤
+│ - SuggestionEngine (catalogo + filtri v3)        │   src/cognition/SuggestionEngine.ts
+│   • completedActions dedup                       │
+│   • per-actionKey cooldown (suggestionCooldown)  │
+│   • preferenze docente (acceptsArtisticSugg.)    │
+│   • sorting deterministico (priority → recency)  │
+│   • FALLBACK_SUGGESTION (fail-safe)              │
+│ - ArtisticConsilium                              │   src/services/ArtisticConsilium.ts
+│   (gate: capabilityLevel≥2 + activeContext)      │
+└──────────────────────────────────────────────────┘
+     ↓
+[applyContract() — validazione finale]
+     ↓
+[SUGGESTIONS ARRAY (max 3)]
+     ↓
+[UI LAYER]
+     ↓
+[USER DECISION: Accept / Ignore]
+     ↓
+┌──────────────────────────────────────────────────┐
+│              FEEDBACK LOOP  ← NEW                │
+├──────────────────────────────────────────────────┤
+│ store.acceptSuggestion(actionKey)                │   useTeacherModelStore
+│   → completedActions.push(actionKey)             │
+│   → sugestionCooldown[actionKey] rimosso         │
+│   → ignoredSuggestions[actionKey] = 0            │
+│                                                  │
+│ store.ignoreSuggestion(actionKey)                │
+│   → ignoredSuggestions[actionKey]++              │
+│   → suggestionCooldown[actionKey] = Date.now()   │
+│   → if count ≥ IGNORED_THRESHOLD:                │
+│       dismissedHints.push(actionKey)             │
+└──────────────────────────────────────────────────┘
+     ↓
+[TeacherModel aggiornato → nuovo ciclo]
+```
+
+---
+
+### Nuovi Campi su `TeacherModel` (v3)
+
+| Campo                | Tipo                     | Scopo                                            |
+| -------------------- | ------------------------ | ------------------------------------------------ |
+| `completedActions`   | `string[]`               | Azioni già completate — escluse dai suggerimenti |
+| `ignoredSuggestions` | `Record<string, number>` | Contatore ignore per actionKey                   |
+| `preferences`        | `TeacherPreferences`     | Verbosità preferita, flag artistico              |
+| `suggestionCooldown` | `Record<string, number>` | Timestamp cooldown per actionKey                 |
+
+```ts
+interface TeacherPreferences {
+  suggestionVerbosity: "concise" | "detailed";
+  acceptsArtisticSuggestions: boolean;
+  preferredReminderTime?: "morning" | "evening";
+}
+```
+
+---
+
+### DecisionContract — Contratto Normativo
+
+Centralizza tutte le regole di governance in un'unica fonte normativa:
+
+```ts
+export const DecisionContract = {
+  MAX_SUGGESTIONS: 3,
+  COOLDOWN_MS: 6 * 60 * 60 * 1000, // 6 ore
+  ARTISTIC_MIN_CAPABILITY_LEVEL: 2,
+  IGNORED_THRESHOLD: 3,
+  FALLBACK_PRIORITY: -1,
+
+  rules: {
+    mustHaveActionKey: true,
+    requireTraceability: true,
+    allowedSources: ["copilot", "pattern", "artistic"] as SuggestionSource[],
+  },
+} as const;
+```
+
+Ogni `CopilotSuggestion` che viola `mustHaveActionKey` o `requireTraceability`
+viene silenziosamente scartata in produzione e segnalata con `console.warn` in DEV.
+
+---
+
+### EventLogger — Tracciabilità Sessione
+
+Wrapper strutturato intorno a `CognitionBus`, con replay capability:
+
+```ts
+// Shape di ogni evento registrato
+interface LoggedEvent {
+  event: string;
+  timestamp: number;
+  source?: string;
+  payload?: unknown;
+  sessionId: string;
+}
+```
+
+Funzioni esposte:
+
+- `logEvent(type, payload?, source?)` — registra nel ring buffer (max 500)
+- `getSessionLog()` — tutti gli eventi della sessione corrente
+- `replayCurrentSession()` — ripete tutti gli eventi sul bus (utile per debug/test)
+- `hasEventOccurred(type)` — booleano, usato nella logica di gate
+- `getLastEvent(type)` — ultimo evento di un tipo specifico
+
+Storage: `sessionStorage` (`dcai-event-log`), azzerato a ogni ricarica pagina.  
+L'ID di sessione è generato una volta per ciclo di vita della pagina.
+
+---
+
+### Nuovi Gate su `generateArtisticNextActions`
+
+Per ottenere suggerimenti artistici, **tutti e 3 i gate** devono essere soddisfatti:
+
+| Gate                         | Condizione                                              |
+| ---------------------------- | ------------------------------------------------------- |
+| 1. Livello minimo            | `model.capabilityLevel >= 2` (praticante o maestro)     |
+| 2. Contesto didattico attivo | `ctx.hasActiveDidacticContext === true`                 |
+| 3. Preferenze docente        | `model.preferences.acceptsArtisticSuggestions === true` |
+
+Se qualsiasi gate fallisce, la funzione ritorna `[]` senza chiamare il servizio AI.
+
+---
+
+### Fail-Safe Statico
+
+Se `generateNextActions()` non produce alcun risultato (catalogo vuoto dopo filtri),
+viene iniettato automaticamente `FALLBACK_SUGGESTION`:
+
+```ts
+const FALLBACK_SUGGESTION: CopilotSuggestion = {
+  id: "sug-fallback",
+  type: "workflow",
+  message: "Crea la tua prima UDA per iniziare",
+  targetView: "planning",
+  icon: "add_circle",
+  actionKey: "planning.create_uda",
+  reason: "Nessuna unità didattica trovata. Cominciamo da qui.",
+  priority: DecisionContract.FALLBACK_PRIORITY,
+  source: "copilot",
+};
+```
+
+Questo garantisce che l'UI non presenti mai un pannello vuoto.
+
+---
+
+### Migration v2 → v3
+
+Lo store Zustand (`useTeacherModelStore`) è stato portato alla versione 3.
+La migration è applicata automaticamente all'avvio se lo stato serializzato è alla versione 2:
+
+```ts
+// Applicata automaticamente da Zustand persist onRehydrateStorage
+if (persisted.version === 2) {
+  persisted.state.completedActions ??= [];
+  persisted.state.ignoredSuggestions ??= {};
+  persisted.state.preferences ??= {
+    suggestionVerbosity: "concise",
+    acceptsArtisticSuggestions: true,
+  };
+  persisted.state.suggestionCooldown ??= {};
+}
+```
+
+---
+
+### Estensioni Future (aggiornate)
 
 - **Segreteria intelligente** — auto-task orchestration per adempimenti burocratici
 - **Sistema psico-cognitivo** — modellazione di affaticamento e motivazione del docente
 - **Sistema scientifico** — analisi longitudinale dei dati di apprendimento
 - **Meta-layer etico e culturale** — bias detection, inclusività, pluralismo pedagogico
+- **Preferenze temporali** — `preferredReminderTime` in `TeacherPreferences` (morning / evening)
+- **EventLogger persistito** — migrazione da `sessionStorage` a `localStorage` con retention configurable
 
 ---
 

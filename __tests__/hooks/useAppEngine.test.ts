@@ -1672,6 +1672,8 @@ describe('useAppEngine', () => {
     });
 
     it('should handle AI suggestions generation failure (line 249)', async () => {
+      const { loadBackup } = await import('../../src/services/backupService');
+      vi.mocked(loadBackup).mockResolvedValue(null); // Reset from any previous mockRejectedValue
       const { generateAiSuggestions } = await import('../../src/utils/aiSuggestionGenerator');
       vi.mocked(generateAiSuggestions).mockRejectedValue(new Error('AI Error'));
       const spyError = vi.spyOn(console, 'error').mockImplementation(() => {});
@@ -1679,8 +1681,8 @@ describe('useAppEngine', () => {
       renderHook(() => useAppEngine());
 
       await act(async () => {
-        await Promise.resolve();
-        await Promise.resolve();
+        // Need many cycles: backup load → isDataLoaded=true → re-render → AI effect → dynamic import → rejection
+        for (let i = 0; i < 20; i++) await Promise.resolve();
       });
 
       expect(spyError).toHaveBeenCalledWith(expect.stringContaining('AI suggestions generation failed'), expect.any(Error));

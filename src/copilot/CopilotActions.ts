@@ -71,6 +71,37 @@ const _handlers: Record<string, ActionHandler> = {
         ctx.navigate('analytics', { subTab: 'kb', docId: payload['docId'] });
         ctx.showToast('Documento disponibile nella Knowledge Base', 'info');
     },
+
+    'navigation.register': (_payload, ctx) => {
+        ctx.navigate('classroom', { subTab: 'register' });
+    },
+
+    'navigation.planning': (_payload, ctx) => {
+        ctx.navigate('planning');
+    },
+
+    'navigation.copilot': (_payload, ctx) => {
+        ctx.navigate('copilot');
+    },
+
+    'navigation.resources': (_payload, ctx) => {
+        ctx.navigate('analytics', { subTab: 'kb' });
+    },
+
+    'uda.link_resource': (payload, ctx) => {
+        ctx.navigate('planning', { subTab: 'uda', action: 'link_resource', resourceId: payload['resourceId'] });
+        ctx.showToast('Vai alla pianificazione per collegare la risorsa alla UDA', 'info');
+    },
+
+    'copilot.show_feature_guide': (payload, ctx) => {
+        ctx.navigate('copilot', { subTab: 'guide', feature: payload['feature'] });
+        ctx.showToast(`Guida disponibile nel Copilot`, 'info');
+    },
+
+    'artistic.open': (_payload, ctx) => {
+        ctx.navigate('copilot', { subTab: 'artistic' });
+        ctx.showToast('Apri il Copilot Docente → tab Artistico per generare attività', 'info');
+    },
 };
 
 // ── Public API ────────────────────────────────────────────────────────────────

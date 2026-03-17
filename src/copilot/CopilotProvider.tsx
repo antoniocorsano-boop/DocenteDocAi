@@ -36,6 +36,7 @@ import { suggest, hasPredictions } from './CopilotPredictions';
 import type { CopilotSuggestion } from './CopilotPredictions';
 import { executeCopilotAction } from './CopilotActions';
 import type { ActionContext } from './CopilotActions';
+import { initArtisticConsilium, _resetArtisticConsilium } from '../services/ArtisticConsilium';
 
 // ── Context ───────────────────────────────────────────────────────────────────
 
@@ -125,12 +126,22 @@ export function CopilotProvider({
             off: (evt: '*', handler: (type: unknown, payload: unknown) => void) => void;
         }).on('*', wildcardHandler);
 
+        // Wire ArtisticConsilium — quick sync hints from UDA/planning/KB events
+        initArtisticConsilium((hint) => {
+            setSuggestions((prev) => {
+                const existingIds = new Set(prev.map((s) => s.id));
+                if (existingIds.has(hint.id)) return prev;
+                return [...prev, hint].slice(0, MAX_SUGGESTIONS);
+            });
+        });
+
         return () => {
             (cognitionBus as unknown as {
                 on: (evt: '*', handler: (type: unknown, payload: unknown) => void) => void;
                 off: (evt: '*', handler: (type: unknown, payload: unknown) => void) => void;
             }).off('*', wildcardHandler);
 
+            _resetArtisticConsilium();
             if (dismissTimerRef.current) clearTimeout(dismissTimerRef.current);
         };
     }, [handleEvent]);

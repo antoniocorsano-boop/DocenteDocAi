@@ -91,8 +91,8 @@ export const useAppEngine = () => {
                     actions: { ...studentActions, ...academicActions, ...systemActions },
                 } as unknown as AppState);
                 systemActions.setSuggestions(aiSuggestions);
-            } catch {
-                // Fallback handled inside aiSuggestionGenerator
+            } catch (err) {
+                console.error('AI suggestions generation failed', err);
             }
         };
         generateSuggestions();

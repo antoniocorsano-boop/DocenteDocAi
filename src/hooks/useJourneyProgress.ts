@@ -44,6 +44,11 @@ export function useJourneyProgress(): JourneyProgress {
     pedagogicalProfile: s.pedagogicalProfile,
     workflowPatterns: s.workflowPatterns,
     copilotInteractionProfile: s.copilotInteractionProfile,
+    // v3: memoria decisionale
+    completedActions: s.completedActions,
+    ignoredSuggestions: s.ignoredSuggestions,
+    preferences: s.preferences,
+    suggestionCooldown: s.suggestionCooldown,
   }));
 
   const interactionMode = useAIMaturitaStore((s) => s.interactionMode);
