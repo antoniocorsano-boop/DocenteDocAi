@@ -1,7 +1,28 @@
 # DocenteDoc AI — Piani di Sviluppo
 
 Documento di riferimento per gli sviluppi futuri, organizzato per obiettivo.  
-Aggiornato: Marzo 2026 — post Sprint 9, commit `7596a387`.
+Aggiornato: Marzo 2026 — post Sprint Tecnici 1–2, sistema integrazioni completato.
+
+---
+
+## Sprint Tecnici — Production Maturity Roadmap
+
+_Dettaglio completo: `docs/PRODUCTION_MATURITY_ROADMAP.md`_
+
+| Sprint | Obiettivo                                                                 | Stato         | Commit      |
+| ------ | ------------------------------------------------------------------------- | ------------- | ----------- |
+| 1      | UnifiedAIOrchestrator, AuditDB (Dexie), aiTelemetry OTel, schemaMigration | ✅ completato | già in main |
+| 2      | E2E coverage Copilot panel, aiProxy security tests (A4)                   | 🔵 attivo     | —           |
+| 3      | Lazy-loading sub-tab Copilot, onboarding overlay first-run                | ⬜ backlog    | —           |
+| 4      | Feedback widget AI (thumbs/flag), report esportazione audit               | ⬜ backlog    | —           |
+
+### Sprint 2 — task attivi
+
+| ID  | Task                                                                         | Stato     |
+| --- | ---------------------------------------------------------------------------- | --------- |
+| 2.1 | `__tests__/services/aiProxy.test.ts` — security tests input validation proxy | 🔵 attivo |
+| 2.2 | `e2e/copilot-panel.spec.ts` — E2E navigazione, tab, deep-link subTab         | 🔵 attivo |
+| 2.3 | Aggiunta copilot-panel a progetto Playwright `chromium-stable`               | 🔵 attivo |
 
 ---
 
@@ -19,14 +40,14 @@ Aggiornato: Marzo 2026 — post Sprint 9, commit `7596a387`.
 _Obiettivo: code health, manutenibilità, sicurezza dati._  
 _Scenario target: sempre consigliato, indipendente dalla distribuzione._
 
-| ID  | Feature                | Descrizione                                                                                                                        | Effort stimato | Stato           |
-| --- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | -------------- | --------------- |
-| A1  | AITabErrorBoundary     | Error boundary per i 12 sub-tab CopilotDocentePanel                                                                                | 3h             | ✅ completato   |
-| A2  | `schemaVersion` backup | Aggiungere campo versione ai backup localStorage + migration guard al caricamento                                                  | 2h             | ⬜ backlog      |
-| A3  | GitHub Actions CI      | lint → tsc → vitest su ogni push/PR                                                                                                | 1h             | ✅ già esisteva |
-| A4  | Input snapshot audit   | Verificare che nessun dato studente raggiunga il modello AI non sanitizzato; aggiungere test di integrazione sul proxy `api/ai.ts` | 4h             | ⬜ backlog      |
-| A5  | OpenAPI `api/ai.ts`    | Documentare il proxy Vercel Edge con schema OpenAPI 3.1 (request/response, error codes)                                            | 3h             | ⬜ backlog      |
-| A6  | Dependency audit       | `npm audit` + aggiornamento dipendenze peer MUI v7/React 18 quando stabili                                                         | 2h             | ⬜ backlog      |
+| ID  | Feature                | Descrizione                                                                                                                                   | Effort stimato | Stato           |
+| --- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | --------------- |
+| A1  | AITabErrorBoundary     | Error boundary per i 12 sub-tab CopilotDocentePanel                                                                                           | 3h             | ✅ completato   |
+| A2  | `schemaVersion` backup | `AISnapshot` v2 + `schemaMigration.ts` + migration on hydration già implementati. Manca: altri tipi (`AIAnalysisResult`, backup esportato)    | 1h             | 🟡 parziale     |
+| A3  | GitHub Actions CI      | lint → tsc → vitest su ogni push/PR                                                                                                           | 1h             | ✅ già esisteva |
+| A4  | Input snapshot audit   | **Server-side**: 13 test sicurezza `aiProxy.test.ts` (metodi HTTP, payload, SSRF, iniezioni). **Client-side**: audit `buildAIContext` da fare | 3h             | 🟡 parziale     |
+| A5  | OpenAPI `api/ai.ts`    | Documentare il proxy Vercel Edge con schema OpenAPI 3.1 (request/response, error codes)                                                       | 3h             | ⬜ backlog      |
+| A6  | Dependency audit       | `npm audit` + aggiornamento dipendenze peer MUI v7/React 18 quando stabili                                                                    | 2h             | ⬜ backlog      |
 
 ---
 

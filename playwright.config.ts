@@ -49,7 +49,7 @@ export default defineConfig({
           ]
         }
       },
-      testMatch: ['**/smoke.spec.ts', '**/spa-navigation-example.spec.ts'],
+      testMatch: ['**/smoke.spec.ts', '**/spa-navigation-example.spec.ts', '**/copilot-panel.spec.ts'],
     },
 
     // Test fragili isolati

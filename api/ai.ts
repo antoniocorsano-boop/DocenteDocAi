@@ -102,7 +102,7 @@ function searchSchoolsInCSV(csvText: string, query: string): SchoolRecord[] {
 
 // ── Handler ──────────────────────────────────────────────────────────────────
 
-export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
+export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void | VercelResponse> {
   // Only allow POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -236,10 +236,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
   }
 
   // ── Action: ai (default) ──────────────────────────────────────────────────
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    return res.status(503).json({ error: 'AI service not configured on server' });
-  }
+  // Validate input BEFORE checking the API key so malformed or oversized
+  // requests are rejected early regardless of key availability.
 
   const { model, contents, config, streaming } = body as {
     model: string;
@@ -277,6 +275,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
   const bodySize = JSON.stringify(geminiContents).length;
   if (bodySize > MAX_BODY_BYTES) {
     return res.status(413).json({ error: 'Request payload too large' });
+  }
+
+  // Check API key only after input is validated
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    return res.status(503).json({ error: 'AI service not configured on server' });
   }
 
   const requestBody: Record<string, unknown> = { contents: geminiContents };
