@@ -30,6 +30,10 @@ import M3Surface from '../ui/M3Surface';
 import NextStepBanner from '../journey/NextStepBanner';
 import { useNextAction } from '../../hooks/useNextAction';
 import { useJourneyProgress } from '../../hooks/useJourneyProgress';
+import { useGuidedExecutionStore } from '../../stores/useGuidedExecutionStore';
+import { buildExecutionPlan } from '../../cognition/guidedExecution';
+import GuidedStepOverlay from './GuidedStepOverlay';
+import MolecularActionTree from './MolecularActionTree';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
@@ -95,6 +99,11 @@ const FloatingSatelliteCopilot: React.FC<Props> = ({ onNavigate }) => {
   // ── Decision Engine (read-only) ────────────────────────────────────────────
   const action       = useNextAction();
   const { level, progress, capabilityLevel, confidenceScore } = useJourneyProgress();
+
+  // ── Guided Execution ──────────────────────────────────────────────────────
+  const { isGuided, startGuided } = useGuidedExecutionStore(
+    (s) => ({ isGuided: s.isActive, startGuided: s.start }),
+  );
 
   // ── Overlay state ──────────────────────────────────────────────────────────
   const [open, setOpen] = useState(false);
@@ -189,11 +198,15 @@ const FloatingSatelliteCopilot: React.FC<Props> = ({ onNavigate }) => {
   }, []);
 
   const handleCta = useCallback(() => {
-    if (action.targetView && onNavigate) {
-      onNavigate(action.targetView);
+    // Build execution plan and activate guided mode
+    const plan = buildExecutionPlan(action);
+    startGuided(plan);
+    // Navigate to first step's view if defined
+    if (plan.steps[0]?.targetView && onNavigate) {
+      onNavigate(plan.steps[0].targetView);
     }
     setOpen(false);
-  }, [action.targetView, onNavigate]);
+  }, [action, onNavigate, startGuided]);
 
   // ── Derived display values ─────────────────────────────────────────────────
   const nextLevel   = NEXT_LEVEL_LABELS[level];
@@ -210,7 +223,8 @@ const FloatingSatelliteCopilot: React.FC<Props> = ({ onNavigate }) => {
 
   return (
     <>
-      {/* ── Floating Button ───────────────────────────────────────────────── */}
+      {/* ── Floating Button (hidden in guided mode — MolecularActionTree takes over) ── */}
+      {!isGuided && (
       <Box
         ref={fabRef}
         role="button"
@@ -276,6 +290,7 @@ const FloatingSatelliteCopilot: React.FC<Props> = ({ onNavigate }) => {
           />
         )}
       </Box>
+      )}  {/* end !isGuided */}
 
       {/* ── Backdrop ─────────────────────────────────────────────────────── */}
       {open && (
@@ -545,6 +560,10 @@ const FloatingSatelliteCopilot: React.FC<Props> = ({ onNavigate }) => {
           to   { opacity: 1; transform: translateY(0); }
         }
       `}</style>
+
+      {/* ── Guided Execution Layer ─────────────────────────────────────────── */}
+      {isGuided && <MolecularActionTree position={position} />}
+      {isGuided && <GuidedStepOverlay onNavigate={onNavigate} />}
     </>
   );
 };
