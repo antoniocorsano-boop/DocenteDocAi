@@ -41,6 +41,7 @@ const CopilotMaturitaPanel = React.lazy(() =>
   import('./copilot/maturita').then((m) => ({ default: m.CopilotMaturitaPanel })),
 );
 const ArtisticConsiliumPanel = React.lazy(() => import('./copilot/ArtisticConsiliumPanel'));
+const IntelligentDashboard   = React.lazy(() => import('./copilot/IntelligentDashboard'));
 
 // ── Tab loading fallback ──────────────────────────────────────────────────────
 function TabFallback(): JSX.Element {
@@ -116,6 +117,7 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
           <Tab label="Finanziamenti" sx={{ display: 'none' }} />
           <Tab label="Maturità AI" sx={{ display: 'none' }} />
           <Tab label="Artistico" sx={{ display: capabilityLevel >= 2 ? undefined : 'none' }} />
+          <Tab label="Brain" />
         </Tabs>
         <Tooltip title="Sezioni avanzate">
           <Button
@@ -279,6 +281,11 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
               evaluations={evaluations}
               className={className}
             />
+          </AITabErrorBoundary>
+        )}
+        {tab === 15 && (
+          <AITabErrorBoundary tabName="Brain">
+            <IntelligentDashboard />
           </AITabErrorBoundary>
         )}
         {tab === 14 && (

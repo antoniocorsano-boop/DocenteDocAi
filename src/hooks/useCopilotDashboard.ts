@@ -1,0 +1,78 @@
+/**
+ * useCopilotDashboard.ts — React hook for the Intelligent Dashboard (Sprint 10).
+ *
+ * Provides a live snapshot of the Copilot Brain state, reactive to new signals.
+ * Uses useSyncExternalStore to subscribe to DecisionMemory signal emissions.
+ *
+ * Returns:
+ *   secondaries   — top 2 secondary SuggestedActions (from getTopSecondaryActions)
+ *   systemStatus  — GDPR/AgID compliance + pending approvals + risk level
+ *   recentSignals — last 10 SystemSignals, newest first
+ */
+
+import { useMemo, useSyncExternalStore } from 'react';
+import { decisionMemory }               from '../cognition/decisionMemory';
+import { approvalGate }                 from '../services/enterprise/approvalGate';
+import { getTopSecondaryActions }       from '../cognition/copilotBrain';
+import type { SystemSignal }            from '../cognition/signals';
+import type { SuggestedAction }         from '../cognition/copilotBrain';
+import type { ComplianceSlot, DecisionMemoryState } from '../cognition/decisionMemory';
+
+// ─── Public types ─────────────────────────────────────────────────────────────
+
+export interface SystemStatus {
+  gdpr:             ComplianceSlot;
+  agid:             ComplianceSlot;
+  pendingApprovals: number;
+  activeSignals:    number;
+  /** Derived: 'critical' if any critical signal, 'warning' if any warning, else 'ok' */
+  riskLevel:        'ok' | 'warning' | 'critical';
+}
+
+export interface CopilotDashboardData {
+  secondaries:   SuggestedAction[];
+  systemStatus:  SystemStatus;
+  recentSignals: SystemSignal[];
+}
+
+// ─── Store subscription helpers ───────────────────────────────────────────────
+
+function subscribe(onChange: () => void): () => void {
+  // Returns the unsubscribe function — signature matches useSyncExternalStore
+  return decisionMemory.onSignal(onChange);
+}
+
+function getSnapshot(): Readonly<DecisionMemoryState> {
+  // DecisionMemory replaces _state object reference on every mutation (see implementation).
+  // useSyncExternalStore will detect reference changes and trigger re-renders.
+  return decisionMemory.getState();
+}
+
+// ─── Hook ─────────────────────────────────────────────────────────────────────
+
+export function useCopilotDashboard(): CopilotDashboardData {
+  // Subscribe to signal emissions; re-render whenever a new signal is emitted.
+  const dmState = useSyncExternalStore(subscribe, getSnapshot);
+
+  // Recompute secondaries on every render triggered by dmState change — cheap synchronous read
+  const secondaries = getTopSecondaryActions();
+
+  const systemStatus = useMemo((): SystemStatus => {
+    const hasCritical = dmState.signals.some((s) => s.severity === 'critical');
+    const hasWarning  = dmState.signals.some((s) => s.severity === 'warning');
+    return {
+      gdpr:             dmState.complianceStatus.gdpr,
+      agid:             dmState.complianceStatus.agid,
+      pendingApprovals: approvalGate.getPendingCount(),
+      activeSignals:    dmState.signals.length,
+      riskLevel:        hasCritical ? 'critical' : hasWarning ? 'warning' : 'ok',
+    };
+  }, [dmState]);
+
+  const recentSignals = useMemo(
+    (): SystemSignal[] => [...dmState.signals].slice(-10).reverse(),
+    [dmState],
+  );
+
+  return { secondaries, systemStatus, recentSignals };
+}
