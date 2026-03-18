@@ -62,4 +62,40 @@ export async function processImageInputWithGraph(
   return { intent, graphResult };
 }
 
+/**
+ * Full pipeline with Knowledge Graph + Automation Engine.
+ *
+ * CLIENT-SIDE ONLY: the automation module imports actionRouter + Zustand stores.
+ * Do NOT call this from api/ Edge Functions.
+ *
+ * In addition to processImageInputWithGraph():
+ *   4. Fires a `document_processed` trigger on the AutomationEngine
+ *      → matching enabled rules are evaluated
+ *      → confirmed rules execute via actionRouter (no direct store access)
+ *      → rules requiring confirmation are enqueued for the teacher
+ *
+ * @param input     - Image input (base64 + mimeType)
+ * @param sourceKey - Optional stable deduplication key
+ */
+export async function processImageInputWithAutomation(
+  input: Extract<ExtendedInput, { type: 'image' }>,
+  sourceKey?: string,
+): Promise<{ intent: DocumentIntent; graphResult: DocumentGraphResult }> {
+  const ocr = await extractText(input.content, input.mimeType);
+  const doc = parseDocument(ocr.rawText, ocr.confidence);
+  const intent = detectDocumentIntent(doc);
+  const graphResult = processDocumentIntoGraph(intent, ocr.rawText, ocr.confidence, sourceKey);
+
+  // Lazy-import the automation engine to keep Edge Function bundles clean.
+  // The dynamic import is resolved synchronously in browser environments
+  // because the module is already in the bundle.
+  const { automationEngine } = await import('../automation/automationEngine');
+  await automationEngine.trigger({
+    type: 'document_processed',
+    data: { intent, graphResult, ocrConfidence: ocr.confidence },
+  });
+
+  return { intent, graphResult };
+}
+
 export type { DocumentGraphResult };
