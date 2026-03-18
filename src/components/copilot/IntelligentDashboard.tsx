@@ -16,16 +16,18 @@
  */
 
 import React from 'react';
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
+import Box        from '@mui/material/Box';
+import Stack      from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import { useNextAction }        from '../../hooks/useNextAction';
-import { useCopilotDashboard }  from '../../hooks/useCopilotDashboard';
-import PrimaryActionCard        from './PrimaryActionCard';
-import SecondaryActionsList     from './SecondaryActionsList';
-import SystemStatusPanel        from './SystemStatusPanel';
-import RecentDecisions          from './RecentDecisions';
+import Divider    from '@mui/material/Divider';
+import { useNextAction }                  from '../../hooks/useNextAction';
+import { useCopilotDashboard }            from '../../hooks/useCopilotDashboard';
+import { useProactiveNotifications }      from '../../hooks/useProactiveNotifications';
+import PrimaryActionCard                  from './PrimaryActionCard';
+import SecondaryActionsList               from './SecondaryActionsList';
+import SystemStatusPanel                  from './SystemStatusPanel';
+import RecentDecisions                    from './RecentDecisions';
+import NotificationToast                  from './NotificationToast';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -41,6 +43,9 @@ const IntelligentDashboard: React.FC<Props> = ({ onNavigate }) => {
 
   // Secondary actions + system status + signals (reactive to DecisionMemory)
   const { secondaries, systemStatus, recentSignals } = useCopilotDashboard();
+
+  // Sprint 11 — proactive notification queue
+  const { notifications, dismiss, dismissAll } = useProactiveNotifications();
 
   return (
     <Box sx={{ py: 'var(--md-sys-spacing-2)' }}>
@@ -67,6 +72,13 @@ const IntelligentDashboard: React.FC<Props> = ({ onNavigate }) => {
         </Stack>
 
         <Divider sx={{ borderColor: 'var(--md-sys-color-outline-variant)' }} />
+
+        {/* ── Proactive notifications (Sprint 11) — hidden when empty ── */}
+        <NotificationToast
+          notifications={notifications}
+          onDismiss={dismiss}
+          onDismissAll={dismissAll}
+        />
 
         {/* ── Block 1a: Primary action ── */}
         <PrimaryActionCard action={primaryAction} onNavigate={onNavigate} />

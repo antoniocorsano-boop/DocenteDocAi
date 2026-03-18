@@ -88,3 +88,8 @@ export type { ExecutionResult, ExecutionContext, ExecutionStatus } from './execu
 
 export { actionRegistry, getHandler } from './actionRegistry';
 export type { RegistryEntry, ActionHandler } from './actionRegistry';
+
+// ── Sprint 11: Proactive Notification Engine ──────────────────────────────────
+
+export { decide as notificationDecide, resetThrottle as resetNotificationThrottle } from './notificationEngine';
+export type { NotificationDecision } from './notificationEngine';
