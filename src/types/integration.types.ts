@@ -50,6 +50,12 @@ export type IntentAction =
     | 'drive_sync'
     | 'classroom_import'
     | 'show_next_step'
+    // Document AI actions (image pipeline)
+    | 'add_students_from_doc'
+    | 'import_grades'
+    | 'generate_email'
+    | 'send_email'
+    | 'parse_document'
     | 'unknown';
 
 export interface ParsedIntent {
@@ -77,7 +83,11 @@ export type IntegrationEventType =
     | 'attendance_marked'
     | 'evaluation_added'
     | 'drive_synced'
-    | 'classroom_synced';
+    | 'classroom_synced'
+    // Document AI events
+    | 'document_parsed'
+    | 'grades_imported'
+    | 'email_sent';
 
 export interface IntegrationEvent {
     id: string;

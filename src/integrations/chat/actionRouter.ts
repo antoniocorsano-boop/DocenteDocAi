@@ -18,10 +18,18 @@
  *   useSystemStore     → trackAnalyticsEvent (all actions)
  *   useTeacherModelStore → getNextActionSuggestion() reads capabilityLevel
  *   useIntegrationStore  → drive status check; publishActionEvent()
+ *
+ * Document AI extensions (new commands):
+ *   add_students_from_doc → reuses saveStudent() — same mutation as add_student
+ *   import_grades         → reuses store evaluation logic
+ *   generate_email        → delegates to email service interface
+ *   send_email            → delegates to email + optional signature service
+ *   parse_document        → no store write; returns data for UI wizard
  */
 
 import type { ParsedIntent, IntegrationEventType } from '../../types/integration.types';
 import type { Studente, Valutazione } from '../../types';
+import type { DocumentIntent, ParsedStudentList, ParsedGradesTable, ParsedOfficialDocument } from '../../services/documentAI/types';
 import { useStudentStore }       from '../../stores/useStudentStore';
 import { useAcademicStore }      from '../../stores/useAcademicStore';
 import { useSystemStore }        from '../../stores/useSystemStore';
@@ -42,6 +50,10 @@ export interface ActionResult {
     requiresApp: boolean;
     /** Serialisable data for the cross-surface event payload */
     data?: Record<string, unknown>;
+    /** AI confidence (0–1) — present when action originated from Document AI */
+    confidence?: number;
+    /** Non-blocking warnings from validation layer */
+    warnings?: string[];
 }
 
 // ─── Main router ──────────────────────────────────────────────────────────────
@@ -50,34 +62,82 @@ export async function routeIntent(intent: ParsedIntent): Promise<ActionResult> {
     const { action, params } = intent;
 
     switch (action) {
-        case 'create_class':       return handleCreateClass(params);
-        case 'add_student':        return handleAddStudent(params);
-        case 'import_students':    return handleImportStudents(params);
-        case 'classroom_import':   return handleClassroomImport();
-        case 'drive_sync':         return handleDriveSync();
-        case 'create_uda':         return handleCreateUda(params);
-        case 'schedule_event':     return handleScheduleEvent(params);
-        case 'mark_attendance':    return handleMarkAttendance(params);
-        case 'add_evaluation':     return handleAddEvaluation(params);
-        case 'show_students':      return handleShowStudents(params);
-        case 'show_class':         return handleShowClass();
-        case 'generate_content':   return handleGenerateContent(params);
+        case 'create_class':            return handleCreateClass(params);
+        case 'add_student':             return handleAddStudent(params);
+        case 'import_students':         return handleImportStudents(params);
+        case 'classroom_import':        return handleClassroomImport();
+        case 'drive_sync':              return handleDriveSync();
+        case 'create_uda':              return handleCreateUda(params);
+        case 'schedule_event':          return handleScheduleEvent(params);
+        case 'mark_attendance':         return handleMarkAttendance(params);
+        case 'add_evaluation':          return handleAddEvaluation(params);
+        case 'show_students':           return handleShowStudents(params);
+        case 'show_class':              return handleShowClass();
+        case 'generate_content':        return handleGenerateContent(params);
         case 'show_next_step':
+            return { ok: true, message: getNextActionSuggestion(), requiresApp: false };
+        // Document AI actions — handled via routeDocumentIntent (see below)
+        case 'add_students_from_doc':
+        case 'import_grades':
+        case 'generate_email':
+        case 'send_email':
+        case 'parse_document':
             return {
-                ok: true,
-                message: getNextActionSuggestion(),
+                ok: false,
+                message: 'Azione documento: usa routeDocumentIntent() con il DocumentIntent completo.',
                 requiresApp: false,
             };
         default:
+            return { ok: false, message: getNextActionSuggestion(), requiresApp: false };
+    }
+}
+
+/**
+ * Route a DocumentIntent (from the Document AI pipeline) to the real store actions.
+ *
+ * This is the ONLY entry point for document-based actions.
+ * It reuses existing store mutations — no new mutation logic is added here.
+ */
+export async function routeDocumentIntent(docIntent: DocumentIntent): Promise<ActionResult> {
+    const { action, document: doc, confidence } = docIntent;
+
+    switch (action) {
+        case 'add_students_from_doc':
+            return handleAddStudentsFromDoc(doc.data as ParsedStudentList, confidence, doc.warnings);
+
+        case 'import_grades':
+            return handleImportGrades(doc.data as ParsedGradesTable, confidence, doc.warnings);
+
+        case 'generate_email':
+            return handleGenerateEmail(doc.data as ParsedOfficialDocument, confidence);
+
+        case 'parse_document':
+            return {
+                ok: true,
+                message:
+                    'Documento ricevuto ✓\n' +
+                    'Apri l\'app per completare il wizard di pianificazione con i dati estratti.',
+                requiresApp: true,
+                confidence,
+                eventType: 'document_parsed',
+                data: { documentType: doc.type, rawData: doc.data },
+                warnings: doc.warnings,
+            };
+
+        case 'show_next_step':
+        default:
             return {
                 ok: false,
-                message: getNextActionSuggestion(),
+                message:
+                    'Non sono riuscito a identificare il tipo di documento.\n\n' +
+                    getNextActionSuggestion(),
                 requiresApp: false,
+                confidence: 0,
+                warnings: doc.warnings,
             };
     }
 }
 
-// ─── Handlers ─────────────────────────────────────────────────────────────────
 
 function handleCreateClass(params: Record<string, string>): ActionResult {
     const className = params.className ?? '';
@@ -397,6 +457,135 @@ export function getNextActionSuggestion(): string {
 
     const action = getNextAction(ctx);
     return `${action.label}: ${action.description}\n\n👉 "${action.cta}" → apri l'app.`;
+}
+
+// ─── Document AI handlers ─────────────────────────────────────────────────────
+
+/**
+ * Add multiple students parsed from a document image.
+ * Reuses the same `saveStudent()` mutation as handleAddStudent() — no duplication.
+ */
+function handleAddStudentsFromDoc(
+    data: ParsedStudentList,
+    confidence: number,
+    warnings?: string[],
+): ActionResult {
+    const { saveStudent } = useStudentStore.getState().actions;
+    const added: string[] = [];
+
+    for (const s of data.students) {
+        const parts = s.name.trim().split(' ');
+        const nome = parts[0] ?? '';
+        const cognome = parts.slice(1).join(' ');
+        if (!nome) continue;
+
+        const newStudent: Studente = {
+            id: `temp-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+            nome,
+            cognome,
+            classe: s.className ?? '',
+        };
+        saveStudent(newStudent);
+        added.push(`${nome} ${cognome}`);
+    }
+
+    useSystemStore.getState().actions.trackAnalyticsEvent(
+        'feature_usage',
+        'doc_add_students',
+        { count: String(added.length) },
+    );
+
+    return {
+        ok: true,
+        message: `Aggiunti ${added.length} student${added.length !== 1 ? 'i' : 'e'} dal documento ✓`,
+        eventType: 'students_imported',
+        requiresApp: false,
+        confidence,
+        warnings,
+        data: { added },
+    };
+}
+
+/**
+ * Import grades from a parsed grades table.
+ * Reuses the same store mutation as handleAddEvaluation() — no duplication.
+ */
+function handleImportGrades(
+    data: ParsedGradesTable,
+    confidence: number,
+    warnings?: string[],
+): ActionResult {
+    const imported: string[] = [];
+
+    for (const e of data.evaluations) {
+        if (!e.studentName || !e.grade) continue;
+
+        const { students } = useStudentStore.getState();
+        const student = students.find(
+            (s) =>
+                !s.isArchived &&
+                `${s.nome} ${s.cognome}`.toLowerCase() === e.studentName.toLowerCase(),
+        );
+
+        if (student) {
+            useStudentStore.getState().actions.addEvaluation({
+                studenteId: student.id,
+                materia: e.subject ?? 'Non specificata',
+                voto: e.grade,
+                tipo: 'Verifica',
+                data: new Date().toISOString().split('T')[0],
+                note: 'Importato da documento',
+            });
+            imported.push(`${e.studentName}: ${e.grade}`);
+        }
+    }
+
+    useSystemStore.getState().actions.trackAnalyticsEvent(
+        'feature_usage',
+        'doc_import_grades',
+        { count: String(imported.length) },
+    );
+
+    return {
+        ok: true,
+        message: `Importat${imported.length !== 1 ? 'e' : 'a'} ${imported.length} valutazion${imported.length !== 1 ? 'i' : 'e'} ✓`,
+        eventType: 'grades_imported',
+        requiresApp: false,
+        confidence,
+        warnings,
+        data: { imported },
+    };
+}
+
+/**
+ * Prepare an email draft from a parsed official document.
+ * Delegates to the email service interface — no email is sent without confirmation.
+ */
+function handleGenerateEmail(data: ParsedOfficialDocument, confidence: number): ActionResult {
+    useSystemStore.getState().actions.trackAnalyticsEvent(
+        'feature_usage',
+        'doc_generate_email',
+        { hasRecipient: data.recipient ? 'true' : 'false' },
+    );
+
+    return {
+        ok: true,
+        message:
+            `Bozza email pronta ✓\n` +
+            (data.recipient ? `Destinatario: ${data.recipient}\n` : '') +
+            (data.title ? `Oggetto: ${data.title}\n` : '') +
+            '\nApri l\'app per rivedere, firmare e inviare.',
+        requiresApp: true,
+        eventType: 'document_parsed',
+        confidence,
+        data: {
+            emailDraft: {
+                to: data.recipient ?? '',
+                subject: data.title ?? '',
+                body: data.body,
+            },
+        },
+    };
 }
 
 // ─── Cross-surface event publisher ───────────────────────────────────────────

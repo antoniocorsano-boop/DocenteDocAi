@@ -33,6 +33,9 @@
 
 import { parseIntent, buildConfirmationMessage, getSuggestions } from '../src/integrations/commandInterpreter';
 import { buildEdgeResponse } from '../src/integrations/chat/responseBuilder';
+import { extractText } from '../src/services/documentAI/ocrService';
+import { parseDocument } from '../src/services/documentAI/documentParser';
+import { detectDocumentIntent } from '../src/services/documentAI/intentDetector';
 
 export const config = { runtime: 'edge' };
 
@@ -50,6 +53,7 @@ interface WhatsAppMessage {
     timestamp: string;
     type: 'text' | 'image' | 'document' | 'audio' | 'interactive';
     text?: { body: string };
+    image?: { id: string; mime_type?: string; sha256?: string };
     document?: { id: string; filename?: string; mime_type?: string };
     interactive?: {
         type: 'button_reply' | 'list_reply';
@@ -126,6 +130,37 @@ async function sendInteractiveButtons(to: string, bodyText: string, buttons: str
     });
 }
 
+// ─── WhatsApp media download helper ──────────────────────────────────────────
+
+/**
+ * Download a WhatsApp media object by its media ID and return as base64.
+ * Used for OCR pipeline when a teacher sends a photo of a document.
+ */
+async function downloadWhatsAppMedia(mediaId: string): Promise<{ base64: string; mimeType: string } | null> {
+    if (!ACCESS_TOKEN) return null;
+    try {
+        // Step 1: get media URL
+        const urlRes = await fetch(`${GRAPH_API}/${mediaId}`, {
+            headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
+        });
+        if (!urlRes.ok) return null;
+        const urlData = await urlRes.json() as { url?: string; mime_type?: string };
+        if (!urlData.url) return null;
+
+        // Step 2: download binary
+        const mediaRes = await fetch(urlData.url, {
+            headers: { Authorization: `Bearer ${ACCESS_TOKEN}` },
+        });
+        if (!mediaRes.ok) return null;
+
+        const buffer = await mediaRes.arrayBuffer();
+        const base64 = btoa(String.fromCharCode(...new Uint8Array(buffer)));
+        return { base64, mimeType: urlData.mime_type ?? 'image/jpeg' };
+    } catch {
+        return null;
+    }
+}
+
 // ─── Handler ──────────────────────────────────────────────────────────────────
 
 export default async function handler(req: Request): Promise<Response> {
@@ -169,6 +204,40 @@ export default async function handler(req: Request): Promise<Response> {
 
             for (const msg of messages) {
                 const from = msg.from;
+
+                // ── Image: run Document AI pipeline ──────────────────────────
+                if (msg.type === 'image' && msg.image?.id) {
+                    await sendTextMessage(from, '📸 Foto ricevuta. Analizzo il documento...');
+
+                    const file = await downloadWhatsAppMedia(msg.image.id);
+                    if (!file) {
+                        await sendTextMessage(from, '⚠️ Non riesco a scaricare la foto. Riprova.');
+                        continue;
+                    }
+
+                    const ocr = await extractText(file.base64, file.mimeType);
+                    const parsed = parseDocument(ocr.rawText, ocr.confidence);
+                    const docIntent = detectDocumentIntent(parsed);
+
+                    const intentLabels: Record<string, string> = {
+                        add_students_from_doc: 'Lista studenti rilevata',
+                        import_grades:         'Tabella voti rilevata',
+                        generate_email:        'Documento ufficiale rilevato',
+                        parse_document:        'Piano di lavoro rilevato',
+                        show_next_step:        'Documento non riconosciuto',
+                    };
+
+                    const label = intentLabels[docIntent.action] ?? 'Documento analizzato';
+                    const pct   = Math.round(docIntent.confidence * 100);
+                    const warns = parsed.warnings?.length ? `\n\n⚠️ ${parsed.warnings.join('\n⚠️ ')}` : '';
+
+                    await sendInteractiveButtons(
+                        from,
+                        `✅ ${label} (confidenza: ${pct}%)\n\nApri l'app per confermare l'azione.${warns}`,
+                        ['Apri app', 'Cosa devo fare'],
+                    );
+                    continue;
+                }
 
                 // ── Document upload ───────────────────────────────────────────
                 if (msg.type === 'document') {

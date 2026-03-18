@@ -8,9 +8,15 @@
  * The caller is responsible for dispatching the resulting action.
  *
  * Supports Italian and common shorthand used by teachers.
+ *
+ * Extended pipeline (image support):
+ *   Use `parseExtendedInput()` to handle both text and image inputs.
+ *   Image inputs are routed to the Document AI pipeline (documentAI/index.ts).
+ *   Text inputs continue through the existing parseIntent() path.
  */
 
 import type { IntentAction, ParsedIntent } from '../types/integration.types';
+import type { ExtendedInput } from '../services/documentAI/types';
 
 // ─── Intent patterns ──────────────────────────────────────────────────────────
 
@@ -314,4 +320,31 @@ export function getSuggestions(intent: ParsedIntent): string[] {
         default:
             return ['Altro', 'Annulla'];
     }
+}
+
+// ─── Extended input normalisation ────────────────────────────────────────────
+
+/**
+ * Normalise any ExtendedInput into a canonical form ready for routing.
+ *
+ * For text inputs: runs parseIntent() and returns a ParsedIntent.
+ * For image inputs: signals the caller to run the Document AI pipeline.
+ *
+ * Returns:
+ *   { kind: 'intent',  intent: ParsedIntent  }   — text path: route via actionRouter
+ *   { kind: 'image',   input: image ExtendedInput } — image path: route via processImageInput()
+ *
+ * Usage in webhook handlers:
+ *   const norm = normaliseInput(extendedInput);
+ *   if (norm.kind === 'intent') await routeIntent(norm.intent);
+ *   else { const docIntent = await processImageInput(norm.input); ... }
+ */
+export function normaliseInput(input: ExtendedInput):
+  | { kind: 'intent'; intent: ParsedIntent }
+  | { kind: 'image'; input: Extract<ExtendedInput, { type: 'image' }> }
+{
+    if (input.type === 'text') {
+        return { kind: 'intent', intent: parseIntent(input.content, input.source) };
+    }
+    return { kind: 'image', input };
 }

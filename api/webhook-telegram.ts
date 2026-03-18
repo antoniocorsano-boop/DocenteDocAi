@@ -27,6 +27,9 @@
 
 import { parseIntent, buildConfirmationMessage, getSuggestions } from '../src/integrations/commandInterpreter';
 import { buildEdgeResponse } from '../src/integrations/chat/responseBuilder';
+import { extractText } from '../src/services/documentAI/ocrService';
+import { parseDocument } from '../src/services/documentAI/documentParser';
+import { detectDocumentIntent } from '../src/services/documentAI/intentDetector';
 
 export const config = { runtime: 'edge' };
 
@@ -44,6 +47,8 @@ interface TelegramUpdate {
         date: number;
         text?: string;
         document?: { file_id: string; file_name?: string; mime_type?: string };
+        /** Telegram sends photos as an array of sizes — use the last (largest) */
+        photo?: Array<{ file_id: string; width: number; height: number; file_size?: number }>;
     };
 }
 
@@ -74,6 +79,32 @@ async function sendMessage(chatId: number, text: string, suggestions?: string[])
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
     });
+}
+
+// ─── Telegram file download helper ───────────────────────────────────────────
+
+/**
+ * Download a Telegram file by file_id and return as base64.
+ * Used for OCR pipeline when a teacher sends a photo of a document.
+ */
+async function downloadTelegramFile(fileId: string): Promise<{ base64: string; mimeType: string } | null> {
+    if (!BOT_TOKEN) return null;
+    try {
+        const fileRes = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getFile?file_id=${fileId}`);
+        const fileData = await fileRes.json() as { ok: boolean; result?: { file_path: string } };
+        if (!fileData.ok || !fileData.result?.file_path) return null;
+
+        const fileUrl = `https://api.telegram.org/file/bot${BOT_TOKEN}/${fileData.result.file_path}`;
+        const imgRes = await fetch(fileUrl);
+        if (!imgRes.ok) return null;
+
+        const buffer = await imgRes.arrayBuffer();
+        const base64 = btoa(String.fromCharCode(...new Uint8Array(buffer)));
+        const mimeType = imgRes.headers.get('content-type') ?? 'image/jpeg';
+        return { base64, mimeType };
+    } catch {
+        return null;
+    }
 }
 
 // ─── Handler ──────────────────────────────────────────────────────────────────
@@ -111,6 +142,42 @@ export default async function handler(req: Request): Promise<Response> {
 
     const chatId = msg.chat.id;
     const text = msg.text?.trim();
+
+    // ── Photo: run Document AI pipeline ──────────────────────────────────────
+    if (msg.photo && msg.photo.length > 0) {
+        const largest = msg.photo[msg.photo.length - 1];
+        const file = await downloadTelegramFile(largest.file_id);
+
+        if (!file) {
+            await sendMessage(chatId, '⚠️ Non riesco a scaricare la foto. Riprova.', ['Aiuto']);
+            return new Response('ok');
+        }
+
+        await sendMessage(chatId, '📸 Foto ricevuta. Analizzo il documento...');
+
+        const ocr = await extractText(file.base64, file.mimeType);
+        const parsed = parseDocument(ocr.rawText, ocr.confidence);
+        const docIntent = detectDocumentIntent(parsed);
+
+        const intentLabels: Record<string, string> = {
+            add_students_from_doc: 'Lista studenti rilevata',
+            import_grades:         'Tabella voti rilevata',
+            generate_email:        'Documento ufficiale rilevato',
+            parse_document:        'Piano di lavoro rilevato',
+            show_next_step:        'Documento non riconosciuto',
+        };
+
+        const label = intentLabels[docIntent.action] ?? 'Documento analizzato';
+        const pct   = Math.round(docIntent.confidence * 100);
+        const warns = parsed.warnings?.length ? `\n\n⚠️ ${parsed.warnings.join('\n⚠️ ')}` : '';
+
+        await sendMessage(
+            chatId,
+            `✅ ${label} (confidenza: ${pct}%)\n\nApri l'app per confermare ed eseguire l'azione.${warns}`,
+            ['Apri app', 'Cosa devo fare'],
+        );
+        return new Response('ok');
+    }
 
     // ── File upload: document sent via chat ───────────────────────────────────
     if (msg.document) {

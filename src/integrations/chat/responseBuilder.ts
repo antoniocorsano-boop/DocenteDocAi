@@ -10,10 +10,20 @@
  *
  *   // In client-side action subscribers:
  *   const reply = buildActionResponse(result, intent.source);
+ *
+ *   // When the decision engine NextAction is available (preferred):
+ *   const reply = buildContextualChatResponse(resultText, nextAction, alternates);
+ *
+ * Chat response contract (non-negotiable):
+ *   - Every response MUST include exactly 1 primary next action.
+ *   - Up to 2 secondary alternative actions are allowed.
+ *   - Generic responses ("puoi fare X o Y…") are FORBIDDEN.
+ *   - Use `buildContextualChatResponse` when a NextAction is available.
  */
 
 import type { ParsedIntent, ChatResponse } from '../../types/integration.types';
 import type { ActionResult } from './actionRouter';
+import type { NextAction } from '../../cognition/decisionEngine/types';
 
 // ─── CTA catalogue ────────────────────────────────────────────────────────────
 
@@ -123,4 +133,68 @@ export function responseToPlainText(response: ChatResponse): string {
     }
     const suggestionsLine = response.suggestions.map((s) => `• ${s}`).join('\n');
     return `${response.text}\n\n${suggestionsLine}`;
+}
+
+// ─── Contextual response with mandatory NextAction ────────────────────────────
+
+/**
+ * Build a response that always includes the decision engine's NextAction.
+ *
+ * Contract (non-negotiable):
+ *   - Exactly 1 primary CTA from NextAction (never omitted)
+ *   - Up to 2 secondary alternative actions
+ *   - Generic free-form responses are FORBIDDEN in callers
+ *
+ * @param resultText       - What just happened (e.g. "Aggiunti 18 studenti ✓")
+ * @param nextAction       - The NextAction from getNextAction()
+ * @param alternatives     - Up to 2 alternative action labels (optional)
+ */
+export function buildContextualChatResponse(
+    resultText: string,
+    nextAction: NextAction,
+    alternatives: [string?, string?] = [],
+): ChatResponse {
+    const nextText = `\n\n👉 *Prossimo passo*: ${nextAction.label}\n${nextAction.description}\n→ "${nextAction.cta}"`;
+    const altSuggestions = (alternatives.filter(Boolean) as string[]).slice(0, 2);
+
+    return {
+        text: resultText + nextText,
+        suggestions: [nextAction.cta, ...altSuggestions].slice(0, 3),
+    };
+}
+
+// ─── Document AI response ─────────────────────────────────────────────────────
+
+/**
+ * Build a structured response for Document AI actions.
+ * Includes action result, AI confidence, warnings, and mandatory NextAction.
+ *
+ * @param result      - ActionResult from routeDocumentIntent()
+ * @param nextAction  - NextAction from getNextAction()
+ */
+export function buildDocumentActionResponse(
+    result: ActionResult,
+    nextAction: NextAction,
+): ChatResponse {
+    const statusEmoji = result.ok ? '✅' : '⚠️';
+    let text = `${statusEmoji} ${result.message}`;
+
+    // Confidence line (only when AI was involved)
+    if (result.confidence !== undefined && result.confidence > 0) {
+        const pct = Math.round(result.confidence * 100);
+        text += `\n_Confidenza AI: ${pct}%_`;
+    }
+
+    // Non-blocking warnings
+    if (result.warnings && result.warnings.length > 0) {
+        text += '\n\n⚠️ *Avvisi:*\n' + result.warnings.map((w) => `• ${w}`).join('\n');
+    }
+
+    // Mandatory next action
+    text += `\n\n👉 *Prossimo passo*: ${nextAction.label}\n→ "${nextAction.cta}"`;
+
+    return {
+        text,
+        suggestions: [nextAction.cta, 'Rivedi studenti', 'Cosa devo fare'].slice(0, 3),
+    };
 }
