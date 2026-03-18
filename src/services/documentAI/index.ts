@@ -23,6 +23,8 @@ import type { ExtendedInput, DocumentIntent } from './types';
 import { extractText } from './ocrService';
 import { parseDocument } from './documentParser';
 import { detectDocumentIntent } from './intentDetector';
+import { processDocumentIntoGraph } from '../knowledgeGraph/pipeline';
+import type { DocumentGraphResult } from '../knowledgeGraph/pipeline';
 
 /**
  * Full Document AI pipeline: image input → DocumentIntent.
@@ -35,3 +37,29 @@ export async function processImageInput(input: Extract<ExtendedInput, { type: 'i
   const doc = parseDocument(ocr.rawText, ocr.confidence);
   return detectDocumentIntent(doc);
 }
+
+/**
+ * Extended pipeline: image input → DocumentIntent + Knowledge Graph result.
+ *
+ * Runs the same Document AI pipeline as `processImageInput`, and additionally:
+ *   1. Creates/updates the document KGNode
+ *   2. Stores/versions the DocumentMemory (rawText + structuredData + confidence)
+ *   3. Auto-links to known students and classes via name similarity
+ *
+ * @param input     - Image input (base64 + mimeType)
+ * @param sourceKey - Optional stable deduplication key (file name, SHA, etc.).
+ *                    When provided, re-processing results in a versioned update
+ *                    rather than a new document node.
+ */
+export async function processImageInputWithGraph(
+  input: Extract<ExtendedInput, { type: 'image' }>,
+  sourceKey?: string,
+): Promise<{ intent: DocumentIntent; graphResult: DocumentGraphResult }> {
+  const ocr = await extractText(input.content, input.mimeType);
+  const doc = parseDocument(ocr.rawText, ocr.confidence);
+  const intent = detectDocumentIntent(doc);
+  const graphResult = processDocumentIntoGraph(intent, ocr.rawText, ocr.confidence, sourceKey);
+  return { intent, graphResult };
+}
+
+export type { DocumentGraphResult };
