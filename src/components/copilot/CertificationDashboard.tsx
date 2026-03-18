@@ -20,8 +20,9 @@ import Button         from '@mui/material/Button';
 import Divider        from '@mui/material/Divider';
 import Collapse       from '@mui/material/Collapse';
 import CircularProgress from '@mui/material/CircularProgress';
-import M3Surface      from '../ui/M3Surface';
+import M3Surface         from '../ui/M3Surface';
 import { useCertification } from '../../hooks/useCertification';
+import LiveCompliancePanel  from './LiveCompliancePanel';
 import type { GapItem } from '../../self-compliance/certification/types';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -165,7 +166,12 @@ const CertificationDashboard: React.FC = () => {
     >
       <Stack gap="var(--md-sys-spacing-4)">
 
-        {/* ── Header ── */}
+        {/* ── Live Compliance Runtime ── */}
+        <LiveCompliancePanel />
+
+        <Divider />
+
+        {/* ── Header Certification Package ── */}
         <Stack direction="row" alignItems="center" gap="var(--md-sys-spacing-3)">
           <Box
             component="span"
