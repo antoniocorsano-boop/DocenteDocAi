@@ -18,6 +18,19 @@ import type { Studente, Valutazione } from '../../types/student.types';
 import type { Uda, Lezione } from '../../types/uda.types';
 import type { UserProfile } from '../../types';
 
+// ─── Concrete action dispatched when a suggestion is accepted ─────────────────
+
+/**
+ * Describes the concrete action to perform when a suggestion is accepted.
+ *
+ * All agent suggestion actions MUST use this discriminated union.
+ * Components are NOT allowed to compute navigation targets on their own.
+ */
+export type SuggestedAction =
+  | { type: 'navigate'; targetView: string }
+  | { type: 'navigate_tab'; targetView: string; tabIndex: number }
+  | { type: 'open_dialog'; dialogId: string };
+
 // ─── Agent context ────────────────────────────────────────────────────────────
 
 /**
@@ -39,7 +52,18 @@ export interface AgentContext {
 
 // ─── Agent output ─────────────────────────────────────────────────────────────
 
-/** A single contextual suggestion produced by an agent. */
+/**
+ * A single contextual suggestion produced by an agent.
+ *
+ * ALL agents MUST output this exact type — no agent-specific variants allowed.
+ * This ensures the orchestrator can rank, deduplicate and render suggestions
+ * uniformly, regardless of which agent produced them.
+ *
+ * Conflict resolution:
+ *   - `getNextAction()` always overrides agent suggestions for primary CTA
+ *   - Agents are ranked by `priority` (higher = more important)
+ *   - Max visible suggestions is governed by `DecisionContract.MAX_SUGGESTIONS`
+ */
 export interface AgentSuggestion {
   /** Stable ID (format: '<agentPrefix>-<action>') */
   id: string;
@@ -62,6 +86,19 @@ export interface AgentSuggestion {
   targetView?: string;
   /** Agent that produced this suggestion — for transparency */
   agentId: string;
+  /**
+   * Concrete action to execute when the suggestion is accepted.
+   * If absent, the consumer falls back to `targetView` navigation.
+   */
+  action?: SuggestedAction;
+  /**
+   * Human-readable conditions that must hold for this suggestion to be relevant.
+   * Used for transparency ("Perché ora?") and test assertions.
+   * Example: ['capabilityLevel >= 2', 'udaCreated === 0']
+   *
+   * Optional — new agents should populate this; existing agents may omit it.
+   */
+  conditions?: string[];
 }
 
 /** Result from a single agent run */

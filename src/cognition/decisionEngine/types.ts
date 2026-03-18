@@ -4,7 +4,49 @@
  * NextAction is the SINGLE OUTPUT of the decision engine.
  * Every part of the UI that needs to guide the user MUST use this type —
  * never compute "what to do next" inside a component.
+ *
+ * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ * SOURCE-OF-TRUTH RESOLUTION RULES
+ * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ *
+ * Q: What if multiple logic sources compute a "next action"?
+ *
+ * A: This module (`getNextAction`) is the AUTHORITATIVE source.
+ *    All other sources are DERIVED:
+ *
+ *    - Agent suggestions (AgentSuggestion[]) → secondary, complementary only.
+ *      They NEVER override the primary NextAction.
+ *    - SuggestionEngine (legacy, src/cognition/SuggestionEngine.ts) → DEPRECATED.
+ *      Kept for backward compatibility only. Do NOT add new logic there.
+ *    - Chat actionRouter.getNextActionSuggestion() → delegates to getNextAction().
+ *      It is a display adapter, not an independent source.
+ *
+ * If you find logic that computes a "next step" outside this module,
+ * it is a violation. Mark it as legacy and propose a deprecation path.
+ * DO NOT merge the two implementations — identify the authoritative one and
+ * route everything through it.
+ *
+ * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ * FLOW STATE STORAGE RULE
+ * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ * Guided execution flow state MUST live in `useGuidedExecutionStore`.
+ * DO NOT create a new global store for flow state.
+ * DO NOT store flow state in component local state.
  */
+
+/**
+ * Decision priority tiers used by getNextAction() rule ordering.
+ *
+ * Rules are evaluated top-to-bottom; first match wins.
+ * Tiers must be respected — a TIER 4 rule must never be evaluated
+ * before all TIER 1–3 rules are exhausted.
+ */
+export type DecisionPriorityTier =
+  | 'TIER_1_BLOCKING'    // Missing critical data; blocks other features
+  | 'TIER_2_ONBOARDING'  // Initial workspace setup steps
+  | 'TIER_3_ACADEMIC'    // Core instructional workflow (UDA, planning)
+  | 'TIER_4_SYSTEM'      // Integration and analytics improvements
+  | 'TIER_5_ADVANCED';   // Capability-gated automation and optimizations
 
 /**
  * A single, high-priority recommended action for the current teacher.

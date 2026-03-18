@@ -11,16 +11,31 @@
  *   - Each rule is a named constant → easy to test, audit, extend
  *   - Returns null when the teacher has completed all major milestones
  *
+ * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ * CANONICAL DECISION PRIORITY ORDER (non-negotiable)
+ * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ *   TIER 1 — BLOCKING  : Missing critical data that prevents other features
+ *   TIER 2 — ONBOARDING: Initial setup steps for a functional workspace
+ *   TIER 3 — ACADEMIC  : Core instructional workflow (UDA, planning)
+ *   TIER 4 — SYSTEM    : Integration and analytics improvements
+ *   TIER 5 — ADVANCED  : Capability-gated automation and optimizations
+ * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ *
+ * Source-of-truth resolution:
+ *   This function IS the authoritative source for next-action decisions.
+ *   Agent suggestions (runAllAgents) are DERIVED and complementary.
+ *   If any other module computes a "next step" independently, it is a violation.
+ *
  * Rule ordering (top = most urgent):
- *   L1-1  No students configured yet
- *   L1-2  Fewer than 3 lessons created
- *   L1-3  Copilot never opened
- *   L2-1  No UDA created
- *   L2-2  Drive backup not connected
- *   L2-3  Annual plan not completed
- *   L3-1  Analytics never viewed
- *   L3-2  Book service not linked
- *   L4-1  Automation not yet enabled
+ *   [TIER 1] L1-1  No students configured yet
+ *   [TIER 2] L1-2  Fewer than 3 lessons created
+ *   [TIER 2] L1-3  Copilot never opened
+ *   [TIER 3] L2-1  No UDA created
+ *   [TIER 4] L2-2  Drive backup not connected
+ *   [TIER 3] L2-3  Annual plan not completed
+ *   [TIER 4] L3-1  Analytics never viewed
+ *   [TIER 4] L3-2  Book service not linked
+ *   [TIER 5] L4-1  Automation not yet enabled
  */
 
 import type { NextAction, NextActionContext } from './types';
@@ -31,7 +46,7 @@ type DecisionRule = (ctx: NextActionContext) => NextAction | null;
 
 const RULES: DecisionRule[] = [
 
-  // ── L1-1: Add first student ──────────────────────────────────────────────
+  // ── [TIER 1 — BLOCKING] L1-1: Add first student ──────────────────────────
   (ctx) =>
     !ctx.hasStudents && !ctx.usage.workspaceConfigured
       ? {
@@ -46,7 +61,7 @@ const RULES: DecisionRule[] = [
         }
       : null,
 
-  // ── L1-2: Create first lesson ────────────────────────────────────────────
+  // ── [TIER 2 — ONBOARDING] L1-2: Create first lesson ──────────────────────
   (ctx) =>
     ctx.usage.lessonsCreated < 3
       ? {
@@ -60,7 +75,7 @@ const RULES: DecisionRule[] = [
         }
       : null,
 
-  // ── L1-3: Discover Copilot ───────────────────────────────────────────────
+  // ── [TIER 2 — ONBOARDING] L1-3: Discover Copilot ─────────────────────────
   (ctx) =>
     ctx.usage.copilotRequests === 0 && ctx.capabilityLevel === 1
       ? {
@@ -76,7 +91,7 @@ const RULES: DecisionRule[] = [
         }
       : null,
 
-  // ── L2-1: Create first UDA ───────────────────────────────────────────────
+  // ── [TIER 3 — ACADEMIC] L2-1: Create first UDA ───────────────────────────
   (ctx) =>
     ctx.capabilityLevel >= 2 && ctx.usage.udaCreated === 0
       ? {
@@ -92,7 +107,7 @@ const RULES: DecisionRule[] = [
         }
       : null,
 
-  // ── L2-2: Connect Drive backup ───────────────────────────────────────────
+  // ── [TIER 4 — SYSTEM] L2-2: Connect Drive backup ─────────────────────────
   (ctx) =>
     ctx.capabilityLevel >= 2 &&
     !ctx.usage.driveConnected &&
@@ -109,7 +124,7 @@ const RULES: DecisionRule[] = [
         }
       : null,
 
-  // ── L2-3: Complete annual plan ───────────────────────────────────────────
+  // ── [TIER 3 — ACADEMIC] L2-3: Complete annual plan ───────────────────────
   (ctx) =>
     ctx.capabilityLevel >= 2 && !ctx.eventNames.has('annual.plan.created')
       ? {
@@ -125,7 +140,7 @@ const RULES: DecisionRule[] = [
         }
       : null,
 
-  // ── L3-1: View analytics ─────────────────────────────────────────────────
+  // ── [TIER 4 — SYSTEM] L3-1: View analytics ───────────────────────────────
   (ctx) =>
     ctx.capabilityLevel >= 3 && ctx.usage.analyticsViews === 0
       ? {
@@ -141,7 +156,7 @@ const RULES: DecisionRule[] = [
         }
       : null,
 
-  // ── L3-2: Link book service ──────────────────────────────────────────────
+  // ── [TIER 4 — SYSTEM] L3-2: Link book service ────────────────────────────
   (ctx) =>
     ctx.capabilityLevel >= 3 && ctx.usage.bookServicesLinked === 0
       ? {
@@ -156,7 +171,7 @@ const RULES: DecisionRule[] = [
         }
       : null,
 
-  // ── L4-1: Enable automation ──────────────────────────────────────────────
+  // ── [TIER 5 — ADVANCED] L4-1: Enable automation ──────────────────────────
   (ctx) =>
     ctx.capabilityLevel >= 4 && !ctx.eventNames.has('copilot.automation.enabled')
       ? {
