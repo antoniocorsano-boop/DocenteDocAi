@@ -27,6 +27,7 @@ import { decisionMemory }           from './decisionMemory';
 import type { SuggestedAction }     from './copilotBrain';
 import { approvalGate }             from '../services/enterprise/approvalGate';
 import { enterpriseAuditLog }       from '../services/enterprise/enterpriseAuditLog';
+import { getHandler }               from './actionRegistry';
 
 // ─── Public types ─────────────────────────────────────────────────────────────
 
@@ -202,7 +203,14 @@ export function executeCopilotAction(
   // The executor does NOT mutate stores directly — that belongs to UI action handlers.
   // It validates, audits, signals, and returns a navigation hint.
   // The caller (UI button / chat handler) acts on navigateTo.
+  const entry      = getHandler(action.type);
   const navigateTo = action.type !== 'general' ? action.type : undefined;
+
+  // Autonomous Mode: auto-invoke handler for low-priority, non-critical, non-approval actions.
+  // Handlers in the registry are side-effect-only (analytics, prefetch) — never destructive.
+  if (entry?.autonomous && action.priority === 'low' && !action.requiresApproval) {
+    entry.handler(action, ctx);
+  }
 
   // ── Step 4: Audit ────────────────────────────────────────────────────────
   auditExecuted(action, ctx);

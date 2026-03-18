@@ -82,4 +82,9 @@ export { getNextActions } from './decisionEngine/getNextAction';
 // ── v8: Execution gate ────────────────────────────────────────────────────────
 
 export { executeCopilotAction } from './executeCopilotAction';
-export type { ExecutionResult, ExecutionStatus, ExecutionContext } from './executeCopilotAction';
+export type { ExecutionResult, ExecutionContext, ExecutionStatus } from './executeCopilotAction';
+
+// ── v9: Action Registry + Autonomous Mode ─────────────────────────────────────
+
+export { actionRegistry, getHandler } from './actionRegistry';
+export type { RegistryEntry, ActionHandler } from './actionRegistry';

@@ -25,6 +25,8 @@ import { getSessionLog } from '../cognition/EventLogger';
 import { getNextAction } from '../cognition/decisionEngine/getNextAction';
 import type { NextAction, NextActionContext } from '../cognition/decisionEngine/types';
 import type { CapabilityLevel } from '../types/teacherModel.types';
+import { decisionMemory } from '../cognition/decisionMemory';
+import { approvalGate }   from '../services/enterprise/approvalGate';
 
 export function useNextAction(): NextAction {
   // ── Persistent model state ──────────────────────────────────────────────
@@ -45,6 +47,13 @@ export function useNextAction(): NextAction {
     const sessionLog = getSessionLog();
     const eventNames = new Set(sessionLog.map((e) => e.event as string));
 
+    // Enterprise context — decisionMemory and approvalGate are singletons, not Zustand stores.
+    // Their changes don't trigger React re-renders on their own; however, the
+    // TeacherModel or Student store updates that co-occur with meaningful signals
+    // will cause this memo to recompute, picking up the latest enterprise state.
+    const dmState      = decisionMemory.getState();
+    const pendingCount = approvalGate.getPendingCount();
+
     const ctx: NextActionContext = {
       eventNames,
       capabilityLevel,
@@ -57,7 +66,10 @@ export function useNextAction(): NextAction {
         analyticsViews:      usageProfile.analyticsViews,
         workspaceConfigured: usageProfile.workspaceConfigured,
       },
-      hasStudents: students.filter((s) => !s.isArchived).length > 0,
+      hasStudents:      students.filter((s) => !s.isArchived).length > 0,
+      pendingApprovals: pendingCount,
+      signals:          dmState.signals.map((s) => ({ type: s.type, severity: s.severity })),
+      complianceStatus: dmState.complianceStatus,
     };
 
     return getNextAction(ctx);

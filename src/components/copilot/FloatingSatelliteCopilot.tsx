@@ -33,6 +33,9 @@ import { useJourneyProgress } from '../../hooks/useJourneyProgress';
 import { useGuidedExecutionStore } from '../../stores/useGuidedExecutionStore';
 import { useIntegrationStore } from '../../stores/useIntegrationStore';
 import { buildExecutionPlan } from '../../cognition/guidedExecution';
+import { executeCopilotAction } from '../../cognition/executeCopilotAction';
+import type { SuggestedAction } from '../../cognition/copilotBrain';
+import type { ExecutionStatus } from '../../cognition/executeCopilotAction';
 import { useAgentSuggestions } from '../../hooks/useAgentSuggestions';
 import type { AgentSuggestion } from '../../cognition/agents';
 import type { NextAction } from '../../cognition/decisionEngine/types';
@@ -227,15 +230,31 @@ const FloatingSatelliteCopilot: React.FC<Props> = ({ onNavigate }) => {
     swipeDelta.current = 0;
   }, []);
 
+  const [execStatus, setExecStatus] = useState<ExecutionStatus | 'idle'>('idle');
+
   const handleCta = useCallback(() => {
-    // Build execution plan and activate guided mode
-    const plan = buildExecutionPlan(action);
-    startGuided(plan);
-    // Navigate to first step's view if defined
-    if (plan.steps[0]?.targetView && onNavigate) {
-      onNavigate(plan.steps[0].targetView);
+    // Map NextAction → SuggestedAction for the execution gate
+    const suggested: SuggestedAction = {
+      id:               action.id,
+      title:            action.label,
+      description:      action.description,
+      priority:         action.priority ?? 'low',
+      type:             action.targetView ?? 'general',
+      requiresApproval: action.requiresApproval,
+    };
+
+    const result = executeCopilotAction(suggested, {});
+    setExecStatus(result.status);
+
+    if (result.status === 'executed') {
+      // Also activate guided mode for step-by-step UX
+      const plan = buildExecutionPlan(action);
+      startGuided(plan);
+      const target = result.navigateTo ?? plan.steps[0]?.targetView;
+      if (target && onNavigate) onNavigate(target);
+      setOpen(false);
     }
-    setOpen(false);
+    // For 'blocked' / 'pending_approval': keep panel open to show feedback chip
   }, [action, onNavigate, startGuided]);
 
   const handleAgentCta = useCallback((sug: AgentSuggestion) => {
@@ -678,6 +697,36 @@ const FloatingSatelliteCopilot: React.FC<Props> = ({ onNavigate }) => {
                 >
                   {action.cta}
                 </Button>
+              )}
+
+              {/* ── Execution feedback chip ──────────────────────────────── */}
+              {execStatus === 'blocked' && (
+                <Box
+                  role="status"
+                  sx={{
+                    p: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                    borderRadius: 'var(--md-sys-shape-corner-small)',
+                    bgcolor: 'var(--md-sys-color-error-container)',
+                  }}
+                >
+                  <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-on-error-container)' }}>
+                    Azione bloccata dalla policy. Verifica la conformità GDPR/AgID.
+                  </Typography>
+                </Box>
+              )}
+              {execStatus === 'pending_approval' && (
+                <Box
+                  role="status"
+                  sx={{
+                    p: 'var(--md-sys-spacing-2) var(--md-sys-spacing-3)',
+                    borderRadius: 'var(--md-sys-shape-corner-small)',
+                    bgcolor: 'var(--md-sys-color-secondary-container)',
+                  }}
+                >
+                  <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-on-secondary-container)' }}>
+                    Richiesta inviata al dirigente. In attesa di approvazione.
+                  </Typography>
+                </Box>
               )}
 
             </Stack>
