@@ -22,11 +22,13 @@
 
 import type { ParsedIntent, IntegrationEventType } from '../../types/integration.types';
 import type { Studente, Valutazione } from '../../types';
-import { useStudentStore } from '../../stores/useStudentStore';
-import { useAcademicStore } from '../../stores/useAcademicStore';
-import { useSystemStore } from '../../stores/useSystemStore';
-import { useTeacherModelStore } from '../../stores/useTeacherModelStore';
-import { useIntegrationStore } from '../../stores/useIntegrationStore';
+import { useStudentStore }       from '../../stores/useStudentStore';
+import { useAcademicStore }      from '../../stores/useAcademicStore';
+import { useSystemStore }        from '../../stores/useSystemStore';
+import { useTeacherModelStore }  from '../../stores/useTeacherModelStore';
+import { useIntegrationStore }   from '../../stores/useIntegrationStore';
+import { getNextAction }         from '../../cognition/decisionEngine/getNextAction';
+import type { NextActionContext } from '../../cognition/decisionEngine/types';
 
 // ─── Result type ──────────────────────────────────────────────────────────────
 
@@ -367,34 +369,34 @@ function handleGenerateContent(params: Record<string, string>): ActionResult {
 // ─── Decision engine ──────────────────────────────────────────────────────────
 
 /**
- * Returns the most relevant next-action suggestion based on the teacher's
- * current workspace state. Reads from real stores (useTeacherModelStore,
- * useStudentStore, useAcademicStore).
+ * Returns the most relevant next-action suggestion for the chat surface.
+ *
+ * Delegates to the REAL decision engine (getNextAction) — same brain
+ * used by the UI (FloatingSatelliteCopilot, NextStepBanner).
+ * No more duplicated / diverging heuristics.
  */
 export function getNextActionSuggestion(): string {
+    const { capabilityLevel, usageProfile } = useTeacherModelStore.getState();
     const { students } = useStudentStore.getState();
-    const { uda, eventi } = useAcademicStore.getState();
-    const { capabilityLevel } = useTeacherModelStore.getState();
 
-    const active = students.filter((s) => !s.isArchived);
+    const ctx: NextActionContext = {
+        // eventNames is empty in the server/store context (no EventLogger session here)
+        eventNames: new Set<string>(),
+        capabilityLevel,
+        usage: {
+            lessonsCreated:      usageProfile.lessonsCreated,
+            udaCreated:          usageProfile.udaCreated,
+            copilotRequests:     usageProfile.copilotRequests,
+            driveConnected:      usageProfile.driveConnected,
+            bookServicesLinked:  usageProfile.bookServicesLinked,
+            analyticsViews:      usageProfile.analyticsViews,
+            workspaceConfigured: usageProfile.workspaceConfigured,
+        },
+        hasStudents: students.filter((s) => !s.isArchived).length > 0,
+    };
 
-    if (active.length === 0) {
-        return 'Inizia creando una classe: "crea classe 2B" oppure "importa studenti"';
-    }
-
-    if (uda.length === 0) {
-        return `Hai ${active.length} studenti. Prossimo passo: "crea una UDA" per pianificare le attività`;
-    }
-
-    if (eventi.length === 0) {
-        return 'Ottimo! Vuoi pianificare gli eventi del consiglio di classe? "segna riunione il [data]"';
-    }
-
-    if (capabilityLevel < 3) {
-        return 'Stai andando bene! Apri il Copilot nell\'app per suggerimenti personalizzati sul tuo lavoro.';
-    }
-
-    return 'Non ho capito 🤔 Prova: "cosa devo fare", "mostra studenti", "crea UDA di [materia]"';
+    const action = getNextAction(ctx);
+    return `${action.label}: ${action.description}\n\n👉 "${action.cta}" → apri l'app.`;
 }
 
 // ─── Cross-surface event publisher ───────────────────────────────────────────

@@ -20,6 +20,7 @@
 
 import { useMemo } from 'react';
 import { useTeacherModelStore } from '../stores/useTeacherModelStore';
+import { useStudentStore }      from '../stores/useStudentStore';
 import { getSessionLog } from '../cognition/EventLogger';
 import { getNextAction } from '../cognition/decisionEngine/getNextAction';
 import type { NextAction, NextActionContext } from '../cognition/decisionEngine/types';
@@ -28,7 +29,12 @@ import type { CapabilityLevel } from '../types/teacherModel.types';
 export function useNextAction(): NextAction {
   // ── Persistent model state ──────────────────────────────────────────────
   const capabilityLevel = useTeacherModelStore((s) => s.capabilityLevel) as CapabilityLevel;
-  const usageProfile = useTeacherModelStore((s) => s.usageProfile);
+  const usageProfile    = useTeacherModelStore((s) => s.usageProfile);
+
+  // ── Actual student presence (fixes hasStudents computation) ─────────────
+  // BUG-FIX: previously derived from lessonsCreated || udaCreated which
+  // prevented rule L1-1 ("Aggiungi la tua classe") from activating correctly.
+  const students = useStudentStore((s) => s.students);
 
   // ── Session event names (in-memory, not persisted) ──────────────────────
   // getSessionLog() is synchronous and cheap — returns the current in-memory log.
@@ -43,19 +49,19 @@ export function useNextAction(): NextAction {
       eventNames,
       capabilityLevel,
       usage: {
-        lessonsCreated:     usageProfile.lessonsCreated,
-        udaCreated:         usageProfile.udaCreated,
-        copilotRequests:    usageProfile.copilotRequests,
-        driveConnected:     usageProfile.driveConnected,
-        bookServicesLinked: usageProfile.bookServicesLinked,
-        analyticsViews:     usageProfile.analyticsViews,
+        lessonsCreated:      usageProfile.lessonsCreated,
+        udaCreated:          usageProfile.udaCreated,
+        copilotRequests:     usageProfile.copilotRequests,
+        driveConnected:      usageProfile.driveConnected,
+        bookServicesLinked:  usageProfile.bookServicesLinked,
+        analyticsViews:      usageProfile.analyticsViews,
         workspaceConfigured: usageProfile.workspaceConfigured,
       },
-      hasStudents: usageProfile.lessonsCreated > 0 || usageProfile.udaCreated > 0,
+      hasStudents: students.filter((s) => !s.isArchived).length > 0,
     };
 
     return getNextAction(ctx);
-  }, [capabilityLevel, usageProfile]);
+  }, [capabilityLevel, usageProfile, students]);
 
   return action;
 }

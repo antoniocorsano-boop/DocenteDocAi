@@ -284,18 +284,6 @@ describe('AgentOrchestrator', () => {
       students: [STUDENT_NO_COGNOME],
       evaluations: [],
       recentEventCount: 10,
-      analyticsMetrics: {
-        totalStudents: 1,
-        totalEvaluations: 0,
-        udaCount: 0,
-        lessonCount: 0,
-        averageGrade: null,
-        gradeDistribution: {},
-        featuresUsage: { analytics: 0 },
-        aiInteractions: 0,
-        lastBackupAt: null,
-        driveConnected: false,
-      },
     });
     const result = runAllAgents(ctx);
     expect(result.length).toBeLessThanOrEqual(4);
