@@ -7,3 +7,4 @@ export * from "./rules";
 export * from "./evaluator/rulesEvaluator";
 export * from "./scoring/liveScorer";
 export * from "./violations/violationEngine";
+export * from "./audit";

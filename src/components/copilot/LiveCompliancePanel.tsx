@@ -18,8 +18,11 @@ import Button         from '@mui/material/Button';
 import Divider        from '@mui/material/Divider';
 import Collapse       from '@mui/material/Collapse';
 import Tooltip        from '@mui/material/Tooltip';
+import Tabs           from '@mui/material/Tabs';
+import Tab            from '@mui/material/Tab';
 import M3Surface      from '../ui/M3Surface';
 import { useComplianceRuntime } from '../../hooks/useComplianceRuntime';
+import AuditPAPanel   from './AuditPAPanel';
 import type { ComplianceViolation, FrameworkScore, RemediationAction } from '../../self-compliance/runtime/types';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -260,6 +263,7 @@ const ViolationCard: React.FC<ViolationCardProps> = ({ violation, onRemediate })
 const LiveCompliancePanel: React.FC = () => {
   const { result, violations, liveScore, remediate } = useComplianceRuntime();
   const [violationsOpen, setViolationsOpen] = useState(true);
+  const [tab, setTab] = useState<0 | 1>(0);
 
   const color          = scoreColor(liveScore, result.compliant);
   const statusLabel    = result.compliant ? 'Conforme' : violations.some(v => v.severity === 'critical') ? 'Critico' : 'Attenzione';
@@ -278,6 +282,32 @@ const LiveCompliancePanel: React.FC = () => {
       }}
     >
       <Stack gap="var(--md-sys-spacing-4)">
+
+        {/* ── Tab header ── */}
+        <Tabs
+          value={tab}
+          onChange={(_, v: 0 | 1) => setTab(v)}
+          sx={{
+            minHeight: 36,
+            borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+            '& .MuiTab-root': {
+              minHeight: 36,
+              textTransform: 'none',
+              fontSize: 'var(--md-sys-typescale-label-large-font-size)',
+              color: 'var(--md-sys-color-on-surface-variant)',
+            },
+            '& .Mui-selected': { color: 'var(--md-sys-color-primary)' },
+            '& .MuiTabs-indicator': { bgcolor: 'var(--md-sys-color-primary)' },
+          }}
+          aria-label="Modalità pannello compliance"
+        >
+          <Tab label="Live Runtime" id="compliance-tab-0" aria-controls="compliance-tabpanel-0" />
+          <Tab label="Audit PA" id="compliance-tab-1" aria-controls="compliance-tabpanel-1" />
+        </Tabs>
+
+        {/* ── Tab 0: Live Runtime ── */}
+        {tab === 0 && (
+        <Stack gap="var(--md-sys-spacing-4)" role="tabpanel" id="compliance-tabpanel-0" aria-labelledby="compliance-tab-0">
 
         {/* ── Header con live score ── */}
         <Stack direction="row" alignItems="center" gap="var(--md-sys-spacing-3)">
@@ -387,6 +417,16 @@ const LiveCompliancePanel: React.FC = () => {
               Nessuna violazione rilevata — tutte le regole soddisfatte.
             </Typography>
           </Stack>
+        )}
+
+        </Stack>
+        )} {/* fine tab 0: Live Runtime */}
+
+        {/* ── Tab 1: Audit PA ── */}
+        {tab === 1 && (
+          <Box role="tabpanel" id="compliance-tabpanel-1" aria-labelledby="compliance-tab-1">
+            <AuditPAPanel />
+          </Box>
         )}
 
       </Stack>
