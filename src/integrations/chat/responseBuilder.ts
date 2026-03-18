@@ -14,6 +14,9 @@
  *   // When the decision engine NextAction is available (preferred):
  *   const reply = buildContextualChatResponse(resultText, nextAction, alternates);
  *
+ *   // For role-aware responses (TEACHER vs PRINCIPAL):
+ *   const reply = buildRoleAwareResponse(role, content, nextAction);
+ *
  * Chat response contract (non-negotiable):
  *   - Every response MUST include exactly 1 primary next action.
  *   - Up to 2 secondary alternative actions are allowed.
@@ -196,5 +199,66 @@ export function buildDocumentActionResponse(
     return {
         text,
         suggestions: [nextAction.cta, 'Rivedi studenti', 'Cosa devo fare'].slice(0, 3),
+    };
+}
+
+// ─── Role-aware responses ─────────────────────────────────────────────────────
+
+/**
+ * Build a role-differentiated chat response.
+ *
+ * TEACHER responses use first-person, action-focused language.
+ * PRINCIPAL responses use third-person aggregate language with school context.
+ * ADMIN responses are TEACHER-style with additional management options.
+ *
+ * @param role       - Active user role ('TEACHER' | 'ADMIN' | 'PRINCIPAL')
+ * @param content    - Core message content
+ * @param nextAction - Mandatory next action from the decision engine
+ */
+export function buildRoleAwareResponse(
+    role: 'TEACHER' | 'ADMIN' | 'PRINCIPAL',
+    content: string,
+    nextAction: NextAction,
+): ChatResponse {
+    const rolePrefix: Record<'TEACHER' | 'ADMIN' | 'PRINCIPAL', string> = {
+        TEACHER:   '',
+        ADMIN:     '🔧 ',
+        PRINCIPAL: '🏫 ',
+    };
+
+    const roleCtaSuffix: Record<'TEACHER' | 'ADMIN' | 'PRINCIPAL', string[]> = {
+        TEACHER:   ['Cosa devo fare', 'Mostra studenti'],
+        ADMIN:     ['Gestisci utenti', 'Panoramica scuola'],
+        PRINCIPAL: ['Panoramica rischi', 'Report scuola'],
+    };
+
+    const text =
+        `${rolePrefix[role]}${content}\n\n` +
+        `👉 *Prossimo passo*: ${nextAction.label}\n→ "${nextAction.cta}"`;
+
+    return {
+        text,
+        suggestions: [nextAction.cta, ...roleCtaSuffix[role]].slice(0, 3),
+    };
+}
+
+/**
+ * Build a school-level insight response for PRINCIPAL/ADMIN users.
+ * Takes the output of `detectSchoolPatterns()` and formats it as a chat reply.
+ *
+ * @param insights    - Array of Italian insight strings from schoolInsights.ts
+ * @param nextAction  - Mandatory next action
+ */
+export function buildSchoolInsightResponse(
+    insights: string[],
+    nextAction: NextAction,
+): ChatResponse {
+    const header = '🏫 *Analisi scolastica*\n\n';
+    const body = insights.map((s) => `• ${s}`).join('\n');
+    const cta = `\n\n👉 *Prossimo passo*: ${nextAction.label}\n→ "${nextAction.cta}"`;
+
+    return {
+        text: header + body + cta,
+        suggestions: [nextAction.cta, 'Panoramica rischi', 'Esporta report'].slice(0, 3),
     };
 }

@@ -101,6 +101,11 @@ export interface AutomationRule {
    * Persisted to localStorage by the engine — do not set manually.
    */
   autoApproved?: boolean;
+  /**
+   * When set, this rule only fires when the active tenant matches.
+   * Omit for global rules that apply to all tenants.
+   */
+  tenantId?: string;
 }
 
 // ─── Execution log entry ──────────────────────────────────────────────────────

@@ -125,10 +125,18 @@ class AutomationEngineImpl {
   /**
    * Fire an automation trigger. Evaluates all matching enabled rules
    * and either executes them immediately or enqueues confirmation requests.
+   *
+   * @param payload    - Trigger payload (discriminated union)
+   * @param tenantId   - Active tenant ID; rules with a tenantId only fire when
+   *                     their tenantId matches. Rules without tenantId always
+   *                     match (backward-compatible).
    */
-  async trigger(payload: AutomationTriggerPayload): Promise<void> {
+  async trigger(payload: AutomationTriggerPayload, tenantId?: string): Promise<void> {
     const matchingRules = [...this._rules.values()].filter(
-      (r) => r.enabled && r.triggerType === payload.type,
+      (r) =>
+        r.enabled &&
+        r.triggerType === payload.type &&
+        (!r.tenantId || !tenantId || r.tenantId === tenantId),
     );
 
     for (const rule of matchingRules) {
