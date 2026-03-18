@@ -71,3 +71,6 @@ scripts/audit-md3-expressive.js
 
 *storybook.log
 storybook-static
+
+# TypeScript incremental build cache
+*.tsbuildinfo
