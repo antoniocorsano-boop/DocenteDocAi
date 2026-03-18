@@ -78,3 +78,8 @@ export type { PolicyContext, PolicySubject } from './policyEngine';
 export { getCopilotPrimaryAction, getTopSecondaryActions, getCopilotSnapshot } from './copilotBrain';
 export type { SuggestedAction } from './copilotBrain';
 export { getNextActions } from './decisionEngine/getNextAction';
+
+// ── v8: Execution gate ────────────────────────────────────────────────────────
+
+export { executeCopilotAction } from './executeCopilotAction';
+export type { ExecutionResult, ExecutionStatus, ExecutionContext } from './executeCopilotAction';

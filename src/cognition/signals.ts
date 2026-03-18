@@ -19,7 +19,9 @@ export type SystemSignalType =
   | 'NEW_DOCUMENT'       // new regulatory document entered the pipeline
   | 'INTEGRATION_ERROR'  // external integration (Drive, Telegram…) failure
   | 'PERFORMANCE_ALERT'  // student performance crossed a critical threshold
-  | 'MISSING_DATA';      // required data for a pipeline step is absent
+  | 'MISSING_DATA'       // required data for a pipeline step is absent
+  | 'ACTION_EXECUTED'    // a copilot-suggested action was executed successfully
+  | 'APPROVAL_REQUIRED'; // action blocked — submitted to HITL approval gate
 
 export type SystemSignalSeverity = 'info' | 'warning' | 'critical';
 

@@ -39,6 +39,7 @@ import {
   getCopilotPrimaryAction,
   getTopSecondaryActions,
 } from '../src/cognition/copilotBrain';
+import { executeCopilotAction } from '../src/cognition/executeCopilotAction';
 import type {
   RegulatoryDocument,
   EnterpriseWorkflowSession,
@@ -351,6 +352,54 @@ async function runEnterpriseFlowDemo(): Promise<void> {
 
   const urgencyIcon = primary.priority === 'high' ? '🔴' : primary.priority === 'medium' ? '🟡' : '🟢';
   ok(`Brain → ${urgencyIcon} "${primary.title}"${primary.requiresApproval ? ' — richiede approvazione' : ''}`);
+
+  // ──────────────────────────────────────────────────────────────────────────
+  section('STEP 9 — EXECUTE COPILOT ACTION: gateway di esecuzione sicura');
+  // ──────────────────────────────────────────────────────────────────────────
+
+  info('Simulazione click utente su azione primaria → executeCopilotAction()...');
+
+  const execCtx = { userId: 'prof.demo', tenantId: DOCUMENTO_MIUR.tenantId };
+
+  // Scenario A — soft action (should execute)
+  const softAction = secondaries[0] ?? primary;
+  const softResult = executeCopilotAction({ ...softAction, requiresApproval: false }, execCtx);
+  sub('Scenario A — azione soft', {
+    input:      softAction.title,
+    status:     softResult.status,
+    message:    softResult.message,
+    navigateTo: softResult.navigateTo ?? '(nessuna navigazione)',
+  });
+  if (softResult.status === 'executed') ok('Azione soft eseguita — audit + segnale emessi.');
+
+  // Scenario B — action requiring approval
+  const approvalAction = { ...primary, requiresApproval: true };
+  const approvalResult = executeCopilotAction(approvalAction, execCtx);
+  sub('Scenario B — azione con approvazione', {
+    input:             approvalAction.title,
+    status:            approvalResult.status,
+    message:           approvalResult.message,
+    approvalRequestId: approvalResult.approvalRequestId ?? '(N/A)',
+  });
+  if (approvalResult.status === 'pending_approval') {
+    ok('HITL gate attivato — request inviata all\'ApprovalGate.');
+    info(`Pending approvals dopo step 9: ${approvalGate.getPendingCount()}`);
+  }
+
+  // Scenario C — blocked by compliance (simulate critical GDPR)
+  decisionMemory.updateComplianceStatus('gdpr', 'critical');
+  const blockedResult = executeCopilotAction(softAction, execCtx);
+  sub('Scenario C — azione bloccata (GDPR critico)', {
+    status:        blockedResult.status,
+    blockedReason: blockedResult.blockedReason ?? '(N/A)',
+  });
+  if (blockedResult.status === 'blocked') ok('PolicyEngine ha bloccato l\'azione come atteso.');
+  // Restore compliance
+  decisionMemory.updateComplianceStatus('gdpr', 'ok');
+
+  sub('Audit log — esecuzioni copilot (ultimi 3)', enterpriseAuditLog.getLast(3).map(e =>
+    `[${new Date(e.timestamp).toLocaleTimeString('it-IT')}] ${e.action} — ${JSON.stringify(e.details['status'])}`
+  ).join('\n'));
 
   // ──────────────────────────────────────────────────────────────────────────
   section('RIEPILOGO FLUSSO COMPLETATO');
