@@ -93,3 +93,20 @@ export type { RegistryEntry, ActionHandler } from './actionRegistry';
 
 export { decide as notificationDecide, resetThrottle as resetNotificationThrottle } from './notificationEngine';
 export type { NotificationDecision } from './notificationEngine';
+
+// ── Sprint 12: Decision Timeline Builder ─────────────────────────────────────
+
+export {
+  buildTimeline,
+  filterTimeline,
+  clusterTimeline,
+  detectAnomalies,
+} from './decisionTimeline';
+export type {
+  DecisionEvent,
+  DecisionResult,
+  DecisionSource,
+  DecisionCategory,
+  TimelineFilter,
+  ClusteredGroup,
+} from './decisionTimeline';

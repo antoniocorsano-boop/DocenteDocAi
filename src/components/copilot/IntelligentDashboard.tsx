@@ -26,8 +26,8 @@ import { useProactiveNotifications }      from '../../hooks/useProactiveNotifica
 import PrimaryActionCard                  from './PrimaryActionCard';
 import SecondaryActionsList               from './SecondaryActionsList';
 import SystemStatusPanel                  from './SystemStatusPanel';
-import RecentDecisions                    from './RecentDecisions';
 import NotificationToast                  from './NotificationToast';
+import DecisionTimeline                   from './DecisionTimeline';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -41,8 +41,8 @@ const IntelligentDashboard: React.FC<Props> = ({ onNavigate }) => {
   // Primary action with full NextAction richness (icon, cta, reason)
   const primaryAction = useNextAction();
 
-  // Secondary actions + system status + signals (reactive to DecisionMemory)
-  const { secondaries, systemStatus, recentSignals } = useCopilotDashboard();
+  // Secondary actions + system status (reactive to DecisionMemory)
+  const { secondaries, systemStatus } = useCopilotDashboard();
 
   // Sprint 11 — proactive notification queue
   const { notifications, dismiss, dismissAll } = useProactiveNotifications();
@@ -93,8 +93,8 @@ const IntelligentDashboard: React.FC<Props> = ({ onNavigate }) => {
 
         <Divider sx={{ borderColor: 'var(--md-sys-color-outline-variant)' }} />
 
-        {/* ── Block 3: Recent decisions ── */}
-        <RecentDecisions signals={recentSignals} />
+        {/* ── Block 3: Full decisional timeline (Sprint 12) ── */}
+        <DecisionTimeline />
 
       </Stack>
     </Box>
