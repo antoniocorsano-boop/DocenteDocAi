@@ -1,7 +1,7 @@
 // runtime/audit/auditEngine.ts
 // Trasforma un ComplianceRuntimeResult nel report formale di un revisore PA esterno
 
-import type { ComplianceRuntimeResult, RuleFramework, FrameworkScore } from "../types";
+import type { ComplianceRuntimeResult, RuleFramework, FrameworkScore, ComplianceContext } from "../types";
 import type {
   PALiveAuditReport,
   AuditFinding,
@@ -10,6 +10,7 @@ import type {
 } from "./types";
 import { mapToPASeverity, isBlockingFinding } from "./severityMapper";
 import { generateRecommendations }            from "./recommendationEngine";
+import { collectEvidence }                    from "./evidenceCollector";
 
 // ── Note PA per ogni regola ───────────────────────────────────────────────────
 // Cosa scriverebbe un revisore PA esterno nel verbale ufficiale.
@@ -90,6 +91,7 @@ function computeCertificationReadiness(
  */
 export function buildAuditReport(
   result:        ComplianceRuntimeResult,
+  ctx:           ComplianceContext,
   scenarioId:    string,
   scenarioLabel: string,
   auditType:     PALiveAuditReport["auditType"],
@@ -108,6 +110,7 @@ export function buildAuditReport(
       suggestedFix:      v.suggestedFix,
       remediationAction: v.remediationAction,
       paNote:            PA_NOTES[v.ruleId] ?? "Verificare la documentazione tecnica e normativa della regola.",
+      evidence:          collectEvidence(ctx, v.ruleId),
     };
   });
 

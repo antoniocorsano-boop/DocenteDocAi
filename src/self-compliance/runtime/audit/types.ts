@@ -34,6 +34,8 @@ export type AuditFinding = {
    * Descrive l'impatto normativo e le conseguenze legali/operative.
    */
   paNote:            string;
+  /** Evidenze tecniche verificabili — valori di sistema al momento dell'audit. */
+  evidence:          string[];
 };
 
 // ── Scenario ──────────────────────────────────────────────────────────────────
@@ -89,4 +91,31 @@ export type PALiveAuditReport = {
   /** Raccomandazioni contestuali generate dall'engine */
   recommendations:        string[];
   generatedBy:            string;
+};
+
+// ── Audit Trail ───────────────────────────────────────────────────────────────
+
+/** Sommario di un singolo run di audit — salvato nello store persistent. */
+export type AuditRun = {
+  id:                      string;
+  runAt:                   string;  // ISO 8601
+  scenarioId:              string;
+  scenarioLabel:           string;
+  score:                   number;
+  blockingCount:           number;
+  complianceStatus:        ComplianceStatusPA;
+  certificationReadiness:  CertificationReadiness;
+};
+
+// ── Drift Detection ───────────────────────────────────────────────────────────
+
+export type DriftStatus = "improving" | "stable" | "degrading";
+
+export type DriftReport = {
+  status:        DriftStatus;
+  /** Positivo = miglioramento, negativo = peggioramento */
+  delta:         number;
+  recentScore:   number;
+  previousScore: number | null;
+  message:       string;
 };

@@ -93,5 +93,5 @@ export function runAuditSimulation(
   const result    = evaluateAllRules(ctx);
   const auditType = scenarioId === "production_live" ? "live" : "simulato";
 
-  return buildAuditReport(result, scenarioId, scenario.label, auditType);
+  return buildAuditReport(result, ctx, scenarioId, scenario.label, auditType);
 }

@@ -25,11 +25,26 @@ import Tooltip        from '@mui/material/Tooltip';
 import M3Surface      from '../ui/M3Surface';
 import { useAuditSimulator }    from '../../hooks/useAuditSimulator';
 import { useComplianceRuntime } from '../../hooks/useComplianceRuntime';
+import { useAuditHistory }       from '../../hooks/useAuditHistory';
 import type { AuditFinding, PALiveAuditReport } from '../../self-compliance/runtime/audit';
 import type { RemediationAction } from '../../self-compliance/runtime/types';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
+function driftColorHelper(status: 'improving' | 'stable' | 'degrading'): string {
+  switch (status) {
+    case 'improving': return 'var(--md-sys-color-primary)';
+    case 'stable':    return 'var(--md-sys-color-on-surface-variant)';
+    case 'degrading': return 'var(--md-sys-color-error)';
+  }
+}
 
+function driftIconHelper(status: 'improving' | 'stable' | 'degrading'): string {
+  switch (status) {
+    case 'improving': return 'trending_up';
+    case 'stable':    return 'trending_flat';
+    case 'degrading': return 'trending_down';
+  }
+}
 function paSeverityColor(severity: AuditFinding['severity']): string {
   switch (severity) {
     case 'Critical': return 'var(--md-sys-color-error)';
@@ -106,8 +121,9 @@ interface FindingCardProps {
 }
 
 const FindingCard: React.FC<FindingCardProps> = ({ finding, onRemediate }) => {
-  const [noteOpen, setNoteOpen] = useState(false);
-  const [fixOpen,  setFixOpen]  = useState(false);
+  const [noteOpen,     setNoteOpen]     = useState(false);
+  const [fixOpen,      setFixOpen]      = useState(false);
+  const [evidenceOpen, setEvidenceOpen] = useState(false);
   const color = paSeverityColor(finding.severity);
 
   return (
@@ -213,6 +229,32 @@ const FindingCard: React.FC<FindingCardProps> = ({ finding, onRemediate }) => {
             Nota Revisore
           </Button>
 
+          {/* Evidenze tecniche */}
+          {finding.evidence.length > 0 && (
+            <Button
+              size="small"
+              variant="text"
+              onClick={() => setEvidenceOpen(v => !v)}
+              startIcon={
+                <Box component="span" className="material-symbols-outlined" aria-hidden="true"
+                  sx={{ fontSize: 'var(--md-sys-icon-size-xs)' }}>
+                  fact_check
+                </Box>
+              }
+              endIcon={
+                <Box component="span" className="material-symbols-outlined" aria-hidden="true"
+                  sx={{ fontSize: 'var(--md-sys-icon-size-xs)' }}>
+                  {evidenceOpen ? 'expand_less' : 'expand_more'}
+                </Box>
+              }
+              sx={{ textTransform: 'none', color: 'var(--md-sys-color-secondary)', p: 0, minWidth: 0 }}
+              aria-expanded={evidenceOpen}
+              aria-label={`Mostra evidenze per ${finding.ruleId}`}
+            >
+              Evidenze ({finding.evidence.length})
+            </Button>
+          )}
+
           {/* Come risolvere */}
           <Button
             size="small"
@@ -290,6 +332,43 @@ const FindingCard: React.FC<FindingCardProps> = ({ finding, onRemediate }) => {
           </M3Surface>
         </Collapse>
 
+        {/* ── Evidenze tecniche verificabili ── */}
+        <Collapse in={evidenceOpen}>
+          <M3Surface
+            elevation={0}
+            sx={{
+              borderRadius: 'var(--md-sys-shape-corner-small)',
+              p: 'var(--md-sys-spacing-2)',
+              bgcolor: 'var(--md-sys-color-surface-variant)',
+            }}
+          >
+            <Stack gap="var(--md-sys-spacing-1)">
+              <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mb: 'var(--md-sys-spacing-1)' }}>
+                Evidenze tecniche verificabili:
+              </Typography>
+              <Stack direction="row" gap="var(--md-sys-spacing-1)" flexWrap="wrap">
+                {finding.evidence.map((ev, i) => (
+                  <Chip
+                    key={i}
+                    label={ev}
+                    size="small"
+                    sx={{
+                      fontFamily: 'monospace',
+                      bgcolor: 'transparent',
+                      border: '1px solid var(--md-sys-color-outline-variant)',
+                      color: 'var(--md-sys-color-on-surface)',
+                      borderRadius: 'var(--md-sys-shape-corner-extra-small)',
+                      fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                      height: 'auto',
+                      '& .MuiChip-label': { whiteSpace: 'normal', py: '2px' },
+                    }}
+                  />
+                ))}
+              </Stack>
+            </Stack>
+          </M3Surface>
+        </Collapse>
+
         {/* ── Suggerimento tecnico ── */}
         <Collapse in={fixOpen}>
           <M3Surface
@@ -317,8 +396,9 @@ const FindingCard: React.FC<FindingCardProps> = ({ finding, onRemediate }) => {
 // ── AuditPAPanel ──────────────────────────────────────────────────────────────
 
 const AuditPAPanel: React.FC = () => {
-  const { report, activeScenarioId, scenarios, setScenario, downloadJSON } = useAuditSimulator();
+  const { report, activeScenarioId, scenarios, setScenario, downloadJSON, runAudit } = useAuditSimulator();
   const { remediate } = useComplianceRuntime();
+  const { drift, runs: historyRuns } = useAuditHistory();
   const [findingsOpen, setFindingsOpen] = useState(true);
   const [recsOpen,     setRecsOpen]     = useState(true);
 
@@ -369,6 +449,37 @@ const AuditPAPanel: React.FC = () => {
           </Typography>
         )}
       </Stack>
+
+      {/* ── Compliance Drift Indicator ── */}
+      {historyRuns.length > 0 && (
+        <M3Surface
+          elevation={0}
+          sx={{
+            borderRadius: 'var(--md-sys-shape-corner-medium)',
+            p: 'var(--md-sys-spacing-2)',
+            bgcolor: 'var(--md-sys-color-surface-variant)',
+          }}
+        >
+          <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap="wrap" gap="var(--md-sys-spacing-2)">
+            <Stack direction="row" alignItems="center" gap="var(--md-sys-spacing-1)">
+              <Box
+                component="span"
+                className="material-symbols-outlined"
+                aria-hidden="true"
+                sx={{ fontSize: 'var(--md-sys-icon-size-sm)', color: driftColorHelper(drift.status) }}
+              >
+                {driftIconHelper(drift.status)}
+              </Box>
+              <Typography variant="bodySmall" sx={{ color: driftColorHelper(drift.status) }}>
+                {drift.message}
+              </Typography>
+            </Stack>
+            <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+              {historyRuns.length} audit registrat{historyRuns.length === 1 ? 'o' : 'i'}
+            </Typography>
+          </Stack>
+        </M3Surface>
+      )}
 
       <Divider />
 
@@ -624,7 +735,29 @@ const AuditPAPanel: React.FC = () => {
 
       {/* ── Export ── */}
       <Divider />
-      <Stack direction="row" gap="var(--md-sys-spacing-2)" justifyContent="flex-end">
+      <Stack direction="row" gap="var(--md-sys-spacing-2)" justifyContent="flex-end" flexWrap="wrap">
+        <Tooltip title="Registra questo audit nel registro storico per il tracciamento del drift nel tempo">
+          <Button
+            variant="outlined"
+            size="small"
+            onClick={runAudit}
+            startIcon={
+              <Box component="span" className="material-symbols-outlined" aria-hidden="true"
+                sx={{ fontSize: 'var(--md-sys-icon-size-sm)' }}>
+                add_task
+              </Box>
+            }
+            sx={{
+              textTransform: 'none',
+              borderColor: 'var(--md-sys-color-tertiary)',
+              color: 'var(--md-sys-color-tertiary)',
+              '&:hover': { borderColor: 'var(--md-sys-color-tertiary)', bgcolor: 'transparent' },
+            }}
+            aria-label="Registra questo audit nella storia"
+          >
+            Registra Audit
+          </Button>
+        </Tooltip>
         <Tooltip title="Scarica il verbale in formato JSON per documentazione ufficiale PA">
           <Button
             variant="outlined"

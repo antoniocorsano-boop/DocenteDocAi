@@ -2,10 +2,11 @@
 // React hook — Simulatore Audit PA Live
 // Gestisce lo scenario attivo e fornisce il PALiveAuditReport aggiornato al volo
 
-import { useState, useMemo, useCallback } from "react";
-import { useComplianceStore }              from "../self-compliance/useComplianceStore";
-import { runAuditSimulation, AUDIT_SCENARIOS } from "../self-compliance/runtime/audit";
-import type { PALiveAuditReport, AuditScenario } from "../self-compliance/runtime/audit";
+import { useState, useMemo, useCallback }      from "react";
+import { useComplianceStore }                   from "../self-compliance/useComplianceStore";
+import { useAuditTrailStore }                   from "../self-compliance/runtime/audit/auditTrailStore";
+import { runAuditSimulation, AUDIT_SCENARIOS }  from "../self-compliance/runtime/audit";
+import type { PALiveAuditReport, AuditScenario, AuditRun } from "../self-compliance/runtime/audit";
 
 export type UseAuditSimulatorReturn = {
   /** Report PA corrente — ricalcolato ogni volta che db o scenario cambiano */
@@ -22,6 +23,8 @@ export type UseAuditSimulatorReturn = {
   exportJSON:       () => string;
   /** Scarica il report come file .json */
   downloadJSON:     () => void;
+  /** Registra il report corrente nel trail storico per drift detection */
+  runAudit:         () => void;
 };
 
 export function useAuditSimulator(): UseAuditSimulatorReturn {
@@ -53,6 +56,22 @@ export function useAuditSimulator(): UseAuditSimulatorReturn {
     URL.revokeObjectURL(url);
   }, [exportJSON, report.scenarioId, report.auditDate]);
 
+  const addRun = useAuditTrailStore(s => s.addRun);
+
+  const runAudit = useCallback((): void => {
+    const run: AuditRun = {
+      id:                     `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+      runAt:                  report.auditDate,
+      scenarioId:             activeScenarioId,
+      scenarioLabel:          report.scenarioLabel,
+      score:                  report.overallScore,
+      blockingCount:          report.blockingCount,
+      complianceStatus:       report.complianceStatus,
+      certificationReadiness: report.certificationReadiness,
+    };
+    addRun(run);
+  }, [addRun, report, activeScenarioId]);
+
   return {
     report,
     activeScenarioId,
@@ -61,5 +80,6 @@ export function useAuditSimulator(): UseAuditSimulatorReturn {
     resetToLive,
     exportJSON,
     downloadJSON,
+    runAudit,
   };
 }
