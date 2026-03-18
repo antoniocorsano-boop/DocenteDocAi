@@ -43,6 +43,7 @@ export type AutomationTriggerType =
   | 'kg_node_linked'
   | 'scheduled_daily'
   | 'school_sync_requested'
+  | 'enterprise_workflow_requested'
   | 'manual';
 
 export interface SchoolSyncRequestedPayload {
@@ -58,6 +59,7 @@ export type AutomationTriggerPayload =
   | { type: 'kg_node_linked'; data: KgNodeLinkedPayload }
   | { type: 'scheduled_daily'; data: { date: string } }
   | { type: 'school_sync_requested'; data: SchoolSyncRequestedPayload }
+  | { type: 'enterprise_workflow_requested'; data: { sessionId: string; tenantId: string; documentTitle: string } }
   | { type: 'manual'; data: Record<string, unknown> };
 
 // ─── Condition ────────────────────────────────────────────────────────────────

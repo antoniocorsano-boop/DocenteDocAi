@@ -56,6 +56,11 @@ export type IntentAction =
     | 'generate_email'
     | 'send_email'
     | 'parse_document'
+    // Enterprise pipeline actions
+    | 'enterprise_regulatory_parse'
+    | 'enterprise_approval_resolve'
+    | 'enterprise_status'
+    | 'enterprise_compliance_report'
     | 'unknown';
 
 export interface ParsedIntent {

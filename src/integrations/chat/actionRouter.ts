@@ -37,6 +37,11 @@ import { useTeacherModelStore }  from '../../stores/useTeacherModelStore';
 import { useIntegrationStore }   from '../../stores/useIntegrationStore';
 import { getNextAction }         from '../../cognition/decisionEngine/getNextAction';
 import type { NextActionContext } from '../../cognition/decisionEngine/types';
+import { enterpriseOrchestrator, approvalGate } from '../../services/enterprise';
+import type { RegulatoryDocument, ApprovalLevel } from '../../types/enterprise.types';
+
+/** Valid decisions accepted by approvalGate.resolve() */
+type ApprovalResolutionDecision = 'approved' | 'rejected' | 'deferred';
 
 // ─── Result type ──────────────────────────────────────────────────────────────
 
@@ -76,6 +81,11 @@ export async function routeIntent(intent: ParsedIntent): Promise<ActionResult> {
         case 'generate_content':        return handleGenerateContent(params);
         case 'show_next_step':
             return { ok: true, message: getNextActionSuggestion(), requiresApp: false };
+        // Enterprise pipeline actions
+        case 'enterprise_regulatory_parse':  return handleEnterpriseRegulatoryParse(params);
+        case 'enterprise_approval_resolve':  return handleEnterpriseApprovalResolve(params);
+        case 'enterprise_status':            return handleEnterpriseStatus();
+        case 'enterprise_compliance_report': return handleEnterpriseComplianceReport(params);
         // Document AI actions — handled via routeDocumentIntent (see below)
         case 'add_students_from_doc':
         case 'import_grades':
@@ -671,4 +681,179 @@ export async function routeSchoolSyncIntent(
     }
 
     return { ok: false, message: 'Tipo di sincronizzazione non supportato.', requiresApp: false };
+}
+
+// ─── Enterprise pipeline handlers ────────────────────────────────────────────
+
+/**
+ * Parse a regulatory document and submit it to the Enterprise approval pipeline.
+ *
+ * Expected params:
+ *   title     — human-readable title of the document
+ *   sourceType — 'MIUR' | 'GOVERNMENT' | 'OFFICIAL_RECORD' | 'INTERNAL_POLICY' (default: 'INTERNAL_POLICY')
+ *   content    — full text of the document
+ *   tenantId   — required for multi-tenant routing
+ */
+async function handleEnterpriseRegulatoryParse(params: Record<string, string>): Promise<ActionResult> {
+    const { title, sourceType, content, tenantId } = params;
+
+    if (!title || !content) {
+        return {
+            ok: false,
+            message: 'Specifica titolo e testo del documento normativo. Es: "analizza normativa MIUR 2024 <testo>"',
+            requiresApp: false,
+        };
+    }
+
+    const validSources: RegulatoryDocument['source'][] = ['miur', 'government', 'official_record', 'circular', 'ministerial_decree'];
+    const resolvedSource: RegulatoryDocument['source'] = (validSources.includes(sourceType as RegulatoryDocument['source']) ? sourceType as RegulatoryDocument['source'] : 'miur');
+
+    const doc: RegulatoryDocument = {
+        id:           `reg_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`,
+        title,
+        source:       resolvedSource,
+        rawText:      content,
+        issuedAt:     new Date().toISOString(),
+        tenantId:     tenantId ?? 'default',
+    };
+
+    try {
+        const session = await enterpriseOrchestrator.processRegulatoryDocument(doc);
+        useSystemStore.getState().actions.trackAnalyticsEvent('feature_usage', 'enterprise_regulatory_parse', { sessionId: session.id });
+
+        const pendingCount = session.approvalRequest ? 1 : 0;
+        return {
+            ok: true,
+            message:
+                `Documento normativo analizzato ✓\n` +
+                `Sessione: ${session.id}\n` +
+                `Approvazioni in attesa: ${pendingCount}\n` +
+                `Apri il pannello Enterprise per completare il flusso di approvazione.`,
+            requiresApp: true,
+            eventType:   'document_parsed',
+            data:        { sessionId: session.id, pendingApprovals: pendingCount },
+        };
+    } catch (err) {
+        return {
+            ok: false,
+            message: `Errore analisi documento: ${err instanceof Error ? err.message : String(err)}`,
+            requiresApp: false,
+        };
+    }
+}
+
+/**
+ * Resolve a pending enterprise approval request.
+ *
+ * Expected params:
+ *   approvalId — ID of the ApprovalRequest to resolve
+ *   decision   — 'approved' | 'rejected' | 'escalated'
+ *   level      — 'segreteria' | 'dirigente' | 'ministry' | 'governo'
+ *   by         — display name of the approver
+ *   reason     — optional justification text
+ */
+async function handleEnterpriseApprovalResolve(params: Record<string, string>): Promise<ActionResult> {
+    const { approvalId, decision, level, by, reason } = params;
+
+    if (!approvalId || !decision || !level || !by) {
+        return {
+            ok: false,
+            message: 'Parametri mancanti: specifica approvalId, decision, level e by.',
+            requiresApp: false,
+        };
+    }
+
+    const validDecisions: ApprovalResolutionDecision[] = ['approved', 'rejected', 'deferred'];
+    const validLevels: ApprovalLevel[]                 = ['segreteria', 'dirigente', 'ministry', 'governo'];
+
+    const resolvedDecision = validDecisions.includes(decision as ApprovalResolutionDecision) ? decision as ApprovalResolutionDecision : null;
+    const resolvedLevel    = validLevels.includes(level as ApprovalLevel) ? level as ApprovalLevel : null;
+
+    if (!resolvedDecision || !resolvedLevel) {
+        return {
+            ok: false,
+            message: `Decisione o livello non valido. Decision: approved|rejected|deferred — Level: segreteria|dirigente|ministry|governo`,
+            requiresApp: false,
+        };
+    }
+
+    try {
+        approvalGate.resolve(approvalId, resolvedLevel, resolvedDecision, by, reason);
+        const verb = resolvedDecision === 'approved' ? 'approvata' : resolvedDecision === 'rejected' ? 'rifiutata' : 'rinviata';
+        useSystemStore.getState().actions.trackAnalyticsEvent('feature_usage', 'enterprise_approval_resolve', { approvalId, decision: resolvedDecision });
+
+        return {
+            ok:          true,
+            message:     `Richiesta di approvazione ${verb} ✓\nLivello: ${resolvedLevel} — da: ${by}`,
+            requiresApp: false,
+            eventType:   'document_parsed',
+            data:        { approvalId, decision: resolvedDecision, resolvedBy: by },
+        };
+    } catch (err) {
+        return {
+            ok: false,
+            message: `Errore approvazione: ${err instanceof Error ? err.message : String(err)}`,
+            requiresApp: false,
+        };
+    }
+}
+
+/** Return a quick status summary of the enterprise pipeline. */
+function handleEnterpriseStatus(): ActionResult {
+    const pending = approvalGate.getPending();
+    const count   = pending.length;
+
+    if (count === 0) {
+        return {
+            ok:          true,
+            message:     'Pipeline Enterprise: nessuna approvazione in attesa ✓\nTutti i flussi normativi sono aggiornati.',
+            requiresApp: false,
+        };
+    }
+
+    const summary = pending
+        .slice(0, 5)
+        .map(r => `  • [${r.requiredLevel.toUpperCase()}] ${r.title}`)
+        .join('\n');
+
+    return {
+        ok:          true,
+        message:     `Pipeline Enterprise — ${count} approvazion${count !== 1 ? 'i' : 'e'} in attesa:\n${summary}${count > 5 ? `\n  … e altre ${count - 5}` : ''}\nApri il pannello Compliance per gestirle.`,
+        requiresApp: true,
+        data:        { pendingCount: count },
+    };
+}
+
+/**
+ * Generate a compliance report for a tenant.
+ *
+ * Expected params:
+ *   tenantId — optional; defaults to 'default'
+ */
+function handleEnterpriseComplianceReport(params: Record<string, string>): ActionResult {
+    const tenantId = params.tenantId ?? 'default';
+
+    try {
+        const report = enterpriseOrchestrator.getComplianceReport(tenantId);
+        const total  = report.standards.length;
+        const ready  = report.standards.filter((s: { status: string }) => s.status === 'compliant').length;
+        const pct    = total > 0 ? Math.round((ready / total) * 100) : 0;
+
+        return {
+            ok:          true,
+            message:
+                `Compliance Report — ${tenantId}\n` +
+                `✓ ${pct}% (${ready}/${total} standard conformi)\n` +
+                `Standard: ${report.standards.map((s: { standard: string; status: string }) => `${s.standard}=${s.status}`).join(', ')}\n` +
+                `Apri il pannello Compliance per il report completo.`,
+            requiresApp: true,
+            data:        { tenantId, overallPct: pct, standards: total, compliant: ready },
+        };
+    } catch (err) {
+        return {
+            ok: false,
+            message: `Errore report compliance: ${err instanceof Error ? err.message : String(err)}`,
+            requiresApp: false,
+        };
+    }
 }
