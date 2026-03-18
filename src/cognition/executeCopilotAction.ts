@@ -28,6 +28,7 @@ import type { SuggestedAction }     from './copilotBrain';
 import { approvalGate }             from '../services/enterprise/approvalGate';
 import { enterpriseAuditLog }       from '../services/enterprise/enterpriseAuditLog';
 import { getHandler }               from './actionRegistry';
+import { useUserBehaviorStore }     from '../stores/useUserBehaviorStore';
 
 // ─── Public types ─────────────────────────────────────────────────────────────
 
@@ -214,6 +215,9 @@ export function executeCopilotAction(
 
   // ── Step 4: Audit ────────────────────────────────────────────────────────
   auditExecuted(action, ctx);
+
+  // ── Step 4b: Behavior tracking ───────────────────────────────────────────
+  useUserBehaviorStore.getState().onActionExecuted(action.id, action.requiresApproval);
 
   // ── Step 5: Signal ───────────────────────────────────────────────────────
   decisionMemory.emitSignal({

@@ -110,3 +110,18 @@ export type {
   TimelineFilter,
   ClusteredGroup,
 } from './decisionTimeline';
+
+// ── Sprint 13: User Behavior Model ────────────────────────────────────────────
+
+export {
+  createEmptyProfile,
+  onActionExecuted,
+  onActionIgnored,
+  onApprovalDelay,
+} from './userBehaviorModel';
+export type { UserBehaviorProfile } from './userBehaviorModel';
+
+// ── Sprint 14: Dynamic Ranking Engine ─────────────────────────────────────────
+
+export { rankActions } from './rankingEngine';
+export type { ScoringFactors, ScoreBreakdown, RankedAction } from './rankingEngine';

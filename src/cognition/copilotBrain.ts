@@ -22,6 +22,10 @@ import { decisionMemory }         from './decisionMemory';
 import { approvalGate }           from '../services/enterprise';
 import { useTeacherModelStore }   from '../stores/useTeacherModelStore';
 import { useStudentStore }        from '../stores/useStudentStore';
+import { rankActions }            from './rankingEngine';
+import type { ScoringFactors }    from './rankingEngine';
+import { useUserBehaviorStore }   from '../stores/useUserBehaviorStore';
+import { enterpriseAuditLog }     from '../services/enterprise/enterpriseAuditLog';
 
 // ─── Public surface type ──────────────────────────────────────────────────────
 
@@ -76,6 +80,29 @@ function buildContext(): NextActionContext {
   };
 }
 
+// ─── Scoring factors builder ─────────────────────────────────────────────────
+
+function buildScoringFactors(dmState: ReturnType<typeof decisionMemory.getState>): ScoringFactors {
+  // Actions executed in the last 24 h from audit log
+  const oneDayAgo = Date.now() - 86_400_000;
+  const recent = enterpriseAuditLog
+    .filterByAction('copilot_action_executed')
+    .filter((e) => new Date(e.timestamp).getTime() > oneDayAgo)
+    .map((e) => (e.details as Record<string, unknown>)?.['actionId'] as string)
+    .filter(Boolean);
+
+  const complianceNonOk =
+    dmState.complianceStatus.gdpr !== 'ok' ||
+    dmState.complianceStatus.agid !== 'ok';
+
+  return {
+    activeSignals:    dmState.signals.map((s) => ({ type: s.type, severity: s.severity })),
+    complianceNonOk,
+    recentlyExecuted: new Set(recent),
+    userProfile:      useUserBehaviorStore.getState().getProfile(),
+  };
+}
+
 // ─── Mapping: NextAction → SuggestedAction ────────────────────────────────────
 
 function mapToSuggested(action: NextAction): SuggestedAction {
@@ -115,9 +142,11 @@ function derivePriority(action: NextAction): 'high' | 'medium' | 'low' {
  * // { id: 'da-enterprise-pending-approval', title: '2 approvazioni in attesa', priority: 'high', ... }
  */
 export function getCopilotPrimaryAction(): SuggestedAction {
-  const ctx = buildContext();
-  const [primary] = getNextActions(ctx, 1);
-  return mapToSuggested(primary);
+  const ctx     = buildContext();
+  const actions = getNextActions(ctx, 3).map(mapToSuggested);
+  const dmState = decisionMemory.getState();
+  const ranked  = rankActions(actions, buildScoringFactors(dmState));
+  return ranked[0];
 }
 
 /**
@@ -130,9 +159,11 @@ export function getCopilotPrimaryAction(): SuggestedAction {
  * const [alt1, alt2] = getTopSecondaryActions();
  */
 export function getTopSecondaryActions(): SuggestedAction[] {
-  const ctx = buildContext();
-  const actions = getNextActions(ctx, 3);
-  return actions.slice(1).map(mapToSuggested);
+  const ctx     = buildContext();
+  const actions = getNextActions(ctx, 3).map(mapToSuggested);
+  const dmState = decisionMemory.getState();
+  const ranked  = rankActions(actions, buildScoringFactors(dmState));
+  return ranked.slice(1);
 }
 
 /**
@@ -143,10 +174,12 @@ export function getCopilotSnapshot(): {
   primary:     SuggestedAction;
   secondaries: SuggestedAction[];
 } {
-  const ctx = buildContext();
-  const actions = getNextActions(ctx, 3);
+  const ctx     = buildContext();
+  const actions = getNextActions(ctx, 3).map(mapToSuggested);
+  const dmState = decisionMemory.getState();
+  const ranked  = rankActions(actions, buildScoringFactors(dmState));
   return {
-    primary:     mapToSuggested(actions[0]),
-    secondaries: actions.slice(1).map(mapToSuggested),
+    primary:     ranked[0],
+    secondaries: ranked.slice(1),
   };
 }

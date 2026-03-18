@@ -19,6 +19,7 @@ import { approvalGate }            from '../services/enterprise/approvalGate';
 import { decide }                  from '../cognition/notificationEngine';
 import type { NotificationDecision } from '../cognition/notificationEngine';
 import { useUIStore }              from '../stores/useUIStore';
+import { useUserBehaviorStore }    from '../stores/useUserBehaviorStore';
 import type { SystemSignal }       from '../cognition/signals';
 
 // ── Re-export so consumers avoid a second deep import ─────────────────────────
@@ -82,7 +83,14 @@ export function useProactiveNotifications(): ProactiveNotificationsState {
   }, [handleSignal]);
 
   const dismiss = useCallback((actionId: string) => {
-    setNotifications((prev) => prev.filter((n) => n.actionId !== actionId));
+    setNotifications((prev) => {
+      const target = prev.find((n) => n.actionId === actionId);
+      // Treat explicit dismiss as an "ignored" signal for behavior learning
+      if (target?.actionId) {
+        useUserBehaviorStore.getState().onActionIgnored(target.actionId);
+      }
+      return prev.filter((n) => n.actionId !== actionId);
+    });
   }, []);
 
   const dismissAll = useCallback(() => setNotifications([]), []);

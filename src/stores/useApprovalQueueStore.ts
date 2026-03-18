@@ -13,6 +13,7 @@
 import { create } from 'zustand';
 import { approvalGate } from '../services/enterprise/approvalGate';
 import type { ApprovalRequest } from '../types/enterprise.types';
+import { useUserBehaviorStore } from './useUserBehaviorStore';
 
 interface ApprovalQueueState {
   pending: ApprovalRequest[];
@@ -35,6 +36,12 @@ export const useApprovalQueueStore = create<ApprovalQueueState>((set) => {
 
   // Subscribe to resolutions
   approvalGate.onResolution((_resolution, _request) => {
+    // Track approval turnaround speed for UserBehaviorModel
+    const delayMs =
+      new Date(_resolution.resolvedAt).getTime() -
+      new Date(_request.createdAt).getTime();
+    useUserBehaviorStore.getState().onApprovalDelay(delayMs);
+
     set({
       pending:        approvalGate.getPending(),
       pendingCount:   approvalGate.getPendingCount(),
