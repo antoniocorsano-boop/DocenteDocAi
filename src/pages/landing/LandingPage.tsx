@@ -524,17 +524,107 @@ const ComeFunzionaSection: React.FC = memo(() => (
 ));
 ComeFunzionaSection.displayName = 'ComeFunzionaSection';
 
+// ── FUNZIONALITÀ ─────────────────────────────────────────────────────────────
+
+const FEATURES = [
+  {
+    icon: 'hub',
+    title: 'Knowledge Graph',
+    body: 'Ogni dato entra in una rete semantica: studenti, lezioni, valutazioni e azioni collegati e interrogabili.',
+    color: 'var(--md-sys-color-primary)',
+  },
+  {
+    icon: 'sync',
+    title: 'Sincronizzazione registro',
+    body: 'Connetti Spaggiari, Argo o qualsiasi sistema scolastico HTTP. Dati di classe e voti sincronizzati automaticamente.',
+    color: 'var(--md-sys-color-secondary)',
+  },
+  {
+    icon: 'bolt',
+    title: 'Automazioni intelligenti',
+    body: 'Il sistema pianifica azioni autonomamente — notifiche, aggiornamenti registro, report — con log di audit completo.',
+    color: 'var(--md-sys-color-tertiary)',
+  },
+  {
+    icon: 'groups',
+    title: 'Multi-classe e multi-istituto',
+    body: 'Gestisci più classi su più scuole con RBAC nativo. Ogni dato è isolato e protetto per tenant.',
+    color: 'var(--md-sys-color-primary)',
+  },
+  {
+    icon: 'description',
+    title: 'Analisi documenti',
+    body: 'Circolari, foto, elaborati: l\'AI estrae dati strutturati via OCR e li integra nel profilo della classe.',
+    color: 'var(--md-sys-color-secondary)',
+  },
+  {
+    icon: 'verified_user',
+    title: 'Compliance automatica',
+    body: 'Log di conformità su ogni azione e sincronizzazione. Audit-ready per la PA. GDPR by design.',
+    color: 'var(--md-sys-color-tertiary)',
+  },
+] as const;
+
+const FunzionalitaSection: React.FC = memo(() => (
+  <Section id="funzionalita" ariaLabel="Funzionalità principali di DocenteDocAI" bg="container">
+    <SectionHeading
+      title="Tutto il tuo lavoro, connesso"
+      subtitle="Dalle annotazioni quotidiane all'integrazione con il registro — un sistema unico che impara dal tuo contesto."
+    />
+    <Box
+      sx={{
+        display: 'grid',
+        gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' },
+        gap: 'var(--md-sys-spacing-4)',
+      }}
+    >
+      {FEATURES.map(f => (
+        <Box
+          key={f.title}
+          sx={{
+            p: 'var(--md-sys-spacing-4)',
+            borderRadius: 'var(--md-sys-shape-corner-large)',
+            bgcolor: 'var(--md-sys-color-surface)',
+            border: '1px solid var(--md-sys-color-outline-variant)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--md-sys-spacing-2)',
+            transition: 'border-color 0.15s, transform 0.15s',
+            '&:hover': { transform: 'translateY(-2px)', borderColor: f.color },
+          }}
+        >
+          <Box
+            component="span"
+            className="material-symbols-outlined"
+            aria-hidden="true"
+            sx={{ fontSize: 28, color: f.color }}
+          >
+            {f.icon}
+          </Box>
+          <Typography variant="titleSmall" component="h3" sx={{ color: 'var(--md-sys-color-on-surface)' }}>
+            {f.title}
+          </Typography>
+          <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)', lineHeight: 1.6 }}>
+            {f.body}
+          </Typography>
+        </Box>
+      ))}
+    </Box>
+  </Section>
+));
+FunzionalitaSection.displayName = 'FunzionalitaSection';
+
 // ── PER CHI ────────────────────────────────────────────────────────────────────
 
 const PerChiSection: React.FC = memo(() => (
   <Section id="per-chi" ariaLabel="A chi si rivolge DocenteDocAI" bg="primary-container">
     <SectionHeading
-      title="Per qualunque docente"
+      title="Per qualunque professionale"
     />
     <Box
       sx={{
         display: 'grid',
-        gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+        gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
         gap: 'var(--md-sys-spacing-5)',
       }}
     >
@@ -545,7 +635,7 @@ const PerChiSection: React.FC = memo(() => (
           tagColor: 'var(--md-sys-color-primary)',
           tagBg: 'var(--md-sys-color-surface)',
           description: 'Non sai da dove partire? Il sistema lo sa. Ti guida dal primo studente fino alla prima UDA, passo dopo passo, senza che tu debba esplorare menù o leggere manuali.',
-          steps: ['Prima schermate → guida immediata', 'Ogni azione spiega il perché', 'Progredisci senza ansia'],
+          steps: ['Prima schermata → guida immediata', 'Ogni azione spiega il perché', 'Progredisci senza ansia'],
         },
         {
           label: 'Docente esperto',
@@ -554,6 +644,14 @@ const PerChiSection: React.FC = memo(() => (
           tagBg: 'var(--md-sys-color-surface)',
           description: 'Già navigato? Il Copilot si adatta: suggerisce ottimizzazioni avanzate, analisi predittive sulla classe, azioni ad alto impatto che risparmiano ore di lavoro.',
           steps: ['Predizione trend di apprendimento', 'Insight automatici per classe', 'Azioni strategiche ad alto impatto'],
+        },
+        {
+          label: 'Dirigente scolastico',
+          tag: 'Strategico',
+          tagColor: 'var(--md-sys-color-secondary)',
+          tagBg: 'var(--md-sys-color-surface)',
+          description: 'Vista d\'insieme su classi, docenti e istituto. Dashboard predittive per identificare criticità, monitorare compliance e preparare audit e rendicontazioni.',
+          steps: ['Dashboard multi-classe e multi-docente', 'Monitoraggio rischio e dropout', 'Report compliance automatici'],
         },
       ].map(({ label, tag, tagColor, tagBg, description, steps }) => (
         <Card
@@ -614,6 +712,140 @@ const PerChiSection: React.FC = memo(() => (
   </Section>
 ));
 PerChiSection.displayName = 'PerChiSection';
+
+// ── GUIDA ─────────────────────────────────────────────────────────────────────
+
+const GUIDA_STEPS = [
+  {
+    step: '01',
+    icon: 'person_add',
+    title: 'Configura il profilo',
+    body: 'Inserisci nome, disciplina e scuola. Il sistema rileva il tuo livello di esperienza e calibra la guida AI di conseguenza.',
+  },
+  {
+    step: '02',
+    icon: 'groups',
+    title: 'Aggiungi studenti e classi',
+    body: 'Importa da Spaggiari/Argo o aggiungi manualmente. Il Knowledge Graph costruisce le relazioni in tempo reale.',
+  },
+  {
+    step: '03',
+    icon: 'menu_book',
+    title: 'Prima lezione',
+    body: 'Registra l\'argomento e le osservazioni. Il Copilot suggerisce UDA, obiettivi di apprendimento e prossimo passo.',
+  },
+  {
+    step: '04',
+    icon: 'analytics',
+    title: 'Analisi della classe',
+    body: 'Dopo le prime lezioni il sistema produce insight predittivi: trend di apprendimento, alunni a rischio, progressioni.',
+  },
+  {
+    step: '05',
+    icon: 'description',
+    title: 'Documenti e circolari',
+    body: 'Carica una circolare o una foto: l\'AI estrae dati, li aggancia al registro e propone azioni concrete.',
+  },
+] as const;
+
+const GuidaSection: React.FC = memo(() => (
+  <Section id="guida" ariaLabel="Guida rapida all'utilizzo di DocenteDocAI" bg="container">
+    <SectionHeading
+      title="Guida rapida"
+      subtitle="Dal primo accesso ai suggerimenti avanzati — in cinque passi."
+    />
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-3)' }}>
+      {GUIDA_STEPS.map(({ step, icon, title, body }) => (
+        <Box
+          key={step}
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '48px 1fr', md: '64px 1fr' },
+            gap: { xs: 'var(--md-sys-spacing-3)', md: 'var(--md-sys-spacing-5)' },
+            alignItems: 'flex-start',
+            p: 'var(--md-sys-spacing-4)',
+            borderRadius: 'var(--md-sys-shape-corner-large)',
+            bgcolor: 'var(--md-sys-color-surface)',
+            border: '1px solid var(--md-sys-color-outline-variant)',
+          }}
+        >
+          {/* Step badge + icon */}
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', pt: '2px' }}>
+            <Typography
+              variant="labelSmall"
+              sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-bold)' }}
+            >
+              {step}
+            </Typography>
+            <Box
+              component="span"
+              className="material-symbols-outlined"
+              aria-hidden="true"
+              sx={{ fontSize: 22, color: 'var(--md-sys-color-primary)' }}
+            >
+              {icon}
+            </Box>
+          </Box>
+          {/* Text */}
+          <Box>
+            <Typography
+              variant="titleSmall"
+              component="h3"
+              sx={{ color: 'var(--md-sys-color-on-surface)', mb: 'var(--md-sys-spacing-1)' }}
+            >
+              {title}
+            </Typography>
+            <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)', lineHeight: 1.65 }}>
+              {body}
+            </Typography>
+          </Box>
+        </Box>
+      ))}
+    </Box>
+
+    {/* CTA embedded */}
+    <Box
+      sx={{
+        mt: 'var(--md-sys-spacing-6)',
+        p: 'var(--md-sys-spacing-5)',
+        borderRadius: 'var(--md-sys-shape-corner-large)',
+        bgcolor: 'var(--md-sys-color-primary-container)',
+        border: '1px solid var(--md-sys-color-primary)',
+        display: 'flex',
+        flexDirection: { xs: 'column', sm: 'row' },
+        alignItems: { sm: 'center' },
+        gap: 'var(--md-sys-spacing-4)',
+      }}
+    >
+      <Box sx={{ flex: 1 }}>
+        <Typography variant="titleSmall" sx={{ color: 'var(--md-sys-color-on-primary-container)', mb: 'var(--md-sys-spacing-1)' }}>
+          Pronto a iniziare?
+        </Typography>
+        <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-primary-container)', opacity: 0.85 }}>
+          Il Copilot ti guida dal primo secondo — senza bisogno di leggere nessun manuale.
+        </Typography>
+      </Box>
+      <Button
+        variant="contained"
+        size="medium"
+        href="/"
+        component="a"
+        endIcon={<ArrowForwardIcon />}
+        aria-label="Avvia DocenteDocAI adesso"
+        sx={{
+          borderRadius: 'var(--md-sys-shape-corner-full)',
+          bgcolor: 'var(--md-sys-color-primary)',
+          color: 'var(--md-sys-color-on-primary)',
+          flexShrink: 0,
+          '&:hover': { bgcolor: 'var(--md-sys-color-primary)', filter: 'brightness(0.92)' },
+        }}
+      >
+        Avvia
+      </Button>
+    </Box>
+  </Section>
+));
+GuidaSection.displayName = 'GuidaSection';
 
 // ── CTA FINALE ────────────────────────────────────────────────────────────────
 
@@ -1161,7 +1393,9 @@ const LandingPage: React.FC = () => (
       <Hero />
       <DemoSection />
       <ComeFunzionaSection />
+      <FunzionalitaSection />
       <PerChiSection />
+      <GuidaSection />
       <CtaSection />
       <ValoriSection />
       <EticaAISection />

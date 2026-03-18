@@ -134,6 +134,14 @@ export const Header: React.FC<ExtendedHeaderProps> = ({
         {/* Trailing: Status, Settings, Avatar */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
           {user && <UserLevelBadge />}
+          <IconButton
+            aria-label="Vai al portale DocenteDocAI"
+            onClick={() => { window.location.href = '/landing'; }}
+            title="Portale"
+            sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
+          >
+            <Box component="span" className="material-symbols-outlined" aria-hidden="true">home</Box>
+          </IconButton>
           {!isOnline && (
             <Box
               role="status"
