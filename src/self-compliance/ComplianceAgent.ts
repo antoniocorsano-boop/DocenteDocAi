@@ -1,38 +1,38 @@
 // ComplianceAgent.ts
-// Agente orchestratore per Self-Compliance Engine
+// Agente orchestratore Self-Compliance Engine.
+// Delega al complianceApi per operazioni non-reattive.
 
-import { collectMetrics } from "./metricsCollector";
-import { monitorRisks } from "./riskMonitor";
-import { evaluateCompliance } from "./complianceBrain";
-import { generateComplianceReport } from "./reportGenerator";
-import { exportAuditPackage } from "./auditExporter";
-import { publishOpenData } from "./openDataPublisher";
-import type { SystemActivity, ComplianceReport, AuditExport, OpenDataExport } from "./types";
+import { complianceApi }  from "./complianceApi";
+import { useComplianceStore } from "./useComplianceStore";
+import type {
+  SystemActivity,
+  ComplianceReport,
+  AuditExport,
+  OpenDataExport,
+} from "./types";
 
 export class ComplianceAgent {
-  private activityLog: SystemActivity[] = [];
-
-
+  /** Registra un'attività nel rolling log persistito. */
   logActivity(activity: SystemActivity): void {
-    this.activityLog.push(activity);
+    useComplianceStore.getState().logActivity(activity);
   }
 
-
+  /** Esegue un ciclo completo: metriche → rischi → valutazione → report. */
   runComplianceCycle(period: string): ComplianceReport {
-    const metrics = collectMetrics(this.activityLog);
-    const risks = monitorRisks(this.activityLog);
-    const evaluation = evaluateCompliance(metrics, risks);
-    const report = generateComplianceReport(period, metrics, evaluation);
-    return report;
+    return complianceApi.triggerCycle(period);
   }
 
-
-  exportAudit(report: ComplianceReport): AuditExport {
-    return exportAuditPackage(report);
+  /** Esporta il pacchetto auditabile dell'ultimo report. */
+  exportAudit(): AuditExport {
+    return complianceApi.exportAudit();
   }
 
-
-  publishOpenData(period: string, metrics: import("./types").ComplianceMetrics): OpenDataExport {
-    return publishOpenData(period, metrics);
+  /** Genera export open data anonimizzato per il periodo indicato. */
+  getOpenData(period: string): OpenDataExport {
+    return complianceApi.getOpenData(period);
   }
 }
+
+/** Istanza singleton pronta all'uso. */
+export const complianceAgent = new ComplianceAgent();
+
