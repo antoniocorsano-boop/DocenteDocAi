@@ -42,13 +42,22 @@ export type AutomationTriggerType =
   | 'assessment_created'
   | 'kg_node_linked'
   | 'scheduled_daily'
+  | 'school_sync_requested'
   | 'manual';
+
+export interface SchoolSyncRequestedPayload {
+  entity: 'students' | 'grades' | 'classes';
+  providerId: string;
+  classCode: string;
+  period?: string;
+}
 
 export type AutomationTriggerPayload =
   | { type: 'document_processed'; data: DocumentProcessedPayload }
   | { type: 'assessment_created'; data: AssessmentCreatedPayload }
   | { type: 'kg_node_linked'; data: KgNodeLinkedPayload }
   | { type: 'scheduled_daily'; data: { date: string } }
+  | { type: 'school_sync_requested'; data: SchoolSyncRequestedPayload }
   | { type: 'manual'; data: Record<string, unknown> };
 
 // ─── Condition ────────────────────────────────────────────────────────────────

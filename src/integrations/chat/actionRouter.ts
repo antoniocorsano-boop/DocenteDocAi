@@ -605,3 +605,70 @@ export function publishActionEvent(intent: ParsedIntent, result: ActionResult): 
         payload: result.data ?? {},
     });
 }
+
+// ─── School systems sync adapter ──────────────────────────────────────────────
+
+/**
+ * Strongly-typed payload for school system sync operations.
+ * Used by syncEngine.ts — not routed through ParsedIntent (which only
+ * supports string params).
+ */
+export type SchoolSyncPayloadInput =
+    | { type: 'students'; students: Studente[]; classCode: string; provider: string }
+    | { type: 'grades';   grades: Valutazione[]; classCode: string; provider: string; period?: string };
+
+/**
+ * Route a school system sync payload into the appropriate store mutations.
+ *
+ * Called exclusively by syncEngine.ts — this is the single write path
+ * for externally-sourced student and grade data.
+ *
+ * Student import uses `saveStudent()` (upsert by id) — idempotent.
+ * Grade import uses `addEvaluation()` — NOT idempotent; see syncEngine docs.
+ */
+export async function routeSchoolSyncIntent(
+    payload: SchoolSyncPayloadInput,
+): Promise<ActionResult> {
+    const { saveStudent, addEvaluation } = useStudentStore.getState().actions;
+    const { trackAnalyticsEvent }        = useSystemStore.getState().actions;
+
+    if (payload.type === 'students') {
+        for (const s of payload.students) {
+            saveStudent(s);
+        }
+        trackAnalyticsEvent('feature_usage', 'school_sync_import_students', {
+            count:    String(payload.students.length),
+            provider: payload.provider,
+        });
+        const n = payload.students.length;
+        return {
+            ok:          true,
+            message:     `Sincronizzat${n !== 1 ? 'i' : 'o'} ${n} student${n !== 1 ? 'i' : 'e'} da ${payload.provider} ✓`,
+            requiresApp: false,
+            eventType:   'students_imported',
+            data:        { count: n, provider: payload.provider, classCode: payload.classCode },
+        };
+    }
+
+    if (payload.type === 'grades') {
+        let imported = 0;
+        for (const v of payload.grades) {
+            const { id: _id, ...rest } = v;
+            addEvaluation(rest);
+            imported++;
+        }
+        trackAnalyticsEvent('feature_usage', 'school_sync_import_grades', {
+            count:    String(imported),
+            provider: payload.provider,
+        });
+        return {
+            ok:          true,
+            message:     `Importat${imported !== 1 ? 'e' : 'a'} ${imported} valutazion${imported !== 1 ? 'i' : 'e'} da ${payload.provider} ✓`,
+            requiresApp: false,
+            eventType:   'grades_imported',
+            data:        { count: imported, provider: payload.provider, classCode: payload.classCode },
+        };
+    }
+
+    return { ok: false, message: 'Tipo di sincronizzazione non supportato.', requiresApp: false };
+}
