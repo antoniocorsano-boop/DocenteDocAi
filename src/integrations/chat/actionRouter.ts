@@ -37,6 +37,7 @@ import { useTeacherModelStore }  from '../../stores/useTeacherModelStore';
 import { useIntegrationStore }   from '../../stores/useIntegrationStore';
 import { getNextAction }         from '../../cognition/decisionEngine/getNextAction';
 import type { NextActionContext } from '../../cognition/decisionEngine/types';
+import { decisionMemory }        from '../../cognition/decisionMemory';
 import { enterpriseOrchestrator, approvalGate } from '../../services/enterprise';
 import type { RegulatoryDocument, ApprovalLevel } from '../../types/enterprise.types';
 
@@ -449,6 +450,9 @@ export function getNextActionSuggestion(): string {
     const { capabilityLevel, usageProfile } = useTeacherModelStore.getState();
     const { students } = useStudentStore.getState();
 
+    const dmState          = decisionMemory.getState();
+    const pendingCount     = approvalGate.getPendingCount();
+
     const ctx: NextActionContext = {
         // eventNames is empty in the server/store context (no EventLogger session here)
         eventNames: new Set<string>(),
@@ -462,11 +466,17 @@ export function getNextActionSuggestion(): string {
             analyticsViews:      usageProfile.analyticsViews,
             workspaceConfigured: usageProfile.workspaceConfigured,
         },
-        hasStudents: students.filter((s) => !s.isArchived).length > 0,
+        hasStudents:      students.filter((s) => !s.isArchived).length > 0,
+        pendingApprovals: pendingCount,
+        signals:          dmState.signals.map((s) => ({ type: s.type, severity: s.severity })),
+        complianceStatus: dmState.complianceStatus,
     };
 
     const action = getNextAction(ctx);
-    return `${action.label}: ${action.description}\n\n👉 "${action.cta}" → apri l'app.`;
+    const prefix = pendingCount > 0
+        ? `⚠️ ${pendingCount} approvazion${pendingCount !== 1 ? 'i' : 'e'} Enterprise in attesa.\n\n`
+        : '';
+    return `${prefix}${action.label}: ${action.description}\n\n👉 "${action.cta}" → apri l'app.`;
 }
 
 // ─── Document AI handlers ─────────────────────────────────────────────────────

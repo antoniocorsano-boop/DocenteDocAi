@@ -41,6 +41,7 @@ import { artisticCulturalAgent }   from './agents/artisticCulturalAgent';
 import { analyticsAgent }          from './agents/analyticsAgent';
 import { financialAgent }          from './agents/financialAgent';
 import { technicalAgent }          from './agents/technicalAgent';
+import { decisionMemory }          from '../../cognition/decisionMemory';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -127,6 +128,17 @@ class EnterpriseOrchestratorImpl {
       tenantId:         doc.tenantId,
     };
 
+    // ── Emit signal to DecisionMemory ──────────────────────────────────────────
+    decisionMemory.emitSignal({
+      type:        'NEW_DOCUMENT',
+      severity:    regulatoryResult.ok ? 'info' : 'warning',
+      message:     `Documento normativo elaborato: ${doc.title}`,
+      sourceAgent: 'regulatory',
+      tenantId:    doc.tenantId,
+      sessionId,
+    });
+    decisionMemory.addActiveFlow(sessionId);
+
     return session;
   }
 
@@ -207,7 +219,40 @@ class EnterpriseOrchestratorImpl {
 
     // ── Build automation actions ──────────────────────────────────────────────
     const automationActions = this._buildAutomationActions(agentResults, session.id);
-
+    // ── Emit signals to DecisionMemory from agent results ──────────────────────
+    for (const result of agentResults) {
+      if (result.agentRole === 'analytics' && (result.data['atRiskCount'] as number) > 0) {
+        decisionMemory.emitSignal({
+          type:        'PERFORMANCE_ALERT',
+          severity:    'critical',
+          message:     `${result.data['atRiskCount']} studenti a rischio rilevati dall'agente Analytics`,
+          sourceAgent: 'analytics',
+          tenantId:    session.tenantId,
+          sessionId:   session.id,
+        });
+      }
+      if (result.agentRole === 'technical' && !result.ok) {
+        decisionMemory.emitSignal({
+          type:        'INTEGRATION_ERROR',
+          severity:    'warning',
+          message:     result.summary,
+          sourceAgent: 'technical',
+          tenantId:    session.tenantId,
+          sessionId:   session.id,
+        });
+      }
+    }
+    if ((session.regulatoryResult?.normativeRefs?.length ?? 0) > 0) {
+      decisionMemory.emitSignal({
+        type:        'COMPLIANCE_UPDATE',
+        severity:    'info',
+        message:     `Aggiornamento compliance da: ${session.document.title}`,
+        sourceAgent: 'regulatory',
+        tenantId:    session.tenantId,
+        sessionId:   session.id,
+      });
+    }
+    decisionMemory.removeActiveFlow(session.id);
     return {
       ...session,
       completedAt:      new Date().toISOString(),

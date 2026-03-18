@@ -27,6 +27,9 @@
  *   If any other module computes a "next step" independently, it is a violation.
  *
  * Rule ordering (top = most urgent):
+ *   [TIER 0] E0-1  Critical signal from an Enterprise agent
+ *   [TIER 0] E0-2  Pending approvals in the Enterprise approval gate
+ *   [TIER 0] E0-3  Compliance warning (GDPR / AgID)
  *   [TIER 1] L1-1  No students configured yet
  *   [TIER 2] L1-2  Fewer than 3 lessons created
  *   [TIER 2] L1-3  Copilot never opened
@@ -45,6 +48,59 @@ import type { NextAction, NextActionContext } from './types';
 type DecisionRule = (ctx: NextActionContext) => NextAction | null;
 
 const RULES: DecisionRule[] = [
+
+  // ── [TIER 0 — ENTERPRISE CRITICAL] E0-1: Critical agent signal ───────────
+  (ctx) =>
+    ctx.signals?.some(s => s.severity === 'critical')
+      ? {
+          id:               'da-enterprise-critical-alert',
+          label:            'Segnale critico rilevato',
+          description:      "Un agente Enterprise ha rilevato una situazione critica che richiede attenzione immediata.",
+          targetView:       'copilot',
+          targetTab:        12,  // Enterprise compliance tab
+          cta:              'Esamina ora',
+          reason:
+            "Un segnale critico è stato emesso dal sistema Enterprise. Risolvilo prima di procedere con qualsiasi altra azione.",
+          icon:             'emergency',
+          priority:         'high' as const,
+          requiresApproval: true,
+        }
+      : null,
+
+  // ── [TIER 0 — ENTERPRISE] E0-2: Pending HITL approvals ───────────────────
+  (ctx) =>
+    (ctx.pendingApprovals ?? 0) > 0
+      ? {
+          id:               'da-enterprise-pending-approval',
+          label:            `${ctx.pendingApprovals} approvazion${(ctx.pendingApprovals ?? 0) !== 1 ? 'i' : 'e'} in attesa`,
+          description:      `${ctx.pendingApprovals} richiest${(ctx.pendingApprovals ?? 0) !== 1 ? 'e' : 'a'} di approvazione Enterprise richiede la tua revisione prima che il Knowledge Graph possa essere aggiornato.`,
+          targetView:       'copilot',
+          targetTab:        12,
+          cta:              'Approva',
+          reason:
+            "Le approvazioni Enterprise sono bloccanti: il Knowledge Graph non viene aggiornato finché non vengono gestite.",
+          icon:             'approval',
+          priority:         'high' as const,
+          requiresApproval: true,
+        }
+      : null,
+
+  // ── [TIER 0 — ENTERPRISE] E0-3: Compliance warning (GDPR / AgID) ─────────
+  (ctx) =>
+    ctx.complianceStatus &&
+    (ctx.complianceStatus.gdpr !== 'ok' || ctx.complianceStatus.agid !== 'ok')
+      ? {
+          id:          'da-enterprise-compliance-warning',
+          label:       'Verifica compliance normativa',
+          description: 'Lo stato di conformità GDPR o AgID richiede attenzione prima di procedere con azioni critiche.',
+          targetView:  'copilot',
+          targetTab:   12,
+          cta:         'Verifica ora',
+          reason:      `Compliance corrente — GDPR: ${ctx.complianceStatus.gdpr} | AgID: ${ctx.complianceStatus.agid}. Risolvi le non-conformità prima di aggiornare il Knowledge Graph.`,
+          icon:        'policy',
+          priority:    'medium' as const,
+        }
+      : null,
 
   // ── [TIER 1 — BLOCKING] L1-1: Add first student ──────────────────────────
   (ctx) =>

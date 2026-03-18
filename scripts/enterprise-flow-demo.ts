@@ -34,6 +34,8 @@ import {
   approvalGate,
   enterpriseAuditLog,
 } from '../src/services/enterprise/index';
+import { decisionMemory }  from '../src/cognition/decisionMemory';
+import { getNextAction }   from '../src/cognition/decisionEngine/getNextAction';
 import type {
   RegulatoryDocument,
   EnterpriseWorkflowSession,
@@ -304,6 +306,49 @@ async function runEnterpriseFlowDemo(): Promise<void> {
     console.log(`    ${icon} ${s.standard} — ${s.status}`);
     if (s.notes) console.log(`       ${s.notes}`);
   });
+
+  // ──────────────────────────────────────────────────────────────────────────
+  section('STEP 8 — NEXT ACTION ENGINE: cosa fare adesso?');
+  // ──────────────────────────────────────────────────────────────────────────
+
+  info('Interrogo DecisionMemory + getNextAction() per calcolare la prossima azione...');
+
+  const dmState = decisionMemory.getState();
+  const nextCtx = {
+    eventNames:       new Set<string>(['lesson.created', 'uda.created']),
+    capabilityLevel:  2 as const,
+    usage: {
+      lessonsCreated:      5,
+      udaCreated:          1,
+      copilotRequests:     3,
+      driveConnected:      false,
+      bookServicesLinked:  0,
+      analyticsViews:      0,
+      workspaceConfigured: true,
+    },
+    hasStudents:      true,
+    pendingApprovals: approvalGate.getPendingCount(),
+    signals:          dmState.signals.map(s => ({ type: s.type, severity: s.severity })),
+    complianceStatus: dmState.complianceStatus,
+  };
+
+  const nextAction = getNextAction(nextCtx);
+  sub('NEXT ACTION ENGINE output', {
+    id:              nextAction.id,
+    label:           nextAction.label,
+    priority:        nextAction.priority ?? 'standard',
+    requiresApproval: nextAction.requiresApproval ?? false,
+    cta:             nextAction.cta,
+  });
+
+  const allSignals = decisionMemory.getSignals();
+  sub('DecisionMemory signals', allSignals.length > 0
+    ? allSignals.map(s => `[${s.severity.toUpperCase()}] ${s.type}: ${s.message}`).join('\n')
+    : '(nessun segnale attivo)');
+
+  sub('Active flows', dmState.activeFlows.length > 0
+    ? dmState.activeFlows.join(', ')
+    : '(nessun flusso attivo)');
 
   // ──────────────────────────────────────────────────────────────────────────
   section('RIEPILOGO FLUSSO COMPLETATO');

@@ -63,4 +63,12 @@ export { isFeatureAvailable } from './FeatureGate';
 // ── v5: Decision Engine — single source of truth for "what to do next" ────────
 
 export { getNextAction } from './decisionEngine/getNextAction';
-export type { NextAction, NextActionContext } from './decisionEngine/types';
+export type { NextAction, NextActionContext, DecisionPriorityTier } from './decisionEngine/types';
+
+// ── v6: Copilot Brain — DecisionMemory, Signals, PolicyEngine ─────────────────
+
+export { decisionMemory }  from './decisionMemory';
+export type { DecisionMemoryState, ComplianceSlot } from './decisionMemory';
+export type { SystemSignal, SystemSignalType, SystemSignalSeverity } from './signals';
+export { canExecute }      from './policyEngine';
+export type { PolicyContext, PolicySubject } from './policyEngine';

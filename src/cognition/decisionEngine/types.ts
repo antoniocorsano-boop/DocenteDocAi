@@ -42,6 +42,7 @@
  * before all TIER 1–3 rules are exhausted.
  */
 export type DecisionPriorityTier =
+  | 'TIER_0_ENTERPRISE'  // Enterprise signals and compliance — highest priority
   | 'TIER_1_BLOCKING'    // Missing critical data; blocks other features
   | 'TIER_2_ONBOARDING'  // Initial workspace setup steps
   | 'TIER_3_ACADEMIC'    // Core instructional workflow (UDA, planning)
@@ -65,6 +66,16 @@ export interface NextAction {
   label: string;
   /** One-sentence description of what this action does */
   description: string;
+  /**
+   * Action priority — present only for enterprise-tier actions.
+   * Standard onboarding/academic actions do not carry explicit priority.
+   */
+  priority?: 'high' | 'medium' | 'low';
+  /**
+   * True when the action requires an explicit HITL approval before execution.
+   * Drives PolicyEngine.canExecute() checks.
+   */
+  requiresApproval?: boolean;
   /**
    * App-level view key to navigate to when the CTA is clicked.
    * Matches the `onNavigate` view keys in Home/Router.
@@ -109,4 +120,28 @@ export interface NextActionContext {
   };
   /** True when the teacher has at least one student */
   readonly hasStudents: boolean;
+
+  // ── Enterprise fields (optional — present only when enterprise layer is active) ──
+
+  /**
+   * Number of pending HITL approval requests in the Enterprise approval gate.
+   * When > 0, surfaces as a TIER_0_ENTERPRISE action.
+   */
+  readonly pendingApprovals?: number;
+  /**
+   * Snapshot of signals from DecisionMemory, mapped to the minimal shape
+   * needed by the decision rules (type + severity).
+   */
+  readonly signals?: ReadonlyArray<{
+    readonly type: string;
+    readonly severity: 'info' | 'warning' | 'critical';
+  }>;
+  /**
+   * GDPR / AgID compliance status from DecisionMemory.
+   * A 'warning' or 'critical' slot triggers a TIER_0_ENTERPRISE rule.
+   */
+  readonly complianceStatus?: {
+    readonly gdpr: 'ok' | 'warning' | 'critical';
+    readonly agid: 'ok' | 'warning' | 'critical';
+  };
 }
