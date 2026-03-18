@@ -13,9 +13,10 @@
 import { useMemo, useSyncExternalStore } from 'react';
 import { decisionMemory }               from '../cognition/decisionMemory';
 import { approvalGate }                 from '../services/enterprise/approvalGate';
-import { getTopSecondaryActions }       from '../cognition/copilotBrain';
+import { getCopilotPrimaryAction, getTopSecondaryActions } from '../cognition/copilotBrain';
 import type { SystemSignal }            from '../cognition/signals';
 import type { SuggestedAction }         from '../cognition/copilotBrain';
+import type { RankedAction }            from '../cognition/rankingEngine';
 import type { ComplianceSlot, DecisionMemoryState } from '../cognition/decisionMemory';
 
 // ─── Public types ─────────────────────────────────────────────────────────────
@@ -30,6 +31,8 @@ export interface SystemStatus {
 }
 
 export interface CopilotDashboardData {
+  /** Highest-ranked primary action (RankedAction includes scoreBreakdown for explainability) */
+  primaryRanked: RankedAction;
   secondaries:   SuggestedAction[];
   systemStatus:  SystemStatus;
   recentSignals: SystemSignal[];
@@ -54,8 +57,9 @@ export function useCopilotDashboard(): CopilotDashboardData {
   // Subscribe to signal emissions; re-render whenever a new signal is emitted.
   const dmState = useSyncExternalStore(subscribe, getSnapshot);
 
-  // Recompute secondaries on every render triggered by dmState change — cheap synchronous read
-  const secondaries = getTopSecondaryActions();
+  // Recompute primary + secondaries on every render triggered by dmState change
+  const primaryRanked = getCopilotPrimaryAction();
+  const secondaries   = getTopSecondaryActions();
 
   const systemStatus = useMemo((): SystemStatus => {
     const hasCritical = dmState.signals.some((s) => s.severity === 'critical');
@@ -74,5 +78,5 @@ export function useCopilotDashboard(): CopilotDashboardData {
     [dmState],
   );
 
-  return { secondaries, systemStatus, recentSignals };
+  return { primaryRanked, secondaries, systemStatus, recentSignals };
 }

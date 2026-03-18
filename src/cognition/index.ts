@@ -125,3 +125,8 @@ export type { UserBehaviorProfile } from './userBehaviorModel';
 
 export { rankActions } from './rankingEngine';
 export type { ScoringFactors, ScoreBreakdown, RankedAction } from './rankingEngine';
+
+// ── Sprint 15: Explainability Layer ───────────────────────────────────────────
+
+export { explainAction } from './explainAction';
+export type { ActionExplanation } from './explainAction';

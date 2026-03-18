@@ -23,7 +23,7 @@ import { approvalGate }           from '../services/enterprise';
 import { useTeacherModelStore }   from '../stores/useTeacherModelStore';
 import { useStudentStore }        from '../stores/useStudentStore';
 import { rankActions }            from './rankingEngine';
-import type { ScoringFactors }    from './rankingEngine';
+import type { ScoringFactors, RankedAction }    from './rankingEngine';
 import { useUserBehaviorStore }   from '../stores/useUserBehaviorStore';
 import { enterpriseAuditLog }     from '../services/enterprise/enterpriseAuditLog';
 
@@ -141,7 +141,7 @@ function derivePriority(action: NextAction): 'high' | 'medium' | 'low' {
  * const action = getCopilotPrimaryAction();
  * // { id: 'da-enterprise-pending-approval', title: '2 approvazioni in attesa', priority: 'high', ... }
  */
-export function getCopilotPrimaryAction(): SuggestedAction {
+export function getCopilotPrimaryAction(): RankedAction {
   const ctx     = buildContext();
   const actions = getNextActions(ctx, 3).map(mapToSuggested);
   const dmState = decisionMemory.getState();
@@ -158,7 +158,7 @@ export function getCopilotPrimaryAction(): SuggestedAction {
  * @example
  * const [alt1, alt2] = getTopSecondaryActions();
  */
-export function getTopSecondaryActions(): SuggestedAction[] {
+export function getTopSecondaryActions(): RankedAction[] {
   const ctx     = buildContext();
   const actions = getNextActions(ctx, 3).map(mapToSuggested);
   const dmState = decisionMemory.getState();
@@ -171,8 +171,8 @@ export function getTopSecondaryActions(): SuggestedAction[] {
  * Convenience for components that need all suggestions at once.
  */
 export function getCopilotSnapshot(): {
-  primary:     SuggestedAction;
-  secondaries: SuggestedAction[];
+  primary:     RankedAction;
+  secondaries: RankedAction[];
 } {
   const ctx     = buildContext();
   const actions = getNextActions(ctx, 3).map(mapToSuggested);

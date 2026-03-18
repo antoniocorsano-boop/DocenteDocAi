@@ -15,19 +15,23 @@
  * <IntelligentDashboard onNavigate={(view) => navigate(view)} />
  */
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import Box        from '@mui/material/Box';
 import Stack      from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Divider    from '@mui/material/Divider';
+import Button     from '@mui/material/Button';
+import Collapse   from '@mui/material/Collapse';
 import { useNextAction }                  from '../../hooks/useNextAction';
 import { useCopilotDashboard }            from '../../hooks/useCopilotDashboard';
 import { useProactiveNotifications }      from '../../hooks/useProactiveNotifications';
+import { explainAction }                  from '../../cognition/explainAction';
 import PrimaryActionCard                  from './PrimaryActionCard';
 import SecondaryActionsList               from './SecondaryActionsList';
 import SystemStatusPanel                  from './SystemStatusPanel';
 import NotificationToast                  from './NotificationToast';
 import DecisionTimeline                   from './DecisionTimeline';
+import ExplainabilityPanel               from './ExplainabilityPanel';
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
@@ -41,11 +45,19 @@ const IntelligentDashboard: React.FC<Props> = ({ onNavigate }) => {
   // Primary action with full NextAction richness (icon, cta, reason)
   const primaryAction = useNextAction();
 
-  // Secondary actions + system status (reactive to DecisionMemory)
-  const { secondaries, systemStatus } = useCopilotDashboard();
+  // Secondary actions + system status + ranked primary (reactive to DecisionMemory)
+  const { primaryRanked, secondaries, systemStatus } = useCopilotDashboard();
 
   // Sprint 11 — proactive notification queue
   const { notifications, dismiss, dismissAll } = useProactiveNotifications();
+
+  // Sprint 15 — explainability panel toggle
+  const [showExplain, setShowExplain] = useState(false);
+  const explanation = useMemo(
+    () => (showExplain ? explainAction(primaryRanked) : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [showExplain, primaryRanked.id, primaryRanked.finalScore],
+  );
 
   return (
     <Box sx={{ py: 'var(--md-sys-spacing-2)' }}>
@@ -82,6 +94,52 @@ const IntelligentDashboard: React.FC<Props> = ({ onNavigate }) => {
 
         {/* ── Block 1a: Primary action ── */}
         <PrimaryActionCard action={primaryAction} onNavigate={onNavigate} />
+
+        {/* ── Sprint 15: Explainability toggle ── */}
+        <Box>
+          <Button
+            size="small"
+            variant="text"
+            onClick={() => setShowExplain((v) => !v)}
+            aria-expanded={showExplain}
+            aria-controls="explainability-panel"
+            startIcon={
+              <Box
+                component="span"
+                className="material-symbols-outlined"
+                aria-hidden="true"
+                sx={{ fontSize: 'var(--md-sys-icon-size-sm)' }}
+              >
+                help_outline
+              </Box>
+            }
+            endIcon={
+              <Box
+                component="span"
+                className="material-symbols-outlined"
+                aria-hidden="true"
+                sx={{ fontSize: 'var(--md-sys-icon-size-sm)' }}
+              >
+                {showExplain ? 'expand_less' : 'expand_more'}
+              </Box>
+            }
+            sx={{
+              color: 'var(--md-sys-color-secondary)',
+              fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+              px: 0,
+            }}
+          >
+            Perché questo suggerimento?
+          </Button>
+          <Collapse in={showExplain}>
+            <Box id="explainability-panel" sx={{ mt: 'var(--md-sys-spacing-3)' }}>
+              <ExplainabilityPanel
+                explanation={explanation}
+                onClose={() => setShowExplain(false)}
+              />
+            </Box>
+          </Collapse>
+        </Box>
 
         {/* ── Block 1b: Secondary actions ── */}
         <SecondaryActionsList actions={secondaries} onNavigate={onNavigate} />
